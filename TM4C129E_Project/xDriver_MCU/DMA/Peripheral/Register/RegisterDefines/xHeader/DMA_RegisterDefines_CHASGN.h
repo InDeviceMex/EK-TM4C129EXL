@@ -1,0 +1,386 @@
+/**
+ *
+ * @file DMA_RegisterDefines_CHASGN.h
+ * @copyright
+ * @verbatim InDeviceMex 2020 @endverbatim
+ *
+ * @par Responsibility
+ * @verbatim InDeviceMex Developers @endverbatim
+ *
+ * @version
+ * @verbatim 1.0 @endverbatim
+ *
+ * @date
+ * @verbatim 28 jul. 2020 @endverbatim
+ *
+ * @author
+ * @verbatim vyldram @endverbatim
+ *
+ * @par Change History
+ * @verbatim
+ * Date           Author     Version     Description
+ * 28 jul. 2020     vyldram    1.0         initial Version@endverbatim
+ */
+
+#ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_REGISTER_DMA_REGISTERDEFINES_DMA_REGISTERDEFINES_CHASGN_H_
+#define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_REGISTER_DMA_REGISTERDEFINES_DMA_REGISTERDEFINES_CHASGN_H_
+
+#include <xUtils/Standard/Standard.h>
+
+/**************************************************************************************
+************************************* 21 CHASGN *************************************
+****************************************************************************************/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN0_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_R_CHASGN0_BIT    ((uint32_t) 0UL)
+#define DMA_CHASGN_R_CHASGN0_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN0_SECUNDARY    ((uint32_t) 0x00000001UL)
+
+#define DMA_CHASGN_CHASGN0_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN0_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN0_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN1_MASK    ((uint32_t) 0x00000002UL)
+#define DMA_CHASGN_R_CHASGN1_BIT    ((uint32_t) 1UL)
+#define DMA_CHASGN_R_CHASGN1_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN1_SECUNDARY    ((uint32_t) 0x00000002UL)
+
+#define DMA_CHASGN_CHASGN1_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN1_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN1_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN2_MASK    ((uint32_t) 0x00000004UL)
+#define DMA_CHASGN_R_CHASGN2_BIT    ((uint32_t) 2UL)
+#define DMA_CHASGN_R_CHASGN2_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN2_SECUNDARY    ((uint32_t) 0x00000004UL)
+
+#define DMA_CHASGN_CHASGN2_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN2_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN2_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN3_MASK    ((uint32_t) 0x00000008UL)
+#define DMA_CHASGN_R_CHASGN3_BIT    ((uint32_t) 3UL)
+#define DMA_CHASGN_R_CHASGN3_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN3_SECUNDARY    ((uint32_t) 0x00000008UL)
+
+#define DMA_CHASGN_CHASGN3_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN3_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN3_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN4_MASK    ((uint32_t) 0x00000010UL)
+#define DMA_CHASGN_R_CHASGN4_BIT    ((uint32_t) 4UL)
+#define DMA_CHASGN_R_CHASGN4_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN4_SECUNDARY    ((uint32_t) 0x00000010UL)
+
+#define DMA_CHASGN_CHASGN4_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN4_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN4_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN5_MASK    ((uint32_t) 0x00000020UL)
+#define DMA_CHASGN_R_CHASGN5_BIT    ((uint32_t) 5UL)
+#define DMA_CHASGN_R_CHASGN5_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN5_SECUNDARY    ((uint32_t) 0x00000020UL)
+
+#define DMA_CHASGN_CHASGN5_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN5_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN5_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN6_MASK    ((uint32_t) 0x00000040UL)
+#define DMA_CHASGN_R_CHASGN6_BIT    ((uint32_t) 6UL)
+#define DMA_CHASGN_R_CHASGN6_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN6_SECUNDARY    ((uint32_t) 0x00000040UL)
+
+#define DMA_CHASGN_CHASGN6_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN6_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN6_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN7_MASK    ((uint32_t) 0x00000080UL)
+#define DMA_CHASGN_R_CHASGN7_BIT    ((uint32_t) 7UL)
+#define DMA_CHASGN_R_CHASGN7_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN7_SECUNDARY    ((uint32_t) 0x00000080UL)
+
+#define DMA_CHASGN_CHASGN7_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN7_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN7_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN8_MASK    ((uint32_t) 0x00000100UL)
+#define DMA_CHASGN_R_CHASGN8_BIT    ((uint32_t) 8UL)
+#define DMA_CHASGN_R_CHASGN8_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN8_SECUNDARY    ((uint32_t) 0x00000100UL)
+
+#define DMA_CHASGN_CHASGN8_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN8_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN8_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN9_MASK    ((uint32_t) 0x00000200UL)
+#define DMA_CHASGN_R_CHASGN9_BIT    ((uint32_t) 9UL)
+#define DMA_CHASGN_R_CHASGN9_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN9_SECUNDARY    ((uint32_t) 0x00000200UL)
+
+#define DMA_CHASGN_CHASGN9_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN9_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN9_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN10_MASK    ((uint32_t) 0x00000400UL)
+#define DMA_CHASGN_R_CHASGN10_BIT    ((uint32_t) 10UL)
+#define DMA_CHASGN_R_CHASGN10_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN10_SECUNDARY    ((uint32_t) 0x00000400UL)
+
+#define DMA_CHASGN_CHASGN10_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN10_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN10_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN11_MASK    ((uint32_t) 0x00000800UL)
+#define DMA_CHASGN_R_CHASGN11_BIT    ((uint32_t) 11UL)
+#define DMA_CHASGN_R_CHASGN11_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN11_SECUNDARY    ((uint32_t) 0x00000800UL)
+
+#define DMA_CHASGN_CHASGN11_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN11_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN11_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN12_MASK    ((uint32_t) 0x00001000UL)
+#define DMA_CHASGN_R_CHASGN12_BIT    ((uint32_t) 12UL)
+#define DMA_CHASGN_R_CHASGN12_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN12_SECUNDARY    ((uint32_t) 0x00001000UL)
+
+#define DMA_CHASGN_CHASGN12_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN12_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN12_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN13_MASK    ((uint32_t) 0x00002000UL)
+#define DMA_CHASGN_R_CHASGN13_BIT    ((uint32_t) 13UL)
+#define DMA_CHASGN_R_CHASGN13_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN13_SECUNDARY    ((uint32_t) 0x00002000UL)
+
+#define DMA_CHASGN_CHASGN13_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN13_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN13_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN14_MASK    ((uint32_t) 0x00004000UL)
+#define DMA_CHASGN_R_CHASGN14_BIT    ((uint32_t) 14UL)
+#define DMA_CHASGN_R_CHASGN14_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN14_SECUNDARY    ((uint32_t) 0x00004000UL)
+
+#define DMA_CHASGN_CHASGN14_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN14_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN14_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN15_MASK    ((uint32_t) 0x00008000UL)
+#define DMA_CHASGN_R_CHASGN15_BIT    ((uint32_t) 15UL)
+#define DMA_CHASGN_R_CHASGN15_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN15_SECUNDARY    ((uint32_t) 0x00008000UL)
+
+#define DMA_CHASGN_CHASGN15_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN15_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN15_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN16_MASK    ((uint32_t) 0x00010000UL)
+#define DMA_CHASGN_R_CHASGN16_BIT    ((uint32_t) 16UL)
+#define DMA_CHASGN_R_CHASGN16_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN16_SECUNDARY    ((uint32_t) 0x00010000UL)
+
+#define DMA_CHASGN_CHASGN16_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN16_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN16_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN17_MASK    ((uint32_t) 0x00020000UL)
+#define DMA_CHASGN_R_CHASGN17_BIT    ((uint32_t) 17UL)
+#define DMA_CHASGN_R_CHASGN17_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN17_SECUNDARY    ((uint32_t) 0x00020000UL)
+
+#define DMA_CHASGN_CHASGN17_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN17_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN17_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN18_MASK    ((uint32_t) 0x00040000UL)
+#define DMA_CHASGN_R_CHASGN18_BIT    ((uint32_t) 18UL)
+#define DMA_CHASGN_R_CHASGN18_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN18_SECUNDARY    ((uint32_t) 0x00040000UL)
+
+#define DMA_CHASGN_CHASGN18_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN18_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN18_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN19_MASK    ((uint32_t) 0x00080000UL)
+#define DMA_CHASGN_R_CHASGN19_BIT    ((uint32_t) 19UL)
+#define DMA_CHASGN_R_CHASGN19_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN19_SECUNDARY    ((uint32_t) 0x00080000UL)
+
+#define DMA_CHASGN_CHASGN19_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN19_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN19_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN20_MASK    ((uint32_t) 0x00100000UL)
+#define DMA_CHASGN_R_CHASGN20_BIT    ((uint32_t) 20UL)
+#define DMA_CHASGN_R_CHASGN20_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN20_SECUNDARY    ((uint32_t) 0x00100000UL)
+
+#define DMA_CHASGN_CHASGN20_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN20_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN20_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN21_MASK    ((uint32_t) 0x00200000UL)
+#define DMA_CHASGN_R_CHASGN21_BIT    ((uint32_t) 21UL)
+#define DMA_CHASGN_R_CHASGN21_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN21_SECUNDARY    ((uint32_t) 0x00200000UL)
+
+#define DMA_CHASGN_CHASGN21_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN21_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN21_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN22_MASK    ((uint32_t) 0x00400000UL)
+#define DMA_CHASGN_R_CHASGN22_BIT    ((uint32_t) 22UL)
+#define DMA_CHASGN_R_CHASGN22_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN22_SECUNDARY    ((uint32_t) 0x00400000UL)
+
+#define DMA_CHASGN_CHASGN22_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN22_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN22_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN23_MASK    ((uint32_t) 0x00800000UL)
+#define DMA_CHASGN_R_CHASGN23_BIT    ((uint32_t) 23UL)
+#define DMA_CHASGN_R_CHASGN23_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN23_SECUNDARY    ((uint32_t) 0x00800000UL)
+
+#define DMA_CHASGN_CHASGN23_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN23_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN23_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN24_MASK    ((uint32_t) 0x01000000UL)
+#define DMA_CHASGN_R_CHASGN24_BIT    ((uint32_t) 24UL)
+#define DMA_CHASGN_R_CHASGN24_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN24_SECUNDARY    ((uint32_t) 0x01000000UL)
+
+#define DMA_CHASGN_CHASGN24_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN24_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN24_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN25_MASK    ((uint32_t) 0x02000000UL)
+#define DMA_CHASGN_R_CHASGN25_BIT    ((uint32_t) 25UL)
+#define DMA_CHASGN_R_CHASGN25_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN25_SECUNDARY    ((uint32_t) 0x02000000UL)
+
+#define DMA_CHASGN_CHASGN25_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN25_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN25_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN26_MASK    ((uint32_t) 0x04000000UL)
+#define DMA_CHASGN_R_CHASGN26_BIT    ((uint32_t) 26UL)
+#define DMA_CHASGN_R_CHASGN26_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN26_SECUNDARY    ((uint32_t) 0x04000000UL)
+
+#define DMA_CHASGN_CHASGN26_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN26_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN26_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN27_MASK    ((uint32_t) 0x08000000UL)
+#define DMA_CHASGN_R_CHASGN27_BIT    ((uint32_t) 27UL)
+#define DMA_CHASGN_R_CHASGN27_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN27_SECUNDARY    ((uint32_t) 0x08000000UL)
+
+#define DMA_CHASGN_CHASGN27_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN27_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN27_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN28_MASK    ((uint32_t) 0x10000000UL)
+#define DMA_CHASGN_R_CHASGN28_BIT    ((uint32_t) 28UL)
+#define DMA_CHASGN_R_CHASGN28_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN28_SECUNDARY    ((uint32_t) 0x10000000UL)
+
+#define DMA_CHASGN_CHASGN28_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN28_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN28_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN29_MASK    ((uint32_t) 0x20000000UL)
+#define DMA_CHASGN_R_CHASGN29_BIT    ((uint32_t) 29UL)
+#define DMA_CHASGN_R_CHASGN29_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN29_SECUNDARY    ((uint32_t) 0x20000000UL)
+
+#define DMA_CHASGN_CHASGN29_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN29_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN29_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN30_MASK    ((uint32_t) 0x40000000UL)
+#define DMA_CHASGN_R_CHASGN30_BIT    ((uint32_t) 30UL)
+#define DMA_CHASGN_R_CHASGN30_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN30_SECUNDARY    ((uint32_t) 0x40000000UL)
+
+#define DMA_CHASGN_CHASGN30_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN30_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN30_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define DMA_CHASGN_R_CHASGN31_MASK    ((uint32_t) 0x80000000UL)
+#define DMA_CHASGN_R_CHASGN31_BIT    ((uint32_t) 31UL)
+#define DMA_CHASGN_R_CHASGN31_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_R_CHASGN31_SECUNDARY    ((uint32_t) 0x80000000UL)
+
+#define DMA_CHASGN_CHASGN31_MASK    ((uint32_t) 0x00000001UL)
+#define DMA_CHASGN_CHASGN31_PRIMARY    ((uint32_t) 0x00000000UL)
+#define DMA_CHASGN_CHASGN31_SECUNDARY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+#endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_REGISTER_DMA_REGISTERDEFINES_DMA_REGISTERDEFINES_CHASGN_H_ */
