@@ -31,6 +31,14 @@ void SCB__vInit(void)
 {
     uint32_t pfnVectors =  0UL;
     pfnVectors = (uint32_t) SCB__pfnGetVectorTableRam();
+
+    SCB__vEnUnprivilegedSWTrigger();
+    SCB__vEnableAllTraps();
+    SCB__vDisUnalignTrap();
+    SCB__vEnableAllExceptions();
+    SCB__vSetPriorityGroup(SCB_enPRIGROUP_XXX);
+    SCB__vSetStackAligment(SCB_enALIGN_4BYTE);
+
     SCB__vSetVectorTable(pfnVectors);
 
     SCB__vRegisterIRQVectorHandler( &NMI__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_NMI);
@@ -41,12 +49,6 @@ void SCB__vInit(void)
     SCB__vRegisterIRQVectorHandler( &HardFault__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_HARDFAULT);
     SCB__vRegisterIRQVectorHandler( &SVCall__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_SVCALL);
 
-    SCB__vEnUnprivilegedSWTrigger();
-    SCB__vEnableAllTraps();
-    SCB__vDisUnalignTrap();
-    SCB__vEnableAllExceptions();
-    SCB__vSetPriorityGroup(SCB_enPRIGROUP_XXX);
-    SCB__vSetStackAligment(SCB_enALIGN_4BYTE);
 }
 
 

@@ -30,6 +30,8 @@ void DMA__vInit(void)
 {
     void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
 
+    DMA__vSetReady(DMA_enMODULE_0);
+
     pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_SW);
     DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_SW);
 

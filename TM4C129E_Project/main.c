@@ -109,12 +109,14 @@ uint32_t main(void)
     FPU__vInit();
     SCB__vInit();
     FLASH__enInit();
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUDMA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
     EEPROM__enInit();
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     SYSTICK__enInitUs(100000UL, SYSTICK_enPRI7);
     MCU__enEnGlobalInterrupt();
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
 
     /*
     EEPROM__enReadWorld((uint32_t*)&u32Eeprom0Dir, 0x0UL);
