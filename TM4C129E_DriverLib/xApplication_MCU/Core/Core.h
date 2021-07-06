@@ -27,6 +27,5 @@
 
 #include <xApplication_MCU/Core/SYSTICK/SYSTICK.h>
 #include <xApplication_MCU/Core/SCB/SCB.h>
-#include <xApplication_MCU/Core/FPU/FPU.h>
 
 #endif /* XAPPLICATION_MCU_CORE_CORE_H_ */
