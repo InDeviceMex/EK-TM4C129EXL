@@ -17,8 +17,7 @@ MEMORY
     SRAM_DMAALT (RW) : ORIGIN = 0x20000600, LENGTH = 0x00000200
     SRAM_CODE (RWX) : ORIGIN = 0x20000800, LENGTH = 0x00001000 /*5K*/
     SRAM (RW) : ORIGIN = 0x20001800, LENGTH = 0x00000C00
-    SRAM_DYNAMIC (RW) : ORIGIN = 0x20002400, LENGTH = 0x0003D000 /*32K*/
-    SRAM_PROCESS_STACK (RW) : ORIGIN = 0x2003F400, LENGTH = 0x00000800 /*1.5K*/
+    SRAM_DYNAMIC (RW) : ORIGIN = 0x20002400, LENGTH = 0x0003D800 /*32K*/
     SRAM_MAIN_STACK (RW) : ORIGIN = 0x2003FC00, LENGTH = 0x00000400 /*1.5K*/
 }
 
@@ -54,11 +53,37 @@ SECTIONS {
         __init_array_end = .;
         *(.init)
         *(.fini*)
+        _etext = .
+        __etext = .
+        etext = .
     } > FLASH_BANK01
 
     PROVIDE (__etext = .);
     PROVIDE (_etext = .);
     PROVIDE (etext = .);
+
+    .ARM.exidx : {
+        __exidx_start = .;
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+        __exidx_end = .;
+    } > FLASH_BANK01
+
+    .ARM.extab : {
+        *(.ARM.extab* .gnu.linkonce.armextab.*)
+    } > FLASH_BANK01
+
+
+    .ramcode : {
+        . = ALIGN(4);
+        __ramcode_load__ = LOADADDR (.ramcode);
+        __ramcode_start__ = .;
+        *(.RamFunc)        /* .RamFunc sections */
+        *(.RamFunc*)       /* .RamFunc* sections */
+        *(.ramcode)
+        *(.ramcode*)
+        . = ALIGN (4);
+        __ramcode_end__ = .;
+    } > SRAM_CODE AT> FLASH_BANK23
 
     .rodata : {
         *(.rodata)
@@ -73,38 +98,6 @@ SECTIONS {
         . = ALIGN (4);
         __data_end__ = .;
     } > SRAM AT> FLASH_BANK23
-
-    .ramcode : {
-        . = ALIGN(4);
-        __ramcode_load__ = LOADADDR (.ramcode);
-        __ramcode_start__ = .;
-        *(.RamFunc)        /* .RamFunc sections */
-        *(.RamFunc*)       /* .RamFunc* sections */
-        *(.ramcode)
-        *(.ramcode*)
-        . = ALIGN (4);
-        __ramcode_end__ = .;
-    } > SRAM_CODE AT> FLASH_BANK23
-
-    .ARM.exidx : {
-        __exidx_start = .;
-        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-        __exidx_end = .;
-    } > FLASH_BANK01
-
-    .ARM.extab : {
-        *(.ARM.extab* .gnu.linkonce.armextab.*)
-    } > FLASH_BANK01
-
-    .bss : {
-        __bss_start__ = .;
-        *(.shbss)
-        *(.bss)
-        *(.bss.*)
-        *(COMMON)
-        . = ALIGN (4);
-        __bss_end__ = .;
-    } > SRAM
 
     .dma : {
         . = ALIGN(4);
@@ -123,8 +116,18 @@ SECTIONS {
         *(.dmaalt)
         *(.dmaalt.*)
         . = ALIGN (4);
-        __dma_end__ = .;
+        __dmaalt_end__ = .;
     } > SRAM_DMAALT
+
+    .bss : {
+        __bss_start__ = .;
+        *(.shbss)
+        *(.bss)
+        *(.bss.*)
+        *(COMMON)
+        . = ALIGN (4);
+        __bss_end__ = .;
+    } > SRAM
 
     .heap : {
         __heap_start__ = .;
@@ -136,12 +139,14 @@ SECTIONS {
         __HeapLimit = __heap_end__;
     } > SRAM_DYNAMIC
 
+/*
     .stack_process : ALIGN(0x8) {
         _stack_process = .;
         __stack_process = .;
         KEEP(*(.stack_process))
         __stack_process_end__ = .;
     } > SRAM_PROCESS_STACK
+*/
 
     .stack : ALIGN(0x8) {
         _stack = .;

@@ -23,6 +23,9 @@
 /*******************************************************************************/
 
 #include <xUtils/Standard/Standard.h>
+#include <xApplication_MCU/Core/SCB/SCB.h>
+#include <xDriver_MCU/Core/FPU/FPU.h>
+#include <xDriver_MCU/FLASH/FLASH.h>
 
 /*******************************************************************************/
 /**/
@@ -50,11 +53,9 @@ extern uint32_t main(void);
 /**/
 /*******************************************************************************/
 
-#pragma  DATA_SECTION(pui32ProcessStack, ".stack_process")
 #pragma  DATA_SECTION(pui32MainStack, ".stack")
 
-uint8_t pui32MainStack[0x000003F0UL];
-uint8_t pui32ProcessStack[0x100UL];
+uint8_t pui32MainStack[0x00000400UL - 4UL];
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/
@@ -123,7 +124,7 @@ void (* const g_pfnVectors[130UL])(void) =
     &IntDefaultHandler,                      /* Debug monitor handler*/
     0,                                       /* Reserved*/
     &IntDefaultHandler,                      /* The PendSV handler*/
-    &SYSTICKHandler,                         /* The SYSTICK handler*/
+    &IntDefaultHandler,                         /* The SYSTICK handler*/
     &IntDefaultHandler,                      /* GPIO Port A*/
     &IntDefaultHandler,                      /* GPIO Port B*/
     &IntDefaultHandler,                      /* GPIO Port C*/
@@ -291,8 +292,8 @@ ResetISR(void)
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32Src = &__data_load__;
-    pui32Dest = &__data_start__;
+    pui32Src = (uint32_t*) &__data_load__;
+    pui32Dest = (uint32_t*) &__data_start__;
     while(pui32Dest < &__data_end__)
     {
         *pui32Dest = *pui32Src;
@@ -304,7 +305,7 @@ ResetISR(void)
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32Dest = &__bss_start__;
+    pui32Dest = (uint32_t*) &__bss_start__;
     while(pui32Dest < &__bss_end__)
     {
         *pui32Dest = 0UL;
@@ -317,13 +318,17 @@ ResetISR(void)
     /* float32_ting-point registers (which will fault if float32_ting-point is not*/
     /* enabled).  Any configuration of the float32_ting-point unit using DriverLib*/
     /* APIs must be done here prior to the float32_ting-point unit being enabled.*/
-    (*((volatile uint32_t *)(0xE000ED88UL))) = (((*((volatile uint32_t *)(0xE000ED88UL))) & ~0x00F00000UL) | 0x00F00000UL);
+
+    FPU__vInit();
+    SCB__vInit();
+    FLASH__enInit();
     /**/
     /* Call the application's entry point.*/
     /**/
 
 
     {__asm(" cpsid i");}
+    /*
 #if defined (__TI_ARM__ )
     {__asm(" movw r6, pui32ProcessStack");}
     {__asm(" movt r6, pui32ProcessStack");}
@@ -338,6 +343,7 @@ ResetISR(void)
     {__asm(" mov     r7, #2\n");}
     {__asm(" orr     r6, r7\n");}
     {__asm(" msr     CONTROL, r6\n");}
+*/
     main();
 }
 

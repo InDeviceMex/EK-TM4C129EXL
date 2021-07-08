@@ -18,8 +18,7 @@ MEMORY
     SRAM_DMAALT (RW) : origin = 0x20000600, length = 0x00000200
     SRAM_CODE (RWX) : origin = 0x20000800, length = 0x00001000 /*5K*/
     SRAM (RW) : origin = 0x20001800, length = 0x00000C00
-    SRAM_DYNAMIC (RW) : origin = 0x20002400, length = 0x0003D000 /*32K*/
-    SRAM_PROCESS_STACK (RW) : origin = 0x2003F400, length = 0x00000800 /*1.5K*/
+    SRAM_DYNAMIC (RW) : origin = 0x20002400, length = 0x0003D800 /*32K*/
     SRAM_MAIN_STACK (RW) : origin = 0x2003FC00, length = 0x00000400 /*1.5K*/
 }
 
@@ -71,15 +70,20 @@ SECTIONS
         _stack = .;
         __stack = .;
     } > SRAM_MAIN_STACK
-
+/*
     .stack_process : ALIGN(0x8) {
         _stack_process = .;
         __stack_process = .;
     } > SRAM_PROCESS_STACK
-
+*/
     .dma    :   > SRAM_DMA
     .dmaalt :   > SRAM_DMAALT
-}
 
-__STACK_MAIN_TOP = __stack + SIZE(SRAM_MAIN_STACK);
-__STACK_MAIN_SIZE = SIZE(SRAM_MAIN_STACK);
+
+}
+/*
+	__stack_process_end__ = _stack_process + SIZE(SRAM_PROCESS_STACK);
+	__stack_process_size__ = SIZE(SRAM_PROCESS_STACK);
+*/
+	__stack_end__ = __stack + SIZE(SRAM_MAIN_STACK);
+	__stack_size__ = SIZE(SRAM_MAIN_STACK);
