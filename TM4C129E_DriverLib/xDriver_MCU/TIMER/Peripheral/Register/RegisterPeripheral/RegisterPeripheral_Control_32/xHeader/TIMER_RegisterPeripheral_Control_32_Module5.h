@@ -37,9 +37,24 @@
 #define GPTM5_CTL_CFG_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_CTL_CFG_OFFSET)))
 
 /******************************************************************************************
+************************************ 5 SYNC *********************************************
+******************************************************************************************/
+
+#define GPTM5_CTL_SYNC    ((GPTMSYNC_TypeDef*) (GPTM5_BASE + GPTM_CTL_SYNC_OFFSET))
+#define GPTM5_CTL_SYNC_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_CTL_SYNC_OFFSET)))
+
+/******************************************************************************************
 ************************************ 27 PP *********************************************
 ******************************************************************************************/
+
 #define GPTM5_CTL_PP    ((GPTMPP_TypeDef*) (GPTM5_BASE + GPTM_CTL_PP_OFFSET))
 #define GPTM5_CTL_PP_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_CTL_PP_OFFSET)))
+
+/******************************************************************************************
+************************************ 28 CC *********************************************
+******************************************************************************************/
+
+#define GPTM5_CTL_CC    ((GPTMCC_TypeDef*) (GPTM5_BASE + GPTM_CTL_CC_OFFSET))
+#define GPTM5_CTL_CC_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_CTL_CC_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_CONTROL_32_TIMER_REGISTERPERIPHERAL_CONTROL_32_MODULE5_H_ */

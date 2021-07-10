@@ -50,4 +50,11 @@
 #define GPTM0_CTL_PP    ((GPTMPP_TypeDef*) (GPTM0_BASE + GPTM_CTL_PP_OFFSET))
 #define GPTM0_CTL_PP_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_CTL_PP_OFFSET)))
 
+/******************************************************************************************
+************************************ 28 CC *********************************************
+******************************************************************************************/
+
+#define GPTM0_CTL_CC    ((GPTMCC_TypeDef*) (GPTM0_BASE + GPTM_CTL_CC_OFFSET))
+#define GPTM0_CTL_CC_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_CTL_CC_OFFSET)))
+
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_CONTROL_32_TIMER_REGISTERPERIPHERAL_CONTROL_32_MODULE0_H_ */

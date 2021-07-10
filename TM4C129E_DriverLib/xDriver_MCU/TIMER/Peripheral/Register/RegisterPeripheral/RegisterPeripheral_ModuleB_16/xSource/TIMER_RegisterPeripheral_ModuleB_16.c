@@ -23,4 +23,7 @@
  */
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleB_16/TIMER_RegisterPeripheral_ModuleB_16.h>
 
-GPTM_TB_TypeDef* GPTM_TB_BLOCK[(uint32_t) TIMER_enMODULE_NUM_MAX] = { GPTM0_TB, GPTM1_TB, GPTM2_TB, GPTM3_TB, GPTM4_TB, GPTM5_TB};
+GPTM_TB_TypeDef* GPTM_TB_BLOCK[(uint32_t) TIMER_enMODULE_NUM_MAX] =
+{
+  GPTM0_TB, GPTM1_TB, GPTM2_TB, GPTM3_TB, GPTM4_TB, GPTM5_TB, GPTM6_TB, GPTM7_TB
+};

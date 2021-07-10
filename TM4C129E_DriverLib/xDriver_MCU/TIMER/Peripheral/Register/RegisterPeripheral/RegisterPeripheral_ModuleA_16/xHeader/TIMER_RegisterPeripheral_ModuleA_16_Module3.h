@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterAddress/TIMER_RegisterAddress.h>
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral/xHeader/TIMER_StructPeripheral_ModuleA_16.h>
+
 #define GPTM3_TA    (((GPTM_TA_TypeDef*) (GPTM3_BASE)))
 
 /******************************************************************************************
@@ -106,5 +107,17 @@
 ******************************************************************************************/
 #define GPTM3_TA_TnPS    ((TA_GPTMPS_TypeDef*) (GPTM3_BASE + GPTM_TA_TnPS_OFFSET))
 #define GPTM3_TA_TnPS_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TA_TnPS_OFFSET)))
+
+/******************************************************************************************
+************************************ 25 DMAEV *********************************************
+******************************************************************************************/
+#define GPTM3_TA_DMAEV    ((TA_GPTMDMAEV_TypeDef*) (GPTM3_BASE + GPTM_TA_DMAEV_OFFSET))
+#define GPTM3_TA_DMAEV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TA_DMAEV_OFFSET)))
+
+/******************************************************************************************
+************************************ 26 ADCEV *********************************************
+******************************************************************************************/
+#define GPTM3_TA_ADCEV    ((TA_GPTMADCEV_TypeDef*) (GPTM3_BASE + GPTM_TA_ADCEV_OFFSET))
+#define GPTM3_TA_ADCEV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TA_ADCEV_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_MODULEA_16_TIMER_REGISTERPERIPHERAL_MODULEA_16_MODULE3_H_ */
