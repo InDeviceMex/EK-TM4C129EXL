@@ -44,7 +44,9 @@ typedef volatile struct
     volatile uint32_t TnPWMIE;
     volatile uint32_t TnMRSU;
     volatile uint32_t TnPLO;
-    const uint32_t reserved [20UL];
+    volatile uint32_t TnCINTD;
+    volatile uint32_t TCnCT [3UL];
+    const uint32_t reserved [16UL];
 }BITBANDING_TA_GPTMMR_TypeDef;
 
 typedef volatile struct
@@ -65,7 +67,8 @@ typedef volatile struct
     volatile uint32_t CnEIM;
     const uint32_t reserved;
     volatile uint32_t TnMIM;
-    const uint32_t reserved1 [27UL];
+    volatile uint32_t DMAnIM;
+    const uint32_t reserved1 [26UL];
 }BITBANDING_TA_GPTMIMR_TypeDef;
 
 typedef volatile struct
@@ -75,7 +78,8 @@ typedef volatile struct
     volatile const uint32_t CnERIS;
     const uint32_t reserved;
     volatile const uint32_t TnMRIS;
-    const uint32_t reserved1 [27UL];
+    volatile const uint32_t DMAnRIS;
+    const uint32_t reserved1 [26UL];
 }BITBANDING_TA_GPTMRIS_TypeDef;
 
 typedef volatile struct
@@ -85,7 +89,8 @@ typedef volatile struct
     volatile const uint32_t CnEMIS;
     const uint32_t reserved;
     volatile const uint32_t TnMMIS;
-    const uint32_t reserved1 [27UL];
+    volatile const uint32_t DMAnMIS;
+    const uint32_t reserved1 [26UL];
 }BITBANDING_TA_GPTMMIS_TypeDef;
 
 typedef volatile struct
@@ -95,7 +100,8 @@ typedef volatile struct
     volatile uint32_t CnECINT;
     const uint32_t reserved;
     volatile uint32_t TnMCINT;
-    const uint32_t reserved1 [27UL];
+    volatile uint32_t DMAnINT;
+    const uint32_t reserved1 [26UL];
 }BITBANDING_TA_GPTMICR_TypeDef;
 
 typedef volatile struct
@@ -137,5 +143,25 @@ typedef volatile struct
     volatile const uint32_t PSS [16UL];
     const uint32_t reserved [16UL];
 }BITBANDING_TA_GPTMPS_TypeDef;
+
+typedef volatile struct
+{
+    volatile uint32_t TnTODMAEN;
+    volatile uint32_t CnMDMAEN;
+    volatile uint32_t CnEDMAEN;
+    const uint32_t reserved;
+    volatile uint32_t TnMDMAEN;
+    const uint32_t reserved1 [27UL];
+}BITBANDING_TA_GPTMDMAEV_TypeDef;
+
+typedef volatile struct
+{
+    volatile uint32_t TnTOADCEN;
+    volatile uint32_t CnMADCEN;
+    volatile uint32_t CnEADCEN;
+    const uint32_t reserved;
+    volatile uint32_t TnMADCEN;
+    const uint32_t reserved1 [27UL];
+}BITBANDING_TA_GPTMADCEV_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_BITBANDING_TIMER_STRUCTREGISTER_BITBANDING_MODULEA_16_H_ */

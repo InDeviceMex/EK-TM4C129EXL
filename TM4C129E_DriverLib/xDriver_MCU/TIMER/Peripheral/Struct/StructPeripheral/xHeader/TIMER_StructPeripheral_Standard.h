@@ -154,27 +154,33 @@ typedef volatile struct
         volatile const uint32_t TBPS;
         GPTMTBPS_TypeDef TBPS_Bit;
     };
+    const uint32_t reserved1 [2UL];
     union
     {
-        volatile const uint32_t TAPV;
-        GPTMTAPV_TypeDef TAPV_Bit;
+        volatile const uint32_t DMAEV;
+        GPTMDMAEV_TypeDef DMAEV_Bit;
     };
     union
     {
-        volatile const uint32_t TBPV;
-        GPTMTBPV_TypeDef TBPV_Bit;
+        volatile const uint32_t ADCEV;
+        GPTMADCEV_TypeDef ADCEV_Bit;
     };
 
-    const uint32_t reserved1 [981UL];
-
+    const uint32_t reserved1 [979UL];
 
     union
     {
         volatile const uint32_t PP;
         GPTMPP_TypeDef PP_Bit;
     };
+    const uint32_t reserved2;
+    union
+    {
+        volatile const uint32_t CC;
+        GPTMCC_TypeDef CC_Bit;
+    };
 
-    const uint32_t reserved2 [15UL];
+    const uint32_t reserved3 [13UL];
 }GPTM_TypeDef;
 
 

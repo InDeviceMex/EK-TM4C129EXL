@@ -26,55 +26,35 @@
 #define XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_H_
 
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_Control_32.h>
-#include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_Control_64.h>
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleA_16.h>
-#include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleA_32.h>
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleB_16.h>
-#include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleB_32.h>
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleW_32.h>
-#include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_ModuleW_64.h>
 #include <xDriver_MCU/TIMER/Peripheral/Struct/StructPeripheral_Bitbanding/xHeader/TIMER_StructPeripheral_Bitbanding_Standard.h>
 
 typedef volatile struct
 {
-    GPTM_TypeDef_BITBANDING MODULE [(uint32_t) TIMER_enMODULE_NUM_MAX];
+    GPTM_TypeDef_BITBANDING MODULE05 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+    GPTM_TypeDef_BITBANDING reserved [170UL];
+    GPTM_TypeDef_BITBANDING MODULE67 [(uint32_t) 2UL];
 }GPTMS_BITBANDING_TypeDef;
 
 typedef volatile struct
 {
     union
     {
-        GPTM_CTL_BITBANDING_TypeDef CTL [(uint32_t) TIMER_enMODULE_NUM_MAX];
-        GPTM_TA_BITBANDING_TypeDef TA [(uint32_t) TIMER_enMODULE_NUM_MAX];
-        GPTM_TB_BITBANDING_TypeDef TB [(uint32_t) TIMER_enMODULE_NUM_MAX];
-        GPTM_TW_BITBANDING_TypeDef TMODULE [(uint32_t) TIMER_enMODULE_NUM_MAX];
+        GPTM_CTL_BITBANDING_TypeDef CTL [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TA_BITBANDING_TypeDef TA [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TB_BITBANDING_TypeDef TB [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TW_BITBANDING_TypeDef TW [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
     };
-}GPTM_UNION_BITBANDING_TypeDef;
-
-typedef volatile struct
-{
-    GPTM_TypeDef_BITBANDING T01 [2UL];
-    GPTM_TypeDef_BITBANDING reserved [20UL];
-    GPTM_TypeDef_BITBANDING T25 [4UL];
-}GPWTMS_BITBANDING_TypeDef;
-
-typedef volatile struct
-{
+    GPTM_TypeDef_BITBANDING reserved [170UL];
     union
     {
-        GPWTM_CTL_BITBANDING_TypeDef CTL01 [2UL];
-        GPWTM_TA_BITBANDING_TypeDef TA01 [2UL];
-        GPWTM_TB_BITBANDING_TypeDef TB01 [2UL];
-        GPWTM_TW_BITBANDING_TypeDef TW01 [2UL];
+        GPTM_CTL_BITBANDING_TypeDef CTL [2UL];
+        GPTM_TA_BITBANDING_TypeDef TA [2UL];
+        GPTM_TB_BITBANDING_TypeDef TB [2UL];
+        GPTM_TW_BITBANDING_TypeDef TW [2UL];
     };
-     GPWTM_CTL_BITBANDING_TypeDef reserved [20UL];
-     union
-     {
-         GPWTM_CTL_BITBANDING_TypeDef CTL25 [4UL];
-         GPWTM_TA_BITBANDING_TypeDef TA25 [4UL];
-         GPWTM_TB_BITBANDING_TypeDef TB25 [4UL];
-         GPWTM_TW_BITBANDING_TypeDef TW25 [4UL];
-     };
-}GPWTM_UNION_BITBANDING_TypeDef;
+}GPTM_UNION_BITBANDING_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_H_ */

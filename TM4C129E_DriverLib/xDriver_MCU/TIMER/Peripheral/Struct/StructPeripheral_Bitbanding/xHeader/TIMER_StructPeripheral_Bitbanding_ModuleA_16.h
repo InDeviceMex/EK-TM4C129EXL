@@ -103,7 +103,18 @@ typedef volatile struct
         volatile const uint32_t TnPS [32UL];
         BITBANDING_TA_GPTMPS_TypeDef TnPS_Bit;
     };
-    const uint32_t reserved19 [1000UL * 32UL];
+    const uint32_t reserved18 [3UL * 32UL];
+    union
+    {
+        volatile const uint32_t DMAEV [32UL];
+        BITBANDING_TA_GPTMDMAEV_TypeDef DMAEV_Bit;
+    };
+    union
+    {
+        volatile const uint32_t ADCEV [32UL];
+        BITBANDING_TA_GPTMADCEV_TypeDef ADCEV_Bit;
+    };
+    const uint32_t reserved19 [995UL * 32UL];
 }GPTM_TA_BITBANDING_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_MODULEA_16_H_ */

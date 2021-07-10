@@ -44,7 +44,9 @@ typedef volatile struct
     volatile uint32_t TnPWMIE :1;
     volatile uint32_t TnMRSU :1;
     volatile uint32_t TnPLO :1;
-    const uint32_t reserved :20;
+    volatile uint32_t TnCINTD :1;
+    volatile uint32_t TCnCT :3;
+    const uint32_t reserved :16;
 }TB_GPTMMR_TypeDef;
 
 typedef volatile struct
@@ -66,7 +68,9 @@ typedef volatile struct
     volatile uint32_t CnMIM :1;
     volatile uint32_t CnEIM :1;
     volatile uint32_t TnMIM :1;
-    const uint32_t reserved1 :20;
+    const uint32_t reserved1 :1;
+    volatile uint32_t DMAnIM :1;
+    const uint32_t reserved2 :18;
 }TB_GPTMIMR_TypeDef;
 
 typedef volatile struct
@@ -76,7 +80,9 @@ typedef volatile struct
     volatile const uint32_t CnMRIS :1;
     volatile const uint32_t CnERIS :1;
     volatile const uint32_t TnMRIS :1;
-    const uint32_t reserved1 :20;
+    const uint32_t reserved1 :1;
+    volatile const uint32_t DMAnRIS :1;
+    const uint32_t reserved2 :18;
 }TB_GPTMRIS_TypeDef;
 
 typedef volatile struct
@@ -86,7 +92,9 @@ typedef volatile struct
     volatile const uint32_t CnMMIS :1;
     volatile const uint32_t CnEMIS :1;
     volatile const uint32_t TnMMIS :1;
-    const uint32_t reserved1 :20;
+    const uint32_t reserved1 :1;
+    volatile const uint32_t DMAnMIS :1;
+    const uint32_t reserved2 :18;
 }TB_GPTMMIS_TypeDef;
 
 typedef volatile struct
@@ -96,7 +104,9 @@ typedef volatile struct
     volatile uint32_t CnMCINT :1;
     volatile uint32_t CnECINT :1;
     volatile uint32_t TnMCINT :1;
-    const uint32_t reserved1 :20;
+    const uint32_t reserved1 :1;
+    volatile uint32_t DMAnINT :1;
+    const uint32_t reserved2 :18;
 }TB_GPTMICR_TypeDef;
 
 typedef volatile struct
@@ -138,5 +148,25 @@ typedef volatile struct
     volatile const uint32_t PSS :16;
     const uint32_t reserved :16;
 }TB_GPTMPS_TypeDef;
+
+typedef volatile struct
+{
+    const uint32_t reserved :8;
+    volatile uint32_t TnTODMAEN :1;
+    volatile uint32_t CnMADCEN :1;
+    volatile uint32_t CnEADCEN :1;
+    volatile uint32_t TnMADCEN :1;
+    const uint32_t reserved1 :20;
+}TB_GPTMDMAEV_TypeDef;
+
+typedef volatile struct
+{
+    const uint32_t reserved :8;
+    volatile uint32_t TnTOADCEN :1;
+    volatile uint32_t CnMADCEN :1;
+    volatile uint32_t CnEADCEN :1;
+    volatile uint32_t TnMADCEN :1;
+    const uint32_t reserved1 :20;
+}TB_GPTMADCEV_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_TIMER_STRUCTREGISTER_MODULEB_16_H_ */

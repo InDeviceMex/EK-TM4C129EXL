@@ -46,7 +46,13 @@ typedef volatile struct
         volatile uint32_t PP [32UL];
         BITBANDING_GPTMPP_TypeDef PP_Bit;
     };
-    const uint32_t reserved2 [15UL * 32UL];
+    const uint32_t reserved2 [1UL * 32UL];
+    union
+    {
+        volatile uint32_t CC [32UL];
+        BITBANDING_GPTMCC_TypeDef CC_Bit;
+    };
+    const uint32_t reserved3 [13UL * 32UL];
 }GPTM_CTL_BITBANDING_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_CONTROL_32_H_ */

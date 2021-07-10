@@ -44,7 +44,9 @@ typedef volatile struct
     volatile uint32_t TAPWMIE;
     volatile uint32_t TAMRSU;
     volatile uint32_t TAPLO;
-    const uint32_t reserved [20UL];
+    volatile uint32_t TACINTD;
+    volatile uint32_t TCACT [3UL];
+    const uint32_t reserved [16UL];
 }BITBANDING_GPTMTAMR_TypeDef;
 
 typedef volatile struct
@@ -60,7 +62,9 @@ typedef volatile struct
     volatile uint32_t TBPWMIE;
     volatile uint32_t TBMRSU;
     volatile uint32_t TBPLO;
-    const uint32_t reserved [20UL];
+    volatile uint32_t TBCINTD;
+    volatile uint32_t TCBCT [3UL];
+    const uint32_t reserved [16UL];
 }BITBANDING_GPTMTBMR_TypeDef;
 
 typedef volatile struct
@@ -88,14 +92,15 @@ typedef volatile struct
     volatile uint32_t CAEIM;
     volatile uint32_t RTCIM;
     volatile uint32_t TAMIM;
-    const uint32_t reserved [3UL];
+    volatile uint32_t DMAAIM;
+    const uint32_t reserved [2UL];
     volatile uint32_t TBTOIM;
     volatile uint32_t CBMIM;
     volatile uint32_t CBEIM;
     volatile uint32_t TBMIM;
-    const uint32_t reserved1 [4UL];
-    volatile uint32_t WUEIM;
-    const uint32_t reserved2 [15UL];
+    const uint32_t reserved1;
+    volatile uint32_t DMABIM;
+    const uint32_t reserved2 [18UL];
 }BITBANDING_GPTMIMR_TypeDef;
 
 typedef volatile struct
@@ -105,14 +110,15 @@ typedef volatile struct
     volatile const uint32_t CAERIS;
     volatile const uint32_t RTCRIS;
     volatile const uint32_t TAMRIS;
-    const uint32_t reserved [3UL];
+    volatile const uint32_t DMAARIS;
+    const uint32_t reserved [2UL];
     volatile const uint32_t TBTORIS;
     volatile const uint32_t CBMRIS;
     volatile const uint32_t CBERIS;
     volatile const uint32_t TBMRIS;
-    const uint32_t reserved1 [4UL];
-    volatile const uint32_t WUERIS;
-    const uint32_t reserved2 [15UL];
+    const uint32_t reserved1;
+    volatile const uint32_t DMABRIS;
+    const uint32_t reserved2 [18UL];
 }BITBANDING_GPTMRIS_TypeDef;
 
 typedef volatile struct
@@ -122,14 +128,15 @@ typedef volatile struct
     volatile const uint32_t CAEMIS;
     volatile const uint32_t RTCMIS;
     volatile const uint32_t TAMMIS;
-    const uint32_t reserved [3UL];
+    volatile const uint32_t DMAAMIS;
+    const uint32_t reserved [2UL];
     volatile const uint32_t TBTOMIS;
     volatile const uint32_t CBMMIS;
     volatile const uint32_t CBEMIS;
     volatile const uint32_t TBMMIS;
-    const uint32_t reserved1 [4UL];
-    volatile const uint32_t WUEMIS;
-    const uint32_t reserved2 [15UL];
+    const uint32_t reserved1;
+    volatile const uint32_t DMABMIS;
+    const uint32_t reserved2 [18UL];
 }BITBANDING_GPTMMIS_TypeDef;
 
 typedef volatile struct
@@ -139,14 +146,15 @@ typedef volatile struct
     volatile uint32_t CAECINT;
     volatile uint32_t RTCCINT;
     volatile uint32_t TAMCINT;
-    const uint32_t reserved [3UL];
+    volatile uint32_t DMAAINT;
+    const uint32_t reserved [2UL];
     volatile uint32_t TBTOCINT;
     volatile uint32_t CBMCINT;
     volatile uint32_t CBECINT;
     volatile uint32_t TBMCINT;
-    const uint32_t reserved1 [4UL];
-    volatile uint32_t WUECINT;
-    const uint32_t reserved2 [15UL];
+    const uint32_t reserved1;
+    volatile uint32_t DMABINT;
+    const uint32_t reserved2 [18UL];
 }BITBANDING_GPTMICR_TypeDef;
 
 typedef volatile struct
@@ -172,29 +180,25 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile uint32_t TAPSR [8UL];
-    volatile uint32_t TAPSRH [8UL];
-    const uint32_t reserved [16UL];
+    const uint32_t reserved [24UL];
 }BITBANDING_GPTMTAPR_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t TBPSR [8UL];
-    volatile uint32_t TBPSRH [8UL];
-    const uint32_t reserved [16UL];
+    const uint32_t reserved [24UL];
 }BITBANDING_GPTMTBPR_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t TAPSMR [8UL];
-    volatile uint32_t TAPSMRH [8UL];
-    const uint32_t reserved [16UL];
+    const uint32_t reserved [24UL];
 }BITBANDING_GPTMTAPMR_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t TBPSMR [8UL];
-    volatile uint32_t TBPSMRH [8UL];
-    const uint32_t reserved [16UL];
+    const uint32_t reserved [24UL];
 }BITBANDING_GPTMTBPMR_TypeDef;
 
 typedef volatile struct
@@ -236,14 +240,32 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile const uint32_t PSV [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_GPTMTAPV_TypeDef;
+    volatile uint32_t TATODMAEN;
+    volatile uint32_t CAMDMAEN;
+    volatile uint32_t CAEDMAEN;
+    volatile uint32_t RTCDMAEN;
+    volatile uint32_t TAMDMAEN;
+    const uint32_t reserved [3UL];
+    volatile uint32_t TBTODMAEN;
+    volatile uint32_t CBMDMAEN;
+    volatile uint32_t CBEDMAEN;
+    volatile uint32_t TBMDMAEN;
+    const uint32_t reserved1 [20UL];
+}BITBANDING_GPTMDMAEV_TypeDef;
 
 typedef volatile struct
 {
-    volatile const uint32_t PSV [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_GPTMTBPV_TypeDef;
+    volatile uint32_t TATOADCEN;
+    volatile uint32_t CAMADCEN;
+    volatile uint32_t CAEADCEN;
+    volatile uint32_t RTCADCEN;
+    volatile uint32_t TAMADCEN;
+    const uint32_t reserved [3UL];
+    volatile uint32_t TBTOADCEN;
+    volatile uint32_t CBMADCEN;
+    volatile uint32_t CBEADCEN;
+    volatile uint32_t TBMADCEN;
+    const uint32_t reserved1 [20UL];
+}BITBANDING_GPTMADCEV_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_BITBANDING_TIMER_STRUCTREGISTER_BITBANDING_STANDARD_H_ */

@@ -87,6 +87,17 @@
 /*----------*/
 
 /*----------*/
+#define GPTM_IMR_R_DMAAIM_MASK    ((uint32_t) 0x00000020UL)
+#define GPTM_IMR_R_DMAAIM_BIT    (5UL)
+#define GPTM_IMR_R_DMAAIM_DIS    ((uint32_t) 0x00000000UL)
+#define GPTM_IMR_R_DMAAIM_ENA    ((uint32_t) 0x00000020UL)
+
+#define GPTM_IMR_DMAAIM_MASK    ((uint32_t) 0x00000001UL)
+#define GPTM_IMR_DMAAIM_DIS    ((uint32_t) 0x00000000UL)
+#define GPTM_IMR_DMAAIM_ENA    ((uint32_t) 0x00000001UL)
+/*----------*/
+
+/*----------*/
 #define GPTM_IMR_R_TBTOIM_MASK    ((uint32_t) 0x00000100UL)
 #define GPTM_IMR_R_TBTOIM_BIT    (8UL)
 #define GPTM_IMR_R_TBTOIM_DIS    ((uint32_t) 0x00000000UL)
@@ -131,14 +142,14 @@
 /*----------*/
 
 /*----------*/
-#define GPTM_IMR_R_WUEIM_MASK    ((uint32_t) 0x00010000UL)
-#define GPTM_IMR_R_WUEIM_BIT    (16UL)
-#define GPTM_IMR_R_WUEIM_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_IMR_R_WUEIM_ENA    ((uint32_t) 0x00010000UL)
+#define GPTM_IMR_R_DMABIM_MASK    ((uint32_t) 0x00002000UL)
+#define GPTM_IMR_R_DMABIM_BIT    (13UL)
+#define GPTM_IMR_R_DMABIM_DIS    ((uint32_t) 0x00000000UL)
+#define GPTM_IMR_R_DMABIM_ENA    ((uint32_t) 0x00002000UL)
 
-#define GPTM_IMR_WUEIM_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_IMR_WUEIM_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_IMR_WUEIM_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_IMR_DMABIM_MASK    ((uint32_t) 0x00000001UL)
+#define GPTM_IMR_DMABIM_DIS    ((uint32_t) 0x00000000UL)
+#define GPTM_IMR_DMABIM_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERDEFINES_TIMER_REGISTERDEFINES_STANDARD_32_TIMER_REGISTERDEFINES_STANDARD_32_IMR_H_ */

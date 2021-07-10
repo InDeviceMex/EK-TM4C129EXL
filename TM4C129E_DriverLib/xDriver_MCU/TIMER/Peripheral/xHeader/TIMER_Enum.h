@@ -126,6 +126,7 @@ typedef enum
 
     TIMER_enINT_RTC = 0x08UL,
     TIMER_enINT_MATCH = 0x10UL,
+    TIMER_enINT_DMA = 0x20UL,
     TIMER_enINT_ALL = 0x1FUL,
     TIMER_enINT_UNDEF = 0xFFFFFUL,
 }TIMER_nINT;
@@ -138,7 +139,8 @@ typedef enum
     TIMER_enINT_TA_CAPTURE_EVENT = 0x4UL,
     /*TAMIE needs to enabled with MATCH_TA*/
     TIMER_enINT_TA_MATCH = 0x10UL,
-    TIMER_enINT_TA_ALL = 0x17UL,
+    TIMER_enINT_TA_DMA = 0x20UL,
+    TIMER_enINT_TA_ALL = 0x37UL,
 }TIMER_nINT_TA;
 
 typedef enum
@@ -149,8 +151,8 @@ typedef enum
     TIMER_enINT_TW_RTC = 0x8UL,
     /*TWMIE needs to enabled with MATCH_TW*/
     TIMER_enINT_TW_MATCH = 0x10UL,
-    TIMER_enINT_TW_WRITE_UPDATE = 0x10000UL,
-    TIMER_enINT_TW_ALL = 0x1001FUL,
+    TIMER_enINT_TW_DMA = 0x20UL,
+    TIMER_enINT_TW_ALL = 0x3FUL,
 }TIMER_nINT_TW;
 
 typedef enum
@@ -161,7 +163,8 @@ typedef enum
     TIMER_enINT_TB_CAPTURE_EVENT = (uint32_t) 0x4UL << 8UL,
     /*TBMIE needs to enabled with MATCH_TB*/
     TIMER_enINT_TB_MATCH = (uint32_t) 0x8UL << 8UL,
-    TIMER_enINT_TB_ALL = (uint32_t) 0x0F00UL,
+    TIMER_enINT_TB_DMA = (uint32_t) 0x20UL << 8UL,
+    TIMER_enINT_TB_ALL = (uint32_t) 0x2F00UL,
 }TIMER_nINT_TB;
 
 typedef enum
@@ -328,24 +331,13 @@ typedef enum
     TIMER_enSYNC_T5A = (uint32_t) ((uint32_t) 1UL << 10UL),
     TIMER_enSYNC_T5W = (uint32_t) ((uint32_t) 1UL << 10UL),
     TIMER_enSYNC_T5B = (uint32_t) ((uint32_t) 2UL << 10UL),
-    TIMER_enSYNC_WT0A = (uint32_t) ((uint32_t) 1UL << 12UL),
-    TIMER_enSYNC_WT0W = (uint32_t) ((uint32_t) 1UL << 12UL),
-    TIMER_enSYNC_WT0B = (uint32_t) ((uint32_t) 2UL << 12UL),
-    TIMER_enSYNC_WT1A = (uint32_t) ((uint32_t) 1UL << 14UL),
-    TIMER_enSYNC_WT1W = (uint32_t) ((uint32_t) 1UL << 12UL),
-    TIMER_enSYNC_WT1B = (uint32_t) ((uint32_t) 2UL << 14UL),
-    TIMER_enSYNC_WT2A = (uint32_t) ((uint32_t) 1UL << 16UL),
-    TIMER_enSYNC_WT2W = (uint32_t) ((uint32_t) 1UL << 16UL),
-    TIMER_enSYNC_WT2B = (uint32_t) ((uint32_t) 2UL << 16UL),
-    TIMER_enSYNC_WT3A = (uint32_t) ((uint32_t) 1UL << 18UL),
-    TIMER_enSYNC_WT3W = (uint32_t) ((uint32_t) 1UL << 18UL),
-    TIMER_enSYNC_WT3B = (uint32_t) ((uint32_t) 2UL << 18UL),
-    TIMER_enSYNC_WT4A = (uint32_t) ((uint32_t) 1UL << 20UL),
-    TIMER_enSYNC_WT4W = (uint32_t) ((uint32_t) 1UL << 20UL),
-    TIMER_enSYNC_WT4B = (uint32_t) ((uint32_t) 2UL << 20UL),
-    TIMER_enSYNC_WT5A = (uint32_t) ((uint32_t) 1UL << 22UL),
-    TIMER_enSYNC_WT5W = (uint32_t) ((uint32_t) 1UL << 22UL),
-    TIMER_enSYNC_WT5B = (uint32_t) ((uint32_t) 2UL << 22UL),
+    TIMER_enSYNC_T6A = (uint32_t) ((uint32_t) 1UL << 12UL),
+    TIMER_enSYNC_T6W = (uint32_t) ((uint32_t) 1UL << 12UL),
+    TIMER_enSYNC_T6B = (uint32_t) ((uint32_t) 2UL << 12UL),
+    TIMER_enSYNC_T7A = (uint32_t) ((uint32_t) 1UL << 14UL),
+    TIMER_enSYNC_T7W = (uint32_t) ((uint32_t) 1UL << 14UL),
+    TIMER_enSYNC_T7B = (uint32_t) ((uint32_t) 2UL << 14UL),
+
     TIMER_enSYNC_ALL = (uint32_t) ((uint32_t) 0xFFFFFFFFUL),
 }TIMER_nSYNC;
 

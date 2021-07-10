@@ -45,19 +45,24 @@ typedef volatile struct
     volatile uint32_t SYNCT3 [2UL];
     volatile uint32_t SYNCT4 [2UL];
     volatile uint32_t SYNCT5 [2UL];
-    volatile uint32_t SYNCWT0 [2UL];
-    volatile uint32_t SYNCWT1 [2UL];
-    volatile uint32_t SYNCWT2 [2UL];
-    volatile uint32_t SYNCWT3 [2UL];
-    volatile uint32_t SYNCWT4 [2UL];
-    volatile uint32_t SYNCWT5 [2UL];
-    const uint32_t reserved [8UL];
+    volatile uint32_t SYNCT6 [2UL];
+    volatile uint32_t SYNCT7 [2UL];
+    const uint32_t reserved [16UL];
 }BITBANDING_GPTMSYNC_TypeDef;
 
 typedef volatile struct
 {
     volatile const uint32_t SIZE [4UL];
-    const uint32_t reserved [28UL];
+    volatile const uint32_t CHAIN;
+    volatile const uint32_t SYNCCNT;
+    volatile const uint32_t ALTCLK;
+    const uint32_t reserved [25UL];
 }BITBANDING_GPTMPP_TypeDef;
+
+typedef volatile struct
+{
+    volatile uint32_t ALTCLK;
+    const uint32_t reserved [31UL];
+}BITBANDING_GPTMCC_TypeDef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_BITBANDING_TIMER_STRUCTREGISTER_BITBANDING_CONTROL_H_ */
