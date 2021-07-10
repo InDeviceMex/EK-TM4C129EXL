@@ -39,11 +39,11 @@ __attribute__((naked)) MCU_nENABLE MCU__enEnGlobalInterrupt(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enState)
+__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enStateInterrupt)
 {
     {__asm(" mrs     r1, PRIMASK\n");}
 
-    if(MCU_enENABLE_ENA == enState)
+    if(MCU_enENABLE_ENA == enStateInterrupt)
     {
         {__asm(" cpsie   i\n");}
     }
@@ -81,11 +81,11 @@ __attribute__((naked)) MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enState)
+__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)
 {
     {__asm(" mrs     r1, PRIMASK\n");}
 
-    if(MCU_enENABLE_ENA == enState)
+    if(MCU_enENABLE_ENA == enStateInterrupt)
     {
         {__asm(" cpsie   i\n");}
     }
@@ -106,7 +106,7 @@ __attribute__((naked)) MCU_nENABLE MCU__enGetGlobalInterrupt_RAM(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enState)
+__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)
 {
     {__asm(" and     r1, r0, #0x7\n");}
     {__asm(" lsl     r1, #0x5\n");}
@@ -128,7 +128,7 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void)
     return ((MCU_nPRIORITY) 0UL);
 }
 
-__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enState)
+__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)
 {
     {__asm(" and     r1, r0, #0x7\n");}
     {__asm(" lsl     r1, #0x5\n");}
@@ -181,11 +181,11 @@ __attribute__((naked)) MCU_nENABLE MCU__enEnGlobalFault(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enState)
+__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enStateInterrupt)
 {
     {__asm(" mrs     r1, FAULTMASK\n");}
 
-    if(MCU_enENABLE_ENA == enState)
+    if(MCU_enENABLE_ENA == enStateInterrupt)
     {
         {__asm(" cpsie   f\n");}
     }
@@ -223,11 +223,11 @@ __attribute__((naked)) MCU_nENABLE MCU__enEnGlobalFault_RAM(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enState)
+__attribute__((naked)) MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt)
 {
     {__asm(" mrs     r1, FAULTMASK\n");}
 
-    if(MCU_enENABLE_ENA == enState)
+    if(MCU_enENABLE_ENA == enStateInterrupt)
     {
         {__asm(" cpsie   f\n");}
     }

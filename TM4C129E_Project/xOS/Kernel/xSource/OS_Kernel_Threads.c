@@ -44,7 +44,7 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
     uint32_t u32Count = 0UL;
     uint32_t* pu32StackTemp = (uint32_t*) 0UL;
     #if defined (__TI_ARM__ )
-    pstData = (OS_TCB_Container_Typedef*) memalign( (size_t) 4, (size_t) sizeof(OS_TCB_Container_Typedef));
+    pstData = (OS_TCB_Container_Typedef*) memalign( (size_t) 8, (size_t) sizeof(OS_TCB_Container_Typedef));
     #elif defined (__GNUC__ )
     pstData = (OS_TCB_Container_Typedef*) malloc(sizeof(OS_TCB_Container_Typedef));
     #endif
@@ -82,7 +82,7 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
             pu32StackTemp = pstData->pu32StackEnd;
             pu32StackTemp += u32StackSizeArg;
             pstData->pu32Stack = OS_Kernel_StackInit(pu32StackTemp, pfvThread, pvParameters);
-            pstData->enState = OS_TCB_enSTATE_READY;
+            pstData->enStateTask = OS_TCB_enSTATE_READY;
 
             OS_Kernel__vIncreaseCreatedThread();
             pstElement = OS_TCB__pstAdd(pstData);
@@ -108,7 +108,7 @@ void OS_Kernel__vDestroyElement(void *pvDataContainerArg)
 
         pstDataContainer->pu32Stack = (uint32_t*) 0UL;
         pstDataContainer->pu32StackEnd = (uint32_t*) 0UL;
-        pstDataContainer->enState = OS_TCB_enSTATE_READY;
+        pstDataContainer->enStateTask = OS_TCB_enSTATE_READY;
         pstDataContainer->u32StackSize = 0UL;
         pstDataContainer->u32ID = 0UL;
         pstDataContainer->u32Period = 0UL;

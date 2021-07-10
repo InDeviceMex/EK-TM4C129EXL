@@ -57,7 +57,7 @@ typedef struct
     uint32_t u32BurstTime;
     uint32_t u32Priority;
     uint32_t u32BasePriority;
-    OS_TCB_nSTATE enState;
+    OS_TCB_nSTATE enStateTask;
     char pcName[OS_TCB_NAME_LENGTH];
 }OS_TCB_Container_Typedef;
 

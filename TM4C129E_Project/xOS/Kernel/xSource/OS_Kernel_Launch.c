@@ -133,7 +133,6 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
     "   msr basepri, r0                     \n"
     "   dsb                                 \n"
     "   isb                                 \n");}
-
     vTaskSwitchContext();
     { __asm volatile
     (
@@ -162,7 +161,7 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
 
 static void OS_Kernel_vSysTickHandler(void)
 {
-    MCU__enSetBasePriorityInterrupt(MCU_enPRI7);
+    MCU__enSetBasePriorityInterrupt(MCU_enPRI5);
     SCB_PendSV__vSetPending();
     MCU__enSetBasePriorityInterrupt(MCU_enPRI0);
 }

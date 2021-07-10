@@ -24,7 +24,7 @@
 #include <xDriver_MCU/Common/xHeader/MCU_ControlReg.h>
 
 
-__attribute__((naked)) MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enState)
+__attribute__((naked)) MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
 {
     {__asm(" mrs     r1, CONTROL\n");}
     {__asm(" ubfx    r2, r1, #2, #1\n");}

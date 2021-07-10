@@ -25,6 +25,8 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DRIVER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DRIVER_H_
 
+#include <xDriver_MCU/GPIO/Driver/Wake/GPIO_Wake.h>
+
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Alternative.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Data.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Digital.h>

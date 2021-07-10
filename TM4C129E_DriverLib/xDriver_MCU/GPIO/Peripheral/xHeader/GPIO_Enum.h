@@ -124,6 +124,27 @@ typedef enum
 
 typedef enum
 {
+    GPIO_enWAKE_ENABLE_DIS = 0UL,
+    GPIO_enWAKE_ENABLE_ENA = 1UL,
+    GPIO_enWAKE_ENABLE_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nWAKE_ENABLE;
+
+typedef enum
+{
+    GPIO_enWAKE_LEVEL_LOW = 0UL,
+    GPIO_enWAKE_LEVEL_HIGH = 1UL,
+    GPIO_enWAKE_LEVEL_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nWAKE_LEVEL;
+
+typedef enum
+{
+    GPIO_enWAKE_STATUS_IDLE = 0UL,
+    GPIO_enWAKE_STATUS_ASSERT = 1UL,
+    GPIO_enWAKE_STATUS_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nWAKE_STATUS;
+
+typedef enum
+{
     GPIO_enDRIVE_2mA = 0UL,
     GPIO_enDRIVE_4mA = 1UL,
     GPIO_enDRIVE_8mA = 2UL,
