@@ -63,8 +63,12 @@ void vTaskSwitchContext(void)
 static void OS_Kernel_vStartFirstTask(void)
 {
     { __asm volatile(
-                    " movw r0, #0xED08  \n"/* Use the NVIC offset register to locate the stack. */
-                    " movt r0, #0xE000  \n"
+#if defined (__TI_ARM__ )
+                    " movw r0, #0xED08      \n"/* Use the NVIC offset register to locate the stack. */
+                    " movt r0, #0xE000      \n"
+#elif defined (__GNUC__ )
+                    " ldr r0, = 0xE000ED08 \n"
+#endif
                     " ldr r0, [r0]          \n"
                     " ldr r0, [r0]          \n"
                     " msr msp, r0           \n" /* Set the msp back to the start of the stack. */
@@ -72,7 +76,7 @@ static void OS_Kernel_vStartFirstTask(void)
                     " cpsie f               \n"
                     " dsb                   \n"
                     " isb                   \n"
-                    " svc #0                 \n" /* System call to start first task. */
+                    " svc #0                \n" /* System call to start first task. */
                     " nop                   \n"
                 );}
 }
@@ -80,8 +84,12 @@ static void OS_Kernel_vStartFirstTask(void)
 __attribute__ (( naked )) static void OS_Kernel_vSVCHandler(void)
 {
 {__asm volatile (
-                "   movw r3, OS_Kernel_NextTask         \n"/* Get the location of the current TCB. */
-                "   movt r3, OS_Kernel_NextTask         \n"
+#if defined (__TI_ARM__ )
+                "   movw r3, OS_Kernel_NextTask     \n"/* Get the location of the current TCB. */
+                "   movt r3, OS_Kernel_NextTask     \n"
+#elif defined (__GNUC__ )
+                " ldr r3, = OS_Kernel_NextTask      \n"
+#endif
                 "   ldr r2, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
                 "   ldr r1, [r2]                    \n" /* The first item in OS_Kernel_NextTask is the task top of stack. */
                 "   ldr r0, [r1]                    \n" /* The first item in OS_Kernel_NextTask is the task top of stack. */
@@ -103,8 +111,12 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
     "   mrs r0, psp                         \n"
     "   isb                                 \n"
     "                                       \n"
+#if defined (__TI_ARM__ )
     "   movw r3, OS_Kernel_NextTask         \n"/* Get the location of the current TCB. */
     "   movt r3, OS_Kernel_NextTask         \n"
+#elif defined (__GNUC__ )
+    "   ldr r3, = OS_Kernel_NextTask        \n"
+#endif
     "   ldr r1, [r3]                        \n"
     "   ldr r2, [r1]                        \n"
     "                                       \n"
@@ -117,11 +129,14 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
     "   str r0, [r2]                        \n" /* Save the new top of stack into the first member of the TCB. */
     "                                       \n"
     "   stmdb sp!, {r3}                     \n"
-    "   mov r0, #7                          \n"
+    "   mov r0, #5                          \n"
     "   msr basepri, r0                     \n"
     "   dsb                                 \n"
-    "   isb                                 \n"
-    "   bl vTaskSwitchContext               \n"
+    "   isb                                 \n");}
+
+    vTaskSwitchContext();
+    { __asm volatile
+    (
     "   mov r0, #0                          \n"
     "   msr basepri, r0                     \n"
     "   ldmia sp!, {r3}                     \n"

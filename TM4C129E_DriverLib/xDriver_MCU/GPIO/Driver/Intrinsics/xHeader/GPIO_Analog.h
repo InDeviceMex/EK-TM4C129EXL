@@ -27,12 +27,10 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-/*
 void GPIO__vEnAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vDisAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vSetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nANALOG_MODE enFeature);
 
 GPIO_nANALOG_MODE GPIO__enGetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin);
-*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_ANALOG_H_ */

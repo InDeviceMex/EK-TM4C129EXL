@@ -32,5 +32,6 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_Interrupt/xHeader/GPIO_RegisterDefines_IS.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_Interrupt/xHeader/GPIO_RegisterDefines_MIS.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_Interrupt/xHeader/GPIO_RegisterDefines_RIS.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_Interrupt/xHeader/GPIO_RegisterDefines_SI.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_INTERRUPT_GPIO_REGISTERDEFINES_INTERRUPT_H_ */

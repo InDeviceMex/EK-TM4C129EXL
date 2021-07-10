@@ -22,13 +22,14 @@
  * Mar 23, 2021        indevicemex    1.0         initial Version@endverbatim
  */
 #include<xOS/Kernel/xHeader/OS_Kernel_Init.h>
+#include<xOS/Kernel/xHeader/OS_Kernel_Threads.h>
 #include<xOS/TCB/OS_TCB.h>
 
 OS_TCB_TypeDef OS_Kernel_stTCB;
 
 void OS_Kernel__vInit(void)
 {
-    OS_TCB__enInit(&OS_Kernel_stTCB);
+    OS_TCB__enInit(&OS_Kernel_stTCB,&OS_Kernel__vDestroyElement);
 }
 
 

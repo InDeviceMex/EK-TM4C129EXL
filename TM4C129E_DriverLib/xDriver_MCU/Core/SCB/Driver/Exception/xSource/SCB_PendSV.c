@@ -30,6 +30,8 @@ void SCB_PendSV__vSetPending(void)
 {
     MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_PENDSVSET_SET,
                         SCB_ICSR_PENDSVSET_MASK, SCB_ICSR_R_PENDSVSET_BIT);
+    MCU__vDataSyncBarrier();
+    MCU__vInstructionSyncBarrier();
 }
 void SCB_PendSV__vClearPending(void)
 {

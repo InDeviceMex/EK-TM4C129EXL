@@ -27,12 +27,10 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-/*
 void GPIO__vEnGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin);
 void GPIO__vDisGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin);
 void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin, uint32_t u32Feature);
 
 uint32_t GPIO__u32GetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin);
-*/
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_GENERIC_H_ */

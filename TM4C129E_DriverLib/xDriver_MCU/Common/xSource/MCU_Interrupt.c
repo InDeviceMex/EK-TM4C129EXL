@@ -113,6 +113,8 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORI
     {__asm(" mrs     r2, BASEPRI\n");}
     {__asm(" ubfx    r0, r2, #5, #3\n");}
     {__asm(" msr     BASEPRI, r1\n");}
+    {__asm(" dsb\n");}
+    {__asm(" isb\n");}
     {__asm(" bx      lr\n");}
     return ((MCU_nPRIORITY) 0UL);
 }
@@ -133,6 +135,8 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPR
     {__asm(" mrs     r0, BASEPRI\n");}
     {__asm(" ubfx    r0, r2, #5, #3\n");}
     {__asm(" msr     BASEPRI, r1\n");}
+    {__asm(" dsb\n");}
+    {__asm(" isb\n");}
     {__asm(" bx      lr\n");}
     return ((MCU_nPRIORITY) 0UL);
 }

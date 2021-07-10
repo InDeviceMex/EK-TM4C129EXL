@@ -82,12 +82,12 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
             pu32StackTemp = pstData->pu32StackEnd;
             pu32StackTemp += u32StackSizeArg;
             pstData->pu32Stack = OS_Kernel_StackInit(pu32StackTemp, pfvThread, pvParameters);
-            pstData->u32State = 0UL;
+            pstData->enState = OS_TCB_enSTATE_READY;
 
             OS_Kernel__vIncreaseCreatedThread();
             pstElement = OS_TCB__pstAdd(pstData);
             pstNextTaskReg = OS_Kernel__u32GetNextTask();
-            if(0UL == pstNextTaskReg)
+            if(0UL == (uint32_t) pstNextTaskReg)
             {
                 OS_Kernel__vSetNextTask(pstElement);
             }
@@ -96,6 +96,37 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
     return pstElement;
 }
 
+
+void OS_Kernel__vDestroyElement(void *pvDataContainerArg)
+{
+    OS_TCB_Container_Typedef *pstDataContainer = (OS_TCB_Container_Typedef*) pvDataContainerArg;
+    uint32_t u32Count = 0UL;
+    char* pcNamePointer = (char*) 0U;
+    if(0UL != (uint32_t) pvDataContainerArg)
+    {
+        free((void*) pstDataContainer->pu32StackEnd);
+
+        pstDataContainer->pu32Stack = (uint32_t*) 0UL;
+        pstDataContainer->pu32StackEnd = (uint32_t*) 0UL;
+        pstDataContainer->enState = OS_TCB_enSTATE_READY;
+        pstDataContainer->u32StackSize = 0UL;
+        pstDataContainer->u32ID = 0UL;
+        pstDataContainer->u32Period = 0UL;
+        pstDataContainer->u32BurstTime = 0UL;
+        pstDataContainer->u32Priority = 0UL;
+        pstDataContainer->u32BasePriority = 0UL;
+
+        pcNamePointer = pstDataContainer->pcName;
+        while(((char) 0U != *pcNamePointer) && (u32Count < OS_TCB_NAME_LENGTH))
+        {
+            *pcNamePointer = (char) 0U;
+            pcNamePointer += 1UL;
+            u32Count++;
+        }
+
+        free((void*) pstDataContainer);
+    }
+}
 
 #define OS_KERNEL_INITIAL_XPSR  ( 0x01000000UL )
 #define OS_KERNEL_EXEC_RETURN  ( 0xFFFFFFFDUL )

@@ -27,8 +27,6 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-/*
 void GPIO__vSetDigitalFunction(GPIO_nDIGITAL_FUNCTION enFunction);
-*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_APP_GPIO_DIGITALFUNCTION_H_ */

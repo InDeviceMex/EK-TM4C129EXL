@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_WRITEREG_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_WRITEREG_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
 
 #if defined (__TI_ARM__ )
 

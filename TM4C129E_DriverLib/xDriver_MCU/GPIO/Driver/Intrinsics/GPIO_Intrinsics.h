@@ -32,6 +32,8 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_DMATrigger.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Lock.h>
+#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Propierties.h>
+
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Interrupt/GPIO_Interrupt.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 

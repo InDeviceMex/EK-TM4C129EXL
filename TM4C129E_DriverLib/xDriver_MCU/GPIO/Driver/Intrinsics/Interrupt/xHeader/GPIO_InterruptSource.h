@@ -27,11 +27,15 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-/*
 void GPIO__vEnInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vDisInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vClearInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 GPIO_nINT_STATUS GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
-*/
+
+
+void GPIO__vEnInterruptSourceDMA(GPIO_nPORT enPort);
+void GPIO__vDisInterruptSourceDMA(GPIO_nPORT enPort);
+void GPIO__vClearInterruptSourceDMA(GPIO_nPORT enPort);
+GPIO_nINT_STATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_INTERRUPT_GPIO_INTERRUPTPIN_H_ */

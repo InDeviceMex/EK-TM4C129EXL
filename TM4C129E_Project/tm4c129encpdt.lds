@@ -53,9 +53,6 @@ SECTIONS {
         __init_array_end = .;
         *(.init)
         *(.fini*)
-        _etext = .
-        __etext = .
-        etext = .
     } > FLASH_BANK01
 
     PROVIDE (__etext = .);

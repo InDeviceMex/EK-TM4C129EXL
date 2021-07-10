@@ -272,44 +272,47 @@ extern uint32_t __bss_end__;
 void
 ResetISR(void)
 {
-    uint32_t *pui32Src = (uint32_t*) 0UL;
-    uint32_t *pui32Dest = (uint32_t*) 0UL;
+    uint32_t *pui32SrcRamCode = (uint32_t*) 0UL;
+    uint32_t *pui32DestRamCode = (uint32_t*) 0UL;
+    uint32_t *pui32SrcData = (uint32_t*) 0UL;
+    uint32_t *pui32DestData = (uint32_t*) 0UL;
+    uint32_t *pui32DestBss = (uint32_t*) 0UL;
 
 
     {__asm(" cpsid i");}
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32Src = &__ramcode_load__;
-    pui32Dest = &__ramcode_start__;
-    while(pui32Dest < &__ramcode_end__)
+    pui32SrcRamCode = &__ramcode_load__;
+    pui32DestRamCode = &__ramcode_start__;
+    while(pui32DestRamCode < &__ramcode_end__)
     {
-        *pui32Dest = *pui32Src;
-        pui32Src += 1UL;
-        pui32Dest += 1UL;
+        *pui32DestRamCode = *pui32SrcRamCode;
+        pui32SrcRamCode += 1UL;
+        pui32DestRamCode += 1UL;
     }
 
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32Src = (uint32_t*) &__data_load__;
-    pui32Dest = (uint32_t*) &__data_start__;
-    while(pui32Dest < &__data_end__)
+    pui32SrcData = (uint32_t*) &__data_load__;
+    pui32DestData = (uint32_t*) &__data_start__;
+    while(pui32DestData < &__data_end__)
     {
-        *pui32Dest = *pui32Src;
-        pui32Src += 1UL;
-        pui32Dest += 1UL;
+        *pui32DestData = *pui32SrcData;
+        pui32SrcData += 1UL;
+        pui32DestData += 1UL;
     }
 
 
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32Dest = (uint32_t*) &__bss_start__;
-    while(pui32Dest < &__bss_end__)
+    pui32DestBss = (uint32_t*) &__bss_start__;
+    while(pui32DestBss < &__bss_end__)
     {
-        *pui32Dest = 0UL;
-        pui32Dest += 1UL;
+        *pui32DestBss = 0UL;
+        pui32DestBss += 1UL;
     }
 
     /**/
@@ -328,22 +331,7 @@ ResetISR(void)
 
 
     {__asm(" cpsid i");}
-    /*
-#if defined (__TI_ARM__ )
-    {__asm(" movw r6, pui32ProcessStack");}
-    {__asm(" movt r6, pui32ProcessStack");}
-    {__asm(" add r6, #0x100UL");}
-#elif defined (__GNUC__ )
-    {__asm(" ldr r6, = pui32ProcessStack");}
-#endif
-    {__asm(" msr PSP, r6");}
-    {__asm(" isb\n");}
 
-    {__asm(" mrs     r6, CONTROL\n");}
-    {__asm(" mov     r7, #2\n");}
-    {__asm(" orr     r6, r7\n");}
-    {__asm(" msr     CONTROL, r6\n");}
-*/
     main();
 }
 

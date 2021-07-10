@@ -1,6 +1,6 @@
 /**
  *
- * @file GPIO_InterruptRegisterIRQVector.h
+ * @file GPIO_InterruptRegisterIRQVector.c
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -27,9 +27,7 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-/*
 void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPORT enPort);
 void GPIO__vRegisterAll_IRQVectorHandler(void);
-*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_INTERRUPT_GPIO_INTERRUPTREGISTER_GPIO_INTERRUPTREGISTERIRQVECTOR_H_ */

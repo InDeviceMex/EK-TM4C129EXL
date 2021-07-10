@@ -2,7 +2,7 @@
  *
  * @file GPIO_RegisterPeripheral.h
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,20 +11,39 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 25 jun. 2020 @endverbatim
+ * @verbatim 9 jul. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 25 jun. 2020     vyldram    1.0         initial Version@endverbatim
+ * 9 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_
-#define XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_
+#ifndef XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_
+#define XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_
 
-#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_AHB/GPIO_RegisterPeripheral_AHB.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleA.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleB.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleC.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleD.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleE.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleF.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleG.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleH.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleJ.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleK.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleL.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleM.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleN.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleP.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleQ.h>
 
-#endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_ */
+#define GPIO    ((GPIO_PORT_TypeDef*) (GPIO_BASE))
+#define GPIO_AUX    ((GPIO_PORT_AUX_TypeDef*) (GPIO_BASE))
+
+extern uint32_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX];
+
+#endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_ */

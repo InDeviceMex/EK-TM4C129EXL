@@ -18,52 +18,64 @@ void Task4(void* pvParams);
 void Task5(void* pvParams);
 void Task6(void* pvParams);
 
+
 void Task1(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 3UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 0UL);
-
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
     }
 }
 
 void Task2(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 3UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 0UL);
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
     }
 }
 
 void Task3(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 0UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 4UL);
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, u32PinValue);
     }
 }
 
 void Task4(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 0UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 4UL);
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, u32PinValue);
     }
 }
 
 void Task5(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 4UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 3UL);
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, u32PinValue);
     }
 }
 
 void Task6(void* pvParams)
 {
+    uint32_t u32PinValue = (uint32_t) pvParams;
+    u32PinValue <<= 4UL;
     while(1UL)
     {
-        MCU__vWriteRegister(0x4005D000UL, 0x3FCUL, (uint32_t) pvParams, 0x1UL, 3UL);
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, u32PinValue);
     }
 }
 
@@ -82,11 +94,10 @@ uint32_t main(void)
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
 
-
-    MCU__vWriteRegister(0x4005D000UL, 0x400UL, 0x1DUL, 0xFFUL, 0UL); /*DIR OUTPUT PF0 PF2, PF3 and PF4*/
-    MCU__vWriteRegister(0x4005D000UL, 0x420UL, 0x00UL, 0xFFUL, 0UL); /*ALTERNATIVE DIS PF0, PF2, PF3 and PF4*/
-    MCU__vWriteRegister(0x4005D000UL, 0x50CUL, 0x00UL, 0xFFUL, 0UL); /*PUSH-PULL PF0, PF2, PF3 and PF4*/
-    MCU__vWriteRegister(0x4005D000UL, 0x51CUL, 0x1DUL, 0xFFUL, 0UL); /*DIGITAL ENABLE PF0, PF2, PF3 and PF4*/
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
 
     OS_Kernel__vInit();
@@ -97,7 +108,7 @@ uint32_t main(void)
     OS_Kernel__CreateThread(&Task5, "Task 5", 40UL, (void*) 0UL, 0UL);
     OS_Kernel__CreateThread(&Task6, "Task 6", 40UL, (void*) 1UL, 0UL);
 
-    OS_Kernel__vLaunchMs(100UL);
+    OS_Kernel__vLaunchMs(1000UL);
     while(1UL)
     {
 

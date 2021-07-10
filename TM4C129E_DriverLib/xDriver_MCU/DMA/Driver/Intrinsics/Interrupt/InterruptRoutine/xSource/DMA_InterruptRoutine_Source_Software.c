@@ -30,7 +30,8 @@ static void (*DMA_CH__vIRQSourceHandler_Software[(uint32_t) DMA_enCH_INT_SOFT_MA
 {
     &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
     &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy
+    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+    &DMA_CH_vIRQSourceHandler_Dummy
 };
 
 static void DMA_CH_vIRQSourceHandler_Dummy(void)

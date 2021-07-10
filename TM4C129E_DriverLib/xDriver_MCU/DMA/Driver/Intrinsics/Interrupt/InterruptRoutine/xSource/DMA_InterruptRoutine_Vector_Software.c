@@ -32,6 +32,16 @@ void DMA_SW__vIRQVectorHandler(void)
     uint32_t u32IntStatus = DMA_CHIS_R;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
+    if(DMA_CHIS_R_CHIS3_MASK & u32IntStatus)
+    {
+        if(0UL != (u32Priority & DMA_PRIOSET_R_SET3_MASK))
+        {
+            pfvCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_03);
+            pfvCallback();
+            DMA_CHIS_R = DMA_CHIS_R_CHIS3_MASK;
+        }
+    }
+
     if(DMA_CHIS_R_CHIS22_MASK & u32IntStatus)
     {
         if(0UL != (u32Priority & DMA_PRIOSET_R_SET22_MASK))

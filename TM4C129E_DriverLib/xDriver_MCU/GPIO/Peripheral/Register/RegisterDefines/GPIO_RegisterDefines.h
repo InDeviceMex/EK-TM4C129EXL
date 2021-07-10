@@ -42,5 +42,6 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/GPIO_RegisterDefines_DRR.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_Interrupt/GPIO_RegisterDefines_Interrupt.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/GPIO_RegisterDefines_PCTL.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_WAKE/GPIO_RegisterDefines_WAKE.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_H_ */

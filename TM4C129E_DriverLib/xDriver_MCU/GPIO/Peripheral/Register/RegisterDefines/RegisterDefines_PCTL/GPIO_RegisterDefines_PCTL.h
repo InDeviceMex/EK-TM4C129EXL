@@ -26,5 +26,10 @@
 #define XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_PCTL_GPIO_REGISTERDEFINES_PCTL_H_
 
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleA.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleB.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleC.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleD.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleE.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_PCTL/xHeader/GPIO_RegisterDefines_PCTL_ModuleF.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_PCTL_GPIO_REGISTERDEFINES_PCTL_H_ */

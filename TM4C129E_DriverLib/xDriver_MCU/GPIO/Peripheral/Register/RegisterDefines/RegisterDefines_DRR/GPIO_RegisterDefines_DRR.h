@@ -28,7 +28,13 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_DR2R.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_DR4R.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_DR8R.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_DR12R.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_PC.h>
+#include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_PP.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/RegisterDefines_DRR/xHeader/GPIO_RegisterDefines_SLR.h>
 
+/******************************************************************************************
+ ************************************ 11 DRR ARRAY *********************************************
+ ******************************************************************************************/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_DRR_GPIO_REGISTERDEFINES_DRR_H_ */

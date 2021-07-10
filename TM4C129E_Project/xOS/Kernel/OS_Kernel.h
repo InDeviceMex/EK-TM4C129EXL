@@ -25,6 +25,7 @@
 #ifndef XOS_KERNEL_OS_KERNEL_H_
 #define XOS_KERNEL_OS_KERNEL_H_
 
+#include<xOS/Kernel/xHeader/OS_Kernel_Critical.h>
 #include<xOS/Kernel/xHeader/OS_Kernel_Init.h>
 #include<xOS/Kernel/xHeader/OS_Kernel_Launch.h>
 #include<xOS/Kernel/xHeader/OS_Kernel_Threads.h>
