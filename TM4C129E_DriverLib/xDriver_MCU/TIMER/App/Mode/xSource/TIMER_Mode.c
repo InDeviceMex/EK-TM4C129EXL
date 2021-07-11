@@ -69,7 +69,7 @@ TIMER_nSTATUS TIMER__enSetModeStruct(TIMER_nMODULE enModule, const TIMER_MODE_Ty
         TIMER__vSetPWMOutputLevel(enModule, pstMode->enPWMOut);
         enReturn = TIMER_enSTATUS_OK;
     }
-    return enReturn;
+    return (enReturn);
     /*Configure Reload and Match*/
 
     /*TIMER__vSetEnable(enModule, TIMER_enENABLE_START);*/
@@ -112,7 +112,7 @@ TIMER_nMODE TIMER__enGetMode(TIMER_nMODULE enModule)
     u32Reg |= ((uint32_t) enSnapShotVar << 30UL);
 
     enMode = (TIMER_nMODE)u32Reg;
-    return enMode;
+    return (enMode);
 }
 
 TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_Typedef* pstMode)
@@ -131,7 +131,7 @@ TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_Typedef*
         pstMode->enPWMOut = TIMER__enGetPWMOutputLevel(enModule);
         enStatus = TIMER_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 TIMER_MODE_Typedef* TIMER__pstGetMode(TIMER_nMODULE enModule)
@@ -146,5 +146,5 @@ TIMER_MODE_Typedef* TIMER__pstGetMode(TIMER_nMODULE enModule)
     {
         TIMER__enGetModeStruct(enModule, pstMode);
     }
-    return pstMode;
+    return (pstMode);
 }

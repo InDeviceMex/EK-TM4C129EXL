@@ -62,7 +62,7 @@ TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enMode)
         pstMode->enEdgeEvent = (TIMER_nEDGE_EVENT) (((uint32_t) enMode >> 28U) & 3U);
         pstMode->enSnapShot = (TIMER_nSNAPSHOT) (((uint32_t) enMode >> 30U) & 1U);
     }
-    return pstMode;
+    return (pstMode);
 }
 
 void TIMER__vDeleteModeStruct(TIMER_MODE_Typedef* pstMode)

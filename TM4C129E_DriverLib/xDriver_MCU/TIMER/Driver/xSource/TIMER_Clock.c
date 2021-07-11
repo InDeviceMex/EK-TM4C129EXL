@@ -41,7 +41,7 @@ TIMER_nCLOCK TIMER__enGetClockSource(TIMER_nMODULE enModule)
     u32ModuleNumber &= 0xFFUL;
 
     TIMER__enReadRegister((TIMER_nMODULE_NUM)u32ModuleNumber, GPTM_CC_OFFSET, (uint32_t*) enClockSourReg,  GPTM_CC_ALTCLK_MASK, GPTM_CC_R_ALTCLK_BIT);
-    return enClockSourReg;
+    return (enClockSourReg);
 }
 
 

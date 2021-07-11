@@ -100,7 +100,7 @@ TIMER_nSTATUS TIMER__enGetFreeCount(TIMER_nMODULE enModule, uint32_t* pu32FreeCo
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }
 
 void TIMER__vSetFreeRunningCount(TIMER_nMODULE enModule, uint32_t u32Count)

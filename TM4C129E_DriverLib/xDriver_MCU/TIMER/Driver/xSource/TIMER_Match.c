@@ -186,5 +186,5 @@ TIMER_nSTATUS TIMER__enGetMatch(TIMER_nMODULE enModule, uint32_t* pu32Match)
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }

@@ -139,7 +139,7 @@ TIMER_nSTATUS TIMER__enGetCount(TIMER_nMODULE enModule, uint32_t* pu32Count)
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

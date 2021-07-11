@@ -51,5 +51,5 @@ TIMER_nCONFIG TIMER__enGetConfiguration(TIMER_nMODULE enModule)
     uint32_t u32ModuleNumber = 0UL;
     TIMER__vGetSubParams(enModule, (uint32_t*) 0UL, &u32ModuleNumber);
     TIMER__enReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CFG_OFFSET, &u32FeatureValue, GPTM_CFG_CFG_MASK, GPTM_CFG_R_CFG_BIT);
-    return  (TIMER_nCONFIG) u32FeatureValue;
+    return ((TIMER_nCONFIG) u32FeatureValue);
 }

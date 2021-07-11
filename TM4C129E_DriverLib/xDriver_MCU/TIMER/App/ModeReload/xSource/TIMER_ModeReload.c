@@ -34,7 +34,7 @@ TIMER_nSTATUS TIMER__enSetMode_Reload(TIMER_nMODULE enModule, TIMER_nMODE enMode
     {
         TIMER__vSetReload(enModule, u32Reload);
     }
-    return enReturn;
+    return (enReturn);
 }
 
 TIMER_nSTATUS TIMER__enSetModeStruct_Reload(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode, uint32_t u32Reload)
@@ -45,5 +45,5 @@ TIMER_nSTATUS TIMER__enSetModeStruct_Reload(TIMER_nMODULE enModule, const TIMER_
     {
         TIMER__vSetReload(enModule, u32Reload);
     }
-    return enReturn;
+    return (enReturn);
 }

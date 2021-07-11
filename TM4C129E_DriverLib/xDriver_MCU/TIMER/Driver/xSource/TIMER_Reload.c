@@ -186,6 +186,6 @@ TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint32_t* pu32Reload)
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }
 
