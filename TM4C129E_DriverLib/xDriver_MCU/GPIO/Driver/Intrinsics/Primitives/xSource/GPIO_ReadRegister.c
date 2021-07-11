@@ -38,7 +38,7 @@ GPIO_nSTATUS GPIO__enReadRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister,
     if((GPIO_enREADY == enReady) && (0UL != (uint32_t) pu32FeatureValue))
     {
         enStatus = GPIO_enSTATUS_OK;
-        u32PortBase = GPIO_BLOCK_BASE[u32Port];
+        u32PortBase = GPIO__u32BlockBaseAddress((GPIO_nPORT) u32Port);
         *pu32FeatureValue = MCU__u32ReadRegister(u32PortBase, u32OffsetRegister, u32MaskFeature, u32BitFeature);
     }
 
