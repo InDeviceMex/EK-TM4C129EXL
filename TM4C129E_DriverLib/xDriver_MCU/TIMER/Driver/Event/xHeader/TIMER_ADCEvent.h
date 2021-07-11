@@ -28,7 +28,7 @@
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 void TIMER__vSetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
-TIMER_nEVENT TIMER__vGetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
+TIMER_nEVENT TIMER__enGetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
 
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_EVENT_XHEADER_TIMER_ADCEVENT_H_ */

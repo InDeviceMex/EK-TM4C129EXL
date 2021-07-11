@@ -98,6 +98,7 @@ uint8_t pu8DMADestBuffer[100UL] = {0UL};
 
 uint32_t main(void)
 {
+    volatile TIMER_nEVENT enEvent = TIMER_enEVENT_ALL;
     SYSCTL_CONFIG_TypeDef stClockConfig =
     {
         SYSCTL_enXTAL_25MHZ,
@@ -114,6 +115,10 @@ uint32_t main(void)
 
     GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
+    TIMER__vSetDMAEvent(TIMER_enT0B, TIMER_enEVENT_MATCH);
+    TIMER__vSetDMAEvent(TIMER_enT0A, TIMER_enEVENT_MATCH);
+    enEvent = TIMER__enGetDMAEvent(TIMER_enT0B, TIMER_enEVENT_MATCH);
+    enEvent = TIMER__enGetDMAEvent(TIMER_enT0A, TIMER_enEVENT_MATCH);
     TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0W, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vEnInterruptVector(TIMER_enT0W, TIMER_enPRI6);
     TIMER__vEnInterruptSource(TIMER_enT0W, TIMER_enINT_TIMEOUT);

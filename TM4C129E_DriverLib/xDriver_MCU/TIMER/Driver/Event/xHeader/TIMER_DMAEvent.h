@@ -28,6 +28,6 @@
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 void TIMER__vSetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
-TIMER_nEVENT TIMER__vGetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
+TIMER_nEVENT TIMER__enGetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_EVENT_XHEADER_TIMER_DMAEVENT_H_ */

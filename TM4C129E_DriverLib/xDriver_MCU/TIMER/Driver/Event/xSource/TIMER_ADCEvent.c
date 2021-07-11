@@ -33,7 +33,7 @@ void TIMER__vSetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
     TIMER__vSetEvent(enModule, enEventParam, GPTM_ADCEV_OFFSET);
 }
 
-TIMER_nEVENT TIMER__vGetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
+TIMER_nEVENT TIMER__enGetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
 {
     return (TIMER__enGetEvent(enModule, enEventParam, GPTM_ADCEV_OFFSET));
 }

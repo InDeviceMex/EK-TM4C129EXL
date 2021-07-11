@@ -33,7 +33,7 @@ void TIMER__vSetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
     TIMER__vSetEvent(enModule, enEventParam, GPTM_DMAEV_OFFSET);
 }
 
-TIMER_nEVENT TIMER__vGetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
+TIMER_nEVENT TIMER__enGetDMAEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
 {
     return (TIMER__enGetEvent(enModule, enEventParam, GPTM_DMAEV_OFFSET));
 }
