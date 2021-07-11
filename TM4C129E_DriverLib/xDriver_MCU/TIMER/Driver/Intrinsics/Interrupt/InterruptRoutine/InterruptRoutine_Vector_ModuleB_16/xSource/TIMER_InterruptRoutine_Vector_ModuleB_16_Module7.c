@@ -28,32 +28,38 @@
 void GPTM7B__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
+    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Reg = (uint32_t) GPTM7_TB_TnMIS_R;
 
     if((uint32_t) TIMER_enINT_TB_TIMEOUT & u32Reg)
     {
         GPTM7_TB_TnICR_R = (uint32_t) TIMER_enINT_TB_TIMEOUT;
-        TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_B][(uint32_t) TIMER_enMODULE_NUM_7][(uint32_t) TIMER_enINTERRUPT_TIMEOUT]();
+        pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_B, TIMER_enMODULE_NUM_7, TIMER_enINTERRUPT_TIMEOUT);
+        pfvCallback();
     }
     if((uint32_t) TIMER_enINT_TB_CAPTURE_MATCH & u32Reg)
     {
         GPTM7_TB_TnICR_R = (uint32_t) TIMER_enINT_TB_CAPTURE_MATCH;
-        TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_B][(uint32_t) TIMER_enMODULE_NUM_7][(uint32_t) TIMER_enINTERRUPT_CAPTURE_MATCH]();
+        pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_B, TIMER_enMODULE_NUM_7, TIMER_enINTERRUPT_CAPTURE_MATCH);
+        pfvCallback();
     }
     if((uint32_t) TIMER_enINT_TB_CAPTURE_EVENT & u32Reg)
     {
         GPTM7_TB_TnICR_R = (uint32_t) TIMER_enINT_TB_CAPTURE_EVENT;
-        TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_B][(uint32_t) TIMER_enMODULE_NUM_7][(uint32_t) TIMER_enINTERRUPT_CAPTURE_EVENT]();
+        pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_B, TIMER_enMODULE_NUM_7, TIMER_enINTERRUPT_CAPTURE_EVENT);
+        pfvCallback();
     }
     if((uint32_t) TIMER_enINT_TB_MATCH & u32Reg)
     {
         GPTM7_TB_TnICR_R = (uint32_t) TIMER_enINT_TB_MATCH;
-        TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_B][(uint32_t) TIMER_enMODULE_NUM_7][(uint32_t) TIMER_enINTERRUPT_MATCH]();
+        pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_B, TIMER_enMODULE_NUM_7, TIMER_enINTERRUPT_MATCH);
+        pfvCallback();
     }
     if((uint32_t) TIMER_enINT_TB_DMA & u32Reg)
     {
         GPTM7_TB_TnICR_R = (uint32_t) TIMER_enINT_TB_DMA;
-        TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_B][(uint32_t) TIMER_enMODULE_NUM_7][(uint32_t) TIMER_enINTERRUPT_DMA]();
+        pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_B, TIMER_enMODULE_NUM_7, TIMER_enINTERRUPT_DMA);
+        pfvCallback();
     }
 }

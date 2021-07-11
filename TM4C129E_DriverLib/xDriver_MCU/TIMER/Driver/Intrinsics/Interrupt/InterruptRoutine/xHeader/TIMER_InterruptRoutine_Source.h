@@ -28,6 +28,7 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-extern void (*TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX][(uint32_t) TIMER_enINTERRUPT_MAX]) (void);
+void (*TIMER__pvfGetIRQSourceHandler(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void);
+void (**TIMER__pvfGetIRQSourceHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_INTRINSICS_TIMER_INTERRUPT_TIMER_INTERRUPTROUTINE_TIMER_INTERRUPTROUTINE_ARRAY_H_ */

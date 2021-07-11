@@ -102,3 +102,15 @@ void TIMER_vIRQSourceHandler_Dummy(void)
 {
     while(1UL){}
 }
+
+
+
+void (*TIMER__pvfGetIRQSourceHandler(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void)
+{
+    return (TIMER__vIRQSourceHandler[(uint32_t) enTIMERSubmodule][(uint32_t) enTIMERModuleNumber][(uint32_t)enTIMERInterruptNum]);
+}
+
+void (**TIMER__pvfGetIRQSourceHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void)
+{
+    return ((void(**)(void)) &TIMER__vIRQSourceHandler[(uint32_t) enTIMERSubmodule][(uint32_t) enTIMERModuleNumber][(uint32_t)enTIMERInterruptNum]);
+}
