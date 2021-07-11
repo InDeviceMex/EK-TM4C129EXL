@@ -178,14 +178,14 @@
 /******************************************************************************************
 ************************************ 25 DMAEV *********************************************
 ******************************************************************************************/
-#define GPTM0_DMAEV    ((GPTMDMAEV_TypeDef*) (GPTM0_BASE + GPTM_TnDMAEV_OFFSET))
-#define GPTM0_DMAEV_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_TnDMAEV_OFFSET)))
+#define GPTM0_DMAEV    ((GPTMDMAEV_TypeDef*) (GPTM0_BASE + GPTM_DMAEV_OFFSET))
+#define GPTM0_DMAEV_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_DMAEV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 26 ADCEV *********************************************
 ******************************************************************************************/
-#define GPTM0_ADCEV    ((GPTMADCEV_TypeDef*) (GPTM0_BASE + GPTM_TnADCEV_OFFSET))
-#define GPTM0_ADCEV_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_TnADCEV_OFFSET)))
+#define GPTM0_ADCEV    ((GPTMADCEV_TypeDef*) (GPTM0_BASE + GPTM_ADCEV_OFFSET))
+#define GPTM0_ADCEV_R    (*((volatile uint32_t*) (GPTM0_BASE + GPTM_ADCEV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 27 PP *********************************************

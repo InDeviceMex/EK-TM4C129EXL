@@ -155,14 +155,14 @@
 /*----------*/
 
 /*----------*/
-#define GPTM_TAMR_R_TnCINTD_MASK    ((uint32_t) 0x00001000UL)
-#define GPTM_TAMR_R_TnCINTD_BIT    (12UL)
-#define GPTM_TAMR_R_TnCINTD_NORMAL    ((uint32_t) 0x00000000UL)
-#define GPTM_TAMR_R_TnCINTD_DIS    ((uint32_t) 0x00001000UL)
+#define GPTM_TAMR_R_TACINTD_MASK    ((uint32_t) 0x00001000UL)
+#define GPTM_TAMR_R_TACINTD_BIT    (12UL)
+#define GPTM_TAMR_R_TACINTD_NORMAL    ((uint32_t) 0x00000000UL)
+#define GPTM_TAMR_R_TACINTD_DIS    ((uint32_t) 0x00001000UL)
 
-#define GPTM_TAMR_TnCINTD_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TAMR_TnCINTD_NORMAL    ((uint32_t) 0x00000000UL)
-#define GPTM_TAMR_TnCINTD_DIS    ((uint32_t) 0x00000001UL)
+#define GPTM_TAMR_TACINTD_MASK    ((uint32_t) 0x00000001UL)
+#define GPTM_TAMR_TACINTD_NORMAL    ((uint32_t) 0x00000000UL)
+#define GPTM_TAMR_TACINTD_DIS    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/

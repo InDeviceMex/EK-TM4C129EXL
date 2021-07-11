@@ -50,6 +50,10 @@
 #define GPTM5_BITBANDING_TAMR_TAPWMIE    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + (GPTM_TAMR_R_TAPWMIE_BIT * 4UL))))
 #define GPTM5_BITBANDING_TAMR_TAMRSU    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + (GPTM_TAMR_R_TAMRSU_BIT * 4UL))))
 #define GPTM5_BITBANDING_TAMR_TAPLO    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + (GPTM_TAMR_R_TAPLO_BIT * 4UL))))
+#define GPTM5_BITBANDING_TAMR_TACINTD    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + (GPTM_TAMR_R_TACINTD_BIT * 4UL))))
+#define GPTM5_BITBANDING_TAMR_TCACT_0    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + ((GPTM_TAMR_R_TCACT_BIT + 0UL) * 4UL))))
+#define GPTM5_BITBANDING_TAMR_TCACT_1    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + ((GPTM_TAMR_R_TCACT_BIT + 1UL) * 4UL))))
+#define GPTM5_BITBANDING_TAMR_TCACT_2    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAMR_OFFSET) * 32UL) + ((GPTM_TAMR_R_TCACT_BIT + 2UL) * 4UL))))
 
 /******************************************************************************************
 *********************************** * 3 TBMR *********************************************
@@ -66,6 +70,10 @@
 #define GPTM5_BITBANDING_TBMR_TBPWMIE    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + (GPTM_TBMR_R_TBPWMIE_BIT * 4UL))))
 #define GPTM5_BITBANDING_TBMR_TBMRSU    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + (GPTM_TBMR_R_TBMRSU_BIT * 4UL))))
 #define GPTM5_BITBANDING_TBMR_TBPLO    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + (GPTM_TBMR_R_TBPLO_BIT * 4UL))))
+#define GPTM5_BITBANDING_TBMR_TBCINTD    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + (GPTM_TBMR_R_TBCINTD_BIT * 4UL))))
+#define GPTM5_BITBANDING_TBMR_TCACT_0    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + ((GPTM_TBMR_R_TCACT_BIT + 0UL) * 4UL))))
+#define GPTM5_BITBANDING_TBMR_TCACT_1    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + ((GPTM_TBMR_R_TCACT_BIT + 1UL) * 4UL))))
+#define GPTM5_BITBANDING_TBMR_TCACT_2    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBMR_OFFSET) * 32UL) + ((GPTM_TBMR_R_TCACT_BIT + 2UL) * 4UL))))
 
 /******************************************************************************************
 *********************************** * 4 CTL *********************************************
@@ -98,11 +106,12 @@
 #define GPTM5_BITBANDING_IMR_CAEIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_CAEIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_RTCIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_RTCIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_TAMIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_TAMIM_BIT * 4UL))))
+#define GPTM5_BITBANDING_IMR_DMAAIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_DMAAIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_TBTOIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_TBTOIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_CBMIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_CBMIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_CBEIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_CBEIM_BIT * 4UL))))
 #define GPTM5_BITBANDING_IMR_TBMIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_TBMIM_BIT * 4UL))))
-#define GPTM5_BITBANDING_IMR_WUEIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_WUEIM_BIT * 4UL))))
+#define GPTM5_BITBANDING_IMR_DMABIM    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_IMR_OFFSET) * 32UL) + (GPTM_IMR_R_DMABIM_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 7 RIS *********************************************
@@ -114,11 +123,12 @@
 #define GPTM5_BITBANDING_RIS_CAERIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_CAERIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_RTCRIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_RTCRIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_TAMRIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_TAMRIS_BIT * 4UL))))
+#define GPTM5_BITBANDING_RIS_DMAARIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_DMAARIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_TBTORIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_TBTORIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_CBMRIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_CBMRIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_CBERIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_CBERIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_RIS_TBMRIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_TBMRIS_BIT * 4UL))))
-#define GPTM5_BITBANDING_RIS_WUERIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_WUERIS_BIT * 4UL))))
+#define GPTM5_BITBANDING_RIS_DMABRIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_RIS_OFFSET) * 32UL) + (GPTM_RIS_R_DMABRIS_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 8 MIS *********************************************
@@ -130,11 +140,12 @@
 #define GPTM5_BITBANDING_MIS_CAEMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_CAEMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_RTCMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_RTCMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_TAMMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_TAMMIS_BIT * 4UL))))
+#define GPTM5_BITBANDING_MIS_DMAAMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_DMAAMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_TBTOMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_TBTOMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_CBMMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_CBMMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_CBEMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_CBEMIS_BIT * 4UL))))
 #define GPTM5_BITBANDING_MIS_TBMMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_TBMMIS_BIT * 4UL))))
-#define GPTM5_BITBANDING_MIS_WUEMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_WUEMIS_BIT * 4UL))))
+#define GPTM5_BITBANDING_MIS_DMABMIS    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_MIS_OFFSET) * 32UL) + (GPTM_MIS_R_DMABMIS_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 9 ICR *********************************************
@@ -146,11 +157,12 @@
 #define GPTM5_BITBANDING_ICR_CAECINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_CAECINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_RTCCINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_RTCCINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_TAMCINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_TAMCINT_BIT * 4UL))))
+#define GPTM5_BITBANDING_ICR_DMAAINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_DMAAINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_TBTOCINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_TBTOCINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_CBMCINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_CBMCINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_CBECINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_CBECINT_BIT * 4UL))))
 #define GPTM5_BITBANDING_ICR_TBMCINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_TBMCINT_BIT * 4UL))))
-#define GPTM5_BITBANDING_ICR_WUECINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_WUECINT_BIT * 4UL))))
+#define GPTM5_BITBANDING_ICR_DMABINT    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ICR_OFFSET) * 32UL) + (GPTM_ICR_R_DMABINT_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 10 TAILR *********************************************
@@ -228,18 +240,51 @@
 #define GPTM5_BITBANDING_TBPS    ((BITBANDING_GPTMTBPS_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBPS_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 25 TAPV *********************************************
+*********************************** * 25 DMAEV *********************************************
 ******************************************************************************************/
-#define GPTM5_BITBANDING_TAPV    ((BITBANDING_GPTMTAPV_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TAPV_OFFSET) * 32UL)))
+#define GPTM5_BITBANDING_DMAEV    ((BITBANDING_GPTMDMAEV_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL)))
+
+
+#define GPTM5_BITBANDING_DMAEV_TATODMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_TATODMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_CAMDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_CAMDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_CAEDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_CAEDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_RTCDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_RTCDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_TAMDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_TAMDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_TBTODMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_TBTODMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_CBMDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_CBMDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_CBEDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_CBEDMAEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_DMAEV_TBMDMAEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_DMAEV_OFFSET) * 32UL) + (GPTM_DMAEV_R_TBMDMAEN_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 26 TBPV *********************************************
+*********************************** * 26 ADCEV *********************************************
 ******************************************************************************************/
-#define GPTM5_BITBANDING_TBPV    ((BITBANDING_GPTMTBPV_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_TBPV_OFFSET) * 32UL)))
+#define GPTM5_BITBANDING_ADCEV    ((BITBANDING_GPTMADCEV_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL)))
+
+
+#define GPTM5_BITBANDING_ADCEV_TATOADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_TATOADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_CAMADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_CAMADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_CAEADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_CAEADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_RTCADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_RTCADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_TAMADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_TAMADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_TBTOADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_TBTOADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_CBMADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_CBMADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_CBEADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_CBEADCEN_BIT * 4UL))))
+#define GPTM5_BITBANDING_ADCEV_TBMADCEN    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_ADCEV_OFFSET) * 32UL) + (GPTM_ADCEV_R_TBMADCEN_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 27 PP *********************************************
 ******************************************************************************************/
 #define GPTM5_BITBANDING_PP    ((BITBANDING_GPTMPP_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_PP_OFFSET) * 32UL)))
+
+#define GPTM5_BITBANDING_PP_CHAIN    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_PP_OFFSET) * 32UL) + (GPTM_PP_R_CHAIN_BIT * 4UL))))
+#define GPTM5_BITBANDING_PP_SYNCCNT    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_PP_OFFSET) * 32UL) + (GPTM_PP_R_SYNCCNT_BIT * 4UL))))
+#define GPTM5_BITBANDING_PP_ALTCLK    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_PP_OFFSET) * 32UL) + (GPTM_PP_R_ALTCLK_BIT * 4UL))))
+
+/******************************************************************************************
+*********************************** * 27 CC *********************************************
+******************************************************************************************/
+#define GPTM5_BITBANDING_CC    ((BITBANDING_GPTMCC_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_CC_OFFSET) * 32UL)))
+
+#define GPTM5_BITBANDING_CC_ALTCLK    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM5_OFFSET + GPTM_CC_OFFSET) * 32UL) + (GPTM_CC_R_ALTCLK_BIT * 4UL))))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_BITBANDING_TIMER_REGISTERPERIPHERAL_BITBANDING_STANDARD_32_TIMER_REGISTERPERIPHERAL_BITBANDING_STANDARD_32_MODULE5_H_ */

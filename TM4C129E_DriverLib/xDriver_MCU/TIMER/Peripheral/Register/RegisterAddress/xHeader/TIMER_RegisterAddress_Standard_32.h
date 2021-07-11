@@ -51,8 +51,8 @@
 #define GPTM_TBPS_OFFSET    ((uint32_t) 0x0060UL)
 #define GPTM_TAPV_OFFSET    ((uint32_t) 0x0064UL)
 #define GPTM_TBPV_OFFSET    ((uint32_t) 0x0068UL)
-#define GPTM_TnDMAEV_OFFSET    ((uint32_t) 0x006CUL)
-#define GPTM_TnADCEV_OFFSET    ((uint32_t) 0x0070UL)
+#define GPTM_DMAEV_OFFSET    ((uint32_t) 0x006CUL)
+#define GPTM_ADCEV_OFFSET    ((uint32_t) 0x0070UL)
 #define GPTM_PP_OFFSET    ((uint32_t) 0x0FC0UL)
 #define GPTM_CC_OFFSET    ((uint32_t) 0x0FC8UL)
 
