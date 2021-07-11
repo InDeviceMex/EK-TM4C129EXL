@@ -28,6 +28,7 @@
 #include <xDriver_MCU/TIMER/Driver/Control/TIMER_Control.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/TIMER_Intrinsics.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/TIMER_Mode.h>
+#include <xDriver_MCU/TIMER/Driver/Event/TIMER_Event.h>
 
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Clock.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Configuration.h>

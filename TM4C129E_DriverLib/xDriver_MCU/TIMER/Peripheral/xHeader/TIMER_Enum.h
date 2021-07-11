@@ -163,6 +163,51 @@ typedef enum
 
 typedef enum
 {
+    TIMER_enEVENT_TIMEOUT = 0x01UL,
+    TIMER_enEVENT_CAPTURE_MATCH = 0x02UL,
+    TIMER_enEVENT_CAPTURE_EVENT = 0x04UL,
+
+    TIMER_enEVENT_RTC = 0x08UL,
+    TIMER_enEVENT_MATCH = 0x10UL,
+    TIMER_enEVENT_ALL = 0x3FUL,
+    TIMER_enEVENT_UNDEF = 0xFFFFFUL,
+}TIMER_nEVENT;
+
+typedef enum
+{
+    TIMER_enEVENT_TA_TIMEOUT = 0x1UL,
+    TIMER_enEVENT_TA_CAPTURE_MATCH = 0x2UL,
+    /*TAPWMIE needs to be enabled with PWM mode*/
+    TIMER_enEVENT_TA_CAPTURE_EVENT = 0x4UL,
+    /*TAMIE needs to enabled with MATCH_TA*/
+    TIMER_enEVENT_TA_MATCH = 0x10UL,
+    TIMER_enEVENT_TA_ALL = 0x17UL,
+}TIMER_nEVENT_TA;
+
+typedef enum
+{
+    TIMER_enEVENT_TW_TIMEOUT = 0x1UL,
+    TIMER_enEVENT_TW_CAPTURE_MATCH = 0x2UL,
+    TIMER_enEVENT_TW_CAPTURE_EVENT = 0x4UL,
+    TIMER_enEVENT_TW_RTC = 0x8UL,
+    /*TWMIE needs to enabled with MATCH_TW*/
+    TIMER_enEVENT_TW_MATCH = 0x10UL,
+    TIMER_enEVENT_TW_ALL = 0x1FUL,
+}TIMER_nEVENT_TW;
+
+typedef enum
+{
+    TIMER_enEVENT_TB_TIMEOUT = (uint32_t) 0x1UL << 8UL,
+    TIMER_enEVENT_TB_CAPTURE_MATCH = (uint32_t) 0x2UL << 8UL,
+    /*TBPWMIE needs to be enabled with PWM mode*/
+    TIMER_enEVENT_TB_CAPTURE_EVENT = (uint32_t) 0x4UL << 8UL,
+    /*TBMIE needs to enabled with MATCH_TB*/
+    TIMER_enEVENT_TB_MATCH = (uint32_t) 0x8UL << 8UL,
+    TIMER_enEVENT_TB_ALL = (uint32_t) 0x0F00UL,
+}TIMER_nEVENT_TB;
+
+typedef enum
+{
     TIMER_enPRI0 = 0UL,
     TIMER_enPRI1 = 1UL,
     TIMER_enPRI2 = 2UL,
@@ -445,6 +490,8 @@ typedef struct
     TIMER_nSTALL enStall;
     TIMER_nRTC_STALL enRTCStall;
     TIMER_nADC_TRIGGER enADCTrigger;
+    TIMER_nTIMEOUT_INT enTimeOutInterrupt;
+    TIMER_nMATCH_EVENT enMatchEvent;
 }TIMER_EXTRAMODE_Typedef;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_ENUM_H_ */

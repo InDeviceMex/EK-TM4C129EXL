@@ -40,6 +40,8 @@ TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EX
         TIMER__vSetStall(enModule, pstExtraMode->enStall);
         TIMER__vSetRTCStall(enModule, pstExtraMode->enRTCStall);
         TIMER__vSetADCTrigger(enModule, pstExtraMode->enADCTrigger);
+        TIMER__vSetTimeOutIntFunctionality(enModule, pstExtraMode->enTimeOutInterrupt);
+        TIMER__vSetMatchEventAction(enModule,  pstExtraMode->enMatchEvent);
         enReturn = TIMER_enSTATUS_OK;
     }
     return enReturn;
@@ -62,6 +64,9 @@ void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_Typedef* pstEx
         pstExtraMode->enStall = TIMER__enGetStall(enModule);
         pstExtraMode->enRTCStall = TIMER__enGetRTCStall(enModule);
         pstExtraMode->enADCTrigger = TIMER__enGetADCTrigger(enModule);
+        pstExtraMode->enTimeOutInterrupt = TIMER__enGetTimeOutIntFunctionality(enModule);
+        pstExtraMode->enMatchEvent = TIMER__enGetMatchEventAction(enModule);
+
     }
 }
 
@@ -86,6 +91,8 @@ TIMER_EXTRAMODE_Typedef* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
         pstExtraMode->enStall = TIMER__enGetStall(enModule);
         pstExtraMode->enRTCStall = TIMER__enGetRTCStall(enModule);
         pstExtraMode->enADCTrigger = TIMER__enGetADCTrigger(enModule);
+        pstExtraMode->enTimeOutInterrupt = TIMER__enGetTimeOutIntFunctionality(enModule);
+        pstExtraMode->enMatchEvent = TIMER__enGetMatchEventAction(enModule);
     }
     return pstExtraMode;
 
