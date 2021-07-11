@@ -45,4 +45,15 @@
 ******************************************************************************************/
 #define GPTM0_CTL_BITBANDING_PP    ((BITBANDING_GPTMPP_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL)))
 
+#define GPTM0_CTL_BITBANDING_PP_CHAIN    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_CHAIN_BIT * 4UL))))
+#define GPTM0_CTL_BITBANDING_PP_SYNCCNT    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_SYNCCNT_BIT * 4UL))))
+#define GPTM0_CTL_BITBANDING_PP_ALTCLK    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_ALTCLK_BIT * 4UL))))
+
+/******************************************************************************************
+*********************************** * 27 CC *********************************************
+******************************************************************************************/
+#define GPTM0_CTL_BITBANDING_CC    ((BITBANDING_GPTMCC_TypeDef*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_CC_OFFSET) * 32UL)))
+
+#define GPTM0_CTL_BITBANDING_CC_ALTCLK    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM0_OFFSET + GPTM_CTL_CC_OFFSET) * 32UL) + (GPTM_CTL_CC_R_ALTCLK_BIT * 4UL))))
+
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_BITBANDING_TIMER_REGISTERPERIPHERAL_BITBANDING_CONTROL_32_TIMER_REGISTERPERIPHERAL_BITBANDING_CONTROL_32_MODULE0_H_ */

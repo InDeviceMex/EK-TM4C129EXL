@@ -28,6 +28,6 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-TIMER_nSTATUS TIMER__enGetCount(TIMER_nMODULE enModule, uint64_t* pu64Count);
+TIMER_nSTATUS TIMER__enGetCount(TIMER_nMODULE enModule, uint32_t* pu32Count);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_XHEADER_TIMER_COUNT_H_ */

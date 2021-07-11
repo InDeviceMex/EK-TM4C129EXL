@@ -56,6 +56,12 @@
 #define GPTM3_GPTMCTL_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_CTL_OFFSET)))
 
 /******************************************************************************************
+************************************ 5 SYNC *********************************************
+******************************************************************************************/
+#define GPTM3_SYNC    ((GPTMSYNC_TypeDef*) (GPTM3_BASE + GPTM_SYNC_OFFSET))
+#define GPTM3_SYNC_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_SYNC_OFFSET)))
+
+/******************************************************************************************
 ************************************ 6 IMR *********************************************
 ******************************************************************************************/
 #define GPTM3_IMR    ((GPTMIMR_TypeDef*) (GPTM3_BASE + GPTM_IMR_OFFSET))
@@ -170,21 +176,27 @@
 #define GPTM3_TBPS_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TBPS_OFFSET)))
 
 /******************************************************************************************
-************************************ 25 TAPV *********************************************
+************************************ 25 DMAEV *********************************************
 ******************************************************************************************/
-#define GPTM3_TAPV    ((GPTMTAPV_TypeDef*) (GPTM3_BASE + GPTM_TAPV_OFFSET))
-#define GPTM3_TAPV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TAPV_OFFSET)))
+#define GPTM3_DMAEV    ((GPTMDMAEV_TypeDef*) (GPTM3_BASE + GPTM_TnDMAEV_OFFSET))
+#define GPTM3_DMAEV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TnDMAEV_OFFSET)))
 
 /******************************************************************************************
-************************************ 26 TBPV *********************************************
+************************************ 26 ADCEV *********************************************
 ******************************************************************************************/
-#define GPTM3_TBPV    ((GPTMTBPV_TypeDef*) (GPTM3_BASE + GPTM_TBPV_OFFSET))
-#define GPTM3_TBPV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TBPV_OFFSET)))
+#define GPTM3_ADCEV    ((GPTMADCEV_TypeDef*) (GPTM3_BASE + GPTM_TnADCEV_OFFSET))
+#define GPTM3_ADCEV_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_TnADCEV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 27 PP *********************************************
 ******************************************************************************************/
 #define GPTM3_PP    ((GPTMPP_TypeDef*) (GPTM3_BASE + GPTM_PP_OFFSET))
 #define GPTM3_PP_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_PP_OFFSET)))
+
+/******************************************************************************************
+************************************ 28 CC *********************************************
+******************************************************************************************/
+#define GPTM3_CC    ((GPTMCC_TypeDef*) (GPTM3_BASE + GPTM_CC_OFFSET))
+#define GPTM3_CC_R    (*((volatile uint32_t*) (GPTM3_BASE + GPTM_CC_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_STANDARD_32_TIMER_REGISTERPERIPHERAL_STANDARD_32_MODULE3_H_ */

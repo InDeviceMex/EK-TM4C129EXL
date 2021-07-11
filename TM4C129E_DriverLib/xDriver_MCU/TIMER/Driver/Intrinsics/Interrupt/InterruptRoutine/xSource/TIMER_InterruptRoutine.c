@@ -26,13 +26,11 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void (*TIMER__pvIRQVectorHandler[(uint32_t) TIMER_enSIZE_MAX][(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX]) (void) = {
-    {
-        { &TIMER0A__vIRQVectorHandler, &TIMER1A__vIRQVectorHandler, &TIMER2A__vIRQVectorHandler, &TIMER3A__vIRQVectorHandler, &TIMER4A__vIRQVectorHandler, &TIMER5A__vIRQVectorHandler},
-        { &TIMER0B__vIRQVectorHandler, &TIMER1B__vIRQVectorHandler, &TIMER2B__vIRQVectorHandler, &TIMER3B__vIRQVectorHandler, &TIMER4B__vIRQVectorHandler, &TIMER5B__vIRQVectorHandler},
-    },
-    {
-        { &WTIMER0A__vIRQVectorHandler, &WTIMER1A__vIRQVectorHandler, &WTIMER2A__vIRQVectorHandler, &WTIMER3A__vIRQVectorHandler, &WTIMER4A__vIRQVectorHandler, &WTIMER5A__vIRQVectorHandler},
-        { &WTIMER0B__vIRQVectorHandler, &WTIMER1B__vIRQVectorHandler, &WTIMER2B__vIRQVectorHandler, &WTIMER3B__vIRQVectorHandler, &WTIMER4B__vIRQVectorHandler, &WTIMER5B__vIRQVectorHandler}
-    }
+void (*TIMER__pvIRQVectorHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX]) (void) =
+{
+    { &GPTM0A__vIRQVectorHandler, &GPTM1A__vIRQVectorHandler, &GPTM2A__vIRQVectorHandler, &GPTM3A__vIRQVectorHandler,
+      &GPTM4A__vIRQVectorHandler, &GPTM5A__vIRQVectorHandler, &GPTM6A__vIRQVectorHandler, &GPTM7A__vIRQVectorHandler},
+
+    { &GPTM0B__vIRQVectorHandler, &GPTM1B__vIRQVectorHandler, &GPTM2B__vIRQVectorHandler, &GPTM3B__vIRQVectorHandler,
+      &GPTM4B__vIRQVectorHandler, &GPTM5B__vIRQVectorHandler, &GPTM6B__vIRQVectorHandler, &GPTM7B__vIRQVectorHandler},
 };

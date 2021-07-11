@@ -28,7 +28,7 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetMatch(TIMER_nMODULE enModule, uint64_t u64Match);
-TIMER_nSTATUS TIMER__enGetMatch(TIMER_nMODULE enModule, uint64_t* pu64Match);
+void TIMER__vSetMatch(TIMER_nMODULE enModule, uint32_t u32Match);
+TIMER_nSTATUS TIMER__enGetMatch(TIMER_nMODULE enModule, uint32_t* pu32Match);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_MATCH_H_ */

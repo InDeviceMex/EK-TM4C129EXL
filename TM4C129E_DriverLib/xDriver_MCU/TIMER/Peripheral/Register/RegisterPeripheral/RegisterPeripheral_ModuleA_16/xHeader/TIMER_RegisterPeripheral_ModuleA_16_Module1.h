@@ -111,13 +111,13 @@
 /******************************************************************************************
 ************************************ 25 DMAEV *********************************************
 ******************************************************************************************/
-#define GPTM1_TA_DMAEV    ((TA_GPTMDMAEV_TypeDef*) (GPTM1_BASE + GPTM_TA_DMAEV_OFFSET))
-#define GPTM1_TA_DMAEV_R    (*((volatile uint32_t*) (GPTM1_BASE + GPTM_TA_DMAEV_OFFSET)))
+#define GPTM1_TA_TnDMAEV    ((TA_GPTMDMAEV_TypeDef*) (GPTM1_BASE + GPTM_TA_TnDMAEV_OFFSET))
+#define GPTM1_TA_TnDMAEV_R    (*((volatile uint32_t*) (GPTM1_BASE + GPTM_TA_TnDMAEV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 26 ADCEV *********************************************
 ******************************************************************************************/
-#define GPTM1_TA_ADCEV    ((TA_GPTMADCEV_TypeDef*) (GPTM1_BASE + GPTM_TA_ADCEV_OFFSET))
-#define GPTM1_TA_ADCEV_R    (*((volatile uint32_t*) (GPTM1_BASE + GPTM_TA_ADCEV_OFFSET)))
+#define GPTM1_TA_TnADCEV    ((TA_GPTMADCEV_TypeDef*) (GPTM1_BASE + GPTM_TA_TnADCEV_OFFSET))
+#define GPTM1_TA_TnADCEV_R    (*((volatile uint32_t*) (GPTM1_BASE + GPTM_TA_TnADCEV_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_MODULEA_16_TIMER_REGISTERPERIPHERAL_MODULEA_16_MODULE1_H_ */

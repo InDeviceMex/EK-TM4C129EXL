@@ -164,21 +164,21 @@ typedef volatile struct
         BITBANDING_GPTMADCEV_TypeDef ADCEV_Bit;
     };
 
-    const uint32_t reserved1 [979UL * 32UL];
+    const uint32_t reserved2 [979UL * 32UL];
 
     union
     {
         volatile const uint32_t PP [32UL];
         BITBANDING_GPTMPP_TypeDef PP_Bit;
     };
-    const uint32_t reserved2 [1UL * 32UL];
+    const uint32_t reserved3 [1UL * 32UL];
     union
     {
         volatile const uint32_t CC [32UL];
         BITBANDING_GPTMCC_TypeDef CC_Bit;
     };
 
-    const uint32_t reserved3 [13UL * 32UL];
+    const uint32_t reserved4 [13UL * 32UL];
 }GPTM_TypeDef_BITBANDING;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_STANDARD_H_ */

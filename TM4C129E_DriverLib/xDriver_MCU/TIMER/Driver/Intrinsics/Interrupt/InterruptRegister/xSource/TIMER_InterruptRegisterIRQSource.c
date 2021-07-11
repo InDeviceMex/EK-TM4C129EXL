@@ -35,13 +35,12 @@ void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),TIMER_nM
 
     uint32_t u32ModuleNumber = 0UL;
     uint32_t u32SubModule = 0UL;
-    uint32_t u32ModuleSize = 0UL;
 
     if(0U != (uint32_t) pfIrqSourceHandler)
     {
-        TIMER__vGetSubParams(enModule, &u32ModuleSize, &u32SubModule, &u32ModuleNumber);
+        TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
         u32SubModule &= 0x1UL;
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,  (uint32_t) TIMER_enINTERRUPT_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler, &TIMER__vIRQSourceHandler[u32ModuleSize][u32SubModule][u32ModuleNumber][u32InterruptSource], 0UL, 1UL);
+        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler, &TIMER__vIRQSourceHandler[u32SubModule][u32ModuleNumber][u32InterruptSource], 0UL, 1UL);
     }
 }

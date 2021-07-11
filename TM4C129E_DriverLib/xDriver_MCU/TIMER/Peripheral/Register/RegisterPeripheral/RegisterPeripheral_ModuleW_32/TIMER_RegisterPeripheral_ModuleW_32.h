@@ -32,6 +32,8 @@
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/xHeader/TIMER_RegisterPeripheral_ModuleW_32_Module3.h>
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/xHeader/TIMER_RegisterPeripheral_ModuleW_32_Module4.h>
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/xHeader/TIMER_RegisterPeripheral_ModuleW_32_Module5.h>
+#include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/xHeader/TIMER_RegisterPeripheral_ModuleW_32_Module6.h>
+#include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/xHeader/TIMER_RegisterPeripheral_ModuleW_32_Module7.h>
 
 extern GPTM_TW_TypeDef* GPTM_TW_BLOCK[(uint32_t) TIMER_enMODULE_NUM_MAX];
 

@@ -28,29 +28,20 @@
 
 void TIMER__vInit(void)
 {
-    TIMER__vRegisterIRQVectorHandler( &TIMER0A__vIRQVectorHandler, TIMER_enT0A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER0B__vIRQVectorHandler, TIMER_enT0B);
-    TIMER__vRegisterIRQVectorHandler( &TIMER1A__vIRQVectorHandler, TIMER_enT1A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER1B__vIRQVectorHandler, TIMER_enT1B);
-    TIMER__vRegisterIRQVectorHandler( &TIMER2A__vIRQVectorHandler, TIMER_enT2A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER2B__vIRQVectorHandler, TIMER_enT2B);
-    TIMER__vRegisterIRQVectorHandler( &TIMER3A__vIRQVectorHandler, TIMER_enT3A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER3B__vIRQVectorHandler, TIMER_enT3B);
-    TIMER__vRegisterIRQVectorHandler( &TIMER4A__vIRQVectorHandler, TIMER_enT4A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER4B__vIRQVectorHandler, TIMER_enT4B);
-    TIMER__vRegisterIRQVectorHandler( &TIMER5A__vIRQVectorHandler, TIMER_enT5A);
-    TIMER__vRegisterIRQVectorHandler( &TIMER5B__vIRQVectorHandler, TIMER_enT5B);
-
-    TIMER__vRegisterIRQVectorHandler( &WTIMER0A__vIRQVectorHandler, TIMER_enWT0A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER0B__vIRQVectorHandler, TIMER_enWT0B);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER1A__vIRQVectorHandler, TIMER_enWT1A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER1B__vIRQVectorHandler, TIMER_enWT1B);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER2A__vIRQVectorHandler, TIMER_enWT2A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER2B__vIRQVectorHandler, TIMER_enWT2B);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER3A__vIRQVectorHandler, TIMER_enWT3A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER3B__vIRQVectorHandler, TIMER_enWT3B);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER4A__vIRQVectorHandler, TIMER_enWT4A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER4B__vIRQVectorHandler, TIMER_enWT4B);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER5A__vIRQVectorHandler, TIMER_enWT5A);
-    TIMER__vRegisterIRQVectorHandler( &WTIMER5B__vIRQVectorHandler, TIMER_enWT5B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM0A__vIRQVectorHandler, TIMER_enT0A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM0B__vIRQVectorHandler, TIMER_enT0B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM1A__vIRQVectorHandler, TIMER_enT1A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM1B__vIRQVectorHandler, TIMER_enT1B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM2A__vIRQVectorHandler, TIMER_enT2A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM2B__vIRQVectorHandler, TIMER_enT2B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM3A__vIRQVectorHandler, TIMER_enT3A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM3B__vIRQVectorHandler, TIMER_enT3B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM4A__vIRQVectorHandler, TIMER_enT4A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM4B__vIRQVectorHandler, TIMER_enT4B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM5A__vIRQVectorHandler, TIMER_enT5A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM5B__vIRQVectorHandler, TIMER_enT5B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM6A__vIRQVectorHandler, TIMER_enT6A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM6B__vIRQVectorHandler, TIMER_enT6B);
+    TIMER__vRegisterIRQVectorHandler( &GPTM7A__vIRQVectorHandler, TIMER_enT7A);
+    TIMER__vRegisterIRQVectorHandler( &GPTM7B__vIRQVectorHandler, TIMER_enT7B);
 }

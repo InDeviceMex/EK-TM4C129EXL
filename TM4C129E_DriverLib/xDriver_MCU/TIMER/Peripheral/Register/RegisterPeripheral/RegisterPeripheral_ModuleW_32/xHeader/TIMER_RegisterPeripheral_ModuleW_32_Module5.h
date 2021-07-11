@@ -96,4 +96,16 @@
 #define GPTM5_TW_RTCPD    ((TW_GPTMRTCPD_TypeDef*) (GPTM5_BASE + GPTM_TW_RTCPD_OFFSET))
 #define GPTM5_TW_RTCPD_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_TW_RTCPD_OFFSET)))
 
+/******************************************************************************************
+************************************ 25 DMAEV *********************************************
+******************************************************************************************/
+#define GPTM5_TW_TnDMAEV    ((TW_GPTMDMAEV_TypeDef*) (GPTM5_BASE + GPTM_TW_TnDMAEV_OFFSET))
+#define GPTM5_TW_TnDMAEV_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_TW_TnDMAEV_OFFSET)))
+
+/******************************************************************************************
+************************************ 26 ADCEV *********************************************
+******************************************************************************************/
+#define GPTM5_TW_TnADCEV    ((TW_GPTMADCEV_TypeDef*) (GPTM5_BASE + GPTM_TW_TnADCEV_OFFSET))
+#define GPTM5_TW_TnADCEV_R    (*((volatile uint32_t*) (GPTM5_BASE + GPTM_TW_TnADCEV_OFFSET)))
+
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_MODULEW_32_TIMER_REGISTERPERIPHERAL_MODULEW_32_MODULE5_H_ */

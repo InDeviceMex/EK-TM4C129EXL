@@ -26,24 +26,24 @@
 #include <xDriver_MCU/TIMER/App/Mode/TIMER_Mode.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Match.h>
 
-TIMER_nSTATUS TIMER__enSetMode_Match(TIMER_nMODULE enModule, TIMER_nMODE enMode, uint64_t u64Match)
+TIMER_nSTATUS TIMER__enSetMode_Match(TIMER_nMODULE enModule, TIMER_nMODE enMode, uint32_t u32Match)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     enReturn = TIMER__enSetMode(enModule, enMode);
     if(TIMER_enSTATUS_OK == enReturn)
     {
-        TIMER__vSetMatch(enModule, u64Match);
+        TIMER__vSetMatch(enModule, u32Match);
     }
     return enReturn;
 }
 
-TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode, uint64_t u64Match)
+TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode, uint32_t u32Match)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     enReturn = TIMER__enSetModeStruct(enModule, pstMode);
     if(TIMER_enSTATUS_OK == enReturn)
     {
-        TIMER__vSetMatch(enModule, u64Match);
+        TIMER__vSetMatch(enModule, u32Match);
     }
     return enReturn;
 }

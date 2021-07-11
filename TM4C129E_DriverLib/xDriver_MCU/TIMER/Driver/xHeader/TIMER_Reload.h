@@ -28,7 +28,7 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetReload(TIMER_nMODULE enModule, uint64_t u64Reload);
-TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint64_t* pu64Reload);
+void TIMER__vSetReload(TIMER_nMODULE enModule, uint32_t u32Reload);
+TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint32_t* pu32Reload);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_RELOAD_H_ */

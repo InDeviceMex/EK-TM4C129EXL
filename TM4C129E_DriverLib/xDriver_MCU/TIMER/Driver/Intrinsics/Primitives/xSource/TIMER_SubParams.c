@@ -26,19 +26,11 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vGetSubParams(TIMER_nMODULE enModule, uint32_t *pu32ModuleSize, uint32_t* pu32SubModule, uint32_t* pu32ModuleNumber)
+void TIMER__vGetSubParams(TIMER_nMODULE enModule, uint32_t* pu32SubModule, uint32_t* pu32ModuleNumber)
 {
     uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32ModuleSize = 0UL;
     uint32_t u32SubModule = 0UL;
 
-    if(0UL != (uint32_t) pu32ModuleSize)
-    {
-        u32ModuleSize = (uint32_t) enModule;
-        u32ModuleSize >>= 16UL;
-        u32ModuleSize &= 0x1UL;
-        *pu32ModuleSize = MCU__u32CheckParams(u32ModuleSize, (uint32_t) TIMER_enSIZE_MAX);
-    }
     if(0UL != (uint32_t) pu32SubModule)
     {
         u32SubModule = (uint32_t) enModule;

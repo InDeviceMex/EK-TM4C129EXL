@@ -45,7 +45,7 @@ typedef volatile struct
     volatile uint32_t TnMRSU;
     volatile uint32_t TnPLO;
     volatile uint32_t TnCINTD;
-    volatile uint32_t TCnCT [3UL];
+    volatile uint32_t TCACT [3UL];
     const uint32_t reserved [16UL];
 }BITBANDING_TA_GPTMMR_TypeDef;
 

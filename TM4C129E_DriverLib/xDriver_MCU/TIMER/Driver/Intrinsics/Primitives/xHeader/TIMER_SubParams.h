@@ -26,6 +26,6 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vGetSubParams(TIMER_nMODULE enModule, uint32_t *pu32ModuleSize, uint32_t* pu32SubModule, uint32_t* pu32ModuleNumber);
+void TIMER__vGetSubParams(TIMER_nMODULE enModule, uint32_t* pu32SubModule, uint32_t* pu32ModuleNumber);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_TIMER_SUBPARAMS_H_ */

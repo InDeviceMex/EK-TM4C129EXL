@@ -49,12 +49,6 @@ typedef enum
 
 typedef enum
 {
-    TIMER_enSIZE_32 = 0UL,
-    TIMER_enSIZE_MAX = 1UL,
-}TIMER_nSIZE;
-
-typedef enum
-{
     TIMER_enSUBMODULE_A = 0UL,
     TIMER_enSUBMODULE_B = 1UL,
     TIMER_enSUBMODULE_W = 2UL,
@@ -76,32 +70,32 @@ typedef enum
 
 typedef enum
 {
-    TIMER_enT0A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
-    TIMER_enT1A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
-    TIMER_enT2A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
-    TIMER_enT3A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
-    TIMER_enT4A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
-    TIMER_enT5A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
-    TIMER_enT6A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
-    TIMER_enT7A = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
+    TIMER_enT0A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
+    TIMER_enT1A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
+    TIMER_enT2A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
+    TIMER_enT3A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
+    TIMER_enT4A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
+    TIMER_enT5A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
+    TIMER_enT6A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
+    TIMER_enT7A = (((uint32_t) TIMER_enSUBMODULE_A << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
 
-    TIMER_enT0B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
-    TIMER_enT1B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
-    TIMER_enT2B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
-    TIMER_enT3B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
-    TIMER_enT4B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
-    TIMER_enT5B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
-    TIMER_enT6B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
-    TIMER_enT7B = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
+    TIMER_enT0B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
+    TIMER_enT1B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
+    TIMER_enT2B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
+    TIMER_enT3B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
+    TIMER_enT4B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
+    TIMER_enT5B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
+    TIMER_enT6B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
+    TIMER_enT7B = (((uint32_t) TIMER_enSUBMODULE_B << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
 
-    TIMER_enT0W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
-    TIMER_enT1W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
-    TIMER_enT2W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
-    TIMER_enT3W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
-    TIMER_enT4W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
-    TIMER_enT5W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
-    TIMER_enT6W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
-    TIMER_enT7W = (((uint32_t) TIMER_enSIZE_32 << 16UL) | ((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
+    TIMER_enT0W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_0),
+    TIMER_enT1W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_1),
+    TIMER_enT2W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_2),
+    TIMER_enT3W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_3),
+    TIMER_enT4W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_4),
+    TIMER_enT5W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_5),
+    TIMER_enT6W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_6),
+    TIMER_enT7W = (((uint32_t) TIMER_enSUBMODULE_W << 8UL) | (uint32_t) TIMER_enMODULE_NUM_7),
 
     TIMER_enMODULE_UNDEF = 0xFFFFFFFF,
 }TIMER_nMODULE;
@@ -112,8 +106,8 @@ typedef enum
     TIMER_enINTERRUPT_TIMEOUT = 0UL,
     TIMER_enINTERRUPT_CAPTURE_MATCH = 1UL,
     TIMER_enINTERRUPT_CAPTURE_EVENT = 2UL,
-    TIMER_enINTERRUPT_MATCH = 3UL,
-    TIMER_enINTERRUPT_RTC = 4UL,
+    TIMER_enINTERRUPT_RTC = 3UL,
+    TIMER_enINTERRUPT_MATCH = 4UL,
     TIMER_enINTERRUPT_DMA = 5UL,
     TIMER_enINTERRUPT_MAX = 6UL,
 }TIMER_nINTERRUPT;
@@ -127,7 +121,7 @@ typedef enum
     TIMER_enINT_RTC = 0x08UL,
     TIMER_enINT_MATCH = 0x10UL,
     TIMER_enINT_DMA = 0x20UL,
-    TIMER_enINT_ALL = 0x1FUL,
+    TIMER_enINT_ALL = 0x3FUL,
     TIMER_enINT_UNDEF = 0xFFFFFUL,
 }TIMER_nINT;
 

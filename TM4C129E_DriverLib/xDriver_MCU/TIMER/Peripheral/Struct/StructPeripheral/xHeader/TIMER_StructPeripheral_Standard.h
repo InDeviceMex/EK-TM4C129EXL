@@ -166,21 +166,21 @@ typedef volatile struct
         GPTMADCEV_TypeDef ADCEV_Bit;
     };
 
-    const uint32_t reserved1 [979UL];
+    const uint32_t reserved2 [979UL];
 
     union
     {
         volatile const uint32_t PP;
         GPTMPP_TypeDef PP_Bit;
     };
-    const uint32_t reserved2;
+    const uint32_t reserved3;
     union
     {
         volatile const uint32_t CC;
         GPTMCC_TypeDef CC_Bit;
     };
 
-    const uint32_t reserved3 [13UL];
+    const uint32_t reserved4 [13UL];
 }GPTM_TypeDef;
 
 

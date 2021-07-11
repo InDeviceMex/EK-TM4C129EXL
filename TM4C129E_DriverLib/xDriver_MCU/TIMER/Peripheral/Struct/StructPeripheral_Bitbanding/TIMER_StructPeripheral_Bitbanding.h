@@ -33,27 +33,27 @@
 
 typedef volatile struct
 {
-    GPTM_TypeDef_BITBANDING MODULE05 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+    GPTM_TypeDef_BITBANDING MODULE0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
     GPTM_TypeDef_BITBANDING reserved [170UL];
-    GPTM_TypeDef_BITBANDING MODULE67 [(uint32_t) 2UL];
+    GPTM_TypeDef_BITBANDING MODULE6_7 [(uint32_t) 2UL];
 }GPTMS_BITBANDING_TypeDef;
 
 typedef volatile struct
 {
     union
     {
-        GPTM_CTL_BITBANDING_TypeDef CTL [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TA_BITBANDING_TypeDef TA [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TB_BITBANDING_TypeDef TB [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TW_BITBANDING_TypeDef TW [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_CTL_BITBANDING_TypeDef CTL0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TA_BITBANDING_TypeDef TA0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TB_BITBANDING_TypeDef TB0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TW_BITBANDING_TypeDef TW0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
     };
     GPTM_TypeDef_BITBANDING reserved [170UL];
     union
     {
-        GPTM_CTL_BITBANDING_TypeDef CTL [2UL];
-        GPTM_TA_BITBANDING_TypeDef TA [2UL];
-        GPTM_TB_BITBANDING_TypeDef TB [2UL];
-        GPTM_TW_BITBANDING_TypeDef TW [2UL];
+        GPTM_CTL_BITBANDING_TypeDef CTL6_7 [2UL];
+        GPTM_TA_BITBANDING_TypeDef TA6_7 [2UL];
+        GPTM_TB_BITBANDING_TypeDef TB6_7 [2UL];
+        GPTM_TW_BITBANDING_TypeDef TW6_7 [2UL];
     };
 }GPTM_UNION_BITBANDING_TypeDef;
 
