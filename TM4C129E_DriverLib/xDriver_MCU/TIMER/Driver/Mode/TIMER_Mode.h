@@ -28,11 +28,13 @@
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_AltMode.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_CountDir.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_EdgeMode.h>
+#include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_MatchEventAction.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_MatchEventInterrupt.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_PWMInterrupt.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_PWMOutputInit.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_SnapShot.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_SubMode.h>
+#include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_TimeOutInterrupt.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_UpdateIntervalMode.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_UpdateMatchMode.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_WaitTrigger.h>

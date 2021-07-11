@@ -28,6 +28,8 @@
 #include <xDriver_MCU/TIMER/Driver/Control/TIMER_Control.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/TIMER_Intrinsics.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/TIMER_Mode.h>
+
+#include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Clock.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Configuration.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_FreeCount.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Count.h>
