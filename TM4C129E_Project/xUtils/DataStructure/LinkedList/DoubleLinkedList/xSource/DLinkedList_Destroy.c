@@ -55,6 +55,7 @@ void DLinkedList__vDestroy(DLinkedList_TypeDef* pstList)
         pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
         pstList->pfvDestroy = (void (*) (void* List)) 0UL;
         pstList->pfvDestroyElementData = (void (*) (void* DataContainer)) 0UL;
+        pstList->pfvDestroyElement = (void (*) (void* Element)) 0UL;
         pstList->pstHead = (DLinkedListElement_TypeDef *) 0UL;
         pstList->pstTail = (DLinkedListElement_TypeDef *) 0UL;
         pstList->u32Size = 0UL;

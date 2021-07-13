@@ -24,7 +24,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/xHeader/CSLinkedList_Init.h>
 #include <stdlib.h>
 
-CSLinkedList_TypeDef* CSLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer))
+CSLinkedList_TypeDef* CSLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer), void (*pfvDestroyElementArg) (void *Element))
 {
     CSLinkedList_TypeDef *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -37,13 +37,15 @@ CSLinkedList_TypeDef* CSLinkedList__pstInit(void (*pfvDestroyElementDataArg) (vo
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = &free;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (CSLinkedListElement_TypeDef*)  0UL;
     }
-    return pstList;
+    return (pstList);
 }
 
-
-CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_TypeDef* pstList, void (*pfvDestroyElementDataArg) (void *DataContainer))
+CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_TypeDef* pstList,
+                                          void (*pfvDestroyElementDataArg) (void *DataContainer),
+                                          void (*pfvDestroyElementArg) (void *Element))
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -52,9 +54,8 @@ CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_TypeDef* pstList, void (*
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = (void (*) (void* List))0UL;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (CSLinkedListElement_TypeDef*)  0UL;
     }
-    return enStatus;
+    return (enStatus);
 }
-
-

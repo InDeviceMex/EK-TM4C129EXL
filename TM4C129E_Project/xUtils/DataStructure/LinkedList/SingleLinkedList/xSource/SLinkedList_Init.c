@@ -21,7 +21,6 @@
  * Date           Author     Version     Description
  * 6 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Init.h>
 #include <stdlib.h>
 
@@ -62,4 +61,3 @@ SLinkedList_nSTATUS SLinkedList__enInit(SLinkedList_TypeDef* pstList,
     }
     return (enStatus);
 }
-

@@ -26,8 +26,20 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
- CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement, void* pvData);
+CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
+                                             CSLinkedListElement_TypeDef* pstPreviousElement,
+                                             CSLinkedListElement_TypeDef* pstNewElement,
+                                             void* pvData);
+CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement, void* pvData);
+
+CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
+                                           CSLinkedListElement_TypeDef* pstNewElement,
+                                            void* pvData);
  CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd(CSLinkedList_TypeDef* pstList, void* pvData);
+
+ CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
+                                                 CSLinkedListElement_TypeDef* pstNewElement,
+                                                 void* pvData);
  CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList, void* pvData);
  CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
 
