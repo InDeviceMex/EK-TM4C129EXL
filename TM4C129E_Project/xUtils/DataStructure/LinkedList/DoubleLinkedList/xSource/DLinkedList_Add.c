@@ -81,7 +81,7 @@ DLinkedList_nSTATUS DLinkedList__enAddNext(DLinkedList_TypeDef* pstList,
 }
 
 
-DLinkedList_nSTATUS* DLinkedList__pstAddNext(DLinkedList_TypeDef* pstList,
+DLinkedListElement_TypeDef* DLinkedList__pstAddNext(DLinkedList_TypeDef* pstList,
                                              DLinkedListElement_TypeDef* pstPreviousElement,
                                              void* pvData)
 {
@@ -163,7 +163,6 @@ DLinkedListElement_TypeDef* DLinkedList__pstAddPrevious(DLinkedList_TypeDef* pst
                                                         void* pvData)
 {
     DLinkedListElement_TypeDef* pstNewElement = (DLinkedListElement_TypeDef*) 0UL ;
-    DLinkedListElement_TypeDef* pstElementPreviousNode = (DLinkedListElement_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {

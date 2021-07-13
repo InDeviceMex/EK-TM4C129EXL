@@ -30,7 +30,7 @@ DLinkedList_nSTATUS DLinkedList__enAddNext(DLinkedList_TypeDef* pstList,
                                                    DLinkedListElement_TypeDef* pstPreviousElement,
                                                    DLinkedListElement_TypeDef* pstNewElement,
                                                    void* pvData);
-DLinkedList_nSTATUS* DLinkedList__pstAddNext(DLinkedList_TypeDef* pstList,
+DLinkedListElement_TypeDef* DLinkedList__pstAddNext(DLinkedList_TypeDef* pstList,
                                              DLinkedListElement_TypeDef* pstPreviousElement,
                                              void* pvData);
 
