@@ -41,6 +41,11 @@ CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
                                                  CSLinkedListElement_TypeDef* pstNewElement,
                                                  void* pvData);
  CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList, void* pvData);
+
+ CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
+                                             CSLinkedListElement_TypeDef* pstNewElement,
+                                             uint32_t u32Position,
+                                             void* pvData);
  CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
 
 

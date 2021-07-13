@@ -25,7 +25,7 @@ void Task1(void* pvParams)
 {
     while(1UL)
     {
-        while( uartState != 0UL);
+        while( uartState != 0UL){}
         {
             uartState = 1UL;
             UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK1 \n\r", 8UL);
@@ -51,7 +51,7 @@ void Task3(void* pvParams)
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, 0UL);
-        while( uartState != 0UL);
+        while( uartState != 0UL){}
         {
             uartState = 1UL;
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, GPIO_enPIN_0);
@@ -70,7 +70,7 @@ void Task4(void* pvParams)
     GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        while( uartState != 0UL);
+        while( uartState != 0UL){}
         {
             uartState = 1UL;
             UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
@@ -88,7 +88,7 @@ void Task5(void* pvParams)
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
-        while( uartState != 0UL);
+        while( uartState != 0UL){}
         {
             uartState = 1UL;
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
@@ -107,7 +107,7 @@ void Task6(void* pvParams)
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        while( uartState != 0UL);
+        while( uartState != 0UL){}
         {
             uartState = 1UL;
             UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);

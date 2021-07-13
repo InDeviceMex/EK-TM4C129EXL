@@ -89,7 +89,7 @@ CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstL
         #elif defined (__GNUC__ )
         pstNewElement = (CSLinkedListElement_TypeDef*) malloc(sizeof(CSLinkedListElement_TypeDef));
         #endif
-        CSLinkedList__enAddNext(pstList, pstPreviousElement,  pstNewElement, pvData)
+        CSLinkedList__enAddNext(pstList, pstPreviousElement,  pstNewElement, pvData);
     }
     return (pstNewElement);
 }
@@ -213,5 +213,5 @@ CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstL
             }
         }
     }
-    return (stNewElement);
+    return (pstNewElement);
 }
