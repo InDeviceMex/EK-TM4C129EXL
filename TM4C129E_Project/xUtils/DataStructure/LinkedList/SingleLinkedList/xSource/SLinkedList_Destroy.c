@@ -42,12 +42,12 @@ void SLinkedList__vDestroy(SLinkedList_TypeDef* pstList)
         pfvListDestroy = pstList->pfvDestroy;
         while (u32SizeReg > 0UL)
         {
-        enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListElement_TypeDef*)0, (void **) & pvDataElement);
-        if((SLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pfvDestroyElementData))
-        {
-            pstList->pfvDestroyElementData(pvDataElement);
-        }
-        u32SizeReg = SLinkedList__u32GetSize(pstList);
+            enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListElement_TypeDef*)0, (void **) & pvDataElement);
+            if((SLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pfvDestroyElementData))
+            {
+                pstList->pfvDestroyElementData(pvDataElement);
+            }
+            u32SizeReg = SLinkedList__u32GetSize(pstList);
         }
 
         pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;

@@ -123,6 +123,7 @@ SLinkedListElement_TypeDef* SLinkedList__pstAddNext(SLinkedList_TypeDef* pstList
                                                     SLinkedListElement_TypeDef* pstPreviousElement)
 {
      SLinkedListElement_TypeDef* pstNewElement = (SLinkedListElement_TypeDef*) 0UL ;
+     pstNewElement = SLinkedList__pstAddNext_WithData(pstList, pstPreviousElement, (void*)0UL);
      if(((uint32_t) 0UL != (uint32_t) pstList))
      {
     #if defined (__TI_ARM__ )

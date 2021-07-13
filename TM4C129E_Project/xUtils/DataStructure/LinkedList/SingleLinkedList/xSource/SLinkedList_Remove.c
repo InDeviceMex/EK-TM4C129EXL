@@ -144,7 +144,7 @@ SLinkedList_nSTATUS SLinkedList__enRemoveNext_GetData(SLinkedListElement_TypeDef
     {
         enStatus = SLinkedList_enSTATUS_OK;
         pstListReg = (SLinkedList_TypeDef*) SLinkedList__pvGetElementOwnerList(pstElement);
-        SLinkedList__enRemoveNextInList_GetData(pstListReg, pstElement, pvData);
+        enStatus = SLinkedList__enRemoveNextInList_GetData(pstListReg, pstElement, pvData);
     }
     return (enStatus);
 }
@@ -181,7 +181,7 @@ SLinkedList_nSTATUS SLinkedList__enRemove_GetData(SLinkedListElement_TypeDef* ps
     {
         enStatus = SLinkedList_enSTATUS_OK;
         pstListReg = (SLinkedList_TypeDef*) SLinkedList__pvGetElementOwnerList(pstElement);
-        SLinkedList__enRemoveInList_GetData(pstListReg, pstElement, pvData);
+        enStatus = SLinkedList__enRemoveInList_GetData(pstListReg, pstElement, pvData);
     }
     return (enStatus);
 }
