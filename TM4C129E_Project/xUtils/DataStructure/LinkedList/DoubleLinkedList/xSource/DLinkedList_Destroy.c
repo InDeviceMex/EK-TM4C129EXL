@@ -67,6 +67,3 @@ void DLinkedList__vDestroy(DLinkedList_TypeDef* pstList)
         }
     }
 }
-
-
-

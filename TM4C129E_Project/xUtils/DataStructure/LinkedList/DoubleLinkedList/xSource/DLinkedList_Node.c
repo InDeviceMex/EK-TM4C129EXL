@@ -85,7 +85,6 @@ DLinkedListElement_TypeDef*  DLinkedList__pstGetNodePos(const DLinkedList_TypeDe
     return (pstElement);
 }
 
-
 DLinkedListElement_TypeDef*  DLinkedList__pstGetNodeEnd(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListElement_TypeDef* pstElement = (DLinkedListElement_TypeDef*) 0UL ;

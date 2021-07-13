@@ -24,7 +24,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
 #include <stdlib.h>
 
-CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer))
+CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer), void (*pfvDestroyElementArg) (void *Element))
 {
     CDLinkedList_TypeDef *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -37,6 +37,7 @@ CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (vo
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = &free;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (CDLinkedListElement_TypeDef*)  0UL;
         pstList->pstTail = (CDLinkedListElement_TypeDef*)  0UL;
     }
@@ -44,7 +45,9 @@ CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (vo
 }
 
 
-CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList, void (*pfvDestroyElementDataArg) (void *DataContainer))
+CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList,
+                                          void (*pfvDestroyElementDataArg) (void *DataContainer),
+                                          void (*pfvDestroyElementArg) (void *Element))
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -53,6 +56,7 @@ CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList, void (*
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = (void (*) (void* List))0UL;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (CDLinkedListElement_TypeDef*)  0UL;
         pstList->pstTail = (CDLinkedListElement_TypeDef*)  0UL;
     }

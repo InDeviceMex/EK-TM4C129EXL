@@ -23,14 +23,10 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Destroy.h>
 
-#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
-#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Remove.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Size.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Tail.h>
-#include <stdlib.h>
-
-
-#include <stdlib.h>
+#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
+#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Remove.h>
 
 void CDLinkedList__vDestroy(CDLinkedList_TypeDef* pstList)
  {
@@ -59,6 +55,7 @@ void CDLinkedList__vDestroy(CDLinkedList_TypeDef* pstList)
          pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
          pstList->pfvDestroy = (void (*) (void* List)) 0UL;
          pstList->pfvDestroyElementData = (void (*) (void* DataContainer)) 0UL;
+         pstList->pfvDestroyElement = (void (*) (void* Element)) 0UL;
          pstList->pstHead = (CDLinkedListElement_TypeDef *) 0UL;
          pstList->pstTail = (CDLinkedListElement_TypeDef *) 0UL;
          pstList->u32Size = 0UL;
@@ -68,11 +65,5 @@ void CDLinkedList__vDestroy(CDLinkedList_TypeDef* pstList)
              pfvListDestroy(pstList);
              pstList = (CDLinkedList_TypeDef*)0UL;
          }
-
      }
  }
-
-
-
-
-

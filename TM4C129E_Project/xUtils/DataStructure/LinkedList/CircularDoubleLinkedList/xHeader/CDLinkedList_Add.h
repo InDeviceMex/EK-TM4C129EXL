@@ -26,13 +26,32 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
- CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData);
- CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData);
- CDLinkedListElement_TypeDef*  CDLinkedList__pstAddEnd(CDLinkedList_TypeDef* pstList, void* pvData);
- CDLinkedListElement_TypeDef*  CDLinkedList__pstAddBegin(CDLinkedList_TypeDef* pstList, void* pvData);
- CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
+CDLinkedList_nSTATUS CDLinkedList__enAddNext(CDLinkedList_TypeDef* pstList,
+                                                      CDLinkedListElement_TypeDef* pstElement,
+                                                      CDLinkedListElement_TypeDef* pstNewElement,
+                                                      void* pvData);
+CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData);
 
+CDLinkedList_nSTATUS CDLinkedList__enAddPrevious(CDLinkedList_TypeDef* pstList,
+                                                   CDLinkedListElement_TypeDef* pstElement,
+                                                   CDLinkedListElement_TypeDef* pstNewElement,
+                                                   void* pvData);
+CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData);
 
+CDLinkedList_nSTATUS  CDLinkedList__enAddEnd(CDLinkedList_TypeDef* pstList,
+                                        CDLinkedListElement_TypeDef* pstNewElement,
+                                        void* pvData);
+CDLinkedListElement_TypeDef*  CDLinkedList__pstAddEnd(CDLinkedList_TypeDef* pstList, void* pvData);
 
+CDLinkedList_nSTATUS CDLinkedList__enAddBegin(CDLinkedList_TypeDef* pstList,
+                                         CDLinkedListElement_TypeDef* pstNewElement,
+                                         void* pvData);
+CDLinkedListElement_TypeDef*  CDLinkedList__pstAddBegin(CDLinkedList_TypeDef* pstList, void* pvData);
+
+CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
+                                        CDLinkedListElement_TypeDef* pstNewElement,
+                                         uint32_t u32Position,
+                                         void* pvData);
+CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_ADD_H_ */

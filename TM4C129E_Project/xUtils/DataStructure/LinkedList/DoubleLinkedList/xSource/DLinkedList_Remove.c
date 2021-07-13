@@ -203,5 +203,3 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_TypeDef* pstList, uint
     }
     return (enStatus);
 }
-
-

@@ -21,7 +21,6 @@
  * Date           Author     Version     Description
  * 8 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Data.h>
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
@@ -41,7 +40,6 @@ void* DLinkedList__pvGetNodeDataPos(const DLinkedList_TypeDef* pstList, uint32_t
     }
     return (pvElementData);
 }
-
 
 void* DLinkedList__pvGetNodeDataEnd(const DLinkedList_TypeDef* pstList)
 {
