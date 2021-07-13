@@ -35,7 +35,7 @@ TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const
     if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
     {
         enStatus = TIMER_enSTATUS_OK;
-        u32TimerBase = TIMER_BLOCK_BASE[(uint32_t) enModuleNumber];
+        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
 
         u32TimerBase += pstCount->u32CountRegister;
 
@@ -58,7 +58,7 @@ void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const TIMER_Cou
     if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
     {
         u32Reg = *pstCount->pu32CountValue;
-        u32TimerBase = TIMER_BLOCK_BASE[(uint32_t) enModuleNumber];
+        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
 
         u32TimerBase += pstCount->u32CountRegister;
 
@@ -83,7 +83,7 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const
     if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
     {
         enStatus = TIMER_enSTATUS_OK;
-        u32TimerBase = TIMER_BLOCK_BASE[(uint32_t) enModuleNumber];
+        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
 
         u32TimerRegisterHigh = u32TimerBase + pstCount->u32CountHighRegister;
         u32TimerRegisterLow = u32TimerBase + pstCount->u32CountLowRegister;
@@ -125,7 +125,7 @@ void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const TIMER_Cou
 
     if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
     {
-        u32TimerBase = TIMER_BLOCK_BASE[(uint32_t) enModuleNumber];
+        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
 
         u32TimerRegisterHigh = u32TimerBase + pstCount->u32CountHighRegister;
         u32TimerRegisterLow = u32TimerBase + pstCount->u32CountLowRegister;

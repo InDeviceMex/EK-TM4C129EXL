@@ -35,6 +35,4 @@
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_Standard_32/xHeader/TIMER_RegisterPeripheral_Standard_32_Module6.h>
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_Standard_32/xHeader/TIMER_RegisterPeripheral_Standard_32_Module7.h>
 
-extern GPTM_TypeDef* GPTM_BLOCK[(uint32_t) TIMER_enMODULE_NUM_MAX];
-
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_STANDARD_32_TIMER_REGISTERPERIPHERAL_STANDARD_32_H_ */

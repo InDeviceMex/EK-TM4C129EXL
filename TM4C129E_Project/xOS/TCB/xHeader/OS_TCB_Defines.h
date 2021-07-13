@@ -39,6 +39,13 @@ typedef enum
 
 typedef enum
 {
+    OS_TCB_enNotWaitingNotification = 0,
+    OS_TCB_enWaitingNotification,
+    OS_TCB_enNotified
+} OS_TCB_nNotifyValue;
+
+typedef enum
+{
     OS_TCB_enSTATE_RUNNING = 0UL,
     OS_TCB_enSTATE_READY = 1UL,
     OS_TCB_enSTATE_BLOCKED = 2UL,
@@ -47,22 +54,47 @@ typedef enum
     OS_TCB_enSTATE_UNKNOW = 0xFFFFFFFFUL,
 }OS_TCB_nSTATE;
 
-typedef struct
+typedef enum
 {
-    uint32_t* pu32Stack;
-    uint32_t* pu32StackEnd;
-    uint32_t u32StackSize;
-    uint32_t u32ID;
-    uint32_t u32Period;
-    uint32_t u32BurstTime;
-    uint32_t u32Priority;
-    uint32_t u32BasePriority;
-    OS_TCB_nSTATE enStateTask;
-    char pcName[OS_TCB_NAME_LENGTH];
-}OS_TCB_Container_Typedef;
+    OS_TCB_enSTATE_CHAR_READY = 'R',
+    OS_TCB_enSTATE_CHAR_BLOCKED = 'B',
+    OS_TCB_enSTATE_CHAR_SUSPENDED = 'S',
+    OS_TCB_enSTATE_CHAR_DELETED = 'D',
+}OS_TCB_nSTATE_CHAR;
 
 typedef CSLinkedList_TypeDef OS_TCB_TypeDef;
 typedef CSLinkedListElement_TypeDef OS_TCB_Element_TypeDef;
+
+typedef struct
+{
+    uint32_t* pu32TopOfStack;
+    OS_TCB_TypeDef stTCBTaskStateList;
+    OS_TCB_TypeDef stTCBEventList;
+    uint32_t u32Priority;
+    uint32_t* pu32Stack;
+    uint32_t u32StackSize;
+    char pcName[OS_TCB_NAME_LENGTH];
+
+    /**Critical Nesting*/
+    uint32_t u32CriticalNesting;
+
+    /**Trace*/
+    uint32_t u32ID;
+    /**u32TCBNumber is saved in list father*/
+
+    /**Mutexes */
+    uint32_t u32BasePriority;
+    uint32_t u32MutexesHeld;
+
+    /**Run Time Stats*/
+    uint32_t u32Period;
+    uint32_t u32RunTimeCounter;
+
+    /**Task notifications*/
+    uint32_t u32NotifyValue;
+    OS_TCB_nNotifyValue enNotifyState;
+}OS_TCB_Container_Typedef;
+
 
 
 #endif /* XOS_TCB_XHEADER_OS_TCB_DEFINES_H_ */

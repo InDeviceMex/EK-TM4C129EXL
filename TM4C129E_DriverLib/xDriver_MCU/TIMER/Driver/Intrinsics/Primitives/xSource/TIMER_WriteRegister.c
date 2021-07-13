@@ -36,7 +36,7 @@ void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetR
      TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
     TIMER__vSetReady((TIMER_nMODULE_NUM) u32ModuleNumber);
 
-    u32TimerBase = TIMER_BLOCK_BASE [u32ModuleNumber];
+    u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
 
     MCU__vWriteRegister(u32TimerBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
 }

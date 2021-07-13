@@ -31,8 +31,8 @@ typedef void(*OS_ThreadFunction_TypeDef)(void * pvParameters) ;
 
 OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThread,const char* pcNameArg, uint32_t u32StackSizeArg, void *pvParameters, uint32_t u32PriorityArg);
 
-OS_TCB_Element_TypeDef* OS_Kernel__u32GetNextTask(void);
-void OS_Kernel__vSetNextTask(OS_TCB_Element_TypeDef* pstNextTask);
+OS_TCB_Element_TypeDef* OS_Kernel__u32GetCurrentTask(void);
+void OS_Kernel__vSetCurrentTask(OS_TCB_Element_TypeDef* pstCurrentTask);
 
 void OS_Kernel__vDestroyElement(void *pvDataContainerArg);
 

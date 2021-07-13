@@ -35,7 +35,8 @@ static void OS_Kernel_vSysTickHandler( void );
 static void OS_Kernel_vStartFirstTask(void);
 void vTaskSwitchContext(void);
 
-OS_TCB_Element_TypeDef* OS_Kernel_NextTask = (OS_TCB_Element_TypeDef*) 0UL;
+OS_TCB_Element_TypeDef* OS_Kernel_psCurrentTask = (OS_TCB_Element_TypeDef*) 0UL;
+uint32_t OS_Kernel_u32Tick = 0UL;
 
 void OS_Kernel__vLaunch(uint32_t u32Ticks)
 {
@@ -50,14 +51,14 @@ void OS_Kernel__vLaunchMs(uint32_t u32Ms)
     SCB_PendSV__vSetPriority(SCB_enSHPR7);
     SCB__vRegisterIRQVectorHandler(&OS_Kernel_vPendSVHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
     SCB__vRegisterIRQVectorHandler(&OS_Kernel_vSVCHandler, (void (**) (void)) 0UL, SCB_enVECISR_SVCALL);
-    OS_Kernel_NextTask = OS_Kernel__u32GetNextTask();
+    OS_Kernel_psCurrentTask = OS_Kernel__u32GetCurrentTask();
     SYSTICK__enInitUsVector(u32Us, SYSTICK_enPRI7, &OS_Kernel_vSysTickHandler);
     OS_Kernel_vStartFirstTask();
 }
 
 void vTaskSwitchContext(void)
 {
-    OS_Kernel_NextTask = OS_Kernel_NextTask->pstNextNode;
+    OS_Kernel_psCurrentTask = OS_Kernel_psCurrentTask->pstNextNode;
 }
 
 static void OS_Kernel_vStartFirstTask(void)
@@ -85,14 +86,14 @@ __attribute__ (( naked )) static void OS_Kernel_vSVCHandler(void)
 {
 {__asm volatile (
 #if defined (__TI_ARM__ )
-                "   movw r3, OS_Kernel_NextTask     \n"/* Get the location of the current TCB. */
-                "   movt r3, OS_Kernel_NextTask     \n"
+                "   movw r3, OS_Kernel_psCurrentTask     \n"/* Get the location of the current TCB. */
+                "   movt r3, OS_Kernel_psCurrentTask     \n"
 #elif defined (__GNUC__ )
-                " ldr r3, = OS_Kernel_NextTask      \n"
+                " ldr r3, = OS_Kernel_psCurrentTask      \n"
 #endif
                 "   ldr r2, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-                "   ldr r1, [r2]                    \n" /* The first item in OS_Kernel_NextTask is the task top of stack. */
-                "   ldr r0, [r1]                    \n" /* The first item in OS_Kernel_NextTask is the task top of stack. */
+                "   ldr r1, [r2]                    \n" /* The first item in OS_Kernel_psCurrentTask is the task top of stack. */
+                "   ldr r0, [r1]                    \n" /* The first item in OS_Kernel_psCurrentTask is the task top of stack. */
                 "   ldmia r0!, {r4-r11, r14}        \n" /* Pop the registers that are not automatically saved on exception entry and the critical nesting count. */
                 "   msr psp, r0                     \n" /* Restore the task stack pointer. */
                 "   isb                             \n"
@@ -112,10 +113,10 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
     "   isb                                 \n"
     "                                       \n"
 #if defined (__TI_ARM__ )
-    "   movw r3, OS_Kernel_NextTask         \n"/* Get the location of the current TCB. */
-    "   movt r3, OS_Kernel_NextTask         \n"
+    "   movw r3, OS_Kernel_psCurrentTask         \n"/* Get the location of the current TCB. */
+    "   movt r3, OS_Kernel_psCurrentTask         \n"
 #elif defined (__GNUC__ )
-    "   ldr r3, = OS_Kernel_NextTask        \n"
+    "   ldr r3, = OS_Kernel_psCurrentTask        \n"
 #endif
     "   ldr r1, [r3]                        \n"
     "   ldr r2, [r1]                        \n"
@@ -162,6 +163,7 @@ __attribute__ (( naked )) static void OS_Kernel_vPendSVHandler (void)
 static void OS_Kernel_vSysTickHandler(void)
 {
     MCU__enSetBasePriorityInterrupt(MCU_enPRI5);
+    OS_Kernel_u32Tick++;
     SCB_PendSV__vSetPending();
     MCU__enSetBasePriorityInterrupt(MCU_enPRI0);
 }

@@ -39,7 +39,7 @@ TIMER_nSTATUS TIMER__enReadRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u
     if((TIMER_enREADY == enReady) && (0UL != (uint32_t) pu32FeatureValue))
     {
         enStatus = TIMER_enSTATUS_OK;
-        u32TimerBase = TIMER_BLOCK_BASE [u32ModuleNumber];
+        u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
         *pu32FeatureValue = MCU__u32ReadRegister(u32TimerBase, u32OffsetRegister, u32MaskFeature, u32BitFeature);
     }
     return enStatus;

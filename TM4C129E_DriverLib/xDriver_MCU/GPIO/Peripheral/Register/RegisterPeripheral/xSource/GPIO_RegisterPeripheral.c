@@ -25,8 +25,6 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-
-
 uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
 {
     uint32_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX] =
