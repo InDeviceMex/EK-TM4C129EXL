@@ -26,11 +26,36 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
- SLinkedListElement_TypeDef* SLinkedList__pstAddNext(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void* pvData);
- SLinkedListElement_TypeDef*  SLinkedList__pstAddEnd(SLinkedList_TypeDef* pstList, void* pvData);
- SLinkedListElement_TypeDef*  SLinkedList__pstAddBegin(SLinkedList_TypeDef* pstList, void* pvData);
- SLinkedListElement_TypeDef*  SLinkedList__pstAddPos(SLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
+SLinkedList_nSTATUS SLinkedList__enAddNext(SLinkedList_TypeDef* pstList,
+                                                  SLinkedListElement_TypeDef* pstPreviousElement,
+                                                  SLinkedListElement_TypeDef* pstNewElement,
+                                                  void* pvData);
+SLinkedListElement_TypeDef* SLinkedList__pstAddNext(SLinkedList_TypeDef* pstList,
+                                                    SLinkedListElement_TypeDef* pstPreviousElement,
+                                                    void* pvData);
 
 
+SLinkedList_nSTATUS  SLinkedList__enAddEnd(SLinkedList_TypeDef* pstList,
+                                           SLinkedListElement_TypeDef* pstNewElement,
+                                           void* pvData);
+SLinkedListElement_TypeDef* SLinkedList__pstAddEnd(SLinkedList_TypeDef* pstList,
+                                                   void* pvData);
+
+
+SLinkedList_nSTATUS SLinkedList__enAddBegin(SLinkedList_TypeDef* pstList,
+                                                SLinkedListElement_TypeDef* pstNewElement,
+                                                void* pvData);
+
+SLinkedListElement_TypeDef*  SLinkedList__pstAddBegin(SLinkedList_TypeDef* pstList,
+                                                      void* pvData);
+
+
+SLinkedList_nSTATUS SLinkedList__enAddPos(SLinkedList_TypeDef* pstList,
+                                            SLinkedListElement_TypeDef* pstNewElement,
+                                            uint32_t u32Position,
+                                            void* pvData);
+SLinkedListElement_TypeDef*  SLinkedList__pstAddPos(SLinkedList_TypeDef* pstList,
+                                                    uint32_t u32Position,
+                                                    void* pvData);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_ADD_H_ */

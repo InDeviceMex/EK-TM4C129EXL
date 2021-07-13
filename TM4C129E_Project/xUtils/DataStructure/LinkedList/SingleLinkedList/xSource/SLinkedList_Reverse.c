@@ -23,33 +23,27 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Reverse.h>
 
-#include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/SLinkedList_List.h>
-#include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Element/SLinkedList_Element.h>
+#include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 
-#include <stdlib.h>
-
-
- SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_TypeDef* pstList)
- {
-     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-     SLinkedListElement_TypeDef* pstPreviousElement = (SLinkedListElement_TypeDef*) 0UL ;
-     SLinkedListElement_TypeDef* pstNextElement = (SLinkedListElement_TypeDef*) 0UL ;
-     SLinkedListElement_TypeDef* pstHeadElement = (SLinkedListElement_TypeDef*) 0UL ;
-     if(((uint32_t) 0UL != (uint32_t) pstList))
-     {
-         pstHeadElement = SLinkedList__pstGetHead(pstList);
-         SLinkedList__vSetTail(pstList, pstHeadElement);
-         while((uint32_t) 0UL != (uint32_t) pstHeadElement)
-         {
-             pstNextElement = SLinkedList__pstGetElementNextNode(pstHeadElement);
-             SLinkedList__vSetElementNextNode(pstHeadElement, pstPreviousElement);
-             pstPreviousElement = pstHeadElement;
-             pstHeadElement = pstNextElement;
-         }
-         pstHeadElement = pstPreviousElement;
-         SLinkedList__vSetHead(pstList, pstHeadElement);
-     }
-     return enStatus;
- }
-
-
+SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_TypeDef* pstList)
+{
+    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedListElement_TypeDef* pstPreviousElement = (SLinkedListElement_TypeDef*) 0UL ;
+    SLinkedListElement_TypeDef* pstNextElement = (SLinkedListElement_TypeDef*) 0UL ;
+    SLinkedListElement_TypeDef* pstHeadElement = (SLinkedListElement_TypeDef*) 0UL ;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        pstHeadElement = SLinkedList__pstGetHead(pstList);
+        SLinkedList__vSetTail(pstList, pstHeadElement);
+        while((uint32_t) 0UL != (uint32_t) pstHeadElement)
+        {
+            pstNextElement = SLinkedList__pstGetElementNextNode(pstHeadElement);
+            SLinkedList__vSetElementNextNode(pstHeadElement, pstPreviousElement);
+            pstPreviousElement = pstHeadElement;
+            pstHeadElement = pstNextElement;
+        }
+        pstHeadElement = pstPreviousElement;
+        SLinkedList__vSetHead(pstList, pstHeadElement);
+    }
+    return enStatus;
+}

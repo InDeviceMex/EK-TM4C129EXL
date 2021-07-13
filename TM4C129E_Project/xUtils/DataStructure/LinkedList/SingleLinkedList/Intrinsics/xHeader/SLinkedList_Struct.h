@@ -43,6 +43,7 @@ typedef struct SLinkedList
         uint32_t u32Size;
         uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
         void (*pfvDestroyElementData) (void *DataContainer);
+        void (*pfvDestroyElement) (void *Element);
         void (*pfvDestroy) (void* List);
         SLinkedListElement_TypeDef *pstHead;
         SLinkedListElement_TypeDef *pstTail;
