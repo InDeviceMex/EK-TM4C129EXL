@@ -56,6 +56,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enAddGeneric(CDLinkedList_TypeDef* pst
             {
                 enStatus = CDLinkedList_enSTATUS_OK;
                 CDLinkedList__vSetElementData(pstNewElement, pvData);
+                CDLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
                 if(0UL == u32SizeReg)
                 {

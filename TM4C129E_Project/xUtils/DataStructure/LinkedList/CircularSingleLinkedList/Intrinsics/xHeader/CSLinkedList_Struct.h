@@ -32,9 +32,11 @@ typedef enum
     CSLinkedList_enSTATUS_ERROR
 }CSLinkedList_nSTATUS;
 
+
 typedef struct CSLinkedListElement
 {
         void* pvDataContainer;
+        void* pvOwnerList;
         struct CSLinkedListElement *pstNextNode;
 }CSLinkedListElement_TypeDef;
 

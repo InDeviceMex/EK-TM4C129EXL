@@ -22,13 +22,11 @@
  * 6 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Element/xHeader/SLinkedList_ElementData.h>
-#include <stdlib.h>
 
 void* SLinkedList__pvGetElementData(const SLinkedListElement_TypeDef* const pstElement)
 {
     void* pvDataReg = (void*)0UL;
     pvDataReg = pstElement->pvDataContainer;
-
     return pvDataReg;
 }
 
@@ -36,5 +34,3 @@ void SLinkedList__vSetElementData(SLinkedListElement_TypeDef* pstElement, void* 
 {
     pstElement->pvDataContainer = pvDataArg;
 }
-
-

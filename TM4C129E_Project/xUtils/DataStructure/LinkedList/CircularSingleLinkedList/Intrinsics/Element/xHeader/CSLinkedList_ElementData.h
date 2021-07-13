@@ -29,9 +29,4 @@
 void* CSLinkedList__pvGetElementData(const CSLinkedListElement_TypeDef* const pstElement);
 void CSLinkedList__vSetElementData(CSLinkedListElement_TypeDef* pstElement, void* pvDataArg);
 
-
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_ELEMENT_XHEADER_CIRCULARSLINKEDLIST_ELEMENTDATA_H_ */

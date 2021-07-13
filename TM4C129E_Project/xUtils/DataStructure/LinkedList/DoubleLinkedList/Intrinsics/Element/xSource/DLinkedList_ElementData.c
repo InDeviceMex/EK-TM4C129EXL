@@ -22,19 +22,15 @@
  * 8 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementData.h>
-#include <stdlib.h>
 
 void* DLinkedList__pvGetElementData(const DLinkedListElement_TypeDef* const pstElement)
 {
     void* pvDataReg = (void*)0UL;
     pvDataReg = pstElement->pvDataContainer;
-
-    return pvDataReg;
+    return (pvDataReg);
 }
 
 void DLinkedList__vSetElementData(DLinkedListElement_TypeDef* pstElement, void* pvDataArg)
 {
     pstElement->pvDataContainer = pvDataArg;
 }
-
-

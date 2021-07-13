@@ -35,6 +35,7 @@ typedef enum
 typedef struct SLinkedListElement
 {
         void* pvDataContainer;
+        void* pvOwnerList;
         struct SLinkedListElement *pstNextNode;
 }SLinkedListElement_TypeDef;
 

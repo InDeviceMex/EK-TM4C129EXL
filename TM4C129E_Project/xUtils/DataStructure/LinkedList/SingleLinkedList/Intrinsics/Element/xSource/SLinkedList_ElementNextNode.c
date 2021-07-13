@@ -27,13 +27,10 @@ SLinkedListElement_TypeDef* SLinkedList__pstGetElementNextNode(const SLinkedList
 {
     SLinkedListElement_TypeDef* pstNextElementReg = (SLinkedListElement_TypeDef*)0UL;
     pstNextElementReg = pstElement->pstNextNode;
-
-    return pstNextElementReg;
+    return (pstNextElementReg);
 }
 
 void SLinkedList__vSetElementNextNode(SLinkedListElement_TypeDef* pstElement, SLinkedListElement_TypeDef* pstNextElement)
 {
     pstElement->pstNextNode = pstNextElement;
 }
-
-

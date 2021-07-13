@@ -44,6 +44,7 @@ CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
         {
             enStatusReturn = CSLinkedList_enSTATUS_OK;
             CSLinkedList__vSetElementData(pstNewElement, pvData);
+            CSLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
             u32SizeReg = CSLinkedList__u32GetSize(pstList);
             if(0UL == u32SizeReg) /*Empty List*/

@@ -40,6 +40,7 @@ SLinkedList_nSTATUS SLinkedList__enAddNext(SLinkedList_TypeDef* pstList,
     {
         enStatus = SLinkedList_enSTATUS_OK;
         SLinkedList__vSetElementData(pstNewElement, pvData);
+        SLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
         u32SizeReg = SLinkedList__u32GetSize(pstList);
         if(0UL == (uint32_t) pstPreviousElement)

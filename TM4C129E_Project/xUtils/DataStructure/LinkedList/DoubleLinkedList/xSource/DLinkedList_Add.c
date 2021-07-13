@@ -44,6 +44,7 @@ DLinkedList_nSTATUS DLinkedList__enAddNext(DLinkedList_TypeDef* pstList,
             {
                 enStatus = DLinkedList_enSTATUS_OK;
                 DLinkedList__vSetElementData(pstNewElement, pvData);
+                DLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
                 if(0UL == u32SizeReg)
                     {
@@ -122,6 +123,7 @@ DLinkedList_nSTATUS DLinkedList__enAddPrevious(DLinkedList_TypeDef* pstList,
            {
                enStatus = DLinkedList_enSTATUS_OK;
                DLinkedList__vSetElementData(pstNewElement, pvData);
+               DLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
                if(0UL == u32SizeReg)
                {

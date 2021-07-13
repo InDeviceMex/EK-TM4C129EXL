@@ -23,19 +23,15 @@
  */
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Element/xHeader/CDLinkedList_ElementData.h>
-#include <stdlib.h>
 
 void* CDLinkedList__pvGetElementData(const CDLinkedListElement_TypeDef* const pstElement)
 {
     void* pvDataReg = (void*)0UL;
     pvDataReg = pstElement->pvDataContainer;
-
-    return pvDataReg;
+    return (pvDataReg);
 }
 
 void CDLinkedList__vSetElementData(CDLinkedListElement_TypeDef* pstElement, void* pvDataArg)
 {
     pstElement->pvDataContainer = pvDataArg;
 }
-
-

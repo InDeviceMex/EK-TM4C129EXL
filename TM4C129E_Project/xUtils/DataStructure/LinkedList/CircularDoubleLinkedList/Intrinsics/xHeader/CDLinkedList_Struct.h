@@ -35,6 +35,7 @@ typedef enum
 typedef struct CDLinkedListElement
 {
         void* pvDataContainer;
+        void* pvOwnerList;
         struct CDLinkedListElement *pstPreviousNode;
         struct CDLinkedListElement *pstNextNode;
 }CDLinkedListElement_TypeDef;

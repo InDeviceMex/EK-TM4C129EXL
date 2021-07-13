@@ -37,7 +37,7 @@ static uint32_t* OS_Kernel_StackInit( uint32_t* pu32TopOfStackTop, OS_ThreadFunc
 
 static uint32_t OS_Kernel_u32CreatedThread = 0UL;
 
-static OS_TCB_Element_TypeDef* OS_Kernel_psCurrentTask = (OS_TCB_Element_TypeDef*) 0UL;
+static OS_TCB_Container_Typedef* OS_Kernel_psCurrentTask = (OS_TCB_Container_Typedef*) 0UL;
 
 /** Lists for ready and blocked tasks. --------------------*/
 static OS_TCB_TypeDef pstReadyTasksLists[ OS_TCB_PRIORITY_MAX ];/*< Prioritised ready tasks. */

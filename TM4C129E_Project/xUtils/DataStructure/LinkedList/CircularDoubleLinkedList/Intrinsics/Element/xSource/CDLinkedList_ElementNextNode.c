@@ -27,14 +27,10 @@ CDLinkedListElement_TypeDef* CDLinkedList__pstGetElementNextNode(const CDLinkedL
 {
     CDLinkedListElement_TypeDef* pstNextElementReg = (CDLinkedListElement_TypeDef*)0UL;
     pstNextElementReg = pstElement->pstNextNode;
-
-    return pstNextElementReg;
+    return (pstNextElementReg);
 }
 
 void CDLinkedList__vSetElementNextNode(CDLinkedListElement_TypeDef* pstElement, CDLinkedListElement_TypeDef* pstNextElement)
 {
     pstElement->pstNextNode = pstNextElement;
 }
-
-
-

@@ -29,7 +29,4 @@
 void* SLinkedList__pvGetElementData(const SLinkedListElement_TypeDef* const pstElement);
 void SLinkedList__vSetElementData(SLinkedListElement_TypeDef* pstElement, void* pvDataArg);
 
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_ELEMENT_XHEADER_SLINKEDLIST_ELEMENTDATA_H_ */

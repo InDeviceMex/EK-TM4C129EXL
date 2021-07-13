@@ -27,14 +27,10 @@ CSLinkedListElement_TypeDef* CSLinkedList__pstGetElementNextNode(const CSLinkedL
 {
     CSLinkedListElement_TypeDef* pstNextElementReg = (CSLinkedListElement_TypeDef*)0UL;
     pstNextElementReg = pstElement->pstNextNode;
-
-    return pstNextElementReg;
+    return (pstNextElementReg);
 }
 
 void CSLinkedList__vSetElementNextNode(CSLinkedListElement_TypeDef* pstElement, CSLinkedListElement_TypeDef* pstNextElement)
 {
     pstElement->pstNextNode = pstNextElement;
 }
-
-
-

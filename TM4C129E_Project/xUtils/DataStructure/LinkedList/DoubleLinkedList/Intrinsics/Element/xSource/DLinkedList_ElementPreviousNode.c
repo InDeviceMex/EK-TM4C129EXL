@@ -27,15 +27,10 @@ DLinkedListElement_TypeDef* DLinkedList__pstGetElementPreviousNode(const DLinked
 {
     DLinkedListElement_TypeDef* pstPreviousElementReg = (DLinkedListElement_TypeDef*)0UL;
     pstPreviousElementReg = pstElement->pstPreviousNode;
-
-    return pstPreviousElementReg;
+    return (pstPreviousElementReg);
 }
 
 void DLinkedList__vSetElementPreviousNode(DLinkedListElement_TypeDef* pstElement, DLinkedListElement_TypeDef* pstPreviousElement)
 {
     pstElement->pstPreviousNode = pstPreviousElement;
 }
-
-
-
-
