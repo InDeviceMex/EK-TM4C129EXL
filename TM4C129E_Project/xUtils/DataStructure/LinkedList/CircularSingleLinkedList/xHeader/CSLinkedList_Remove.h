@@ -26,10 +26,23 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
- CSLinkedList_nSTATUS CSLinkedList__enRemoveNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement, void** pvData);
- CSLinkedList_nSTATUS CSLinkedList__enRemove(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement, void** pvData);
- CSLinkedList_nSTATUS CSLinkedList__enRemoveBegin(CSLinkedList_TypeDef* pstList, void** pvData);
- CSLinkedList_nSTATUS CSLinkedList__enRemoveEnd(CSLinkedList_TypeDef* pstList, void** pvData);
- CSLinkedList_nSTATUS  CSLinkedList__enRemovePos(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
+CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement, void** pvData);
+CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement);
+CSLinkedList_nSTATUS CSLinkedList__enRemoveNext_GetData(CSLinkedListElement_TypeDef* pstElement, void** pvData);
+CSLinkedList_nSTATUS CSLinkedList__enRemoveNext(CSLinkedListElement_TypeDef* pstElement);
+
+CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement, void** pvData);
+CSLinkedList_nSTATUS CSLinkedList__enRemoveInList(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstElement);
+CSLinkedList_nSTATUS CSLinkedList__enRemove_GetData(CSLinkedListElement_TypeDef* pstElement, void** pvData);
+CSLinkedList_nSTATUS CSLinkedList__enRemove(CSLinkedListElement_TypeDef* pstElement);
+
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveEnd_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveEnd(CSLinkedList_TypeDef* pstList);
+
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveBegin_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveBegin(CSLinkedList_TypeDef* pstList);
+
+CSLinkedList_nSTATUS  CSLinkedList__enRemovePos_GetData(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enRemovePos(CSLinkedList_TypeDef* pstList, uint32_t u32Position);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_REMOVE_H_ */

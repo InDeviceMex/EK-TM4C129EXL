@@ -33,7 +33,7 @@ static CSLinkedList_nSTATUS CSLinkedList__enAddNextGeneric(CSLinkedList_TypeDef*
                                              CSLinkedListElement_TypeDef* pstPreviousElement,
                                              CSLinkedListElement_TypeDef* pstNewElement,
                                              void* pvData,
-                                             uint32_t u32DataUpdate)
+                                             uint32_t u32DataUpdate);
 
 static CSLinkedList_nSTATUS CSLinkedList__enAddNextGeneric(CSLinkedList_TypeDef* pstList,
                                              CSLinkedListElement_TypeDef* pstPreviousElement,
