@@ -26,10 +26,20 @@
 #include <stdlib.h>
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/CSLinkedList_Intrinsics.h>
 
-CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
+#define DATA_UPDATE (0UL)
+#define DATA_STATIC (1UL)
+
+static CSLinkedList_nSTATUS CSLinkedList__enAddNextGeneric(CSLinkedList_TypeDef* pstList,
                                              CSLinkedListElement_TypeDef* pstPreviousElement,
                                              CSLinkedListElement_TypeDef* pstNewElement,
-                                             void* pvData)
+                                             void* pvData,
+                                             uint32_t u32DataUpdate)
+
+static CSLinkedList_nSTATUS CSLinkedList__enAddNextGeneric(CSLinkedList_TypeDef* pstList,
+                                             CSLinkedListElement_TypeDef* pstPreviousElement,
+                                             CSLinkedListElement_TypeDef* pstNewElement,
+                                             void* pvData,
+                                             uint32_t u32DataUpdate)
 {
     CSLinkedList_nSTATUS enStatusReturn = CSLinkedList_enSTATUS_ERROR;
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
@@ -43,7 +53,10 @@ CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
         if((uint32_t) 0UL != (uint32_t) pstNewElement)
         {
             enStatusReturn = CSLinkedList_enSTATUS_OK;
-            CSLinkedList__vSetElementData(pstNewElement, pvData);
+            if(DATA_UPDATE == u32DataUpdate)
+            {
+                CSLinkedList__vSetElementData(pstNewElement, pvData);
+            }
             CSLinkedList__vSetElementOwnerList(pstNewElement, (void*) pstList);
 
             u32SizeReg = CSLinkedList__u32GetSize(pstList);
@@ -80,7 +93,28 @@ CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
     return(enStatusReturn);
 }
 
-CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement, void* pvData)
+CSLinkedList_nSTATUS CSLinkedList__enAddNext_WithData(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstPreviousElement,
+                                            CSLinkedListElement_TypeDef* pstNewElement,
+                                            void* pvData)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    enStatus = CSLinkedList__enAddNextGeneric(pstList, pstPreviousElement, pstNewElement, pvData, DATA_UPDATE);
+    return (enStatus);
+}
+
+CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstPreviousElement,
+                                            CSLinkedListElement_TypeDef* pstNewElement)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    enStatus = CSLinkedList__enAddNextGeneric(pstList, pstPreviousElement, pstNewElement, (void*) 0UL, DATA_STATIC);
+    return (enStatus);
+}
+
+
+
+CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement, void* pvData)
 {
     CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
@@ -90,12 +124,27 @@ CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstL
         #elif defined (__GNUC__ )
         pstNewElement = (CSLinkedListElement_TypeDef*) malloc(sizeof(CSLinkedListElement_TypeDef));
         #endif
-        CSLinkedList__enAddNext(pstList, pstPreviousElement,  pstNewElement, pvData);
+        CSLinkedList__enAddNext_WithData(pstList, pstPreviousElement,  pstNewElement, pvData);
     }
     return (pstNewElement);
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
+CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement)
+{
+    CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        #if defined (__TI_ARM__ )
+        pstNewElement = (CSLinkedListElement_TypeDef*) memalign((size_t) 4, (size_t) sizeof(CSLinkedListElement_TypeDef));
+        #elif defined (__GNUC__ )
+        pstNewElement = (CSLinkedListElement_TypeDef*) malloc(sizeof(CSLinkedListElement_TypeDef));
+        #endif
+        CSLinkedList__enAddNext(pstList, pstPreviousElement,  pstNewElement);
+    }
+    return (pstNewElement);
+}
+
+CSLinkedList_nSTATUS CSLinkedList__enAddEnd_WithData(CSLinkedList_TypeDef* pstList,
                                            CSLinkedListElement_TypeDef* pstNewElement,
                                             void* pvData)
 {
@@ -105,25 +154,51 @@ CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CSLinkedList__pstGetTail(pstList);
-        enStatus = CSLinkedList__enAddNext(pstList, pstEndElement, pstNewElement, pvData);
+        enStatus = CSLinkedList__enAddNext_WithData(pstList, pstEndElement, pstNewElement, pvData);
+    }
+    return (enStatus);
+}
+
+CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
+                                           CSLinkedListElement_TypeDef* pstNewElement)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    CSLinkedListElement_TypeDef* pstEndElement = (CSLinkedListElement_TypeDef*) 0UL;
+
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        pstEndElement = CSLinkedList__pstGetTail(pstList);
+        enStatus = CSLinkedList__enAddNext(pstList, pstEndElement, pstNewElement);
     }
     return (enStatus);
 }
 
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd(CSLinkedList_TypeDef* pstList, void* pvData)
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd_WithData(CSLinkedList_TypeDef* pstList, void* pvData)
 {
     CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
     CSLinkedListElement_TypeDef* pstEndElement = (CSLinkedListElement_TypeDef*) 0UL;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CSLinkedList__pstGetTail(pstList);
-        pstNewElement = CSLinkedList__pstAddNext(pstList, pstEndElement, pvData);
+        pstNewElement = CSLinkedList__pstAddNext_WithData(pstList, pstEndElement, pvData);
     }
     return pstNewElement;
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd(CSLinkedList_TypeDef* pstList)
+{
+    CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    CSLinkedListElement_TypeDef* pstEndElement = (CSLinkedListElement_TypeDef*) 0UL;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        pstEndElement = CSLinkedList__pstGetTail(pstList);
+        pstNewElement = CSLinkedList__pstAddNext(pstList, pstEndElement);
+    }
+    return pstNewElement;
+}
+
+CSLinkedList_nSTATUS CSLinkedList__enAddBegin_WithData(CSLinkedList_TypeDef* pstList,
                                                 CSLinkedListElement_TypeDef* pstNewElement,
                                                 void* pvData)
 {
@@ -131,22 +206,44 @@ CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
 
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
-        enStatus = CSLinkedList__enAddNext(pstList, (CSLinkedListElement_TypeDef*) 0UL, pstNewElement, pvData);
+        enStatus = CSLinkedList__enAddNext_WithData(pstList, (CSLinkedListElement_TypeDef*) 0UL, pstNewElement, pvData);
     }
     return (enStatus);
 }
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList, void* pvData)
+CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
+                                                CSLinkedListElement_TypeDef* pstNewElement)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        enStatus = CSLinkedList__enAddNext(pstList, (CSLinkedListElement_TypeDef*) 0UL, pstNewElement);
+    }
+    return (enStatus);
+}
+
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin_WithData(CSLinkedList_TypeDef* pstList, void* pvData)
 {
     CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
-        pstNewElement = CSLinkedList__pstAddNext(pstList, (CSLinkedListElement_TypeDef*) 0UL, pvData);
+        pstNewElement = CSLinkedList__pstAddNext_WithData(pstList, (CSLinkedListElement_TypeDef*) 0UL, pvData);
     }
     return (pstNewElement);
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList)
+{
+    CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        pstNewElement = CSLinkedList__pstAddNext(pstList, (CSLinkedListElement_TypeDef*) 0UL);
+    }
+    return (pstNewElement);
+}
+
+CSLinkedList_nSTATUS CSLinkedList__enAddPos_WithData(CSLinkedList_TypeDef* pstList,
                                             CSLinkedListElement_TypeDef* pstNewElement,
                                             uint32_t u32Position,
                                             void* pvData)
@@ -161,11 +258,11 @@ CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
         {
             if(0UL == u32Position)
             {
-                enStatus = CSLinkedList__enAddBegin(pstList, pstNewElement, pvData);
+                enStatus = CSLinkedList__enAddBegin_WithData(pstList, pstNewElement, pvData);
             }
             else if((u32SizeList) == u32Position)
             {
-                enStatus = CSLinkedList__enAddEnd(pstList, pstNewElement, pvData);
+                enStatus = CSLinkedList__enAddEnd_WithData(pstList, pstNewElement, pvData);
             }
             else
             {
@@ -176,14 +273,50 @@ CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
                     pstElement = CSLinkedList__pstGetElementNextNode(pstElement);
                     u32Position--;
                 }
-                enStatus = CSLinkedList__enAddNext(pstList, pstElement, pstNewElement, pvData);
+                enStatus = CSLinkedList__enAddNext_WithData(pstList, pstElement, pstNewElement, pvData);
             }
         }
     }
     return (enStatus);
 }
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData)
+CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstNewElement,
+                                            uint32_t u32Position)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32SizeList = 0UL;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        u32SizeList = CSLinkedList__u32GetSize(pstList);
+        if(u32Position <= u32SizeList)
+        {
+            if(0UL == u32Position)
+            {
+                enStatus = CSLinkedList__enAddBegin(pstList, pstNewElement);
+            }
+            else if((u32SizeList) == u32Position)
+            {
+                enStatus = CSLinkedList__enAddEnd(pstList, pstNewElement);
+            }
+            else
+            {
+                pstElement = CSLinkedList__pstGetHead(pstList);
+                u32Position--;
+                while(0UL != u32Position)
+                {
+                    pstElement = CSLinkedList__pstGetElementNextNode(pstElement);
+                    u32Position--;
+                }
+                enStatus = CSLinkedList__enAddNext(pstList, pstElement, pstNewElement);
+            }
+        }
+    }
+    return (enStatus);
+}
+
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos_WithData(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData)
 {
     CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
     CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
@@ -195,11 +328,11 @@ CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstL
         {
             if(0UL == u32Position)
             {
-                pstNewElement = CSLinkedList__pstAddBegin(pstList, pvData);
+                pstNewElement = CSLinkedList__pstAddBegin_WithData(pstList, pvData);
             }
             else if (u32Position == u32SizeList)
             {
-                pstNewElement = CSLinkedList__pstAddEnd(pstList, pvData);
+                pstNewElement = CSLinkedList__pstAddEnd_WithData(pstList, pvData);
             }
             else
             {
@@ -210,7 +343,41 @@ CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstL
                     pstElement = CSLinkedList__pstGetElementNextNode(pstElement);
                     u32Position--;
                 }
-                pstNewElement = CSLinkedList__pstAddNext(pstList, pstElement, pvData);
+                pstNewElement = CSLinkedList__pstAddNext_WithData(pstList, pstElement, pvData);
+            }
+        }
+    }
+    return (pstNewElement);
+}
+
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position)
+{
+    CSLinkedListElement_TypeDef* pstNewElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32SizeList = 0UL;
+    if(((uint32_t) 0UL != (uint32_t) pstList))
+    {
+        u32SizeList = CSLinkedList__u32GetSize(pstList);
+        if(u32Position <= u32SizeList)
+        {
+            if(0UL == u32Position)
+            {
+                pstNewElement = CSLinkedList__pstAddBegin(pstList);
+            }
+            else if (u32Position == u32SizeList)
+            {
+                pstNewElement = CSLinkedList__pstAddEnd(pstList);
+            }
+            else
+            {
+                pstElement = CSLinkedList__pstGetHead(pstList);
+                u32Position--;
+                while(0UL != u32Position)
+                {
+                    pstElement = CSLinkedList__pstGetElementNextNode(pstElement);
+                    u32Position--;
+                }
+                pstNewElement = CSLinkedList__pstAddNext(pstList, pstElement);
             }
         }
     }

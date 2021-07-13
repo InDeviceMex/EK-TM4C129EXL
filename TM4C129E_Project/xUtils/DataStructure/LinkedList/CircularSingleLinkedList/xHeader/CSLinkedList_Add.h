@@ -26,31 +26,46 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
+CSLinkedList_nSTATUS CSLinkedList__enAddNext_WithData(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstPreviousElement,
+                                            CSLinkedListElement_TypeDef* pstNewElement,
+                                            void* pvData);
 CSLinkedList_nSTATUS CSLinkedList__enAddNext(CSLinkedList_TypeDef* pstList,
-                                             CSLinkedListElement_TypeDef* pstPreviousElement,
-                                             CSLinkedListElement_TypeDef* pstNewElement,
-                                             void* pvData);
-CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement, void* pvData);
+                                            CSLinkedListElement_TypeDef* pstPreviousElement,
+                                            CSLinkedListElement_TypeDef* pstNewElement);
+CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement, void* pvData);
+CSLinkedListElement_TypeDef* CSLinkedList__pstAddNext(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstPreviousElement);
 
-CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
+
+
+CSLinkedList_nSTATUS CSLinkedList__enAddEnd_WithData(CSLinkedList_TypeDef* pstList,
                                            CSLinkedListElement_TypeDef* pstNewElement,
                                             void* pvData);
- CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd(CSLinkedList_TypeDef* pstList, void* pvData);
-
- CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
-                                                 CSLinkedListElement_TypeDef* pstNewElement,
-                                                 void* pvData);
- CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList, void* pvData);
-
- CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
-                                             CSLinkedListElement_TypeDef* pstNewElement,
-                                             uint32_t u32Position,
-                                             void* pvData);
- CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
+CSLinkedList_nSTATUS CSLinkedList__enAddEnd(CSLinkedList_TypeDef* pstList,
+                                           CSLinkedListElement_TypeDef* pstNewElement);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddEnd(CSLinkedList_TypeDef* pstList);
 
 
 
+CSLinkedList_nSTATUS CSLinkedList__enAddBegin_WithData(CSLinkedList_TypeDef* pstList,
+                                                CSLinkedListElement_TypeDef* pstNewElement,
+                                                void* pvData);
+CSLinkedList_nSTATUS CSLinkedList__enAddBegin(CSLinkedList_TypeDef* pstList,
+                                                CSLinkedListElement_TypeDef* pstNewElement);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddBegin(CSLinkedList_TypeDef* pstList);
 
 
+
+CSLinkedList_nSTATUS CSLinkedList__enAddPos_WithData(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstNewElement,
+                                            uint32_t u32Position,
+                                            void* pvData);
+CSLinkedList_nSTATUS CSLinkedList__enAddPos(CSLinkedList_TypeDef* pstList,
+                                            CSLinkedListElement_TypeDef* pstNewElement,
+                                            uint32_t u32Position);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos_WithData(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData);
+CSLinkedListElement_TypeDef*  CSLinkedList__pstAddPos(CSLinkedList_TypeDef* pstList, uint32_t u32Position);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_ADD_H_ */
