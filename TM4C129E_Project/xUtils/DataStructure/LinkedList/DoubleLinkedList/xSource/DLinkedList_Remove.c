@@ -137,14 +137,14 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNextInList_GetData(DLinkedList_TypeDef*
     return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemoveNextInList(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstElement)
+DLinkedList_nSTATUS DLinkedList__enRemoveNextInList(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     enStatus = DLinkedList__enRemoveNextInList_GetData(pstList, pstElement, (void**) 0UL);
     return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(DLinkedListElement_TypeDef* pstElement, void** pvData)
+DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(const DLinkedListElement_TypeDef* pstElement, void** pvData)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_TypeDef* pstListReg = (DLinkedList_TypeDef*) 0UL;
@@ -158,7 +158,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(DLinkedListElement_TypeDef
     return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemoveNext(DLinkedListElement_TypeDef* pstElement)
+DLinkedList_nSTATUS DLinkedList__enRemoveNext(const DLinkedListElement_TypeDef* pstElement)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     enStatus = DLinkedList__enRemoveNext_GetData(pstElement, (void**) 0UL);
@@ -180,13 +180,14 @@ DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList_GetData(DLinkedList_Type
     return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstElement)
+DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     enStatus = DLinkedList__enRemovePreviousInList_GetData(pstList, pstElement, (void**) 0UL);
+    return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(DLinkedListElement_TypeDef* pstElement, void** pvData)
+DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListElement_TypeDef* pstElement, void** pvData)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_TypeDef* pstListReg = (DLinkedList_TypeDef*) 0UL;
@@ -200,7 +201,7 @@ DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(DLinkedListElement_Typ
     return (enStatus);
 }
 
-DLinkedList_nSTATUS DLinkedList__enRemovePrevious(DLinkedListElement_TypeDef* pstElement)
+DLinkedList_nSTATUS DLinkedList__enRemovePrevious(const DLinkedListElement_TypeDef* pstElement)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     enStatus = DLinkedList__enRemovePrevious_GetData(pstElement, (void**) 0UL);
