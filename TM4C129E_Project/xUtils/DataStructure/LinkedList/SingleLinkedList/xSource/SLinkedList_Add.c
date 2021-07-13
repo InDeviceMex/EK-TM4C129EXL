@@ -65,7 +65,7 @@ SLinkedList_nSTATUS SLinkedList__enAddNext(SLinkedList_TypeDef* pstList,
         u32SizeReg++;
         SLinkedList__vSetSize(pstList, u32SizeReg);
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedListElement_TypeDef* SLinkedList__pstAddNext(SLinkedList_TypeDef* pstList,
@@ -82,7 +82,7 @@ SLinkedListElement_TypeDef* SLinkedList__pstAddNext(SLinkedList_TypeDef* pstList
     #endif
          SLinkedList__enAddNext(pstList, pstPreviousElement, pstNewElement, pvData);
     }
-    return pstNewElement;
+    return (pstNewElement);
 }
 
 SLinkedList_nSTATUS SLinkedList__enAddEnd(SLinkedList_TypeDef* pstList,
@@ -97,7 +97,7 @@ SLinkedList_nSTATUS SLinkedList__enAddEnd(SLinkedList_TypeDef* pstList,
         pstEndElement = SLinkedList__pstGetTail(pstList);
         enStatus = SLinkedList__enAddNext(pstList, pstEndElement, pstNewElement, pvData);
     }
-    return enStatus;
+    return (enStatus);
 }
 
 
@@ -111,7 +111,7 @@ SLinkedListElement_TypeDef* SLinkedList__pstAddEnd(SLinkedList_TypeDef* pstList,
         pstEndElement = SLinkedList__pstGetTail(pstList);
         pstNewElement = SLinkedList__pstAddNext(pstList, pstEndElement, pvData);
     }
-    return pstNewElement;
+    return (pstNewElement);
 }
 
 SLinkedList_nSTATUS SLinkedList__enAddBegin(SLinkedList_TypeDef* pstList,
@@ -124,7 +124,7 @@ SLinkedList_nSTATUS SLinkedList__enAddBegin(SLinkedList_TypeDef* pstList,
     {
         enStatus = SLinkedList__enAddNext(pstList, (SLinkedListElement_TypeDef*) 0UL, pstNewElement, pvData);
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedListElement_TypeDef*  SLinkedList__pstAddBegin(SLinkedList_TypeDef* pstList,
@@ -135,7 +135,7 @@ SLinkedListElement_TypeDef*  SLinkedList__pstAddBegin(SLinkedList_TypeDef* pstLi
     {
         pstNewElement = SLinkedList__pstAddNext(pstList, (SLinkedListElement_TypeDef*) 0UL, pvData);
     }
-    return pstNewElement;
+    return (pstNewElement);
 }
 
 SLinkedList_nSTATUS SLinkedList__enAddPos(SLinkedList_TypeDef* pstList,
@@ -172,7 +172,7 @@ SLinkedList_nSTATUS SLinkedList__enAddPos(SLinkedList_TypeDef* pstList,
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedListElement_TypeDef*  SLinkedList__pstAddPos(SLinkedList_TypeDef* pstList,
@@ -208,5 +208,5 @@ SLinkedListElement_TypeDef*  SLinkedList__pstAddPos(SLinkedList_TypeDef* pstList
             }
         }
     }
-    return pstNewElement;
+    return (pstNewElement);
 }

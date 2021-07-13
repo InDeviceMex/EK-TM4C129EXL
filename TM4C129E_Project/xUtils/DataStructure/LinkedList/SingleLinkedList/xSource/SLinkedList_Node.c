@@ -53,7 +53,7 @@ SLinkedListElement_TypeDef*  SLinkedList__pstGetNodePos(const SLinkedList_TypeDe
             }
         }
     }
-    return pstElement;
+    return (pstElement);
 }
 
 
@@ -64,7 +64,7 @@ SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeEnd(const SLinkedList_TypeDe
     {
         pstElement = SLinkedList__pstGetTail(pstList);
     }
-    return pstElement;
+    return (pstElement);
 }
 
 SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeBegin(const SLinkedList_TypeDef* pstList)
@@ -74,7 +74,7 @@ SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeBegin(const SLinkedList_Type
     {
         pstElement = SLinkedList__pstGetHead(pstList);
     }
-    return pstElement;
+    return (pstElement);
 }
 
 uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength)
@@ -98,7 +98,7 @@ uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, const vo
             pstMember = pstMemberTemp;
         }
     }
-    return u32SizeReg;
+    return (u32SizeReg);
 }
 
 uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
@@ -123,5 +123,5 @@ uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, const void
             pstMember = pstMemberTemp;
         }
     }
-    return u32SizeReg;
+    return (u32SizeReg);
 }

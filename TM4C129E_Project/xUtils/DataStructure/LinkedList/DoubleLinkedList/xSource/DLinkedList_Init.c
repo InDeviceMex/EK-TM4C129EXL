@@ -25,7 +25,7 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Init.h>
 #include <stdlib.h>
 
-DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer))
+DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer), void (*pfvDestroyElementArg) (void *Element))
 {
     DLinkedList_TypeDef *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -38,14 +38,17 @@ DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = &free;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (DLinkedListElement_TypeDef*)  0UL;
         pstList->pstTail = (DLinkedListElement_TypeDef*)  0UL;
     }
-    return pstList;
+    return (pstList);
 }
 
 
-DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_TypeDef* pstList, void (*pfvDestroyElementDataArg) (void *DataContainer))
+DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_TypeDef* pstList,
+                                        void (*pfvDestroyElementDataArg) (void *DataContainer),
+                                        void (*pfvDestroyElementArg) (void *Element))
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -54,10 +57,11 @@ DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_TypeDef* pstList, void (*pfv
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = (void (*) (void* List))0UL;
         pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
+        pstList->pfvDestroyElement = pfvDestroyElementArg;
         pstList->pstHead = (DLinkedListElement_TypeDef*)  0UL;
         pstList->pstTail = (DLinkedListElement_TypeDef*)  0UL;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

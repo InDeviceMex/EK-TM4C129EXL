@@ -38,23 +38,23 @@ void* SLinkedList__pvGetNodeDataPos(const SLinkedList_TypeDef* pstList, uint32_t
             pvElementData = SLinkedList__pvGetElementData(pstElement);
         }
     }
-    return pvElementData;
+    return (pvElementData);
 }
 
- void* SLinkedList__pvGetNodeDataEnd(const SLinkedList_TypeDef* pstList)
- {
-     SLinkedListElement_TypeDef* pstElement = (SLinkedListElement_TypeDef*) 0UL;
-     void* pvElementData = (void*) 0UL;
-     if((uint32_t) 0UL != (uint32_t) pstList)
-     {
-         pstElement = SLinkedList__pstGetNodeEnd(pstList);
-         if((uint32_t) 0UL != (uint32_t) pstElement)
-         {
-             pvElementData = SLinkedList__pvGetElementData(pstElement);
-         }
-     }
-     return pvElementData;
- }
+void* SLinkedList__pvGetNodeDataEnd(const SLinkedList_TypeDef* pstList)
+{
+    SLinkedListElement_TypeDef* pstElement = (SLinkedListElement_TypeDef*) 0UL;
+    void* pvElementData = (void*) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = SLinkedList__pstGetNodeEnd(pstList);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            pvElementData = SLinkedList__pvGetElementData(pstElement);
+        }
+    }
+    return (pvElementData);
+}
 
 void* SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList)
 {
@@ -68,5 +68,5 @@ void* SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList)
             pvElementData = SLinkedList__pvGetElementData(pstElement);
         }
     }
-    return pvElementData;
+    return (pvElementData);
 }

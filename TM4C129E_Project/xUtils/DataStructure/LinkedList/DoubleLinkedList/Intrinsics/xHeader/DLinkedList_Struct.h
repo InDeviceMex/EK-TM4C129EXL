@@ -44,6 +44,7 @@ typedef struct DLinkedList
         uint32_t u32Size;
         uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
         void (*pfvDestroyElementData) (void *DataContainer);
+        void (*pfvDestroyElement) (void *Element);
         void (*pfvDestroy) (void* List);
         DLinkedListElement_TypeDef *pstHead;
         DLinkedListElement_TypeDef *pstTail;

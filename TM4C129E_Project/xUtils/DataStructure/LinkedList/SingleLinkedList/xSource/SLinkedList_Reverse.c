@@ -45,5 +45,5 @@ SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_TypeDef* pstList)
         pstHeadElement = pstPreviousElement;
         SLinkedList__vSetHead(pstList, pstHeadElement);
     }
-    return enStatus;
+    return (enStatus);
 }

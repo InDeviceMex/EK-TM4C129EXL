@@ -112,21 +112,21 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
             }
         }
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
     enStatus = SLinkedList__enRemoveGeneric(pstList, pstElement, pvData, REMOVE_NEXT);
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
     enStatus = SLinkedList__enRemoveGeneric(pstList, pstElement, pvData, REMOVE_CURRENT);
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedList_nSTATUS  SLinkedList__enRemoveEnd(SLinkedList_TypeDef* pstList, void** pvData)
@@ -150,7 +150,7 @@ SLinkedList_nSTATUS  SLinkedList__enRemoveEnd(SLinkedList_TypeDef* pstList, void
         }
         enStatus = SLinkedList__enRemoveNext(pstList, pstEndElement, pvData);
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedList_nSTATUS  SLinkedList__enRemoveBegin(SLinkedList_TypeDef* pstList, void** pvData)
@@ -160,7 +160,7 @@ SLinkedList_nSTATUS  SLinkedList__enRemoveBegin(SLinkedList_TypeDef* pstList, vo
     {
         enStatus = SLinkedList__enRemoveNext(pstList, (SLinkedListElement_TypeDef*) 0UL, pvData);
     }
-    return enStatus;
+    return (enStatus);
 }
 
 SLinkedList_nSTATUS  SLinkedList__enRemovePos(SLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData)
@@ -186,5 +186,5 @@ SLinkedList_nSTATUS  SLinkedList__enRemovePos(SLinkedList_TypeDef* pstList, uint
             enStatus = SLinkedList__enRemoveNext(pstList, pstElement, pvData);
         }
     }
-    return enStatus;
+    return (enStatus);
 }
