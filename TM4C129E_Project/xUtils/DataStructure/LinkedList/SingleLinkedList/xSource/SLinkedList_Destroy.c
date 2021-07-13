@@ -42,7 +42,7 @@ void SLinkedList__vDestroy(SLinkedList_TypeDef* pstList)
         pfvListDestroy = pstList->pfvDestroy;
         while (u32SizeReg > 0UL)
         {
-        enStatus = SLinkedList__enRemoveNext(pstList, (SLinkedListElement_TypeDef*)0, (void **) & pvDataElement);
+        enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListElement_TypeDef*)0, (void **) & pvDataElement);
         if((SLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pfvDestroyElementData))
         {
             pstList->pfvDestroyElementData(pvDataElement);

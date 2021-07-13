@@ -26,13 +26,24 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
- SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
- SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
- SLinkedList_nSTATUS SLinkedList__enRemoveBegin(SLinkedList_TypeDef* pstList, void** pvData);
- SLinkedList_nSTATUS SLinkedList__enRemoveEnd(SLinkedList_TypeDef* pstList, void** pvData);
- SLinkedList_nSTATUS  SLinkedList__enRemovePos(SLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveNextInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveNextInList(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement);
+SLinkedList_nSTATUS SLinkedList__enRemoveNext_GetData(SLinkedListElement_TypeDef* pstElement, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedListElement_TypeDef* pstElement);
 
+SLinkedList_nSTATUS SLinkedList__enRemoveInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveInList(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement);
+SLinkedList_nSTATUS SLinkedList__enRemove_GetData(SLinkedListElement_TypeDef* pstElement, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedListElement_TypeDef* pstElement);
 
+SLinkedList_nSTATUS  SLinkedList__enRemoveEnd_GetData(SLinkedList_TypeDef* pstList, void** pvData);
+SLinkedList_nSTATUS  SLinkedList__enRemoveEnd(SLinkedList_TypeDef* pstList);
+
+SLinkedList_nSTATUS  SLinkedList__enRemoveBegin_GetData(SLinkedList_TypeDef* pstList, void** pvData);
+SLinkedList_nSTATUS  SLinkedList__enRemoveBegin(SLinkedList_TypeDef* pstList);
+
+SLinkedList_nSTATUS  SLinkedList__enRemovePos_GetData(SLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
+SLinkedList_nSTATUS  SLinkedList__enRemovePos(SLinkedList_TypeDef* pstList, uint32_t u32Position);
 
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_REMOVE_H_ */
