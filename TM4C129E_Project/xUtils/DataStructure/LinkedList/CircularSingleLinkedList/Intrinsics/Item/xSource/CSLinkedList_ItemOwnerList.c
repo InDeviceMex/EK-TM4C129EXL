@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/Item/xHeader/CSLinkedList_ItemOwnerList.h>
 
-void* CSLinkedList__pvGetItemOwnerList(const CSLinkedListItem_TypeDef* const pstItem)
+void* CSLinkedList_Item__pvGetOwnerList(const CSLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvOwnerListReg = (void*)0UL;
+    void* pvOwnerListReg = (void*) 0UL;
     pvOwnerListReg = pstItem->pvOwnerList;
     return (pvOwnerListReg);
 }
 
-void CSLinkedList__vSetItemOwnerList(CSLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
+void CSLinkedList_Item__vSetOwnerList(CSLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
 {
     pstItem->pvOwnerList = pvOwnerListArg;
 }

@@ -36,11 +36,11 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList(CSLinkedList_TypeDef* pstList,
 CSLinkedList_nSTATUS CSLinkedList__enRemove_GetData(CSLinkedListItem_TypeDef* pstItem, void** pvData);
 CSLinkedList_nSTATUS CSLinkedList__enRemove(CSLinkedListItem_TypeDef* pstItem);
 
-CSLinkedList_nSTATUS  CSLinkedList__enRemoveEnd_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
-CSLinkedList_nSTATUS  CSLinkedList__enRemoveEnd(CSLinkedList_TypeDef* pstList);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveTail_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveTail(CSLinkedList_TypeDef* pstList);
 
-CSLinkedList_nSTATUS  CSLinkedList__enRemoveBegin_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
-CSLinkedList_nSTATUS  CSLinkedList__enRemoveBegin(CSLinkedList_TypeDef* pstList);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveHead_GetData(CSLinkedList_TypeDef* pstList, void** pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enRemoveHead(CSLinkedList_TypeDef* pstList);
 
 CSLinkedList_nSTATUS  CSLinkedList__enRemovePos_GetData(CSLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
 CSLinkedList_nSTATUS  CSLinkedList__enRemovePos(CSLinkedList_TypeDef* pstList, uint32_t u32Position);

@@ -26,13 +26,15 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-void*  CSLinkedList__pvGetItemDataPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t CSLinkedList__u32GetItemValuePos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  CSLinkedList__pvGetDataItem(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t CSLinkedList__u32GetValueItem(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
 
-void*  CSLinkedList__pvGetItemDataEnd(const CSLinkedList_TypeDef* pstList);
-uint32_t CSLinkedList__u32GetItemValueEnd(const CSLinkedList_TypeDef* pstList);
+void*  CSLinkedList__pvGetDataTail(const CSLinkedList_TypeDef* pstList);
+uint32_t CSLinkedList__u32GetValueTail(const CSLinkedList_TypeDef* pstList);
 
-void*  CSLinkedList__pvGetItemDataBegin(const CSLinkedList_TypeDef* pstList);
-uint32_t CSLinkedList__u32GetItemValueBegin(const CSLinkedList_TypeDef* pstList);
+void*  CSLinkedList__pvGetDataHead(const CSLinkedList_TypeDef* pstList);
+uint32_t CSLinkedList__u32GetValueHead(const CSLinkedList_TypeDef* pstList);
+
+void* CSLinkedList__pvGetDataNextItem(CSLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_DATA_H_ */

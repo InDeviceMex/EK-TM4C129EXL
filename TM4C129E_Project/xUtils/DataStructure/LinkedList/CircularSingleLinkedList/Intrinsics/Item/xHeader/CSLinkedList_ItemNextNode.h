@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-CSLinkedListItem_TypeDef* CSLinkedList__pstGetItemNextNode(const CSLinkedListItem_TypeDef* const pstItem);
-void CSLinkedList__vSetItemNextNode(CSLinkedListItem_TypeDef* pstItem, CSLinkedListItem_TypeDef* pstNextNode);
+CSLinkedListItem_TypeDef* CSLinkedList_Item__pstGetNextItem(const CSLinkedListItem_TypeDef* const pstItem);
+void CSLinkedList_Item__vSetNextNode(CSLinkedListItem_TypeDef* pstItem, CSLinkedListItem_TypeDef* pstNextItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARSLINKEDLIST_ITEMNEXTITEM_H_ */

@@ -37,8 +37,8 @@ typedef struct CSLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32Value;
-        struct CSLinkedListItem *pstNextNode;
+        uint32_t u32ValueItem;
+        struct CSLinkedListItem *pstNextItem;
 }CSLinkedListItem_TypeDef;
 
 typedef struct CSLinkedList
@@ -48,6 +48,7 @@ typedef struct CSLinkedList
         void (*pfvDestroyItemData) (void *DataContainer);
         void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
+        CSLinkedListItem_TypeDef *pstLastItemRead;
         CSLinkedListItem_TypeDef *pstHead;
         CSLinkedListItem_TypeDef *pstTail;
 }CSLinkedList_TypeDef;

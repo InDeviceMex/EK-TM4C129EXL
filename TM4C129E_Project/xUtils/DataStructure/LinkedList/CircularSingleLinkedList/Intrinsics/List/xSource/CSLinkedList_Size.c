@@ -27,7 +27,7 @@ uint32_t CSLinkedList__u32GetSize(const CSLinkedList_TypeDef* const pstList)
 {
     uint32_t u32SizeReg = 0UL;
     u32SizeReg = pstList->u32Size;
-    return u32SizeReg;
+    return (u32SizeReg);
 
 }
 
@@ -36,7 +36,7 @@ void CSLinkedList__vSetSize(CSLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(const CSLinkedList_TypeDef*  pstList)
+CSLinkedList_nSTATUS CSLinkedList__enIsEmpty(const CSLinkedList_TypeDef*  pstList)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     if(0UL  == pstList->u32Size)
@@ -45,5 +45,3 @@ CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(const CSLinkedList_TypeDef*  ps
     }
     return (enStatus);
 }
-
-

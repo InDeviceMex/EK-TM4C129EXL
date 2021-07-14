@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/Item/xHeader/CSLinkedList_ItemData.h>
 
-void* CSLinkedList__pvGetItemData(const CSLinkedListItem_TypeDef* const pstItem)
+void* CSLinkedList_Item__pvGetData(const CSLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvDataReg = (void*)0UL;
+    void* pvDataReg = (void*) 0UL;
     pvDataReg = pstItem->pvDataContainer;
     return (pvDataReg);
 }
 
-void CSLinkedList__vSetItemData(CSLinkedListItem_TypeDef* pstItem, void* pvDataArg)
+void CSLinkedList_Item__vSetData(CSLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
     pstItem->pvDataContainer = pvDataArg;
 }

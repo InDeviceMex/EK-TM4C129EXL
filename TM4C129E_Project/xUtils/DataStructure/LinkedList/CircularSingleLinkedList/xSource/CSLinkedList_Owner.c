@@ -29,7 +29,7 @@ CSLinkedList_nSTATUS CSLinkedList__enIsItemOwnerList(const CSLinkedList_TypeDef*
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     CSLinkedList_TypeDef* pstOwnerListItem = (CSLinkedList_TypeDef*) 0UL;
-    pstOwnerListItem = (CSLinkedList_TypeDef*) CSLinkedList__pvGetItemOwnerList(pstItem);
+    pstOwnerListItem = (CSLinkedList_TypeDef*) CSLinkedList_Item__pvGetOwnerList(pstItem);
     if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = CSLinkedList_enSTATUS_OK;

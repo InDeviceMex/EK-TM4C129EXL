@@ -39,6 +39,7 @@ CSLinkedList_TypeDef* CSLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void 
         pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (CSLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (CSLinkedListItem_TypeDef*)  0UL;
     }
     return (pstList);
 }
@@ -56,6 +57,7 @@ CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_TypeDef* pstList,
         pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (CSLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (CSLinkedListItem_TypeDef*)  0UL;
     }
     return (enStatus);
 }

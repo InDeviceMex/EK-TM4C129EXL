@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/Item/xHeader/CSLinkedList_ItemValue.h>
 
-uint32_t CSLinkedList__u32GetItemValue(const CSLinkedListItem_TypeDef* const pstItem)
+uint32_t CSLinkedList_Item__u32GetValue(const CSLinkedListItem_TypeDef* const pstItem)
 {
-    uint32_t u32ValueReg = 0UL;
-    u32ValueReg = pstItem->u32Value;
-    return (u32ValueReg);
+    uint32_t u32ValueItemReg = 0UL;
+    u32ValueItemReg = pstItem->u32ValueItem;
+    return (u32ValueItemReg);
 }
 
-void CSLinkedList__vSetItemValue(CSLinkedListItem_TypeDef* pstItem, uint32_t u32ValueArg)
+void CSLinkedList_Item__vSetValue(CSLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg)
 {
-    pstItem->u32Value = u32ValueArg;
+    pstItem->u32ValueItem = u32ValueItemArg;
 }

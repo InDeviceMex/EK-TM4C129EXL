@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-void* CSLinkedList__pvGetItemOwnerList(const CSLinkedListItem_TypeDef* const pstItem);
-void CSLinkedList__vSetItemOwnerList(CSLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg);
+void* CSLinkedList_Item__pvGetOwnerList(const CSLinkedListItem_TypeDef* const pstItem);
+void CSLinkedList_Item__vSetOwnerList(CSLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARSINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CSLINKEDLIST_ITEMOWNERLIST_H_ */

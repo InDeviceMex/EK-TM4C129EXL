@@ -28,10 +28,6 @@
 
 uint32_t CSLinkedList__u32GetSize(const CSLinkedList_TypeDef* const pstList);
 void CSLinkedList__vSetSize(CSLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
-CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(const CSLinkedList_TypeDef*  pstList);
-
-
-
-
+CSLinkedList_nSTATUS CSLinkedList__enIsEmpty(const CSLinkedList_TypeDef*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARSLINKEDLIST_SIZE_H_ */

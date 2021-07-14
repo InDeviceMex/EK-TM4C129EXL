@@ -27,7 +27,7 @@ CSLinkedListItem_TypeDef* CSLinkedList__pstGetTail(const CSLinkedList_TypeDef*  
 {
     CSLinkedListItem_TypeDef* pstTailReg = (CSLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
-    return pstTailReg;
+    return (pstTailReg);
 }
 
 void CSLinkedList__vSetTail(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstTailArg)
@@ -44,8 +44,5 @@ CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_TypeDef*  const p
     {
         enStatus = CSLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
-
-
-

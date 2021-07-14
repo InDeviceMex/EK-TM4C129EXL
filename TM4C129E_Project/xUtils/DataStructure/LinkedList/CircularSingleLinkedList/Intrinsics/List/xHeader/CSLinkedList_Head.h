@@ -30,9 +30,4 @@ CSLinkedListItem_TypeDef* CSLinkedList__pstGetHead(const CSLinkedList_TypeDef*  
 void CSLinkedList__vSetHead(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstHeadArg);
 CSLinkedList_nSTATUS CSLinkedList__enIsHead(const CSLinkedList_TypeDef* const pstList, const CSLinkedListItem_TypeDef* const pstItem);
 
-
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARSLINKEDLIST_HEAD_H_ */

@@ -27,34 +27,42 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext_WithData(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousNode,
+                                            CSLinkedListItem_TypeDef* pstPreviousItem,
                                             CSLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousNode,
+                                            CSLinkedListItem_TypeDef* pstPreviousItem,
                                             CSLinkedListItem_TypeDef* pstNewItem);
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode, void* pvData);
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode);
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem, void* pvData);
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem);
 
 
+CSLinkedList_nSTATUS  CSLinkedList__enInsertNextLastItemRead_WithData(CSLinkedList_TypeDef* pstList,
+                                           CSLinkedListItem_TypeDef* pstNewItem,
+                                           void* pvData);
+CSLinkedList_nSTATUS  CSLinkedList__enInsertNextLastItemRead(CSLinkedList_TypeDef* pstList,
+                                           CSLinkedListItem_TypeDef* pstNewItem);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertNextLastItemRead_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertNextLastItemRead(CSLinkedList_TypeDef* pstList);
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertEnd_WithData(CSLinkedList_TypeDef* pstList,
+
+CSLinkedList_nSTATUS CSLinkedList__enInsertAtTail_WithData(CSLinkedList_TypeDef* pstList,
                                            CSLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertEnd(CSLinkedList_TypeDef* pstList,
+CSLinkedList_nSTATUS CSLinkedList__enInsertAtTail(CSLinkedList_TypeDef* pstList,
                                            CSLinkedListItem_TypeDef* pstNewItem);
-CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertEnd_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
-CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertEnd(CSLinkedList_TypeDef* pstList);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtTail_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtTail(CSLinkedList_TypeDef* pstList);
 
 
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertBegin_WithData(CSLinkedList_TypeDef* pstList,
+CSLinkedList_nSTATUS CSLinkedList__enInsertAtHead_WithData(CSLinkedList_TypeDef* pstList,
                                                 CSLinkedListItem_TypeDef* pstNewItem,
                                                 void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertBegin(CSLinkedList_TypeDef* pstList,
+CSLinkedList_nSTATUS CSLinkedList__enInsertAtHead(CSLinkedList_TypeDef* pstList,
                                                 CSLinkedListItem_TypeDef* pstNewItem);
-CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertBegin_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
-CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertBegin(CSLinkedList_TypeDef* pstList);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtHead_WithData(CSLinkedList_TypeDef* pstList, void* pvData);
+CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtHead(CSLinkedList_TypeDef* pstList);
 
 
 

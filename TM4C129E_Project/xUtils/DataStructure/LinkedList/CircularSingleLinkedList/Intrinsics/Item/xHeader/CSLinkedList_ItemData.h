@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-void* CSLinkedList__pvGetItemData(const CSLinkedListItem_TypeDef* const pstItem);
-void CSLinkedList__vSetItemData(CSLinkedListItem_TypeDef* pstItem, void* pvDataArg);
+void* CSLinkedList_Item__pvGetData(const CSLinkedListItem_TypeDef* const pstItem);
+void CSLinkedList_Item__vSetData(CSLinkedListItem_TypeDef* pstItem, void* pvDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARSLINKEDLIST_ITEMDATA_H_ */
