@@ -26,13 +26,19 @@
 SLinkedListItem_TypeDef* SLinkedList__pstGetLastItemRead(const SLinkedList_TypeDef*  const pstList)
 {
     SLinkedListItem_TypeDef* pstLastItemReadReg = (SLinkedListItem_TypeDef*) 0U;
-    pstLastItemReadReg = pstList->pstLastItemRead;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstLastItemReadReg = pstList->pstLastItemRead;
+    }
     return (pstLastItemReadReg);
 }
 
 void SLinkedList__vSetLastItemRead(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstLastItemReadArg)
 {
-    pstList->pstLastItemRead = pstLastItemReadArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->pstLastItemRead = pstLastItemReadArg;
+    }
 }
 
 SLinkedList_nSTATUS SLinkedList__enIsLastItemRead(const SLinkedList_TypeDef* const pstList, const SLinkedListItem_TypeDef* const pstItem)

@@ -62,7 +62,7 @@ void* CDLinkedList__pvGetDataTail(const CDLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetTailItem(pstList);
+        pstItem = CDLinkedList__pstGetTail(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             pvItemData = CDLinkedList_Item__pvGetData(pstItem);
@@ -77,7 +77,7 @@ uint32_t CDLinkedList__u32GetValueTail(const CDLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetTailItem(pstList);
+        pstItem = CDLinkedList__pstGetTail(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             u32ItemValue = CDLinkedList_Item__u32GetValue(pstItem);
@@ -92,7 +92,7 @@ void* CDLinkedList__pvGetDataHead(const CDLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetHeadItem(pstList);
+        pstItem = CDLinkedList__pstGetHead(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             pvItemData = CDLinkedList_Item__pvGetData(pstItem);
@@ -107,7 +107,7 @@ uint32_t CDLinkedList__u32GetValueHead(const CDLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetHeadItem(pstList);
+        pstItem = CDLinkedList__pstGetHead(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             u32ItemValue = CDLinkedList_Item__u32GetValue(pstItem);
@@ -130,13 +130,10 @@ void* CDLinkedList__pvGetDataNextItem(CDLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstNextItemReg = CDLinkedList__pstGetHeadItem(pstList);
+            pstNextItemReg = CDLinkedList__pstGetHead(pstList);
         }
         CDLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        if(0UL != (uint32_t) pstNextItemReg)
-        {
-            pvItemData = CDLinkedList_Item__pvGetData(pstNextItemReg);
-        }
+        pvItemData = CDLinkedList_Item__pvGetData(pstNextItemReg);
     }
     return (pvItemData);
 }
@@ -155,13 +152,10 @@ void* CDLinkedList__pvGetDataPreviousItem(CDLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstPreviousItemReg = CDLinkedList__pstGetTailItem(pstList);
+            pstPreviousItemReg = CDLinkedList__pstGetTail(pstList);
         }
         CDLinkedList__vSetLastItemRead(pstList, pstPreviousItemReg);
-        if(0UL != (uint32_t) pstPreviousItemReg)
-        {
-            pvItemData = CDLinkedList_Item__pvGetData(pstPreviousItemReg);
-        }
+        pvItemData = CDLinkedList_Item__pvGetData(pstPreviousItemReg);
     }
     return (pvItemData);
 }

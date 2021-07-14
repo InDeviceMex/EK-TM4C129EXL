@@ -26,11 +26,17 @@
 void* CDLinkedList_Item__pvGetOwnerList(const CDLinkedListItem_TypeDef* const pstItem)
 {
     void* pvOwnerListReg = (void*) 0UL;
-    pvOwnerListReg = pstItem->pvOwnerList;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pvOwnerListReg = pstItem->pvOwnerList;
+    }
     return (pvOwnerListReg);
 }
 
 void CDLinkedList_Item__vSetOwnerList(CDLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
 {
-    pstItem->pvOwnerList = pvOwnerListArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->pvOwnerList = pvOwnerListArg;
+    }
 }

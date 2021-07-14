@@ -26,13 +26,19 @@
 CSLinkedListItem_TypeDef* CSLinkedList__pstGetTail(const CSLinkedList_TypeDef*  const pstList)
 {
     CSLinkedListItem_TypeDef* pstTailReg = (CSLinkedListItem_TypeDef*)0U;
-    pstTailReg = pstList->pstTail;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstTailReg = pstList->pstTail;
+    }
     return (pstTailReg);
 }
 
 void CSLinkedList__vSetTail(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstTailArg)
 {
-    pstList->pstTail = pstTailArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->pstTail = pstTailArg;
+    }
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_TypeDef*  const pstList, const CSLinkedListItem_TypeDef* const pstItem)

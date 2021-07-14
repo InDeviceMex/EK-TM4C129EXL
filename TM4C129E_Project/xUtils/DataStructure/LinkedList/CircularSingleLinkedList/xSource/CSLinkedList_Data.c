@@ -62,7 +62,7 @@ void* CSLinkedList__pvGetDataTail(const CSLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CSLinkedList__pstGetTailItem(pstList);
+        pstItem = CSLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = CSLinkedList_Item__pvGetData(pstItem);
@@ -77,7 +77,7 @@ uint32_t CSLinkedList__u32GetValueTail(const CSLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CSLinkedList__pstGetTailItem(pstList);
+        pstItem = CSLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = CSLinkedList_Item__u32GetValue(pstItem);
@@ -92,7 +92,7 @@ void* CSLinkedList__pvGetDataHead(const CSLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CSLinkedList__pstGetHeadItem(pstList);
+        pstItem = CSLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = CSLinkedList_Item__pvGetData(pstItem);
@@ -107,7 +107,7 @@ uint32_t CSLinkedList__u32GetValueHead(const CSLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CSLinkedList__pstGetHeadItem(pstList);
+        pstItem = CSLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = CSLinkedList_Item__u32GetValue(pstItem);
@@ -130,13 +130,10 @@ void* CSLinkedList__pvGetDataNextItem(CSLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstNextItemReg = CSLinkedList__pstGetHeadItem(pstList);
+            pstNextItemReg = CSLinkedList__pstGetHead(pstList);
         }
         CSLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        if(0UL != (uint32_t) pstNextItemReg)
-        {
-            pvItemData = CSLinkedList_Item__pvGetData(pstNextItemReg);
-        }
+        pvItemData = CSLinkedList_Item__pvGetData(pstNextItemReg);
     }
     return (pvItemData);
 }

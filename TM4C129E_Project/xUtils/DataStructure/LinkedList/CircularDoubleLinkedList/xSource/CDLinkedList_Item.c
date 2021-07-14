@@ -85,26 +85,6 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemPos(const CDLinkedList_TypeDe
     return (pstItem);
 }
 
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetTailItem(const CDLinkedList_TypeDef* pstList)
-{
-    CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL ;
-    if((uint32_t) 0UL != (uint32_t) pstList)
-    {
-        pstItem = CDLinkedList__pstGetTail(pstList);
-    }
-    return (pstItem);
-}
-
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetHeadItem(const CDLinkedList_TypeDef* pstList)
-{
-    CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL ;
-    if((uint32_t) 0UL != (uint32_t) pstList)
-    {
-        pstItem = CDLinkedList__pstGetHead(pstList);
-    }
-    return pstItem;
-}
-
 uint32_t CDLinkedList__u32GetAllItem(const CDLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;

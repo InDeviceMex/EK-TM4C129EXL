@@ -26,11 +26,17 @@
 CDLinkedListItem_TypeDef* CDLinkedList_Item__pstGetPreviousItem(const CDLinkedListItem_TypeDef* const pstItem)
 {
     CDLinkedListItem_TypeDef* pstPreviousItemReg = (CDLinkedListItem_TypeDef*) 0UL;
-    pstPreviousItemReg = pstItem->pstPreviousItem;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstPreviousItemReg = pstItem->pstPreviousItem;
+    }
     return (pstPreviousItemReg);
 }
 
 void CDLinkedList_Item__vSetPreviousItem(CDLinkedListItem_TypeDef* pstItem, CDLinkedListItem_TypeDef* pstPreviousItemArg)
 {
-    pstItem->pstPreviousItem = pstPreviousItemArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->pstPreviousItem = pstPreviousItemArg;
+    }
 }

@@ -26,11 +26,17 @@
 uint32_t SLinkedList_Item__u32GetValue(const SLinkedListItem_TypeDef* const pstItem)
 {
     uint32_t u32ValueItemReg = 0UL;
-    u32ValueItemReg = pstItem->u32ValueItem;
+    if(0UL != (uint32_t) pstItem)
+    {
+        u32ValueItemReg = pstItem->u32ValueItem;
+    }
     return (u32ValueItemReg);
 }
 
 void SLinkedList_Item__vSetValue(SLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg)
 {
-    pstItem->u32ValueItem = u32ValueItemArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->u32ValueItem = u32ValueItemArg;
+    }
 }

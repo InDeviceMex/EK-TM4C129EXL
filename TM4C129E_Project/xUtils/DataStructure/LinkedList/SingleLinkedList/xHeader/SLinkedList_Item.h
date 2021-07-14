@@ -33,7 +33,5 @@ uint32_t SLinkedList__u32GetAllItem_Value(const SLinkedList_TypeDef* pstList, ui
 uint32_t SLinkedList__u32GetNItem_Value(const SLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 SLinkedListItem_TypeDef*  SLinkedList__pstGetItemPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
-SLinkedListItem_TypeDef*  SLinkedList__pstGetTailItem(const SLinkedList_TypeDef* pstList);
-SLinkedListItem_TypeDef*  SLinkedList__pstGetHeadItem(const SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_ITEM_H_ */

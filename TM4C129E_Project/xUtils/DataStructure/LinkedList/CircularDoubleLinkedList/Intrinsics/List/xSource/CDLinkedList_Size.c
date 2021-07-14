@@ -26,14 +26,20 @@
 uint32_t CDLinkedList__u32GetSize(const CDLinkedList_TypeDef* const pstList)
 {
     uint32_t u32SizeReg = 0UL;
-    u32SizeReg = pstList->u32Size;
+    if(0UL != (uint32_t) pstList)
+    {
+        u32SizeReg = pstList->u32Size;
+    }
     return (u32SizeReg);
 
 }
 
 void CDLinkedList__vSetSize(CDLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
 {
-    pstList->u32Size = u32SizeArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->u32Size = u32SizeArg;
+    }
 }
 
 CDLinkedList_nSTATUS CDLinkedList__enIsEmpty(const CDLinkedList_TypeDef*  pstList)

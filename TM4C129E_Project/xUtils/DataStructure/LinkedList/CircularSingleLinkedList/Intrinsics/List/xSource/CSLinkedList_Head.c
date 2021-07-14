@@ -26,13 +26,19 @@
 CSLinkedListItem_TypeDef* CSLinkedList__pstGetHead(const CSLinkedList_TypeDef*  const pstList)
 {
     CSLinkedListItem_TypeDef* pstHeadReg = (CSLinkedListItem_TypeDef*) 0U;
-    pstHeadReg = pstList->pstHead;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstHeadReg = pstList->pstHead;
+    }
     return (pstHeadReg);
 }
 
 void CSLinkedList__vSetHead(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstHeadArg)
 {
-    pstList->pstHead = pstHeadArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->pstHead = pstHeadArg;
+    }
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enIsHead(const CSLinkedList_TypeDef* const pstList, const CSLinkedListItem_TypeDef* const pstItem)

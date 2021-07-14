@@ -26,11 +26,17 @@
 void* CSLinkedList_Item__pvGetData(const CSLinkedListItem_TypeDef* const pstItem)
 {
     void* pvDataReg = (void*) 0UL;
-    pvDataReg = pstItem->pvDataContainer;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pvDataReg = pstItem->pvDataContainer;
+    }
     return (pvDataReg);
 }
 
 void CSLinkedList_Item__vSetData(CSLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
-    pstItem->pvDataContainer = pvDataArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->pvDataContainer = pvDataArg;
+    }
 }

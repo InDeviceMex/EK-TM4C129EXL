@@ -35,14 +35,19 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
     SLinkedList_nSTATUS enStatusRead = SLinkedList_enSTATUS_ERROR;
-    SLinkedListItem_TypeDef* pstOldItem = (SLinkedListItem_TypeDef*) 0UL ;
-    SLinkedListItem_TypeDef* pstHeadNextNode = (SLinkedListItem_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstItemToRemove = (SLinkedListItem_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstHeadNextItem = (SLinkedListItem_TypeDef*) 0UL ;
     SLinkedListItem_TypeDef* pstHeadData = (SLinkedListItem_TypeDef*) 0UL ;
-    SLinkedListItem_TypeDef* pstItemNextNode = (SLinkedListItem_TypeDef*) 0UL ;
-    SLinkedListItem_TypeDef* pstItemNextNextNode = (SLinkedListItem_TypeDef*) 0UL ;
-    void* pstItemNextNodeData = (void*) 0UL ;
+    SLinkedListItem_TypeDef* pstItemNextItem = (SLinkedListItem_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstItemNextNextItem = (SLinkedListItem_TypeDef*) 0UL ;
+    void* pstItemNextItemData = (void*) 0UL ;
+    uint32_t u32ItemNextItemValue = 0UL ;
+    void* pstItemNextItemOwner = (void*) 0UL ;
+
     void* pstItemItemData = (void*) 0UL ;
+
     void* pstItemDataTemp = (void*) 0UL ;
+
     uint32_t u32SizeReg = 0UL;
 
     if(((uint32_t) 0UL != (uint32_t) pstList))
@@ -55,58 +60,60 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                 enStatus = SLinkedList_enSTATUS_OK;
                 pstHeadData = SLinkedList__pstGetHead(pstList);
                 pstItemDataTemp = SLinkedList_Item__pvGetData(pstHeadData);
-                pstOldItem = pstHeadData;
-                pstHeadNextNode = SLinkedList_Item__pstGetNextItem(pstHeadData);
-                SLinkedList__vSetHead(pstList, pstHeadNextNode);
+                pstItemToRemove = pstHeadData;
+                pstHeadNextItem = SLinkedList_Item__pstGetNextItem(pstItemToRemove);
+                SLinkedList__vSetHead(pstList, pstHeadNextItem);
                 if(1UL == u32SizeReg)
                 {
                     SLinkedList__vSetTail(pstList, (SLinkedListItem_TypeDef*)0UL);
                 }
 
-                enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstItemToRemove);
                 if((uint32_t) SLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
                 {
-                    SLinkedList__vSetLastItemRead(pstList, pstHeadNextNode);
+                    SLinkedList__vSetLastItemRead(pstList, pstHeadNextItem);
                 }
             }
             else
             {
-                pstItemNextNode = SLinkedList_Item__pstGetNextItem(pstItem);
-                if((uint32_t) 0UL != (uint32_t) pstItemNextNode)
+                pstItemNextItem = SLinkedList_Item__pstGetNextItem(pstItem);
+                if((uint32_t) 0UL != (uint32_t) pstItemNextItem)
                 {
                     enStatus = SLinkedList_enSTATUS_OK;
 
-                    pstItemNextNodeData = SLinkedList_Item__pvGetData(pstItemNextNode);
+                    pstItemNextItemData = SLinkedList_Item__pvGetData(pstItemNextItem);
+                    u32ItemNextItemValue = SLinkedList_Item__u32GetValue(pstItemNextItem);
+                    pstItemNextItemOwner = SLinkedList_Item__pvGetOwnerList(pstItemNextItem);
+
                     if(REMOVE_CURRENT == u32Remove)
                     {
                         pstItemItemData = SLinkedList_Item__pvGetData(pstItem);
+
+                        SLinkedList_Item__vSetData(pstItem, pstItemNextItemData);
+                        SLinkedList_Item__vSetValue(pstItem, u32ItemNextItemValue);
+                        SLinkedList_Item__vSetOwnerList(pstItem, pstItemNextItemOwner);
+
                         pstItemDataTemp = pstItemItemData;
                     }
                     else
                     {
-                        pstItemDataTemp = pstItemNextNodeData;
+                        pstItemDataTemp = pstItemNextItemData;
                     }
 
-                    pstOldItem = pstItemNextNode;
-                    pstItemNextNextNode = SLinkedList_Item__pstGetNextItem(pstItemNextNode);
-                    if(REMOVE_CURRENT == u32Remove)
-                    {
-                        SLinkedList_Item__vSetData(pstItem, pstItemNextNodeData);
-                    }
+                    pstItemToRemove = pstItemNextItem;
+                    pstItemNextNextItem = SLinkedList_Item__pstGetNextItem(pstItemToRemove);
 
-                    SLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextNode);
+                    SLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextItem);
 
-
-                    pstItemNextNode = SLinkedList_Item__pstGetNextItem(pstItem);
-                    if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
+                    if((uint32_t) 0UL == (uint32_t) pstItemToRemove)
                     {
                         SLinkedList__vSetTail(pstList, (SLinkedListItem_TypeDef*)pstItem);
                     }
 
-                    enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                    enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstItemToRemove);
                     if((uint32_t) SLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
                     {
-                        SLinkedList__vSetLastItemRead(pstList, pstItemNextNextNode);
+                        SLinkedList__vSetLastItemRead(pstList, pstItem);
                     }
                 }
             }
@@ -118,14 +125,14 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                     *pvData = pstItemDataTemp;
                 }
 
-                SLinkedList_Item__vSetOwnerList(pstOldItem,  (void *) 0UL);
-                SLinkedList_Item__vSetNextItem(pstOldItem,  (SLinkedListItem_TypeDef *) 0UL);
+                SLinkedList_Item__vSetOwnerList(pstItemToRemove,  (void *) 0UL);
+                SLinkedList_Item__vSetNextItem(pstItemToRemove,  (SLinkedListItem_TypeDef *) 0UL);
                 if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
                 {
-                    SLinkedList_Item__vSetValue(pstOldItem, 0UL);
-                    SLinkedList_Item__vSetData(pstOldItem,  (void *) 0UL);
-                    pstList->pfvDestroyItem(pstOldItem);
-                    pstOldItem = (SLinkedListItem_TypeDef*) 0UL;
+                    SLinkedList_Item__vSetValue(pstItemToRemove, 0UL);
+                    SLinkedList_Item__vSetData(pstItemToRemove,  (void *) 0UL);
+                    pstList->pfvDestroyItem(pstItemToRemove);
+                    pstItemToRemove = (SLinkedListItem_TypeDef*) 0UL;
                 }
 
                 u32SizeReg--;

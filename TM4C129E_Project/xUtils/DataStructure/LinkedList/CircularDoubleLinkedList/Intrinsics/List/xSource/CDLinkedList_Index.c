@@ -26,13 +26,19 @@
 CDLinkedListItem_TypeDef* CDLinkedList__pstGetLastItemRead(const CDLinkedList_TypeDef*  const pstList)
 {
     CDLinkedListItem_TypeDef* pstLastItemReadReg = (CDLinkedListItem_TypeDef*) 0U;
-    pstLastItemReadReg = pstList->pstLastItemRead;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstLastItemReadReg = pstList->pstLastItemRead;
+    }
     return (pstLastItemReadReg);
 }
 
 void CDLinkedList__vSetLastItemRead(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstLastItemReadArg)
 {
-    pstList->pstLastItemRead = pstLastItemReadArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->pstLastItemRead = pstLastItemReadArg;
+    }
 }
 
 CDLinkedList_nSTATUS CDLinkedList__enIsLastItemRead(const CDLinkedList_TypeDef* const pstList, const CDLinkedListItem_TypeDef* const pstItem)

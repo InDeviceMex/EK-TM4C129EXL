@@ -26,13 +26,19 @@
 SLinkedListItem_TypeDef* SLinkedList__pstGetTail(const SLinkedList_TypeDef*  const pstList)
 {
     SLinkedListItem_TypeDef* pstTailReg = (SLinkedListItem_TypeDef*)0U;
-    pstTailReg = pstList->pstTail;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstTailReg = pstList->pstTail;
+    }
     return pstTailReg;
 }
 
 void SLinkedList__vSetTail(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstTailArg)
 {
-    pstList->pstTail = pstTailArg;
+    if(0UL != (uint32_t) pstList)
+    {
+        pstList->pstTail = pstTailArg;
+    }
 }
 
 SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_TypeDef* const pstItem)

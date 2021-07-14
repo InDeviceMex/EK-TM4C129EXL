@@ -26,11 +26,17 @@
 void* SLinkedList_Item__pvGetData(const SLinkedListItem_TypeDef* const pstItem)
 {
     void* pvDataReg = (void*) 0UL;
-    pvDataReg = pstItem->pvDataContainer;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pvDataReg = pstItem->pvDataContainer;
+    }
     return pvDataReg;
 }
 
 void SLinkedList_Item__vSetData(SLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
-    pstItem->pvDataContainer = pvDataArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->pvDataContainer = pvDataArg;
+    }
 }

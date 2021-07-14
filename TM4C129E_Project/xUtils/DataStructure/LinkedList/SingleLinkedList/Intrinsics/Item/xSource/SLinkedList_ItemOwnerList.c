@@ -26,11 +26,17 @@
 void* SLinkedList_Item__pvGetOwnerList(const SLinkedListItem_TypeDef* const pstItem)
 {
     void* pvOwnerListReg = (void*) 0UL;
-    pvOwnerListReg = pstItem->pvOwnerList;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pvOwnerListReg = pstItem->pvOwnerList;
+    }
     return (pvOwnerListReg);
 }
 
 void SLinkedList_Item__vSetOwnerList(SLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
 {
-    pstItem->pvOwnerList = pvOwnerListArg;
+    if(0UL != (uint32_t) pstItem)
+    {
+        pstItem->pvOwnerList = pvOwnerListArg;
+    }
 }

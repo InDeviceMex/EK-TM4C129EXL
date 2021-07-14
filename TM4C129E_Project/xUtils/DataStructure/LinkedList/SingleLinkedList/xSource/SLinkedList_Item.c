@@ -56,26 +56,6 @@ SLinkedListItem_TypeDef*  SLinkedList__pstGetItemPos(const SLinkedList_TypeDef* 
     return (pstItem);
 }
 
-SLinkedListItem_TypeDef*  SLinkedList__pstGetTailItem(const SLinkedList_TypeDef* pstList)
-{
-    SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL ;
-    if((uint32_t) 0UL != (uint32_t) pstList)
-    {
-        pstItem = SLinkedList__pstGetTail(pstList);
-    }
-    return (pstItem);
-}
-
-SLinkedListItem_TypeDef*  SLinkedList__pstGetHeadItem(const SLinkedList_TypeDef* pstList)
-{
-    SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL ;
-    if((uint32_t) 0UL != (uint32_t) pstList)
-    {
-        pstItem = SLinkedList__pstGetHead(pstList);
-    }
-    return (pstItem);
-}
-
 uint32_t SLinkedList__u32GetAllItem(const SLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength)
 {
     SLinkedListItem_TypeDef *pstMember = (SLinkedListItem_TypeDef*) 0UL;

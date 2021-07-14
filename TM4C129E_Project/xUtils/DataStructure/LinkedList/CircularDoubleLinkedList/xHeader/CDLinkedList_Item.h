@@ -40,7 +40,5 @@ uint32_t CDLinkedList__u32GetNItemBackward(const CDLinkedList_TypeDef* pstList, 
 uint32_t CDLinkedList__u32GetNItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetTailItem(const CDLinkedList_TypeDef* pstList);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetHeadItem(const CDLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_ITEM_H_ */

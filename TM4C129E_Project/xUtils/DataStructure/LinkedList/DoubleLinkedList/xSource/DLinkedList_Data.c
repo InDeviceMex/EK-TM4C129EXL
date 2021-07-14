@@ -134,10 +134,7 @@ void* DLinkedList__pvGetDataNextItem(DLinkedList_TypeDef* pstList)
             pstNextItemReg = DLinkedList__pstGetHeadItem(pstList);
         }
         DLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        if(0UL != (uint32_t) pstNextItemReg)
-        {
-            pvItemData = DLinkedList_Item__pvGetData(pstNextItemReg);
-        }
+        pvItemData = DLinkedList_Item__pvGetData(pstNextItemReg);
     }
     return (pvItemData);
 }
@@ -159,10 +156,7 @@ void* DLinkedList__pvGetDataPreviousItem(DLinkedList_TypeDef* pstList)
             pstPreviousItemReg = DLinkedList__pstGetTailItem(pstList);
         }
         DLinkedList__vSetLastItemRead(pstList, pstPreviousItemReg);
-        if(0UL != (uint32_t) pstPreviousItemReg)
-        {
-            pvItemData = DLinkedList_Item__pvGetData(pstPreviousItemReg);
-        }
+        pvItemData = DLinkedList_Item__pvGetData(pstPreviousItemReg);
     }
     return (pvItemData);
 }
