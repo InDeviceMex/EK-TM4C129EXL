@@ -104,6 +104,8 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                 {
                     *pvData = pstElementDataTemp;
                 }
+
+                SLinkedList__vSetElementDataAuxiliar(pstOldElement, 0UL);
                 SLinkedList__vSetElementOwnerList(pstOldElement,  (void *) 0UL);
                 SLinkedList__vSetElementNextNode(pstOldElement,  (SLinkedListElement_TypeDef *) 0UL);
                 if(0UL !=  (uint32_t)  pstList->pfvDestroyElement)

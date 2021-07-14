@@ -26,11 +26,12 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
- void*  SLinkedList__pvGetNodeDataPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
- void*  SLinkedList__pvGetNodeDataEnd(const SLinkedList_TypeDef* pstList);
- void*  SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList);
+void*  SLinkedList__pvGetNodeDataPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  SLinkedList__pvGetNodeDataEnd(const SLinkedList_TypeDef* pstList);
+void*  SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList);
 
-
-
+uint32_t  SLinkedList__u32GetNodeDataAuxiliarPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  SLinkedList__u32GetNodeDataAuxiliarEnd(const SLinkedList_TypeDef* pstList);
+uint32_t  SLinkedList__u32GetNodeDataAuxiliarBegin(const SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DATA_H_ */

@@ -28,9 +28,6 @@
 
 uint32_t CDLinkedList__u32GetSize(const CDLinkedList_TypeDef* const pstList);
 void CDLinkedList__vSetSize(CDLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
-
-
-
-
+CDLinkedList_nSTATUS CDLinkedList__enIsListEmpty(CDLinkedList_TypeDef*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARDLINKEDLIST_SIZE_H_ */

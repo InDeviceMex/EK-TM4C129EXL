@@ -72,6 +72,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* 
             }
 
             CDLinkedList__vSetElementOwnerList(pstElement,  (void *) 0UL);
+            CDLinkedList__vSetElementDataAuxiliar(pstElement, 0UL);
             CDLinkedList__vSetElementNextNode(pstElement,  (CDLinkedListElement_TypeDef *) 0UL);
             CDLinkedList__vSetElementPreviousNode(pstElement,  (CDLinkedListElement_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyElement)

@@ -70,3 +70,49 @@ void* SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList)
     }
     return (pvElementData);
 }
+
+
+uint32_t SLinkedList__u32GetNodeDataAuxiliarPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
+{
+    SLinkedListElement_TypeDef* pstElement = (SLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = SLinkedList__pstGetNodePos(pstList, u32Position);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = SLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
+}
+
+uint32_t SLinkedList__u32GetNodeDataAuxiliarEnd(const SLinkedList_TypeDef* pstList)
+{
+    SLinkedListElement_TypeDef* pstElement = (SLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = SLinkedList__pstGetNodeEnd(pstList);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = SLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
+}
+
+uint32_t SLinkedList__u32GetNodeDataAuxiliarBegin(const SLinkedList_TypeDef* pstList)
+{
+    SLinkedListElement_TypeDef* pstElement = (SLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = SLinkedList__pstGetNodeBegin(pstList);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = SLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
+}

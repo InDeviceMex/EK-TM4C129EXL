@@ -75,6 +75,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeD
                 }
             }
 
+            CSLinkedList__vSetElementDataAuxiliar(pstOldElement, 0UL);
             CSLinkedList__vSetElementOwnerList(pstOldElement,  (void *) 0UL);
             CSLinkedList__vSetElementNextNode(pstOldElement,  (CSLinkedListElement_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyElement)
@@ -199,6 +200,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
 
             if(CSLinkedList_enSTATUS_OK == enStatus)
             {
+                CSLinkedList__vSetElementDataAuxiliar(pstOldElement, 0UL);
                 CSLinkedList__vSetElementOwnerList(pstOldElement,  (void *) 0UL);
                 CSLinkedList__vSetElementNextNode(pstOldElement,  (CSLinkedListElement_TypeDef *) 0UL);
                 if(0UL !=  (uint32_t)  pstList->pfvDestroyElement)

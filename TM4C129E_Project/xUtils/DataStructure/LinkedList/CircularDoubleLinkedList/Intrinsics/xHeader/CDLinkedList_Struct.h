@@ -36,6 +36,7 @@ typedef struct CDLinkedListElement
 {
         void* pvDataContainer;
         void* pvOwnerList;
+        uint32_t u32DataContainer;
         struct CDLinkedListElement *pstPreviousNode;
         struct CDLinkedListElement *pstNextNode;
 }CDLinkedListElement_TypeDef;

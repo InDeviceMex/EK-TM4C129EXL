@@ -38,4 +38,13 @@ void CDLinkedList__vSetSize(CDLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
+CDLinkedList_nSTATUS CDLinkedList__enIsListEmpty(CDLinkedList_TypeDef*  pstList)
+{
+    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    if(0UL  == pstList->u32Size)
+    {
+        enStatus = CDLinkedList_enSTATUS_OK;
+    }
+    return (enStatus);
+}
 

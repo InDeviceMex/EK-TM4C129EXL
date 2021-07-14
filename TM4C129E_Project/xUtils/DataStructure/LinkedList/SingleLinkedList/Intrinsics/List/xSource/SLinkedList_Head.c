@@ -22,7 +22,6 @@
  * 6 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Head.h>
-#include <stdlib.h>
 
 SLinkedListElement_TypeDef* SLinkedList__pstGetHead(const SLinkedList_TypeDef*  const pstList)
 {

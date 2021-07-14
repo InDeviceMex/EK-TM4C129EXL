@@ -28,6 +28,7 @@
 
 uint32_t DLinkedList__u32GetSize(const DLinkedList_TypeDef* const pstList);
 void DLinkedList__vSetSize(DLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
+DLinkedList_nSTATUS DLinkedList__enIsListEmpty(DLinkedList_TypeDef*  pstList);
 
 
 

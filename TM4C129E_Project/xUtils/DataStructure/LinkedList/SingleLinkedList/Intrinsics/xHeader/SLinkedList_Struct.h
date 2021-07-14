@@ -36,6 +36,7 @@ typedef struct SLinkedListElement
 {
         void* pvDataContainer;
         void* pvOwnerList;
+        uint32_t u32DataAuxiliar;
         struct SLinkedListElement *pstNextNode;
 }SLinkedListElement_TypeDef;
 

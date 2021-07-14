@@ -41,6 +41,21 @@ void* CSLinkedList__pvGetNodeDataPos(const CSLinkedList_TypeDef* pstList, uint32
     return (pvElementData);
 }
 
+uint32_t CSLinkedList__u32GetNodeDataAuxiliarPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
+{
+    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = CSLinkedList__pstGetNodePos(pstList, u32Position);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = CSLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
+}
+
 void* CSLinkedList__pvGetNodeDataEnd(const CSLinkedList_TypeDef* pstList)
 {
     CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
@@ -56,6 +71,21 @@ void* CSLinkedList__pvGetNodeDataEnd(const CSLinkedList_TypeDef* pstList)
     return (pvElementData);
 }
 
+uint32_t CSLinkedList__u32GetNodeDataAuxiliarEnd(const CSLinkedList_TypeDef* pstList)
+{
+    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = CSLinkedList__pstGetNodeEnd(pstList);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = CSLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
+}
+
 void* CSLinkedList__pvGetNodeDataBegin(const CSLinkedList_TypeDef* pstList)
 {
     CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
@@ -69,4 +99,19 @@ void* CSLinkedList__pvGetNodeDataBegin(const CSLinkedList_TypeDef* pstList)
         }
     }
     return (pvElementData);
+}
+
+uint32_t CSLinkedList__u32GetNodeDataAuxiliarBegin(const CSLinkedList_TypeDef* pstList)
+{
+    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    uint32_t u32ElementDataAuxiliar = (uint32_t) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstElement = CSLinkedList__pstGetNodeBegin(pstList);
+        if((uint32_t) 0UL != (uint32_t) pstElement)
+        {
+            u32ElementDataAuxiliar = CSLinkedList__u32GetElementDataAuxiliar(pstElement);
+        }
+    }
+    return (u32ElementDataAuxiliar);
 }

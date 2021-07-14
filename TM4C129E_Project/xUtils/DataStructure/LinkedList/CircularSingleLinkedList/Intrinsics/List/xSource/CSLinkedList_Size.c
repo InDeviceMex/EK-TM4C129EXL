@@ -22,8 +22,6 @@
  * 9 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/List/xHeader/CSLinkedList_Size.h>
-#include <stdlib.h>
-
 
 uint32_t CSLinkedList__u32GetSize(const CSLinkedList_TypeDef* const pstList)
 {
@@ -38,6 +36,14 @@ void CSLinkedList__vSetSize(CSLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
-
+CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(CSLinkedList_TypeDef*  pstList)
+{
+    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    if(0UL  == pstList->u32Size)
+    {
+        enStatus = CSLinkedList_enSTATUS_OK;
+    }
+    return (enStatus);
+}
 
 

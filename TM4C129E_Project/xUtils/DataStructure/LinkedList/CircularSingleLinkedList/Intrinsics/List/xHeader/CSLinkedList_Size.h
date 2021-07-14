@@ -28,6 +28,7 @@
 
 uint32_t CSLinkedList__u32GetSize(const CSLinkedList_TypeDef* const pstList);
 void CSLinkedList__vSetSize(CSLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
+CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(CSLinkedList_TypeDef*  pstList);
 
 
 

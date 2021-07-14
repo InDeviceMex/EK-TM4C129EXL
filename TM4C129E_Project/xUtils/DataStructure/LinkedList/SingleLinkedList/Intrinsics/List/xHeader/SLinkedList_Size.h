@@ -28,5 +28,6 @@
 
 uint32_t SLinkedList__u32GetSize(const SLinkedList_TypeDef* const pstList);
 void SLinkedList__vSetSize(SLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
+SLinkedList_nSTATUS SLinkedList__enIsListEmpty(SLinkedList_TypeDef*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_SLINKEDLIST_SIZE_H_ */

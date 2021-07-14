@@ -25,6 +25,7 @@
 #define XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ELEMENT_DLINKEDLIST_ELEMENT_H_
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementData.h>
+#include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementDataAuxiliar.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementNextNode.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementOwnerList.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Element/xHeader/DLinkedList_ElementPreviousNode.h>

@@ -22,8 +22,6 @@
  * 6 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Size.h>
-#include <stdlib.h>
-
 
 uint32_t SLinkedList__u32GetSize(const SLinkedList_TypeDef* const pstList)
 {
@@ -38,5 +36,14 @@ void SLinkedList__vSetSize(SLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
+SLinkedList_nSTATUS SLinkedList__enIsListEmpty(SLinkedList_TypeDef*  pstList)
+{
+    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    if(0UL  == pstList->u32Size)
+    {
+        enStatus = SLinkedList_enSTATUS_OK;
+    }
+    return (enStatus);
+}
 
 

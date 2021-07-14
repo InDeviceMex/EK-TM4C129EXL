@@ -75,6 +75,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
                 }
             }
 
+            DLinkedList__vSetElementDataAuxiliar(pstElement, 0UL);
             DLinkedList__vSetElementOwnerList(pstElement,  (void *) 0UL);
             DLinkedList__vSetElementNextNode(pstElement,  (DLinkedListElement_TypeDef *) 0UL);
             DLinkedList__vSetElementPreviousNode(pstElement,  (DLinkedListElement_TypeDef *) 0UL);
