@@ -27,20 +27,20 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
 SLinkedList_nSTATUS SLinkedList__enInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousItem,
+                                            SLinkedListItem_TypeDef* pstPreviousNode,
                                             SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 SLinkedList_nSTATUS SLinkedList__enInsertNext(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousItem,
+                                            SLinkedListItem_TypeDef* pstPreviousNode,
                                             SLinkedListItem_TypeDef* pstNewItem);
 
 
 
 SLinkedListItem_TypeDef* SLinkedList__pstInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListItem_TypeDef* pstPreviousItem,
+                                                    SLinkedListItem_TypeDef* pstPreviousNode,
                                                     void* pvData);
 SLinkedListItem_TypeDef* SLinkedList__pstInsertNext(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListItem_TypeDef* pstPreviousItem);
+                                                    SLinkedListItem_TypeDef* pstPreviousNode);
 
 
 

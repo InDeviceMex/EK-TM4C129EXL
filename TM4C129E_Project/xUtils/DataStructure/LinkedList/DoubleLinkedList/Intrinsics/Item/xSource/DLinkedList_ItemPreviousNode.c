@@ -25,12 +25,12 @@
 
 DLinkedListItem_TypeDef* DLinkedList__pstGetItemPreviousNode(const DLinkedListItem_TypeDef* const pstItem)
 {
-    DLinkedListItem_TypeDef* pstPreviousItemReg = (DLinkedListItem_TypeDef*)0UL;
-    pstPreviousItemReg = pstItem->pstPreviousNode;
-    return (pstPreviousItemReg);
+    DLinkedListItem_TypeDef* pstPreviousNodeReg = (DLinkedListItem_TypeDef*)0UL;
+    pstPreviousNodeReg = pstItem->pstPreviousNode;
+    return (pstPreviousNodeReg);
 }
 
-void DLinkedList__vSetItemPreviousNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousItem)
+void DLinkedList__vSetItemPreviousNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousNode)
 {
-    pstItem->pstPreviousNode = pstPreviousItem;
+    pstItem->pstPreviousNode = pstPreviousNode;
 }

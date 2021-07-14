@@ -1,6 +1,6 @@
 /**
  *
- * @file CDLinkedList_Node.c
+ * @file CDLinkedList_Item.c
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -21,11 +21,11 @@
  * Date           Author     Version     Description
  * 11 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Node.h>
+#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Item.h>
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodePos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     uint32_t u32SizeList = 0UL;
@@ -85,7 +85,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodePos(const CDLinkedList_TypeDe
     return (pstItem);
 }
 
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodeEnd(const CDLinkedList_TypeDef* pstList)
+CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemEnd(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -95,7 +95,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodeEnd(const CDLinkedList_TypeDe
     return (pstItem);
 }
 
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodeBegin(const CDLinkedList_TypeDef* pstList)
+CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemBegin(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -105,7 +105,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstGetNodeBegin(const CDLinkedList_Type
     return pstItem;
 }
 
-uint32_t CDLinkedList__u32GetAllNode(const CDLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetAllItem(const CDLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -131,7 +131,7 @@ uint32_t CDLinkedList__u32GetAllNode(const CDLinkedList_TypeDef* pstList, const 
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetAllNode_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetAllItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -157,7 +157,7 @@ uint32_t CDLinkedList__u32GetAllNode_Value(const CDLinkedList_TypeDef* pstList, 
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetAllNodeBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetAllItemBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -183,7 +183,7 @@ uint32_t CDLinkedList__u32GetAllNodeBackward(const CDLinkedList_TypeDef* pstList
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetAllNodeBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetAllItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -209,7 +209,7 @@ uint32_t CDLinkedList__u32GetAllNodeBackward_Value(const CDLinkedList_TypeDef* p
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetNNode(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetNItem(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -217,18 +217,18 @@ uint32_t CDLinkedList__u32GetNNode(const CDLinkedList_TypeDef* pstList, void** p
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pvData ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pvData ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = CDLinkedList__pstGetHead(pstList);
         u32SizeList = CDLinkedList__u32GetSize(pstList);
-        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
+        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Items))
         {
             pvDataMember = CDLinkedList__pvGetItemData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
-            u32Nodes--;
+            u32Items--;
             pstMemberTemp = CDLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
@@ -236,7 +236,7 @@ uint32_t CDLinkedList__u32GetNNode(const CDLinkedList_TypeDef* pstList, void** p
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetNNode_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetNItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -244,18 +244,18 @@ uint32_t CDLinkedList__u32GetNNode_Value(const CDLinkedList_TypeDef* pstList, ui
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = CDLinkedList__pstGetHead(pstList);
         u32SizeList = CDLinkedList__u32GetSize(pstList);
-        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
+        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Items))
         {
             pu32ValueMember = CDLinkedList__u32GetItemValue(pstMember);
             *pu32Value = pu32ValueMember;
             u32SizeReg++;
             pu32Value += 1U;
             u32MaxLength--;
-            u32Nodes--;
+            u32Items--;
             pstMemberTemp = CDLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
@@ -263,7 +263,7 @@ uint32_t CDLinkedList__u32GetNNode_Value(const CDLinkedList_TypeDef* pstList, ui
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetNNodeBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetNItemBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -271,18 +271,18 @@ uint32_t CDLinkedList__u32GetNNodeBackward(const CDLinkedList_TypeDef* pstList, 
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pvData ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pvData ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = CDLinkedList__pstGetTail(pstList);
         u32SizeList = CDLinkedList__u32GetSize(pstList);
-        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
+        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Items))
         {
             pvDataMember = CDLinkedList__pvGetItemData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
-            u32Nodes--;
+            u32Items--;
             pstMemberTemp = CDLinkedList__pstGetItemPreviousNode(pstMember);
             pstMember = pstMemberTemp;
         }
@@ -290,7 +290,7 @@ uint32_t CDLinkedList__u32GetNNodeBackward(const CDLinkedList_TypeDef* pstList, 
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetNNodeBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetNItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength)
 {
     CDLinkedListItem_TypeDef *pstMember = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef *pstMemberTemp = (CDLinkedListItem_TypeDef*) 0UL;
@@ -298,18 +298,18 @@ uint32_t CDLinkedList__u32GetNNodeBackward_Value(const CDLinkedList_TypeDef* pst
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = CDLinkedList__pstGetTail(pstList);
         u32SizeList = CDLinkedList__u32GetSize(pstList);
-        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
+        while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Items))
         {
             pu32ValueMember = CDLinkedList__u32GetItemValue(pstMember);
             *pu32Value = pu32ValueMember;
             u32SizeReg++;
             pu32Value += 1U;
             u32MaxLength--;
-            u32Nodes--;
+            u32Items--;
             pstMemberTemp = CDLinkedList__pstGetItemPreviousNode(pstMember);
             pstMember = pstMemberTemp;
         }

@@ -29,7 +29,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeD
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     CSLinkedListItem_TypeDef* pstOldItem = (CSLinkedListItem_TypeDef*) 0UL ;
-    CSLinkedListItem_TypeDef* pstTailNode = (CSLinkedListItem_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstTailItem = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstHeadItem = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstItemNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstItemNextNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
@@ -64,12 +64,12 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeD
                 CSLinkedList__vSetItemNextNode(pstItem, pstItemNextNextNode);
 
                 pstHeadItem = CSLinkedList__pstGetHead(pstList);
-                pstTailNode = CSLinkedList__pstGetTail(pstList);
+                pstTailItem = CSLinkedList__pstGetTail(pstList);
                 if((uint32_t) pstItemNextNode == (uint32_t) pstHeadItem)
                 {
                     CSLinkedList__vSetHead(pstList, pstItemNextNextNode);
                 }
-                if((uint32_t) pstItemNextNode == (uint32_t) pstTailNode)
+                if((uint32_t) pstItemNextNode == (uint32_t) pstTailItem)
                 {
                     CSLinkedList__vSetTail(pstList, pstItem);
                 }
@@ -130,7 +130,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
     CSLinkedListItem_TypeDef* pstItemNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstItemNextNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
     void* pstItemNextNodeData = (void*) 0UL ;
-    void* pstItemNodeData = (void*) 0UL ;
+    void* pstItemItemData = (void*) 0UL ;
     uint32_t u32SizeReg = 0UL;
 
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -172,10 +172,10 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
 
                     pstItemNextNode = CSLinkedList__pstGetItemNextNode(pstItem);
                     pstItemNextNodeData = CSLinkedList__pvGetItemData(pstItemNextNode);
-                    pstItemNodeData = CSLinkedList__pvGetItemData(pstItem);
+                    pstItemItemData = CSLinkedList__pvGetItemData(pstItem);
                     if(0UL != (uint32_t) pvData)
                     {
-                        *pvData = pstItemNodeData;
+                        *pvData = pstItemItemData;
                     }
                     pstOldItem = pstItemNextNode;
 

@@ -27,33 +27,33 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 DLinkedList_nSTATUS DLinkedList__enInsertNext_WithData(DLinkedList_TypeDef* pstList,
-                                            DLinkedListItem_TypeDef* pstPreviousItem,
+                                            DLinkedListItem_TypeDef* pstPreviousNode,
                                             DLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 DLinkedList_nSTATUS DLinkedList__enInsertNext(DLinkedList_TypeDef* pstList,
-                                            DLinkedListItem_TypeDef* pstPreviousItem,
+                                            DLinkedListItem_TypeDef* pstPreviousNode,
                                             DLinkedListItem_TypeDef* pstNewItem);
 DLinkedListItem_TypeDef* DLinkedList__pstInsertNext_WithData(DLinkedList_TypeDef* pstList,
-                                             DLinkedListItem_TypeDef* pstPreviousItem,
+                                             DLinkedListItem_TypeDef* pstPreviousNode,
                                              void* pvData);
 DLinkedListItem_TypeDef* DLinkedList__pstInsertNext(DLinkedList_TypeDef* pstList,
-                                             DLinkedListItem_TypeDef* pstPreviousItem);
+                                             DLinkedListItem_TypeDef* pstPreviousNode);
 
 
 
 
 DLinkedList_nSTATUS DLinkedList__enInsertPrevious_WithData(DLinkedList_TypeDef* pstList,
-                                                       DLinkedListItem_TypeDef* pstNextItem,
+                                                       DLinkedListItem_TypeDef* pstNextNode,
                                                        DLinkedListItem_TypeDef* pstNewItem,
                                                        void* pvData);
 DLinkedList_nSTATUS DLinkedList__enInsertPrevious(DLinkedList_TypeDef* pstList,
-                                                       DLinkedListItem_TypeDef* pstNextItem,
+                                                       DLinkedListItem_TypeDef* pstNextNode,
                                                        DLinkedListItem_TypeDef* pstNewItem);
 DLinkedListItem_TypeDef* DLinkedList__pstInsertPrevious_WithData(DLinkedList_TypeDef* pstList,
-                                                        DLinkedListItem_TypeDef* pstNextItem,
+                                                        DLinkedListItem_TypeDef* pstNextNode,
                                                         void* pvData);
 DLinkedListItem_TypeDef* DLinkedList__pstInsertPrevious(DLinkedList_TypeDef* pstList,
-                                                        DLinkedListItem_TypeDef* pstNextItem);
+                                                        DLinkedListItem_TypeDef* pstNextNode);
 
 
 

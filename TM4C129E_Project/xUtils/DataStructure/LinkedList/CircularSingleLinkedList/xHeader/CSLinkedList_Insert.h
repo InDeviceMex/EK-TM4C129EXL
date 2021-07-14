@@ -27,14 +27,14 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext_WithData(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousItem,
+                                            CSLinkedListItem_TypeDef* pstPreviousNode,
                                             CSLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousItem,
+                                            CSLinkedListItem_TypeDef* pstPreviousNode,
                                             CSLinkedListItem_TypeDef* pstNewItem);
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem, void* pvData);
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem);
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode, void* pvData);
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode);
 
 
 

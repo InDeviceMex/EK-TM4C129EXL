@@ -24,15 +24,15 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Data.h>
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
-#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Node.h>
+#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Item.h>
 
-void* CDLinkedList__pvGetNodeDataPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* CDLinkedList__pvGetItemDataPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodePos(pstList, u32Position);
+        pstItem = CDLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = CDLinkedList__pvGetItemData(pstItem);
@@ -41,13 +41,13 @@ void* CDLinkedList__pvGetNodeDataPos(const CDLinkedList_TypeDef* pstList, uint32
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetNodeValuePos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t CDLinkedList__u32GetItemValuePos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemData = 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodePos(pstList, u32Position);
+        pstItem = CDLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemData = CDLinkedList__u32GetItemValue(pstItem);
@@ -56,13 +56,13 @@ uint32_t CDLinkedList__u32GetNodeValuePos(const CDLinkedList_TypeDef* pstList, u
     return (u32ItemData);
 }
 
-void* CDLinkedList__pvGetNodeDataEnd(const CDLinkedList_TypeDef* pstList)
+void* CDLinkedList__pvGetItemDataEnd(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodeEnd(pstList);
+        pstItem = CDLinkedList__pstGetItemEnd(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             pvItemData = CDLinkedList__pvGetItemData(pstItem);
@@ -71,13 +71,13 @@ void* CDLinkedList__pvGetNodeDataEnd(const CDLinkedList_TypeDef* pstList)
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetNodeValueEnd(const CDLinkedList_TypeDef* pstList)
+uint32_t CDLinkedList__u32GetItemValueEnd(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodeEnd(pstList);
+        pstItem = CDLinkedList__pstGetItemEnd(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             u32ItemValue = CDLinkedList__u32GetItemValue(pstItem);
@@ -86,13 +86,13 @@ uint32_t CDLinkedList__u32GetNodeValueEnd(const CDLinkedList_TypeDef* pstList)
     return (u32ItemValue);
 }
 
-void* CDLinkedList__pvGetNodeDataBegin(const CDLinkedList_TypeDef* pstList)
+void* CDLinkedList__pvGetItemDataBegin(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodeBegin(pstList);
+        pstItem = CDLinkedList__pstGetItemBegin(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             pvItemData = CDLinkedList__pvGetItemData(pstItem);
@@ -101,13 +101,13 @@ void* CDLinkedList__pvGetNodeDataBegin(const CDLinkedList_TypeDef* pstList)
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetNodeValueBegin(const CDLinkedList_TypeDef* pstList)
+uint32_t CDLinkedList__u32GetItemValueBegin(const CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetNodeBegin(pstList);
+        pstItem = CDLinkedList__pstGetItemBegin(pstList);
         if((uint32_t) pstItem != (uint32_t) 0UL)
         {
             u32ItemValue = CDLinkedList__u32GetItemValue(pstItem);

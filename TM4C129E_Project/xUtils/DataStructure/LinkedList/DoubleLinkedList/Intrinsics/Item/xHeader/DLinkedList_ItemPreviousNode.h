@@ -21,18 +21,18 @@
  * Date           Author     Version     Description
  * 8 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#ifndef XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSNODE_H_
-#define XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSNODE_H_
+#ifndef XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSITEM_H_
+#define XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSITEM_H_
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 
 DLinkedListItem_TypeDef* DLinkedList__pstGetItemPreviousNode(const DLinkedListItem_TypeDef* const pstItem);
-void DLinkedList__vSetItemPreviousNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousItem);
+void DLinkedList__vSetItemPreviousNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousNode);
 
 
 
 
 
 
-#endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSNODE_H_ */
+#endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSITEM_H_ */

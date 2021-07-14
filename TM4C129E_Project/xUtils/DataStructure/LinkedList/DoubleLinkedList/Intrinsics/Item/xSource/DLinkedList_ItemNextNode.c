@@ -25,12 +25,12 @@
 
 DLinkedListItem_TypeDef* DLinkedList__pstGetItemNextNode(const DLinkedListItem_TypeDef* const pstItem)
 {
-    DLinkedListItem_TypeDef* pstNextItemReg = (DLinkedListItem_TypeDef*)0UL;
-    pstNextItemReg = pstItem->pstNextNode;
-    return (pstNextItemReg);
+    DLinkedListItem_TypeDef* pstNextNodeReg = (DLinkedListItem_TypeDef*)0UL;
+    pstNextNodeReg = pstItem->pstNextNode;
+    return (pstNextNodeReg);
 }
 
-void DLinkedList__vSetItemNextNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextItem)
+void DLinkedList__vSetItemNextNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextNode)
 {
-    pstItem->pstNextNode = pstNextItem;
+    pstItem->pstNextNode = pstNextNode;
 }

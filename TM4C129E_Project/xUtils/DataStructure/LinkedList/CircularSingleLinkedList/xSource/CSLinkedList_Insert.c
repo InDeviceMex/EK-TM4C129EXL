@@ -30,23 +30,23 @@
 #define DATA_STATIC (1UL)
 
 static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeDef* pstList,
-                                             CSLinkedListItem_TypeDef* pstPreviousItem,
+                                             CSLinkedListItem_TypeDef* pstPreviousNode,
                                              CSLinkedListItem_TypeDef* pstNewItem,
                                              void* pvData,
                                              uint32_t u32DataUpdate);
 
 static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeDef* pstList,
-                                             CSLinkedListItem_TypeDef* pstPreviousItem,
+                                             CSLinkedListItem_TypeDef* pstPreviousNode,
                                              CSLinkedListItem_TypeDef* pstNewItem,
                                              void* pvData,
                                              uint32_t u32DataUpdate)
 {
     CSLinkedList_nSTATUS enStatusReturn = CSLinkedList_enSTATUS_ERROR;
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    CSLinkedListItem_TypeDef* pstNextItem = (CSLinkedListItem_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstNewItem1 = (CSLinkedListItem_TypeDef*) 0UL ;
-    CSLinkedListItem_TypeDef* pstListHeadNode = (CSLinkedListItem_TypeDef*) 0UL ;
-    CSLinkedListItem_TypeDef* pstListTailNode = (CSLinkedListItem_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstListHeadItem = (CSLinkedListItem_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstListTailItem = (CSLinkedListItem_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
@@ -67,24 +67,24 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
                 CSLinkedList__vSetHead(pstList, pstNewItem);
                 CSLinkedList__vSetTail(pstList, pstNewItem);
             }
-            else if((uint32_t) 0UL == (uint32_t) pstPreviousItem) /*Insert to head*/
+            else if((uint32_t) 0UL == (uint32_t) pstPreviousNode) /*Insert to head*/
             {
-                pstListTailNode = CSLinkedList__pstGetTail(pstList);
-                pstListHeadNode = CSLinkedList__pstGetHead(pstList);
-                CSLinkedList__vSetItemNextNode(pstNewItem, pstListHeadNode);
-                CSLinkedList__vSetItemNextNode(pstListTailNode, pstNewItem);
+                pstListTailItem = CSLinkedList__pstGetTail(pstList);
+                pstListHeadItem = CSLinkedList__pstGetHead(pstList);
+                CSLinkedList__vSetItemNextNode(pstNewItem, pstListHeadItem);
+                CSLinkedList__vSetItemNextNode(pstListTailItem, pstNewItem);
                 CSLinkedList__vSetHead(pstList, pstNewItem);
             }
             else /*Insert beetween nodes*/
             {
-                enStatus = CSLinkedList__enIsTail(pstList, pstPreviousItem);
+                enStatus = CSLinkedList__enIsTail(pstList, pstPreviousNode);
                 if((uint32_t) CSLinkedList_enSTATUS_OK == (uint32_t) enStatus)
                 {
                     CSLinkedList__vSetTail(pstList, pstNewItem);
                 }
-                pstNextItem = CSLinkedList__pstGetItemNextNode(pstPreviousItem);
-                CSLinkedList__vSetItemNextNode(pstNewItem, pstNextItem);
-                CSLinkedList__vSetItemNextNode(pstPreviousItem, pstNewItem);
+                pstNextNode = CSLinkedList__pstGetItemNextNode(pstPreviousNode);
+                CSLinkedList__vSetItemNextNode(pstNewItem, pstNextNode);
+                CSLinkedList__vSetItemNextNode(pstPreviousNode, pstNewItem);
             }
             u32SizeReg++;
             CSLinkedList__vSetSize(pstList, u32SizeReg);
@@ -94,27 +94,27 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext_WithData(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousItem,
+                                            CSLinkedListItem_TypeDef* pstPreviousNode,
                                             CSLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstPreviousItem, pstNewItem, pvData, DATA_UPDATE);
+    enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstPreviousNode, pstNewItem, pvData, DATA_UPDATE);
     return (enStatus);
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enInsertNext(CSLinkedList_TypeDef* pstList,
-                                            CSLinkedListItem_TypeDef* pstPreviousItem,
+                                            CSLinkedListItem_TypeDef* pstPreviousNode,
                                             CSLinkedListItem_TypeDef* pstNewItem)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstPreviousItem, pstNewItem, (void*) 0UL, DATA_STATIC);
+    enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstPreviousNode, pstNewItem, (void*) 0UL, DATA_STATIC);
     return (enStatus);
 }
 
 
 
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem, void* pvData)
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode, void* pvData)
 {
     CSLinkedListItem_TypeDef* pstNewItem = (CSLinkedListItem_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
@@ -124,12 +124,12 @@ CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext_WithData(CSLinkedList_Type
         #elif defined (__GNUC__ )
         pstNewItem = (CSLinkedListItem_TypeDef*) malloc(sizeof(CSLinkedListItem_TypeDef));
         #endif
-        CSLinkedList__enInsertNext_WithData(pstList, pstPreviousItem,  pstNewItem, pvData);
+        CSLinkedList__enInsertNext_WithData(pstList, pstPreviousNode,  pstNewItem, pvData);
     }
     return (pstNewItem);
 }
 
-CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousItem)
+CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstPreviousNode)
 {
     CSLinkedListItem_TypeDef* pstNewItem = (CSLinkedListItem_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
@@ -139,7 +139,7 @@ CSLinkedListItem_TypeDef* CSLinkedList__pstInsertNext(CSLinkedList_TypeDef* pstL
         #elif defined (__GNUC__ )
         pstNewItem = (CSLinkedListItem_TypeDef*) malloc(sizeof(CSLinkedListItem_TypeDef));
         #endif
-        CSLinkedList__enInsertNext(pstList, pstPreviousItem,  pstNewItem);
+        CSLinkedList__enInsertNext(pstList, pstPreviousNode,  pstNewItem);
     }
     return (pstNewItem);
 }

@@ -24,15 +24,15 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Data.h>
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
-#include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Node.h>
+#include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Item.h>
 
-void* DLinkedList__pvGetNodeDataPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* DLinkedList__pvGetItemDataPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodePos(pstList, u32Position);
+        pstItem = DLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = DLinkedList__pvGetItemData(pstItem);
@@ -41,13 +41,13 @@ void* DLinkedList__pvGetNodeDataPos(const DLinkedList_TypeDef* pstList, uint32_t
     return (pvItemData);
 }
 
-void* DLinkedList__pvGetNodeDataEnd(const DLinkedList_TypeDef* pstList)
+void* DLinkedList__pvGetItemDataEnd(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodeEnd(pstList);
+        pstItem = DLinkedList__pstGetItemEnd(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = DLinkedList__pvGetItemData(pstItem);
@@ -56,13 +56,13 @@ void* DLinkedList__pvGetNodeDataEnd(const DLinkedList_TypeDef* pstList)
     return (pvItemData);
 }
 
-void* DLinkedList__pvGetNodeDataBegin(const DLinkedList_TypeDef* pstList)
+void* DLinkedList__pvGetItemDataBegin(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodeBegin(pstList);
+        pstItem = DLinkedList__pstGetItemBegin(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = DLinkedList__pvGetItemData(pstItem);
@@ -72,13 +72,13 @@ void* DLinkedList__pvGetNodeDataBegin(const DLinkedList_TypeDef* pstList)
 }
 
 
-uint32_t DLinkedList__u32GetNodeValuePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t DLinkedList__u32GetItemValuePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodePos(pstList, u32Position);
+        pstItem = DLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = DLinkedList__u32GetItemValue(pstItem);
@@ -87,13 +87,13 @@ uint32_t DLinkedList__u32GetNodeValuePos(const DLinkedList_TypeDef* pstList, uin
     return (u32ItemValue);
 }
 
-uint32_t DLinkedList__u32GetNodeValueEnd(const DLinkedList_TypeDef* pstList)
+uint32_t DLinkedList__u32GetItemValueEnd(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodeEnd(pstList);
+        pstItem = DLinkedList__pstGetItemEnd(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = DLinkedList__u32GetItemValue(pstItem);
@@ -102,13 +102,13 @@ uint32_t DLinkedList__u32GetNodeValueEnd(const DLinkedList_TypeDef* pstList)
     return (u32ItemValue);
 }
 
-uint32_t DLinkedList__u32GetNodeValueBegin(const DLinkedList_TypeDef* pstList)
+uint32_t DLinkedList__u32GetItemValueBegin(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetNodeBegin(pstList);
+        pstItem = DLinkedList__pstGetItemBegin(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = DLinkedList__u32GetItemValue(pstItem);

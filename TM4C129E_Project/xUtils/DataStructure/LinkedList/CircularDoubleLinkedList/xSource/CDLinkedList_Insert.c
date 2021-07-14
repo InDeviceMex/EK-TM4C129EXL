@@ -51,8 +51,8 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
     CDLinkedListItem_TypeDef* pstItemTemp = (CDLinkedListItem_TypeDef*) 0UL ;
     CDLinkedListItem_TypeDef* pstItemNextNode = (CDLinkedListItem_TypeDef*) 0UL ;
     CDLinkedListItem_TypeDef* pstItemPreviousNode = (CDLinkedListItem_TypeDef*) 0UL ;
-    CDLinkedListItem_TypeDef* pstHeadNode = (CDLinkedListItem_TypeDef*) 0UL ;
-    CDLinkedListItem_TypeDef* pstTailNode = (CDLinkedListItem_TypeDef*) 0UL ;
+    CDLinkedListItem_TypeDef* pstHeadItem = (CDLinkedListItem_TypeDef*) 0UL ;
+    CDLinkedListItem_TypeDef* pstTailItem = (CDLinkedListItem_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
@@ -81,12 +81,12 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                 {
                     if(INSERT_NEXT == u32Insert)
                     {
-                        pstHeadNode = CDLinkedList__pstGetHead(pstList);
+                        pstHeadItem = CDLinkedList__pstGetHead(pstList);
                         pstItemNextNode = CDLinkedList__pstGetItemNextNode(pstItem);
 
                         CDLinkedList__vSetItemNextNode(pstNewItem, pstItemNextNode );
                         CDLinkedList__vSetItemPreviousNode(pstNewItem, pstItem);
-                        if((uint32_t) pstHeadNode == (uint32_t) pstItemNextNode)
+                        if((uint32_t) pstHeadItem == (uint32_t) pstItemNextNode)
                         {
                             CDLinkedList__vSetTail(pstList, pstNewItem);
                         }
@@ -96,13 +96,13 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                     }
                     else
                     {
-                        pstTailNode = CDLinkedList__pstGetTail(pstList);
+                        pstTailItem = CDLinkedList__pstGetTail(pstList);
                         pstItemPreviousNode = CDLinkedList__pstGetItemPreviousNode(pstItem);
 
                         CDLinkedList__vSetItemNextNode(pstNewItem, pstItem );
                         CDLinkedList__vSetItemPreviousNode(pstNewItem, pstItemPreviousNode);
 
-                        if((uint32_t) pstTailNode == (uint32_t) pstItemPreviousNode)
+                        if((uint32_t) pstTailItem == (uint32_t) pstItemPreviousNode)
                         {
                             CDLinkedList__vSetHead(pstList, pstNewItem);
                         }

@@ -40,7 +40,7 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
     SLinkedListItem_TypeDef* pstItemNextNode = (SLinkedListItem_TypeDef*) 0UL ;
     SLinkedListItem_TypeDef* pstItemNextNextNode = (SLinkedListItem_TypeDef*) 0UL ;
     void* pstItemNextNodeData = (void*) 0UL ;
-    void* pstItemNodeData = (void*) 0UL ;
+    void* pstItemItemData = (void*) 0UL ;
     void* pstItemDataTemp = (void*) 0UL ;
     uint32_t u32SizeReg = 0UL;
 
@@ -72,8 +72,8 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                     pstItemNextNodeData = SLinkedList__pvGetItemData(pstItemNextNode);
                     if(REMOVE_CURRENT == u32Remove)
                     {
-                        pstItemNodeData = SLinkedList__pvGetItemData(pstItem);
-                        pstItemDataTemp = pstItemNodeData;
+                        pstItemItemData = SLinkedList__pvGetItemData(pstItem);
+                        pstItemDataTemp = pstItemItemData;
                     }
                     else
                     {
