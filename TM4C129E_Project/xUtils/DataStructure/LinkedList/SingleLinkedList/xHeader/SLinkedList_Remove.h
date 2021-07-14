@@ -26,15 +26,15 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedList_nSTATUS SLinkedList__enRemoveNextInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveNextInList(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement);
-SLinkedList_nSTATUS SLinkedList__enRemoveNext_GetData(SLinkedListElement_TypeDef* pstElement, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedListElement_TypeDef* pstElement);
+SLinkedList_nSTATUS SLinkedList__enRemoveNextInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstItem, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveNextInList(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstItem);
+SLinkedList_nSTATUS SLinkedList__enRemoveNext_GetData(SLinkedListItem_TypeDef* pstItem, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedListItem_TypeDef* pstItem);
 
-SLinkedList_nSTATUS SLinkedList__enRemoveInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveInList(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstElement);
-SLinkedList_nSTATUS SLinkedList__enRemove_GetData(SLinkedListElement_TypeDef* pstElement, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedListElement_TypeDef* pstElement);
+SLinkedList_nSTATUS SLinkedList__enRemoveInList_GetData(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstItem, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemoveInList(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstItem);
+SLinkedList_nSTATUS SLinkedList__enRemove_GetData(SLinkedListItem_TypeDef* pstItem, void** pvData);
+SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedListItem_TypeDef* pstItem);
 
 SLinkedList_nSTATUS  SLinkedList__enRemoveEnd_GetData(SLinkedList_TypeDef* pstList, void** pvData);
 SLinkedList_nSTATUS  SLinkedList__enRemoveEnd(SLinkedList_TypeDef* pstList);

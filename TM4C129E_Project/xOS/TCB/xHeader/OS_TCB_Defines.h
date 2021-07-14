@@ -63,7 +63,7 @@ typedef enum
 }OS_TCB_nSTATE_CHAR;
 
 typedef CSLinkedList_TypeDef OS_TCB_TypeDef;
-typedef CSLinkedListElement_TypeDef OS_TCB_Element_TypeDef;
+typedef CSLinkedListItem_TypeDef OS_TCB_Item_TypeDef;
 
 typedef struct
 {

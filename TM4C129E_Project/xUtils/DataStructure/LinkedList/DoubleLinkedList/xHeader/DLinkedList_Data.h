@@ -30,8 +30,8 @@ void*  DLinkedList__pvGetNodeDataPos(const DLinkedList_TypeDef* pstList, uint32_
 void*  DLinkedList__pvGetNodeDataEnd(const DLinkedList_TypeDef* pstList);
 void*  DLinkedList__pvGetNodeDataBegin(const DLinkedList_TypeDef* pstList);
 
-uint32_t  DLinkedList__u32GetNodeDataAuxiliarPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t  DLinkedList__u32GetNodeDataAuxiliarEnd(const DLinkedList_TypeDef* pstList);
-uint32_t  DLinkedList__u32GetNodeDataAuxiliarBegin(const DLinkedList_TypeDef* pstList);
+uint32_t  DLinkedList__u32GetNodeValuePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  DLinkedList__u32GetNodeValueEnd(const DLinkedList_TypeDef* pstList);
+uint32_t  DLinkedList__u32GetNodeValueBegin(const DLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_DATA_H_ */

@@ -27,12 +27,12 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
 void*  CSLinkedList__pvGetNodeDataPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t CSLinkedList__u32GetNodeDataAuxiliarPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t CSLinkedList__u32GetNodeValuePos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position);
 
 void*  CSLinkedList__pvGetNodeDataEnd(const CSLinkedList_TypeDef* pstList);
-uint32_t CSLinkedList__u32GetNodeDataAuxiliarEnd(const CSLinkedList_TypeDef* pstList);
+uint32_t CSLinkedList__u32GetNodeValueEnd(const CSLinkedList_TypeDef* pstList);
 
 void*  CSLinkedList__pvGetNodeDataBegin(const CSLinkedList_TypeDef* pstList);
-uint32_t CSLinkedList__u32GetNodeDataAuxiliarBegin(const CSLinkedList_TypeDef* pstList);
+uint32_t CSLinkedList__u32GetNodeValueBegin(const CSLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_DATA_H_ */

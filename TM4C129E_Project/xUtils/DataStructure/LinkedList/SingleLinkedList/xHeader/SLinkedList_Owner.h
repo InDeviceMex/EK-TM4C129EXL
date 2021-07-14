@@ -27,6 +27,6 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedList_nSTATUS SLinkedList__enIsElementOwnerList(const SLinkedList_TypeDef* pstList, const SLinkedListElement_TypeDef* const pstElement);
+SLinkedList_nSTATUS SLinkedList__enIsItemOwnerList(const SLinkedList_TypeDef* pstList, const SLinkedListItem_TypeDef* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_OWNER_H_ */

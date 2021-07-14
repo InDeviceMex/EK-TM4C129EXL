@@ -23,22 +23,22 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Tail.h>
 
-SLinkedListElement_TypeDef* SLinkedList__pstGetTail(const SLinkedList_TypeDef*  const pstList)
+SLinkedListItem_TypeDef* SLinkedList__pstGetTail(const SLinkedList_TypeDef*  const pstList)
 {
-    SLinkedListElement_TypeDef* pstTailReg = (SLinkedListElement_TypeDef*)0U;
+    SLinkedListItem_TypeDef* pstTailReg = (SLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
     return pstTailReg;
 }
 
-void SLinkedList__vSetTail(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstTailArg)
+void SLinkedList__vSetTail(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstTailArg)
 {
     pstList->pstTail = pstTailArg;
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListElement_TypeDef* const pstElement)
+SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_TypeDef* const pstItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstElement->pstNextNode))
+    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNextNode))
     {
         enStatus = SLinkedList_enSTATUS_OK;
     }

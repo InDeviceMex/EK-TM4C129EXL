@@ -27,6 +27,6 @@
 
 #include <xOS/TCB/xHeader/OS_TCB_Defines.h>
 
-OS_TCB_Element_TypeDef* OS_TCB__pstInsert(OS_TCB_Container_Typedef* pstData);
+OS_TCB_Item_TypeDef* OS_TCB__pstInsert(OS_TCB_Container_Typedef* pstData);
 
 #endif /* XOS_TCB_XHEADER_OS_TCB_INSERT_H_ */

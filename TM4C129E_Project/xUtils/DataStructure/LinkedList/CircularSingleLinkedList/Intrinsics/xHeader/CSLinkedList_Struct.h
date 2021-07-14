@@ -33,23 +33,23 @@ typedef enum
 }CSLinkedList_nSTATUS;
 
 
-typedef struct CSLinkedListElement
+typedef struct CSLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32DataAuxiliar;
-        struct CSLinkedListElement *pstNextNode;
-}CSLinkedListElement_TypeDef;
+        uint32_t u32Value;
+        struct CSLinkedListItem *pstNextNode;
+}CSLinkedListItem_TypeDef;
 
 typedef struct CSLinkedList
 {
         uint32_t u32Size;
         uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
-        void (*pfvDestroyElementData) (void *DataContainer);
-        void (*pfvDestroyElement) (void *Element);
+        void (*pfvDestroyItemData) (void *DataContainer);
+        void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
-        CSLinkedListElement_TypeDef *pstHead;
-        CSLinkedListElement_TypeDef *pstTail;
+        CSLinkedListItem_TypeDef *pstHead;
+        CSLinkedListItem_TypeDef *pstTail;
 }CSLinkedList_TypeDef;
 
 

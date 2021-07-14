@@ -27,19 +27,19 @@
 
 static OS_TCB_TypeDef* OS_TCB_stTCB = (OS_TCB_TypeDef*) 0UL;
 
-OS_TCB_TypeDef* OS_TCB__pstInit(void (*pvfDestroyElement)(void *pvDataContainerArg))
+OS_TCB_TypeDef* OS_TCB__pstInit(void (*pvfDestroyItem)(void *pvDataContainerArg))
 {
-    OS_TCB_stTCB = (OS_TCB_TypeDef*) CSLinkedList__pstInit(pvfDestroyElement,&free);
+    OS_TCB_stTCB = (OS_TCB_TypeDef*) CSLinkedList__pstInit(pvfDestroyItem,&free);
     return OS_TCB_stTCB;
 }
 
-OS_TCB_nSTATUS OS_TCB__enInit(OS_TCB_TypeDef* pstTCB, void (*pvfDestroyElement)(void *pvDataContainerArg))
+OS_TCB_nSTATUS OS_TCB__enInit(OS_TCB_TypeDef* pstTCB, void (*pvfDestroyItem)(void *pvDataContainerArg))
 {
     OS_TCB_nSTATUS enStatus = OS_TCB_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstTCB)
     {
         OS_TCB_stTCB = pstTCB;
-        enStatus =  (OS_TCB_nSTATUS) CSLinkedList__enInit( (CSLinkedList_TypeDef*) pstTCB, pvfDestroyElement, &free);
+        enStatus =  (OS_TCB_nSTATUS) CSLinkedList__enInit( (CSLinkedList_TypeDef*) pstTCB, pvfDestroyItem, &free);
     }
     return enStatus;
 }

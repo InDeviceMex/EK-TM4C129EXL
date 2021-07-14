@@ -23,24 +23,24 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/xHeader/DLinkedList_Head.h>
 
-DLinkedListElement_TypeDef* DLinkedList__pstGetHead(const DLinkedList_TypeDef*  const pstList)
+DLinkedListItem_TypeDef* DLinkedList__pstGetHead(const DLinkedList_TypeDef*  const pstList)
 {
-    DLinkedListElement_TypeDef* pstHeadReg = (DLinkedListElement_TypeDef*)0U;
+    DLinkedListItem_TypeDef* pstHeadReg = (DLinkedListItem_TypeDef*)0U;
     pstHeadReg = pstList->pstHead;
     return pstHeadReg;
 }
 
-void DLinkedList__vSetHead(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstHeadArg)
+void DLinkedList__vSetHead(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstHeadArg)
 {
     pstList->pstHead = pstHeadArg;
 }
 
-DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_TypeDef* const pstList, const DLinkedListElement_TypeDef* const pstElement)
+DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_TypeDef* const pstList, const DLinkedListItem_TypeDef* const pstItem)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedListElement_TypeDef* pstListHead = (DLinkedListElement_TypeDef*)0UL;
+    DLinkedListItem_TypeDef* pstListHead = (DLinkedListItem_TypeDef*)0UL;
     pstListHead = DLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstElement == (uint32_t) (pstListHead))
+    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

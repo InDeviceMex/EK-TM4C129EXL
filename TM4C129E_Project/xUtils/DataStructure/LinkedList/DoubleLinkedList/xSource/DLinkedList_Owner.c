@@ -25,12 +25,12 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
 
-DLinkedList_nSTATUS DLinkedList__enIsElementOwnerList(const DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* const pstElement)
+DLinkedList_nSTATUS DLinkedList__enIsItemOwnerList(const DLinkedList_TypeDef* pstList, const DLinkedListItem_TypeDef* const pstItem)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedList_TypeDef* pstOwnerListElement = (DLinkedList_TypeDef*) 0UL;
-    pstOwnerListElement = (DLinkedList_TypeDef*) DLinkedList__pvGetElementOwnerList(pstElement);
-    if((uint32_t) pstOwnerListElement == (uint32_t) pstList )
+    DLinkedList_TypeDef* pstOwnerListItem = (DLinkedList_TypeDef*) 0UL;
+    pstOwnerListItem = (DLinkedList_TypeDef*) DLinkedList__pvGetItemOwnerList(pstItem);
+    if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

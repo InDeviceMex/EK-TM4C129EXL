@@ -26,20 +26,20 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemoveInList(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement);
-CDLinkedList_nSTATUS CDLinkedList__enRemove_GetData(CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemove(CDLinkedListElement_TypeDef* pstElement);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveInList(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstItem);
+CDLinkedList_nSTATUS CDLinkedList__enRemove_GetData(CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemove(CDLinkedListItem_TypeDef* pstItem);
 
-CDLinkedList_nSTATUS CDLinkedList__enRemoveNextInList_GetData(CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemoveNextInList(CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* pstElement);
-CDLinkedList_nSTATUS CDLinkedList__enRemoveNext_GetData(const CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemoveNext(const CDLinkedListElement_TypeDef* pstElement);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveNextInList_GetData(CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveNextInList(CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* pstItem);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveNext_GetData(const CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemoveNext(const CDLinkedListItem_TypeDef* pstItem);
 
-CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList_GetData(CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList(CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* pstElement);
-CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious_GetData(const CDLinkedListElement_TypeDef* pstElement, void** pvData);
-CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious(const CDLinkedListElement_TypeDef* pstElement);
+CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList_GetData(CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList(CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* pstItem);
+CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious_GetData(const CDLinkedListItem_TypeDef* pstItem, void** pvData);
+CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious(const CDLinkedListItem_TypeDef* pstItem);
 
 CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd_GetData(CDLinkedList_TypeDef* pstList, void** pvData);
 CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd(CDLinkedList_TypeDef* pstList);

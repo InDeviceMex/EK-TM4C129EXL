@@ -28,22 +28,22 @@
 SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_TypeDef* pstList)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    SLinkedListElement_TypeDef* pstPreviousElement = (SLinkedListElement_TypeDef*) 0UL ;
-    SLinkedListElement_TypeDef* pstNextElement = (SLinkedListElement_TypeDef*) 0UL ;
-    SLinkedListElement_TypeDef* pstHeadElement = (SLinkedListElement_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstPreviousItem = (SLinkedListItem_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstNextItem = (SLinkedListItem_TypeDef*) 0UL ;
+    SLinkedListItem_TypeDef* pstHeadItem = (SLinkedListItem_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
-        pstHeadElement = SLinkedList__pstGetHead(pstList);
-        SLinkedList__vSetTail(pstList, pstHeadElement);
-        while((uint32_t) 0UL != (uint32_t) pstHeadElement)
+        pstHeadItem = SLinkedList__pstGetHead(pstList);
+        SLinkedList__vSetTail(pstList, pstHeadItem);
+        while((uint32_t) 0UL != (uint32_t) pstHeadItem)
         {
-            pstNextElement = SLinkedList__pstGetElementNextNode(pstHeadElement);
-            SLinkedList__vSetElementNextNode(pstHeadElement, pstPreviousElement);
-            pstPreviousElement = pstHeadElement;
-            pstHeadElement = pstNextElement;
+            pstNextItem = SLinkedList__pstGetItemNextNode(pstHeadItem);
+            SLinkedList__vSetItemNextNode(pstHeadItem, pstPreviousItem);
+            pstPreviousItem = pstHeadItem;
+            pstHeadItem = pstNextItem;
         }
-        pstHeadElement = pstPreviousElement;
-        SLinkedList__vSetHead(pstList, pstHeadElement);
+        pstHeadItem = pstPreviousItem;
+        SLinkedList__vSetHead(pstList, pstHeadItem);
     }
     return (enStatus);
 }

@@ -71,10 +71,10 @@ static volatile uint32_t u32SchedulerSuspended = 0UL;
 static uint32_t u32TaskSwitchedInTime = 0UL; /*< Holds the value of a timer/counter the last time a task was switched in. */
 static uint32_t u32TotalRunTime = 0UL;       /*< Holds the total amount of execution time as defined by the run time counter clock. */
 
-OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThread,const char* pcNameArg, uint32_t u32StackSizeArg, void *pvParameters, uint32_t u32PriorityArg)
+OS_TCB_Item_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThread,const char* pcNameArg, uint32_t u32StackSizeArg, void *pvParameters, uint32_t u32PriorityArg)
 {
-    OS_TCB_Element_TypeDef* pstElement = (OS_TCB_Element_TypeDef*) 0UL;
-    OS_TCB_Element_TypeDef* pstCurrentTaskReg = (OS_TCB_Element_TypeDef*) 0UL;
+    OS_TCB_Item_TypeDef* pstItem = (OS_TCB_Item_TypeDef*) 0UL;
+    OS_TCB_Item_TypeDef* pstCurrentTaskReg = (OS_TCB_Item_TypeDef*) 0UL;
     OS_TCB_Container_Typedef* pstData = (OS_TCB_Container_Typedef*) 0UL;
     char* pcNamePointer = (char*) 0UL;
     uint32_t u32Count = 0UL;
@@ -144,18 +144,18 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
             pstData->pu32TopOfStack = OS_Kernel_StackInit(pu32TopOfStackTemp, pfvThread, pvParameters);
 
             OS_Kernel__vIncreaseCreatedThread();
-            pstElement = OS_TCB__pstInsert(pstData);
+            pstItem = OS_TCB__pstInsert(pstData);
             pstCurrentTaskReg = OS_Kernel__u32GetCurrentTask();
             if(0UL == (uint32_t) pstCurrentTaskReg)
             {
-                OS_Kernel__vSetCurrentTask(pstElement);
+                OS_Kernel__vSetCurrentTask(pstItem);
             }
         }
     }
-    return pstElement;
+    return pstItem;
 }
 
-void OS_Kernel__vDestroyElement(void *pvDataContainerArg)
+void OS_Kernel__vDestroyItem(void *pvDataContainerArg)
 {
     OS_TCB_Container_Typedef *pstDataContainer = (OS_TCB_Container_Typedef*) pvDataContainerArg;
     uint32_t u32Count = 0UL;
@@ -167,17 +167,17 @@ void OS_Kernel__vDestroyElement(void *pvDataContainerArg)
         pstDataContainer->pu32TopOfStack = (uint32_t*) 0UL;
         pstDataContainer->stTCBTaskStateList.u32Size = 0UL;
         pstDataContainer->stTCBTaskStateList.pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
-        pstDataContainer->stTCBTaskStateList.pfvDestroyElementData = (void (*) (void *DataContainer)) 0UL;
+        pstDataContainer->stTCBTaskStateList.pfvDestroyItemData = (void (*) (void *DataContainer)) 0UL;
         pstDataContainer->stTCBTaskStateList.pfvDestroy = (void (*) (void* List)) 0UL;
-        pstDataContainer->stTCBTaskStateList.pstHead = (CSLinkedListElement_TypeDef*) 0UL;
-        pstDataContainer->stTCBTaskStateList.pstTail = (CSLinkedListElement_TypeDef*) 0UL;
+        pstDataContainer->stTCBTaskStateList.pstHead = (CSLinkedListItem_TypeDef*) 0UL;
+        pstDataContainer->stTCBTaskStateList.pstTail = (CSLinkedListItem_TypeDef*) 0UL;
 
         pstDataContainer->stTCBEventList.u32Size = 0UL;
         pstDataContainer->stTCBEventList.pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
-        pstDataContainer->stTCBEventList.pfvDestroyElementData = (void (*) (void *DataContainer)) 0UL;
+        pstDataContainer->stTCBEventList.pfvDestroyItemData = (void (*) (void *DataContainer)) 0UL;
         pstDataContainer->stTCBEventList.pfvDestroy = (void (*) (void* List)) 0UL;
-        pstDataContainer->stTCBEventList.pstHead = (CSLinkedListElement_TypeDef*) 0UL;
-        pstDataContainer->stTCBEventList.pstTail = (CSLinkedListElement_TypeDef*) 0UL;
+        pstDataContainer->stTCBEventList.pstHead = (CSLinkedListItem_TypeDef*) 0UL;
+        pstDataContainer->stTCBEventList.pstTail = (CSLinkedListItem_TypeDef*) 0UL;
 
         pstDataContainer->u32Priority = 0UL;
         pstDataContainer->pu32Stack = (uint32_t*) 0UL;
@@ -245,12 +245,12 @@ static void OS_Kernel__vSetCreatedThread(uint32_t u32Value)
     OS_Kernel_u32CreatedThread = u32Value;
 }
 
-OS_TCB_Element_TypeDef* OS_Kernel__u32GetCurrentTask(void)
+OS_TCB_Item_TypeDef* OS_Kernel__u32GetCurrentTask(void)
 {
     return OS_Kernel_psCurrentTask;
 }
 
-void OS_Kernel__vSetCurrentTask(OS_TCB_Element_TypeDef* pstCurrentTask)
+void OS_Kernel__vSetCurrentTask(OS_TCB_Item_TypeDef* pstCurrentTask)
 {
     OS_Kernel_psCurrentTask = pstCurrentTask;
 }

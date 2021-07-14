@@ -25,12 +25,12 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 
-CDLinkedList_nSTATUS CDLinkedList__enIsElementOwnerList(const CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* const pstElement)
+CDLinkedList_nSTATUS CDLinkedList__enIsItemOwnerList(const CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* const pstItem)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    CDLinkedList_TypeDef* pstOwnerListElement = (CDLinkedList_TypeDef*) 0UL;
-    pstOwnerListElement = (CDLinkedList_TypeDef*) CDLinkedList__pvGetElementOwnerList(pstElement);
-    if((uint32_t) pstOwnerListElement == (uint32_t) pstList )
+    CDLinkedList_TypeDef* pstOwnerListItem = (CDLinkedList_TypeDef*) 0UL;
+    pstOwnerListItem = (CDLinkedList_TypeDef*) CDLinkedList__pvGetItemOwnerList(pstItem);
+    if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

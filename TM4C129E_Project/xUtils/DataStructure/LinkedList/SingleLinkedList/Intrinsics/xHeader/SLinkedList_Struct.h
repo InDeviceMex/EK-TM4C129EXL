@@ -32,23 +32,23 @@ typedef enum
     SLinkedList_enSTATUS_ERROR
 }SLinkedList_nSTATUS;
 
-typedef struct SLinkedListElement
+typedef struct SLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32DataAuxiliar;
-        struct SLinkedListElement *pstNextNode;
-}SLinkedListElement_TypeDef;
+        uint32_t u32Value;
+        struct SLinkedListItem *pstNextNode;
+}SLinkedListItem_TypeDef;
 
 typedef struct SLinkedList
 {
         uint32_t u32Size;
         uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
-        void (*pfvDestroyElementData) (void *DataContainer);
-        void (*pfvDestroyElement) (void *Element);
+        void (*pfvDestroyItemData) (void *DataContainer);
+        void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
-        SLinkedListElement_TypeDef *pstHead;
-        SLinkedListElement_TypeDef *pstTail;
+        SLinkedListItem_TypeDef *pstHead;
+        SLinkedListItem_TypeDef *pstTail;
 }SLinkedList_TypeDef;
 
 

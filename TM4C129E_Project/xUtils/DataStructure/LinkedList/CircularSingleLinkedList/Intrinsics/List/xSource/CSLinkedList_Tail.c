@@ -23,24 +23,24 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/List/xHeader/CSLinkedList_Tail.h>
 
-CSLinkedListElement_TypeDef* CSLinkedList__pstGetTail(const CSLinkedList_TypeDef*  const pstList)
+CSLinkedListItem_TypeDef* CSLinkedList__pstGetTail(const CSLinkedList_TypeDef*  const pstList)
 {
-    CSLinkedListElement_TypeDef* pstTailReg = (CSLinkedListElement_TypeDef*)0U;
+    CSLinkedListItem_TypeDef* pstTailReg = (CSLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
     return pstTailReg;
 }
 
-void CSLinkedList__vSetTail(CSLinkedList_TypeDef* pstList, CSLinkedListElement_TypeDef* pstTailArg)
+void CSLinkedList__vSetTail(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstTailArg)
 {
     pstList->pstTail = pstTailArg;
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_TypeDef*  const pstList, const CSLinkedListElement_TypeDef* const pstElement)
+CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_TypeDef*  const pstList, const CSLinkedListItem_TypeDef* const pstItem)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    CSLinkedListElement_TypeDef* pstListTail = (CSLinkedListElement_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef* pstListTail = (CSLinkedListItem_TypeDef*) 0UL;
     pstListTail = CSLinkedList__pstGetTail(pstList);
-    if ((uint32_t) pstListTail == (uint32_t) pstElement)
+    if ((uint32_t) pstListTail == (uint32_t) pstItem)
     {
         enStatus = CSLinkedList_enSTATUS_OK;
     }

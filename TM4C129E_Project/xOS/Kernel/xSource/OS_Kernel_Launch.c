@@ -35,7 +35,7 @@ static void OS_Kernel_vSysTickHandler( void );
 static void OS_Kernel_vStartFirstTask(void);
 void vTaskSwitchContext(void);
 
-OS_TCB_Element_TypeDef* OS_Kernel_psCurrentTask = (OS_TCB_Element_TypeDef*) 0UL;
+OS_TCB_Item_TypeDef* OS_Kernel_psCurrentTask = (OS_TCB_Item_TypeDef*) 0UL;
 uint32_t OS_Kernel_u32Tick = 0UL;
 
 void OS_Kernel__vLaunch(uint32_t u32Ticks)

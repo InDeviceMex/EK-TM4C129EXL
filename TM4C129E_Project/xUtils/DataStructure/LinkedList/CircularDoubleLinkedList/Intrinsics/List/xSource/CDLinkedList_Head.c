@@ -23,24 +23,24 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Head.h>
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstGetHead(const CDLinkedList_TypeDef*  const pstList)
+CDLinkedListItem_TypeDef* CDLinkedList__pstGetHead(const CDLinkedList_TypeDef*  const pstList)
 {
-    CDLinkedListElement_TypeDef* pstHeadReg = (CDLinkedListElement_TypeDef*)0U;
+    CDLinkedListItem_TypeDef* pstHeadReg = (CDLinkedListItem_TypeDef*)0U;
     pstHeadReg = pstList->pstHead;
     return pstHeadReg;
 }
 
-void CDLinkedList__vSetHead(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstHeadArg)
+void CDLinkedList__vSetHead(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstHeadArg)
 {
     pstList->pstHead = pstHeadArg;
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsHead(const CDLinkedList_TypeDef* const pstList, const CDLinkedListElement_TypeDef* const pstElement)
+CDLinkedList_nSTATUS CDLinkedList__enIsHead(const CDLinkedList_TypeDef* const pstList, const CDLinkedListItem_TypeDef* const pstItem)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    CDLinkedListElement_TypeDef* pstListHead = (CDLinkedListElement_TypeDef*)0UL;
+    CDLinkedListItem_TypeDef* pstListHead = (CDLinkedListItem_TypeDef*)0UL;
     pstListHead = CDLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstElement == (uint32_t) (pstListHead))
+    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

@@ -27,64 +27,64 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
 SLinkedList_nSTATUS SLinkedList__enInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                            SLinkedListElement_TypeDef* pstPreviousElement,
-                                            SLinkedListElement_TypeDef* pstNewElement,
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
+                                            SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 SLinkedList_nSTATUS SLinkedList__enInsertNext(SLinkedList_TypeDef* pstList,
-                                            SLinkedListElement_TypeDef* pstPreviousElement,
-                                            SLinkedListElement_TypeDef* pstNewElement);
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
+                                            SLinkedListItem_TypeDef* pstNewItem);
 
 
 
-SLinkedListElement_TypeDef* SLinkedList__pstInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListElement_TypeDef* pstPreviousElement,
+SLinkedListItem_TypeDef* SLinkedList__pstInsertNext_WithData(SLinkedList_TypeDef* pstList,
+                                                    SLinkedListItem_TypeDef* pstPreviousItem,
                                                     void* pvData);
-SLinkedListElement_TypeDef* SLinkedList__pstInsertNext(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListElement_TypeDef* pstPreviousElement);
+SLinkedListItem_TypeDef* SLinkedList__pstInsertNext(SLinkedList_TypeDef* pstList,
+                                                    SLinkedListItem_TypeDef* pstPreviousItem);
 
 
 
 SLinkedList_nSTATUS SLinkedList__enInsertEnd_WithData(SLinkedList_TypeDef* pstList,
-                                            SLinkedListElement_TypeDef* pstNewElement,
+                                            SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
 SLinkedList_nSTATUS  SLinkedList__enInsertEnd(SLinkedList_TypeDef* pstList,
-                                           SLinkedListElement_TypeDef* pstNewElement);
+                                           SLinkedListItem_TypeDef* pstNewItem);
 
 
 
-SLinkedListElement_TypeDef* SLinkedList__pstInsertEnd_WithData(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd_WithData(SLinkedList_TypeDef* pstList,
                                                    void* pvData);
-SLinkedListElement_TypeDef* SLinkedList__pstInsertEnd(SLinkedList_TypeDef* pstList);
+SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd(SLinkedList_TypeDef* pstList);
 
 
 
 SLinkedList_nSTATUS SLinkedList__enInsertBegin_WithData(SLinkedList_TypeDef* pstList,
-                                                SLinkedListElement_TypeDef* pstNewElement,
+                                                SLinkedListItem_TypeDef* pstNewItem,
                                                 void* pvData);
 SLinkedList_nSTATUS SLinkedList__enInsertBegin(SLinkedList_TypeDef* pstList,
-                                                SLinkedListElement_TypeDef* pstNewElement);
+                                                SLinkedListItem_TypeDef* pstNewItem);
 
 
 
-SLinkedListElement_TypeDef*  SLinkedList__pstInsertBegin_WithData(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertBegin_WithData(SLinkedList_TypeDef* pstList,
                                                       void* pvData);
-SLinkedListElement_TypeDef*  SLinkedList__pstInsertBegin(SLinkedList_TypeDef* pstList);
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertBegin(SLinkedList_TypeDef* pstList);
 
 
 
 SLinkedList_nSTATUS SLinkedList__enInsertPos_WithData(SLinkedList_TypeDef* pstList,
-                                            SLinkedListElement_TypeDef* pstNewElement,
+                                            SLinkedListItem_TypeDef* pstNewItem,
                                             uint32_t u32Position,
                                             void* pvData);
 SLinkedList_nSTATUS SLinkedList__enInsertPos(SLinkedList_TypeDef* pstList,
-                                            SLinkedListElement_TypeDef* pstNewElement,
+                                            SLinkedListItem_TypeDef* pstNewItem,
                                             uint32_t u32Position);
 
 
-SLinkedListElement_TypeDef*  SLinkedList__pstInsertPos_WithData(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos_WithData(SLinkedList_TypeDef* pstList,
                                                     uint32_t u32Position,
                                                     void* pvData);
-SLinkedListElement_TypeDef*  SLinkedList__pstInsertPos(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos(SLinkedList_TypeDef* pstList,
                                                     uint32_t u32Position);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_INSERT_H_ */

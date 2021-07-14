@@ -27,6 +27,6 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-CDLinkedList_nSTATUS CDLinkedList__enIsElementOwnerList(const CDLinkedList_TypeDef* pstList, const CDLinkedListElement_TypeDef* const pstElement);
+CDLinkedList_nSTATUS CDLinkedList__enIsItemOwnerList(const CDLinkedList_TypeDef* pstList, const CDLinkedListItem_TypeDef* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARDOUBLELINKEDLIST_XHEADER_CDLINKEDLIST_OWNER_H_ */

@@ -26,20 +26,20 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemoveInList(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstElement);
-DLinkedList_nSTATUS DLinkedList__enRemove_GetData(DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemove(DLinkedListElement_TypeDef* pstElement);
+DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemoveInList(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstItem);
+DLinkedList_nSTATUS DLinkedList__enRemove_GetData(DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemove(DLinkedListItem_TypeDef* pstItem);
 
-DLinkedList_nSTATUS DLinkedList__enRemoveNextInList_GetData(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemoveNextInList(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement);
-DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(const DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemoveNext(const DLinkedListElement_TypeDef* pstElement);
+DLinkedList_nSTATUS DLinkedList__enRemoveNextInList_GetData(DLinkedList_TypeDef* pstList, const DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemoveNextInList(DLinkedList_TypeDef* pstList, const DLinkedListItem_TypeDef* pstItem);
+DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(const DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemoveNext(const DLinkedListItem_TypeDef* pstItem);
 
-DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList_GetData(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList(DLinkedList_TypeDef* pstList, const DLinkedListElement_TypeDef* pstElement);
-DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListElement_TypeDef* pstElement, void** pvData);
-DLinkedList_nSTATUS DLinkedList__enRemovePrevious(const DLinkedListElement_TypeDef* pstElement);
+DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList_GetData(DLinkedList_TypeDef* pstList, const DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList(DLinkedList_TypeDef* pstList, const DLinkedListItem_TypeDef* pstItem);
+DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListItem_TypeDef* pstItem, void** pvData);
+DLinkedList_nSTATUS DLinkedList__enRemovePrevious(const DLinkedListItem_TypeDef* pstItem);
 
 DLinkedList_nSTATUS  DLinkedList__enRemoveBegin_GetData(DLinkedList_TypeDef* pstList, void** pvData);
 DLinkedList_nSTATUS  DLinkedList__enRemoveBegin(DLinkedList_TypeDef* pstList);

@@ -26,11 +26,11 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedList_TypeDef* SLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer), void (*pfvDestroyElementArg) (void *Element));
+SLinkedList_TypeDef* SLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item));
 
 SLinkedList_nSTATUS SLinkedList__enInit(SLinkedList_TypeDef* pstList,
-                                        void (*pfvDestroyElementDataArg) (void *DataContainer),
-                                        void (*pfvDestroyElementArg) (void *Element));
+                                        void (*pfvDestroyItemDataArg) (void *DataContainer),
+                                        void (*pfvDestroyItemArg) (void *Item));
 
 
 

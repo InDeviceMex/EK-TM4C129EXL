@@ -29,11 +29,11 @@
 uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength);
 uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
 
-uint32_t SLinkedList__u32GetAllNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);
-uint32_t SLinkedList__u32GetNNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength);
+uint32_t SLinkedList__u32GetAllNode_Value(const SLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
+uint32_t SLinkedList__u32GetNNode_Value(const SLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength);
 
-SLinkedListElement_TypeDef*  SLinkedList__pstGetNodePos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
-SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeEnd(const SLinkedList_TypeDef* pstList);
-SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeBegin(const SLinkedList_TypeDef* pstList);
+SLinkedListItem_TypeDef*  SLinkedList__pstGetNodePos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+SLinkedListItem_TypeDef*  SLinkedList__pstGetNodeEnd(const SLinkedList_TypeDef* pstList);
+SLinkedListItem_TypeDef*  SLinkedList__pstGetNodeBegin(const SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_NODE_H_ */

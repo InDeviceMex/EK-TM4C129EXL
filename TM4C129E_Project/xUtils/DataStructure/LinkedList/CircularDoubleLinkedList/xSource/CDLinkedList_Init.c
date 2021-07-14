@@ -24,7 +24,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
 #include <stdlib.h>
 
-CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer), void (*pfvDestroyElementArg) (void *Element))
+CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item))
 {
     CDLinkedList_TypeDef *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -36,18 +36,18 @@ CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyElementDataArg) (vo
     {
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = &free;
-        pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
-        pstList->pfvDestroyElement = pfvDestroyElementArg;
-        pstList->pstHead = (CDLinkedListElement_TypeDef*)  0UL;
-        pstList->pstTail = (CDLinkedListElement_TypeDef*)  0UL;
+        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
+        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pstHead = (CDLinkedListItem_TypeDef*)  0UL;
+        pstList->pstTail = (CDLinkedListItem_TypeDef*)  0UL;
     }
     return pstList;
 }
 
 
 CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList,
-                                          void (*pfvDestroyElementDataArg) (void *DataContainer),
-                                          void (*pfvDestroyElementArg) (void *Element))
+                                          void (*pfvDestroyItemDataArg) (void *DataContainer),
+                                          void (*pfvDestroyItemArg) (void *Item))
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -55,10 +55,10 @@ CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList,
         enStatus = CDLinkedList_enSTATUS_OK;
         pstList->u32Size = 0UL;
         pstList->pfvDestroy = (void (*) (void* List))0UL;
-        pstList->pfvDestroyElementData = pfvDestroyElementDataArg;
-        pstList->pfvDestroyElement = pfvDestroyElementArg;
-        pstList->pstHead = (CDLinkedListElement_TypeDef*)  0UL;
-        pstList->pstTail = (CDLinkedListElement_TypeDef*)  0UL;
+        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
+        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pstHead = (CDLinkedListItem_TypeDef*)  0UL;
+        pstList->pstTail = (CDLinkedListItem_TypeDef*)  0UL;
     }
     return enStatus;
 }

@@ -29,7 +29,7 @@ OS_TCB_TypeDef OS_Kernel_stTCB;
 
 void OS_Kernel__vInit(void)
 {
-    OS_TCB__enInit(&OS_Kernel_stTCB,&OS_Kernel__vDestroyElement);
+    OS_TCB__enInit(&OS_Kernel_stTCB,&OS_Kernel__vDestroyItem);
 }
 
 

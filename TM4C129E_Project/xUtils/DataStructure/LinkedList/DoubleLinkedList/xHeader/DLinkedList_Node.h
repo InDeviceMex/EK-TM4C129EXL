@@ -27,19 +27,19 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 uint32_t DLinkedList__u32GetAllNode(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllNode_DataAuxiliar(const DLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetAllNode_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetAllNodeBackward(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllNodeBackward_DataAuxiliar(const DLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetAllNodeBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetNNode(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNNode_DataAuxiliar(const DLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetNNode_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetNNodeBackward(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNNodeBackward_DataAuxiliar(const DLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetNNodeBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength);
 
-DLinkedListElement_TypeDef*  DLinkedList__pstGetNodePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
-DLinkedListElement_TypeDef*  DLinkedList__pstGetNodeEnd(const DLinkedList_TypeDef* pstList);
-DLinkedListElement_TypeDef*  DLinkedList__pstGetNodeBegin(const DLinkedList_TypeDef* pstList);
+DLinkedListItem_TypeDef*  DLinkedList__pstGetNodePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
+DLinkedListItem_TypeDef*  DLinkedList__pstGetNodeEnd(const DLinkedList_TypeDef* pstList);
+DLinkedListItem_TypeDef*  DLinkedList__pstGetNodeBegin(const DLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_NODE_H_ */

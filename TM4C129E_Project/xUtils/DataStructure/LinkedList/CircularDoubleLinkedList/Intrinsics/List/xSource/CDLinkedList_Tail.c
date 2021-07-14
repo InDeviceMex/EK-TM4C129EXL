@@ -23,22 +23,22 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Tail.h>
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstGetTail(const CDLinkedList_TypeDef*  const pstList)
+CDLinkedListItem_TypeDef* CDLinkedList__pstGetTail(const CDLinkedList_TypeDef*  const pstList)
 {
-    CDLinkedListElement_TypeDef* pstTailReg = (CDLinkedListElement_TypeDef*)0U;
+    CDLinkedListItem_TypeDef* pstTailReg = (CDLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
     return pstTailReg;
 }
 
-void CDLinkedList__vSetTail(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstTailArg)
+void CDLinkedList__vSetTail(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstTailArg)
 {
     pstList->pstTail = pstTailArg;
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsTail(const CDLinkedListElement_TypeDef* const pstElement)
+CDLinkedList_nSTATUS CDLinkedList__enIsTail(const CDLinkedListItem_TypeDef* const pstItem)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstElement->pstNextNode))
+    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNextNode))
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

@@ -26,9 +26,9 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedListElement_TypeDef* DLinkedList__pstGetTail(const DLinkedList_TypeDef*  const pstList);
-void DLinkedList__vSetTail(DLinkedList_TypeDef* pstList, DLinkedListElement_TypeDef* pstTailArg);
-DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListElement_TypeDef* const pstElement);
+DLinkedListItem_TypeDef* DLinkedList__pstGetTail(const DLinkedList_TypeDef*  const pstList);
+void DLinkedList__vSetTail(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstTailArg);
+DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListItem_TypeDef* const pstItem);
 
 
 

@@ -25,12 +25,12 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/CSLinkedList_Intrinsics.h>
 
-CSLinkedList_nSTATUS CSLinkedList__enIsElementOwnerList(const CSLinkedList_TypeDef* pstList, const CSLinkedListElement_TypeDef* const pstElement)
+CSLinkedList_nSTATUS CSLinkedList__enIsItemOwnerList(const CSLinkedList_TypeDef* pstList, const CSLinkedListItem_TypeDef* const pstItem)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    CSLinkedList_TypeDef* pstOwnerListElement = (CSLinkedList_TypeDef*) 0UL;
-    pstOwnerListElement = (CSLinkedList_TypeDef*) CSLinkedList__pvGetElementOwnerList(pstElement);
-    if((uint32_t) pstOwnerListElement == (uint32_t) pstList )
+    CSLinkedList_TypeDef* pstOwnerListItem = (CSLinkedList_TypeDef*) 0UL;
+    pstOwnerListItem = (CSLinkedList_TypeDef*) CSLinkedList__pvGetItemOwnerList(pstItem);
+    if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = CSLinkedList_enSTATUS_OK;
     }

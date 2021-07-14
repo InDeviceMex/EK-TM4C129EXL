@@ -23,24 +23,24 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Head.h>
 
-SLinkedListElement_TypeDef* SLinkedList__pstGetHead(const SLinkedList_TypeDef*  const pstList)
+SLinkedListItem_TypeDef* SLinkedList__pstGetHead(const SLinkedList_TypeDef*  const pstList)
 {
-    SLinkedListElement_TypeDef* pstHeadReg = (SLinkedListElement_TypeDef*)0U;
+    SLinkedListItem_TypeDef* pstHeadReg = (SLinkedListItem_TypeDef*)0U;
     pstHeadReg = pstList->pstHead;
     return pstHeadReg;
 }
 
-void SLinkedList__vSetHead(SLinkedList_TypeDef* pstList, SLinkedListElement_TypeDef* pstHeadArg)
+void SLinkedList__vSetHead(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstHeadArg)
 {
     pstList->pstHead = pstHeadArg;
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsHead(const SLinkedList_TypeDef* const pstList, const SLinkedListElement_TypeDef* const pstElement)
+SLinkedList_nSTATUS SLinkedList__enIsHead(const SLinkedList_TypeDef* const pstList, const SLinkedListItem_TypeDef* const pstItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    SLinkedListElement_TypeDef* pstListHead = (SLinkedListElement_TypeDef*)0UL;
+    SLinkedListItem_TypeDef* pstListHead = (SLinkedListItem_TypeDef*)0UL;
     pstListHead = SLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstElement == (uint32_t) (pstListHead))
+    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
     {
         enStatus = SLinkedList_enSTATUS_OK;
     }

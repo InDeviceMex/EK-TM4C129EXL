@@ -30,8 +30,8 @@ void*  SLinkedList__pvGetNodeDataPos(const SLinkedList_TypeDef* pstList, uint32_
 void*  SLinkedList__pvGetNodeDataEnd(const SLinkedList_TypeDef* pstList);
 void*  SLinkedList__pvGetNodeDataBegin(const SLinkedList_TypeDef* pstList);
 
-uint32_t  SLinkedList__u32GetNodeDataAuxiliarPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t  SLinkedList__u32GetNodeDataAuxiliarEnd(const SLinkedList_TypeDef* pstList);
-uint32_t  SLinkedList__u32GetNodeDataAuxiliarBegin(const SLinkedList_TypeDef* pstList);
+uint32_t  SLinkedList__u32GetNodeValuePos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  SLinkedList__u32GetNodeValueEnd(const SLinkedList_TypeDef* pstList);
+uint32_t  SLinkedList__u32GetNodeValueBegin(const SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DATA_H_ */

@@ -25,9 +25,9 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/CSLinkedList_Intrinsics.h>
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstGetNodePos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
+CSLinkedListItem_TypeDef*  CSLinkedList__pstGetNodePos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
-    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef* pstItem = (CSLinkedListItem_TypeDef*) 0UL;
     uint32_t u32SizeList = 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
@@ -36,50 +36,50 @@ CSLinkedListElement_TypeDef*  CSLinkedList__pstGetNodePos(const CSLinkedList_Typ
         {
             if(0UL == u32Position)
             {
-                pstElement = CSLinkedList__pstGetHead(pstList);
+                pstItem = CSLinkedList__pstGetHead(pstList);
             }
             else if((uint32_t) (u32SizeList -1UL) == (uint32_t) u32Position)
             {
-                pstElement = CSLinkedList__pstGetTail(pstList);
+                pstItem = CSLinkedList__pstGetTail(pstList);
             }
             else
             {
-                pstElement = CSLinkedList__pstGetHead(pstList);
+                pstItem = CSLinkedList__pstGetHead(pstList);
                 while(0UL != u32Position)
                 {
-                    pstElement = CSLinkedList__pstGetElementNextNode(pstElement);
+                    pstItem = CSLinkedList__pstGetItemNextNode(pstItem);
                     u32Position--;
                 }
             }
         }
     }
-    return (pstElement);
+    return (pstItem);
 }
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstGetNodeEnd(const CSLinkedList_TypeDef* pstList)
+CSLinkedListItem_TypeDef*  CSLinkedList__pstGetNodeEnd(const CSLinkedList_TypeDef* pstList)
 {
-    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstItem = (CSLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstElement = CSLinkedList__pstGetTail(pstList);
+        pstItem = CSLinkedList__pstGetTail(pstList);
     }
-    return pstElement;
+    return pstItem;
 }
 
-CSLinkedListElement_TypeDef*  CSLinkedList__pstGetNodeBegin(const CSLinkedList_TypeDef* pstList)
+CSLinkedListItem_TypeDef*  CSLinkedList__pstGetNodeBegin(const CSLinkedList_TypeDef* pstList)
 {
-    CSLinkedListElement_TypeDef* pstElement = (CSLinkedListElement_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstItem = (CSLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstElement = CSLinkedList__pstGetHead(pstList);
+        pstItem = CSLinkedList__pstGetHead(pstList);
     }
-    return (pstElement);
+    return (pstItem);
 }
 
 uint32_t CSLinkedList__u32GetAllNode(const CSLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength)
 {
-    CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
-    CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMember = (CSLinkedListItem_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMemberTemp = (CSLinkedListItem_TypeDef*) 0UL;
     void* pvDataMember = (void*)0UL;
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
@@ -90,38 +90,38 @@ uint32_t CSLinkedList__u32GetAllNode(const CSLinkedList_TypeDef* pstList, void**
         u32SizeList = CSLinkedList__u32GetSize(pstList);
         while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList))
         {
-            pvDataMember = CSLinkedList__pvGetElementData(pstMember);
+            pvDataMember = CSLinkedList__pvGetItemData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
-            pstMemberTemp = CSLinkedList__pstGetElementNextNode(pstMember);
+            pstMemberTemp = CSLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
     }
     return (u32SizeReg);
 }
 
-uint32_t CSLinkedList__u32GetAllNode_DataAuxiliar(const CSLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength)
+uint32_t CSLinkedList__u32GetAllNode_Value(const CSLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
 {
-    CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
-    CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;
-    uint32_t pu32DataAuxiliarMember = (uint32_t)0UL;
+    CSLinkedListItem_TypeDef *pstMember = (CSLinkedListItem_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMemberTemp = (CSLinkedListItem_TypeDef*) 0UL;
+    uint32_t pu32ValueMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32DataAuxiliar ) && (0UL != u32MaxLength))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength))
     {
         pstMember = CSLinkedList__pstGetHead(pstList);
         u32SizeList = CSLinkedList__u32GetSize(pstList);
         while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList))
         {
-            pu32DataAuxiliarMember = CSLinkedList__u32GetElementDataAuxiliar(pstMember);
-            *pu32DataAuxiliar = pu32DataAuxiliarMember;
+            pu32ValueMember = CSLinkedList__u32GetItemValue(pstMember);
+            *pu32Value = pu32ValueMember;
             u32SizeReg++;
-            pu32DataAuxiliar += 1U;
+            pu32Value += 1U;
             u32MaxLength--;
-            pstMemberTemp = CSLinkedList__pstGetElementNextNode(pstMember);
+            pstMemberTemp = CSLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -130,8 +130,8 @@ uint32_t CSLinkedList__u32GetAllNode_DataAuxiliar(const CSLinkedList_TypeDef* ps
 
 uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
-    CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
-    CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMember = (CSLinkedListItem_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMemberTemp = (CSLinkedListItem_TypeDef*) 0UL;
     void* pvDataMember = (void*)0UL;
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
@@ -142,40 +142,40 @@ uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, void** p
         u32SizeList = CSLinkedList__u32GetSize(pstList);
         while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
         {
-            pvDataMember = CSLinkedList__pvGetElementData(pstMember);
+            pvDataMember = CSLinkedList__pvGetItemData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
             u32Nodes--;
-            pstMemberTemp = CSLinkedList__pstGetElementNextNode(pstMember);
+            pstMemberTemp = CSLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
     }
     return (u32SizeReg);
 }
 
-uint32_t CSLinkedList__u32GetNNode_DataAuxiliar(const CSLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CSLinkedList__u32GetNNode_Value(const CSLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
-    CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
-    CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;
-    uint32_t pu32DataAuxiliarMember = (uint32_t)0UL;
+    CSLinkedListItem_TypeDef *pstMember = (CSLinkedListItem_TypeDef*) 0UL;
+    CSLinkedListItem_TypeDef *pstMemberTemp = (CSLinkedListItem_TypeDef*) 0UL;
+    uint32_t pu32ValueMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
     uint32_t u32SizeList = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32DataAuxiliar ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Nodes))
     {
         pstMember = CSLinkedList__pstGetHead(pstList);
         u32SizeList = CSLinkedList__u32GetSize(pstList);
         while((0UL != u32MaxLength) && (u32SizeReg != u32SizeList) && (0UL != u32Nodes))
         {
-            pu32DataAuxiliarMember = CSLinkedList__u32GetElementDataAuxiliar(pstMember);
-            *pu32DataAuxiliar = pu32DataAuxiliarMember;
+            pu32ValueMember = CSLinkedList__u32GetItemValue(pstMember);
+            *pu32Value = pu32ValueMember;
             u32SizeReg++;
-            pu32DataAuxiliar += 1U;
+            pu32Value += 1U;
             u32MaxLength--;
             u32Nodes--;
-            pstMemberTemp = CSLinkedList__pstGetElementNextNode(pstMember);
+            pstMemberTemp = CSLinkedList__pstGetItemNextNode(pstMember);
             pstMember = pstMemberTemp;
         }
     }
