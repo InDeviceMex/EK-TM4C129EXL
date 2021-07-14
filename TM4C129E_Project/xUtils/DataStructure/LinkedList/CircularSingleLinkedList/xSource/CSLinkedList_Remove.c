@@ -139,7 +139,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
     CSLinkedListItem_TypeDef* pstItemNextItem = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstItemNextNextItem = (CSLinkedListItem_TypeDef*) 0UL ;
     void* pstItemNextItemData = (void*) 0UL ;
-    void* pstItemNextOwnerList = (void*) 0UL
+    void* pstItemNextOwnerList = (void*) 0UL;
     uint32_t u32ItemNextItemValue = 0UL ;
     void* pstItemItemData = (void*) 0UL ;
     uint32_t u32ItemItemValue = 0UL ;
@@ -190,6 +190,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                     enStatus = CSLinkedList_enSTATUS_OK;
 
                     pstItemNextItem = CSLinkedList_Item__pstGetNextItem(pstItem);
+
                     pstItemNextItemData = CSLinkedList_Item__pvGetData(pstItemNextItem);
                     u32ItemNextItemValue = CSLinkedList_Item__u32GetValue(pstItemNextItem);
                     pstItemNextOwnerList = CSLinkedList_Item__pvGetOwnerList(pstItemNextItem);

@@ -47,7 +47,7 @@ void* SLinkedList__pvGetDataTail(const SLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetTailItem(pstList);
+        pstItem = SLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = SLinkedList_Item__pvGetData(pstItem);
@@ -62,7 +62,7 @@ void* SLinkedList__pvGetDataHead(const SLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetHeadItem(pstList);
+        pstItem = SLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = SLinkedList_Item__pvGetData(pstItem);
@@ -93,7 +93,7 @@ uint32_t SLinkedList__u32GetValueTail(const SLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetTailItem(pstList);
+        pstItem = SLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = SLinkedList_Item__u32GetValue(pstItem);
@@ -108,7 +108,7 @@ uint32_t SLinkedList__u32GetValueHead(const SLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetHeadItem(pstList);
+        pstItem = SLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = SLinkedList_Item__u32GetValue(pstItem);
@@ -131,7 +131,7 @@ void* SLinkedList__pvGetDataNextItem(SLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstNextItemReg = SLinkedList__pstGetHeadItem(pstList);
+            pstNextItemReg = SLinkedList__pstGetHead(pstList);
         }
         SLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
         pvItemData = SLinkedList_Item__pvGetData(pstNextItemReg);

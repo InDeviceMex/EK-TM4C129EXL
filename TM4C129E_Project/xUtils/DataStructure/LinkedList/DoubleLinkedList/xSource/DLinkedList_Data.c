@@ -47,7 +47,7 @@ void* DLinkedList__pvGetDataTail(const DLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetTailItem(pstList);
+        pstItem = DLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = DLinkedList_Item__pvGetData(pstItem);
@@ -62,7 +62,7 @@ void* DLinkedList__pvGetDataHead(const DLinkedList_TypeDef* pstList)
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetHeadItem(pstList);
+        pstItem = DLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             pvItemData = DLinkedList_Item__pvGetData(pstItem);
@@ -93,7 +93,7 @@ uint32_t DLinkedList__u32GetValueTail(const DLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetTailItem(pstList);
+        pstItem = DLinkedList__pstGetTail(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = DLinkedList_Item__u32GetValue(pstItem);
@@ -108,7 +108,7 @@ uint32_t DLinkedList__u32GetValueHead(const DLinkedList_TypeDef* pstList)
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = DLinkedList__pstGetHeadItem(pstList);
+        pstItem = DLinkedList__pstGetHead(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
             u32ItemValue = DLinkedList_Item__u32GetValue(pstItem);
@@ -131,7 +131,7 @@ void* DLinkedList__pvGetDataNextItem(DLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstNextItemReg = DLinkedList__pstGetHeadItem(pstList);
+            pstNextItemReg = DLinkedList__pstGetHead(pstList);
         }
         DLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
         pvItemData = DLinkedList_Item__pvGetData(pstNextItemReg);
@@ -153,7 +153,7 @@ void* DLinkedList__pvGetDataPreviousItem(DLinkedList_TypeDef* pstList)
         }
         else
         {
-            pstPreviousItemReg = DLinkedList__pstGetTailItem(pstList);
+            pstPreviousItemReg = DLinkedList__pstGetTail(pstList);
         }
         DLinkedList__vSetLastItemRead(pstList, pstPreviousItemReg);
         pvItemData = DLinkedList_Item__pvGetData(pstPreviousItemReg);
