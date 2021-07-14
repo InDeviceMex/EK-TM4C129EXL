@@ -36,7 +36,7 @@ void CSLinkedList__vSetSize(CSLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(CSLinkedList_TypeDef*  pstList)
+CSLinkedList_nSTATUS CSLinkedList__enIsListEmpty(const CSLinkedList_TypeDef*  pstList)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     if(0UL  == pstList->u32Size)

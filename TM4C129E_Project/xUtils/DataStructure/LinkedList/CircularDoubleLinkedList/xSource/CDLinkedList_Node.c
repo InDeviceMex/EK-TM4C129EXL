@@ -131,7 +131,7 @@ uint32_t CDLinkedList__u32GetAllNode(const CDLinkedList_TypeDef* pstList, const 
     return (u32SizeReg);
 }
 
-uint32_t CDLinkedList__u32GetAllNode_DataAuxiliarAuxiliar(const CDLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength)
+uint32_t CDLinkedList__u32GetAllNode_DataAuxiliar(const CDLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength)
 {
     CDLinkedListElement_TypeDef *pstMember = (CDLinkedListElement_TypeDef*) 0UL;
     CDLinkedListElement_TypeDef *pstMemberTemp = (CDLinkedListElement_TypeDef*) 0UL;

@@ -28,7 +28,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
 uint32_t CDLinkedList__u32GetAllNode(const CDLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetAllNode_DataAuxiliarAuxiliar(const CDLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);
+uint32_t CDLinkedList__u32GetAllNode_DataAuxiliar(const CDLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);
 
 uint32_t CDLinkedList__u32GetAllNodeBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
 uint32_t CDLinkedList__u32GetAllNodeBackward_DataAuxiliar(const CDLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength);

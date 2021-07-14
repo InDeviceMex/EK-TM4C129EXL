@@ -128,7 +128,7 @@ uint32_t CSLinkedList__u32GetAllNode_DataAuxiliar(const CSLinkedList_TypeDef* ps
     return (u32SizeReg);
 }
 
-uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
     CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
     CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;
@@ -155,7 +155,7 @@ uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, const vo
     return (u32SizeReg);
 }
 
-uint32_t CSLinkedList__u32GetNNode(const CSLinkedList_TypeDef* pstList, const uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t CSLinkedList__u32GetNNode_DataAuxiliar(const CSLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
     CSLinkedListElement_TypeDef *pstMember = (CSLinkedListElement_TypeDef*) 0UL;
     CSLinkedListElement_TypeDef *pstMemberTemp = (CSLinkedListElement_TypeDef*) 0UL;

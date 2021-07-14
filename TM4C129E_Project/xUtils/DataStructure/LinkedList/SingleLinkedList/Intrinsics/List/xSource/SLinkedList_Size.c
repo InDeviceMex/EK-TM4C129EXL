@@ -36,7 +36,7 @@ void SLinkedList__vSetSize(SLinkedList_TypeDef*  pstList, uint32_t u32SizeArg)
     pstList->u32Size = u32SizeArg;
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsListEmpty(SLinkedList_TypeDef*  pstList)
+SLinkedList_nSTATUS SLinkedList__enIsListEmpty(const SLinkedList_TypeDef*  pstList)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
     if(0UL  == pstList->u32Size)

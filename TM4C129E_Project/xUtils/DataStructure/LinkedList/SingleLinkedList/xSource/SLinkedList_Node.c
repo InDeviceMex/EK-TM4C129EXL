@@ -76,7 +76,7 @@ SLinkedListElement_TypeDef*  SLinkedList__pstGetNodeBegin(const SLinkedList_Type
     return (pstElement);
 }
 
-uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength)
+uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength)
 {
     SLinkedListElement_TypeDef *pstMember = (SLinkedListElement_TypeDef*) 0UL;
     SLinkedListElement_TypeDef *pstMemberTemp = (SLinkedListElement_TypeDef*) 0UL;
@@ -100,7 +100,7 @@ uint32_t SLinkedList__u32GetAllNode(const SLinkedList_TypeDef* pstList, const vo
     return (u32SizeReg);
 }
 
-uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
     SLinkedListElement_TypeDef *pstMember = (SLinkedListElement_TypeDef*) 0UL;
     SLinkedListElement_TypeDef *pstMemberTemp = (SLinkedListElement_TypeDef*) 0UL;
@@ -127,7 +127,7 @@ uint32_t SLinkedList__u32GetNNode(const SLinkedList_TypeDef* pstList, const void
 
 
 
-uint32_t SLinkedList__u32GetAllNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, const uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength)
+uint32_t SLinkedList__u32GetAllNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32MaxLength)
 {
     SLinkedListElement_TypeDef *pstMember = (SLinkedListElement_TypeDef*) 0UL;
     SLinkedListElement_TypeDef *pstMemberTemp = (SLinkedListElement_TypeDef*) 0UL;
@@ -151,7 +151,7 @@ uint32_t SLinkedList__u32GetAllNode_DataAuxiliar(const SLinkedList_TypeDef* pstL
     return (u32SizeReg);
 }
 
-uint32_t SLinkedList__u32GetNNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, const uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength)
+uint32_t SLinkedList__u32GetNNode_DataAuxiliar(const SLinkedList_TypeDef* pstList, uint32_t* pu32DataAuxiliar, uint32_t u32Nodes, uint32_t u32MaxLength)
 {
     SLinkedListElement_TypeDef *pstMember = (SLinkedListElement_TypeDef*) 0UL;
     SLinkedListElement_TypeDef *pstMemberTemp = (SLinkedListElement_TypeDef*) 0UL;
