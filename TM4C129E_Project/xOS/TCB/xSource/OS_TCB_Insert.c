@@ -28,7 +28,7 @@
 OS_TCB_Item_TypeDef* OS_TCB__pstInsert(OS_TCB_Container_Typedef* pstData)
 {
     OS_TCB_TypeDef* pstTCB = OS_TCB__pstGet();
-    return ((OS_TCB_Item_TypeDef*) CSLinkedList__pstInsertEnd_WithData((CSLinkedList_TypeDef*) pstTCB, (void*) pstData));
+    return ((OS_TCB_Item_TypeDef*) CSLinkedList__pstInsertAtTail_WithData((CSLinkedList_TypeDef*) pstTCB, (void*) pstData));
 }
 
 

@@ -38,7 +38,7 @@ void SLinkedList__vSetTail(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef
 SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_TypeDef* const pstItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNextNode))
+    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNext))
     {
         enStatus = SLinkedList_enSTATUS_OK;
     }

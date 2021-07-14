@@ -41,12 +41,12 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
             enStatus = DLinkedList_enSTATUS_OK;
             if(0UL != (uint32_t) pvData)
             {
-                *pvData = DLinkedList__pvGetItemData(pstItem);
+                *pvData = DLinkedList_Item__pvGetData(pstItem);
             }
             pstHeadItem = DLinkedList__pstGetHead(pstList);
             if((uint32_t) pstItem == (uint32_t) pstHeadItem)
             {
-                pstItemNextNode = DLinkedList__pstGetItemNextNode(pstItem);
+                pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
                 DLinkedList__vSetHead(pstList, pstItemNextNode);
 
                 if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
@@ -60,10 +60,10 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
             }
             else
             {
-                pstItemNextNode = DLinkedList__pstGetItemNextNode(pstItem);
+                pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
                 pstItemPreviousNode = DLinkedList__pstGetItemPreviousNode(pstItem);
 
-                DLinkedList__vSetItemNextNode(pstItemPreviousNode, pstItemNextNode);
+                DLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstItemNextNode);
 
                 if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
                 {
@@ -75,13 +75,13 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
                 }
             }
 
-            DLinkedList__vSetItemValue(pstItem, 0UL);
-            DLinkedList__vSetItemOwnerList(pstItem,  (void *) 0UL);
-            DLinkedList__vSetItemNextNode(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
+            DLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
+            DLinkedList_Item__vSetNextNode(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
             DLinkedList__vSetItemPreviousNode(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
             {
-                DLinkedList__vSetItemData(pstItem,  (void *) 0UL);
+                DLinkedList_Item__vSetValue(pstItem, 0UL);
+                DLinkedList_Item__vSetData(pstItem,  (void *) 0UL);
                 pstList->pfvDestroyItem(pstItem);
                 pstItem = (DLinkedListItem_TypeDef*) 0UL;
             }
@@ -109,7 +109,7 @@ DLinkedList_nSTATUS DLinkedList__enRemove_GetData(DLinkedListItem_TypeDef* pstIt
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
-        pstListReg = (DLinkedList_TypeDef*) DLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (DLinkedList_TypeDef*) DLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = DLinkedList__enRemoveInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -132,7 +132,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNextInList_GetData(DLinkedList_TypeDef*
 
     if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pstItem))
     {
-        pstItemNextNode = DLinkedList__pstGetItemNextNode(pstItem);
+        pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
         enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItemNextNode, pvData);
     }
     return (enStatus);
@@ -153,7 +153,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(const DLinkedListItem_Type
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
-        pstListReg = (DLinkedList_TypeDef*) DLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (DLinkedList_TypeDef*) DLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = DLinkedList__enRemoveNextInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -196,7 +196,7 @@ DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListItem_
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
-        pstListReg = (DLinkedList_TypeDef*) DLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (DLinkedList_TypeDef*) DLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = DLinkedList__enRemovePreviousInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -211,7 +211,7 @@ DLinkedList_nSTATUS DLinkedList__enRemovePrevious(const DLinkedListItem_TypeDef*
 
 
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveEnd_GetData(DLinkedList_TypeDef* pstList, void** pvData)
+DLinkedList_nSTATUS  DLinkedList__enRemoveTail_GetData(DLinkedList_TypeDef* pstList, void** pvData)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_TypeDef* pstEndItem = (DLinkedListItem_TypeDef*) 0UL;
@@ -223,14 +223,14 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveEnd_GetData(DLinkedList_TypeDef* pstLi
     return (enStatus);
 }
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveEnd(DLinkedList_TypeDef* pstList)
+DLinkedList_nSTATUS  DLinkedList__enRemoveTail(DLinkedList_TypeDef* pstList)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    enStatus = DLinkedList__enRemoveEnd_GetData(pstList, (void**) 0UL);
+    enStatus = DLinkedList__enRemoveTail_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveBegin_GetData(DLinkedList_TypeDef* pstList, void** pvData)
+DLinkedList_nSTATUS  DLinkedList__enRemoveHead_GetData(DLinkedList_TypeDef* pstList, void** pvData)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_TypeDef* pstBeginItem = (DLinkedListItem_TypeDef*) 0UL;
@@ -242,10 +242,10 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveBegin_GetData(DLinkedList_TypeDef* pst
     return (enStatus);
 }
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveBegin(DLinkedList_TypeDef* pstList)
+DLinkedList_nSTATUS  DLinkedList__enRemoveHead(DLinkedList_TypeDef* pstList)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    enStatus = DLinkedList__enRemoveBegin_GetData(pstList, (void**) 0UL);
+    enStatus = DLinkedList__enRemoveHead_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
@@ -265,11 +265,11 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_TypeDef* pstLi
         {
             if(0UL == u32Position) /*Remove Head*/
             {
-                enStatus = DLinkedList__enRemoveBegin_GetData(pstList, pvData);
+                enStatus = DLinkedList__enRemoveHead_GetData(pstList, pvData);
             }
             else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
             {
-                enStatus = DLinkedList__enRemoveEnd_GetData(pstList, pvData);
+                enStatus = DLinkedList__enRemoveTail_GetData(pstList, pvData);
             }
             else
             {
@@ -293,7 +293,7 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_TypeDef* pstLi
                     pstItem = DLinkedList__pstGetHead(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = DLinkedList__pstGetItemNextNode(pstItem);
+                        pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
@@ -330,11 +330,11 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_TypeDef* pstList, uint
         {
             if(0UL == u32Position) /*Remove Head*/
             {
-                enStatus = DLinkedList__enRemoveBegin(pstList);
+                enStatus = DLinkedList__enRemoveHead(pstList);
             }
             else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
             {
-                enStatus = DLinkedList__enRemoveEnd(pstList);
+                enStatus = DLinkedList__enRemoveTail(pstList);
             }
             else
             {
@@ -358,7 +358,7 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_TypeDef* pstList, uint
                     pstItem = DLinkedList__pstGetHead(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = DLinkedList__pstGetItemNextNode(pstItem);
+                        pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList(pstList, pstItem);

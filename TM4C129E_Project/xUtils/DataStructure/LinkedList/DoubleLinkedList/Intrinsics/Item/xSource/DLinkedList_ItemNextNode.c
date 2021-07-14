@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemNextNode.h>
 
-DLinkedListItem_TypeDef* DLinkedList__pstGetItemNextNode(const DLinkedListItem_TypeDef* const pstItem)
+DLinkedListItem_TypeDef* DLinkedList_Item__pstGetNextItem(const DLinkedListItem_TypeDef* const pstItem)
 {
-    DLinkedListItem_TypeDef* pstNextNodeReg = (DLinkedListItem_TypeDef*)0UL;
-    pstNextNodeReg = pstItem->pstNextNode;
-    return (pstNextNodeReg);
+    DLinkedListItem_TypeDef* pstNextItemReg = (DLinkedListItem_TypeDef*)0UL;
+    pstNextItemReg = pstItem->pstNext;
+    return (pstNextItemReg);
 }
 
-void DLinkedList__vSetItemNextNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextNode)
+void DLinkedList_Item__vSetNextNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextItem)
 {
-    pstItem->pstNextNode = pstNextNode;
+    pstItem->pstNext = pstNextItem;
 }

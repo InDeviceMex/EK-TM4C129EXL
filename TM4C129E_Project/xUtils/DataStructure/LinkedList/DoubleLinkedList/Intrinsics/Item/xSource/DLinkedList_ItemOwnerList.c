@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemOwnerList.h>
 
-void* DLinkedList__pvGetItemOwnerList(const DLinkedListItem_TypeDef* const pstItem)
+void* DLinkedList_Item__pvGetOwnerList(const DLinkedListItem_TypeDef* const pstItem)
 {
     void* pvOwnerListReg = (void*)0UL;
     pvOwnerListReg = pstItem->pvOwnerList;
     return (pvOwnerListReg);
 }
 
-void DLinkedList__vSetItemOwnerList(DLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
+void DLinkedList_Item__vSetOwnerList(DLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
 {
     pstItem->pvOwnerList = pvOwnerListArg;
 }

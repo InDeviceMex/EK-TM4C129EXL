@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/xHeader/SLinkedList_ItemNextNode.h>
 
-SLinkedListItem_TypeDef* SLinkedList__pstGetItemNextNode(const SLinkedListItem_TypeDef* const pstItem)
+SLinkedListItem_TypeDef* SLinkedList_Item__pstGetNextItem(const SLinkedListItem_TypeDef* const pstItem)
 {
-    SLinkedListItem_TypeDef* pstNextNodeReg = (SLinkedListItem_TypeDef*)0UL;
-    pstNextNodeReg = pstItem->pstNextNode;
-    return (pstNextNodeReg);
+    SLinkedListItem_TypeDef* pstNextItemReg = (SLinkedListItem_TypeDef*)0UL;
+    pstNextItemReg = pstItem->pstNext;
+    return (pstNextItemReg);
 }
 
-void SLinkedList__vSetItemNextNode(SLinkedListItem_TypeDef* pstItem, SLinkedListItem_TypeDef* pstNextNode)
+void SLinkedList_Item__vSetNextNode(SLinkedListItem_TypeDef* pstItem, SLinkedListItem_TypeDef* pstNextItem)
 {
-    pstItem->pstNextNode = pstNextNode;
+    pstItem->pstNext = pstNextItem;
 }

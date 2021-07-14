@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/xHeader/SLinkedList_ItemValue.h>
 
-uint32_t SLinkedList__u32GetItemValue(const SLinkedListItem_TypeDef* const pstItem)
+uint32_t SLinkedList_Item__u32GetValue(const SLinkedListItem_TypeDef* const pstItem)
 {
-    uint32_t u32ValueReg = 0UL;
-    u32ValueReg = pstItem->u32Value;
-    return (u32ValueReg);
+    uint32_t u32ValueItemReg = 0UL;
+    u32ValueItemReg = pstItem->u32ValueItem;
+    return (u32ValueItemReg);
 }
 
-void SLinkedList__vSetItemValue(SLinkedListItem_TypeDef* pstItem, uint32_t u32ValueArg)
+void SLinkedList_Item__vSetValue(SLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg)
 {
-    pstItem->u32Value = u32ValueArg;
+    pstItem->u32ValueItem = u32ValueItemArg;
 }

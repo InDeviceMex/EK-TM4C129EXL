@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/xHeader/SLinkedList_ItemData.h>
 
-void* SLinkedList__pvGetItemData(const SLinkedListItem_TypeDef* const pstItem)
+void* SLinkedList_Item__pvGetData(const SLinkedListItem_TypeDef* const pstItem)
 {
     void* pvDataReg = (void*)0UL;
     pvDataReg = pstItem->pvDataContainer;
     return pvDataReg;
 }
 
-void SLinkedList__vSetItemData(SLinkedListItem_TypeDef* pstItem, void* pvDataArg)
+void SLinkedList_Item__vSetData(SLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
     pstItem->pvDataContainer = pvDataArg;
 }

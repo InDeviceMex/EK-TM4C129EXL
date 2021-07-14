@@ -26,12 +26,12 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void*  SLinkedList__pvGetItemDataPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
-void*  SLinkedList__pvGetItemDataEnd(const SLinkedList_TypeDef* pstList);
-void*  SLinkedList__pvGetItemDataBegin(const SLinkedList_TypeDef* pstList);
+void*  SLinkedList__pvGetDataItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  SLinkedList__pvGetDataTail(const SLinkedList_TypeDef* pstList);
+void*  SLinkedList__pvGetDataHead(const SLinkedList_TypeDef* pstList);
 
-uint32_t  SLinkedList__u32GetItemValuePos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t  SLinkedList__u32GetItemValueEnd(const SLinkedList_TypeDef* pstList);
-uint32_t  SLinkedList__u32GetItemValueBegin(const SLinkedList_TypeDef* pstList);
+uint32_t  SLinkedList__u32GetValueItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  SLinkedList__u32GetValueTail(const SLinkedList_TypeDef* pstList);
+uint32_t  SLinkedList__u32GetValueHead(const SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DATA_H_ */

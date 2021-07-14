@@ -41,11 +41,11 @@ DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList(DLinkedList_TypeDef* pst
 DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListItem_TypeDef* pstItem, void** pvData);
 DLinkedList_nSTATUS DLinkedList__enRemovePrevious(const DLinkedListItem_TypeDef* pstItem);
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveBegin_GetData(DLinkedList_TypeDef* pstList, void** pvData);
-DLinkedList_nSTATUS  DLinkedList__enRemoveBegin(DLinkedList_TypeDef* pstList);
+DLinkedList_nSTATUS  DLinkedList__enRemoveHead_GetData(DLinkedList_TypeDef* pstList, void** pvData);
+DLinkedList_nSTATUS  DLinkedList__enRemoveHead(DLinkedList_TypeDef* pstList);
 
-DLinkedList_nSTATUS  DLinkedList__enRemoveEnd_GetData(DLinkedList_TypeDef* pstList, void** pvData);
-DLinkedList_nSTATUS  DLinkedList__enRemoveEnd(DLinkedList_TypeDef* pstList);
+DLinkedList_nSTATUS  DLinkedList__enRemoveTail_GetData(DLinkedList_TypeDef* pstList, void** pvData);
+DLinkedList_nSTATUS  DLinkedList__enRemoveTail(DLinkedList_TypeDef* pstList);
 
  DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
  DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_TypeDef* pstList, uint32_t u32Position);

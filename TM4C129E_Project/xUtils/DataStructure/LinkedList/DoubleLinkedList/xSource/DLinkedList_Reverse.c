@@ -28,7 +28,7 @@
 DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_TypeDef* pstList)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedListItem_TypeDef* pstNextNode = (DLinkedListItem_TypeDef*) 0UL ;
+    DLinkedListItem_TypeDef* pstNextItem = (DLinkedListItem_TypeDef*) 0UL ;
     DLinkedListItem_TypeDef* pstNextNextNode = (DLinkedListItem_TypeDef*) 0UL ;
     DLinkedListItem_TypeDef* pstNextPreviousNode = (DLinkedListItem_TypeDef*) 0UL ;
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL ;
@@ -38,22 +38,22 @@ DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_TypeDef* pstList)
         DLinkedList__vSetTail(pstList, pstItem);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            pstNextNode = DLinkedList__pstGetItemNextNode(pstItem);
-            if((uint32_t) 0UL != (uint32_t) pstNextNode)
+            pstNextItem = DLinkedList_Item__pstGetNextItem(pstItem);
+            if((uint32_t) 0UL != (uint32_t) pstNextItem)
             {
                 enStatus = DLinkedList_enSTATUS_OK;
-                DLinkedList__vSetItemNextNode(pstItem, (DLinkedListItem_TypeDef*)0UL);
-                DLinkedList__vSetItemPreviousNode(pstItem, pstNextNode);
+                DLinkedList_Item__vSetNextNode(pstItem, (DLinkedListItem_TypeDef*)0UL);
+                DLinkedList__vSetItemPreviousNode(pstItem, pstNextItem);
 
-                while((uint32_t) 0UL != (uint32_t) pstNextNode)
+                while((uint32_t) 0UL != (uint32_t) pstNextItem)
                 {
-                    pstNextNextNode = DLinkedList__pstGetItemNextNode(pstNextNode);
-                    DLinkedList__vSetItemPreviousNode(pstNextNode, pstNextNextNode);
-                    DLinkedList__vSetItemNextNode(pstNextNode, pstItem);
-                    pstNextPreviousNode = DLinkedList__pstGetItemPreviousNode(pstNextNode);
+                    pstNextNextNode = DLinkedList_Item__pstGetNextItem(pstNextItem);
+                    DLinkedList__vSetItemPreviousNode(pstNextItem, pstNextNextNode);
+                    DLinkedList_Item__vSetNextNode(pstNextItem, pstItem);
+                    pstNextPreviousNode = DLinkedList__pstGetItemPreviousNode(pstNextItem);
 
-                    pstItem = pstNextNode;
-                    pstNextNode = pstNextPreviousNode;
+                    pstItem = pstNextItem;
+                    pstNextItem = pstNextPreviousNode;
                 }
                 DLinkedList__vSetHead(pstList, pstItem);
             }

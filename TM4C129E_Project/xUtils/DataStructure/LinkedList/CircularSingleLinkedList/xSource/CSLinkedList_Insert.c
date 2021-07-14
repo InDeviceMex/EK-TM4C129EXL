@@ -43,7 +43,7 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
 {
     CSLinkedList_nSTATUS enStatusReturn = CSLinkedList_enSTATUS_ERROR;
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    CSLinkedListItem_TypeDef* pstNextItem = (CSLinkedListItem_TypeDef*) 0UL ;
+    CSLinkedListItem_TypeDef* pstNextItemReg = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstNewItem1 = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstListHeadItem = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstListTailItem = (CSLinkedListItem_TypeDef*) 0UL ;
@@ -82,8 +82,8 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
                 {
                     CSLinkedList__vSetTail(pstList, pstNewItem);
                 }
-                pstNextItem = CSLinkedList_Item__pstGetNextItem(pstPreviousItem);
-                CSLinkedList_Item__vSetNextNode(pstNewItem, pstNextItem);
+                pstNextItemReg = CSLinkedList_Item__pstGetNextItem(pstPreviousItem);
+                CSLinkedList_Item__vSetNextNode(pstNewItem, pstNextItemReg);
                 CSLinkedList_Item__vSetNextNode(pstPreviousItem, pstNewItem);
             }
             u32SizeReg++;

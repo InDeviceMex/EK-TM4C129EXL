@@ -36,8 +36,8 @@ typedef struct SLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32Value;
-        struct SLinkedListItem *pstNextNode;
+        uint32_t u32ValueItem;
+        struct SLinkedListItem *pstNext;
 }SLinkedListItem_TypeDef;
 
 typedef struct SLinkedList

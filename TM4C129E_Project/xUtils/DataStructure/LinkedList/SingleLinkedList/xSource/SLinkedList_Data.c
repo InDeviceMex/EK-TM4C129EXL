@@ -26,7 +26,7 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Item.h>
 
-void* SLinkedList__pvGetItemDataPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* SLinkedList__pvGetDataItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
@@ -35,44 +35,44 @@ void* SLinkedList__pvGetItemDataPos(const SLinkedList_TypeDef* pstList, uint32_t
         pstItem = SLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            pvItemData = SLinkedList__pvGetItemData(pstItem);
+            pvItemData = SLinkedList_Item__pvGetData(pstItem);
         }
     }
     return (pvItemData);
 }
 
-void* SLinkedList__pvGetItemDataEnd(const SLinkedList_TypeDef* pstList)
+void* SLinkedList__pvGetDataTail(const SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetItemEnd(pstList);
+        pstItem = SLinkedList__pstGetTailItem(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            pvItemData = SLinkedList__pvGetItemData(pstItem);
+            pvItemData = SLinkedList_Item__pvGetData(pstItem);
         }
     }
     return (pvItemData);
 }
 
-void* SLinkedList__pvGetItemDataBegin(const SLinkedList_TypeDef* pstList)
+void* SLinkedList__pvGetDataHead(const SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetItemBegin(pstList);
+        pstItem = SLinkedList__pstGetHeadItem(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            pvItemData = SLinkedList__pvGetItemData(pstItem);
+            pvItemData = SLinkedList_Item__pvGetData(pstItem);
         }
     }
     return (pvItemData);
 }
 
 
-uint32_t SLinkedList__u32GetItemValuePos(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t SLinkedList__u32GetValueItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
@@ -81,37 +81,37 @@ uint32_t SLinkedList__u32GetItemValuePos(const SLinkedList_TypeDef* pstList, uin
         pstItem = SLinkedList__pstGetItemPos(pstList, u32Position);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            u32ItemValue = SLinkedList__u32GetItemValue(pstItem);
+            u32ItemValue = SLinkedList_Item__u32GetValue(pstItem);
         }
     }
     return (u32ItemValue);
 }
 
-uint32_t SLinkedList__u32GetItemValueEnd(const SLinkedList_TypeDef* pstList)
+uint32_t SLinkedList__u32GetValueTail(const SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetItemEnd(pstList);
+        pstItem = SLinkedList__pstGetTailItem(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            u32ItemValue = SLinkedList__u32GetItemValue(pstItem);
+            u32ItemValue = SLinkedList_Item__u32GetValue(pstItem);
         }
     }
     return (u32ItemValue);
 }
 
-uint32_t SLinkedList__u32GetItemValueBegin(const SLinkedList_TypeDef* pstList)
+uint32_t SLinkedList__u32GetValueHead(const SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
-        pstItem = SLinkedList__pstGetItemBegin(pstList);
+        pstItem = SLinkedList__pstGetHeadItem(pstList);
         if((uint32_t) 0UL != (uint32_t) pstItem)
         {
-            u32ItemValue = SLinkedList__u32GetItemValue(pstItem);
+            u32ItemValue = SLinkedList_Item__u32GetValue(pstItem);
         }
     }
     return (u32ItemValue);

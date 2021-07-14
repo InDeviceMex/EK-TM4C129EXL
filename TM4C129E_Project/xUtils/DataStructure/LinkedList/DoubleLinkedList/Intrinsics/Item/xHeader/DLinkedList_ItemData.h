@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-void* DLinkedList__pvGetItemData(const DLinkedListItem_TypeDef* const pstItem);
-void DLinkedList__vSetItemData(DLinkedListItem_TypeDef* pstItem, void* pvDataArg);
+void* DLinkedList_Item__pvGetData(const DLinkedListItem_TypeDef* const pstItem);
+void DLinkedList_Item__vSetData(DLinkedListItem_TypeDef* pstItem, void* pvDataArg);
 
 
 

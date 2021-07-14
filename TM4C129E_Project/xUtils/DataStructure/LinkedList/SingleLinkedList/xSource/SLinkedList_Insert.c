@@ -30,13 +30,13 @@
 #define DATA_STATIC (1UL)
 
 SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousNode,
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
                                             SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData,
                                             uint32_t u32DataUpdate);
 
 SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousNode,
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
                                             SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData,
                                             uint32_t u32DataUpdate)
@@ -51,30 +51,30 @@ SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstLis
         enStatus = SLinkedList_enSTATUS_OK;
         if(DATA_UPDATE == u32DataUpdate)
         {
-            SLinkedList__vSetItemData(pstNewItem, pvData);
+            SLinkedList_Item__vSetData(pstNewItem, pvData);
         }
-        SLinkedList__vSetItemOwnerList(pstNewItem, (void*) pstList);
+        SLinkedList_Item__vSetOwnerList(pstNewItem, (void*) pstList);
 
         u32SizeReg = SLinkedList__u32GetSize(pstList);
-        if(0UL == (uint32_t) pstPreviousNode)
+        if(0UL == (uint32_t) pstPreviousItem)
         {
             if(0UL == u32SizeReg)
             {
                 SLinkedList__vSetTail(pstList, pstNewItem);
             }
             pstListHeadItem = SLinkedList__pstGetHead(pstList);
-            SLinkedList__vSetItemNextNode(pstNewItem, pstListHeadItem);
+            SLinkedList_Item__vSetNextNode(pstNewItem, pstListHeadItem);
             SLinkedList__vSetHead(pstList, pstNewItem);
         }
         else
         {
-            pstItemNextNode = SLinkedList__pstGetItemNextNode(pstPreviousNode);
+            pstItemNextNode = SLinkedList_Item__pstGetNextItem(pstPreviousItem);
             if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
             {
                 SLinkedList__vSetTail(pstList, pstNewItem);
             }
-            SLinkedList__vSetItemNextNode(pstNewItem, pstItemNextNode);
-            SLinkedList__vSetItemNextNode(pstPreviousNode, pstNewItem);
+            SLinkedList_Item__vSetNextNode(pstNewItem, pstItemNextNode);
+            SLinkedList_Item__vSetNextNode(pstPreviousItem, pstNewItem);
         }
         u32SizeReg++;
         SLinkedList__vSetSize(pstList, u32SizeReg);
@@ -84,26 +84,26 @@ SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstLis
 
 
 SLinkedList_nSTATUS SLinkedList__enInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousNode,
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
                                             SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    enStatus = SLinkedList__enInsertNextGeneric(pstList, pstPreviousNode, pstNewItem, pvData, DATA_UPDATE);
+    enStatus = SLinkedList__enInsertNextGeneric(pstList, pstPreviousItem, pstNewItem, pvData, DATA_UPDATE);
     return (enStatus);
 }
 
 SLinkedList_nSTATUS SLinkedList__enInsertNext(SLinkedList_TypeDef* pstList,
-                                            SLinkedListItem_TypeDef* pstPreviousNode,
+                                            SLinkedListItem_TypeDef* pstPreviousItem,
                                             SLinkedListItem_TypeDef* pstNewItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    enStatus = SLinkedList__enInsertNextGeneric(pstList, pstPreviousNode, pstNewItem, (void*) 0UL, DATA_STATIC);
+    enStatus = SLinkedList__enInsertNextGeneric(pstList, pstPreviousItem, pstNewItem, (void*) 0UL, DATA_STATIC);
     return (enStatus);
 }
 
 SLinkedListItem_TypeDef* SLinkedList__pstInsertNext_WithData(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListItem_TypeDef* pstPreviousNode,
+                                                    SLinkedListItem_TypeDef* pstPreviousItem,
                                                     void* pvData)
 {
      SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
@@ -114,16 +114,16 @@ SLinkedListItem_TypeDef* SLinkedList__pstInsertNext_WithData(SLinkedList_TypeDef
     #elif defined (__GNUC__ )
          pstNewItem = (SLinkedListItem_TypeDef*) malloc(sizeof(SLinkedListItem_TypeDef));
     #endif
-         SLinkedList__enInsertNext_WithData(pstList, pstPreviousNode, pstNewItem, pvData);
+         SLinkedList__enInsertNext_WithData(pstList, pstPreviousItem, pstNewItem, pvData);
     }
     return (pstNewItem);
 }
 
 SLinkedListItem_TypeDef* SLinkedList__pstInsertNext(SLinkedList_TypeDef* pstList,
-                                                    SLinkedListItem_TypeDef* pstPreviousNode)
+                                                    SLinkedListItem_TypeDef* pstPreviousItem)
 {
      SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
-     pstNewItem = SLinkedList__pstInsertNext_WithData(pstList, pstPreviousNode, (void*)0UL);
+     pstNewItem = SLinkedList__pstInsertNext_WithData(pstList, pstPreviousItem, (void*)0UL);
      if(((uint32_t) 0UL != (uint32_t) pstList))
      {
     #if defined (__TI_ARM__ )
@@ -131,12 +131,12 @@ SLinkedListItem_TypeDef* SLinkedList__pstInsertNext(SLinkedList_TypeDef* pstList
     #elif defined (__GNUC__ )
          pstNewItem = (SLinkedListItem_TypeDef*) malloc(sizeof(SLinkedListItem_TypeDef));
     #endif
-         SLinkedList__enInsertNext(pstList, pstPreviousNode, pstNewItem);
+         SLinkedList__enInsertNext(pstList, pstPreviousItem, pstNewItem);
     }
     return (pstNewItem);
 }
 
-SLinkedList_nSTATUS SLinkedList__enInsertEnd_WithData(SLinkedList_TypeDef* pstList,
+SLinkedList_nSTATUS SLinkedList__enInsertAtTail_WithData(SLinkedList_TypeDef* pstList,
                                             SLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData)
 {
@@ -151,7 +151,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertEnd_WithData(SLinkedList_TypeDef* pstLi
     return (enStatus);
 }
 
-SLinkedList_nSTATUS SLinkedList__enInsertEnd(SLinkedList_TypeDef* pstList,
+SLinkedList_nSTATUS SLinkedList__enInsertAtTail(SLinkedList_TypeDef* pstList,
                                             SLinkedListItem_TypeDef* pstNewItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
@@ -165,7 +165,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertEnd(SLinkedList_TypeDef* pstList,
     return (enStatus);
 }
 
-SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd_WithData(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef* SLinkedList__pstInsertAtTail_WithData(SLinkedList_TypeDef* pstList,
                                                    void* pvData)
 {
     SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
@@ -178,7 +178,7 @@ SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd_WithData(SLinkedList_TypeDef*
     return (pstNewItem);
 }
 
-SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd(SLinkedList_TypeDef* pstList)
+SLinkedListItem_TypeDef* SLinkedList__pstInsertAtTail(SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
     SLinkedListItem_TypeDef* pstEndItem = (SLinkedListItem_TypeDef*) 0UL;
@@ -190,7 +190,7 @@ SLinkedListItem_TypeDef* SLinkedList__pstInsertEnd(SLinkedList_TypeDef* pstList)
     return (pstNewItem);
 }
 
-SLinkedList_nSTATUS SLinkedList__enInsertBegin_WithData(SLinkedList_TypeDef* pstList,
+SLinkedList_nSTATUS SLinkedList__enInsertAtHead_WithData(SLinkedList_TypeDef* pstList,
                                                 SLinkedListItem_TypeDef* pstNewItem,
                                                 void* pvData)
 {
@@ -203,7 +203,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertBegin_WithData(SLinkedList_TypeDef* pst
     return (enStatus);
 }
 
-SLinkedList_nSTATUS SLinkedList__enInsertBegin(SLinkedList_TypeDef* pstList,
+SLinkedList_nSTATUS SLinkedList__enInsertAtHead(SLinkedList_TypeDef* pstList,
                                                 SLinkedListItem_TypeDef* pstNewItem)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
@@ -215,7 +215,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertBegin(SLinkedList_TypeDef* pstList,
     return (enStatus);
 }
 
-SLinkedListItem_TypeDef*  SLinkedList__pstInsertBegin_WithData(SLinkedList_TypeDef* pstList,
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertAtHead_WithData(SLinkedList_TypeDef* pstList,
                                                       void* pvData)
 {
     SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
@@ -226,7 +226,7 @@ SLinkedListItem_TypeDef*  SLinkedList__pstInsertBegin_WithData(SLinkedList_TypeD
     return (pstNewItem);
 }
 
-SLinkedListItem_TypeDef*  SLinkedList__pstInsertBegin(SLinkedList_TypeDef* pstList)
+SLinkedListItem_TypeDef*  SLinkedList__pstInsertAtHead(SLinkedList_TypeDef* pstList)
 {
     SLinkedListItem_TypeDef* pstNewItem = (SLinkedListItem_TypeDef*) 0UL ;
     if(((uint32_t) 0UL != (uint32_t) pstList))
@@ -251,11 +251,11 @@ SLinkedList_nSTATUS SLinkedList__enInsertPos_WithData(SLinkedList_TypeDef* pstLi
         {
             if(0UL == u32Position)
             {
-                enStatus = SLinkedList__enInsertBegin_WithData(pstList, pstNewItem, pvData);
+                enStatus = SLinkedList__enInsertAtHead_WithData(pstList, pstNewItem, pvData);
             }
             else if((u32SizeList) == u32Position)
             {
-                enStatus = SLinkedList__enInsertEnd_WithData(pstList, pstNewItem, pvData);
+                enStatus = SLinkedList__enInsertAtTail_WithData(pstList, pstNewItem, pvData);
             }
             else
             {
@@ -263,7 +263,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertPos_WithData(SLinkedList_TypeDef* pstLi
                 u32Position--;
                 while(0UL != u32Position)
                 {
-                    pstItem = SLinkedList__pstGetItemNextNode(pstItem);
+                    pstItem = SLinkedList_Item__pstGetNextItem(pstItem);
                     u32Position--;
                 }
                 enStatus = SLinkedList__enInsertNext_WithData(pstList, pstItem, pstNewItem, pvData);
@@ -287,11 +287,11 @@ SLinkedList_nSTATUS SLinkedList__enInsertPos(SLinkedList_TypeDef* pstList,
         {
             if(0UL == u32Position)
             {
-                enStatus = SLinkedList__enInsertBegin(pstList, pstNewItem);
+                enStatus = SLinkedList__enInsertAtHead(pstList, pstNewItem);
             }
             else if((u32SizeList) == u32Position)
             {
-                enStatus = SLinkedList__enInsertEnd(pstList, pstNewItem);
+                enStatus = SLinkedList__enInsertAtTail(pstList, pstNewItem);
             }
             else
             {
@@ -299,7 +299,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertPos(SLinkedList_TypeDef* pstList,
                 u32Position--;
                 while(0UL != u32Position)
                 {
-                    pstItem = SLinkedList__pstGetItemNextNode(pstItem);
+                    pstItem = SLinkedList_Item__pstGetNextItem(pstItem);
                     u32Position--;
                 }
                 enStatus = SLinkedList__enInsertNext(pstList, pstItem, pstNewItem);
@@ -323,11 +323,11 @@ SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos_WithData(SLinkedList_TypeDef
         {
             if(0UL == u32Position)
             {
-                pstNewItem = SLinkedList__pstInsertBegin_WithData(pstList, pvData);
+                pstNewItem = SLinkedList__pstInsertAtHead_WithData(pstList, pvData);
             }
             else if((u32SizeList) == u32Position)
             {
-                pstNewItem = SLinkedList__pstInsertEnd_WithData(pstList, pvData);
+                pstNewItem = SLinkedList__pstInsertAtTail_WithData(pstList, pvData);
             }
             else
             {
@@ -335,7 +335,7 @@ SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos_WithData(SLinkedList_TypeDef
                 u32Position--;
                 while(0UL != u32Position)
                 {
-                    pstItem = SLinkedList__pstGetItemNextNode(pstItem);
+                    pstItem = SLinkedList_Item__pstGetNextItem(pstItem);
                     u32Position--;
                 }
                 pstNewItem = SLinkedList__pstInsertNext_WithData(pstList, pstItem, pvData);
@@ -358,11 +358,11 @@ SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos(SLinkedList_TypeDef* pstList
         {
             if(0UL == u32Position)
             {
-                pstNewItem = SLinkedList__pstInsertBegin(pstList);
+                pstNewItem = SLinkedList__pstInsertAtHead(pstList);
             }
             else if((u32SizeList) == u32Position)
             {
-                pstNewItem = SLinkedList__pstInsertEnd(pstList);
+                pstNewItem = SLinkedList__pstInsertAtTail(pstList);
             }
             else
             {
@@ -370,7 +370,7 @@ SLinkedListItem_TypeDef*  SLinkedList__pstInsertPos(SLinkedList_TypeDef* pstList
                 u32Position--;
                 while(0UL != u32Position)
                 {
-                    pstItem = SLinkedList__pstGetItemNextNode(pstItem);
+                    pstItem = SLinkedList_Item__pstGetNextItem(pstItem);
                     u32Position--;
                 }
                 pstNewItem = SLinkedList__pstInsertNext(pstList, pstItem);

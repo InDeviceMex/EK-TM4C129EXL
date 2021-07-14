@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemData.h>
 
-void* DLinkedList__pvGetItemData(const DLinkedListItem_TypeDef* const pstItem)
+void* DLinkedList_Item__pvGetData(const DLinkedListItem_TypeDef* const pstItem)
 {
     void* pvDataReg = (void*)0UL;
     pvDataReg = pstItem->pvDataContainer;
     return (pvDataReg);
 }
 
-void DLinkedList__vSetItemData(DLinkedListItem_TypeDef* pstItem, void* pvDataArg)
+void DLinkedList_Item__vSetData(DLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
     pstItem->pvDataContainer = pvDataArg;
 }

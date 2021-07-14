@@ -26,12 +26,12 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-void*  DLinkedList__pvGetItemDataPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
-void*  DLinkedList__pvGetItemDataEnd(const DLinkedList_TypeDef* pstList);
-void*  DLinkedList__pvGetItemDataBegin(const DLinkedList_TypeDef* pstList);
+void*  DLinkedList__pvGetDataItem(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  DLinkedList__pvGetDataTail(const DLinkedList_TypeDef* pstList);
+void*  DLinkedList__pvGetDataHead(const DLinkedList_TypeDef* pstList);
 
-uint32_t  DLinkedList__u32GetItemValuePos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t  DLinkedList__u32GetItemValueEnd(const DLinkedList_TypeDef* pstList);
-uint32_t  DLinkedList__u32GetItemValueBegin(const DLinkedList_TypeDef* pstList);
+uint32_t  DLinkedList__u32GetValueItem(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  DLinkedList__u32GetValueTail(const DLinkedList_TypeDef* pstList);
+uint32_t  DLinkedList__u32GetValueHead(const DLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_DATA_H_ */

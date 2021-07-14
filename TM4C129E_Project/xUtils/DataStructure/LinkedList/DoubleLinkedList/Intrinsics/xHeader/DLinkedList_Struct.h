@@ -36,9 +36,9 @@ typedef struct DLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32Value;
-        struct DLinkedListItem *pstPreviousNode;
-        struct DLinkedListItem *pstNextNode;
+        uint32_t u32ValueItem;
+        struct DLinkedListItem *pstPrevious;
+        struct DLinkedListItem *pstNext;
 }DLinkedListItem_TypeDef;
 
 typedef struct DLinkedList

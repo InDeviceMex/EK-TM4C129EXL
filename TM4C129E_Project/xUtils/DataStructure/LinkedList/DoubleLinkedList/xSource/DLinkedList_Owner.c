@@ -29,7 +29,7 @@ DLinkedList_nSTATUS DLinkedList__enIsItemOwnerList(const DLinkedList_TypeDef* ps
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_TypeDef* pstOwnerListItem = (DLinkedList_TypeDef*) 0UL;
-    pstOwnerListItem = (DLinkedList_TypeDef*) DLinkedList__pvGetItemOwnerList(pstItem);
+    pstOwnerListItem = (DLinkedList_TypeDef*) DLinkedList_Item__pvGetOwnerList(pstItem);
     if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = DLinkedList_enSTATUS_OK;

@@ -29,7 +29,7 @@ SLinkedList_nSTATUS SLinkedList__enIsItemOwnerList(const SLinkedList_TypeDef* ps
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
     SLinkedList_TypeDef* pstOwnerListItem = (SLinkedList_TypeDef*) 0UL;
-    pstOwnerListItem = (SLinkedList_TypeDef*) SLinkedList__pvGetItemOwnerList(pstItem);
+    pstOwnerListItem = (SLinkedList_TypeDef*) SLinkedList_Item__pvGetOwnerList(pstItem);
     if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = SLinkedList_enSTATUS_OK;

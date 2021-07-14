@@ -66,7 +66,7 @@ DLinkedListItem_TypeDef*  DLinkedList__pstGetItemPos(const DLinkedList_TypeDef* 
                     pstItem = DLinkedList__pstGetHead(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = DLinkedList__pstGetItemNextNode(pstItem);
+                        pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
                         u32SizeOptimum--;
                     }
                 }
@@ -85,7 +85,7 @@ DLinkedListItem_TypeDef*  DLinkedList__pstGetItemPos(const DLinkedList_TypeDef* 
     return (pstItem);
 }
 
-DLinkedListItem_TypeDef*  DLinkedList__pstGetItemEnd(const DLinkedList_TypeDef* pstList)
+DLinkedListItem_TypeDef*  DLinkedList__pstGetTailItem(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -95,7 +95,7 @@ DLinkedListItem_TypeDef*  DLinkedList__pstGetItemEnd(const DLinkedList_TypeDef* 
     return (pstItem);
 }
 
-DLinkedListItem_TypeDef*  DLinkedList__pstGetItemBegin(const DLinkedList_TypeDef* pstList)
+DLinkedListItem_TypeDef*  DLinkedList__pstGetHeadItem(const DLinkedList_TypeDef* pstList)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL ;
     if((uint32_t) 0UL != (uint32_t) pstList)
@@ -117,36 +117,36 @@ uint32_t DLinkedList__u32GetAllItem(const DLinkedList_TypeDef* pstList, void** p
         pstMember = DLinkedList__pstGetHead(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength))
         {
-            pvDataMember = DLinkedList__pvGetItemData(pstMember);
+            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
-            pstMemberTemp = DLinkedList__pstGetItemNextNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
     return (u32SizeReg);
 }
 
-uint32_t DLinkedList__u32GetAllItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
+uint32_t DLinkedList__u32GetAllItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength)
 {
     DLinkedListItem_TypeDef *pstMember = (DLinkedListItem_TypeDef*) 0UL;
     DLinkedListItem_TypeDef *pstMemberTemp = (DLinkedListItem_TypeDef*) 0UL;
-    uint32_t pu32ValueMember = (uint32_t)0UL;
+    uint32_t pu32ValueItemMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32ValueItem ) && (0UL != u32MaxLength))
     {
         pstMember = DLinkedList__pstGetHead(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength))
         {
-            pu32ValueMember = DLinkedList__u32GetItemValue(pstMember);
-            *pu32Value = pu32ValueMember;
+            pu32ValueItemMember = DLinkedList_Item__u32GetValue(pstMember);
+            *pu32ValueItem = pu32ValueItemMember;
             u32SizeReg++;
-            pu32Value += 1U;
+            pu32ValueItem += 1U;
             u32MaxLength--;
-            pstMemberTemp = DLinkedList__pstGetItemNextNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -166,7 +166,7 @@ uint32_t DLinkedList__u32GetAllItemBackward(const DLinkedList_TypeDef* pstList, 
         pstMember = DLinkedList__pstGetTail(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength))
         {
-            pvDataMember = DLinkedList__pvGetItemData(pstMember);
+            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
@@ -178,22 +178,22 @@ uint32_t DLinkedList__u32GetAllItemBackward(const DLinkedList_TypeDef* pstList, 
     return (u32SizeReg);
 }
 
-uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength)
+uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength)
 {
     DLinkedListItem_TypeDef *pstMember = (DLinkedListItem_TypeDef*) 0UL;
     DLinkedListItem_TypeDef *pstMemberTemp = (DLinkedListItem_TypeDef*) 0UL;
-    uint32_t pu32ValueMember = (uint32_t)0UL;
+    uint32_t pu32ValueItemMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32ValueItem ) && (0UL != u32MaxLength))
     {
         pstMember = DLinkedList__pstGetTail(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength))
         {
-            pu32ValueMember = DLinkedList__u32GetItemValue(pstMember);
-            *pu32Value = pu32ValueMember;
+            pu32ValueItemMember = DLinkedList_Item__u32GetValue(pstMember);
+            *pu32ValueItem = pu32ValueItemMember;
             u32SizeReg++;
-            pu32Value += 1U;
+            pu32ValueItem += 1U;
             u32MaxLength--;
             pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);
             pstMember = pstMemberTemp;
@@ -214,38 +214,38 @@ uint32_t DLinkedList__u32GetNItem(const DLinkedList_TypeDef* pstList, void** pvD
         pstMember = DLinkedList__pstGetHead(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength) && (0UL != u32Items))
         {
-            pvDataMember = DLinkedList__pvGetItemData(pstMember);
+            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
             u32Items--;
-            pstMemberTemp = DLinkedList__pstGetItemNextNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
     return (u32SizeReg);
 }
 
-uint32_t DLinkedList__u32GetNItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength)
+uint32_t DLinkedList__u32GetNItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength)
 {
     DLinkedListItem_TypeDef *pstMember = (DLinkedListItem_TypeDef*) 0UL;
     DLinkedListItem_TypeDef *pstMemberTemp = (DLinkedListItem_TypeDef*) 0UL;
-    uint32_t pu32ValueMember = (uint32_t)0UL;
+    uint32_t pu32ValueItemMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Items))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32ValueItem ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = DLinkedList__pstGetHead(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength) && (0UL != u32Items))
         {
-            pu32ValueMember = DLinkedList__u32GetItemValue(pstMember);
-            *pu32Value = pu32ValueMember;
+            pu32ValueItemMember = DLinkedList_Item__u32GetValue(pstMember);
+            *pu32ValueItem = pu32ValueItemMember;
             u32SizeReg++;
-            pu32Value += 1U;
+            pu32ValueItem += 1U;
             u32MaxLength--;
             u32Items--;
-            pstMemberTemp = DLinkedList__pstGetItemNextNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -264,7 +264,7 @@ uint32_t DLinkedList__u32GetNItemBackward(const DLinkedList_TypeDef* pstList, vo
         pstMember = DLinkedList__pstGetTail(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength) && (0UL != u32Items))
         {
-            pvDataMember = DLinkedList__pvGetItemData(pstMember);
+            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
             *pvData = pvDataMember;
             u32SizeReg++;
             pvData += 1U;
@@ -277,22 +277,22 @@ uint32_t DLinkedList__u32GetNItemBackward(const DLinkedList_TypeDef* pstList, vo
     return (u32SizeReg);
 }
 
-uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength)
+uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength)
 {
     DLinkedListItem_TypeDef *pstMember = (DLinkedListItem_TypeDef*) 0UL;
     DLinkedListItem_TypeDef *pstMemberTemp = (DLinkedListItem_TypeDef*) 0UL;
-    uint32_t pu32ValueMember = (uint32_t)0UL;
+    uint32_t pu32ValueItemMember = (uint32_t)0UL;
     uint32_t u32SizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32Value ) && (0UL != u32MaxLength) && (0UL != u32Items))
+    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pu32ValueItem ) && (0UL != u32MaxLength) && (0UL != u32Items))
     {
         pstMember = DLinkedList__pstGetTail(pstList);
         while(((uint32_t) 0UL != (uint32_t) pstMember) && (0UL != u32MaxLength) && (0UL != u32Items))
         {
-            pu32ValueMember = DLinkedList__u32GetItemValue(pstMember);
-            *pu32Value = pu32ValueMember;
+            pu32ValueItemMember = DLinkedList_Item__u32GetValue(pstMember);
+            *pu32ValueItem = pu32ValueItemMember;
             u32SizeReg++;
-            pu32Value += 1U;
+            pu32ValueItem += 1U;
             u32MaxLength--;
             u32Items--;
             pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);

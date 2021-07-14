@@ -27,19 +27,19 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 uint32_t DLinkedList__u32GetAllItem(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetAllItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetAllItemBackward(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetNItem(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetNItem_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 uint32_t DLinkedList__u32GetNItemBackward(const DLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength);
+uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 DLinkedListItem_TypeDef*  DLinkedList__pstGetItemPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position);
-DLinkedListItem_TypeDef*  DLinkedList__pstGetItemEnd(const DLinkedList_TypeDef* pstList);
-DLinkedListItem_TypeDef*  DLinkedList__pstGetItemBegin(const DLinkedList_TypeDef* pstList);
+DLinkedListItem_TypeDef*  DLinkedList__pstGetTailItem(const DLinkedList_TypeDef* pstList);
+DLinkedListItem_TypeDef*  DLinkedList__pstGetHeadItem(const DLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_ITEM_H_ */

@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void* SLinkedList__pvGetItemOwnerList(const SLinkedListItem_TypeDef* const pstItem);
-void SLinkedList__vSetItemOwnerList(SLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg);
+void* SLinkedList_Item__pvGetOwnerList(const SLinkedListItem_TypeDef* const pstItem);
+void SLinkedList_Item__vSetOwnerList(SLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_SINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_SLINKEDLIST_ITEMOWNERLIST_H_ */

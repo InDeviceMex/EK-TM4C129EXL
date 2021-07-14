@@ -58,7 +58,7 @@ void OS_Kernel__vLaunchMs(uint32_t u32Ms)
 
 void vTaskSwitchContext(void)
 {
-    OS_Kernel_psCurrentTask = OS_Kernel_psCurrentTask->pstNextNode;
+    OS_Kernel_psCurrentTask = OS_Kernel_psCurrentTask->pstNextItem;
 }
 
 static void OS_Kernel_vStartFirstTask(void)
