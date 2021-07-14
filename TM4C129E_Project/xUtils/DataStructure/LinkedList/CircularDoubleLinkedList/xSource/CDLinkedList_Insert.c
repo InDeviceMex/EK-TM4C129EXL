@@ -1,6 +1,6 @@
 /**
  *
- * @file CircularCDLinkedList_Add.c
+ * @file CircularCDLinkedList_Insert.c
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -21,30 +21,30 @@
  * Date           Author     Version     Description
  * 11 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Add.h>
+#include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Insert.h>
 
 #include <stdlib.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 
-#define ADD_NEXT (0UL)
-#define ADD_PREVIOUS (1UL)
+#define INSERT_NEXT (0UL)
+#define INSERT_PREVIOUS (1UL)
 
 #define DATA_UPDATE (0UL)
 #define DATA_STATIC (1UL)
 
 
-static CDLinkedList_nSTATUS CDLinkedList__enAddGeneric(CDLinkedList_TypeDef* pstList,
+static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* pstList,
                                                         CDLinkedListElement_TypeDef* pstElement,
                                                         CDLinkedListElement_TypeDef* pstNewElement,
                                                         void* pvData,
-                                                        uint32_t u32Add,
+                                                        uint32_t u32Insert,
                                                         uint32_t u32DataUpdate);
 
-static CDLinkedList_nSTATUS CDLinkedList__enAddGeneric(CDLinkedList_TypeDef* pstList,
+static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* pstList,
                                                         CDLinkedListElement_TypeDef* pstElement,
                                                         CDLinkedListElement_TypeDef* pstNewElement,
                                                         void* pvData,
-                                                        uint32_t u32Add,
+                                                        uint32_t u32Insert,
                                                         uint32_t u32DataUpdate)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
@@ -79,7 +79,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enAddGeneric(CDLinkedList_TypeDef* pst
                 }
                 else
                 {
-                    if(ADD_NEXT == u32Add)
+                    if(INSERT_NEXT == u32Insert)
                     {
                         pstHeadNode = CDLinkedList__pstGetHead(pstList);
                         pstElementNextNode = CDLinkedList__pstGetElementNextNode(pstElement);
@@ -119,26 +119,26 @@ static CDLinkedList_nSTATUS CDLinkedList__enAddGeneric(CDLinkedList_TypeDef* pst
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddNext_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertNext_WithData(CDLinkedList_TypeDef* pstList,
                                                       CDLinkedListElement_TypeDef* pstElement,
                                                       CDLinkedListElement_TypeDef* pstNewElement,
                                                       void* pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enAddGeneric(pstList, pstElement, pstNewElement, pvData, ADD_NEXT, DATA_UPDATE);
+    enStatus = CDLinkedList__enInsertGeneric(pstList, pstElement, pstNewElement, pvData, INSERT_NEXT, DATA_UPDATE);
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddNext(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertNext(CDLinkedList_TypeDef* pstList,
                                                       CDLinkedListElement_TypeDef* pstElement,
                                                       CDLinkedListElement_TypeDef* pstNewElement)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enAddGeneric(pstList, pstElement, pstNewElement, (void*) 0UL, ADD_NEXT, DATA_STATIC);
+    enStatus = CDLinkedList__enInsertGeneric(pstList, pstElement, pstNewElement, (void*) 0UL, INSERT_NEXT, DATA_STATIC);
     return (enStatus);
 }
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext_WithData(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData)
+CDLinkedListElement_TypeDef* CDLinkedList__pstInsertNext_WithData(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
@@ -153,13 +153,13 @@ CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext_WithData(CDLinkedList_Type
             pstNewElement = (CDLinkedListElement_TypeDef*) malloc(sizeof(CDLinkedListElement_TypeDef));
             #endif
 
-            CDLinkedList__enAddNext_WithData(pstList, pstElement, pstNewElement, pvData);
+            CDLinkedList__enInsertNext_WithData(pstList, pstElement, pstNewElement, pvData);
         }
     }
     return (pstNewElement);
 }
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement)
+CDLinkedListElement_TypeDef* CDLinkedList__pstInsertNext(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
@@ -174,33 +174,33 @@ CDLinkedListElement_TypeDef* CDLinkedList__pstAddNext(CDLinkedList_TypeDef* pstL
             pstNewElement = (CDLinkedListElement_TypeDef*) malloc(sizeof(CDLinkedListElement_TypeDef));
             #endif
 
-            CDLinkedList__enAddNext(pstList, pstElement, pstNewElement);
+            CDLinkedList__enInsertNext(pstList, pstElement, pstNewElement);
         }
     }
     return (pstNewElement);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddPrevious_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertPrevious_WithData(CDLinkedList_TypeDef* pstList,
                                                       CDLinkedListElement_TypeDef* pstElement,
                                                       CDLinkedListElement_TypeDef* pstNewElement,
                                                       void* pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enAddGeneric(pstList, pstElement, pstNewElement, pvData, ADD_PREVIOUS, DATA_UPDATE);
+    enStatus = CDLinkedList__enInsertGeneric(pstList, pstElement, pstNewElement, pvData, INSERT_PREVIOUS, DATA_UPDATE);
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddPrevious(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertPrevious(CDLinkedList_TypeDef* pstList,
                                                       CDLinkedListElement_TypeDef* pstElement,
                                                       CDLinkedListElement_TypeDef* pstNewElement)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enAddGeneric(pstList, pstElement, pstNewElement, (void*) 0UL, ADD_PREVIOUS, DATA_STATIC);
+    enStatus = CDLinkedList__enInsertGeneric(pstList, pstElement, pstNewElement, (void*) 0UL, INSERT_PREVIOUS, DATA_STATIC);
     return (enStatus);
 }
 
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious_WithData(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData)
+CDLinkedListElement_TypeDef* CDLinkedList__pstInsertPrevious_WithData(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement, void* pvData)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
@@ -215,14 +215,14 @@ CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious_WithData(CDLinkedList_
             pstNewElement = (CDLinkedListElement_TypeDef*) malloc(sizeof(CDLinkedListElement_TypeDef));
             #endif
 
-            CDLinkedList__enAddPrevious_WithData(pstList, pstElement, pstNewElement, pvData);
+            CDLinkedList__enInsertPrevious_WithData(pstList, pstElement, pstNewElement, pvData);
         }
     }
     return (pstNewElement);
 }
 
 
-CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement)
+CDLinkedListElement_TypeDef* CDLinkedList__pstInsertPrevious(CDLinkedList_TypeDef* pstList, CDLinkedListElement_TypeDef* pstElement)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
@@ -237,14 +237,14 @@ CDLinkedListElement_TypeDef* CDLinkedList__pstAddPrevious(CDLinkedList_TypeDef* 
             pstNewElement = (CDLinkedListElement_TypeDef*) malloc(sizeof(CDLinkedListElement_TypeDef));
             #endif
 
-            CDLinkedList__enAddPrevious(pstList, pstElement, pstNewElement);
+            CDLinkedList__enInsertPrevious(pstList, pstElement, pstNewElement);
         }
     }
     return (pstNewElement);
 }
 
 
-CDLinkedList_nSTATUS  CDLinkedList__enAddEnd_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertEnd_WithData(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListElement_TypeDef* pstNewElement,
                                            void* pvData)
 {
@@ -253,12 +253,12 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddEnd_WithData(CDLinkedList_TypeDef* pstL
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CDLinkedList__pstGetTail(pstList);
-        enStatus = CDLinkedList__enAddNext_WithData(pstList, pstEndElement, pstNewElement, pvData);
+        enStatus = CDLinkedList__enInsertNext_WithData(pstList, pstEndElement, pstNewElement, pvData);
     }
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enAddEnd(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertEnd(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListElement_TypeDef* pstNewElement)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
@@ -266,36 +266,36 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddEnd(CDLinkedList_TypeDef* pstList,
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CDLinkedList__pstGetTail(pstList);
-        enStatus = CDLinkedList__enAddNext(pstList, pstEndElement, pstNewElement);
+        enStatus = CDLinkedList__enInsertNext(pstList, pstEndElement, pstNewElement);
     }
     return (enStatus);
 }
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddEnd_WithData(CDLinkedList_TypeDef* pstList, void* pvData)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertEnd_WithData(CDLinkedList_TypeDef* pstList, void* pvData)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstEndElement = (CDLinkedListElement_TypeDef*) 0UL;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CDLinkedList__pstGetTail(pstList);
-        pstNewElement = CDLinkedList__pstAddNext_WithData(pstList, pstEndElement, pvData);
+        pstNewElement = CDLinkedList__pstInsertNext_WithData(pstList, pstEndElement, pvData);
     }
     return (pstNewElement);
 }
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddEnd(CDLinkedList_TypeDef* pstList)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertEnd(CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstEndElement = (CDLinkedListElement_TypeDef*) 0UL;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstEndElement = CDLinkedList__pstGetTail(pstList);
-        pstNewElement = CDLinkedList__pstAddNext(pstList, pstEndElement);
+        pstNewElement = CDLinkedList__pstInsertNext(pstList, pstEndElement);
     }
     return (pstNewElement);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddBegin_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertBegin_WithData(CDLinkedList_TypeDef* pstList,
                                             CDLinkedListElement_TypeDef* pstNewElement,
                                             void* pvData)
 {
@@ -304,12 +304,12 @@ CDLinkedList_nSTATUS CDLinkedList__enAddBegin_WithData(CDLinkedList_TypeDef* pst
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstBeginElement = CDLinkedList__pstGetHead(pstList);
-        enStatus = CDLinkedList__enAddPrevious_WithData(pstList, pstBeginElement, pstNewElement, pvData);
+        enStatus = CDLinkedList__enInsertPrevious_WithData(pstList, pstBeginElement, pstNewElement, pvData);
     }
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enAddBegin(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertBegin(CDLinkedList_TypeDef* pstList,
                                             CDLinkedListElement_TypeDef* pstNewElement)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
@@ -317,36 +317,36 @@ CDLinkedList_nSTATUS CDLinkedList__enAddBegin(CDLinkedList_TypeDef* pstList,
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstBeginElement = CDLinkedList__pstGetHead(pstList);
-        enStatus = CDLinkedList__enAddPrevious(pstList, pstBeginElement, pstNewElement);
+        enStatus = CDLinkedList__enInsertPrevious(pstList, pstBeginElement, pstNewElement);
     }
     return (enStatus);
 }
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddBegin_WithData(CDLinkedList_TypeDef* pstList, void* pvData)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertBegin_WithData(CDLinkedList_TypeDef* pstList, void* pvData)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstBeginElement = (CDLinkedListElement_TypeDef*) 0UL;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstBeginElement = CDLinkedList__pstGetHead(pstList);
-        pstNewElement = CDLinkedList__pstAddPrevious_WithData(pstList, pstBeginElement, pvData);
+        pstNewElement = CDLinkedList__pstInsertPrevious_WithData(pstList, pstBeginElement, pvData);
     }
     return (pstNewElement);
 }
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddBegin(CDLinkedList_TypeDef* pstList)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertBegin(CDLinkedList_TypeDef* pstList)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstBeginElement = (CDLinkedListElement_TypeDef*) 0UL;
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstBeginElement = CDLinkedList__pstGetHead(pstList);
-        pstNewElement = CDLinkedList__pstAddPrevious(pstList, pstBeginElement);
+        pstNewElement = CDLinkedList__pstInsertPrevious(pstList, pstBeginElement);
     }
     return (pstNewElement);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enAddPos_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListElement_TypeDef* pstNewElement,
                                             uint32_t u32Position,
                                             void* pvData)
@@ -363,13 +363,13 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos_WithData(CDLinkedList_TypeDef* pstL
         u32SizeList = CDLinkedList__u32GetSize(pstList);
         if(u32Position <= u32SizeList)
         {
-            if(0UL == u32Position) /*Add Head*/
+            if(0UL == u32Position) /*Insert Head*/
             {
-                enStatus = CDLinkedList__enAddBegin_WithData(pstList, pstNewElement, pvData);
+                enStatus = CDLinkedList__enInsertBegin_WithData(pstList, pstNewElement, pvData);
             }
-            else if(u32Position == u32SizeList) /*Add Tail*/
+            else if(u32Position == u32SizeList) /*Insert Tail*/
             {
-                enStatus = CDLinkedList__enAddEnd_WithData(pstList, pstNewElement, pvData);
+                enStatus = CDLinkedList__enInsertEnd_WithData(pstList, pstNewElement, pvData);
             }
             else
             {
@@ -397,7 +397,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos_WithData(CDLinkedList_TypeDef* pstL
                         pstElement = CDLinkedList__pstGetElementNextNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    enStatus = CDLinkedList__enAddNext_WithData(pstList, pstElement, pstNewElement, pvData);
+                    enStatus = CDLinkedList__enInsertNext_WithData(pstList, pstElement, pstNewElement, pvData);
                 }
                 else /*Backward*/
                 {
@@ -408,7 +408,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos_WithData(CDLinkedList_TypeDef* pstL
                         pstElement = CDLinkedList__pstGetElementPreviousNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    enStatus = CDLinkedList__enAddPrevious_WithData(pstList, pstElement, pstNewElement, pvData);
+                    enStatus = CDLinkedList__enInsertPrevious_WithData(pstList, pstElement, pstNewElement, pvData);
                 }
             }
         }
@@ -416,7 +416,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos_WithData(CDLinkedList_TypeDef* pstL
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertPos(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListElement_TypeDef* pstNewElement,
                                             uint32_t u32Position)
 {
@@ -432,13 +432,13 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
         u32SizeList = CDLinkedList__u32GetSize(pstList);
         if(u32Position <= u32SizeList)
         {
-            if(0UL == u32Position) /*Add Head*/
+            if(0UL == u32Position) /*Insert Head*/
             {
-                enStatus = CDLinkedList__enAddBegin(pstList, pstNewElement);
+                enStatus = CDLinkedList__enInsertBegin(pstList, pstNewElement);
             }
-            else if(u32Position == u32SizeList) /*Add Tail*/
+            else if(u32Position == u32SizeList) /*Insert Tail*/
             {
-                enStatus = CDLinkedList__enAddEnd(pstList, pstNewElement);
+                enStatus = CDLinkedList__enInsertEnd(pstList, pstNewElement);
             }
             else
             {
@@ -466,7 +466,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
                         pstElement = CDLinkedList__pstGetElementNextNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    enStatus = CDLinkedList__enAddNext(pstList, pstElement, pstNewElement);
+                    enStatus = CDLinkedList__enInsertNext(pstList, pstElement, pstNewElement);
                 }
                 else /*Backward*/
                 {
@@ -477,7 +477,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
                         pstElement = CDLinkedList__pstGetElementPreviousNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    enStatus = CDLinkedList__enAddPrevious(pstList, pstElement, pstNewElement);
+                    enStatus = CDLinkedList__enInsertPrevious(pstList, pstElement, pstNewElement);
                 }
             }
         }
@@ -486,7 +486,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enAddPos(CDLinkedList_TypeDef* pstList,
 }
 
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos_WithData(CDLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_TypeDef* pstList, uint32_t u32Position, void* pvData)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstElement = (CDLinkedListElement_TypeDef*) 0UL;
@@ -500,13 +500,13 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos_WithData(CDLinkedList_Type
         u32SizeList = CDLinkedList__u32GetSize(pstList);
         if(u32Position <= u32SizeList)
         {
-            if(0UL == u32Position) /*Add Head*/
+            if(0UL == u32Position) /*Insert Head*/
             {
-                pstNewElement = CDLinkedList__pstAddBegin_WithData(pstList, pvData);
+                pstNewElement = CDLinkedList__pstInsertBegin_WithData(pstList, pvData);
             }
-            else if(u32Position == u32SizeList) /*Add Tail*/
+            else if(u32Position == u32SizeList) /*Insert Tail*/
             {
-                pstNewElement = CDLinkedList__pstAddEnd_WithData(pstList, pvData);
+                pstNewElement = CDLinkedList__pstInsertEnd_WithData(pstList, pvData);
             }
             else
             {
@@ -534,7 +534,7 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos_WithData(CDLinkedList_Type
                         pstElement = CDLinkedList__pstGetElementNextNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    pstNewElement = CDLinkedList__pstAddNext_WithData(pstList, pstElement, pvData);
+                    pstNewElement = CDLinkedList__pstInsertNext_WithData(pstList, pstElement, pvData);
                 }
                 else /*Backward*/
                 {
@@ -545,7 +545,7 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos_WithData(CDLinkedList_Type
                         pstElement = CDLinkedList__pstGetElementPreviousNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    pstNewElement = CDLinkedList__pstAddPrevious_WithData(pstList, pstElement, pvData);
+                    pstNewElement = CDLinkedList__pstInsertPrevious_WithData(pstList, pstElement, pvData);
                 }
             }
         }
@@ -554,7 +554,7 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos_WithData(CDLinkedList_Type
 }
 
 
-CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+CDLinkedListElement_TypeDef*  CDLinkedList__pstInsertPos(CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListElement_TypeDef* pstNewElement = (CDLinkedListElement_TypeDef*) 0UL ;
     CDLinkedListElement_TypeDef* pstElement = (CDLinkedListElement_TypeDef*) 0UL;
@@ -568,13 +568,13 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstL
         u32SizeList = CDLinkedList__u32GetSize(pstList);
         if(u32Position <= u32SizeList)
         {
-            if(0UL == u32Position) /*Add Head*/
+            if(0UL == u32Position) /*Insert Head*/
             {
-                pstNewElement = CDLinkedList__pstAddBegin(pstList);
+                pstNewElement = CDLinkedList__pstInsertBegin(pstList);
             }
-            else if(u32Position == u32SizeList) /*Add Tail*/
+            else if(u32Position == u32SizeList) /*Insert Tail*/
             {
-                pstNewElement = CDLinkedList__pstAddEnd(pstList);
+                pstNewElement = CDLinkedList__pstInsertEnd(pstList);
             }
             else
             {
@@ -602,7 +602,7 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstL
                         pstElement = CDLinkedList__pstGetElementNextNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    pstNewElement = CDLinkedList__pstAddNext(pstList, pstElement);
+                    pstNewElement = CDLinkedList__pstInsertNext(pstList, pstElement);
                 }
                 else /*Backward*/
                 {
@@ -613,7 +613,7 @@ CDLinkedListElement_TypeDef*  CDLinkedList__pstAddPos(CDLinkedList_TypeDef* pstL
                         pstElement = CDLinkedList__pstGetElementPreviousNode(pstElement);
                         u32SizeOptimum--;
                     }
-                    pstNewElement = CDLinkedList__pstAddPrevious(pstList, pstElement);
+                    pstNewElement = CDLinkedList__pstInsertPrevious(pstList, pstElement);
                 }
             }
         }

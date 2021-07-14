@@ -27,7 +27,7 @@
 #define XOS_TCB_OS_TCB_H_
 
 #include <xOS/TCB/xHeader/OS_TCB_Defines.h>
-#include <xOS/TCB/xHeader/OS_TCB_Add.h>
+#include <xOS/TCB/xHeader/OS_TCB_Insert.h>
 #include <xOS/TCB/xHeader/OS_TCB_Destroy.h>
 #include <xOS/TCB/xHeader/OS_TCB_Init.h>
 #include <xOS/TCB/xHeader/OS_TCB_Size.h>

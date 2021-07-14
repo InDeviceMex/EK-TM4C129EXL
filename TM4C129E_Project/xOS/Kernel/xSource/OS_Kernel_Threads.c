@@ -144,7 +144,7 @@ OS_TCB_Element_TypeDef* OS_Kernel__CreateThread(OS_ThreadFunction_TypeDef pfvThr
             pstData->pu32TopOfStack = OS_Kernel_StackInit(pu32TopOfStackTemp, pfvThread, pvParameters);
 
             OS_Kernel__vIncreaseCreatedThread();
-            pstElement = OS_TCB__pstAdd(pstData);
+            pstElement = OS_TCB__pstInsert(pstData);
             pstCurrentTaskReg = OS_Kernel__u32GetCurrentTask();
             if(0UL == (uint32_t) pstCurrentTaskReg)
             {

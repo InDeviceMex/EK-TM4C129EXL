@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_TCB_Add.h
+ * @file OS_TCB_Insert.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -21,12 +21,15 @@
  * Date           Author     Version     Description
  * 7 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
+#include <xOS/TCB/xHeader/OS_TCB_Insert.h>
+#include <xOS/TCB/xHeader/OS_TCB_Init.h>
+#include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/xHeader/CSLinkedList_Insert.h>
 
-#ifndef XOS_TCB_XHEADER_OS_TCB_ADD_H_
-#define XOS_TCB_XHEADER_OS_TCB_ADD_H_
+OS_TCB_Element_TypeDef* OS_TCB__pstInsert(OS_TCB_Container_Typedef* pstData)
+{
+    OS_TCB_TypeDef* pstTCB = OS_TCB__pstGet();
+    return ((OS_TCB_Element_TypeDef*) CSLinkedList__pstInsertEnd_WithData((CSLinkedList_TypeDef*) pstTCB, (void*) pstData));
+}
 
-#include <xOS/TCB/xHeader/OS_TCB_Defines.h>
 
-OS_TCB_Element_TypeDef* OS_TCB__pstAdd(OS_TCB_Container_Typedef* pstData);
 
-#endif /* XOS_TCB_XHEADER_OS_TCB_ADD_H_ */
