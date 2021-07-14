@@ -24,15 +24,9 @@
 #ifndef XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARDLINKEDLIST_ITEMNEXTITEM_H_
 #define XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARDLINKEDLIST_ITEMNEXTITEM_H_
 
-
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-
-CDLinkedListItem_TypeDef* CDLinkedList__pstGetItemNextNode(const CDLinkedListItem_TypeDef* const pstItem);
-void CDLinkedList__vSetItemNextNode(CDLinkedListItem_TypeDef* pstItem, CDLinkedListItem_TypeDef* pstNextNode);
-
-
-
-
+CDLinkedListItem_TypeDef* CDLinkedList_Item__pstGetNextItem(const CDLinkedListItem_TypeDef* const pstItem);
+void CDLinkedList_Item__vSetNextNode(CDLinkedListItem_TypeDef* pstItem, CDLinkedListItem_TypeDef* pstNextItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARDLINKEDLIST_ITEMNEXTITEM_H_ */

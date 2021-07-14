@@ -36,9 +36,9 @@ typedef struct CDLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32Value;
-        struct CDLinkedListItem *pstPreviousNode;
-        struct CDLinkedListItem *pstNextNode;
+        uint32_t u32ValueItem;
+        struct CDLinkedListItem *pstPreviousItem;
+        struct CDLinkedListItem *pstNextItem;
 }CDLinkedListItem_TypeDef;
 
 typedef struct CDLinkedList
@@ -48,6 +48,7 @@ typedef struct CDLinkedList
         void (*pfvDestroyItemData) (void *DataContainer);
         void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
+        CDLinkedListItem_TypeDef *pstLastItemRead;
         CDLinkedListItem_TypeDef *pstHead;
         CDLinkedListItem_TypeDef *pstTail;
 }CDLinkedList_TypeDef;

@@ -41,11 +41,11 @@ CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList(CDLinkedList_TypeDef* 
 CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious_GetData(const CDLinkedListItem_TypeDef* pstItem, void** pvData);
 CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious(const CDLinkedListItem_TypeDef* pstItem);
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd_GetData(CDLinkedList_TypeDef* pstList, void** pvData);
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd(CDLinkedList_TypeDef* pstList);
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveTail_GetData(CDLinkedList_TypeDef* pstList, void** pvData);
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveTail(CDLinkedList_TypeDef* pstList);
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveBegin_GetData(CDLinkedList_TypeDef* pstList, void** pvData);
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveBegin(CDLinkedList_TypeDef* pstList);
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead_GetData(CDLinkedList_TypeDef* pstList, void** pvData);
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead(CDLinkedList_TypeDef* pstList);
 
 CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_TypeDef* pstList, uint32_t u32Position, void** pvData);
 CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_TypeDef* pstList, uint32_t u32Position);

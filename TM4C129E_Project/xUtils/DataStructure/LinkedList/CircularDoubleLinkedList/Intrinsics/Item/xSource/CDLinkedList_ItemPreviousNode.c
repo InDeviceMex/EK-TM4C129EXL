@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemPreviousNode.h>
 
-CDLinkedListItem_TypeDef* CDLinkedList__pstGetItemPreviousNode(const CDLinkedListItem_TypeDef* const pstItem)
+CDLinkedListItem_TypeDef* CDLinkedList_Item__pstGetPreviousItem(const CDLinkedListItem_TypeDef* const pstItem)
 {
-    CDLinkedListItem_TypeDef* pstPreviousNodeReg = (CDLinkedListItem_TypeDef*)0UL;
-    pstPreviousNodeReg = pstItem->pstPreviousNode;
-    return (pstPreviousNodeReg);
+    CDLinkedListItem_TypeDef* pstPreviousItemReg = (CDLinkedListItem_TypeDef*) 0UL;
+    pstPreviousItemReg = pstItem->pstPreviousItem;
+    return (pstPreviousItemReg);
 }
 
-void CDLinkedList__vSetItemPreviousNode(CDLinkedListItem_TypeDef* pstItem, CDLinkedListItem_TypeDef* pstPreviousNode)
+void CDLinkedList_Item__vSetPreviousItem(CDLinkedListItem_TypeDef* pstItem, CDLinkedListItem_TypeDef* pstPreviousItemArg)
 {
-    pstItem->pstPreviousNode = pstPreviousNode;
+    pstItem->pstPreviousItem = pstPreviousItemArg;
 }

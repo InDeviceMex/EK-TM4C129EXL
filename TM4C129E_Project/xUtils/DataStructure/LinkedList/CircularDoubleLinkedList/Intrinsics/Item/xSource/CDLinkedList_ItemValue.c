@@ -23,15 +23,15 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemValue.h>
 
-uint32_t CDLinkedList__u32GetItemValue(const CDLinkedListItem_TypeDef* const pstItem)
+uint32_t CDLinkedList_Item__u32GetValue(const CDLinkedListItem_TypeDef* const pstItem)
 {
-    uint32_t u32ValueReg = 0UL;
-    u32ValueReg = pstItem->u32Value;
-    return (u32ValueReg);
+    uint32_t u32ValueItemReg = 0UL;
+    u32ValueItemReg = pstItem->u32ValueItem;
+    return (u32ValueItemReg);
 }
 
-void CDLinkedList__vSetItemValue(CDLinkedListItem_TypeDef* pstItem, uint32_t u32ValueArg)
+void CDLinkedList_Item__vSetValue(CDLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg)
 {
-    pstItem->u32Value = u32ValueArg;
+    pstItem->u32ValueItem = u32ValueItemArg;
 }
 

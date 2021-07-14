@@ -29,7 +29,7 @@ CDLinkedList_nSTATUS CDLinkedList__enIsItemOwnerList(const CDLinkedList_TypeDef*
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedList_TypeDef* pstOwnerListItem = (CDLinkedList_TypeDef*) 0UL;
-    pstOwnerListItem = (CDLinkedList_TypeDef*) CDLinkedList__pvGetItemOwnerList(pstItem);
+    pstOwnerListItem = (CDLinkedList_TypeDef*) CDLinkedList_Item__pvGetOwnerList(pstItem);
     if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
     {
         enStatus = CDLinkedList_enSTATUS_OK;

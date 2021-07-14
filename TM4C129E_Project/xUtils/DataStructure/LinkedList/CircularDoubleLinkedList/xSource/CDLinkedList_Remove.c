@@ -29,6 +29,7 @@
 CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstItem, void** pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nSTATUS enStatusRead = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_TypeDef* pstItemNextNode = (CDLinkedListItem_TypeDef*) 0UL ;
     CDLinkedListItem_TypeDef* pstItemPreviousNode = (CDLinkedListItem_TypeDef*) 0UL ;
     CDLinkedListItem_TypeDef* pstHeadItem = (CDLinkedListItem_TypeDef*) 0UL ;
@@ -38,24 +39,25 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* 
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
         u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL != u32SizeReg))
+        if(((uint32_t) 0UL != (uint32_t) pstItem) && (0UL != u32SizeReg))
         {
             enStatus = CDLinkedList_enSTATUS_OK;
             if(0UL != (uint32_t) pvData)
             {
-                *pvData = CDLinkedList__pvGetItemData(pstItem);
+                *pvData = CDLinkedList_Item__pvGetData(pstItem);
             }
 
             pstHeadItem = CDLinkedList__pstGetHead(pstList);
             pstTailItem = CDLinkedList__pstGetTail(pstList);
 
-            pstItemNextNode = CDLinkedList__pstGetItemNextNode(pstItem);
-            pstItemPreviousNode = CDLinkedList__pstGetItemPreviousNode(pstItem);
+            pstItemNextNode = CDLinkedList_Item__pstGetNextItem(pstItem);
+            pstItemPreviousNode = CDLinkedList_Item__pstGetPreviousItem(pstItem);
 
             if((uint32_t) pstHeadItem == (uint32_t) pstTailItem)/*Last Item*/
             {
                 CDLinkedList__vSetTail(pstList, (CDLinkedListItem_TypeDef*) 0UL);
                 CDLinkedList__vSetHead(pstList, (CDLinkedListItem_TypeDef*) 0UL);
+                CDLinkedList__vSetLastItemRead(pstList, (CDLinkedListItem_TypeDef*) 0UL);
             }
             else
             {
@@ -67,17 +69,23 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* 
                 {
                     CDLinkedList__vSetTail(pstList, pstItemPreviousNode);
                 }
-                CDLinkedList__vSetItemNextNode(pstItemPreviousNode, pstItemNextNode);
-                CDLinkedList__vSetItemPreviousNode(pstItemNextNode, pstItemPreviousNode);
+                CDLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstItemNextNode);
+                CDLinkedList_Item__vSetPreviousItem(pstItemNextNode, pstItemPreviousNode);
+
+                enStatusRead = CDLinkedList__enIsLastItemRead(pstList,pstItem);
+                if((uint32_t) CDLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                {
+                    CDLinkedList__vSetLastItemRead(pstList, pstItemPreviousNode);
+                }
             }
 
-            CDLinkedList__vSetItemOwnerList(pstItem,  (void *) 0UL);
-            CDLinkedList__vSetItemValue(pstItem, 0UL);
-            CDLinkedList__vSetItemNextNode(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
-            CDLinkedList__vSetItemPreviousNode(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
+            CDLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
+            CDLinkedList_Item__vSetNextNode(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
+            CDLinkedList_Item__vSetPreviousItem(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
             {
-                CDLinkedList__vSetItemData(pstItem,  (void *) 0UL);
+                CDLinkedList_Item__vSetValue(pstItem, 0UL);
+                CDLinkedList_Item__vSetData(pstItem,  (void *) 0UL);
                 pstList->pfvDestroyItem(pstItem);
                 pstItem = (CDLinkedListItem_TypeDef*) 0UL;
             }
@@ -104,7 +112,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemove_GetData(CDLinkedListItem_TypeDef* ps
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
-        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = CDLinkedList__enRemoveInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -125,7 +133,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveNextInList_GetData(CDLinkedList_TypeD
 
     if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pstItem))
     {
-        pstItemNextNode = CDLinkedList__pstGetItemNextNode(pstItem);
+        pstItemNextNode = CDLinkedList_Item__pstGetNextItem(pstItem);
         enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstItemNextNode, pvData);
     }
     return (enStatus);
@@ -146,7 +154,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveNext_GetData(const CDLinkedListItem_T
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
-        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = CDLinkedList__enRemoveNextInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -166,7 +174,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemovePreviousInList_GetData(CDLinkedList_T
 
     if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pstItem))
     {
-        pstItemPreviousNode = CDLinkedList__pstGetItemPreviousNode(pstItem);
+        pstItemPreviousNode = CDLinkedList_Item__pstGetPreviousItem(pstItem);
         enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstItemPreviousNode, pvData);
     }
     return (enStatus);
@@ -187,7 +195,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious_GetData(const CDLinkedListIt
     if(0UL != (uint32_t) pstItem)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
-        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList__pvGetItemOwnerList(pstItem);
+        pstListReg = (CDLinkedList_TypeDef*) CDLinkedList_Item__pvGetOwnerList(pstItem);
         enStatus = CDLinkedList__enRemovePreviousInList_GetData(pstListReg, pstItem, pvData);
     }
     return (enStatus);
@@ -200,7 +208,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemovePrevious(const CDLinkedListItem_TypeD
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd_GetData(CDLinkedList_TypeDef* pstList, void** pvData)
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveTail_GetData(CDLinkedList_TypeDef* pstList, void** pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_TypeDef* pstEndItem = (CDLinkedListItem_TypeDef*) 0UL;
@@ -212,14 +220,14 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd_GetData(CDLinkedList_TypeDef* ps
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveEnd(CDLinkedList_TypeDef* pstList)
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveTail(CDLinkedList_TypeDef* pstList)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enRemoveEnd_GetData(pstList, (void**) 0UL);
+    enStatus = CDLinkedList__enRemoveTail_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveBegin_GetData(CDLinkedList_TypeDef* pstList, void** pvData)
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead_GetData(CDLinkedList_TypeDef* pstList, void** pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_TypeDef* pstBeginItem = (CDLinkedListItem_TypeDef*) 0UL;
@@ -231,10 +239,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemoveBegin_GetData(CDLinkedList_TypeDef* 
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemoveBegin(CDLinkedList_TypeDef* pstList)
+CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead(CDLinkedList_TypeDef* pstList)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    enStatus = CDLinkedList__enRemoveBegin_GetData(pstList, (void**) 0UL);
+    enStatus = CDLinkedList__enRemoveHead_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
@@ -256,11 +264,11 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_TypeDef* ps
         {
             if(0UL == u32Position) /*Remove Head*/
             {
-                enStatus = CDLinkedList__enRemoveBegin_GetData(pstList, pvData);
+                enStatus = CDLinkedList__enRemoveHead_GetData(pstList, pvData);
             }
             else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
             {
-                enStatus = CDLinkedList__enRemoveEnd_GetData(pstList, pvData);
+                enStatus = CDLinkedList__enRemoveTail_GetData(pstList, pvData);
             }
             else
             {
@@ -284,7 +292,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_TypeDef* ps
                     pstItem = CDLinkedList__pstGetHead(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = CDLinkedList__pstGetItemNextNode(pstItem);
+                        pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
@@ -294,7 +302,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_TypeDef* ps
                     pstItem = CDLinkedList__pstGetTail(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = CDLinkedList__pstGetItemPreviousNode(pstItem);
+                        pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
@@ -321,11 +329,11 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_TypeDef* pstList, u
         {
             if(0UL == u32Position) /*Remove Head*/
             {
-                enStatus = CDLinkedList__enRemoveBegin(pstList);
+                enStatus = CDLinkedList__enRemoveHead(pstList);
             }
             else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
             {
-                enStatus = CDLinkedList__enRemoveEnd(pstList);
+                enStatus = CDLinkedList__enRemoveTail(pstList);
             }
             else
             {
@@ -349,7 +357,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_TypeDef* pstList, u
                     pstItem = CDLinkedList__pstGetHead(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = CDLinkedList__pstGetItemNextNode(pstItem);
+                        pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = CDLinkedList__enRemoveInList(pstList, pstItem);
@@ -359,7 +367,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_TypeDef* pstList, u
                     pstItem = CDLinkedList__pstGetTail(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = CDLinkedList__pstGetItemPreviousNode(pstItem);
+                        pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
                         u32SizeOptimum--;
                     }
                     enStatus = CDLinkedList__enRemoveInList(pstList, pstItem);

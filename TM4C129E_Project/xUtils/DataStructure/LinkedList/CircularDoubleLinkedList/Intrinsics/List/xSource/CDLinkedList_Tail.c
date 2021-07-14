@@ -27,7 +27,7 @@ CDLinkedListItem_TypeDef* CDLinkedList__pstGetTail(const CDLinkedList_TypeDef*  
 {
     CDLinkedListItem_TypeDef* pstTailReg = (CDLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
-    return pstTailReg;
+    return (pstTailReg);
 }
 
 void CDLinkedList__vSetTail(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstTailArg)
@@ -38,11 +38,11 @@ void CDLinkedList__vSetTail(CDLinkedList_TypeDef* pstList, CDLinkedListItem_Type
 CDLinkedList_nSTATUS CDLinkedList__enIsTail(const CDLinkedListItem_TypeDef* const pstItem)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNextNode))
+    if (0UL == (uint32_t) (pstItem->pstNextItem))
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

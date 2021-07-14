@@ -49,23 +49,42 @@ CDLinkedListItem_TypeDef* CDLinkedList__pstInsertPrevious(CDLinkedList_TypeDef* 
 
 
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertEnd_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListItem_TypeDef* pstNewItem,
                                            void* pvData);
-CDLinkedList_nSTATUS  CDLinkedList__enInsertEnd(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead(CDLinkedList_TypeDef* pstList,
                                            CDLinkedListItem_TypeDef* pstNewItem);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertEnd_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertEnd(CDLinkedList_TypeDef* pstList);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPreviousLastItemRead_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPreviousLastItemRead(CDLinkedList_TypeDef* pstList);
 
 
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertBegin_WithData(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem,
+                                           void* pvData);
+CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertNextLastItemRead_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertNextLastItemRead(CDLinkedList_TypeDef* pstList);
+
+
+CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail_WithData(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem,
+                                           void* pvData);
+CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertAtTail_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertAtTail(CDLinkedList_TypeDef* pstList);
+
+
+
+CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead_WithData(CDLinkedList_TypeDef* pstList,
                                             CDLinkedListItem_TypeDef* pstNewItem,
                                             void* pvData);
-CDLinkedList_nSTATUS CDLinkedList__enInsertBegin(CDLinkedList_TypeDef* pstList,
+CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead(CDLinkedList_TypeDef* pstList,
                                             CDLinkedListItem_TypeDef* pstNewItem);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertBegin_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertBegin(CDLinkedList_TypeDef* pstList);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertAtHead_WithData(CDLinkedList_TypeDef* pstList, void* pvData);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertAtHead(CDLinkedList_TypeDef* pstList);
 
 
 

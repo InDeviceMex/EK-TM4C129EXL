@@ -25,9 +25,9 @@
 
 CDLinkedListItem_TypeDef* CDLinkedList__pstGetHead(const CDLinkedList_TypeDef*  const pstList)
 {
-    CDLinkedListItem_TypeDef* pstHeadReg = (CDLinkedListItem_TypeDef*)0U;
+    CDLinkedListItem_TypeDef* pstHeadReg = (CDLinkedListItem_TypeDef*) 0U;
     pstHeadReg = pstList->pstHead;
-    return pstHeadReg;
+    return (pstHeadReg);
 }
 
 void CDLinkedList__vSetHead(CDLinkedList_TypeDef* pstList, CDLinkedListItem_TypeDef* pstHeadArg)
@@ -44,8 +44,5 @@ CDLinkedList_nSTATUS CDLinkedList__enIsHead(const CDLinkedList_TypeDef* const ps
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
-
-
-

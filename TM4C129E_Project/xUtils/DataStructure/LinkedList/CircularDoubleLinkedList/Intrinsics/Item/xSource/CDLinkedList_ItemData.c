@@ -24,14 +24,14 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemData.h>
 
-void* CDLinkedList__pvGetItemData(const CDLinkedListItem_TypeDef* const pstItem)
+void* CDLinkedList_Item__pvGetData(const CDLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvDataReg = (void*)0UL;
+    void* pvDataReg = (void*) 0UL;
     pvDataReg = pstItem->pvDataContainer;
     return (pvDataReg);
 }
 
-void CDLinkedList__vSetItemData(CDLinkedListItem_TypeDef* pstItem, void* pvDataArg)
+void CDLinkedList_Item__vSetData(CDLinkedListItem_TypeDef* pstItem, void* pvDataArg)
 {
     pstItem->pvDataContainer = pvDataArg;
 }

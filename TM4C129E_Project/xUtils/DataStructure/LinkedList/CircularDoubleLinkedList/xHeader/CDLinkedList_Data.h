@@ -26,14 +26,15 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-void*  CDLinkedList__pvGetItemDataPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
-uint32_t CDLinkedList__u32GetItemValuePos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  CDLinkedList__pvGetDataItem(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t CDLinkedList__u32GetValueItem(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
 
-void*  CDLinkedList__pvGetItemDataEnd(const CDLinkedList_TypeDef* pstList);
-uint32_t CDLinkedList__u32GetItemValueEnd(const CDLinkedList_TypeDef* pstList);
+void*  CDLinkedList__pvGetDataTail(const CDLinkedList_TypeDef* pstList);
+uint32_t CDLinkedList__u32GetValueTail(const CDLinkedList_TypeDef* pstList);
 
-void*  CDLinkedList__pvGetItemDataBegin(const CDLinkedList_TypeDef* pstList);
-uint32_t CDLinkedList__u32GetItemValueBegin(const CDLinkedList_TypeDef* pstList);
+void*  CDLinkedList__pvGetDataHead(const CDLinkedList_TypeDef* pstList);
+uint32_t CDLinkedList__u32GetValueHead(const CDLinkedList_TypeDef* pstList);
 
+void* CDLinkedList__pvGetDataNextItem(CDLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_DATA_H_ */

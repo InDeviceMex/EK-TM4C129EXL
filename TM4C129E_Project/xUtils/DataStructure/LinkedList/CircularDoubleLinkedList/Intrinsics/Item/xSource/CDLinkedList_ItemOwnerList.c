@@ -23,14 +23,14 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemOwnerList.h>
 
-void* CDLinkedList__pvGetItemOwnerList(const CDLinkedListItem_TypeDef* const pstItem)
+void* CDLinkedList_Item__pvGetOwnerList(const CDLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvOwnerListReg = (void*)0UL;
+    void* pvOwnerListReg = (void*) 0UL;
     pvOwnerListReg = pstItem->pvOwnerList;
     return (pvOwnerListReg);
 }
 
-void CDLinkedList__vSetItemOwnerList(CDLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
+void CDLinkedList_Item__vSetOwnerList(CDLinkedListItem_TypeDef* pstItem, void* pvOwnerListArg)
 {
     pstItem->pvOwnerList = pvOwnerListArg;
 }

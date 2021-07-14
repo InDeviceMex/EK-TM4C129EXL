@@ -28,19 +28,19 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
 uint32_t CDLinkedList__u32GetAllItem(const CDLinkedList_TypeDef* pstList, const void** pvData, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetAllItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
+uint32_t CDLinkedList__u32GetAllItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
 
 uint32_t CDLinkedList__u32GetAllItemBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetAllItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32MaxLength);
+uint32_t CDLinkedList__u32GetAllItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
 
 uint32_t CDLinkedList__u32GetNItem(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetNItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength);
+uint32_t CDLinkedList__u32GetNItem_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 uint32_t CDLinkedList__u32GetNItemBackward(const CDLinkedList_TypeDef* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetNItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32Value, uint32_t u32Items, uint32_t u32MaxLength);
+uint32_t CDLinkedList__u32GetNItemBackward_Value(const CDLinkedList_TypeDef* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
 
 CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemEnd(const CDLinkedList_TypeDef* pstList);
-CDLinkedListItem_TypeDef*  CDLinkedList__pstGetItemBegin(const CDLinkedList_TypeDef* pstList);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstGetTailItem(const CDLinkedList_TypeDef* pstList);
+CDLinkedListItem_TypeDef*  CDLinkedList__pstGetHeadItem(const CDLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_ITEM_H_ */
