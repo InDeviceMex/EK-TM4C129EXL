@@ -44,7 +44,7 @@ void CDLinkedList__vDestroy(CDLinkedList_TypeDef* pstList)
          while (u32SizeReg> 0UL)
          {
              pstTailElement = CDLinkedList__pstGetTail(pstList);
-             enStatus = CDLinkedList__enRemove(pstList, pstTailElement, (void **) & pvDataElement);
+             enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstTailElement, (void **) & pvDataElement);
              if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pfvDestroyElementData))
              {
                  pstList->pfvDestroyElementData(pvDataElement);
