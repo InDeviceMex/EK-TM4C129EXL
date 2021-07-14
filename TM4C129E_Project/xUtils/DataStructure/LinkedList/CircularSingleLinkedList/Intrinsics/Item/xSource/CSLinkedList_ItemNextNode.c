@@ -30,7 +30,7 @@ CSLinkedListItem_TypeDef* CSLinkedList_Item__pstGetNextItem(const CSLinkedListIt
     return (pstNextItemReg);
 }
 
-void CSLinkedList_Item__vSetNextNode(CSLinkedListItem_TypeDef* pstItem, CSLinkedListItem_TypeDef* pstNextItemArg)
+void CSLinkedList_Item__vSetNextItem(CSLinkedListItem_TypeDef* pstItem, CSLinkedListItem_TypeDef* pstNextItemArg)
 {
     pstItem->pstNextItem = pstNextItemArg;
 }

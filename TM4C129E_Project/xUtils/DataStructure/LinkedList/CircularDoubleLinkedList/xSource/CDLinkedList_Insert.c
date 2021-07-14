@@ -72,7 +72,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                 {
                     CDLinkedList__vSetHead(pstList, pstNewItem);
                     pstItemTemp = pstNewItem;
-                    CDLinkedList_Item__vSetNextNode(pstNewItem, pstItemTemp );
+                    CDLinkedList_Item__vSetNextItem(pstNewItem, pstItemTemp );
                     CDLinkedList_Item__vSetPreviousItem(pstNewItem, pstItemTemp );
 
                     CDLinkedList__vSetTail(pstList, pstNewItem);
@@ -84,7 +84,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                         pstHeadItem = CDLinkedList__pstGetHead(pstList);
                         pstItemNextNode = CDLinkedList_Item__pstGetNextItem(pstItem);
 
-                        CDLinkedList_Item__vSetNextNode(pstNewItem, pstItemNextNode );
+                        CDLinkedList_Item__vSetNextItem(pstNewItem, pstItemNextNode );
                         CDLinkedList_Item__vSetPreviousItem(pstNewItem, pstItem);
                         if((uint32_t) pstHeadItem == (uint32_t) pstItemNextNode)
                         {
@@ -92,14 +92,14 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                         }
 
                         CDLinkedList_Item__vSetPreviousItem(pstItemNextNode, pstNewItem);
-                        CDLinkedList_Item__vSetNextNode(pstItem, pstNewItem);
+                        CDLinkedList_Item__vSetNextItem(pstItem, pstNewItem);
                     }
                     else
                     {
                         pstTailItem = CDLinkedList__pstGetTail(pstList);
                         pstItemPreviousNode = CDLinkedList_Item__pstGetPreviousItem(pstItem);
 
-                        CDLinkedList_Item__vSetNextNode(pstNewItem, pstItem );
+                        CDLinkedList_Item__vSetNextItem(pstNewItem, pstItem );
                         CDLinkedList_Item__vSetPreviousItem(pstNewItem, pstItemPreviousNode);
 
                         if((uint32_t) pstTailItem == (uint32_t) pstItemPreviousNode)
@@ -107,7 +107,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_TypeDef* 
                             CDLinkedList__vSetHead(pstList, pstNewItem);
                         }
 
-                        CDLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstNewItem);
+                        CDLinkedList_Item__vSetNextItem(pstItemPreviousNode, pstNewItem);
                         CDLinkedList_Item__vSetPreviousItem(pstItem, pstNewItem);
                     }
                 }

@@ -63,7 +63,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeD
             else
             {
                 pstItemNextNextNode = CSLinkedList_Item__pstGetNextItem(pstItemNextNode);
-                CSLinkedList_Item__vSetNextNode(pstItem, pstItemNextNextNode);
+                CSLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextNode);
 
                 pstHeadItem = CSLinkedList__pstGetHead(pstList);
                 pstTailItem = CSLinkedList__pstGetTail(pstList);
@@ -84,7 +84,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_TypeD
             }
 
             CSLinkedList_Item__vSetOwnerList(pstOldItem,  (void *) 0UL);
-            CSLinkedList_Item__vSetNextNode(pstOldItem,  (CSLinkedListItem_TypeDef *) 0UL);
+            CSLinkedList_Item__vSetNextItem(pstOldItem,  (CSLinkedListItem_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
             {
                 CSLinkedList_Item__vSetValue(pstOldItem, 0UL);
@@ -167,7 +167,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                 {
                     pstTailItem = CSLinkedList__pstGetTail(pstList);
                     CSLinkedList__vSetHead(pstList, pstHeadNextNode);
-                    CSLinkedList_Item__vSetNextNode(pstTailItem, pstHeadNextNode);
+                    CSLinkedList_Item__vSetNextItem(pstTailItem, pstHeadNextNode);
                 }
 
             }
@@ -195,7 +195,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                     }
                     else
                     {
-                        CSLinkedList_Item__vSetNextNode(pstItem, pstItemNextNextNode);
+                        CSLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextNode);
                         CSLinkedList_Item__vSetData(pstItem, pstItemNextNodeData);
 
                         if((uint32_t) pstTailItem == (uint32_t) pstItemNextNode)
@@ -209,7 +209,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
             if(CSLinkedList_enSTATUS_OK == enStatus)
             {
                 CSLinkedList_Item__vSetOwnerList(pstOldItem,  (void *) 0UL);
-                CSLinkedList_Item__vSetNextNode(pstOldItem,  (CSLinkedListItem_TypeDef *) 0UL);
+                CSLinkedList_Item__vSetNextItem(pstOldItem,  (CSLinkedListItem_TypeDef *) 0UL);
                 if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
                 {
                     CSLinkedList_Item__vSetValue(pstOldItem, 0UL);

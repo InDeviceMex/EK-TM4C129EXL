@@ -63,7 +63,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
                 pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
                 pstItemPreviousNode = DLinkedList__pstGetItemPreviousNode(pstItem);
 
-                DLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstItemNextNode);
+                DLinkedList_Item__vSetNextItem(pstItemPreviousNode, pstItemNextNode);
 
                 if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
                 {
@@ -76,7 +76,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_TypeDef* pst
             }
 
             DLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
-            DLinkedList_Item__vSetNextNode(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
+            DLinkedList_Item__vSetNextItem(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
             DLinkedList__vSetItemPreviousNode(pstItem,  (DLinkedListItem_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
             {

@@ -29,8 +29,4 @@
 void* DLinkedList_Item__pvGetData(const DLinkedListItem_TypeDef* const pstItem);
 void DLinkedList_Item__vSetData(DLinkedListItem_TypeDef* pstItem, void* pvDataArg);
 
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMDATA_H_ */

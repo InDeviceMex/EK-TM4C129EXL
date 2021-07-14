@@ -30,7 +30,7 @@ DLinkedListItem_TypeDef* DLinkedList_Item__pstGetNextItem(const DLinkedListItem_
     return (pstNextItemReg);
 }
 
-void DLinkedList_Item__vSetNextNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextItem)
+void DLinkedList_Item__vSetNextItem(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstNextItem)
 {
     pstItem->pstNext = pstNextItem;
 }

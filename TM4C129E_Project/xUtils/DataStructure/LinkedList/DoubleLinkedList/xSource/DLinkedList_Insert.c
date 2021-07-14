@@ -69,7 +69,7 @@ static DLinkedList_nSTATUS DLinkedList__enInsertNextGeneric(DLinkedList_TypeDef*
                 {
                     DLinkedList__vSetHead(pstList, pstNewItem);
 
-                    DLinkedList_Item__vSetNextNode(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
+                    DLinkedList_Item__vSetNextItem(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
                     DLinkedList__vSetItemPreviousNode(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
 
                     DLinkedList__vSetTail(pstList, pstNewItem);
@@ -78,7 +78,7 @@ static DLinkedList_nSTATUS DLinkedList__enInsertNextGeneric(DLinkedList_TypeDef*
                 {
                     pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstPreviousItem);
 
-                    DLinkedList_Item__vSetNextNode(pstNewItem, pstItemNextNode );
+                    DLinkedList_Item__vSetNextItem(pstNewItem, pstItemNextNode );
                     DLinkedList__vSetItemPreviousNode(pstNewItem, pstPreviousItem);
 
                     if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
@@ -89,7 +89,7 @@ static DLinkedList_nSTATUS DLinkedList__enInsertNextGeneric(DLinkedList_TypeDef*
                     {
                         DLinkedList__vSetItemPreviousNode(pstItemNextNode, pstNewItem);
                     }
-                    DLinkedList_Item__vSetNextNode(pstPreviousItem, pstNewItem);
+                    DLinkedList_Item__vSetNextItem(pstPreviousItem, pstNewItem);
                 }
 
                 u32SizeReg++;
@@ -128,7 +128,7 @@ DLinkedList_nSTATUS DLinkedList__enInsertPreviousGeneric(DLinkedList_TypeDef* ps
                {
                    DLinkedList__vSetHead(pstList, pstNewItem);
 
-                   DLinkedList_Item__vSetNextNode(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
+                   DLinkedList_Item__vSetNextItem(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
                    DLinkedList__vSetItemPreviousNode(pstNewItem, (DLinkedListItem_TypeDef*) 0UL );
 
                    DLinkedList__vSetTail(pstList, pstNewItem);
@@ -137,7 +137,7 @@ DLinkedList_nSTATUS DLinkedList__enInsertPreviousGeneric(DLinkedList_TypeDef* ps
                {
                    pstItemPreviousNode = DLinkedList__pstGetItemPreviousNode(pstNextItem);
 
-                   DLinkedList_Item__vSetNextNode(pstNewItem, pstNextItem );
+                   DLinkedList_Item__vSetNextItem(pstNewItem, pstNextItem );
                    DLinkedList__vSetItemPreviousNode(pstNewItem, pstItemPreviousNode);
 
                    if((uint32_t) 0UL == (uint32_t) pstItemPreviousNode)
@@ -146,7 +146,7 @@ DLinkedList_nSTATUS DLinkedList__enInsertPreviousGeneric(DLinkedList_TypeDef* ps
                    }
                    else
                    {
-                       DLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstNewItem);
+                       DLinkedList_Item__vSetNextItem(pstItemPreviousNode, pstNewItem);
                    }
                    DLinkedList__vSetItemPreviousNode(pstNextItem, pstNewItem);
                }

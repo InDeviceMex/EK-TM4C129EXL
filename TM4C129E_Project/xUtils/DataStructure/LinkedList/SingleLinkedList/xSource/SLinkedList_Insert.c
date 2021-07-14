@@ -63,7 +63,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstLis
                 SLinkedList__vSetTail(pstList, pstNewItem);
             }
             pstListHeadItem = SLinkedList__pstGetHead(pstList);
-            SLinkedList_Item__vSetNextNode(pstNewItem, pstListHeadItem);
+            SLinkedList_Item__vSetNextItem(pstNewItem, pstListHeadItem);
             SLinkedList__vSetHead(pstList, pstNewItem);
         }
         else
@@ -73,8 +73,8 @@ SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstLis
             {
                 SLinkedList__vSetTail(pstList, pstNewItem);
             }
-            SLinkedList_Item__vSetNextNode(pstNewItem, pstItemNextNode);
-            SLinkedList_Item__vSetNextNode(pstPreviousItem, pstNewItem);
+            SLinkedList_Item__vSetNextItem(pstNewItem, pstItemNextNode);
+            SLinkedList_Item__vSetNextItem(pstPreviousItem, pstNewItem);
         }
         u32SizeReg++;
         SLinkedList__vSetSize(pstList, u32SizeReg);

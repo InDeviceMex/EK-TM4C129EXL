@@ -42,14 +42,14 @@ DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_TypeDef* pstList)
             if((uint32_t) 0UL != (uint32_t) pstNextItem)
             {
                 enStatus = DLinkedList_enSTATUS_OK;
-                DLinkedList_Item__vSetNextNode(pstItem, (DLinkedListItem_TypeDef*)0UL);
+                DLinkedList_Item__vSetNextItem(pstItem, (DLinkedListItem_TypeDef*)0UL);
                 DLinkedList__vSetItemPreviousNode(pstItem, pstNextItem);
 
                 while((uint32_t) 0UL != (uint32_t) pstNextItem)
                 {
                     pstNextNextNode = DLinkedList_Item__pstGetNextItem(pstNextItem);
                     DLinkedList__vSetItemPreviousNode(pstNextItem, pstNextNextNode);
-                    DLinkedList_Item__vSetNextNode(pstNextItem, pstItem);
+                    DLinkedList_Item__vSetNextItem(pstNextItem, pstItem);
                     pstNextPreviousNode = DLinkedList__pstGetItemPreviousNode(pstNextItem);
 
                     pstItem = pstNextItem;

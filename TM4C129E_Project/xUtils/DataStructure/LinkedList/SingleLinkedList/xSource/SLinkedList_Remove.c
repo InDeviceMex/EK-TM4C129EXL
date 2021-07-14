@@ -87,7 +87,7 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                         SLinkedList_Item__vSetData(pstItem, pstItemNextNodeData);
                     }
 
-                    SLinkedList_Item__vSetNextNode(pstItem, pstItemNextNextNode);
+                    SLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextNode);
 
 
                     pstItemNextNode = SLinkedList_Item__pstGetNextItem(pstItem);
@@ -106,7 +106,7 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                 }
 
                 SLinkedList_Item__vSetOwnerList(pstOldItem,  (void *) 0UL);
-                SLinkedList_Item__vSetNextNode(pstOldItem,  (SLinkedListItem_TypeDef *) 0UL);
+                SLinkedList_Item__vSetNextItem(pstOldItem,  (SLinkedListItem_TypeDef *) 0UL);
                 if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
                 {
                     SLinkedList_Item__vSetValue(pstOldItem, 0UL);

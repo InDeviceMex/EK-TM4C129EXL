@@ -38,7 +38,7 @@ SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_TypeDef* pstList)
         while((uint32_t) 0UL != (uint32_t) pstHeadItem)
         {
             pstNextItem = SLinkedList_Item__pstGetNextItem(pstHeadItem);
-            SLinkedList_Item__vSetNextNode(pstHeadItem, pstPreviousItem);
+            SLinkedList_Item__vSetNextItem(pstHeadItem, pstPreviousItem);
             pstPreviousItem = pstHeadItem;
             pstHeadItem = pstNextItem;
         }

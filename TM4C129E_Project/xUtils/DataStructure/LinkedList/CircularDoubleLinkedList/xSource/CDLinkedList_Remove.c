@@ -69,7 +69,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* 
                 {
                     CDLinkedList__vSetTail(pstList, pstItemPreviousNode);
                 }
-                CDLinkedList_Item__vSetNextNode(pstItemPreviousNode, pstItemNextNode);
+                CDLinkedList_Item__vSetNextItem(pstItemPreviousNode, pstItemNextNode);
                 CDLinkedList_Item__vSetPreviousItem(pstItemNextNode, pstItemPreviousNode);
 
                 enStatusRead = CDLinkedList__enIsLastItemRead(pstList,pstItem);
@@ -80,7 +80,7 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_TypeDef* 
             }
 
             CDLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
-            CDLinkedList_Item__vSetNextNode(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
+            CDLinkedList_Item__vSetNextItem(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
             CDLinkedList_Item__vSetPreviousItem(pstItem,  (CDLinkedListItem_TypeDef *) 0UL);
             if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
             {

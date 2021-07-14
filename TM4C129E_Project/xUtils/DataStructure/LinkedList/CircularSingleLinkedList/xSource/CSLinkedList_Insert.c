@@ -63,7 +63,7 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
             if(0UL == u32SizeReg) /*Empty List*/
             {
                 pstNewItem1 = pstNewItem;
-                CSLinkedList_Item__vSetNextNode(pstNewItem, pstNewItem1);
+                CSLinkedList_Item__vSetNextItem(pstNewItem, pstNewItem1);
                 CSLinkedList__vSetHead(pstList, pstNewItem);
                 CSLinkedList__vSetTail(pstList, pstNewItem);
             }
@@ -71,8 +71,8 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
             {
                 pstListTailItem = CSLinkedList__pstGetTail(pstList);
                 pstListHeadItem = CSLinkedList__pstGetHead(pstList);
-                CSLinkedList_Item__vSetNextNode(pstNewItem, pstListHeadItem);
-                CSLinkedList_Item__vSetNextNode(pstListTailItem, pstNewItem);
+                CSLinkedList_Item__vSetNextItem(pstNewItem, pstListHeadItem);
+                CSLinkedList_Item__vSetNextItem(pstListTailItem, pstNewItem);
                 CSLinkedList__vSetHead(pstList, pstNewItem);
             }
             else /*Insert beetween nodes*/
@@ -83,8 +83,8 @@ static CSLinkedList_nSTATUS CSLinkedList__enInsertNextGeneric(CSLinkedList_TypeD
                     CSLinkedList__vSetTail(pstList, pstNewItem);
                 }
                 pstNextItemReg = CSLinkedList_Item__pstGetNextItem(pstPreviousItem);
-                CSLinkedList_Item__vSetNextNode(pstNewItem, pstNextItemReg);
-                CSLinkedList_Item__vSetNextNode(pstPreviousItem, pstNewItem);
+                CSLinkedList_Item__vSetNextItem(pstNewItem, pstNextItemReg);
+                CSLinkedList_Item__vSetNextItem(pstPreviousItem, pstNewItem);
             }
             u32SizeReg++;
             CSLinkedList__vSetSize(pstList, u32SizeReg);
