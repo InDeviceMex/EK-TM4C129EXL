@@ -37,7 +37,7 @@ typedef struct SLinkedListItem
         void* pvDataContainer;
         void* pvOwnerList;
         uint32_t u32ValueItem;
-        struct SLinkedListItem *pstNext;
+        struct SLinkedListItem *pstNextItem;
 }SLinkedListItem_TypeDef;
 
 typedef struct SLinkedList
@@ -47,6 +47,7 @@ typedef struct SLinkedList
         void (*pfvDestroyItemData) (void *DataContainer);
         void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
+        SLinkedListItem_TypeDef *pstLastItemRead;
         SLinkedListItem_TypeDef *pstHead;
         SLinkedListItem_TypeDef *pstTail;
 }SLinkedList_TypeDef;

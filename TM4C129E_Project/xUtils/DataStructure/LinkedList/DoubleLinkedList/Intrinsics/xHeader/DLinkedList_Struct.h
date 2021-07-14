@@ -37,8 +37,8 @@ typedef struct DLinkedListItem
         void* pvDataContainer;
         void* pvOwnerList;
         uint32_t u32ValueItem;
-        struct DLinkedListItem *pstPrevious;
-        struct DLinkedListItem *pstNext;
+        struct DLinkedListItem *pstPreviousItem;
+        struct DLinkedListItem *pstNextItem;
 }DLinkedListItem_TypeDef;
 
 typedef struct DLinkedList
@@ -48,11 +48,9 @@ typedef struct DLinkedList
         void (*pfvDestroyItemData) (void *DataContainer);
         void (*pfvDestroyItem) (void *Item);
         void (*pfvDestroy) (void* List);
+        DLinkedListItem_TypeDef *pstLastItemRead;
         DLinkedListItem_TypeDef *pstHead;
         DLinkedListItem_TypeDef *pstTail;
 }DLinkedList_TypeDef;
-
-
-
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_XHEADER_DLINKEDLIST_STRUCT_H_ */

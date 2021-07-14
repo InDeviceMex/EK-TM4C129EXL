@@ -28,9 +28,4 @@
 
 void DLinkedList__vDestroy(DLinkedList_TypeDef* pstList);
 
-
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_DESTROY_H_ */

@@ -34,6 +34,7 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
 static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstItem, void** pvData, uint32_t u32Remove)
 {
     SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nSTATUS enStatusRead = SLinkedList_enSTATUS_ERROR;
     SLinkedListItem_TypeDef* pstOldItem = (SLinkedListItem_TypeDef*) 0UL ;
     SLinkedListItem_TypeDef* pstHeadNextNode = (SLinkedListItem_TypeDef*) 0UL ;
     SLinkedListItem_TypeDef* pstHeadData = (SLinkedListItem_TypeDef*) 0UL ;
@@ -60,6 +61,12 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                 if(1UL == u32SizeReg)
                 {
                     SLinkedList__vSetTail(pstList, (SLinkedListItem_TypeDef*)0UL);
+                }
+
+                enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                if((uint32_t) SLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                {
+                    SLinkedList__vSetLastItemRead(pstList, pstHeadNextNode);
                 }
             }
             else
@@ -94,6 +101,12 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_TypeDef* pst
                     if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
                     {
                         SLinkedList__vSetTail(pstList, (SLinkedListItem_TypeDef*)pstItem);
+                    }
+
+                    enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                    if((uint32_t) SLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                    {
+                        SLinkedList__vSetLastItemRead(pstList, pstItemNextNextNode);
                     }
                 }
             }

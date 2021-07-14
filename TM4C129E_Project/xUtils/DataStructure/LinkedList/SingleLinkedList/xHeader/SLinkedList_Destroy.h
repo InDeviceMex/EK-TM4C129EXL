@@ -28,7 +28,4 @@
 
 void SLinkedList__vDestroy(SLinkedList_TypeDef* pstList);
 
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DESTROY_H_ */

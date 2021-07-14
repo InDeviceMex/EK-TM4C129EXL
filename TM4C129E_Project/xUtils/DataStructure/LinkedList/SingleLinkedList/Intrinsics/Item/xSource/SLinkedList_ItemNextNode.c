@@ -26,11 +26,11 @@
 SLinkedListItem_TypeDef* SLinkedList_Item__pstGetNextItem(const SLinkedListItem_TypeDef* const pstItem)
 {
     SLinkedListItem_TypeDef* pstNextItemReg = (SLinkedListItem_TypeDef*)0UL;
-    pstNextItemReg = pstItem->pstNext;
+    pstNextItemReg = pstItem->pstNextItem;
     return (pstNextItemReg);
 }
 
-void SLinkedList_Item__vSetNextItem(SLinkedListItem_TypeDef* pstItem, SLinkedListItem_TypeDef* pstNextItem)
+void SLinkedList_Item__vSetNextItem(SLinkedListItem_TypeDef* pstItem, SLinkedListItem_TypeDef* pstNextItemArg)
 {
-    pstItem->pstNext = pstNextItem;
+    pstItem->pstNextItem = pstNextItemArg;
 }

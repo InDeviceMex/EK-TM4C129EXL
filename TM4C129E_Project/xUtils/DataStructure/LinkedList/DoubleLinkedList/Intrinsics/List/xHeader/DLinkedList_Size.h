@@ -30,8 +30,4 @@ uint32_t DLinkedList__u32GetSize(const DLinkedList_TypeDef* const pstList);
 void DLinkedList__vSetSize(DLinkedList_TypeDef*  pstList, uint32_t u32SizeArg);
 DLinkedList_nSTATUS DLinkedList__enIsEmpty(const DLinkedList_TypeDef*  pstList);
 
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_DLINKEDLIST_SIZE_H_ */

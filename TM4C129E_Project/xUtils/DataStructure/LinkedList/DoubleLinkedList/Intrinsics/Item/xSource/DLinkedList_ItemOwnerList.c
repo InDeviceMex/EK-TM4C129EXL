@@ -25,7 +25,7 @@
 
 void* DLinkedList_Item__pvGetOwnerList(const DLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvOwnerListReg = (void*)0UL;
+    void* pvOwnerListReg = (void*) 0UL;
     pvOwnerListReg = pstItem->pvOwnerList;
     return (pvOwnerListReg);
 }

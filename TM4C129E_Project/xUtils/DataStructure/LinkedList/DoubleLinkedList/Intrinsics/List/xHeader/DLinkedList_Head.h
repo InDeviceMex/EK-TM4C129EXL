@@ -30,9 +30,4 @@ DLinkedListItem_TypeDef* DLinkedList__pstGetHead(const DLinkedList_TypeDef*  con
 void DLinkedList__vSetHead(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstHeadArg);
 DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_TypeDef* const pstList, const DLinkedListItem_TypeDef* const pstItem);
 
-
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_DLINKEDLIST_HEAD_H_ */

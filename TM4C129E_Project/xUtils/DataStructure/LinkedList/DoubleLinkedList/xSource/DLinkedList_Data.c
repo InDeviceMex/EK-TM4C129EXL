@@ -26,7 +26,7 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Item.h>
 
-void* DLinkedList__pvGetDataItem(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* DLinkedList__pvGetDataItemPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
@@ -72,7 +72,7 @@ void* DLinkedList__pvGetDataHead(const DLinkedList_TypeDef* pstList)
 }
 
 
-uint32_t DLinkedList__u32GetValueItem(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t DLinkedList__u32GetValueItemPos(const DLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     DLinkedListItem_TypeDef* pstItem = (DLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
@@ -115,4 +115,54 @@ uint32_t DLinkedList__u32GetValueHead(const DLinkedList_TypeDef* pstList)
         }
     }
     return (u32ItemValue);
+}
+
+void* DLinkedList__pvGetDataNextItem(DLinkedList_TypeDef* pstList)
+{
+    DLinkedListItem_TypeDef* pstLastItemReg = (DLinkedListItem_TypeDef*) 0UL;
+    DLinkedListItem_TypeDef* pstNextItemReg = (DLinkedListItem_TypeDef*) 0UL;
+    void* pvItemData = (void*) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstLastItemReg = DLinkedList__pstGetLastItemRead(pstList);
+        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        {
+            pstNextItemReg = DLinkedList_Item__pstGetNextItem(pstLastItemReg);
+        }
+        else
+        {
+            pstNextItemReg = DLinkedList__pstGetHeadItem(pstList);
+        }
+        DLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
+        if(0UL != (uint32_t) pstNextItemReg)
+        {
+            pvItemData = DLinkedList_Item__pvGetData(pstNextItemReg);
+        }
+    }
+    return (pvItemData);
+}
+
+void* DLinkedList__pvGetDataPreviousItem(DLinkedList_TypeDef* pstList)
+{
+    DLinkedListItem_TypeDef* pstLastItemReg = (DLinkedListItem_TypeDef*) 0UL;
+    DLinkedListItem_TypeDef* pstPreviousItemReg = (DLinkedListItem_TypeDef*) 0UL;
+    void* pvItemData = (void*) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstLastItemReg = DLinkedList__pstGetLastItemRead(pstList);
+        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        {
+            pstPreviousItemReg = DLinkedList_Item__pstGetPreviousItem(pstLastItemReg);
+        }
+        else
+        {
+            pstPreviousItemReg = DLinkedList__pstGetTailItem(pstList);
+        }
+        DLinkedList__vSetLastItemRead(pstList, pstPreviousItemReg);
+        if(0UL != (uint32_t) pstPreviousItemReg)
+        {
+            pvItemData = DLinkedList_Item__pvGetData(pstPreviousItemReg);
+        }
+    }
+    return (pvItemData);
 }

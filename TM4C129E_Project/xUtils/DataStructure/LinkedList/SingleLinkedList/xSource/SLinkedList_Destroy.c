@@ -56,6 +56,7 @@ void SLinkedList__vDestroy(SLinkedList_TypeDef* pstList)
         pstList->pfvDestroyItem = (void (*) (void* Item)) 0UL;
         pstList->pstHead = (SLinkedListItem_TypeDef *) 0UL;
         pstList->pstTail = (SLinkedListItem_TypeDef *) 0UL;
+        pstList->pstLastItemRead = (SLinkedListItem_TypeDef*)  0UL;
         pstList->u32Size = 0UL;
 
         if((SLinkedList_enSTATUS_OK == enStatus ) && (0UL != (uint32_t) pfvListDestroy))

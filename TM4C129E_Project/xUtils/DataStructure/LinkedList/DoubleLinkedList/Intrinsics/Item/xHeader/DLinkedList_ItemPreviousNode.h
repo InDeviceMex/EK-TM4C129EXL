@@ -26,13 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-
-DLinkedListItem_TypeDef* DLinkedList__pstGetItemPreviousNode(const DLinkedListItem_TypeDef* const pstItem);
-void DLinkedList__vSetItemPreviousNode(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousItem);
-
-
-
-
-
+DLinkedListItem_TypeDef* DLinkedList_Item__pstGetPreviousItem(const DLinkedListItem_TypeDef* const pstItem);
+void DLinkedList_Item__vSetPreviousItem(DLinkedListItem_TypeDef* pstItem, DLinkedListItem_TypeDef* pstPreviousItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMPREVIOUSITEM_H_ */

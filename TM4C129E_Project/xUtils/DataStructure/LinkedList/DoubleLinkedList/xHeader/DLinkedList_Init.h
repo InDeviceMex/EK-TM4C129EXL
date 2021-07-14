@@ -24,7 +24,6 @@
 #ifndef XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INIT_H_
 #define XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INIT_H_
 
-
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item));
@@ -32,8 +31,5 @@ DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *D
 DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_TypeDef* pstList,
                                         void (*pfvDestroyItemDataArg) (void *DataContainer),
                                         void (*pfvDestroyItemArg) (void *Item));
-
-
-
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INIT_H_ */

@@ -27,7 +27,7 @@ uint32_t DLinkedList__u32GetSize(const DLinkedList_TypeDef* const pstList)
 {
     uint32_t u32SizeReg = 0UL;
     u32SizeReg = pstList->u32Size;
-    return u32SizeReg;
+    return (u32SizeReg);
 
 }
 
@@ -45,6 +45,3 @@ DLinkedList_nSTATUS DLinkedList__enIsEmpty(const DLinkedList_TypeDef*  pstList)
     }
     return (enStatus);
 }
-
-
-

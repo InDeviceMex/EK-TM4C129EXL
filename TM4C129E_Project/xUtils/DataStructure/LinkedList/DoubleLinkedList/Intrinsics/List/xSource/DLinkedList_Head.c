@@ -25,9 +25,9 @@
 
 DLinkedListItem_TypeDef* DLinkedList__pstGetHead(const DLinkedList_TypeDef*  const pstList)
 {
-    DLinkedListItem_TypeDef* pstHeadReg = (DLinkedListItem_TypeDef*)0U;
+    DLinkedListItem_TypeDef* pstHeadReg = (DLinkedListItem_TypeDef*) 0U;
     pstHeadReg = pstList->pstHead;
-    return pstHeadReg;
+    return (pstHeadReg);
 }
 
 void DLinkedList__vSetHead(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstHeadArg)
@@ -44,7 +44,5 @@ DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_TypeDef* const pstLi
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
-
-

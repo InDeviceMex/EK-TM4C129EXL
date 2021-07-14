@@ -58,6 +58,7 @@ void CDLinkedList__vDestroy(CDLinkedList_TypeDef* pstList)
          pstList->pfvDestroyItem = (void (*) (void* Item)) 0UL;
          pstList->pstHead = (CDLinkedListItem_TypeDef *) 0UL;
          pstList->pstTail = (CDLinkedListItem_TypeDef *) 0UL;
+         pstList->pstLastItemRead = (CDLinkedListItem_TypeDef*)  0UL;
          pstList->u32Size = 0UL;
 
          if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pfvListDestroy))

@@ -131,6 +131,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNext(CSLinkedListItem_TypeDef* pstIte
 CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* pstList, CSLinkedListItem_TypeDef* pstItem, void** pvData)
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    CSLinkedList_nSTATUS enStatusRead = CSLinkedList_enSTATUS_ERROR;
     CSLinkedListItem_TypeDef* pstOldItem = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstHeadNextNode = (CSLinkedListItem_TypeDef*) 0UL ;
     CSLinkedListItem_TypeDef* pstHeadItem = (CSLinkedListItem_TypeDef*) 0UL ;
@@ -162,12 +163,19 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                 {
                     CSLinkedList__vSetHead(pstList, (CSLinkedListItem_TypeDef*) 0UL);
                     CSLinkedList__vSetTail(pstList, (CSLinkedListItem_TypeDef*) 0UL);
+                    CSLinkedList__vSetLastItemRead(pstList,  (CSLinkedListItem_TypeDef*) 0UL);
                 }
                 else
                 {
                     pstTailItem = CSLinkedList__pstGetTail(pstList);
                     CSLinkedList__vSetHead(pstList, pstHeadNextNode);
                     CSLinkedList_Item__vSetNextItem(pstTailItem, pstHeadNextNode);
+
+                    enStatusRead = CSLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                    if((uint32_t) CSLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                    {
+                        CSLinkedList__vSetLastItemRead(pstList, pstHeadNextNode);
+                    }
                 }
 
             }
@@ -192,6 +200,7 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                     {
                         CSLinkedList__vSetHead(pstList, (CSLinkedListItem_TypeDef*) 0UL);
                         CSLinkedList__vSetTail(pstList, (CSLinkedListItem_TypeDef*) 0UL);
+                        CSLinkedList__vSetLastItemRead(pstList,  (CSLinkedListItem_TypeDef*) 0UL);
                     }
                     else
                     {
@@ -201,6 +210,13 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_TypeDef* 
                         if((uint32_t) pstTailItem == (uint32_t) pstItemNextNode)
                         {
                             CSLinkedList__vSetTail(pstList, pstItem);
+                        }
+
+
+                        enStatusRead = CSLinkedList__enIsLastItemRead(pstList,pstOldItem);
+                        if((uint32_t) CSLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                        {
+                            CSLinkedList__vSetLastItemRead(pstList, pstItem);
                         }
                     }
                 }

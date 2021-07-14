@@ -75,7 +75,7 @@ DLinkedListItem_TypeDef*  DLinkedList__pstGetItemPos(const DLinkedList_TypeDef* 
                     pstItem = DLinkedList__pstGetTail(pstList);
                     while(0UL != u32SizeOptimum)
                     {
-                        pstItem = DLinkedList__pstGetItemPreviousNode(pstItem);
+                        pstItem = DLinkedList_Item__pstGetPreviousItem(pstItem);
                         u32SizeOptimum--;
                     }
                 }
@@ -171,7 +171,7 @@ uint32_t DLinkedList__u32GetAllItemBackward(const DLinkedList_TypeDef* pstList, 
             u32SizeReg++;
             pvData += 1U;
             u32MaxLength--;
-            pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -195,7 +195,7 @@ uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_TypeDef* pst
             u32SizeReg++;
             pu32ValueItem += 1U;
             u32MaxLength--;
-            pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -270,7 +270,7 @@ uint32_t DLinkedList__u32GetNItemBackward(const DLinkedList_TypeDef* pstList, vo
             pvData += 1U;
             u32MaxLength--;
             u32Items--;
-            pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }
@@ -295,7 +295,7 @@ uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_TypeDef* pstLi
             pu32ValueItem += 1U;
             u32MaxLength--;
             u32Items--;
-            pstMemberTemp = DLinkedList__pstGetItemPreviousNode(pstMember);
+            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
             pstMember = pstMemberTemp;
         }
     }

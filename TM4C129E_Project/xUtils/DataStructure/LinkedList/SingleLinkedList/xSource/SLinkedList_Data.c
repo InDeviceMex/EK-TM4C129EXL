@@ -26,7 +26,7 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Item.h>
 
-void* SLinkedList__pvGetDataItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* SLinkedList__pvGetDataItemPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
@@ -72,7 +72,7 @@ void* SLinkedList__pvGetDataHead(const SLinkedList_TypeDef* pstList)
 }
 
 
-uint32_t SLinkedList__u32GetValueItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t SLinkedList__u32GetValueItemPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     SLinkedListItem_TypeDef* pstItem = (SLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
@@ -115,4 +115,26 @@ uint32_t SLinkedList__u32GetValueHead(const SLinkedList_TypeDef* pstList)
         }
     }
     return (u32ItemValue);
+}
+
+void* SLinkedList__pvGetDataNextItem(SLinkedList_TypeDef* pstList)
+{
+    SLinkedListItem_TypeDef* pstLastItemReg = (SLinkedListItem_TypeDef*) 0UL;
+    SLinkedListItem_TypeDef* pstNextItemReg = (SLinkedListItem_TypeDef*) 0UL;
+    void* pvItemData = (void*) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstLastItemReg = SLinkedList__pstGetLastItemRead(pstList);
+        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        {
+            pstNextItemReg = SLinkedList_Item__pstGetNextItem(pstLastItemReg);
+        }
+        else
+        {
+            pstNextItemReg = SLinkedList__pstGetHeadItem(pstList);
+        }
+        SLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
+        pvItemData = SLinkedList_Item__pvGetData(pstNextItemReg);
+    }
+    return (pvItemData);
 }

@@ -26,7 +26,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/CSLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/xHeader/CSLinkedList_Item.h>
 
-void* CSLinkedList__pvGetDataItem(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* CSLinkedList__pvGetDataItemPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CSLinkedListItem_TypeDef* pstItem = (CSLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
@@ -41,7 +41,7 @@ void* CSLinkedList__pvGetDataItem(const CSLinkedList_TypeDef* pstList, uint32_t 
     return (pvItemData);
 }
 
-uint32_t CSLinkedList__u32GetValueItem(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t CSLinkedList__u32GetValueItemPos(const CSLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CSLinkedListItem_TypeDef* pstItem = (CSLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemValue = (uint32_t) 0UL;
@@ -133,7 +133,10 @@ void* CSLinkedList__pvGetDataNextItem(CSLinkedList_TypeDef* pstList)
             pstNextItemReg = CSLinkedList__pstGetHeadItem(pstList);
         }
         CSLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        pvItemData = CSLinkedList_Item__pvGetData(pstNextItemReg);
+        if(0UL != (uint32_t) pstNextItemReg)
+        {
+            pvItemData = CSLinkedList_Item__pvGetData(pstNextItemReg);
+        }
     }
     return (pvItemData);
 }

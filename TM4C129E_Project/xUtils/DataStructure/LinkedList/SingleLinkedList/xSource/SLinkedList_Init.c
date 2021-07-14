@@ -40,6 +40,7 @@ SLinkedList_TypeDef* SLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *D
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (SLinkedListItem_TypeDef*)  0UL;
         pstList->pstTail = (SLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (SLinkedListItem_TypeDef*)  0UL;
     }
     return (pstList);
 }
@@ -58,6 +59,7 @@ SLinkedList_nSTATUS SLinkedList__enInit(SLinkedList_TypeDef* pstList,
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (SLinkedListItem_TypeDef*)  0UL;
         pstList->pstTail = (SLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (SLinkedListItem_TypeDef*)  0UL;
     }
     return (enStatus);
 }

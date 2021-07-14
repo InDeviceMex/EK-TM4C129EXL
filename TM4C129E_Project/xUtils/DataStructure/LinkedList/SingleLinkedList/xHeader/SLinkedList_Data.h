@@ -26,12 +26,14 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void*  SLinkedList__pvGetDataItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+void*  SLinkedList__pvGetDataItemPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
 void*  SLinkedList__pvGetDataTail(const SLinkedList_TypeDef* pstList);
 void*  SLinkedList__pvGetDataHead(const SLinkedList_TypeDef* pstList);
 
-uint32_t  SLinkedList__u32GetValueItem(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
+uint32_t  SLinkedList__u32GetValueItemPos(const SLinkedList_TypeDef* pstList, uint32_t u32Position);
 uint32_t  SLinkedList__u32GetValueTail(const SLinkedList_TypeDef* pstList);
 uint32_t  SLinkedList__u32GetValueHead(const SLinkedList_TypeDef* pstList);
+
+void* SLinkedList__pvGetDataNextItem(SLinkedList_TypeDef* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DATA_H_ */

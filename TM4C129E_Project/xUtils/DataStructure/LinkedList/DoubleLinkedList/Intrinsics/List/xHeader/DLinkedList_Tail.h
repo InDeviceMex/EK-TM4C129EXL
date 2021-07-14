@@ -30,8 +30,4 @@ DLinkedListItem_TypeDef* DLinkedList__pstGetTail(const DLinkedList_TypeDef*  con
 void DLinkedList__vSetTail(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstTailArg);
 DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListItem_TypeDef* const pstItem);
 
-
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_DLINKEDLIST_TAIL_H_ */

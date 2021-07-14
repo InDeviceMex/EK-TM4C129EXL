@@ -25,7 +25,7 @@
 
 void* SLinkedList_Item__pvGetData(const SLinkedListItem_TypeDef* const pstItem)
 {
-    void* pvDataReg = (void*)0UL;
+    void* pvDataReg = (void*) 0UL;
     pvDataReg = pstItem->pvDataContainer;
     return pvDataReg;
 }

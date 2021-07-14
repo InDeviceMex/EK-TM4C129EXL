@@ -58,6 +58,7 @@ void CSLinkedList__vDestroy(CSLinkedList_TypeDef* pstList)
         pstList->pfvDestroyItem = (void (*) (void* Item)) 0UL;
         pstList->pstHead = (CSLinkedListItem_TypeDef *) 0UL;
         pstList->pstTail = (CSLinkedListItem_TypeDef *) 0UL;
+        pstList->pstLastItemRead = (CSLinkedListItem_TypeDef*)  0UL;
         pstList->u32Size = 0UL;
 
         if((CSLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pfvListDestroy))

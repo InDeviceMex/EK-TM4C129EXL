@@ -32,6 +32,4 @@ SLinkedList_nSTATUS SLinkedList__enInit(SLinkedList_TypeDef* pstList,
                                         void (*pfvDestroyItemDataArg) (void *DataContainer),
                                         void (*pfvDestroyItemArg) (void *Item));
 
-
-
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_INIT_H_ */

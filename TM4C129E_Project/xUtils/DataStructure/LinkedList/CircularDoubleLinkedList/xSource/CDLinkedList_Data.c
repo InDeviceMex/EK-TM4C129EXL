@@ -26,7 +26,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Item.h>
 
-void* CDLinkedList__pvGetDataItem(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+void* CDLinkedList__pvGetDataItemPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     void* pvItemData = (void*) 0UL;
@@ -41,7 +41,7 @@ void* CDLinkedList__pvGetDataItem(const CDLinkedList_TypeDef* pstList, uint32_t 
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetValueItem(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
+uint32_t CDLinkedList__u32GetValueItemPos(const CDLinkedList_TypeDef* pstList, uint32_t u32Position)
 {
     CDLinkedListItem_TypeDef* pstItem = (CDLinkedListItem_TypeDef*) 0UL;
     uint32_t u32ItemData = 0UL;
@@ -133,7 +133,35 @@ void* CDLinkedList__pvGetDataNextItem(CDLinkedList_TypeDef* pstList)
             pstNextItemReg = CDLinkedList__pstGetHeadItem(pstList);
         }
         CDLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        pvItemData = CDLinkedList_Item__pvGetData(pstNextItemReg);
+        if(0UL != (uint32_t) pstNextItemReg)
+        {
+            pvItemData = CDLinkedList_Item__pvGetData(pstNextItemReg);
+        }
+    }
+    return (pvItemData);
+}
+
+void* CDLinkedList__pvGetDataPreviousItem(CDLinkedList_TypeDef* pstList)
+{
+    CDLinkedListItem_TypeDef* pstLastItemReg = (CDLinkedListItem_TypeDef*) 0UL;
+    CDLinkedListItem_TypeDef* pstPreviousItemReg = (CDLinkedListItem_TypeDef*) 0UL;
+    void* pvItemData = (void*) 0UL;
+    if((uint32_t) 0UL != (uint32_t) pstList)
+    {
+        pstLastItemReg = CDLinkedList__pstGetLastItemRead(pstList);
+        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        {
+            pstPreviousItemReg = CDLinkedList_Item__pstGetPreviousItem(pstLastItemReg);
+        }
+        else
+        {
+            pstPreviousItemReg = CDLinkedList__pstGetTailItem(pstList);
+        }
+        CDLinkedList__vSetLastItemRead(pstList, pstPreviousItemReg);
+        if(0UL != (uint32_t) pstPreviousItemReg)
+        {
+            pvItemData = CDLinkedList_Item__pvGetData(pstPreviousItemReg);
+        }
     }
     return (pvItemData);
 }

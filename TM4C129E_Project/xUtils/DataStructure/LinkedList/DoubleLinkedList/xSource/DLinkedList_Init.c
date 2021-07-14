@@ -41,6 +41,7 @@ DLinkedList_TypeDef* DLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *D
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (DLinkedListItem_TypeDef*)  0UL;
         pstList->pstTail = (DLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (DLinkedListItem_TypeDef*)  0UL;
     }
     return (pstList);
 }
@@ -60,6 +61,7 @@ DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_TypeDef* pstList,
         pstList->pfvDestroyItem = pfvDestroyItemArg;
         pstList->pstHead = (DLinkedListItem_TypeDef*)  0UL;
         pstList->pstTail = (DLinkedListItem_TypeDef*)  0UL;
+        pstList->pstLastItemRead = (DLinkedListItem_TypeDef*)  0UL;
     }
     return (enStatus);
 }

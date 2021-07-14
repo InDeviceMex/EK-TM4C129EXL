@@ -27,7 +27,7 @@ DLinkedListItem_TypeDef* DLinkedList__pstGetTail(const DLinkedList_TypeDef*  con
 {
     DLinkedListItem_TypeDef* pstTailReg = (DLinkedListItem_TypeDef*)0U;
     pstTailReg = pstList->pstTail;
-    return pstTailReg;
+    return (pstTailReg);
 }
 
 void DLinkedList__vSetTail(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef* pstTailArg)
@@ -38,12 +38,9 @@ void DLinkedList__vSetTail(DLinkedList_TypeDef* pstList, DLinkedListItem_TypeDef
 DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListItem_TypeDef* const pstItem)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNext))
+    if (0UL == (uint32_t) (pstItem->pstNextItem))
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
-
-
-

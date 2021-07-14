@@ -30,7 +30,4 @@ SLinkedListItem_TypeDef* SLinkedList__pstGetHead(const SLinkedList_TypeDef*  con
 void SLinkedList__vSetHead(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstHeadArg);
 SLinkedList_nSTATUS SLinkedList__enIsHead(const SLinkedList_TypeDef* const pstList, const SLinkedListItem_TypeDef* const pstItem);
 
-
-
-
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_SLINKEDLIST_HEAD_H_ */
