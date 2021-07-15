@@ -24,6 +24,7 @@
 #ifndef XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_CIRCULARSLINKEDLIST_INTRINSICS_H_
 #define XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_CIRCULARSLINKEDLIST_INTRINSICS_H_
 
+#include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/Item/CSLinkedList_Item.h>
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/List/CSLinkedList_List.h>

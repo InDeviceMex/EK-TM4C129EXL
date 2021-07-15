@@ -25,6 +25,8 @@
 #define XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_SLINKEDLIST_INTRINSICS_H_
 
 
+#include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
+
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/SLinkedList_Item.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/SLinkedList_List.h>
 

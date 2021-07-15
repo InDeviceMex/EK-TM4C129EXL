@@ -24,6 +24,7 @@
 #ifndef XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_DLINKEDLIST_INTRINSICS_H_
 #define XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_DLINKEDLIST_INTRINSICS_H_
 
+#include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/DLinkedList_Item.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/DLinkedList_List.h>
