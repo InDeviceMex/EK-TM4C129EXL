@@ -29,7 +29,13 @@
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 
+
+#define OS_KERNEL_INITIAL_XPSR  ( 0x01000000UL )
+#define OS_KERNEL_EXEC_RETURN  ( 0xFFFFFFFDUL )
+
 #define OS_ADAPT_MAX_DELAY ((uint32_t) 0xFFFFFFFFUL)
+
+#define OS_ADAPT_BYTE_ALIGNMENT_MASK ((uint32_t) 0x3UL)
 
 #define OS_ADAPT_SYSCALL_INTERRUPT_PRIORITY (7UL)
 #define OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY (5UL)

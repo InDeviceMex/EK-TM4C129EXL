@@ -23,15 +23,10 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 
+#include <xOS/Task/xHeader/OS_Task_Priority.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 static OS_Task_List_Typedef pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];/*< Prioritised ready tasks. */
-static volatile uint32_t u32TopReadyPriority = OS_TASK_IDLE_PRIORITY;
-
-
-#define OS_TASK_RECORD_READY_PRIORITY(u32Priority) OS_ADAPT_RECORD_READY_PRIORITY(u32Priority, u32TopReadyPriority )
-#define OS_TASK_GET_HIGHEST_PRIORITY(u32Priority, u32TopReadyPriority) OS_ADAPT_GET_HIGHEST_PRIORITY(u32Priority, u32TopReadyPriority)
-#define OS_TASK_RESET_READY_PRIORITY(u32Priority, u32TopReadyPriority) OS_ADAPT_RESET_READY_PRIORITY(u32Priority, u32TopReadyPriority)
 
 
 OS_Task_List_Typedef* OS_Task__pstGetReadyTasksLists(uint32_t u32Index)
@@ -51,7 +46,7 @@ void OS_Task__vSelectHighestPriorityTask(void)
     OS_Task_List_Typedef* pstReadyTask =  (OS_Task_List_Typedef*) 0UL;
     OS_TASK_TCB* pstNewTCB = (OS_TASK_TCB*) 0UL;
     uint32_t u32ListLenght = 0UL;
-    OS_TASK_GET_HIGHEST_PRIORITY(u32TopPriority, u32TopReadyPriority);
+    u32TopPriority = OS_Task__u32GetHighestPriority();
     pstReadyTask = OS_Task__pstGetReadyTasksLists(u32TopPriority);
     if(0UL != (uint32_t) pstReadyTask)
     {
@@ -74,7 +69,7 @@ void OS_Task__vResetReadyPriority(uint32_t u32PrioritArg)
         u32ListLenght = CDLinkedList__u32GetSize(pstReadyTask);
         if(0UL == u32ListLenght)
         {
-            OS_TASK_RESET_READY_PRIORITY(u32PrioritArg, u32TopReadyPriority);
+            OS_Task__vResetReadyPriority(u32PrioritArg);
         }
     }
 }
@@ -88,7 +83,7 @@ void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg)
     if(0UL != (uint32_t) pstTCBArg)
     {
         u32TCBPriority = pstTCBArg->u32Priority;
-        OS_TASK_RECORD_READY_PRIORITY(u32TCBPriority);
+        OS_Task__vRecordReadyPriority(u32TCBPriority);
         pstReadyTaskList = OS_Task__pstGetReadyTasksLists(u32TCBPriority);
         if(0UL != (uint32_t) pstReadyTaskList)
         {

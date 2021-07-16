@@ -26,6 +26,8 @@
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
 
+#include <xOS/Adapt/xHeader/OS_Adapt_Stack.h>
+#include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_Delayed.h>
 #include <xOS/Task/xHeader/OS_Task_Deleted.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
@@ -42,137 +44,139 @@
 #define OS_TASK_DELETED_CHAR     ('D')
 #define OS_TASK_SUSPENDED_CHAR   ('S')
 
+static void OS_Task__vInitialiseTaskLists( void );
 
 static OS_Task_Handle_TypeDef pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;         /*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
 
 /* Other file private variables. --------------------------------*/
-static volatile uint32_t u32CurrentNumberOfTasks = 0UL;
-static uint32_t u32TaskNumber = 0UL;
+static volatile uint32_t OS_Task_u32CurrentNumberOfTasks = 0UL;
+static uint32_t OS_Task_u32TaskNumber = 0UL;
 
-
-static uint32_t u32TaskSwitchedInTime = 0UL; /*< Holds the value of a timer/counter the last time a task was switched in. */
-static uint32_t u32TotalRunTime = 0UL;       /*< Holds the total amount of execution time as defined by the run time counter clock. */
 
 uint32_t OS_Task__u32GetCurrentNumberOfTasks(void)
 {
-    return (u32CurrentNumberOfTasks);
+    return (OS_Task_u32CurrentNumberOfTasks);
 }
-#if 0
-uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pxTaskCode, const char * const pcName, const uint32_t u32StackDepth, void * const pvParameters, uint32_t uxPriority, OS_Task_Handle_TypeDef * const pxCreatedTask )
+
+uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcName, const uint32_t u32StackDepth, void * const pvParametersArg, uint32_t u32Priority, OS_Task_Handle_TypeDef * const pvCreatedTask )
 {
-uint32_t u32Return;
-OS_TASK_TCB * pstNewTCB;
-uint32_t *pu32TopOfStack;
-
-    configASSERT( pxTaskCode );
-    configASSERT( ( ( uxPriority & ( uint32_t ) ( ~portPRIVILEGE_BIT ) ) < ( uint32_t ) configMAX_PRIORITIES ) );
-
-    /* Allocate the memory required by the TCB and stack for the new task,
-    checking that the allocation was successful. */
-    pstNewTCB = OS_Task__pstAllocateTCBAndStack( u32StackDepth);
-
-    if( pstNewTCB != NULL )
+    uint32_t u32Return = 1UL;
+    OS_TASK_TCB * pstNewTCB;
+    OS_TASK_TCB * pstCurrentTCB;
+    uint32_t *pu32TopOfStackReg;
+    uint32_t u32SchedulerRunning = 0UL;
+    if(0UL != (uint32_t) pfvTaskCodeArg)
     {
-
-
-        pu32TopOfStack = pstNewTCB->pxStack;
-
-        /* Check the alignment of the stack buffer is correct. */
-        configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pstNewTCB->pxStack & ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == 0UL ) );
-
-        /* If we want to use stack checking on architectures that use
-        a positive stack growth direction then we also need to store the
-        other extreme of the stack space. */
-        pstNewTCB->pxEndOfStack = pstNewTCB->pxStack + ( u32StackDepth - 1 );
-
-        /* Setup the newly allocated TCB with the initial state of the task. */
-        prvInitialiseTCBVariables( pstNewTCB, pcName, uxPriority, xRegions, u32StackDepth );
-
-        /* Initialize the TCB stack to look as if the task was already running,
-        but had been interrupted by the scheduler.  The return address is set
-        to the start of the task function. Once the stack has been initialised
-        the top of stack variable is updated. */
-
-        pstNewTCB->pu32TopOfStack = pxPortInitialiseStack( pu32TopOfStack, pxTaskCode, pvParameters );
-
-        if( ( void * ) pxCreatedTask != NULL )
+        if(OS_TASK_MAX_PRIORITIES > u32Priority)
         {
-            /* Pass the TCB out - in an anonymous way.  The calling function/
-            task can use this as a handle to delete the task later if
-            required.*/
-            *pxCreatedTask = ( OS_Task_Handle_TypeDef ) pstNewTCB;
-        }
+            /* Allocate the memory required by the TCB and stack for the new task,
+            checking that the allocation was successful. */
+            pstNewTCB = OS_Task__pstAllocateTCBAndStack(u32StackDepth);
 
-        /* Ensure interrupts don't access the task lists while they are being
-        updated. */
-        taskENTER_CRITICAL();
-        {
-            uxCurrentNumberOfTasks++;
-            if( pxCurrentTCB == NULL )
+            if( 0UL != (uint32_t) pstNewTCB)
             {
-                /* There are no other tasks, or all the other tasks are in
-                the suspended state - make this the current task. */
-                pxCurrentTCB =  pstNewTCB;
+                pu32TopOfStackReg = pstNewTCB->pu32Stack;
 
-                if( uxCurrentNumberOfTasks == ( uint32_t ) 1 )
+                /* Check the alignment of the stack buffer is correct. */
+                if(0UL == (OS_ADAPT_BYTE_ALIGNMENT_MASK & (uint32_t) pstNewTCB->pu32Stack))
                 {
-                    /* This is the first task to be created so do the preliminary
-                    initialisation required.  We will not recover if this call
-                    fails, but we will report the failure. */
-                    prvInitialiseTaskLists();
-                }
-            }
-            else
-            {
-                /* If the scheduler is not already running, make this task the
-                current task if it is the highest priority task to be created
-                so far. */
-                if( xSchedulerRunning == pdFALSE )
-                {
-                    if( pxCurrentTCB->uxPriority <= uxPriority )
+
+                    /* If we want to use stack checking on architectures that use
+                    a positive stack growth direction then we also need to store the
+                    other extreme of the stack space. */
+                    pstNewTCB->pu32EndOfStack = pstNewTCB->pu32Stack;
+                    pstNewTCB->pu32EndOfStack += u32StackDepth;
+                    pstNewTCB->pu32EndOfStack -= 1UL;
+
+                    /* Setup the newly allocated TCB with the initial state of the task. */
+                    OS_Task__vInitialiseTCBVariables( pstNewTCB, pcName, u32Priority);
+
+                    /* Initialize the TCB stack to look as if the task was already running,
+                    but had been interrupted by the scheduler.  The return address is set
+                    to the start of the task function. Once the stack has been initialised
+                    the top of stack variable is updated. */
+
+                    pstNewTCB->pu32TopOfStack = OS_Adapt__p32InitialiseStack( pu32TopOfStackReg, (void (*)( void * pvParameters )) pfvTaskCodeArg, (void*) pvParametersArg);
+
+                    if(0UL != (uint32_t) pvCreatedTask)
                     {
-                        pxCurrentTCB = pstNewTCB;
+                        /* Pass the TCB out - in an anonymous way.  The calling function/
+                        task can use this as a handle to delete the task later if
+                        required.*/
+                        *pvCreatedTask = ( OS_Task_Handle_TypeDef ) pstNewTCB;
+                    }
+
+                    /* Ensure interrupts don't access the task lists while they are being
+                    updated. */
+                    OS_TASK_ENTER_CRITICAL();
+                    {
+                        OS_Task_u32CurrentNumberOfTasks++;
+                        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+                        if( 0UL == (uint32_t) pstCurrentTCB )
+                        {
+                            /* There are no other tasks, or all the other tasks are in
+                            the suspended state - make this the current task. */
+                            pstCurrentTCB =  pstNewTCB;
+
+                            if(1UL == OS_Task_u32CurrentNumberOfTasks)
+                            {
+                                /* This is the first task to be created so do the preliminary
+                                initialisation required.  We will not recover if this call
+                                fails, but we will report the failure. */
+                                OS_Task__vInitialiseTaskLists();
+                            }
+                        }
+                        else
+                        {
+                            /* If the scheduler is not already running, make this task the
+                            current task if it is the highest priority task to be created
+                            so far. */
+                            u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
+                            if( 0UL == u32SchedulerRunning)
+                            {
+                                if( pstCurrentTCB->u32Priority <= u32Priority )
+                                {
+                                    pstCurrentTCB = pstNewTCB;
+                                }
+                            }
+                        }
+
+                        OS_Task_u32TaskNumber++;
+
+                        {
+                            /* Add a counter into the TCB for tracing only. */
+                            pstNewTCB->u32TCBNumber = OS_Task_u32TaskNumber;
+                        }
+
+                        OS_Task__vAddTaskToReadyList(pstNewTCB);
+
+                        u32Return = 0UL;
+                    }
+                    OS_TASK_EXIT_CRITICAL();
+                }
+                else
+                {
+                    u32Return = 2UL;
+                }
+
+                if( u32Return == 0UL )
+                {
+                    u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
+                    if( 0UL != u32SchedulerRunning)
+                    {
+                        /* If the created task is of a higher priority than the current task
+                        then it should run now. */
+                        if( pstCurrentTCB->u32Priority < u32Priority )
+                        {
+                            OS_TASK_YIELD_IF_USING_PREEMPTION();
+                        }
                     }
                 }
             }
-
-            uxTaskNumber++;
-
-            {
-                /* Add a counter into the TCB for tracing only. */
-                pstNewTCB->uxTCBNumber = uxTaskNumber;
-            }
-            traceTASK_CREATE( pstNewTCB );
-
-            prvAddTaskToReadyList( pstNewTCB );
-
-            u32Return = pdPASS;
-            portSETUP_TCB( pstNewTCB );
-        }
-        taskEXIT_CRITICAL();
-    }
-    else
-    {
-        u32Return = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
-        traceTASK_CREATE_FAILED();
-    }
-
-    if( u32Return == pdPASS )
-    {
-        if( xSchedulerRunning != pdFALSE )
-        {
-            /* If the created task is of a higher priority than the current task
-            then it should run now. */
-            if( pxCurrentTCB->uxPriority < uxPriority )
-            {
-                taskYIELD_IF_USING_PREEMPTION();
-            }
         }
     }
-
     return u32Return;
 }
-#endif
 
 
 static void OS_Task__vInitialiseTaskLists( void )

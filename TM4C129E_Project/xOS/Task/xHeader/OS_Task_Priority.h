@@ -25,5 +25,10 @@
 #ifndef XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_
 #define XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_
 
+#include <xOS/Task/xHeader/OS_Task_Defines.h>
+
+void OS_Task__vRecordReadyPriority(uint32_t u32PriorityArg);
+void OS_Task__vResetReadyPriority(uint32_t u32PriorityArg);
+uint32_t OS_Task__u32GetHighestPriority(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_ */

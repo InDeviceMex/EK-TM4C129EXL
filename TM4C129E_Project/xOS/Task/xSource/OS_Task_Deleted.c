@@ -27,24 +27,24 @@
 
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 
-static OS_Task_List_Typedef stTasksWaitingTermination;             /*< Tasks that have been deleted - but their memory not yet freed. */
-static volatile uint32_t u32TasksDeleted = 0UL;
+static OS_Task_List_Typedef OS_Task_stTasksWaitingTermination;             /*< Tasks that have been deleted - but their memory not yet freed. */
+static volatile uint32_t OS_Task_u32TasksDeleted = 0UL;
 
 
 void OS_Task__vInitialiseDeletedTaskLists(void)
 {
-    CDLinkedList__enInit( &stTasksWaitingTermination, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
+    CDLinkedList__enInit( &OS_Task_stTasksWaitingTermination, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
 }
 
-void OS_Task_vCheckTasksWaitingTermination(void)
+void OS_Task__vCheckTasksWaitingTermination(void)
 {
     CDLinkedList_nSTATUS enListIsEmpty = CDLinkedList_enSTATUS_OK;
 
-    while(0UL < u32TasksDeleted)
+    while(0UL < OS_Task_u32TasksDeleted)
     {
         OS_Task__vTaskSuspendAll();
         {
-            enListIsEmpty = CDLinkedList__enIsEmpty(&stTasksWaitingTermination);
+            enListIsEmpty = CDLinkedList__enIsEmpty(&OS_Task_stTasksWaitingTermination);
         }
     }
 }

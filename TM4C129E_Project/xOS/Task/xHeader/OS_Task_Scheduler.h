@@ -34,6 +34,13 @@ uint32_t OS_Task__u32GetSchedulerSuspended(void);
 void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg);
 void OS_Task__vIncreaseSchedulerSuspended(void);
 
+uint32_t OS_Task__u32GetSchedulerRunning(void);
+void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg);
+void OS_Task__vIncreaseSchedulerRunning(void);
+
 uint32_t OS_Task__u32TaskIncrementTick(void);
+
+
+void OS_Task__vTaskSwitchContext(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_SCHEDULER_H_ */

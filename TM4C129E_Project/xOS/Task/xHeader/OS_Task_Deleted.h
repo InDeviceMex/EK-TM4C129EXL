@@ -26,5 +26,6 @@
 #define XOS_TASK_XHEADER_OS_TASK_DELETED_H_
 
 void OS_Task__vInitialiseDeletedTaskLists(void);
+void OS_Task__vCheckTasksWaitingTermination(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_DELETED_H_ */

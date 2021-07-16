@@ -32,7 +32,7 @@ void OS_Adapt__vEnterCritical(void)
     OS_ADAPT_DISABLE_INTERRUPTS();
     u32CriticalNesting++;
 
-    /*
+
     if(1UL == u32CriticalNesting)
     {
         if(0UL != OS_ADAPT_IS_INTERRUPT_ACTIVE)
@@ -40,7 +40,7 @@ void OS_Adapt__vEnterCritical(void)
             OS_Adapt_Fault();
         }
     }
-        */
+
 }
 
 

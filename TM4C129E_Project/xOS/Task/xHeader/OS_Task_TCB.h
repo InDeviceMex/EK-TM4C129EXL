@@ -27,6 +27,8 @@
 
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
+static void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
+                                       uint32_t u32PriorityArg);
 OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth);
 
 OS_TASK_TCB* OS_Task__pstGetCurrentTCB(void);
@@ -37,5 +39,7 @@ OS_Task_Handle_TypeDef OS_Task__pvGetCurrentTaskHandle(void);
 OS_TASK_TCB* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandle);
 
 void OS_Task__DeleteTCB(OS_TASK_TCB* pstTCB);
+
+void OS_Task__vCheckStackOverflow(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_TCB_H_ */

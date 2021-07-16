@@ -24,10 +24,9 @@
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 #include <stdlib.h>
+#include <xOS/External/OS_External.h>
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 
-static void OS_Task_vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
-                                       uint32_t u32PriorityArg);
 
 OS_TASK_TCB * volatile pstCurrentTCB = (OS_TASK_TCB*) 0UL;
 
@@ -73,16 +72,16 @@ OS_TASK_TCB* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandle)
 OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
 {
     OS_TASK_TCB *pstNewTCB;
-    uint32_t *pu32Stack;
+    uint32_t *pu32StackReg;
 
     /* Allocate space for the stack used by the task being created. */
     #if defined (__TI_ARM__ )
-    pu32Stack = (uint32_t*) memalign( (size_t) 4, (size_t) u32StackDepth * sizeof(int32_t));
+    pu32StackReg = (uint32_t*) memalign( (size_t) 4, (size_t) u32StackDepth * sizeof(int32_t));
     #elif defined (__GNUC__ )
     pu32Stack = (uint32_t*) malloc(u32StackDepth * sizeof(int32_t));
     #endif
 
-    if( pu32Stack != NULL )
+    if( pu32StackReg != NULL )
     {
         /* Allocate space for the TCB.  Where the memory comes from depends
         on the implementation of the port malloc function. */
@@ -95,13 +94,13 @@ OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
         if( pstNewTCB != NULL )
         {
             /* Store the stack location in the TCB. */
-            pstNewTCB->pu32Stack = pu32Stack;
+            pstNewTCB->pu32Stack = pu32StackReg;
         }
         else
         {
             /* The stack cannot be used as the TCB was not created.  Free it
             again. */
-            free( pu32Stack );
+            free(pu32StackReg);
         }
     }
     else
@@ -112,7 +111,7 @@ OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
 }
 
 
-static void OS_Task__DeleteTCB(OS_TASK_TCB* pstTCB)
+void OS_Task__DeleteTCB(OS_TASK_TCB* pstTCB)
 {
     /**TODO: check is task suspend need to be called here*/
 
@@ -123,7 +122,7 @@ static void OS_Task__DeleteTCB(OS_TASK_TCB* pstTCB)
 }
 
 
-static void OS_Task_vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
+static void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
                                        uint32_t u32PriorityArg)
 {
     uint32_t u32Count = 0UL;
@@ -162,9 +161,6 @@ static void OS_Task_vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const c
 
     pstTCB->u32CriticalNesting = 0UL;
 
-    pstTCB->u32RunTimeCounter = 0UL;
-
-
     for( u32Count = 0; u32Count < (uint32_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS; u32Count++ )
     {
         pstTCB->pvThreadLocalStoragePointers[ u32Count ] = NULL;
@@ -174,5 +170,13 @@ static void OS_Task_vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const c
         pstTCB->enNotifyState = OS_Task_enNotifyValue_NotWaitingNotification;
 }
 
+void OS_Task__vCheckStackOverflow(void)
+{
+    /* Is the currently saved stack pointer within the stack limit? */
+    if( pstCurrentTCB->pu32TopOfStack <= pstCurrentTCB->pu32Stack )
+    {
+        OS_External__vApplicationStackOverflowHook( ( OS_Task_Handle_TypeDef ) pstCurrentTCB, pstCurrentTCB->pcTaskName );
+    }
+}
 
 

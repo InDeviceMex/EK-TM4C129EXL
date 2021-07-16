@@ -30,10 +30,9 @@
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 static volatile uint32_t u32SchedulerSuspended = 0UL;
-static volatile int32_t s32SchedulerRunning = 0;
+static volatile uint32_t u32SchedulerRunning = 0;
 
 static volatile uint32_t u32TickCount = 0UL;
-
 
 uint32_t OS_Task__u32GetTickCount(void)
 {
@@ -59,6 +58,22 @@ void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg)
 void OS_Task__vIncreaseSchedulerSuspended(void)
 {
     ++u32SchedulerSuspended;
+}
+
+uint32_t OS_Task__u32GetSchedulerRunning(void)
+{
+    return (u32SchedulerRunning);
+}
+
+void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg)
+{
+    u32SchedulerRunning = u32ValueArg;
+}
+
+
+void OS_Task__vIncreaseSchedulerRunning(void)
+{
+    ++u32SchedulerRunning;
 }
 
 uint32_t OS_Task__u32TaskIncrementTick( void )
@@ -214,4 +229,25 @@ OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
     return u32SwitchRequired;
 }
 
+
+void OS_Task__vTaskSwitchContext(void)
+{
+    if( (uint32_t) 0UL != u32SchedulerSuspended)
+    {
+        /* The scheduler is currently suspended - do not allow a context
+        switch. */
+        OS_Task__vSetYieldPending(1UL);
+    }
+    else
+    {
+        OS_Task__vSetYieldPending(0UL);
+
+        /* Check for stack overflow, if configured. */
+        OS_Task__vCheckStackOverflow();
+
+        /* Select a new task to run using either the generic C or port
+        optimised asm code. */
+        OS_Task__vSelectHighestPriorityTask();
+    }
+}
 

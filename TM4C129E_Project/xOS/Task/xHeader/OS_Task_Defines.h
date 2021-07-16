@@ -42,7 +42,6 @@
 #define OS_TASK_DISABLE_INTERRUPTS()    OS_ADAPT_DISABLE_INTERRUPTS()
 #define OS_TASK_ENABLE_INTERRUPTS()    OS_ADAPT_ENABLE_INTERRUPTS()
 
-#define OS_TASK_RECORD_READY_PRIORITY(u32Priority) portRECORD_READY_PRIORITY( u32Priority, uxTopReadyPriority )
 
 #define OS_TASK_YIELD_IF_USING_PREEMPTION() OS_ADAPT_YIELD_WITHIN_API()
 
@@ -91,13 +90,13 @@ typedef struct
 
     uint32_t u32Priority; /*< The priority of the task.  0 is the lowest priority. */
     uint32_t* pu32Stack;
+    uint32_t* pu32EndOfStack;
     char pcTaskName[OS_TASK_MAX_TASK_NAME_LEN]; /*< Descriptive name given to the task when created.  Facilitates debugging only. */ /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
     uint32_t u32CriticalNesting;  /*< Holds the critical section nesting depth for ports that do not maintain their own count in the port layer. */
     uint32_t u32TCBNumber;        /*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
     uint32_t u32BasePriority;     /*< The priority last assigned to the task - used by the priority inheritance mechanism. */
     uint32_t u32MutexesHeld;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
-    uint32_t u32RunTimeCounter;   /*< Stores the amount of time the task has spent in the Running state. */
     volatile uint32_t u32NotifiedValue;
     volatile OS_Task_eNotifyValue enNotifyState;
 } OS_TASK_TCB;
