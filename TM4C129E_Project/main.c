@@ -7,6 +7,8 @@
 #include <xApplication_MCU/xApplication_MCU.h>
 #include <xOS/xOS.h>
 
+#include <xUtils/DataStructure/LinkedList/LinkedList.h>
+
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
 uint32_t main(void);
@@ -165,6 +167,14 @@ uint32_t main(void)
      UART_enLINE_SELECT_PRIMARY,
     };
 
+    CDLinkedList_TypeDef stListMaster ={0UL};
+    CDLinkedList_TypeDef stListMaster2 ={0UL};
+
+    CDLinkedListItem_TypeDef stListMasterItems[10UL] ={0UL};
+    uint32_t u32Value[10UL] = {0UL};
+    uint32_t u32Value2[10UL] = {0UL};
+    uint32_t* pu32Value[10UL] = {0UL};
+
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     EEPROM__enInit();
     DMA__vInit();
@@ -191,6 +201,61 @@ uint32_t main(void)
     TIMER__enSetMode_ReloadMatch(TIMER_enT0W, TIMER_enMODE_PERIODIC_WIDE_DOWN, 30000000UL - 1UL, 0UL);
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
+    CDLinkedList_Item__vSetValue(&stListMasterItems[0UL], 0UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[1UL], 10UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[2UL], 20UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[3UL], 30UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[4UL], 40UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[5UL], 50UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[6UL], 50UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[7UL], 70UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[8UL], 80UL);
+    CDLinkedList_Item__vSetValue(&stListMasterItems[9UL], 90UL);
+
+    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[7UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[8UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[5UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[5UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[4UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[3UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[1UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[2UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[6UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[9UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[0UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
+
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[7UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[8UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[5UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[4UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[3UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[1UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[2UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[6UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[9UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[0UL]);
+    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
+/*
     OS_Kernel__vInit();
     OS_Kernel__CreateThread(&Task1, "Task 1", 200UL, (void*) 0UL, 0UL);
     OS_Kernel__CreateThread(&Task3, "Task 3", 200UL, (void*) 0UL, 0UL);
@@ -199,6 +264,7 @@ uint32_t main(void)
     OS_Kernel__CreateThread(&Task6, "Task 6", 200UL, (void*) 1UL, 0UL);
 
     OS_Kernel__vLaunchMs(1000UL);
+    */
     while(1UL)
     {
 

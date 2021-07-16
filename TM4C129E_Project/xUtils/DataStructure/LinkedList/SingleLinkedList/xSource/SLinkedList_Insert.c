@@ -46,7 +46,7 @@ SLinkedList_nSTATUS SLinkedList__enInsertNextGeneric(SLinkedList_TypeDef* pstLis
     SLinkedListItem_TypeDef* pstItemNextNode = (SLinkedListItem_TypeDef*) 0UL ;
     uint32_t u32SizeReg = 0U;
 
-    if((0UL != (uint32_t) pstList) && (0UL != (uint32_t) pstNewItem))
+    if((0UL != (uint32_t) pstList) || (0UL != (uint32_t) pstPreviousItemArg))
     {
         enStatus = SLinkedList_enSTATUS_OK;
         if(DATA_UPDATE == u32DataUpdate)

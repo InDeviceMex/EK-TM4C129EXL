@@ -100,5 +100,9 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_Type
 CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPos(CDLinkedList_TypeDef* pstList, uint32_t u32Position);
 
 
+CDLinkedList_nSTATUS  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem);
 
+CDLinkedList_nSTATUS  CDLinkedList__enInsertInAscendingOrderByValue(CDLinkedList_TypeDef* pstList,
+                                           CDLinkedListItem_TypeDef* pstNewItem);
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_INSERT_H_ */

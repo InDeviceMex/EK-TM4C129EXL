@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_Kernel_Threads.h
+ * @file OS_Task_Priority.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 12 jul. 2021 @endverbatim
+ * @verbatim 15 jul. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,14 +19,11 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 12 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_KERNEL_THREADS_OS_KERNEL_THREADS_H_
-#define XOS_KERNEL_THREADS_OS_KERNEL_THREADS_H_
+#ifndef XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_
+#define XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_
 
 
-
-
-
-#endif /* XOS_KERNEL_THREADS_OS_KERNEL_THREADS_H_ */
+#endif /* XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_ */
