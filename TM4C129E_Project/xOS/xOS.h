@@ -24,7 +24,7 @@
 #ifndef XOS_XOS_H_
 #define XOS_XOS_H_
 
-#include <xOS/Kernel/OS_Kernel.h>
-#include <xOS/TCB/OS_TCB.h>
+#include <xOS/Adapt/OS_Adapt.h>
+#include <xOS/Task/OS_Task.h>
 
 #endif /* XOS_XOS_H_ */
