@@ -26,7 +26,7 @@
 #define XOS_TASK_OS_TASK_H_
 
 
-
-
+#include <xOS/Task/xHeader/OS_Task_Create.h>
+#include <xOS/Task/xHeader/OS_Task_Delayed.h>
 
 #endif /* XOS_TASK_OS_TASK_H_ */

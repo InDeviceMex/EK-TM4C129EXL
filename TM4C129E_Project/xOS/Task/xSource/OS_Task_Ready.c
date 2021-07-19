@@ -69,7 +69,7 @@ void OS_Task__vResetReadyPriority(uint32_t u32PrioritArg)
         u32ListLenght = CDLinkedList__u32GetSize(pstReadyTask);
         if(0UL == u32ListLenght)
         {
-            OS_Task__vResetReadyPriority(u32PrioritArg);
+            OS_Task__vClearReadyPriority(u32PrioritArg);
         }
     }
 }
@@ -82,13 +82,13 @@ void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg)
     uint32_t u32TCBPriority = 0UL;
     if(0UL != (uint32_t) pstTCBArg)
     {
-        u32TCBPriority = pstTCBArg->u32Priority;
+        u32TCBPriority = pstTCBArg->u32PriorityTask;
         OS_Task__vRecordReadyPriority(u32TCBPriority);
         pstReadyTaskList = OS_Task__pstGetReadyTasksLists(u32TCBPriority);
         if(0UL != (uint32_t) pstReadyTaskList)
         {
             pstTCBTask = &(pstTCBArg->stGenericListItem);
-            CDLinkedList__enInsertNextLastItemRead(pstReadyTaskList, pstTCBTask);
+            CDLinkedList__enInsertPreviousLastItemRead(pstReadyTaskList, pstTCBTask);
         }
     }
 }
@@ -96,11 +96,11 @@ void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg)
 
 void OS_Task__vInitialiseReadyTaskLists(void)
 {
-    uint32_t u32Priority = 0UL;
+    uint32_t u32PriorityReg = 0UL;
 
-    for( u32Priority = ( uint32_t ) 0U; u32Priority < ( uint32_t ) OS_TASK_MAX_PRIORITIES; u32Priority++ )
+    for( u32PriorityReg = ( uint32_t ) 0U; u32PriorityReg < ( uint32_t ) OS_TASK_MAX_PRIORITIES; u32PriorityReg++ )
     {
-        CDLinkedList__enInit( &(pstReadyTasksLists[u32Priority]), (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
+        CDLinkedList__enInit( &(pstReadyTasksLists[u32PriorityReg]), (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
     }
 }
 

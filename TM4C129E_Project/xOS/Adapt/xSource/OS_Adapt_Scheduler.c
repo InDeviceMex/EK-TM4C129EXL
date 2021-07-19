@@ -25,9 +25,11 @@
 
 #include <xApplication_MCU/Core/SCB/SCB.h>
 #include <xApplication_MCU/Core/SYSTICK/SYSTICK.h>
+#include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Core/FPU/FPU.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
+
 
 
 static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod );
@@ -36,7 +38,7 @@ static void OS_Adapt_vSysTickHandler( void );
 __attribute__ (( naked )) static void OS_Adapt_vSVCHandler(void);
 __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler(void);
 
-extern OS_TASK_TCB * volatile pstCurrentTCB;
+OS_TASK_TCB *volatile *  OS_Adapt_ppstCurrentTCB = (OS_TASK_TCB**) 0UL;
 const uint32_t OS_Adapt_u32MaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY;
 
 static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod )
@@ -44,7 +46,7 @@ static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod )
     SYSTICK__enInitUsVector(u32UsPeriod, SYSTICK_enPRI7, &OS_Adapt_vSysTickHandler);
 }
 
-uint32_t OS_Adapt__u32PortStartScheduler( uint32_t u32UsPeriod )
+uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
 {
 
     SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
@@ -62,13 +64,12 @@ uint32_t OS_Adapt__u32PortStartScheduler( uint32_t u32UsPeriod )
 
     /* Ensure the VFP is enabled - it should be anyway. */
     FPU__vInit();
-
-    pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+    OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
     /* Start the first task. */
     OS_Adapt_vStartFirstTask();
 
     /* Should not get here! */
-    return 0;
+    return 0UL;
 }
 
 
@@ -97,13 +98,14 @@ __attribute__ (( naked )) static void OS_Adapt_vSVCHandler(void)
 {
 {__asm volatile (
 #if defined (__TI_ARM__ )
-                "   movw r3, pstCurrentTCB     \n"/* Get the location of the current TCB. */
-                "   movt r3, pstCurrentTCB     \n"
+                "   movw r3, OS_Adapt_ppstCurrentTCB     \n"/* Get the location of the current TCB. */
+                "   movt r3, OS_Adapt_ppstCurrentTCB     \n"
 #elif defined (__GNUC__ )
-                " ldr r3, = pstCurrentTCB      \n"
+                " ldr r3, = OS_Adapt_ppstCurrentTCB      \n"
 #endif
                 "   ldr r1, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-                "   ldr r0, [r1]                    \n" /* The first item in OS_Kernel_psCurrentTask is the task top of stack. */
+                "   ldr r2, [r1]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
+                "   ldr r0, [r2]                    \n" /* The first item in OS_Kernel_psCurrentTask is the task top of stack. */
                 "   ldmia r0!, {r4-r11, r14}        \n" /* Pop the registers that are not automatically saved on exception entry and the critical nesting count. */
                 "   msr psp, r0                     \n" /* Restore the task stack pointer. */
                 "   isb                             \n"
@@ -123,12 +125,13 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
     "   isb                                 \n"
     "                                       \n"
 #if defined (__TI_ARM__ )
-    "   movw r3, pstCurrentTCB         \n"/* Get the location of the current TCB. */
-    "   movt r3, pstCurrentTCB         \n"
+    "   movw r3, OS_Adapt_ppstCurrentTCB         \n"/* Get the location of the current TCB. */
+    "   movt r3, OS_Adapt_ppstCurrentTCB         \n"
 #elif defined (__GNUC__ )
-    "   ldr r3, = pstCurrentTCB        \n"
+    "   ldr r3, = OS_Adapt_ppstCurrentTCB        \n"
 #endif
-    "   ldr r2, [r3]                        \n"
+    "   ldr r1, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
+    "   ldr r2, [r1]                        \n"
     "                                       \n"
     "   tst r14, #0x10                      \n" /* Is the task using the FPU context?  If so, push high vfp registers. */
     "   it eq                               \n"
@@ -145,7 +148,7 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
 #elif defined (__GNUC__ )
     "   ldr r0, = OS_Adapt_u32MaxSyscallInterruptPriority        \n"
 #endif
-    "   mov r1, [r0]                          \n"
+    "   ldr r1, [r0]                          \n"
     "   msr basepri, r1                     \n"
     "   dsb                                 \n"
     "   isb                                 \n");}
@@ -158,7 +161,8 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
     "   msr basepri, r0                     \n"
     "   ldmia sp!, {r3}                     \n"
     "                                       \n"
-    "   ldr r1, [r3]                        \n" /* The first item in pxCurrentTCB is the task top of stack. */
+    "   ldr r2, [r3]                        \n" /* The first item in pxCurrentTCB is the task top of stack. */
+    "   ldr r1, [r2]                        \n"
     "   ldr r0, [r1]                        \n"
     "                                       \n"
     "   ldmia r0!, {r4-r11, r14}            \n" /* Pop the core registers. */
@@ -184,7 +188,7 @@ static void OS_Adapt_vSysTickHandler( void )
     executes all interrupts must be unmasked.  There is therefore no need to
     save and then restore the interrupt mask value as its value is already
     known. */
-    ( void ) OS_ADAPT_SET_INTERRUPT_MASK_FROM_ISR();
+    ( void ) OS_Adapt__vSetInterruptMaskFromISR();
     {
         /* Increment the RTOS tick. */
         u32Status = OS_Task__u32TaskIncrementTick();
@@ -195,6 +199,6 @@ static void OS_Adapt_vSysTickHandler( void )
             SCB_PendSV__vSetPending();
         }
     }
-    OS_ADAPT_CLEAR_INTERRUPT_MASK_FROM_ISR( 0 );
+    OS_Adapt__vClearInterruptMaskFromISR(0UL);
 }
 

@@ -24,6 +24,7 @@
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 
 #include <xOS/External/OS_External.h>
+#include <xOS/Task/xHeader/OS_Task_Critical.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 #include <xOS/Task/xHeader/OS_Task_Delayed.h>
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
@@ -36,7 +37,13 @@ static volatile uint32_t u32TickCount = 0UL;
 
 uint32_t OS_Task__u32GetTickCount(void)
 {
-    return (u32TickCount);
+    uint32_t u32Tick = 0UL;
+    OS_Task__vEnterCritical();
+    {
+        u32Tick = u32TickCount;
+    }
+    OS_Task__vExitCritical();
+    return (u32Tick);
 }
 
 void OS_Task__vSetTickCount(uint32_t u32ValueArg)
@@ -175,7 +182,7 @@ OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
                             priority that is equal to or higher than the
                             currently executing task. */
                             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                            if( pstTCB->u32Priority >= pstCurrentTCB->u32Priority )
+                            if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
                             {
                                 u32SwitchRequired = 1UL;
                             }
@@ -189,7 +196,8 @@ OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
             /* Tasks of equal priority to the currently running task will share
             processing time (time slice) if preemption is on, and the application
             writer has not explicitly turned time slicing off. */
-            pstReadyList = OS_Task__pstGetReadyTasksLists( pstCurrentTCB->u32Priority);
+            pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+            pstReadyList = OS_Task__pstGetReadyTasksLists( pstCurrentTCB->u32PriorityTask);
             u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
             if( 1UL < u32ListSize)
             {

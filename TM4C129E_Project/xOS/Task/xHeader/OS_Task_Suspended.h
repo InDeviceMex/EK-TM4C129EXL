@@ -28,8 +28,8 @@
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
 void OS_Task__vInitialiseSuspendedTaskLists(void);
-void OS_Task__vTaskSuspendAll(void);
-uint32_t OS_Task__u32TaskResumeAll(void);
+void OS_Task__vSuspendAll(void);
+uint32_t OS_Task__u32ResumeAll(void);
 
 uint32_t OS_Task__u32GetPendedTicks(void);
 void OS_Task__vSetPendedTicks(uint32_t u32ValueArg);

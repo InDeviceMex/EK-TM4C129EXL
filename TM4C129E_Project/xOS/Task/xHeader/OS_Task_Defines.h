@@ -31,19 +31,6 @@
 
 
 #define OS_TASK_IDLE_PRIORITY    ((uint32_t) 0UL)
-#define OS_TASK_YIELD()    OS_ADAPT_YIELD()
-
-#define OS_TASK_ENTER_CRITICAL()    OS_Adapt__vEnterCritical()
-#define OS_TASK_ENTER_CRITICAL_FROM_ISR()    OS_ADAPT_SET_INTERRUPT_MASK_FROM_ISR()
-
-#define OS_TASK_EXIT_CRITICAL()    OS_Adapt__vExitCritical()
-#define OS_TASK_EXIT_CRITICAL_FROM_ISR(MASK)    OS_ADAPT_CLEAR_INTERRUPT_MASK_FROM_ISR(MASK)
-
-#define OS_TASK_DISABLE_INTERRUPTS()    OS_ADAPT_DISABLE_INTERRUPTS()
-#define OS_TASK_ENABLE_INTERRUPTS()    OS_ADAPT_ENABLE_INTERRUPTS()
-
-
-#define OS_TASK_YIELD_IF_USING_PREEMPTION() OS_ADAPT_YIELD_WITHIN_API()
 
 #define OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS (2UL)
 #define OS_TASK_MAX_TASK_NAME_LEN (20UL)
@@ -88,7 +75,7 @@ typedef struct
     OS_Task_ListItem_TypeDef stGenericListItem;   /*< The list that the state list item of a task is reference from denotes the state of that task (Ready, Blocked, Suspended ). */
     OS_Task_ListItem_TypeDef stEventListItem;     /*< Used to reference a task from an event list. */
 
-    uint32_t u32Priority; /*< The priority of the task.  0 is the lowest priority. */
+    uint32_t u32PriorityTask; /*< The priority of the task.  0 is the lowest priority. */
     uint32_t* pu32Stack;
     uint32_t* pu32EndOfStack;
     char pcTaskName[OS_TASK_MAX_TASK_NAME_LEN]; /*< Descriptive name given to the task when created.  Facilitates debugging only. */ /*lint !e971 Unqualified char types are allowed for strings and single characters only. */

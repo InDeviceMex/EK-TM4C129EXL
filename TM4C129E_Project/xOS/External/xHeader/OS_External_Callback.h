@@ -27,7 +27,7 @@
 
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
-void OS_External__vApplicationStackOverflowHook( OS_Task_Handle_TypeDef pvTask, char *pcTaskName );
+void OS_External__vApplicationStackOverflowHook( OS_Task_Handle_TypeDef pvTaskArg, char *pcTaskNameArg );
 void OS_External__vApplicationTickHook( void );
 
 

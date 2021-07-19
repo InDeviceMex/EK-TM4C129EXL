@@ -26,6 +26,9 @@
 #define XOS_ADAPT_OS_ADAPT_H_
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 #include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Scheduler.h>
 
 #endif /* XOS_ADAPT_OS_ADAPT_H_ */

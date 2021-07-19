@@ -32,6 +32,13 @@ typedef enum
     CDLinkedList_enSTATUS_ERROR
 }CDLinkedList_nSTATUS;
 
+
+typedef enum
+{
+    CDLinkedList_enSTATE_FALSE,
+    CDLinkedList_enSTATE_TRUE,
+}CDLinkedList_nSTATE;
+
 typedef struct CDLinkedListItem
 {
         void* pvDataContainer;

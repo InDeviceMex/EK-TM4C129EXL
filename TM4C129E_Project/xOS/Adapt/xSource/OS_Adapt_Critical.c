@@ -23,19 +23,21 @@
  */
 #include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
 
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
+
 static void OS_Adapt_Fault(void);
 
 static uint32_t u32CriticalNesting = 0xaaaaaaaa;
 
 void OS_Adapt__vEnterCritical(void)
 {
-    OS_ADAPT_DISABLE_INTERRUPTS();
+    OS_Adapt__vDisableInterrupts();
     u32CriticalNesting++;
 
 
     if(1UL == u32CriticalNesting)
     {
-        if(0UL != OS_ADAPT_IS_INTERRUPT_ACTIVE)
+        if(0UL != OS_Adapt__u32IsInterruptActive())
         {
             OS_Adapt_Fault();
         }
@@ -51,7 +53,7 @@ void OS_Adapt__vExitCritical(void)
         u32CriticalNesting--;
         if(0UL == u32CriticalNesting)
         {
-            OS_ADAPT_ENABLE_INTERRUPTS();
+            OS_Adapt__vEnableInterrupts();
         }
     }
 }
@@ -75,6 +77,6 @@ void OS_Adapt__vIncreaseCriticalNesting(void)
 
 static void OS_Adapt_Fault(void)
 {
-    OS_ADAPT_DISABLE_INTERRUPTS();
+    OS_Adapt__vDisableInterrupts();
     while(1UL){}
 }

@@ -23,11 +23,25 @@
  */
 #include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
 
-void OS_Adapt__vEndSwitchingISR( uint32_t u32SwitchRequired)
+#include <xDriver_MCU/Core/SCB/SCB.h>
+
+
+
+/* Store/clear the ready priorities in a bit map. */
+void OS_Adapt__vRecordReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32ReadyPriorities)
 {
-    if( u32SwitchRequired != 0UL )
-    {
-        OS_ADAPT_YIELD();
-    }
+    *pu32ReadyPriorities |= ((uint32_t) 1UL << (uint32_t)(u32Priority) );
 }
 
+
+void OS_Adapt__vResetReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32ReadyPriorities)
+{
+    *pu32ReadyPriorities &= ~((uint32_t) 1UL << (uint32_t)(u32Priority) );
+}
+
+/*-----------------------------------------------------------*/
+
+void OS_Adapt__vGetHighestPriority(uint32_t* pu32TopPriority, volatile uint32_t u32ReadyPriorities )
+{
+    *pu32TopPriority = ( 31UL - __clz((u32ReadyPriorities)));
+}

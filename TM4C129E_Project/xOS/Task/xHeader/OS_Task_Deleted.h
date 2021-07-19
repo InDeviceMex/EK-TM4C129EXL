@@ -25,6 +25,10 @@
 #ifndef XOS_TASK_XHEADER_OS_TASK_DELETED_H_
 #define XOS_TASK_XHEADER_OS_TASK_DELETED_H_
 
+#include <xOS/Task/xHeader/OS_Task_Defines.h>
+
+void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete);
+
 void OS_Task__vInitialiseDeletedTaskLists(void);
 void OS_Task__vCheckTasksWaitingTermination(void);
 

@@ -27,6 +27,6 @@
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
-uint32_t *OS_Adapt__p32InitialiseStack( uint32_t* pu32TopOfStack, void (*pfvThread)(void * pvParameters), void *pvParameters );
+uint32_t *OS_Adapt__p32InitialiseStack( uint32_t* pu32TopOfStackArg, void (*pfvThreadArg)(void * pvParameters), void *pvParametersArg );
 
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_STACK_H_ */

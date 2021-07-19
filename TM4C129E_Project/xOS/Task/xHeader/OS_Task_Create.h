@@ -27,7 +27,14 @@
 
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcName, const uint32_t u32StackDepth, void * const pvParametersArg, uint32_t u32Priority, OS_Task_Handle_TypeDef * const pvCreatedTask );
+void OS_Task__vYieldIfUsingPreemption(void);;
+uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcNameArg, const uint32_t u32StackDepthArg, void * const pvParametersArg, uint32_t u32PriorityArg, OS_Task_Handle_TypeDef * const pvCreatedTask );
+
 uint32_t OS_Task__u32GetCurrentNumberOfTasks(void);
+void OS_Task__vDecreaseCurrentNumberOfTasks(void);
+
+void OS_Task__vIncreaseTaskNumber(void);
+void OS_Task__vSetTaskNumber(uint32_t u32ValueArg);
+uint32_t OS_Task__u32GetTaskNumber(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_CREATE_H_ */

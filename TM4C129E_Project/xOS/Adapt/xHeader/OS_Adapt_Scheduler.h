@@ -27,6 +27,7 @@
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
-uint32_t OS_Adapt__u32PortStartScheduler( uint32_t u32UsPeriod );
+uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod );
+
 
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_ */

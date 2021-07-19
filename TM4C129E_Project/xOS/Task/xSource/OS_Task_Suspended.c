@@ -25,6 +25,7 @@
 
 #include <xOS/Task/xHeader/OS_Task_Defines.h>
 
+#include <xOS/Task/xHeader/OS_Task_Critical.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
@@ -88,7 +89,7 @@ static OS_Task_eStatus OS_Task__enTaskIsTaskSuspended( const OS_Task_Handle_Type
     return (enStatus);
 }
 
-void OS_Task__vTaskSuspendAll( void )
+void OS_Task__vSuspendAll( void )
 {
     /* A critical section is not required as the variable is of type
     uint32_t.  Please read Richard Barry's reply in the following link to a
@@ -97,7 +98,7 @@ void OS_Task__vTaskSuspendAll( void )
     OS_Task__vIncreaseSchedulerSuspended();
 }
 
-uint32_t OS_Task__u32TaskResumeAll(void)
+uint32_t OS_Task__u32ResumeAll(void)
 {
     OS_TASK_TCB *pstTCB;
     OS_TASK_TCB *pstCurrentTCB;
@@ -116,7 +117,7 @@ uint32_t OS_Task__u32TaskResumeAll(void)
         removed task will have been added to the stPendingReadyList.  Once the
         scheduler has been resumed it is safe to move all the pending ready
         tasks from this list into their appropriate ready list. */
-        OS_TASK_ENTER_CRITICAL();
+        OS_Task__vEnterCritical();
         {
             --u32SchedulerSuspended;
             OS_Task__vSetSchedulerSuspended(u32SchedulerSuspended);
@@ -139,7 +140,7 @@ uint32_t OS_Task__u32TaskResumeAll(void)
                         /* If the moved task has a priority higher than the current
                         task then a yield must be performed. */
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                        if( pstTCB->u32Priority >= pstCurrentTCB->u32Priority )
+                        if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
                         {
                             u32YieldPending = 1UL;
                         }
@@ -166,12 +167,12 @@ uint32_t OS_Task__u32TaskResumeAll(void)
                     if( u32YieldPending == 1UL )
                     {
                         u32AlreadyYielded = 1UL;
-                        OS_TASK_YIELD_IF_USING_PREEMPTION();
+                        OS_Task__vYieldIfUsingPreemption();
                     }
                 }
             }
         }
-        OS_TASK_EXIT_CRITICAL();
+        OS_Task__vExitCritical();
     }
 
     return u32AlreadyYielded;

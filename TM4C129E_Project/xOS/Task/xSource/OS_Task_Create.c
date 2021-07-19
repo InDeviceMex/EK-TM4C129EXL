@@ -27,6 +27,8 @@
 
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Stack.h>
+#include <xOS/Task/xHeader/OS_Task_Critical.h>
+#include <xOS/Task/xHeader/OS_Task_Interrupt.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_Delayed.h>
 #include <xOS/Task/xHeader/OS_Task_Deleted.h>
@@ -36,7 +38,6 @@
 
 #define OS_TASK_STACK_FILL_BYTE  (0xA5U)
 #define OS_TASK_IDLE_STACK_SIZE (100UL)
-#define OS_TASK_YIELD_IF_USING_PREEMPTION() OS_ADAPT_YIELD_WITHIN_API()
 
 
 #define OS_TASK_BLOCKED_CHAR     ('B')
@@ -52,13 +53,40 @@ static OS_Task_Handle_TypeDef pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;  
 static volatile uint32_t OS_Task_u32CurrentNumberOfTasks = 0UL;
 static uint32_t OS_Task_u32TaskNumber = 0UL;
 
+void OS_Task__vYieldIfUsingPreemption(void)
+{
+    OS_Task__vYieldWithinAPI();
+}
+
+
+uint32_t OS_Task__u32GetTaskNumber(void)
+{
+    return (OS_Task_u32TaskNumber);
+}
+
+void OS_Task__vSetTaskNumber(uint32_t u32ValueArg)
+{
+    OS_Task_u32TaskNumber = u32ValueArg;
+}
+
+void OS_Task__vIncreaseTaskNumber(void)
+{
+    ++OS_Task_u32TaskNumber;
+}
 
 uint32_t OS_Task__u32GetCurrentNumberOfTasks(void)
 {
     return (OS_Task_u32CurrentNumberOfTasks);
 }
 
-uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcName, const uint32_t u32StackDepth, void * const pvParametersArg, uint32_t u32Priority, OS_Task_Handle_TypeDef * const pvCreatedTask )
+void OS_Task__vDecreaseCurrentNumberOfTasks(void)
+{
+    --OS_Task_u32CurrentNumberOfTasks;
+}
+
+uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcNameArg,
+                                        const uint32_t u32StackDepthArg, void * const pvParametersArg, uint32_t u32PriorityArg,
+                                        OS_Task_Handle_TypeDef * const pvCreatedTask )
 {
     uint32_t u32Return = 1UL;
     OS_TASK_TCB * pstNewTCB;
@@ -67,15 +95,14 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
     uint32_t u32SchedulerRunning = 0UL;
     if(0UL != (uint32_t) pfvTaskCodeArg)
     {
-        if(OS_TASK_MAX_PRIORITIES > u32Priority)
+        if(OS_TASK_MAX_PRIORITIES > u32PriorityArg)
         {
             /* Allocate the memory required by the TCB and stack for the new task,
             checking that the allocation was successful. */
-            pstNewTCB = OS_Task__pstAllocateTCBAndStack(u32StackDepth);
+            pstNewTCB = OS_Task__pstAllocateTCBAndStack(u32StackDepthArg);
 
             if( 0UL != (uint32_t) pstNewTCB)
             {
-                pu32TopOfStackReg = pstNewTCB->pu32Stack;
 
                 /* Check the alignment of the stack buffer is correct. */
                 if(0UL == (OS_ADAPT_BYTE_ALIGNMENT_MASK & (uint32_t) pstNewTCB->pu32Stack))
@@ -85,11 +112,12 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                     a positive stack growth direction then we also need to store the
                     other extreme of the stack space. */
                     pstNewTCB->pu32EndOfStack = pstNewTCB->pu32Stack;
-                    pstNewTCB->pu32EndOfStack += u32StackDepth;
+                    pstNewTCB->pu32EndOfStack += u32StackDepthArg;
                     pstNewTCB->pu32EndOfStack -= 1UL;
 
+                    pu32TopOfStackReg = pstNewTCB->pu32EndOfStack;
                     /* Setup the newly allocated TCB with the initial state of the task. */
-                    OS_Task__vInitialiseTCBVariables( pstNewTCB, pcName, u32Priority);
+                    OS_Task__vInitialiseTCBVariables( pstNewTCB, pcNameArg, u32PriorityArg);
 
                     /* Initialize the TCB stack to look as if the task was already running,
                     but had been interrupted by the scheduler.  The return address is set
@@ -108,7 +136,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
 
                     /* Ensure interrupts don't access the task lists while they are being
                     updated. */
-                    OS_TASK_ENTER_CRITICAL();
+                    OS_Task__vEnterCritical();
                     {
                         OS_Task_u32CurrentNumberOfTasks++;
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
@@ -116,7 +144,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                         {
                             /* There are no other tasks, or all the other tasks are in
                             the suspended state - make this the current task. */
-                            pstCurrentTCB =  pstNewTCB;
+                            OS_Task__vSetCurrentTCB(pstNewTCB);
 
                             if(1UL == OS_Task_u32CurrentNumberOfTasks)
                             {
@@ -134,9 +162,9 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                             u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
                             if( 0UL == u32SchedulerRunning)
                             {
-                                if( pstCurrentTCB->u32Priority <= u32Priority )
+                                if( pstCurrentTCB->u32PriorityTask <= u32PriorityArg )
                                 {
-                                    pstCurrentTCB = pstNewTCB;
+                                    OS_Task__vSetCurrentTCB(pstNewTCB);
                                 }
                             }
                         }
@@ -145,14 +173,14 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
 
                         {
                             /* Add a counter into the TCB for tracing only. */
-                            pstNewTCB->u32TCBNumber = OS_Task_u32TaskNumber;
+                            pstNewTCB->u32TCBNumber = (uint32_t) OS_Task_u32TaskNumber;
                         }
 
                         OS_Task__vAddTaskToReadyList(pstNewTCB);
 
                         u32Return = 0UL;
                     }
-                    OS_TASK_EXIT_CRITICAL();
+                    OS_Task__vExitCritical();
                 }
                 else
                 {
@@ -166,9 +194,9 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                     {
                         /* If the created task is of a higher priority than the current task
                         then it should run now. */
-                        if( pstCurrentTCB->u32Priority < u32Priority )
+                        if( pstCurrentTCB->u32PriorityTask < u32PriorityArg )
                         {
-                            OS_TASK_YIELD_IF_USING_PREEMPTION();
+                            OS_Task__vYieldIfUsingPreemption();
                         }
                     }
                 }

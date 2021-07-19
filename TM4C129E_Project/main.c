@@ -27,103 +27,69 @@ void Task1(void* pvParams)
 {
     while(1UL)
     {
-        while( uartState != 0UL){}
-        {
-            uartState = 1UL;
-            UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK1 \n\r", 8UL);
-            uartState = 0UL;
-            SCB_SYSTICK__vSetPending();
-        }
     }
 }
 
 void Task2(void* pvParams)
 {
-
-    static uint32_t u32PinValue = (uint32_t) GPIO_enPIN_3;
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
-    u32PinValue ^= (uint32_t) GPIO_enPIN_3;
+    while(1UL)
+    {
+    }
 }
 
 void Task3(void* pvParams)
 {
-    uint32_t u32PinValue = (uint32_t) pvParams;
-    u32PinValue <<= 0UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, 0UL);
-        while( uartState != 0UL){}
-        {
-            uartState = 1UL;
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, GPIO_enPIN_0);
-            UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK3 \n\r", 8UL);
-            uartState = 0UL;
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, 0UL);
-            SCB_SYSTICK__vSetPending();
-        }
     }
 }
 
 void Task4(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
-    u32PinValue <<= 0UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOG0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        while( uartState != 0UL){}
-        {
-            uartState = 1UL;
-            UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
-            uartState = 0UL;
-            SCB_SYSTICK__vSetPending();
-        }
+        GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
+        u32PinValue ^= GPIO_enPIN_0;
+        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
+        OS_Task__vDelay(5UL);
     }
 }
 
 void Task5(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
-    u32PinValue <<= 4UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
-        while( uartState != 0UL){}
-        {
-            uartState = 1UL;
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
-            UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK5 \n\r", 8UL);
-            uartState = 0UL;
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
-            SCB_SYSTICK__vSetPending();
-        }
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
+        u32PinValue ^= GPIO_enPIN_3;
+        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK5 \n\r", 8UL);
+        OS_Task__vDelay(50UL);
     }
 }
 
 void Task6(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
-    u32PinValue <<= 4UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        while( uartState != 0UL){}
-        {
-            uartState = 1UL;
-            UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);
-            uartState = 0UL;
-            SCB_SYSTICK__vSetPending();
-        }
+        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
+        u32PinValue ^= GPIO_enPIN_2;
+        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);
+        OS_Task__vDelay(500UL);
     }
 }
 
 void Led2ON(void)
 {
+    /*
     static uint32_t u32PinValue = (uint32_t) GPIO_enPIN_2;
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
     u32PinValue ^= (uint32_t) GPIO_enPIN_2;
+    */
 }
 
 uint8_t pu8DMASourceBuffer[100UL] = {0UL};
@@ -172,8 +138,6 @@ uint32_t main(void)
 
     CDLinkedListItem_TypeDef stListMasterItems[10UL] ={0UL};
     uint32_t u32Value[10UL] = {0UL};
-    uint32_t u32Value2[10UL] = {0UL};
-    uint32_t* pu32Value[10UL] = {0UL};
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     EEPROM__enInit();
@@ -183,15 +147,13 @@ uint32_t main(void)
     UART__vInit();
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
 
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUart0Control, &enUart0LineControl, 115200UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
     TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0W, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vSetClockSource(TIMER_enT0W, TIMER_enCLOCK_SYSCLK);
@@ -255,16 +217,15 @@ uint32_t main(void)
     CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
     CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[0UL]);
     CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-/*
-    OS_Kernel__vInit();
-    OS_Kernel__CreateThread(&Task1, "Task 1", 200UL, (void*) 0UL, 0UL);
-    OS_Kernel__CreateThread(&Task3, "Task 3", 200UL, (void*) 0UL, 0UL);
-    OS_Kernel__CreateThread(&Task4, "Task 4", 200UL, (void*) 1UL, 0UL);
-    OS_Kernel__CreateThread(&Task5, "Task 5", 200UL, (void*) 0UL, 0UL);
-    OS_Kernel__CreateThread(&Task6, "Task 6", 200UL, (void*) 1UL, 0UL);
 
-    OS_Kernel__vLaunchMs(1000UL);
-    */
+    OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
+    OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 1UL, &TaskHandeler[0UL]);
+    OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[2UL]);
+    OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[3UL]);
+    OS_Task__u32TaskGenericCreate(&Task6, "Task 6", 300UL, (void*) 0UL, 5UL, &TaskHandeler[4UL]);
+
+    OS_Adapt__u32StartScheduler(1000UL);
     while(1UL)
     {
 

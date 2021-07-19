@@ -28,17 +28,22 @@
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 
 
-OS_TASK_TCB * volatile pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+OS_TASK_TCB *volatile OS_Task_pstCurrentTCB = (OS_TASK_TCB*) 0UL;
 
+
+OS_TASK_TCB *volatile * OS_Task__pstGetCurrentTCBAddress(void)
+{
+    return (&OS_Task_pstCurrentTCB);
+}
 
 OS_TASK_TCB* OS_Task__pstGetCurrentTCB(void)
 {
-    return (pstCurrentTCB);
+    return (OS_Task_pstCurrentTCB);
 }
 
 void OS_Task__vSetCurrentTCB(OS_TASK_TCB* pstNewTCB)
 {
-    pstCurrentTCB = pstNewTCB;
+    OS_Task_pstCurrentTCB = pstNewTCB;
 }
 
 OS_Task_Handle_TypeDef OS_Task__pvGetCurrentTaskHandle(void)
@@ -48,7 +53,7 @@ OS_Task_Handle_TypeDef OS_Task__pvGetCurrentTaskHandle(void)
     /* A critical section is not required as this is not called from
     an interrupt and the current TCB will always be the same for any
     individual execution thread. */
-    pvReturn = pstCurrentTCB;
+    pvReturn = OS_Task_pstCurrentTCB;
 
     return pvReturn;
 }
@@ -58,7 +63,7 @@ OS_TASK_TCB* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandle)
     OS_TASK_TCB* osTCBReg = (OS_TASK_TCB*) 0UL;
     if(0UL == (uint32_t) pxHandle)
     {
-        osTCBReg = pstCurrentTCB;
+        osTCBReg = OS_Task_pstCurrentTCB;
     }
     else
     {
@@ -111,22 +116,23 @@ OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
 }
 
 
-void OS_Task__DeleteTCB(OS_TASK_TCB* pstTCB)
+void OS_Task__vDeleteTCB(OS_TASK_TCB* pstTCB)
 {
     /**TODO: check is task suspend need to be called here*/
 
-    OS_Task__vTaskSuspendAll();
+    OS_Task__vSuspendAll();
     free(pstTCB->pu32Stack);
     free(pstTCB);
-    OS_Task__u32TaskResumeAll();
+    OS_Task__u32ResumeAll();
 }
 
 
-static void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
+void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
                                        uint32_t u32PriorityArg)
 {
     uint32_t u32Count = 0UL;
     char* pcNamePointer = (char*) 0UL;
+    CDLinkedListItem_TypeDef* stListItemReg = (CDLinkedListItem_TypeDef*) 0UL;
 
     pcNamePointer = pstTCB->pcTaskName;
     while((0U != (uint8_t) *pcTaskNameArg) && (u32Count < (OS_TASK_MAX_TASK_NAME_LEN - 1UL) ))
@@ -142,40 +148,48 @@ static void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const 
     {
         u32PriorityArg = OS_TASK_MAX_PRIORITIES;
     }
-    pstTCB->u32Priority = (uint32_t) u32PriorityArg;
+    pstTCB->u32PriorityTask = (uint32_t) u32PriorityArg;
 
 
-    pstTCB->u32BasePriority = u32PriorityArg;
+    pstTCB->u32BasePriority = (uint32_t) u32PriorityArg;
     pstTCB->u32MutexesHeld = 0UL;
 
-    CDLinkedList_Item__vSetOwnerList(&(pstTCB->stGenericListItem), 0UL);
-    CDLinkedList_Item__vSetOwnerList(&(pstTCB->stEventListItem), 0UL);
+    CDLinkedList_Item__vSetOwnerList(&(pstTCB->stGenericListItem), ( void*) 0UL);
+    CDLinkedList_Item__vSetOwnerList(&(pstTCB->stEventListItem), ( void*) 0UL);
 
     /* Set the pstTCB as a link back from the ListItem_t.  This is so we can get
     back to the containing TCB from a generic item in a list. */
-    CDLinkedList_Item__vSetData(&(pstTCB->stGenericListItem), pstTCB);
+    stListItemReg = &(pstTCB->stGenericListItem);
+    CDLinkedList_Item__vSetData(stListItemReg, ( void*) pstTCB);
 
     /* Event lists are always in priority order. */
-    CDLinkedList_Item__vSetValue(&(pstTCB->stEventListItem), (uint32_t) OS_TASK_MAX_PRIORITIES - ( uint32_t ) u32PriorityArg);
-    CDLinkedList_Item__vSetData(&(pstTCB->stEventListItem), pstTCB);
+    stListItemReg = &(pstTCB->stEventListItem);
+    CDLinkedList_Item__vSetValue(stListItemReg, (uint32_t) OS_TASK_MAX_PRIORITIES - ( uint32_t ) u32PriorityArg);
+    CDLinkedList_Item__vSetData(stListItemReg, pstTCB);
 
     pstTCB->u32CriticalNesting = 0UL;
 
-    for( u32Count = 0; u32Count < (uint32_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS; u32Count++ )
+    for( u32Count = 0UL; u32Count < (uint32_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS; u32Count++ )
     {
-        pstTCB->pvThreadLocalStoragePointers[ u32Count ] = NULL;
+        pstTCB->pvThreadLocalStoragePointers[ u32Count ] = (void*) 0UL;
     }
 
-        pstTCB->u32NotifiedValue = 0;
+        pstTCB->u32NotifiedValue = 0UL;
         pstTCB->enNotifyState = OS_Task_enNotifyValue_NotWaitingNotification;
 }
 
 void OS_Task__vCheckStackOverflow(void)
 {
+    volatile uint32_t* pu32TopOfStackReg =  (uint32_t*) 0UL;
+    uint32_t* pu32StackReg = (uint32_t*) 0UL;
+    char* pcCurrentTCBName = (char*) 0UL;
     /* Is the currently saved stack pointer within the stack limit? */
-    if( pstCurrentTCB->pu32TopOfStack <= pstCurrentTCB->pu32Stack )
+    pu32TopOfStackReg = OS_Task_pstCurrentTCB->pu32TopOfStack;
+    pu32StackReg = OS_Task_pstCurrentTCB->pu32Stack;
+    if( pu32TopOfStackReg <= pu32StackReg )
     {
-        OS_External__vApplicationStackOverflowHook( ( OS_Task_Handle_TypeDef ) pstCurrentTCB, pstCurrentTCB->pcTaskName );
+        pcCurrentTCBName = OS_Task_pstCurrentTCB->pcTaskName;
+        OS_External__vApplicationStackOverflowHook( ( OS_Task_Handle_TypeDef ) OS_Task_pstCurrentTCB, pcCurrentTCBName );
     }
 }
 
