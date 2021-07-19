@@ -58,8 +58,7 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         This will stop the task from be scheduled.  The idle task will check
         the termination list and free up any memory allocated by the
         scheduler for the TCB and stack. */
-
-        pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstCurrentTCB->stGenericListItem));
+        pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
         CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
         u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
         if( 0UL == u32ListSize )

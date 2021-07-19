@@ -33,7 +33,7 @@ void OS_Task__vEnterCritical(void)
 
 void OS_Task__vEnterCriticalFromISR(void)
 {
-    OS_Adapt__vSetInterruptMaskFromISR();
+    OS_Adapt__u32SetInterruptMaskFromISR();
 }
 
 void OS_Task__vExitCritical(void)

@@ -37,7 +37,6 @@
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 #define OS_TASK_STACK_FILL_BYTE  (0xA5U)
-#define OS_TASK_IDLE_STACK_SIZE (100UL)
 
 
 #define OS_TASK_BLOCKED_CHAR     ('B')
@@ -46,8 +45,6 @@
 #define OS_TASK_SUSPENDED_CHAR   ('S')
 
 static void OS_Task__vInitialiseTaskLists( void );
-
-static OS_Task_Handle_TypeDef pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;         /*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
 
 /* Other file private variables. --------------------------------*/
 static volatile uint32_t OS_Task_u32CurrentNumberOfTasks = 0UL;
@@ -178,7 +175,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
 
                         OS_Task__vAddTaskToReadyList(pstNewTCB);
 
-                        u32Return = 0UL;
+                        u32Return = 1UL;
                     }
                     OS_Task__vExitCritical();
                 }
@@ -187,7 +184,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                     u32Return = 2UL;
                 }
 
-                if( u32Return == 0UL )
+                if( u32Return == 1UL )
                 {
                     u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
                     if( 0UL != u32SchedulerRunning)

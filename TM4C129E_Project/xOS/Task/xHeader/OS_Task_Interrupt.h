@@ -34,7 +34,7 @@ void OS_Task__vEndSwitchingISR( uint32_t u32SwitchRequired);
 void OS_Task__vDisableInterrupts(void);
 void OS_Task__vEnableInterrupts(void);
 uint32_t OS_Task__u32IsInterruptActive(void);
-void OS_Task__vSetInterruptMaskFromISR(void);
+uint32_t OS_Task__u32SetInterruptMaskFromISR(void);
 void OS_Task__vClearInterruptMaskFromISR(uint32_t u32Mask);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_INTERRUPT_H_ */

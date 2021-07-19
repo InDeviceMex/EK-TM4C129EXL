@@ -13,36 +13,12 @@
 
 uint32_t main(void);
 
-void Task1(void* pvParams);
-void Task2(void* pvParams);
-void Task3(void* pvParams);
 void Task4(void* pvParams);
 void Task5(void* pvParams);
 void Task6(void* pvParams);
 void Led2ON(void);
 
 volatile uint32_t uartState= 0;
-
-void Task1(void* pvParams)
-{
-    while(1UL)
-    {
-    }
-}
-
-void Task2(void* pvParams)
-{
-    while(1UL)
-    {
-    }
-}
-
-void Task3(void* pvParams)
-{
-    while(1UL)
-    {
-    }
-}
 
 void Task4(void* pvParams)
 {
@@ -53,7 +29,7 @@ void Task4(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
-        OS_Task__vDelay(5UL);
+        OS_Task__vDelay(50UL);
     }
 }
 
@@ -66,7 +42,7 @@ void Task5(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK5 \n\r", 8UL);
-        OS_Task__vDelay(50UL);
+        OS_Task__vDelay(100UL);
     }
 }
 
@@ -79,7 +55,7 @@ void Task6(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
         u32PinValue ^= GPIO_enPIN_2;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);
-        OS_Task__vDelay(500UL);
+        OS_Task__vDelay(200UL);
     }
 }
 
@@ -163,69 +139,11 @@ uint32_t main(void)
     TIMER__enSetMode_ReloadMatch(TIMER_enT0W, TIMER_enMODE_PERIODIC_WIDE_DOWN, 30000000UL - 1UL, 0UL);
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
-    CDLinkedList_Item__vSetValue(&stListMasterItems[0UL], 0UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[1UL], 10UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[2UL], 20UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[3UL], 30UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[4UL], 40UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[5UL], 50UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[6UL], 50UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[7UL], 70UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[8UL], 80UL);
-    CDLinkedList_Item__vSetValue(&stListMasterItems[9UL], 90UL);
-
-    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[7UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[8UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertNextLastItemRead(&stListMaster, &stListMasterItems[5UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[5UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[4UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[3UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[1UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[2UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[6UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[9UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-    CDLinkedList__enInsertInDescendingOrderByValue(&stListMaster, &stListMasterItems[0UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster, u32Value, 10UL);
-
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[7UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[8UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[5UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[4UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[3UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[1UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[2UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[6UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[9UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-    CDLinkedList__enInsertInAscendingOrderByValue(&stListMaster2, &stListMasterItems[0UL]);
-    CDLinkedList__u32GetAllItem_Value(&stListMaster2, u32Value, 10UL);
-
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 1UL, &TaskHandeler[0UL]);
-    OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[3UL]);
     OS_Task__u32TaskGenericCreate(&Task6, "Task 6", 300UL, (void*) 0UL, 5UL, &TaskHandeler[4UL]);
-
-    OS_Adapt__u32StartScheduler(1000UL);
+    OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {
 

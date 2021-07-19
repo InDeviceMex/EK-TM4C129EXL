@@ -68,9 +68,11 @@ uint32_t OS_Adapt__u32IsInterruptActive(void)
     return (u32InterruptActive);
 }
 
-void OS_Adapt__vSetInterruptMaskFromISR(void)
+uint32_t OS_Adapt__u32SetInterruptMaskFromISR(void)
 {
-    MCU__enSetBasePriorityInterrupt((MCU_nPRIORITY) OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY);
+    uint32_t u32Interrupt = 0UL;
+    u32Interrupt = (uint32_t) MCU__enSetBasePriorityInterrupt((MCU_nPRIORITY) OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY);
+    return (u32Interrupt);
 }
 
 

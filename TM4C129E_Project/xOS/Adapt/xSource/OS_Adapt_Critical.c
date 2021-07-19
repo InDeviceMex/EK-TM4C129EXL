@@ -27,15 +27,15 @@
 
 static void OS_Adapt_Fault(void);
 
-static uint32_t u32CriticalNesting = 0xaaaaaaaa;
+static uint32_t OS_Adapt_u32CriticalNesting = 0xaaaaaaaa;
 
 void OS_Adapt__vEnterCritical(void)
 {
     OS_Adapt__vDisableInterrupts();
-    u32CriticalNesting++;
+    OS_Adapt_u32CriticalNesting++;
 
 
-    if(1UL == u32CriticalNesting)
+    if(1UL == OS_Adapt_u32CriticalNesting)
     {
         if(0UL != OS_Adapt__u32IsInterruptActive())
         {
@@ -48,10 +48,10 @@ void OS_Adapt__vEnterCritical(void)
 
 void OS_Adapt__vExitCritical(void)
 {
-    if(0UL != u32CriticalNesting)
+    if(0UL != OS_Adapt_u32CriticalNesting)
     {
-        u32CriticalNesting--;
-        if(0UL == u32CriticalNesting)
+        OS_Adapt_u32CriticalNesting--;
+        if(0UL == OS_Adapt_u32CriticalNesting)
         {
             OS_Adapt__vEnableInterrupts();
         }
@@ -61,17 +61,17 @@ void OS_Adapt__vExitCritical(void)
 
 uint32_t OS_Adapt__u32GetCriticalNesting(void)
 {
-    return (u32CriticalNesting);
+    return (OS_Adapt_u32CriticalNesting);
 }
 
 void OS_Adapt__vSetCriticalNesting(uint32_t u32NestingValue)
 {
-    u32CriticalNesting = u32NestingValue;
+    OS_Adapt_u32CriticalNesting = u32NestingValue;
 }
 
 void OS_Adapt__vIncreaseCriticalNesting(void)
 {
-    u32CriticalNesting++;
+    OS_Adapt_u32CriticalNesting++;
 }
 
 

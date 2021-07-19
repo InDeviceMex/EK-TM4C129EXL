@@ -33,4 +33,8 @@ void OS_Task__vRecordReadyPriority(uint32_t u32PriorityArg);
 void OS_Task__vClearReadyPriority(uint32_t u32PriorityArg);
 uint32_t OS_Task__u32GetHighestPriority(void);
 
+uint32_t OS_Task__u32PriorityGet(OS_Task_Handle_TypeDef psTaskArg);
+uint32_t OS_Task__u32PriorityGetFromISR(OS_Task_Handle_TypeDef psTaskArg);
+void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPriority);
+
 #endif /* XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_ */

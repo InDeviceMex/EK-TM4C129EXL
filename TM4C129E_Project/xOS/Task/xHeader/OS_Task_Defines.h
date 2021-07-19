@@ -29,6 +29,9 @@
 #include <xOS/Task/xHeader/OS_Task_Enum.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/CircularDoubleLinkedList.h>
 
+#define OS_TASK_MINIMAL_STACK_SIZE (100UL)
+
+#define OS_TASK_IDLE_STACK_SIZE OS_TASK_MINIMAL_STACK_SIZE
 
 #define OS_TASK_IDLE_PRIORITY    ((uint32_t) 0UL)
 
@@ -39,6 +42,8 @@
 
 
 #define OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE    (0x80000000UL)
+
+#define OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP (10UL)
 
 typedef void * OS_Task_Handle_TypeDef;
 

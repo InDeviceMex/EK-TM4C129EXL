@@ -28,6 +28,6 @@
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod );
-
+void OS_Adapt__vEndScheduler(void);
 
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_ */

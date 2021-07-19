@@ -62,9 +62,9 @@ uint32_t OS_Task__u32IsInterruptActive(void)
     return u32IrqActive;
 }
 
-void OS_Task__vSetInterruptMaskFromISR(void)
+uint32_t OS_Task__u32SetInterruptMaskFromISR(void)
 {
-    OS_Adapt__vSetInterruptMaskFromISR();
+    return (OS_Adapt__u32SetInterruptMaskFromISR());
 }
 
 

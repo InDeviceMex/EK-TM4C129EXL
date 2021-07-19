@@ -35,3 +35,7 @@ void OS_External__vApplicationTickHook( void )
 
 }
 
+void OS_External__vApplicationIdleHook( void )
+{
+
+}

@@ -38,4 +38,8 @@ void OS_Task__vIncreasePendedTicks(void);
 uint32_t OS_Task__u32GetYieldPending(void);
 void OS_Task__vSetYieldPending(uint32_t s32ValueArg);
 
+void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend);
+void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume);
+uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume);
+
 #endif /* XOS_TASK_XHEADER_OS_TASK_SUSPENDED_H_ */

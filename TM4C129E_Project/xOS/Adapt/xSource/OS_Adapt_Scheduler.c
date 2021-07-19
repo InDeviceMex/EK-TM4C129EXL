@@ -153,7 +153,7 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
     "   dsb                                 \n"
     "   isb                                 \n");}
 
-    OS_Task__vTaskSwitchContext();
+    OS_Task__vSwitchContext();
 
     { __asm volatile
     (
@@ -188,7 +188,7 @@ static void OS_Adapt_vSysTickHandler( void )
     executes all interrupts must be unmasked.  There is therefore no need to
     save and then restore the interrupt mask value as its value is already
     known. */
-    ( void ) OS_Adapt__vSetInterruptMaskFromISR();
+    ( void ) OS_Adapt__u32SetInterruptMaskFromISR();
     {
         /* Increment the RTOS tick. */
         u32Status = OS_Task__u32TaskIncrementTick();
@@ -200,5 +200,18 @@ static void OS_Adapt_vSysTickHandler( void )
         }
     }
     OS_Adapt__vClearInterruptMaskFromISR(0UL);
+}
+
+void OS_Adapt__vEndScheduler(void)
+{
+    uint32_t u32CriticalNestingReg = 0UL;
+    /* Not implemented in ports where there is nothing to return to.
+    Artificially force an assert. */
+    u32CriticalNestingReg = OS_Adapt__u32GetCriticalNesting();
+    if(1000UL != u32CriticalNestingReg)
+    {
+        OS_Adapt__vDisableInterrupts();
+        while(1UL);
+    }
 }
 

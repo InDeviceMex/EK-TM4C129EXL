@@ -36,6 +36,6 @@ void OS_Adapt__vDisableInterrupts(void);
 void OS_Adapt__vEnableInterrupts(void);
 uint32_t OS_Adapt__u32IsInterruptActive(void);
 void OS_Adapt__vClearInterruptMaskFromISR(uint32_t u32Mask);
-void OS_Adapt__vSetInterruptMaskFromISR(void);
+uint32_t OS_Adapt__u32SetInterruptMaskFromISR(void);
 
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_INTERRUPT_H_ */

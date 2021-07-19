@@ -41,6 +41,9 @@ void OS_Task__vIncreaseSchedulerRunning(void);
 uint32_t OS_Task__u32TaskIncrementTick(void);
 
 
-void OS_Task__vTaskSwitchContext(void);
+void OS_Task__vSwitchContext(void);
+
+void OS_Task__vStartScheduler(uint32_t u32UsPeriod);
+void OS_Task__vEndScheduler( void );
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_SCHEDULER_H_ */
