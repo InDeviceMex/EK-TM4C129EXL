@@ -39,8 +39,8 @@ static void OS_Task__vIdle(void* pvParameters);
 
 static OS_Task_Handle_TypeDef OS_Task_pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;         /*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
 
-static volatile uint32_t u32SchedulerSuspended = 0UL;
-static volatile uint32_t u32SchedulerRunning = 0;
+static volatile uint32_t OS_Task_u32SchedulerSuspended = 0UL;
+static volatile uint32_t OS_Task_u32SchedulerRunning = 0;
 
 static volatile uint32_t OS_Task_u32TickCount = 0UL;
 
@@ -62,34 +62,34 @@ void OS_Task__vSetTickCount(uint32_t u32ValueArg)
 
 uint32_t OS_Task__u32GetSchedulerSuspended(void)
 {
-    return (u32SchedulerSuspended);
+    return (OS_Task_u32SchedulerSuspended);
 }
 
 void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg)
 {
-    u32SchedulerSuspended = u32ValueArg;
+    OS_Task_u32SchedulerSuspended = u32ValueArg;
 }
 
 
 void OS_Task__vIncreaseSchedulerSuspended(void)
 {
-    ++u32SchedulerSuspended;
+    ++OS_Task_u32SchedulerSuspended;
 }
 
 uint32_t OS_Task__u32GetSchedulerRunning(void)
 {
-    return (u32SchedulerRunning);
+    return (OS_Task_u32SchedulerRunning);
 }
 
 void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg)
 {
-    u32SchedulerRunning = u32ValueArg;
+    OS_Task_u32SchedulerRunning = u32ValueArg;
 }
 
 
 void OS_Task__vIncreaseSchedulerRunning(void)
 {
-    ++u32SchedulerRunning;
+    ++OS_Task_u32SchedulerRunning;
 }
 
 uint32_t OS_Task__u32TaskIncrementTick( void )
@@ -110,7 +110,7 @@ uint32_t OS_Task__u32TaskIncrementTick( void )
     /* Called by the portable layer each time a tick interrupt occurs.
     Increments the tick then checks to see if the new tick value will cause any
     tasks to be unblocked. */
-    if( u32SchedulerSuspended == ( uint32_t ) 0UL )
+    if( OS_Task_u32SchedulerSuspended == ( uint32_t ) 0UL )
     {
         /* Increment the RTOS tick, switching the delayed and overflowed
         delayed lists if it wraps to 0. */
@@ -249,7 +249,7 @@ uint32_t OS_Task__u32TaskIncrementTick( void )
 
 void OS_Task__vSwitchContext(void)
 {
-    if(0UL != u32SchedulerSuspended)
+    if(0UL != OS_Task_u32SchedulerSuspended)
     {
         /* The scheduler is currently suspended - do not allow a context
         switch. */

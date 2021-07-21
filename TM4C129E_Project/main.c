@@ -29,7 +29,7 @@ void Task4(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
-        OS_Task__vDelay(50UL);
+        OS_Task__vDelay(5000UL);
     }
 }
 
@@ -42,7 +42,7 @@ void Task5(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK5 \n\r", 8UL);
-        OS_Task__vDelay(100UL);
+        OS_Task__vDelay(10000UL);
     }
 }
 
@@ -55,7 +55,7 @@ void Task6(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
         u32PinValue ^= GPIO_enPIN_2;
         UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);
-        OS_Task__vDelay(200UL);
+        OS_Task__vDelay(20000UL);
     }
 }
 
@@ -108,12 +108,6 @@ uint32_t main(void)
      UART_enLINE_SELECT_PRIMARY,
      UART_enLINE_SELECT_PRIMARY,
     };
-
-    CDLinkedList_TypeDef stListMaster ={0UL};
-    CDLinkedList_TypeDef stListMaster2 ={0UL};
-
-    CDLinkedListItem_TypeDef stListMasterItems[10UL] ={0UL};
-    uint32_t u32Value[10UL] = {0UL};
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     EEPROM__enInit();
