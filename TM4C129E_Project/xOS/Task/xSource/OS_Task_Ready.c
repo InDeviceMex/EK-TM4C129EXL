@@ -23,22 +23,7 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 
-#include <xOS/Task/xHeader/OS_Task_Priority.h>
-#include <xOS/Task/xHeader/OS_Task_TCB.h>
-
-static OS_Task_List_Typedef pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];/*< Prioritised ready tasks. */
-
-
-OS_Task_List_Typedef* OS_Task__pstGetReadyTasksLists(uint32_t u32Index)
-{
-    OS_Task_List_Typedef* pstReadyTaskReg = (OS_Task_List_Typedef*) 0UL;
-    if(OS_TASK_MAX_PRIORITIES > u32Index)
-    {
-        pstReadyTaskReg = &pstReadyTasksLists[u32Index];
-    }
-
-    return (pstReadyTaskReg);
-}
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
 void OS_Task__vSelectHighestPriorityTask(void)
 {
@@ -92,17 +77,4 @@ void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg)
         }
     }
 }
-
-
-void OS_Task__vInitialiseReadyTaskLists(void)
-{
-    uint32_t u32PriorityReg = 0UL;
-
-    for( u32PriorityReg = ( uint32_t ) 0U; u32PriorityReg < ( uint32_t ) OS_TASK_MAX_PRIORITIES; u32PriorityReg++ )
-    {
-        CDLinkedList__enInit( &(pstReadyTasksLists[u32PriorityReg]), (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
-    }
-}
-
-
 

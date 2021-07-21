@@ -28,6 +28,7 @@
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Core/FPU/FPU.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 

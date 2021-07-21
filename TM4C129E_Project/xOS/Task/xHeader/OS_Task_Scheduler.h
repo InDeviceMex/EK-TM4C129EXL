@@ -25,24 +25,11 @@
 #ifndef XOS_TASK_XHEADER_OS_TASK_SCHEDULER_H_
 #define XOS_TASK_XHEADER_OS_TASK_SCHEDULER_H_
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSetTickCount(uint32_t u32ValueArg);
 uint32_t OS_Task__u32GetTickCount(void);
-
-uint32_t OS_Task__u32GetSchedulerSuspended(void);
-void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg);
-void OS_Task__vIncreaseSchedulerSuspended(void);
-
-uint32_t OS_Task__u32GetSchedulerRunning(void);
-void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg);
-void OS_Task__vIncreaseSchedulerRunning(void);
-
 uint32_t OS_Task__u32TaskIncrementTick(void);
-
-
 void OS_Task__vSwitchContext(void);
-
 void OS_Task__vStartScheduler(uint32_t u32UsPeriod);
 void OS_Task__vEndScheduler( void );
 

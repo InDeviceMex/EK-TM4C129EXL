@@ -23,18 +23,10 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Create.h>
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
-
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Stack.h>
-#include <xOS/Task/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/xHeader/OS_Task_Interrupt.h>
-#include <xOS/Task/xHeader/OS_Task_Scheduler.h>
-#include <xOS/Task/xHeader/OS_Task_Delayed.h>
-#include <xOS/Task/xHeader/OS_Task_Deleted.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
-#include <xOS/Task/xHeader/OS_Task_Suspended.h>
-#include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 #define OS_TASK_STACK_FILL_BYTE  (0xA5U)
 
@@ -46,50 +38,18 @@
 
 static void OS_Task__vInitialiseTaskLists( void );
 
-/* Other file private variables. --------------------------------*/
-static volatile uint32_t OS_Task_u32CurrentNumberOfTasks = 0UL;
-static uint32_t OS_Task_u32TaskNumber = 0UL;
-
-void OS_Task__vYieldIfUsingPreemption(void)
-{
-    OS_Task__vYieldWithinAPI();
-}
-
-
-uint32_t OS_Task__u32GetTaskNumber(void)
-{
-    return (OS_Task_u32TaskNumber);
-}
-
-void OS_Task__vSetTaskNumber(uint32_t u32ValueArg)
-{
-    OS_Task_u32TaskNumber = u32ValueArg;
-}
-
-void OS_Task__vIncreaseTaskNumber(void)
-{
-    ++OS_Task_u32TaskNumber;
-}
-
-uint32_t OS_Task__u32GetCurrentNumberOfTasks(void)
-{
-    return (OS_Task_u32CurrentNumberOfTasks);
-}
-
-void OS_Task__vDecreaseCurrentNumberOfTasks(void)
-{
-    --OS_Task_u32CurrentNumberOfTasks;
-}
 
 uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcNameArg,
                                         const uint32_t u32StackDepthArg, void * const pvParametersArg, uint32_t u32PriorityArg,
                                         OS_Task_Handle_TypeDef * const pvCreatedTask )
 {
     uint32_t u32Return = 1UL;
-    OS_TASK_TCB * pstNewTCB;
-    OS_TASK_TCB * pstCurrentTCB;
-    uint32_t *pu32TopOfStackReg;
+    OS_TASK_TCB * pstNewTCB = (OS_TASK_TCB*) 0UL;
+    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+    uint32_t *pu32TopOfStackReg = (uint32_t*) 0UL;
     uint32_t u32SchedulerRunning = 0UL;
+    uint32_t u32CurrentNumberOfTask = 0UL;
+
     if(0UL != (uint32_t) pfvTaskCodeArg)
     {
         if(OS_TASK_MAX_PRIORITIES > u32PriorityArg)
@@ -135,15 +95,15 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                     updated. */
                     OS_Task__vEnterCritical();
                     {
-                        OS_Task_u32CurrentNumberOfTasks++;
+                        OS_Task__vIncreaseCurrentNumberOfTasks();
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                         if( 0UL == (uint32_t) pstCurrentTCB )
                         {
                             /* There are no other tasks, or all the other tasks are in
                             the suspended state - make this the current task. */
                             OS_Task__vSetCurrentTCB(pstNewTCB);
-
-                            if(1UL == OS_Task_u32CurrentNumberOfTasks)
+                            u32CurrentNumberOfTask = OS_Task__u32GetCurrentNumberOfTasks();
+                            if(1UL == u32CurrentNumberOfTask)
                             {
                                 /* This is the first task to be created so do the preliminary
                                 initialisation required.  We will not recover if this call
@@ -165,12 +125,11 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                                 }
                             }
                         }
-
-                        OS_Task_u32TaskNumber++;
+                        OS_Task__vIncreaseTaskNumber();
 
                         {
                             /* Add a counter into the TCB for tracing only. */
-                            pstNewTCB->u32TCBNumber = (uint32_t) OS_Task_u32TaskNumber;
+                            pstNewTCB->u32TCBNumber = (uint32_t) OS_Task__u32GetTaskNumber();
                         }
 
                         OS_Task__vAddTaskToReadyList(pstNewTCB);

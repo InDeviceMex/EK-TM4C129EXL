@@ -23,8 +23,7 @@
  */
 #include <xOS/External/xHeader/OS_External_Callback.h>
 
-
-void OS_External__vApplicationStackOverflowHook( OS_Task_Handle_TypeDef pvTaskArg, char *pcTaskNameArg )
+void OS_External__vApplicationStackOverflowHook( void* pvTaskArg, char *pcTaskNameArg )
 {
     (void) pvTaskArg;
     (void) (pcTaskNameArg);

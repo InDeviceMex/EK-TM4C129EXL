@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 15 jul. 2021 @endverbatim
+ * @verbatim 20 jul. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,30 +19,26 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 20 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_XHEADER_OS_TASK_DEFINES_H_
-#define XOS_TASK_XHEADER_OS_TASK_DEFINES_H_
+#ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_
+#define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_
 
 #include <xOS/Adapt/OS_Adapt.h>
-#include <xOS/Task/xHeader/OS_Task_Enum.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Enum.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/CircularDoubleLinkedList.h>
 
 #define OS_TASK_MINIMAL_STACK_SIZE (100UL)
-
 #define OS_TASK_IDLE_STACK_SIZE OS_TASK_MINIMAL_STACK_SIZE
-
 #define OS_TASK_IDLE_PRIORITY    ((uint32_t) 0UL)
 
 #define OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS (2UL)
 #define OS_TASK_MAX_TASK_NAME_LEN (20UL)
-
 #define OS_TASK_MAX_PRIORITIES (20UL)
 
 
 #define OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE    (0x80000000UL)
-
 #define OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP (10UL)
 
 typedef void * OS_Task_Handle_TypeDef;
@@ -71,8 +67,6 @@ typedef struct
     uint32_t u32StackHighWaterMark;  /* The minimum amount of stack space that has remained for the task since the task was created.  The closer this value is to zero the closer the task has come to overflowing its stack. */
 } OS_Task_Status_TypeDef;
 
-
-
 typedef struct
 {
     volatile uint32_t* pu32TopOfStack;
@@ -93,4 +87,4 @@ typedef struct
     volatile OS_Task_eNotifyValue enNotifyState;
 } OS_TASK_TCB;
 
-#endif /* XOS_TASK_XHEADER_OS_TASK_DEFINES_H_ */
+#endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_ */

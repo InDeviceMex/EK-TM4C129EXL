@@ -25,22 +25,11 @@
 #ifndef XOS_TASK_XHEADER_OS_TASK_DELAYED_H_
 #define XOS_TASK_XHEADER_OS_TASK_DELAYED_H_
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vDelayUntil( uint32_t * const pu32PreviousWakeTime, const uint32_t u32TimeIncrement );
 void OS_Task__vDelay(const uint32_t u32TicksToDelay);
-
-void OS_Task__vResetNextTaskUnblockTime(void);
-
+void OS_Task__vDelayUntil( uint32_t * const pu32PreviousWakeTime, const uint32_t u32TimeIncrement );
 void OS_Task__vAddCurrentTaskToDelayedList(const uint32_t u32TimeToWake);
 
-void OS_Task__vSwitchDelayedLists(void);
-void OS_Task__vInitialiseDelayedTaskLists(void);
-
-OS_Task_List_Typedef* OS_Task__pstGetDelayedTaskListPointer(void);
-
-/**TODO: check if this getter and setter need to be here*/
-uint32_t OS_Task__u32GetNextTaskUnblockTime(void);
-void OS_Task__vSetNextTaskUnblockTime(uint32_t u32ValueArg);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_DELAYED_H_ */

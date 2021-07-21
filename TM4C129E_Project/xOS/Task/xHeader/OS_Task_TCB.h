@@ -25,22 +25,8 @@
 #ifndef XOS_TASK_XHEADER_OS_TASK_TCB_H_
 #define XOS_TASK_XHEADER_OS_TASK_TCB_H_
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
-
-void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * pcTaskNameArg,
-                                       uint32_t u32PriorityArg);
-OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth);
-
-OS_TASK_TCB *volatile * OS_Task__pstGetCurrentTCBAddress(void);
-OS_TASK_TCB* OS_Task__pstGetCurrentTCB(void);
-void OS_Task__vSetCurrentTCB(OS_TASK_TCB* pstNewTCB);
-
-OS_Task_Handle_TypeDef OS_Task__pvGetCurrentTaskHandle(void);
-
-OS_TASK_TCB* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandle);
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
 void OS_Task__vDeleteTCB(OS_TASK_TCB* pstTCB);
-
-void OS_Task__vCheckStackOverflow(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_TCB_H_ */

@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 15 jul. 2021 @endverbatim
+ * @verbatim 20 jul. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,18 +19,18 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 20 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_XHEADER_OS_TASK_ENUM_H_
-#define XOS_TASK_XHEADER_OS_TASK_ENUM_H_
+#ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
+#define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
 
 #include <xUtils/Standard/Standard.h>
 
 typedef enum
 {
-    OS_Task_enStatus_Ok = 0UL,   /* A task is querying the state of itself, so must be running. */
-    OS_Task_enStatus_Error = 1UL,         /* The task being queried is in a read or pending ready list. */
+    OS_Task_enStatus_Ok = 0UL,
+    OS_Task_enStatus_Error = 1UL,
     OS_Task_enStatus_Undef = 0xFFFFFFFFUL
 } OS_Task_eStatus;
 
@@ -78,4 +78,4 @@ typedef enum
     OS_Task_enScheduler_Undef = 0xFFFFFFFFUL
 } OS_Task_eScheduler;
 
-#endif /* XOS_TASK_XHEADER_OS_TASK_ENUM_H_ */
+#endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_ */

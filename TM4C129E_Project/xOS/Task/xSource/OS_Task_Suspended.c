@@ -23,75 +23,12 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-#include <xOS/Task/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/xHeader/OS_Task_Delayed.h>
-#include <xOS/Task/xHeader/OS_Task_Interrupt.h>
-#include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
-#include <xOS/Task/xHeader/OS_Task_TCB.h>
 
-static OS_Task_eStatus OS_Task__enIsTaskSuspended( const OS_Task_Handle_TypeDef pvTask );
-
-static OS_Task_List_Typedef stPendingReadyList;
-static OS_Task_List_Typedef stSuspendedTaskList;                   /*< Tasks that are currently suspended. */
-
-static volatile uint32_t u32PendedTicks = 0UL;
-static volatile uint32_t u32YieldPending = 0UL;
-
-uint32_t OS_Task__u32GetPendedTicks(void)
-{
-    return (u32PendedTicks);
-}
-
-void OS_Task__vSetPendedTicks(uint32_t u32ValueArg)
-{
-    u32PendedTicks = u32ValueArg;
-}
-
-void OS_Task__vIncreasePendedTicks(void)
-{
-    ++u32PendedTicks;
-}
-
-uint32_t OS_Task__u32GetYieldPending(void)
-{
-    return (u32YieldPending);
-}
-
-void OS_Task__vSetYieldPending(uint32_t s32ValueArg)
-{
-    u32YieldPending = s32ValueArg;
-}
-
-static OS_Task_eStatus OS_Task__enIsTaskSuspended( const OS_Task_Handle_TypeDef pvTask )
-{
-    OS_Task_eStatus enStatus = OS_Task_enStatus_Error;
-    OS_TASK_TCB* const pstTCB =  (OS_TASK_TCB*) pvTask;
-    CDLinkedList_nSTATUS enListStatus = CDLinkedList_enSTATUS_ERROR;
-
-    if(0UL != (uint32_t) pstTCB)
-    {
-        enListStatus = CDLinkedList__enIsItemOwnerList(&stSuspendedTaskList, &(pstTCB->stGenericListItem));
-        if(CDLinkedList_enSTATUS_OK == enListStatus)
-        {
-            enListStatus = CDLinkedList__enIsItemOwnerList(&stPendingReadyList, &(pstTCB->stEventListItem));
-            if(CDLinkedList_enSTATUS_ERROR == enListStatus)
-            {
-                enListStatus = CDLinkedList__enIsItemOwnerList((OS_Task_List_Typedef*) 0UL, &(pstTCB->stEventListItem));
-                if(CDLinkedList_enSTATUS_OK == enListStatus)
-                {
-                    enStatus = OS_Task_enStatus_Ok;
-                }
-            }
-        }
-    }
-    return (enStatus);
-}
-
-void OS_Task__vSuspendAll( void )
+void OS_Task__vSuspendAll(void)
 {
     /* A critical section is not required as the variable is of type
     uint32_t.  Please read Richard Barry's reply in the following link to a
@@ -102,9 +39,12 @@ void OS_Task__vSuspendAll( void )
 
 uint32_t OS_Task__u32ResumeAll(void)
 {
-    OS_TASK_TCB *pstTCB;
-    OS_TASK_TCB *pstCurrentTCB;
+    OS_TASK_TCB *pstTCB = (OS_TASK_TCB*) 0UL;
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32AlreadyYielded = 0UL;
+    uint32_t u32PendedTicks = 0UL;
+    uint32_t u32YieldPending = 0UL;
     uint32_t u32SchedulerSuspended = 0UL;
     uint32_t u32CurrentNumberOfTasks = 0UL;
     CDLinkedList_nSTATUS enIsListEmpty = CDLinkedList_enSTATUS_OK;
@@ -124,17 +64,18 @@ uint32_t OS_Task__u32ResumeAll(void)
             --u32SchedulerSuspended;
             OS_Task__vSetSchedulerSuspended(u32SchedulerSuspended);
 
-            if( u32SchedulerSuspended == ( uint32_t ) 0UL )
+            if(0UL == u32SchedulerSuspended)
             {
                 u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
-                if( u32CurrentNumberOfTasks > ( uint32_t ) 0U )
+                if(0UL <  u32CurrentNumberOfTasks)
                 {
                     /* Move any readied tasks from the pending list into the
                     appropriate ready list. */
-                    enIsListEmpty = CDLinkedList__enIsEmpty(&stPendingReadyList);
+                    pstPendingReadyList = OS_Task__pstGetPendingReadyList();
+                    enIsListEmpty = CDLinkedList__enIsEmpty(pstPendingReadyList);
                     while(CDLinkedList_enSTATUS_ERROR == enIsListEmpty)
                     {
-                        pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(&stPendingReadyList);
+                        pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(pstPendingReadyList);
                         CDLinkedList__enRemove(&(pstTCB->stEventListItem));
                         CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
                         OS_Task__vAddTaskToReadyList(pstTCB);
@@ -144,29 +85,31 @@ uint32_t OS_Task__u32ResumeAll(void)
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                         if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
                         {
-                            u32YieldPending = 1UL;
+                            OS_Task__vSetYieldPending(1UL);
                         }
 
-                        enIsListEmpty = CDLinkedList__enIsEmpty(&stPendingReadyList);
+                        enIsListEmpty = CDLinkedList__enIsEmpty(pstPendingReadyList);
                     }
 
                     /* If any ticks occurred while the scheduler was suspended then
                     they should be processed now.  This ensures the tick count does
                     not slip, and that any delayed tasks are resumed at the correct
                     time. */
+                    u32PendedTicks = OS_Task__u32GetPendedTicks();
                     if(0UL < u32PendedTicks)
                     {
                         while( 0UL < u32PendedTicks)
                         {
                             if( OS_Task__u32TaskIncrementTick() != 0UL )
                             {
-                                u32YieldPending = 1UL;
+                                OS_Task__vSetYieldPending(1UL);
                             }
                             --u32PendedTicks;
+                            OS_Task__vSetPendedTicks(u32PendedTicks);
                         }
                     }
-
-                    if( u32YieldPending == 1UL )
+                    u32YieldPending = OS_Task__u32GetYieldPending();
+                    if(1UL == u32YieldPending)
                     {
                         u32AlreadyYielded = 1UL;
                         OS_Task__vYieldIfUsingPreemption();
@@ -177,14 +120,9 @@ uint32_t OS_Task__u32ResumeAll(void)
         OS_Task__vExitCritical();
     }
 
-    return u32AlreadyYielded;
+    return (u32AlreadyYielded);
 }
 
-void OS_Task__vInitialiseSuspendedTaskLists(void)
-{
-    CDLinkedList__enInit( &stPendingReadyList, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
-    CDLinkedList__enInit( &stSuspendedTaskList, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
-}
 
 void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
 {
@@ -192,11 +130,13 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
     OS_TASK_TCB *pstTCB = (OS_TASK_TCB *) 0UL;
     uint32_t u32SchedulerRunning = 0UL;
     uint32_t u32SchedulerSuspended = 0UL;
+    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
     OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32ListSize = 0UL;
     uint32_t u32CurrentNumberOfTasks = 0UL;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+    pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
     OS_Task__vEnterCritical();
     {
         /* If null is passed in here then it is the running task that is
@@ -218,9 +158,9 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
         pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stEventListItem));
         if( 0UL != (uint32_t)pstList )
         {
-            ( void ) CDLinkedList__enRemove(&( pstTCB->stEventListItem ));
+            (void) CDLinkedList__enRemove(&(pstTCB->stEventListItem));
         }
-        CDLinkedList__enInsertPreviousLastItemRead( &stSuspendedTaskList, &( pstTCB->stGenericListItem ) );
+        CDLinkedList__enInsertPreviousLastItemRead( pstSuspendedTaskList, &(pstTCB->stGenericListItem));
     }
     OS_Task__vExitCritical();
 
@@ -241,7 +181,7 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
             /* The scheduler is not running, but the task that was pointed
             to by pstCurrentTCB has just been suspended and pstCurrentTCB
             must be adjusted to point to a different task. */
-            u32ListSize = CDLinkedList__u32GetSize(&stSuspendedTaskList);
+            u32ListSize = CDLinkedList__u32GetSize(pstSuspendedTaskList);
             u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
             if( u32ListSize == u32CurrentNumberOfTasks )
             {
@@ -259,7 +199,7 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
     }
     else
     {
-        if( u32SchedulerRunning != 0UL )
+        if(0UL != u32SchedulerRunning)
         {
             /* A task other than the currently running task was suspended,
             reset the next expected unblock time in case it referred to the
@@ -318,6 +258,7 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
     uint32_t u32YieldRequired = 0UL;
     OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB *) 0UL;
     OS_TASK_TCB * const pstTCB = ( OS_TASK_TCB * ) pvTaskToResume;
+    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32SavedInterruptStatus = 0UL;
     uint32_t u32SchedulerSuspended = 0UL;
     OS_Task_eStatus enStatus = OS_Task_enStatus_Ok;
@@ -349,7 +290,8 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
                     /* The delayed or ready lists cannot be accessed so the task
                     is held in the pending ready list until the scheduler is
                     unsuspended. */
-                    CDLinkedList__enInsertPreviousLastItemRead( &(stPendingReadyList), &(pstTCB->stEventListItem));
+                    pstPendingReadyList = OS_Task__pstGetPendingReadyList();
+                    CDLinkedList__enInsertPreviousLastItemRead(pstPendingReadyList, &(pstTCB->stEventListItem));
                 }
             }
         }

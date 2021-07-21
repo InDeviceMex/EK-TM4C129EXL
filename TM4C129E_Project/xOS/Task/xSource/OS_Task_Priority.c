@@ -23,39 +23,9 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Priority.h>
 
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-#include <xOS/Task/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
-#include <xOS/Task/xHeader/OS_Task_TCB.h>
-
-
-static volatile uint32_t u32TopReadyPriority = OS_TASK_IDLE_PRIORITY;
-
-
-uint32_t OS_Task__u32GetTopReadyPriority(void)
-{
-    return (u32TopReadyPriority);
-}
-
-
-
-void OS_Task__vRecordReadyPriority(uint32_t u32PriorityArg)
-{
-    OS_Adapt__vRecordReadyPriority(u32PriorityArg, &u32TopReadyPriority );
-}
-
-uint32_t OS_Task__u32GetHighestPriority(void)
-{
-    uint32_t u32TopPriorityReg = 0UL;
-    OS_Adapt__vGetHighestPriority(&u32TopPriorityReg, u32TopReadyPriority);
-    return (u32TopPriorityReg);
-}
-
-void OS_Task__vClearReadyPriority(uint32_t u32PriorityArg)
-{
-    OS_Adapt__vResetReadyPriority(u32PriorityArg, &u32TopReadyPriority );
-}
 
 
 uint32_t OS_Task__u32PriorityGet(OS_Task_Handle_TypeDef psTaskArg)
@@ -90,7 +60,7 @@ uint32_t OS_Task__u32PriorityGetFromISR(OS_Task_Handle_TypeDef psTaskArg)
     }
     OS_Adapt__vClearInterruptMaskFromISR(u32SavedInterruptState);
 
-    return u32Return;
+    return (u32Return);
 }
 
 
@@ -107,7 +77,7 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
     CDLinkedList_nSTATUS enIsListOwner = CDLinkedList_enSTATUS_OK;
 
     /* Ensure the new priority is valid. */
-    if( u32NewPriority >= ( uint32_t ) OS_TASK_MAX_PRIORITIES )
+    if(OS_TASK_MAX_PRIORITIES <= u32NewPriority)
     {
         u32NewPriority = OS_TASK_MAX_PRIORITIES - 1UL;
     }
@@ -186,7 +156,7 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
                 it to it's new ready list.  As we are in a critical section we
                 can do this even if the scheduler is suspended. */
 
-                CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
+                CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
                 u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
                 if(0UL == u32ListSize)
                 {
@@ -195,17 +165,17 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
                     reset macro can be called directly. */
                     OS_Task__vClearReadyPriority(u32PriorityUsedOnEntry);
                 }
-                OS_Task__vAddTaskToReadyList( pstTCB );
+                OS_Task__vAddTaskToReadyList(pstTCB);
             }
 
-            if( u32YieldRequired == 1UL )
+            if(1UL == u32YieldRequired)
             {
                 OS_Task__vYieldIfUsingPreemption();
             }
 
             /* Remove compiler warning about unused variables when the port
             optimised task selection is not being used. */
-            ( void ) u32PriorityUsedOnEntry;
+            (void) u32PriorityUsedOnEntry;
         }
     }
     OS_Task__vExitCritical();

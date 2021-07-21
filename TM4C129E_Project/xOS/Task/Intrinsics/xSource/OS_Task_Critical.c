@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 17 jul. 2021 @endverbatim
+ * @verbatim 20 jul. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,12 +19,11 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 17 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 20 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Task/xHeader/OS_Task_Critical.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Critical.h>
 
 #include <xOS/Adapt/OS_Adapt.h>
-
 
 void OS_Task__vEnterCritical(void)
 {
@@ -45,5 +44,3 @@ void OS_Task__vExitCriticalFromISR(uint32_t u32Mask)
 {
     OS_Adapt__vClearInterruptMaskFromISR(u32Mask);
 }
-
-

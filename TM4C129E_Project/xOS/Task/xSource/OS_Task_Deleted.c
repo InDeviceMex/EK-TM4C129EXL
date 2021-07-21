@@ -23,20 +23,11 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Deleted.h>
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-#include <xOS/Task/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/xHeader/OS_Task_Interrupt.h>
-#include <xOS/Task/xHeader/OS_Task_Scheduler.h>
-#include <xOS/Task/xHeader/OS_Task_Create.h>
-#include <xOS/Task/xHeader/OS_Task_Delayed.h>
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
-
-static OS_Task_List_Typedef OS_Task_stTasksWaitingTermination;             /*< Tasks that have been deleted - but their memory not yet freed. */
-static volatile uint32_t OS_Task_u32TasksDeleted = 0UL;
-
 
 void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 {
@@ -45,6 +36,7 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
     OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
     OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32ListSize = 0UL;
+    OS_Task_List_Typedef* pstTasksWaitingTermination = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32SchedulerRunning = 0UL;
     uint32_t u32SchedulerSuspended = 0UL;
 
@@ -72,13 +64,13 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         {
             CDLinkedList__enRemove(&( pstTCB->stEventListItem ));
         }
-
-        CDLinkedList__enInsertPreviousLastItemRead( &OS_Task_stTasksWaitingTermination, &( pstTCB->stGenericListItem ) );
+        pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
+        CDLinkedList__enInsertPreviousLastItemRead( pstTasksWaitingTermination, &(pstTCB->stGenericListItem));
 
         /* Increment the ucTasksDeleted variable so the idle task knows
         there is a task that has been deleted and that it should therefore
         check the xTasksWaitingTermination list. */
-        ++OS_Task_u32TasksDeleted;
+        OS_Task__vIncreaseTasksDeleted();
 
         /* Increment the uxTaskNumberVariable also so kernel aware debuggers
         can detect that the task lists need re-generating. */
@@ -113,38 +105,37 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
     }
 }
 
-void OS_Task__vInitialiseDeletedTaskLists(void)
-{
-    CDLinkedList__enInit( &OS_Task_stTasksWaitingTermination, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
-}
 
 void OS_Task__vCheckTasksWaitingTermination(void)
 {
     CDLinkedList_nSTATUS enListIsEmpty = CDLinkedList_enSTATUS_OK;
+    uint32_t u32TasksDeleted = 0UL;
+    OS_Task_List_Typedef* pstTasksWaitingTermination = (OS_Task_List_Typedef*) 0UL;
 
     /* ucTasksDeleted is used to prevent vTaskSuspendAll() being called
     too often in the idle task. */
-    while( 0UL < OS_Task_u32TasksDeleted)
+    u32TasksDeleted = OS_Task__u32GetTasksDeleted();
+    while(0UL < u32TasksDeleted)
     {
+        pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
         OS_Task__vSuspendAll();
         {
-            enListIsEmpty = CDLinkedList__enIsEmpty(&OS_Task_stTasksWaitingTermination);
+            enListIsEmpty = CDLinkedList__enIsEmpty(pstTasksWaitingTermination);
         }
         (void) OS_Task__u32ResumeAll();
 
-        if( CDLinkedList_enSTATUS_OK != enListIsEmpty)
+        if(CDLinkedList_enSTATUS_OK != enListIsEmpty)
         {
             OS_TASK_TCB* pstTCB = (OS_TASK_TCB*) 0UL;
 
             OS_Task__vEnterCritical();
             {
-                pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(&OS_Task_stTasksWaitingTermination);
-                (void) CDLinkedList__enRemove(&( pstTCB->stGenericListItem));
+                pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(pstTasksWaitingTermination);
+                (void) CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
                 OS_Task__vDecreaseCurrentNumberOfTasks();
-                --OS_Task_u32TasksDeleted;
+                OS_Task__vDecreaseTasksDeleted();
             }
             OS_Task__vExitCritical();
-
             OS_Task__vDeleteTCB(pstTCB);
         }
     }

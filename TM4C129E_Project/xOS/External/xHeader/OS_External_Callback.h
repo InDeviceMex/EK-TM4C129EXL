@@ -25,9 +25,7 @@
 #ifndef XOS_EXTERNAL_XHEADER_OS_EXTERNAL_CALLBACK_H_
 #define XOS_EXTERNAL_XHEADER_OS_EXTERNAL_CALLBACK_H_
 
-#include <xOS/Task/xHeader/OS_Task_Defines.h>
-
-void OS_External__vApplicationStackOverflowHook( OS_Task_Handle_TypeDef pvTaskArg, char *pcTaskNameArg );
+void OS_External__vApplicationStackOverflowHook( void* pvTaskArg, char *pcTaskNameArg );
 void OS_External__vApplicationTickHook( void );
 void OS_External__vApplicationIdleHook(void);
 

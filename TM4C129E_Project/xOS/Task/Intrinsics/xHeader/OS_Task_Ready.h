@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 15 jul. 2021 @endverbatim
+ * @verbatim 21 jul. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,17 +19,17 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_XHEADER_OS_TASK_READY_H_
-#define XOS_TASK_XHEADER_OS_TASK_READY_H_
+#ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_READY_H_
+#define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_READY_H_
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSelectHighestPriorityTask(void);
-void OS_Task__vResetReadyPriority(uint32_t u32PrioritArg);
+OS_Task_List_Typedef* OS_Task__pstGetReadyTasksLists(uint32_t u32Index);
 
-void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg);
+void OS_Task__vInitialiseReadyTaskLists(void);
 
-#endif /* XOS_TASK_XHEADER_OS_TASK_READY_H_ */
+
+#endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_READY_H_ */
