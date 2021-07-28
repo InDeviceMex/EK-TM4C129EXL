@@ -52,7 +52,7 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         scheduler for the TCB and stack. */
         pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
         CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
-        u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
+        u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
         if( 0UL == u32ListSize )
         {
             OS_Task__vResetReadyPriority( pstTCB->u32PriorityTask );
@@ -60,7 +60,7 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 
         /* Is the task waiting on an event also? */
         pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
-        if( 0UL != pstTCBOwnerList)
+        if( 0UL != (uint32_t) pstTCBOwnerList)
         {
             CDLinkedList__enRemove(&( pstTCB->stEventListItem ));
         }

@@ -44,12 +44,12 @@ typedef volatile struct
 {
         union
         {
-                volatile uint32_t DATA_MASK [255UL];
+                volatile uint32_t DATA_MASK [255UL][32UL];
                 BITBANDING_GPIODATA_TypeDef DATA_MASK_Bit [255UL];
         };
         union
         {
-                volatile uint32_t DATA;
+                volatile uint32_t DATA [32UL];
                 BITBANDING_GPIODATA_TypeDef DATA_Bit;
         };
 } BITBANDING_GPIODATA_MASK_TypeDef;
@@ -192,7 +192,7 @@ typedef volatile struct
 {
         union
         {
-                volatile uint32_t DRV [3UL];
+                volatile uint32_t DRV [3UL][32UL];
                 BITBANDING_GPIODRR_TypeDef DRV_bit [3UL];
         };
 } BITBANDING_GPIODRR_ARRAY_TypeDef;

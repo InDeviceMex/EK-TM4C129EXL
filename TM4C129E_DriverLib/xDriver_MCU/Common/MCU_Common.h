@@ -30,6 +30,7 @@
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 #include <xDriver_MCU/Common/xHeader/MCU_ReadReg.h>
 #include <xDriver_MCU/Common/xHeader/MCU_RegisterSourceIRQ.h>
+#include <xDriver_MCU/Common/xHeader/MCU_SpecialIntructions.h>
 #include <xDriver_MCU/Common/xHeader/MCU_WriteReg.h>
 
 #endif /* XDRIVER_MCU_COMMON_MCU_COMMON_H_ */

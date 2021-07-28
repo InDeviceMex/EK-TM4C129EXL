@@ -157,7 +157,7 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
                 can do this even if the scheduler is suspended. */
 
                 CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
-                u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
+                u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
                 if(0UL == u32ListSize)
                 {
                     /* It is known that the task is in its ready list so

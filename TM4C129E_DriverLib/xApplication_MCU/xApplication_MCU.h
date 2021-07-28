@@ -26,5 +26,6 @@
 #define XAPPLICATION_MCU_XAPPLICATION_MCU_H_
 
 #include <xApplication_MCU/Core/Core.h>
+#include <xApplication_MCU/UART/UART.h>
 
 #endif /* XAPPLICATION_MCU_XAPPLICATION_MCU_H_ */

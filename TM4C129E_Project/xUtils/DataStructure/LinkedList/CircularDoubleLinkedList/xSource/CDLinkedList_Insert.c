@@ -256,7 +256,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLink
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             enStatus = CDLinkedList__enInsertAtTail_WithData(pstList,pstNewItem,pvData);
         }
@@ -276,7 +276,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead(CDLinkedList_Ty
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             enStatus = CDLinkedList__enInsertAtTail(pstList,pstNewItem);
         }
@@ -295,7 +295,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPreviousLastItemRead_WithData(
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstInsertAtTail(pstList);
         }
@@ -314,7 +314,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertPreviousLastItemRead(CDLinkedL
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstInsertAtTail(pstList);
         }
@@ -336,7 +336,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedLi
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -353,7 +353,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead(CDLinkedList_TypeDe
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -369,7 +369,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertNextLastItemRead_WithData(CDLi
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -385,7 +385,7 @@ CDLinkedListItem_TypeDef*  CDLinkedList__pstInsertNextLastItemRead(CDLinkedList_
     if(((uint32_t) 0UL != (uint32_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == pstLastItemItem)
+        if(0UL == (uint32_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }

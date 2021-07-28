@@ -25,6 +25,8 @@
 #ifndef XDRIVER_MCU_UART_PERIPHERAL_XHEADER_UART_ENUM_H_
 #define XDRIVER_MCU_UART_PERIPHERAL_XHEADER_UART_ENUM_H_
 
+#include <xUtils/Standard/Standard.h>
+
 typedef enum
 {
     UART_enSTATUS_OK = 0UL,

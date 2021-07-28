@@ -46,6 +46,37 @@ uint32_t OS_Task__u32GetTickCount(void)
     return (u32Tick);
 }
 
+uint32_t OS_Task__u32GetTickCountFromISR(void)
+{
+    uint32_t u32Return = 0UL;
+    uint32_t u32SavedInterruptStatus = 0UL;
+    u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+    {
+        u32Return = OS_Task__u32GetTickCount_NotSafe();
+    }
+    OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+
+    return (u32Return);
+}
+
+void OS_Task__vSetStepTick(const uint32_t u32TicksToJump)
+{
+    uint32_t u32NextTaskUnblockTime = 0UL;
+    uint32_t u32TickCount = 0UL;
+    uint32_t u32TickNext = 0UL;
+
+    u32TickCount = OS_Task__u32GetTickCount_NotSafe();
+    u32NextTaskUnblockTime = OS_Task__u32GetNextTaskUnblockTime();
+
+    u32TickNext = u32TickCount + u32TicksToJump;
+    if(u32TickNext <= u32NextTaskUnblockTime)
+    {
+        OS_Task__vSetTickCount(u32TickNext);
+    }
+}
+
+
+
 uint32_t OS_Task__u32TaskIncrementTick(void)
 {
     OS_TASK_TCB * pstTCB;
@@ -71,7 +102,6 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
         /* Increment the RTOS tick, switching the delayed and overflowed
         delayed lists if it wraps to 0. */
         OS_Task__vIncreaseTickCount();
-
         {
             /* Minor optimisation.  The tick count cannot change in this
             block. */
@@ -229,7 +259,7 @@ void OS_Task__vSwitchContext(void)
 
 static uint32_t OS_Task__u32GetExpectedIdleTime(void)
 {
-    uint32_t u32Return;
+    uint32_t u32Return = 0UL;
     OS_TASK_TCB*  pstCurrentTCB = (OS_TASK_TCB*) 0UL;
     OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
     uint32_t u32ListSize = 0UL;

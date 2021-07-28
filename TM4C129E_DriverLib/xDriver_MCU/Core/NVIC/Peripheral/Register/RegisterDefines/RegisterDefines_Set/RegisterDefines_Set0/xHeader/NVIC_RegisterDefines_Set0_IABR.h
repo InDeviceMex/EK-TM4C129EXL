@@ -131,7 +131,6 @@
 #define NVIC_IABR0_NVIC_I2C0_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
-
 /*----------*/
 #define NVIC_IABR0_R_NVIC_PWM0FAULT_MASK    ((uint32_t) 0x00000200UL)
 #define NVIC_IABR0_R_NVIC_PWM0FAULT_BIT    (9UL)
@@ -142,7 +141,6 @@
 #define NVIC_IABR0_NVIC_PWM0FAULT_DIS    ((uint32_t) 0x00000000UL)
 #define NVIC_IABR0_NVIC_PWM0FAULT_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
-
 
 /*----------*/
 #define NVIC_IABR0_R_NVIC_PWM0GEN0_MASK    ((uint32_t) 0x00000400UL)
@@ -176,7 +174,6 @@
 #define NVIC_IABR0_NVIC_PWM0GEN2_DIS    ((uint32_t) 0x00000000UL)
 #define NVIC_IABR0_NVIC_PWM0GEN2_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
-
 
 /*----------*/
 #define NVIC_IABR0_R_NVIC_QEI0_MASK    ((uint32_t) 0x00002000UL)
@@ -287,7 +284,6 @@
 #define NVIC_IABR0_NVIC_TIMER1B_DIS    ((uint32_t) 0x00000000UL)
 #define NVIC_IABR0_NVIC_TIMER1B_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
-
 
 /*----------*/
 #define NVIC_IABR0_R_NVIC_TIMER2A_MASK    ((uint32_t) 0x00800000UL)

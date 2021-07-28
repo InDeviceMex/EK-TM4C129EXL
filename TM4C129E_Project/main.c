@@ -28,8 +28,8 @@ void Task4(void* pvParams)
     {
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
-        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK4 \n\r", 8UL);
-        OS_Task__vDelay(5000UL);
+        UART__u32Printf(UART_enMODULE_0, "Task4: Esto ocurre cada 500 ms \n\r");
+        OS_Task__vDelay(500UL);
     }
 }
 
@@ -41,8 +41,8 @@ void Task5(void* pvParams)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
-        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK5 \n\r", 8UL);
-        OS_Task__vDelay(10000UL);
+        UART__u32Printf(UART_enMODULE_0, "Task5: Esto ocurre cada 1000 ms \n\r");
+        OS_Task__vDelay(1000UL);
     }
 }
 
@@ -54,8 +54,8 @@ void Task6(void* pvParams)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
         u32PinValue ^= GPIO_enPIN_2;
-        UART__u32SetFifoDataByte(UART_enMODULE_0,(const uint8_t*)"TASK6 \n\r", 8UL);
-        OS_Task__vDelay(20000UL);
+        UART__u32Printf(UART_enMODULE_0, "Task6: Esto ocurre cada 2000 ms \n\r");
+        OS_Task__vDelay(2000UL);
     }
 }
 
@@ -110,15 +110,19 @@ uint32_t main(void)
     };
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUDMA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     EEPROM__enInit();
     DMA__vInit();
     GPIO__vInit();
     TIMER__vInit();
     UART__vInit();
 
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
 
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
@@ -134,9 +138,9 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[2UL]);
+    OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 5UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[3UL]);
-    OS_Task__u32TaskGenericCreate(&Task6, "Task 6", 300UL, (void*) 0UL, 5UL, &TaskHandeler[4UL]);
+    OS_Task__u32TaskGenericCreate(&Task6, "Task 6", 300UL, (void*) 0UL, 3UL, &TaskHandeler[4UL]);
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {

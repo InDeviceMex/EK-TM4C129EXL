@@ -24,6 +24,7 @@
 #include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
 
 #include <xDriver_MCU/Core/SCB/SCB.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
 
 
 
@@ -43,5 +44,5 @@ void OS_Adapt__vResetReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32
 
 void OS_Adapt__vGetHighestPriority(uint32_t* pu32TopPriority, volatile uint32_t u32ReadyPriorities )
 {
-    *pu32TopPriority = ( 31UL - __clz((u32ReadyPriorities)));
+    *pu32TopPriority = ( 31UL - MCU__u32GetCounLeadingZeros((u32ReadyPriorities)));
 }

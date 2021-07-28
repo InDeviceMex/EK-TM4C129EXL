@@ -148,7 +148,7 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
 
         pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
         CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
-        u32ListSize == CDLinkedList__u32GetSize(pstList);
+        u32ListSize = CDLinkedList__u32GetSize(pstList);
         if(0UL == u32ListSize)
         {
             OS_Task__vResetReadyPriority(pstTCB->u32PriorityTask);
@@ -220,12 +220,12 @@ void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume)
     OS_Task_eStatus enStatus = OS_Task_enStatus_Ok;
 
     /* It does not make sense to resume the calling task. */
-    if(0UL != pvTaskToResume)
+    if(0UL != (uint32_t) pvTaskToResume)
     {
         /* The parameter cannot be NULL as it is impossible to resume the
         currently executing task. */
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-        if((0UL != pstTCB) && (pstTCB != pstCurrentTCB))
+        if((0UL != (uint32_t) pstTCB) && ((uint32_t) pstTCB != (uint32_t) pstCurrentTCB))
         {
             OS_Task__vEnterCritical();
             {
@@ -263,7 +263,7 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
     uint32_t u32SchedulerSuspended = 0UL;
     OS_Task_eStatus enStatus = OS_Task_enStatus_Ok;
 
-    if(0UL != pvTaskToResume)
+    if(0UL != (uint32_t) pvTaskToResume)
     {
         u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
         {

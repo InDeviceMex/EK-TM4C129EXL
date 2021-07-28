@@ -70,7 +70,7 @@ void OS_Task__vDelay(const uint32_t u32TicksToDelay)
                 pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                 pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstCurrentTCB->stGenericListItem));
                 CDLinkedList__enRemove( &( pstCurrentTCB->stGenericListItem));
-                u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
+                u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
 
                 if(0UL == u32ListSize)
                 {
@@ -150,7 +150,7 @@ void OS_Task__vDelayUntil( uint32_t * const pu32PreviousWakeTime, const uint32_t
                 pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                 pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstCurrentTCB->stGenericListItem));
                 CDLinkedList__enRemove( &( pstCurrentTCB->stGenericListItem));
-                u32ListSize == CDLinkedList__u32GetSize(pstReadyList);
+                u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
                 if(0UL == u32ListSize)
                 {
                     /* The current task must be in a ready list, so there is

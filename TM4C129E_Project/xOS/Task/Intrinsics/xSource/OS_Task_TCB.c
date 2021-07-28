@@ -79,10 +79,10 @@ OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
     #if defined (__TI_ARM__ )
     pu32StackReg = (uint32_t*) memalign( (size_t) 4, (size_t) u32StackDepth * sizeof(int32_t));
     #elif defined (__GNUC__ )
-    pu32Stack = (uint32_t*) malloc(u32StackDepth * sizeof(int32_t));
+    pu32StackReg = (uint32_t*) malloc(u32StackDepth * sizeof(int32_t));
     #endif
 
-    if( pu32StackReg != NULL )
+    if(0UL != (uint32_t) pu32StackReg)
     {
         /* Allocate space for the TCB.  Where the memory comes from depends
         on the implementation of the port malloc function. */
@@ -92,7 +92,7 @@ OS_TASK_TCB* OS_Task__pstAllocateTCBAndStack(const uint32_t u32StackDepth)
         pstNewTCB = (OS_TASK_TCB*) malloc(sizeof(OS_TASK_TCB));
         #endif
 
-        if( pstNewTCB != NULL )
+        if(0UL != (uint32_t)  pstNewTCB)
         {
             /* Store the stack location in the TCB. */
             pstNewTCB->pu32Stack = pu32StackReg;
