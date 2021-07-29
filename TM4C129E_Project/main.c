@@ -23,12 +23,14 @@ volatile uint32_t uartState= 0;
 void Task4(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
+    static uint32_t u32CountTask = 0UL;
     GPIO__enSetDigitalConfig(GPIO_enGPIOG0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
-        UART__u32Printf(UART_enMODULE_0, "Task4: Esto ocurre cada 500 ms \n\r");
+        UART__u32Printf(UART_enMODULE_0, "Task4: Esto ha ocurrido %d veces\n\r", u32CountTask);
+        u32CountTask++;
         OS_Task__vDelay(500UL);
     }
 }
@@ -36,12 +38,14 @@ void Task4(void* pvParams)
 void Task5(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
+    static uint32_t u32CountTask = 0UL;
     GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
-        UART__u32Printf(UART_enMODULE_0, "Task5: Esto ocurre cada 1000 ms \n\r");
+        UART__u32Printf(UART_enMODULE_0, "Task5: Esto ha ocurrido %d veces\n\r", u32CountTask);
+        u32CountTask++;
         OS_Task__vDelay(1000UL);
     }
 }
@@ -49,12 +53,14 @@ void Task5(void* pvParams)
 void Task6(void* pvParams)
 {
     uint32_t u32PinValue = (uint32_t) pvParams;
+    static uint32_t u32CountTask = 0UL;
     GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
         u32PinValue ^= GPIO_enPIN_2;
-        UART__u32Printf(UART_enMODULE_0, "Task6: Esto ocurre cada 2000 ms \n\r");
+        UART__u32Printf(UART_enMODULE_0, "Task6: Esto ha ocurrido %d veces\n\r", u32CountTask);
+        u32CountTask++;
         OS_Task__vDelay(2000UL);
     }
 }

@@ -25,6 +25,7 @@
 #ifndef XOS_TASK_ATTRIBUTES_OS_TASK_ATTRIBUTES_H_
 #define XOS_TASK_ATTRIBUTES_OS_TASK_ATTRIBUTES_H_
 
+#include <xOS/Task/Attributes/xHeader/OS_Task_HookFunction.h>
 #include <xOS/Task/Attributes/xHeader/OS_Task_Name.h>
 #include <xOS/Task/Attributes/xHeader/OS_Task_State.h>
 

@@ -82,6 +82,7 @@ typedef struct
     uint32_t u32TCBNumber;        /*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
     uint32_t u32BasePriority;     /*< The priority last assigned to the task - used by the priority inheritance mechanism. */
     uint32_t u32MutexesHeld;
+    OS_Task_HookFunction_Typedef pu32fHookFunction;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
     volatile uint32_t u32NotifiedValue;
     volatile OS_Task_eNotifyValue enNotifyState;

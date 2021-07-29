@@ -167,6 +167,7 @@ void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * 
     CDLinkedList_Item__vSetData(stListItemReg, pstTCB);
 
     pstTCB->u32CriticalNesting = 0UL;
+    pstTCB->pu32fHookFunction = (OS_Task_HookFunction_Typedef) 0UL;
 
     for( u32Count = 0UL; u32Count < (uint32_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS; u32Count++ )
     {
