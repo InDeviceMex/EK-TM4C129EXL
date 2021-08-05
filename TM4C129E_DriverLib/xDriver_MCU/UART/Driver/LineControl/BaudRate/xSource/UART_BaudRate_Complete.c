@@ -23,6 +23,7 @@
  */
 #include <xDriver_MCU/UART/Driver/LineControl/BaudRate/xHeader/UART_BaudRate_Complete.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/LineControl/BaudRate/xHeader/UART_BaudRate_Register.h>
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_HighSpeed.h>
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_SMART.h>
@@ -43,6 +44,11 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
     UART_nSMART enUartMode = UART_enSMART_UNDEF;
     UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_ENA;
     uint32_t u32CurrentClock = 16000000UL;
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+
+    enFPUActive = MCU__enGetFPUContextActive();
+
+
 
     enUartClock = UART__enGetClockConfig(enModule);
     if(UART_enCLOCK_SYSCLK == enUartClock)
@@ -104,6 +110,7 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
         UART__vSetBaudRateIntegerPart(enModule, u32BaudRateInteger);
         UART__vSetBaudRateFractionalPart(enModule, u32BaudRateFractional);
     }
+    MCU__enSetFPUContextActive(enFPUActive);
     return enStatus;
 }
 
@@ -119,6 +126,9 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
     uint32_t u32BaudRateInteger = 0UL;
     uint32_t u32HSEDivider= 8UL;
     uint32_t u32CurrentClock = 16000000UL;
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+
+    enFPUActive = MCU__enGetFPUContextActive();
 
     enHSEValue = UART__enGetHighSpeed(enModule);
     if(UART_enHIGH_SPEED_UNDEF != enHSEValue)
@@ -147,5 +157,6 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
 
         u32BaudRate = (uint32_t) f32BaudRate;
     }
+    MCU__enSetFPUContextActive(enFPUActive);
     return u32BaudRate;
 }
