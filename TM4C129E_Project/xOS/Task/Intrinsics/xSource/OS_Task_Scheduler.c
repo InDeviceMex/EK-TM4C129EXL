@@ -81,7 +81,7 @@ void OS_Task__vIncreaseSchedulerRunning(void)
     ++OS_Task_u32SchedulerRunning;
 }
 
-uint32_t xTaskGetSchedulerState( void )
+uint32_t xTaskGetSchedulerState(void)
 {
     uint32_t u32Return = 0UL;
 

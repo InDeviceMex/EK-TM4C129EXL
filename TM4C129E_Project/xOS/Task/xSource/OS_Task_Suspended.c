@@ -336,7 +336,7 @@ OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
         pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
         u32ListLength = CDLinkedList__u32GetSize(pstSuspendedTaskList);
         u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
-        u32CurrentNumberOfTasks -= u32NonApplicationTasks
+        u32CurrentNumberOfTasks -= u32NonApplicationTasks;
         if(u32ListLength == u32CurrentNumberOfTasks)
         {
             enReturn = OS_Task_enSleepModeStatus_NoTasksWaitingTimeout;

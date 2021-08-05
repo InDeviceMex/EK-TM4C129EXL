@@ -96,8 +96,6 @@ OS_Task_eStatus OS_Task__enIsTaskSuspended( const OS_Task_Handle_TypeDef pvTask 
     return (enStatus);
 }
 
-
-
 void OS_Task__vInitialiseSuspendedTaskLists(void)
 {
     CDLinkedList__enInit( &OS_Task_stPendingReadyList, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
