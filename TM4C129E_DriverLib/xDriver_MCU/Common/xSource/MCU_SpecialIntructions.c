@@ -25,9 +25,8 @@
 
 __attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value)
 {
-    {__asm(" clz     r1, r0\n");}
-    {__asm(" mov     r0, r1\n");}
-    {__asm(" bx      lr\n");}
+    {__asm(" clz     r0, r0\n"
+           " bx      lr\n");}
     return (0UL);
 }
 

@@ -42,7 +42,11 @@ void OS_Adapt__vResetReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32
 
 /*-----------------------------------------------------------*/
 
-void OS_Adapt__vGetHighestPriority(uint32_t* pu32TopPriority, volatile uint32_t u32ReadyPriorities )
+void OS_Adapt__vGetHighestPriority(uint32_t* const pu32TopPriority, volatile uint32_t u32ReadyPriorities )
 {
-    *pu32TopPriority = ( 31UL - MCU__u32GetCounLeadingZeros((u32ReadyPriorities)));
+    uint32_t u32CLZ = 0UL;
+    uint32_t* const pu32Prio = pu32TopPriority;
+    *pu32Prio = 31UL;
+    u32CLZ = MCU__u32GetCounLeadingZeros(u32ReadyPriorities);
+    *pu32Prio -= u32CLZ;
 }

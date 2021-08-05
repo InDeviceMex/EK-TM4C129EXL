@@ -29,6 +29,6 @@
 
 void OS_Adapt__vRecordReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32ReadyPriorities);
 void OS_Adapt__vResetReadyPriority(uint32_t u32Priority, volatile uint32_t* pu32ReadyPriorities);
-void OS_Adapt__vGetHighestPriority(uint32_t* pu32TopPriority, volatile uint32_t u32ReadyPriorities );
+void OS_Adapt__vGetHighestPriority(uint32_t* const pu32TopPriority, volatile uint32_t u32ReadyPriorities );
 
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_PRIORITY_H_ */
