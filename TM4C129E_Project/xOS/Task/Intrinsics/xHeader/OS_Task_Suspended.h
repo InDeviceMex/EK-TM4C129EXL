@@ -33,11 +33,12 @@ void OS_Task__vIncreasePendedTicks(void);
 
 uint32_t OS_Task__u32GetYieldPending(void);
 void OS_Task__vSetYieldPending(uint32_t s32ValueArg);
+void OS_Task__vMissedYield(void);
 
 OS_Task_List_Typedef* OS_Task__pstGetPendingReadyList(void);
 OS_Task_List_Typedef* OS_Task__pstGetSuspendedTaskList(void);
 
-OS_Task_eStatus OS_Task__enIsTaskSuspended( const OS_Task_Handle_TypeDef pvTask );
+OS_Task_eStatus OS_Task__enIsTaskSuspended(const OS_Task_Handle_TypeDef pvTask);
 
 void OS_Task__vInitialiseSuspendedTaskLists(void);
 

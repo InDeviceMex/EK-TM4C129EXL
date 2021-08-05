@@ -119,7 +119,7 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
             }
 
             /* Remember the ready list the task might be referenced from
-            before its uxPriority member is changed so the
+            before its u32PriorityTask member is changed so the
             taskRESET_READY_PRIORITY() macro can function correctly. */
             u32PriorityUsedOnEntry = pstTCB->u32PriorityTask;
 
@@ -180,4 +180,59 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
     }
     OS_Task__vExitCritical();
 
+}
+
+void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pvMutexHolder)
+{
+    OS_TASK_TCB* const pstTCB = (OS_TASK_TCB*) pvMutexHolder;
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+    uint32_t u32EventValue = 0UL;
+    uint32_t u32ListSize = 0UL;
+    OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
+    CDLinkedList_nSTATUS enIsListOwner = CDLinkedList_enSTATUS_OK;
+
+    /* If the mutex was given back by an interrupt while the queue was
+    locked then the mutex holder might now be NULL. */
+    if(0UL != pvMutexHolder)
+    {
+        /* If the holder of the mutex has a priority below the priority of
+        the task attempting to obtain the mutex then it will temporarily
+        inherit the priority of the task attempting to obtain the mutex. */
+        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        if( pstTCB->u32PriorityTask < pstCurrentTCB->u32PriorityTask )
+        {
+            /* Adjust the mutex holder state to account for its new
+            priority.  Only reset the event list data auxiliar if the value is
+            not being used for anything else. */
+            u32EventValue = CDLinkedList_Item__u32GetValue(&(pstTCB->stEventListItem));
+            u32EventValue &= OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE;
+            if(0UL == u32EventValue)
+            {
+                CDLinkedList_Item__vSetValue(&(pstTCB->stEventListItem), OS_TASK_MAX_PRIORITIES - pstCurrentTCB->u32PriorityTask);
+            }
+
+            /* If the task being modified is in the ready state it will need
+            to be moved into a new list. */
+            pstReadyList = OS_Task__pstGetReadyTasksLists(pstTCB->u32PriorityTask);
+            enIsListOwner = CDLinkedList__enIsItemOwnerList(pstReadyList, &(pstTCB->stGenericListItem));
+            if(CDLinkedList_enSTATUS_OK == enIsListOwner)
+            {
+                CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
+                if(0UL == u32ListSize)
+                {
+                    OS_Task__vResetReadyPriority(pstTCB->u32PriorityTask);
+                }
+
+                /* Inherit the priority before being moved into the new list. */
+                pstTCB->u32PriorityTask = pstCurrentTCB->u32PriorityTask;
+                OS_Task__vAddTaskToReadyList(pstTCB);
+            }
+            else
+            {
+                /* Just inherit the priority. */
+                pstTCB->u32PriorityTask = pstCurrentTCB->u32PriorityTask;
+            }
+        }
+    }
 }

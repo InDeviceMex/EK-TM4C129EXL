@@ -33,4 +33,6 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend);
 void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume);
 uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume);
 
+OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void);
+
 #endif /* XOS_TASK_XHEADER_OS_TASK_SUSPENDED_H_ */

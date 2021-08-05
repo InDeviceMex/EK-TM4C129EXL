@@ -28,5 +28,6 @@
 #include <xOS/Task/Attributes/xHeader/OS_Task_HookFunction.h>
 #include <xOS/Task/Attributes/xHeader/OS_Task_Name.h>
 #include <xOS/Task/Attributes/xHeader/OS_Task_State.h>
+#include <xOS/Task/Attributes/xHeader/OS_Task_ThreadLocalStoragePointers.h>
 
 #endif /* XOS_TASK_ATTRIBUTES_OS_TASK_ATTRIBUTES_H_ */

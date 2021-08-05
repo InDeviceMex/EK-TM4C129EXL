@@ -41,4 +41,6 @@ uint32_t OS_Task__u32GetSchedulerRunning(void);
 void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg);
 void OS_Task__vIncreaseSchedulerRunning(void);
 
+uint32_t xTaskGetSchedulerState(void);
+
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_SCHEDULER_H_ */

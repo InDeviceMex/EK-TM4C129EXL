@@ -29,6 +29,8 @@ static OS_Task_List_Typedef OS_Task_stSuspendedTaskList;                   /*< T
 static volatile uint32_t OS_Task_u32PendedTicks = 0UL;
 static volatile uint32_t OS_Task_u32YieldPending = 0UL;
 
+
+
 uint32_t OS_Task__u32GetPendedTicks(void)
 {
     return (OS_Task_u32PendedTicks);
@@ -52,6 +54,11 @@ uint32_t OS_Task__u32GetYieldPending(void)
 void OS_Task__vSetYieldPending(uint32_t s32ValueArg)
 {
     OS_Task_u32YieldPending = s32ValueArg;
+}
+
+void OS_Task__vMissedYield(void)
+{
+    OS_Task__vSetYieldPending(1UL);
 }
 
 OS_Task_List_Typedef* OS_Task__pstGetPendingReadyList(void)
@@ -88,6 +95,7 @@ OS_Task_eStatus OS_Task__enIsTaskSuspended( const OS_Task_Handle_TypeDef pvTask 
     }
     return (enStatus);
 }
+
 
 
 void OS_Task__vInitialiseSuspendedTaskLists(void)

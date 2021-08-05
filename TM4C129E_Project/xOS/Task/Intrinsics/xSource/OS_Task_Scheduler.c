@@ -80,3 +80,26 @@ void OS_Task__vIncreaseSchedulerRunning(void)
 {
     ++OS_Task_u32SchedulerRunning;
 }
+
+uint32_t xTaskGetSchedulerState( void )
+{
+    uint32_t u32Return = 0UL;
+
+    if(0UL == OS_Task_u32SchedulerRunning)
+    {
+        u32Return = (uint32_t) OS_Task_enScheduler_Not_Started;
+    }
+    else
+    {
+        if(0UL == OS_Task_u32SchedulerSuspended)
+        {
+            u32Return = (uint32_t) OS_Task_enScheduler_Running;
+        }
+        else
+        {
+            u32Return = (uint32_t) OS_Task_enScheduler_Suspended;
+        }
+    }
+
+    return (u32Return);
+}

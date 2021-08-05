@@ -301,3 +301,47 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
     return u32YieldRequired;
 }
 
+
+
+OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
+{
+    /* The idle task exists in addition to the application tasks. */
+    const uint32_t u32NonApplicationTasks = 1UL;
+    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
+    uint32_t u32YieldPending = 0UL;
+    uint32_t u32ListLength = 0UL;
+    uint32_t u32CurrentNumberOfTasks = 0UL;
+    OS_Task_eSleepModeStatus enReturn = OS_Task_enSleepModeStatus_StandardSleep;
+
+    pstPendingReadyList = OS_Task__pstGetPendingReadyList();
+    u32ListLength = CDLinkedList__u32GetSize(pstPendingReadyList);
+    u32YieldPending = OS_Task__u32GetYieldPending();
+    if(0UL != u32ListLength)
+    {
+        /* A task was made ready while the scheduler was suspended. */
+        enReturn = OS_Task_enSleepModeStatus_AbortSleep;
+    }
+    else if(0UL !=  u32YieldPending)
+    {
+        /* A yield was pended while the scheduler was suspended. */
+        enReturn = OS_Task_enSleepModeStatus_AbortSleep;
+    }
+    else
+    {
+        /* If all the tasks are in the suspended list (which might mean they
+        have an infinite block time rather than actually being suspended)
+        then it is safe to turn all clocks off and just wait for external
+        interrupts. */
+        pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
+        u32ListLength = CDLinkedList__u32GetSize(pstSuspendedTaskList);
+        u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
+        u32CurrentNumberOfTasks -= u32NonApplicationTasks
+        if(u32ListLength == u32CurrentNumberOfTasks)
+        {
+            enReturn = OS_Task_enSleepModeStatus_NoTasksWaitingTimeout;
+        }
+    }
+
+    return enReturn;
+}
