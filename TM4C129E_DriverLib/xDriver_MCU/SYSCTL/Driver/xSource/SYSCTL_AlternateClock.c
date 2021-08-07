@@ -22,3 +22,27 @@ SYSCTL_nALTCLK SYSCTL__enGetAlternateClock(void)
                                   SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
     return (enReturn);
 }
+
+uint32_t SYSCTL__u32GetAlternateClock(void)
+{
+    uint32_t u32AltClock = 0UL;
+    SYSCTL_nALTCLK enAltClock = SYSCTL_enALTCLK_PIOSC;
+    enAltClock = (SYSCTL_nALTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
+                                  SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
+    switch(enAltClock)
+    {
+    case SYSCTL_enALTCLK_PIOSC:
+        u32AltClock = 16000000UL;
+        break;
+    case SYSCTL_enALTCLK_LFIOSC:
+        u32AltClock = 33000UL;
+        break;
+    case SYSCTL_enALTCLK_RTCOSC:
+        u32AltClock = 32768UL;
+        break;
+
+    default:
+        break;
+    }
+    return (u32AltClock);
+}

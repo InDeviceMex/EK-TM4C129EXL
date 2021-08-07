@@ -334,6 +334,7 @@ typedef enum
 {
     UART_enLINE_SELECT_PRIMARY = 0UL,
     UART_enLINE_SELECT_ALT = 1UL,
+    UART_enLINE_SELECT_ALT2 = 2UL,
     UART_enLINE_SELECT_UNDEF = 0xFFFFFFFFUL,
 }UART_nLINE_SELECT;
 
@@ -345,6 +346,10 @@ typedef struct
         UART_nLINE enTxLine;
         UART_nRTS_MODE enRTSMode;
         UART_nCTS_MODE enCTSMode;
+        UART_nLINE enDCDLine;
+        UART_nLINE enDSRLine;
+        UART_nLINE enDTRLine;
+        UART_nLINE enRILine;
 }UART_CONTROL_TypeDef;
 
 typedef struct
@@ -353,6 +358,10 @@ typedef struct
         UART_nLINE_SELECT enTx;
         UART_nLINE_SELECT enCTS;
         UART_nLINE_SELECT enRTS;
+        UART_nLINE_SELECT enDCD;
+        UART_nLINE_SELECT enDSR;
+        UART_nLINE_SELECT enDTR;
+        UART_nLINE_SELECT enRI;
 }UART_LINE_TypeDef;
 
 typedef struct

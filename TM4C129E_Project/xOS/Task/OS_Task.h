@@ -26,6 +26,7 @@
 #define XOS_TASK_OS_TASK_H_
 
 
+#include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/xHeader/OS_Task_Delayed.h>

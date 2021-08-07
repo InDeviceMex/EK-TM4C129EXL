@@ -31,6 +31,6 @@ uint32_t OS_Task__u32PriorityGet(OS_Task_Handle_TypeDef psTaskArg);
 uint32_t OS_Task__u32PriorityGetFromISR(OS_Task_Handle_TypeDef psTaskArg);
 void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPriority);
 
-void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pxMutexHolder);
+void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pvMutexHolder);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_ */

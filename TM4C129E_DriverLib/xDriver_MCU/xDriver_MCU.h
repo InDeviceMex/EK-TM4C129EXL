@@ -34,6 +34,7 @@
 #include <xDriver_MCU/DMA/DMA.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 #include <xDriver_MCU/TIMER/TIMER.h>
+#include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/UART/UART.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DRIVER_H_ */
