@@ -258,8 +258,9 @@ uint32_t main(void)
     DMA__vInit();
     GPIO__vInit();
     TIMER__vInit();
-    UART__vInit();
     ADC__vInit();
+    UART__vInit();
+    SSI__vInit();
 
     ADC__vSetConversionRate(ADC_enMODULE_1, ADC_enCONVERSION_RATE_112);
     ADC__vSetVCODivisor(ADC_enMODULE_1, 480UL/32UL);

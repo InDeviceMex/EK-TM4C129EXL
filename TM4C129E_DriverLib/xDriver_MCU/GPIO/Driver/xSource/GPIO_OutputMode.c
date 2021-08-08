@@ -26,9 +26,9 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetOutputMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nOUTMODE enMode)
+void GPIO__vSetOutputMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nOUTMODE enModeArg)
 {
-    GPIO__vSetGeneric(enPort, GPIO_ODR_OFFSET, enPin, (uint32_t) enMode);
+    GPIO__vSetGeneric(enPort, GPIO_ODR_OFFSET, enPin, (uint32_t) enModeArg);
 }
 
 GPIO_nOUTMODE GPIO__enGetOutputMode(GPIO_nPORT enPort, GPIO_nPIN enPin)

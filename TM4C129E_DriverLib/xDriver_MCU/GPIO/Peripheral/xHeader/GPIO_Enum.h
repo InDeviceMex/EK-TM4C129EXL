@@ -266,12 +266,14 @@ typedef enum
     GPIO_enU3Rx = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (1UL)),
     GPIO_enI2C7SCL = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (2UL)),
     GPIO_enT2CCP0 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (3UL)),
+    GPIO_enSSI0Tx = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (15UL)),
     GPIO_enSSI0XDAT0 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (15UL)),
 
     GPIO_enGPIOA5 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (0UL)),
     GPIO_enU3Tx = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (1UL)),
     GPIO_enI2C7SDA = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (2UL)),
     GPIO_enT2CCP1 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (3UL)),
+    GPIO_enSSI0Rx = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (15UL)),
     GPIO_enSSI0XDAT1 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (15UL)),
 
     GPIO_enGPIOA6 = (uint32_t) (((uint32_t) GPIO_enPORT_A << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER6 << 8UL) | (0UL)),
@@ -368,12 +370,14 @@ typedef enum
     GPIO_enI2C7SCL_D0 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (1UL)),
     GPIO_enT0CCP0_D0 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (2UL)),
     GPIO_enC0o = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (4UL)),
+    GPIO_enSSI2Rx = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (15UL)),
     GPIO_enSSI2XDAT1 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (15UL)),
 
     GPIO_enGPIOD1 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (0UL)),
     GPIO_enI2C7SDA_D1 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (1UL)),
     GPIO_enT0CCP1_D1 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (2UL)),
     GPIO_enC1o = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (4UL)),
+    GPIO_enSSI2Tx = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (15UL)),
     GPIO_enSSI2XDAT0 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (15UL)),
 
     GPIO_enGPIOD2 = (uint32_t) (((uint32_t) GPIO_enPORT_D << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER2 << 8UL) | (0UL)),
@@ -425,9 +429,11 @@ typedef enum
 
     GPIO_enGPIOE4 = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (0UL)),
     GPIO_enU1RI = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (1UL)),
+    GPIO_enSSI1Tx = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (15UL)),
     GPIO_enSSI1XDAT0 = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER4 << 8UL) | (15UL)),
 
     GPIO_enGPIOE5 = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (0UL)),
+    GPIO_enSSI1Rx = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (15UL)),
     GPIO_enSSI1XDAT1 = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER5 << 8UL) | (15UL)),
 
     GPIO_enGPIOE6 = (uint32_t) (((uint32_t) GPIO_enPORT_E << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER6 << 8UL) | (0UL)),
@@ -438,12 +444,14 @@ typedef enum
     GPIO_enGPIOF0 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (0UL)),
     GPIO_enEN0LED0 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (5UL)),
     GPIO_enM0PWM0 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (6UL)),
+    GPIO_enSSI3Rx = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (14UL)),
     GPIO_enSSI3XDAT1 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (14UL)),
     GPIO_enTRD2 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER0 << 8UL) | (15UL)),
 
     GPIO_enGPIOF1 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (0UL)),
     GPIO_enEN0LED2 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (5UL)),
     GPIO_enM0PWM1 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (6UL)),
+    GPIO_enSSI3Tx = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (14UL)),
     GPIO_enSSI3XDAT0 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (14UL)),
     GPIO_enTRD1 = (uint32_t) (((uint32_t) GPIO_enPORT_F << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (15UL)),
 
@@ -732,10 +740,12 @@ typedef enum
     GPIO_enEPI0S21 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER1 << 8UL) | (15UL)),
 
     GPIO_enGPIOQ2 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER2 << 8UL) | (0UL)),
+    GPIO_enSSI3Tx_Q2 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER2 << 8UL) | (14UL)),
     GPIO_enSSI3XDAT0_Q2 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER2 << 8UL) | (14UL)),
     GPIO_enEPI0S22 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER2 << 8UL) | (15UL)),
 
     GPIO_enGPIOQ3 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER3 << 8UL) | (0UL)),
+    GPIO_enSSI3Rx_Q3 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER3 << 8UL) | (14UL)),
     GPIO_enSSI3XDAT1_Q3 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER3 << 8UL) | (14UL)),
     GPIO_enEPI0S23 = (uint32_t) (((uint32_t) GPIO_enPORT_Q << 16UL) | ((uint32_t) GPIO_enPIN_NUMBER3 << 8UL) | (15UL)),
 

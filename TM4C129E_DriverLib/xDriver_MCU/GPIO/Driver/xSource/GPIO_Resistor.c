@@ -27,10 +27,10 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE enMode)
+void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE enModeArg)
 {
     GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
-    switch(enMode)
+    switch(enModeArg)
     {
         case GPIO_enRESMODE_INACTIVE:
             GPIO__vDisGeneric(enPort, GPIO_PUR_OFFSET, enPin);

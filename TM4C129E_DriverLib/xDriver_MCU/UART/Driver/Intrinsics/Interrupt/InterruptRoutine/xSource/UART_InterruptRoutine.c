@@ -23,7 +23,6 @@
  */
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRoutine/UART_InterruptRoutine.h>
 
-#include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 void (*UART__pvIRQVectorHandler[(uint32_t) UART_enMODULE_MAX]) (void)=

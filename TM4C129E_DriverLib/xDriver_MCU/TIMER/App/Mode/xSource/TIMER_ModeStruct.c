@@ -26,23 +26,23 @@
 #include <stdlib.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vCreateModeStructPointer(TIMER_nMODE enMode, TIMER_MODE_Typedef* pstMode)
+void TIMER__vCreateModeStructPointer(TIMER_nMODE enModeArg, TIMER_MODE_Typedef* pstMode)
 {
     if(0UL != (uint32_t) pstMode)
     {
-        pstMode->enDirection = (TIMER_nCOUNT_DIR) ((uint32_t) enMode & 1U);
-        pstMode->enAltMode = (TIMER_nALT_MODE) (((uint32_t) enMode >> 4U) & 1U);
-        pstMode->enEdgeMode = (TIMER_nEDGE_MODE) (((uint32_t) enMode >> 8U) & 1U);
-        pstMode->enSubMode = (TIMER_nSUB_MODE) (((uint32_t) enMode >> 12U) & 3U);
-        pstMode->enConfig = (TIMER_nCONFIG) (((uint32_t) enMode >> 16U) & 7U);
-        pstMode->enPWMOut = (TIMER_nPWM_OUTPUT) (((uint32_t) enMode >> 20U) & 1U);
-        pstMode->enPWMOutInit = (TIMER_nPWM_OUT_INIT) (((uint32_t) enMode >> 24U) & 1U);
-        pstMode->enEdgeEvent = (TIMER_nEDGE_EVENT) (((uint32_t) enMode >> 28U) & 3U);
-        pstMode->enSnapShot = (TIMER_nSNAPSHOT) (((uint32_t) enMode >> 30U) & 1U);
+        pstMode->enDirection = (TIMER_nCOUNT_DIR) ((uint32_t) enModeArg & 1U);
+        pstMode->enAltMode = (TIMER_nALT_MODE) (((uint32_t) enModeArg >> 4U) & 1U);
+        pstMode->enEdgeMode = (TIMER_nEDGE_MODE) (((uint32_t) enModeArg >> 8U) & 1U);
+        pstMode->enSubMode = (TIMER_nSUB_MODE) (((uint32_t) enModeArg >> 12U) & 3U);
+        pstMode->enConfig = (TIMER_nCONFIG) (((uint32_t) enModeArg >> 16U) & 7U);
+        pstMode->enPWMOut = (TIMER_nPWM_OUTPUT) (((uint32_t) enModeArg >> 20U) & 1U);
+        pstMode->enPWMOutInit = (TIMER_nPWM_OUT_INIT) (((uint32_t) enModeArg >> 24U) & 1U);
+        pstMode->enEdgeEvent = (TIMER_nEDGE_EVENT) (((uint32_t) enModeArg >> 28U) & 3U);
+        pstMode->enSnapShot = (TIMER_nSNAPSHOT) (((uint32_t) enModeArg >> 30U) & 1U);
     }
 }
 
-TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enMode)
+TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enModeArg)
 {
     TIMER_MODE_Typedef* pstMode = 0;
     #if defined (__TI_ARM__ )
@@ -52,15 +52,15 @@ TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enMode)
     #endif
     if(0UL != (uint32_t) pstMode)
     {
-        pstMode->enDirection = (TIMER_nCOUNT_DIR) ((uint32_t) enMode & 1U);
-        pstMode->enAltMode = (TIMER_nALT_MODE) (((uint32_t) enMode >> 4U) & 1U);
-        pstMode->enEdgeMode = (TIMER_nEDGE_MODE) (((uint32_t) enMode >> 8U) & 1U);
-        pstMode->enSubMode = (TIMER_nSUB_MODE) (((uint32_t) enMode >> 12U) & 3U);
-        pstMode->enConfig = (TIMER_nCONFIG) (((uint32_t) enMode >> 16U) & 7U);
-        pstMode->enPWMOut = (TIMER_nPWM_OUTPUT) (((uint32_t) enMode >> 20U) & 1U);
-        pstMode->enPWMOutInit = (TIMER_nPWM_OUT_INIT) (((uint32_t) enMode >> 24U) & 1U);
-        pstMode->enEdgeEvent = (TIMER_nEDGE_EVENT) (((uint32_t) enMode >> 28U) & 3U);
-        pstMode->enSnapShot = (TIMER_nSNAPSHOT) (((uint32_t) enMode >> 30U) & 1U);
+        pstMode->enDirection = (TIMER_nCOUNT_DIR) ((uint32_t) enModeArg & 1U);
+        pstMode->enAltMode = (TIMER_nALT_MODE) (((uint32_t) enModeArg >> 4U) & 1U);
+        pstMode->enEdgeMode = (TIMER_nEDGE_MODE) (((uint32_t) enModeArg >> 8U) & 1U);
+        pstMode->enSubMode = (TIMER_nSUB_MODE) (((uint32_t) enModeArg >> 12U) & 3U);
+        pstMode->enConfig = (TIMER_nCONFIG) (((uint32_t) enModeArg >> 16U) & 7U);
+        pstMode->enPWMOut = (TIMER_nPWM_OUTPUT) (((uint32_t) enModeArg >> 20U) & 1U);
+        pstMode->enPWMOutInit = (TIMER_nPWM_OUT_INIT) (((uint32_t) enModeArg >> 24U) & 1U);
+        pstMode->enEdgeEvent = (TIMER_nEDGE_EVENT) (((uint32_t) enModeArg >> 28U) & 3U);
+        pstMode->enSnapShot = (TIMER_nSNAPSHOT) (((uint32_t) enModeArg >> 30U) & 1U);
     }
     return (pstMode);
 }

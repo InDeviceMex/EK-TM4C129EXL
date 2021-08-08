@@ -27,10 +27,10 @@
 #include <xDriver_MCU/TIMER/App/Mode/xHeader/TIMER_ModeStruct.h>
 #include <xDriver_MCU/TIMER/Driver/TIMER_Driver.h>
 
-TIMER_nSTATUS TIMER__enSetMode(TIMER_nMODULE enModule, TIMER_nMODE enMode)
+TIMER_nSTATUS TIMER__enSetMode(TIMER_nMODULE enModule, TIMER_nMODE enModeArg)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
-    TIMER_MODE_Typedef* pstMode = TIMER__pstCreateModeStruct(enMode);
+    TIMER_MODE_Typedef* pstMode = TIMER__pstCreateModeStruct(enModeArg);
 
     if(0UL != (uint32_t) pstMode)
     {
@@ -77,7 +77,7 @@ TIMER_nSTATUS TIMER__enSetModeStruct(TIMER_nMODULE enModule, const TIMER_MODE_Ty
 
 TIMER_nMODE TIMER__enGetMode(TIMER_nMODULE enModule)
 {
-    TIMER_nMODE enMode = TIMER_enMODE_UNDEF;
+    TIMER_nMODE enModeVar = TIMER_enMODE_UNDEF;
 
     TIMER_nCONFIG enConfigVar = TIMER_enCONFIG_WIDE;
     TIMER_nSUB_MODE enSubModeVar = TIMER_enSUB_MODE_RESERVED;
@@ -111,8 +111,8 @@ TIMER_nMODE TIMER__enGetMode(TIMER_nMODULE enModule)
     u32Reg |= ((uint32_t) enEdgeEventVar << 28UL);
     u32Reg |= ((uint32_t) enSnapShotVar << 30UL);
 
-    enMode = (TIMER_nMODE)u32Reg;
-    return (enMode);
+    enModeVar = (TIMER_nMODE)u32Reg;
+    return (enModeVar);
 }
 
 TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_Typedef* pstMode)

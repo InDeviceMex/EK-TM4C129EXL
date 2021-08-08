@@ -132,16 +132,20 @@ uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
             switch(u32Sequencer)
             {
             case (uint32_t) ADC_enSEQ_0:
-                u32Value = *((volatile uint32_t*)u32AdcBase + ADC_SSFIFO0_OFFSET);
+                u32AdcBase += ADC_SSFIFO0_OFFSET;
+                u32Value = *((volatile uint32_t*)u32AdcBase);
                 break;
             case (uint32_t) ADC_enSEQ_1:
-                    u32Value = *((volatile uint32_t*)u32AdcBase + ADC_SSFIFO1_OFFSET);
+                    u32AdcBase += ADC_SSFIFO1_OFFSET;
+                    u32Value = *((volatile uint32_t*)u32AdcBase);
                 break;
             case (uint32_t) ADC_enSEQ_2:
-                    u32Value = *((volatile uint32_t*)u32AdcBase + ADC_SSFIFO2_OFFSET);
+                    u32AdcBase += ADC_SSFIFO2_OFFSET;
+                    u32Value = *((volatile uint32_t*)u32AdcBase);
                 break;
             case (uint32_t) ADC_enSEQ_3:
-                    u32Value = *((volatile uint32_t*)u32AdcBase + ADC_SSFIFO3_OFFSET);
+                    u32AdcBase += ADC_SSFIFO3_OFFSET;
+                    u32Value = *((volatile uint32_t*)u32AdcBase);
                 break;
             default:
                 break;
