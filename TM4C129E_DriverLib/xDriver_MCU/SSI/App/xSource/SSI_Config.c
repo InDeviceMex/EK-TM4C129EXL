@@ -248,6 +248,7 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
         SSI__vSetFssHold(enModuleFilter, pstControlConfig->enFssHold);
         SSI__vSetDirection(enModuleFilter, pstControlConfig->enDirection);
         SSI__vSetMode(enModuleFilter, pstControlConfig->enSSIMode);
+        SSI__vSetEndTransmission(enModuleFilter, pstControlConfig->enEndOfTransmission);
         SSI__vSetMasterSlave(enModuleFilter, enMasterSlaveArg);
         SSI__vSetLoopback(enModuleFilter, pstControlConfig->enLoopback);
 

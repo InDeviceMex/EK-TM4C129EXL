@@ -65,7 +65,6 @@ void SSI2__vIRQVectorHandler(void)
     {
         SSI2_DMACTL_R &= ~SSI_DMACTL_R_TXDMAE_MASK;
         SSI2_ICR_R = (uint32_t) SSI_enINT_SOURCE_TRANSMIT_DMA;
-        SSI2_DMACTL_R |= SSI_DMACTL_R_TXDMAE_MASK;
         pfvCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_2, SSI_enINTERRUPT_TRANSMIT_DMA);
         pfvCallback();
     }

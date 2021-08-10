@@ -164,6 +164,13 @@ typedef enum
 
 typedef enum
 {
+    SSI_enEOT_FIFO = 0UL,
+    SSI_enEOT_ALL = 1UL,
+    SSI_enEOT_UNDEF = 0xFFFFFFFFUL,
+}SSI_nEOT;
+
+typedef enum
+{
     SSI_enDIRECTION_TX = 0UL,
     SSI_enDIRECTION_RX = 1UL,
     SSI_enDIRECTION_UNDEF = 0xFFFFFFFFUL,
@@ -242,6 +249,7 @@ typedef enum
 typedef struct
 {
     SSI_nLOOPBACK enLoopback;
+    SSI_nEOT enEndOfTransmission;
     SSI_nDIRECTION enDirection;
     SSI_nMODE enSSIMode;
     SSI_nFSSHOLD enFssHold;

@@ -27,6 +27,7 @@
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Direction.h>
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Enable.h>
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_EndMessage.h>
+#include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_EndTransmission.h>
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_FssHold.h>
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_HighSpeed.h>
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Loopback.h>

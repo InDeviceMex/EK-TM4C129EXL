@@ -5,14 +5,19 @@
  */
 #include <xDriver_MCU/xDriver_MCU.h>
 #include <xApplication_MCU/xApplication_MCU.h>
+#include <xApplication/EDUMKII/EDUMKII.h>
+#include <xApplication/ST7735/ST7735.h>
 #include <xOS/xOS.h>
 
 #include <xUtils/DataStructure/LinkedList/LinkedList.h>
+#include <xUtils/Colors/Colors.h>
+#include <xUtils/Math/Math.h>
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
 uint32_t main(void);
 
+void Task0(void* pvParams);
 void Task1(void* pvParams);
 void Task2(void* pvParams);
 void Task3(void* pvParams);
@@ -21,6 +26,18 @@ void Task5(void* pvParams);
 void Task6(void* pvParams);
 void Led2ON(void);
 
+void Task0(void* pvParams)
+{
+    int32_t s32ADCValueX = (int32_t) pvParams;
+    int32_t s32ADCValueY = (int32_t) pvParams;
+    int32_t s32ADCValueZ = (int32_t) pvParams;
+    while(1UL)
+    {
+
+        OS_Task__vDelay(500UL);
+
+    }
+}
 void Task1(void* pvParams)
 {
     int32_t s32ADCValueX = (int32_t) pvParams;
@@ -28,18 +45,13 @@ void Task1(void* pvParams)
     int32_t s32ADCValueZ = (int32_t) pvParams;
     while(1UL)
     {
-        ADC__vSetSequencerInitConv(ADC_enMODULE_1, ADC_enSEQMASK_1);
-        OS_Task__vDelay(250UL);
-        s32ADCValueX = (int32_t) ADC__u32GetSampleValue(ADC_enMODULE_1, ADC_enSEQ_1);
-        s32ADCValueY = (int32_t) ADC__u32GetSampleValue(ADC_enMODULE_1, ADC_enSEQ_1);
-        s32ADCValueZ = (int32_t) ADC__u32GetSampleValue(ADC_enMODULE_1, ADC_enSEQ_1);
-        s32ADCValueX -= 0x7FF;
-        s32ADCValueY -= 0x7FF;
-        s32ADCValueZ -= 0x7FF;
-
+        EDUMKII_Accelerometer_vSample(&s32ADCValueX, &s32ADCValueY, &s32ADCValueZ);
         OS_Task__vEnterCritical();
-        UART__u32Printf(UART_enMODULE_0, "Accelerometer: \n\r\t\tX: %d Y: %d Z: %d\n\r", s32ADCValueX,s32ADCValueY,s32ADCValueZ);
+        UART__u32Printf(UART_enMODULE_0, "Accelerometer: \n\r\t\tX: %d Y: %d Z: %d\n\r",
+                        s32ADCValueX,s32ADCValueY,s32ADCValueZ);
         OS_Task__vExitCritical();
+        OS_Task__vDelay(150UL);
+
     }
 }
 
@@ -47,38 +59,42 @@ void Task2(void* pvParams)
 {
     uint32_t u32ADCValueX = (uint32_t) pvParams;
     uint32_t u32ADCValueY = (uint32_t) pvParams;
+    uint32_t u32LcdPosXCurrent = (uint32_t) pvParams;
+    uint32_t u32LcdPosYCurrent = (uint32_t) pvParams;
+    uint32_t u32LcdPosX= 0UL;
+    uint32_t u32LcdPosY = 0UL;
+    ST7735__vInitRModel(ST7735_enINITFLAGS_RED);
     while(1UL)
     {
-        ADC__vSetSequencerInitConv(ADC_enMODULE_1, ADC_enSEQMASK_0);
-        OS_Task__vDelay(250UL);
-        u32ADCValueX = ADC__u32GetSampleValue(ADC_enMODULE_1, ADC_enSEQ_0);
-        u32ADCValueY = ADC__u32GetSampleValue(ADC_enMODULE_1, ADC_enSEQ_0);
-
+        EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
+        u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 20UL, 20UL);
+        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 5, 128 - 5);
+        ST7735__vFillRect(u32LcdPosX - 20UL, u32LcdPosY - 20UL, 40UL, 40UL, COLORS_enBLACK);
+        ST7735__vFillRect(u32LcdPosXCurrent - 20UL, u32LcdPosYCurrent - 20UL, 40UL, 40UL, (uint32_t) COLORS_enANTIQUEWHITE);
+        u32LcdPosX = u32LcdPosXCurrent;
+        u32LcdPosY = u32LcdPosYCurrent;
         OS_Task__vEnterCritical();
         UART__u32Printf(UART_enMODULE_0, "Yoystick: \n\r\t\tX: %d Y: %d\n\r", u32ADCValueX,u32ADCValueY);
         OS_Task__vExitCritical();
+        OS_Task__vDelay(100UL);
     }
 }
 
 
 void Task3(void* pvParams)
 {
-    uint32_t u32PinValue = (uint32_t) pvParams;
-    uint32_t u32PinValue1 = (uint32_t) pvParams;
+    EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
+    EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
     static uint32_t u32CountTask = 0UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOC6, GPIO_enCONFIG_INPUT_2MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enGPIOL1, GPIO_enCONFIG_INPUT_2MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enGPIOL2, GPIO_enCONFIG_INPUT_2MA_PUSHPULL_PULLUP);
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
-        GPIO__enGetData(GPIO_enPORT_L, (GPIO_nPIN)(GPIO_enPIN_1 | GPIO_enPIN_2), &u32PinValue);
-        GPIO__enGetData(GPIO_enPORT_C, (GPIO_nPIN)(GPIO_enPIN_6), &u32PinValue1);
-        u32PinValue |= u32PinValue1;
-        u32PinValue ^= (GPIO_nPIN)(GPIO_enPIN_1 | GPIO_enPIN_2 | GPIO_enPIN_6);
-        if(u32PinValue & (uint32_t) GPIO_enPIN_1)
+        enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);
+        EDUMKII_Joystick_vSampleSelect(&enSelect);
+
+        if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enPIN_0);
         }
@@ -86,7 +102,7 @@ void Task3(void* pvParams)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
         }
-        if(u32PinValue & (uint32_t) GPIO_enPIN_2)
+        if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
         }
@@ -95,7 +111,7 @@ void Task3(void* pvParams)
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, 0UL);
         }
 
-        if(u32PinValue & (uint32_t) GPIO_enPIN_6)
+        if(EDUMKII_enJOYSTICK_PRESS == enSelect)
         {
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
         }
@@ -221,39 +237,19 @@ uint32_t main(void)
      UART_enLINE_SELECT_PRIMARY,
     };
 
-    ADC_SAMPLE_CONFIG_Typedef sADC1SampleConfig =
-    {
-     ADC_enSEQ_INPUT_9,
-     ADC_enSEQ_INPUT_DIFF_DIS,
-     ADC_enSEQ_INPUT_ENDED_DIS,
-     ADC_enSEQ_INPUT_INT_DIS,
-     ADC_enSEQ_INPUT_TEMP_DIS,
-     ADC_enSEQ_INPUT_OPERATION_SAMPLE,
-     ADC_enSEQ_SAMPLE_HOLD_256,
-     ADC_enCOMPARATOR_0,
-    };
-
-    ADC_SAMPLE_CONFIG_Typedef sADC1SampleAccConfig =
-    {
-     ADC_enSEQ_INPUT_3,
-     ADC_enSEQ_INPUT_DIFF_DIS,
-     ADC_enSEQ_INPUT_ENDED_DIS,
-     ADC_enSEQ_INPUT_INT_DIS,
-     ADC_enSEQ_INPUT_TEMP_DIS,
-     ADC_enSEQ_INPUT_OPERATION_SAMPLE,
-     ADC_enSEQ_SAMPLE_HOLD_256,
-     ADC_enCOMPARATOR_0,
-    };
-
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUDMA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOD);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOE);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enADC0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC1);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI2);
     EEPROM__enInit();
     DMA__vInit();
     GPIO__vInit();
@@ -262,28 +258,10 @@ uint32_t main(void)
     UART__vInit();
     SSI__vInit();
 
-    ADC__vSetConversionRate(ADC_enMODULE_1, ADC_enCONVERSION_RATE_112);
-    ADC__vSetVCODivisor(ADC_enMODULE_1, 480UL/32UL);
-    ADC__vSetClockSource(ADC_enMODULE_1, ADC_enCLOCK_PLL_VCO);
-    ADC__vSetAverage(ADC_enMODULE_1, ADC_enAVERAGE_64);
-
-    ADC__vSetSequencerEnable(ADC_enMODULE_1,(ADC_nSEQMASK)(ADC_enSEQMASK_0 | ADC_enSEQMASK_1),ADC_enSEQ_ENABLE_DIS);
-    ADC__vSetSequencerTrigger(ADC_enMODULE_1, ADC_enSEQ_0, ADC_enSEQ_TRIGGER_SOFTWARE);
-    ADC__vSetSequencerTrigger(ADC_enMODULE_1, ADC_enSEQ_1, ADC_enSEQ_TRIGGER_SOFTWARE);
-
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_1, ADC_enSEQ_0, ADC_enMUX_0,&sADC1SampleConfig);
-    sADC1SampleConfig.enInput = ADC_enSEQ_INPUT_0;
-    sADC1SampleConfig.enEnded = ADC_enSEQ_INPUT_ENDED_ENA;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_1, ADC_enSEQ_0, ADC_enMUX_1,&sADC1SampleConfig);
-
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_1, ADC_enSEQ_1, ADC_enMUX_0,&sADC1SampleAccConfig);
-    sADC1SampleAccConfig.enInput = ADC_enSEQ_INPUT_2;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_1, ADC_enSEQ_1, ADC_enMUX_1,&sADC1SampleAccConfig);
-    sADC1SampleAccConfig.enInput = ADC_enSEQ_INPUT_1;
-    sADC1SampleAccConfig.enEnded = ADC_enSEQ_INPUT_ENDED_ENA;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_1, ADC_enSEQ_1, ADC_enMUX_2,&sADC1SampleAccConfig);
-
-    ADC__vSetSequencerEnable(ADC_enMODULE_1,(ADC_nSEQMASK)(ADC_enSEQMASK_0 | ADC_enSEQMASK_1),ADC_enSEQ_ENABLE_ENA);
+    EDUMKII_Button_vInit(EDUMKII_enBUTTON_ALL);
+    EDUMKII_Microphone_vInit();
+    EDUMKII_Joystick_vInit();
+    EDUMKII_Accelerometer_vInit();
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUart0Control, &enUart0LineControl, 115200UL, &enUart0Line );
@@ -298,8 +276,9 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
+    OS_Task__u32TaskGenericCreate(&Task0, "Task 0", 300UL, (void*) 0UL, 3UL, &TaskHandeler[0UL]);
     OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 6UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 1UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[4UL]);

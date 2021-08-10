@@ -42,7 +42,9 @@ typedef volatile struct
     volatile uint32_t LBM;
     volatile uint32_t SSE;
     volatile uint32_t MS;
-    const uint32_t reserved [3UL];
+    const uint32_t reserved;
+    volatile uint32_t EOT;
+    const uint32_t reserved1;
     volatile uint32_t MODE [2UL];
     volatile uint32_t DIR;
     volatile uint32_t HSCLKEN;
