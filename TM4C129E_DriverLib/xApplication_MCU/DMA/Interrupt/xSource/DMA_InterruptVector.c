@@ -44,6 +44,3 @@ void DMA__vDisInterruptVector(DMA_nVECTOR enVector)
     enVectorNvic = NVIC_VECTOR_DMA[ (uint32_t) enVector];
     NVIC__vClearEnableIRQ(enVectorNvic);
 }
-
-
-

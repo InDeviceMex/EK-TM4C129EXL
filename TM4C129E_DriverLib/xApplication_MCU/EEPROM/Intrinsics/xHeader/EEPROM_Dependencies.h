@@ -27,9 +27,10 @@
 
 #include <xDriver_MCU/SYSCTL/SYSCTL.h>
 #include <xDriver_MCU/FLASH/FLASH.h>
-#include <xDriver_MCU/EEPROM/EEPROM.h>
 
+#include <xDriver_MCU/EEPROM/EEPROM.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
+
 #include <xDriver_MCU/Common/MCU_Common.h>
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTRINSICS_XHEADER_EEPROM_DEPENDENCIES_H_ */

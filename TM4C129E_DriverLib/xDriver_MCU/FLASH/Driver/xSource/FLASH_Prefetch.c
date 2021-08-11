@@ -38,7 +38,7 @@ FLASH_nPREFETCH_MODE FLASH__enGetPrefetchMode (void)
     FLASH_nPREFETCH_MODE enReturn = FLASH_enPREFETCH_MODE_TWO;
     enReturn = (FLASH_nPREFETCH_MODE) MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
                                     FLASH_FLASHCONF_SPFE_MASK, FLASH_FLASHCONF_R_SPFE_BIT);
-    return enReturn;
+    return (enReturn);
 }
 
 void FLASH__vSetPrefetchEnable (FLASH_nPREFETCH_ENABLE enPrefetchEnable)
@@ -76,5 +76,5 @@ FLASH_nMIRROR FLASH__enGetMirrorMode (void)
     FLASH_nMIRROR enReturn = FLASH_enMIRROR_DIS;
     enReturn = (FLASH_nMIRROR) MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
                                     FLASH_FLASHCONF_FMME_MASK, FLASH_FLASHCONF_R_FMME_BIT);
-    return enReturn;
+    return (enReturn);
 }

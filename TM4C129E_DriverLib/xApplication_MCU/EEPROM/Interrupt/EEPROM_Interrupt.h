@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_EEPROM_INTERRUPT_EEPROM_INTERRUPT_H_
 
 #include <xApplication_MCU/EEPROM/Interrupt/InterruptRegister/EEPROM_InterruptRegister.h>
+#include <xApplication_MCU/EEPROM/Interrupt/InterruptRoutine/EEPROM_InterruptRoutine.h>
 #include <xApplication_MCU/EEPROM/Interrupt/xHeader/EEPROM_InterruptVector.h>
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTERRUPT_EEPROM_INTERRUPT_H_ */

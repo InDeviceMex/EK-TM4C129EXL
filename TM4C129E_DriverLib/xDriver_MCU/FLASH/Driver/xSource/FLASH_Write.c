@@ -6,7 +6,6 @@
  */
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Write.h>
 
-#include <xUtils/Standard/Standard.h>
 #include <stdlib.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Erase.h>
@@ -116,7 +115,7 @@ static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32A
             enStatus = FLASH_enERROR;
         break;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data, uint32_t u32Address, uint32_t u32AddressOffset, FLASH_nVARIABLE enVariableType)
@@ -202,19 +201,19 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data, uint32_t u32Address, uin
             }
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enWriteWorld (uint32_t u32Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nSTATUS enReturn = FLASH_enOK;
     enReturn = FLASH_enWriteAux(u32Data, u32Address, 0UL, FLASH_enVARIABLE_WORD);
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nSTATUS enReturn = FLASH_enOK;
     uint32_t u32AddressOffset = 0UL;
 
     u32AddressOffset = u32Address;
@@ -222,16 +221,16 @@ FLASH_nSTATUS FLASH__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
     u32AddressOffset >>= 1UL;
 
     enReturn = FLASH_enWriteAux( (uint32_t) u16Data, u32Address, u32AddressOffset, FLASH_enVARIABLE_HALFWORD);
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enWriteByte (uint8_t u8Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nSTATUS enReturn = FLASH_enOK;
     uint32_t u32AddressOffset = 0UL;
 
     u32AddressOffset = u32Address;
     u32AddressOffset &= 3UL;
     enReturn = FLASH_enWriteAux( (uint32_t) u8Data, u32Address, u32AddressOffset, FLASH_enVARIABLE_BYTE);
-    return enReturn;
+    return (enReturn);
 }

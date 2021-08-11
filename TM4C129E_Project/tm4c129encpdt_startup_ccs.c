@@ -25,7 +25,7 @@
 #include <xUtils/Standard/Standard.h>
 #include <xApplication_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Core/FPU/FPU.h>
-#include <xDriver_MCU/FLASH/FLASH.h>
+#include <xApplication_MCU/FLASH/FLASH.h>
 
 /*******************************************************************************/
 /**/

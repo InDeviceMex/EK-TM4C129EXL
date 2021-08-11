@@ -32,6 +32,8 @@
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
 #include <xDriver_MCU/ADC/ADC.h>
+#include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
+
 #include <xDriver_MCU/GPIO/GPIO.h>
 
 #include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>

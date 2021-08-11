@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/ADC/xHeader/ADC_Init.h>
 
-#include <xApplication_MCU/ADC/Interrupt/InterruptRegister/ADC_InterruptRegister.h>
+#include <xApplication_MCU/ADC/Interrupt/ADC_Interrupt.h>
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
 void ADC__vInit(void)

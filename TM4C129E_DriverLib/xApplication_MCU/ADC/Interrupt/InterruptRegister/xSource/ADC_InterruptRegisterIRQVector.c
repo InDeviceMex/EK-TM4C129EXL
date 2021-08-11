@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/ADC/Interrupt/InterruptRegister/xHeader/ADC_InterruptRegisterIRQVector.h>
 
+#include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/ADC_InterruptRoutine.h>
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
 void ADC__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
@@ -47,6 +48,3 @@ void ADC__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),ADC_nMODUL
                                         enVector);
     }
 }
-
-
-

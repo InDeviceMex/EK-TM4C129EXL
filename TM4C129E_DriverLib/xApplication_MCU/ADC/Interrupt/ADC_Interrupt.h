@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_ADC_INTERRUPT_ADC_INTERRUPT_H_
 
 #include <xApplication_MCU/ADC/Interrupt/InterruptRegister/ADC_InterruptRegister.h>
+#include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/ADC_InterruptRoutine.h>
 #include <xApplication_MCU/ADC/Interrupt/xHeader/ADC_InterruptVector.h>
 
 #endif /* XAPPLICATION_MCU_ADC_INTERRUPT_ADC_INTERRUPT_H_ */

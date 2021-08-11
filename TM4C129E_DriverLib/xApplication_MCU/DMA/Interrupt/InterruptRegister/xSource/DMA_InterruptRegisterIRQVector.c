@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/DMA/Interrupt/InterruptRegister/xHeader/DMA_InterruptRegisterIRQVector.h>
 
+#include <xApplication_MCU/DMA/Interrupt/InterruptRoutine/DMA_InterruptRoutine.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
 void DMA__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),DMA_nVECTOR enVector)

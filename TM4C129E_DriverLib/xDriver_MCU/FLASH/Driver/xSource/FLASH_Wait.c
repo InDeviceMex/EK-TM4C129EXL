@@ -29,5 +29,5 @@ FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask)
         }
     }while((u32RegisterMask == u32Reg) && (0UL != u32TimeOut));
     FLASH__vClearPrefetchBuffer();
-    return enReturn;
+    return (enReturn);
 }

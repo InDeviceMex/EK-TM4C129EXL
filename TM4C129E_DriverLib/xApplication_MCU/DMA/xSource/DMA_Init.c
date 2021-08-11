@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/DMA/xHeader/DMA_Init.h>
 
-#include <xApplication_MCU/DMA/Interrupt/InterruptRegister/DMA_InterruptRegister.h>
+#include <xApplication_MCU/DMA/Interrupt/DMA_Interrupt.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
 void DMA__vInit(void)
@@ -39,6 +39,3 @@ void DMA__vInit(void)
     DMA__vSetChannelControlPointer( (uint32_t) DMA__stChannel);
     DMA__vSetModuleEnable(DMA_enENABLE_ENA);
 }
-
-
-

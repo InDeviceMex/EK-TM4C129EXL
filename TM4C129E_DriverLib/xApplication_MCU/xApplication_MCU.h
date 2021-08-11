@@ -29,6 +29,7 @@
 #include <xApplication_MCU/DMA/DMA.h>
 #include <xApplication_MCU/Core/Core.h>
 #include <xApplication_MCU/EEPROM/EEPROM.h>
+#include <xApplication_MCU/FLASH/FLASH.h>
 #include <xApplication_MCU/UART/UART.h>
 
 #endif /* XAPPLICATION_MCU_XAPPLICATION_MCU_H_ */

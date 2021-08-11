@@ -21,21 +21,21 @@ FLASH_nSTATUS FLASH__enPageErase (uint32_t u32Address)
         MCU__vWriteRegister(FLASH_BASE, FLASH_FMA_OFFSET, u32Address, FLASH_FMA_OFFSET_MASK, FLASH_FMA_R_OFFSET_BIT);
         enReturn = FLASH__enInitProcess(FLASH_FMC_OFFSET, FLASH_FMC_R_ERASE_MASK);
     }
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enPageErasePos (uint32_t u32Page)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nSTATUS enReturn = FLASH_enOK;
     uint32_t u32FlashSectorSize = FLASH__u32GetSectorSize();
     uint32_t u32Address = u32Page * u32FlashSectorSize;
     enReturn = FLASH__enPageErase(u32Address);
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enMassErase (void)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nSTATUS enReturn = FLASH_enOK;
     enReturn = FLASH__enInitProcess(FLASH_FMC_OFFSET, FLASH_FMC_R_MERASE_MASK);
-    return enReturn;
+    return (enReturn);
 }

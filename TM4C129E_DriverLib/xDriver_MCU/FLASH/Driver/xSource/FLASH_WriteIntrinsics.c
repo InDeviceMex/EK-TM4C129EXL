@@ -29,7 +29,7 @@ FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
             enReturn = FLASH__enInitProcess(FLASH_FMC_OFFSET, FLASH_FMC_R_WRITE_WRITE);
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count)
@@ -70,5 +70,5 @@ FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, u
         }
         enReturn = FLASH__enInitProcess(FLASH_FMC2_OFFSET, FLASH_FMC2_R_WRBUF_WRITE);
     }
-    return enReturn;
+    return (enReturn);
 }
