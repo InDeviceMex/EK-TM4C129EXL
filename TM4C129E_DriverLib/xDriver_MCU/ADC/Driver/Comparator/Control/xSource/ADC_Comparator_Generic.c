@@ -33,5 +33,5 @@ void ADC__vSetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator, ui
 
 uint32_t ADC__u32GetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32FeatureMask, uint32_t u32FeatureBit)
 {
-    return ADC__u32GetCompGeneric(u32Module, u32Comparator, ADC_DCCTL_OFFSET, u32FeatureMask, u32FeatureBit);
+    return (ADC__u32GetCompGeneric(u32Module, u32Comparator, ADC_DCCTL_OFFSET, u32FeatureMask, u32FeatureBit));
 }

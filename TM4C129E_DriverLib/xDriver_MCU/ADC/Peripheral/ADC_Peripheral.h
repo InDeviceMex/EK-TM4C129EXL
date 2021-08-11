@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_ADC_PERIPHERAL_ADC_PERIPHERAL_H_
 #define XDRIVER_MCU_ADC_PERIPHERAL_ADC_PERIPHERAL_H_
 
-#include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Dependencies.h>
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 #include <xDriver_MCU/ADC/Peripheral/Register/ADC_Register.h>
 

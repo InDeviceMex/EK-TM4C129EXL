@@ -33,7 +33,7 @@ void ADC__vSetClockSource(ADC_nMODULE enModule, ADC_nCLOCK enClock)
 
 ADC_nCLOCK ADC__enGetClockSource(ADC_nMODULE enModule)
 {
-    return (ADC_nCLOCK) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET, ADC_CC_CS_MASK, ADC_CC_R_CS_BIT);
+    return ((ADC_nCLOCK) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET, ADC_CC_CS_MASK, ADC_CC_R_CS_BIT));
 }
 
 void ADC__vSetVCODivisor(ADC_nMODULE enModule, uint32_t u32DivisorArg)

@@ -2,7 +2,7 @@
  *
  * @file ADC_Dependencies.h
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,19 +11,19 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 26 sep. 2020 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 26 sep. 2020     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_DEPENDENCIES_H_
-#define XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_DEPENDENCIES_H_
+#ifndef XAPPLICATION_MCU_ADC_INTRINSICS_XHEADER_ADC_DEPENDENCIES_H_
+#define XAPPLICATION_MCU_ADC_INTRINSICS_XHEADER_ADC_DEPENDENCIES_H_
 
 #include <xDriver_MCU/Core/NVIC/NVIC.h>
 #include <xDriver_MCU/Core/SCB/SCB.h>
@@ -31,6 +31,9 @@
 #include <xDriver_MCU/SYSCTL/SYSCTL.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
+#include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 
-#endif /* XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_DEPENDENCIES_H_ */
+#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
+
+#endif /* XAPPLICATION_MCU_ADC_INTRINSICS_XHEADER_ADC_DEPENDENCIES_H_ */

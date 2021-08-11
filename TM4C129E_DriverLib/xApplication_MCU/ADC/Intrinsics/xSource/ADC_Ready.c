@@ -2,7 +2,7 @@
  *
  * @file ADC_Ready.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,21 +11,19 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 22 nov. 2020 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 22 nov. 2020     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_Ready.h>
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Ready.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Dependencies.h>
-#include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
 #if !defined(Opt_Check)
 static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX] = {SYSCTL_enADC0, SYSCTL_enADC1};
@@ -78,3 +76,7 @@ ADC_nREADY ADC__enIsReady(ADC_nMODULE enModule)
 #endif
     return enReady;
 }
+
+
+
+

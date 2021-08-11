@@ -33,5 +33,5 @@ void ADC__vSetSampleTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequenc
 
 ADC_nSEQ_INPUT_TEMP ADC__enGetSampleTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    return (ADC_nSEQ_INPUT_TEMP) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_TS0_MASK, ADC_SSCTL_R_TS0_BIT);
+    return ((ADC_nSEQ_INPUT_TEMP) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_TS0_MASK, ADC_SSCTL_R_TS0_BIT));
 }

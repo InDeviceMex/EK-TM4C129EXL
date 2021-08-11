@@ -55,5 +55,5 @@ ADC_nSTATUS ADC__enGetCompRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
             *pu32CompRangeHigh = u32CompRangeHigh;
         }
     }
-    return enStatus;
+    return (enStatus);
 }

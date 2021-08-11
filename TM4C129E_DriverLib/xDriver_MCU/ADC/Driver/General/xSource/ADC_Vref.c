@@ -33,7 +33,7 @@ void ADC__vSetVoltageReference(ADC_nMODULE enModule, ADC_nVREF enVoltageReferenc
 
 ADC_nVREF ADC__enGetVoltageReference(ADC_nMODULE enModule)
 {
-    return (ADC_nVREF) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CTL_OFFSET, ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT);
+    return ((ADC_nVREF) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CTL_OFFSET, ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT));
 }
 
 

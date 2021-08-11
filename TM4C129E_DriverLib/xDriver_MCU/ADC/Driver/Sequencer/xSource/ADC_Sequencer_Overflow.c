@@ -33,5 +33,5 @@ void ADC__vClearSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 
 ADC_nSEQ_OV ADC__enGetSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    return (ADC_nSEQ_OV) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_OSTAT_OFFSET, (uint32_t) enSequence, 0UL));
+    return ((ADC_nSEQ_OV) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_OSTAT_OFFSET, (uint32_t) enSequence, 0UL)));
 }

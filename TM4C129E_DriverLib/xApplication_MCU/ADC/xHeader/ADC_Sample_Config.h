@@ -2,7 +2,7 @@
  *
  * @file ADC_Sample_Config.h
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,24 +11,24 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 24 nov. 2020 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 24 nov. 2020     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_ADC_APP_XHEADER_ADC_Sample_CONFIG_H_
-#define XDRIVER_MCU_ADC_APP_XHEADER_ADC_Sample_CONFIG_H_
+#ifndef XAPPLICATION_MCU_ADC_XHEADER_ADC_SAMPLE_CONFIG_H_
+#define XAPPLICATION_MCU_ADC_XHEADER_ADC_SAMPLE_CONFIG_H_
 
-#include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
 ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig);
 ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig);
 ADC_nSTATUS ADC__enGetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig);
 
-#endif /* XDRIVER_MCU_ADC_APP_XHEADER_ADC_Sample_CONFIG_H_ */
+#endif /* XAPPLICATION_MCU_ADC_XHEADER_ADC_SAMPLE_CONFIG_H_ */

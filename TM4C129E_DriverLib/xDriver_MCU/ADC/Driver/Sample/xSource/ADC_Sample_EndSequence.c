@@ -33,5 +33,5 @@ void ADC__vSetSampleEndSequence(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
 
 ADC_nSEQ_INPUT_ENDED ADC__enGetSampleEndSequence(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    return (ADC_nSEQ_INPUT_ENDED) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_END0_MASK, ADC_SSCTL_R_END0_BIT);
+    return ((ADC_nSEQ_INPUT_ENDED) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_END0_MASK, ADC_SSCTL_R_END0_BIT));
 }

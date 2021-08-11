@@ -33,5 +33,5 @@ void ADC__vSetCompTriggerCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActCo
 
 ADC_nCOMP_TRIGGER_COND ADC__enGetCompTriggerCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
-    return (ADC_nCOMP_TRIGGER_COND) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CTC_MASK, ADC_DCCTL_R_CTC_BIT);
+    return ((ADC_nCOMP_TRIGGER_COND) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CTC_MASK, ADC_DCCTL_R_CTC_BIT));
 }

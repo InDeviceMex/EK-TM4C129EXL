@@ -33,5 +33,5 @@ void ADC__vSetSequencerTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence, 
 
 ADC_nSEQ_TRIGGER ADC__enGetSequencerTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
 {
-    return (ADC_nSEQ_TRIGGER) (ADC__u32GetSequencerGenericBit((uint32_t) enModule, ADC_EMUX_OFFSET, (uint32_t) enSequence, ADC_EMUX_EM0_MASK,  (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT), ADC_EMUX_R_EM0_BIT));
+    return ((ADC_nSEQ_TRIGGER) (ADC__u32GetSequencerGenericBit((uint32_t) enModule, ADC_EMUX_OFFSET, (uint32_t) enSequence, ADC_EMUX_EM0_MASK,  (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT), ADC_EMUX_R_EM0_BIT)));
 }

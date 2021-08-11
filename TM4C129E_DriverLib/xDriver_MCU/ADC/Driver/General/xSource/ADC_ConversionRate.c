@@ -33,7 +33,7 @@ void ADC__vSetConversionRate(ADC_nMODULE enModule, ADC_nCONVERSION_RATE enConver
 
 ADC_nCONVERSION_RATE ADC__enGetConversionRate(ADC_nMODULE enModule)
 {
-    return (ADC_nCONVERSION_RATE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT);
+    return ((ADC_nCONVERSION_RATE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT));
 }
 
 

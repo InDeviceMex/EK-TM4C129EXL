@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_ADC_DRIVER_INTRINSICS_PRIMITIVES_ADC_PRIMITIVES_H_
 
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_ReadRegister.h>
-#include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_Ready.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_WriteRegister.h>
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_PRIMITIVES_ADC_PRIMITIVES_H_ */

@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Interrupt/xHeader/ADC_InterruptSource_SeqComp.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
@@ -59,6 +59,6 @@ ADC_nCOMP_INT_STATUS ADC__enStatusInterruptComp(ADC_nMODULE enModule, ADC_nCOMPA
     ADC_nCOMP_INT_STATUS enInterruptReg = ADC_enCOMP_INT_STATUS_UNDEF;
     uint32_t u32Comparator = 0UL;
     u32Comparator = MCU__u32CheckParams((uint32_t) enSeqComparator, (uint32_t) ADC_enCOMPARATOR_MAX);
-    ADC__enReadRegister(enModule, ADC_DCISC_OFFSET, (uint32_t*) &enInterruptReg, ADC_DCISC_DCINT_MASK, u32Comparator);
-    return enInterruptReg;
+    enInterruptReg = (ADC_nCOMP_INT_STATUS) ADC__u32ReadRegister(enModule, ADC_DCISC_OFFSET, ADC_DCISC_DCINT_MASK, u32Comparator);
+    return (enInterruptReg);
 }

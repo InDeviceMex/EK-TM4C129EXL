@@ -33,5 +33,5 @@ void ADC__vSetPhase(ADC_nMODULE enModule, ADC_nPHASE enPhase)
 
 ADC_nPHASE ADC__enGetPhase(ADC_nMODULE enModule)
 {
-    return (ADC_nPHASE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SPC_OFFSET, ADC_SPC_PHASE_MASK, ADC_SPC_R_PHASE_BIT);
+    return ((ADC_nPHASE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SPC_OFFSET, ADC_SPC_PHASE_MASK, ADC_SPC_R_PHASE_BIT));
 }

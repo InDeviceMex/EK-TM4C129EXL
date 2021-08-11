@@ -2,7 +2,7 @@
  *
  * @file ADC_Init.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,20 +11,20 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 21 ene. 2021 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 21 ene. 2021     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/ADC/App/xHeader/ADC_Init.h>
+#include <xApplication_MCU/ADC/xHeader/ADC_Init.h>
 
-#include <xDriver_MCU/ADC/Driver/ADC_Driver.h>
-#include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
+#include <xApplication_MCU/ADC/Interrupt/InterruptRegister/ADC_InterruptRegister.h>
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
 void ADC__vInit(void)
 {
@@ -38,3 +38,6 @@ void ADC__vInit(void)
     ADC__vRegisterIRQVectorHandler( &ADC1_SS2__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_2);
     ADC__vRegisterIRQVectorHandler( &ADC1_SS3__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_3);
 }
+
+
+

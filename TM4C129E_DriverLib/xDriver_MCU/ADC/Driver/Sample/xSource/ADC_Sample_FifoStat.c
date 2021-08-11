@@ -30,7 +30,6 @@
 
 ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
 {
-    ADC_nSTATUS enStatus = ADC_enSTATUS_UNDEF;
     uint32_t u32RegEmpty = 0UL;
     uint32_t u32RegFull = 0UL;
 
@@ -44,32 +43,29 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     u32SequencerReg += ADC_SSMUX0_OFFSET;
     u32SequencerReg += ADC_SSFSTAT_OFFSET;
 
-    enStatus = ADC__enReadRegister(enModule , u32SequencerReg, &u32RegEmpty, ADC_SSFSTAT_EMPTY_MASK, ADC_SSFSTAT_R_EMPTY_BIT);
-    if(ADC_enSTATUS_OK == enStatus)
+    u32RegEmpty = ADC__u32ReadRegister(enModule , u32SequencerReg, ADC_SSFSTAT_EMPTY_MASK, ADC_SSFSTAT_R_EMPTY_BIT);
+
+    if(ADC_SSFSTAT_EMPTY_EMPTY == u32RegEmpty)
     {
-         if(ADC_SSFSTAT_EMPTY_EMPTY == u32RegEmpty)
+        enFeature = ADC_enSEQ_FIFO_EMPTY;
+    }
+    else
+    {
+        u32RegFull = ADC__u32ReadRegister(enModule , u32SequencerReg, ADC_SSFSTAT_FULL_MASK, ADC_SSFSTAT_R_FULL_BIT);
+        if (ADC_SSFSTAT_FULL_FULL == u32RegFull)
         {
-            enFeature = ADC_enSEQ_FIFO_EMPTY;
+            enFeature = ADC_enSEQ_FIFO_FULL;
         }
         else
         {
-            ADC__enReadRegister(enModule , u32SequencerReg, &u32RegFull, ADC_SSFSTAT_FULL_MASK, ADC_SSFSTAT_R_FULL_BIT);
-            if (ADC_SSFSTAT_FULL_FULL == u32RegFull)
-            {
-                enFeature = ADC_enSEQ_FIFO_FULL;
-            }
-            else
-            {
-                enFeature = ADC_enSEQ_FIFO_VALUES;
-            }
+            enFeature = ADC_enSEQ_FIFO_VALUES;
         }
     }
-    return enFeature;
+    return (enFeature);
 }
 
 uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, uint32_t* pu32FifoArray)
 {
-    ADC_nREADY enReady = ADC_enNOREADY;
     ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_INT_UNDEF;
 
     uint32_t u32AdcBase = 0UL;
@@ -83,8 +79,7 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, enSequencer);
 
-    enReady = ADC__enIsReady((ADC_nMODULE) u32Module);
-    if((ADC_enREADY == enReady) && ((uint32_t) 0UL != (uint32_t) pu32FifoArray))
+    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
         u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
         u32SequencerReg = u32Sequencer;
@@ -105,12 +100,11 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
         }
 
     }
-    return u32Count;
+    return (u32Count);
 }
 
 uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
 {
-    ADC_nREADY enReady = ADC_enNOREADY;
     ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_INT_UNDEF;
 
     uint32_t u32AdcBase = 0UL;
@@ -122,36 +116,32 @@ uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
 
-    enReady = ADC__enIsReady((ADC_nMODULE) u32Module);
-    if(ADC_enREADY == enReady)
+    u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
+    enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
+    if(ADC_enSEQ_FIFO_EMPTY != enFeature)
     {
-        u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
-        enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
-        if(ADC_enSEQ_FIFO_EMPTY != enFeature)
+        switch(u32Sequencer)
         {
-            switch(u32Sequencer)
-            {
-            case (uint32_t) ADC_enSEQ_0:
-                u32AdcBase += ADC_SSFIFO0_OFFSET;
+        case (uint32_t) ADC_enSEQ_0:
+            u32AdcBase += ADC_SSFIFO0_OFFSET;
+            u32Value = *((volatile uint32_t*)u32AdcBase);
+            break;
+        case (uint32_t) ADC_enSEQ_1:
+                u32AdcBase += ADC_SSFIFO1_OFFSET;
                 u32Value = *((volatile uint32_t*)u32AdcBase);
-                break;
-            case (uint32_t) ADC_enSEQ_1:
-                    u32AdcBase += ADC_SSFIFO1_OFFSET;
-                    u32Value = *((volatile uint32_t*)u32AdcBase);
-                break;
-            case (uint32_t) ADC_enSEQ_2:
-                    u32AdcBase += ADC_SSFIFO2_OFFSET;
-                    u32Value = *((volatile uint32_t*)u32AdcBase);
-                break;
-            case (uint32_t) ADC_enSEQ_3:
-                    u32AdcBase += ADC_SSFIFO3_OFFSET;
-                    u32Value = *((volatile uint32_t*)u32AdcBase);
-                break;
-            default:
-                break;
-            }
+            break;
+        case (uint32_t) ADC_enSEQ_2:
+                u32AdcBase += ADC_SSFIFO2_OFFSET;
+                u32Value = *((volatile uint32_t*)u32AdcBase);
+            break;
+        case (uint32_t) ADC_enSEQ_3:
+                u32AdcBase += ADC_SSFIFO3_OFFSET;
+                u32Value = *((volatile uint32_t*)u32AdcBase);
+            break;
+        default:
+            break;
         }
-
     }
-    return u32Value;
+
+    return (u32Value);
 }

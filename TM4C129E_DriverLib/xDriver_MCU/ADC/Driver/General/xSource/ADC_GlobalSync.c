@@ -38,5 +38,5 @@ void ADC__vInitGlobalSync(ADC_nMODULE enModule)
 
 ADC_nGLOBAL_SYNC ADC__enGetGlobalSync(ADC_nMODULE enModule)
 {
-    return (ADC_nGLOBAL_SYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, ADC_PSSI_GSYNC_MASK, ADC_PSSI_R_GSYNC_BIT);
+    return ((ADC_nGLOBAL_SYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, ADC_PSSI_GSYNC_MASK, ADC_PSSI_R_GSYNC_BIT));
 }

@@ -33,5 +33,5 @@ void ADC__vSetAverage(ADC_nMODULE enModule, ADC_nAVERAGE enAverage)
 
 ADC_nAVERAGE ADC__enGetAverage(ADC_nMODULE enModule)
 {
-    return (ADC_nAVERAGE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SAC_OFFSET, ADC_SAC_AVG_MASK, ADC_SAC_R_AVG_BIT);
+    return ((ADC_nAVERAGE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SAC_OFFSET, ADC_SAC_AVG_MASK, ADC_SAC_R_AVG_BIT));
 }

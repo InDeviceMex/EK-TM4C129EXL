@@ -33,5 +33,5 @@ void ADC__vSetCompTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp, A
 
 ADC_nCOMP_TRIGGER_MODE ADC__enGetCompTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
-    return (ADC_nCOMP_TRIGGER_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CTM_MASK, ADC_DCCTL_R_CTM_BIT);
+    return ((ADC_nCOMP_TRIGGER_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CTM_MASK, ADC_DCCTL_R_CTM_BIT));
 }

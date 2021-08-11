@@ -24,7 +24,6 @@
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_WriteRegister.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/xHeader/ADC_Ready.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
 void ADC__vWriteRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
@@ -33,7 +32,6 @@ void ADC__vWriteRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister, uint3
     uint32_t u32Module = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
 
-    ADC__vSetReady((ADC_nMODULE) u32Module);
     u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
     MCU__vWriteRegister(u32AdcBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
 }

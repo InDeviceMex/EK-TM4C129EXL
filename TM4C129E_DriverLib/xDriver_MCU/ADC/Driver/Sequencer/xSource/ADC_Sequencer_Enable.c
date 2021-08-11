@@ -33,7 +33,7 @@ void ADC__vSetSequencerEnable(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC
 
 ADC_nSEQ_ENABLE ADC__enGetSequencerEnable(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    return (ADC_nSEQ_ENABLE) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET, (uint32_t) enSequence, 0UL));
+    return ((ADC_nSEQ_ENABLE) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET, (uint32_t) enSequence, 0UL)));
 }
 
 void ADC__vSetDMAEnable(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nDMA_ENABLE enSeqDMAEnable)
@@ -43,5 +43,5 @@ void ADC__vSetDMAEnable(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nDMA_
 
 ADC_nDMA_ENABLE ADC__enGetDMAEnable(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    return (ADC_nDMA_ENABLE) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET, (uint32_t) enSequence, 8UL));
+    return ((ADC_nDMA_ENABLE) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET, (uint32_t) enSequence, 8UL)));
 }

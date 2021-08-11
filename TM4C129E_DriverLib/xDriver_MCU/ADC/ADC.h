@@ -26,6 +26,5 @@
 #define XDRIVER_MCU_ADC_ADC_H_
 
 #include <xDriver_MCU/ADC/Driver/ADC_Driver.h>
-#include <xDriver_MCU/ADC/App/ADC_App.h>
 
 #endif /* XDRIVER_MCU_ADC_ADC_H_ */

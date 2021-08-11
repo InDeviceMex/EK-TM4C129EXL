@@ -33,5 +33,5 @@ void ADC__vSetCompIntMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp, ADC_n
 
 ADC_nCOMP_INT_MODE ADC__enGetCompIntMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
-    return (ADC_nCOMP_INT_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT);
+    return ((ADC_nCOMP_INT_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT));
 }

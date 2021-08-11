@@ -33,5 +33,5 @@ void ADC__vClearSequencerUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence
 
 ADC_nSEQ_UV ADC__enGetSequencerUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    return (ADC_nSEQ_UV) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_USTAT_OFFSET, (uint32_t) enSequence, 0UL));
+    return ((ADC_nSEQ_UV) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_USTAT_OFFSET, (uint32_t) enSequence, 0UL)));
 }

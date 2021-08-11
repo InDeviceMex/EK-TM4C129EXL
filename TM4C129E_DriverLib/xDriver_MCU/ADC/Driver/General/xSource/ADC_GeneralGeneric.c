@@ -34,6 +34,6 @@ void ADC__vSetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister, uin
 uint32_t ADC__u32GetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32Feature = 0xFFFFFFFFU;
-    ADC__enReadRegister((ADC_nMODULE) u32Module, u32OffsetRegister, &u32Feature, u32MaskFeature, u32BitFeature);
-    return u32Feature;
+    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32MaskFeature, u32BitFeature);
+    return (u32Feature);
 }

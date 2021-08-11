@@ -33,5 +33,5 @@ void ADC__vSetSampleDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence
 
 ADC_nSEQ_INPUT_DIFF ADC__enGetSampleDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    return (ADC_nSEQ_INPUT_DIFF) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_D0_MASK, ADC_SSCTL_R_D0_BIT);
+    return ((ADC_nSEQ_INPUT_DIFF) ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET, (uint32_t) enMux, ADC_SSCTL_D0_MASK, ADC_SSCTL_R_D0_BIT));
 }

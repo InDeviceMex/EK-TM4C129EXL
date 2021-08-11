@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Interrupt/xHeader/ADC_InterruptSource_SeqSample.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
@@ -87,7 +87,7 @@ ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUE
     u32Sequencer += ADC_SSMUX0_OFFSET;
     u32Sequencer += ADC_SSCTL_OFFSET;
 
-    ADC__enReadRegister(enModule, u32Sequencer, (uint32_t*) &enIntInputState, ADC_SSCTL_IE0_MASK, u32MuxInput);
-    return enIntInputState;
+    enIntInputState = (ADC_nSEQ_INPUT_INT) ADC__u32ReadRegister(enModule, u32Sequencer, ADC_SSCTL_IE0_MASK, u32MuxInput);
+    return (enIntInputState);
 }
 
