@@ -33,8 +33,7 @@ void SSI__vSetEndTransmission(SSI_nMODULE enModule, SSI_nEOT enEndTransmissionAr
 
 SSI_nEOT SSI__enGetEndTransmission(SSI_nMODULE enModule)
 {
-    SSI_nEOT enEndTransmissionReg = SSI_enEOT_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enEndTransmissionReg, SSI_CR1_EOT_MASK, SSI_CR1_R_EOT_BIT);
-    return enEndTransmissionReg;
+    SSI_nEOT enEndTransmissionReg = SSI_enEOT_FIFO;
+    enEndTransmissionReg = (SSI_nEOT) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_EOT_MASK, SSI_CR1_R_EOT_BIT);
+    return (enEndTransmissionReg);
 }
-

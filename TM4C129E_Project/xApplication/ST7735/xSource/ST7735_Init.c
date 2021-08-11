@@ -30,6 +30,7 @@
 #include <xApplication/ST7735/xHeader/ST7735_Delay.h>
 #include <xApplication/ST7735/xHeader/ST7735_Defines.h>
 
+#include <xApplication_MCU/SSI/SSI.h>
 #include <xDriver_MCU/SSI/SSI.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 #include <xDriver_MCU/GPIO/GPIO.h>

@@ -25,6 +25,5 @@
 #define XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_SSI_INTERRUPTREGISTER_H_
 
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/SSI_InterruptRegisterIRQSource.h>
-#include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/SSI_InterruptRegisterIRQVector.h>
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_SSI_INTERRUPTREGISTER_H_ */

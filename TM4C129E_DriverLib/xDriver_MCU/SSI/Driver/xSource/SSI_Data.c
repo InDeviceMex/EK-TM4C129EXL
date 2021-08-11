@@ -32,29 +32,27 @@
 
 inline uint32_t SSI__u32SetData(SSI_nMODULE enModule, uint32_t u32Data)
 {
-    SSI_nBUSY enBusyReg = SSI_enBUSY_UNDEF;
-    uint32_t u32ReceiveData = 0xFFFFFFFFUL;
+    SSI_nBUSY enBusyReg = SSI_enBUSY_IDLE;
+    uint32_t u32ReceiveData = 0UL;
     SSI__vWriteRegister(enModule, SSI_DR_OFFSET, u32Data, 0xFFFFFFFFUL, 0UL);
     do
     {
         enBusyReg = SSI__enGetBusyState(enModule);
     }while(SSI_enBUSY_IDLE != enBusyReg);
     u32ReceiveData = SSI__u32GetData(enModule);
-    return u32ReceiveData;
+    return (u32ReceiveData);
 }
 
 inline uint32_t SSI__u32GetData(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    SSI__enReadRegister(enModule, SSI_DR_OFFSET, &u32Reg, SSI_DR_DATA_MASK, 0UL);
-    return u32Reg;
+    uint32_t u32Reg = 0UL;
+    u32Reg = SSI__u32ReadRegister(enModule, SSI_DR_OFFSET, SSI_DR_DATA_MASK, 0UL);
+    return (u32Reg);
 }
 
 uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray)
 {
-    SSI_nREADY enReady = SSI_enNOREADY;
-    SSI_nFIFO_EMPTY enFifoEmpty = SSI_enFIFO_EMPTY_UNDEF;
-
+    SSI_nFIFO_EMPTY enFifoEmpty = SSI_enFIFO_NO_EMPTY;
     uint32_t u32UartBase = 0UL;
     volatile uint32_t* pu32UartData = 0UL;
 
@@ -63,8 +61,7 @@ uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    enReady = SSI__enIsReady((SSI_nMODULE) u32Module);
-    if((SSI_enREADY == enReady) && ((uint32_t) 0UL != (uint32_t) pu32FifoArray))
+    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;
@@ -79,14 +76,12 @@ uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray)
             enFifoEmpty = SSI__enIsFifoReceiveEmpty((SSI_nMODULE) u32Module);
         }
     }
-    return u32Count;
+    return (u32Count);
 }
 
 uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray)
 {
-    SSI_nREADY enReady = SSI_enNOREADY;
-    SSI_nFIFO_EMPTY enFifoEmpty = SSI_enFIFO_EMPTY_UNDEF;
-
+    SSI_nFIFO_EMPTY enFifoEmpty = SSI_enFIFO_NO_EMPTY;
     uint32_t u32UartBase = 0UL;
     volatile uint32_t* pu32UartData = 0U;
 
@@ -95,8 +90,7 @@ uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    enReady = SSI__enIsReady((SSI_nMODULE) u32Module);
-    if((SSI_enREADY == enReady) && ((uint32_t) 0UL != (uint32_t) pu8FifoArray))
+    if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;
@@ -111,13 +105,13 @@ uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray)
             enFifoEmpty = SSI__enIsFifoReceiveEmpty((SSI_nMODULE) u32Module);
         }
     }
-    return u32Count;
+    return (u32Count);
 }
 
 uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
-    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_FULL_UNDEF;
+    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
 
     uint32_t u32UartBase = 0UL;
     volatile uint32_t* pu32UartData = 0U;
@@ -126,7 +120,6 @@ uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray
     uint32_t u32Count = 0U;
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    SSI__vSetReady((SSI_nMODULE) u32Module);
 
     if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
@@ -149,13 +142,13 @@ uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray
             }
         }
     }
-    return u32Count;
+    return (u32Count);
 }
 
 uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoValue, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
-    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_FULL_UNDEF;
+    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
 
     uint32_t u32UartBase = 0UL;
     volatile uint32_t* pu32UartData = 0U;
@@ -164,8 +157,6 @@ uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoVa
     uint32_t u32Count = 0U;
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    SSI__vSetReady((SSI_nMODULE) u32Module);
-
 
     u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
     u32UartBase += SSI_DR_OFFSET;
@@ -184,12 +175,12 @@ uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoVa
             u32Timeout--;
         }
     }
-    return u32Count;
+    return (u32Count);
 }
 uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
-    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_FULL_UNDEF;
+    SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
 
     uint8_t u8Reg = 0U;
     uint32_t u32UartBase = 0UL;
@@ -199,7 +190,6 @@ uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArr
     uint32_t u32Count = 0U;
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    SSI__vSetReady((SSI_nMODULE) u32Module);
 
     if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
     {
@@ -224,7 +214,5 @@ uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArr
             }
         }
     }
-    return u32Count;
+    return (u32Count);
 }
-
-

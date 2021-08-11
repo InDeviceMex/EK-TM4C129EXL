@@ -28,10 +28,10 @@
 
 SSI_nCLOCK_POLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    SSI__enReadRegister(enModule, SSI_CR0_OFFSET, &u32Reg, SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);
+    uint32_t u32Reg = 0UL;
+    u32Reg = SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET, SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);
 
-    return (SSI_nCLOCK_POLARITY) u32Reg;
+    return ((SSI_nCLOCK_POLARITY) u32Reg);
 }
 
 void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nCLOCK_POLARITY enClockPolarityArg)

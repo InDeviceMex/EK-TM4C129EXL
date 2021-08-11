@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_SSI_PERIPHERAL_SSI_PERIPHERAL_H_
 
 #include <xDriver_MCU/SSI/Peripheral/Register/SSI_Register.h>
-#include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Dependencies.h>
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_SSI_PERIPHERAL_H_ */

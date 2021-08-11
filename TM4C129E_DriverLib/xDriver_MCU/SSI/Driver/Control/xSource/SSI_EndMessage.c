@@ -33,8 +33,7 @@ void SSI__vSetEndMessage(SSI_nMODULE enModule, SSI_nEOM enEndMessageArg)
 
 SSI_nEOM SSI__enGetEndMessage(SSI_nMODULE enModule)
 {
-    SSI_nEOM enEndMessageReg = SSI_enEOM_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enEndMessageReg, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
-    return enEndMessageReg;
+    SSI_nEOM enEndMessageReg = SSI_enEOM_ONGOING;
+    enEndMessageReg = (SSI_nEOM) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
+    return (enEndMessageReg);
 }
-

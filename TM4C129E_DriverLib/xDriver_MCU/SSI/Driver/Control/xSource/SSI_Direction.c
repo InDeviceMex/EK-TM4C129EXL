@@ -33,10 +33,7 @@ void SSI__vSetDirection(SSI_nMODULE enModule, SSI_nDIRECTION enDirectionArg)
 
 SSI_nDIRECTION SSI__enGetDirection(SSI_nMODULE enModule)
 {
-    SSI_nDIRECTION enDirectionReg = SSI_enDIRECTION_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enDirectionReg, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
-    return enDirectionReg;
+    SSI_nDIRECTION enDirectionReg = SSI_enDIRECTION_TX;
+    enDirectionReg = (SSI_nDIRECTION) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
+    return (enDirectionReg);
 }
-
-
-

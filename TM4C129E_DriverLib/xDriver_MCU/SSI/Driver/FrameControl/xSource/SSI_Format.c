@@ -28,10 +28,10 @@
 
 SSI_nFORMAT SSI__enGetFormat(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    SSI__enReadRegister(enModule, SSI_CR0_OFFSET, &u32Reg, SSI_CR0_FRF_MASK, SSI_CR0_R_FRF_BIT);
+    uint32_t u32Reg = 0UL;
+    u32Reg = SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET, SSI_CR0_FRF_MASK, SSI_CR0_R_FRF_BIT);
 
-    return (SSI_nFORMAT) u32Reg;
+    return ((SSI_nFORMAT) u32Reg);
 }
 
 void SSI__vSetFormat(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg)

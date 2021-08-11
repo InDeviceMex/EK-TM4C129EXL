@@ -33,9 +33,7 @@ void SSI__vSetLoopback(SSI_nMODULE enModule, SSI_nLOOPBACK enLoopbackArg)
 
 SSI_nLOOPBACK SSI__enGetLoopback(SSI_nMODULE enModule)
 {
-    SSI_nLOOPBACK enLoopbackReg = SSI_enLOOPBACK_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enLoopbackReg, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
-    return enLoopbackReg;
+    SSI_nLOOPBACK enLoopbackReg = SSI_enLOOPBACK_DIS;
+    enLoopbackReg = (SSI_nLOOPBACK) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
+    return (enLoopbackReg);
 }
-
-

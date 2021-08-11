@@ -33,7 +33,7 @@ void SSI__vSetClockConfig(SSI_nMODULE enModule, SSI_nCLOCK enClock)
 
 SSI_nCLOCK SSI__enGetClockConfig(SSI_nMODULE enModule)
 {
-    SSI_nCLOCK enClockReg = SSI_enCLOCK_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CC_OFFSET, (uint32_t*) &enClockReg, SSI_CC_CS_MASK, SSI_CC_R_CS_BIT);
-    return enClockReg;
+    SSI_nCLOCK enClockReg = SSI_enCLOCK_SYSCLK;
+    enClockReg = (SSI_nCLOCK) SSI__u32ReadRegister(enModule, SSI_CC_OFFSET, SSI_CC_CS_MASK, SSI_CC_R_CS_BIT);
+    return (enClockReg);
 }

@@ -22,6 +22,7 @@
  * 7 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Mode.h>
+
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
@@ -32,7 +33,7 @@ void SSI__vSetMode(SSI_nMODULE enModule, SSI_nMODE enModeArg)
 
 SSI_nMODE SSI__enGetMode(SSI_nMODULE enModule)
 {
-    SSI_nMODE enModeReg = SSI_enMODE_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enModeReg, SSI_CR1_MODE_MASK, SSI_CR1_R_MODE_BIT);
-    return enModeReg;
+    SSI_nMODE enModeReg = SSI_enMODE_LEGACY;
+    enModeReg = (SSI_nMODE) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_MODE_MASK, SSI_CR1_R_MODE_BIT);
+    return (enModeReg);
 }

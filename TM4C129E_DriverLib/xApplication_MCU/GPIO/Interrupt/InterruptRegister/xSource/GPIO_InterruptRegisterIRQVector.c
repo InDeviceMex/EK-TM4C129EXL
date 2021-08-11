@@ -47,22 +47,36 @@ void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPO
 
 void GPIO__vRegisterAll_IRQVectorHandler(void)
 {
-    GPIO__vRegisterIRQVectorHandler( &GPIOA__vIRQVectorHandler, GPIO_enPORT_A);
-    GPIO__vRegisterIRQVectorHandler( &GPIOB__vIRQVectorHandler, GPIO_enPORT_B);
-    GPIO__vRegisterIRQVectorHandler( &GPIOC__vIRQVectorHandler, GPIO_enPORT_C);
-    GPIO__vRegisterIRQVectorHandler( &GPIOD__vIRQVectorHandler, GPIO_enPORT_D);
-    GPIO__vRegisterIRQVectorHandler( &GPIOE__vIRQVectorHandler, GPIO_enPORT_E);
-    GPIO__vRegisterIRQVectorHandler( &GPIOF__vIRQVectorHandler, GPIO_enPORT_F);
-    GPIO__vRegisterIRQVectorHandler( &GPIOG__vIRQVectorHandler, GPIO_enPORT_G);
-    GPIO__vRegisterIRQVectorHandler( &GPIOH__vIRQVectorHandler, GPIO_enPORT_H);
-    GPIO__vRegisterIRQVectorHandler( &GPIOJ__vIRQVectorHandler, GPIO_enPORT_J);
-    GPIO__vRegisterIRQVectorHandler( &GPIOK__vIRQVectorHandler, GPIO_enPORT_K);
-    GPIO__vRegisterIRQVectorHandler( &GPIOL__vIRQVectorHandler, GPIO_enPORT_L);
-    GPIO__vRegisterIRQVectorHandler( &GPIOM__vIRQVectorHandler, GPIO_enPORT_M);
-    GPIO__vRegisterIRQVectorHandler( &GPION__vIRQVectorHandler, GPIO_enPORT_N);
-    GPIO__vRegisterIRQVectorHandler( &GPIOP__vIRQVectorHandler, GPIO_enPORT_P);
-    GPIO__vRegisterIRQVectorHandler( &GPIOQ__vIRQVectorHandler, GPIO_enPORT_Q);
+    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_A);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_A);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_B);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_B);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_C);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_C);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_D);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_D);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_E);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_E);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_F);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_F);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_G);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_G);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_H);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_H);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_J);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_J);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_K);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_K);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_L);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_L);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_M);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_M);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_N);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_N);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_P);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_P);
+    pfIrqVectorHandler = GPIO__pvfGetIRQVectorHandler(GPIO_enPORT_Q);
+    GPIO__vRegisterIRQVectorHandler( pfIrqVectorHandler, GPIO_enPORT_Q);
 }
-
-
-

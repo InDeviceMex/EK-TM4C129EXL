@@ -64,6 +64,7 @@ void Task2(void* pvParams)
     uint32_t u32LcdPosX= 0UL;
     uint32_t u32LcdPosY = 0UL;
     uint32_t u32Count = 0UL;
+    uint32_t u32Alt = 0UL;
     static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     while(1UL)
@@ -73,7 +74,9 @@ void Task2(void* pvParams)
         u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 10, 128 - 10);
         for(u32LcdPosX = 0UL ; u32LcdPosX < 128UL * 128UL; u32LcdPosX++)
         {
-            u16BufferSPI[u32LcdPosX] = COLORS_u16Values[(u32LcdPosX + u32Count) & 0x7F];
+            u32Alt = (u32LcdPosX + u32Count);
+            u32Alt &= 0x7FUL;
+            u16BufferSPI[u32LcdPosX] = COLORS_u16Values[u32Alt];
         }
         for(u32LcdPosY = u32LcdPosYCurrent - 10UL ; u32LcdPosY < (u32LcdPosYCurrent - 10UL) + 20UL; u32LcdPosY++)
         {

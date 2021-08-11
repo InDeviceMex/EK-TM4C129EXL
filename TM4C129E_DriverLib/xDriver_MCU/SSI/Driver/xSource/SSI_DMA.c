@@ -33,9 +33,9 @@ void SSI__vSetDMARx(SSI_nMODULE enModule, SSI_nDMA enDMAEnableArg)
 
 SSI_nDMA SSI__enGetDMARx(SSI_nMODULE enModule)
 {
-    SSI_nDMA enDMAEnableReg = SSI_enDMA_UNDEF;
-    SSI__enReadRegister(enModule, SSI_DMACTL_OFFSET, (uint32_t*) &enDMAEnableReg, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
-    return enDMAEnableReg;
+    SSI_nDMA enDMAEnableReg = SSI_enDMA_DIS;
+    enDMAEnableReg = (SSI_nDMA) SSI__u32ReadRegister(enModule, SSI_DMACTL_OFFSET, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
+    return (enDMAEnableReg);
 }
 
 void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nDMA enDMAEnableArg)
@@ -45,7 +45,7 @@ void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nDMA enDMAEnableArg)
 
 SSI_nDMA SSI__enGetDMATx(SSI_nMODULE enModule)
 {
-    SSI_nDMA enDMAEnableReg = SSI_enDMA_UNDEF;
-    SSI__enReadRegister(enModule, SSI_DMACTL_OFFSET, (uint32_t*) &enDMAEnableReg, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
-    return enDMAEnableReg;
+    SSI_nDMA enDMAEnableReg = SSI_enDMA_DIS;
+    enDMAEnableReg = (SSI_nDMA) SSI__u32ReadRegister(enModule, SSI_DMACTL_OFFSET, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
+    return (enDMAEnableReg);
 }

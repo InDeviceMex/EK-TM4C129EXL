@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_SSI_DRIVER_INTRINSICS_PRIMITIVES_SSI_PRIMITIVES_H_
 
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/xHeader/SSI_ReadRegister.h>
-#include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/xHeader/SSI_Ready.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/xHeader/SSI_WriteRegister.h>
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_PRIMITIVES_SSI_PRIMITIVES_H_ */

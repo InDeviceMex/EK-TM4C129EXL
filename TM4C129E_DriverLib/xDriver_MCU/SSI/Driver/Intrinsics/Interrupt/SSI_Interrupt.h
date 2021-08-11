@@ -26,7 +26,6 @@
 
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRoutine/SSI_InterruptRoutine.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRegister/SSI_InterruptRegister.h>
-#include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/xHeader/SSI_InterruptVector.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/xHeader/SSI_InterruptSource.h>
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_SSI_INTERRUPT_H_ */

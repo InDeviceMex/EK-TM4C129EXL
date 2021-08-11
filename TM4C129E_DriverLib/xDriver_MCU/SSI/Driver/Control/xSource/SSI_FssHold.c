@@ -33,10 +33,7 @@ void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nFSSHOLD enFssHoldArg)
 
 SSI_nFSSHOLD SSI__enGetFssHold(SSI_nMODULE enModule)
 {
-    SSI_nFSSHOLD enFssHoldReg = SSI_enFSSHOLD_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enFssHoldReg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
-    return enFssHoldReg;
+    SSI_nFSSHOLD enFssHoldReg = SSI_enFSSHOLD_DIS;
+    enFssHoldReg = (SSI_nFSSHOLD) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
+    return (enFssHoldReg);
 }
-
-
-

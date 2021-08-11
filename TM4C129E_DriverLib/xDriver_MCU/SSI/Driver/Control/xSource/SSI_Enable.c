@@ -33,7 +33,7 @@ void SSI__vSetEnable(SSI_nMODULE enModule, SSI_nENABLE enEnableArg)
 
 SSI_nENABLE SSI__enGetEnable(SSI_nMODULE enModule)
 {
-    SSI_nENABLE enEnableReg = SSI_enENABLE_UNDEF;
-    SSI__enReadRegister(enModule, SSI_CR1_OFFSET, (uint32_t*) &enEnableReg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
-    return enEnableReg;
+    SSI_nENABLE enEnableReg = SSI_enENABLE_STOP;
+    enEnableReg = (SSI_nENABLE) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
+    return (enEnableReg);
 }
