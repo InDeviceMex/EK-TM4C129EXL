@@ -32,6 +32,7 @@ uint32_t ST7735__u32WriteCommand(uint16_t u16DataArg);
 uint32_t ST7735__u32WriteData(uint32_t u32DataArg);
 uint32_t ST7735__u32WriteFifo(uint16_t u16DataArg, uint32_t u32BufferCant);
 uint32_t ST7735__u32WriteDMA(uint32_t u32DataArg, uint32_t u32BufferCant);
+uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferCant);
 
 uint32_t ST7735__u32GetDMATxInterupt(void);
 void ST7735__vSetDMATxInterupt(uint32_t u32StateArg);

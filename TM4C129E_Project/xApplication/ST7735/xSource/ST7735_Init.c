@@ -92,7 +92,7 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
 
     SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
     SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
-    SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 40000000UL, &pstLineConfigReg);
+    SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 25000000UL, &pstLineConfigReg);
     SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
     SSI__vSetHighSpeed(ST7735_SSI, SSI_enHIGHSPEED_ENA);
 
@@ -146,6 +146,56 @@ void ST7735__vSetCursor(uint32_t u32NewX, uint32_t u32NewY)
       u32StX = u32NewX;
       u32StY = u32NewY;
   }
+}
+
+void ST7735__vDrawBuffer(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint16_t* u16Buffer)
+{
+    uint32_t u32XCoordEnd = 0UL;
+    uint32_t u32YCoordEnd = 0UL;
+    uint32_t u32TotalDim = 0UL;
+    /* rudimentary clipping (drawChar w/big text requires this)*/
+    if((u32XCoord < ST7735_u32WidthArg) && (u32YCoord < ST7735_u32HeightArg))
+    {
+        if((0UL != u32WidthArg) && (0UL != u32HeightArg))
+        {
+            u32XCoordEnd = u32XCoord;
+            u32XCoordEnd += u32WidthArg;
+            u32XCoordEnd -= 1UL;
+            if(u32XCoordEnd >= ST7735_u32WidthArg)
+            {
+                u32WidthArg = ST7735_u32WidthArg;
+                u32WidthArg -= u32XCoord;
+                u32XCoordEnd = u32XCoord;
+                u32XCoordEnd += u32WidthArg;
+                u32XCoordEnd -= 1UL;
+            }
+
+            u32YCoordEnd = u32YCoord;
+            u32YCoordEnd += u32HeightArg;
+            u32YCoordEnd -= 1UL;
+            if(u32YCoordEnd >= ST7735_u32HeightArg)
+            {
+                u32HeightArg = ST7735_u32HeightArg;
+                u32HeightArg -= u32YCoord;
+                u32YCoordEnd = u32YCoord;
+                u32YCoordEnd += u32HeightArg;
+                u32YCoordEnd -= 1UL;
+            }
+            ST7735__vSetAddrWindow(u32XCoord, u32YCoord, u32XCoordEnd, u32YCoordEnd);
+
+            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
+            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+
+            u32TotalDim = u32HeightArg;
+            u32TotalDim *= u32WidthArg;
+            ST7735__u32WriteBuffer16bDMA(u16Buffer, u32TotalDim);
+
+            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
+            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+        }
+    }
 }
 
 void ST7735__vFillRect(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint32_t u32Color)

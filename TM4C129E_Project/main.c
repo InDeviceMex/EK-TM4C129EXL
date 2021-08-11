@@ -63,20 +63,31 @@ void Task2(void* pvParams)
     uint32_t u32LcdPosYCurrent = (uint32_t) pvParams;
     uint32_t u32LcdPosX= 0UL;
     uint32_t u32LcdPosY = 0UL;
-    ST7735__vInitRModel(ST7735_enINITFLAGS_RED);
+    uint32_t u32Count = 0UL;
+    static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
+    ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     while(1UL)
     {
         EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
-        u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 20UL, 20UL);
-        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 5, 128 - 5);
-        ST7735__vFillRect(u32LcdPosX - 20UL, u32LcdPosY - 20UL, 40UL, 40UL, COLORS_enBLACK);
-        ST7735__vFillRect(u32LcdPosXCurrent - 20UL, u32LcdPosYCurrent - 20UL, 40UL, 40UL, (uint32_t) COLORS_enANTIQUEWHITE);
-        u32LcdPosX = u32LcdPosXCurrent;
-        u32LcdPosY = u32LcdPosYCurrent;
+        u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 10UL, 10UL);
+        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 10, 128 - 10);
+        for(u32LcdPosX = 0UL ; u32LcdPosX < 128UL * 128UL; u32LcdPosX++)
+        {
+            u16BufferSPI[u32LcdPosX] = COLORS_u16Values[(u32LcdPosX + u32Count) & 0x7F];
+        }
+        for(u32LcdPosY = u32LcdPosYCurrent - 10UL ; u32LcdPosY < (u32LcdPosYCurrent - 10UL) + 20UL; u32LcdPosY++)
+        {
+            for(u32LcdPosX = u32LcdPosXCurrent - 10UL ; u32LcdPosX < ( u32LcdPosXCurrent - 10UL) + 20UL; u32LcdPosX++)
+            {
+                u16BufferSPI[u32LcdPosX + (u32LcdPosY * 128UL)] = (uint32_t) COLORS_enGREEN;
+            }
+        }
+        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
         OS_Task__vEnterCritical();
         UART__u32Printf(UART_enMODULE_0, "Yoystick: \n\r\t\tX: %d Y: %d\n\r", u32ADCValueX,u32ADCValueY);
         OS_Task__vExitCritical();
-        OS_Task__vDelay(100UL);
+        OS_Task__vDelay(60UL);
+        u32Count++;
     }
 }
 
@@ -278,7 +289,7 @@ uint32_t main(void)
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
     OS_Task__u32TaskGenericCreate(&Task0, "Task 0", 300UL, (void*) 0UL, 3UL, &TaskHandeler[0UL]);
     OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 6UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 1UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[4UL]);

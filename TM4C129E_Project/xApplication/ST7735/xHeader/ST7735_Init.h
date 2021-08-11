@@ -30,5 +30,6 @@
 void ST7735__vInit(const uint8_t *pu8CommandList);
 void ST7735__vInitRModel(ST7735_nINITFLAGS enOptionArg);
 void ST7735__vFillRect(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint32_t u32Color);
+void ST7735__vDrawBuffer(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint16_t* u16Buffer);
 
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_INIT_H_ */

@@ -17,8 +17,8 @@ MEMORY
     SRAM_DMA (RW) : origin = 0x20000400, length = 0x00000200
     SRAM_DMAALT (RW) : origin = 0x20000600, length = 0x00000200
     SRAM_CODE (RWX) : origin = 0x20000800, length = 0x00001000 /*5K*/
-    SRAM (RW) : origin = 0x20001800, length = 0x00002000
-    SRAM_DYNAMIC (RW) : origin = 0x20003800, length = 0x0003C400 /*32K*/
+    SRAM (RW) : origin = 0x20001800, length = 0x00010800
+    SRAM_DYNAMIC (RW) : origin = 0x20012000, length = 0x0002CC00 /*32K*/
     SRAM_MAIN_STACK (RW) : origin = 0x2003FC00, length = 0x00000400 /*1.5K*/
 }
 
@@ -33,7 +33,7 @@ MEMORY
 
 /* Section allocation in memory */
 --stack_size=0x00000400
---heap_size=0x0003C400
+--heap_size=0x0002CC00
 SECTIONS
 {
     .intvecs:   > 0x00000000
