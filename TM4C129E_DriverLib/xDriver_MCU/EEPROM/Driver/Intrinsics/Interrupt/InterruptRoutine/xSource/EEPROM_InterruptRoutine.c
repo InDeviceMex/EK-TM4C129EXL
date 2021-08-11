@@ -38,6 +38,3 @@ void (**EEPROM__pvfGetIRQVectorHandlerPointer(void))(void)
 {
     return ((void(**)(void)) &EEPROM__pvIRQVectorHandler[0UL]);
 }
-
-
-

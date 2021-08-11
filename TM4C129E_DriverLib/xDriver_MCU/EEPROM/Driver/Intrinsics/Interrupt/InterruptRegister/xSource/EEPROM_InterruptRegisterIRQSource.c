@@ -25,7 +25,6 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Source.h>
-#include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
 void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), EEPROM_nINTERRUPT enInterruptParam)
 {
@@ -40,7 +39,3 @@ void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), EEPROM
                                            1UL);
     }
 }
-
-
-
-

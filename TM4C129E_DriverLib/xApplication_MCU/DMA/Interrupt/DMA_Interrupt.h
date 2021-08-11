@@ -25,6 +25,7 @@
 #ifndef XAPPLICATION_MCU_DMA_INTERRUPT_DMA_INTERRUPT_H_
 #define XAPPLICATION_MCU_DMA_INTERRUPT_DMA_INTERRUPT_H_
 
+#include <xApplication_MCU/DMA/Interrupt/InterruptRegister/DMA_InterruptRegister.h>
 #include <xApplication_MCU/DMA/Interrupt/xHeader/DMA_InterruptVector.h>
 
 #endif /* XAPPLICATION_MCU_DMA_INTERRUPT_DMA_INTERRUPT_H_ */

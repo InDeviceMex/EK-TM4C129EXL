@@ -1,9 +1,30 @@
 /**
- * @section Include Files
+ *
+ * @file EEPROM_Init.c
+ * @copyright
+ * @verbatim InDeviceMex 2021 @endverbatim
+ *
+ * @par Responsibility
+ * @verbatim InDeviceMex Developers @endverbatim
+ *
+ * @version
+ * @verbatim 1.0 @endverbatim
+ *
+ * @date
+ * @verbatim 11 ago. 2021 @endverbatim
+ *
+ * @author
+ * @verbatim InDeviceMex @endverbatim
+ *
+ * @par Change History
+ * @verbatim
+ * Date           Author     Version     Description
+ * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/EEPROM/App/xHeader/EEPROM_Init.h>
+#include <xApplication_MCU/EEPROM/xHeader/EEPROM_Init.h>
 
-#include <xDriver_MCU/EEPROM/Driver/EEPROM_Driver.h>
+#include <xApplication_MCU/EEPROM/Intrinsics/EEPROM_Intrinsics.h>
+#include <xApplication_MCU/EEPROM/Interrupt/EEPROM_Interrupt.h>
 
 /**
  *
@@ -52,5 +73,3 @@ void EEPROM__vDeInit (void)
     EEPROM__vClearReady();
     EEPROM__vDisInterruptVector();
 }
-
-/*End File*/

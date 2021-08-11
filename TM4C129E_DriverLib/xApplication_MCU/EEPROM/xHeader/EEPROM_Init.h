@@ -1,12 +1,8 @@
 /**
  *
  * @file EEPROM_Init.h
- * @ingroup EEPROM Driver
- * @brief This files is part of EEPROM Driver.
- * This File contains the Initialization Function
- *
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -15,25 +11,21 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 2020.06.17 @endverbatim
+ * @verbatim 11 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim Vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 2020.06.17     Vyldram    1.0         initial Version@endverbatim
- *
- * @remarks File required to Initialize EEPROM Driver Correctly.
- * @remarks Any further functionality required to Initialize the Module needs to be implemented here
+ * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_DRIVER_EEPROM_INIT_H_
-#define XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_DRIVER_EEPROM_INIT_H_
+#ifndef XAPPLICATION_MCU_EEPROM_XHEADER_EEPROM_INIT_H_
+#define XAPPLICATION_MCU_EEPROM_XHEADER_EEPROM_INIT_H_
 
-#include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
-#include <xUtils/Standard/Standard.h>
+#include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Defines.h>
 
 /**
  * @brief EEPROM Initialization Function
@@ -70,4 +62,4 @@ EEPROM_nSTATUS EEPROM__enInit(void);
  */
 void EEPROM__vDeInit(void);
 
-#endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_DRIVER_EEPROM_INIT_H_ */
+#endif /* XAPPLICATION_MCU_EEPROM_XHEADER_EEPROM_INIT_H_ */

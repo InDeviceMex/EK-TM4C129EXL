@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_DMA_DMA_H_
 
 #include <xApplication_MCU/DMA/Interrupt/DMA_Interrupt.h>
+#include <xApplication_MCU/DMA/Intrinsics/DMA_Intrinsics.h>
 #include <xApplication_MCU/DMA/xHeader/DMA_Init.h>
 
 #endif /* XAPPLICATION_MCU_DMA_DMA_H_ */

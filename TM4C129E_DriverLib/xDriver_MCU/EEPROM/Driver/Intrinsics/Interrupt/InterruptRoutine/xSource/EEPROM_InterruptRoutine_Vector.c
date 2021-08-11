@@ -23,7 +23,6 @@
  */
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Vector.h>
 
-#include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Source.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
@@ -55,5 +54,3 @@ void EEPROM__vIRQVectorHandler(void)
         pfvCallback();
     }
 }
-
-

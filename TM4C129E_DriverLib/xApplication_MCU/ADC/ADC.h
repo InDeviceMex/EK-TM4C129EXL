@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_ADC_ADC_H_
 
 #include <xApplication_MCU/ADC/Interrupt/ADC_Interrupt.h>
+#include <xApplication_MCU/ADC/Intrinsics/ADC_Intrinsics.h>
 #include <xApplication_MCU/ADC/xHeader/ADC_Init.h>
 #include <xApplication_MCU/ADC/xHeader/ADC_Sample_Config.h>
 

@@ -25,8 +25,8 @@
 #ifndef XAPPLICATION_MCU_DMA_INTRINSICS_DMA_INTRINSICS_H_
 #define XAPPLICATION_MCU_DMA_INTRINSICS_DMA_INTRINSICS_H_
 
-
-
-
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Ready.h>
 
 #endif /* XAPPLICATION_MCU_DMA_INTRINSICS_DMA_INTRINSICS_H_ */

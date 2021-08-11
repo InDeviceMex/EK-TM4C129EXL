@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 25 jun. 2021 @endverbatim
+ * @verbatim 11 ago. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,11 +19,11 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 25 jun. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/EEPROM_InterruptRegisterIRQVector.h>
+#include <xApplication_MCU/EEPROM/Interrupt/InterruptRegister/xHeader/EEPROM_InterruptRegisterIRQVector.h>
 
-#include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Dependencies.h>
+#include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Dependencies.h>
 
 void EEPROM__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
 {
@@ -32,6 +32,3 @@ void EEPROM__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
         FLASH__vRegisterIRQSourceHandler(pfIrqVectorHandler, FLASH_enINTERRUPT_EEPROM);
     }
 }
-
-
-

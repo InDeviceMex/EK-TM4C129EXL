@@ -41,7 +41,7 @@ static uint32_t EEPROM_u32WorldCount = 0UL;
 
 uint32_t EEPROM__u32GetWorldCount (void)
 {
-    return EEPROM_u32WorldCount;
+    return (EEPROM_u32WorldCount);
 }
 
 void EEPROM__vInitWorldCount (void)

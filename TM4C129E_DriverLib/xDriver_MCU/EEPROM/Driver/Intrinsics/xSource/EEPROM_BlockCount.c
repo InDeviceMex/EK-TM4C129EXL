@@ -33,13 +33,10 @@ static uint32_t EEPROM_u32BlockCount = 0UL;
 
 uint32_t EEPROM__u32GetBlockCount (void)
 {
-    return EEPROM_u32BlockCount;
+    return (EEPROM_u32BlockCount);
 }
 
 void EEPROM__vInitBlockCount(void)
 {
     EEPROM_u32BlockCount = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EESIZE_OFFSET, EEPROM_EESIZE_BLKCNT_MASK, EEPROM_EESIZE_R_BLKCNT_BIT);
 }
-
-
-

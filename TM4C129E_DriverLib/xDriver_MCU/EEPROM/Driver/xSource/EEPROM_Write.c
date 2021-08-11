@@ -29,8 +29,6 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
     uint16_t u16DataReg = 0UL;
     uint32_t u32DataReg = 0UL;
 
-    EEPROM__vSetReady();
-
     u32MaxAddress = EEPROM__u32GetWorldCount();
     u32MaxAddress <<= 2UL;
 
@@ -97,28 +95,28 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
             }
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteAux ( (uint32_t) u16Data, u32Address, EEPROM_enVARIABLE_HALFWORD);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteWorld (uint32_t u32Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteAux ( (uint32_t) u32Data, u32Address, EEPROM_enVARIABLE_WORD);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteByte(uint8_t u8Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteAux ( (uint32_t) u8Data, u32Address, EEPROM_enVARIABLE_BYTE);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32Address)
@@ -142,7 +140,6 @@ EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32A
 
         if(u32MaxAddress > u32Address )
         {
-            EEPROM__vSetReady();
             MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEBLOCK_OFFSET, u32Block, EEPROM_EEBLOCK_BLOCK_MASK, EEPROM_EEBLOCK_R_BLOCK_BIT);
             MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET, u32Offset, EEPROM_EEOFFSET_OFFSET_MASK, EEPROM_EEOFFSET_R_OFFSET_BIT);
             do
@@ -154,5 +151,5 @@ EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32A
             }while(0UL != u32Offset);
         }
     }
-    return enReturn;
+    return (enReturn);
 }

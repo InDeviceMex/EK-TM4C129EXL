@@ -26,7 +26,6 @@ EEPROM_nSTATUS EEPROM__enWriteMultiAlt (void* pvData, uint32_t u32Address, uint1
     if(0UL != (uint32_t) pvData)
     {
         enReturn = EEPROM_enOK;
-        EEPROM__vSetReady();
         switch (enVariableType)
         {
         case EEPROM_enVARIABLE_BYTE:
@@ -100,47 +99,47 @@ EEPROM_nSTATUS EEPROM__enWriteMultiAlt (void* pvData, uint32_t u32Address, uint1
         break;
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiWorld (uint32_t *pu32Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) pu32Data, u32Address, u16Count, EEPROM_enVARIABLE_WORD, EEPROM_enCONSTANT_OFF);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiHalfWorld (uint16_t *pu16Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) pu16Data, u32Address, u16Count, EEPROM_enVARIABLE_HALFWORD, EEPROM_enCONSTANT_OFF);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiByte (uint8_t *pu8Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) pu8Data, u32Address, u16Count, EEPROM_enVARIABLE_BYTE, EEPROM_enCONSTANT_OFF);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiWorldConstant (uint32_t u32Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) &u32Data, u32Address, u16Count, EEPROM_enVARIABLE_WORD, EEPROM_enCONSTANT_ON);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiHalfWorldConstant (uint16_t u16Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) &u16Data, u32Address, u16Count, EEPROM_enVARIABLE_HALFWORD, EEPROM_enCONSTANT_ON);
-    return enReturn;
+    return (enReturn);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteMultiByteConstant (uint8_t u8Data, uint32_t u32Address, uint16_t u16Count)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enReturn = EEPROM_enOK;
     enReturn = EEPROM__enWriteMultiAlt( (void*) &u8Data, u32Address, u16Count, EEPROM_enVARIABLE_BYTE, EEPROM_enCONSTANT_ON);
-    return enReturn;
+    return (enReturn);
 }

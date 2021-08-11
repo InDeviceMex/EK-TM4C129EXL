@@ -45,6 +45,3 @@ void (**EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nINTERRUPT enInterruptSourc
 {
     return ((void(**)(void)) &EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
 }
-
-
-
