@@ -44,8 +44,3 @@ GPIO_nINT_TYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin)
     }
     return (enFeature);
 }
-
-
-
-
-

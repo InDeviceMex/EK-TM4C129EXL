@@ -33,7 +33,7 @@ void GPIO__vSetOutputMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nOUTMODE enMo
 
 GPIO_nOUTMODE GPIO__enGetOutputMode(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nOUTMODE enFeature = GPIO_enOUTMODE_UNDEF;
+    GPIO_nOUTMODE enFeature = GPIO_enOUTMODE_PP;
     enFeature = (GPIO_nOUTMODE) GPIO__u32GetGeneric(enPort, GPIO_ODR_OFFSET, enPin);
     return (enFeature);
 }

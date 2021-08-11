@@ -51,7 +51,7 @@ void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE en
 
 GPIO_nRESMODE GPIO__enGetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nRESMODE enResistorType = GPIO_enRESMODE_UNDEF;
+    GPIO_nRESMODE enResistorType = GPIO_enRESMODE_INACTIVE;
     uint32_t u32PullUp = 0UL;
     uint32_t u32PullDown = 0UL;
     u32PullUp = GPIO__u32GetGeneric(enPort, GPIO_PUR_OFFSET, enPin);

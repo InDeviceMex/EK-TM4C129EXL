@@ -35,8 +35,8 @@ void GPIO__vSetIntLevel(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nLEVEL enLevel)
 
 GPIO_nLEVEL GPIO__enGetIntLevel(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nSENSE enSense = GPIO_enSENSE_UNDEF;
-    GPIO_nLEVEL enFeature = GPIO_enLEVEL_UNDEF;
+    GPIO_nSENSE enSense = GPIO_enSENSE_EDGE;
+    GPIO_nLEVEL enFeature = GPIO_enLEVEL_LOW;
     enSense = GPIO__enGetIntSense(enPort, enPin);
     if(GPIO_enSENSE_LEVEL == enSense)
     {

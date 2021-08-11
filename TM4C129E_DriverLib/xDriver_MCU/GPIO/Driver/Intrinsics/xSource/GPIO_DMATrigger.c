@@ -43,7 +43,7 @@ void GPIO__vSetDMATrigger(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDMA_TRIGGER 
 
 GPIO_nDMA_TRIGGER GPIO__enGetDMATrigger(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nDMA_TRIGGER enFeature = GPIO_enDMA_TRIGGER_UNDEF;
+    GPIO_nDMA_TRIGGER enFeature = GPIO_enDMA_TRIGGER_DIS;
     enFeature = (GPIO_nDMA_TRIGGER) GPIO__u32GetGeneric(enPort, GPIO_DMACTL_OFFSET, enPin);
     return (enFeature);
 }

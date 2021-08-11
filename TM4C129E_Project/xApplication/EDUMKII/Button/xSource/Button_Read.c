@@ -36,7 +36,7 @@ EDUMKII_nBUTTON EDUMKII_Button_enRead(EDUMKII_nBUTTON enButtonSelect)
 void EDUMKII_Button1_vIRQSourceHandler(void)
 {
     uint32_t u32ValueButton1 = 0UL;
-     GPIO__enGetData(EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN, &u32ValueButton1);
+    u32ValueButton1 = GPIO__u32GetData(EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN);
     if(0UL == u32ValueButton1)
     {
         u32ButtonState |= (uint32_t) EDUMKII_enBUTTON_1;
@@ -50,7 +50,7 @@ void EDUMKII_Button1_vIRQSourceHandler(void)
 void EDUMKII_Button2_vIRQSourceHandler(void)
 {
     uint32_t u32ValueButton2 = 0UL;
-     GPIO__enGetData(EDUMKII_BUTTON_2_PORT, EDUMKII_BUTTON_2_PIN, &u32ValueButton2);
+    u32ValueButton2 = GPIO__u32GetData(EDUMKII_BUTTON_2_PORT, EDUMKII_BUTTON_2_PIN);
     if(0UL == u32ValueButton2)
     {
         u32ButtonState |= (uint32_t) EDUMKII_enBUTTON_2;

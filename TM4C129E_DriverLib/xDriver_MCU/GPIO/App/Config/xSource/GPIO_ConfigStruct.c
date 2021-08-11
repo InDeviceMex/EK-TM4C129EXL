@@ -89,7 +89,7 @@ GPIO_CONFIG_Typedef* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
         u32Reg &= 0x0103U;
         pstConfig->enDrive = (GPIO_nDRIVE) u32Reg;
     }
-    return pstConfig;
+    return (pstConfig);
 }
 
 void GPIO__vDeleteConfigStruct(GPIO_CONFIG_Typedef *pstConfig)

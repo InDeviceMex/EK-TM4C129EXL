@@ -36,7 +36,7 @@ void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_LEVEL en
 
 GPIO_nWAKE_LEVEL GPIO__enGetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nWAKE_LEVEL enFeature = GPIO_enWAKE_LEVEL_UNDEF;
+    GPIO_nWAKE_LEVEL enFeature = GPIO_enWAKE_LEVEL_LOW;
 
     if(GPIO_enPORT_K == enPort)
     {

@@ -30,6 +30,5 @@
 #include <xDriver_MCU/GPIO/App/xHeader/GPIO_DigitalFunction.h>
 #include <xDriver_MCU/GPIO/App/xHeader/GPIO_InterruptConfig.h>
 #include <xDriver_MCU/GPIO/App/xHeader/GPIO_DigitalConfig.h>
-#include <xDriver_MCU/GPIO/App/xHeader/GPIO_Init.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_APP_GPIO_APP_H_ */

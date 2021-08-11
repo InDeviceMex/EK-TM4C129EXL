@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_PERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_PERIPHERAL_H_
 
-#include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Dependencies.h>
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/GPIO_Register.h>
 

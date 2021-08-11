@@ -51,21 +51,17 @@ void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN 
 
 uint32_t GPIO__u32GetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin)
 {
-    uint32_t u32Feature = 0xFFFFFFFFUL;
-    GPIO_nSTATUS enStatus = GPIO_enSTATUS_UNDEF;
+    uint32_t u32Feature = 0UL;
     uint32_t u32Reg = 0UL;
     enPin &= (uint32_t) GPIO_enPIN_ALL;
-    enStatus = GPIO__enReadRegister(enPort, GPIO_ADCCTL_OFFSET, &u32Reg, (uint32_t) enPin, 0UL);
-    if(GPIO_enSTATUS_OK == enStatus)
+    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_ADCCTL_OFFSET, (uint32_t) enPin, 0UL);
+    if(0UL != u32Reg)
     {
-        if(0UL != u32Reg)
-        {
-            u32Feature = 1UL;
-        }
-        else
-        {
-            u32Feature = 0UL;
-        }
+        u32Feature = 1UL;
+    }
+    else
+    {
+        u32Feature = 0UL;
     }
     return (u32Feature);
 }

@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-GPIO_nSTATUS GPIO__enReadRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister, uint32_t* pu32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+uint32_t GPIO__u32ReadRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_GPIO_READREGISTER_H_ */

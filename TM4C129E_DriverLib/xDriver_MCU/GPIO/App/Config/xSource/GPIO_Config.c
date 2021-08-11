@@ -41,7 +41,7 @@ GPIO_nSTATUS GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nCONFIG 
         GPIO__vDeleteConfigStruct(pstConfig);
         enReturn = GPIO_enSTATUS_OK;
     }
-    return enReturn;
+    return (enReturn);
 }
 
 GPIO_nSTATUS GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPIN enPin, const GPIO_CONFIG_Typedef *pstConfig)
@@ -55,7 +55,7 @@ GPIO_nSTATUS GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPIN enPin, const G
         GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
         enReturn = GPIO_enSTATUS_OK;
     }
-    return enReturn;
+    return (enReturn);
 }
 
 GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
@@ -84,7 +84,7 @@ GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
     u32Reg |= u32DriveVar;
 
     enConfig = (GPIO_nCONFIG) u32Reg;
-    return enConfig;
+    return (enConfig);
 }
 
 void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_Typedef *pstConfig)
@@ -114,5 +114,5 @@ GPIO_CONFIG_Typedef* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
         pstConfig->enDirection = GPIO__enGetDirection(enPort, enPin);
         pstConfig->enDrive = GPIO__enGetDrive(enPort, enPin);
     }
-    return pstConfig;
+    return (pstConfig);
 }

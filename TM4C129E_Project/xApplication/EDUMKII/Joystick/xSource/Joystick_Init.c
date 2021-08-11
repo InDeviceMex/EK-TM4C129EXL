@@ -27,6 +27,7 @@
 #include <xApplication/EDUMKII/Common/xHeader/Common_Adc.h>
 #include <xApplication/EDUMKII/Common/xHeader/Common_Timer.h>
 #include <xUtils/Standard/Standard.h>
+#include <xApplication_MCU/GPIO/GPIO.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 #include <xApplication_MCU/ADC/ADC.h>
 #include <xDriver_MCU/ADC/ADC.h>

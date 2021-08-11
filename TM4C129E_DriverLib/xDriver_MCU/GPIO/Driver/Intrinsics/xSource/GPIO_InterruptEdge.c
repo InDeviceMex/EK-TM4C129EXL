@@ -44,8 +44,8 @@ void GPIO__vSetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nEDGE enEdge)
 
 GPIO_nEDGE GPIO__enGetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nSENSE enSense = GPIO_enSENSE_UNDEF;
-    GPIO_nEDGE enFeature = GPIO_enEDGE_UNDEF;
+    GPIO_nSENSE enSense = GPIO_enSENSE_EDGE;
+    GPIO_nEDGE enFeature = GPIO_enEDGE_FALLING;
     uint32_t u32Feature = 0UL;
     enSense = GPIO__enGetIntSense(enPort, enPin);
     if(GPIO_enSENSE_EDGE == enSense)
@@ -60,6 +60,3 @@ GPIO_nEDGE GPIO__enGetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin)
     }
     return (enFeature);
 }
-
-
-

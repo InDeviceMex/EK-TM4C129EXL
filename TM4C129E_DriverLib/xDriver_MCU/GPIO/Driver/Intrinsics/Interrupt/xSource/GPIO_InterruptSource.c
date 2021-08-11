@@ -58,42 +58,35 @@ void GPIO__vClearInterruptSourceDMA(GPIO_nPORT enPort)
 
 GPIO_nINT_STATUS GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nSTATUS enStatusRead = GPIO_enSTATUS_UNDEF;
-    GPIO_nINT_STATUS enStatus = GPIO_enINT_STATUS_UNDEF;
+    GPIO_nINT_STATUS enStatus = GPIO_enINT_NOOCCUR;
     uint32_t u32Reg = 0UL;
 
-    enStatusRead = GPIO__enReadRegister(enPort, GPIO_RIS_OFFSET, &u32Reg, (uint32_t) enPin, 0UL);
-    if(GPIO_enSTATUS_ERROR != enStatusRead)
+    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET, (uint32_t) enPin, 0UL);
+    if(0UL != u32Reg)
     {
-        if(0UL != u32Reg)
-        {
-            enStatus = GPIO_enINT_OCCUR;
-        }
-        else
-        {
-            enStatus = GPIO_enINT_NOOCCUR;
-        }
+        enStatus = GPIO_enINT_OCCUR;
+    }
+    else
+    {
+        enStatus = GPIO_enINT_NOOCCUR;
     }
     return (enStatus);
 }
 
 GPIO_nINT_STATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO_nSTATUS enStatusRead = GPIO_enSTATUS_UNDEF;
-    GPIO_nINT_STATUS enStatus = GPIO_enINT_STATUS_UNDEF;
+    GPIO_nINT_STATUS enStatus = GPIO_enINT_NOOCCUR;
     uint32_t u32Reg = 0UL;
 
-    enStatusRead = GPIO__enReadRegister(enPort, GPIO_RIS_OFFSET, &u32Reg, GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
-    if(GPIO_enSTATUS_ERROR != enStatusRead)
+    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET, GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
+
+    if(0UL != u32Reg)
     {
-        if(0UL != u32Reg)
-        {
-            enStatus = GPIO_enINT_OCCUR;
-        }
-        else
-        {
-            enStatus = GPIO_enINT_NOOCCUR;
-        }
+        enStatus = GPIO_enINT_OCCUR;
+    }
+    else
+    {
+        enStatus = GPIO_enINT_NOOCCUR;
     }
     return (enStatus);
 }

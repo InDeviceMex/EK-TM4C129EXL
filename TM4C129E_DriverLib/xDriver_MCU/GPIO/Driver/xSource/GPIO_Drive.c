@@ -92,9 +92,6 @@ void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDRIVE enDrivePara
     }
 
     GPIO__vSetGeneric(enPort, GPIO_SLR_OFFSET, enPin, (uint32_t) u32SlewRate);
-
-
-
 }
 
 GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin)
@@ -122,7 +119,7 @@ GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin)
         {
             if(u32PinBit & 0x1UL)
             {
-                 GPIO__enReadRegister(enPort, GPIO_PC_OFFSET,&u32EnExtendedDriveModeAux, GPIO_PC_EDM0_MASK, u32PinBitPos);
+                u32EnExtendedDriveModeAux = GPIO__u32ReadRegister(enPort, GPIO_PC_OFFSET, GPIO_PC_EDM0_MASK, u32PinBitPos);
                  u32EnExtendedDriveMode |= u32EnExtendedDriveModeAux;
             }
             u32PinBit >>= 1UL;

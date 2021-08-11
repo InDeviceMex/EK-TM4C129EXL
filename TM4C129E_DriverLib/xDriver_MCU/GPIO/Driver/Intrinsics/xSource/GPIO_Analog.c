@@ -43,7 +43,7 @@ void GPIO__vSetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nANALOG_MODE enFe
 
 GPIO_nANALOG_MODE GPIO__enGetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nANALOG_MODE enFeature = GPIO_enANALOG_MODE_UNDEF;
+    GPIO_nANALOG_MODE enFeature = GPIO_enANALOG_MODE_DIS;
     enFeature = (GPIO_nANALOG_MODE) GPIO__u32GetGeneric(enPort, GPIO_AMSEL_OFFSET, enPin);
     return (enFeature);
 }

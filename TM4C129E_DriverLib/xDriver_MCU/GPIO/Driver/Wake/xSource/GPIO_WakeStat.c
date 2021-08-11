@@ -36,7 +36,7 @@ void GPIO__vSetWakeStatus(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_STATUS 
 
 GPIO_nWAKE_STATUS GPIO__enGetWakeStatus(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nWAKE_STATUS enFeature = GPIO_enWAKE_STATUS_UNDEF;
+    GPIO_nWAKE_STATUS enFeature = GPIO_enWAKE_STATUS_IDLE;
 
     if(GPIO_enPORT_K == enPort)
     {

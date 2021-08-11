@@ -68,7 +68,7 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_nC
             enReturn = GPIO_enSTATUS_OK;
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction, const GPIO_CONFIG_Typedef *pstConfig)
@@ -105,7 +105,7 @@ GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction, c
         GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
         enReturn = GPIO_enSTATUS_OK;
     }
-    return enReturn;
+    return (enReturn);
 
 }
 GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
@@ -150,7 +150,7 @@ GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
 
         enConfig = (GPIO_nCONFIG) u32Reg;
     }
-    return enConfig;
+    return (enConfig);
 }
 
 void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_Typedef *pstConfig)
@@ -224,6 +224,6 @@ GPIO_CONFIG_Typedef* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction
             pstConfig->enDrive = GPIO__enGetDrive(enPort, enPin);
         }
     }
-    return pstConfig;
+    return (pstConfig);
 }
 

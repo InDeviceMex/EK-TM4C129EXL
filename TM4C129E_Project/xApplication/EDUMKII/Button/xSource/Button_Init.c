@@ -24,6 +24,7 @@
 #include <xApplication/EDUMKII/Button/xHeader/Button_Init.h>
 #include <xApplication/EDUMKII/Button/xHeader/Button_Read.h>
 #include <xUtils/Standard/Standard.h>
+#include <xApplication_MCU/GPIO/GPIO.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 
 
