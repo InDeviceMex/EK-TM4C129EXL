@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_APP_DMA_APP_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_APP_DMA_APP_H_
 
-#include <xDriver_MCU/DMA/App/xHeader/DMA_Init.h>
 #include <xDriver_MCU/DMA/App/CH_Config/DMA_CH_Config.h>
 #include <xDriver_MCU/DMA/App/CH_Control/DMA_CH_Control.h>
 

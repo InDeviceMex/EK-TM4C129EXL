@@ -43,21 +43,21 @@ void DMA_CH__vSetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStruct
 
 DMA_nCH_BURST_SIZE DMA_CH__enGetPrimaryBurstSize(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_UNDEF;
+    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_1;
     enReg = (DMA_nCH_BURST_SIZE) DMA_CH__u32GetPrimaryControlGeneric(enChannel, DMACH_CHCTL_ARBSIZE_MASK, DMACH_CHCTL_R_ARBSIZE_BIT);
     return (enReg);
 }
 
 DMA_nCH_BURST_SIZE DMA_CH__enGetAlternateBurstSize(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_UNDEF;
+    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_1;
     enReg = (DMA_nCH_BURST_SIZE) DMA_CH__u32GetAlternateControlGeneric(enChannel, DMAALTCH_CHCTL_ARBSIZE_MASK, DMAALTCH_CHCTL_R_ARBSIZE_BIT);
     return (enReg);
 }
 
 DMA_nCH_BURST_SIZE DMA_CH__enGetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
 {
-    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_UNDEF;
+    DMA_nCH_BURST_SIZE enReg = DMA_enCH_BURST_SIZE_1;
     enReg = (DMA_nCH_BURST_SIZE) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, DMACH_CHCTL_ARBSIZE_MASK, DMACH_CHCTL_R_ARBSIZE_BIT);
     return (enReg);
 }

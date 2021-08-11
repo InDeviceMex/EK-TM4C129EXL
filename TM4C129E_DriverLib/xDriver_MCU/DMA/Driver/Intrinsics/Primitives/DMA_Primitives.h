@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_CH_ReadRegister.h>
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_CH_WriteRegister.h>
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_Ready.h>
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_ReadRegister.h>
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_WriteRegister.h>
 

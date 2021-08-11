@@ -2,7 +2,7 @@
  *
  * @file DMA_Ready.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,20 +11,19 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 1 ago. 2020 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 1 ago. 2020     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/xHeader/DMA_Ready.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Ready.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Dependencies.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
 void DMA__vSetReady(DMA_nMODULE enModule)
 {
@@ -62,3 +61,6 @@ DMA_nREADY DMA__enIsReady(DMA_nMODULE enModule)
 #endif
     return (enReady);
 }
+
+
+

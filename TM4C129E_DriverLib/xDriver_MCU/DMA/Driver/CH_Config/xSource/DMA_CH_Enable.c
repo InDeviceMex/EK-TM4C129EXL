@@ -53,7 +53,7 @@ void DMA_CH__vSetEnable(DMA_nCH_MODULE enChannel, DMA_nCH_ENA enEnable)
 
 DMA_nCH_ENA DMA_CH__enGetEnable(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_ENA enEnable = DMA_enCH_ENA_UNDEF;
+    DMA_nCH_ENA enEnable = DMA_enCH_ENA_DIS;
     enEnable = (DMA_nCH_ENA) DMA_CH__u32GetConfigGeneric(enChannel, DMA_ENASET_OFFSET);
     return (enEnable);
 }

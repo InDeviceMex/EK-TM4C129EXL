@@ -28,15 +28,31 @@
 
 void ADC__vInit(void)
 {
-    ADC__vRegisterIRQVectorHandler( &ADC0_SS0__vIRQVectorHandler, ADC_enMODULE_0, ADC_enSEQ_0);
-    ADC__vRegisterIRQVectorHandler( &ADC0_SS1__vIRQVectorHandler, ADC_enMODULE_0, ADC_enSEQ_1);
-    ADC__vRegisterIRQVectorHandler( &ADC0_SS2__vIRQVectorHandler, ADC_enMODULE_0, ADC_enSEQ_2);
-    ADC__vRegisterIRQVectorHandler( &ADC0_SS3__vIRQVectorHandler, ADC_enMODULE_0, ADC_enSEQ_3);
+    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
 
-    ADC__vRegisterIRQVectorHandler( &ADC1_SS0__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_0);
-    ADC__vRegisterIRQVectorHandler( &ADC1_SS1__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_1);
-    ADC__vRegisterIRQVectorHandler( &ADC1_SS2__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_2);
-    ADC__vRegisterIRQVectorHandler( &ADC1_SS3__vIRQVectorHandler, ADC_enMODULE_1, ADC_enSEQ_3);
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_0, ADC_enSEQ_0);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_0, ADC_enSEQ_0);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_0, ADC_enSEQ_1);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_0, ADC_enSEQ_1);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_0, ADC_enSEQ_2);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_0, ADC_enSEQ_2);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_0, ADC_enSEQ_3);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_0, ADC_enSEQ_3);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_1, ADC_enSEQ_0);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_1, ADC_enSEQ_0);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_1, ADC_enSEQ_1);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_1, ADC_enSEQ_1);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_1, ADC_enSEQ_2);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_1, ADC_enSEQ_2);
+
+    pfIrqVectorHandler = ADC__pvfGetIRQVectorHandler(ADC_enMODULE_1, ADC_enSEQ_3);
+    ADC__vRegisterIRQVectorHandler( pfIrqVectorHandler, ADC_enMODULE_1, ADC_enSEQ_3);
 }
 
 

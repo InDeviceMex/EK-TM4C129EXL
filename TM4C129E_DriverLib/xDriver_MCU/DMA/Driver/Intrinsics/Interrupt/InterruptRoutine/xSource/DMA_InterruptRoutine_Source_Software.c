@@ -25,7 +25,6 @@
 
 static void DMA_CH_vIRQSourceHandler_Dummy(void);
 
-
 static void (*DMA_CH__vIRQSourceHandler_Software[(uint32_t) DMA_enCH_INT_SOFT_MAX]) (void)=
 {
     &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
@@ -47,5 +46,3 @@ void (**DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nCH_INT_SOFT enInterr
 {
     return ((void(**)(void)) &DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg]);
 }
-
-

@@ -29,6 +29,7 @@
 
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
+#include <xApplication_MCU/ADC/ADC.h>
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/DMA/DMA.h>

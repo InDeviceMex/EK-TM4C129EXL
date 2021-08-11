@@ -2,7 +2,7 @@
  *
  * @file DMA_InterruptRegisterIRQVector.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,21 +11,19 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 1 ago. 2020 @endverbatim
+ * @verbatim 10 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 1 ago. 2020     vyldram    1.0         initial Version@endverbatim
+ * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/DMA_InterruptRegisterIRQVector.h>
+#include <xApplication_MCU/DMA/Interrupt/InterruptRegister/xHeader/DMA_InterruptRegisterIRQVector.h>
 
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Interrupt/InterruptRoutine/DMA_InterruptRoutine.h>
-#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
-#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Dependencies.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
 void DMA__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),DMA_nVECTOR enVector)
 {
@@ -40,3 +38,6 @@ void DMA__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),DMA_nVECTO
         SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler, DMA__pvfGetIRQVectorHandlerPointer((DMA_nVECTOR) u32Vector), enSCBVector);
     }
 }
+
+
+

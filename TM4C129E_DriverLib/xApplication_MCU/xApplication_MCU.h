@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_XAPPLICATION_MCU_H_
 #define XAPPLICATION_MCU_XAPPLICATION_MCU_H_
 
+#include <xApplication_MCU/ADC/ADC.h>
+#include <xApplication_MCU/DMA/DMA.h>
 #include <xApplication_MCU/Core/Core.h>
 #include <xApplication_MCU/UART/UART.h>
 

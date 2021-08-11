@@ -69,10 +69,8 @@ DMA_nCH_ENCODER DMA_CH__enGetEncoder(DMA_nCH_MODULE enChannel)
     uint32_t u32Channel = 0UL;
     uint32_t u32ChannelReg = 0UL;
     uint32_t u32ChannelPos = 0UL;
-    uint32_t u32Encoder = 0UL;
     uint32_t u32RegisterOffset = 0UL;
-    DMA_nCH_ENCODER enChannelEncoder = DMA_enCH_ENCODER_UNDEF;
-    DMA_nSTATUS enStatus = DMA_enSTATUS_UNDEF;
+    DMA_nCH_ENCODER enChannelEncoder = DMA_enCH_ENCODER_0;
 
     u32Channel = MCU__u32CheckParams( (uint32_t) enChannel, (uint32_t) DMA_enCH_MODULE_MAX);
 
@@ -84,20 +82,16 @@ DMA_nCH_ENCODER DMA_CH__enGetEncoder(DMA_nCH_MODULE enChannel)
     u32ChannelPos = u32Channel % 8UL;
     u32ChannelPos *= 4UL;
 
-    enStatus = DMA__enReadRegister(u32RegisterOffset, &u32Encoder, 0xFUL, u32ChannelPos);
+    enChannelEncoder = (DMA_nCH_ENCODER) DMA__u32ReadRegister(u32RegisterOffset, 0xFUL, u32ChannelPos);
 
-    if(DMA_enSTATUS_OK == enStatus)
-    {
-        enChannelEncoder = (DMA_nCH_ENCODER) u32Encoder;
-    }
     return (enChannelEncoder);
 }
 
 DMA_nCHSRC DMA_CH__enGetEncoderDefine(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_ENCODER enChannelEncoder = DMA_enCH_ENCODER_UNDEF;
+    DMA_nCH_ENCODER enChannelEncoder = DMA_enCH_ENCODER_0;
     uint32_t u32Encoder = 0UL;
-    DMA_nCHSRC enEncoderChannel = DMA_enCHSRC_UNDEF;
+    DMA_nCHSRC enEncoderChannel = DMA_enCHSRC_CH0_RESERVED0;
     uint32_t u32EncoderChannel = 0UL;
 
     enChannel = (DMA_nCH_MODULE) MCU__u32CheckParams( (uint32_t) enChannel, (uint32_t) DMA_enCH_MODULE_MAX);

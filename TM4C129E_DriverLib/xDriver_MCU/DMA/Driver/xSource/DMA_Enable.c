@@ -33,7 +33,7 @@ void DMA__vSetModuleEnable(DMA_nENABLE enModuleEnable)
 
 DMA_nENABLE DMA__enGetModuleEnable(void)
 {
-    DMA_nENABLE enModuleEnable = DMA_enENABLE_UNDEF;
-    DMA__enReadRegister(DMA_STAT_OFFSET, (uint32_t*) &enModuleEnable, DMA_STAT_MASTEN_MASK, DMA_STAT_R_MASTEN_BIT);
+    DMA_nENABLE enModuleEnable = DMA_enENABLE_DIS;
+    enModuleEnable = (DMA_nENABLE) DMA__u32ReadRegister(DMA_STAT_OFFSET, DMA_STAT_MASTEN_MASK, DMA_STAT_R_MASTEN_BIT);
     return (enModuleEnable);
 }

@@ -45,17 +45,11 @@ void DMA_CH__vSetConfigGeneric_Direct(DMA_nCH_MODULE enChannel, uint32_t u32Regi
 
 uint32_t DMA_CH__u32GetConfigGeneric(DMA_nCH_MODULE enChannel, uint32_t u32Register)
 {
-    uint32_t u32Reg = 0UL;
-    uint32_t u32Result = 0xFFFFFFFFUL;
-    DMA_nSTATUS enStatus = DMA_enSTATUS_UNDEF;
+    uint32_t u32Result = 0UL;
     uint32_t u32Channel = 0UL;
 
     u32Channel = MCU__u32CheckParams( (uint32_t) enChannel, (uint32_t) DMA_enCH_MODULE_MAX);
-    enStatus = DMA__enReadRegister(u32Register, &u32Reg, 1UL, u32Channel);
+    u32Result = DMA__u32ReadRegister(u32Register, 1UL, u32Channel);
 
-    if(DMA_enSTATUS_OK == enStatus)
-    {
-        u32Result = u32Reg;
-    }
     return (u32Result);
 }

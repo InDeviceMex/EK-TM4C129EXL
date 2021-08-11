@@ -1,6 +1,6 @@
 /**
  *
- * @file ADC.h
+ * @file DMA_InterruptVector.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,11 +22,12 @@
  * 10 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XAPPLICATION_MCU_ADC_ADC_H_
-#define XAPPLICATION_MCU_ADC_ADC_H_
+#ifndef XAPPLICATION_MCU_DMA_INTERRUPT_XHEADER_DMA_INTERRUPTVECTOR_H_
+#define XAPPLICATION_MCU_DMA_INTERRUPT_XHEADER_DMA_INTERRUPTVECTOR_H_
 
-#include <xApplication_MCU/ADC/Interrupt/ADC_Interrupt.h>
-#include <xApplication_MCU/ADC/xHeader/ADC_Init.h>
-#include <xApplication_MCU/ADC/xHeader/ADC_Sample_Config.h>
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
 
-#endif /* XAPPLICATION_MCU_ADC_ADC_H_ */
+void DMA__vEnInterruptVector(DMA_nVECTOR enVector, DMA_nPRIORITY enDmaPriority);
+void DMA__vDisInterruptVector(DMA_nVECTOR enVector);
+
+#endif /* XAPPLICATION_MCU_DMA_INTERRUPT_XHEADER_DMA_INTERRUPTVECTOR_H_ */

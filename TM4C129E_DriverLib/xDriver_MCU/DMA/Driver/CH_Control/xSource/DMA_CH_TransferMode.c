@@ -44,21 +44,21 @@ void DMA_CH__vSetTransferMode(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStr
 DMA_nCH_MODE DMA_CH__enGetPrimaryTransferMode(DMA_nCH_MODULE enChannel)
 {
 
-    DMA_nCH_MODE enReg = DMA_enCH_MODE_UNDEF;
+    DMA_nCH_MODE enReg = DMA_enCH_MODE_STOP;
     enReg = (DMA_nCH_MODE) DMA_CH__u32GetPrimaryControlGeneric(enChannel, DMACH_CHCTL_XFERMODE_MASK, DMACH_CHCTL_R_XFERMODE_BIT);
     return (enReg);
 }
 
 DMA_nCH_MODE DMA_CH__enGetAlternateTransferMode(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_MODE enReg = DMA_enCH_MODE_UNDEF;
+    DMA_nCH_MODE enReg = DMA_enCH_MODE_STOP;
     enReg = (DMA_nCH_MODE) DMA_CH__u32GetAlternateControlGeneric(enChannel, DMAALTCH_CHCTL_XFERMODE_MASK, DMAALTCH_CHCTL_R_XFERMODE_BIT);
     return (enReg);
 }
 
 DMA_nCH_MODE DMA_CH__enGetTransferMode(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
 {
-    DMA_nCH_MODE enReg = DMA_enCH_MODE_UNDEF;
+    DMA_nCH_MODE enReg = DMA_enCH_MODE_STOP;
     enReg = (DMA_nCH_MODE) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, DMACH_CHCTL_XFERMODE_MASK, DMACH_CHCTL_R_XFERMODE_BIT);
     return (enReg);
 }

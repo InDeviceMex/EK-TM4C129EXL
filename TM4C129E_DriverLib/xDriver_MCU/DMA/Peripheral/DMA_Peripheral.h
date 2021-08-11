@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_PERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_PERIPHERAL_H_
 
-#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Dependencies.h>
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 #include <xDriver_MCU/DMA/Peripheral/Register/DMA_Register.h>
 

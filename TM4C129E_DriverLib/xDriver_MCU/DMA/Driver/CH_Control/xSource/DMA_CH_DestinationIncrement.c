@@ -43,21 +43,21 @@ void DMA_CH__vSetDestinationIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enCh
 
 DMA_nCH_DST_INC DMA_CH__enGetPrimaryDestinationIncrement(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_UNDEF;
+    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_BYTE;
     enReg = (DMA_nCH_DST_INC)DMA_CH__u32GetPrimaryControlGeneric(enChannel, DMACH_CHCTL_DSTINC_MASK, DMACH_CHCTL_R_DSTINC_BIT);
     return (enReg);
 }
 
 DMA_nCH_DST_INC DMA_CH__enGetAlternateDestinationIncrement(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_UNDEF;
+    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_BYTE;
     enReg = (DMA_nCH_DST_INC) DMA_CH__u32GetAlternateControlGeneric(enChannel, DMAALTCH_CHCTL_DSTINC_MASK, DMAALTCH_CHCTL_R_DSTINC_BIT);
     return (enReg);
 }
 
 DMA_nCH_DST_INC DMA_CH__enGetDestinationIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
 {
-    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_UNDEF;
+    DMA_nCH_DST_INC enReg = DMA_enCH_DST_INC_BYTE;
     enReg = (DMA_nCH_DST_INC) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, DMACH_CHCTL_DSTINC_MASK, DMACH_CHCTL_R_DSTINC_BIT);
     return (enReg);
 }

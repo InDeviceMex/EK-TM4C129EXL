@@ -39,6 +39,3 @@ void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void), 
                                            1UL);
     }
 }
-
-
-

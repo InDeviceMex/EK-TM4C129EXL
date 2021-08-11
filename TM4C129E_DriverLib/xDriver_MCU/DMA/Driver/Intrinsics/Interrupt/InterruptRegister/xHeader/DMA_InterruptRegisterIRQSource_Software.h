@@ -29,7 +29,4 @@
 
 void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void), DMA_nCH_INT_SOFT enInterruptParam);
 
-
-
-
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_DMA_INTERRUPTREGISTERIRQSOURCE_SOFTWARE_H_ */

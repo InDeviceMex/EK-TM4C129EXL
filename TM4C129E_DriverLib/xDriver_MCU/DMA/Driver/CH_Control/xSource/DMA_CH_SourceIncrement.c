@@ -43,21 +43,21 @@ void DMA_CH__vSetSourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannel
 
 DMA_nCH_SRC_INC DMA_CH__enGetPrimarySourceIncrement(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_UNDEF;
+    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_BYTE;
     enReg = (DMA_nCH_SRC_INC) DMA_CH__u32GetPrimaryControlGeneric(enChannel, DMACH_CHCTL_SRCINC_MASK, DMACH_CHCTL_R_SRCINC_BIT);
     return (enReg);
 }
 
 DMA_nCH_SRC_INC DMA_CH__enGetAlternateSourceIncrement(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_UNDEF;
+    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_BYTE;
     enReg = (DMA_nCH_SRC_INC) DMA_CH__u32GetAlternateControlGeneric(enChannel, DMAALTCH_CHCTL_SRCINC_MASK, DMAALTCH_CHCTL_R_SRCINC_BIT);
     return (enReg);
 }
 
 DMA_nCH_SRC_INC DMA_CH__enGetSourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
 {
-    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_UNDEF;
+    DMA_nCH_SRC_INC enReg = DMA_enCH_SRC_INC_BYTE;
     enReg = (DMA_nCH_SRC_INC) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, DMACH_CHCTL_SRCINC_MASK, DMACH_CHCTL_R_SRCINC_BIT);
     return (enReg);
 }
