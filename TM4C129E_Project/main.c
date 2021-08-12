@@ -15,6 +15,8 @@
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
+#include <xImages/xImages.h>
+
 uint32_t main(void);
 
 void Task0(void* pvParams);
@@ -66,17 +68,21 @@ void Task2(void* pvParams)
     uint32_t u32Count = 0UL;
     uint32_t u32Alt = 0UL;
     static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
+    uint16_t* pu16Pointer = 0UL;
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     while(1UL)
     {
         EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
         u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 10UL, 10UL);
         u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 10, 128 - 10);
-        for(u32LcdPosX = 0UL ; u32LcdPosX < 128UL * 128UL; u32LcdPosX++)
+        pu16Pointer = (uint16_t*) Images__pu8DolphinPointer();
+        for(u32LcdPosY = 0UL ; u32LcdPosY < 76UL; u32LcdPosY++)
         {
-            u32Alt = (u32LcdPosX + u32Count);
-            u32Alt &= 0x7FUL;
-            u16BufferSPI[u32LcdPosX] = COLORS_u16Values[u32Alt];
+            for(u32LcdPosX = 0UL ; u32LcdPosX < 120UL; u32LcdPosX++)
+            {
+                u16BufferSPI[u32LcdPosX + (u32LcdPosY * 128UL)] = *pu16Pointer;
+                pu16Pointer++;
+            }
         }
         for(u32LcdPosY = u32LcdPosYCurrent - 10UL ; u32LcdPosY < (u32LcdPosYCurrent - 10UL) + 20UL; u32LcdPosY++)
         {
