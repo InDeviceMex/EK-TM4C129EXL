@@ -9,6 +9,5 @@
 #define SYSEXC_H_
 
 #include <xDriver_MCU/SYSEXC/Driver/SYSEXC_Driver.h>
-#include <xDriver_MCU/SYSEXC/App/SYSEXC_App.h>
 
 #endif /* SYSEXC_H_ */

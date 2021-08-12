@@ -2,7 +2,7 @@
  *
  * @file SYSEXC_Init.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,20 +11,20 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 19 jun. 2020 @endverbatim
+ * @verbatim 11 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 19 jun. 2020     vyldram    1.0         initial Version@endverbatim
+ * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/SYSEXC/App/xHeader/SYSEXC_Init.h>
+#include <xApplication_MCU/SYSEXC/xHeader/SYSEXC_Init.h>
 
-#include <xUtils/Standard/Standard.h>
-#include <xDriver_MCU/SYSEXC/Driver/SYSEXC_Driver.h>
+#include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Dependencies.h>
+#include <xApplication_MCU/SYSEXC/Interrupt/SYSEXC_Interrupt.h>
 
 void SYSEXC__vInit(SYSEXC_nINT_SOURCE enInterruptParam, SYSEXC_nPRIORITY enSYSEXCPriority)
 {

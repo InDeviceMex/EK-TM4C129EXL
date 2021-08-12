@@ -25,10 +25,6 @@
 #ifndef XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_SYSEXC_INTERRUPTROUTINE_H_
 #define XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_SYSEXC_INTERRUPTROUTINE_H_
 
-#include <xDriver_MCU/SYSEXC/Driver/Interrupt/InterruptRoutine/xHeader/SYSEXC_InterruptRoutine_Vector.h>
 #include <xDriver_MCU/SYSEXC/Driver/Interrupt/InterruptRoutine/xHeader/SYSEXC_InterruptRoutine_Source.h>
-
-void (*SYSEXC__pvfGetIRQVectorHandler(void))(void);
-void (**SYSEXC__pvfGetIRQVectorHandlerPointer(void))(void);
 
 #endif /* XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_SYSEXC_INTERRUPTROUTINE_H_ */
