@@ -26,6 +26,5 @@
 #define XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_INTERRUPTREGISTER_SYSCTL_INTERRUPTREGISTER_H_
 
 #include <xDriver_MCU/SYSCTL/Driver/Interrupt/InterruptRegister/xHeader/SYSCTL_InterruptRegisterIRQSource.h>
-#include <xDriver_MCU/SYSCTL/Driver/Interrupt/InterruptRegister/xHeader/SYSCTL_InterruptRegisterIRQVector.h>
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_INTERRUPTREGISTER_SYSCTL_INTERRUPTREGISTER_H_ */

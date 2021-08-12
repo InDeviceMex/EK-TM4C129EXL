@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_SYSCTL_INTERRUPT_H_
 #define XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_SYSCTL_INTERRUPT_H_
 
-#include <xDriver_MCU/SYSCTL/Driver/Interrupt/xHeader/SYSCTL_InterruptVector.h>
 #include <xDriver_MCU/SYSCTL/Driver/Interrupt/xHeader/SYSCTL_InterruptSource.h>
 #include <xDriver_MCU/SYSCTL/Driver/Interrupt/InterruptRegister/SYSCTL_InterruptRegister.h>
 #include <xDriver_MCU/SYSCTL/Driver/Interrupt/InterruptRoutine/SYSCTL_InterruptRoutine.h>

@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 16 jun. 2021 @endverbatim
+ * @verbatim 12 ago. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,11 +19,11 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 16 jun. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 12 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/SYSCTL/Driver/Interrupt/xHeader/SYSCTL_InterruptVector.h>
+#include <xApplication_MCU/SYSCTL/Interrupt/xHeader/SYSCTL_InterruptVector.h>
 
-#include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Dependencies.h>
+#include <xApplication_MCU/SYSCTL/Intrinsics/xHeader/SYSCTL_Dependencies.h>
 
 void SYSCTL__vEnInterruptVector(SYSCTL_nPRIORITY enSYSCTLPriority)
 {
@@ -37,5 +37,3 @@ void SYSCTL__vDisInterruptVector(void)
     NVIC_nSTIR enVector = NVIC_enSTIR_SYSCTL;
     NVIC__vClearEnableIRQ(enVector);
 }
-
-

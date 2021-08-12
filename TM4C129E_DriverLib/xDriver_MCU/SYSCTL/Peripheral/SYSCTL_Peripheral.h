@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_PERIPHERAL_H_
 
 #include <xDriver_MCU/SYSCTL/Peripheral/Register/SYSCTL_Register.h>
-#include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Dependencies.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_PERIPHERAL_H_ */

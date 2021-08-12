@@ -24,7 +24,6 @@
 #include <xDriver_MCU/SYSCTL/App/xHeader/SYSCTL_Ready.h>
 
 #include <xDriver_MCU/SYSCTL/Driver/SYSCTL_Driver.h>
-#include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
 void SYSCTL__vSetReady(SYSCTL_nPERIPHERAL enPeripheral)
 {
