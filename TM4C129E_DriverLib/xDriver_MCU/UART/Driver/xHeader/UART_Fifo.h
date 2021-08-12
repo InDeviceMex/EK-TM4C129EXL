@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_UART_DRIVER_XHEADER_UART_FIFO_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void UART__vSetFifoRxLevel(UART_nMODULE enModule, UART_nFIFO_LEVEL enFifoLevelArg);
 UART_nFIFO_LEVEL UART__enGetFifoRxLevel(UART_nMODULE enModule);

@@ -23,9 +23,6 @@
  */
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Interrupt/InterruptRoutine/TIMER_InterruptRoutine.h>
 
-#include <xUtils/Standard/Standard.h>
-#include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
-
 void (*TIMER__pvIRQVectorHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX]) (void) =
 {
     {

@@ -23,7 +23,6 @@
  */
 #include <xDriver_MCU/GPIO/App/Config/xHeader/GPIO_ConfigStruct.h>
 
-#include <xUtils/Standard/Standard.h>
 #include <stdlib.h>
 
 void GPIO__vCreateConfigStructPointer(GPIO_nCONFIG enConfig, GPIO_CONFIG_Typedef *pstConfig)

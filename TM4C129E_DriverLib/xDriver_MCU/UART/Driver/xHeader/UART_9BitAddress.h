@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_UART_DRIVER_XHEADER_UART_9BITADDRESS_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void UART__vSet9BitMode(UART_nMODULE enModule, UART_n9BIT en9BitArg);
 UART_n9BIT UART__enGet9BitMode(UART_nMODULE enModule);

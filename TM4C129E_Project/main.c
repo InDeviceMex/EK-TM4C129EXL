@@ -89,7 +89,7 @@ void Task2(void* pvParams)
         OS_Task__vEnterCritical();
         UART__u32Printf(UART_enMODULE_0, "Yoystick: \n\r\t\tX: %d Y: %d\n\r", u32ADCValueX,u32ADCValueY);
         OS_Task__vExitCritical();
-        OS_Task__vDelay(60UL);
+        OS_Task__vDelay(20UL);
         u32Count++;
     }
 }

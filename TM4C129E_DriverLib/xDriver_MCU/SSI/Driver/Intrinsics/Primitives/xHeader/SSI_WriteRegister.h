@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_SSI_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_SSI_WRITEREGISTER_H_
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void SSI__vWriteRegister(SSI_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
 

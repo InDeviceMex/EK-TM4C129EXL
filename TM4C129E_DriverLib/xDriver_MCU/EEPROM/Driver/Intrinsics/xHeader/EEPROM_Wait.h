@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_XHEADER_EEPROM_WAIT_H_
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 /**
  * @brief EEPROM Get Status Function

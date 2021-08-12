@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_UART_INTERRUPTROUTINE_H_
 #define XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_UART_INTERRUPTROUTINE_H_
 
-#include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/UART_InterruptRoutine_Vector_Module0.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/UART_InterruptRoutine_Vector_Module1.h>

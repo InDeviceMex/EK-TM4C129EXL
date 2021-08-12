@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_SSI_DRIVER_XHEADER_SSI_DATA_H_
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 uint32_t SSI__u32SetData(SSI_nMODULE enModule, uint32_t u32Data);
 uint32_t SSI__u32GetData(SSI_nMODULE enModule);

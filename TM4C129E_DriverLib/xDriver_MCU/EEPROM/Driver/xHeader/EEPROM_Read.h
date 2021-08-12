@@ -9,7 +9,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_READ_H_
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 /*!
  * Read a world from EEPROM Memory section

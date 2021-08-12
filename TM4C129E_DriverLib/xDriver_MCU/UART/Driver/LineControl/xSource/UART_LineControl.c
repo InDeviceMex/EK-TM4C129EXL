@@ -21,7 +21,6 @@
  * Date           Author     Version     Description
  * 6 feb. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/UART/Driver/LineControl/UART_LineControl.h>
 
 

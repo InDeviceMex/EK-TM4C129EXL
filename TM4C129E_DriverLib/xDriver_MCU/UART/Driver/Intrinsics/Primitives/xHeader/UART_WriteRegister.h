@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_UART_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_UART_WRITEREGISTER_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void UART__vWriteRegister(UART_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
 

@@ -6,7 +6,6 @@
  */
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_WriteMulti.h>
 
-#include <xUtils/Standard/Standard.h>
 #include <stdlib.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Erase.h>

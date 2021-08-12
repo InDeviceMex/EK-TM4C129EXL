@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_UART_DRIVER_XHEADER_UART_DATA_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void UART__vSetData(UART_nMODULE enModule, uint32_t u32Data);
 uint32_t UART__u32GetData(UART_nMODULE enModule);

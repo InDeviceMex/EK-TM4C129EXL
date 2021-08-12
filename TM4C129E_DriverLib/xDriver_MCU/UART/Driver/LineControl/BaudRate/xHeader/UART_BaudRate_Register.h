@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_UART_DRIVER_LINECONTROL_BAUDRATE_XHEADER_UART_BAUDRATE_REGISTER_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 void UART__vSetBaudRateIntegerPart(UART_nMODULE enModule, uint32_t u32Integer);
 uint32_t UART__u32GetBaudRateIntegerPart(UART_nMODULE enModule);

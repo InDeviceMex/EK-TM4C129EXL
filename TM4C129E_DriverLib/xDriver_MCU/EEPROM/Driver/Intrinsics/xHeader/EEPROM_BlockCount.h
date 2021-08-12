@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_XHEADER_EEPROM_BLOCKCOUNT_H_
 #define XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_XHEADER_EEPROM_BLOCKCOUNT_H_
 
-#include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 #include <xUtils/Standard/Standard.h>
 
 /**

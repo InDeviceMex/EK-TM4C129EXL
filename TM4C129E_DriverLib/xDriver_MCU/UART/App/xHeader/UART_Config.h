@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_UART_APP_XHEADER_UART_CONFIG_H_
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
 UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  , const UART_CONTROL_TypeDef* pstControlConfig, const UART_LINE_CONTROL_TypeDef* pstLineControlConfig, uint32_t u32BaudRateArg, const UART_LINE_TypeDef* pstLineConfig);
 
