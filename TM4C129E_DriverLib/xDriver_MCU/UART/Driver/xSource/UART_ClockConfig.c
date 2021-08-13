@@ -28,12 +28,14 @@
 
 void UART__vSetClockConfig(UART_nMODULE enModule, UART_nCLOCK enClock)
 {
-    UART__vWriteRegister(enModule, UART_CC_OFFSET, (uint32_t) enClock, UART_CC_CS_MASK, UART_CC_R_CS_BIT);
+    UART__vWriteRegister(enModule, UART_CC_OFFSET, (uint32_t) enClock,
+                         UART_CC_CS_MASK, UART_CC_R_CS_BIT);
 }
 
 UART_nCLOCK UART__enGetClockConfig(UART_nMODULE enModule)
 {
-    UART_nCLOCK enClockReg = UART_enCLOCK_UNDEF;
-    UART__enReadRegister(enModule, UART_CC_OFFSET, (uint32_t*) &enClockReg, UART_CC_CS_MASK, UART_CC_R_CS_BIT);
-    return enClockReg;
+    UART_nCLOCK enClockReg = UART_enCLOCK_SYSCLK;
+    enClockReg = (UART_nCLOCK) UART__u32ReadRegister(enModule, UART_CC_OFFSET,
+                                                     UART_CC_CS_MASK, UART_CC_R_CS_BIT);
+    return (enClockReg);
 }

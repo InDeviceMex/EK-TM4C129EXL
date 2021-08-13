@@ -28,14 +28,16 @@
 
 uint32_t UART__u32GetErrorState(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_RSR_OFFSET, &u32Reg,
+    uint32_t u32Reg = 0UL;
+    u32Reg = UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
     (UART_RSR_R_BE_MASK | UART_RSR_R_FE_MASK | UART_RSR_R_OE_MASK | UART_RSR_R_PE_MASK), 0UL);
-    return u32Reg;
+    return (u32Reg);
 }
 
 void UART__vClearErrorState(UART_nMODULE enModule)
 {
     UART__vWriteRegister(enModule, UART_ECR_OFFSET,
-    (UART_RSR_R_BE_MASK | UART_RSR_R_FE_MASK | UART_RSR_R_OE_MASK | UART_RSR_R_PE_MASK), 0xFFFFFFFFUL, 0UL);
+    (UART_RSR_R_BE_MASK | UART_RSR_R_FE_MASK | UART_RSR_R_OE_MASK | UART_RSR_R_PE_MASK),
+    0xFFFFFFFFUL,
+    0UL);
 }

@@ -30,7 +30,4 @@
 #include <xDriver_MCU/ADC/Driver/Sample/ADC_Sample.h>
 #include <xDriver_MCU/ADC/Driver/Comparator/ADC_Comparator.h>
 
-
-
-
 #endif /* XDRIVER_MCU_ADC_DRIVER_ADC_DRIVER_H_ */

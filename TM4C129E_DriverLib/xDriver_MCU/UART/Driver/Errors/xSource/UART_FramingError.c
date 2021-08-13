@@ -28,7 +28,8 @@
 
 UART_nERROR UART__enGetFramingErrorState(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_RSR_OFFSET, &u32Reg, UART_RSR_FE_MASK, UART_RSR_R_FE_BIT);
-    return (UART_nERROR)  u32Reg;
+    UART_nERROR enErrorReg = UART_enERROR_NOOCCUR;
+    enErrorReg = (UART_nERROR) UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
+                                                     UART_RSR_FE_MASK, UART_RSR_R_FE_BIT);
+    return (enErrorReg);
 }

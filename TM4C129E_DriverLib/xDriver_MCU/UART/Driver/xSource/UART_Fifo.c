@@ -29,24 +29,28 @@
 
 void UART__vSetFifoRxLevel(UART_nMODULE enModule, UART_nFIFO_LEVEL enFifoLevelArg)
 {
-    UART__vWriteRegister(enModule, UART_IFLS_OFFSET, (uint32_t) enFifoLevelArg, UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
+    UART__vWriteRegister(enModule, UART_IFLS_OFFSET, (uint32_t) enFifoLevelArg,
+                         UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
 }
 
 UART_nFIFO_LEVEL UART__enGetFifoRxLevel(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_IFLS_OFFSET, &u32Reg, UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
-    return (UART_nFIFO_LEVEL) u32Reg;
+    UART_nFIFO_LEVEL enFifoLevelReg = UART_enFIFO_LEVEL_2_16;
+    enFifoLevelReg = (UART_nFIFO_LEVEL) UART__u32ReadRegister(enModule, UART_IFLS_OFFSET,
+                                              UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
+    return (enFifoLevelReg);
 }
 
 void UART__vSetFifoTxLevel(UART_nMODULE enModule, UART_nFIFO_LEVEL enFifoLevelArg)
 {
-    UART__vWriteRegister(enModule, UART_IFLS_OFFSET, (uint32_t) enFifoLevelArg, UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
+    UART__vWriteRegister(enModule, UART_IFLS_OFFSET, (uint32_t) enFifoLevelArg,
+                         UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
 }
 
 UART_nFIFO_LEVEL UART__enGetFifoTxLevel(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_IFLS_OFFSET, &u32Reg, UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
-    return (UART_nFIFO_LEVEL) u32Reg;
+    UART_nFIFO_LEVEL enFifoLevelReg = UART_enFIFO_LEVEL_2_16;
+    enFifoLevelReg = (UART_nFIFO_LEVEL) UART__u32ReadRegister(enModule, UART_IFLS_OFFSET,
+                                              UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
+    return (enFifoLevelReg);
 }

@@ -24,7 +24,6 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/xHeader/UART_WriteRegister.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/xHeader/UART_Ready.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
 void UART__vWriteRegister(UART_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
@@ -33,7 +32,6 @@ void UART__vWriteRegister(UART_nMODULE enModule, uint32_t u32OffsetRegister, uin
     uint32_t u32Module = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
 
-    UART__vSetReady((UART_nMODULE) u32Module);
     u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
     MCU__vWriteRegister(u32UartBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
 }

@@ -26,6 +26,5 @@
 #define XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_UART_INTERRUPTREGISTER_H_
 
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/UART_InterruptRegisterIRQSource.h>
-#include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/UART_InterruptRegisterIRQVector.h>
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_UART_INTERRUPTREGISTER_H_ */

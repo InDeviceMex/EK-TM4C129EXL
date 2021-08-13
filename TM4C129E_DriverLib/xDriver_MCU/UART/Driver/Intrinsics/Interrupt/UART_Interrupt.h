@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRoutine/UART_InterruptRoutine.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/InterruptRegister/UART_InterruptRegister.h>
-#include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/xHeader/UART_InterruptVector.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/xHeader/UART_InterruptSource.h>
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_UART_INTERRUPT_H_ */

@@ -28,14 +28,16 @@
 
 UART_nFIFO_EMPTY UART__enIsFifoTransmitEmpty(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_FR_OFFSET, &u32Reg, UART_FR_TXFE_MASK, UART_FR_R_TXFE_BIT);
-    return (UART_nFIFO_EMPTY) u32Reg;
+    UART_nFIFO_EMPTY enFifoReg = UART_enFIFO_NO_EMPTY;
+    enFifoReg = (UART_nFIFO_EMPTY) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
+                                                         UART_FR_TXFE_MASK, UART_FR_R_TXFE_BIT);
+    return (enFifoReg);
 }
 
 UART_nFIFO_FULL UART__enIsFifoTransmitFull(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_FR_OFFSET, &u32Reg, UART_FR_TXFF_MASK, UART_FR_R_TXFF_BIT);
-    return (UART_nFIFO_FULL) u32Reg;
+    UART_nFIFO_FULL enFifoReg = UART_enFIFO_NO_FULL;
+    enFifoReg = (UART_nFIFO_FULL) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
+                                                        UART_FR_TXFF_MASK, UART_FR_R_TXFF_BIT);
+    return (enFifoReg);
 }

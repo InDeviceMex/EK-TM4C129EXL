@@ -28,36 +28,42 @@
 
 void UART__vSetDMARx(UART_nMODULE enModule, UART_nDMA enDMAEnableArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg, UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
+    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg,
+                         UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
 }
 
 UART_nDMA UART__enGetDMARx(UART_nMODULE enModule)
 {
-    UART_nDMA enDMAEnableReg = UART_enDMA_UNDEF;
-    UART__enReadRegister(enModule, UART_DMACTL_OFFSET, (uint32_t*) &enDMAEnableReg, UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
-    return enDMAEnableReg;
+    UART_nDMA enDMAEnableReg = UART_enDMA_DIS;
+    enDMAEnableReg = (UART_nDMA) UART__u32ReadRegister(enModule, UART_DMACTL_OFFSET,
+                                               UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
+    return (enDMAEnableReg);
 }
 
 void UART__vSetDMATx(UART_nMODULE enModule, UART_nDMA enDMAEnableArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg, UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
+    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg,
+                         UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
 }
 
 UART_nDMA UART__enGetDMATx(UART_nMODULE enModule)
 {
-    UART_nDMA enDMAEnableReg = UART_enDMA_UNDEF;
-    UART__enReadRegister(enModule, UART_DMACTL_OFFSET, (uint32_t*) &enDMAEnableReg, UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
-    return enDMAEnableReg;
+    UART_nDMA enDMAEnableReg = UART_enDMA_DIS;
+    enDMAEnableReg = (UART_nDMA) UART__u32ReadRegister(enModule, UART_DMACTL_OFFSET,
+                                   UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
+    return (enDMAEnableReg);
 }
 
 void UART__vSetDMADisableOnError(UART_nMODULE enModule, UART_nDMA enDMAEnableArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg, UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
+    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (uint32_t) enDMAEnableArg,
+                         UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
 }
 
 UART_nDMA UART__enGetDMADisableOnError(UART_nMODULE enModule)
 {
-    UART_nDMA enDMAEnableReg = UART_enDMA_UNDEF;
-    UART__enReadRegister(enModule, UART_DMACTL_OFFSET, (uint32_t*) &enDMAEnableReg, UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
-    return enDMAEnableReg;
+    UART_nDMA enDMAEnableReg = UART_enDMA_DIS;
+    enDMAEnableReg = (UART_nDMA) UART__u32ReadRegister(enModule, UART_DMACTL_OFFSET,
+                                               UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
+    return (enDMAEnableReg);
 }

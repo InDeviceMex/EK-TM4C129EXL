@@ -28,7 +28,8 @@
 
 UART_nCTS UART__enGetClearToSendStatus(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_FR_OFFSET, &u32Reg, UART_FR_CTS_MASK, UART_FR_R_CTS_BIT);
-    return (UART_nCTS) u32Reg;
+    UART_nCTS enCTSReg = UART_enCTS_NOASSERT;
+    enCTSReg = (UART_nCTS) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
+                                                 UART_FR_CTS_MASK, UART_FR_R_CTS_BIT);
+    return (enCTSReg);
 }

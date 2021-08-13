@@ -28,14 +28,16 @@
 
 UART_nSTATUS UART__enIsBit9Supported(UART_nMODULE enModule)
 {
-    UART_nSTATUS enSupported = UART_enSTATUS_UNDEF;
-    UART__enReadRegister(enModule, UART_PP_OFFSET, (uint32_t*) enSupported, UART_PP_NB_MASK, UART_PP_R_NB_BIT);
-    return enSupported;
+    UART_nSTATUS enSupported = UART_enSTATUS_OK;
+    enSupported = (UART_nSTATUS) UART__u32ReadRegister(enModule, UART_PP_OFFSET,
+                                                       UART_PP_NB_MASK, UART_PP_R_NB_BIT);
+    return (enSupported);
 }
 
 UART_nSTATUS UART__enIsSmartCardSupported(UART_nMODULE enModule)
 {
-    UART_nSTATUS enSupported = UART_enSTATUS_UNDEF;
-    UART__enReadRegister(enModule, UART_PP_OFFSET, (uint32_t*) &enSupported, UART_PP_SC_MASK, UART_PP_R_SC_BIT);
-    return enSupported;
+    UART_nSTATUS enSupported = UART_enSTATUS_OK;
+    enSupported = (UART_nSTATUS) UART__u32ReadRegister(enModule, UART_PP_OFFSET,
+                                                       UART_PP_SC_MASK, UART_PP_R_SC_BIT);
+    return (enSupported);
 }
