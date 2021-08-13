@@ -26,7 +26,8 @@
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
 #if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX] = {SYSCTL_enADC0, SYSCTL_enADC1};
+static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX] =
+{SYSCTL_enADC0, SYSCTL_enADC1};
 #endif
 
 void ADC__vSetReady(ADC_nMODULE enModule)
@@ -53,7 +54,8 @@ void ADC__vSetReady(ADC_nMODULE enModule)
 void ADC__vClearReady(ADC_nMODULE enModule)
 {
 #if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX] = {SYSCTL_enADC0, SYSCTL_enADC1};
+    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX] =
+    {SYSCTL_enADC0, SYSCTL_enADC1};
 #endif
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enADC0;
     uint32_t u32Module = 0UL;

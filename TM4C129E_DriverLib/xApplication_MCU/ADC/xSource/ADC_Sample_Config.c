@@ -25,7 +25,9 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
-ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                   ADC_nMUX enMux,
+                                   const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)
@@ -49,28 +51,36 @@ ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequen
     }
     return (enReturn);
 }
-ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                       ADC_nMUX enMux,
+                                       const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
 {
     ADC_nSEQ_INPUT_GPIO enAdcGpioInput [ADC_enSEQ_INPUT_MAX ] =
     {
-        ADC_enSEQ_INPUT_GPIO_0, ADC_enSEQ_INPUT_GPIO_1, ADC_enSEQ_INPUT_GPIO_2, ADC_enSEQ_INPUT_GPIO_3,
-        ADC_enSEQ_INPUT_GPIO_4, ADC_enSEQ_INPUT_GPIO_5, ADC_enSEQ_INPUT_GPIO_6, ADC_enSEQ_INPUT_GPIO_7,
-        ADC_enSEQ_INPUT_GPIO_8, ADC_enSEQ_INPUT_GPIO_9, ADC_enSEQ_INPUT_GPIO_10, ADC_enSEQ_INPUT_GPIO_11,
-        ADC_enSEQ_INPUT_GPIO_12, ADC_enSEQ_INPUT_GPIO_13, ADC_enSEQ_INPUT_GPIO_14, ADC_enSEQ_INPUT_GPIO_15,
-        ADC_enSEQ_INPUT_GPIO_16, ADC_enSEQ_INPUT_GPIO_17, ADC_enSEQ_INPUT_GPIO_18, ADC_enSEQ_INPUT_GPIO_19
+        ADC_enSEQ_INPUT_GPIO_0, ADC_enSEQ_INPUT_GPIO_1,
+        ADC_enSEQ_INPUT_GPIO_2, ADC_enSEQ_INPUT_GPIO_3,
+        ADC_enSEQ_INPUT_GPIO_4, ADC_enSEQ_INPUT_GPIO_5,
+        ADC_enSEQ_INPUT_GPIO_6, ADC_enSEQ_INPUT_GPIO_7,
+        ADC_enSEQ_INPUT_GPIO_8, ADC_enSEQ_INPUT_GPIO_9,
+        ADC_enSEQ_INPUT_GPIO_10, ADC_enSEQ_INPUT_GPIO_11,
+        ADC_enSEQ_INPUT_GPIO_12, ADC_enSEQ_INPUT_GPIO_13,
+        ADC_enSEQ_INPUT_GPIO_14, ADC_enSEQ_INPUT_GPIO_15,
+        ADC_enSEQ_INPUT_GPIO_16, ADC_enSEQ_INPUT_GPIO_17,
+        ADC_enSEQ_INPUT_GPIO_18, ADC_enSEQ_INPUT_GPIO_19
     };
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
 
     if(0UL != (uint32_t) pstSampleConfig)
     {
-        GPIO__vSetAnalogFunction((GPIO_nANALOG_FUNCTION)enAdcGpioInput[(uint32_t) pstSampleConfig->enInput]);
+        GPIO__vSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(uint32_t) pstSampleConfig->enInput]);
         enReturn = ADC__enSetSampleConfig(enModule, enSequencer, enMux, pstSampleConfig);
     }
     return (enReturn);
 }
 
 
-ADC_nSTATUS ADC__enGetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+ADC_nSTATUS ADC__enGetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                   ADC_nMUX enMux, ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)

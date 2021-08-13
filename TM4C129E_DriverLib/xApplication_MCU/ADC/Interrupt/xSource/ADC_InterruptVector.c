@@ -35,8 +35,10 @@ static NVIC_nSTIR ADC__enGetInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER
     uint32_t u32Sequencer = 0UL;
     NVIC_nSTIR NVIC_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX][(uint32_t) ADC_enSEQ_MAX] =
     {
-        { NVIC_enSTIR_ADC0SEQ0, NVIC_enSTIR_ADC0SEQ1, NVIC_enSTIR_ADC0SEQ2, NVIC_enSTIR_ADC0SEQ3},
-        { NVIC_enSTIR_ADC1SEQ0, NVIC_enSTIR_ADC1SEQ1, NVIC_enSTIR_ADC1SEQ2, NVIC_enSTIR_ADC1SEQ3},
+        { NVIC_enSTIR_ADC0SEQ0, NVIC_enSTIR_ADC0SEQ1,
+          NVIC_enSTIR_ADC0SEQ2, NVIC_enSTIR_ADC0SEQ3},
+        { NVIC_enSTIR_ADC1SEQ0, NVIC_enSTIR_ADC1SEQ1,
+          NVIC_enSTIR_ADC1SEQ2, NVIC_enSTIR_ADC1SEQ3},
     };
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
@@ -45,7 +47,8 @@ static NVIC_nSTIR ADC__enGetInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER
     return enVector;
 }
 
-void ADC__vEnInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence, ADC_nPRIORITY enADCPriority)
+void ADC__vEnInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
+                             ADC_nPRIORITY enADCPriority)
 {
     NVIC_nSTIR enVector = NVIC_enSTIR_ADC0SEQ0;
     enVector = ADC__enGetInterruptVector(enModule, enSequence);
