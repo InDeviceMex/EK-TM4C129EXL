@@ -42,6 +42,6 @@ ADC_nSEQ_PRIORITY ADC__enGetSequencerPriority(ADC_nMODULE enModule, ADC_nSEQUENC
                                            ADC_SSPRI_OFFSET, (uint32_t) enSequence,
                                            ADC_SSPRI_SS0_MASK,
                                            (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT),
-                                           ADC_SSPRI_R_SS0_BIT))
+                                           ADC_SSPRI_R_SS0_BIT));
     return (enSeqPriorityReg);
 }

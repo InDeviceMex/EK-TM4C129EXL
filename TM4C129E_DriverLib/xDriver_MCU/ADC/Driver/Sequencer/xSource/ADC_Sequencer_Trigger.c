@@ -42,6 +42,6 @@ ADC_nSEQ_TRIGGER ADC__enGetSequencerTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER
                                                  ADC_EMUX_OFFSET, (uint32_t) enSequence,
                                                  ADC_EMUX_EM0_MASK,
                                                  (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT),
-                                                 ADC_EMUX_R_EM0_BIT))
+                                                 ADC_EMUX_R_EM0_BIT));
     return (enSeqTriggerReg);
 }

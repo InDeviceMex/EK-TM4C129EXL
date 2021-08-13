@@ -41,7 +41,7 @@ ADC_nSEQ_SAMPLE_HOLD ADC__enGetSampleSampleHold(ADC_nMODULE enModule,
     enSeqSampleHoldReg = (ADC_nSEQ_SAMPLE_HOLD) ADC__u32GetSampleGeneric((uint32_t) enModule,
                                                      (uint32_t) enSequencer,
                                                      ADC_SSTSH_OFFSET, (uint32_t) enMux,
-                                                     ADC_SSTSH_TSH0_MASK, ADC_SSTSH_R_TSH0_BIT)
+                                                     ADC_SSTSH_TSH0_MASK, ADC_SSTSH_R_TSH0_BIT);
     return (enSeqSampleHoldReg);
 }
 

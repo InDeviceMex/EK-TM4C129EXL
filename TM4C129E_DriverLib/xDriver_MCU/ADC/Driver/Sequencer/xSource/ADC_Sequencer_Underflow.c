@@ -36,6 +36,6 @@ ADC_nSEQ_UV ADC__enGetSequencerUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSe
 {
     ADC_nSEQ_UV enSeqUVReg = ADC_enSEQ_UV_NOOCCUR;
     enSeqUVReg = (ADC_nSEQ_UV) (ADC__u32GetSequencerGeneric((uint32_t) enModule,
-                                            ADC_USTAT_OFFSET, (uint32_t) enSequence, 0UL))
+                                            ADC_USTAT_OFFSET, (uint32_t) enSequence, 0UL));
     return (enSeqUVReg);
 }

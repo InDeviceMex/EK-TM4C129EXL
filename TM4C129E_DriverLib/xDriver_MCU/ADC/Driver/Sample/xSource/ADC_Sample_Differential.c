@@ -43,6 +43,6 @@ ADC_nSEQ_INPUT_DIFF ADC__enGetSampleDifferential(ADC_nMODULE enModule,
                                                                ADC_SSCTL_OFFSET,
                                                                (uint32_t) enMux,
                                                                ADC_SSCTL_D0_MASK,
-                                                               ADC_SSCTL_R_D0_BIT)
+                                                               ADC_SSCTL_R_D0_BIT);
     return (enSeqInputDif);
 }
