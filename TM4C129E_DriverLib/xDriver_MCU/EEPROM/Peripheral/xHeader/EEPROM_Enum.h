@@ -33,7 +33,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_ENUM_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /**
  *  @brief EEPROM status

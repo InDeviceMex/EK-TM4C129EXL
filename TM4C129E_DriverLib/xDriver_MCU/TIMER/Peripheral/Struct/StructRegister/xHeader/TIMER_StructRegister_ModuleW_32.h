@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_TIMER_STRUCTREGISTER_MODULEW_32_H_
 #define XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_TIMER_STRUCTREGISTER_MODULEW_32_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /*************************************************************
  *********************************  TIMER 32 REGS **************

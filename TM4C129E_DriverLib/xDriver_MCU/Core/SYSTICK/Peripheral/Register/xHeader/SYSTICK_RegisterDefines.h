@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_REGISTER_SYSTICK_REGISTERDEFINES_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_REGISTER_SYSTICK_REGISTERDEFINES_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /*********************************************************************************************
 ************************************** 1 CSR **********************************************

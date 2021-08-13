@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_ENUM_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 typedef enum
 {

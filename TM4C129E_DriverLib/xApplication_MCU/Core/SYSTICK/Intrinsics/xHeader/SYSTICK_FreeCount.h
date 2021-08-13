@@ -8,7 +8,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_DRIVER_SYSTICK_FREECOUNT_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_DRIVER_SYSTICK_FREECOUNT_H_
 
-#include <xUtils/Standard/Standard.h>                             /* standard types definitions                      */
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>                             /* standard types definitions                      */
 
 void SYSTICK__vSetFreeCount(uint32_t u32Count);
 uint32_t SYSTICK__u32GetFreeCount(void);

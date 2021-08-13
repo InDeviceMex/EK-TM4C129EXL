@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLPOINTER_H_
 #define XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLPOINTER_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 void DMA__vSetChannelControlPointer(uint32_t u32ControlAddress);
 uint32_t DMA__u32GetChannelControlPointer(void);

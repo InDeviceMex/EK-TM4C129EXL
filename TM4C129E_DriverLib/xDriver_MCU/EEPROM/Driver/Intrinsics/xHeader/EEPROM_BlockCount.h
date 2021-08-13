@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_XHEADER_EEPROM_BLOCKCOUNT_H_
 #define XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_XHEADER_EEPROM_BLOCKCOUNT_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /**
  * @brief EEPROM Init Block Count Max Function

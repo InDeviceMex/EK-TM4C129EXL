@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_INTERRUPT_XHEADER_GPIO_REGISTERDEFINES_SI_H_
 #define XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_INTERRUPT_XHEADER_GPIO_REGISTERDEFINES_SI_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /******************************************************************************************
  ************************************ 25 SI *********************************************

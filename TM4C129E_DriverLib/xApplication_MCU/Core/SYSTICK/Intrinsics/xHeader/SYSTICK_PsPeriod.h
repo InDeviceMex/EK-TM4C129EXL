@@ -25,7 +25,7 @@
 #ifndef XAPPLICATION_MCU_CORE_SYSTICK_INTRINSICS_XHEADER_SYSTICK_PSPERIOD_H_
 #define XAPPLICATION_MCU_CORE_SYSTICK_INTRINSICS_XHEADER_SYSTICK_PSPERIOD_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 void SYSTICK__vClearPsPeriod(void);
 void SYSTICK__vSetPsPeriod(uint64_t u64PsPeriod);

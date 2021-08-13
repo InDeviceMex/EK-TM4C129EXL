@@ -25,7 +25,7 @@
 #ifndef XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_VECTORTABLE_H_
 #define XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_VECTORTABLE_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 void (**SCB__pfnGetVectorTableRam(void)) (void);
 void SCB__vSetVectorTable(uint32_t u32Offset);

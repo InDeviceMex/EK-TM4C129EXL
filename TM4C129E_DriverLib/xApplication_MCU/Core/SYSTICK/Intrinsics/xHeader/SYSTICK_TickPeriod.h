@@ -25,7 +25,7 @@
 #ifndef XAPPLICATION_MCU_CORE_SYSTICK_INTRINSICS_XHEADER_SYSTICK_TICKPERIOD_H_
 #define XAPPLICATION_MCU_CORE_SYSTICK_INTRINSICS_XHEADER_SYSTICK_TICKPERIOD_H_
 
-#include <xUtils/Standard/Standard.h>                             /* standard types definitions                      */
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>                             /* standard types definitions                      */
 
 void SYSTICK__vClearTickPeriod(void);
 void SYSTICK__vSetTickPeriod(uint32_t u32TickPeriod);
