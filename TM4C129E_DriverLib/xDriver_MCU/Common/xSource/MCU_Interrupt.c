@@ -106,7 +106,8 @@ __attribute__((naked)) MCU_nENABLE MCU__enGetGlobalInterrupt_RAM(void)
     return ((MCU_nENABLE) 0UL);
 }
 
-__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)
+__attribute__((naked))
+MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)
 {
     {__asm(" and     r1, r0, #0x7\n");}
     {__asm(" lsl     r1, #0x5\n");}
@@ -128,7 +129,8 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void)
     return ((MCU_nPRIORITY) 0UL);
 }
 
-__attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)
+__attribute__((naked))
+MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)
 {
     {__asm(" and     r1, r0, #0x7\n");}
     {__asm(" lsl     r1, #0x5\n");}

@@ -23,7 +23,9 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_WriteReg.h>
 
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
+                             uint32_t u32FeatureValue, uint32_t u32MaskFeature,
+                             uint32_t u32BitFeature)
 {
     uint32_t u32Reg = u32FeatureValue;
     volatile uint32_t* pu32Peripheral = 0UL;

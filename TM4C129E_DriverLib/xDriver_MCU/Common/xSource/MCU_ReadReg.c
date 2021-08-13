@@ -23,7 +23,8 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_ReadReg.h>
 
-uint32_t MCU__u32ReadRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t MCU__u32ReadRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
+                              uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32FeatureValue = 0UL;
     volatile uint32_t* pu32Peripheral = 0UL;
@@ -42,7 +43,8 @@ uint32_t MCU__u32ReadRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegi
 }
 
 
-uint32_t MCU__u32ReadRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t MCU__u32ReadRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
+                                  uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32FeatureValue = 0UL;
     volatile uint32_t* pu32Peripheral = 0UL;
