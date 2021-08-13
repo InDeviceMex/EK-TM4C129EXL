@@ -27,22 +27,29 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vSetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32Feature, uint32_t u32FeatureMask, uint32_t u32FeatureBit)
+void ADC__vSetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator,
+                          uint32_t u32RegisterOffset, uint32_t u32Feature,
+                          uint32_t u32FeatureMask, uint32_t u32FeatureBit)
 {
     uint32_t u32ComparatorReg = 0UL;
-    u32ComparatorReg = MCU__u32CheckParams((uint32_t) u32Comparator, (uint32_t) ADC_enCOMPARATOR_MAX);
+    u32ComparatorReg = MCU__u32CheckParams((uint32_t) u32Comparator,
+                                           (uint32_t) ADC_enCOMPARATOR_MAX);
     u32ComparatorReg *= 4UL;
     u32RegisterOffset += u32ComparatorReg;
-    ADC__vWriteRegister((ADC_nMODULE) u32Module , u32RegisterOffset, u32Feature, u32FeatureMask, u32FeatureBit);
+    ADC__vWriteRegister((ADC_nMODULE) u32Module , u32RegisterOffset,
+                        u32Feature, u32FeatureMask, u32FeatureBit);
 }
 
-uint32_t ADC__u32GetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32FeatureMask, uint32_t u32FeatureBit)
+uint32_t ADC__u32GetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator,
+                                uint32_t u32RegisterOffset, uint32_t u32FeatureMask,
+                                uint32_t u32FeatureBit)
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32ComparatorReg = 0UL;
     u32ComparatorReg = MCU__u32CheckParams(u32Comparator, (uint32_t) ADC_enCOMPARATOR_MAX);
     u32ComparatorReg *= 4UL;
     u32RegisterOffset += u32ComparatorReg;
-    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32RegisterOffset, u32FeatureMask, u32FeatureBit);
+    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32RegisterOffset,
+                                      u32FeatureMask, u32FeatureBit);
     return (u32Feature);
 }

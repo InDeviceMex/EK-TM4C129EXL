@@ -28,10 +28,14 @@
 
 void ADC__vClearSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    ADC__vSetSequencerGeneric((uint32_t) enModule, ADC_OSTAT_OFFSET, (uint32_t) enSequence, (uint32_t) 1U, 0UL);
+    ADC__vSetSequencerGeneric((uint32_t) enModule, ADC_OSTAT_OFFSET, (uint32_t) enSequence,
+                              (uint32_t) 1U, 0UL);
 }
 
 ADC_nSEQ_OV ADC__enGetSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    return ((ADC_nSEQ_OV) (ADC__u32GetSequencerGeneric((uint32_t) enModule, ADC_OSTAT_OFFSET, (uint32_t) enSequence, 0UL)));
+    ADC_nSEQ_OV enSeqOVReg = ADC_enSEQ_OV_NOOCCUR;
+    enSeqOVReg = (ADC_nSEQ_OV) (ADC__u32GetSequencerGeneric((uint32_t) enModule,
+                                            ADC_OSTAT_OFFSET, (uint32_t) enSequence, 0UL));
+    return (enSeqOVReg);
 }

@@ -26,7 +26,8 @@
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_nSEQ_INPUT enSampleInputSelection)
+void ADC__vSetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                   ADC_nMUX enMux, ADC_nSEQ_INPUT enSampleInputSelection)
 {
     uint32_t u32InputSelection = (uint32_t) enSampleInputSelection;
     uint32_t u32ExtendedInputSelection = (uint32_t) enSampleInputSelection;
@@ -44,7 +45,8 @@ void ADC__vSetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequen
                            ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
 }
 
-ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
+ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                              ADC_nMUX enMux)
 {
     uint32_t u32Input = 0UL;
     uint32_t u32InputSelection = 0UL;
@@ -52,7 +54,8 @@ ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENC
     u32InputSelection = ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer,
                                                  ADC_SSMUX_OFFSET, (uint32_t) enMux,
                                                  ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
-    u32ExtendedInputSelection = ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer,
+    u32ExtendedInputSelection = ADC__u32GetSampleGeneric((uint32_t) enModule,
+                                                         (uint32_t) enSequencer,
                                                  ADC_SSEMUX_OFFSET, (uint32_t) enMux,
                                                  ADC_SSEMUX_EMUX0_MASK, ADC_SSEMUX_R_EMUX0_BIT);
     u32ExtendedInputSelection &= 0x1UL;

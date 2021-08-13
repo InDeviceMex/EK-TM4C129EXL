@@ -28,12 +28,18 @@
 
 void ADC__vSetConversionRate(ADC_nMODULE enModule, ADC_nCONVERSION_RATE enConversionRateArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, (uint32_t) enConversionRateArg, ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT);
+    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, (uint32_t) enConversionRateArg,
+                            ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT);
 }
 
 ADC_nCONVERSION_RATE ADC__enGetConversionRate(ADC_nMODULE enModule)
 {
-    return ((ADC_nCONVERSION_RATE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT));
+    ADC_nCONVERSION_RATE enConversionReg = ADC_enCONVERSION_RATE_112;
+    enConversionReg = (ADC_nCONVERSION_RATE) ADC__u32GetGeneralGeneric((uint32_t) enModule,
+                                                                       ADC_PC_OFFSET,
+                                                                       ADC_PC_MCR_MASK,
+                                                                       ADC_PC_R_MCR_BIT);
+    return (enConversionReg);
 }
 
 

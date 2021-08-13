@@ -28,12 +28,16 @@
 
 void ADC__vSetVoltageReference(ADC_nMODULE enModule, ADC_nVREF enVoltageReference)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_CTL_OFFSET, (uint32_t) enVoltageReference, ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT);
+    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_CTL_OFFSET, (uint32_t) enVoltageReference,
+                            ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT);
 }
 
 ADC_nVREF ADC__enGetVoltageReference(ADC_nMODULE enModule)
 {
-    return ((ADC_nVREF) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CTL_OFFSET, ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT));
+    ADC_nVREF enVrefReg = ADC_enVREF_VDDA;
+    enVrefReg = (ADC_nVREF) ADC__u32GetGeneralGeneric((uint32_t) enModule,
+                                  ADC_CTL_OFFSET, ADC_CTL_VREF_MASK, ADC_CTL_R_VREF_BIT);
+    return (enVrefReg);
 }
 
 

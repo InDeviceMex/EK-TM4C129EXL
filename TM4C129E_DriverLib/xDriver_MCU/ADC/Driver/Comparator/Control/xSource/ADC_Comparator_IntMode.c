@@ -26,12 +26,17 @@
 #include <xDriver_MCU/ADC/Driver/Comparator/Control/xHeader/ADC_Comparator_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetCompIntMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp, ADC_nCOMP_INT_MODE enActCompIntMode)
+void ADC__vSetCompIntMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
+                          ADC_nCOMP_INT_MODE enActCompIntMode)
 {
-    ADC__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, (uint32_t) enActCompIntMode, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT);
+    ADC__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp,
+            (uint32_t) enActCompIntMode, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT);
 }
 
 ADC_nCOMP_INT_MODE ADC__enGetCompIntMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
-    return ((ADC_nCOMP_INT_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT));
+    ADC_nCOMP_INT_MODE enCompInt = ADC_enCOMP_INT_MODE_ALWAYS;
+    enCompInt = (ADC_nCOMP_INT_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule,
+                       (uint32_t) enActComp, ADC_DCCTL_CIM_MASK, ADC_DCCTL_R_CIM_BIT);
+    return (enCompInt);
 }

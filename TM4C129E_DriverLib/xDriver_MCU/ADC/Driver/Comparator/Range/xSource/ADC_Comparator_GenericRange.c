@@ -26,12 +26,16 @@
 #include <xDriver_MCU/ADC/Driver/Comparator/xHeader/ADC_CompGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32Range, uint32_t u32RangeMask, uint32_t u32RangeBit)
+void ADC__vSetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator,
+                               uint32_t u32Range, uint32_t u32RangeMask, uint32_t u32RangeBit)
 {
-    ADC__vSetCompGeneric(u32Module , u32Comparator, ADC_DCCMP_OFFSET, u32Range, u32RangeMask, u32RangeBit);
+    ADC__vSetCompGeneric(u32Module , u32Comparator, ADC_DCCMP_OFFSET, u32Range,
+                         u32RangeMask, u32RangeBit);
 }
 
-uint32_t ADC__u32GetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RangeMask, uint32_t u32RangeBit)
+uint32_t ADC__u32GetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator,
+                                     uint32_t u32RangeMask, uint32_t u32RangeBit)
 {
-    return (ADC__u32GetCompGeneric(u32Module, u32Comparator, ADC_DCCMP_OFFSET, u32RangeMask, u32RangeBit));
+    return (ADC__u32GetCompGeneric(u32Module, u32Comparator, ADC_DCCMP_OFFSET,
+                                   u32RangeMask, u32RangeBit));
 }

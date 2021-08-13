@@ -26,14 +26,19 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vSetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void ADC__vSetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+                             uint32_t u32FeatureValue, uint32_t u32MaskFeature,
+                             uint32_t u32BitFeature)
 {
-    ADC__vWriteRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
+    ADC__vWriteRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32FeatureValue,
+                        u32MaskFeature, u32BitFeature);
 }
 
-uint32_t ADC__u32GetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t ADC__u32GetGeneralGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+                                   uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
-    uint32_t u32Feature = 0xFFFFFFFFU;
-    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32MaskFeature, u32BitFeature);
+    uint32_t u32Feature = 0UL;
+    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32OffsetRegister,
+                                      u32MaskFeature, u32BitFeature);
     return (u32Feature);
 }

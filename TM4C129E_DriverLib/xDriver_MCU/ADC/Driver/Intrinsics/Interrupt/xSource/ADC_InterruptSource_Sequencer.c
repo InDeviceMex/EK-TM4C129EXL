@@ -27,7 +27,8 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nINT_SOURCE enSourceInt)
+void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+                                ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32SourceInt = 0UL;
@@ -52,7 +53,8 @@ void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, A
     }
 }
 
-void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nINT_SOURCE enSourceInt)
+void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+                                 ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32SourceInt = 0UL;
@@ -77,7 +79,8 @@ void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, 
     }
 }
 
-void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nINT_SOURCE enSourceInt)
+void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+                                   ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32SourceInt = 0UL;
@@ -86,10 +89,13 @@ void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence
     u32SourceInt = MCU__u32CheckParams((uint32_t) enSourceInt, (uint32_t) ADC_enINT_SOURCE_MAX);
     u32BitPos =u32SourceInt;
     u32BitPos *= 8UL;
-    ADC__vWriteRegister((ADC_nMODULE) u32Module , ADC_ISC_OFFSET, (uint32_t) enSequence, (uint32_t) enSequence, u32BitPos);
+    ADC__vWriteRegister((ADC_nMODULE) u32Module , ADC_ISC_OFFSET, (uint32_t) enSequence,
+                        (uint32_t) enSequence, u32BitPos);
 }
 
-ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence, ADC_nINT_SOURCE enSourceInt)
+ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
+                                                    ADC_nSEQMASK enSequence,
+                                                    ADC_nINT_SOURCE enSourceInt)
 {
     ADC_nSEQ_INT_STATUS enInterruptReg = ADC_enSEQ_INT_STATUS_UNDEF;
     uint32_t u32Module = 0UL;
@@ -100,7 +106,8 @@ ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule, ADC_nS
     u32SourceInt = MCU__u32CheckParams((uint32_t) enSourceInt, (uint32_t) ADC_enINT_SOURCE_MAX);
     u32BitPos =u32SourceInt;
     u32BitPos *= 8UL;
-    u32Register = ADC__u32ReadRegister((ADC_nMODULE) u32Module , ADC_RIS_OFFSET, (uint32_t) enSequence, u32BitPos);
+    u32Register = ADC__u32ReadRegister((ADC_nMODULE) u32Module , ADC_RIS_OFFSET,
+                                       (uint32_t) enSequence, u32BitPos);
 
     if(0UL != u32Register)
     {

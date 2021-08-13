@@ -33,7 +33,7 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     uint32_t u32RegEmpty = 0UL;
     uint32_t u32RegFull = 0UL;
 
-    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_INT_UNDEF;
+    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_FULL;
     uint32_t u32SequencerReg = 0UL;
 
     u32SequencerReg = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
@@ -43,7 +43,8 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     u32SequencerReg += ADC_SSMUX0_OFFSET;
     u32SequencerReg += ADC_SSFSTAT_OFFSET;
 
-    u32RegEmpty = ADC__u32ReadRegister(enModule , u32SequencerReg, ADC_SSFSTAT_EMPTY_MASK, ADC_SSFSTAT_R_EMPTY_BIT);
+    u32RegEmpty = ADC__u32ReadRegister(enModule , u32SequencerReg,
+                                       ADC_SSFSTAT_EMPTY_MASK, ADC_SSFSTAT_R_EMPTY_BIT);
 
     if(ADC_SSFSTAT_EMPTY_EMPTY == u32RegEmpty)
     {
@@ -51,7 +52,8 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     }
     else
     {
-        u32RegFull = ADC__u32ReadRegister(enModule , u32SequencerReg, ADC_SSFSTAT_FULL_MASK, ADC_SSFSTAT_R_FULL_BIT);
+        u32RegFull = ADC__u32ReadRegister(enModule , u32SequencerReg,
+                                          ADC_SSFSTAT_FULL_MASK, ADC_SSFSTAT_R_FULL_BIT);
         if (ADC_SSFSTAT_FULL_FULL == u32RegFull)
         {
             enFeature = ADC_enSEQ_FIFO_FULL;
@@ -64,9 +66,10 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     return (enFeature);
 }
 
-uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, uint32_t* pu32FifoArray)
+uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+                                     uint32_t* pu32FifoArray)
 {
-    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_INT_UNDEF;
+    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_FULL;
 
     uint32_t u32AdcBase = 0UL;
     volatile uint32_t* pu32AdcSeq = 0U;
@@ -90,13 +93,15 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
         u32AdcBase += u32SequencerReg;
         pu32AdcSeq = (volatile uint32_t*) u32AdcBase;
 
-        enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
+        enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module,
+                                             (ADC_nSEQUENCER)u32Sequencer);
         while(ADC_enSEQ_FIFO_EMPTY != enFeature)
         {
             *pu32FifoArray = *pu32AdcSeq;
             pu32FifoArray += 0x1U;
             u32Count++;
-            enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
+            enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module,
+                                                 (ADC_nSEQUENCER)u32Sequencer);
         }
 
     }
@@ -105,13 +110,13 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
 
 uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
 {
-    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_INT_UNDEF;
+    ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_FULL;
 
     uint32_t u32AdcBase = 0UL;
 
     uint32_t u32Module = 0UL;
     uint32_t u32Sequencer = 0UL;
-    uint32_t u32Value = 0xFFFFFFFFUL;
+    uint32_t u32Value = 0UL;
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);

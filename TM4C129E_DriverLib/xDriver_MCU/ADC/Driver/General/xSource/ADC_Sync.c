@@ -28,10 +28,14 @@
 
 void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSYNC enSync)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, (uint32_t) enSync, ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
+    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, (uint32_t) enSync,
+                            ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
 }
 
 ADC_nSYNC ADC__enGetSync(ADC_nMODULE enModule)
 {
-    return ((ADC_nSYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT));
+    ADC_nSYNC enSyncReg = ADC_enSYNC_DISABLE;
+    enSyncReg = (ADC_nSYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule,
+                              ADC_PSSI_OFFSET, ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
+    return (enSyncReg);
 }

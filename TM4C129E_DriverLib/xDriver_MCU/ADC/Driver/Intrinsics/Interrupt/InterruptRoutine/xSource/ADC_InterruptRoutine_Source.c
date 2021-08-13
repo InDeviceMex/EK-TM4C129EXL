@@ -25,7 +25,9 @@
 
 static void ADC_vIRQSourceHandler_Dummy(void);
 
-void (*ADC_Sample__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX][(uint32_t)ADC_enSEQ_MAX][(uint32_t)ADC_enINT_SOURCE_MAX])(void) =
+void (*ADC_Sample__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
+                                    [(uint32_t)ADC_enSEQ_MAX]
+                                    [(uint32_t)ADC_enINT_SOURCE_MAX])(void) =
 {
  {
   {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
@@ -42,7 +44,9 @@ void (*ADC_Sample__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX][(uint32_t)ADC_e
  },
 };
 
-void (*ADC_Comp__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX][(uint32_t)ADC_enSEQ_MAX][(uint32_t)ADC_enCOMPARATOR_MAX])(void) =
+void (*ADC_Comp__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
+                                  [(uint32_t)ADC_enSEQ_MAX]
+                                  [(uint32_t)ADC_enCOMPARATOR_MAX])(void) =
 {
   {
    {
@@ -103,22 +107,44 @@ static void ADC_vIRQSourceHandler_Dummy(void)
     while(1UL){}
 }
 
-void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nINT_SOURCE enADCIntSource))(void)
+void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                          ADC_nSEQUENCER enADCSequencerNum,
+                                          ADC_nINT_SOURCE enADCIntSource))(void)
 {
-    return (ADC_Sample__vIRQSourceHandler[(uint32_t) enADCSubmodule][(uint32_t)enADCSequencerNum][(uint32_t)enADCIntSource]);
+    void(*pvfReg)(void) = (void(*)(void)) 0UL;
+    pvfReg = ADC_Sample__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                          [(uint32_t)enADCSequencerNum]
+                                          [(uint32_t)enADCIntSource];
+    return (pvfReg);
 }
 
-void (**ADC_Sample__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nINT_SOURCE enADCIntSource))(void)
+void (**ADC_Sample__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule,
+                                                  ADC_nSEQUENCER enADCSequencerNum,
+                                                  ADC_nINT_SOURCE enADCIntSource))(void)
 {
-    return ((void(**)(void)) &ADC_Sample__vIRQSourceHandler[(uint32_t) enADCSubmodule][(uint32_t)enADCSequencerNum][(uint32_t)enADCIntSource]);
+    void(**pvfReg)(void) = (void(**)(void)) 0UL;
+    pvfReg = (void(**)(void)) &ADC_Sample__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                                            [(uint32_t)enADCSequencerNum]
+                                                            [(uint32_t)enADCIntSource];
+    return (pvfReg);
 }
 
-void (*ADC_Comp__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nCOMPARATOR enComparatorArg))(void)
+void (*ADC_Comp__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                        ADC_nSEQUENCER enADCSequencerNum,
+                                        ADC_nCOMPARATOR enComparatorArg))(void)
 {
-    return (ADC_Comp__vIRQSourceHandler[(uint32_t) enADCSubmodule][(uint32_t)enADCSequencerNum][(uint32_t)enComparatorArg]);
+    void(*pvfReg)(void) = (void(*)(void)) 0UL;
+    pvfReg = ADC_Comp__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                        [(uint32_t)enADCSequencerNum]
+                                        [(uint32_t)enComparatorArg];
+    return (pvfReg);
 }
 
 void (**ADC_Comp__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nCOMPARATOR enComparatorArg))(void)
 {
-    return ((void(**)(void)) &ADC_Comp__vIRQSourceHandler[(uint32_t) enADCSubmodule][(uint32_t)enADCSequencerNum][(uint32_t)enComparatorArg]);
+    void(**pvfReg)(void) = (void(**)(void)) 0UL;
+    pvfReg = (void(**)(void)) &ADC_Comp__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                                          [(uint32_t)enADCSequencerNum]
+                                                          [(uint32_t)enComparatorArg];
+    return (pvfReg);
 }

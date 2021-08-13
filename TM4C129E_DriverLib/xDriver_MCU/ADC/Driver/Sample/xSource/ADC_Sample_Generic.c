@@ -27,9 +27,14 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-static const uint32_t ADC_u32MuxMax[(uint32_t) ADC_enSEQ_MAX] = {(uint32_t) ADC_enMUX_MAX, (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_1};
+static const uint32_t ADC_u32MuxMax[(uint32_t) ADC_enSEQ_MAX] =
+{(uint32_t) ADC_enMUX_MAX, (uint32_t) ADC_enMUX_4,
+ (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_1};
 
-void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer, uint32_t u32OffsetRegister, uint32_t u32MuxInput, uint32_t u32Feature, uint32_t u32FeatureMask, uint32_t u32FeatureBitAdd)
+void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+                            uint32_t u32OffsetRegister, uint32_t u32MuxInput,
+                            uint32_t u32Feature, uint32_t u32FeatureMask,
+                            uint32_t u32FeatureBitAdd)
 {
     uint32_t u32SequencerReg = 0UL;
     uint32_t u32MuxInputReg = 0UL;
@@ -47,10 +52,13 @@ void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer, uint32_t
     u32SequencerReg += ADC_SSMUX0_OFFSET;
     u32SequencerReg += u32OffsetRegister;
 
-    ADC__vWriteRegister((ADC_nMODULE) u32Module , u32SequencerReg, u32Feature, u32FeatureMask, u32MuxInputReg);
+    ADC__vWriteRegister((ADC_nMODULE) u32Module , u32SequencerReg, u32Feature,
+                        u32FeatureMask, u32MuxInputReg);
 }
 
-uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer, uint32_t u32OffsetRegister, uint32_t u32MuxInput, uint32_t u32FeatureMask, uint32_t u32FeatureBitAdd)
+uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+                                  uint32_t u32OffsetRegister, uint32_t u32MuxInput,
+                                  uint32_t u32FeatureMask, uint32_t u32FeatureBitAdd)
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32SequencerReg = 0UL;
@@ -69,6 +77,7 @@ uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer, ui
     u32SequencerReg += ADC_SSMUX0_OFFSET;
     u32SequencerReg += u32OffsetRegister;
 
-    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32SequencerReg, u32FeatureMask, u32MuxInputReg);
+    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32SequencerReg,
+                                      u32FeatureMask, u32MuxInputReg);
     return (u32Feature);
 }
