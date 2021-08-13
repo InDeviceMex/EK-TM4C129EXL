@@ -33,5 +33,7 @@ void TIMER__vSetPWMInterrupt(TIMER_nMODULE enModule, TIMER_nPWM_INT enPWMInterru
 
 TIMER_nPWM_INT TIMER__enGetPWMInterrupt(TIMER_nMODULE enModule)
 {
-    return (TIMER_nPWM_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnPWMIE_MASK, GPTM_TA_TnMR_R_TnPWMIE_BIT);
+    TIMER_nPWM_INT enReturn = TIMER_enPWM_INT_DIS;
+    enReturn = (TIMER_nPWM_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnPWMIE_MASK, GPTM_TA_TnMR_R_TnPWMIE_BIT);
+    return (enReturn);
 }

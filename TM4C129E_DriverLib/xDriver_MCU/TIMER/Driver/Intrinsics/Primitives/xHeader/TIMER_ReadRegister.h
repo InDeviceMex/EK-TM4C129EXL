@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-TIMER_nSTATUS TIMER__enReadRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister, uint32_t* pu32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+uint32_t TIMER__u32ReadRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister,
+                                uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_TIMER_READREGISTER_H_ */

@@ -46,5 +46,7 @@ void TIMER__vSetSubMode(TIMER_nMODULE enModule, TIMER_nSUB_MODE enSubModeParam)
 
 TIMER_nSUB_MODE TIMER__enGetSubMode(TIMER_nMODULE enModule)
 {
-    return (TIMER_nSUB_MODE) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnMR_MASK, GPTM_TA_TnMR_R_TnMR_BIT);
+    TIMER_nSUB_MODE enReturn = TIMER_enSUB_MODE_RESERVED;
+    enReturn = (TIMER_nSUB_MODE) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnMR_MASK, GPTM_TA_TnMR_R_TnMR_BIT);
+    return (enReturn);
 }

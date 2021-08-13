@@ -36,11 +36,11 @@ void TIMER__vSetClockSource(TIMER_nMODULE enModule, TIMER_nCLOCK enClockSourceAr
 
 TIMER_nCLOCK TIMER__enGetClockSource(TIMER_nMODULE enModule)
 {
-    TIMER_nCLOCK enClockSourReg = TIMER_enCLOCK_UNDEF;
+    TIMER_nCLOCK enClockSourReg = TIMER_enCLOCK_SYSCLK;
     uint32_t u32ModuleNumber = (uint32_t) enModule;
     u32ModuleNumber &= 0xFFUL;
 
-    TIMER__enReadRegister((TIMER_nMODULE_NUM)u32ModuleNumber, GPTM_CC_OFFSET, (uint32_t*) enClockSourReg,  GPTM_CC_ALTCLK_MASK, GPTM_CC_R_ALTCLK_BIT);
+    enClockSourReg = (TIMER_nCLOCK) TIMER__u32ReadRegister((TIMER_nMODULE_NUM)u32ModuleNumber, GPTM_CC_OFFSET, GPTM_CC_ALTCLK_MASK, GPTM_CC_R_ALTCLK_BIT);
     return (enClockSourReg);
 }
 

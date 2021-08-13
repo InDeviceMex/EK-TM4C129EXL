@@ -33,5 +33,7 @@ void TIMER__vSetUpdateIntervalMode(TIMER_nMODULE enModule, TIMER_nUPDATE_INTERVA
 
 TIMER_nUPDATE_INTERVAL TIMER__enGetUpdateIntervalMode(TIMER_nMODULE enModule)
 {
-    return (TIMER_nUPDATE_INTERVAL) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
+    TIMER_nUPDATE_INTERVAL enReturn = TIMER_enUPDATE_INTERVAL_CYCLE;
+    enReturn = (TIMER_nUPDATE_INTERVAL) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
+    return (enReturn);
 }

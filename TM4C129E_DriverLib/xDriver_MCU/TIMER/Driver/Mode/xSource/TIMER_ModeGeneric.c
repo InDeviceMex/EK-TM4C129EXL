@@ -28,7 +28,7 @@
 
 void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
-    TIMER_nENABLE enTimerEnable = TIMER_enENABLE_UNDEF;
+    TIMER_nENABLE enTimerEnable = TIMER_enENABLE_STOP;
     uint32_t u32SubModule = 0UL;
     uint32_t u32ModuleNumber = 0UL;
     uint32_t u32Shift = 0UL;
@@ -37,7 +37,7 @@ void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue, ui
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
     u32Shift = 8UL * u32SubModule;
-    TIMER__enReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, (uint32_t*) &enTimerEnable, GPTM_CTL_TAEN_MASK, u32Shift);
+    enTimerEnable = (TIMER_nENABLE) TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, GPTM_CTL_TAEN_MASK, u32Shift);
     if(TIMER_enENABLE_START == enTimerEnable)
     {
         TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, GPTM_CTL_TAEN_DIS, GPTM_CTL_TAEN_MASK, u32Shift);
@@ -54,7 +54,7 @@ void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue, ui
 
 uint32_t TIMER__u32GetModeGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
-    uint32_t u32FeatureValue = 0xFFFFFFFFUL;
+    uint32_t u32FeatureValue = 0UL;
     uint32_t u32SubModule = 0UL;
     uint32_t u32ModuleNumber = 0UL;
     uint32_t u32Register = GPTM_TA_TnMR_OFFSET;
@@ -64,6 +64,6 @@ uint32_t TIMER__u32GetModeGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeatur
     u32RegisterOffset = 4UL;
     u32RegisterOffset *= u32SubModule;
     u32Register += u32RegisterOffset;
-    TIMER__enReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32Register, &u32FeatureValue, u32MaskFeature, u32BitFeature);
-    return u32FeatureValue;
+    u32FeatureValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32Register, u32MaskFeature, u32BitFeature);
+    return (u32FeatureValue);
 }

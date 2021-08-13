@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_CheckParams.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_ReadRegister.h>
-#include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_Ready.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_SubParams.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_WriteRegister.h>
 

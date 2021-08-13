@@ -113,7 +113,6 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const
 
 void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const TIMER_Count32_Preescale_TypeDef* pstCount)
 {
-
     uint32_t u32Reg = 0ULL;
 
     uint32_t u32RegHigh = 0UL;

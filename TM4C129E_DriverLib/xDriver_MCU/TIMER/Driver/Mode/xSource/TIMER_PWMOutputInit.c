@@ -33,5 +33,7 @@ void TIMER__vSetPWMOutputInit(TIMER_nMODULE enModule, TIMER_nPWM_OUT_INIT enPWMO
 
 TIMER_nPWM_OUT_INIT TIMER__enGetPWMOutputInit(TIMER_nMODULE enModule)
 {
-    return (TIMER_nPWM_OUT_INIT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnPLO_MASK, GPTM_TA_TnMR_R_TnPLO_BIT);
+    TIMER_nPWM_OUT_INIT enReturn = TIMER_enPWM_OUT_INIT_LOW;
+    enReturn = (TIMER_nPWM_OUT_INIT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnPLO_MASK, GPTM_TA_TnMR_R_TnPLO_BIT);
+    return (enReturn);
 }

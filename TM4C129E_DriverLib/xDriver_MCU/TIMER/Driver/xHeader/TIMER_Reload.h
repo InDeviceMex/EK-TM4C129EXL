@@ -28,6 +28,6 @@
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 void TIMER__vSetReload(TIMER_nMODULE enModule, uint32_t u32Reload);
-TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint32_t* pu32Reload);
+uint32_t TIMER__u32GetReload(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_RELOAD_H_ */

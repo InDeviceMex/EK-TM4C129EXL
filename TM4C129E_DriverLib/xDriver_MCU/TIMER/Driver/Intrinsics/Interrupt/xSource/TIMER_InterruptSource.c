@@ -123,26 +123,24 @@ void TIMER__vClearInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterrupt
 
 TIMER_nINT_STATUS TIMER__enStatusInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam)
 {
-    TIMER_nINT_STATUS enFeatureValue = TIMER_enINT_STATUS_UNDEF;
-    TIMER_nSTATUS enStatus = TIMER_enSTATUS_UNDEF;
-    uint32_t u32InterruptValue = 0xFFFFFFFFUL;
-    uint32_t u32InterruptMask = 0xFFFFFFFFUL;
+    TIMER_nINT_STATUS enFeatureValue = TIMER_enINT_NOOCCUR;
+    uint32_t u32InterruptValue = 0UL;
+    uint32_t u32InterruptMask = 0UL;
     uint32_t u32SubModule = 0UL;
     uint32_t u32ModuleNumber = 0UL;
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32InterruptValue = TIMER__u32GetInterruptValue( (TIMER_nSUBMODULE) u32SubModule, enInterruptParam);
     u32InterruptMask = u32InterruptValue;
-    enStatus = TIMER__enReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_RIS_OFFSET, &u32InterruptValue, u32InterruptMask, 0UL);
-    if(TIMER_enSTATUS_OK == enStatus)
+    u32InterruptValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_RIS_OFFSET, u32InterruptMask, 0UL);
+
+    if(0UL != u32InterruptValue)
     {
-        if(0UL != u32InterruptValue)
-        {
-            enFeatureValue = TIMER_enINT_OCCUR;
-        }
-        else
-        {
-            enFeatureValue = TIMER_enINT_NOOCCUR;
-        }
+        enFeatureValue = TIMER_enINT_OCCUR;
     }
+    else
+    {
+        enFeatureValue = TIMER_enINT_NOOCCUR;
+    }
+
     return enFeatureValue;
 }

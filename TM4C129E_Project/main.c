@@ -19,32 +19,20 @@
 
 uint32_t main(void);
 
-void Task0(void* pvParams);
 void Task1(void* pvParams);
 void Task2(void* pvParams);
 void Task3(void* pvParams);
 void Task4(void* pvParams);
 void Task5(void* pvParams);
-void Task6(void* pvParams);
 void Led2ON(void);
 
-void Task0(void* pvParams)
-{
-    int32_t s32ADCValueX = (int32_t) pvParams;
-    int32_t s32ADCValueY = (int32_t) pvParams;
-    int32_t s32ADCValueZ = (int32_t) pvParams;
-    while(1UL)
-    {
-
-        OS_Task__vDelay(500UL);
-
-    }
-}
 void Task1(void* pvParams)
 {
+    uint32_t u32LastWakeTime = 0UL;
     int32_t s32ADCValueX = (int32_t) pvParams;
     int32_t s32ADCValueY = (int32_t) pvParams;
     int32_t s32ADCValueZ = (int32_t) pvParams;
+    u32LastWakeTime = OS_Task__u32GetTickCount ();
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(&s32ADCValueX, &s32ADCValueY, &s32ADCValueZ);
@@ -52,13 +40,14 @@ void Task1(void* pvParams)
         UART__u32Printf(UART_enMODULE_0, "Accelerometer: \n\r\t\tX: %d Y: %d Z: %d\n\r",
                         s32ADCValueX,s32ADCValueY,s32ADCValueZ);
         OS_Task__vExitCritical();
-        OS_Task__vDelay(150UL);
+        OS_Task__vDelayUntil(&u32LastWakeTime, 150UL);
 
     }
 }
 
 void Task2(void* pvParams)
 {
+    uint32_t u32LastWakeTime = 0UL;
     uint32_t u32ADCValueX = (uint32_t) pvParams;
     uint32_t u32ADCValueY = (uint32_t) pvParams;
     uint32_t u32LcdPosXCurrent = (uint32_t) pvParams;
@@ -66,16 +55,28 @@ void Task2(void* pvParams)
     uint32_t u32LcdPosX= 0UL;
     uint32_t u32LcdPosY = 0UL;
     uint32_t u32Count = 0UL;
+    uint32_t u32CountImage = 0UL;
+    uint32_t u32Image = 0UL;
     uint32_t u32Alt = 0UL;
     static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
     uint16_t* pu16Pointer = 0UL;
+    u32LastWakeTime = OS_Task__u32GetTickCount ();
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enPIN_2);
     while(1UL)
     {
+
         EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
         u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 10UL, 10UL);
         u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 10, 128 - 10);
-        pu16Pointer = (uint16_t*) Images__pu8DolphinPointer();
+        if(u32Image)
+        {
+            pu16Pointer = (uint16_t*) Images__pu8DolphinPointer();
+        }
+        else
+        {
+            pu16Pointer = (uint16_t*) Images__pu8BicyclePointer();
+        }
         for(u32LcdPosY = 0UL ; u32LcdPosY < 76UL; u32LcdPosY++)
         {
             for(u32LcdPosX = 0UL ; u32LcdPosX < 120UL; u32LcdPosX++)
@@ -95,17 +96,25 @@ void Task2(void* pvParams)
         OS_Task__vEnterCritical();
         UART__u32Printf(UART_enMODULE_0, "Yoystick: \n\r\t\tX: %d Y: %d\n\r", u32ADCValueX,u32ADCValueY);
         OS_Task__vExitCritical();
-        OS_Task__vDelay(20UL);
+        u32CountImage++;
+        if(u32CountImage > 50UL)
+        {
+            u32Image ^= 1UL;
+            u32CountImage = 0UL;
+        }
         u32Count++;
+        OS_Task__vDelayUntil(&u32LastWakeTime, 20UL);
     }
 }
 
 
 void Task3(void* pvParams)
 {
+    uint32_t u32LastWakeTime = 0UL;
     EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
     EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
     static uint32_t u32CountTask = 0UL;
+    u32LastWakeTime = OS_Task__u32GetTickCount ();
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
@@ -144,14 +153,16 @@ void Task3(void* pvParams)
         //UART__u32Printf(UART_enMODULE_0, "Task3: Esto ha ocurrido %d veces\n\r", u32CountTask);
         OS_Task__vExitCritical();
         u32CountTask++;
-        OS_Task__vDelay(75UL);
+        OS_Task__vDelayUntil(&u32LastWakeTime, 75UL);
     }
 }
 
 void Task4(void* pvParams)
 {
+    uint32_t u32LastWakeTime = 0UL;
     uint32_t u32PinValue = (uint32_t) pvParams;
     static uint32_t u32CountTask = 0UL;
+    u32LastWakeTime = OS_Task__u32GetTickCount ();
     GPIO__enSetDigitalConfig(GPIO_enGPIOG0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
@@ -161,14 +172,16 @@ void Task4(void* pvParams)
         //UART__u32Printf(UART_enMODULE_0, "Task4: Esto ha ocurrido %d veces\n\r", u32CountTask);
         OS_Task__vExitCritical();
         u32CountTask++;
-        OS_Task__vDelay(500UL);
+        OS_Task__vDelayUntil(&u32LastWakeTime, 500UL);
     }
 }
 
 void Task5(void* pvParams)
 {
+    uint32_t u32LastWakeTime = 0UL;
     uint32_t u32PinValue = (uint32_t) pvParams;
     static uint32_t u32CountTask = 0UL;
+    u32LastWakeTime = OS_Task__u32GetTickCount ();
     GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {
@@ -178,24 +191,7 @@ void Task5(void* pvParams)
         //UART__u32Printf(UART_enMODULE_0, "Task5: Esto ha ocurrido %d veces\n\r", u32CountTask);
         OS_Task__vExitCritical();
         u32CountTask++;
-        OS_Task__vDelay(1000UL);
-    }
-}
-
-void Task6(void* pvParams)
-{
-    uint32_t u32PinValue = (uint32_t) pvParams;
-    static uint32_t u32CountTask = 0UL;
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-    while(1UL)
-    {
-        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, u32PinValue);
-        u32PinValue ^= GPIO_enPIN_2;
-        OS_Task__vEnterCritical();
-        //UART__u32Printf(UART_enMODULE_0, "Task6: Esto ha ocurrido %d veces\n\r", u32CountTask);
-        OS_Task__vExitCritical();
-        u32CountTask++;
-        OS_Task__vDelay(2000UL);
+        OS_Task__vDelayUntil(&u32LastWakeTime, 1000UL);
     }
 }
 
@@ -256,6 +252,9 @@ uint32_t main(void)
      UART_enLINE_SELECT_PRIMARY,
      UART_enLINE_SELECT_PRIMARY,
     };
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
+    GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
@@ -265,7 +264,6 @@ uint32_t main(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOC);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOD);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOE);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOH);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOJ);
@@ -306,13 +304,11 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&Task0, "Task 0", 300UL, (void*) 0UL, 3UL, &TaskHandeler[0UL]);
     OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 1UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[4UL]);
-    OS_Task__u32TaskGenericCreate(&Task6, "Task 6", 300UL, (void*) 0UL, 5UL, &TaskHandeler[5UL]);
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {

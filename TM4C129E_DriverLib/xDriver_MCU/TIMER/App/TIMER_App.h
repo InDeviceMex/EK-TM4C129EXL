@@ -30,6 +30,5 @@
 #include <xDriver_MCU/TIMER/App/ModeMatch/TIMER_ModeMatch.h>
 #include <xDriver_MCU/TIMER/App/ModeReload/TIMER_ModeReload.h>
 #include <xDriver_MCU/TIMER/App/ModeReloadMatch/TIMER_ModeReloadMatch.h>
-#include <xDriver_MCU/TIMER/App/xHeader/TIMER_Init.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_APP_TIMER_APP_H_ */

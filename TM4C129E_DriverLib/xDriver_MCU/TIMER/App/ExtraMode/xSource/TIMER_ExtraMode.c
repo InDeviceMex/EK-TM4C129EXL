@@ -66,7 +66,6 @@ void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_Typedef* pstEx
         pstExtraMode->enADCTrigger = TIMER__enGetADCTrigger(enModule);
         pstExtraMode->enTimeOutInterrupt = TIMER__enGetTimeOutIntFunctionality(enModule);
         pstExtraMode->enMatchEvent = TIMER__enGetMatchEventAction(enModule);
-
     }
 }
 
@@ -94,6 +93,5 @@ TIMER_EXTRAMODE_Typedef* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
         pstExtraMode->enTimeOutInterrupt = TIMER__enGetTimeOutIntFunctionality(enModule);
         pstExtraMode->enMatchEvent = TIMER__enGetMatchEventAction(enModule);
     }
-    return pstExtraMode;
-
+    return (pstExtraMode);
 }

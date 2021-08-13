@@ -33,13 +33,14 @@
 
 void TIMER__vSetReload(TIMER_nMODULE enModule, uint32_t u32Reload)
 {
-    TIMER_nCONFIG enConfigVar = TIMER_enCONFIG_UNDEF;
+    TIMER_nCONFIG enConfigVar = TIMER_enCONFIG_WIDE;
 
-    TIMER_nSUB_MODE enSubModeVar = TIMER_enSUB_MODE_UNDEF;
-    TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_UNDEF;
-    TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_UNDEF;
+    TIMER_nSUB_MODE enSubModeVar = TIMER_enSUB_MODE_RESERVED;
+    TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_CC;
+    TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
-    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig = {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig =
+    {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
     TIMER_Count32_TypeDef stReload32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
@@ -49,72 +50,69 @@ void TIMER__vSetReload(TIMER_nMODULE enModule, uint32_t u32Reload)
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
 
-    TIMER__vSetReady((TIMER_nMODULE_NUM) u32ModuleNumber);
     enConfigVar = TIMER__enGetConfiguration(enModule);
-    if(TIMER_enCONFIG_UNDEF != enConfigVar)
+    switch (enConfigVar)
     {
-        switch (enConfigVar)
-        {
-            case TIMER_enCONFIG_WIDE:
-            case TIMER_enCONFIG_RTC:
+        case TIMER_enCONFIG_WIDE:
+        case TIMER_enCONFIG_RTC:
 
-                u32TimerValue = u32Reload;
-                stReload32Config.u32CountRegister = GPTM_TAILR_OFFSET;
-                stReload32Config.u32CountMask = 0xFFFFFFFFUL;
-                stReload32Config.u32CountShiftRight = 0UL;
-                stReload32Config.pu32CountValue = &u32TimerValue;
-                TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stReload32Config);
-            break;
+            u32TimerValue = u32Reload;
+            stReload32Config.u32CountRegister = GPTM_TAILR_OFFSET;
+            stReload32Config.u32CountMask = 0xFFFFFFFFUL;
+            stReload32Config.u32CountShiftRight = 0UL;
+            stReload32Config.pu32CountValue = &u32TimerValue;
+            TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stReload32Config);
+        break;
 
-            case TIMER_enCONFIG_INDIVIDUAL:
-                enSubModeVar = TIMER__enGetSubMode(enModule);
-                enAltModeVar = TIMER__enGetAltMode(enModule);
-                enDirectionVar = TIMER__enGetCountDir(enModule);
+        case TIMER_enCONFIG_INDIVIDUAL:
+            enSubModeVar = TIMER__enGetSubMode(enModule);
+            enAltModeVar = TIMER__enGetAltMode(enModule);
+            enDirectionVar = TIMER__enGetCountDir(enModule);
 
-                u32TimerValue = u32Reload;
-                stMatch32PreescalerConfig.u32CountHighShiftLeft = 0UL;
-                stMatch32PreescalerConfig.u32CountLowShiftRight = 0UL;
-                stMatch32PreescalerConfig.u32CountLowShiftLeft = 0UL;
-                stMatch32PreescalerConfig.pu32CountValue = (uint32_t*) &u32TimerValue;
-                if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
-                {
-                    stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
-                    stMatch32PreescalerConfig.u32CountHighMask = 0xFFFFUL;
-                    stMatch32PreescalerConfig.u32CountHighShiftRight = 8UL;
+            u32TimerValue = u32Reload;
+            stMatch32PreescalerConfig.u32CountHighShiftLeft = 0UL;
+            stMatch32PreescalerConfig.u32CountLowShiftRight = 0UL;
+            stMatch32PreescalerConfig.u32CountLowShiftLeft = 0UL;
+            stMatch32PreescalerConfig.pu32CountValue = (uint32_t*) &u32TimerValue;
+            if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
+            {
+                stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountHighMask = 0xFFFFUL;
+                stMatch32PreescalerConfig.u32CountHighShiftRight = 8UL;
 
-                    stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
-                    stMatch32PreescalerConfig.u32CountLowMask = 0xFFUL;
+                stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountLowMask = 0xFFUL;
 
-                }
-                else
-                {
-                    stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
-                    stMatch32PreescalerConfig.u32CountHighMask = 0xFFUL;
-                    stMatch32PreescalerConfig.u32CountHighShiftRight = 16UL;
+            }
+            else
+            {
+                stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountHighMask = 0xFFUL;
+                stMatch32PreescalerConfig.u32CountHighShiftRight = 16UL;
 
-                    stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
-                    stMatch32PreescalerConfig.u32CountLowMask = 0xFFFFUL;
-                }
-                TIMER_vSet2Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stMatch32PreescalerConfig);
-            break;
-            default:
-            break;
-        }
+                stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountLowMask = 0xFFFFUL;
+            }
+            TIMER_vSet2Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stMatch32PreescalerConfig);
+        break;
+        default:
+        break;
     }
 }
 
-TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint32_t* pu32Reload)
+uint32_t TIMER__u32GetReload(TIMER_nMODULE enModule)
 {
-    TIMER_nSTATUS enStatus = TIMER_enSTATUS_UNDEF;
+    uint32_t u32Reload = 0UL;
 
-    TIMER_nCONFIG enConfigVar = TIMER_enCONFIG_UNDEF;
+    TIMER_nCONFIG enConfigVar = TIMER_enCONFIG_WIDE;
 
-    TIMER_nSUB_MODE enSubModeVar = TIMER_enSUB_MODE_UNDEF;
-    TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_UNDEF;
-    TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_UNDEF;
+    TIMER_nSUB_MODE enSubModeVar = TIMER_enSUB_MODE_RESERVED;
+    TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_CC;
+    TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
 
-    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig = {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig =
+    {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
     TIMER_Count32_TypeDef stReload32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
@@ -124,68 +122,60 @@ TIMER_nSTATUS TIMER__enGetReload(TIMER_nMODULE enModule, uint32_t* pu32Reload)
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
 
-    if(0UL != (uint32_t) pu32Reload)
+    enConfigVar = TIMER__enGetConfiguration(enModule);
+    switch (enConfigVar)
     {
-        enConfigVar = TIMER__enGetConfiguration(enModule);
-        if(TIMER_enCONFIG_UNDEF != enConfigVar)
-        {
-            enStatus = TIMER_enSTATUS_OK;
-            switch (enConfigVar)
+        case TIMER_enCONFIG_WIDE:
+        case TIMER_enCONFIG_RTC:
+            stReload32Config.u32CountRegister = GPTM_TAILR_OFFSET;
+            stReload32Config.u32CountMask = 0xFFFFFFFFUL;
+            stReload32Config.u32CountShiftRight = 0UL;
+            stReload32Config.pu32CountValue = &u32TimerValue;
+
+            TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stReload32Config);
+        break;
+
+        case TIMER_enCONFIG_INDIVIDUAL:
+            enSubModeVar = TIMER__enGetSubMode(enModule);
+            enAltModeVar = TIMER__enGetAltMode(enModule);
+            enDirectionVar = TIMER__enGetCountDir(enModule);
+
+            stMatch32PreescalerConfig.u32CountHighShiftRight = 0UL;
+            stMatch32PreescalerConfig.u32CountLowShiftRight = 0UL;
+            stMatch32PreescalerConfig.u32CountLowShiftLeft = 0UL;
+            /*One shot or Periodic*/
+            if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
             {
-                case TIMER_enCONFIG_WIDE:
-                case TIMER_enCONFIG_RTC:
-                    stReload32Config.u32CountRegister = GPTM_TAILR_OFFSET;
-                    stReload32Config.u32CountMask = 0xFFFFFFFFUL;
-                    stReload32Config.u32CountShiftRight = 0UL;
-                    stReload32Config.pu32CountValue = &u32TimerValue;
 
-                    TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stReload32Config);
-                    *pu32Reload = u32TimerValue;
-                break;
+                stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountHighMask = 0xFFFFUL;
+                stMatch32PreescalerConfig.u32CountHighShiftLeft = 8UL;
 
-                case TIMER_enCONFIG_INDIVIDUAL:
-                    enSubModeVar = TIMER__enGetSubMode(enModule);
-                    enAltModeVar = TIMER__enGetAltMode(enModule);
-                    enDirectionVar = TIMER__enGetCountDir(enModule);
+                stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountLowMask = 0xFFUL;
 
-                    stMatch32PreescalerConfig.u32CountHighShiftRight = 0UL;
-                    stMatch32PreescalerConfig.u32CountLowShiftRight = 0UL;
-                    stMatch32PreescalerConfig.u32CountLowShiftLeft = 0UL;
-                    /*One shot or Periodic*/
-                    if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
-                    {
-
-                        stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
-                        stMatch32PreescalerConfig.u32CountHighMask = 0xFFFFUL;
-                        stMatch32PreescalerConfig.u32CountHighShiftLeft = 8UL;
-
-                        stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
-                        stMatch32PreescalerConfig.u32CountLowMask = 0xFFUL;
-
-                        stMatch32PreescalerConfig.pu32CountValue = &u32TimerValue;
-                    }
-                    /*Edge count, Edge Time or PWM*/
-                    else
-                    {
-
-                        stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
-                        stMatch32PreescalerConfig.u32CountHighMask = 0xFFUL;
-                        stMatch32PreescalerConfig.u32CountHighShiftLeft = 16UL;
-
-                        stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
-                        stMatch32PreescalerConfig.u32CountLowMask = 0xFFFFUL;
-
-                        stMatch32PreescalerConfig.pu32CountValue = &u32TimerValue;
-                    }
-
-                    TIMER_enGet2Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stMatch32PreescalerConfig);
-                    *pu32Reload = u32TimerValue;
-                break;
-                default:
-                break;
+                stMatch32PreescalerConfig.pu32CountValue = &u32TimerValue;
             }
-        }
+            /*Edge count, Edge Time or PWM*/
+            else
+            {
+
+                stMatch32PreescalerConfig.u32CountHighRegister = GPTM_TAPR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountHighMask = 0xFFUL;
+                stMatch32PreescalerConfig.u32CountHighShiftLeft = 16UL;
+
+                stMatch32PreescalerConfig.u32CountLowRegister = GPTM_TAILR_OFFSET + (4UL * u32SubModule);
+                stMatch32PreescalerConfig.u32CountLowMask = 0xFFFFUL;
+
+                stMatch32PreescalerConfig.pu32CountValue = &u32TimerValue;
+            }
+
+            TIMER_enGet2Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stMatch32PreescalerConfig);
+        break;
+        default:
+        break;
     }
-    return (enStatus);
+    u32Reload = u32TimerValue;
+    return (u32Reload);
 }
 

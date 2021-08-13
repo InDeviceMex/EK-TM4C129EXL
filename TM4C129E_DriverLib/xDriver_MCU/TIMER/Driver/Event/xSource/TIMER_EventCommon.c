@@ -101,7 +101,7 @@ void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_
 
 TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_t u32OffsetReg)
 {
-    TIMER_nEVENT enEventReg = TIMER_enEVENT_UNDEF;
+    TIMER_nEVENT enEventReg = TIMER_enEVENT_TIMEOUT;
     uint32_t u32EventValue = 0UL;
     uint32_t u32SubModule = 0UL;
     uint32_t u32ModuleNumber = 0UL;
@@ -121,11 +121,7 @@ TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam
     default:
         break;
     }
-    TIMER__enReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg, &u32EventValue, u32EventAll, 0UL);
+    u32EventValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg, u32EventAll, 0UL);
     enEventReg = (TIMER_nEVENT) TIMER__u32ConvertEventValue((TIMER_nSUBMODULE) u32SubModule, u32EventValue);
-    return enEventReg;
+    return (enEventReg);
 }
-
-
-
-

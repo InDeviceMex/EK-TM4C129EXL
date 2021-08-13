@@ -33,5 +33,7 @@ void TIMER__vSetWaitTrigger(TIMER_nMODULE enModule, TIMER_nWAIT enWaitTriggerPar
 
 TIMER_nWAIT TIMER__enGetWaitTrigger(TIMER_nMODULE enModule)
 {
-    return (TIMER_nWAIT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnWOT_MASK, GPTM_TA_TnMR_R_TnWOT_BIT);
+    TIMER_nWAIT enReturn = TIMER_enWAIT_NOTRIGGER;
+    enReturn = (TIMER_nWAIT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnWOT_MASK, GPTM_TA_TnMR_R_TnWOT_BIT);
+    return (enReturn);
 }

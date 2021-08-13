@@ -25,7 +25,6 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_MPU_PERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_MPU_PERIPHERAL_H_
 
-#include <xDriver_MCU/Core/MPU/Peripheral/xHeader/MPU_Dependencies.h>
 #include <xDriver_MCU/Core/MPU/Peripheral/xHeader/MPU_Enum.h>
 #include <xDriver_MCU/Core/MPU/Peripheral/Register/MPU_Register.h>
 

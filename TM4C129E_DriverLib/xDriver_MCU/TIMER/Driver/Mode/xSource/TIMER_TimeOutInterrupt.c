@@ -33,7 +33,9 @@ void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule, TIMER_nTIMEOUT_I
 
 TIMER_nTIMEOUT_INT TIMER__enGetTimeOutIntFunctionality(TIMER_nMODULE enModule)
 {
-    return (TIMER_nTIMEOUT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
+    TIMER_nTIMEOUT_INT enReturn = TIMER_enTIMEOUT_INT_NORMAL;
+    enReturn = (TIMER_nTIMEOUT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
+    return (enReturn);
 }
 
 

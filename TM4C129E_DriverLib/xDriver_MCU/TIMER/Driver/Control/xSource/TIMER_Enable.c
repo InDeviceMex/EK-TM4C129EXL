@@ -33,5 +33,7 @@ void TIMER__vSetEnable(TIMER_nMODULE enModule, TIMER_nENABLE enEnable)
 
 TIMER_nENABLE TIMER__enGetEnable(TIMER_nMODULE enModule)
 {
-    return (TIMER_nENABLE) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnEN_MASK, GPTM_TA_TnCTL_R_TnEN_BIT);
+    TIMER_nENABLE enReturn = TIMER_enENABLE_STOP;
+    enReturn = (TIMER_nENABLE) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnEN_MASK, GPTM_TA_TnCTL_R_TnEN_BIT);
+    return (enReturn);
 }

@@ -46,7 +46,7 @@ TIMER_nSTATUS TIMER__enSetMode(TIMER_nMODULE enModule, TIMER_nMODE enModeArg)
         TIMER__vDeleteModeStruct(pstMode);
         enReturn = TIMER_enSTATUS_OK;
     }
-    return enReturn;
+    return (enReturn);
     /*Configure Reload and Match*/
 
     /*TIMER__vSetEnable(enModule, TIMER_enENABLE_START);*/

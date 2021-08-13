@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_PERIPHERAL_H_
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/Register/NVIC_Register.h>
-#include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Dependencies.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_PERIPHERAL_H_ */

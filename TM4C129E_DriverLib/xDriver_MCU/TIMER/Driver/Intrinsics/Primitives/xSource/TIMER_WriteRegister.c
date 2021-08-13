@@ -25,16 +25,15 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_CheckParams.h>
-#include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_Ready.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister,
+                           uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32TimerBase = 0UL;
     uint32_t u32ModuleNumber = 0UL;
 
-     TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
-    TIMER__vSetReady((TIMER_nMODULE_NUM) u32ModuleNumber);
+    TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
 
     u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
 

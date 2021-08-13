@@ -33,5 +33,7 @@ void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule, TIMER_nEVENT_INT enE
 
 TIMER_nEVENT_INT TIMER__enGetMatchEventInterrupt(TIMER_nMODULE enModule)
 {
-    return (TIMER_nEVENT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
+    TIMER_nEVENT_INT enReturn = TIMER_enEVENT_INT_DIS;
+    enReturn = (TIMER_nEVENT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
+    return (enReturn);
 }

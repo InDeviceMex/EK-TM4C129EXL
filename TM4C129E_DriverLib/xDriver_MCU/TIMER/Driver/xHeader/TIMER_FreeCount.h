@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-TIMER_nSTATUS TIMER__enGetFreeCount(TIMER_nMODULE enModule, uint32_t* pu32FreeCount);
+uint32_t TIMER__u32GetFreeCount(TIMER_nMODULE enModule);
 void TIMER__vSetFreeRunningCount(TIMER_nMODULE enModule, uint32_t u32Count);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_XHEADER_TIMER_FREECOUNT_H_ */

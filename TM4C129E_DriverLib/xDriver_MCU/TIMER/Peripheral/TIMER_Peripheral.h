@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_PERIPHERAL_H_
 
 #include <xDriver_MCU/TIMER/Peripheral/Register/TIMER_Register.h>
-#include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Dependencies.h>
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_PERIPHERAL_H_ */
