@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetUpdateIntervalMode(TIMER_nMODULE enModule, TIMER_nUPDATE_INTERVAL enUpdateIntervalMode);
+void TIMER__vSetUpdateIntervalMode(TIMER_nMODULE enModule,
+                                   TIMER_nUPDATE_INTERVAL enUpdateIntervalMode);
 TIMER_nUPDATE_INTERVAL TIMER__enGetUpdateIntervalMode(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_MODE_TIMER_UPDATEINTERVALMODE_H_ */

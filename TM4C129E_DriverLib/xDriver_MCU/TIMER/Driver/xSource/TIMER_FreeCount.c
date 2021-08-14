@@ -62,7 +62,8 @@ uint32_t TIMER__u32GetFreeCount(TIMER_nMODULE enModule)
             stFreeCount32Config.u32CountShiftRight = 0UL;
             stFreeCount32Config.pu32CountValue = &u32TimerValue;
 
-            TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stFreeCount32Config);
+            TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                       &stFreeCount32Config);
         break;
 
         case TIMER_enCONFIG_INDIVIDUAL:
@@ -74,10 +75,13 @@ uint32_t TIMER__u32GetFreeCount(TIMER_nMODULE enModule)
             stFreeCount32Config.u32CountMask = 0xFFFFFFUL;
             stFreeCount32Config.u32CountShiftRight = 0UL;
             stFreeCount32Config.pu32CountValue = &u32TimerValue;
-            TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stFreeCount32Config);
+            TIMER_enGet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                       &stFreeCount32Config);
 
             /*One shot or Periodic*/
-            if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
+            if((TIMER_enALT_MODE_CC == enAltModeVar) &&
+               (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) &&
+               (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
             {
                 u32u32TimerValue = u32TimerValue;
                 u32u32TimerValue >>= 16UL;
@@ -122,7 +126,8 @@ void TIMER__vSetFreeRunningCount(TIMER_nMODULE enModule, uint32_t u32Count)
             stFreeCount32Config.u32CountMask = 0xFFFFFFFFUL;
             stFreeCount32Config.u32CountShiftRight = 0UL;
             stFreeCount32Config.pu32CountValue = &u32TimerValue;
-            TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stFreeCount32Config);
+            TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                      &stFreeCount32Config);
         break;
 
         case TIMER_enCONFIG_INDIVIDUAL:
@@ -136,11 +141,14 @@ void TIMER__vSetFreeRunningCount(TIMER_nMODULE enModule, uint32_t u32Count)
             stFreeCount32Config.u32CountShiftRight = 0UL;
             stFreeCount32Config.pu32CountValue = &u32TimerValue;
             /*One shot or Periodic*/
-            if((TIMER_enALT_MODE_CC == enAltModeVar) && (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) && (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
+            if((TIMER_enALT_MODE_CC == enAltModeVar) &&
+               (TIMER_enSUB_MODE_CAPTURE != enSubModeVar) &&
+               (TIMER_enCOUNT_DIR_DOWN == enDirectionVar))
             {
                 stFreeCount32Config.u32CountShiftRight = 8UL;
             }
-            TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber, &stFreeCount32Config);
+            TIMER_vSet1Count32Generic((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                      &stFreeCount32Config);
         break;
         default:
         break;

@@ -30,6 +30,7 @@
 void TIMER__vEnInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam);
 void TIMER__vDisInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam);
 void TIMER__vClearInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam);
-TIMER_nINT_STATUS TIMER__enStatusInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam);
+TIMER_nINT_STATUS TIMER__enStatusInterruptSource(TIMER_nMODULE enModule,
+                                                 TIMER_nINT enInterruptParam);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_INTRINSICS_TIMER_INTERRUPT_TIMER_INTERRUPTSOURCE_H_ */

@@ -28,7 +28,8 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
 void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister,
-                           uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+                           uint32_t u32FeatureValue, uint32_t u32MaskFeature,
+                           uint32_t u32BitFeature)
 {
     uint32_t u32TimerBase = 0UL;
     uint32_t u32ModuleNumber = 0UL;
@@ -37,5 +38,6 @@ void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetR
 
     u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
 
-    MCU__vWriteRegister(u32TimerBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
+    MCU__vWriteRegister(u32TimerBase, u32OffsetRegister, u32FeatureValue,
+                        u32MaskFeature, u32BitFeature);
 }

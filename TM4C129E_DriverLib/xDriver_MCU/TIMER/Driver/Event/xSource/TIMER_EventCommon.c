@@ -27,8 +27,10 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
-static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVENT enEventParam);
-static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule, uint32_t u32EventParam );
+static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule,
+                                        TIMER_nEVENT enEventParam);
+static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
+                                                uint32_t u32EventParam );
 
 static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVENT enEventParam)
 {
@@ -55,7 +57,8 @@ static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVE
     return u32EventValue;
 }
 
-static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule, uint32_t u32EventParam )
+static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
+                                                uint32_t u32EventParam )
 {
     uint32_t u32SubModule = 0UL;
     u32SubModule = (uint32_t) enSubModule;
@@ -96,10 +99,12 @@ void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_
         break;
     }
 
-    TIMER__vWriteRegister( (TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg, u32EventValue, u32EventAll, 0UL);
+    TIMER__vWriteRegister( (TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg,
+                           u32EventValue, u32EventAll, 0UL);
 }
 
-TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_t u32OffsetReg)
+TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam,
+                               uint32_t u32OffsetReg)
 {
     TIMER_nEVENT enEventReg = TIMER_enEVENT_TIMEOUT;
     uint32_t u32EventValue = 0UL;
@@ -121,7 +126,9 @@ TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam
     default:
         break;
     }
-    u32EventValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg, u32EventAll, 0UL);
-    enEventReg = (TIMER_nEVENT) TIMER__u32ConvertEventValue((TIMER_nSUBMODULE) u32SubModule, u32EventValue);
+    u32EventValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                           u32OffsetReg, u32EventAll, 0UL);
+    enEventReg = (TIMER_nEVENT) TIMER__u32ConvertEventValue((TIMER_nSUBMODULE) u32SubModule,
+                                                            u32EventValue);
     return (enEventReg);
 }

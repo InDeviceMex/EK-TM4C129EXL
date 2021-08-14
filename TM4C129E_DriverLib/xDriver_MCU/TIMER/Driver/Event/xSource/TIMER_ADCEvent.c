@@ -34,9 +34,9 @@ void TIMER__vSetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
 
 TIMER_nEVENT TIMER__enGetADCEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam)
 {
-    TIMER_nEVENT enReturn = TIMER_enEVENT_TIMEOUT;
-    enReturn = TIMER__enGetEvent(enModule, enEventParam, GPTM_ADCEV_OFFSET);
-    return (enReturn);
+    TIMER_nEVENT enEventReg = TIMER_enEVENT_TIMEOUT;
+    enEventReg = TIMER__enGetEvent(enModule, enEventParam, GPTM_ADCEV_OFFSET);
+    return (enEventReg);
 }
 
 

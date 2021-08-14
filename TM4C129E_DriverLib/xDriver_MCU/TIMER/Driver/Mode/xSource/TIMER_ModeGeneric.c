@@ -26,7 +26,8 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
-void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue,
+                            uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     TIMER_nENABLE enTimerEnable = TIMER_enENABLE_STOP;
     uint32_t u32SubModule = 0UL;
@@ -37,22 +38,27 @@ void TIMER__vSetModeGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue, ui
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
     u32Shift = 8UL * u32SubModule;
-    enTimerEnable = (TIMER_nENABLE) TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, GPTM_CTL_TAEN_MASK, u32Shift);
+    enTimerEnable = (TIMER_nENABLE) TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                               GPTM_CTL_OFFSET, GPTM_CTL_TAEN_MASK, u32Shift);
     if(TIMER_enENABLE_START == enTimerEnable)
     {
-        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, GPTM_CTL_TAEN_DIS, GPTM_CTL_TAEN_MASK, u32Shift);
+        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
+                  GPTM_CTL_OFFSET, GPTM_CTL_TAEN_DIS, GPTM_CTL_TAEN_MASK, u32Shift);
     }
     u32RegisterOffset = 4UL;
     u32RegisterOffset *= u32SubModule;
     u32Register += u32RegisterOffset;
-    TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32Register, u32FeatureValue, u32MaskFeature, u32BitFeature);
+    TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32Register,
+                          u32FeatureValue, u32MaskFeature, u32BitFeature);
     if(TIMER_enENABLE_START == enTimerEnable)
     {
-        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET, GPTM_CTL_TAEN_ENA, GPTM_CTL_TAEN_MASK, u32Shift);
+        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
+                  GPTM_CTL_OFFSET, GPTM_CTL_TAEN_ENA, GPTM_CTL_TAEN_MASK, u32Shift);
     }
 }
 
-uint32_t TIMER__u32GetModeGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t TIMER__u32GetModeGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeature,
+                                  uint32_t u32BitFeature)
 {
     uint32_t u32FeatureValue = 0UL;
     uint32_t u32SubModule = 0UL;
@@ -64,6 +70,7 @@ uint32_t TIMER__u32GetModeGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeatur
     u32RegisterOffset = 4UL;
     u32RegisterOffset *= u32SubModule;
     u32Register += u32RegisterOffset;
-    u32FeatureValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber, u32Register, u32MaskFeature, u32BitFeature);
+    u32FeatureValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
+                                     u32Register, u32MaskFeature, u32BitFeature);
     return (u32FeatureValue);
 }

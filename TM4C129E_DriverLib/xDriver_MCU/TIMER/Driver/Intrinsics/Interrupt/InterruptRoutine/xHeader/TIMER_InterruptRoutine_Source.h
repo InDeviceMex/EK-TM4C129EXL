@@ -27,7 +27,11 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void (*TIMER__pvfGetIRQSourceHandler(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void);
-void (**TIMER__pvfGetIRQSourceHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule, TIMER_nMODULE_NUM enTIMERModuleNumber, TIMER_nINTERRUPT enTIMERInterruptNum))(void);
+void (*TIMER__pvfGetIRQSourceHandler(TIMER_nSUBMODULE enTIMERSubmodule,
+                                     TIMER_nMODULE_NUM enTIMERModuleNumber,
+                                     TIMER_nINTERRUPT enTIMERInterruptNum))(void);
+void (**TIMER__pvfGetIRQSourceHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule,
+                                             TIMER_nMODULE_NUM enTIMERModuleNumber,
+                                             TIMER_nINTERRUPT enTIMERInterruptNum))(void);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_INTRINSICS_TIMER_INTERRUPT_TIMER_INTERRUPTROUTINE_TIMER_INTERRUPTROUTINE_ARRAY_H_ */

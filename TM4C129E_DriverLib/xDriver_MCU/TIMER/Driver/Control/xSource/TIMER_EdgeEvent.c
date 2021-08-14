@@ -28,12 +28,14 @@
 
 void TIMER__vSetEdgeEvent(TIMER_nMODULE enModule, TIMER_nEDGE_EVENT enEdgeEventVar)
 {
-    TIMER__vSetControlGeneric(enModule, (uint32_t) enEdgeEventVar, GPTM_TA_TnCTL_TnEVENT_MASK, GPTM_TA_TnCTL_R_TnEVENT_BIT);
+    TIMER__vSetControlGeneric(enModule, (uint32_t) enEdgeEventVar,
+                              GPTM_TA_TnCTL_TnEVENT_MASK, GPTM_TA_TnCTL_R_TnEVENT_BIT);
 }
 
 TIMER_nEDGE_EVENT TIMER__enGetEdgeEvent(TIMER_nMODULE enModule)
 {
-    TIMER_nEDGE_EVENT enReturn = TIMER_enEDGE_EVENT_POSITIVE;
-    enReturn = (TIMER_nEDGE_EVENT) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnEVENT_MASK, GPTM_TA_TnCTL_R_TnEVENT_BIT);
-    return (enReturn);
+    TIMER_nEDGE_EVENT enEdgeReg = TIMER_enEDGE_EVENT_POSITIVE;
+    enEdgeReg = (TIMER_nEDGE_EVENT) TIMER__u32GetControlGeneric(enModule,
+                           GPTM_TA_TnCTL_TnEVENT_MASK, GPTM_TA_TnCTL_R_TnEVENT_BIT);
+    return (enEdgeReg);
 }

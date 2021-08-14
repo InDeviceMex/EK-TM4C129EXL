@@ -28,14 +28,16 @@
 
 void TIMER__vSetMatchEventAction(TIMER_nMODULE enModule, TIMER_nMATCH_EVENT enMatchEventParam)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enMatchEventParam, GPTM_TA_TnMR_TCACT_MASK, GPTM_TA_TnMR_R_TCACT_BIT);
+    TIMER__vSetModeGeneric(enModule, (uint32_t) enMatchEventParam,
+                       GPTM_TA_TnMR_TCACT_MASK, GPTM_TA_TnMR_R_TCACT_BIT);
 }
 
 TIMER_nMATCH_EVENT TIMER__enGetMatchEventAction(TIMER_nMODULE enModule)
 {
-    TIMER_nMATCH_EVENT enReturn = TIMER_enMATCH_EVENT_DISABLE;
-    enReturn = (TIMER_nMATCH_EVENT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TCACT_MASK, GPTM_TA_TnMR_R_TCACT_BIT);
-    return (enReturn);
+    TIMER_nMATCH_EVENT enMatchEventReg = TIMER_enMATCH_EVENT_DISABLE;
+    enMatchEventReg = (TIMER_nMATCH_EVENT) TIMER__u32GetModeGeneric(enModule,
+                                 GPTM_TA_TnMR_TCACT_MASK, GPTM_TA_TnMR_R_TCACT_BIT);
+    return (enMatchEventReg);
 }
 
 

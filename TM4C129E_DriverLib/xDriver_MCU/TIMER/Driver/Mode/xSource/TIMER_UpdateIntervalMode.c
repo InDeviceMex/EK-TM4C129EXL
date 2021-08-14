@@ -26,14 +26,17 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_ModeGeneric.h>
 
-void TIMER__vSetUpdateIntervalMode(TIMER_nMODULE enModule, TIMER_nUPDATE_INTERVAL enUpdateIntervalMode)
+void TIMER__vSetUpdateIntervalMode(TIMER_nMODULE enModule,
+                                   TIMER_nUPDATE_INTERVAL enUpdateIntervalMode)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enUpdateIntervalMode, GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
+    TIMER__vSetModeGeneric(enModule, (uint32_t) enUpdateIntervalMode,
+                           GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
 }
 
 TIMER_nUPDATE_INTERVAL TIMER__enGetUpdateIntervalMode(TIMER_nMODULE enModule)
 {
-    TIMER_nUPDATE_INTERVAL enReturn = TIMER_enUPDATE_INTERVAL_CYCLE;
-    enReturn = (TIMER_nUPDATE_INTERVAL) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
-    return (enReturn);
+    TIMER_nUPDATE_INTERVAL enUpdateReg = TIMER_enUPDATE_INTERVAL_CYCLE;
+    enUpdateReg = (TIMER_nUPDATE_INTERVAL) TIMER__u32GetModeGeneric(enModule,
+                         GPTM_TA_TnMR_TnILD_MASK, GPTM_TA_TnMR_R_TnILD_BIT);
+    return (enUpdateReg);
 }

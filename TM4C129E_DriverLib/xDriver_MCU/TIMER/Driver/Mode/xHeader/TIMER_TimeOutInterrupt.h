@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule, TIMER_nTIMEOUT_INT enTimeoutFuncionArg);
+void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule,
+                                        TIMER_nTIMEOUT_INT enTimeoutFuncionArg);
 TIMER_nTIMEOUT_INT TIMER__enGetTimeOutIntFunctionality(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_MODE_XHEADER_TIMER_TIMEOUTINTERRUPT_H_ */

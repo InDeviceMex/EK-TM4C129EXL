@@ -28,12 +28,14 @@
 
 void TIMER__vSetPWMOutputLevel(TIMER_nMODULE enModule, TIMER_nPWM_OUTPUT enPWMOutputLevel)
 {
-    TIMER__vSetControlGeneric(enModule, (uint32_t) enPWMOutputLevel, GPTM_TA_TnCTL_TnPWML_MASK, GPTM_TA_TnCTL_R_TnPWML_BIT);
+    TIMER__vSetControlGeneric(enModule, (uint32_t) enPWMOutputLevel,
+                              GPTM_TA_TnCTL_TnPWML_MASK, GPTM_TA_TnCTL_R_TnPWML_BIT);
 }
 
 TIMER_nPWM_OUTPUT TIMER__enGetPWMOutputLevel(TIMER_nMODULE enModule)
 {
-    TIMER_nPWM_OUTPUT enReturn = TIMER_enPWM_OUTPUT_STRAIGHT;
-    enReturn = (TIMER_nPWM_OUTPUT) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnPWML_MASK, GPTM_TA_TnCTL_R_TnPWML_BIT);
-    return (enReturn);
+    TIMER_nPWM_OUTPUT enPwmReg = TIMER_enPWM_OUTPUT_STRAIGHT;
+    enPwmReg = (TIMER_nPWM_OUTPUT) TIMER__u32GetControlGeneric(enModule,
+                           GPTM_TA_TnCTL_TnPWML_MASK, GPTM_TA_TnCTL_R_TnPWML_BIT);
+    return (enPwmReg);
 }

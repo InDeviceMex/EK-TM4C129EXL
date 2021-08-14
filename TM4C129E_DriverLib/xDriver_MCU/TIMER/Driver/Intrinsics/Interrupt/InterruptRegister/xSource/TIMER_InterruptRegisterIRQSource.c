@@ -29,7 +29,9 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
 
-void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),TIMER_nMODULE enModule, TIMER_nINTERRUPT enInterruptParam)
+void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                      TIMER_nMODULE enModule,
+                                      TIMER_nINTERRUPT enInterruptParam)
 {
     uint32_t u32InterruptSource = (uint32_t) enInterruptParam;
 
@@ -40,10 +42,13 @@ void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),TIMER_nM
     {
         TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
         u32SubModule &= 0x1UL;
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,  (uint32_t) TIMER_enINTERRUPT_MAX);
+        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
+                                                  (uint32_t) TIMER_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                       TIMER__pvfGetIRQSourceHandlerPointer((TIMER_nSUBMODULE) u32SubModule, (TIMER_nMODULE_NUM) u32ModuleNumber, (TIMER_nINTERRUPT)u32InterruptSource),
-                                       0UL,
-                                       1UL);
+               TIMER__pvfGetIRQSourceHandlerPointer((TIMER_nSUBMODULE) u32SubModule,
+                                                    (TIMER_nMODULE_NUM) u32ModuleNumber,
+                                                    (TIMER_nINTERRUPT)u32InterruptSource),
+               0UL,
+               1UL);
     }
 }

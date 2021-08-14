@@ -27,6 +27,8 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),TIMER_nMODULE enModule, TIMER_nINTERRUPT enInterruptParam);
+void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                      TIMER_nMODULE enModule,
+                                      TIMER_nINTERRUPT enInterruptParam);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_INTRINSICS_TIMER_INTERRUPT_TIMER_INTERRUPTREGISTER_TIMER_INTERRUPTREGISTERISR_H_ */

@@ -33,18 +33,20 @@ void TIMER__vSetRTCStall(TIMER_nMODULE enModule, TIMER_nRTC_STALL enRTCStallPara
     TIMER__vGetSubParams(enModule, &u32Submodule, (uint32_t*) 0UL);
     if((uint32_t) TIMER_enSUBMODULE_W == u32Submodule)
     {
-        TIMER__vSetControlGeneric(enModule, (uint32_t) enRTCStallParam, GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
+        TIMER__vSetControlGeneric(enModule, (uint32_t) enRTCStallParam,
+                                  GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
     }
 }
 
 TIMER_nRTC_STALL TIMER__enGetRTCStall(TIMER_nMODULE enModule)
 {
-    TIMER_nRTC_STALL enReturn = TIMER_enRTC_STALL_FREEZE;
+    TIMER_nRTC_STALL enRtcStallReg = TIMER_enRTC_STALL_FREEZE;
     uint32_t u32Submodule = 0UL;
     TIMER__vGetSubParams(enModule, &u32Submodule, (uint32_t*) 0UL);
     if((uint32_t) TIMER_enSUBMODULE_W == u32Submodule)
     {
-        enReturn = (TIMER_nRTC_STALL) TIMER__u32GetControlGeneric(enModule, GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
+        enRtcStallReg = (TIMER_nRTC_STALL) TIMER__u32GetControlGeneric(enModule,
+                          GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
     }
-    return (enReturn);
+    return (enRtcStallReg);
 }

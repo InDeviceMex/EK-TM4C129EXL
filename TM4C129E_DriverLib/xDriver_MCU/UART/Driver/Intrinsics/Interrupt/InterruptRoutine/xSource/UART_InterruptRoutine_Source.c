@@ -25,55 +25,88 @@
 
 void UART_vIRQSourceHandler_Dummy(void);
 
-void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX][(uint32_t) UART_enINTERRUPT_MAX]) (void) =
+void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
+                              [(uint32_t) UART_enINTERRUPT_MAX]) (void) =
 {
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     },
     {
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
+         &UART_vIRQSourceHandler_Dummy
     }
 };
 
@@ -82,12 +115,20 @@ void UART_vIRQSourceHandler_Dummy(void)
     while(1UL){}
 }
 
-void (*UART__pvfGetIRQSourceHandler(UART_nMODULE enUARTSubmodule, UART_nINTERRUPT enUARTInterruptNum))(void)
+void (*UART__pvfGetIRQSourceHandler(UART_nMODULE enUARTSubmodule,
+                                    UART_nINTERRUPT enUARTInterruptNum))(void)
 {
-    return (UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule][(uint32_t)enUARTInterruptNum]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule]
+                                            [(uint32_t)enUARTInterruptNum];
+    return (pvfFunctionReg);
 }
 
-void (**UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enUARTSubmodule, UART_nINTERRUPT enUARTInterruptNum))(void)
+void (**UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enUARTSubmodule,
+                                            UART_nINTERRUPT enUARTInterruptNum))(void)
 {
-    return ((void(**)(void)) &UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule][(uint32_t)enUARTInterruptNum]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule]
+                                                              [(uint32_t)enUARTInterruptNum];
+    return (pvfFunctionReg);
 }

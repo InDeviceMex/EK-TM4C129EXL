@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule, TIMER_nEVENT_INT enEventInterruptParam);
+void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule,
+                                    TIMER_nEVENT_INT enEventInterruptParam);
 TIMER_nEVENT_INT TIMER__enGetMatchEventInterrupt(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_MODE_TIMER_MATCHEVENTINTERRUPT_H_ */

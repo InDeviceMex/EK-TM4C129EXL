@@ -26,14 +26,17 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_ModeGeneric.h>
 
-void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule, TIMER_nEVENT_INT enEventInterruptParam)
+void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule,
+                                    TIMER_nEVENT_INT enEventInterruptParam)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enEventInterruptParam, GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
+    TIMER__vSetModeGeneric(enModule, (uint32_t) enEventInterruptParam,
+                   GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
 }
 
 TIMER_nEVENT_INT TIMER__enGetMatchEventInterrupt(TIMER_nMODULE enModule)
 {
-    TIMER_nEVENT_INT enReturn = TIMER_enEVENT_INT_DIS;
-    enReturn = (TIMER_nEVENT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
-    return (enReturn);
+    TIMER_nEVENT_INT enEventIntReg = TIMER_enEVENT_INT_DIS;
+    enEventIntReg = (TIMER_nEVENT_INT) TIMER__u32GetModeGeneric(enModule,
+                                   GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
+    return (enEventIntReg);
 }

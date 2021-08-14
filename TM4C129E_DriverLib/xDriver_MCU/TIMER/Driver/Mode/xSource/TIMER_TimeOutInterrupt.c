@@ -26,18 +26,17 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Mode/xHeader/TIMER_ModeGeneric.h>
 
-void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule, TIMER_nTIMEOUT_INT enTimeoutFuncionArg)
+void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule,
+                                        TIMER_nTIMEOUT_INT enTimeoutFuncionArg)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enTimeoutFuncionArg, GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
+    TIMER__vSetModeGeneric(enModule, (uint32_t) enTimeoutFuncionArg,
+                           GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
 }
 
 TIMER_nTIMEOUT_INT TIMER__enGetTimeOutIntFunctionality(TIMER_nMODULE enModule)
 {
-    TIMER_nTIMEOUT_INT enReturn = TIMER_enTIMEOUT_INT_NORMAL;
-    enReturn = (TIMER_nTIMEOUT_INT) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
-    return (enReturn);
+    TIMER_nTIMEOUT_INT enTimeoutIntReg = TIMER_enTIMEOUT_INT_NORMAL;
+    enTimeoutIntReg = (TIMER_nTIMEOUT_INT) TIMER__u32GetModeGeneric(enModule,
+                             GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
+    return (enTimeoutIntReg);
 }
-
-
-
-

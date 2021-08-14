@@ -35,6 +35,7 @@ uint32_t TIMER__u32ReadRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32Of
     uint32_t u32ModuleNumber = 0UL;
     TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
     u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
-    u32FeatureValue = MCU__u32ReadRegister(u32TimerBase, u32OffsetRegister, u32MaskFeature, u32BitFeature);
+    u32FeatureValue = MCU__u32ReadRegister(u32TimerBase, u32OffsetRegister,
+                                           u32MaskFeature, u32BitFeature);
     return (u32FeatureValue);
 }

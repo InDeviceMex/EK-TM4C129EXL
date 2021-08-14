@@ -28,10 +28,14 @@
 
 void TIMER__vSetStall(TIMER_nMODULE enModule, TIMER_nSTALL enStallParam)
 {
-    TIMER__vSetControlGeneric(enModule, (uint32_t) enStallParam, GPTM_TA_TnCTL_TnSTALL_MASK, GPTM_TA_TnCTL_R_TnSTALL_BIT);
+    TIMER__vSetControlGeneric(enModule, (uint32_t) enStallParam,
+                              GPTM_TA_TnCTL_TnSTALL_MASK, GPTM_TA_TnCTL_R_TnSTALL_BIT);
 }
 
 TIMER_nSTALL TIMER__enGetStall(TIMER_nMODULE enModule)
 {
-    return (TIMER_nSTALL) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnSTALL_MASK, GPTM_TA_TnCTL_R_TnSTALL_BIT);
+    TIMER_nSTALL enStallReg = TIMER_enSTALL_CONTINUE;
+    enStallReg = (TIMER_nSTALL) TIMER__u32GetControlGeneric(enModule,
+                          GPTM_TA_TnCTL_TnSTALL_MASK, GPTM_TA_TnCTL_R_TnSTALL_BIT);
+    return (enStallReg);
 }

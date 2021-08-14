@@ -28,12 +28,14 @@
 
 void TIMER__vSetADCTrigger(TIMER_nMODULE enModule, TIMER_nADC_TRIGGER enADCTriggerVar)
 {
-    TIMER__vSetControlGeneric(enModule, (uint32_t) enADCTriggerVar, GPTM_TA_TnCTL_TnOTE_MASK, GPTM_TA_TnCTL_R_TnOTE_BIT);
+    TIMER__vSetControlGeneric(enModule, (uint32_t) enADCTriggerVar,
+                              GPTM_TA_TnCTL_TnOTE_MASK, GPTM_TA_TnCTL_R_TnOTE_BIT);
 }
 
 TIMER_nADC_TRIGGER TIMER__enGetADCTrigger(TIMER_nMODULE enModule)
 {
-    TIMER_nADC_TRIGGER enReturn = TIMER_enADC_TRIGGER_DIS;
-    enReturn = (TIMER_nADC_TRIGGER) TIMER__u32GetControlGeneric(enModule, GPTM_TA_TnCTL_TnOTE_MASK, GPTM_TA_TnCTL_R_TnOTE_BIT);
-    return (enReturn);
+    TIMER_nADC_TRIGGER enAdcTriggerReg = TIMER_enADC_TRIGGER_DIS;
+    enAdcTriggerReg = (TIMER_nADC_TRIGGER) TIMER__u32GetControlGeneric(enModule,
+                            GPTM_TA_TnCTL_TnOTE_MASK, GPTM_TA_TnCTL_R_TnOTE_BIT);
+    return (enAdcTriggerReg);
 }
