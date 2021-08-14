@@ -10,7 +10,10 @@
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
 #define TIMING_SIZE (6UL)
-static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock, SYSCTL_nMEM_HIGHTIME* penMemoryHighTime, SYSCTL_nMEM_WAITSTATE* penMemoryWaitState, SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);
+static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock,
+                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
+                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
+                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);
 
 typedef struct
 {
@@ -20,7 +23,10 @@ typedef struct
     SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdgeTiming;
 }SYSCTL_MEM_TypeDef;
 
-static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock, SYSCTL_nMEM_HIGHTIME* penMemoryHighTime, SYSCTL_nMEM_WAITSTATE* penMemoryWaitState, SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
+static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock,
+                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
+                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
+                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
 {
     uint32_t u32Iter = 0UL;
     uint32_t u32Freq = 0UL;
@@ -64,7 +70,9 @@ static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock, SYSCTL_nMEM_
         },
     };
 
-    if((0UL != (uint32_t) penMemoryHighTime) && (0UL != (uint32_t) penMemoryWaitState) && (0UL != (uint32_t) penMemoryClockEdge))
+    if((0UL != (uint32_t) penMemoryHighTime) &&
+       (0UL != (uint32_t) penMemoryWaitState) &&
+       (0UL != (uint32_t) penMemoryClockEdge))
     {
         for(u32Iter = 0UL ; u32Iter < TIMING_SIZE; u32Iter++)
         {
@@ -86,12 +94,17 @@ void SYSCTL__vSetMemoryTiming(uint32_t u32SysClock)
     SYSCTL_nMEM_HIGHTIME enMemoryHighTimeReg = SYSCTL_enMEM_HIGHTIME_0_5;
     SYSCTL_nMEM_WAITSTATE enMemoryWaitStateReg = SYSCTL_enMEM_WAITSTATE_0;
     SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdge = SYSCTL_enMEM_CLOCKEDGE_FAILING;
-    SYSCTL__vGetPredefineMemoryTiming(u32SysClock, &enMemoryHighTimeReg, &enMemoryWaitStateReg, &enMemoryClockEdge);
+    SYSCTL__vGetPredefineMemoryTiming(u32SysClock,
+                                      &enMemoryHighTimeReg,
+                                      &enMemoryWaitStateReg,
+                                      &enMemoryClockEdge);
 
 
     u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, 0xFFFFFFFFUL, 0UL);
-    u32Reg &= ~(SYSCTL_MEMTIM0_R_FWS_MASK | SYSCTL_MEMTIM0_R_FBCE_MASK | SYSCTL_MEMTIM0_R_FBCHT_MASK |
-                SYSCTL_MEMTIM0_R_EWS_MASK | SYSCTL_MEMTIM0_R_EBCE_MASK | SYSCTL_MEMTIM0_R_EBCHT_MASK);
+    u32Reg &= ~(SYSCTL_MEMTIM0_R_FWS_MASK | SYSCTL_MEMTIM0_R_FBCE_MASK |
+            SYSCTL_MEMTIM0_R_FBCHT_MASK | SYSCTL_MEMTIM0_R_EWS_MASK |
+            SYSCTL_MEMTIM0_R_EBCE_MASK | SYSCTL_MEMTIM0_R_EBCHT_MASK);
+
     u32Reg |= (((uint32_t) enMemoryWaitStateReg << SYSCTL_MEMTIM0_R_FWS_BIT) |
                 ((uint32_t) enMemoryWaitStateReg << SYSCTL_MEMTIM0_R_EWS_BIT) |
                ((uint32_t) enMemoryHighTimeReg << SYSCTL_MEMTIM0_R_FBCHT_BIT) |
@@ -101,17 +114,24 @@ void SYSCTL__vSetMemoryTiming(uint32_t u32SysClock)
     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, u32Reg, 0xFFFFFFFFUL, 0UL);
 }
 
-void SYSCTL__vGetMemoryTiming(SYSCTL_nMEM_HIGHTIME* penMemoryHighTime, SYSCTL_nMEM_WAITSTATE* penMemoryWaitState, SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
+void SYSCTL__vGetMemoryTiming(SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
+                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
+                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
 {
     uint32_t u32Reg = 0UL;
 
-    if((0UL != (uint32_t) penMemoryHighTime) && (0UL != (uint32_t) penMemoryWaitState) && (0UL != (uint32_t) penMemoryClockEdge))
+    if((0UL != (uint32_t) penMemoryHighTime) &&
+       (0UL != (uint32_t) penMemoryWaitState) &&
+       (0UL != (uint32_t) penMemoryClockEdge))
     {
-        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, SYSCTL_MEMTIM0_FWS_MASK, SYSCTL_MEMTIM0_R_FWS_BIT);
+        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
+                      SYSCTL_MEMTIM0_FWS_MASK, SYSCTL_MEMTIM0_R_FWS_BIT);
         *penMemoryWaitState = (SYSCTL_nMEM_WAITSTATE)u32Reg;
-        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, SYSCTL_MEMTIM0_FBCE_MASK, SYSCTL_MEMTIM0_R_FBCE_BIT);
+        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
+                      SYSCTL_MEMTIM0_FBCE_MASK, SYSCTL_MEMTIM0_R_FBCE_BIT);
         *penMemoryClockEdge = (SYSCTL_nMEM_CLOCKEDGE)u32Reg;
-        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, SYSCTL_MEMTIM0_FBCHT_MASK, SYSCTL_MEMTIM0_R_FBCHT_BIT);
+        u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
+                      SYSCTL_MEMTIM0_FBCHT_MASK, SYSCTL_MEMTIM0_R_FBCHT_BIT);
         *penMemoryHighTime = (SYSCTL_nMEM_HIGHTIME)u32Reg;
     }
 }

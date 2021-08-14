@@ -26,7 +26,8 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral, uint32_t u32PeripheralArg, uint32_t u32ValueArg)
+void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral,
+                              uint32_t u32PeripheralArg, uint32_t u32ValueArg)
 {
     uint32_t u32RegisterValue = 0UL;
     uint32_t u32NoRegister = 0UL;

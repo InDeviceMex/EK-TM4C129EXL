@@ -62,5 +62,5 @@ SYSCTL_nPERIPHERAL_READY SYSCTL__enIsReady(SYSCTL_nPERIPHERAL enPeripheral)
 {
     SYSCTL_nPERIPHERAL_READY enReady = SYSCTL_enNOREADY;
     enReady = SYSCTL__enIsPeripheralReady(enPeripheral);
-    return enReady;
+    return (enReady);
 }

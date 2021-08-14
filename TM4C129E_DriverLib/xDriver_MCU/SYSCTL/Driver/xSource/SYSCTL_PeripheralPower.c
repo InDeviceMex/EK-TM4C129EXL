@@ -42,4 +42,3 @@ void SYSCTL__vPowerOnPeripheral(SYSCTL_nPERIPHERAL enPeripheral)
 {
     SYSCTL__vPowerPeripheral(enPeripheral, 1UL);
 }
-

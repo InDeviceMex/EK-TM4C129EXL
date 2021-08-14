@@ -38,11 +38,14 @@ static void SYSCTL_vIRQSourceHandler_Dummy(void)
 
 void (*SYSCTL__pvfGetIRQSourceHandler(SYSCTL_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return (SYSCTL__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SYSCTL__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
 
 void (**SYSCTL__pvfGetIRQSourceHandlerPointer(SYSCTL_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return ((void(**)(void)) &SYSCTL__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SYSCTL__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
-

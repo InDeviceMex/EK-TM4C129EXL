@@ -17,14 +17,16 @@ void SYSCTL__vSetOutputClockSource(SYSCTL_nOUTCLK_SRC enOutputSource);
 void SYSCTL__vDisOutputClock(void);
 void SYSCTL__vEnOutputClock(void);
 
-void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable, SYSCTL_nOUTCLK_SRC enOutputSource, uint32_t u32Divisor);
+void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable,
+                             SYSCTL_nOUTCLK_SRC enOutputSource,
+                             uint32_t u32Divisor);
 
 SYSCTL_nOUTCLK SYSCTL__enGetOutputClockEnable(void);
 uint32_t SYSCTL__u32GetOutputClockDivisor(void);
 SYSCTL_nOUTCLK_SRC SYSCTL__enGetOutputClockSource(void);
 
-void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable, SYSCTL_nOUTCLK_SRC* penOutputSource, uint32_t* pu32Divisor);
-
-
+void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable,
+                             SYSCTL_nOUTCLK_SRC* penOutputSource,
+                             uint32_t* pu32Divisor);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_OUTPUTCLOCK_H_ */

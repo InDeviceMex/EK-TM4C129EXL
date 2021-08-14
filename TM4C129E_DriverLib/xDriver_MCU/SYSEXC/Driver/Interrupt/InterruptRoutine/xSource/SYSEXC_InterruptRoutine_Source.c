@@ -39,10 +39,14 @@ static void SYSEXC_vIRQSourceHandler_Dummy(void)
 
 void (*SYSEXC__pvfGetIRQSourceHandler(SYSEXC_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return (SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
 
 void (**SYSEXC__pvfGetIRQSourceHandlerPointer(SYSEXC_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return ((void(**)(void)) &SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }

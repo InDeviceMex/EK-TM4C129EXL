@@ -22,7 +22,8 @@ void SYSCTL__vSetBOREvent_VDDA(SYSCTL_nBOR_EVENT enBOREvent)
                         SYSCTL_PTBOCTL_VDDA_UBOR_MASK, SYSCTL_PTBOCTL_R_VDDA_UBOR_BIT);
 }
 
-void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD, SYSCTL_nBOR_EVENT enBOREvent_VDDA)
+void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD,
+                          SYSCTL_nBOR_EVENT enBOREvent_VDDA)
 {
     SYSCTL__vSetBOREvent_VDD(enBOREvent_VDD);
     SYSCTL__vSetBOREvent_VDDA(enBOREvent_VDDA);
@@ -30,22 +31,23 @@ void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD, SYSCTL_nBOR_EVENT en
 
 SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDD(void)
 {
-    SYSCTL_nBOR_EVENT enReturn = SYSCTL_enBOR_EVENT_NONE;
-    enReturn = (SYSCTL_nBOR_EVENT) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
-                                  SYSCTL_PTBOCTL_VDD_UBOR_MASK, SYSCTL_PTBOCTL_R_VDD_UBOR_BIT);
-    return (enReturn);
+    SYSCTL_nBOR_EVENT enEventReg = SYSCTL_enBOR_EVENT_NONE;
+    enEventReg = (SYSCTL_nBOR_EVENT) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
+                          SYSCTL_PTBOCTL_VDD_UBOR_MASK, SYSCTL_PTBOCTL_R_VDD_UBOR_BIT);
+    return (enEventReg);
 }
 
 SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDDA(void)
 {
-    SYSCTL_nBOR_EVENT enReturn = SYSCTL_enBOR_EVENT_NONE;
-    enReturn = (SYSCTL_nBOR_EVENT) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
-                                    SYSCTL_PTBOCTL_VDDA_UBOR_MASK, SYSCTL_PTBOCTL_R_VDDA_UBOR_BIT);
-    return (enReturn);
+    SYSCTL_nBOR_EVENT enEventReg = SYSCTL_enBOR_EVENT_NONE;
+    enEventReg = (SYSCTL_nBOR_EVENT) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
+                        SYSCTL_PTBOCTL_VDDA_UBOR_MASK, SYSCTL_PTBOCTL_R_VDDA_UBOR_BIT);
+    return (enEventReg);
 }
 
 
-void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD, SYSCTL_nBOR_EVENT* penBOREvent_VDDA)
+void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD,
+                          SYSCTL_nBOR_EVENT* penBOREvent_VDDA)
 {
     if(0UL != (uint32_t) penBOREvent_VDD)
     {
@@ -59,40 +61,43 @@ void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD, SYSCTL_nBOR_EVENT*
 
 SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDD(void)
 {
-    SYSCTL_nBOR_STATUS enReturn = SYSCTL_enBOR_STATUS_NONE;
-    enReturn = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
+    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
+    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
                                      SYSCTL_PWRTC_VDD_UBOR_MASK, SYSCTL_PWRTC_R_VDD_UBOR_BIT);
-    return (enReturn);
+    return (enStatusReg);
 }
 
 SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDDA(void)
 {
-    SYSCTL_nBOR_STATUS enReturn = SYSCTL_enBOR_STATUS_NONE;
-    enReturn = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                                         SYSCTL_PWRTC_VDDA_UBOR_MASK, SYSCTL_PWRTC_R_VDDA_UBOR_BIT);
-    return (enReturn);
+    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
+    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
+                             SYSCTL_PWRTC_VDDA_UBOR_MASK, SYSCTL_PWRTC_R_VDDA_UBOR_BIT);
+    return (enStatusReg);
 }
 
 SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus(void)
 {
-    SYSCTL_nBOR_STATUS enReturn = SYSCTL_enBOR_STATUS_NONE;
-    enReturn = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                                 SYSCTL_PWRTC_R_VDDA_UBOR_MASK | SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0UL);
-    return (enReturn);
+    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
+    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
+                         SYSCTL_PWRTC_R_VDDA_UBOR_MASK | SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0UL);
+    return (enStatusReg);
 }
 
 
 void SYSCTL__vClearBORStatus_VDD(void)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET, SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
+                        SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
 }
 
 void SYSCTL__vClearBORStatus_VDDA(void)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET, SYSCTL_PWRTC_R_VDDA_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
+                        SYSCTL_PWRTC_R_VDDA_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
 }
 
 void SYSCTL__vClearBORStatus(SYSCTL_nBOR_STATUS enBOREvent)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET, (uint32_t) enBOREvent, 0xFFFFFFFFUL, 0UL);
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
+                        (uint32_t) enBOREvent, 0xFFFFFFFFUL, 0UL);
 }

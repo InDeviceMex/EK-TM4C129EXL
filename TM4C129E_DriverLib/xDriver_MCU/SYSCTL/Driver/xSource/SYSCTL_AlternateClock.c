@@ -17,10 +17,10 @@ void SYSCTL__vSetAlternateClock(SYSCTL_nALTCLK enAlternateClock)
 
 SYSCTL_nALTCLK SYSCTL__enGetAlternateClock(void)
 {
-    SYSCTL_nALTCLK enReturn = SYSCTL_enALTCLK_PIOSC;
-    enReturn = (SYSCTL_nALTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
-                                  SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
-    return (enReturn);
+    SYSCTL_nALTCLK enAltClkReg = SYSCTL_enALTCLK_PIOSC;
+    enAltClkReg = (SYSCTL_nALTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
+                          SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
+    return (enAltClkReg);
 }
 
 uint32_t SYSCTL__u32GetAlternateClock(void)
@@ -28,7 +28,7 @@ uint32_t SYSCTL__u32GetAlternateClock(void)
     uint32_t u32AltClock = 0UL;
     SYSCTL_nALTCLK enAltClock = SYSCTL_enALTCLK_PIOSC;
     enAltClock = (SYSCTL_nALTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
-                                  SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
+                              SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
     switch(enAltClock)
     {
     case SYSCTL_enALTCLK_PIOSC:

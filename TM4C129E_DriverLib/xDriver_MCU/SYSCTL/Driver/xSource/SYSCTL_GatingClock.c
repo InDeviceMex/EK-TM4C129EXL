@@ -17,8 +17,8 @@ void SYSCTL__vSetGatingClock(SYSCTL_nGATING enGating)
 
 SYSCTL_nGATING SYSCTL__enGetGatingClock(void)
 {
-    SYSCTL_nGATING enReturn = SYSCTL_enGATING_RUN;
-    enReturn = (SYSCTL_nGATING) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
+    SYSCTL_nGATING enGatingReg = SYSCTL_enGATING_RUN;
+    enGatingReg = (SYSCTL_nGATING) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
                                     SYSCTL_RSCLKCFG_ACG_MASK, SYSCTL_RSCLKCFG_R_ACG_BIT);
-    return (enReturn);
+    return (enGatingReg);
 }

@@ -15,6 +15,4 @@ SYSCTL_nLDO_VOTAGE SYSCTL__enGetLDOSleepVoltage(void);
 void SYSCTL__vSetLDODeepSleepVoltage(SYSCTL_nLDO_VOTAGE enLDOPowerVoltage);
 SYSCTL_nLDO_VOTAGE SYSCTL__enGetLDODeepSleepVoltage(void);
 
-
-
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_LDOVOLTAGE_H_ */

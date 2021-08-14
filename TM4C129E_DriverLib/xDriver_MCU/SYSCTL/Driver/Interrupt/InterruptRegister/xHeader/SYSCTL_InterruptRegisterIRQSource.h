@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), SYSCTL_nINTERRUPT enInterruptSource);
+void SYSCTL__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                       SYSCTL_nINTERRUPT enInterruptSource);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_INTERRUPTREGISTER_XHEADER_SYSCTL_INTERRUPTREGISTERIRQSOURCE_H_ */

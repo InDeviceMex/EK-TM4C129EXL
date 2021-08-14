@@ -49,7 +49,7 @@ void SYSCTL__vClearInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 
 SYSCTL_nINT_STATUS SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
-    SYSCTL_nINT_STATUS enInterruptReg = SYSCTL_enINT_STATUS_UNDEF;
+    SYSCTL_nINT_STATUS enInterruptReg = SYSCTL_enINT_NOOCCUR;
     uint32_t u32SourceInt = (uint32_t) enSourceInt ;
     uint32_t u32Register= 0UL;
 

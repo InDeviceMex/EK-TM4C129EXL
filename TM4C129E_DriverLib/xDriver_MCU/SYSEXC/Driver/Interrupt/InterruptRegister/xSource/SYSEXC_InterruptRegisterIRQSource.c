@@ -27,7 +27,8 @@
 #include <xDriver_MCU/SYSEXC/Driver/Interrupt/InterruptRoutine/xHeader/SYSEXC_InterruptRoutine_Source.h>
 #include <xDriver_MCU/SYSEXC/Peripheral/SYSEXC_Peripheral.h>
 
-void SYSEXC__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), SYSEXC_nINTERRUPT enInterruptSource)
+void SYSEXC__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                       SYSEXC_nINTERRUPT enInterruptSource)
 {
     uint32_t u32InterruptSource = 0UL;
     if(0UL != (uint32_t) pfIrqSourceHandler)
@@ -35,8 +36,8 @@ void SYSEXC__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), SYSEXC
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,
                                                   (uint32_t) SYSEXC_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                       SYSEXC__pvfGetIRQSourceHandlerPointer((SYSEXC_nINTERRUPT) u32InterruptSource),
-                                       0UL,
-                                       1UL);
+               SYSEXC__pvfGetIRQSourceHandlerPointer((SYSEXC_nINTERRUPT) u32InterruptSource),
+               0UL,
+               1UL);
     }
 }

@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral, uint32_t u32PeripheralArg, uint32_t u32ValueArg);
+void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral,
+                              uint32_t u32PeripheralArg, uint32_t u32ValueArg);
 uint32_t SYSCTL__u32ReadPeripheral(SYSCTL_nPERIPHERAL enPeripheral, uint32_t u32PeripheralArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_PERIPHERALGENERIC_H_ */

@@ -12,11 +12,13 @@
 
 void SYSCTL__vSetBOREvent_VDD(SYSCTL_nBOR_EVENT enBOREvent);
 void SYSCTL__vSetBOREvent_VDDA(SYSCTL_nBOR_EVENT enBOREvent);
-void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD, SYSCTL_nBOR_EVENT enBOREvent_VDDA);
+void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD,
+                          SYSCTL_nBOR_EVENT enBOREvent_VDDA);
 
 SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDD(void);
 SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDDA(void);
-void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD, SYSCTL_nBOR_EVENT* penBOREvent_VDDA);
+void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD,
+                          SYSCTL_nBOR_EVENT* penBOREvent_VDDA);
 
 SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDD(void);
 SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDDA(void);

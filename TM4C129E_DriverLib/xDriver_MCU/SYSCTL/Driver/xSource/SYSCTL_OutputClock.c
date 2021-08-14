@@ -13,7 +13,6 @@ void SYSCTL__vSetOutputClockEnable(SYSCTL_nOUTCLK enOutputEnable)
 {
     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET, (uint32_t) enOutputEnable,
                         SYSCTL_DIVSCLK_EN_MASK, SYSCTL_DIVSCLK_R_EN_BIT);
-
 }
 
 void SYSCTL__vSetOutputClockDivisor(uint32_t u32Divisor)
@@ -41,7 +40,9 @@ void SYSCTL__vEnOutputClock(void)
     SYSCTL__vSetOutputClockEnable(SYSCTL_enOUTCLK_ENA);
 }
 
-void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable, SYSCTL_nOUTCLK_SRC enOutputSource, uint32_t u32Divisor)
+void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable,
+                             SYSCTL_nOUTCLK_SRC enOutputSource,
+                             uint32_t u32Divisor)
 {
     SYSCTL__vSetOutputClockDivisor(u32Divisor);
     SYSCTL__vSetOutputClockSource(enOutputSource);
@@ -50,10 +51,10 @@ void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable, SYSCTL_nOUTCLK_SRC e
 
 SYSCTL_nOUTCLK SYSCTL__enGetOutputClockEnable(void)
 {
-    SYSCTL_nOUTCLK enReturn = SYSCTL_enOUTCLK_DIS;
-    enReturn = (SYSCTL_nOUTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET,
+    SYSCTL_nOUTCLK enOutclkReg = SYSCTL_enOUTCLK_DIS;
+    enOutclkReg = (SYSCTL_nOUTCLK) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET,
                                              SYSCTL_DIVSCLK_EN_MASK, SYSCTL_DIVSCLK_R_EN_BIT);
-    return (enReturn);
+    return (enOutclkReg);
 }
 
 uint32_t SYSCTL__u32GetOutputClockDivisor(void)
@@ -62,18 +63,20 @@ uint32_t SYSCTL__u32GetOutputClockDivisor(void)
     u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET,
                                   SYSCTL_DIVSCLK_DIV_MASK, SYSCTL_DIVSCLK_R_DIV_BIT);
     u32Reg += 1UL;
-    return u32Reg;
+    return (u32Reg);
 }
 
 SYSCTL_nOUTCLK_SRC SYSCTL__enGetOutputClockSource(void)
 {
-    SYSCTL_nOUTCLK_SRC enReturn = SYSCTL_enOUTCLK_SRC_SYSCLK;
-    enReturn = (SYSCTL_nOUTCLK_SRC) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET,
-                                  SYSCTL_DIVSCLK_SRC_MASK, SYSCTL_DIVSCLK_R_SRC_BIT);
-    return (enReturn);
+    SYSCTL_nOUTCLK_SRC enClkSrcReg = SYSCTL_enOUTCLK_SRC_SYSCLK;
+    enClkSrcReg = (SYSCTL_nOUTCLK_SRC) MCU__u32ReadRegister(SYSCTL_BASE,
+                SYSCTL_DIVSCLK_OFFSET, SYSCTL_DIVSCLK_SRC_MASK, SYSCTL_DIVSCLK_R_SRC_BIT);
+    return (enClkSrcReg);
 }
 
-void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable, SYSCTL_nOUTCLK_SRC* penOutputSource, uint32_t* pu32Divisor)
+void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable,
+                             SYSCTL_nOUTCLK_SRC* penOutputSource,
+                             uint32_t* pu32Divisor)
 {
     if(0UL != (uint32_t) penOutputEnable)
     {
@@ -88,4 +91,3 @@ void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable, SYSCTL_nOUTCLK_SRC
         *pu32Divisor = SYSCTL__u32GetOutputClockDivisor();
     }
 }
-

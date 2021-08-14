@@ -24,4 +24,3 @@ SYSCTL_nNMI SYSCTL__enGetNMICause(void)
     u32Reg &= (uint32_t) SYSCTL_enNMI_ALL;
     return ((SYSCTL_nNMI) u32Reg);
 }
-
