@@ -36,16 +36,16 @@ inline void UART__vSetData(UART_nMODULE enModule, uint32_t u32Data)
 
 inline uint32_t UART__u32GetData(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, UART_DR_DATA_MASK, 0UL);
-    return (u32Reg);
+    uint32_t u32DataReg = 0UL;
+    u32DataReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, UART_DR_DATA_MASK, 0UL);
+    return (u32DataReg);
 }
 
 inline uint32_t UART__u32GetDataWithStatus(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
+    uint32_t u32DataReg = 0UL;
+    u32DataReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, 0xFFFFFFFFUL, 0UL);
+    return (u32DataReg);
 }
 
 uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray)

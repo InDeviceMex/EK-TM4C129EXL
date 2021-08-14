@@ -30,7 +30,4 @@
 void UART__vSetIrDALowPowerDivider(UART_nMODULE enModule, uint32_t u32Divider);
 uint32_t UART__u32GetIrDALowPowerDivider(UART_nMODULE enModule);
 
-void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule);
-uint32_t UART__u32GetIrDALowPowerFrequency(UART_nMODULE enModule);
-
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_IRDA_H_ */

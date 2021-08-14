@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_
 #define XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_
 
-#include <xDriver_MCU/UART/Driver/LineControl/BaudRate/UART_BaudRate.h>
+#include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_BaudRate.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Break.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Fifo.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Length.h>
@@ -35,9 +35,5 @@
 void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg, UART_nFIFO enFifoEnable, UART_nSTOP enStopBitsArg, UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nPARITY_STICK enParityStickArg);
 void UART__vSetLineControlStructPointer(UART_nMODULE enModule, const UART_LINE_CONTROL_TypeDef* pstLineControl);
 void UART__vSetLineControlStruct(UART_nMODULE enModule, const UART_LINE_CONTROL_TypeDef stLineControl);
-
-UART_nSTATUS UART__enSetBaudRateAndLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg, UART_nFIFO enFifoEnable, UART_nSTOP enStopBitsArg, UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nPARITY_STICK enParityStickArg, uint32_t u32BaudRateArg);
-UART_nSTATUS UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule, const UART_LINE_CONTROL_TypeDef* pstLineControl, uint32_t u32BaudRateArg);
-UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule, const UART_LINE_CONTROL_TypeDef stLineControl, uint32_t u32BaudRateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_ */

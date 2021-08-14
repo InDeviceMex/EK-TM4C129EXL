@@ -28,6 +28,3 @@ void SCB__vEnableAllTraps(void)
     SCB__vEnDivisionTrap();
     SCB__vEnUnalignTrap();
 }
-
-
-

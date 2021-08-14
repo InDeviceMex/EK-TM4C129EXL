@@ -41,13 +41,20 @@ void SCB__vInit(void)
 
     SCB__vSetVectorTable(pfnVectors);
 
-    SCB__vRegisterIRQVectorHandler( &NMI__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_NMI);
-    SCB__vRegisterIRQVectorHandler( &PendSV__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
-    SCB__vRegisterIRQVectorHandler( &UsageFault__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_USAGEFAULT);
-    SCB__vRegisterIRQVectorHandler( &BusFault__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_BUSFAULT);
-    SCB__vRegisterIRQVectorHandler( &MemoryFault__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_MEMMANAGE);
-    SCB__vRegisterIRQVectorHandler( &HardFault__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_HARDFAULT);
-    SCB__vRegisterIRQVectorHandler( &SVCall__vIRQVectorHandler, (void (**) (void)) 0UL, SCB_enVECISR_SVCALL);
+    SCB__vRegisterIRQVectorHandler( &NMI__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_NMI);
+    SCB__vRegisterIRQVectorHandler( &PendSV__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_PENDSV);
+    SCB__vRegisterIRQVectorHandler( &UsageFault__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_USAGEFAULT);
+    SCB__vRegisterIRQVectorHandler( &BusFault__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_BUSFAULT);
+    SCB__vRegisterIRQVectorHandler( &MemoryFault__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_MEMMANAGE);
+    SCB__vRegisterIRQVectorHandler( &HardFault__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_HARDFAULT);
+    SCB__vRegisterIRQVectorHandler( &SVCall__vIRQVectorHandler, (void (**) (void)) 0UL,
+                                    SCB_enVECISR_SVCALL);
 
 }
 

@@ -69,7 +69,7 @@ SCB_nPENDSTATE SCB_UsageFault__enGetPending(void)
 {
     SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
     enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
-                                  SCB_SHCSR_USGFAULTPENDED_MASK, SCB_SHCSR_R_USGFAULTPENDED_BIT);
+                              SCB_SHCSR_USGFAULTPENDED_MASK, SCB_SHCSR_R_USGFAULTPENDED_BIT);
 
     return (enReturn);
 }

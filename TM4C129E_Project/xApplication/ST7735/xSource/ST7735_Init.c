@@ -103,11 +103,11 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
     SSI__vEnInterruptVector(ST7735_SSI, SSI_enPRI0);
     ST7735__vEnableChipSelect();
     ST7735__vClearReset();
-    ST7735__vDelay1ms(500UL);
+    ST7735__vDelay1ms(100UL);
     ST7735__vSetReset();
-    ST7735__vDelay1ms(500UL);
+    ST7735__vDelay1ms(100UL);
     ST7735__vClearReset();
-    ST7735__vDelay1ms(500UL);
+    ST7735__vDelay1ms(100UL);
     ST7735__vDisableChipSelect();
 
   if(0UL != (uint32_t) pu8CommandList)

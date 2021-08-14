@@ -37,10 +37,15 @@ void Task1(void* pvParams)
     {
         EDUMKII_Accelerometer_vSample(&s32ADCValueX, &s32ADCValueY, &s32ADCValueZ);
         OS_Task__vEnterCritical();
-        UART__u32Printf(UART_enMODULE_0, "Accelerometer: \n\r\t\tX: %d Y: %d Z: %d\n\r",
-                        s32ADCValueX,s32ADCValueY,s32ADCValueZ);
+
+        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
+                             "Accelerometer X: %d Y: %d Z: %d       ",
+                             s32ADCValueX,
+                             s32ADCValueY,
+                             s32ADCValueZ
+                             );
         OS_Task__vExitCritical();
-        OS_Task__vDelayUntil(&u32LastWakeTime, 150UL);
+        OS_Task__vDelayUntil(&u32LastWakeTime, 160UL);
 
     }
 }
@@ -61,6 +66,9 @@ void Task2(void* pvParams)
     static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
     uint16_t* pu16Pointer = 0UL;
     u32LastWakeTime = OS_Task__u32GetTickCount ();
+    GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
+                         "LCD POS Initializing..."
+                         );
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enPIN_2);
     while(1UL)
@@ -94,7 +102,12 @@ void Task2(void* pvParams)
         }
         ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
         OS_Task__vEnterCritical();
-        UART__u32Printf(UART_enMODULE_0, "Yoystick: \n\r\t\tX: %d Y: %d\n\r", u32ADCValueX,u32ADCValueY);
+
+        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
+                             "LCD POS X: %d Y: %d      ",
+                             u32LcdPosXCurrent,
+                             u32LcdPosYCurrent
+                             );
         OS_Task__vExitCritical();
         u32CountImage++;
         if(u32CountImage > 50UL)
@@ -110,6 +123,8 @@ void Task2(void* pvParams)
 
 void Task3(void* pvParams)
 {
+    char* pcState[2UL] = {"OFF", "ON "};
+    char* pcStateButton[3UL] = {(char*)0UL,(char*) 0UL,(char*) 0UL};
     uint32_t u32LastWakeTime = 0UL;
     EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
     EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
@@ -126,31 +141,43 @@ void Task3(void* pvParams)
         if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enPIN_0);
+            pcStateButton[0UL] = pcState[1UL];
         }
         else
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
+            pcStateButton[0UL] = pcState[0UL];
         }
         if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
+            pcStateButton[1UL] = pcState[1UL];
         }
         else
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, 0UL);
+            pcStateButton[1UL] = pcState[0UL];
         }
 
         if(EDUMKII_enJOYSTICK_PRESS == enSelect)
         {
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
+            pcStateButton[2UL] = pcState[1UL];
         }
         else
         {
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
+            pcStateButton[2UL] = pcState[0UL];
         }
 
         OS_Task__vEnterCritical();
-        //UART__u32Printf(UART_enMODULE_0, "Task3: Esto ha ocurrido %d veces\n\r", u32CountTask);
+
+        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
+                             "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
+                             pcStateButton[0UL],
+                             pcStateButton[1UL],
+                             pcStateButton[2UL]
+                             );
         OS_Task__vExitCritical();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 75UL);
@@ -169,7 +196,14 @@ void Task4(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
         OS_Task__vEnterCritical();
-        //UART__u32Printf(UART_enMODULE_0, "Task4: Esto ha ocurrido %d veces\n\r", u32CountTask);
+        if(0UL == u32PinValue)
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 15UL, 0UL, "LED BLUE: ON  ");
+        }
+        else
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 15UL, 0UL, "LED BLUE: OFF ");
+        }
         OS_Task__vExitCritical();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 500UL);
@@ -188,7 +222,14 @@ void Task5(void* pvParams)
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
         OS_Task__vEnterCritical();
-        //UART__u32Printf(UART_enMODULE_0, "Task5: Esto ha ocurrido %d veces\n\r", u32CountTask);
+        if(0UL == u32PinValue)
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: ON  ");
+        }
+        else
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: OFF ");
+        }
         OS_Task__vExitCritical();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 1000UL);
@@ -295,6 +336,10 @@ uint32_t main(void)
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vHideCursor(UART_enMODULE_0);
+    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+
     TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0W, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vSetClockSource(TIMER_enT0W, TIMER_enCLOCK_SYSCLK);
     TIMER__vEnInterruptVector(TIMER_enT0W, TIMER_enPRI6);
@@ -304,11 +349,11 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&Task1, "Task 1", 300UL, (void*) 0UL, 4UL, &TaskHandeler[1UL]);
     OS_Task__u32TaskGenericCreate(&Task2, "Task 2", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 1UL, &TaskHandeler[2UL]);
+    OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 5UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
-    OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 4UL, &TaskHandeler[4UL]);
+    OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 3UL, &TaskHandeler[4UL]);
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {

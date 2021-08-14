@@ -29,7 +29,11 @@
 
 void UART__vSetParityConfigStruct(UART_nMODULE enModule, const UART_PARITY_TypeDef stParityConfig);
 void UART__vSetParityConfigStructPointer(UART_nMODULE enModule, const UART_PARITY_TypeDef* pstParityConfig);
-void UART__vSetParityConfig(UART_nMODULE enModule, UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nPARITY_STICK enParityStickArg);
+
+void UART__vSetParityConfig(UART_nMODULE enModule,
+                            UART_nPARITY enParityStateArg,
+                            UART_nPARITY_TYPE enParityTypeArg,
+                            UART_nPARITY_STICK enParityStickArg);
 void UART__vSetParityEnable(UART_nMODULE enModule, UART_nPARITY enParityState);
 UART_nPARITY UART__enGetParityEnable(UART_nMODULE enModule);
 void UART__vSetParityType(UART_nMODULE enModule, UART_nPARITY_TYPE enParityTypeArg);

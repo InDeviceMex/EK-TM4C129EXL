@@ -37,6 +37,3 @@ void SCB__vDisUnalignTrap(void)
     MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_UNALIGN_TRP_NOTRAP,
                         SCB_CCR_UNALIGN_TRP_MASK, SCB_CCR_R_UNALIGN_TRP_BIT);
 }
-
-
-

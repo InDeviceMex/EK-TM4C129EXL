@@ -13,7 +13,7 @@ FPU_nPRESERVATION_STATUS FPU__enGetLazyPreservationStatus(void)
 {
     FPU_nPRESERVATION_STATUS enReturn = FPU_enPRESERVATION_NOACTIVE;
     enReturn = (FPU_nPRESERVATION_STATUS) MCU__u32ReadRegister(FPU_BASE, FPU_FPCCR_OFFSET,
-                                                             FPU_FPCCR_LSPACT_MASK, FPU_FPCCR_R_LSPACT_BIT);
+                                             FPU_FPCCR_LSPACT_MASK, FPU_FPCCR_R_LSPACT_BIT);
     return (enReturn);
 }
 
@@ -21,7 +21,7 @@ FPU_nLAZY_PRESERVATION FPU__enGetLazyPreservation(void)
 {
     FPU_nLAZY_PRESERVATION enReturn = FPU_enLAZY_PRESERVATION_DIS;
     enReturn = (FPU_nLAZY_PRESERVATION) MCU__u32ReadRegister(FPU_BASE, FPU_FPCCR_OFFSET,
-                                                           FPU_FPCCR_LSPEN_MASK, FPU_FPCCR_R_LSPEN_BIT);
+                                               FPU_FPCCR_LSPEN_MASK, FPU_FPCCR_R_LSPEN_BIT);
     return (enReturn);
 }
 void FPU__vSetLazyPreservation(FPU_nLAZY_PRESERVATION enAuto)

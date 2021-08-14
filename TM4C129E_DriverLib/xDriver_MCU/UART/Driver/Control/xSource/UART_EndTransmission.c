@@ -28,12 +28,14 @@
 
 void UART__vSetEndTransmission(UART_nMODULE enModule, UART_nEOT enEndTransmissionArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (uint32_t) enEndTransmissionArg, UART_CTL_EOT_MASK, UART_CTL_R_EOT_BIT);
+    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (uint32_t) enEndTransmissionArg,
+                         UART_CTL_EOT_MASK, UART_CTL_R_EOT_BIT);
 }
 
 UART_nEOT UART__enGetEndTransmission(UART_nMODULE enModule)
 {
-    UART_nEOT enEndTransmissionReg = UART_enEOT_UNDEF;
-    UART__enReadRegister(enModule, UART_CTL_OFFSET, (uint32_t*) &enEndTransmissionReg, UART_CTL_EOT_MASK, UART_CTL_R_EOT_BIT);
-    return enEndTransmissionReg;
+    UART_nEOT enEndTransmissionReg = UART_enEOT_FIFO;
+    enEndTransmissionReg = (UART_nEOT) UART__u32ReadRegister(enModule, UART_CTL_OFFSET,
+                                            UART_CTL_EOT_MASK, UART_CTL_R_EOT_BIT);
+    return (enEndTransmissionReg);
 }

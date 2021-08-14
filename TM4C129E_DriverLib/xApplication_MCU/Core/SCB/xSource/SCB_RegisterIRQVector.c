@@ -27,7 +27,9 @@
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/FLASH/FLASH.h>
 
-void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), void (**pfIrqVectorHandlerExtern) (void), SCB_nVECISR enVector)
+void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
+                                    void (**pfIrqVectorHandlerExtern) (void),
+                                    SCB_nVECISR enVector)
 {
     uint32_t u32Vector = 0UL;
     uint32_t u32BaseVector = 0UL;

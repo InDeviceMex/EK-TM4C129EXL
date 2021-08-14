@@ -38,4 +38,7 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 
+
+#include <xApplication/Printf/Printf.h>
+
 #endif /* XAPPLICATION_MCU_UART_INTRINSICS_XHEADER_UART_DEPENDENCIES_H_ */

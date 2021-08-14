@@ -28,7 +28,7 @@
 
 void SCB__vSetVectorOffset(uint32_t u32Offset)
 {
-    MCU_nENABLE enInterruptState = MCU_enENABLE_DIS;
+    MCU_nENABLE enInterruptState = MCU_enENABLE_ENA;
     enInterruptState = MCU__enDisGlobalInterrupt();
     MCU__vWriteRegister(SCB_BASE, SCB_VTOR_OFFSET, u32Offset,
                         SCB_VTOR_R_TBLOFF_MASK, 0UL);

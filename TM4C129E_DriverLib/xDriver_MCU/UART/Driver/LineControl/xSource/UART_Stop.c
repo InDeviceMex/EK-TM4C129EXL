@@ -28,13 +28,15 @@
 
 UART_nSTOP UART__enGetStopBits(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
-    return (UART_nSTOP) u32Reg;
+    UART_nSTOP enStopReg = UART_enSTOP_ONE;
+    enStopReg = (UART_nSTOP) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                           UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
+    return (enStopReg);
 }
 
 void UART__vSetStopBits(UART_nMODULE enModule, UART_nSTOP enStopBitsArg)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enStopBitsArg, UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
+    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enStopBitsArg,
+                         UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
 }
 

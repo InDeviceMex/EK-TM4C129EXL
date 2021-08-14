@@ -58,6 +58,6 @@ SCB_nPENDSTATE SCB_SYSTICK__enGetPending(void)
 {
     SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
     enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                                                     SCB_ICSR_PENDSTSET_MASK, SCB_ICSR_R_PENDSTSET_BIT);
+                                     SCB_ICSR_PENDSTSET_MASK, SCB_ICSR_R_PENDSTSET_BIT);
     return (enReturn);
 }

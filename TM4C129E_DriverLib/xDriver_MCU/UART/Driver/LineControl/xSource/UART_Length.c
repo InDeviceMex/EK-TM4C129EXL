@@ -28,12 +28,14 @@
 
 UART_nLENGTH UART__enGetDataLength(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_WLEN_MASK, UART_LCRH_R_WLEN_BIT);
-    return (UART_nLENGTH) u32Reg;
+    UART_nLENGTH enLenghtReg = UART_enLENGTH_5BITS;
+    enLenghtReg = (UART_nLENGTH) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                       UART_LCRH_WLEN_MASK, UART_LCRH_R_WLEN_BIT);
+    return (enLenghtReg);
 }
 
 void UART__vSetDataLength(UART_nMODULE enModule, UART_nLENGTH enDataLength)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enDataLength, UART_LCRH_WLEN_MASK, UART_LCRH_R_WLEN_BIT);
+    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enDataLength,
+                         UART_LCRH_WLEN_MASK, UART_LCRH_R_WLEN_BIT);
 }

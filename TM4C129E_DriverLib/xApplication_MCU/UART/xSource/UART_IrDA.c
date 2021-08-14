@@ -59,5 +59,5 @@ uint32_t UART__u32GetIrDALowPowerFrequency(UART_nMODULE enModule)
     f32Divider /= (float32_t) u32Divider;
     u32Result = (uint32_t) f32Divider;
     MCU__enSetFPUContextActive(enFPUActive);
-    return u32Result;
+    return (u32Result);
 }

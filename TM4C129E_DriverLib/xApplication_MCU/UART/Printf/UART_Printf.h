@@ -25,7 +25,7 @@
 #ifndef XAPPLICATION_MCU_UART_PRINTF_UART_PRINTF_H_
 #define XAPPLICATION_MCU_UART_PRINTF_UART_PRINTF_H_
 
-#include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
+#include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 #include <stdarg.h>
 
 uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... );

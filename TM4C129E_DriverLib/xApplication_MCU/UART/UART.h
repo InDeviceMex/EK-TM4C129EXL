@@ -25,6 +25,13 @@
 #ifndef XAPPLICATION_MCU_UART_UART_H_
 #define XAPPLICATION_MCU_UART_UART_H_
 
+#include <xApplication_MCU/UART/GraphicTerminal/GraphicTerminal.h>
 #include <xApplication_MCU/UART/Printf/UART_Printf.h>
+#include <xApplication_MCU/UART/LineControl/UART_LineControl.h>
+#include <xApplication_MCU/UART/Interrupt/UART_Interrupt.h>
+#include <xApplication_MCU/UART/Intrinsics/UART_Intrinsics.h>
+#include <xApplication_MCU/UART/xHeader/UART_Init.h>
+#include <xApplication_MCU/UART/xHeader/UART_Config.h>
+#include <xApplication_MCU/UART/xHeader/UART_IrDa.h>
 
 #endif /* XAPPLICATION_MCU_UART_UART_H_ */

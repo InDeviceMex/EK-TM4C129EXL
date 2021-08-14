@@ -33,7 +33,7 @@ void SCB__vSetWakeUpSource(SCB_nWAKEUPSOURCE enSource)
 }
 SCB_nWAKEUPSOURCE SCB__enGetWakeUpSource(void)
 {
-    SCB_nWAKEUPSOURCE enReturn = SCB_enWAKEUP_ERROR;
+    SCB_nWAKEUPSOURCE enReturn = SCB_enWAKEUP_ONLY;
     enReturn = (SCB_nWAKEUPSOURCE) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
                                   SCB_SCR_SEVONPEND_MASK, SCB_SCR_R_SEVONPEND_BIT);
     return (enReturn);

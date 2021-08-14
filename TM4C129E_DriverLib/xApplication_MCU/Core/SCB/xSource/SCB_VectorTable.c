@@ -27,15 +27,12 @@
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/FLASH/FLASH.h>
 
-
 #if defined (__TI_ARM__ )
-
-#pragma DATA_SECTION(SCB__pfnVectors, ".vtable")
-void (*SCB__pfnVectors[SCB_VECTOR_TABLE_SIZE]) (void) = {0UL};
-
+    #pragma DATA_SECTION(SCB__pfnVectors, ".vtable")
 #elif defined (__GNUC__ )
-__attribute__((section(".vtable"))) void (*SCB__pfnVectors[SCB_VECTOR_TABLE_SIZE]) (void) = {0UL};
+__attribute__((section(".vtable")))
 #endif
+void (*SCB__pfnVectors[SCB_VECTOR_TABLE_SIZE]) (void) = {0UL};
 
 void (**SCB__pfnGetVectorTableRam(void)) (void)
 {

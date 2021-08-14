@@ -13,7 +13,7 @@ FPU_nHALF_PRECISION FPU__enGetHalfPrecision(void)
 {
     FPU_nHALF_PRECISION enReturn = FPU_enHALF_PRECISION_IEEE;
     enReturn = (FPU_nHALF_PRECISION) MCU__u32ReadRegister(FPU_BASE, FPU_FPDSCR_OFFSET,
-                                                          FPU_FPDSCR_AHP_MASK, FPU_FPDSCR_R_AHP_BIT);
+                                              FPU_FPDSCR_AHP_MASK, FPU_FPDSCR_R_AHP_BIT);
     return (enReturn);
 }
 

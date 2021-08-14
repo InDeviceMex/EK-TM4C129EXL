@@ -13,7 +13,7 @@ FPU_nROUNDING FPU__enGetRounding(void)
 {
     FPU_nROUNDING enReturn = FPU_enROUNDING_NEAREST;
     enReturn = (FPU_nROUNDING) MCU__u32ReadRegister(FPU_BASE, FPU_FPDSCR_OFFSET,
-                                                    FPU_FPDSCR_RMODE_MASK, FPU_FPDSCR_R_RMODE_BIT);
+                                FPU_FPDSCR_RMODE_MASK, FPU_FPDSCR_R_RMODE_BIT);
     return (enReturn);
 }
 

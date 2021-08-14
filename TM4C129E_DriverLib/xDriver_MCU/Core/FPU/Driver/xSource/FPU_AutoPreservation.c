@@ -13,7 +13,7 @@ FPU_nAUTO_PRESERVATION FPU__enGetAutoPreservation(void)
 {
     FPU_nAUTO_PRESERVATION enReturn = FPU_enAUTO_PRESERVATION_DIS;
     enReturn = (FPU_nAUTO_PRESERVATION) MCU__u32ReadRegister(FPU_BASE, FPU_FPCCR_OFFSET,
-                                                             FPU_FPCCR_ASPEN_MASK, FPU_FPCCR_R_ASPEN_BIT);
+                                             FPU_FPCCR_ASPEN_MASK, FPU_FPCCR_R_ASPEN_BIT);
     return (enReturn);
 }
 

@@ -35,9 +35,10 @@ void UART__vSetParityEnable(UART_nMODULE enModule, UART_nPARITY enParityState)
 
 UART_nPARITY UART__enGetParityEnable(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
-    return (UART_nPARITY) u32Reg;
+    UART_nPARITY enParityReg = UART_enPARITY_DIS;
+    enParityReg = (UART_nPARITY) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                               UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
+    return (enParityReg);
 }
 
 
@@ -49,9 +50,10 @@ void UART__vSetParityType(UART_nMODULE enModule, UART_nPARITY_TYPE enParityTypeA
 
 UART_nPARITY_TYPE UART__enGetParityType(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
-    return (UART_nPARITY_TYPE) u32Reg;
+    UART_nPARITY_TYPE enParityTypeReg = UART_enPARITY_TYPE_ODD;
+    enParityTypeReg = (UART_nPARITY_TYPE) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                                    UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
+    return (enParityTypeReg);
 }
 
 void UART__vSetParityStick(UART_nMODULE enModule, UART_nPARITY_STICK enParityStickArg)
@@ -62,27 +64,38 @@ void UART__vSetParityStick(UART_nMODULE enModule, UART_nPARITY_STICK enParitySti
 
 UART_nPARITY_STICK UART__enGetParityStick(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
-    return (UART_nPARITY_STICK) u32Reg;
+    UART_nPARITY_STICK enParityStickReg = UART_enPARITY_STICK_DIS;
+    enParityStickReg = (UART_nPARITY_STICK) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                                      UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
+    return (enParityStickReg);
 }
 
 void UART__vSetParityConfigStruct(UART_nMODULE enModule, const UART_PARITY_TypeDef stParityConfig)
 {
-    UART__vSetParityConfig(enModule, stParityConfig.enParity, stParityConfig.enParityType, stParityConfig.enParityStick);
+    UART__vSetParityConfig(enModule,
+                           stParityConfig.enParity,
+                           stParityConfig.enParityType,
+                           stParityConfig.enParityStick);
 }
 
-void UART__vSetParityConfigStructPointer(UART_nMODULE enModule, const UART_PARITY_TypeDef* pstParityConfig)
+void UART__vSetParityConfigStructPointer(UART_nMODULE enModule,
+                                         const UART_PARITY_TypeDef* pstParityConfig)
 {
-    if((uint32_t) 0UL != (uint32_t) pstParityConfig)
+    if(0UL != (uint32_t) pstParityConfig)
     {
-        UART__vSetParityConfig(enModule, pstParityConfig->enParity, pstParityConfig->enParityType, pstParityConfig->enParityStick);
+        UART__vSetParityConfig(enModule,
+                               pstParityConfig->enParity,
+                               pstParityConfig->enParityType,
+                               pstParityConfig->enParityStick);
     }
 }
 
-void UART__vSetParityConfig(UART_nMODULE enModule, UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nPARITY_STICK enParityStickArg)
+void UART__vSetParityConfig(UART_nMODULE enModule,
+                            UART_nPARITY enParityStateArg,
+                            UART_nPARITY_TYPE enParityTypeArg,
+                            UART_nPARITY_STICK enParityStickArg)
 {
-    UART__vSetParityEnable(enModule, enParityState);
+    UART__vSetParityEnable(enModule, enParityStateArg);
     UART__vSetParityType(enModule, enParityTypeArg);
     UART__vSetParityStick(enModule, enParityStickArg);
 }

@@ -1,8 +1,8 @@
 /**
  *
- * @file UART_BaudRate_Complete.c
+ * @file UART_BaudRate.c
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,37 +11,31 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 7 feb. 2021 @endverbatim
+ * @verbatim 14 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 7 feb. 2021     vyldram    1.0         initial Version@endverbatim
+ * 14 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/UART/Driver/LineControl/BaudRate/xHeader/UART_BaudRate_Complete.h>
+#include <xApplication_MCU/UART/LineControl/BaudRate/UART_BaudRate.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/UART/Driver/LineControl/BaudRate/xHeader/UART_BaudRate_Register.h>
-#include <xDriver_MCU/UART/Driver/Control/xHeader/UART_HighSpeed.h>
-#include <xDriver_MCU/UART/Driver/Control/xHeader/UART_SMART.h>
-#include <xDriver_MCU/UART/Driver/xHeader/UART_ClockConfig.h>
-#include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
-#include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
+#include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
 UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_OK;
-    UART_nCLOCK enUartClock = UART_enCLOCK_UNDEF;
+    UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
     float32_t f32BaudRateDivisor = 0.0f;
     float32_t f32BaudRateFractional = 0.0f;
     uint32_t u32BaudRateFractional = 0UL;
     uint32_t u32BaudRateFractional2 = 0UL;
     uint32_t u32BaudRateInteger = 0UL;
     uint32_t u32BaudRateInteger2 = 0UL;
-    UART_nSMART enUartMode = UART_enSMART_UNDEF;
+    UART_nSMART enUartMode = UART_enSMART_DIS;
     UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_ENA;
     uint32_t u32CurrentClock = 0UL;
     MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
@@ -107,17 +101,17 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
             }
         }
         UART__vSetHighSpeed(enModule, enHSEValue);
-        UART__vSetBaudRateIntegerPart(enModule, u32BaudRateInteger);
-        UART__vSetBaudRateFractionalPart(enModule, u32BaudRateFractional);
+        UART__vSetBaudRateInteger(enModule, u32BaudRateInteger);
+        UART__vSetBaudRateFractional(enModule, u32BaudRateFractional);
     }
     MCU__enSetFPUContextActive(enFPUActive);
-    return enStatus;
+    return (enStatus);
 }
 
 uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
 {
-    UART_nCLOCK enUartClock = UART_enCLOCK_UNDEF;
-    UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_UNDEF;
+    UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
+    UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_DIS;
     uint32_t u32BaudRate = 0UL;
     float32_t f32BaudRate = 0.0f;
     float32_t f32BaudRateDivisor = 0.0f;
@@ -145,9 +139,9 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
             u32CurrentClock = SYSCTL__u32GetSystemClock();
         }
 
-        u32BaudRateInteger = UART__u32GetBaudRateIntegerPart(enModule);
+        u32BaudRateInteger = UART__u32GetBaudRateInteger(enModule);
         f32BaudRateDivisor = (float32_t) u32BaudRateInteger;
-        u32BaudRateFractional = UART__u32GetBaudRateFractionalPart(enModule);
+        u32BaudRateFractional = UART__u32GetBaudRateFractional(enModule);
         f32BaudRateFractional = (float32_t) u32BaudRateFractional;
         f32BaudRateFractional /= 64.0f;
 
@@ -159,5 +153,5 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
         u32BaudRate = (uint32_t) f32BaudRate;
     }
     MCU__enSetFPUContextActive(enFPUActive);
-    return u32BaudRate;
+    return (u32BaudRate);
 }

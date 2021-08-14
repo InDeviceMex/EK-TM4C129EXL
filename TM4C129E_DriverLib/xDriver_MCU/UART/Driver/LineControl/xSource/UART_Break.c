@@ -28,14 +28,16 @@
 
 UART_nBREAK UART__enGetBreak(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    UART__enReadRegister(enModule, UART_LCRH_OFFSET, &u32Reg, UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
-    return (UART_nBREAK) u32Reg;
+    UART_nBREAK enBreakReg = UART_enBREAK_DIS;
+    enBreakReg = (UART_nBREAK) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
+                                         UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
+    return (enBreakReg);
 }
 
 void UART__vSetBreak(UART_nMODULE enModule, UART_nBREAK enBreakArg)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enBreakArg, UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
+    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (uint32_t) enBreakArg,
+                         UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
 }
 
 void UART__vSendBreak(UART_nMODULE enModule)

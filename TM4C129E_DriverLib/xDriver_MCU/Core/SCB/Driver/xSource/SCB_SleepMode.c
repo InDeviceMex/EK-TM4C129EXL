@@ -42,7 +42,7 @@ void SCB__vDeepSleepMode(void)
 
 SCB_nSleepDeep SCB__enGetSleepMode(void)
 {
-    SCB_nSleepDeep enReturn = SCB_enSleepDeep_ERROR;
+    SCB_nSleepDeep enReturn = SCB_enSleepDeep_Sleep;
     enReturn = (SCB_nSleepDeep) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
                                          SCB_SCR_SLEEPDEEP_MASK, SCB_SCR_R_SLEEPDEEP_BIT);
 
@@ -57,7 +57,7 @@ void SCB__vSetSLEEPONEXIT(SCB_nSLEEPONEXIT enSleepMode)
 
 SCB_nSLEEPONEXIT SCB__enGetSLEEPONEXIT(void)
 {
-    SCB_nSLEEPONEXIT enReturn = SCB_enSLEEPONEXIT_ERROR;
+    SCB_nSLEEPONEXIT enReturn = SCB_enSLEEPONEXIT_NOSLEEP;
     enReturn = (SCB_nSLEEPONEXIT) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
                                    SCB_SCR_SLEEPONEXIT_MASK, SCB_SCR_R_SLEEPONEXIT_BIT);
     return (enReturn);

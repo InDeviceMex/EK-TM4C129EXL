@@ -34,7 +34,7 @@ void SCB__vSetStackAligment(SCB_nAlignment enAlign)
 
 SCB_nAlignment SCB__enGetStackAligment(void)
 {
-    SCB_nAlignment enReturn = SCB_enALIGN_ERROR;
+    SCB_nAlignment enReturn = SCB_enALIGN_4BYTE;
     enReturn = (SCB_nAlignment) MCU__u32ReadRegister(SCB_BASE, SCB_CCR_OFFSET,
                                      SCB_CCR_STKALIGN_MASK, SCB_CCR_R_STKALIGN_BIT);
     return (enReturn);

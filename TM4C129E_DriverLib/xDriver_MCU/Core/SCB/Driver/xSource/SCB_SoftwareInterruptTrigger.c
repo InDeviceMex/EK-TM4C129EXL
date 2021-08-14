@@ -39,6 +39,3 @@ void SCB__vDisUnprivilegedSWTrigger(void)
                         SCB_CCR_USERSETMPEND_MASK, SCB_CCR_R_USERSETMPEND_BIT);
 }
 
-
-
-

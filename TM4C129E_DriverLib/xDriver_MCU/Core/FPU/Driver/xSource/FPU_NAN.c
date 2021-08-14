@@ -13,7 +13,7 @@ FPU_nNAN FPU__enGetNAN(void)
 {
     FPU_nNAN enReturn = FPU_enNAN_PROPAGATE;
     enReturn = (FPU_nNAN) MCU__u32ReadRegister(FPU_BASE, FPU_FPDSCR_OFFSET,
-                                               FPU_FPDSCR_DN_MASK, FPU_FPDSCR_R_DN_BIT);
+                                   FPU_FPDSCR_DN_MASK, FPU_FPDSCR_R_DN_BIT);
     return (enReturn);
 }
 
