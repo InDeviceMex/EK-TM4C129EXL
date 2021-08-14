@@ -60,7 +60,8 @@ GPIO_CONFIG_Typedef* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
     uint32_t u32Config = 0UL;
     GPIO_CONFIG_Typedef *pstConfig = 0UL;
 #if defined (__TI_ARM__ )
-    pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4, (size_t) (sizeof(GPIO_CONFIG_Typedef)));
+    pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4,
+                                                 (size_t) (sizeof(GPIO_CONFIG_Typedef)));
 #elif defined (__GNUC__ )
     pstConfig = (GPIO_CONFIG_Typedef*) malloc((size_t) sizeof(GPIO_CONFIG_Typedef));
     #endif

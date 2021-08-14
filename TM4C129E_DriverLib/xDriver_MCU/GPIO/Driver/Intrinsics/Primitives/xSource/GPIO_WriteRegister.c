@@ -26,11 +26,14 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vWriteRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void GPIO__vWriteRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister,
+                          uint32_t u32FeatureValue, uint32_t u32MaskFeature,
+                          uint32_t u32BitFeature)
 {
     uint32_t u32PortBase = 0UL;
     uint32_t u32Port = 0UL;
     u32Port = MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
     u32PortBase = GPIO__u32BlockBaseAddress((GPIO_nPORT) u32Port);
-    MCU__vWriteRegister(u32PortBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
+    MCU__vWriteRegister(u32PortBase, u32OffsetRegister,
+                        u32FeatureValue, u32MaskFeature, u32BitFeature);
 }

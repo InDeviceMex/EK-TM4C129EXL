@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/FLASH/Peripheral/xHeader/FLASH_Enum.h>
 
-void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),FLASH_nINTERRUPT enInterruptParam);
+void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                      FLASH_nINTERRUPT enInterruptParam);
 
 #endif /* XDRIVER_MCU_FLASH_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_FLASH_INTERRUPTREGISTERIRQSOURCE_H_ */

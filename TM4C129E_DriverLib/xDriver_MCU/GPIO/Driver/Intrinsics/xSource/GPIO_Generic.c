@@ -36,7 +36,8 @@ void GPIO__vDisGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN 
     GPIO__vWriteRegister(enPort, u32RegisterOffset, 0UL, (uint32_t) enPin, 0UL);
 }
 
-void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin, uint32_t u32Feature)
+void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset,
+                       GPIO_nPIN enPin, uint32_t u32Feature)
 {
     if(0UL == u32Feature)
     {

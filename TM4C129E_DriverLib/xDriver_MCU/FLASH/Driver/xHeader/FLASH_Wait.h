@@ -17,8 +17,8 @@
 FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask);
 
 #elif defined (__GNUC__ )
-
-FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask) __attribute__((section(".ramcode")));
+__attribute__((section(".ramcode")))
+FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask) ;
 
 #endif
 

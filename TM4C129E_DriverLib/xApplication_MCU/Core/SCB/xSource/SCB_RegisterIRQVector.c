@@ -25,7 +25,7 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/SCB.h>
-#include <xDriver_MCU/FLASH/FLASH.h>
+#include <xApplication_MCU/FLASH/FLASH.h>
 
 void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
                                     void (**pfIrqVectorHandlerExtern) (void),

@@ -27,6 +27,8 @@
 
 #include <xApplication_MCU/FLASH/Interrupt/FLASH_Interrupt.h>
 #include <xApplication_MCU/FLASH/Intrinsics/FLASH_Intrinsics.h>
+#include <xApplication_MCU/FLASH/Write/FLASH_Write.h>
 #include <xApplication_MCU/FLASH/xHeader/FLASH_Init.h>
+#include <xApplication_MCU/FLASH/xHeader/FLASH_Erase.h>
 
 #endif /* XAPPLICATION_MCU_FLASH_FLASH_H_ */

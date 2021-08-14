@@ -2,7 +2,7 @@
  *
  * @file FLASH_InitProcess.h
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,21 +11,21 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 28 ene. 2021 @endverbatim
+ * @verbatim 14 ago. 2021 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 28 ene. 2021     vyldram    1.0         initial Version@endverbatim
+ * 14 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_FLASH_DRIVER_XHEADER_FLASH_INITPROCESS_H_
-#define XDRIVER_MCU_FLASH_DRIVER_XHEADER_FLASH_INITPROCESS_H_
+#ifndef XAPPLICATION_MCU_FLASH_XHEADER_FLASH_INITPROCESS_H_
+#define XAPPLICATION_MCU_FLASH_XHEADER_FLASH_INITPROCESS_H_
 
-#include <xDriver_MCU/FLASH/Peripheral/xHeader/FLASH_Enum.h>
+#include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Defines.h>
 
 #if defined (__TI_ARM__ )
 
@@ -39,4 +39,4 @@ FLASH_nSTATUS FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature) __attr
 
 #endif
 
-#endif /* XDRIVER_MCU_FLASH_DRIVER_XHEADER_FLASH_INITPROCESS_H_ */
+#endif /* XAPPLICATION_MCU_FLASH_XHEADER_FLASH_INITPROCESS_H_ */

@@ -25,61 +25,111 @@
 
 static void GPIO_vIRQSourceHandler_Dummy(void);
 
-void (*GPIO__vIRQSourceHandler[(uint32_t) GPIO_enPORT_MAX][(uint32_t) GPIO_enPIN_NUMBER_MAX])(void) =
+void (*GPIO__vIRQSourceHandler[(uint32_t) GPIO_enPORT_MAX]
+                              [(uint32_t) GPIO_enPIN_NUMBER_MAX])(void) =
 {
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
-    {   &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
-        &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    {
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+         &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
     },
 };
 
 void (*GPIO__vIRQSourceDMAHandler[(uint32_t) GPIO_enPORT_MAX])(void) =
 {
- &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
- &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
- &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
- &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy, &GPIO_vIRQSourceHandler_Dummy,
+    &GPIO_vIRQSourceHandler_Dummy
 };
 
 static void GPIO_vIRQSourceHandler_Dummy(void)
@@ -87,22 +137,33 @@ static void GPIO_vIRQSourceHandler_Dummy(void)
     while(1UL){ }
 }
 
-void (*GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort, GPIO_nPIN_NUMBER enPinNumber))(void)
+void (*GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort,
+                                    GPIO_nPIN_NUMBER enPinNumber))(void)
 {
-    return (GPIO__vIRQSourceHandler[(uint32_t) enGPIOPort][(uint32_t) enPinNumber]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = GPIO__vIRQSourceHandler[(uint32_t) enGPIOPort][(uint32_t) enPinNumber];
+    return (pvfFunctionReg);
 }
 
-void (**GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort, GPIO_nPIN_NUMBER enPinNumber))(void)
+void (**GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort,
+                                            GPIO_nPIN_NUMBER enPinNumber))(void)
 {
-    return ((void(**)(void)) &GPIO__vIRQSourceHandler[(uint32_t) enGPIOPort][(uint32_t) enPinNumber]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &GPIO__vIRQSourceHandler[(uint32_t) enGPIOPort]
+                                                              [(uint32_t) enPinNumber];
+    return (pvfFunctionReg);
 }
 
 void (*GPIO__pvfGetIRQSourceDMAHandler(GPIO_nPORT enGPIOPort))(void)
 {
-    return (GPIO__vIRQSourceDMAHandler[(uint32_t) enGPIOPort]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = GPIO__vIRQSourceDMAHandler[(uint32_t) enGPIOPort];
+    return (pvfFunctionReg);
 }
 
 void (**GPIO__pvfGetIRQSourceDMAHandlerPointer(GPIO_nPORT enGPIOPort))(void)
 {
-    return ((void(**)(void)) &GPIO__vIRQSourceDMAHandler[(uint32_t) enGPIOPort]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &GPIO__vIRQSourceDMAHandler[(uint32_t) enGPIOPort];
+    return (pvfFunctionReg);
 }

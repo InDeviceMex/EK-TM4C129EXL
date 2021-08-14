@@ -36,13 +36,12 @@ uint32_t FLASH__u32GetSize (void);
 uint32_t FLASH__u32GetSectorSize (void);
 
 #elif defined (__GNUC__ )
+__attribute__((section(".ramcode")))
+uint32_t FLASH__u32GetSize (void);
 
-uint32_t FLASH__u32GetSize (void) __attribute__((section(".ramcode")));
-uint32_t FLASH__u32GetSectorSize (void) __attribute__((section(".ramcode")));
+__attribute__((section(".ramcode")))
+uint32_t FLASH__u32GetSectorSize (void);
 
 #endif
-
-
-
 
 #endif /* XDRIVER_MCU_FLASH_DRIVER_XHEADER_FLASH_SIZE_H_ */

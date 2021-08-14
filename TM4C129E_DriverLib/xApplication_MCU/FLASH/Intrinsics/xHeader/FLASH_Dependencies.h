@@ -34,4 +34,6 @@
 #include <xDriver_MCU/FLASH/FLASH.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
+
 #endif /* XAPPLICATION_MCU_FLASH_INTRINSICS_XHEADER_FLASH_DEPENDENCIES_H_ */

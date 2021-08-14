@@ -27,7 +27,8 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/GPIO_InterruptRoutine_Source.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                     GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Port = 0UL;
@@ -45,9 +46,10 @@ void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), GPIO_nPO
             u32Pin >>= 1UL;
         }
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                       GPIO__pvfGetIRQSourceHandlerPointer((GPIO_nPORT) u32Port, (GPIO_nPIN_NUMBER) u32PinNumber),
-                                       0UL,
-                                       1UL);
+               GPIO__pvfGetIRQSourceHandlerPointer((GPIO_nPORT) u32Port,
+                                                   (GPIO_nPIN_NUMBER) u32PinNumber),
+               0UL,
+               1UL);
     }
 }
 
@@ -59,8 +61,8 @@ void GPIO__vRegisterIRQSourceDMAHandler(void (*pfIrqSourceHandler) (void), GPIO_
     {
         u32Port = MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                       GPIO__pvfGetIRQSourceDMAHandlerPointer((GPIO_nPORT) u32Port),
-                                       0UL,
-                                       1UL);
+               GPIO__pvfGetIRQSourceDMAHandlerPointer((GPIO_nPORT) u32Port),
+               0UL,
+               1UL);
     }
 }

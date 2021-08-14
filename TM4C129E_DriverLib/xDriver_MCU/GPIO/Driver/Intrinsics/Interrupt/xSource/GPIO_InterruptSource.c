@@ -38,22 +38,26 @@ void GPIO__vDisInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
 
 void GPIO__vClearInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO__vWriteRegister(enPort, GPIO_ICR_OFFSET, (uint32_t) enPin, (uint32_t) enPin, 0UL);
+    GPIO__vWriteRegister(enPort, GPIO_ICR_OFFSET,
+             (uint32_t) enPin, (uint32_t) enPin, 0UL);
 }
 
 void GPIO__vEnInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET, GPIO_IM_DMAIME_ENA, GPIO_IM_DMAIME_MASK, GPIO_IM_R_DMAIME_BIT);
+    GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET,
+         GPIO_IM_DMAIME_ENA, GPIO_IM_DMAIME_MASK, GPIO_IM_R_DMAIME_BIT);
 }
 
 void GPIO__vDisInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET, GPIO_IM_DMAIME_DIS, GPIO_IM_DMAIME_MASK, GPIO_IM_R_DMAIME_BIT);
+    GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET,
+         GPIO_IM_DMAIME_DIS, GPIO_IM_DMAIME_MASK, GPIO_IM_R_DMAIME_BIT);
 }
 
 void GPIO__vClearInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO__vWriteRegister(enPort, GPIO_ICR_OFFSET, GPIO_ICR_DMAIC_CLEAR, GPIO_ICR_DMAIC_MASK, GPIO_ICR_R_DMAIC_BIT);
+    GPIO__vWriteRegister(enPort, GPIO_ICR_OFFSET,
+         GPIO_ICR_DMAIC_CLEAR, GPIO_ICR_DMAIC_MASK, GPIO_ICR_R_DMAIC_BIT);
 }
 
 GPIO_nINT_STATUS GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
@@ -78,8 +82,8 @@ GPIO_nINT_STATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort)
     GPIO_nINT_STATUS enStatus = GPIO_enINT_NOOCCUR;
     uint32_t u32Reg = 0UL;
 
-    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET, GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
-
+    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET,
+                                   GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
     if(0UL != u32Reg)
     {
         enStatus = GPIO_enINT_OCCUR;

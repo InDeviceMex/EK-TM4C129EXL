@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_LEVEL enWakeLevel);
+void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin,
+                         GPIO_nWAKE_LEVEL enWakeLevel);
 GPIO_nWAKE_LEVEL GPIO__enGetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_WAKE_XHEADER_GPIO_WAKELEVEL_H_ */

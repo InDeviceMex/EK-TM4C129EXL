@@ -26,13 +26,15 @@
 static void FLASH_vIRQSourceHandler_Dummy(void);
 
 void (*FLASH__vIRQSourceHandler[(uint32_t) FLASH_enINTERRUPT_MAX]) (void)=
-{&FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy,
- &FLASH_vIRQSourceHandler_Dummy};
+{
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy
+};
 
 static void FLASH_vIRQSourceHandler_Dummy(void)
 {
@@ -41,10 +43,14 @@ static void FLASH_vIRQSourceHandler_Dummy(void)
 
 void (*FLASH__pvfGetIRQSourceHandler(FLASH_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return (FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
 
 void (**FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return ((void(**)(void)) &FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }

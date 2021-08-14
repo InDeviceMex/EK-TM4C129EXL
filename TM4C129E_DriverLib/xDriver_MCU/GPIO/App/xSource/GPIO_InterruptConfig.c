@@ -27,7 +27,8 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptLevel.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptSense.h>
 
-void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_CONFIG enIntConfigArg)
+void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
+                                     GPIO_nINT_CONFIG enIntConfigArg)
 {
     uint32_t u32Sense = 0UL;
     uint32_t u32Event = 0UL;
@@ -48,7 +49,3 @@ void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nI
         GPIO__vSetIntLevel(enPort, enPin, (GPIO_nLEVEL) u32Event);
     }
 }
-
-
-
-

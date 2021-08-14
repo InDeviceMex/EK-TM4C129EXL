@@ -33,7 +33,7 @@ inline void GPIO__vSetData(GPIO_nPORT enPort, GPIO_nPIN enPin, uint32_t u32Data)
 
 inline uint32_t GPIO__u32GetData(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = GPIO__u32ReadRegister(enPort, GPIO_DATA_OFFSET, (uint32_t) enPin, 0UL);
-    return (u32Reg);
+    uint32_t u32DataReg = 0UL;
+    u32DataReg = GPIO__u32ReadRegister(enPort, GPIO_DATA_OFFSET, (uint32_t) enPin, 0UL);
+    return (u32DataReg);
 }

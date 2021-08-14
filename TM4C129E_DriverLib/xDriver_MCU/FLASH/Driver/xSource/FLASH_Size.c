@@ -30,7 +30,8 @@ uint32_t FLASH__u32GetSize (void)
 {
     uint32_t u32Size = 0UL;
 
-    u32Size = MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHPP_OFFSET, FLASH_FLASHPP_SIZE_MASK, FLASH_FLASHPP_R_SIZE_BIT);
+    u32Size = MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHPP_OFFSET,
+                               FLASH_FLASHPP_SIZE_MASK, FLASH_FLASHPP_R_SIZE_BIT);
     u32Size++;
     u32Size *= 2048UL;
     return (u32Size);
@@ -41,7 +42,8 @@ uint32_t FLASH__u32GetSectorSize (void)
     uint32_t u32Shift = 0UL;
     uint32_t u32SectorSize = 1024UL;
 
-    u32Shift = MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHPP_OFFSET, FLASH_FLASHPP_MAINSS_MASK, FLASH_FLASHPP_R_MAINSS_BIT);
+    u32Shift = MCU__u32ReadRegister(FLASH_BASE, FLASH_FLASHPP_OFFSET,
+                            FLASH_FLASHPP_MAINSS_MASK, FLASH_FLASHPP_R_MAINSS_BIT);
     u32SectorSize <<= u32Shift;
     return (u32SectorSize);
 }

@@ -35,7 +35,7 @@ void GPIO__vSetCommit(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nCOMMIT enFeature
 
 GPIO_nCOMMIT GPIO__enGetCommit(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nCOMMIT enFeature = GPIO_enCOMMIT_DIS;
-    enFeature = (GPIO_nCOMMIT) GPIO__u32GetGeneric(enPort, GPIO_CR_OFFSET, enPin);
-    return (enFeature);
+    GPIO_nCOMMIT enCommitReg = GPIO_enCOMMIT_DIS;
+    enCommitReg = (GPIO_nCOMMIT) GPIO__u32GetGeneric(enPort, GPIO_CR_OFFSET, enPin);
+    return (enCommitReg);
 }

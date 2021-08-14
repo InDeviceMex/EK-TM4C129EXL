@@ -36,11 +36,11 @@ void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_TYPE enIntT
 
 GPIO_nINT_TYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nINT_TYPE enFeature = GPIO_enINT_TYPE_UNDEF;
+    GPIO_nINT_TYPE enTypeReg = GPIO_enINT_TYPE_UNDEF;
 
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
     {
-        enFeature = (GPIO_nINT_TYPE) GPIO__u32GetGeneric(enPort, GPIO_SI_OFFSET, enPin);
+        enTypeReg = (GPIO_nINT_TYPE) GPIO__u32GetGeneric(enPort, GPIO_SI_OFFSET, enPin);
     }
-    return (enFeature);
+    return (enTypeReg);
 }

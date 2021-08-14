@@ -75,8 +75,8 @@ void Task2(void* pvParams)
     {
 
         EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
-        u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 10UL, 10UL);
-        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 10, 128 - 10);
+        u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 120UL, 0UL);
+        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 0UL, 128 - 76);
         if(u32Image)
         {
             pu16Pointer = (uint16_t*) Images__pu8DolphinPointer();
@@ -85,19 +85,16 @@ void Task2(void* pvParams)
         {
             pu16Pointer = (uint16_t*) Images__pu8BicyclePointer();
         }
-        for(u32LcdPosY = 0UL ; u32LcdPosY < 76UL; u32LcdPosY++)
+        for(u32LcdPosY = 0UL; u32LcdPosY < 128UL *128UL; u32LcdPosY++)
         {
-            for(u32LcdPosX = 0UL ; u32LcdPosX < 120UL; u32LcdPosX++)
+            u16BufferSPI[u32LcdPosY] = 0UL;
+        }
+        for(u32LcdPosY = u32LcdPosYCurrent ; u32LcdPosY < (u32LcdPosYCurrent + 76UL); u32LcdPosY++)
+        {
+            for(u32LcdPosX = u32LcdPosXCurrent ; u32LcdPosX < (u32LcdPosXCurrent + 120UL); u32LcdPosX++)
             {
                 u16BufferSPI[u32LcdPosX + (u32LcdPosY * 128UL)] = *pu16Pointer;
                 pu16Pointer++;
-            }
-        }
-        for(u32LcdPosY = u32LcdPosYCurrent - 10UL ; u32LcdPosY < (u32LcdPosYCurrent - 10UL) + 20UL; u32LcdPosY++)
-        {
-            for(u32LcdPosX = u32LcdPosXCurrent - 10UL ; u32LcdPosX < ( u32LcdPosXCurrent - 10UL) + 20UL; u32LcdPosX++)
-            {
-                u16BufferSPI[u32LcdPosX + (u32LcdPosY * 128UL)] = (uint32_t) COLORS_enGREEN;
             }
         }
         ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);

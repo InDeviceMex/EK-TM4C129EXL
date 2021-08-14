@@ -36,14 +36,11 @@ void GPIO__vSetWakeStatus(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_STATUS 
 
 GPIO_nWAKE_STATUS GPIO__enGetWakeStatus(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nWAKE_STATUS enFeature = GPIO_enWAKE_STATUS_IDLE;
+    GPIO_nWAKE_STATUS enWakeReg = GPIO_enWAKE_STATUS_IDLE;
 
     if(GPIO_enPORT_K == enPort)
     {
-        enFeature = (GPIO_nWAKE_STATUS) GPIO__u32GetGeneric(enPort, GPIO_WAKESTAT_OFFSET, enPin);
+        enWakeReg = (GPIO_nWAKE_STATUS) GPIO__u32GetGeneric(enPort, GPIO_WAKESTAT_OFFSET, enPin);
     }
-    return (enFeature);
+    return (enWakeReg);
 }
-
-
-

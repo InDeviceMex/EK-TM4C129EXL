@@ -27,8 +27,10 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void (**GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort, GPIO_nPIN_NUMBER enPinNumber))(void);
-void (*GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort, GPIO_nPIN_NUMBER enPinNumber))(void);
+void (**GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort,
+                                            GPIO_nPIN_NUMBER enPinNumber))(void);
+void (*GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort,
+                                    GPIO_nPIN_NUMBER enPinNumber))(void);
 
 void (**GPIO__pvfGetIRQSourceDMAHandlerPointer(GPIO_nPORT enGPIOPort))(void);
 void (*GPIO__pvfGetIRQSourceDMAHandler(GPIO_nPORT enGPIOPort))(void);

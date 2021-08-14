@@ -28,7 +28,7 @@
 
 SSI_nFIFO_EMPTY SSI__enIsFifoTransmitEmpty(SSI_nMODULE enModule)
 {
-    SSI_nFIFO_EMPTY enFifoReg = 0UL;
+    SSI_nFIFO_EMPTY enFifoReg = SSI_enFIFO_NO_EMPTY;
     enFifoReg = (SSI_nFIFO_EMPTY) SSI__u32ReadRegister(enModule,
                         SSI_SR_OFFSET, SSI_SR_TFE_MASK, SSI_SR_R_TFE_BIT);
     return (enFifoReg);

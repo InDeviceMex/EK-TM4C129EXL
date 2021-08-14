@@ -27,7 +27,8 @@
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/FLASH_InterruptRoutine_Source.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
-void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), FLASH_nINTERRUPT enInterruptParam)
+void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                      FLASH_nINTERRUPT enInterruptParam)
 {
     uint32_t u32InterruptSource = 0UL;
     if(0UL != (uint32_t) pfIrqSourceHandler)
@@ -35,8 +36,8 @@ void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), FLASH_n
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
                                                   (uint32_t) FLASH_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler_RAM(pfIrqSourceHandler,
-                                           FLASH__pvfGetIRQSourceHandlerPointer((FLASH_nINTERRUPT) u32InterruptSource),
-                                           0UL,
-                                           1UL);
+               FLASH__pvfGetIRQSourceHandlerPointer((FLASH_nINTERRUPT) u32InterruptSource),
+               0UL,
+               1UL);
     }
 }

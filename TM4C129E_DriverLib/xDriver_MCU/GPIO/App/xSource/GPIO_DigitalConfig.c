@@ -28,7 +28,8 @@
 #include <xDriver_MCU/GPIO/App/xHeader/GPIO_DigitalFunction.h>
 #include <xDriver_MCU/GPIO/Driver/GPIO_Driver.h>
 
-GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_nCONFIG enConfigParam)
+GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
+                                      GPIO_nCONFIG enConfigParam)
 {
     GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
 
@@ -71,7 +72,8 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_nC
     return (enReturn);
 }
 
-GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction, const GPIO_CONFIG_Typedef *pstConfig)
+GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
+                                            const GPIO_CONFIG_Typedef *pstConfig)
 {
     GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
 
@@ -197,7 +199,8 @@ GPIO_CONFIG_Typedef* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction
     if(GPIO_enGPIO_UNDEF != enFunction)
     {
     #if defined (__TI_ARM__ )
-        pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4, (size_t) (sizeof(GPIO_CONFIG_Typedef) ));
+        pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4,
+                                             (size_t) (sizeof(GPIO_CONFIG_Typedef) ));
     #elif defined (__GNUC__ )
         pstConfig = (GPIO_CONFIG_Typedef*) malloc( (size_t) sizeof(GPIO_CONFIG_Typedef));
     #endif

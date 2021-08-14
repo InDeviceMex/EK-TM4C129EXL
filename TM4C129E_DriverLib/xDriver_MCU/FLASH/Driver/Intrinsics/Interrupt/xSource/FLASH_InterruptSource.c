@@ -30,27 +30,29 @@ void FLASH__vEnInterruptSource(FLASH_nINT enInterruptParam)
 {
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     u32InterruptParam &= (uint32_t) FLASH_enINT_ALL;
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FCIM_OFFSET, u32InterruptParam, u32InterruptParam, 0UL);
+    MCU__vWriteRegister(FLASH_BASE, FLASH_FCIM_OFFSET,
+                        u32InterruptParam, u32InterruptParam, 0UL);
 }
 
 void FLASH__vDisInterruptSource(FLASH_nINT enInterruptParam)
 {
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     u32InterruptParam &= (uint32_t) FLASH_enINT_ALL;
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FCIM_OFFSET, 0UL, u32InterruptParam, 0UL);
+    MCU__vWriteRegister(FLASH_BASE, FLASH_FCIM_OFFSET,
+                        0UL, u32InterruptParam, 0UL);
 }
 
 void FLASH__vClearInterruptSource(FLASH_nINT enInterruptParam)
 {
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     u32InterruptParam &= (uint32_t) FLASH_enINT_ALL;
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FCMISC_OFFSET, u32InterruptParam, u32InterruptParam, 0UL);
-
+    MCU__vWriteRegister(FLASH_BASE, FLASH_FCMISC_OFFSET,
+                        u32InterruptParam, u32InterruptParam, 0UL);
 }
 
 FLASH_nINT_STATUS FLASH__enStatusInterruptSource(FLASH_nINT enInterruptParam)
 {
-    FLASH_nINT_STATUS enStatus = FLASH_enINT_STATUS_UNDEF;
+    FLASH_nINT_STATUS enStatus = FLASH_enINT_NOOCCUR;
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     uint32_t u32Reg = 0UL;
 

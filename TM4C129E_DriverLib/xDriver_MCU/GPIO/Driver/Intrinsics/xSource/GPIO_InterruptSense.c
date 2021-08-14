@@ -33,7 +33,7 @@ void GPIO__vSetIntSense(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nSENSE enSense)
 
 GPIO_nSENSE GPIO__enGetIntSense(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nSENSE enFeature = GPIO_enSENSE_EDGE;
-    enFeature = (GPIO_nSENSE) GPIO__u32GetGeneric(enPort, GPIO_IS_OFFSET, enPin);
-    return (enFeature);
+    GPIO_nSENSE enSenseReg = GPIO_enSENSE_EDGE;
+    enSenseReg = (GPIO_nSENSE) GPIO__u32GetGeneric(enPort, GPIO_IS_OFFSET, enPin);
+    return (enSenseReg);
 }

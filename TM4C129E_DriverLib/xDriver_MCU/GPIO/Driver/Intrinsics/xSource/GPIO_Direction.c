@@ -33,7 +33,7 @@ void GPIO__vSetDirection(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDIR enFeature
 
 GPIO_nDIR GPIO__enGetDirection(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nDIR enFeature = GPIO_enDIR_INPUT;
-    enFeature = (GPIO_nDIR) GPIO__u32GetGeneric(enPort, GPIO_DIR_OFFSET, enPin);
-    return (enFeature);
+    GPIO_nDIR enDirReg = GPIO_enDIR_INPUT;
+    enDirReg = (GPIO_nDIR) GPIO__u32GetGeneric(enPort, GPIO_DIR_OFFSET, enPin);
+    return (enDirReg);
 }

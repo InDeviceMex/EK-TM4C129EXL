@@ -46,7 +46,7 @@ void GPIO__vSetDigital(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDIGITAL enFeatu
 
 GPIO_nDIGITAL GPIO__enGetDigital(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_nDIGITAL enFeature = GPIO_enDIGITAL_DIS;
-    enFeature = (GPIO_nDIGITAL) GPIO__u32GetGeneric(enPort, GPIO_DEN_OFFSET, enPin);
-    return (enFeature);
+    GPIO_nDIGITAL enDigitalReg = GPIO_enDIGITAL_DIS;
+    enDigitalReg = (GPIO_nDIGITAL) GPIO__u32GetGeneric(enPort, GPIO_DEN_OFFSET, enPin);
+    return (enDigitalReg);
 }
