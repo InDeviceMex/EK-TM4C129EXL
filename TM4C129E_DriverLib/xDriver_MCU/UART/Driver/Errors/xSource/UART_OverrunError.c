@@ -30,6 +30,6 @@ UART_nERROR UART__enGetOverrunErrorState(UART_nMODULE enModule)
 {
     UART_nERROR enErrorReg = UART_enERROR_NOOCCUR;
     enErrorReg = (UART_nERROR) UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
-                                                     UART_RSR_OE_MASK, UART_RSR_R_OE_BIT);
+                                         UART_RSR_OE_MASK, UART_RSR_R_OE_BIT);
     return (enErrorReg);
 }

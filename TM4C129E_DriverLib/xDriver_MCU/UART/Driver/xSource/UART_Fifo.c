@@ -37,7 +37,7 @@ UART_nFIFO_LEVEL UART__enGetFifoRxLevel(UART_nMODULE enModule)
 {
     UART_nFIFO_LEVEL enFifoLevelReg = UART_enFIFO_LEVEL_2_16;
     enFifoLevelReg = (UART_nFIFO_LEVEL) UART__u32ReadRegister(enModule, UART_IFLS_OFFSET,
-                                              UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
+                                  UART_IFLS_RXIFLSEL_MASK, UART_IFLS_R_RXIFLSEL_BIT);
     return (enFifoLevelReg);
 }
 
@@ -51,6 +51,6 @@ UART_nFIFO_LEVEL UART__enGetFifoTxLevel(UART_nMODULE enModule)
 {
     UART_nFIFO_LEVEL enFifoLevelReg = UART_enFIFO_LEVEL_2_16;
     enFifoLevelReg = (UART_nFIFO_LEVEL) UART__u32ReadRegister(enModule, UART_IFLS_OFFSET,
-                                              UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
+                                  UART_IFLS_TXIFLSEL_MASK, UART_IFLS_R_TXIFLSEL_BIT);
     return (enFifoLevelReg);
 }

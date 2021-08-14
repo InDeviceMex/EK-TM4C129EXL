@@ -30,6 +30,6 @@ UART_nCTS UART__enGetClearToSendStatus(UART_nMODULE enModule)
 {
     UART_nCTS enCTSReg = UART_enCTS_NOASSERT;
     enCTSReg = (UART_nCTS) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
-                                                 UART_FR_CTS_MASK, UART_FR_R_CTS_BIT);
+                                     UART_FR_CTS_MASK, UART_FR_R_CTS_BIT);
     return (enCTSReg);
 }

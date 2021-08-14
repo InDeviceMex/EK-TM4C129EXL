@@ -35,6 +35,7 @@ uint32_t UART__u32GetSelfAddress(UART_nMODULE enModule);
 void UART__vSetSelfAddressMask(UART_nMODULE enModule, uint32_t  u32AddressMaskArg);
 uint32_t UART__u32GetSelfAddressMask(UART_nMODULE enModule);
 
-void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, uint32_t  u32AddressArg, uint32_t  u32AddressMaskArg);
+void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, uint32_t  u32AddressArg,
+                                   uint32_t  u32AddressMaskArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_9BITADDRESS_H_ */

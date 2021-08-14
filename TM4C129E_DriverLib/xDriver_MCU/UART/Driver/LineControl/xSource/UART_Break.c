@@ -30,7 +30,7 @@ UART_nBREAK UART__enGetBreak(UART_nMODULE enModule)
 {
     UART_nBREAK enBreakReg = UART_enBREAK_DIS;
     enBreakReg = (UART_nBREAK) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
-                                         UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
+                                     UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
     return (enBreakReg);
 }
 

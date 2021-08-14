@@ -26,6 +26,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-uint32_t UART__u32ReadRegister(UART_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+uint32_t UART__u32ReadRegister(UART_nMODULE enModule, uint32_t u32OffsetRegister,
+                               uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_UART_READREGISTER_H_ */

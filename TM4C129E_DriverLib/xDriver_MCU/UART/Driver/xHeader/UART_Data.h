@@ -34,7 +34,9 @@ uint32_t UART__u32GetDataWithStatus(UART_nMODULE enModule);
 uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray);
 uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray);
 
-uint32_t UART__u32SetFifoData(UART_nMODULE enModule, const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer);
-uint32_t UART__u32SetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer);
+uint32_t UART__u32SetFifoData(UART_nMODULE enModule, const uint32_t* pu32FifoArray,
+                              uint32_t u32SizeBuffer);
+uint32_t UART__u32SetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
+                                  uint32_t u32SizeBuffer);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_DATA_H_ */

@@ -30,7 +30,7 @@ UART_nBUSY UART__enGetBusyState(UART_nMODULE enModule)
 {
     UART_nBUSY enBusyReg = UART_enBUSY_IDLE;
     enBusyReg = (UART_nBUSY) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
-                                                   UART_FR_BUSY_MASK, UART_FR_R_BUSY_BIT);
+                                   UART_FR_BUSY_MASK, UART_FR_R_BUSY_BIT);
     return (enBusyReg);
 }
 

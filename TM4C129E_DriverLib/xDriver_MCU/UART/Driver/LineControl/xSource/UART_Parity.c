@@ -37,7 +37,7 @@ UART_nPARITY UART__enGetParityEnable(UART_nMODULE enModule)
 {
     UART_nPARITY enParityReg = UART_enPARITY_DIS;
     enParityReg = (UART_nPARITY) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
-                                               UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
+                                       UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
     return (enParityReg);
 }
 
@@ -52,7 +52,7 @@ UART_nPARITY_TYPE UART__enGetParityType(UART_nMODULE enModule)
 {
     UART_nPARITY_TYPE enParityTypeReg = UART_enPARITY_TYPE_ODD;
     enParityTypeReg = (UART_nPARITY_TYPE) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
-                                                    UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
+                                                UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
     return (enParityTypeReg);
 }
 
@@ -66,7 +66,7 @@ UART_nPARITY_STICK UART__enGetParityStick(UART_nMODULE enModule)
 {
     UART_nPARITY_STICK enParityStickReg = UART_enPARITY_STICK_DIS;
     enParityStickReg = (UART_nPARITY_STICK) UART__u32ReadRegister(enModule, UART_LCRH_OFFSET,
-                                                      UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
+                                          UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
     return (enParityStickReg);
 }
 

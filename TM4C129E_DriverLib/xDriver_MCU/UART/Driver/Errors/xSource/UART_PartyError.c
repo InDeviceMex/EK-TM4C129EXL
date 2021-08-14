@@ -30,6 +30,6 @@ UART_nERROR UART__enGetParityErrorState(UART_nMODULE enModule)
 {
     UART_nERROR enErrorReg = UART_enERROR_NOOCCUR;
     enErrorReg = (UART_nERROR) UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
-                                                     UART_RSR_PE_MASK, UART_RSR_R_PE_BIT);
+                                     UART_RSR_PE_MASK, UART_RSR_R_PE_BIT);
     return (enErrorReg);
 }

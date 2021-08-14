@@ -37,6 +37,6 @@ uint32_t UART__u32GetIrDALowPowerDivider(UART_nMODULE enModule)
 {
     uint32_t u32IrDaReg = 0UL;
     u32IrDaReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET,
-                                   UART_ILPR_ILPDVSR_MASK, UART_ILPR_R_ILPDVSR_BIT);
+                       UART_ILPR_ILPDVSR_MASK, UART_ILPR_R_ILPDVSR_BIT);
     return (u32IrDaReg);
 }

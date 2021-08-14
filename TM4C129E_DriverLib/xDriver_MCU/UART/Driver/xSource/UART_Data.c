@@ -58,10 +58,10 @@ uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray)
     uint32_t u32Module = 0UL;
     uint32_t u32Count = 0U;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-
     if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
+        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+
         u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;
@@ -88,10 +88,10 @@ uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray)
     uint32_t u32Module = 0UL;
     uint32_t u32Count = 0U;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-
     if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
     {
+        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+
         u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;
@@ -120,10 +120,10 @@ uint32_t UART__u32SetFifoData(UART_nMODULE enModule, const uint32_t* pu32FifoArr
     uint32_t u32Module = 0UL;
     uint32_t u32Count = 0U;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-
     if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
+        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+
         u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;
@@ -159,10 +159,9 @@ uint32_t UART__u32SetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoA
     uint32_t u32Module = 0UL;
     uint32_t u32Count = 0U;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-
     if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
     {
+        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
         u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;

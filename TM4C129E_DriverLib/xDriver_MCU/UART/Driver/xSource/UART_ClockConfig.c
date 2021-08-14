@@ -36,6 +36,6 @@ UART_nCLOCK UART__enGetClockConfig(UART_nMODULE enModule)
 {
     UART_nCLOCK enClockReg = UART_enCLOCK_SYSCLK;
     enClockReg = (UART_nCLOCK) UART__u32ReadRegister(enModule, UART_CC_OFFSET,
-                                                     UART_CC_CS_MASK, UART_CC_R_CS_BIT);
+                                         UART_CC_CS_MASK, UART_CC_R_CS_BIT);
     return (enClockReg);
 }

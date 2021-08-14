@@ -28,10 +28,10 @@
 
 uint32_t UART__u32GetErrorState(UART_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
+    uint32_t u32ErrorReg = 0UL;
+    u32ErrorReg = UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
     (UART_RSR_R_BE_MASK | UART_RSR_R_FE_MASK | UART_RSR_R_OE_MASK | UART_RSR_R_PE_MASK), 0UL);
-    return (u32Reg);
+    return (u32ErrorReg);
 }
 
 void UART__vClearErrorState(UART_nMODULE enModule)
