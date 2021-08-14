@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
-__attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value);
+__attribute__((naked))
+uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_SPECIALINTRUCTIONS_H_ */

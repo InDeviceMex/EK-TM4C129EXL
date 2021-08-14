@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_nSEQ_INPUT_DIFF enSampleDifferential);
-ADC_nSEQ_INPUT_DIFF ADC__enGetSampleDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux);
+void ADC__vSetSampleDifferential(ADC_nMODULE enModule,
+                                 ADC_nSEQUENCER enSequencer,
+                                 ADC_nMUX enMux,
+                                 ADC_nSEQ_INPUT_DIFF enSampleDifferential);
+ADC_nSEQ_INPUT_DIFF ADC__enGetSampleDifferential(ADC_nMODULE enModule,
+                                                 ADC_nSEQUENCER enSequencer,
+                                                 ADC_nMUX enMux);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_DIFFERENTIAL_H_ */

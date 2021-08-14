@@ -27,12 +27,17 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimarySourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_SRC_INC enChannelSourceIncrement);
-void DMA_CH__vSetAlternateSourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_SRC_INC enChannelSourceIncrement);
-void DMA_CH__vSetSourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_SRC_INC enChannelSourceIncrement);
+void DMA_CH__vSetPrimarySourceIncrement(DMA_nCH_MODULE enChannel,
+                                        DMA_nCH_SRC_INC enChannelSourceIncrement);
+void DMA_CH__vSetAlternateSourceIncrement(DMA_nCH_MODULE enChannel,
+                                          DMA_nCH_SRC_INC enChannelSourceIncrement);
+void DMA_CH__vSetSourceIncrement(DMA_nCH_MODULE enChannel,
+                                 DMA_nCH_CTL enChannelStructure,
+                                 DMA_nCH_SRC_INC enChannelSourceIncrement);
 
 DMA_nCH_SRC_INC DMA_CH__enGetAlternateSourceIncrement(DMA_nCH_MODULE enChannel);
 DMA_nCH_SRC_INC DMA_CH__enGetPrimarySourceIncrement(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_INC DMA_CH__enGetSourceIncrement(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nCH_SRC_INC DMA_CH__enGetSourceIncrement(DMA_nCH_MODULE enChannel,
+                                             DMA_nCH_CTL enChannelStructure);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_SOURCEINCREMENT_H_ */

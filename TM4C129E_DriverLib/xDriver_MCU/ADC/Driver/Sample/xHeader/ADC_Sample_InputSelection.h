@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_nSEQ_INPUT enSampleInputSelection);
-ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux);
+void ADC__vSetSampleInputSelection(ADC_nMODULE enModule,
+                                   ADC_nSEQUENCER enSequencer,
+                                   ADC_nMUX enMux,
+                                   ADC_nSEQ_INPUT enSampleInputSelection);
+ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule,
+                                              ADC_nSEQUENCER enSequencer,
+                                              ADC_nMUX enMux);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_INPUTSELECTION_H_ */

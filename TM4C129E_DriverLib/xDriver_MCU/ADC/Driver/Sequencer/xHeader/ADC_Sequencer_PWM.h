@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSequencerPWMTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence, ADC_nSEQ_PWM enSeqPWMTrigger);
+void ADC__vSetSequencerPWMTrigger(ADC_nMODULE enModule,
+                                  ADC_nSEQUENCER enSequence,
+                                  ADC_nSEQ_PWM enSeqPWMTrigger);
 ADC_nSEQ_PWM ADC__enGetSequencerPWMTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_PWM_H_ */

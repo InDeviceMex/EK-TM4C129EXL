@@ -27,12 +27,17 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimarySourceSize(DMA_nCH_MODULE enChannel, DMA_nCH_SRC_SIZE enChannelSourceSize);
-void DMA_CH__vSetAlternateSourceSize(DMA_nCH_MODULE enChannel, DMA_nCH_SRC_SIZE enChannelSourceSize);
-void DMA_CH__vSetSourceSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_SRC_SIZE enChannelSourceSize);
+void DMA_CH__vSetPrimarySourceSize(DMA_nCH_MODULE enChannel,
+                                   DMA_nCH_SRC_SIZE enChannelSourceSize);
+void DMA_CH__vSetAlternateSourceSize(DMA_nCH_MODULE enChannel,
+                                     DMA_nCH_SRC_SIZE enChannelSourceSize);
+void DMA_CH__vSetSourceSize(DMA_nCH_MODULE enChannel,
+                            DMA_nCH_CTL enChannelStructure,
+                            DMA_nCH_SRC_SIZE enChannelSourceSize);
 
 DMA_nCH_SRC_SIZE DMA_CH__enGetAlternateSourceSize(DMA_nCH_MODULE enChannel);
 DMA_nCH_SRC_SIZE DMA_CH__enGetPrimarySourceSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_SIZE DMA_CH__enGetSourceSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nCH_SRC_SIZE DMA_CH__enGetSourceSize(DMA_nCH_MODULE enChannel,
+                                         DMA_nCH_CTL enChannelStructure);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_SOURCESIZE_H_ */

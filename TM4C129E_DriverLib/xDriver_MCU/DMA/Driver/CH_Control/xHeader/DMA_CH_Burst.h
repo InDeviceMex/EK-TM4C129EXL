@@ -29,7 +29,8 @@
 
 void DMA_CH__vSetPrimaryBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst);
 void DMA_CH__vSetAlternateBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst);
-void DMA_CH__vSetBurst(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_BURST enChannelBurst);
+void DMA_CH__vSetBurst(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure,
+                       DMA_nCH_BURST enChannelBurst);
 
 DMA_nCH_BURST DMA_CH__enGetAlternateBurst(DMA_nCH_MODULE enChannel);
 DMA_nCH_BURST DMA_CH__enGetPrimaryBurst(DMA_nCH_MODULE enChannel);

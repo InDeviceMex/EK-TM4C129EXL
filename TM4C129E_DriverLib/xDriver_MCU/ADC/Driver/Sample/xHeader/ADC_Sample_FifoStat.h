@@ -27,8 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer);
-uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, uint32_t* pu32FifoArray);
-uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer);
+ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule,
+                                       ADC_nSEQUENCER enSequencer);
+uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule,
+                                     ADC_nSEQUENCER enSequencer,
+                                     uint32_t* pu32FifoArray);
+uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule,
+                                ADC_nSEQUENCER enSequencer);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_FIFOSTAT_H_ */

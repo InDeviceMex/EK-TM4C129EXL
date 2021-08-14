@@ -10,11 +10,13 @@
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
-static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address, EEPROM_nVARIABLE enVariableType);
+static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
+                                          EEPROM_nVARIABLE enVariableType);
 
-static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address, EEPROM_nVARIABLE enVariableType)
+static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
+                                          EEPROM_nVARIABLE enVariableType)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enStatusReg = EEPROM_enERROR;
     uint32_t u32MaxAddress = 0UL;
     uint32_t u32Block = 0UL;/*u32Address / 16*/
     uint32_t u32Offset = 0UL;/*First 16 worlds*/
@@ -41,12 +43,15 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
 
     if(u32MaxAddress > u32Address)
     {
-        MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEBLOCK_OFFSET, u32Block, EEPROM_EEBLOCK_R_BLOCK_MASK, 0UL);
-        MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET, u32Offset, EEPROM_EEOFFSET_R_OFFSET_MASK, 0UL);
-        u32DataAux = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
-        enReturn = EEPROM__enWait();
+        MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEBLOCK_OFFSET,
+                            u32Block, EEPROM_EEBLOCK_R_BLOCK_MASK, 0UL);
+        MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET,
+                            u32Offset, EEPROM_EEOFFSET_R_OFFSET_MASK, 0UL);
+        u32DataAux = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET,
+                              EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
+        enStatusReg = EEPROM__enWait();
 
-        if(EEPROM_enOK == enReturn)
+        if(EEPROM_enOK == enStatusReg)
         {
             switch(enVariableType)
             {
@@ -60,8 +65,9 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
                 pu8DataAux += u32Pos;
                 *pu8DataAux = u8DataReg;
 
-                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET, u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
-                enReturn = EEPROM__enWait();
+                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET,
+                        u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
+                enStatusReg = EEPROM__enWait();
             break;
             case EEPROM_enVARIABLE_HALFWORD:
                 u16DataReg = (uint16_t) u32Data;
@@ -74,8 +80,9 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
                 pu16DataAux += u32Pos;
                 *pu16DataAux = u16DataReg;
 
-                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET, u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
-                enReturn = EEPROM__enWait();
+                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET,
+                        u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
+                enStatusReg = EEPROM__enWait();
             break;
             case EEPROM_enVARIABLE_WORD:
                 u32DataReg = (uint32_t) u32Data;
@@ -86,42 +93,46 @@ static EEPROM_nSTATUS EEPROM__enWriteAux (uint32_t u32Data, uint32_t u32Address,
                 pu32DataAux += u32Pos;
                 *pu32DataAux = u32DataReg;
 
-                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET, u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
-                enReturn = EEPROM__enWait();
+                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWR_OFFSET,
+                        u32DataAux, EEPROM_EERDWR_VALUE_MASK, EEPROM_EERDWR_R_VALUE_BIT);
+                enStatusReg = EEPROM__enWait();
             break;
             default:
-                enReturn = EEPROM_enERROR;
+                enStatusReg = EEPROM_enERROR;
             break;
             }
         }
     }
-    return (enReturn);
+    return (enStatusReg);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enOK;
-    enReturn = EEPROM__enWriteAux ( (uint32_t) u16Data, u32Address, EEPROM_enVARIABLE_HALFWORD);
-    return (enReturn);
+    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
+    enStatusReg = EEPROM__enWriteAux ( (uint32_t) u16Data, u32Address,
+                                       EEPROM_enVARIABLE_HALFWORD);
+    return (enStatusReg);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteWorld (uint32_t u32Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enOK;
-    enReturn = EEPROM__enWriteAux ( (uint32_t) u32Data, u32Address, EEPROM_enVARIABLE_WORD);
-    return (enReturn);
+    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
+    enStatusReg = EEPROM__enWriteAux ( (uint32_t) u32Data, u32Address,
+                                       EEPROM_enVARIABLE_WORD);
+    return (enStatusReg);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteByte(uint8_t u8Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enOK;
-    enReturn = EEPROM__enWriteAux ( (uint32_t) u8Data, u32Address, EEPROM_enVARIABLE_BYTE);
-    return (enReturn);
+    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
+    enStatusReg = EEPROM__enWriteAux ( (uint32_t) u8Data, u32Address,
+                                       EEPROM_enVARIABLE_BYTE);
+    return (enStatusReg);
 }
 
 EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32Address)
 {
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
+    EEPROM_nSTATUS enStatusReg = EEPROM_enERROR;
     uint32_t u32MaxAddress = 0UL;
     uint32_t u32Block = 0UL;/*u32Address / 16*/
     uint32_t u32Offset = 0UL;/*First 16 worlds*/
@@ -140,16 +151,20 @@ EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32A
 
         if(u32MaxAddress > u32Address )
         {
-            MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEBLOCK_OFFSET, u32Block, EEPROM_EEBLOCK_BLOCK_MASK, EEPROM_EEBLOCK_R_BLOCK_BIT);
-            MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET, u32Offset, EEPROM_EEOFFSET_OFFSET_MASK, EEPROM_EEOFFSET_R_OFFSET_BIT);
+            MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEBLOCK_OFFSET,
+                    u32Block, EEPROM_EEBLOCK_BLOCK_MASK, EEPROM_EEBLOCK_R_BLOCK_BIT);
+            MCU__vWriteRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET,
+                u32Offset, EEPROM_EEOFFSET_OFFSET_MASK, EEPROM_EEOFFSET_R_OFFSET_BIT);
             do
             {
-                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWRINC_OFFSET, *pu32Data, EEPROM_EERDWRINC_VALUE_MASK, EEPROM_EERDWRINC_R_VALUE_BIT);
+                MCU__vWriteRegister(EEPROM_BASE, EEPROM_EERDWRINC_OFFSET,
+                        *pu32Data, EEPROM_EERDWRINC_VALUE_MASK, EEPROM_EERDWRINC_R_VALUE_BIT);
                 pu32Data += 1U;
-                enReturn = EEPROM__enWait();
-                u32Offset = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET, EEPROM_EEOFFSET_OFFSET_MASK, EEPROM_EEOFFSET_R_OFFSET_BIT);
+                enStatusReg = EEPROM__enWait();
+                u32Offset = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EEOFFSET_OFFSET,
+                             EEPROM_EEOFFSET_OFFSET_MASK, EEPROM_EEOFFSET_R_OFFSET_BIT);
             }while(0UL != u32Offset);
         }
     }
-    return (enReturn);
+    return (enStatusReg);
 }

@@ -26,7 +26,8 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/DMA_InterruptRoutine_Source_Software.h>
 
-void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void), DMA_nCH_INT_SOFT enInterruptParam)
+void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void),
+                                             DMA_nCH_INT_SOFT enInterruptParam)
 {
     uint32_t u32InterruptSource = 0UL;
     if(0UL != (uint32_t) pfIrqSourceHandler)
@@ -34,8 +35,8 @@ void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void), 
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
                                                   (uint32_t) DMA_enCH_INT_SOFT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                           DMA_CH__pvfGetIRQSourceHandlerPointer_Software((DMA_nCH_INT_SOFT) u32InterruptSource),
-                                           0UL,
-                                           1UL);
+           DMA_CH__pvfGetIRQSourceHandlerPointer_Software((DMA_nCH_INT_SOFT) u32InterruptSource),
+           0UL,
+           1UL);
     }
 }

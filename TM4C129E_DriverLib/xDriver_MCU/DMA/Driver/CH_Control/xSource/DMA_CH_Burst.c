@@ -28,36 +28,46 @@
 
 void DMA_CH__vSetPrimaryBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst)
 {
-    DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) enChannelBurst, DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) enChannelBurst,
+                      DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
 }
 
 void DMA_CH__vSetAlternateBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst)
 {
-    DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) enChannelBurst, DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
+    DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) enChannelBurst,
+                    DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
 }
 
-void DMA_CH__vSetBurst(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_BURST enChannelBurst)
+void DMA_CH__vSetBurst(DMA_nCH_MODULE enChannel,
+                       DMA_nCH_CTL enChannelStructure,
+                       DMA_nCH_BURST enChannelBurst)
 {
-    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure, (uint32_t) enChannelBurst, DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure,
+                               (uint32_t) enChannelBurst,
+                               DMACH_CHCTL_NXTUSEBURST_MASK,
+                               DMACH_CHCTL_R_NXTUSEBURST_BIT);
 }
 
 DMA_nCH_BURST DMA_CH__enGetPrimaryBurst(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_BURST enReg = DMA_enCH_BURST_OFF;
-    enReg = (DMA_nCH_BURST) DMA_CH__u32GetPrimaryControlGeneric(enChannel, DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enReg);
+    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
+    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetPrimaryControlGeneric(enChannel,
+                                DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    return (enBurstReg);
 }
 
 DMA_nCH_BURST DMA_CH__enGetAlternateBurst(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_BURST enReg = DMA_enCH_BURST_OFF;
-    enReg = (DMA_nCH_BURST) DMA_CH__u32GetAlternateControlGeneric(enChannel, DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enReg);
+    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
+    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetAlternateControlGeneric(enChannel,
+                          DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
+    return (enBurstReg);
 }
 
 DMA_nCH_BURST DMA_CH__enGetBurst(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
 {
-    DMA_nCH_BURST enReg = DMA_enCH_BURST_OFF;
-    enReg = (DMA_nCH_BURST) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enReg);
+    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
+    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure,
+                                  DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    return (enBurstReg);
 }

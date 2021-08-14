@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSequencerTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence, ADC_nSEQ_TRIGGER enSeqTrigger);
+void ADC__vSetSequencerTrigger(ADC_nMODULE enModule,
+                               ADC_nSEQUENCER enSequence,
+                               ADC_nSEQ_TRIGGER enSeqTrigger);
 ADC_nSEQ_TRIGGER ADC__enGetSequencerTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_TRIGGER_H_ */

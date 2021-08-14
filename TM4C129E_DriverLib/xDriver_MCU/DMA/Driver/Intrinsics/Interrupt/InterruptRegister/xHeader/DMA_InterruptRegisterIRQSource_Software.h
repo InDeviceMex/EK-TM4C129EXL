@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void), DMA_nCH_INT_SOFT enInterruptParam);
+void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void),
+                                             DMA_nCH_INT_SOFT enInterruptParam);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_DMA_INTERRUPTREGISTERIRQSOURCE_SOFTWARE_H_ */

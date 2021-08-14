@@ -34,7 +34,8 @@ uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
 
 #elif defined (__GNUC__ )
 
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax) __attribute__((section(".ramcode")));
+__attribute__((section(".ramcode")))
+uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
 
 #endif
 

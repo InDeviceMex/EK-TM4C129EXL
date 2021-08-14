@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vResetCompTriggerConditions(ADC_nMODULE enModule, ADC_nCOMPMASK  enActCompMask);
+void ADC__vResetCompTriggerConditions(ADC_nMODULE enModule, ADC_nCOMPMASK enActCompMask);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_RESET_XHEADER_ADC_COMPARATOR_RESETTRIGGER_H_ */

@@ -29,7 +29,9 @@
 
 void DMA_CH__vSetAlternateDestEndAddress(DMA_nCH_MODULE enChannel, uint32_t u32DestAddress);
 void DMA_CH__vSetPrimaryDestEndAddress(DMA_nCH_MODULE enChannel, uint32_t u32DestAddress);
-void DMA_CH__vSetDestEndAddress(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, uint32_t u32DestAddress);
+void DMA_CH__vSetDestEndAddress(DMA_nCH_MODULE enChannel,
+                                DMA_nCH_CTL enChannelStructure,
+                                uint32_t u32DestAddress);
 
 uint32_t DMA_CH__u32GetPrimaryDestEndAddress(DMA_nCH_MODULE enChannel);
 uint32_t DMA_CH__u32GetAlternateDestEndAddress(DMA_nCH_MODULE enChannel);

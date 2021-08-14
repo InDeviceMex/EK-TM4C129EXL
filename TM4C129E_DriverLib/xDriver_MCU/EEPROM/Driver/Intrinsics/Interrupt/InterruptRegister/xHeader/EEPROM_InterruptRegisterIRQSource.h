@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),EEPROM_nINTERRUPT enInterruptParam);
+void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                       EEPROM_nINTERRUPT enInterruptParam);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_EEPROM_INTERRUPTREGISTERIRQSOURCE_H_ */

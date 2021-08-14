@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPeripheralEnable(DMA_nCH_MODULE enChannel, DMA_nCH_PERIPHERAL enChannelPeripheralEn);
+void DMA_CH__vSetPeripheralEnable(DMA_nCH_MODULE enChannel,
+                                  DMA_nCH_PERIPHERAL enChannelPeripheralEn);
 DMA_nCH_PERIPHERAL DMA_CH__enGetPeripheralEnable(DMA_nCH_MODULE enChannel);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_PERIPHERAL_H_ */

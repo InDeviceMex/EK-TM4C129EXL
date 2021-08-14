@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleCompSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_nCOMPARATOR enSampleComparator);
-ADC_nCOMPARATOR ADC__enGetSampleCompSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux);
+void ADC__vSetSampleCompSelection(ADC_nMODULE enModule,
+                                  ADC_nSEQUENCER enSequencer,
+                                  ADC_nMUX enMux,
+                                  ADC_nCOMPARATOR enSampleComparator);
+ADC_nCOMPARATOR ADC__enGetSampleCompSelection(ADC_nMODULE enModule,
+                                              ADC_nSEQUENCER enSequencer,
+                                              ADC_nMUX enMux);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_COMPSELECTION_H_ */

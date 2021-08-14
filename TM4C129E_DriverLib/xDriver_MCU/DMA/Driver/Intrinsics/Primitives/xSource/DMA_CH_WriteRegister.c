@@ -26,7 +26,9 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vWriteRegister(uint32_t u32ChBase, uint32_t u32ChNum, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void DMA_CH__vWriteRegister(uint32_t u32ChBase, uint32_t u32ChNum,
+                            uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
+                            uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32RegChannel = 0UL;
     u32ChNum = MCU__u32CheckParams(u32ChNum, DMA_enCH_MODULE_MAX);
@@ -35,5 +37,6 @@ void DMA_CH__vWriteRegister(uint32_t u32ChBase, uint32_t u32ChNum, uint32_t u32O
     u32RegChannel *= u32ChNum;
     u32RegChannel *= 4UL;
     u32ChBase += u32RegChannel;
-    MCU__vWriteRegister(u32ChBase, u32OffsetRegister, u32FeatureValue, u32MaskFeature, u32BitFeature);
+    MCU__vWriteRegister(u32ChBase, u32OffsetRegister, u32FeatureValue,
+                        u32MaskFeature, u32BitFeature);
 }

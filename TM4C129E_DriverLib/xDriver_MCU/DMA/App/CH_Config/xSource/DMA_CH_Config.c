@@ -24,7 +24,6 @@
 #include <xDriver_MCU/DMA/App/CH_Config/DMA_CH_Config.h>
 
 #include <stdlib.h>
-#include <xDriver_MCU/DMA/App/CH_Config/xHeader/DMA_CH_ConfigStruct.h>
 #include <xDriver_MCU/DMA/Driver/DMA_Driver.h>
 
 void DMA_CH__vSetConfigStruct(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_Typedef pstConfig)
@@ -49,7 +48,8 @@ DMA_CONFIG_Typedef* DMA_CH__pstGetConfig(DMA_nCH_MODULE enDMAChannel)
 {
     DMA_CONFIG_Typedef* pstConfig = 0UL;
     #if defined (__TI_ARM__ )
-    pstConfig = (DMA_CONFIG_Typedef*) memalign( (size_t) 4, (size_t) sizeof(DMA_CONFIG_Typedef));
+    pstConfig = (DMA_CONFIG_Typedef*) memalign( (size_t) 4,
+                                                (size_t) sizeof(DMA_CONFIG_Typedef));
     #elif defined (__GNUC__ )
     pstConfig = (DMA_CONFIG_Typedef*) malloc(sizeof(DMA_CONFIG_Typedef));
     #endif

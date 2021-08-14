@@ -29,10 +29,13 @@
 
 void DMA_CH__vSetPrimaryTransferSize(DMA_nCH_MODULE enChannel, uint32_t u32ChannelTransferSize);
 void DMA_CH__vSetAlternateTransferSize(DMA_nCH_MODULE enChannel, uint32_t u32ChannelTransferSize);
-void DMA_CH__vSetTransferSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, uint32_t u32ChannelTransferSize);
+void DMA_CH__vSetTransferSize(DMA_nCH_MODULE enChannel,
+                              DMA_nCH_CTL enChannelStructure,
+                              uint32_t u32ChannelTransferSize);
 
 uint32_t DMA_CH__u32GetAlternateTransferSize(DMA_nCH_MODULE enChannel);
 uint32_t DMA_CH__u32GetPrimaryTransferSize(DMA_nCH_MODULE enChannel);
-uint32_t DMA_CH__u32GetTransferSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+uint32_t DMA_CH__u32GetTransferSize(DMA_nCH_MODULE enChannel,
+                                    DMA_nCH_CTL enChannelStructure);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_TRANSFERSIZE_H_ */

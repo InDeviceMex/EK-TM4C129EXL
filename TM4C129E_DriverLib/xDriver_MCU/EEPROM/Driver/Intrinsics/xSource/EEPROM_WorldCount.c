@@ -46,5 +46,6 @@ uint32_t EEPROM__u32GetWorldCount (void)
 
 void EEPROM__vInitWorldCount (void)
 {
-    EEPROM_u32WorldCount = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EESIZE_OFFSET, EEPROM_EESIZE_WORDCNT_MASK, EEPROM_EESIZE_R_WORDCNT_BIT);
+    EEPROM_u32WorldCount = MCU__u32ReadRegister(EEPROM_BASE, EEPROM_EESIZE_OFFSET,
+                                EEPROM_EESIZE_WORDCNT_MASK, EEPROM_EESIZE_R_WORDCNT_BIT);
 }

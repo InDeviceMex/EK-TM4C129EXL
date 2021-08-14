@@ -39,7 +39,8 @@ static void DMA_CH__vSetPrimaryStructure(DMA_nCH_MODULE enChannel)
     DMA_CH__vSetConfigGeneric_Direct(enChannel, DMA_ALTCLR_OFFSET);
 }
 
-void DMA_CH__vSetControlStructure(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelControlStructure)
+void DMA_CH__vSetControlStructure(DMA_nCH_MODULE enChannel,
+                                  DMA_nCH_CTL enChannelControlStructure)
 {
     if(DMA_enCH_CTL_PRIMARY == enChannelControlStructure)
     {
@@ -54,6 +55,7 @@ void DMA_CH__vSetControlStructure(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChanne
 DMA_nCH_CTL DMA_CH__enGetControlStructure(DMA_nCH_MODULE enChannel)
 {
     DMA_nCH_CTL enChannelControlStructure = DMA_enCH_CTL_PRIMARY;
-    enChannelControlStructure = (DMA_nCH_CTL) DMA_CH__u32GetConfigGeneric(enChannel, DMA_ALTSET_OFFSET);
+    enChannelControlStructure = (DMA_nCH_CTL) DMA_CH__u32GetConfigGeneric(enChannel,
+                                                                          DMA_ALTSET_OFFSET);
     return (enChannelControlStructure);
 }

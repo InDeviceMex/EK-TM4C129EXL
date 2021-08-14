@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux, ADC_nSEQ_INPUT_TEMP enSampleTempSelection);
-ADC_nSEQ_INPUT_TEMP ADC__enGetSampleTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nMUX enMux);
+void ADC__vSetSampleTempSelection(ADC_nMODULE enModule,
+                                  ADC_nSEQUENCER enSequencer,
+                                  ADC_nMUX enMux,
+                                  ADC_nSEQ_INPUT_TEMP enSampleTempSelection);
+ADC_nSEQ_INPUT_TEMP ADC__enGetSampleTempSelection(ADC_nMODULE enModule,
+                                                  ADC_nSEQUENCER enSequencer,
+                                                  ADC_nMUX enMux);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_TEMPSELECTION_H_ */

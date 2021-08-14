@@ -27,12 +27,17 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimaryDestinationSize(DMA_nCH_MODULE enChannel, DMA_nCH_DST_SIZE enChannelDestinationSize);
-void DMA_CH__vSetAlternateDestinationSize(DMA_nCH_MODULE enChannel, DMA_nCH_DST_SIZE enChannelDestinationSize);
-void DMA_CH__vSetDestinationSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_DST_SIZE enChannelDestinationSize);
+void DMA_CH__vSetPrimaryDestinationSize(DMA_nCH_MODULE enChannel,
+                                        DMA_nCH_DST_SIZE enChannelDestinationSize);
+void DMA_CH__vSetAlternateDestinationSize(DMA_nCH_MODULE enChannel,
+                                          DMA_nCH_DST_SIZE enChannelDestinationSize);
+void DMA_CH__vSetDestinationSize(DMA_nCH_MODULE enChannel,
+                                 DMA_nCH_CTL enChannelStructure,
+                                 DMA_nCH_DST_SIZE enChannelDestinationSize);
 
 DMA_nCH_DST_SIZE DMA_CH__enGetAlternateDestinationSize(DMA_nCH_MODULE enChannel);
 DMA_nCH_DST_SIZE DMA_CH__enGetPrimaryDestinationSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_DST_SIZE DMA_CH__enGetDestinationSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nCH_DST_SIZE DMA_CH__enGetDestinationSize(DMA_nCH_MODULE enChannel,
+                                              DMA_nCH_CTL enChannelStructure);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_DESTINATIONSIZE_H_ */

@@ -39,10 +39,14 @@ static void DMA_CH_vIRQSourceHandler_Dummy(void)
 }
 void (*DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void)
 {
-    return (DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
 
 void (**DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void)
 {
-    return ((void(**)(void)) &DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }

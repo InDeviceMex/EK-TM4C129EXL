@@ -27,12 +27,16 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimaryBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_BURST_SIZE enChannelBurstSize);
-void DMA_CH__vSetAlternateBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_BURST_SIZE enChannelBurstSize);
-void DMA_CH__vSetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure, DMA_nCH_BURST_SIZE enChannelBurstSize);
+void DMA_CH__vSetPrimaryBurstSize(DMA_nCH_MODULE enChannel,
+                                  DMA_nCH_BURST_SIZE enChannelBurstSize);
+void DMA_CH__vSetAlternateBurstSize(DMA_nCH_MODULE enChannel,
+                                    DMA_nCH_BURST_SIZE enChannelBurstSize);
+void DMA_CH__vSetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure,
+                           DMA_nCH_BURST_SIZE enChannelBurstSize);
 
 DMA_nCH_BURST_SIZE DMA_CH__enGetAlternateBurstSize(DMA_nCH_MODULE enChannel);
 DMA_nCH_BURST_SIZE DMA_CH__enGetPrimaryBurstSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_BURST_SIZE DMA_CH__enGetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nCH_BURST_SIZE DMA_CH__enGetBurstSize(DMA_nCH_MODULE enChannel,
+                                          DMA_nCH_CTL enChannelStructure);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_BURSTSIZE_H_ */

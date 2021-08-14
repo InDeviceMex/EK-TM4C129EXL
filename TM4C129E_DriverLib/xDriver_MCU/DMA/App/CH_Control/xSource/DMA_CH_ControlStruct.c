@@ -26,9 +26,10 @@
 #include <stdlib.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld, DMA_CONTROL_Typedef* pstControl)
+DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld,
+                                                 DMA_CONTROL_Typedef* pstControl)
 {
-    DMA_nSTATUS enSTATUS = DMA_enSTATUS_ERROR;
+    DMA_nSTATUS enStatusReg = DMA_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstControl)
     {
         pstControl->enTransferMode = (DMA_nCH_MODE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_XFERMODE_BIT) & DMAALTCH_CHCTL_XFERMODE_MASK);
@@ -40,14 +41,15 @@ DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld, DMA_C
         pstControl->enDestSize = (DMA_nCH_DST_SIZE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_DSTSIZE_BIT) & DMAALTCH_CHCTL_DSTSIZE_MASK);
         pstControl->enDestInc = (DMA_nCH_DST_INC) ((u32ControlWorld >> DMAALTCH_CHCTL_R_DSTINC_BIT) & DMAALTCH_CHCTL_DSTINC_MASK);
     }
-    return (enSTATUS);
+    return (enStatusReg);
 }
 
 DMA_CONTROL_Typedef* DMA_CH__pstCreateControlStruct(uint32_t u32ControlWorld)
 {
     DMA_CONTROL_Typedef* pstControl = 0UL;
     #if defined (__TI_ARM__ )
-    pstControl = (DMA_CONTROL_Typedef*) memalign( (size_t) 4, (size_t) sizeof(DMA_CONTROL_Typedef));
+    pstControl = (DMA_CONTROL_Typedef*) memalign( (size_t) 4,
+                                                  (size_t) sizeof(DMA_CONTROL_Typedef));
     #elif defined (__GNUC__ )
     pstControl = (DMA_CONTROL_Typedef*) malloc( (size_t) sizeof(DMA_CONTROL_Typedef));
     #endif

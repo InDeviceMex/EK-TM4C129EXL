@@ -30,11 +30,20 @@
 
 #pragma  CODE_SECTION(MCU__vWriteRegister_RAM, ".ramcode")
 
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase,
+                             uint32_t u32OffsetRegister,
+                             uint32_t u32FeatureValue,
+                             uint32_t u32MaskFeature,
+                             uint32_t u32BitFeature);
 
 #elif defined (__GNUC__ )
 
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature) __attribute__((section(".ramcode")));
+__attribute__((section(".ramcode")))
+void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase,
+                             uint32_t u32OffsetRegister,
+                             uint32_t u32FeatureValue,
+                             uint32_t u32MaskFeature,
+                             uint32_t u32BitFeature) ;
 
 #endif
 
@@ -42,11 +51,23 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
     #pragma CHECK_MISRA("-8.5")
 #endif
 
-inline void MCU__vWriteRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
-inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
+                                uint32_t u32OffsetRegister,
+                                uint32_t u32FeatureValue,
+                                uint32_t u32MaskFeature,
+                                uint32_t u32BitFeature);
+inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
+                                       uint32_t u32OffsetRegister,
+                                       uint32_t u32FeatureValue,
+                                       uint32_t u32MaskFeature,
+                                       uint32_t u32BitFeature);
 
 
-inline void MCU__vWriteRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
+                                uint32_t u32OffsetRegister,
+                                uint32_t u32FeatureValue,
+                                uint32_t u32MaskFeature,
+                                uint32_t u32BitFeature)
 {
     uint32_t u32Reg = u32FeatureValue;
     volatile uint32_t* pu32Peripheral = 0UL;
@@ -73,16 +94,23 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRe
     MCU__enSetGlobalInterrupt(enStatus);
 }
 
-inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
+                                       uint32_t u32OffsetRegister,
+                                       uint32_t u32FeatureValue,
+                                       uint32_t u32MaskFeature,
+                                       uint32_t u32BitFeature)
 {
+    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
     volatile uint32_t* pu32Peripheral = 0UL;
 
     u32PeripheralBase += u32OffsetRegister;
+    enStatus = MCU__enDisGlobalInterrupt();
     pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
     /*Get Value in bit position*/
     u32FeatureValue &= u32MaskFeature;
     u32FeatureValue <<= u32BitFeature;
     (*pu32Peripheral) = (uint32_t) u32FeatureValue;
+    MCU__enSetGlobalInterrupt(enStatus);
 }
 
 #if defined (__TI_ARM__ )

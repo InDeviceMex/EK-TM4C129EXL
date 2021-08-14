@@ -29,12 +29,13 @@
 
 DMA_nCH_WAITING DMA_CH__enGetWaitStatus(DMA_nCH_MODULE enChannel)
 {
-    DMA_nCH_WAITING enChannelWaiting = DMA_enCH_WAITING_UNDEF;
-    DMA_nENABLE enModuleEnable = DMA_enENABLE_UNDEF;
+    DMA_nCH_WAITING enChannelWaiting = DMA_enCH_WAITING_NO;
+    DMA_nENABLE enModuleEnable = DMA_enENABLE_DIS;
     enModuleEnable = DMA__enGetModuleEnable();
     if(DMA_enENABLE_ENA == enModuleEnable)
     {
-        enChannelWaiting = (DMA_nCH_WAITING) DMA_CH__u32GetConfigGeneric(enChannel, DMA_WAITSTAT_OFFSET);
+        enChannelWaiting = (DMA_nCH_WAITING) DMA_CH__u32GetConfigGeneric(enChannel,
+                                                                 DMA_WAITSTAT_OFFSET);
     }
     return (enChannelWaiting);
 }

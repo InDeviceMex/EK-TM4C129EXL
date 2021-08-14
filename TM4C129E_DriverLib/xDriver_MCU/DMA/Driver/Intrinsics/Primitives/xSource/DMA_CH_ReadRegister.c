@@ -26,7 +26,9 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-uint32_t DMA_CH__u32ReadRegister(uint32_t u32ChBase, uint32_t u32ChNum, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t DMA_CH__u32ReadRegister(uint32_t u32ChBase, uint32_t u32ChNum,
+                                 uint32_t u32OffsetRegister, uint32_t u32MaskFeature,
+                                 uint32_t u32BitFeature)
 {
     uint32_t u32FeatureValue = 0UL;
     uint32_t u32RegChannel = 0UL;
@@ -37,6 +39,7 @@ uint32_t DMA_CH__u32ReadRegister(uint32_t u32ChBase, uint32_t u32ChNum, uint32_t
     u32RegChannel *= 4UL;
     u32ChBase += u32RegChannel;
 
-    u32FeatureValue = MCU__u32ReadRegister(u32ChBase, u32OffsetRegister, u32MaskFeature, u32BitFeature);
+    u32FeatureValue = MCU__u32ReadRegister(u32ChBase, u32OffsetRegister,
+                                           u32MaskFeature, u32BitFeature);
     return (u32FeatureValue);
 }

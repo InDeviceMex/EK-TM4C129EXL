@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-void DMA__vWriteRegister(uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
-void DMA__vWriteRegister_Direct(uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+void DMA__vWriteRegister(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
+                         uint32_t u32MaskFeature, uint32_t u32BitFeature);
+void DMA__vWriteRegister_Direct(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
+                                uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_DMA_WRITEREGISTER_H_ */

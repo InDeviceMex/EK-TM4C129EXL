@@ -27,10 +27,12 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
                              uint32_t u32FeatureValue, uint32_t u32MaskFeature,
                              uint32_t u32BitFeature)
 {
+    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
     uint32_t u32Reg = u32FeatureValue;
     volatile uint32_t* pu32Peripheral = 0UL;
 
     u32PeripheralBase += u32OffsetRegister;
+    enStatus = MCU__enDisGlobalInterrupt();
     pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
     if(0xFFFFFFFFUL != u32MaskFeature)
     {
@@ -47,4 +49,5 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
     }
 
     (*pu32Peripheral) = (uint32_t) u32Reg;
+    MCU__enSetGlobalInterrupt(enStatus);
 }

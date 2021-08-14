@@ -35,8 +35,8 @@ void ADC__vSetCompRangeHigh(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
 
 uint32_t ADC__u32GetCompRangeHigh(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = ADC__u32GetCompGenericRange((uint32_t) enModule, (uint32_t) enActComp,
+    uint32_t u32RangeReg = 0UL;
+    u32RangeReg = ADC__u32GetCompGenericRange((uint32_t) enModule, (uint32_t) enActComp,
                                      ADC_DCCMP_COMP1_MASK, ADC_DCCMP_R_COMP1_BIT);
-    return (u32Reg);
+    return (u32RangeReg);
 }

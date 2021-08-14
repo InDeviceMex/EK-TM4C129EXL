@@ -27,10 +27,18 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nINT_SOURCE enADCIntSource))(void);
-void (**ADC_Sample__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nINT_SOURCE enADCIntSource))(void);
+void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                          ADC_nSEQUENCER enADCSequencerNum,
+                                          ADC_nINT_SOURCE enADCIntSource))(void);
+void (**ADC_Sample__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule,
+                                                  ADC_nSEQUENCER enADCSequencerNum,
+                                                  ADC_nINT_SOURCE enADCIntSource))(void);
 
-void (*ADC_Comp__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nCOMPARATOR enComparatorArg))(void);
-void (**ADC_Comp__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule, ADC_nSEQUENCER enADCSequencerNum, ADC_nCOMPARATOR enComparatorArg))(void);
+void (*ADC_Comp__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                        ADC_nSEQUENCER enADCSequencerNum,
+                                        ADC_nCOMPARATOR enComparatorArg))(void);
+void (**ADC_Comp__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule,
+                                                ADC_nSEQUENCER enADCSequencerNum,
+                                                ADC_nCOMPARATOR enComparatorArg))(void);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_ADC_INTERRUPTROUTINE_SOURCE_H_ */

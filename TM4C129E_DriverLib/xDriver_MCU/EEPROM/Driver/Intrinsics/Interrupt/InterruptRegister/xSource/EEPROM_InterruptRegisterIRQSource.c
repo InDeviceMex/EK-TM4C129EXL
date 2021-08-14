@@ -26,7 +26,8 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Source.h>
 
-void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), EEPROM_nINTERRUPT enInterruptParam)
+void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                       EEPROM_nINTERRUPT enInterruptParam)
 {
     uint32_t u32InterruptSource = 0UL;
     if(0UL != (uint32_t) pfIrqSourceHandler)
@@ -34,8 +35,8 @@ void EEPROM__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), EEPROM
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
                                                   (uint32_t) EEPROM_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                           EEPROM__pvfGetIRQSourceHandlerPointer((EEPROM_nINTERRUPT) u32InterruptSource),
-                                           0UL,
-                                           1UL);
+                   EEPROM__pvfGetIRQSourceHandlerPointer((EEPROM_nINTERRUPT) u32InterruptSource),
+                   0UL,
+                   1UL);
     }
 }

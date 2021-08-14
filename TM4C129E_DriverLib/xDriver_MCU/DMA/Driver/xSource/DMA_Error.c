@@ -28,12 +28,14 @@
 
 void DMA__vClearModuleError(void)
 {
-    DMA__vWriteRegister(DMA_ERRCLR_OFFSET, DMA_ERRCLR_ERRCLR_ERROR, DMA_ERRCLR_ERRCLR_MASK, DMA_ERRCLR_R_ERRCLR_BIT);
+    DMA__vWriteRegister(DMA_ERRCLR_OFFSET, DMA_ERRCLR_ERRCLR_ERROR,
+                        DMA_ERRCLR_ERRCLR_MASK, DMA_ERRCLR_R_ERRCLR_BIT);
 }
 
 DMA_nERROR DMA__enGetModuleError(void)
 {
     DMA_nERROR enModuleError = DMA_enSTATUS_ERROR_NOPENDING;
-    enModuleError = (DMA_nERROR) DMA__u32ReadRegister(DMA_ERRCLR_OFFSET, DMA_ERRCLR_ERRCLR_MASK, DMA_ERRCLR_R_ERRCLR_BIT);
+    enModuleError = (DMA_nERROR) DMA__u32ReadRegister(DMA_ERRCLR_OFFSET,
+                                  DMA_ERRCLR_ERRCLR_MASK, DMA_ERRCLR_R_ERRCLR_BIT);
     return (enModuleError);
 }

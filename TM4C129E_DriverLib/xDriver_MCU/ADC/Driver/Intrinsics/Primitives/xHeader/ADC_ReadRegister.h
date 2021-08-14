@@ -26,6 +26,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-uint32_t ADC__u32ReadRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+uint32_t ADC__u32ReadRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister,
+                              uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_ADC_READREGISTER_H_ */

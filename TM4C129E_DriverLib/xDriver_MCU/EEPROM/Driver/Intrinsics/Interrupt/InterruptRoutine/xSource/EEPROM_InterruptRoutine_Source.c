@@ -26,10 +26,12 @@
 static void EEPROM_vIRQSourceHandler_Dummy(void);
 
 static void (*EEPROM__vIRQSourceHandler[(uint32_t) EEPROM_enINTERRUPT_MAX]) (void)=
-{&EEPROM_vIRQSourceHandler_Dummy,
- &EEPROM_vIRQSourceHandler_Dummy,
- &EEPROM_vIRQSourceHandler_Dummy,
- &EEPROM_vIRQSourceHandler_Dummy,};
+{
+    &EEPROM_vIRQSourceHandler_Dummy,
+    &EEPROM_vIRQSourceHandler_Dummy,
+    &EEPROM_vIRQSourceHandler_Dummy,
+    &EEPROM_vIRQSourceHandler_Dummy
+};
 
 static void EEPROM_vIRQSourceHandler_Dummy(void)
 {
@@ -38,10 +40,14 @@ static void EEPROM_vIRQSourceHandler_Dummy(void)
 
 void (*EEPROM__pvfGetIRQSourceHandler(EEPROM_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return (EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }
 
 void (**EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nINTERRUPT enInterruptSourceArg))(void)
 {
-    return ((void(**)(void)) &EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    return (pvfFunctionReg);
 }

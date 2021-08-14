@@ -54,6 +54,7 @@ void DMA_CH__vSetRequestType(DMA_nCH_MODULE enChannel, DMA_nCH_REQTYPE enRequest
 DMA_nCH_REQTYPE DMA_CH__enGetRequestType(DMA_nCH_MODULE enChannel)
 {
     DMA_nCH_REQTYPE enRequestType = DMA_enCH_REQTYPE_BOTH;
-    enRequestType = (DMA_nCH_REQTYPE) DMA_CH__u32GetConfigGeneric(enChannel, DMA_USEBURSTSET_OFFSET);
+    enRequestType = (DMA_nCH_REQTYPE) DMA_CH__u32GetConfigGeneric(enChannel,
+                                                      DMA_USEBURSTSET_OFFSET);
     return (enRequestType);
 }

@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld, DMA_CONTROL_Typedef* pstControl);
+DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld,
+                                                 DMA_CONTROL_Typedef* pstControl);
 DMA_CONTROL_Typedef* DMA_CH__pstCreateControlStruct(uint32_t u32ControlWorld);
 
 #endif /* XDRIVER_MCU_DMA_APP_CH_CONTROL_XHEADER_DMA_CH_CONTROLSTRUCT_H_ */

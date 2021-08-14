@@ -26,11 +26,9 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32Range, uint32_t u32RangeMask, uint32_t u32RangeBit);
-uint32_t ADC__u32GetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RangeMask, uint32_t u32RangeBit);
-
-
-
-
+void ADC__vSetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator,
+                               uint32_t u32Range, uint32_t u32RangeMask, uint32_t u32RangeBit);
+uint32_t ADC__u32GetCompGenericRange(uint32_t u32Module, uint32_t  u32Comparator,
+                                     uint32_t u32RangeMask, uint32_t u32RangeBit);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_RANGE_XHEADER_ADC_COMPARATOR_GENERICRANGE_H_ */
