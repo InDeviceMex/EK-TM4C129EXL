@@ -25,7 +25,11 @@
 
 #include <xDriver_MCU/SSI/Driver/SSI_Driver.h>
 
-void SSI__vSetFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nCLOCK_PHASE enClockPhaseArg, SSI_nCLOCK_POLARITY enClockPolarityArg)
+void SSI__vSetFormatControl(SSI_nMODULE enModule,
+                            SSI_nFORMAT enFormatArg,
+                            SSI_nLENGTH enLengthDataArg,
+                            SSI_nCLOCK_PHASE enClockPhaseArg,
+                            SSI_nCLOCK_POLARITY enClockPolarityArg)
 {
     SSI__vSetDataLength(enModule, enLengthDataArg);
     SSI__vSetFormat(enModule, enFormatArg);
@@ -33,7 +37,8 @@ void SSI__vSetFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_n
     SSI__vSetClockPolarity(enModule, enClockPolarityArg);
 }
 
-void SSI__vSetFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_TypeDef stFormatControl)
+void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
+                                  const SSI_FRAME_CONTROL_TypeDef stFormatControl)
 {
     SSI__vSetDataLength(enModule, stFormatControl.enLengthData);
     SSI__vSetFormat(enModule, stFormatControl.enFormat);
@@ -41,9 +46,10 @@ void SSI__vSetFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_
     SSI__vSetClockPolarity(enModule, stFormatControl.enClockPolarity);
 }
 
-void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_TypeDef* pstFormatControl)
+void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
+                                         const SSI_FRAME_CONTROL_TypeDef* pstFormatControl)
 {
-    if((uint32_t) 0UL != (uint32_t) pstFormatControl)
+    if(0UL != (uint32_t) pstFormatControl)
     {
         SSI__vSetDataLength(enModule, pstFormatControl->enLengthData);
         SSI__vSetFormat(enModule, pstFormatControl->enFormat);

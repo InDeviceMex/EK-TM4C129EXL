@@ -28,15 +28,17 @@
 
 SSI_nFIFO_EMPTY SSI__enIsFifoTransmitEmpty(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_SR_OFFSET, SSI_SR_TFE_MASK, SSI_SR_R_TFE_BIT);
-    return ((SSI_nFIFO_EMPTY) u32Reg);
+    SSI_nFIFO_EMPTY enFifoReg = 0UL;
+    enFifoReg = (SSI_nFIFO_EMPTY) SSI__u32ReadRegister(enModule,
+                        SSI_SR_OFFSET, SSI_SR_TFE_MASK, SSI_SR_R_TFE_BIT);
+    return (enFifoReg);
 }
 
 SSI_nFIFO_FULL SSI__enIsFifoTransmitFull(SSI_nMODULE enModule)
 {
     uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_SR_OFFSET, SSI_SR_TNF_MASK, SSI_SR_R_TNF_BIT);
+    u32Reg = SSI__u32ReadRegister(enModule,
+              SSI_SR_OFFSET, SSI_SR_TNF_MASK, SSI_SR_R_TNF_BIT);
     u32Reg ^= 0x1UL;
     return ((SSI_nFIFO_FULL) u32Reg);
 }

@@ -28,13 +28,15 @@
 
 SSI_nLENGTH SSI__enGetDataLength(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET, SSI_CR0_DSS_MASK, SSI_CR0_R_DSS_BIT);
+    SSI_nLENGTH enLengthReg = SSI_enLENGTH_4BITS;
+    enLengthReg = (SSI_nLENGTH) SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET,
+                                 SSI_CR0_DSS_MASK, SSI_CR0_R_DSS_BIT);
 
-    return ((SSI_nLENGTH) u32Reg);
+    return (enLengthReg);
 }
 
 void SSI__vSetDataLength(SSI_nMODULE enModule, SSI_nLENGTH enDataLength)
 {
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET, (uint32_t) enDataLength, SSI_CR0_DSS_MASK, SSI_CR0_R_DSS_BIT);
+    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
+            (uint32_t) enDataLength, SSI_CR0_DSS_MASK, SSI_CR0_R_DSS_BIT);
 }

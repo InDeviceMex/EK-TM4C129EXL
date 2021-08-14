@@ -56,6 +56,7 @@ SSI_nINT_STATUS SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOUR
     SSI_nINT_STATUS enInterruptReg = SSI_enINT_NOOCCUR;
     uint32_t u32SourceInt = 0UL;
     uint32_t u32Register= 0UL;
+    u32SourceInt = (uint32_t) enSourceInt;
     u32SourceInt &= (uint32_t) SSI_enINT_SOURCE_ALL;
     u32Register = SSI__u32ReadRegister(enModule , SSI_RIS_OFFSET, (uint32_t) u32SourceInt, 0UL);
 

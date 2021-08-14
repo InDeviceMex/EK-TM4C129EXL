@@ -30,24 +30,28 @@ void SSI__vSetClockEvenPrescalerPart(SSI_nMODULE enModule, uint32_t u32EvenPresc
 {
     uint32_t u32MaskRegister = SSI_CPSR_CPSDVSR_MASK;
     u32MaskRegister &= ~ (uint32_t) 0x01UL;
-    SSI__vWriteRegister(enModule, SSI_CPSR_OFFSET, u32EvenPrescaler, u32MaskRegister, SSI_CPSR_R_CPSDVSR_BIT);
+    SSI__vWriteRegister(enModule, SSI_CPSR_OFFSET,
+    u32EvenPrescaler, u32MaskRegister, SSI_CPSR_R_CPSDVSR_BIT);
 }
 
 uint32_t SSI__u32GetClockEvenPrescalerPart(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_CPSR_OFFSET, SSI_CPSR_CPSDVSR_MASK, SSI_CPSR_R_CPSDVSR_BIT);
-    return (u32Reg);
+    uint32_t u32PreescalerReg = 0UL;
+    u32PreescalerReg = SSI__u32ReadRegister(enModule,
+              SSI_CPSR_OFFSET, SSI_CPSR_CPSDVSR_MASK, SSI_CPSR_R_CPSDVSR_BIT);
+    return (u32PreescalerReg);
 }
 
 void SSI__vSetClockDivisorPart(SSI_nMODULE enModule, uint32_t u32Divisor)
 {
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET, u32Divisor, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
+    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
+                u32Divisor, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
 }
 
 uint32_t SSI__u32GetClockDivisorPart(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
-    return (u32Reg);
+    uint32_t u32DivisorReg = 0UL;
+    u32DivisorReg = SSI__u32ReadRegister(enModule,
+                     SSI_CR0_OFFSET, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
+    return (u32DivisorReg);
 }

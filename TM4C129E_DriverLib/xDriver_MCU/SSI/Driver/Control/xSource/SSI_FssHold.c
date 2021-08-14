@@ -28,12 +28,14 @@
 
 void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nFSSHOLD enFssHoldArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET, (uint32_t) enFssHoldArg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
+    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
+            (uint32_t) enFssHoldArg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
 }
 
 SSI_nFSSHOLD SSI__enGetFssHold(SSI_nMODULE enModule)
 {
     SSI_nFSSHOLD enFssHoldReg = SSI_enFSSHOLD_DIS;
-    enFssHoldReg = (SSI_nFSSHOLD) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
+    enFssHoldReg = (SSI_nFSSHOLD) SSI__u32ReadRegister(enModule,
+                           SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
     return (enFssHoldReg);
 }

@@ -25,26 +25,31 @@
 
 void SSI_vIRQSourceHandler_Dummy(void);
 
-void (*SSI__vIRQSourceHandler[(uint32_t) SSI_enMODULE_MAX][(uint32_t) SSI_enINTERRUPT_MAX]) (void) =
+void (*SSI__vIRQSourceHandler[(uint32_t) SSI_enMODULE_MAX]
+                             [(uint32_t) SSI_enINTERRUPT_MAX]) (void) =
 {
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,
     },
 };
@@ -55,13 +60,19 @@ void SSI_vIRQSourceHandler_Dummy(void)
 }
 
 
-void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule, SSI_nINTERRUPT enSSIInterruptNum))(void)
+void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule,
+                                   SSI_nINTERRUPT enSSIInterruptNum))(void)
 {
-    return (SSI__vIRQSourceHandler[(uint32_t) enSSISubmodule][(uint32_t)enSSIInterruptNum]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SSI__vIRQSourceHandler[(uint32_t) enSSISubmodule]
+                                           [(uint32_t)enSSIInterruptNum];
+    return (pvfFunctionReg);
 }
 
 void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule, SSI_nINTERRUPT enSSIInterruptNum))(void)
 {
-    return ((void(**)(void)) &SSI__vIRQSourceHandler[(uint32_t) enSSISubmodule][(uint32_t)enSSIInterruptNum]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SSI__vIRQSourceHandler[(uint32_t) enSSISubmodule]
+                                                             [(uint32_t)enSSIInterruptNum];
+    return (pvfFunctionReg);
 }
-

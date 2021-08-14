@@ -26,7 +26,9 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule, SSI_nINTERRUPT enSSIInterruptNum))(void);
-void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule, SSI_nINTERRUPT enSSIInterruptNum))(void);
+void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule,
+                                   SSI_nINTERRUPT enSSIInterruptNum))(void);
+void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule,
+                                           SSI_nINTERRUPT enSSIInterruptNum))(void);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_SSI_INTERRUPTROUTINE_SOURCE_H_ */

@@ -31,10 +31,13 @@ uint32_t SSI__u32GetData(SSI_nMODULE enModule);
 uint32_t SSI__u32GetDataWithStatus(SSI_nMODULE enModule);
 
 uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray);
-uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoValue, uint32_t u32SizeBuffer);
+uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule,
+                                  const uint32_t u32FifoValue, uint32_t u32SizeBuffer);
 uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray);
 
-uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer);
-uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer);
+uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule,
+                             const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer);
+uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule,
+                                 const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_XHEADER_SSI_DATA_H_ */

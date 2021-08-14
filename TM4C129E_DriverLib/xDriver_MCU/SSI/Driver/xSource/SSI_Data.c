@@ -45,9 +45,9 @@ inline uint32_t SSI__u32SetData(SSI_nMODULE enModule, uint32_t u32Data)
 
 inline uint32_t SSI__u32GetData(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_DR_OFFSET, SSI_DR_DATA_MASK, 0UL);
-    return (u32Reg);
+    uint32_t u32DataReg = 0UL;
+    u32DataReg = SSI__u32ReadRegister(enModule, SSI_DR_OFFSET, SSI_DR_DATA_MASK, 0UL);
+    return (u32DataReg);
 }
 
 uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray)
@@ -61,7 +61,7 @@ uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
+    if(0UL != (uint32_t) pu32FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;
@@ -90,7 +90,7 @@ uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
+    if(0UL != (uint32_t) pu8FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;
@@ -108,7 +108,8 @@ uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray)
     return (u32Count);
 }
 
-uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer)
+uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule,
+                             const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
     SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
@@ -121,7 +122,7 @@ uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
+    if(0UL != (uint32_t) pu32FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;
@@ -145,7 +146,8 @@ uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule, const uint32_t* pu32FifoArray
     return (u32Count);
 }
 
-uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoValue, uint32_t u32SizeBuffer)
+uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule,
+                                  const uint32_t u32FifoValue, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
     SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
@@ -177,7 +179,8 @@ uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule, const uint32_t u32FifoVa
     }
     return (u32Count);
 }
-uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer)
+uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule,
+                                 const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer)
 {
     uint32_t u32Timeout = 100000UL;
     SSI_nFIFO_FULL enFifoFull = SSI_enFIFO_NO_FULL;
@@ -191,7 +194,7 @@ uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule, const uint8_t* pu8FifoArr
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
-    if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
+    if(0UL != (uint32_t) pu8FifoArray)
     {
         u32UartBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
         u32UartBase += SSI_DR_OFFSET;

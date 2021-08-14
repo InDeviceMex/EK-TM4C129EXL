@@ -28,12 +28,14 @@
 
 void SSI__vSetHighSpeed(SSI_nMODULE enModule, SSI_nHIGHSPEED enHighSpeedArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET, (uint32_t) enHighSpeedArg, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
+    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
+    (uint32_t) enHighSpeedArg, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
 }
 
 SSI_nHIGHSPEED SSI__enGetHighSpeed(SSI_nMODULE enModule)
 {
     SSI_nHIGHSPEED enHighSpeedReg = SSI_enHIGHSPEED_DIS;
-    enHighSpeedReg = (SSI_nHIGHSPEED) SSI__u32ReadRegister(enModule, SSI_CR1_OFFSET, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
+    enHighSpeedReg = (SSI_nHIGHSPEED) SSI__u32ReadRegister(enModule,
+                       SSI_CR1_OFFSET, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
     return (enHighSpeedReg);
 }

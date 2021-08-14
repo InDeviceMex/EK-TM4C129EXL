@@ -27,17 +27,21 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/SSI_InterruptRoutine_Source.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),SSI_nMODULE enModule, SSI_nINTERRUPT enInterruptSource)
+void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                    SSI_nMODULE enModule, SSI_nINTERRUPT enInterruptSource)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32InterruptSource = 0UL;
     if(0UL != (uint32_t) pfIrqSourceHandler)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,  (uint32_t) SSI_enMODULE_MAX);
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,  (uint32_t) SSI_enINTERRUPT_MAX);
+        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
+                                         (uint32_t) SSI_enMODULE_MAX);
+        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,
+                                                  (uint32_t) SSI_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                                       SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) u32Module, (SSI_nINTERRUPT)u32InterruptSource),
-                                       0UL,
-                                       1UL);
+                       SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) u32Module,
+                                                          (SSI_nINTERRUPT)u32InterruptSource),
+                       0UL,
+                       1UL);
     }
 }

@@ -26,7 +26,8 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-uint32_t SSI__u32ReadRegister(SSI_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32MaskFeature, uint32_t u32BitFeature)
+uint32_t SSI__u32ReadRegister(SSI_nMODULE enModule, uint32_t u32OffsetRegister,
+                              uint32_t u32MaskFeature, uint32_t u32BitFeature)
 {
     uint32_t u32FeatureValue = 0UL;
     uint32_t u32SsiBase = 0UL;
@@ -34,7 +35,8 @@ uint32_t SSI__u32ReadRegister(SSI_nMODULE enModule, uint32_t u32OffsetRegister, 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
 
     u32SsiBase = SSI__u32BlockBaseAddress((SSI_nMODULE) u32Module);
-    u32FeatureValue = MCU__u32ReadRegister(u32SsiBase, u32OffsetRegister, u32MaskFeature, u32BitFeature);
+    u32FeatureValue = MCU__u32ReadRegister(u32SsiBase, u32OffsetRegister,
+                                           u32MaskFeature, u32BitFeature);
 
     return (u32FeatureValue);
 }

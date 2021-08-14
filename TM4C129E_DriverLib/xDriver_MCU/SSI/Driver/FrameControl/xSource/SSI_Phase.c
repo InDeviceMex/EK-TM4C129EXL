@@ -28,13 +28,14 @@
 
 SSI_nCLOCK_PHASE SSI__enGetClockPhase(SSI_nMODULE enModule)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET, SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
-
-    return ((SSI_nCLOCK_PHASE) u32Reg);
+    SSI_nCLOCK_PHASE enPhaseReg = SSI_enCLOCK_PHASE_FIRST;
+    enPhaseReg = (SSI_nCLOCK_PHASE) SSI__u32ReadRegister(enModule, SSI_CR0_OFFSET,
+                                         SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
+    return (enPhaseReg);
 }
 
 void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nCLOCK_PHASE enClockPhaseArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET, (uint32_t) enClockPhaseArg, SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
+    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
+            (uint32_t) enClockPhaseArg, SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
 }
