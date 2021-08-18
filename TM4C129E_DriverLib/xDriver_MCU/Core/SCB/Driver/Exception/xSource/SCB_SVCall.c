@@ -36,10 +36,10 @@ void SCB_SVCall__vSetPriority(SCB_nSHPR enSVCallPriority)
 
 SCB_nSHPR SCB_SVCall__enGetPriority(void)
 {
-    SCB_nSHPR enReturn = SCB_enSHPR0;
-    enReturn = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR2_OFFSET,
+    SCB_nSHPR enPriReg = SCB_enSHPR0;
+    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR2_OFFSET,
                                   SCB_SHPR2_SVCALL_MASK, SCB_SHPR2_R_SVCALL_BIT);
-    return (enReturn);
+    return (enPriReg);
 }
 
 void SCB_SVCall__vSetPending(void)
@@ -56,8 +56,8 @@ void SCB_SVCall__vClearPending(void)
 
 SCB_nPENDSTATE SCB_SVCall__enGetPending(void)
 {
-    SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
-    enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
+    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
+    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
                                   SCB_SHCSR_SVCALLPENDED_MASK, SCB_SHCSR_R_SVCALLPENDED_BIT);
-    return (enReturn);
+    return (enPendReg);
 }

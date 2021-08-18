@@ -23,10 +23,12 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_SpecialIntructions.h>
 
-__attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value)
+__attribute__((naked))
+uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value)
 {
-    {__asm(" clz     r0, r0\n"
-           " bx      lr\n");}
+    __asm volatile(" strb.w r0, [r13]\n"
+          " clz     r0, r0\n"
+          " bx      lr\n");
     return (0UL);
 }
 

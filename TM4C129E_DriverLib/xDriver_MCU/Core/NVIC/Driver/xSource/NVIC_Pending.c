@@ -29,9 +29,9 @@
 
 NVIC_nPENDING NVIC__enGetPendingIRQ(NVIC_nSTIR enIRQ)
 {
-    NVIC_nPENDING enStatus = NVIC_enNOPENDING;
-    enStatus = (NVIC_nPENDING) NVIC__u32ReadRegister(enIRQ, NVIC_ISPR_OFFSET);
-    return (enStatus);
+    NVIC_nPENDING enPendingReg = NVIC_enNOPENDING;
+    enPendingReg = (NVIC_nPENDING) NVIC__u32ReadRegister(enIRQ, NVIC_ISPR_OFFSET);
+    return (enPendingReg);
 }
 
 void NVIC__vSetPendingIRQ(NVIC_nSTIR enIRQ)

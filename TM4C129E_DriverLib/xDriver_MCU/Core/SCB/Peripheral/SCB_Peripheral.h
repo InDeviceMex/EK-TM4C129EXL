@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_PERIPHERAL_H_
 
 #include <xDriver_MCU/Core/SCB/Peripheral/Register/SCB_Register.h>
-#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Dependencies.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_PERIPHERAL_H_ */

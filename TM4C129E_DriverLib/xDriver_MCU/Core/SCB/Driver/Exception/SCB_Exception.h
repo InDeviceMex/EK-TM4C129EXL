@@ -26,14 +26,14 @@
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_EXCEPTION_SCB_EXCEPTION_H_
 
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_BusFault.h>
-#include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_DEBUG.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_ISR.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_MemoryFault.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_NMI.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_PendSV.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_SVCall.h>
-#include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_SYSTICK.h>
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_UsageFault.h>
+#include "xHeader/SCB_Debug.h"
+#include "xHeader/SCB_Systick.h"
 
 void SCB__vEnableAllExceptions(void);
 

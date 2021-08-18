@@ -38,4 +38,3 @@ void SCB__vDisUnprivilegedSWTrigger(void)
     MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_USERSETMPEND_DIS,
                         SCB_CCR_USERSETMPEND_MASK, SCB_CCR_R_USERSETMPEND_BIT);
 }
-

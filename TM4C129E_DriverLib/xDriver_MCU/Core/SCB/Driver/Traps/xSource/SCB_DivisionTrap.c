@@ -37,6 +37,3 @@ void SCB__vDisDivisionTrap(void)
     MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_DIV_0_TRP_NOTRAP,
                         SCB_CCR_DIV_0_TRP_MASK, SCB_CCR_R_DIV_0_TRP_BIT);
 }
-
-
-

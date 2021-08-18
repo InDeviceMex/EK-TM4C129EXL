@@ -22,10 +22,11 @@
  * 2 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_Init.h>
+
+#include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/SCB_InterruptRoutine.h>
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_VectorTable.h>
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_RegisterIRQVector.h>
-
-#include <xDriver_MCU/Core/SCB/SCB.h>
+#include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
 void SCB__vInit(void)
 {

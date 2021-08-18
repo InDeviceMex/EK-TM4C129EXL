@@ -23,5 +23,37 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_Basics.h>
 
+__attribute__((naked))
+void MCU__vNoOperation(void)
+{
+  __asm volatile(" NOP \n"
+        " BX lr \n");
+}
 
+__attribute__((naked))
+void MCU__vDataSyncBarrier(void)
+{
+  __asm volatile(" DSB \n"
+        " BX lr \n");
+}
+
+__attribute__((naked))
+void MCU__vInstructionSyncBarrier(void)
+{
+  __asm volatile(" ISB \n"
+        " BX lr \n");
+}
+
+__attribute__((naked))
+void MCU__vDataMemoryBarrier(void)
+{
+  __asm volatile(" DMB \n"
+        " BX lr \n");
+}
+
+void MCU__vBlocking(void)
+{
+    MCU__vDataSyncBarrier();
+    MCU__vInstructionSyncBarrier();
+}
 

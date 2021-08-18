@@ -30,9 +30,9 @@
 
 NVIC_nENABLE NVIC__enGetEnableIRQ(NVIC_nSTIR enIRQ)
 {
-    NVIC_nENABLE enStatus = NVIC_enDISABLE;
-    enStatus = (NVIC_nENABLE) NVIC__u32ReadRegister(enIRQ, NVIC_ISER_OFFSET);
-    return (enStatus);
+    NVIC_nENABLE enEnableReg = NVIC_enDISABLE;
+    enEnableReg = (NVIC_nENABLE) NVIC__u32ReadRegister(enIRQ, NVIC_ISER_OFFSET);
+    return (enEnableReg);
 }
 
 void NVIC__vSetEnableIRQ(NVIC_nSTIR enIRQ, NVIC_nPRIORITY enPriority)

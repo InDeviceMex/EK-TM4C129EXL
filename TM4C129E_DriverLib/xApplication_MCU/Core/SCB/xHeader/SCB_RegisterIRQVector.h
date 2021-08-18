@@ -25,9 +25,11 @@
 #ifndef XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_REGISTERIRQVECTOR_H_
 #define XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_REGISTERIRQVECTOR_H_
 
-#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
+#include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), void (**pfIrqVectorHandlerExtern) (void), SCB_nVECISR enVector);
+void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
+                                    void (**pfIrqVectorHandlerExtern) (void),
+                                    SCB_nVECISR enVector);
 void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_REGISTERIRQVECTOR_H_ */

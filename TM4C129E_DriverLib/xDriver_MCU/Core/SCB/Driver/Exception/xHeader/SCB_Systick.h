@@ -1,6 +1,6 @@
 /**
  *
- * @file SCB_DEBUG.h
+ * @file SCB_Systick.h
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -22,12 +22,16 @@
  * 19 jun. 2020     vyldram    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_
-#define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_
+#ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSTICK_H_
+#define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSTICK_H_
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_DEBUG__vSetPriority(SCB_nSHPR enDEBUGPriority);
-SCB_nSHPR SCB_DEBUG__enGetPriority(void);
+void SCB_Systick__vSetPending(void);
+void SCB_Systick__vClearPending(void);
+SCB_nPENDSTATE SCB_Systick__enGetPending(void);
 
-#endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_ */
+void SCB_Systick__vSetPriority(SCB_nSHPR enSystickPriority);
+SCB_nSHPR SCB_Systick__enGetPriority(void);
+
+#endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSTICK_H_ */

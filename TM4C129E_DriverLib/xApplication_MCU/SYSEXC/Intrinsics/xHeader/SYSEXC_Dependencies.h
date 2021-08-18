@@ -30,5 +30,6 @@
 
 #include <xDriver_MCU/SYSEXC/SYSEXC.h>
 #include <xDriver_MCU/SYSEXC/Peripheral/SYSEXC_Peripheral.h>
+#include <xApplication_MCU/UART/UART.h>
 
 #endif /* XAPPLICATION_MCU_SYSEXC_INTRINSICS_XHEADER_SYSEXC_DEPENDENCIES_H_ */

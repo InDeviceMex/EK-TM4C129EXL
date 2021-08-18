@@ -333,6 +333,7 @@ uint32_t main(void)
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
+
     GraphTerm__vClearScreen(UART_enMODULE_0);
     GraphTerm__vHideCursor(UART_enMODULE_0);
     GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
@@ -351,6 +352,7 @@ uint32_t main(void)
     OS_Task__u32TaskGenericCreate(&Task3, "Task 3", 300UL, (void*) 0UL, 5UL, &TaskHandeler[2UL]);
     OS_Task__u32TaskGenericCreate(&Task4, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
     OS_Task__u32TaskGenericCreate(&Task5, "Task 5", 300UL, (void*) 0UL, 3UL, &TaskHandeler[4UL]);
+
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {

@@ -38,8 +38,8 @@ void SCB__vSetVectorOffset(uint32_t u32Offset)
 
 uint32_t SCB__u32GetVectorOffset(void)
 {
-    uint32_t u32Return = 0UL;
-    u32Return =  MCU__u32ReadRegister(SCB_BASE, SCB_VTOR_OFFSET,
+    uint32_t u32VectorOffsetReg = 0UL;
+    u32VectorOffsetReg =  MCU__u32ReadRegister(SCB_BASE, SCB_VTOR_OFFSET,
                                       SCB_VTOR_R_TBLOFF_MASK, 0UL);
-    return (u32Return);
+    return (u32VectorOffsetReg);
 }

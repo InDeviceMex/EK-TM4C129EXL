@@ -66,47 +66,13 @@ MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt
 __attribute__((naked))
 MCU_nPRIORITY MCU__enGetBasePriorityInterrupt_RAM(void);
 
+__attribute__((naked))
 void MCU__vWaitForInterrupt_RAM(void);
+__attribute__((naked))
 void MCU__vWaitForEvent_RAM(void);
+__attribute__((naked))
 void MCU__vSendEvent_RAM(void);
 
-#pragma CHECK_MISRA("-8.5")
-
-    #pragma FUNC_ALWAYS_INLINE (MCU__vWaitForInterrupt)
-    #pragma FUNC_ALWAYS_INLINE (MCU__vWaitForEvent)
-    #pragma FUNC_ALWAYS_INLINE (MCU__vSendEvent)
-    #pragma FUNC_ALWAYS_INLINE (MCU__vSetBasePriorityInterrupt)
-
-    inline void MCU__vWaitForInterrupt(void);
-    inline void MCU__vWaitForEvent(void);
-    inline void MCU__vSendEvent(void);
-    inline void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
-
-    inline void MCU__vWaitForInterrupt(void)
-    {
-        {__asm(" wfi");}
-    }
-
-    inline void MCU__vWaitForEvent(void)
-    {
-        {__asm(" wfe");}
-    }
-
-    inline void MCU__vSendEvent(void)
-    {
-        {__asm(" sev");}
-    }
-
-    inline void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)
-    {
-        {__asm(" and     r1, r0, #0x7\n");}
-        {__asm(" lsl     r1, #0x5\n");}
-        {__asm(" msr     BASEPRI, r1\n");}
-        {__asm(" dsb\n");}
-        {__asm(" isb\n");}
-    }
-
-#pragma RESET_MISRA("8.5")
 
 #elif defined (__GNUC__ )
 
@@ -134,40 +100,23 @@ MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt
 __attribute__((naked))
 MCU_nPRIORITY MCU__enGetBasePriorityInterrupt_RAM(void)__attribute__((section(".ramcode")));
 
+__attribute__((naked))
 void MCU__vWaitForInterrupt_RAM(void)__attribute__((section(".ramcode")));
+__attribute__((naked))
 void MCU__vWaitForEvent_RAM(void)__attribute__((section(".ramcode")));
+__attribute__((naked))
 void MCU__vSendEvent_RAM(void)__attribute__((section(".ramcode")));
 
-inline void MCU__vWaitForInterrupt(void)__attribute__((always_inline));
-inline void MCU__vWaitForEvent(void)__attribute__((always_inline));
-inline void MCU__vSendEvent(void)__attribute__((always_inline));
-inline void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)__attribute__((always_inline));
-
-inline void MCU__vWaitForInterrupt(void)
-{
-    {__asm(" wfi");}
-}
-
-inline void MCU__vWaitForEvent(void)
-{
-    {__asm(" wfe");}
-}
-
-inline void MCU__vSendEvent(void)
-{
-    {__asm(" sev");}
-}
-
-inline void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt)
-{
-    {__asm(" and     r1, r0, #0x7\n");}
-    {__asm(" lsl     r1, #0x5\n");}
-    {__asm(" msr     BASEPRI, r1\n");}
-    {__asm(" dsb\n");}
-    {__asm(" isb\n");}
-}
-
 #endif
+
+__attribute__((naked))
+void MCU__vWaitForInterrupt(void);
+__attribute__((naked))
+void MCU__vWaitForEvent(void);
+__attribute__((naked))
+void MCU__vSendEvent(void);
+__attribute__((naked))
+void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
 
 __attribute__((naked))
 MCU_nENABLE MCU__enDisGlobalInterrupt(void);
@@ -199,8 +148,8 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void);
 #define STRINGIZE_NX(A) #A
 #define STRINGIZE(A) STRINGIZE_NX(A)
 
-#define MCU__vSetBreakpoint(values)    {__asm(STRINGIZE_NX(\t BKPT values));}
-#define MCU__vSupervisorCall(values)    {__asm(STRINGIZE_NX(\t SVC values));}
+#define MCU__vSetBreakpoint(values)    {__asm volatile(STRINGIZE_NX(\t BKPT values));}
+#define MCU__vSupervisorCall(values)    {__asm volatile(STRINGIZE_NX(\t SVC values));}
 
 #if defined (__TI_ARM__ )
     #pragma RESET_MISRA("19.7,19.13")

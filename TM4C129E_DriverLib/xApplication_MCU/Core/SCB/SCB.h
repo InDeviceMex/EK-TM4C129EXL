@@ -25,6 +25,7 @@
 #ifndef XAPPLICATION_MCU_CORE_SCB_SCB_H_
 #define XAPPLICATION_MCU_CORE_SCB_SCB_H_
 
+#include <xApplication_MCU/Core/SCB/Interrupt/SCB_Interrupt.h>
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_RegisterIRQVector.h>
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_VectorTable.h>
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_Init.h>

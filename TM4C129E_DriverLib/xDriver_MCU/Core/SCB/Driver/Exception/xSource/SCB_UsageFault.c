@@ -36,10 +36,10 @@ void SCB_UsageFault__vSetPriority(SCB_nSHPR enUsageFaultPriority)
 
 SCB_nSHPR SCB_UsageFault__enGetPriority(void)
 {
-    SCB_nSHPR enReturn = SCB_enSHPR0;
-    enReturn = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
+    SCB_nSHPR enPriReg = SCB_enSHPR0;
+    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
                                   SCB_SHPR1_USAGE_MASK, SCB_SHPR1_R_USAGE_BIT);
-    return (enReturn);
+    return (enPriReg);
 }
 
 void SCB_UsageFault__vEnable(void)
@@ -67,9 +67,9 @@ void SCB_UsageFault__vClearPending(void)
 
 SCB_nPENDSTATE SCB_UsageFault__enGetPending(void)
 {
-    SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
-    enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
+    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
+    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
                               SCB_SHCSR_USGFAULTPENDED_MASK, SCB_SHCSR_R_USGFAULTPENDED_BIT);
 
-    return (enReturn);
+    return (enPendReg);
 }

@@ -26,5 +26,10 @@
 #define XAPPLICATION_MCU_CORE_SCB_INTRINSICS_XHEADER_SCB_DEPENDENCIES_H_
 
 #include <xDriver_MCU/Core/SCB/SCB.h>
+#include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+
+#include <xApplication_MCU/FLASH/FLASH.h>
+#include <xApplication_MCU/UART/UART.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTRINSICS_XHEADER_SCB_DEPENDENCIES_H_ */

@@ -28,7 +28,7 @@
 
 NVIC_nACTIVE NVIC__enGetActiveIRQ(NVIC_nSTIR enIRQ)
 {
-    NVIC_nACTIVE enStatus = NVIC_enNOACTIVE;
-    enStatus = (NVIC_nACTIVE ) NVIC__u32ReadRegister(enIRQ, NVIC_IABR_OFFSET);
-    return (enStatus);
+    NVIC_nACTIVE enActiveReg = NVIC_enNOACTIVE;
+    enActiveReg = (NVIC_nACTIVE ) NVIC__u32ReadRegister(enIRQ, NVIC_IABR_OFFSET);
+    return (enActiveReg);
 }

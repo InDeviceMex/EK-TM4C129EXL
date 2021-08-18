@@ -1,6 +1,6 @@
 /**
  *
- * @file SCB_InterruptNMI.h
+ * @file SCB_Debug.h
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -22,9 +22,12 @@
  * 19 jun. 2020     vyldram    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_INTERRUPTROUTINE_SCB_INTERRUPTNMI_H_
-#define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_INTERRUPTROUTINE_SCB_INTERRUPTNMI_H_
+#ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_
+#define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_
 
-void NMI__vIRQVectorHandler(void);
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-#endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_INTERRUPTROUTINE_SCB_INTERRUPTNMI_H_ */
+void SCB_Debug__vSetPriority(SCB_nSHPR enDebugPriority);
+SCB_nSHPR SCB_Debug__enGetPriority(void);
+
+#endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_ */

@@ -35,12 +35,12 @@ void SCB_BusFault__vSetPriority(SCB_nSHPR enSCBPriority)
 }
 SCB_nSHPR SCB_BusFault__enGetPriority(void)
 {
-    SCB_nSHPR enReturn = SCB_enSHPR0;
+    SCB_nSHPR enPriReg = SCB_enSHPR0;
 
-    enReturn = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
+    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
                                   SCB_SHPR1_BUS_MASK, SCB_SHPR1_R_BUS_BIT);
 
-    return (enReturn);
+    return (enPriReg);
 }
 
 void SCB_BusFault__vSetPending(void)
@@ -55,11 +55,11 @@ void SCB_BusFault__vClearPending(void)
 }
 SCB_nPENDSTATE SCB_BusFault__enGetPending(void)
 {
-    SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
-    enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
+    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
+    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
                                   SCB_SHCSR_BUSFAULTPENDED_MASK, SCB_SHCSR_R_BUSFAULTPENDED_BIT);
 
-    return (enReturn);
+    return (enPendReg);
 }
 
 void SCB_BusFault__vEnable(void)
@@ -75,8 +75,8 @@ void SCB_BusFault__vDisable(void)
 
 uint32_t SCB_BusFault_u32GetAddress(void)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = MCU__u32ReadRegister(SCB_BASE, SCB_BFAR_OFFSET,
+    uint32_t u32AddressReg = 0UL;
+    u32AddressReg = MCU__u32ReadRegister(SCB_BASE, SCB_BFAR_OFFSET,
                                   SCB_BFAR_ADDRESS_MASK, SCB_BFAR_R_ADDRESS_BIT);
-    return (u32Reg);
+    return (u32AddressReg);
 }

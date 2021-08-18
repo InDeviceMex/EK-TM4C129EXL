@@ -34,10 +34,15 @@
 
 
 static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod );
+
+__attribute__ (( naked ))
 static void OS_Adapt_vStartFirstTask(void);
+__attribute__ (( naked ))
+static void OS_Adapt_vSVCHandler(void);
+__attribute__ (( naked ))
+static void OS_Adapt_vPendSVHandler(void);
+
 static void OS_Adapt_vSysTickHandler( void );
-__attribute__ (( naked )) static void OS_Adapt_vSVCHandler(void);
-__attribute__ (( naked )) static void OS_Adapt_vPendSVHandler(void);
 
 OS_TASK_TCB *volatile *  OS_Adapt_ppstCurrentTCB = (OS_TASK_TCB**) 0UL;
 const uint32_t OS_Adapt_u32MaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY;
@@ -51,10 +56,10 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
 {
 
     SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
-    SCB__vRegisterIRQVectorHandler(&OS_Adapt_vSVCHandler, (void (**) (void)) 0UL, SCB_enVECISR_SVCALL);
+    SCB__SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
     /* Make PendSV and SysTick the lowest priority interrupts. */
     SCB_PendSV__vSetPriority(SCB_enSHPR7);
-    SCB_SYSTICK__vSetPriority(SCB_enSHPR7);
+    SCB_Systick__vSetPriority(SCB_enSHPR7);
 
     /* Start the timer that generates the tick ISR.  Interrupts are disabled
     here already. */
@@ -74,9 +79,10 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
 }
 
 
+__attribute__ (( naked ))
 static void OS_Adapt_vStartFirstTask(void)
 {
-    { __asm volatile(
+     __asm volatile(
 #if defined (__TI_ARM__ )
                     " movw r0, #0xED08      \n"/* Use the NVIC offset register to locate the stack. */
                     " movt r0, #0xE000      \n"
@@ -92,12 +98,14 @@ static void OS_Adapt_vStartFirstTask(void)
                     " isb                   \n"
                     " svc #0                \n" /* System call to start first task. */
                     " nop                   \n"
-                );}
+                    " bx r14                          \n"
+                );
 }
 
-__attribute__ (( naked )) static void OS_Adapt_vSVCHandler(void)
+__attribute__ (( naked ))
+static void OS_Adapt_vSVCHandler(void)
 {
-{__asm volatile (
+__asm volatile (
 #if defined (__TI_ARM__ )
                 "   movw r3, OS_Adapt_ppstCurrentTCB     \n"/* Get the location of the current TCB. */
                 "   movt r3, OS_Adapt_ppstCurrentTCB     \n"
@@ -113,14 +121,15 @@ __attribute__ (( naked )) static void OS_Adapt_vSVCHandler(void)
                 "   mov r0, #0                      \n"
                 "   msr basepri, r0                 \n"
                 "   bx r14                          \n"
-            );}
+            );
 }
 
-__attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
+__attribute__ (( naked ))
+static void OS_Adapt_vPendSVHandler (void)
 {
     /* This is a naked function. */
 
-    { __asm volatile
+     __asm volatile
     (
     "   mrs r0, psp                         \n"
     "   isb                                 \n"
@@ -152,11 +161,11 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
     "   ldr r1, [r0]                          \n"
     "   msr basepri, r1                     \n"
     "   dsb                                 \n"
-    "   isb                                 \n");}
+    "   isb                                 \n");
 
     OS_Task__vSwitchContext();
 
-    { __asm volatile
+     __asm volatile
     (
     "   mov r0, #0                          \n"
     "   msr basepri, r0                     \n"
@@ -178,7 +187,7 @@ __attribute__ (( naked )) static void OS_Adapt_vPendSVHandler (void)
     "                                       \n"
     "   bx r14                              \n"
     "                                       \n"
-    );}
+    );
 }
 
 

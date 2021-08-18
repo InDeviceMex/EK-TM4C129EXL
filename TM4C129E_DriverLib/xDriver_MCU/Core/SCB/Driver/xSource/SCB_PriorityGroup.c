@@ -42,8 +42,8 @@ void SCB__vSetPriorityGroup(SCB_nPRIGROUP enGroup)
 
 SCB_nPRIGROUP SCB__enGetPriorityGroup(void)
 {
-    SCB_nPRIGROUP enReturn = SCB_enPRIGROUP_XXX;
-    enReturn = (SCB_nPRIGROUP) MCU__u32ReadRegister(SCB_BASE, SCB_AIRCR_OFFSET,
+    SCB_nPRIGROUP enPriGroupReg = SCB_enPRIGROUP_XXX;
+    enPriGroupReg = (SCB_nPRIGROUP) MCU__u32ReadRegister(SCB_BASE, SCB_AIRCR_OFFSET,
                                             SCB_AIRCR_PRIGROUP_MASK, SCB_AIRCR_R_PRIGROUP_BIT);
-    return (enReturn);
+    return (enPriGroupReg);
 }

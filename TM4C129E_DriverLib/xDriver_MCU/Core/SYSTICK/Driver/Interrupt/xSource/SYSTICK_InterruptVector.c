@@ -29,7 +29,7 @@
 
 void SYSTICK__vEnInterruptVector(SYSTICK_nPRIORITY enPriority)
 {
-    SCB_SYSTICK__vSetPriority((SCB_nSHPR) enPriority);
+    SCB_Systick__vSetPriority((SCB_nSHPR) enPriority);
     MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, SYSTICK_CSR_TICKINT_ENA, SYSTICK_CSR_TICKINT_MASK, SYSTICK_CSR_R_TICKINT_BIT);
 }
 

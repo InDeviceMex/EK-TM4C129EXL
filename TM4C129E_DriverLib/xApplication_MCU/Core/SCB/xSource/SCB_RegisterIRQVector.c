@@ -23,9 +23,7 @@
  */
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_RegisterIRQVector.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/Core/SCB/SCB.h>
-#include <xApplication_MCU/FLASH/FLASH.h>
+#include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
 void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
                                     void (**pfIrqVectorHandlerExtern) (void),
@@ -85,7 +83,3 @@ void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector)
     }
 }
 */
-
-
-
-

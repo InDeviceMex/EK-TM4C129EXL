@@ -35,11 +35,11 @@ void SCB_MemoryFault__vSetPriority(SCB_nSHPR enMemoryPriority)
 }
 SCB_nSHPR SCB_MemoryFault__enGetPriority(void)
 {
-    SCB_nSHPR enReturn = SCB_enSHPR0;
-    enReturn = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
+    SCB_nSHPR enPriReg = SCB_enSHPR0;
+    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR1_OFFSET,
                                   SCB_SHPR1_MEM_MASK, SCB_SHPR1_R_MEM_BIT);
 
-    return (enReturn);
+    return (enPriReg);
 }
 
 void SCB_MemoryFault__vEnable(void)
@@ -67,18 +67,18 @@ void SCB_MemoryFault__vClearPending(void)
 
 SCB_nPENDSTATE SCB_MemoryFault__enGetPending(void)
 {
-    SCB_nPENDSTATE enReturn = SCB_enNOPENDING;
+    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
 
-    enReturn = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
+    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_SHCSR_OFFSET,
                                  SCB_SHCSR_MEMFAULTPENDED_MASK, SCB_SHCSR_R_MEMFAULTPENDED_BIT);
-    return (enReturn);
+    return (enPendReg);
 }
 
 uint32_t SCB_MemoryFault_u32GetAddress(void)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = MCU__u32ReadRegister(SCB_BASE, SCB_MMFAR_OFFSET,
+    uint32_t u32AddressReg = 0UL;
+    u32AddressReg = MCU__u32ReadRegister(SCB_BASE, SCB_MMFAR_OFFSET,
                                   SCB_MMFAR_ADDRESS_MASK, SCB_MMFAR_R_ADDRESS_BIT);
 
-    return (u32Reg);
+    return (u32AddressReg);
 }
