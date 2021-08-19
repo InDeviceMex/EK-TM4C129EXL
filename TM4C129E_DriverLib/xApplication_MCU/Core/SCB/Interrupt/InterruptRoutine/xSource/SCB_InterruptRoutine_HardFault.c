@@ -31,6 +31,42 @@
 
 uint32_t SCB_HardFault_pu32Context[8UL];
 
+UART_CONTROL_TypeDef enUartHardControl =
+{
+    UART_enEOT_ALL,
+    UART_enLOOPBACK_DIS,
+    UART_enLINE_ENA,
+    UART_enLINE_ENA,
+    UART_enRTS_MODE_SOFT,
+    UART_enCTS_MODE_SOFT,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+};
+
+UART_LINE_CONTROL_TypeDef enUartHardLineControl =
+{
+ UART_enFIFO_ENA,
+ UART_enSTOP_ONE,
+ UART_enPARITY_DIS,
+ UART_enPARITY_TYPE_EVEN,
+ UART_enPARITY_STICK_DIS ,
+ UART_enLENGTH_8BITS,
+};
+
+UART_LINE_TypeDef enUartHardLine =
+{
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+};
+
 __attribute__((naked))
 void HardFault__vIRQVectorHandler(void)
 {
@@ -68,7 +104,17 @@ void HardFault__vIRQVectorHandler(void)
 
     u32FaultType = SCB_HFSR_R;
 
-    UART__u32Printf(UART_enMODULE_0, "HardFault exception Detected\n\r"
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartHardControl, &enUartHardLineControl, 921600UL, &enUartHardLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vHideCursor(UART_enMODULE_0);
+    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+
+    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "HardFault exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -102,7 +148,7 @@ void HardFault__vIRQVectorHandler(void)
         }
         else
         {
-            UART__u32Printf(UART_enMODULE_0, "Undefined Bus, Memory or Usage exception Detected\n\r");
+            GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Bus, Memory or Usage exception Detected\n\r");
         }
 
     }
@@ -111,14 +157,14 @@ void HardFault__vIRQVectorHandler(void)
     {
         SCB_HFSR_R = SCB_HFSR_R_VECTTBL_MASK;
         u32HardMemoryFault = SCB_HardFault_pu32Context[6UL];
-        UART__u32Printf(UART_enMODULE_0, "Instruction Access Fault Address: %X\n\r",
+        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                         u32HardMemoryFault);
         pfvCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_VECT);
         pfvCallback();
     }
     else
     {
-        UART__u32Printf(UART_enMODULE_0, "Undefined Hard exception Detected\n\r");
+        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Hard exception Detected\n\r");
     }
     __asm volatile(" BX LR");
 }

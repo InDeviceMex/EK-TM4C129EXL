@@ -104,7 +104,7 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
         UART__vSetBaudRateInteger(enModule, u32BaudRateInteger);
         UART__vSetBaudRateFractional(enModule, u32BaudRateFractional);
     }
-    MCU__enSetFPUContextActive(enFPUActive);
+    MCU__vSetFPUContextActive(enFPUActive);
     return (enStatus);
 }
 
@@ -152,6 +152,6 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
 
         u32BaudRate = (uint32_t) f32BaudRate;
     }
-    MCU__enSetFPUContextActive(enFPUActive);
+    MCU__vSetFPUContextActive(enFPUActive);
     return (u32BaudRate);
 }

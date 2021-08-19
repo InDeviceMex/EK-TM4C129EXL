@@ -26,7 +26,7 @@
 __attribute__((naked))
 uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32Value)
 {
-    __asm volatile(" strb.w r0, [r13]\n"
+    __asm volatile(
           " clz     r0, r0\n"
           " bx      lr\n");
     return (0UL);

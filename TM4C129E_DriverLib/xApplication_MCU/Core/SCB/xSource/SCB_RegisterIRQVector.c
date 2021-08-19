@@ -52,7 +52,7 @@ void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
         {
             enInterruptState = MCU__enDisGlobalInterrupt();
             FLASH__enWriteWorld(u32IrqVectorHandler, u32BaseVector);
-            MCU__enSetGlobalInterrupt(enInterruptState);
+            MCU__vSetGlobalInterrupt(enInterruptState);
         }
         else
         {
@@ -75,7 +75,7 @@ void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector)
     {
         MCU__enDisGlobalInterrupt();
         FLASH__enWrite((uint32_t) IntDefaultHandler | 1, u32BaseVector+((uint32_t) enVector*4U));
-        MCU__enEnGlobalInterrupt();
+        MCU__vEnGlobalInterrupt();
     }
     else if((u32BaseVector >= 0x20000000U) && (u32BaseVector <= 0x20000400U) )
     {

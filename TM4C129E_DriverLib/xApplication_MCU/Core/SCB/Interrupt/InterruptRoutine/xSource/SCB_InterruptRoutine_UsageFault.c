@@ -28,6 +28,42 @@
 
 uint32_t SCB_UsageFault_pu32Context[8UL] = {0UL};
 
+UART_CONTROL_TypeDef enUartUsageControl =
+{
+    UART_enEOT_ALL,
+    UART_enLOOPBACK_DIS,
+    UART_enLINE_ENA,
+    UART_enLINE_ENA,
+    UART_enRTS_MODE_SOFT,
+    UART_enCTS_MODE_SOFT,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+};
+
+UART_LINE_CONTROL_TypeDef enUartUsageLineControl =
+{
+ UART_enFIFO_ENA,
+ UART_enSTOP_ONE,
+ UART_enPARITY_DIS,
+ UART_enPARITY_TYPE_EVEN,
+ UART_enPARITY_STICK_DIS ,
+ UART_enLENGTH_8BITS,
+};
+
+UART_LINE_TypeDef enUartUsageLine =
+{
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+};
+
 __attribute__((naked))
 void UsageFault__vIRQVectorHandler(void)
 {
@@ -66,7 +102,17 @@ void UsageFault__vIRQVectorHandler(void)
     u32UsageFault >>= 16UL;
     u32UsageFault &= (uint32_t) SCB_enUSAGE_ALL;
 
-    UART__u32Printf(UART_enMODULE_0, "UsageFault exception Detected\n\r"
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartUsageControl, &enUartUsageLineControl, 921600UL, &enUartUsageLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vHideCursor(UART_enMODULE_0);
+    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+
+    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "UsageFault exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -87,7 +133,7 @@ void UsageFault__vIRQVectorHandler(void)
         case (uint32_t) SCB_enUSAGE_UNDEFINSTR:
                 SCB_CFSR_R = SCB_CFSR_R_UNDEFINSTR_CLEAR;
                 u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Undefined Instruction Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Instruction Fault Address: %X\n\r",
                                 u32UsageAddressFault);
                 pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNDEFINSTR);
                 pfvCallback();
@@ -95,7 +141,7 @@ void UsageFault__vIRQVectorHandler(void)
         case (uint32_t) SCB_enUSAGE_INVSTATE:
                 SCB_CFSR_R = SCB_CFSR_R_INVSTATE_CLEAR;
                 u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Invalid Sate Instruction Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Invalid Sate Instruction Fault Address: %X\n\r",
                                 u32UsageAddressFault);
                 pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVSTATE);
                 pfvCallback();

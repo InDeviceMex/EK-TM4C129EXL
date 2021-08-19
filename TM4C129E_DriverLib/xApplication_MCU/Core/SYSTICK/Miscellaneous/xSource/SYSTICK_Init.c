@@ -80,7 +80,7 @@ SYSTICK_nSTATUS SYSTICK__enInitTickVector(uint32_t u32Tick, SYSTICK_nPRIORITY en
         SYSTICK__vEnable();
         enReturn = SYSTICK_enOK;
     }
-    MCU__enSetFPUContextActive(enFPUActive);
+    MCU__vSetFPUContextActive(enFPUActive);
     return (enReturn);
 }
 

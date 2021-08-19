@@ -54,7 +54,7 @@ void SCB__vSetVectorTable(uint32_t u32Offset)
     {
         enInterruptState = MCU__enDisGlobalInterrupt();
         FLASH__enWriteMultiWorld( (uint32_t*) u32TableAddress, u32Offset, SCB_VECTOR_TABLE_SIZE);
-        MCU__enSetGlobalInterrupt(enInterruptState);
+        MCU__vSetGlobalInterrupt(enInterruptState);
     }
     else
     {

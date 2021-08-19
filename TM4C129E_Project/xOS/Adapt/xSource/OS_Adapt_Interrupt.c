@@ -53,12 +53,12 @@ void OS_Adapt__vEndSwitchingISR( uint32_t u32SwitchRequired)
 
 void OS_Adapt__vDisableInterrupts(void)
 {
-    MCU__enSetBasePriorityInterrupt((MCU_nPRIORITY) OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY);
+    MCU__vSetBasePriorityInterrupt((MCU_nPRIORITY) OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY);
 }
 
 void OS_Adapt__vEnableInterrupts(void)
 {
-    MCU__enSetBasePriorityInterrupt(MCU_enPRI0);
+    MCU__vSetBasePriorityInterrupt(MCU_enPRI0);
 }
 
 uint32_t OS_Adapt__u32IsInterruptActive(void)
@@ -78,6 +78,6 @@ uint32_t OS_Adapt__u32SetInterruptMaskFromISR(void)
 
 void OS_Adapt__vClearInterruptMaskFromISR(uint32_t u32Mask)
 {
-    MCU__enSetBasePriorityInterrupt((MCU_nPRIORITY) u32Mask);
+    MCU__vSetBasePriorityInterrupt((MCU_nPRIORITY) u32Mask);
 }
 

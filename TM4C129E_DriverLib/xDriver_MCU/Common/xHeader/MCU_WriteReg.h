@@ -91,7 +91,7 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
     }
 
     (*pu32Peripheral) = (uint32_t) u32Reg;
-    MCU__enSetGlobalInterrupt(enStatus);
+    (void) MCU__vSetGlobalInterrupt(enStatus);
 }
 
 inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
@@ -110,7 +110,7 @@ inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
     u32FeatureValue &= u32MaskFeature;
     u32FeatureValue <<= u32BitFeature;
     (*pu32Peripheral) = (uint32_t) u32FeatureValue;
-    MCU__enSetGlobalInterrupt(enStatus);
+    MCU__vSetGlobalInterrupt(enStatus);
 }
 
 #if defined (__TI_ARM__ )

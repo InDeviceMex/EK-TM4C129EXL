@@ -28,6 +28,42 @@
 
 uint32_t SCB_BusFault_pu32Context[8UL] = {0UL};
 
+UART_CONTROL_TypeDef enUartBusControl =
+{
+    UART_enEOT_ALL,
+    UART_enLOOPBACK_DIS,
+    UART_enLINE_ENA,
+    UART_enLINE_ENA,
+    UART_enRTS_MODE_SOFT,
+    UART_enCTS_MODE_SOFT,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+};
+
+UART_LINE_CONTROL_TypeDef enUartBusLineControl =
+{
+ UART_enFIFO_ENA,
+ UART_enSTOP_ONE,
+ UART_enPARITY_DIS,
+ UART_enPARITY_TYPE_EVEN,
+ UART_enPARITY_STICK_DIS ,
+ UART_enLENGTH_8BITS,
+};
+
+UART_LINE_TypeDef enUartBusLine =
+{
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+};
+
 __attribute__((naked))
 void BusFault__vIRQVectorHandler(void)
 {
@@ -67,7 +103,17 @@ void BusFault__vIRQVectorHandler(void)
     u32BusFault >>= 8UL;
     u32BusFault &= (uint32_t) SCB_enBUS_ALL;
 
-    UART__u32Printf(UART_enMODULE_0, "BusFault exception Detected\n\r"
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartBusControl, &enUartBusLineControl, 921600UL, &enUartBusLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vHideCursor(UART_enMODULE_0);
+    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+
+    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "BusFault exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -100,14 +146,14 @@ void BusFault__vIRQVectorHandler(void)
                 break;
         case (uint32_t) SCB_enBUS_STKERR:
                 SCB_CFSR_R = SCB_CFSR_R_STKERR_CLEAR;
-                UART__u32Printf(UART_enMODULE_0, "Context Values could not be invalid\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                                 u32BusAddressFault);
                 pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_STKERR);
                 pfvCallback();
                 break;
         case (uint32_t) SCB_enBUS_UNSTKERR:
                 SCB_CFSR_R = SCB_CFSR_R_UNSTKERR_CLEAR;
-                UART__u32Printf(UART_enMODULE_0, "Context Values could not be invalid\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                                 u32BusAddressFault);
                 pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_UNSTKERR);
                 pfvCallback();
@@ -126,11 +172,11 @@ void BusFault__vIRQVectorHandler(void)
                 if(1UL == u32BusAddressValid)
                 {
                     u32BusAddressFault = SCB_BFAR_R;
-                    UART__u32Printf(UART_enMODULE_0, "Data Bus Access Fault Address: %X\n\r",
+                    GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Data Bus Access Fault Address: %X\n\r",
                                     u32BusAddressFault);
                 }
                 u32BusAddressFault = SCB_BusFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Instruction Bus Access Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Bus Access Fault Address: %X\n\r",
                                 u32BusAddressFault);
                 pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_PRECISERR);
                 pfvCallback();
@@ -138,7 +184,7 @@ void BusFault__vIRQVectorHandler(void)
         case (uint32_t) SCB_enBUS_IBUSERR:
                 SCB_CFSR_R = SCB_CFSR_R_IBUSERR_CLEAR;
                 u32BusAddressFault = SCB_BusFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Instruction Bus Access Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Bus Access Fault Address: %X\n\r",
                                 u32BusAddressFault);
                 pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_IBUSERR);
                 pfvCallback();

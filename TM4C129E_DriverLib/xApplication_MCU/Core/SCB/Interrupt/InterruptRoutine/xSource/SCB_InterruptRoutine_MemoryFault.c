@@ -28,6 +28,42 @@
 
 uint32_t SCB_MemoryFault_pu32Context[8UL] = {0UL};
 
+UART_CONTROL_TypeDef enUartMemoryControl =
+{
+    UART_enEOT_ALL,
+    UART_enLOOPBACK_DIS,
+    UART_enLINE_ENA,
+    UART_enLINE_ENA,
+    UART_enRTS_MODE_SOFT,
+    UART_enCTS_MODE_SOFT,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+};
+
+UART_LINE_CONTROL_TypeDef enUartMemoryLineControl =
+{
+ UART_enFIFO_ENA,
+ UART_enSTOP_ONE,
+ UART_enPARITY_DIS,
+ UART_enPARITY_TYPE_EVEN,
+ UART_enPARITY_STICK_DIS ,
+ UART_enLENGTH_8BITS,
+};
+
+UART_LINE_TypeDef enUartMemoryLine =
+{
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+};
+
 __attribute__((naked))
 void MemoryFault__vIRQVectorHandler(void)
 {
@@ -67,7 +103,17 @@ void MemoryFault__vIRQVectorHandler(void)
     u32MemoryFault >>= 0UL;
     u32MemoryFault &= (uint32_t) SCB_enMEMORY_ALL;
 
-    UART__u32Printf(UART_enMODULE_0, "MemoryFault exception Detected\n\r"
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartMemoryControl, &enUartMemoryLineControl, 921600UL, &enUartMemoryLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vHideCursor(UART_enMODULE_0);
+    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+
+    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "MemoryFault exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -100,14 +146,14 @@ void MemoryFault__vIRQVectorHandler(void)
                 break;
         case (uint32_t) SCB_enMEMORY_MSTKERR:
                 SCB_CFSR_R = SCB_CFSR_R_MSTKERR_CLEAR;
-                UART__u32Printf(UART_enMODULE_0, "Context Values could not be invalid\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                                 u32MemoryAddressFault);
                 pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MSTKERR);
                 pfvCallback();
                 break;
         case (uint32_t) SCB_enMEMORY_MUNSTKERR:
                 SCB_CFSR_R = SCB_CFSR_R_MUNSTKERR_CLEAR;
-                UART__u32Printf(UART_enMODULE_0, "Context Values could not be invalid\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                                 u32MemoryAddressFault);
                 pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MUNSTKERR);
                 pfvCallback();
@@ -115,7 +161,7 @@ void MemoryFault__vIRQVectorHandler(void)
         case (uint32_t) SCB_enMEMORY_DACCVIOL:
                 SCB_CFSR_R = SCB_CFSR_R_DACCVIOL_CLEAR;
                 u32MemoryAddressFault = SCB_MemoryFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Instruction Access Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                                 u32MemoryAddressFault);
                 pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_DACCVIOL);
                 pfvCallback();
@@ -125,11 +171,11 @@ void MemoryFault__vIRQVectorHandler(void)
                 if(1UL == u32MemoryAddressValid)
                 {
                     u32MemoryAddressFault = SCB_MMFAR_R;
-                    UART__u32Printf(UART_enMODULE_0, "Data Access Fault Address: %X\n\r",
+                    GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Data Access Fault Address: %X\n\r",
                                     u32MemoryAddressFault);
                 }
                 u32MemoryAddressFault = SCB_MemoryFault_pu32Context[6UL];
-                UART__u32Printf(UART_enMODULE_0, "Instruction Access Fault Address: %X\n\r",
+                GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                                 u32MemoryAddressFault);
                 pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_IACCVIOL);
                 pfvCallback();

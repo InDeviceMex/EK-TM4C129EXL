@@ -28,6 +28,8 @@
 #include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
 __attribute__((naked))
+void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor);
+__attribute__((naked))
 MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor);
 __attribute__((naked))
 MCU_nFPU_STATE MCU__enGetFPUContextActive(void);

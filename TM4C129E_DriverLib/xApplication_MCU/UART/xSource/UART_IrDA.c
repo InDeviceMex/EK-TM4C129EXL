@@ -38,7 +38,7 @@ void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
     f32Divider /= 1843200.0f; /*IrDA Low Power frequency*/
     f32Divider += 0.5f;
     u32Divider = (uint32_t) f32Divider;
-    MCU__enSetFPUContextActive(enFPUActive);
+    MCU__vSetFPUContextActive(enFPUActive);
     UART__vSetIrDALowPowerDivider(enModule, u32Divider);
 }
 
@@ -58,6 +58,6 @@ uint32_t UART__u32GetIrDALowPowerFrequency(UART_nMODULE enModule)
     f32Divider = (float32_t) u32sysClock;
     f32Divider /= (float32_t) u32Divider;
     u32Result = (uint32_t) f32Divider;
-    MCU__enSetFPUContextActive(enFPUActive);
+    MCU__vSetFPUContextActive(enFPUActive);
     return (u32Result);
 }

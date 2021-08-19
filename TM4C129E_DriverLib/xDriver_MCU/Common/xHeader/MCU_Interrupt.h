@@ -30,7 +30,9 @@
 #if defined (__TI_ARM__ )
 
 #pragma  CODE_SECTION(MCU__enDisGlobalInterrupt_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__vEnGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enEnGlobalInterrupt_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__vSetGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enSetGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enDisGlobalFault_RAM, ".ramcode")
@@ -40,13 +42,18 @@
 #pragma  CODE_SECTION(MCU__vWaitForInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__vWaitForEvent_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__vSendEvent_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__vSetBasePriorityInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enSetBasePriorityInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetBasePriorityInterrupt_RAM, ".ramcode")
 
 __attribute__((naked))
 MCU_nENABLE MCU__enDisGlobalInterrupt_RAM(void);
 __attribute__((naked))
+void MCU__vEnGlobalInterrupt_RAM(void);
+__attribute__((naked))
 MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void);
+__attribute__((naked))
+void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
 MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
@@ -61,6 +68,8 @@ MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
 MCU_nENABLE MCU__enGetGlobalFault_RAM(void);
 
+__attribute__((naked))
+void MCU__vSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt);
 __attribute__((naked))
 MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt);
 __attribute__((naked))
@@ -79,7 +88,11 @@ void MCU__vSendEvent_RAM(void);
 __attribute__((naked))
 MCU_nENABLE MCU__enDisGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
 __attribute__((naked))
+void MCU__vEnGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
+__attribute__((naked))
 MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
+__attribute__((naked))
+void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)__attribute__((section(".ramcode")));
 __attribute__((naked))
 MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)__attribute__((section(".ramcode")));
 __attribute__((naked))
@@ -94,7 +107,8 @@ MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt)__attribute__
 __attribute__((naked))
 MCU_nENABLE MCU__enGetGlobalFault_RAM(void)__attribute__((section(".ramcode")));
 
-
+__attribute__((naked))
+void MCU__vSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)__attribute__((section(".ramcode")));
 __attribute__((naked))
 MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)__attribute__((section(".ramcode")));
 __attribute__((naked))
@@ -115,13 +129,15 @@ __attribute__((naked))
 void MCU__vWaitForEvent(void);
 __attribute__((naked))
 void MCU__vSendEvent(void);
-__attribute__((naked))
-void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
 
 __attribute__((naked))
 MCU_nENABLE MCU__enDisGlobalInterrupt(void);
 __attribute__((naked))
+void MCU__vEnGlobalInterrupt(void);
+__attribute__((naked))
 MCU_nENABLE MCU__enEnGlobalInterrupt(void);
+__attribute__((naked))
+void MCU__vSetGlobalInterrupt(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
 MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
@@ -136,6 +152,8 @@ MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enStateInterrupt);
 __attribute__((naked))
 MCU_nENABLE MCU__enGetGlobalFault(void);
 
+__attribute__((naked))
+void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
 __attribute__((naked))
 MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
 __attribute__((naked))

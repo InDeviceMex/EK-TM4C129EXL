@@ -31,6 +31,7 @@
 
 /**
  * TODO: Move this feature to xApplication_MCU level, this is application specific
+ * create the functionality to enable, and set the memory parameters
  */
 void MPU__vInit(void)
 {

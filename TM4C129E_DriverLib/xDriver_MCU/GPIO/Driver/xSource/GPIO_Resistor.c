@@ -29,20 +29,24 @@
 
 void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE enModeArg)
 {
-    GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
-    switch(enModeArg)
+    GPIO_nPORT enPortReg = enPort;
+    GPIO_nPIN enPinReg = enPin;
+    GPIO_nRESMODE enModeReg = enModeArg;
+
+    GPIO__vSetCommit(enPortReg, enPinReg, GPIO_enCOMMIT_ENA);
+    switch(enModeReg)
     {
         case GPIO_enRESMODE_INACTIVE:
-            GPIO__vDisGeneric(enPort, GPIO_PUR_OFFSET, enPin);
-            GPIO__vDisGeneric(enPort, GPIO_PDR_OFFSET, enPin);
+            GPIO__vDisGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
+            GPIO__vDisGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
             break;
         case GPIO_enRESMODE_PULLUP:
-            GPIO__vEnGeneric(enPort, GPIO_PUR_OFFSET, enPin);
-            GPIO__vDisGeneric(enPort, GPIO_PDR_OFFSET, enPin);
+            GPIO__vEnGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
+            GPIO__vDisGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
             break;
         case GPIO_enRESMODE_PULLDOWN:
-            GPIO__vDisGeneric(enPort, GPIO_PUR_OFFSET, enPin);
-            GPIO__vEnGeneric(enPort, GPIO_PDR_OFFSET, enPin);
+            GPIO__vDisGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
+            GPIO__vEnGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
             break;
         default:
             break;

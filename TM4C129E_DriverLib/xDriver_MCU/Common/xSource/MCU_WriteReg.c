@@ -49,5 +49,5 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
     }
 
     (*pu32Peripheral) = (uint32_t) u32Reg;
-    MCU__enSetGlobalInterrupt(enStatus);
+    MCU__vSetGlobalInterrupt(enStatus);
 }
