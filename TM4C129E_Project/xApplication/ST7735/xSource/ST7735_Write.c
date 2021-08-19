@@ -234,7 +234,6 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
 {
     uint32_t u32StatusReg = 0UL;
     uint32_t u32ReceiveReg = 0xFFFFFFFFUL;
-    static uint32_t u32DataReg = 0UL;
     uint16_t* pu32DataRegLast = pu16DataArg;
 
     if(0UL != u32BufferCant)
@@ -252,7 +251,8 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
         else
         {
             enDMAChControlBuffer.XFERSIZE = u32BufferCant - 1UL;
-            pu32DataRegLast += u32BufferCant - 1UL;
+            pu32DataRegLast += u32BufferCant;
+            pu32DataRegLast -= 1UL;
             u32BufferCant = 0UL;
         }
         ST7735__vSetTransferSizeLeft(u32BufferCant);
@@ -281,6 +281,7 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
 void ST7735__vDMATxInterupt(void)
 {
     uint32_t u32Address = 0UL;
+    uint32_t u32MultiWord = 0UL;
     uint32_t u32Multi = 0UL;
     DMACHCTL_TypeDef* pstDMAChannel = (DMACHCTL_TypeDef*) 0UL;
     if(0UL != ST7735_u32DMATransferSizeLeft)
@@ -297,16 +298,20 @@ void ST7735__vDMATxInterupt(void)
         if(ST7735_u32DMATransferSizeLeft > 1024UL)
         {
             pstDMAChannel->XFERSIZE = 1024UL - 1UL;
-            u32Address += (1024UL) * u32Multi;
+            u32MultiWord = (1024UL);
+            u32MultiWord *= u32Multi;
+            u32Address += u32MultiWord;
             ST7735_u32DMATransferSizeLeft -= 1024UL;
         }
         else
         {
             pstDMAChannel->XFERSIZE = ST7735_u32DMATransferSizeLeft - 1UL;
-            u32Address += (ST7735_u32DMATransferSizeLeft) * u32Multi;
+            u32MultiWord = (ST7735_u32DMATransferSizeLeft);
+            u32MultiWord *= u32Multi;
+            u32Address += u32MultiWord;
             ST7735_u32DMATransferSizeLeft = 0UL;
         }
-        DMACH->DMACh[13UL].SRCENDP = u32Address;
+        DMACH->DMACh[13UL].SRCENDP = (uint32_t) u32Address;
         DMACH->DMACh[13UL].CHCTL = *((volatile uint32_t*) pstDMAChannel);
         DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 13UL;
         SSI2_DMACTL_R |= SSI_DMACTL_R_TXDMAE_MASK;

@@ -78,7 +78,6 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
     uint8_t u8AddressValue = 0U;
     uint16_t u16Delay = 0U;
     uint8_t u8Reg = 0U;
-    uint8_t u8Count = 0U;
 
     u8NumCommands = *(pu8AddressArg);
     pu8AddressArg += 1UL;
@@ -105,8 +104,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
 
         if(0U != u16Delay)
         {
-            u8Reg = (*pu8AddressArg);
-            u16Delay = (uint16_t) u8Reg;             /* Read post-command delay time (u16Delay)*/
+            u16Delay = (uint16_t) (*pu8AddressArg);             /* Read post-command delay time (u16Delay)*/
             pu8AddressArg += 1UL;
             if(255U == u16Delay)
             {

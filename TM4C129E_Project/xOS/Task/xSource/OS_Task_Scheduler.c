@@ -292,9 +292,9 @@ static uint32_t OS_Task__u32GetExpectedIdleTime(void)
 
 static void OS_Task__vIdle(void* pvParameters)
 {
-    uint32_t u32ListSize = 0UL;
-    uint32_t u32TickCount = 0UL;
-    uint32_t u32NextTaskUnblockTime = 0UL;
+    uint32_t u32ListSize = (uint32_t) pvParameters;
+    uint32_t u32TickCount = (uint32_t) pvParameters;
+    uint32_t u32NextTaskUnblockTime = (uint32_t) pvParameters;
     OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
     /* Stop warnings. */
     (void) pvParameters;
