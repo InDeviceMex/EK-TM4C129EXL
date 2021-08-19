@@ -114,7 +114,8 @@ uint32_t main(void)
     EDUMKII_Joystick_vInit();
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
+                      &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
     GraphTerm__vClearScreen(UART_enMODULE_0);
@@ -126,15 +127,21 @@ uint32_t main(void)
     TIMER__vEnInterruptVector(TIMER_enT0W, TIMER_enPRI6);
     TIMER__vEnInterruptSource(TIMER_enT0W, TIMER_enINT_TIMEOUT);
     TIMER__vSetStall(TIMER_enT0W, TIMER_enSTALL_FREEZE);
-    TIMER__enSetMode_ReloadMatch(TIMER_enT0W, TIMER_enMODE_PERIODIC_WIDE_DOWN, 30000000UL - 1UL, 0UL);
+    TIMER__enSetMode_ReloadMatch(TIMER_enT0W, TIMER_enMODE_PERIODIC_WIDE_DOWN,
+                                 30000000UL - 1UL, 0UL);
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL, (void*) 0UL, 4UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL, (void*) 0UL, 2UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL, (void*) 0UL, 5UL, &TaskHandeler[2UL]);
-    OS_Task__u32TaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL, (void*) 0UL, 3UL, &TaskHandeler[3UL]);
-    OS_Task__u32TaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL, (void*) 0UL, 3UL, &TaskHandeler[4UL]);
+    OS_Task__u32TaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
+                                  (void*) 0UL, 4UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
+                                  (void*) 0UL, 2UL, &TaskHandeler[1UL]);
+    OS_Task__u32TaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
+                                  (void*) 0UL, 5UL, &TaskHandeler[2UL]);
+    OS_Task__u32TaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
+                                  (void*) 0UL, 3UL, &TaskHandeler[3UL]);
+    OS_Task__u32TaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
+                                  (void*) 0UL, 3UL, &TaskHandeler[4UL]);
 
     OS_Task__vStartScheduler(1000UL);
     while(1UL)

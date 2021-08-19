@@ -59,7 +59,8 @@ void xTask2_JoystickLog(void* pvParams)
 
         EDUMKII_Joystick_vSampleXY(&u32ADCValueX, &u32ADCValueY);
         u32LcdPosXCurrent = Math__u32Map(u32ADCValueX, 4096UL, 0UL, 128UL - 120UL, 0UL);
-        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY, 4096, 0, 0, 128 - 76);
+        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32ADCValueY,
+                                                    4096, 0, 0, 128 - 76);
         if(u32Image)
         {
             pu16Pointer = (const uint16_t*) Images__pu8DolphinPointer();
@@ -72,9 +73,13 @@ void xTask2_JoystickLog(void* pvParams)
         {
             u16BufferSPI[u32LcdPosY] = 0UL;
         }
-        for(u32LcdPosY = u32LcdPosYCurrent ; u32LcdPosY < (u32LcdPosYCurrent + 76UL); u32LcdPosY++)
+        for(u32LcdPosY = u32LcdPosYCurrent ;
+            u32LcdPosY < (u32LcdPosYCurrent + 76UL);
+            u32LcdPosY++)
         {
-            for(u32LcdPosX = u32LcdPosXCurrent ; u32LcdPosX < (u32LcdPosXCurrent + 120UL); u32LcdPosX++)
+            for(u32LcdPosX = u32LcdPosXCurrent ;
+                u32LcdPosX < (u32LcdPosXCurrent + 120UL);
+                u32LcdPosX++)
             {
                 u16BufferSPI[u32LcdPosX + (u32LcdPosY * 128UL)] = *pu16Pointer;
                 pu16Pointer += 1UL;
