@@ -25,7 +25,10 @@
 #ifndef XAPPLICATION_MCU_CORE_SYSTICK_SYSTICK_H_
 #define XAPPLICATION_MCU_CORE_SYSTICK_SYSTICK_H_
 
-#include <xApplication_MCU/Core/SYSTICK/xHeader/SYSTICK_Delay.h>
-#include <xApplication_MCU/Core/SYSTICK/Miscellaneous/SYSTICK_Miscellaneous.h>
+#include <xApplication_MCU/Core/SYSTICK/Delay/SYSTICK_Delay.h>
+
+#include <xApplication_MCU/Core/SYSTICK/Interrupt/SYSTICK_Interrupt.h>
+#include <xApplication_MCU/Core/SYSTICK/Intrinsics/SYSTICK_Intrinsics.h>
+#include <xApplication_MCU/Core/SYSTICK/xHeader/SYSTICK_Init.h>
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_SYSTICK_H_ */

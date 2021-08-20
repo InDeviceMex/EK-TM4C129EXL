@@ -25,6 +25,6 @@
 #ifndef XUTILS_MATH_MATH_H_
 #define XUTILS_MATH_MATH_H_
 
- #include <xUtils/Math/xHeader/Math_Map.h>
+#include <xUtils/Math/xHeader/Math_Map.h>
 
 #endif /* XUTILS_MATH_MATH_H_ */
