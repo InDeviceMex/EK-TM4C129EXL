@@ -29,7 +29,4 @@
 #include <xApplication_MCU/EEPROM/Intrinsics/EEPROM_Intrinsics.h>
 #include <xApplication_MCU/EEPROM/xHeader/EEPROM_Init.h>
 
-
-
-
 #endif /* XAPPLICATION_MCU_EEPROM_EEPROM_H_ */

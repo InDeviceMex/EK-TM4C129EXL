@@ -27,6 +27,7 @@
 
 #include <xApplication_MCU/UART/GraphicTerminal/GraphicTerminal.h>
 #include <xApplication_MCU/UART/Printf/UART_Printf.h>
+
 #include <xApplication_MCU/UART/LineControl/UART_LineControl.h>
 #include <xApplication_MCU/UART/Interrupt/UART_Interrupt.h>
 #include <xApplication_MCU/UART/Intrinsics/UART_Intrinsics.h>

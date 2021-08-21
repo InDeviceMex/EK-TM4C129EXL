@@ -9,9 +9,9 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vSetOutputClockEnable(SYSCTL_nOUTCLK enOutputEnable)
+void SYSCTL__vSetOutputClockEnable(SYSCTL_nOUTCLK enOutputEnableArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET, (uint32_t) enOutputEnable,
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_DIVSCLK_OFFSET, (uint32_t) enOutputEnableArg,
                         SYSCTL_DIVSCLK_EN_MASK, SYSCTL_DIVSCLK_R_EN_BIT);
 }
 
@@ -40,13 +40,13 @@ void SYSCTL__vEnOutputClock(void)
     SYSCTL__vSetOutputClockEnable(SYSCTL_enOUTCLK_ENA);
 }
 
-void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnable,
+void SYSCTL__vSetOutputClock(SYSCTL_nOUTCLK enOutputEnableArg,
                              SYSCTL_nOUTCLK_SRC enOutputSource,
                              uint32_t u32Divisor)
 {
     SYSCTL__vSetOutputClockDivisor(u32Divisor);
     SYSCTL__vSetOutputClockSource(enOutputSource);
-    SYSCTL__vSetOutputClockEnable(enOutputEnable);
+    SYSCTL__vSetOutputClockEnable(enOutputEnableArg);
 }
 
 SYSCTL_nOUTCLK SYSCTL__enGetOutputClockEnable(void)
@@ -74,13 +74,13 @@ SYSCTL_nOUTCLK_SRC SYSCTL__enGetOutputClockSource(void)
     return (enClkSrcReg);
 }
 
-void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnable,
+void SYSCTL__vGetOutputClock(SYSCTL_nOUTCLK* penOutputEnableArg,
                              SYSCTL_nOUTCLK_SRC* penOutputSource,
                              uint32_t* pu32Divisor)
 {
-    if(0UL != (uint32_t) penOutputEnable)
+    if(0UL != (uint32_t) penOutputEnableArg)
     {
-        *penOutputEnable = SYSCTL__enGetOutputClockEnable();
+        *penOutputEnableArg = SYSCTL__enGetOutputClockEnable();
     }
     if(0UL != (uint32_t) penOutputSource)
     {

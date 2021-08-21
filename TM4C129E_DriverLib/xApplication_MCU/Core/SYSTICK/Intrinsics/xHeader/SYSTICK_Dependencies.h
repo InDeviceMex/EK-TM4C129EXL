@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_CORE_SYSTICK_INTRINSICS_XHEADER_SYSTICK_DEPENDENCIES_H_
 
 #include <xApplication_MCU/Core/SCB/SCB.h>
+#include <xDriver_MCU/Core/SCB/SCB.h>
 
 #include <xDriver_MCU/SYSCTL/SYSCTL.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>

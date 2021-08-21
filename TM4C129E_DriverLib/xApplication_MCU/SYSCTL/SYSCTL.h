@@ -25,8 +25,7 @@
 #ifndef XAPPLICATION_MCU_SYSCTL_SYSCTL_H_
 #define XAPPLICATION_MCU_SYSCTL_SYSCTL_H_
 
-
-
-
+#include <xApplication_MCU/SYSCTL/Interrupt/SYSCTL_Interrupt.h>
+#include <xApplication_MCU/SYSCTL/Intrinsics/SYSCTL_Intrinsics.h>
 
 #endif /* XAPPLICATION_MCU_SYSCTL_SYSCTL_H_ */

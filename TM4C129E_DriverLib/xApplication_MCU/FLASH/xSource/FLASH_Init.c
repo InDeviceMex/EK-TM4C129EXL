@@ -40,7 +40,7 @@ FLASH_nSTATUS FLASH__enInit (void)
      * To return the final Function status,
      * if FLASH__enWait ends correctly all the process is OK
      */
-    return enReturn;
+    return (enReturn);
 
 }
 
