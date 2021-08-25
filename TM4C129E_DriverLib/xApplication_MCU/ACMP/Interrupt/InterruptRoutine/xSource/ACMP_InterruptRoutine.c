@@ -26,7 +26,11 @@
 
 void (*ACMP__pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX ]) (void)=
 {
-     {&ACMP0_Comp0__vIRQVectorHandler, &ACMP0_Comp1__vIRQVectorHandler, &ACMP0_Comp2__vIRQVectorHandler}
+     {
+      &ACMP0_Comp0__vIRQVectorHandler,
+      &ACMP0_Comp1__vIRQVectorHandler,
+      &ACMP0_Comp2__vIRQVectorHandler
+     }
 };
 
 void (*ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enACMPModule, ACMP_nCOMP enACMPComparator))(void)

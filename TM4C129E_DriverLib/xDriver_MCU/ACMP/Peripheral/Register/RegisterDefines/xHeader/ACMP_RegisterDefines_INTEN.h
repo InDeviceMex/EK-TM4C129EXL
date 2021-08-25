@@ -29,14 +29,14 @@
  ************************************ 3 INTEN *********************************************
  ******************************************************************************************/
 /*----------*/
-#define ACMP_INTEN_R_IN_MASK    ((uint32_t) 0x00000003U)
+#define ACMP_INTEN_R_IN_MASK    ((uint32_t) 0x00000007U)
 #define ACMP_INTEN_R_IN_BIT    ((uint32_t) 0U)
 #define ACMP_INTEN_R_IN_DIS    ((uint32_t) 0x00000000U)
-#define ACMP_INTEN_R_IN_ENA    ((uint32_t) 0x00000003U)
+#define ACMP_INTEN_R_IN_ENA    ((uint32_t) 0x00000007U)
 
-#define ACMP_INTEN_IN_MASK    ((uint32_t) 0x00000003U)
+#define ACMP_INTEN_IN_MASK    ((uint32_t) 0x00000007U)
 #define ACMP_INTEN_IN_DIS    ((uint32_t) 0x00000000U)
-#define ACMP_INTEN_IN_ENA    ((uint32_t) 0x00000003U)
+#define ACMP_INTEN_IN_ENA    ((uint32_t) 0x00000007U)
 /*----------*/
 
 /*----------*/
@@ -61,8 +61,15 @@
 #define ACMP_INTEN_IN1_ENA    ((uint32_t) 0x00000001U)
 /*----------*/
 
+/*----------*/
+#define ACMP_INTEN_R_IN2_MASK    ((uint32_t) 0x00000004U)
+#define ACMP_INTEN_R_IN2_BIT    ((uint32_t) 2U)
+#define ACMP_INTEN_R_IN2_DIS    ((uint32_t) 0x00000000U)
+#define ACMP_INTEN_R_IN2_ENA    ((uint32_t) 0x00000004U)
 
-
-
+#define ACMP_INTEN_IN2_MASK    ((uint32_t) 0x00000001U)
+#define ACMP_INTEN_IN2_DIS    ((uint32_t) 0x00000000U)
+#define ACMP_INTEN_IN2_ENA    ((uint32_t) 0x00000001U)
+/*----------*/
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ACMP_REGISTERDEFINES_INTEN_H_ */

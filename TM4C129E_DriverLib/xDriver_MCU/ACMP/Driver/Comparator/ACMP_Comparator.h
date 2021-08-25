@@ -27,5 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/ACMP_Control.h>
 #include <xDriver_MCU/ACMP/Driver/Comparator/xHeader/ACMP_Output.h>
+#include <xDriver_MCU/ACMP/Driver/Comparator/xHeader/ACMP_ADCTriggerConfig.h>
+#include <xDriver_MCU/ACMP/Driver/Comparator/xHeader/ACMP_InterruptConfig.h>
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_ACMP_COMPARATOR_H_ */

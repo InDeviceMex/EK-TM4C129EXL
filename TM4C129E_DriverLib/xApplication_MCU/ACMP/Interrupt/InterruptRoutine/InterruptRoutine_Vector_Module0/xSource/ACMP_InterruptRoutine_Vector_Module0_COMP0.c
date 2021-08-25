@@ -39,7 +39,3 @@ void ACMP0_Comp0__vIRQVectorHandler(void)
         pfvCallback();
     }
 }
-
-
-
-

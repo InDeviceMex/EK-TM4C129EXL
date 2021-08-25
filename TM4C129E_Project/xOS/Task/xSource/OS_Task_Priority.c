@@ -236,3 +236,77 @@ void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pvMutexHolder)
         }
     }
 }
+
+
+uint32_t OS_Task__u32PriorityDisinherit(OS_Task_Handle_TypeDef const pvMutexHolder)
+{
+    OS_TASK_TCB* const pstTCB = (OS_TASK_TCB*) pvMutexHolder;
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+    uint32_t u32ListSize = 0UL;
+    uint32_t u32Priority = 0UL;
+    OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
+    uint32_t u32Return = 0UL;
+
+    if(0UL != pvMutexHolder)
+    {
+        /* A task can only have an inherited priority if it holds the mutex.
+        If the mutex is held by a task then it cannot be given from an
+        interrupt, and if a mutex is given by the holding task then it must
+        be the running state task. */
+
+        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        if(pstTCB == pstCurrentTCB)
+        {
+            if(0UL != pstTCB->u32MutexesHeld)
+            {
+                (pstTCB->u32MutexesHeld )--;
+
+                /* Has the holder of the mutex inherited the priority of another
+                task? */
+                if( pstTCB->u32PriorityTask != pstTCB->u32BasePriority )
+                {
+                    /* Only disinherit if no other mutexes are held. */
+                    if( 0UL == pstTCB->u32MutexesHeld)
+                    {
+                        /* A task can only have an inherited priority if it holds
+                        the mutex.  If the mutex is held by a task then it cannot be
+                        given from an interrupt, and if a mutex is given by the
+                        holding task then it must be the running state task.  Remove
+                        the holding task from the ready list. */
+
+                        pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
+                        CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                        u32ListSize = CDLinkedList__u32GetSize(pstList);
+                        if(0UL == u32ListSize)
+                        {
+                            OS_Task__vResetReadyPriority(pstTCB->u32PriorityTask);
+                        }
+
+                        /* Disinherit the priority before adding the task into the
+                        new ready list. */
+                        pstTCB->u32PriorityTask = pstTCB->u32BasePriority;
+
+                        /* Reset the event list data auxiliar.  It cannot be in use for
+                        any other purpose if this task is running, and it must be
+                        running to give back the mutex. */
+                        u32Priority = OS_TASK_MAX_PRIORITIES;
+                        u32Priority -= pstTCB->u32PriorityTask;
+                        CDLinkedList_Item__vSetValue(&(pstTCB->stEventListItem), u32Priority);
+                        OS_Task__vAddTaskToReadyList(pstTCB);
+
+                        /* Return true to indicate that a context switch is required.
+                        This is only actually required in the corner case whereby
+                        multiple mutexes were held and the mutexes were given back
+                        in an order different to that in which they were taken.
+                        If a context switch did not occur when the first mutex was
+                        returned, even if a task was waiting on it, then a context
+                        switch should occur when the last mutex is returned whether
+                        a task is waiting on it or not. */
+                        u32Return = 1UL;
+                    }
+                }
+            }
+        }
+    }
+    return (u32Return);
+}

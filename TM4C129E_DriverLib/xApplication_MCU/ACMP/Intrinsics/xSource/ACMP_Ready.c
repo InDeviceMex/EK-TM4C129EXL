@@ -76,7 +76,3 @@ ACMP_nREADY ACMP__enIsReady(ACMP_nMODULE enModule)
 #endif
     return (enReady);
 }
-
-
-
-

@@ -42,7 +42,3 @@ uint32_t ACMP__u32GetCompGenericControl(uint32_t u32Module, uint32_t  u32Compara
                                      u32FeatureMask, u32FeatureBit);
     return (u32Reg);
 }
-
-
-
-

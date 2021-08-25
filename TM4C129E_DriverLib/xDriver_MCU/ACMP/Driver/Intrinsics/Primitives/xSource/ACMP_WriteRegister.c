@@ -38,6 +38,3 @@ void ACMP__vWriteRegister(ACMP_nMODULE enModule, uint32_t u32OffsetRegister,
     MCU__vWriteRegister(u32ACMPBase, u32OffsetRegister, u32FeatureValue,
                         u32MaskFeature, u32BitFeature);
 }
-
-
-

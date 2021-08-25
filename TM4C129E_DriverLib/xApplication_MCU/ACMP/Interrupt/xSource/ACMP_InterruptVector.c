@@ -38,13 +38,17 @@ static NVIC_nSTIR ACMP__enGetInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP e
         {NVIC_enSTIR_ACMP0, NVIC_enSTIR_ACMP1, NVIC_enSTIR_ACMP2}
     };
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ACMP_enMODULE_MAX);
-    u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+    u32Module = MCU__u32CheckParams((uint32_t) enModule,
+                                    (uint32_t) ACMP_enMODULE_MAX);
+    u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg,
+                                        (uint32_t) ACMP_enCOMP_MAX);
     enVector = NVIC_VECTOR_ACMP[u32Module][u32Comparator];
     return (enVector);
 }
 
-void ACMP__vEnInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enACMPPriority)
+void ACMP__vEnInterruptVector(ACMP_nMODULE enModule,
+                              ACMP_nCOMP enComparatorArg,
+                              ACMP_nPRIORITY enACMPPriority)
 {
     NVIC_nSTIR enVector = NVIC_enSTIR_ACMP0;
     enVector = ACMP__enGetInterruptVector(enModule, enComparatorArg);

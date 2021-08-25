@@ -36,19 +36,53 @@
 
 #define MAX_CONFIG (2UL)
 
-GPIO_nDIGITAL_FUNCTION SSI_enGpioInput[MAX_CONFIG] [(uint32_t) SSI_enMODULE_MAX][(uint32_t) MAX_LINE] =
+GPIO_nDIGITAL_FUNCTION SSI_enGpioInput[MAX_CONFIG]
+                                      [(uint32_t) SSI_enMODULE_MAX]
+                                      [(uint32_t) MAX_LINE] =
 {
     {
-        {GPIO_enSSI0Tx, GPIO_enSSI0Rx, GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3, GPIO_enSSI0Clk, GPIO_enSSI0Fss},
-        {GPIO_enSSI1Tx, GPIO_enSSI1Rx, GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3, GPIO_enSSI1Clk, GPIO_enSSI1Fss},
-        {GPIO_enSSI2Tx, GPIO_enSSI2Rx, GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3, GPIO_enSSI2Clk, GPIO_enSSI2Fss},
-        {GPIO_enSSI3Tx, GPIO_enSSI3Rx, GPIO_enSSI3XDAT2, GPIO_enSSI3XDAT3, GPIO_enSSI3Clk, GPIO_enSSI3Fss},
+        {
+         GPIO_enSSI0Tx, GPIO_enSSI0Rx,
+         GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3,
+         GPIO_enSSI0Clk, GPIO_enSSI0Fss
+        },
+        {
+         GPIO_enSSI1Tx, GPIO_enSSI1Rx,
+         GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3,
+         GPIO_enSSI1Clk, GPIO_enSSI1Fss
+        },
+        {
+         GPIO_enSSI2Tx, GPIO_enSSI2Rx,
+         GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3,
+         GPIO_enSSI2Clk, GPIO_enSSI2Fss
+        },
+        {
+         GPIO_enSSI3Tx, GPIO_enSSI3Rx,
+         GPIO_enSSI3XDAT2, GPIO_enSSI3XDAT3,
+         GPIO_enSSI3Clk, GPIO_enSSI3Fss
+        },
     },
     {
-        {GPIO_enSSI0Tx, GPIO_enSSI0Rx, GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3, GPIO_enSSI0Clk, GPIO_enSSI0Fss},
-        {GPIO_enSSI1Tx, GPIO_enSSI1Rx, GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3, GPIO_enSSI1Clk, GPIO_enSSI1Fss},
-        {GPIO_enSSI2Tx, GPIO_enSSI2Rx, GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3, GPIO_enSSI2Clk, GPIO_enSSI2Fss},
-        {GPIO_enSSI3Tx_Q2, GPIO_enSSI3Rx_Q3, GPIO_enSSI3XDAT2_P0, GPIO_enSSI3XDAT3, GPIO_enSSI3Clk_Q0, GPIO_enSSI3Fss_Q1},
+        {
+         GPIO_enSSI0Tx, GPIO_enSSI0Rx,
+         GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3,
+         GPIO_enSSI0Clk, GPIO_enSSI0Fss
+        },
+        {
+         GPIO_enSSI1Tx, GPIO_enSSI1Rx,
+         GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3,
+         GPIO_enSSI1Clk, GPIO_enSSI1Fss
+        },
+        {
+         GPIO_enSSI2Tx, GPIO_enSSI2Rx,
+         GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3,
+         GPIO_enSSI2Clk, GPIO_enSSI2Fss
+        },
+        {
+         GPIO_enSSI3Tx_Q2, GPIO_enSSI3Rx_Q3,
+         GPIO_enSSI3XDAT2_P0, GPIO_enSSI3XDAT3,
+         GPIO_enSSI3Clk_Q0, GPIO_enSSI3Fss_Q1
+        },
     },
  };
 
@@ -60,7 +94,9 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
     SSI_nBUSY enBusyModule = SSI_enBUSY_UNDEF;
     uint32_t u32Line[MAX_LINE] = {0UL};
 
-    if((0UL != (uint32_t) pstControlConfig) && (0UL != (uint32_t) pstFrameControlConfig)  && (0UL != (uint32_t) pstLineConfig))
+    if((0UL != (uint32_t) pstControlConfig) &&
+       (0UL != (uint32_t) pstFrameControlConfig) &&
+       (0UL != (uint32_t) pstLineConfig))
     {
         enModuleFilter = (SSI_nMODULE) MCU__u32CheckParams((uint32_t) enModule,
                                                            (uint32_t) SSI_enMODULE_MAX);
@@ -84,12 +120,16 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
         {
             if(SSI_enMS_MASTER == enMasterSlaveArg)
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[FSS_LINE]][(uint32_t) enModuleFilter][FSS_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[FSS_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [FSS_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
             else
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[FSS_LINE]][(uint32_t) enModuleFilter][FSS_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[FSS_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [FSS_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
             }
         }
@@ -97,12 +137,16 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
         {
             if(SSI_enMS_MASTER == enMasterSlaveArg)
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[CLK_LINE]][(uint32_t) enModuleFilter][CLK_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[CLK_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [CLK_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
             }
             else
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[CLK_LINE]][(uint32_t) enModuleFilter][CLK_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[CLK_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [CLK_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
             }
         }
@@ -122,41 +166,55 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
                 case SSI_enMODE_BI:
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [RX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     break;
                 case SSI_enMODE_QUAD:
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [RX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enDat2Line)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT2_LINE]][(uint32_t) enModuleFilter][DAT2_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT2_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [DAT2_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enDat3Line)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT3_LINE]][(uint32_t) enModuleFilter][DAT3_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT3_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [DAT3_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL_PULLUP);
                     }
                     break;
                 case SSI_enMODE_ADVANCED:
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
                     }
                     break;
@@ -171,46 +229,62 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
 
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [RX_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     break;
                 case SSI_enMODE_QUAD:
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [RX_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enDat2Line)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT2_LINE]][(uint32_t) enModuleFilter][DAT2_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT2_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [DAT2_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enDat3Line)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT3_LINE]][(uint32_t) enModuleFilter][DAT3_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[DAT3_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [DAT3_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     break;
                 case SSI_enMODE_ADVANCED:
                     if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [RX_LINE],
                                                  GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
                     }
                     if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
                     {
-                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                        GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                                [(uint32_t) enModuleFilter]
+                                                                [TX_LINE],
                                                  GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
                     }
                     break;
@@ -232,17 +306,23 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
 
             if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]][(uint32_t) enModuleFilter][RX_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[RX_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [RX_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN_PULLUP);
             }
             if(SSI_enLINE_ENA == pstControlConfig->enTxLine)
             {
-                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]][(uint32_t) enModuleFilter][TX_LINE],
+                GPIO__enSetDigitalConfig(SSI_enGpioInput[u32Line[TX_LINE]]
+                                                        [(uint32_t) enModuleFilter]
+                                                        [TX_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
         }
 
-        SSI__vSetClockAndFormatControlStructPointer(enModuleFilter, pstFrameControlConfig,u32ClockArg);
+        SSI__vSetClockAndFormatControlStructPointer(enModuleFilter,
+                                                    pstFrameControlConfig,
+                                                    u32ClockArg);
 
         SSI__vSetFssHold(enModuleFilter, pstControlConfig->enFssHold);
         SSI__vSetDirection(enModuleFilter, pstControlConfig->enDirection);

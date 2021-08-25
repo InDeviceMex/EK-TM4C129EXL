@@ -50,7 +50,7 @@ void xTask2_JoystickLog(void* pvParams)
     const uint16_t* pu16Pointer = 0UL;
     u32LastWakeTime = OS_Task__u32GetTickCount ();
     GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
-                         "LCD POS Initializing..."
+                         "LCD POS Initializing...   "
                          );
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enPIN_2);
@@ -89,7 +89,7 @@ void xTask2_JoystickLog(void* pvParams)
         OS_Task__vEnterCritical();
 
         GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
-                             "LCD POS X: %d Y: %d      ",
+                             "LCD POS X: %d Y: %d            ",
                              u32LcdPosXCurrent,
                              u32LcdPosYCurrent
                              );

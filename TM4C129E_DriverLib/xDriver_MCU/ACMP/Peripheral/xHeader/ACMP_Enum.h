@@ -209,6 +209,14 @@ typedef enum
     ACMP_enOUTPUT_UNDEF = 0xFFFFFFFFUL,
 }ACMP_nOUTPUT;
 
+typedef enum
+{
+    ACMP_enLINE_OUT_SELECT_PRIMARY = 0UL,
+    ACMP_enLINE_OUT_SELECT_ALT = 1UL,
+    ACMP_enLINE_OUT_SELECT_MAX = 2UL,
+    ACMP_enLINE_OUT_SELECT_UNDEF = 0xFFFFFFFFUL,
+}ACMP_nLINE_OUT_SELECT;
+
 typedef struct
 {
     ACMP_nINT enIntEnable;
@@ -219,5 +227,6 @@ typedef struct
     ACMP_nOUTPUT_INVERT enOutputInvert;
     ACMP_nVMAX_SOURCE enVmaxSource;
 }ACMP_CONTROL_TypeDef;
+
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_ */

@@ -66,6 +66,8 @@
 #define ACMP0_STAT0_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT0_OFFSET)))
 #define ACMP0_STAT1    (((ACSTAT_TypeDef*) (ACMP0_BASE + ACMP_STAT1_OFFSET )))
 #define ACMP0_STAT1_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT1_OFFSET)))
+#define ACMP0_STAT2    (((ACSTAT_TypeDef*) (ACMP0_BASE + ACMP_STAT2_OFFSET )))
+#define ACMP0_STAT2_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 CTL *********************************************
@@ -74,6 +76,8 @@
 #define ACMP0_CTL0_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL0_OFFSET)))
 #define ACMP0_CTL1    (((ACCTL_TypeDef*) (ACMP0_BASE + ACMP_CTL1_OFFSET )))
 #define ACMP0_CTL1_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL1_OFFSET)))
+#define ACMP0_CTL2    (((ACCTL_TypeDef*) (ACMP0_BASE + ACMP_CTL2_OFFSET )))
+#define ACMP0_CTL2_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 PP *********************************************

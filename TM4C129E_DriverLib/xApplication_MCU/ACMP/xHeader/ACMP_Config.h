@@ -29,6 +29,7 @@
 
 ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
+                               ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
                                const ACMP_CONTROL_TypeDef* pstControlConfig);
 
 #endif /* XAPPLICATION_MCU_ACMP_XHEADER_ACMP_CONFIG_H_ */

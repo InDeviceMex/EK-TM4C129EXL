@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-ACMP_nOUTPUT_VALUE ACMP__u32GetComparatorOutput(ACMP_nMODULE enModule,
+ACMP_nOUTPUT_VALUE ACMP__enGetComparatorOutput(ACMP_nMODULE enModule,
                                                 ACMP_nCOMP  enComparatorArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_OUTPUT_H_ */

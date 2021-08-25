@@ -33,15 +33,18 @@ void ACMP__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
     uint32_t u32Module = 0UL;
     uint32_t u32Comparator = 0UL;
 
-    const SCB_nVECISR SCB_enVECISR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX]=
+    const SCB_nVECISR SCB_enVECISR_ACMP[(uint32_t) ACMP_enMODULE_MAX]
+                                       [(uint32_t) ACMP_enCOMP_MAX]=
     {
         {SCB_enVECISR_ACMP0, SCB_enVECISR_ACMP1, SCB_enVECISR_ACMP2},
     };
 
     if(0UL != (uint32_t) pfIrqVectorHandler)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ACMP_enMODULE_MAX);
-        u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+        u32Module = MCU__u32CheckParams((uint32_t) enModule,
+                                        (uint32_t) ACMP_enMODULE_MAX);
+        u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg,
+                                            (uint32_t) ACMP_enCOMP_MAX);
         enVector = SCB_enVECISR_ACMP[u32Module][u32Comparator];
         SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
                 ACMP__pvfGetIRQVectorHandlerPointer((ACMP_nMODULE) u32Module,

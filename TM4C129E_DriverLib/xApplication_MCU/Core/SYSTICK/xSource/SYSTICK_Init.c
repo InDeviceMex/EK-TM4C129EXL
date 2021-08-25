@@ -51,13 +51,13 @@ void SYSTICK_Delay__vIRQVectorHandler(void)
 SYSTICK_nSTATUS SYSTICK__enInitTickVector(uint32_t u32Tick, SYSTICK_nPRIORITY enPriority,
                                           SYSTICK_nCLKSOURCE enClockSource, void(*pfvVector) (void))
 {
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    enFPUActive = MCU__enGetFPUContextActive();
     SYSTICK_nSTATUS enReturn = SYSTICK_enERROR;
     uint32_t u32SystemFrequencyMHz = SYSTICK_PIOSC4_MHZ;
     float32_t f32PicoSeconds = 1000000.0f;
     float32_t f32PicoSecondsTemp = 1000000.0f;
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
 
-    enFPUActive = MCU__enGetFPUContextActive();
     SYSTICK__vDisInterruptVector();
     SYSTICK__vDisable();
     SYSTICK__vClearCurrent();

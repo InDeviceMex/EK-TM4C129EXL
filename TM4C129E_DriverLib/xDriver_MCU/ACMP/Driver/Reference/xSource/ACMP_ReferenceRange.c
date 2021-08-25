@@ -40,7 +40,3 @@ ACMP_nREFERENCE_RANGE ACMP__enGetReferenceRange(ACMP_nMODULE enModule)
                                                 ACMP_REFCTL_RNG_MASK, ACMP_REFCTL_R_RNG_BIT);
     return (enReferenceRange);
 }
-
-
-
-

@@ -28,6 +28,8 @@
 float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
                                    float32_t f32VoltageReferencePorcentage)
 {
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32VoltageProcentage1 = 0.0f;
     float32_t f32VoltageProcentage2 = 0.0f;
     float32_t f32VoltageProcentageDecimal1 = 0.0f;
@@ -39,9 +41,7 @@ float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
     uint32_t u32VoltageProcentageInteger2 = 0UL;
     uint32_t u32VoltageStep = 0UL;
     ACMP_nREFERENCE_RANGE enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
 
-    enFPUActive = MCU__enGetFPUContextActive();
 
     if(74.82f < f32VoltageReferencePorcentage)
     {
@@ -137,14 +137,13 @@ float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
 
 float32_t ACMP__f32GetVoltageReference(ACMP_nMODULE enModule)
 {
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32VoltagePorcentage = 0.0f;
     float32_t f32VoltagePorcentageInit = 0.0f;
     uint32_t u32EncoderValueReg = 0UL;
     ACMP_nREFERENCE_RANGE enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
     ACMP_nREFERENCE enVoltageEnable = ACMP_enREFERENCE_DIS;
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
-
-    enFPUActive = MCU__enGetFPUContextActive();
 
     enVoltageEnable = ACMP__enGetReferenceEnable(enModule);
     if(ACMP_enREFERENCE_ENA == enVoltageEnable)

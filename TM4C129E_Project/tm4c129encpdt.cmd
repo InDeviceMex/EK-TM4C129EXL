@@ -29,7 +29,7 @@ MEMORY
 /* modifications in your CCS project and leave this file alone.              */
 /*                                                                           */
 
-/* --library=rtsv7M4_T_le_eabi.lib                                           */
+--library=rtsv7M4_T_le_v4SPD16_xo_eabi.lib
 
 /* Section allocation in memory */
 --stack_size=0x00000400

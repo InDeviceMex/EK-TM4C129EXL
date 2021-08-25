@@ -34,21 +34,24 @@ typedef volatile struct
 {
     volatile uint32_t IN0: 1;
     volatile uint32_t IN1: 1;
-    const uint32_t reserved: 30;
+    volatile uint32_t IN2: 1;
+    const uint32_t reserved: 29;
 }ACMIS_TypeDef;
 
 typedef volatile struct
 {
     volatile const uint32_t IN0: 1;
     volatile const uint32_t IN1: 1;
-    const uint32_t reserved: 30;
+    volatile const uint32_t IN2: 1;
+    const uint32_t reserved: 29;
 }ACRIS_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t IN0: 1;
     volatile uint32_t IN1: 1;
-    const uint32_t reserved: 30;
+    volatile uint32_t IN2: 1;
+    const uint32_t reserved: 29;
 }ACINTEN_TypeDef;
 
 typedef volatile struct
@@ -85,10 +88,12 @@ typedef volatile struct
 {
     volatile const uint32_t CMP0: 1;
     volatile const uint32_t CMP1: 1;
-    const uint32_t reserved: 14;
+    volatile const uint32_t CMP2: 1;
+    const uint32_t reserved: 13;
     volatile const uint32_t C0O: 1;
     volatile const uint32_t C1O: 1;
-    const uint32_t reserved1: 14;
+    volatile const uint32_t C2O: 1;
+    const uint32_t reserved1: 13;
 }ACMPPP_TypeDef;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_STRUCT_XHEADER_ACMP_STRUCTREGISTER_H_ */

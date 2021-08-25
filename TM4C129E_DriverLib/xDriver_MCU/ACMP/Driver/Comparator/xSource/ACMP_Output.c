@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
 
-ACMP_nOUTPUT_VALUE ACMP__u32GetComparatorOutput(ACMP_nMODULE enModule,
+ACMP_nOUTPUT_VALUE ACMP__enGetComparatorOutput(ACMP_nMODULE enModule,
                                                 ACMP_nCOMP  enComparatorArg)
 {
     ACMP_nOUTPUT_VALUE enOutputValueReg = ACMP_enOUTPUT_VALUE_VMIN_GREATER;
@@ -37,6 +37,3 @@ ACMP_nOUTPUT_VALUE ACMP__u32GetComparatorOutput(ACMP_nMODULE enModule,
                                             ACMP_STAT_R_OVAL_BIT);
     return (enOutputValueReg);
 }
-
-
-

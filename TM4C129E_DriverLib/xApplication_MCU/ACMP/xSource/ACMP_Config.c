@@ -28,15 +28,26 @@
 #define ACMP_CPLINE (0UL)
 #define ACMP_CMLINE (1UL)
 #define ACMP_LINE_MAX (2UL)
+#define MAX_CONFIG (2UL)
 
-GPIO_nDIGITAL_FUNCTION ACMP_enGpioOutput[(uint32_t) ACMP_enMODULE_MAX]
+GPIO_nDIGITAL_FUNCTION ACMP_enGpioOutput[MAX_CONFIG]
+                                        [(uint32_t) ACMP_enMODULE_MAX]
                                         [(uint32_t) ACMP_enCOMP_MAX] =
 {
+ {
     {
-        GPIO_enC0o,
-        GPIO_enC1o,
-        GPIO_enC2o,
+        GPIO_enC0O,
+        GPIO_enC1O,
+        GPIO_enC2O,
     },
+ },
+ {
+    {
+        GPIO_enC0O_L2,
+        GPIO_enC1O_L3,
+        GPIO_enC2O,
+    },
+ },
 };
 
 GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
@@ -52,10 +63,12 @@ GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
 
 ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
+                               ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
                                const ACMP_CONTROL_TypeDef* pstControlConfig)
 {
     ACMP_nSTATUS enReturn = ACMP_enSTATUS_ERROR;
     ACMP_nMODULE enModuleFilter = ACMP_enMODULE_0;
+    ACMP_nLINE_OUT_SELECT enLineOutFilter = ACMP_enLINE_OUT_SELECT_PRIMARY;
     ACMP_nCOMP enCompFilter = ACMP_enCOMP_0;
     ACMP_nCOMPMASK enCompMask = ACMP_enCOMPMASK_0;
     GPIO_nANALOG_FUNCTION enAnalogInputReg = GPIO_enAIN_UNDEF;
@@ -68,6 +81,9 @@ ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
                                                             (uint32_t) ACMP_enMODULE_MAX);
         enCompFilter = (ACMP_nCOMP) MCU__u32CheckParams((uint32_t) enCompArg,
                                                         (uint32_t) ACMP_enCOMP_MAX);
+        enLineOutFilter = (ACMP_nLINE_OUT_SELECT) MCU__u32CheckParams((uint32_t) enLineOutSelectArg,
+                                                    (uint32_t) ACMP_enLINE_OUT_SELECT_MAX);
+
         enAnalogInputReg = ACMP_enAnalogInput[(uint32_t) enModuleFilter]
                                               [(uint32_t) ACMP_enCOMP_0]
                                               [ACMP_CMLINE];
@@ -89,12 +105,13 @@ ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
             case ACMP_enVMAX_SOURCE_VIREF:
                 break;
             default:
-            break;
+                break;
         }
 
         if(ACMP_enOUTPUT_ENA == pstControlConfig->enOutputEnable)
         {
-            enDigitalOutputReg = ACMP_enGpioOutput[(uint32_t) enModuleFilter]
+            enDigitalOutputReg = ACMP_enGpioOutput[(uint32_t)enLineOutFilter]
+                                                  [(uint32_t) enModuleFilter]
                                                   [(uint32_t) enCompFilter];
 
             GPIO__enSetDigitalConfig(enDigitalOutputReg, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);

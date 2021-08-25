@@ -27,6 +27,8 @@
 
 UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
 {
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    enFPUActive = MCU__enGetFPUContextActive();
     UART_nSTATUS enStatus = UART_enSTATUS_OK;
     UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
     float32_t f32BaudRateDivisor = 0.0f;
@@ -38,9 +40,6 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
     UART_nSMART enUartMode = UART_enSMART_DIS;
     UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_ENA;
     uint32_t u32CurrentClock = 0UL;
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
-
-    enFPUActive = MCU__enGetFPUContextActive();
 
 
     u32CurrentClock = SYSCTL__u32GetAlternateClock();
@@ -110,6 +109,8 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
 
 uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
 {
+    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    enFPUActive = MCU__enGetFPUContextActive();
     UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
     UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_DIS;
     uint32_t u32BaudRate = 0UL;
@@ -120,9 +121,6 @@ uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
     uint32_t u32BaudRateInteger = 0UL;
     uint32_t u32HSEDivider= 8UL;
     uint32_t u32CurrentClock = 0UL;
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
-
-    enFPUActive = MCU__enGetFPUContextActive();
 
     u32CurrentClock = SYSCTL__u32GetAlternateClock();
     enHSEValue = UART__enGetHighSpeed(enModule);

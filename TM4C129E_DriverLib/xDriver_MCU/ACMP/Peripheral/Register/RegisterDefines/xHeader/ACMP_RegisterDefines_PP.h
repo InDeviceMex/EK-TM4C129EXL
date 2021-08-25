@@ -52,6 +52,17 @@
 /*----------*/
 
 /*----------*/
+#define ACMP_PP_R_CMP2_MASK    ((uint32_t) 0x00000004U)
+#define ACMP_PP_R_CMP2_BIT    ((uint32_t) 2U)
+#define ACMP_PP_R_CMP2_NOPRESENT    ((uint32_t) 0x00000000U)
+#define ACMP_PP_R_CMP2_PRESENT    ((uint32_t) 0x00000004U)
+
+#define ACMP_PP_CMP2_MASK    ((uint32_t) 0x00000001U)
+#define ACMP_PP_CMP2_NOPRESENT    ((uint32_t) 0x00000000U)
+#define ACMP_PP_CMP2_PRESENT    ((uint32_t) 0x00000001U)
+/*----------*/
+
+/*----------*/
 #define ACMP_PP_R_C0O_MASK    ((uint32_t) 0x00010000U)
 #define ACMP_PP_R_C0O_BIT    ((uint32_t) 16U)
 #define ACMP_PP_R_C0O_NOPRESENT    ((uint32_t) 0x00000000U)
@@ -73,7 +84,15 @@
 #define ACMP_PP_C1O_PRESENT    ((uint32_t) 0x00000001U)
 /*----------*/
 
+/*----------*/
+#define ACMP_PP_R_C2O_MASK    ((uint32_t) 0x00040000U)
+#define ACMP_PP_R_C2O_BIT    ((uint32_t) 18U)
+#define ACMP_PP_R_C2O_NOPRESENT    ((uint32_t) 0x00000000U)
+#define ACMP_PP_R_C2O_PRESENT    ((uint32_t) 0x00040000U)
 
-
+#define ACMP_PP_C2O_MASK    ((uint32_t) 0x00000001U)
+#define ACMP_PP_C2O_NOPRESENT    ((uint32_t) 0x00000000U)
+#define ACMP_PP_C2O_PRESENT    ((uint32_t) 0x00000001U)
+/*----------*/
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ACMP_REGISTERDEFINES_PP_H_ */

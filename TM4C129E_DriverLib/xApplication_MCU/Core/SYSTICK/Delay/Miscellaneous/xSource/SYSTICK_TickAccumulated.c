@@ -35,7 +35,3 @@ uint64_t SYSTICK__u64GetTickAccumulated(void)
     u64CountTick -= SYSTICK__u32GetCurrent();
     return (u64CountTick);
 }
-
-
-
-
