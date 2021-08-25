@@ -23,6 +23,8 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_WriteReg.h>
 
+#include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
+
 void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
                              uint32_t u32FeatureValue, uint32_t u32MaskFeature,
                              uint32_t u32BitFeature)

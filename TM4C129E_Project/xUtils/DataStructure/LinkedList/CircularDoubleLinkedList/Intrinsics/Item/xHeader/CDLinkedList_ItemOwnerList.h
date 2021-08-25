@@ -1,6 +1,6 @@
 /**
  *
- * @file CCDLinkedList_ItemOwnerList.h
+ * @file CDLinkedList_ItemOwnerList.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *

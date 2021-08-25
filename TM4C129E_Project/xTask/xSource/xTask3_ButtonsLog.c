@@ -1,6 +1,6 @@
 /**
  *
- * @file xTask2_ButtonsLog.c
+ * @file xTask3_ButtonsLog.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *

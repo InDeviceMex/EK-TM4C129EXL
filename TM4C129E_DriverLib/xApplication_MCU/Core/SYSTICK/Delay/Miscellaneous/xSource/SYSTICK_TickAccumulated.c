@@ -1,6 +1,6 @@
 /**
  *
- * @file SYSTICK_TickAcumulated.c
+ * @file SYSTICK_TickAccumulated.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *

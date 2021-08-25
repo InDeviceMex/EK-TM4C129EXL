@@ -1,6 +1,6 @@
 /**
  *
- * @file CircularCDLinkedList_Remove.h
+ * @file CDLinkedList_Remove.h
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *

@@ -2,24 +2,24 @@
  *
  * @file GPIO_RegisterDefines_RIS.h
  * @copyright
- * @verbatRIS InDeviceMex 2020 @endverbatRIS
+ * @verbatim InDeviceMex 2020 @endverbatRIS
  *
  * @par Responsibility
- * @verbatRIS InDeviceMex Developers @endverbatRIS
+ * @verbatim InDeviceMex Developers @endverbatRIS
  *
  * @version
- * @verbatRIS 1.0 @endverbatRIS
+ * @verbatim 1.0 @endverbatRIS
  *
  * @date
- * @verbatRIS 25 jun. 2020 @endverbatRIS
+ * @verbatim 25 jun. 2020 @endverbatRIS
  *
  * @author
- * @verbatRIS vyldram @endverbatRIS
+ * @verbatim vyldram @endverbatRIS
  *
  * @par Change History
- * @verbatRIS
+ * @verbatim
  * Date           Author     Version     Description
- * 25 jun. 2020     vyldram    1.0         initial Version@endverbatRIS
+ * 25 jun. 2020     vyldram    1.0         initial Version @endverbatim
  */
 
 #ifndef XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_RIS_H_

@@ -1,6 +1,6 @@
 /**
  *
- * @file CCSLinkedList_ItemOwnerList.c
+ * @file CSLinkedList_ItemOwnerList.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
