@@ -26,7 +26,7 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-void SCB__MemoryFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+void SCB_MemoryFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                                   SCB_nMEMORY_BIT enInterruptParam)
 {
     uint32_t u32InterruptSource = 0UL;

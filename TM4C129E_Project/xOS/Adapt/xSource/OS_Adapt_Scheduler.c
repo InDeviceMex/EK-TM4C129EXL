@@ -56,7 +56,7 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
 {
 
     SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
-    SCB__SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
+    SCB_SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
     /* Make PendSV and SysTick the lowest priority interrupts. */
     SCB_PendSV__vSetPriority(SCB_enSHPR7);
     SCB_Systick__vSetPriority(SCB_enSHPR7);

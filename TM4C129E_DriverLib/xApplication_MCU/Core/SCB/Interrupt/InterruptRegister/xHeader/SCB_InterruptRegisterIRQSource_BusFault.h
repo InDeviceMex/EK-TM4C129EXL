@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB__BusFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+void SCB_BusFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                                   SCB_nBUS_BIT enInterruptParam);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTREGISTER_XHEADER_SCB_INTERRUPTREGISTERIRQSOURCE_BUSFAULT_H_ */

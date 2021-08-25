@@ -56,8 +56,32 @@ typedef enum
     SCB_enFAULT_USAGE = 0UL,
     SCB_enFAULT_BUS = 1UL,
     SCB_enFAULT_MEMORY = 2UL,
-    SCB_enFAULT_MAX = 3UL,
+    SCB_enFAULT_NMI = 3UL,
+    SCB_enFAULT_MAX = 4UL,
 }SCB_nFAULT;
+
+typedef enum
+{
+    SCB_enNMI_EXTERNAL = 0x01UL,
+    SCB_enNMI_POWER = 0x04UL,
+    SCB_enNMI_WDT0 = 0x08UL,
+    SCB_enNMI_WDT1 = 0x20UL,
+    SCB_enNMI_TAMPER = 0x200UL,
+    SCB_enNMI_MOSCFAIL = 0x10000UL,
+    SCB_enNMI_ALL = 0x1022DUL,
+}SCB_nNMI;
+
+typedef enum
+{
+    SCB_enNMI_BIT_EXTERNAL = 0UL,
+    SCB_enNMI_BIT_POWER = 1UL,
+    SCB_enNMI_BIT_WDT0 = 2UL,
+    SCB_enNMI_BIT_WDT1 = 3UL,
+    SCB_enNMI_BIT_TAMPER = 4UL,
+    SCB_enNMI_BIT_MOSCFAIL = 5UL,
+    SCB_enNMI_BIT_SW = 6UL,
+    SCB_enNMI_BIT_MAX = 7UL,
+}SCB_nNMI_BIT;
 
 typedef enum
 {

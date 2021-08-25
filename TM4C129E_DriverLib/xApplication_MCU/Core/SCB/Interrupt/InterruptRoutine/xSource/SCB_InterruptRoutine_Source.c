@@ -55,6 +55,14 @@ void (*SCB_HardFault__vIRQSourceHandler[(uint32_t) SCB_enHARD_BIT_MAX])(void) =
     &SCB_vIRQSourceHandler_Dummy
 };
 
+void (*SCB_NMI__vIRQSourceHandler[(uint32_t) SCB_enNMI_BIT_MAX])(void) =
+{
+    &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
+    &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
+    &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
+    &SCB_vIRQSourceHandler_Dummy
+};
+
 static void SCB_vIRQSourceHandler_Dummy(void)
 {
     while(1UL){ }
@@ -113,6 +121,21 @@ void (**SCB_HardFault__pvfGetIRQSourceHandlerPointer(SCB_nHARD_BIT enHardFaultBi
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
     pvfFunctionReg = (void(**)(void)) &SCB_HardFault__vIRQSourceHandler[(uint32_t) enHardFaultBit];
+    return (pvfFunctionReg);
+}
+
+
+void (*SCB_NMI__pvfGetIRQSourceHandler(SCB_nNMI_BIT enNMIBit))(void)
+{
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SCB_NMI__vIRQSourceHandler[(uint32_t) enNMIBit];
+    return (pvfFunctionReg);
+}
+
+void (**SCB_NMI__pvfGetIRQSourceHandlerPointer(SCB_nNMI_BIT enNMIBit))(void)
+{
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SCB_NMI__vIRQSourceHandler[(uint32_t) enNMIBit];
     return (pvfFunctionReg);
 }
 

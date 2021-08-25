@@ -30,6 +30,10 @@
 
 #include <xApplication_MCU/FLASH/FLASH.h>
 #include <xApplication_MCU/UART/UART.h>
+
+#include <xApplication_MCU/SYSCTL/SYSCTL.h>
+#include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
+
 #include <xDriver_MCU/Common/MCU_Common.h>
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTRINSICS_XHEADER_SCB_DEPENDENCIES_H_ */

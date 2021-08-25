@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB__HardFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+void SCB_HardFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                                   SCB_nHARD_BIT enInterruptParam);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTREGISTER_XHEADER_SCB_INTERRUPTREGISTERIRQSOURCE_HARDFAULT_H_ */

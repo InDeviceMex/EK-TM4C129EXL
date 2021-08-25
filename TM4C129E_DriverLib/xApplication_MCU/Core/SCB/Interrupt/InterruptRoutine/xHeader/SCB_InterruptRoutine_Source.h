@@ -39,6 +39,9 @@ void (*SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_nMEMORY_BIT enMemoryFaultBit)
 void (*SCB_HardFault__pvfGetIRQSourceHandler(SCB_nHARD_BIT enHardFaultBit))(void);
 void (**SCB_HardFault__pvfGetIRQSourceHandlerPointer(SCB_nHARD_BIT enHardFaultBit))(void);
 
+void (*SCB_NMI__pvfGetIRQSourceHandler(SCB_nNMI_BIT enNMIBit))(void);
+void (**SCB_NMI__pvfGetIRQSourceHandlerPointer(SCB_nNMI_BIT enNMIBit))(void);
+
 void SCB_SVCall__vInit(void);
 void (*SCB_SVCall__pvfGetIRQSourceHandler(uint32_t u32SVCallBit))(void);
 void (**SCB_SVCall__pvfGetIRQSourceHandlerPointer(uint32_t u32SVCallBit))(void);

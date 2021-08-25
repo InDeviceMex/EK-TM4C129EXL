@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB__SVCall__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+void SCB_SVCall__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                                   uint32_t u32InterruptParam);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTREGISTER_XHEADER_SCB_INTERRUPTREGISTERIRQSOURCE_SVCALL_H_ */

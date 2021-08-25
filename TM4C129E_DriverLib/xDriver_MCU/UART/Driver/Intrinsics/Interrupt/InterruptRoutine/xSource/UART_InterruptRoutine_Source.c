@@ -36,7 +36,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -46,7 +46,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -56,7 +56,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -66,7 +66,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -76,7 +76,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -86,7 +86,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -96,7 +96,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     },
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -106,7 +106,7 @@ void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
-         &UART_vIRQSourceHandler_Dummy
+         &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy
     }
 };
 

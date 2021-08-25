@@ -16,7 +16,13 @@
 uint32_t main(void);
 
 void Led2ON(void);
+void NMISW(void);
 
+
+void NMISW(void)
+{
+    MCU__vNoOperation();
+}
 
 void Led2ON(void)
 {
