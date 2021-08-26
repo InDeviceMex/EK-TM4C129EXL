@@ -27,6 +27,9 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
+void (*DMA__pvfGetIRQSourceHandler_Error(DMA_nINT_ERROR enInterruptSourceArg))(void);
+void (**DMA__pvfGetIRQSourceHandlerPointer_Error(DMA_nINT_ERROR enInterruptSourceArg))(void);
+
 void (*DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void);
 void (**DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void);
 

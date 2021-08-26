@@ -9,5 +9,6 @@
 #define NVIC_H_
 
 #include <xDriver_MCU/Core/NVIC/Driver/NVIC_Driver.h>
+#include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
 #endif /* NVIC_H_ */

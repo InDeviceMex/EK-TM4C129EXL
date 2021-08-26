@@ -155,16 +155,25 @@ typedef enum
 
 typedef enum
 {
-    DMA_enCH_INT_SOFT_03 = 0UL,
-    DMA_enCH_INT_SOFT_22 = 1UL,
-    DMA_enCH_INT_SOFT_23 = 2UL,
-    DMA_enCH_INT_SOFT_25 = 3UL,
-    DMA_enCH_INT_SOFT_26 = 4UL,
-    DMA_enCH_INT_SOFT_27 = 5UL,
-    DMA_enCH_INT_SOFT_30 = 6UL,
-    DMA_enCH_INT_SOFT_MAX = 7UL,
+    DMA_enCH_INT_SOFT_SW = 0UL,
+    DMA_enCH_INT_SOFT_03 = 1UL,
+    DMA_enCH_INT_SOFT_22 = 2UL,
+    DMA_enCH_INT_SOFT_23 = 3UL,
+    DMA_enCH_INT_SOFT_25 = 4UL,
+    DMA_enCH_INT_SOFT_26 = 5UL,
+    DMA_enCH_INT_SOFT_27 = 6UL,
+    DMA_enCH_INT_SOFT_30 = 7UL,
+    DMA_enCH_INT_SOFT_MAX = 8UL,
     DMA_enCH_INT_SOFT_UNDEF = 0xFFFFFFFFUL,
 }DMA_nCH_INT_SOFT;
+
+typedef enum
+{
+    DMA_enINT_ERROR_SW = 0UL,
+    DMA_enINT_ERROR_ERROR = 1UL,
+    DMA_enINT_ERROR_MAX = 2UL,
+    DMA_enINT_ERROR_UNDEF = 0xFFFFFFFFUL,
+}DMA_nINT_ERROR;
 
 typedef enum
 {

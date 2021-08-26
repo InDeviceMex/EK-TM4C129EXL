@@ -76,7 +76,7 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__vRegisterIRQSourceHandler( &EDUMKII_Select_vIRQSourceHandler, EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_SELECT, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
 
-        GPIO__vEnInterruptVector(EDUMKII_SELECT_PORT, GPIO_enPRI5);
+        GPIO__vEnInterruptVector(EDUMKII_SELECT_PORT, (GPIO_nPRIORITY) NVIC_enPriority_GPIOC);
         GPIO__vClearInterruptSource(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__vSetInterruptSourceConfig(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, GPIO_enINT_CONFIG_EDGE_BOTH);
         GPIO__vEnInterruptSource(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
@@ -114,7 +114,8 @@ void EDUMKII_Joystick_vInit(void)
         ADC__enSetSampleConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enMUX_1, &stADC0SampleConfig);
 
         ADC__vEnSeqInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_SOURCE_DMA);
-        ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enPRI5);
+        ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_1,
+                                (ADC_nPRIORITY) NVIC_enPriority_ADC0SEQ1);
         ADC__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enDMA_ENABLE_ENA);
         ADC__vSetSequencerEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSEQ_ENABLE_ENA);
         u32Init = 1UL;
