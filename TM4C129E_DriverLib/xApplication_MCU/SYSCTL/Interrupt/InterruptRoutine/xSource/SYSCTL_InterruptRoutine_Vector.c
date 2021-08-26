@@ -32,28 +32,36 @@ void SYSCTL__vIRQVectorHandler(void)
 
     u32Reg = (uint32_t) SYSCTL_MISC_R;
 
-    if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_BOR & u32Reg))
+    if(0UL == ((uint32_t) SYSCTL_enINT_SOURCE_ALL & u32Reg))
     {
-        SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_BOR;
-        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
+        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_SW);
         pfvCallback();
     }
-    if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOF & u32Reg))
+    else
     {
-        SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOF;
-        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_PLLL & u32Reg))
-    {
-        SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_PLLL;
-        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP & u32Reg))
-    {
-        SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP;
-        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
-        pfvCallback();
+        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_BOR & u32Reg))
+        {
+            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_BOR;
+            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOF & u32Reg))
+        {
+            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOF;
+            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_PLLL & u32Reg))
+        {
+            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_PLLL;
+            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP & u32Reg))
+        {
+            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP;
+            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
+            pfvCallback();
+        }
     }
 }

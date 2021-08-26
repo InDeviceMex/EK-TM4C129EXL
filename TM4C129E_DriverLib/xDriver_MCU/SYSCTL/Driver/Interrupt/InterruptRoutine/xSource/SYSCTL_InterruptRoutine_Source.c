@@ -28,7 +28,8 @@ static void SYSCTL_vIRQSourceHandler_Dummy(void);
 static void (*SYSCTL__vIRQSourceHandler[(uint32_t) SYSCTL_enINTERRUPT_MAX]) (void) =
 {
    &SYSCTL_vIRQSourceHandler_Dummy,&SYSCTL_vIRQSourceHandler_Dummy,
-   &SYSCTL_vIRQSourceHandler_Dummy,&SYSCTL_vIRQSourceHandler_Dummy
+   &SYSCTL_vIRQSourceHandler_Dummy,&SYSCTL_vIRQSourceHandler_Dummy,
+   &SYSCTL_vIRQSourceHandler_Dummy
 };
 
 static void SYSCTL_vIRQSourceHandler_Dummy(void)

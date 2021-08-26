@@ -31,6 +31,7 @@ void (*QEI__vIRQSourceHandler[(uint32_t) QEI_enMODULE_MAX]
     {
          &QEI_vIRQSourceHandler_Dummy,&QEI_vIRQSourceHandler_Dummy,
          &QEI_vIRQSourceHandler_Dummy,&QEI_vIRQSourceHandler_Dummy,
+         &QEI_vIRQSourceHandler_Dummy
     },
 };
 

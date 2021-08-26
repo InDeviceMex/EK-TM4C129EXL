@@ -57,7 +57,7 @@ void SVCall__vIRQVectorHandler(void)
 #elif defined (__GNUC__ )
         " ldr R1, = SVCall_u32Function\n"
 #endif
-        " str R0, [R1, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+        " str R0, [R1, #0x0]\n"
         " pop {r0-r1} \n"
         " push {r0,r14} \n");
 

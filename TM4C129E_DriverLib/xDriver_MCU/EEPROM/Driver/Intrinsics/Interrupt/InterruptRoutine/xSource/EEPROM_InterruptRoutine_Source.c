@@ -30,6 +30,7 @@ static void (*EEPROM__vIRQSourceHandler[(uint32_t) EEPROM_enINTERRUPT_MAX]) (voi
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy,
+    &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy
 };
 

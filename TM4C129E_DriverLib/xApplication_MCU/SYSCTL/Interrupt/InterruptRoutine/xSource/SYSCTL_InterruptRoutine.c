@@ -30,11 +30,14 @@ static void (*SYSCTL__pvIRQVectorHandler[1UL]) (void) =
 
 void (*SYSCTL__pvfGetIRQVectorHandler(void))(void)
 {
-
-    return (SYSCTL__pvIRQVectorHandler[0UL]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SYSCTL__pvIRQVectorHandler[(uint32_t) 0UL];
+    return (pvfFunctionReg);
 }
 
 void (**SYSCTL__pvfGetIRQVectorHandlerPointer(void))(void)
 {
-    return ((void(**)(void)) &SYSCTL__pvIRQVectorHandler[0UL]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SYSCTL__pvIRQVectorHandler[(uint32_t) 0UL];
+    return (pvfFunctionReg);
 }

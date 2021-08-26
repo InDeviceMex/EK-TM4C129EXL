@@ -25,19 +25,22 @@
 
 void (*UART__pvIRQVectorHandler[(uint32_t) UART_enMODULE_MAX]) (void)=
 {
-    &UART0__vIRQVectorHandler,&UART1__vIRQVectorHandler,&UART2__vIRQVectorHandler,&UART3__vIRQVectorHandler,
-    &UART4__vIRQVectorHandler,&UART5__vIRQVectorHandler,&UART6__vIRQVectorHandler,&UART7__vIRQVectorHandler
+    &UART0__vIRQVectorHandler,&UART1__vIRQVectorHandler,
+    &UART2__vIRQVectorHandler,&UART3__vIRQVectorHandler,
+    &UART4__vIRQVectorHandler,&UART5__vIRQVectorHandler,
+    &UART6__vIRQVectorHandler,&UART7__vIRQVectorHandler
 };
 
 void (*UART__pvfGetIRQVectorHandler(UART_nMODULE enUARTModule))(void)
 {
-    return (UART__pvIRQVectorHandler[(uint32_t) enUARTModule]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = UART__pvIRQVectorHandler[(uint32_t) enUARTModule];
+    return (pvfFunctionReg);
 }
 
 void (**UART__pvfGetIRQVectorHandlerPointer(UART_nMODULE enUARTModule))(void)
 {
-    return ((void(**)(void)) &UART__pvIRQVectorHandler[(uint32_t) enUARTModule]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &UART__pvIRQVectorHandler[(uint32_t) enUARTModule];
+    return (pvfFunctionReg);
 }
-
-
-

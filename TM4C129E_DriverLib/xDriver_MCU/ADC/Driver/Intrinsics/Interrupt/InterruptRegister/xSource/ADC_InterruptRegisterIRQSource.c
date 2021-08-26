@@ -27,6 +27,27 @@
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ADC_InterruptRoutine_Source.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
+void ADC_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                           ADC_nMODULE enModule,
+                                           ADC_nSEQUENCER enSequencer)
+{
+    uint32_t u32Module = 0UL;
+    uint32_t u32Sequencer = 0UL;
+
+    if(0UL != (uint32_t) pfIrqSourceHandler)
+    {
+        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
+                                         (uint32_t) ADC_enMODULE_MAX);
+        u32Sequencer = MCU__u32CheckParams( (uint32_t) enSequencer,
+                                            (uint32_t) ADC_enSEQ_MAX);
+        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
+                   ADC_SW__pvfGetIRQSourceHandlerPointer((ADC_nMODULE) u32Module,
+                                                             (ADC_nSEQUENCER) u32Sequencer),
+                   0UL,
+                   1UL);
+    }
+}
+
 void ADC_Sample__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            ADC_nMODULE enModule,
                                            ADC_nSEQUENCER enSequencer,

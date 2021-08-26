@@ -30,11 +30,14 @@ static void (*FLASH__pvIRQVectorHandler[1UL]) (void) =
 
 void (*FLASH__pvfGetIRQVectorHandler(void))(void)
 {
-
-    return (FLASH__pvIRQVectorHandler[0UL]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = FLASH__pvIRQVectorHandler[0UL];
+    return (pvfFunctionReg);
 }
 
 void (**FLASH__pvfGetIRQVectorHandlerPointer(void))(void)
 {
-    return ((void(**)(void)) &FLASH__pvIRQVectorHandler[0UL]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &FLASH__pvIRQVectorHandler[0UL];
+    return (pvfFunctionReg);
 }

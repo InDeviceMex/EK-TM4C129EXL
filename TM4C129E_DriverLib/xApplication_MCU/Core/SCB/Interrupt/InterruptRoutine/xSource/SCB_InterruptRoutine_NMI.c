@@ -39,79 +39,82 @@ void NMI__vIRQVectorHandler(void)
         pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_SW);
         pfvCallback();
     }
-    if(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & u32RegNMI))
+    else
     {
-        do
+        if(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & u32RegNMI))
         {
-            u32RegNMI &= ~ (uint32_t) SCB_enNMI_MOSCFAIL;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~ (uint32_t) SCB_enNMI_MOSCFAIL;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & u32RegNMI));
 
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_MOSCFAIL);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SCB_enNMI_TAMPER & u32RegNMI))
-    {
-        do
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_MOSCFAIL);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SCB_enNMI_TAMPER & u32RegNMI))
         {
-            u32RegNMI &= ~(uint32_t) SCB_enNMI_TAMPER;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_TAMPER & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~(uint32_t) SCB_enNMI_TAMPER;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_TAMPER & u32RegNMI));
 
-        /**
-         * TODO: Check if TAMPER requires to be cleared in HIB module
-         */
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_TAMPER);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SCB_enNMI_WDT1 & u32RegNMI))
-    {
-        do
+            /**
+             * TODO: Check if TAMPER requires to be cleared in HIB module
+             */
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_TAMPER);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SCB_enNMI_WDT1 & u32RegNMI))
         {
-            u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT1;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_WDT1 & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT1;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_WDT1 & u32RegNMI));
 
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT1);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SCB_enNMI_WDT0 & u32RegNMI))
-    {
-        do
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT1);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SCB_enNMI_WDT0 & u32RegNMI))
         {
-            u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT0;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_WDT0 & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT0;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_WDT0 & u32RegNMI));
 
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT0);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SCB_enNMI_POWER & u32RegNMI))
-    {
-        do
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT0);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SCB_enNMI_POWER & u32RegNMI))
         {
-            u32RegNMI &= ~(uint32_t) SCB_enNMI_POWER;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_POWER & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~(uint32_t) SCB_enNMI_POWER;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_POWER & u32RegNMI));
 
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_POWER);
-        pfvCallback();
-    }
-    if(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & u32RegNMI))
-    {
-        do
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_POWER);
+            pfvCallback();
+        }
+        if(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & u32RegNMI))
         {
-            u32RegNMI &= ~(uint32_t) SCB_enNMI_EXTERNAL;
-            SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-            u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-        }while(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & u32RegNMI));
+            do
+            {
+                u32RegNMI &= ~(uint32_t) SCB_enNMI_EXTERNAL;
+                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
+                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
+            }while(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & u32RegNMI));
 
-        pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_EXTERNAL);
-        pfvCallback();
+            pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_EXTERNAL);
+            pfvCallback();
+        }
     }
 }

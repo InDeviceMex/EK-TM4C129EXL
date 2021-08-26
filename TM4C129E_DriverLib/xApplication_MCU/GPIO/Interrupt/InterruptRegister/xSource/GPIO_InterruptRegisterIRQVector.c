@@ -45,6 +45,45 @@ void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPO
     }
 }
 
+void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
+                                        GPIO_nPORT enPort,
+                                        GPIO_nPIN_NUMBER enPinNumber)
+{
+    SCB_nVECISR enVector = SCB_enVECISR_GPIOP;
+    uint32_t u32Port = 0UL;
+    uint32_t u32PinNumber = 0UL;
+    const SCB_nVECISR SCB_enVECISR_GPIO_PQ[(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P]
+                                        [(uint32_t) GPIO_enPIN_NUMBER_MAX] =
+    {
+     {
+         SCB_enVECISR_GPIOP, SCB_enVECISR_GPIOP1,
+         SCB_enVECISR_GPIOP2, SCB_enVECISR_GPIOP3,
+         SCB_enVECISR_GPIOP4, SCB_enVECISR_GPIOP5,
+         SCB_enVECISR_GPIOP6, SCB_enVECISR_GPIOP7
+     },
+     {
+          SCB_enVECISR_GPIOQ, SCB_enVECISR_GPIOQ1,
+          SCB_enVECISR_GPIOQ2, SCB_enVECISR_GPIOQ3,
+          SCB_enVECISR_GPIOQ4, SCB_enVECISR_GPIOQ5,
+          SCB_enVECISR_GPIOQ6, SCB_enVECISR_GPIOQ7
+     },
+    };
+
+    if(0UL != (uint32_t) pfIrqVectorHandler)
+    {
+        if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
+        {
+            if(GPIO_enPIN_0 != enPinNumber)
+            {
+                enVector = SCB_enVECISR_GPIO_PQ[u32Port][u32PinNumber];
+                SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
+                                   GPIO__pvfGetIRQVectorHandlerPointer((GPIO_nPORT) u32Port),
+                                   enVector);
+            }
+        }
+    }
+}
+
 void GPIO__vRegisterAll_IRQVectorHandler(void)
 {
     void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;

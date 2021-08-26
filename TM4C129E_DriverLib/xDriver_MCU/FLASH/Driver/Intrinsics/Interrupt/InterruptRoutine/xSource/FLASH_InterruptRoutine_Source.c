@@ -33,6 +33,7 @@ void (*FLASH__vIRQSourceHandler[(uint32_t) FLASH_enINTERRUPT_MAX]) (void)=
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy,
+    &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy
 };
 

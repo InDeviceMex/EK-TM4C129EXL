@@ -29,20 +29,59 @@ void (*ADC_Sample__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
                                     [(uint32_t)ADC_enSEQ_MAX]
                                     [(uint32_t)ADC_enINT_SOURCE_MAX])(void) =
 {
- {
-  {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-  {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-  {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-  {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy}
- },
+    {
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        }
+    },
 
- {
-   {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-   {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-   {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy},
-   {&ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy}
- },
+    {
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        },
+        {
+             &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+             &ADC_vIRQSourceHandler_Dummy
+        }
+    },
 };
+
+void (*ADC_SW__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
+                                    [(uint32_t)ADC_enSEQ_MAX])(void) =
+{
+    {
+        &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+        &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy
+    },
+
+    {
+        &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy,
+        &ADC_vIRQSourceHandler_Dummy, &ADC_vIRQSourceHandler_Dummy
+    },
+};
+
 
 void (*ADC_Comp__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
                                   [(uint32_t)ADC_enSEQ_MAX]
@@ -105,6 +144,24 @@ void (*ADC_Comp__vIRQSourceHandler[(uint32_t)ADC_enMODULE_MAX]
 static void ADC_vIRQSourceHandler_Dummy(void)
 {
     while(1UL){}
+}
+
+void (*ADC_SW__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                          ADC_nSEQUENCER enADCSequencerNum))(void)
+{
+    void(*pvfReg)(void) = (void(*)(void)) 0UL;
+    pvfReg = ADC_SW__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                          [(uint32_t)enADCSequencerNum];
+    return (pvfReg);
+}
+
+void (**ADC_SW__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule,
+                                              ADC_nSEQUENCER enADCSequencerNum))(void)
+{
+    void(**pvfReg)(void) = (void(**)(void)) 0UL;
+    pvfReg = (void(**)(void)) &ADC_SW__vIRQSourceHandler[(uint32_t) enADCSubmodule]
+                                                            [(uint32_t)enADCSequencerNum];
+    return (pvfReg);
 }
 
 void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,

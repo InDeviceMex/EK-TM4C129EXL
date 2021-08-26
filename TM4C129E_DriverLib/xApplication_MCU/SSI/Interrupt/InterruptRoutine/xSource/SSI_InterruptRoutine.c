@@ -31,10 +31,14 @@ void (*SSI__pvIRQVectorHandler[(uint32_t) SSI_enMODULE_MAX]) (void)=
 
 void (*SSI__pvfGetIRQVectorHandler(SSI_nMODULE enSSIModule))(void)
 {
-    return (SSI__pvIRQVectorHandler[(uint32_t) enSSIModule]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = SSI__pvIRQVectorHandler[(uint32_t) enSSIModule];
+    return (pvfFunctionReg);
 }
 
 void (**SSI__pvfGetIRQVectorHandlerPointer(SSI_nMODULE enSSIModule))(void)
 {
-    return ((void(**)(void)) &SSI__pvIRQVectorHandler[(uint32_t) enSSIModule]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &SSI__pvIRQVectorHandler[(uint32_t) enSSIModule];
+    return (pvfFunctionReg);
 }

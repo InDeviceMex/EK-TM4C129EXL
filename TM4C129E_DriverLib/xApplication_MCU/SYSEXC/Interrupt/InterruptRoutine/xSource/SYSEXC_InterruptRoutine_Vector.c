@@ -76,40 +76,48 @@ void SYSEXC__vIRQVectorHandler(void)
                     SYSEXC_pu32Context[5UL],
                     SYSEXC_pu32Context[6UL]);
 
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL))
+    if(0UL == (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_ALL))
     {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DENORMAL);
+        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_SW);
         pfvCallback();
     }
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DIV0))
+    else
     {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DIV0;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DIV0);
-        pfvCallback();
-    }
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INVALID))
-    {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INVALID;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INVALID);
-        pfvCallback();
-    }
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW))
-    {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_UNDERFLOW);
-        pfvCallback();
-    }
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW))
-    {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_OVERFLOW);
-        pfvCallback();
-    }
-    if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INEXACT))
-    {
-        SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INEXACT;
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INEXACT);
-        pfvCallback();
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DENORMAL);
+            pfvCallback();
+        }
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DIV0))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DIV0;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DIV0);
+            pfvCallback();
+        }
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INVALID))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INVALID;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INVALID);
+            pfvCallback();
+        }
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_UNDERFLOW);
+            pfvCallback();
+        }
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_OVERFLOW);
+            pfvCallback();
+        }
+        if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INEXACT))
+        {
+            SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INEXACT;
+            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INEXACT);
+            pfvCallback();
+        }
     }
 }

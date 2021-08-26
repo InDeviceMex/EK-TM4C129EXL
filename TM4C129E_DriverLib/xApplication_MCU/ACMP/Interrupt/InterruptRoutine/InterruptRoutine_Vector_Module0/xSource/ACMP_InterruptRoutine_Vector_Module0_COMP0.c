@@ -28,14 +28,33 @@
 void ACMP0_Comp0__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
+    volatile uint32_t u32Enable = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Reg = ACMP0_MIS_R;
-    if((uint32_t) ACMP_enCOMPMASK_0 & u32Reg)
+    u32Enable = SYSCTL_RCGCACMP_R;
+    u32Enable |= SYSCTL_SCGCACMP_R;
+    u32Enable |= SYSCTL_DCGCACMP_R;
+    if(SYSCTL_RCGCACMP_R_ACMP_DIS == (SYSCTL_RCGCACMP_R_ACMP_MASK & u32Enable))
     {
-        ACMP0_MIS_R = (uint32_t) ACMP_enCOMPMASK_0;
-        pfvCallback = ACMP__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
-                                                   ACMP_enCOMP_0);
+        pfvCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+                                                      ACMP_enCOMP_0);
         pfvCallback();
+    }
+    else
+    {
+        u32Reg = ACMP0_MIS_R;
+        if((uint32_t) ACMP_enCOMPMASK_0 & u32Reg)
+        {
+            ACMP0_MIS_R = (uint32_t) ACMP_enCOMPMASK_0;
+            pfvCallback = ACMP__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+                                                       ACMP_enCOMP_0);
+            pfvCallback();
+        }
+        else
+        {
+            pfvCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+                                                          ACMP_enCOMP_0);
+            pfvCallback();
+        }
     }
 }

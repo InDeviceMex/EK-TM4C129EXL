@@ -72,30 +72,65 @@ void HardFault__vIRQVectorHandler(void)
 {
     __asm volatile(
     " PUSH {R4-R7}\n"
-    " MRS R4, MSP\n"
+    " ubfx    R4, LR, #2, #1 \n"
+    " cmp    R4, #0 \n"
+    " beq    MainStackHard \n"
+    " b    ProcessStackHard \n"
+
+    "MainStackHard: \n"
+    " mrs    R4, MSP \n"
 #if defined (__TI_ARM__ )
-    " movw R6, SCB_HardFault_pu32Context\n"
-    " movt R6, SCB_HardFault_pu32Context\n"
+    " movw R6, SCB_BusFault_pu32Context\n"
+    " movt R6, SCB_BusFault_pu32Context\n"
 #elif defined (__GNUC__ )
-    " ldr R6, = SCB_HardFault_pu32Context\n"
+    " ldr R6, = SCB_BusFault_pu32Context\n"
 #endif
     " ldr R5, [R4, #0X10]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_HardFault_pu32Context[0] R4*/
+    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
     " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_HardFault_pu32Context[1] R5*/
+    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
     " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_HardFault_pu32Context[2] R6*/
+    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
     " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_HardFault_pu32Context[3] R3*/
+    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
     " ldr R5, [R4, #0x20]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_HardFault_pu32Context[4] R52*/
+    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
     " ldr R5, [R4, #0x24]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_HardFault_pu32Context[5] LR*/
+    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
     " ldr R5, [R4, #0x28]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_HardFault_pu32Context[6] PC*/
+    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
     " ldr R5, [R4, #0x2C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_HardFault_pu32Context[7] PSR*/
-    " pop {R4-R7}\n");
+    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+    " b    ProcessHard \n"
+
+    "ProcessStackHard: \n"
+    " mrs    R4, PSP \n"
+#if defined (__TI_ARM__ )
+    " movw R6, SCB_BusFault_pu32Context\n"
+    " movt R6, SCB_BusFault_pu32Context\n"
+#elif defined (__GNUC__ )
+    " ldr R6, = SCB_BusFault_pu32Context\n"
+#endif
+    " ldr R5, [R4, #0X0]\n"
+    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+    " ldr R5, [R4, #0x4]\n"
+    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
+    " ldr R5, [R4, #0x8]\n"
+    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
+    " ldr R5, [R4, #0xC]\n"
+    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
+    " ldr R5, [R4, #0x10]\n"
+    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
+    " ldr R5, [R4, #0x14]\n"
+    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
+    " ldr R5, [R4, #0x18]\n"
+    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
+    " ldr R5, [R4, #0x1C]\n"
+    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+
+    "ProcessHard: \n"
+    " pop {R4-R7}\n"
+    " push {R0,LR} \n");
 
     uint32_t u32FaultType = 0UL;
     uint32_t u32HardFault = 0U;
@@ -164,7 +199,11 @@ void HardFault__vIRQVectorHandler(void)
     }
     else
     {
-        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Hard exception Detected\n\r");
+        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "SW triggered Hard exception Detected\n\r");
+        pfvCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_SW);
+        pfvCallback();
     }
-    __asm volatile(" BX LR");
+    __asm volatile(
+            " pop {R0,LR} \n"
+            " BX LR \n");
 }

@@ -28,6 +28,9 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
+void ADC_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                           ADC_nMODULE enModule,
+                                           ADC_nSEQUENCER enSequencer);
 void ADC_Sample__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            ADC_nMODULE enModule,
                                            ADC_nSEQUENCER enSequencer,

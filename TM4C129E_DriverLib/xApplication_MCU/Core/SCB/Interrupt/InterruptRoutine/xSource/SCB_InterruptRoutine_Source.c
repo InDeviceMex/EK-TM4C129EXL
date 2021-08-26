@@ -33,7 +33,7 @@ void (*SCB_BusFault__vIRQSourceHandler[(uint32_t) SCB_enBUS_BIT_MAX])(void) =
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
-    &SCB_vIRQSourceHandler_Dummy
+    &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy
 };
 
 void (*SCB_UsageFault__vIRQSourceHandler[(uint32_t) SCB_enUSAGE_BIT_MAX])(void) =
@@ -41,6 +41,7 @@ void (*SCB_UsageFault__vIRQSourceHandler[(uint32_t) SCB_enUSAGE_BIT_MAX])(void) 
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
+    &SCB_vIRQSourceHandler_Dummy
 };
 
 void (*SCB_MemoryFault__vIRQSourceHandler[(uint32_t) SCB_enMEMORY_BIT_MAX])(void) =
@@ -48,11 +49,12 @@ void (*SCB_MemoryFault__vIRQSourceHandler[(uint32_t) SCB_enMEMORY_BIT_MAX])(void
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
     &SCB_vIRQSourceHandler_Dummy, &SCB_vIRQSourceHandler_Dummy,
+    &SCB_vIRQSourceHandler_Dummy
 };
 
 void (*SCB_HardFault__vIRQSourceHandler[(uint32_t) SCB_enHARD_BIT_MAX])(void) =
 {
-    &SCB_vIRQSourceHandler_Dummy
+    &SCB_vIRQSourceHandler_Dummy,&SCB_vIRQSourceHandler_Dummy
 };
 
 void (*SCB_NMI__vIRQSourceHandler[(uint32_t) SCB_enNMI_BIT_MAX])(void) =

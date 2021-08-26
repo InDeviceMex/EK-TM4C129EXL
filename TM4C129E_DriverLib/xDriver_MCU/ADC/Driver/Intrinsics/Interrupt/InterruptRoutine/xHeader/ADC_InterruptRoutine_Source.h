@@ -27,6 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
+void (*ADC_SW__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
+                                          ADC_nSEQUENCER enADCSequencerNum))(void);
+void (**ADC_SW__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enADCSubmodule,
+                                              ADC_nSEQUENCER enADCSequencerNum))(void);
+
 void (*ADC_Sample__pvfGetIRQSourceHandler(ADC_nMODULE enADCSubmodule,
                                           ADC_nSEQUENCER enADCSequencerNum,
                                           ADC_nINT_SOURCE enADCIntSource))(void);

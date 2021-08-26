@@ -32,25 +32,25 @@ void (*SSI__vIRQSourceHandler[(uint32_t) SSI_enMODULE_MAX]
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
     },
     {
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
     },
     {
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
     },
     {
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,
+         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
     },
 };
 

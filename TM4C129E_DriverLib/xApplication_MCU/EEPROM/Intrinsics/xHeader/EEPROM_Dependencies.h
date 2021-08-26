@@ -26,6 +26,7 @@
 #define XAPPLICATION_MCU_EEPROM_INTRINSICS_XHEADER_EEPROM_DEPENDENCIES_H_
 
 #include <xDriver_MCU/SYSCTL/SYSCTL.h>
+#include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 #include <xDriver_MCU/FLASH/FLASH.h>
 
 #include <xDriver_MCU/EEPROM/EEPROM.h>

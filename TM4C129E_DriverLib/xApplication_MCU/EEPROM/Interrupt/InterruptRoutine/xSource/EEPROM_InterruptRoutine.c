@@ -30,11 +30,14 @@ static void (*EEPROM__pvIRQVectorHandler[1UL]) (void) =
 
 void (*EEPROM__pvfGetIRQVectorHandler(void))(void)
 {
-
-    return (EEPROM__pvIRQVectorHandler[0UL]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = EEPROM__pvIRQVectorHandler[0UL];
+    return (pvfFunctionReg);
 }
 
 void (**EEPROM__pvfGetIRQVectorHandlerPointer(void))(void)
 {
-    return ((void(**)(void)) &EEPROM__pvIRQVectorHandler[0UL]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &EEPROM__pvIRQVectorHandler[0UL];
+    return (pvfFunctionReg);
 }

@@ -32,6 +32,7 @@
 void ADC0_SS0__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
+    volatile uint32_t u32Enable = 0U;
     volatile uint32_t u32RegCompInterrupt = 0UL;
     volatile uint32_t u32RegCompSelect = 0UL;
     volatile uint32_t u32RegCompMux = 0UL;
@@ -41,48 +42,68 @@ void ADC0_SS0__vIRQVectorHandler(void)
     uint32_t u32Shift = 0x1UL;
     uint32_t u32Offset = 0x0UL;
 
-
-    u32Reg = ADC0_ISC_R;
-    u32RegCompInterrupt = ADC0_DCISC_R;
-    u32RegCompSelect = ADC0_SSOP0_R;
-    if(u32Reg & ADC_DMA_COMPARATIVE)
+    u32Enable = SYSCTL_RCGCADC_R;
+    u32Enable |= SYSCTL_SCGCADC_R;
+    u32Enable |= SYSCTL_DCGCADC_R;
+    if(SYSCTL_RCGCADC_R_ADC0_DIS == (SYSCTL_RCGCADC_R_ADC0_MASK & u32Enable))
     {
-        ADC0_ISC_R = ADC_DMA_COMPARATIVE;
-        pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_0,
-                                                         ADC_enSEQ_0,
-                                                         ADC_enINT_SOURCE_DMA);
+        pfvCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_0,
+                                                     ADC_enSEQ_0);
         pfvCallback();
     }
-    if(u32Reg & ADC_Sample_COMPARATIVE)
+    else
     {
-        ADC0_ISC_R = ADC_Sample_COMPARATIVE;
-        pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_0,
-                                                         ADC_enSEQ_0,
-                                                         ADC_enINT_SOURCE_SAMPLE);
-        pfvCallback();
-    }
-    if(u32Reg & ADC_Comp_COMPARATIVE)
-    {
-        ADC0_ISC_R = ADC_Comp_COMPARATIVE;
-        for(u32Pos = (uint32_t) ADC_enMUX_0; u32Pos < (uint32_t) ADC_enMUX_MAX; u32Pos++)
+        u32Reg = ADC0_ISC_R;
+        if(0UL == ((ADC_DMA_COMPARATIVE|ADC_Sample_COMPARATIVE|ADC_Comp_COMPARATIVE ) &u32Reg))
         {
-            if(u32RegCompSelect & u32Shift)
+            pfvCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_0,
+                                                         ADC_enSEQ_0);
+            pfvCallback();
+        }
+        else
+        {
+            u32RegCompInterrupt = ADC0_DCISC_R;
+            u32RegCompSelect = ADC0_SSOP0_R;
+            if(u32Reg & ADC_DMA_COMPARATIVE)
             {
-                u32RegCompMux = ADC0_SSDC0_R >> u32Offset;
-                u32RegCompMux &= 0xFUL;
-                u32RegCompMuxBit = 1UL;
-                u32RegCompMuxBit <<= u32RegCompMux;
-                if(u32RegCompInterrupt & u32RegCompMuxBit)
+                ADC0_ISC_R = ADC_DMA_COMPARATIVE;
+                pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_0,
+                                                                 ADC_enSEQ_0,
+                                                                 ADC_enINT_SOURCE_DMA);
+                pfvCallback();
+            }
+            if(u32Reg & ADC_Sample_COMPARATIVE)
+            {
+                ADC0_ISC_R = ADC_Sample_COMPARATIVE;
+                pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_0,
+                                                                 ADC_enSEQ_0,
+                                                                 ADC_enINT_SOURCE_SAMPLE);
+                pfvCallback();
+            }
+            if(u32Reg & ADC_Comp_COMPARATIVE)
+            {
+                ADC0_ISC_R = ADC_Comp_COMPARATIVE;
+                for(u32Pos = (uint32_t) ADC_enMUX_0; u32Pos < (uint32_t) ADC_enMUX_MAX; u32Pos++)
                 {
-                    ADC0_DCISC_R = (uint32_t) u32RegCompMuxBit;
-                    pfvCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_0,
-                                                               ADC_enSEQ_0,
-                                                               (ADC_nCOMPARATOR) u32RegCompMux);
-                    pfvCallback();
+                    if(u32RegCompSelect & u32Shift)
+                    {
+                        u32RegCompMux = ADC0_SSDC0_R >> u32Offset;
+                        u32RegCompMux &= 0xFUL;
+                        u32RegCompMuxBit = 1UL;
+                        u32RegCompMuxBit <<= u32RegCompMux;
+                        if(u32RegCompInterrupt & u32RegCompMuxBit)
+                        {
+                            ADC0_DCISC_R = (uint32_t) u32RegCompMuxBit;
+                            pfvCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_0,
+                                                                       ADC_enSEQ_0,
+                                                                       (ADC_nCOMPARATOR) u32RegCompMux);
+                            pfvCallback();
+                        }
+                    }
+                    u32Offset += 0x4UL;
+                    u32Shift <<= 4UL;
                 }
             }
-            u32Offset += 0x4UL;
-            u32Shift <<= 4UL;
         }
     }
 }

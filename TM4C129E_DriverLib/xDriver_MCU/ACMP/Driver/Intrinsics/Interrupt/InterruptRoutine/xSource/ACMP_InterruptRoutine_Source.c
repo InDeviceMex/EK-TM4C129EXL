@@ -25,6 +25,15 @@
 
 static void ACMP_vIRQSourceHandler_Dummy(void);
 
+void (*ACMP_SW__vIRQSourceHandler[(uint32_t)ACMP_enMODULE_MAX][(uint32_t)ACMP_enCOMP_MAX])(void) =
+{
+    {
+     &ACMP_vIRQSourceHandler_Dummy,
+     &ACMP_vIRQSourceHandler_Dummy,
+     &ACMP_vIRQSourceHandler_Dummy
+    }
+};
+
 void (*ACMP__vIRQSourceHandler[(uint32_t)ACMP_enMODULE_MAX][(uint32_t)ACMP_enCOMP_MAX])(void) =
 {
     {
@@ -39,6 +48,23 @@ static void ACMP_vIRQSourceHandler_Dummy(void)
     while(1UL){}
 }
 
+void (*ACMP_SW__pvfGetIRQSourceHandler(ACMP_nMODULE enACMPSubmodule,
+                                          ACMP_nCOMP enACMPComparatorNum))(void)
+{
+    void(*pvfReg)(void) = (void(*)(void)) 0UL;
+    pvfReg = ACMP_SW__vIRQSourceHandler[(uint32_t) enACMPSubmodule]
+                                    [(uint32_t)enACMPComparatorNum];
+    return (pvfReg);
+}
+
+void (**ACMP_SW__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enACMPSubmodule,
+                                                  ACMP_nCOMP enACMPComparatorNum))(void)
+{
+    void(**pvfReg)(void) = (void(**)(void)) 0UL;
+    pvfReg = (void(**)(void)) &ACMP_SW__vIRQSourceHandler[(uint32_t) enACMPSubmodule]
+                                                      [(uint32_t)enACMPComparatorNum];
+    return (pvfReg);
+}
 
 void (*ACMP__pvfGetIRQSourceHandler(ACMP_nMODULE enACMPSubmodule,
                                           ACMP_nCOMP enACMPComparatorNum))(void)

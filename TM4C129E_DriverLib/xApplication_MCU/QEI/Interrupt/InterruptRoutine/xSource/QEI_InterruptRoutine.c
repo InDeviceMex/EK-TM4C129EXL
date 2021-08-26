@@ -30,10 +30,14 @@ void (*QEI__pvIRQVectorHandler[(uint32_t) QEI_enMODULE_MAX]) (void)=
 
 void (*QEI__pvfGetIRQVectorHandler(QEI_nMODULE enQEIModule))(void)
 {
-    return (QEI__pvIRQVectorHandler[(uint32_t) enQEIModule]);
+    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
+    pvfFunctionReg = QEI__pvIRQVectorHandler[(uint32_t) enQEIModule];
+    return (pvfFunctionReg);
 }
 
 void (**QEI__pvfGetIRQVectorHandlerPointer(QEI_nMODULE enQEIModule))(void)
 {
-    return ((void(**)(void)) &QEI__pvIRQVectorHandler[(uint32_t) enQEIModule]);
+    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
+    pvfFunctionReg = (void(**)(void)) &QEI__pvIRQVectorHandler[(uint32_t) enQEIModule];
+    return (pvfFunctionReg);
 }

@@ -28,6 +28,10 @@
 #include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Defines.h>
 
 void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPORT enPort);
+void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
+                                        GPIO_nPORT enPort,
+                                        GPIO_nPIN_NUMBER enPinNumber);
+
 void GPIO__vRegisterAll_IRQVectorHandler(void);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTERRUPT_INTERRUPTREGISTER_XHEADER_GPIO_INTERRUPTREGISTERIRQVECTOR_H_ */
