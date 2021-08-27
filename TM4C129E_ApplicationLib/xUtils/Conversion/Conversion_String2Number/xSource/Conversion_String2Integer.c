@@ -123,6 +123,6 @@ int32_t Conv__s32String2Integer(const char* pcString, int64_t* s64NumSigned )
             *s64NumSigned = s64NumSignedReg;
         }
     }
-    return s32Length;
+    return (s32Length);
 }
 

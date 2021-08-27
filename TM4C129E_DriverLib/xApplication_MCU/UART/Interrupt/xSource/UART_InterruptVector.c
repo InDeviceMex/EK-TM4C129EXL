@@ -39,7 +39,7 @@ static NVIC_nSTIR UART__enGetInterruptVector(UART_nMODULE enModule)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
     enVector = NVIC_VECTOR_UART[u32Module];
-    return enVector;
+    return (enVector);
 }
 
 void UART__vEnInterruptVector(UART_nMODULE enModule, UART_nPRIORITY enUARTPriority)

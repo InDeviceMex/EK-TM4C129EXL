@@ -39,6 +39,6 @@ uint32_t CONV_u32StringLength(const char* pcString, uint32_t u32MaxSize)
       u32Count = (uint32_t) pcStringReg;
       u32Count -= (uint32_t) pcString;
   }
-  return (uint32_t) u32Count;
+  return ( (uint32_t) u32Count);
 }
 

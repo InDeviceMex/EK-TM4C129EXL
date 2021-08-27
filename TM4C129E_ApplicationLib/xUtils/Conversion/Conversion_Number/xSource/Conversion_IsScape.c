@@ -31,7 +31,7 @@ CONV_nSCAPE Conv__enIsScape(char cCharacter)
     {
         enStatus = CONV_enSCAPE_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

@@ -29,5 +29,5 @@ uint32_t QEI__u32BlockBaseAddress(QEI_nMODULE enModuleArg)
     {
      QEI0_BASE
     };
-    return QEI_BLOCK_BASE[(uint32_t) enModuleArg];
+    return (QEI_BLOCK_BASE[(uint32_t) enModuleArg]);
 }

@@ -112,7 +112,7 @@ uint32_t ST7735__u32GetTransferSizeLeft(void)
 {
     uint32_t u32SizeArg = 0UL;
     u32SizeArg = ST7735_u32DMATransferSizeLeft;
-    return u32SizeArg;
+    return (u32SizeArg);
 }
 
 static void ST7735__vSetTransferStruct(DMACHCTL_TypeDef* pstTransfer)
@@ -137,7 +137,7 @@ uint32_t ST7735__u32GetTransferAddress(void)
 
 uint32_t ST7735__u32GetDMATxInterupt(void)
 {
-    return ST7735_vDMATxInteruptStatus;
+    return (ST7735_vDMATxInteruptStatus);
 }
 
 void ST7735__vSetDMATxInterupt(uint32_t u32StateArg)
@@ -154,7 +154,7 @@ uint32_t ST7735__u32WriteCommand(uint16_t u16DataArg)
     u32ReceiveReg = SSI__u32SetData(ST7735_SSI, (uint32_t) u16DataArg);
 
     ST7735__vDisableChipSelect();
-    return u32ReceiveReg;
+    return (u32ReceiveReg);
 }
 
 uint32_t ST7735__u32WriteData(uint32_t u32DataArg)
@@ -166,7 +166,7 @@ uint32_t ST7735__u32WriteData(uint32_t u32DataArg)
     u32ReceiveReg = SSI__u32SetData(ST7735_SSI, u32DataArg);
 
     ST7735__vDisableChipSelect();
-    return u32ReceiveReg;
+    return (u32ReceiveReg);
 }
 
 
@@ -180,7 +180,7 @@ uint32_t ST7735__u32WriteFifo(uint16_t u16DataArg, uint32_t u32BufferCant)
     u32ReceiveReg = SSI__u32SetFifoDataConst(ST7735_SSI,  (uint32_t)  u16DataArg, u32BufferCant);
 
     ST7735__vDisableChipSelect();
-    return u32ReceiveReg;
+    return (u32ReceiveReg);
 }
 
 
@@ -227,7 +227,7 @@ uint32_t ST7735__u32WriteDMA(uint32_t u32DataArg, uint32_t u32BufferCant)
 
         ST7735__vDisableChipSelect();
     }
-    return u32ReceiveReg;
+    return (u32ReceiveReg);
 }
 
 uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferCant)
@@ -275,7 +275,7 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
 
         ST7735__vDisableChipSelect();
     }
-    return u32ReceiveReg;
+    return (u32ReceiveReg);
 }
 
 void ST7735__vDMATxInterupt(void)

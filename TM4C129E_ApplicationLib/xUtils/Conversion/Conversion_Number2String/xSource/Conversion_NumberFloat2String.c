@@ -248,6 +248,6 @@ CONV_nSTATUS Conv__enNumber2String_Float(CONV_OUT_TypeDef pvfOut, char* pcBuffer
           enStatus = Conv__enOutInversion(pvfOut, pcBufferOut, pvBufferIn, u32Index, u32MaxLenght, szLength, pu32BufOutLenght, u32Width, u32flags);
       }
   }
-  return enStatus;
+  return (enStatus);
 }
 

@@ -36,5 +36,5 @@ uint32_t TIMER__u32BlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg)
      GPTM6_BASE,
      GPTM7_BASE
     };
-    return TIMER_BLOCK_BASE[(uint32_t) enModuleNumArg];
+    return (TIMER_BLOCK_BASE[(uint32_t) enModuleNumArg]);
 }

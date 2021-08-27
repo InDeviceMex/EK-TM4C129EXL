@@ -67,5 +67,5 @@ FLASH_nINT_STATUS FLASH__enStatusInterruptSource(FLASH_nINT enInterruptParam)
     {
         enStatus = FLASH_enINT_NOOCCUR;
     }
-    return enStatus;
+    return (enStatus);
 }

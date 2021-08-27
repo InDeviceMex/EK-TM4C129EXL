@@ -41,6 +41,6 @@ char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t
             *pcStringReg = '\0';
         }
     }
-    return pcStringDest;
+    return (pcStringDest);
 }
 

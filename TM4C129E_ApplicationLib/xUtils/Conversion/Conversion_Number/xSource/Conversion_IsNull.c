@@ -31,7 +31,7 @@ CONV_nNULL Conv__enIsNull(char cCharacter)
     {
         enStatus = CONV_enNULL_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

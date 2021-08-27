@@ -42,7 +42,7 @@ static NVIC_nSTIR TIMER__enGetInterruptVector(TIMER_nMODULE enModule)
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
     enVector = NVIC_VECTOR_TIMER [u32SubModule][u32ModuleNumber];
-    return enVector;
+    return (enVector);
 }
 
 void TIMER__vEnInterruptVector(TIMER_nMODULE enModule, TIMER_nPRIORITY enTimerPriority)

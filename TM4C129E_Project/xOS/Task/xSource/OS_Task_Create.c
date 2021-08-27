@@ -159,7 +159,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
             }
         }
     }
-    return u32Return;
+    return (u32Return);
 }
 
 

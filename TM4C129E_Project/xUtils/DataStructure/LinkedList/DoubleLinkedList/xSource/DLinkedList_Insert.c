@@ -266,7 +266,7 @@ DLinkedListItem_TypeDef* DLinkedList__pstInsertPrevious_WithData(DLinkedList_Typ
             DLinkedList__enInsertPrevious_WithData(pstList, pstNextItemArg, pstNewItem, pvData);
         }
     }
-    return pstNewItem;
+    return (pstNewItem);
 }
 
 DLinkedListItem_TypeDef* DLinkedList__pstInsertPrevious(DLinkedList_TypeDef* pstList,
@@ -288,7 +288,7 @@ DLinkedListItem_TypeDef* DLinkedList__pstInsertPrevious(DLinkedList_TypeDef* pst
             DLinkedList__enInsertPrevious(pstList, pstNextItemArg, pstNewItem);
         }
     }
-    return pstNewItem;
+    return (pstNewItem);
 }
 
 

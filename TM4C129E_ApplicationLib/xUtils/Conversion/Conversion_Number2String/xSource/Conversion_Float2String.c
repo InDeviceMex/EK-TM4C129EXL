@@ -68,5 +68,5 @@ uint8_t Conv__u8Float2String(float64_t f64Number, uint8_t u8Positive, uint8_t u8
     pcConvAux = pcConv;
     pcConvAux += u8Values;
     u8Values += Conv__u8DInt2String((int64_t) CONV_s64Deci, 0U, 1U, (uint8_t) s32Decimals, (char*)pcConvAux);/*pcConvierte la parte f64Decimal despues del punto*/
-    return u8Values;/*regresa la cantidad de digitos pcConvertidos*/
+    return (u8Values);/*regresa la cantidad de digitos pcConvertidos*/
 }

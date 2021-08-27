@@ -66,5 +66,5 @@ WDT_nREADY WDT__enIsReady(WDT_nMODULE enModule)
 #else
     WDT_nREADY enReady = WDT_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }

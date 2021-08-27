@@ -69,5 +69,5 @@ SSI_nINT_STATUS SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOUR
         enInterruptReg = SSI_enINT_NOOCCUR;
     }
 
-    return enInterruptReg;
+    return (enInterruptReg);
 }

@@ -42,7 +42,7 @@ CDLinkedList_TypeDef* CDLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void 
         pstList->pstTail = (CDLinkedListItem_TypeDef*)  0UL;
         pstList->pstLastItemRead = (CDLinkedListItem_TypeDef*)  0UL;
     }
-    return pstList;
+    return (pstList);
 }
 
 
@@ -62,7 +62,7 @@ CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_TypeDef* pstList,
         pstList->pstTail = (CDLinkedListItem_TypeDef*)  0UL;
         pstList->pstLastItemRead = (CDLinkedListItem_TypeDef*)  0UL;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

@@ -34,7 +34,7 @@ CONV_nNEGATIVE_SIGN Conv__enIsNegativeSign(char cCharacter)
         enStatus = CONV_enNEGATIVE_SIGN_OK;
     }
 
-    return enStatus;
+    return (enStatus);
 }
 
 

@@ -37,5 +37,5 @@ UART_nLOOPBACK UART__enGetLoopback(UART_nMODULE enModule)
     UART_nLOOPBACK enLoopbackReg = UART_enLOOPBACK_DIS;
     enLoopbackReg = (UART_nLOOPBACK) UART__u32ReadRegister(enModule, UART_CTL_OFFSET,
                                               UART_CTL_LBE_MASK, UART_CTL_R_LBE_BIT);
-    return enLoopbackReg;
+    return (enLoopbackReg);
 }

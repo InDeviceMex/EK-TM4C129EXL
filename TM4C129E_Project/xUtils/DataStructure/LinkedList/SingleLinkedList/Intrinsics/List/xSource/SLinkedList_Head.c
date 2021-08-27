@@ -30,7 +30,7 @@ SLinkedListItem_TypeDef* SLinkedList__pstGetHead(const SLinkedList_TypeDef*  con
     {
         pstHeadReg = pstList->pstHead;
     }
-    return pstHeadReg;
+    return (pstHeadReg);
 }
 
 void SLinkedList__vSetHead(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstHeadArg)
@@ -50,5 +50,5 @@ SLinkedList_nSTATUS SLinkedList__enIsHead(const SLinkedList_TypeDef* const pstLi
     {
         enStatus = SLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }

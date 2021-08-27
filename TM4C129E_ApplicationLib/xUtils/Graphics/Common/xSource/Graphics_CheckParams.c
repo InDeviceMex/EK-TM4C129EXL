@@ -34,7 +34,7 @@ Graphics_nSTATUS Graphics__enCheckParams(uint32_t u32PosStart, uint32_t u32PosOf
         enStatus = Graphics_enSTATUS_ERROR;
     }
 
-    return enStatus;
+    return (enStatus);
 }
 
 

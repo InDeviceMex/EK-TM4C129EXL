@@ -51,7 +51,7 @@ uint8_t Conv__u8Hex2String(uint64_t u64Number, char* pcConv)
             u8Length = 0U;
         }
     }
-    return u8Length;
+    return (u8Length);
 }
 
 
@@ -79,6 +79,6 @@ uint8_t Conv__u8HEX2String(uint64_t u64Number, char* pcConv)
             u8Length = 0U;
         }
     }
-    return u8Length;
+    return (u8Length);
 }
 

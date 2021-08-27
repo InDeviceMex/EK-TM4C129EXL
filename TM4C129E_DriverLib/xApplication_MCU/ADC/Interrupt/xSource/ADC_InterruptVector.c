@@ -44,7 +44,7 @@ static NVIC_nSTIR ADC__enGetInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequence, (uint32_t) ADC_enSEQ_MAX);
     enVector = NVIC_VECTOR_ADC[u32Module][u32Sequencer];
-    return enVector;
+    return (enVector);
 }
 
 void ADC__vEnInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,

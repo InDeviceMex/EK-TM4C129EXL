@@ -514,7 +514,7 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_TypeDef pvfOut, char* pcBuffer, cons
   pvfOut((char)0, pcBuffer, u32Index, u32MaxLength);
 
   /* return written chars without terminating \0*/
-  return u32Index;
+  return (u32Index);
 }
 
 
@@ -525,7 +525,7 @@ uint32_t printf__u32User(const char* pcFormat, ...)
   char pcBuffer[1] = {'\0'};
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutChar, pcBuffer, (size_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return u32Length;
+  return (u32Length);
 }
 
 
@@ -535,7 +535,7 @@ uint32_t sprintf__u32User(char* pcBuffer, const char* pcFormat, ...)
   va_start(vaList, pcFormat);
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, (size_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return u32Length;
+  return (u32Length);
 }
 
 
@@ -545,7 +545,7 @@ uint32_t  snprintf__u32User(char* pcBuffer, uint32_t u32Count, const char* pcFor
   va_start(vaList, pcFormat);
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, u32Count, pcFormat, vaList);
   va_end(vaList);
-  return u32Length;
+  return (u32Length);
 }
 
 
@@ -556,7 +556,7 @@ uint32_t fctprintf__u32User(void (*pfvFunctionOut) (char cCharacter, void* pvPri
   CONV_OUT_WRAPPER_TypeDef out_fct_wrap = { pfvFunctionOut, pvPrintArguments };
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutFunction, (char*) & out_fct_wrap, (uint32_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return u32Length;
+  return (u32Length);
 }
 
 uint32_t vprintf__u32User(const char* pcFormat, va_list vaList)

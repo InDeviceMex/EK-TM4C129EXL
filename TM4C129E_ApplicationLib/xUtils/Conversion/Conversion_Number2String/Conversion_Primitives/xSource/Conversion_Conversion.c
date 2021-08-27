@@ -48,7 +48,7 @@ CONV_nSTATUS Conv__enConversion(char* pcPointer, uint64_t u64Number, uint8_t* u8
             u64Number /= u8Base;
         }  while((u64Number > 0U));/*mientras exista un digito sigue el ciclo*/
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

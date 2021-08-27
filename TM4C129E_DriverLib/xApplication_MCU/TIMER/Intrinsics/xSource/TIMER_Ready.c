@@ -76,5 +76,5 @@ TIMER_nREADY TIMER__enIsReady(TIMER_nMODULE_NUM enModuleNumber)
 #else
     TIMER_nREADY enReady = TIMER_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }

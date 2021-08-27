@@ -46,5 +46,5 @@ char* CONV_pcStringConcat(char*  pcStringInitial, const char* pcStringConcat, ui
             *pcStringReg = '\0';
         }
     }
-    return pcStringInitial;
+    return (pcStringInitial);
 }

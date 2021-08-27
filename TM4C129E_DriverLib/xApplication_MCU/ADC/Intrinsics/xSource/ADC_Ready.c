@@ -76,7 +76,7 @@ ADC_nREADY ADC__enIsReady(ADC_nMODULE enModule)
 #else
     ADC_nREADY enReady = ADC_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }
 
 

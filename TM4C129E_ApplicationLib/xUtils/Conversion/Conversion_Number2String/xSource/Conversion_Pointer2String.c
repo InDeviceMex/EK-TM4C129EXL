@@ -50,7 +50,7 @@ uint8_t Conv__u8Pointer2String(void* vNumber, char* pcConv)
             u8Length = 0U;
         }
     }
-    return u8Length;
+    return (u8Length);
 }
 
 

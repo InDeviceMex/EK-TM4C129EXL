@@ -84,7 +84,7 @@ WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule)
     u32Reg |= ((uint32_t) enResetOutputVar << 24UL);
 
     enMode = (WDT_nMODE) u32Reg;
-    return enMode;
+    return (enMode);
 }
 
 void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_Typedef* pstMode)

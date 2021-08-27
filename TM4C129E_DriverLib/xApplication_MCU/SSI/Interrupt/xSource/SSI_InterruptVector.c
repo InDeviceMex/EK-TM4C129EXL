@@ -38,7 +38,7 @@ static NVIC_nSTIR SSI__enGetInterruptVector(SSI_nMODULE enModule)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
     enVector = NVIC_VECTOR_SSI[u32Module];
-    return enVector;
+    return (enVector);
 }
 
 void SSI__vEnInterruptVector(SSI_nMODULE enModule, SSI_nPRIORITY enSSIPriority)

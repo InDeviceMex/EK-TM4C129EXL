@@ -235,7 +235,7 @@ CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtTail_WithData(CSLinkedList_T
         pstEndItem = CSLinkedList__pstGetTail(pstList);
         pstNewItem = CSLinkedList__pstInsertNext_WithData(pstList, pstEndItem, pvData);
     }
-    return pstNewItem;
+    return (pstNewItem);
 }
 
 CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtTail(CSLinkedList_TypeDef* pstList)
@@ -247,7 +247,7 @@ CSLinkedListItem_TypeDef*  CSLinkedList__pstInsertAtTail(CSLinkedList_TypeDef* p
         pstEndItem = CSLinkedList__pstGetTail(pstList);
         pstNewItem = CSLinkedList__pstInsertNext(pstList, pstEndItem);
     }
-    return pstNewItem;
+    return (pstNewItem);
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enInsertAtHead_WithData(CSLinkedList_TypeDef* pstList,

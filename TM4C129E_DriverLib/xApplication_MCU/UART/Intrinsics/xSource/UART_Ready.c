@@ -78,7 +78,7 @@ UART_nREADY UART__enIsReady(UART_nMODULE enModule)
 #else
     UART_nREADY enReady = UART_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }
 
 

@@ -29,7 +29,7 @@ uint32_t SSI__u32BlockBaseAddress(SSI_nMODULE enModuleArg)
     {
      SSI0_BASE, SSI1_BASE, SSI2_BASE, SSI3_BASE,
     };
-    return SSI_BLOCK_BASE[(uint32_t) enModuleArg];
+    return (SSI_BLOCK_BASE[(uint32_t) enModuleArg]);
 }
 
 

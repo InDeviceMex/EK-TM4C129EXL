@@ -53,7 +53,7 @@ uint32_t *OS_Adapt__p32InitialiseStack( uint32_t* pu32TopOfStackArg, void (*pfvT
 
     pu32TopOfStackArg -= 8;  /* R11, R10, R9, R8, R7, R6, R5 and R4. */
 
-    return pu32TopOfStackArg;
+    return (pu32TopOfStackArg);
 }
 
 

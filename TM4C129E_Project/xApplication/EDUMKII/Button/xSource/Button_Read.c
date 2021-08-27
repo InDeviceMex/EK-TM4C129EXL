@@ -29,7 +29,7 @@ static volatile uint32_t u32ButtonState = 0UL;
 
 EDUMKII_nBUTTON EDUMKII_Button_enRead(EDUMKII_nBUTTON enButtonSelect)
 {
-    return (EDUMKII_nBUTTON) u32ButtonState;
+    return ( (EDUMKII_nBUTTON) u32ButtonState);
 }
 
 

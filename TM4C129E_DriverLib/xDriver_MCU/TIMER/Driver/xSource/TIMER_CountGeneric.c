@@ -111,7 +111,7 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
         *pstCount->pu32CountValue = (uint32_t) u32RegHigh;
         *pstCount->pu32CountValue |= (uint32_t) u32RegLow;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,

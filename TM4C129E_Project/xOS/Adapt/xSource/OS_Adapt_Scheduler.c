@@ -75,7 +75,7 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
     OS_Adapt_vStartFirstTask();
 
     /* Should not get here! */
-    return 0UL;
+    return (0UL);
 }
 
 

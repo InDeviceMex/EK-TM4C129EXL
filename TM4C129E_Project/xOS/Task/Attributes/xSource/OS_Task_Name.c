@@ -36,7 +36,7 @@ char* OS_Task__pcGetTaskName(OS_Task_Handle_TypeDef pvTaskToQuery)
     {
         pcTaskNameReg = pstTCB->pcTaskName;
     }
-    return pcTaskNameReg;
+    return (pcTaskNameReg);
 }
 
 

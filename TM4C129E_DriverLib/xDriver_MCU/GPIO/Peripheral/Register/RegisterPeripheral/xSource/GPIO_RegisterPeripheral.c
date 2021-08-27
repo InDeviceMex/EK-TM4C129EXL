@@ -34,7 +34,7 @@ uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
      GPIOJ_BASE, GPIOK_BASE, GPIOL_BASE, GPIOM_BASE,
      GPION_BASE, GPIOP_BASE, GPIOQ_BASE
     };
-    return GPIO_BLOCK_BASE[(uint32_t) enPortArg];
+    return (GPIO_BLOCK_BASE[(uint32_t) enPortArg]);
 }
 
 

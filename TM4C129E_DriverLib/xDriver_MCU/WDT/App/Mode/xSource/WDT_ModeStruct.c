@@ -52,7 +52,7 @@ WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enMode)
         pstMode->enIntType = (WDT_nINT_TYPE) (( (uint32_t) enMode >> 16UL) & 1UL);
         pstMode->enResetOutput = (WDT_nRESET) (( (uint32_t) enMode >> 24UL) & 1UL);
     }
-    return pstMode;
+    return (pstMode);
 }
 
 void WDT__vDeleteModeStruct(WDT_MODE_Typedef* pstMode)

@@ -30,7 +30,7 @@ SLinkedListItem_TypeDef* SLinkedList__pstGetTail(const SLinkedList_TypeDef*  con
     {
         pstTailReg = pstList->pstTail;
     }
-    return pstTailReg;
+    return (pstTailReg);
 }
 
 void SLinkedList__vSetTail(SLinkedList_TypeDef* pstList, SLinkedListItem_TypeDef* pstTailArg)
@@ -48,6 +48,6 @@ SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_TypeDef* const p
     {
         enStatus = SLinkedList_enSTATUS_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 

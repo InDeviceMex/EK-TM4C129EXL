@@ -31,6 +31,6 @@ CONV_nRETURN Conv__enIsReturn(char cCharacter)
     {
         enStatus = CONV_enRETURN_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 

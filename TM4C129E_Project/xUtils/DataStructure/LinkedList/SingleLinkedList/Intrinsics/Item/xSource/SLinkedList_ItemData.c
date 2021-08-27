@@ -30,7 +30,7 @@ void* SLinkedList_Item__pvGetData(const SLinkedListItem_TypeDef* const pstItem)
     {
         pvDataReg = pstItem->pvDataContainer;
     }
-    return pvDataReg;
+    return (pvDataReg);
 }
 
 void SLinkedList_Item__vSetData(SLinkedListItem_TypeDef* pstItem, void* pvDataArg)

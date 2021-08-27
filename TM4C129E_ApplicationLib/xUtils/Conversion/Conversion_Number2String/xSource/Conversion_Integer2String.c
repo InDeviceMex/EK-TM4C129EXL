@@ -207,7 +207,7 @@ uint8_t Conv__u8Int2String(int64_t s64Number, char* pcConv)
         pcPointerActualAux -= 1U;
     }
 
-    return (uint8_t) s64NumberReg;
+    return ( (uint8_t) s64NumberReg);
 }
 
 
@@ -282,7 +282,7 @@ uint8_t Conv__u8Int2StringZeros(int64_t s64Number, int8_t s8CerosLeft, char* pcC
         pcPointerActualAux -= 1U;
     }
 
-    return (uint8_t) s64NumberReg;
+    return ( (uint8_t) s64NumberReg);
 
 }
 

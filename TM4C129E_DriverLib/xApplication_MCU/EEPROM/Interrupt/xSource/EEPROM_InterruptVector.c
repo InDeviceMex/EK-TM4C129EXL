@@ -57,5 +57,5 @@ EEPROM_nINT_STATUS EEPROM__enStatusInterruptVector(void)
         enEEPROMStatus = EEPROM_enINT_NOOCCUR;
     }
 
-    return enEEPROMStatus;
+    return (enEEPROMStatus);
 }

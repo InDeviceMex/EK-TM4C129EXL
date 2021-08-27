@@ -47,5 +47,5 @@ EEPROM_nREADY EEPROM__enIsReady(void)
 #else
     EEPROM_nREADY enReady = EEPROM_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }

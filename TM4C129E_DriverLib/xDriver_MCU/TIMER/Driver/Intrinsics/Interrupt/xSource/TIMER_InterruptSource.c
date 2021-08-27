@@ -53,7 +53,7 @@ static uint32_t TIMER__u32GetInterruptValue(TIMER_nSUBMODULE enSubModule,
         u32InterruptValue <<= 8UL;
     }
     u32InterruptValue &= TIMER_u32IntMask[u32SubModule];
-    return u32InterruptValue;
+    return (u32InterruptValue);
 }
 
 void TIMER__vEnInterruptSource(TIMER_nMODULE enModule, TIMER_nINT enInterruptParam)

@@ -29,5 +29,5 @@ uint32_t ADC__u32BlockBaseAddress(ADC_nMODULE enModuleArg)
     {
      ADC0_BASE, ADC1_BASE
     };
-    return ADC_BLOCK_BASE[(uint32_t) enModuleArg];
+    return (ADC_BLOCK_BASE[(uint32_t) enModuleArg]);
 }

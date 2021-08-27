@@ -29,5 +29,5 @@ uint32_t ACMP__u32BlockBaseAddress(ACMP_nMODULE enModuleArg)
     {
      ACMP0_BASE
     };
-    return ACMP_BLOCK_BASE[(uint32_t) enModuleArg];
+    return (ACMP_BLOCK_BASE[(uint32_t) enModuleArg]);
 }

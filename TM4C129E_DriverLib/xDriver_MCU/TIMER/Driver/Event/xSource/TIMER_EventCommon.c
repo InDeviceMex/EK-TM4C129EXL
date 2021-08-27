@@ -54,7 +54,7 @@ static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVE
         u32EventValue <<= 8UL;
     }
     u32EventValue &= TIMER_u32EventMask[u32SubModule];
-    return u32EventValue;
+    return (u32EventValue);
 }
 
 static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
@@ -73,7 +73,7 @@ static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
         }
     }
     u32EventParam &= (uint32_t) TIMER_enEVENT_TW_ALL;
-    return (TIMER_nEVENT) u32EventParam;
+    return ( (TIMER_nEVENT) u32EventParam);
 }
 
 void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_t u32OffsetReg)

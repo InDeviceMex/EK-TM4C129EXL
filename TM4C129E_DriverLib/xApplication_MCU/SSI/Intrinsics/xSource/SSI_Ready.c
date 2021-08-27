@@ -75,5 +75,5 @@ SSI_nREADY SSI__enIsReady(SSI_nMODULE enModule)
 #else
     SSI_nREADY enReady = SSI_enREADY;
 #endif
-    return enReady;
+    return (enReady);
 }

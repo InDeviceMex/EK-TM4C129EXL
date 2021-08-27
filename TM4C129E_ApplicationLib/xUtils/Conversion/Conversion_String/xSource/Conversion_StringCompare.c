@@ -61,7 +61,7 @@ int32_t CONV_s32StringCompare(const char*  pcString1, const char* pcString2, uin
         }
     }
 
-    return s32Result;
+    return (s32Result);
 }
 
 

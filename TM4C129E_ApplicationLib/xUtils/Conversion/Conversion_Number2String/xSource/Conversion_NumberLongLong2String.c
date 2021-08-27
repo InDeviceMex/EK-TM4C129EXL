@@ -71,6 +71,6 @@ CONV_nSTATUS Conv__enNumber2String_LongLong(CONV_OUT_TypeDef pvfOut, char* pcBuf
 
         enConvStatus = Conv__enNumber2String_Format(pvfOut, pcBufferOut, (char*)pu8Buffer, u32Index, u32MaxLenght, u32Length, pu32BufOutLenght, u32Width, u32flags, u32Negative, (uint32_t) u64Base, u32Prec);
     }
-    return enConvStatus;
+    return (enConvStatus);
   }
 

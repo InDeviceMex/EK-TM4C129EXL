@@ -297,5 +297,5 @@ CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_TypeDef pvfOut, char* pc
             }
         }
     }
-    return enConvStatus;
+    return (enConvStatus);
 }

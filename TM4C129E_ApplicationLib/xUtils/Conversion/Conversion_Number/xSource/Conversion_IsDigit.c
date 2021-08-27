@@ -34,5 +34,5 @@ CONV_nDIGIT Conv__enIsDigit(char cCharacter)
         enStatus = CONV_enDIGIT_OK;
     }
 
-    return enStatus;
+    return (enStatus);
 }

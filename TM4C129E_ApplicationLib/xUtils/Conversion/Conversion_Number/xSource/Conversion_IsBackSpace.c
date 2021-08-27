@@ -31,7 +31,7 @@ CONV_nBACKSPACE Conv__enIsBackSpace(char cCharacter)
     {
         enStatus = CONV_enBACKSPACE_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 

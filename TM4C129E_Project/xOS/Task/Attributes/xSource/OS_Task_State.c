@@ -96,7 +96,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_TypeDef pvTask)
             }
         }
     }
-    return enReturn;
+    return (enReturn);
 }
 
 

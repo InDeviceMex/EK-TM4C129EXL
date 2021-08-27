@@ -38,7 +38,7 @@ static NVIC_nSTIR QEI__enGetInterruptVector(QEI_nMODULE enModule)
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
     enVector = NVIC_VECTOR_QEI[u32Module];
-    return enVector;
+    return (enVector);
 }
 
 void QEI__vEnInterruptVector(QEI_nMODULE enModule, QEI_nPRIORITY enQEIPriority)

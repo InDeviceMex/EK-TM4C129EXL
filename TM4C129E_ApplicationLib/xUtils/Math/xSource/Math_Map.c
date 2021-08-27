@@ -38,7 +38,7 @@ int32_t Math__s32Map(int32_t s32ValueInput, int32_t s32MaxValueInput, int32_t s3
     s32ValueOutput /= s32DiffValuesInput;
     s32ValueOutput += s32MinValueOutput;
 
-    return s32ValueOutput;
+    return (s32ValueOutput);
 }
 
 uint32_t Math__u32Map(uint32_t u32ValueInput, uint32_t u32MaxValueInput, uint32_t u32MinValueInput, uint32_t u32MaxValueOutput, uint32_t u32MinValueOutput)
@@ -56,6 +56,6 @@ uint32_t Math__u32Map(uint32_t u32ValueInput, uint32_t u32MaxValueInput, uint32_
     u32ValueOutput /= u32DiffValuesInput;
     u32ValueOutput += u32MinValueOutput;
 
-    return u32ValueOutput;
+    return (u32ValueOutput);
 }
 

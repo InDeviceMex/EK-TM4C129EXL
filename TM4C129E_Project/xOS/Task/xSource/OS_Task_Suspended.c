@@ -298,7 +298,7 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
         OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
     }
 
-    return u32YieldRequired;
+    return (u32YieldRequired);
 }
 
 
@@ -343,5 +343,5 @@ OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
         }
     }
 
-    return enReturn;
+    return (enReturn);
 }

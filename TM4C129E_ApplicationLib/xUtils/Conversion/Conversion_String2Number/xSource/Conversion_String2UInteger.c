@@ -52,7 +52,7 @@ int32_t Conv__s32String2UInteger(const char** pcString, uint64_t* pu64NumUnsigne
         }
         *pu64NumUnsigned = u64NumUnsignedTemp;
     }
-    return s32Length;
+    return (s32Length);
 }
 
 #if defined (__TI_ARM__ )

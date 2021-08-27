@@ -30,7 +30,7 @@ uint32_t SLinkedList__u32GetSize(const SLinkedList_TypeDef* const pstList)
     {
         u32SizeReg = pstList->u32Size;
     }
-    return u32SizeReg;
+    return (u32SizeReg);
 
 }
 

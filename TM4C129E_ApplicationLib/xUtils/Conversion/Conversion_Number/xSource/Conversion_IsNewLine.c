@@ -31,7 +31,7 @@ CONV_nNEWLINE Conv__enIsNewLine(char cCharacter)
     {
         enStatus = CONV_enNEWLINE_OK;
     }
-    return enStatus;
+    return (enStatus);
 }
 
 
