@@ -28,13 +28,11 @@ void DMA_SW__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Priority = 0UL;
     volatile uint32_t u32IntStatus = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCDMA_R;
-    u32Enable |= SYSCTL_SCGCDMA_R;
-    u32Enable |= SYSCTL_DCGCDMA_R;
-    if(SYSCTL_RCGCDMA_R_UDMA_DIS == (SYSCTL_RCGCDMA_R_UDMA_MASK & u32Enable))
+    u32Ready = SYSCTL_PRDMA_R;
+    if(SYSCTL_PRDMA_R_UDMA_NOREADY == (SYSCTL_PRDMA_R_UDMA_MASK & u32Ready))
     {
         pfvCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_SW);
         pfvCallback();

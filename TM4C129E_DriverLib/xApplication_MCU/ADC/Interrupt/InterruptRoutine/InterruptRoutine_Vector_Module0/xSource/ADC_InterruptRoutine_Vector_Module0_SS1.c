@@ -32,7 +32,7 @@
 void ADC0_SS1__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32RegCompInterrupt = 0UL;
     volatile uint32_t u32RegCompSelect = 0UL;
     volatile uint32_t u32RegCompMux = 0UL;
@@ -42,10 +42,8 @@ void ADC0_SS1__vIRQVectorHandler(void)
     uint32_t u32Shift = 0x1UL;
     uint32_t u32Offset = 0x0UL;
 
-    u32Enable = SYSCTL_RCGCADC_R;
-    u32Enable |= SYSCTL_SCGCADC_R;
-    u32Enable |= SYSCTL_DCGCADC_R;
-    if(SYSCTL_RCGCADC_R_ADC0_DIS == (SYSCTL_RCGCADC_R_ADC0_MASK & u32Enable))
+    u32Ready = SYSCTL_PRADC_R;
+    if(SYSCTL_PRADC_R_ADC0_NOREADY == (SYSCTL_PRADC_R_ADC0_MASK & u32Ready))
     {
         pfvCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_0,
                                                      ADC_enSEQ_1);

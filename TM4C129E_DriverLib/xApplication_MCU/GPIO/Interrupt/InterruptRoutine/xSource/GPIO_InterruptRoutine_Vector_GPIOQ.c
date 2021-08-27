@@ -28,15 +28,13 @@
 void GPIOQ__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     volatile uint32_t u32IntType = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler(GPIO_enPORT_Q);
         pfvCallback();
@@ -160,14 +158,12 @@ void GPIOQ__vIRQVectorHandler(void)
 void GPIOQ1__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER1);
@@ -224,14 +220,12 @@ void GPIOQ1__vIRQVectorHandler(void)
 void GPIOQ2__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER2);
@@ -288,14 +282,12 @@ void GPIOQ2__vIRQVectorHandler(void)
 void GPIOQ3__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER3);
@@ -352,14 +344,12 @@ void GPIOQ3__vIRQVectorHandler(void)
 void GPIOQ4__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER4);
@@ -416,14 +406,12 @@ void GPIOQ4__vIRQVectorHandler(void)
 void GPIOQ5__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER5);
@@ -480,14 +468,12 @@ void GPIOQ5__vIRQVectorHandler(void)
 void GPIOQ6__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER6);
@@ -544,14 +530,12 @@ void GPIOQ6__vIRQVectorHandler(void)
 void GPIOQ7__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32DMaReq = 0UL;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOQ_DIS == (SYSCTL_RCGCGPIO_R_GPIOQ_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOQ_NOREADY == (SYSCTL_PRGPIO_R_GPIOQ_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_Q,
                                                         GPIO_enPIN_NUMBER7);

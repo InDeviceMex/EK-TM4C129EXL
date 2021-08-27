@@ -28,13 +28,11 @@
 void SSI0__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0U;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCSSI_R;
-    u32Enable |= SYSCTL_SCGCSSI_R;
-    u32Enable |= SYSCTL_DCGCSSI_R;
-    if(SYSCTL_RCGCSSI_R_SSI0_DIS == (SYSCTL_RCGCSSI_R_SSI0_MASK & u32Enable))
+    u32Ready = SYSCTL_PRSSI_R;
+    if(SYSCTL_PRSSI_R_SSI0_NOREADY == (SYSCTL_PRSSI_R_SSI0_MASK & u32Ready))
     {
         pfvCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_0,
                                                   SSI_enINTERRUPT_SW);

@@ -103,6 +103,7 @@ uint32_t main(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOQ);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART2);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC1);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI2);
@@ -123,6 +124,11 @@ uint32_t main(void)
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
                       &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+
+    UART__vSetEnable(UART_enMODULE_2, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_2, UART_enMODE_NORMAL,
+                      &enUart0Control, &enUart0LineControl, 2400UL, &enUart0Line );
+    UART__vSetEnable(UART_enMODULE_2, UART_enENABLE_START);
 
     GraphTerm__vClearScreen(UART_enMODULE_0);
     GraphTerm__vHideCursor(UART_enMODULE_0);

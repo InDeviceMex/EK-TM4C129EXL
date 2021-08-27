@@ -28,13 +28,11 @@
 void QEI0__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCQEI_R;
-    u32Enable |= SYSCTL_SCGCQEI_R;
-    u32Enable |= SYSCTL_DCGCQEI_R;
-    if(SYSCTL_RCGCQEI_R_QEI0_DIS == (SYSCTL_RCGCQEI_R_QEI0_MASK & u32Enable))
+    u32Ready = SYSCTL_PRQEI_R;
+    if(SYSCTL_PRQEI_R_QEI0_NOREADY == (SYSCTL_PRQEI_R_QEI0_MASK & u32Ready))
     {
         pfvCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                   QEI_enINTERRUPT_SW);

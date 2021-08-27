@@ -24,8 +24,8 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Interrupt/xHeader/UART_InterruptSource.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
+#include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 
 void UART__vEnInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {

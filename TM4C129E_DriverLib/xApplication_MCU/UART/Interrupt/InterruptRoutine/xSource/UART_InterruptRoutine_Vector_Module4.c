@@ -29,13 +29,11 @@ void UART4__vIRQVectorHandler(void)
 {
     uint32_t u32ErrorFlag = 0UL;
     volatile uint32_t u32Reg = 0U;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCUART_R;
-    u32Enable |= SYSCTL_SCGCUART_R;
-    u32Enable |= SYSCTL_DCGCUART_R;
-    if(SYSCTL_RCGCUART_R_UART4_DIS == (SYSCTL_RCGCUART_R_UART4_MASK & u32Enable))
+    u32Ready = SYSCTL_PRUART_R;
+    if(SYSCTL_PRUART_R_UART4_NOREADY == (SYSCTL_PRUART_R_UART4_MASK & u32Ready))
     {
         pfvCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_4,
                                                    UART_enINTERRUPT_SW);

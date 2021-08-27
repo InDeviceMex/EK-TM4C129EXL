@@ -28,13 +28,11 @@
 void GPTM4A__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCTIMER_R;
-    u32Enable |= SYSCTL_SCGCTIMER_R;
-    u32Enable |= SYSCTL_DCGCTIMER_R;
-    if(SYSCTL_RCGCTIMER_R_TIMER4_DIS == (SYSCTL_RCGCTIMER_R_TIMER4_MASK & u32Enable))
+    u32Ready = SYSCTL_PRTIMER_R;
+    if(SYSCTL_PRTIMER_R_TIMER4_NOREADY == (SYSCTL_PRTIMER_R_TIMER4_MASK & u32Ready))
     {
         pfvCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                     TIMER_enMODULE_NUM_4,

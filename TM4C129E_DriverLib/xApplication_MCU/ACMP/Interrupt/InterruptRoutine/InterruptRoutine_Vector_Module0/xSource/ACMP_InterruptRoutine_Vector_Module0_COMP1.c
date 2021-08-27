@@ -28,13 +28,11 @@
 void ACMP0_Comp1__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCACMP_R;
-    u32Enable |= SYSCTL_SCGCACMP_R;
-    u32Enable |= SYSCTL_DCGCACMP_R;
-    if(SYSCTL_RCGCACMP_R_ACMP_DIS == (SYSCTL_RCGCACMP_R_ACMP_MASK & u32Enable))
+    u32Ready = SYSCTL_PRACMP_R;
+    if(SYSCTL_PRACMP_R_ACMP_NOREADY == (SYSCTL_PRACMP_R_ACMP_MASK & u32Ready))
     {
         pfvCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
                                                       ACMP_enCOMP_1);

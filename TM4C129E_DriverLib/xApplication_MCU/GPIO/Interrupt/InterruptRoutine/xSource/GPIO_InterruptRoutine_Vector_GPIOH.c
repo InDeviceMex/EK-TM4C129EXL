@@ -28,13 +28,11 @@
 void GPIOH__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCGPIO_R;
-    u32Enable |= SYSCTL_SCGCGPIO_R;
-    u32Enable |= SYSCTL_DCGCGPIO_R;
-    if(SYSCTL_RCGCGPIO_R_GPIOH_DIS == (SYSCTL_RCGCGPIO_R_GPIOH_MASK & u32Enable))
+    u32Ready = SYSCTL_PRGPIO_R;
+    if(SYSCTL_PRGPIO_R_GPIOH_NOREADY == (SYSCTL_PRGPIO_R_GPIOH_MASK & u32Ready))
     {
         pfvCallback = GPIO_SW__pvfGetIRQSourceHandler(GPIO_enPORT_H);
         pfvCallback();

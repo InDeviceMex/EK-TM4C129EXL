@@ -28,13 +28,11 @@
 void EEPROM__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Enable = 0U;
+    volatile uint32_t u32Ready = 0U;
     void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Enable = SYSCTL_RCGCEEPROM_R;
-    u32Enable |= SYSCTL_SCGCEEPROM_R;
-    u32Enable |= SYSCTL_DCGCEEPROM_R;
-    if(SYSCTL_RCGCEEPROM_R_EEPROM_DIS == (SYSCTL_RCGCEEPROM_R_EEPROM_MASK & u32Enable))
+    u32Ready = SYSCTL_PREEPROM_R;
+    if(SYSCTL_PREEPROM_R_EEPROM_NOREADY == (SYSCTL_PREEPROM_R_EEPROM_MASK & u32Ready))
     {
         pfvCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_SW);
         pfvCallback();
