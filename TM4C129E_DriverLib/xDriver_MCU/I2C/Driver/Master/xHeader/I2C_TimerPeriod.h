@@ -29,7 +29,7 @@
 
 void I2C_Master__vSetTimerPeriod(I2C_nMODULE enModule, uint32_t u32TimerPeriodArg);
 uint32_t I2C_Master__u32GetTimerPeriod(I2C_nMODULE enModule);
-void I2C_Master__vSetHighSpeedPeriod(I2C_nMODULE enModule, I2C_nHIGHSPEED enHighSpeedArg);
-I2C_nHIGHSPEED I2C_Master__enGetHighSpeedPeriod(I2C_nMODULE enModule);
+void I2C_Master__vSetHighSpeedPeriod(I2C_nMODULE enModule, I2C_nMASTER_HIGHSPEED enHighSpeedArg);
+I2C_nMASTER_HIGHSPEED I2C_Master__enGetHighSpeedPeriod(I2C_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_TIMERPERIOD_H_ */

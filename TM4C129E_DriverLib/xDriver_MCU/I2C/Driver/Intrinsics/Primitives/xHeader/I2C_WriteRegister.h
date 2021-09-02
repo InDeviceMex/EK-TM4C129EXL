@@ -25,8 +25,9 @@
 #define XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_I2C_WRITEREGISTER_H_
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
-void I2C__vWriteRegister(I2C_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t u32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+void I2C__vWriteRegister(I2C_nMODULE enModule, uint32_t u32OffsetRegister,
+                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
+                         uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_I2C_WRITEREGISTER_H_ */

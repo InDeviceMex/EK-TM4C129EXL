@@ -27,9 +27,10 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-I2C_nSTATUS I2C__enIsHighSpeedCapable(I2C_nMODULE enModule);
+I2C_nMASTER_HIGHSPEED_CAPABLE I2C__enIsHighSpeedCapable(I2C_nMODULE enModule);
 
-void I2C__vSetHighSpeedCapable(I2C_nMODULE enModule, I2C_nHIGHSPEED enHighSpeedCapableArg);
-I2C_nHIGHSPEED I2C__enGetHighSpeedCapable(I2C_nMODULE enModule);
+void I2C__vSetHighSpeedCapable(I2C_nMODULE enModule,
+                               I2C_nMASTER_HIGHSPEED enHighSpeedArg);
+I2C_nMASTER_HIGHSPEED I2C__enGetHighSpeedCapable(I2C_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_XHEADER_I2C_HIGHSPEED_H_ */

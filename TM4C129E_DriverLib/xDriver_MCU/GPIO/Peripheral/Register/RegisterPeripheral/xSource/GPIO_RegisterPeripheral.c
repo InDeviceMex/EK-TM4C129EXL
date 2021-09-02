@@ -36,9 +36,3 @@ uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
     };
     return (GPIO_BLOCK_BASE[(uint32_t) enPortArg]);
 }
-
-
-
-
-
-

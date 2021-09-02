@@ -87,13 +87,17 @@ typedef volatile struct
         volatile uint32_t MBMON [32UL];
         BITBANDING_I2CMBMON_TypeDef MBMON_Bit;
     };
-    const uint32_t reserved2 [2UL * 32UL];
     union
     {
-        volatile uint32_t MCR2 [32UL];
-        BITBANDING_I2CMCR2_TypeDef MCR2_Bit;
+        volatile uint32_t MBLEN [32UL];
+        BITBANDING_I2CMBLEN_TypeDef MBLEN_Bit;
     };
-    const uint32_t reserved3 [497UL * 32UL];
+    union
+    {
+        volatile uint32_t MBCNT [32UL];
+        BITBANDING_I2CMBCNT_TypeDef MBCNT_Bit;
+    };
+    const uint32_t reserved3 [498UL * 32UL];
     union
     {
         volatile uint32_t SOAR [32UL];
@@ -140,7 +144,23 @@ typedef volatile struct
         volatile uint32_t SACKCTL [32UL];
         BITBANDING_I2CSACKCTL_TypeDef SACKCTL_Bit;
     };
-    const uint32_t reserved4 [487UL * 32UL];
+    const uint32_t reserved4 [439UL * 32UL];
+    union
+    {
+        volatile const uint32_t FIFODATA [32UL];
+        BITBANDING_I2CFIFODATA_TypeDef FIFODATA_Bit;
+    };
+    union
+    {
+        volatile const uint32_t FIFOCTL [32UL];
+        BITBANDING_I2CFIFOCTL_TypeDef FIFOCTL_Bit;
+    };
+    union
+    {
+        volatile const uint32_t FIFOSTATUS [32UL];
+        BITBANDING_I2CFIFOSTATUS_TypeDef FIFOSTATUS_Bit;
+    };
+    const uint32_t reserved5 [45UL * 32UL];
     union
     {
         volatile const uint32_t PP [32UL];
@@ -151,7 +171,7 @@ typedef volatile struct
         volatile const uint32_t PC [32UL];
         BITBANDING_I2CPC_TypeDef PC_Bit;
     };
-    const uint32_t reserved5 [14UL * 32UL];
+    const uint32_t reserved6 [14UL * 32UL];
 } I2C_BITBANDING_TypeDef;
 
 /*Master*/
@@ -214,13 +234,17 @@ typedef volatile struct
         volatile uint32_t MBMON [32UL];
         BITBANDING_I2CMBMON_TypeDef MBMON_Bit;
     };
-    const uint32_t reserved2 [2UL * 32UL];
     union
     {
-        volatile uint32_t MCR2 [32UL];
-        BITBANDING_I2CMCR2_TypeDef MCR2_Bit;
+        volatile uint32_t MBLEN [32UL];
+        BITBANDING_I2CMBLEN_TypeDef MBLEN_Bit;
     };
-    const uint32_t reserved3 [497UL * 32UL];
+    union
+    {
+        volatile uint32_t MBCNT [32UL];
+        BITBANDING_I2CMBCNT_TypeDef MBCNT_Bit;
+    };
+    const uint32_t reserved3 [498UL * 32UL];
 } I2C_MASTER_BITBANDING_TypeDef;
 
 /*Slave*/
@@ -272,12 +296,28 @@ typedef volatile struct
         volatile uint32_t SACKCTL [32UL];
         BITBANDING_I2CSACKCTL_TypeDef SACKCTL_Bit;
     };
-    const uint32_t reserved4 [487UL * 32UL];
+    const uint32_t reserved4 [439UL * 32UL];
 } I2C_SLAVE_BITBANDING_TypeDef;
 
 /*Status Control*/
 typedef volatile struct
 {
+    union
+    {
+        volatile const uint32_t FIFODATA [32UL];
+        BITBANDING_I2CFIFODATA_TypeDef FIFODATA_Bit;
+    };
+    union
+    {
+        volatile const uint32_t FIFOCTL [32UL];
+        BITBANDING_I2CFIFOCTL_TypeDef FIFOCTL_Bit;
+    };
+    union
+    {
+        volatile const uint32_t FIFOSTATUS [32UL];
+        BITBANDING_I2CFIFOSTATUS_TypeDef FIFOSTATUS_Bit;
+    };
+    const uint32_t reserved5 [45UL * 32UL];
     union
     {
         volatile const uint32_t PP [32UL];
@@ -288,22 +328,34 @@ typedef volatile struct
         volatile const uint32_t PC [32UL];
         BITBANDING_I2CPC_TypeDef PC_Bit;
     };
-    const uint32_t reserved5 [14UL * 32UL];
+    const uint32_t reserved6 [14UL * 32UL];
 } I2C_CONTROL_BITBANDING_TypeDef;
 
 typedef volatile struct
 {
-        I2C_MASTER_BITBANDING_TypeDef MASTER;
-        I2C_SLAVE_BITBANDING_TypeDef SLAVE;
-        I2C_CONTROL_BITBANDING_TypeDef STATUS_CONTROL;
+    I2C_MASTER_BITBANDING_TypeDef MASTER;
+    I2C_SLAVE_BITBANDING_TypeDef SLAVE;
+    I2C_CONTROL_BITBANDING_TypeDef STATUS_CONTROL;
 } I2CS_UNION_BITBANDING_TypeDef;
 
 typedef volatile struct
 {
     union
     {
-            I2C_BITBANDING_TypeDef MODULE [(uint32_t) I2C_enMODULE_MAX];
-            I2CS_UNION_BITBANDING_TypeDef MODULE_UNION [(uint32_t) I2C_enMODULE_MAX];
+        I2C_BITBANDING_TypeDef MODULE0_3 [(uint32_t) 4UL];
+        I2CS_UNION_BITBANDING_TypeDef MODULE_UNION0_3 [(uint32_t) 4UL];
+    };
+    I2C_BITBANDING_TypeDef reserved[148UL];
+    union
+    {
+        I2C_BITBANDING_TypeDef MODULE8_9 [(uint32_t) 2UL];
+        I2CS_UNION_BITBANDING_TypeDef MODULE_UNION8_9 [(uint32_t) 2UL];
+    };
+    I2C_BITBANDING_TypeDef reserved2[7UL];
+    union
+    {
+        I2C_BITBANDING_TypeDef MODULE4_7 [(uint32_t) 4UL];
+        I2CS_UNION_BITBANDING_TypeDef MODULE_UNION4_7 [(uint32_t) 4UL];
     };
 } I2CS_BITBANDING_TypeDef;
 

@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_I2C_PRIMITIVES_H_
 
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/xHeader/I2C_ReadRegister.h>
-#include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/xHeader/I2C_Ready.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/xHeader/I2C_WriteRegister.h>
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_I2C_PRIMITIVES_H_ */

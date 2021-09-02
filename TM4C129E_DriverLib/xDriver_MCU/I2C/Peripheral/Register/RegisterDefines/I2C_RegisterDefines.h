@@ -24,10 +24,14 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_I2C_REGISTERDEFINES_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_I2C_REGISTERDEFINES_H_
 
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_FIFOCTL.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_FIFODATA.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_FIFOSTATUS.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MBCNT.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MBLEN.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MBMON.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MCLKOCNT.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MCR.h>
-#include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MCR2.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MCS.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MDR.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterDefines/xHeader/I2C_RegisterDefines_MICR.h>

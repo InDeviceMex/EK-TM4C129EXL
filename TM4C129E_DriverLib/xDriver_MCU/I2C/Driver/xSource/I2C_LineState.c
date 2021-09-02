@@ -28,17 +28,22 @@
 
 I2C_nLINE_STATE I2C__enGetLineState(I2C_nMODULE enModule, I2C_nLINE enLineArg)
 {
-    I2C_nLINE_STATE enLineStatereg = I2C_enLINE_STATE_UNDEF;
-    I2C__enReadRegister(enModule, I2C_MBMON_OFFSET, (uint32_t*) &enLineStatereg, 0x1UL, (uint32_t) enLineArg);
-    return enLineStatereg;
+    I2C_nLINE_STATE enLineStatereg = I2C_enLINE_STATE_LOW;
+    enLineStatereg = (I2C_nLINE_STATE) I2C__u32ReadRegister(enModule, I2C_MBMON_OFFSET,
+                                                           0x1UL, (uint32_t) enLineArg);
+    return (enLineStatereg);
 }
 
 I2C_nLINE_STATE I2C__enGetSCLState(I2C_nMODULE enModule)
 {
-    return I2C__enGetLineState(enModule, I2C_enLINE_SCL);
+    I2C_nLINE_STATE enLineStatereg = I2C_enLINE_STATE_LOW;
+    enLineStatereg = I2C__enGetLineState(enModule, I2C_enLINE_SCL);
+    return (enLineStatereg);
 }
 
 I2C_nLINE_STATE I2C__enGetSDAState(I2C_nMODULE enModule)
 {
-    return I2C__enGetLineState(enModule, I2C_enLINE_SDA);
+    I2C_nLINE_STATE enLineStatereg = I2C_enLINE_STATE_LOW;
+    enLineStatereg = I2C__enGetLineState(enModule, I2C_enLINE_SDA);
+    return (enLineStatereg);
 }

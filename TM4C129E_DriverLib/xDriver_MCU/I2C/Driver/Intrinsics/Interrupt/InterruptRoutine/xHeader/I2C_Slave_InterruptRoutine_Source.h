@@ -25,10 +25,11 @@
 #ifndef XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_I2C_SLAVE_INTERRUPTROUTINE_SOURCE_H_
 #define XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_I2C_SLAVE_INTERRUPTROUTINE_SOURCE_H_
 
-#include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-extern void (*I2C_Slave__vIRQSourceHandler[(uint32_t) I2C_enMODULE_MAX][(uint32_t) I2C_enSLAVE_INTERRUPT_MAX]) (void);
-
+void (*I2C_Slave__pvfGetIRQSourceHandler(I2C_nMODULE enI2CPort,
+                                    I2C_nSLAVE_INTERRUPT enInterruptNumber))(void);
+void (**I2C_Slave__pvfGetIRQSourceHandlerPointer(I2C_nMODULE enI2CPort,
+                                            I2C_nSLAVE_INTERRUPT enInterruptNumber))(void);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_I2C_SLAVE_INTERRUPTROUTINE_SOURCE_H_ */

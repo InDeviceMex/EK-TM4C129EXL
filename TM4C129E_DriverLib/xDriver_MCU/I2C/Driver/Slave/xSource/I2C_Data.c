@@ -33,8 +33,8 @@ inline void I2C_Slave__vSetData(I2C_nMODULE enModule, uint32_t u32Data)
 
 inline uint32_t I2C_Slave__u32GetData(I2C_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    I2C__enReadRegister(enModule, I2C_SDR_OFFSET, &u32Reg, I2C_SDR_DATA_MASK, I2C_SDR_R_DATA_BIT);
-    return u32Reg;
+    uint32_t u32Reg = 0UL;
+    u32Reg = I2C__u32ReadRegister(enModule, I2C_SDR_OFFSET,
+                              I2C_SDR_DATA_MASK, I2C_SDR_R_DATA_BIT);
+    return (u32Reg);
 }
-

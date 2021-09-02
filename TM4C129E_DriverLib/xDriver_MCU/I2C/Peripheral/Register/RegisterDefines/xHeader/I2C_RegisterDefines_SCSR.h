@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SCSR_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SCSR_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /******************************************************************************************
 ************************************ 14 SCSR *********************************************
@@ -74,6 +74,50 @@
 /*--------*/
 
 /*--------*/
+#define I2C_SCSR_R_QCMDST_MASK    ((uint32_t) 0x00000010UL)
+#define I2C_SCSR_R_QCMDST_BIT    ((uint32_t) 4UL)
+#define I2C_SCSR_R_QCMDST_NOOCCUR    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_QCMDST_OCCUR    ((uint32_t) 0x00000010UL)
+
+#define I2C_SCSR_QCMDST_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_QCMDST_NOOCCUR    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_QCMDST_OCCUR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_SCSR_R_QCMDRW_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_SCSR_R_QCMDRW_BIT    ((uint32_t) 5UL)
+#define I2C_SCSR_R_QCMDRW_WRITE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_QCMDRW_READ    ((uint32_t) 0x00000020UL)
+
+#define I2C_SCSR_QCMDRW_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_QCMDRW_WRITE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_QCMDRW_READ    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_SCSR_R_ACTDMATX_MASK    ((uint32_t) 0x40000000UL)
+#define I2C_SCSR_R_ACTDMATX_BIT    ((uint32_t) 30UL)
+#define I2C_SCSR_R_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_ACTDMATX_ACTIVE    ((uint32_t) 0x40000000UL)
+
+#define I2C_SCSR_ACTDMATX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_ACTDMATX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_SCSR_R_ACTDMARX_MASK    ((uint32_t) 0x80000000UL)
+#define I2C_SCSR_R_ACTDMARX_BIT    ((uint32_t) 31UL)
+#define I2C_SCSR_R_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_ACTDMARX_ACTIVE    ((uint32_t) 0x80000000UL)
+
+#define I2C_SCSR_ACTDMARX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_ACTDMARX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
 #define I2C_SCSR_R_DA_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_SCSR_R_DA_BIT    ((uint32_t) 0UL)
 #define I2C_SCSR_R_DA_DIS    ((uint32_t) 0x00000000UL)
@@ -82,6 +126,28 @@
 #define I2C_SCSR_DA_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_SCSR_DA_DIS    ((uint32_t) 0x00000000UL)
 #define I2C_SCSR_DA_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_SCSR_R_TXFIFO_MASK    ((uint32_t) 0x00000002UL)
+#define I2C_SCSR_R_TXFIFO_BIT    ((uint32_t) 1UL)
+#define I2C_SCSR_R_TXFIFO_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_TXFIFO_ENA    ((uint32_t) 0x00000002UL)
+
+#define I2C_SCSR_TXFIFO_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_TXFIFO_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_TXFIFO_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_SCSR_R_RXFIFO_MASK    ((uint32_t) 0x00000004UL)
+#define I2C_SCSR_R_RXFIFO_BIT    ((uint32_t) 2UL)
+#define I2C_SCSR_R_RXFIFO_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_RXFIFO_ENA    ((uint32_t) 0x00000004UL)
+
+#define I2C_SCSR_RXFIFO_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_RXFIFO_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_RXFIFO_ENA    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SCSR_H_ */

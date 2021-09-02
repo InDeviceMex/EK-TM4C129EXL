@@ -52,25 +52,24 @@ void I2C_Slave__vClearInterruptSource(I2C_nMODULE enModule, I2C_nSLAVE_INT_SOURC
     I2C__vWriteRegister(enModule , I2C_SICR_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-I2C_nINT_STATUS I2C_Slave__enStatusInterruptSource(I2C_nMODULE enModule, I2C_nSLAVE_INT_SOURCE enSourceInt)
+I2C_nINT_STATUS I2C_Slave__enStatusInterruptSource(I2C_nMODULE enModule,
+                                                   I2C_nSLAVE_INT_SOURCE enSourceInt)
 {
-    I2C_nINT_STATUS enInterruptReg = I2C_enINT_STATUS_UNDEF;
-    I2C_nSTATUS enStatus = I2C_enSTATUS_UNDEF;
-    uint32_t u32SourceInt = 0UL;
-    uint32_t u32Register= 0xFFFFFFFFUL;
+    I2C_nINT_STATUS enInterruptReg = I2C_enINT_NOOCCUR;
+    uint32_t u32SourceInt = (uint32_t) enSourceInt;
+    uint32_t u32Register= 0UL;
     u32SourceInt &= (uint32_t) I2C_enSLAVE_INT_SOURCE_ALL;
-    enStatus = I2C__enReadRegister(enModule , I2C_SRIS_OFFSET, (uint32_t*) &u32Register, (uint32_t) u32SourceInt, 0UL);
-    if(I2C_enSTATUS_OK == enStatus)
+    u32Register = I2C__u32ReadRegister(enModule , I2C_SRIS_OFFSET,
+                                       (uint32_t) u32SourceInt, 0UL);
+
+    if(0UL != u32Register)
     {
-        if(0UL != u32Register)
-        {
-            enInterruptReg = I2C_enINT_OCCUR;
-        }
-        else
-        {
-            enInterruptReg = I2C_enINT_NOOCCUR;
-        }
+        enInterruptReg = I2C_enINT_OCCUR;
     }
-    return enInterruptReg;
+    else
+    {
+        enInterruptReg = I2C_enINT_NOOCCUR;
+    }
+    return (enInterruptReg);
 }
 

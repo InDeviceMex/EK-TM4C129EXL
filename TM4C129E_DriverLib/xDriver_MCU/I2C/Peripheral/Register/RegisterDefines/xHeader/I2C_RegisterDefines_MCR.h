@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCR_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCR_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /******************************************************************************************
 ************************************ 9 MCR *********************************************
@@ -60,17 +60,6 @@
 #define I2C_MCR_SFE_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_MCR_SFE_DIS    ((uint32_t) 0x00000000UL)
 #define I2C_MCR_SFE_ENA    ((uint32_t) 0x00000001UL)
-/*--------*/
-
-/*--------*/
-#define I2C_MCR_R_GFE_MASK    ((uint32_t) 0x00000040UL)
-#define I2C_MCR_R_GFE_BIT    ((uint32_t) 6UL)
-#define I2C_MCR_R_GFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_R_GFE_ENA    ((uint32_t) 0x00000040UL)
-
-#define I2C_MCR_GFE_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MCR_GFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_GFE_ENA    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCR_H_ */

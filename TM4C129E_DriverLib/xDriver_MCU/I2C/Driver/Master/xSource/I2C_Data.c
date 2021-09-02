@@ -26,14 +26,15 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-inline void I2C_Master__vSetData(I2C_nMODULE enModule, uint32_t u32Data)
+void I2C_Master__vSetData(I2C_nMODULE enModule, uint32_t u32Data)
 {
     I2C__vWriteRegister(enModule, I2C_MDR_OFFSET, u32Data, 0xFFFFFFFFUL, 0UL);
 }
 
-inline uint32_t I2C_Master__u32GetData(I2C_nMODULE enModule)
+uint32_t I2C_Master__u32GetData(I2C_nMODULE enModule)
 {
-    uint32_t u32Reg = 0xFFFFFFFFUL;
-    I2C__enReadRegister(enModule, I2C_MDR_OFFSET, &u32Reg, I2C_MDR_DATA_MASK, I2C_MDR_R_DATA_BIT);
-    return u32Reg;
+    uint32_t u32Reg = 0UL;
+    u32Reg = I2C__u32ReadRegister(enModule, I2C_MDR_OFFSET,
+                             I2C_MDR_DATA_MASK, I2C_MDR_R_DATA_BIT);
+    return (u32Reg);
 }

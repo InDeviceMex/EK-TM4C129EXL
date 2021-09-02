@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCS_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCS_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /******************************************************************************************
 ************************************ 2 MCS *********************************************
@@ -117,6 +117,28 @@
 #define I2C_MCS_CLKTO_ERROR    ((uint32_t) 0x00000001UL)
 /*--------*/
 
+/*--------*/
+#define I2C_MCS_R_ACTDMATX_MASK    ((uint32_t) 0x40000000UL)
+#define I2C_MCS_R_ACTDMATX_BIT    ((uint32_t) 30UL)
+#define I2C_MCS_R_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_R_ACTDMATX_ACTIVE    ((uint32_t) 0x40000000UL)
+
+#define I2C_MCS_ACTDMATX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MCS_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_ACTDMATX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MCS_R_ACTDMARX_MASK    ((uint32_t) 0x80000000UL)
+#define I2C_MCS_R_ACTDMARX_BIT    ((uint32_t) 31UL)
+#define I2C_MCS_R_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_R_ACTDMARX_ACTIVE    ((uint32_t) 0x80000000UL)
+
+#define I2C_MCS_ACTDMARX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MCS_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_ACTDMARX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
 
 
 /*--------*/
@@ -174,5 +196,26 @@
 #define I2C_MCS_HS_ENA    ((uint32_t) 0x00000001UL)
 /*--------*/
 
+/*--------*/
+#define I2C_MCS_R_QCMD_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_MCS_R_QCMD_BIT    ((uint32_t) 5UL)
+#define I2C_MCS_R_QCMD_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_R_QCMD_ENA    ((uint32_t) 0x00000020UL)
+
+#define I2C_MCS_QCMD_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MCS_QCMD_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_QCMD_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MCS_R_BURST_MASK    ((uint32_t) 0x00000040UL)
+#define I2C_MCS_R_BURST_BIT    ((uint32_t) 6UL)
+#define I2C_MCS_R_BURST_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_R_BURST_ENA    ((uint32_t) 0x00000040UL)
+
+#define I2C_MCS_BURST_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MCS_BURST_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MCS_BURST_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCS_H_ */

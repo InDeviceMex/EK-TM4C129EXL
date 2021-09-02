@@ -28,29 +28,35 @@
 
 void I2C_Slave__vSetACKEnable(I2C_nMODULE enModule, I2C_nACK_ENABLE enACKEnableArg)
 {
-    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKEnableArg, I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
+    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKEnableArg,
+                        I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
 }
 
 I2C_nACK_ENABLE I2C_Slave__enGetACKEnable(I2C_nMODULE enModule)
 {
-    I2C_nACK_ENABLE enACKEnableReg = I2C_enACK_ENABLE_UNDEF;
-    I2C__enReadRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t*) &enACKEnableReg, I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
-    return enACKEnableReg;
+    I2C_nACK_ENABLE enACKEnableReg = I2C_enACK_ENABLE_DIS;
+    enACKEnableReg = (I2C_nACK_ENABLE) I2C__u32ReadRegister(enModule, I2C_SACKCTL_OFFSET,
+                                        I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
+    return (enACKEnableReg);
 }
 
 void I2C_Slave__vSetACKValue(I2C_nMODULE enModule, I2C_nACK enACKArg)
 {
-    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKArg, I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
+    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKArg,
+                        I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
 }
 
 I2C_nACK I2C_Slave__enGetACKValue(I2C_nMODULE enModule)
 {
-    I2C_nACK enACKValueReg = I2C_enACK_UNDEF;
-    I2C__enReadRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t*) &enACKValueReg, I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
-    return enACKValueReg;
+    I2C_nACK enACKValueReg = I2C_enACK_ACK;
+    enACKValueReg = (I2C_nACK) I2C__u32ReadRegister(enModule, I2C_SACKCTL_OFFSET,
+                                   I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
+    return (enACKValueReg);
 }
 
-void I2C_Slave__vSetACK(I2C_nMODULE enModule, I2C_nACK_ENABLE enACKEnableArg, I2C_nACK enACKValueArg)
+void I2C_Slave__vSetACK(I2C_nMODULE enModule,
+                        I2C_nACK_ENABLE enACKEnableArg,
+                        I2C_nACK enACKValueArg)
 {
     I2C_Slave__vSetACKValue(enModule, enACKValueArg);
     I2C_Slave__vSetACKEnable(enModule, enACKEnableArg);

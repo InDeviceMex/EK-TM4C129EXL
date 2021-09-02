@@ -27,7 +27,9 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/I2C_Master_InterruptRoutine_Source.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),I2C_nMODULE enModule, I2C_nMASTER_INTERRUPT enInterruptSource)
+void I2C_Master__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                           I2C_nMODULE enModule,
+                                           I2C_nMASTER_INTERRUPT enInterruptSource)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32InterruptSource = 0UL;
@@ -35,7 +37,12 @@ void I2C_Master__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),I2C
     {
         u32Module = MCU__u32CheckParams( (uint32_t) enModule,  (uint32_t) I2C_enMODULE_MAX);
         u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,  (uint32_t) I2C_enMASTER_INTERRUPT_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler, &I2C_Master__vIRQSourceHandler[u32Module][u32InterruptSource], 0UL, 1UL);
+
+        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
+           I2C_Master__pvfGetIRQSourceHandlerPointer((I2C_nMODULE) u32Module,
+                                               (I2C_nMASTER_INTERRUPT)u32InterruptSource),
+           0UL,
+           1UL);
     }
 }
 

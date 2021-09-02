@@ -30,6 +30,5 @@
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Status.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Timeout.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_TimerPeriod.h>
-#include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_TimerPeriod_Freq.h>
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_I2C_MASTER_H_ */

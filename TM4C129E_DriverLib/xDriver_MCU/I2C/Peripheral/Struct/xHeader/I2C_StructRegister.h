@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_STRUCT_XHEADER_I2C_STRUCTREGISTER_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_STRUCT_XHEADER_I2C_STRUCTREGISTER_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /*Master*/
 
@@ -45,7 +45,9 @@ typedef volatile struct
     volatile const uint32_t IDLE :1;
     volatile const uint32_t BUSBSY :1;
     volatile const uint32_t CLKTO :1;
-    const uint32_t reserved :24;
+    const uint32_t reserved :22;
+    volatile const uint32_t ACTDMATX :1;
+    volatile const uint32_t ACTDMARX :1;
 } I2CMCS_STATUS_TypeDef;
 
 typedef volatile struct
@@ -55,7 +57,9 @@ typedef volatile struct
     volatile uint32_t STOP :1;
     volatile uint32_t ACK :1;
     volatile uint32_t HS :1;
-    const uint32_t reserved :27;
+    volatile uint32_t QCMD :1;
+    volatile uint32_t BURST :1;
+    const uint32_t reserved :25;
 } I2CMCS_CONTROL_TypeDef;
 
 typedef volatile struct
@@ -68,35 +72,77 @@ typedef volatile struct
 {
     volatile uint32_t TPR :7;
     volatile uint32_t HS :1;
-    const uint32_t reserved :24;
+    const uint32_t reserved :8;
+    volatile uint32_t PULSEL :3;
+    const uint32_t reserved1 :13;
 } I2CMTPR_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t IM :1;
     volatile uint32_t CLKIM :1;
-    const uint32_t reserved :30;
+    volatile uint32_t DMARXIM :1;
+    volatile uint32_t DMATXIM :1;
+    volatile uint32_t NACKIM :1;
+    volatile uint32_t STARTIM :1;
+    volatile uint32_t STOPIM :1;
+    volatile uint32_t ARBLOSTIM :1;
+    volatile uint32_t TXIM :1;
+    volatile uint32_t RXIM :1;
+    volatile uint32_t TXFEIM :1;
+    volatile uint32_t RXFFIM :1;
+    const uint32_t reserved :20;
 } I2CMIMR_TypeDef;
 
 typedef volatile struct
 {
     volatile const uint32_t RIS :1;
     volatile const uint32_t CLKRIS :1;
-    const uint32_t reserved :30;
+    volatile const uint32_t DMARXRIS :1;
+    volatile const uint32_t DMATXRIS :1;
+    volatile const uint32_t NACKRIS :1;
+    volatile const uint32_t STARTRIS :1;
+    volatile const uint32_t STOPRIS :1;
+    volatile const uint32_t ARBLOSTRIS :1;
+    volatile const uint32_t TXRIS :1;
+    volatile const uint32_t RXRIS :1;
+    volatile const uint32_t TXFERIS :1;
+    volatile const uint32_t RXFFRIS :1;
+    const uint32_t reserved :20;
 } I2CMRIS_TypeDef;
 
 typedef volatile struct
 {
     volatile const uint32_t MIS :1;
     volatile const uint32_t CLKMIS :1;
-    const uint32_t reserved :30;
+    volatile const uint32_t DMARXMIS :1;
+    volatile const uint32_t DMATXMIS :1;
+    volatile const uint32_t NACKMIS :1;
+    volatile const uint32_t STARTMIS :1;
+    volatile const uint32_t STOPMIS :1;
+    volatile const uint32_t ARBLOSTMIS :1;
+    volatile const uint32_t TXMIS :1;
+    volatile const uint32_t RXMIS :1;
+    volatile const uint32_t TXFEMIS :1;
+    volatile const uint32_t RXFFMIS :1;
+    const uint32_t reserved :20;
 } I2CMMIS_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t IC :1;
     volatile uint32_t CLKIC :1;
-    const uint32_t reserved :30;
+    volatile uint32_t DMARXIC :1;
+    volatile uint32_t DMATXIC :1;
+    volatile uint32_t NACKIC :1;
+    volatile uint32_t STARTIC :1;
+    volatile uint32_t STOPIC :1;
+    volatile uint32_t ARBLOSTIC :1;
+    volatile uint32_t TXIC :1;
+    volatile uint32_t RXIC :1;
+    volatile uint32_t TXFEIC :1;
+    volatile uint32_t RXFFIC :1;
+    const uint32_t reserved :20;
 } I2CMICR_TypeDef;
 
 typedef volatile struct
@@ -105,8 +151,7 @@ typedef volatile struct
     const uint32_t reserved :3;
     volatile uint32_t MFE :1;
     volatile uint32_t SFE :1;
-    volatile uint32_t GFE :1;
-    const uint32_t reserved2 :25;
+    const uint32_t reserved2 :26;
 } I2CMCR_TypeDef;
 
 typedef volatile struct
@@ -124,10 +169,15 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    const uint32_t reserved : 4;
-    volatile const uint32_t GFPW :3;
-    const uint32_t reserved2 : 25;
-} I2CMCR2_TypeDef;
+    volatile uint32_t CNTL :8;
+    const uint32_t reserved : 24;
+} I2CMBLEN_TypeDef;
+
+typedef volatile struct
+{
+    volatile const uint32_t CNTL :8;
+    const uint32_t reserved : 24;
+} I2CMBCNT_TypeDef;
 
 /*Slave*/
 
@@ -143,13 +193,19 @@ typedef volatile struct
     volatile const uint32_t TREQ :1;
     volatile const uint32_t FBR :1;
     volatile const uint32_t OAR2SEL :1;
-    const uint32_t reserved :28;
+    volatile const uint32_t QCMDST :1;
+    volatile const uint32_t QCMDRW :1;
+    const uint32_t reserved :24;
+    volatile const uint32_t ACTDMATX :1;
+    volatile const uint32_t ACTDMARX :1;
 } I2CSCSR_STATUS_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t DA :1;
-    const uint32_t reserved :31;
+    volatile uint32_t TXFIFO :1;
+    volatile uint32_t RXFIFO :1;
+    const uint32_t reserved :29;
 } I2CSCSR_CONTROL_TypeDef;
 
 typedef volatile struct
@@ -163,7 +219,13 @@ typedef volatile struct
     volatile uint32_t DATAIM :1;
     volatile uint32_t STARTIM :1;
     volatile uint32_t STOPIM :1;
-    const uint32_t reserved :29;
+    volatile uint32_t DMARXIM :1;
+    volatile uint32_t DMATXIM :1;
+    volatile uint32_t TXIM :1;
+    volatile uint32_t RXIM :1;
+    volatile uint32_t TXFEIM :1;
+    volatile uint32_t RXFFIM :1;
+    const uint32_t reserved :23;
 } I2CSIMR_TypeDef;
 
 typedef volatile struct
@@ -171,7 +233,13 @@ typedef volatile struct
     volatile const uint32_t DATARIS :1;
     volatile const uint32_t STARTRIS :1;
     volatile const uint32_t STOPRIS :1;
-    const uint32_t reserved :29;
+    volatile const uint32_t DMARXRIS :1;
+    volatile const uint32_t DMATXRIS :1;
+    volatile const uint32_t TXRIS :1;
+    volatile const uint32_t RXRIS :1;
+    volatile const uint32_t TXFERIS :1;
+    volatile const uint32_t RXFFRIS :1;
+    const uint32_t reserved :23;
 } I2CSRIS_TypeDef;
 
 typedef volatile struct
@@ -179,7 +247,13 @@ typedef volatile struct
     volatile const uint32_t DATAMIS :1;
     volatile const uint32_t STARTMIS :1;
     volatile const uint32_t STOPMIS :1;
-    const uint32_t reserved :29;
+    volatile const uint32_t DMARXMIS :1;
+    volatile const uint32_t DMATXMIS :1;
+    volatile const uint32_t TXMIS :1;
+    volatile const uint32_t RXMIS :1;
+    volatile const uint32_t TXFEMIS :1;
+    volatile const uint32_t RXFFMIS :1;
+    const uint32_t reserved :23;
 } I2CSMIS_TypeDef;
 
 typedef volatile struct
@@ -187,7 +261,13 @@ typedef volatile struct
     volatile uint32_t DATAIC :1;
     volatile uint32_t STARTIC :1;
     volatile uint32_t STOPIC :1;
-    const uint32_t reserved :29;
+    volatile uint32_t DMARXIC :1;
+    volatile uint32_t DMATXIC :1;
+    volatile uint32_t TXIC :1;
+    volatile uint32_t RXIC :1;
+    volatile uint32_t TXFEIC :1;
+    volatile uint32_t RXFFIC :1;
+    const uint32_t reserved :23;
 } I2CSICR_TypeDef;
 
 typedef volatile struct
@@ -208,15 +288,46 @@ typedef volatile struct
 
 typedef volatile struct
 {
+    volatile const uint32_t DATA :8;
+    const uint32_t reserved : 24;
+} I2CFIFODATA_TypeDef;
+
+typedef volatile struct
+{
+    volatile uint32_t TXTRIG :3;
+    const uint32_t reserved : 10;
+    volatile uint32_t DMATXENA :1;
+    volatile uint32_t TXFLUSH :1;
+    volatile uint32_t TXASGNMT :1;
+    volatile uint32_t RXTRIG :3;
+    const uint32_t reserved2 : 10;
+    volatile uint32_t DMARXENA :1;
+    volatile uint32_t RXFLUSH :1;
+    volatile uint32_t RXASGNMT :1;
+} I2CFIFOCTL_TypeDef;
+
+typedef volatile struct
+{
+    volatile const uint32_t TXFE :1;
+    volatile const uint32_t TXFF :1;
+    volatile const uint32_t TXBLWTRIG :1;
+    const uint32_t reserved : 13;
+    volatile const uint32_t RXFE :1;
+    volatile const uint32_t RXFF :1;
+    volatile const uint32_t RXABVTRIG :1;
+    const uint32_t reserved2 : 13;
+} I2CFIFOSTATUS_TypeDef;
+
+typedef volatile struct
+{
     volatile const uint32_t HS :1;
-    uint32_t reserved : 31;
+    const uint32_t reserved : 31;
 } I2CPP_TypeDef;
 
 typedef volatile struct
 {
     volatile uint32_t HS :1;
-    uint32_t reserved : 31;
+    const uint32_t reserved : 31;
 } I2CPC_TypeDef;
-
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_STRUCT_XHEADER_I2C_STRUCTREGISTER_H_ */

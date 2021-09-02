@@ -28,14 +28,16 @@
 
 void I2C_Slave__vSetMainOwnAddress(I2C_nMODULE enModule, uint32_t u32OwnAddressArg)
 {
-    I2C__vWriteRegister(enModule, I2C_SOAR_OFFSET, u32OwnAddressArg, I2C_SOAR_OAR_MASK, I2C_SOAR_R_OAR_BIT);
+    I2C__vWriteRegister(enModule, I2C_SOAR_OFFSET, u32OwnAddressArg,
+                        I2C_SOAR_OAR_MASK, I2C_SOAR_R_OAR_BIT);
 }
 
 uint32_t I2C_Slave__u32GetMainOwnAddress(I2C_nMODULE enModule)
 {
-    uint32_t u32MainAddressReg = 0xFFFFFFFFUL;
-    I2C__enReadRegister(enModule, I2C_SOAR_OFFSET, &u32MainAddressReg, I2C_SOAR_OAR_MASK, I2C_SOAR_R_OAR_BIT);
-    return u32MainAddressReg;
+    uint32_t u32MainAddressReg = 0UL;
+    u32MainAddressReg = I2C__u32ReadRegister(enModule, I2C_SOAR_OFFSET,
+                                 I2C_SOAR_OAR_MASK, I2C_SOAR_R_OAR_BIT);
+    return (u32MainAddressReg);
 }
 
 

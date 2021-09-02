@@ -27,10 +27,7 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C__vSetEnableGlitchFilter(I2C_nMODULE enModule, I2C_nGLITCH enGlitchEnableArg);
-I2C_nGLITCH I2C__enGetEnableGlitchFilter(I2C_nMODULE enModule);
-
-void I2C__vSetGlitchFilter(I2C_nMODULE enModule, I2C_nGLITCH_CLOCK enGlitchClockArg);
-I2C_nGLITCH_CLOCK I2C__enGetGlitchFilter(I2C_nMODULE enModule);
+void I2C__vSetGlitchFilter(I2C_nMODULE enModule, I2C_nMASTER_GLITCH_CLOCK enGlitchClockArg);
+I2C_nMASTER_GLITCH_CLOCK I2C__enGetGlitchFilter(I2C_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_XHEADER_I2C_GLITCHFILTER_H_ */

@@ -23,32 +23,20 @@
  */
 #include <xDriver_MCU/I2C/Driver/xHeader/I2C_GlitchFilter.h>
 
-#include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/xHeader/I2C_WriteRegister.h>
-#include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/xHeader/I2C_ReadRegister.h>
+#include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-
-void I2C__vSetEnableGlitchFilter(I2C_nMODULE enModule, I2C_nGLITCH enGlitchEnableArg)
+void I2C__vSetGlitchFilter(I2C_nMODULE enModule, I2C_nMASTER_GLITCH_CLOCK enGlitchClockArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MCR_OFFSET, (uint32_t) enGlitchEnableArg, I2C_MCR_GFE_MASK, I2C_MCR_R_GFE_BIT);
+    I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, (uint32_t) enGlitchClockArg,
+                        I2C_MTPR_PULSEL_MASK, I2C_MTPR_R_PULSEL_BIT);
 }
 
-I2C_nGLITCH I2C__enGetEnableGlitchFilter(I2C_nMODULE enModule)
+I2C_nMASTER_GLITCH_CLOCK I2C__enGetGlitchFilter(I2C_nMODULE enModule)
 {
-    I2C_nGLITCH enGlitchClockReg = I2C_enGLITCH_UNDEF;
-    I2C__enReadRegister(enModule, I2C_MCR_OFFSET, (uint32_t*) &enGlitchClockReg, I2C_MCR_GFE_MASK, I2C_MCR_R_GFE_BIT);
-    return enGlitchClockReg;
-}
-
-void I2C__vSetGlitchFilter(I2C_nMODULE enModule, I2C_nGLITCH_CLOCK enGlitchClockArg)
-{
-    I2C__vWriteRegister(enModule, I2C_MCR2_OFFSET, (uint32_t) enGlitchClockArg, I2C_MCR2_GFPW_MASK, I2C_MCR2_R_GFPW_BIT);
-}
-
-I2C_nGLITCH_CLOCK I2C__enGetGlitchFilter(I2C_nMODULE enModule)
-{
-    I2C_nGLITCH_CLOCK enGlitchClockReg = I2C_enGLITCH_CLOCK_UNDEF;
-    I2C__enReadRegister(enModule, I2C_MCR2_OFFSET, (uint32_t*) &enGlitchClockReg, I2C_MCR2_GFPW_MASK, I2C_MCR2_R_GFPW_BIT);
-    return enGlitchClockReg;
+    I2C_nMASTER_GLITCH_CLOCK enGlitchClockReg = I2C_enMASTER_GLITCH_CLOCK_BYPASS;
+    enGlitchClockReg = (I2C_nMASTER_GLITCH_CLOCK) I2C__u32ReadRegister(enModule,
+                           I2C_MTPR_OFFSET, I2C_MTPR_PULSEL_MASK, I2C_MTPR_R_PULSEL_BIT);
+    return (enGlitchClockReg);
 }
 

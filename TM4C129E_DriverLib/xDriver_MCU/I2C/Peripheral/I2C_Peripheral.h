@@ -25,7 +25,6 @@
 #define XDRIVER_MCU_I2C_PERIPHERAL_I2C_PERIPHERAL_H_
 
 #include <xDriver_MCU/I2C/Peripheral/Register/I2C_Register.h>
-#include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Dependencies.h>
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_I2C_PERIPHERAL_H_ */

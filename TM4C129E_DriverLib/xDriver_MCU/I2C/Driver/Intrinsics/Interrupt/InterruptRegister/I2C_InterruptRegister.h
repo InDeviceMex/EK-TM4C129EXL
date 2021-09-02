@@ -26,6 +26,5 @@
 
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/I2C_Master_InterruptRegisterIRQSource.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/I2C_Slave_InterruptRegisterIRQSource.h>
-#include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/I2C_InterruptRegisterIRQVector.h>
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_I2C_INTERRUPTREGISTER_H_ */

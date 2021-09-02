@@ -25,8 +25,8 @@
 #define XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_I2C_READREGISTER_H_
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
-#include <xUtils/Standard/Standard.h>
 
-I2C_nSTATUS I2C__enReadRegister(I2C_nMODULE enModule, uint32_t u32OffsetRegister, uint32_t* pu32FeatureValue, uint32_t u32MaskFeature, uint32_t u32BitFeature);
+uint32_t I2C__u32ReadRegister(I2C_nMODULE enModule, uint32_t u32OffsetRegister,
+                              uint32_t u32MaskFeature, uint32_t u32BitFeature);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_I2C_READREGISTER_H_ */

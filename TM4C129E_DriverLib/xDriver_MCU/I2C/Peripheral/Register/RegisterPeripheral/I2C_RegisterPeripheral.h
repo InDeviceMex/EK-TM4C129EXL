@@ -28,10 +28,15 @@
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module1.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module2.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module3.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module4.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module5.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module6.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module7.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module8.h>
+#include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module9.h>
 
 #define I2C    ((I2CS_TypeDef*) (I2C_BASE))
 
-extern I2C_TypeDef* I2C_BLOCK[(uint32_t) I2C_enMODULE_MAX];
-extern uint32_t I2C_BLOCK_ADDRESS[(uint32_t) I2C_enMODULE_MAX];
+uint32_t I2C__u32BlockBaseAddress(I2C_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_I2C_REGISTERPERIPHERAL_H_ */

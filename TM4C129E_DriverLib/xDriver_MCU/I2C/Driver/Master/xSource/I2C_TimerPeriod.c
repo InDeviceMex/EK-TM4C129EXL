@@ -30,27 +30,31 @@ void I2C_Master__vSetTimerPeriod(I2C_nMODULE enModule, uint32_t u32TimerPeriodAr
 {
     if(0UL != u32TimerPeriodArg)
     {
-        I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, u32TimerPeriodArg, I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
+        I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, u32TimerPeriodArg,
+                            I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
     }
 }
 
 uint32_t I2C_Master__u32GetTimerPeriod(I2C_nMODULE enModule)
 {
-    uint32_t u32TimerPeriodReg = 0xFFFFFFFFUL;
-    I2C__enReadRegister(enModule, I2C_MTPR_OFFSET, &u32TimerPeriodReg, I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
-    return u32TimerPeriodReg;
+    uint32_t u32TimerPeriodReg = 0UL;
+    u32TimerPeriodReg = I2C__u32ReadRegister(enModule, I2C_MTPR_OFFSET,
+                                     I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
+    return (u32TimerPeriodReg);
 }
 
-void I2C_Master__vSetHighSpeedPeriod(I2C_nMODULE enModule, I2C_nHIGHSPEED enHighSpeedArg)
+void I2C_Master__vSetHighSpeedPeriod(I2C_nMODULE enModule, I2C_nMASTER_HIGHSPEED enHighSpeedArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, (uint32_t) enHighSpeedArg, I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
+    I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, (uint32_t) enHighSpeedArg,
+                        I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
 }
 
-I2C_nHIGHSPEED I2C_Master__enGetHighSpeedPeriod(I2C_nMODULE enModule)
+I2C_nMASTER_HIGHSPEED I2C_Master__enGetHighSpeedPeriod(I2C_nMODULE enModule)
 {
-    I2C_nHIGHSPEED enHighSpeedReg = I2C_enHIGHSPEED_UNDEF;
-    I2C__enReadRegister(enModule, I2C_MTPR_OFFSET, (uint32_t*) &enHighSpeedReg, I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
-    return enHighSpeedReg;
+    I2C_nMASTER_HIGHSPEED enHighSpeedReg = I2C_enMASTER_HIGHSPEED_UNDEF;
+    enHighSpeedReg = (I2C_nMASTER_HIGHSPEED) I2C__u32ReadRegister(enModule, I2C_MTPR_OFFSET,
+                                                      I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
+    return (enHighSpeedReg);
 }
 
 

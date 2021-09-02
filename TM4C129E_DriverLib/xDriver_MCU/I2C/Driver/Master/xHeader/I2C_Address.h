@@ -33,6 +33,8 @@ uint32_t I2C_Master__u32GetSlaveAddress(I2C_nMODULE enModule);
 void I2C_Master__vSetOperation(I2C_nMODULE enModule, I2C_nOPERATION enOperationArg);
 uint32_t I2C_Master__u32GetOperation(I2C_nMODULE enModule);
 
-void I2C_Master__vSetSlaveAddressOperation(I2C_nMODULE enModule, uint32_t u32SlaveAddressArg, I2C_nOPERATION enOperationArg);
+void I2C_Master__vSetSlaveAddressOperation(I2C_nMODULE enModule,
+                                           uint32_t u32SlaveAddressArg,
+                                           I2C_nOPERATION enOperationArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_ADDRESS_H_ */
