@@ -343,3 +343,19 @@ uint32_t OS_Task__u32RemoveFromUnorderedEventList(OS_Task_ListItem_TypeDef* pstE
     }
     return (u32Return);
 }
+
+uint32_t OS_Task__u32ResetEventValue(void)
+{
+    uint32_t u32Return = 0UL;
+    uint32_t u32ResetValue = 0UL;
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+
+    pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+    u32Return = CDLinkedList_Item__u32GetValue(&(pstCurrentTCB->stEventListItem));
+    u32ResetValue = OS_TASK_MAX_PRIORITIES;
+    u32ResetValue -= pstCurrentTCB->u32PriorityTask;
+    /* Reset the event list item to its normal value - so it can be used with
+    queues and semaphores. */
+    CDLinkedList_Item__vSetValue(&(pstCurrentTCB->stEventListItem), u32ResetValue);
+    return (u32Return);
+}

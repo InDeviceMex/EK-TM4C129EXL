@@ -175,5 +175,5 @@ void OS_Task__vInitialiseTCBVariables( OS_TASK_TCB * const pstTCB, const char * 
     }
 
         pstTCB->u32NotifiedValue = 0UL;
-        pstTCB->enNotifyState = OS_Task_enNotifyValue_NotWaitingNotification;
+        pstTCB->enNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
 }

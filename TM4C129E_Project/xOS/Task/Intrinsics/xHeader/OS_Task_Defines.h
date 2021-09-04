@@ -85,7 +85,7 @@ typedef struct
     OS_Task_HookFunction_Typedef pu32fHookFunction;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
     volatile uint32_t u32NotifiedValue;
-    volatile OS_Task_eNotifyValue enNotifyState;
+    volatile OS_Task_eNotifyState enNotifyState;
 } OS_TASK_TCB;
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_ */

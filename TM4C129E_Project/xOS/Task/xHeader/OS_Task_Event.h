@@ -32,5 +32,6 @@ void OS_Task__vPlaceOnEventListRestricted(OS_Task_List_Typedef * const pstEventL
 void OS_Task__vPlaceOnUnorderedEventList(OS_Task_List_Typedef* pstEventList, const uint32_t u32DataAuxiliar, const uint32_t u32TicksToWait);
 uint32_t OS_Task__u32RemoveFromEventList(const OS_Task_List_Typedef* const pstEventList);
 uint32_t OS_Task__u32RemoveFromUnorderedEventList(OS_Task_ListItem_TypeDef* pstEventListItem, const uint32_t u32DataAuxiliar);
+uint32_t OS_Task__u32ResetEventValue(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_EVENT_H_ */

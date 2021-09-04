@@ -310,3 +310,19 @@ uint32_t OS_Task__u32PriorityDisinherit(OS_Task_Handle_TypeDef const pvMutexHold
     }
     return (u32Return);
 }
+
+
+void* OS_Task__pvIncrementMutexHeldCount(void)
+{
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+
+    /* If xSemaphoreCreateMutex() is called before any tasks have been created
+    then pstCurrentTCB will be NULL. */
+    pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+    if(0UL != pstCurrentTCB)
+    {
+        (pstCurrentTCB->u32MutexesHeld)++;
+    }
+
+    return (pstCurrentTCB);
+}

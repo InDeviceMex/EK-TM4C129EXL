@@ -26,18 +26,18 @@
 #include <stdlib.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vCreateModeStructPointer(WDT_nMODE enMode, WDT_MODE_Typedef* pstMode)
+void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_Typedef* pstMode)
 {
     if((uint32_t) 0U != (uint32_t) pstMode )
     {
-        pstMode->enInterrupt = (WDT_nINTERRUPT_ENABLE) ((uint32_t) enMode & 1UL);
-        pstMode->enStall = (WDT_nSTALL) (( (uint32_t) enMode >> 8UL) & 1UL);
-        pstMode->enIntType = (WDT_nINT_TYPE) (( (uint32_t) enMode >> 16UL) & 1UL);
-        pstMode->enResetOutput = (WDT_nRESET) (( (uint32_t) enMode >> 24UL) & 1UL);
+        pstMode->enInterrupt = (WDT_nINTERRUPT_ENABLE) ((uint32_t) enModeArg & 1UL);
+        pstMode->enStall = (WDT_nSTALL) (( (uint32_t) enModeArg >> 8UL) & 1UL);
+        pstMode->enIntType = (WDT_nINT_TYPE) (( (uint32_t) enModeArg >> 16UL) & 1UL);
+        pstMode->enResetOutput = (WDT_nRESET) (( (uint32_t) enModeArg >> 24UL) & 1UL);
     }
 }
 
-WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enMode)
+WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enModeArg)
 {
     WDT_MODE_Typedef* pstMode = (WDT_MODE_Typedef*) 0UL;
     #if defined (__TI_ARM__ )
@@ -47,10 +47,7 @@ WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enMode)
     #endif
     if(0UL != (uint32_t) pstMode )
     {
-        pstMode->enInterrupt = (WDT_nINTERRUPT_ENABLE) ( (uint32_t) enMode & 1UL);
-        pstMode->enStall = (WDT_nSTALL) (( (uint32_t) enMode >> 8UL) & 1UL);
-        pstMode->enIntType = (WDT_nINT_TYPE) (( (uint32_t) enMode >> 16UL) & 1UL);
-        pstMode->enResetOutput = (WDT_nRESET) (( (uint32_t) enMode >> 24UL) & 1UL);
+        WDT__vCreateModeStructPointer(enModeArg, pstMode);
     }
     return (pstMode);
 }

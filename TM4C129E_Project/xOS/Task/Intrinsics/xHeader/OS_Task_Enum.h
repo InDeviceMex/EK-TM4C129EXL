@@ -56,11 +56,11 @@ typedef enum
 
 typedef enum
 {
-    OS_Task_enNotifyValue_NotWaitingNotification = 0UL,
-    OS_Task_enNotifyValue_WaitingNotification = 1UL,
-    OS_Task_enNotifyValue_Notified = 2UL,
-    OS_Task_enNotifyValue_Undef = 0xFFFFFFFFUL,
-} OS_Task_eNotifyValue;
+    OS_Task_enNotifyState_NotWaitingNotification = 0UL,
+    OS_Task_enNotifyState_WaitingNotification = 1UL,
+    OS_Task_enNotifyState_Notified = 2UL,
+    OS_Task_enNotifyState_Undef = 0xFFFFFFFFUL,
+} OS_Task_eNotifyState;
 
 typedef enum
 {

@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enMode);
+WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enModeArg);
 WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_Typedef* pstMode);
 
 WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule);

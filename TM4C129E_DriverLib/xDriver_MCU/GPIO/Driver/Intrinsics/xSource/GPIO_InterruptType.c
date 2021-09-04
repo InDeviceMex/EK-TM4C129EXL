@@ -26,11 +26,11 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_TYPE enIntType)
+void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_TYPE enIntTypeArg)
 {
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
     {
-        GPIO__vSetGeneric(enPort, GPIO_SI_OFFSET, enPin, (uint32_t) enIntType);
+        GPIO__vSetGeneric(enPort, GPIO_SI_OFFSET, enPin, (uint32_t) enIntTypeArg);
     }
 }
 

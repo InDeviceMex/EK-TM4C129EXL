@@ -34,4 +34,6 @@ void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPrio
 void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pvMutexHolder);
 uint32_t OS_Task__u32PriorityDisinherit(OS_Task_Handle_TypeDef const pvMutexHolder);
 
+void* OS_Task__pvIncrementMutexHeldCount(void);
+
 #endif /* XOS_TASK_XHEADER_OS_TASK_PRIORITY_H_ */

@@ -33,5 +33,6 @@ I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsAltAddressReceived(I2C_nMODULE enModule
 I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsFirstByteReceived(I2C_nMODULE enModule);
 I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsTransmitRequestReceived(I2C_nMODULE enModule);
 I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsReceiveRequestReceived(I2C_nMODULE enModule);
+I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsQuickCommandReceived(I2C_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_REQUEST_H_ */

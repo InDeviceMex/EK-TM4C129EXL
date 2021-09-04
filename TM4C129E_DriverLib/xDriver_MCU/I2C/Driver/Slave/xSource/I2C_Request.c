@@ -67,3 +67,19 @@ I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsReceiveRequestReceived(I2C_nMODULE enMo
                         I2C_SCSR_OFFSET, I2C_SCSR_RREQ_MASK, I2C_SCSR_R_RREQ_BIT);
     return (enRequestStatusReg);
 }
+
+I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsQuickCommandReceived(I2C_nMODULE enModule)
+{
+    I2C_nSLAVE_REQUEST_STATUS enRequestStatusReg = I2C_enSLAVE_REQUEST_STATUS_NORECEIVED;
+    enRequestStatusReg = (I2C_nSLAVE_REQUEST_STATUS) I2C__u32ReadRegister(enModule,
+                        I2C_SCSR_OFFSET, I2C_SCSR_QCMDST_MASK, I2C_SCSR_R_QCMDST_BIT);
+    return (enRequestStatusReg);
+}
+
+I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsQuickCommandReceived(I2C_nMODULE enModule)
+{
+    I2C_nSLAVE_REQUEST_STATUS enRequestStatusReg = I2C_enSLAVE_REQUEST_STATUS_NORECEIVED;
+    enRequestStatusReg = (I2C_nSLAVE_REQUEST_STATUS) I2C__u32ReadRegister(enModule,
+                        I2C_SCSR_OFFSET, I2C_SCSR_QCMDST_MASK, I2C_SCSR_R_QCMDST_BIT);
+    return (enRequestStatusReg);
+}

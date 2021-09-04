@@ -49,10 +49,10 @@ WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_Typedef* p
     return (enReturn);
 }
 
-WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enMode)
+WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enModeArg)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
-    WDT_MODE_Typedef* pstMode = WDT__pstCreateModeStruct(enMode);
+    WDT_MODE_Typedef* pstMode = WDT__pstCreateModeStruct(enModeArg);
 
     if(0UL != (uint32_t) pstMode )
     {
@@ -64,7 +64,7 @@ WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enMode)
 
 WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule)
 {
-    WDT_nMODE enMode = WDT_enMODE_UNDEF;
+    WDT_nMODE enModeReg = WDT_enMODE_UNDEF;
 
     WDT_nINT_TYPE enIntTypeVar = WDT_enINT_TYPE_UNDEF;
     WDT_nRESET enResetOutputVar = WDT_enRESET_UNDEF;
@@ -83,8 +83,8 @@ WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule)
     u32Reg |= ((uint32_t) enIntTypeVar << 16UL);
     u32Reg |= ((uint32_t) enResetOutputVar << 24UL);
 
-    enMode = (WDT_nMODE) u32Reg;
-    return (enMode);
+    enModeReg = (WDT_nMODE) u32Reg;
+    return (enModeReg);
 }
 
 void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_Typedef* pstMode)
