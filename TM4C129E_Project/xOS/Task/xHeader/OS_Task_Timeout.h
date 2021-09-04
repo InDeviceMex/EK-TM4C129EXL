@@ -29,6 +29,7 @@
 
 void OS_Task__vSetTimeOutState(OS_Task_TimeOut_TypeDef * const pstTimeOut);
 
-
+uint32_t OS_Task__u32CheckForTimeOut( OS_Task_TimeOut_TypeDef * const pstTimeOut,
+                               uint32_t * const pu32TicksToWait );
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_TIMEOUT_H_ */

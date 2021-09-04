@@ -37,52 +37,58 @@ void OS_Task__vSetTimeOutState(OS_Task_TimeOut_TypeDef * const pstTimeOut)
         pstTimeOut->u32TimeOnEntering = u32TickCount;
     }
 }
-#if 0
-BaseType_t xTaskCheckForTimeOut( TimeOut_t * const pxTimeOut, TickType_t * const pxTicksToWait )
+
+uint32_t OS_Task__u32CheckForTimeOut( OS_Task_TimeOut_TypeDef * const pstTimeOut,
+                               uint32_t * const pu32TicksToWait )
 {
-BaseType_t xReturn;
+    uint32_t u32Return = 0UL;
+    uint32_t u32NumOfOverflows = 0UL;
+    uint32_t u32ConstTickCountTemp = 0UL;
 
-    configASSERT( pxTimeOut );
-    configASSERT( pxTicksToWait );
-
-    taskENTER_CRITICAL();
+    if((0UL != (uint32_t) pstTimeOut) &&
+       (0UL != (uint32_t) pu32TicksToWait) )
     {
-        /* Minor optimisation.  The tick count cannot change in this block. */
-        const TickType_t xConstTickCount = xTickCount;
+        OS_Task__vEnterCritical();
+        {
+            /* Minor optimisation.  The tick count cannot change in this block. */
+            const uint32_t u32ConstTickCount = OS_Task__u32GetTickCount_NotSafe();
 
-        #if ( INCLUDE_vTaskSuspend == 1 )
             /* If INCLUDE_vTaskSuspend is set to 1 and the block time specified is
             the maximum block time then the task should block indefinitely, and
             therefore never time out. */
-            if( *pxTicksToWait == portMAX_DELAY )
+            if(OS_ADAPT_MAX_DELAY == *pu32TicksToWait)
             {
-                xReturn = pdFALSE;
+                u32Return = 0UL;
             }
             else /* We are not blocking indefinitely, perform the checks below. */
-        #endif
-
-        if( ( xNumOfOverflows != pxTimeOut->xOverflowCount ) && ( xConstTickCount >= pxTimeOut->xTimeOnEntering ) ) /*lint !e525 Indentation preferred as is to make code within pre-processor directives clearer. */
-        {
-            /* The tick count is greater than the time at which vTaskSetTimeout()
-            was called, but has also overflowed since vTaskSetTimeOut() was called.
-            It must have wrapped all the way around and gone past us again. This
-            passed since vTaskSetTimeout() was called. */
-            xReturn = pdTRUE;
+            {
+                u32NumOfOverflows = OS_Task__u32GetNumOfOverflows();
+                u32ConstTickCountTemp = u32ConstTickCount;
+                u32ConstTickCountTemp -= pstTimeOut->u32TimeOnEntering;
+                if((u32NumOfOverflows != pstTimeOut->u32OverflowCount) &&
+                   (u32ConstTickCount >= pstTimeOut->u32TimeOnEntering))
+                {
+                    /* The tick count is greater than the time at which vTaskSetTimeout()
+                    was called, but has also overflowed since vTaskSetTimeOut() was called.
+                    It must have wrapped all the way around and gone past us again. This
+                    passed since vTaskSetTimeout() was called. */
+                    u32Return = 1UL;
+                }
+                else if((u32ConstTickCountTemp) < *pu32TicksToWait)
+                {
+                    /* Not a genuine timeout. Adjust parameters for time remaining. */
+                    *pu32TicksToWait -= u32ConstTickCountTemp;
+                    OS_Task__vSetTimeOutState(pstTimeOut);
+                    u32Return = 0UL;
+                }
+                else
+                {
+                    u32Return = 1UL;
+                }
+            }
         }
-        else if( ( xConstTickCount - pxTimeOut->xTimeOnEntering ) < *pxTicksToWait )
-        {
-            /* Not a genuine timeout. Adjust parameters for time remaining. */
-            *pxTicksToWait -= ( xConstTickCount -  pxTimeOut->xTimeOnEntering );
-            vTaskSetTimeOutState( pxTimeOut );
-            xReturn = pdFALSE;
-        }
-        else
-        {
-            xReturn = pdTRUE;
-        }
+        OS_Task__vExitCritical();
     }
-    taskEXIT_CRITICAL();
-
-    return xReturn;
+    return (u32Return);
 }
-#endif
+
