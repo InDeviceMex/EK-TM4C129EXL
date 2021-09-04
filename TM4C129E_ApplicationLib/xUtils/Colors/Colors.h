@@ -24,10 +24,9 @@
 #ifndef XUTILS_COLORS_COLORS_H_
 #define XUTILS_COLORS_COLORS_H_
 
-#include <xUtils/Colors/xHeader/Colors_Defines.h>
-#include <xUtils/Colors/xHeader/Colors_Enum.h>
 #include <xUtils/Standard/Standard.h>
+#include <xUtils/Colors/xHeader/Colors_Enum.h>
 
-extern const uint16_t COLORS_u16Values[COLORS_MAX];
+uint16_t COLORS__u16GetValues(uint32_t u32IndexArg);
 
 #endif /* XUTILS_COLORS_COLORS_H_ */

@@ -44,4 +44,10 @@ uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
                                     OS_Task_eNotifyAction enAction,
                                     uint32_t *pu32PreviousNotificationValue,
                                     uint32_t *pu32HigherPriorityTaskWoken);
+
+void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
+                            uint32_t *pu32HigherPriorityTaskWoken);
+
+uint32_t OS_Task__u32NotifyStateClear(OS_Task_Handle_TypeDef pvTask);
+
 #endif /* XOS_TASK_XHEADER_OS_TASK_NOTIFY_H_ */

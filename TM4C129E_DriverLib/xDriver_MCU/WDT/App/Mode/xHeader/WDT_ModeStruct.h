@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vCreateModeStructPointer(WDT_nMODE enMode, WDT_MODE_Typedef* pstMode);
+void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_Typedef* pstMode);
 WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enModeArg);
 
 void WDT__vDeleteModeStruct(WDT_MODE_Typedef* pstMode);

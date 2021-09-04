@@ -33,6 +33,9 @@ OS_Task_List_Typedef* OS_Task__pstGetDelayedTaskList(void);
 uint32_t OS_Task__u32GetNextTaskUnblockTime(void);
 void OS_Task__vSetNextTaskUnblockTime(uint32_t u32ValueArg);
 
+uint32_t OS_Task__u32GetNumOfOverflows(void);
+void OS_Task__vSetNumOfOverflows(uint32_t u32ValueArg);
+
 void OS_Task__vResetNextTaskUnblockTime(void);
 void OS_Task__vInitialiseDelayedTaskLists(void);
 void OS_Task__vSwitchDelayedLists(void);

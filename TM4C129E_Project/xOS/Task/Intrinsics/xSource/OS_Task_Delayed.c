@@ -23,10 +23,10 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Delayed.h>
 
-static OS_Task_List_Typedef* volatile OS_Task_pstDelayedTaskList;             /*< Points to the delayed task list currently being used. */
-static OS_Task_List_Typedef* volatile OS_Task_pstOverflowDelayedTaskList;     /*< Points to the delayed task list currently being used to hold tasks that have overflowed the current tick count. */
+static OS_Task_List_Typedef* volatile OS_Task_pstDelayedTaskList = (OS_Task_List_Typedef*) 0UL;
+static OS_Task_List_Typedef* volatile OS_Task_pstOverflowDelayedTaskList = (OS_Task_List_Typedef*) 0UL;
 
-static volatile int32_t OS_Task_s32NumOfOverflows =  0;
+static volatile uint32_t OS_Task_u32NumOfOverflows =  0UL;
 static volatile uint32_t OS_Task_u32NextTaskUnblockTime = 0UL; /* Initialised to portMAX_DELAY before the scheduler starts. */
 
 
@@ -49,6 +49,17 @@ uint32_t OS_Task__u32GetNextTaskUnblockTime(void)
 void OS_Task__vSetNextTaskUnblockTime(uint32_t u32ValueArg)
 {
     OS_Task_u32NextTaskUnblockTime = u32ValueArg;
+}
+
+uint32_t OS_Task__u32GetNumOfOverflows(void)
+{
+    return (OS_Task_u32NumOfOverflows);
+}
+
+
+void OS_Task__vSetNumOfOverflows(uint32_t u32ValueArg)
+{
+    OS_Task_u32NumOfOverflows = u32ValueArg;
 }
 
 
@@ -92,7 +103,7 @@ void OS_Task__vSwitchDelayedLists(void)
         pstTempList = OS_Task_pstDelayedTaskList;
         OS_Task_pstDelayedTaskList = OS_Task_pstOverflowDelayedTaskList;
         OS_Task_pstOverflowDelayedTaskList = pstTempList;
-        OS_Task_s32NumOfOverflows++;
+        OS_Task_u32NumOfOverflows++;
         OS_Task__vResetNextTaskUnblockTime();
     }
 }

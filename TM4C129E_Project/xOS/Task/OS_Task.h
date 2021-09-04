@@ -25,6 +25,15 @@
 #ifndef XOS_TASK_OS_TASK_H_
 #define XOS_TASK_OS_TASK_H_
 
+/**
+ * TODO:
+ * 1.- Create PASS, FAIL enumeration
+ * 1.- Create TRUE, FALSE enumeration
+ * 2.- Redefine variables to be able to use in other architectures
+ * 3.- Create LIST folder with the adaptation of linked list
+ * 4.- check dependencies of every file
+ * 5.- encapsulate repetitive code
+ */
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 #include <xOS/Task/xHeader/OS_Task_Notify.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>

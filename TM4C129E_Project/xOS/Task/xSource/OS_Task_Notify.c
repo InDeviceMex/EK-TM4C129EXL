@@ -421,3 +421,94 @@ uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
 
     return (u32Return);
 }
+
+void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
+                            uint32_t *pu32HigherPriorityTaskWoken)
+{
+    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
+    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
+    uint32_t u32SavedInterruptStatus = 0UL;
+    uint32_t u32SchedulerSuspended = 0UL;
+
+    if(0UL != (uint32_t) pvTaskToNotify)
+    {
+        pstTCB = (OS_TASK_TCB *) pvTaskToNotify;
+
+        u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+        {
+            enOriginalNotifyState = pstTCB->enNotifyState;
+            pstTCB->enNotifyState = OS_Task_enNotifyState_Notified;
+
+            /* 'Giving' is equivalent to incrementing a count in a counting
+            semaphore. */
+            (pstTCB->u32NotifiedValue)++;
+
+            /* If the task is in the blocked state specifically to wait for a
+            notification then unblock it now. */
+            if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
+            {
+                /* The task should not have been on an event list. */
+                pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
+                if( 0UL == (uint32_t) pstTCBOwnerList)
+                {
+                    u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
+                    if(0UL == u32SchedulerSuspended)
+                    {
+                        CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                        OS_Task__vAddTaskToReadyList(pstTCB);
+                    }
+                    else
+                    {
+                        /* The delayed and ready lists cannot be accessed, so hold
+                        this task pending until the scheduler is resumed. */
+                        pstPendingReadyList = OS_Task__pstGetPendingReadyList();
+                        CDLinkedList__enInsertPreviousLastItemRead(pstPendingReadyList, &(pstTCB->stEventListItem));
+                    }
+
+                    pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+                    if( pstTCB->u32PriorityTask > pstCurrentTCB->u32PriorityTask )
+                    {
+                        /* The notified task has a priority above the currently
+                        executing task so a yield is required. */
+                        if(0UL != (uint32_t) pu32HigherPriorityTaskWoken)
+                        {
+                            *pu32HigherPriorityTaskWoken = 1UL;
+                        }
+                    }
+                }
+            }
+        }
+        OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+    }
+}
+
+uint32_t OS_Task__u32NotifyStateClear(OS_Task_Handle_TypeDef pvTask)
+{
+    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
+    uint32_t u32Return = 1UL;
+
+    pstTCB = (OS_TASK_TCB*) pvTask;
+
+    /* If null is passed in here then it is the calling task that is having
+    its notification state cleared. */
+    pstTCB = OS_Task__pstGetTCBFromHandle(pstTCB);
+
+    OS_Task__vEnterCritical();
+    {
+        if(OS_Task_enNotifyState_Notified == pstTCB->enNotifyState)
+        {
+            pstTCB->enNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
+            u32Return = 1UL;
+        }
+        else
+        {
+            u32Return = 0UL;
+        }
+    }
+    OS_Task__vExitCritical();
+
+    return (u32Return);
+}
