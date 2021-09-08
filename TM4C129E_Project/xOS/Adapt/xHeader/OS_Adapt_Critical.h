@@ -34,8 +34,4 @@ uint32_t OS_Adapt__u32GetCriticalNesting(void);
 void OS_Adapt__vSetCriticalNesting(uint32_t u32NestingValue);
 void OS_Adapt__vIncreaseCriticalNesting(void);
 
-
-
-
-
 #endif /* XOS_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_ */
