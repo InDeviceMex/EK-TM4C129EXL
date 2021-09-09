@@ -86,18 +86,26 @@ GPIO_nDIGITAL_FUNCTION SSI_enGpioInput[MAX_CONFIG]
     },
  };
 
-SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SSI_CONTROL_TypeDef* pstControlConfig, SSI_FRAME_CONTROL_TypeDef* pstFrameControlConfig, uint32_t u32ClockArg, const SSI_LINE_TypeDef* pstLineConfig)
+SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule,
+                             SSI_nMS enMasterSlaveArg ,
+                             const SSI_CONTROL_TypeDef* const pstControlConfig,
+                             SSI_FRAME_CONTROL_TypeDef* const pstFrameControlConfig,
+                             uint32_t u32ClockArg, const SSI_LINE_TypeDef* pstLineConfig)
 {
     SSI_nSTATUS enReturn = SSI_enSTATUS_ERROR;
-    SSI_nENABLE enEnableModule = SSI_enENABLE_UNDEF;
+    SSI_nENABLE enEnableModule = SSI_enENABLE_STOP;
     SSI_nMODULE enModuleFilter = SSI_enMODULE_0;
-    SSI_nBUSY enBusyModule = SSI_enBUSY_UNDEF;
+    SSI_nBUSY enBusyModule = SSI_enBUSY_IDLE;
+    SSI_nFSSHOLD enFssHoldReg = SSI_enFSSHOLD_DIS;
+    SSI_nDIRECTION enDirectionReg = SSI_enDIRECTION_TX;
     uint32_t u32Line[MAX_LINE] = {0UL};
 
     if((0UL != (uint32_t) pstControlConfig) &&
        (0UL != (uint32_t) pstFrameControlConfig) &&
        (0UL != (uint32_t) pstLineConfig))
     {
+        enDirectionReg = pstControlConfig->enDirection;
+        enFssHoldReg = pstControlConfig->enFssHold;
         enModuleFilter = (SSI_nMODULE) MCU__u32CheckParams((uint32_t) enModule,
                                                            (uint32_t) SSI_enMODULE_MAX);
         enEnableModule = SSI__enGetEnable(enModuleFilter);
@@ -158,7 +166,7 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
             pstFrameControlConfig->enLengthData = SSI_enLENGTH_8BITS;
             pstFrameControlConfig->enFormat = SSI_enFORMAT_FREESCALE;
 
-            switch(pstControlConfig->enDirection)
+            switch(enDirectionReg)
             {
             case SSI_enDIRECTION_TX:
                 switch (pstControlConfig->enSSIMode)
@@ -298,10 +306,10 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
         }
         else
         {
-            pstControlConfig->enDirection = SSI_enDIRECTION_TX;
+            enDirectionReg = SSI_enDIRECTION_TX;
             if(SSI_enLENGTH_8BITS != pstFrameControlConfig->enLengthData)
             {
-                pstControlConfig->enFssHold = SSI_enFSSHOLD_DIS;
+                enFssHoldReg = SSI_enFSSHOLD_DIS;
             }
 
             if(SSI_enLINE_ENA == pstControlConfig->enRxLine)
@@ -324,8 +332,8 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg , SS
                                                     pstFrameControlConfig,
                                                     u32ClockArg);
 
-        SSI__vSetFssHold(enModuleFilter, pstControlConfig->enFssHold);
-        SSI__vSetDirection(enModuleFilter, pstControlConfig->enDirection);
+        SSI__vSetFssHold(enModuleFilter, enFssHoldReg);
+        SSI__vSetDirection(enModuleFilter, enDirectionReg);
         SSI__vSetMode(enModuleFilter, pstControlConfig->enSSIMode);
         SSI__vSetEndTransmission(enModuleFilter, pstControlConfig->enEndOfTransmission);
         SSI__vSetMasterSlave(enModuleFilter, enMasterSlaveArg);

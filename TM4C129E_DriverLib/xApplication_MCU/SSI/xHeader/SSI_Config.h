@@ -27,6 +27,11 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg  , SSI_CONTROL_TypeDef* pstControlConfig, SSI_FRAME_CONTROL_TypeDef* pstFrameControlConfig, uint32_t u32ClockArg, const SSI_LINE_TypeDef* pstLineConfig);
+SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule,
+                             SSI_nMS enMasterSlaveArg,
+                             const SSI_CONTROL_TypeDef* const pstControlConfig,
+                             SSI_FRAME_CONTROL_TypeDef* const pstFrameControlConfig,
+                             uint32_t u32ClockArg,
+                             const SSI_LINE_TypeDef* pstLineConfig);
 
 #endif /* XAPPLICATION_MCU_SSI_XHEADER_SSI_CONFIG_H_ */

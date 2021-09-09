@@ -76,10 +76,12 @@ typedef struct
     char pcTaskName[OS_TASK_MAX_TASK_NAME_LEN]; /*< Descriptive name given to the task when created.  Facilitates debugging only. */ /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
     OS_UBase_t uxCriticalNesting;  /*< Holds the critical section nesting depth for ports that do not maintain their own count in the port layer. */
     OS_UBase_t uxTCBNumber;        /*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
+    OS_UBase_t uxTaskNumber;       /*< Stores a number specifically for use by third party trace code. */
     OS_UBase_t uxBasePriority;     /*< The priority last assigned to the task - used by the priority inheritance mechanism. */
     OS_UBase_t uxMutexesHeld;
     OS_Task_HookFunction_Typedef puxfHookFunction;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
+    OS_UBase_t uxRunTimeCounter;   /*< Stores the amount of time the task has spent in the Running state. */
     volatile OS_UBase_t uxNotifiedValue;
     volatile OS_Task_eNotifyState enNotifyState;
 } OS_Task_TCB_TypeDef;

@@ -60,15 +60,15 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
         SSI_enDIRECTION_TX,
         SSI_enMODE_LEGACY,
         SSI_enFSSHOLD_DIS,
-        SSI_enLINE_ENA,
-        SSI_enLINE_DIS,
+        {SSI_enLINE_ENA},
+        {SSI_enLINE_DIS},
         SSI_enLINE_DIS,
         SSI_enLINE_DIS,
         SSI_enLINE_ENA,
         SSI_enLINE_DIS
     };
 
-    const SSI_FRAME_CONTROL_TypeDef pstFrameControlConfigReg =
+    SSI_FRAME_CONTROL_TypeDef pstFrameControlConfigReg =
     {
         SSI_enFORMAT_FREESCALE,
         SSI_enCLOCK_PHASE_FIRST,
@@ -77,8 +77,8 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
     };
     const SSI_LINE_TypeDef pstLineConfigReg =
     {
-        SSI_enLINE_SELECT_PRIMARY,
-        SSI_enLINE_SELECT_PRIMARY,
+        {SSI_enLINE_SELECT_PRIMARY},
+        {SSI_enLINE_SELECT_PRIMARY},
         SSI_enLINE_SELECT_PRIMARY,
         SSI_enLINE_SELECT_PRIMARY,
         SSI_enLINE_SELECT_PRIMARY,

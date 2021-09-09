@@ -23,8 +23,6 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
 
-static OS_Task_Handle_TypeDef OS_Task_pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;         /*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
-
 static volatile OS_UBase_t OS_Task_uxSchedulerSuspended = 0UL;
 static volatile OS_Boolean_t OS_Task_boSchedulerRunning = FALSE;
 
@@ -32,6 +30,7 @@ static volatile OS_UBase_t OS_Task_uxTickCount = 0UL;
 
 OS_Task_Handle_TypeDef* OS_Task__pvGetIdleTaskHandle(void)
 {
+    static OS_Task_Handle_TypeDef OS_Task_pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;
     return (&OS_Task_pvIdleTaskHandle);
 }
 

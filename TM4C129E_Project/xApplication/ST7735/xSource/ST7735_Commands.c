@@ -104,12 +104,15 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
 
         if(0U != u16Delay)
         {
-            u16Delay = (uint16_t) (*pu8AddressArg);             /* Read post-command delay time (u16Delay)*/
-            pu8AddressArg += 1UL;
-            if(255U == u16Delay)
+            if(255U == *pu8AddressArg)
             {
                 u16Delay = 500U;     /* If 255, delay for 500 u16Delay*/
             }
+            else
+            {
+                u16Delay = u8Reg;
+            }
+            pu8AddressArg += 1UL;
             ST7735__vDelay1ms((uint32_t) u16Delay);
         }
     }

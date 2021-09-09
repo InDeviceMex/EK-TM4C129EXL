@@ -26,7 +26,6 @@
 static volatile OS_UBase_t OS_Task_uxCurrentNumberOfTasks = 0UL;
 static OS_UBase_t OS_Task_uxTaskNumber = 0UL;
 
-
 OS_UBase_t OS_Task__uxGetTaskNumber(void)
 {
     return (OS_Task_uxTaskNumber);
