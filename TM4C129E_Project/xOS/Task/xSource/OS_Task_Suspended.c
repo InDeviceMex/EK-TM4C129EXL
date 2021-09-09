@@ -52,7 +52,7 @@ OS_Boolean_t OS_Task__boResumeAll(void)
     /* If uxSchedulerSuspended is zero then this function does not match a
     previous call to vTaskSuspendAll(). */
     uxSchedulerSuspended =  OS_Task__uxGetSchedulerSuspended();
-    if(0UL < uxSchedulerSuspended )
+    if(0UL != uxSchedulerSuspended )
     {
         /* It is possible that an ISR caused a task to be removed from an event
         list while the scheduler was suspended.  If this was the case then the
