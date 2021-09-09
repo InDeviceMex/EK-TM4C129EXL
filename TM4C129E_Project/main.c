@@ -144,15 +144,15 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
-    OS_Task__u32TaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
+    OS_Task__uxTaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
                                   (void*) 0UL, 4UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
+    OS_Task__uxTaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
                                   (void*) 0UL, 2UL, &TaskHandeler[1UL]);
-    OS_Task__u32TaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
+    OS_Task__uxTaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
                                   (void*) 0UL, 5UL, &TaskHandeler[2UL]);
-    OS_Task__u32TaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
+    OS_Task__uxTaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
                                   (void*) 0UL, 3UL, &TaskHandeler[3UL]);
-    OS_Task__u32TaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
+    OS_Task__uxTaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
                                   (void*) 0UL, 3UL, &TaskHandeler[4UL]);
 
     OS_Task__vStartScheduler(1000UL);

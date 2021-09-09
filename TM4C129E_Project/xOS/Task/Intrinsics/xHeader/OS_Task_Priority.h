@@ -27,11 +27,9 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32GetTopReadyPriority(void);
-void OS_Task__vRecordReadyPriority(uint32_t u32PriorityArg);
-uint32_t OS_Task__u32GetHighestPriority(void);
-void OS_Task__vClearReadyPriority(uint32_t u32PriorityArg);
-
-
+OS_UBase_t OS_Task__uxGetTopReadyPriority(void);
+void OS_Task__vRecordReadyPriority(OS_UBase_t uxPriorityArg);
+void OS_Task__vClearReadyPriority(OS_UBase_t uxPriorityArg);
+OS_UBase_t OS_Task__uxGetHighestPriority(void);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_PRIORITY_H_ */

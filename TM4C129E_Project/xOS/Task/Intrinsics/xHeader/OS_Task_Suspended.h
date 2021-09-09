@@ -27,18 +27,18 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32GetPendedTicks(void);
-void OS_Task__vSetPendedTicks(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetPendedTicks(void);
+void OS_Task__vSetPendedTicks(OS_UBase_t uxValueArg);
 void OS_Task__vIncreasePendedTicks(void);
 
-uint32_t OS_Task__u32GetYieldPending(void);
-void OS_Task__vSetYieldPending(uint32_t s32ValueArg);
+OS_Boolean_t OS_Task__boGetYieldPending(void);
+void OS_Task__vSetYieldPending(OS_Boolean_t boValueArg);
 void OS_Task__vMissedYield(void);
 
-OS_Task_List_Typedef* OS_Task__pstGetPendingReadyList(void);
-OS_Task_List_Typedef* OS_Task__pstGetSuspendedTaskList(void);
+OS_List_TypeDef* OS_Task__pstGetPendingReadyList(void);
+OS_List_TypeDef* OS_Task__pstGetSuspendedTaskList(void);
 
-OS_Task_eStatus OS_Task__enIsTaskSuspended(const OS_Task_Handle_TypeDef pvTask);
+OS_Boolean_t OS_Task__boIsTaskSuspended(const OS_Task_Handle_TypeDef pvTask);
 
 void OS_Task__vInitialiseSuspendedTaskLists(void);
 

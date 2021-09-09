@@ -38,7 +38,7 @@ void xTask3_ButtonsLog(void* pvParams)
     EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
     EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
     static uint32_t u32CountTask = 0UL;
-    u32LastWakeTime = OS_Task__u32GetTickCount ();
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);

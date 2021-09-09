@@ -27,9 +27,9 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSetTimeOutState(OS_Task_TimeOut_TypeDef * const pstTimeOut);
+void OS_Task__vSetTimeOutState(OS_Task_TimeOut_TypeDef* const pstTimeOut);
 
-uint32_t OS_Task__u32CheckForTimeOut( OS_Task_TimeOut_TypeDef * const pstTimeOut,
-                               uint32_t * const pu32TicksToWait );
+OS_Boolean_t OS_Task__boCheckForTimeOut( OS_Task_TimeOut_TypeDef * const pstTimeOut,
+                               OS_UBase_t * const puxTicksToWait);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_TIMEOUT_H_ */

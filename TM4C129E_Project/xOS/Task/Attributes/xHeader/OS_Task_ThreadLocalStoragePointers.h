@@ -27,7 +27,10 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToSet, uint32_t u32Index, void *pvValueArg);
-void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToQuery, uint32_t u32Index);
+void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToSet,
+                                            OS_UBase_t uxIndex,
+                                            void *pvValueArg);
+void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToQuery,
+                                              OS_UBase_t uxIndex);
 
 #endif /* XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_THREADLOCALSTORAGEPOINTERS_H_ */

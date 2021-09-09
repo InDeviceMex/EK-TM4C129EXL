@@ -32,72 +32,72 @@
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 
 
-static uint32_t OS_Task__u32GetExpectedIdleTime(void);
+static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void);
 static void OS_Task__vIdle(void* pvParameters);
 
-uint32_t OS_Task__u32GetTickCount(void)
+OS_UBase_t OS_Task__uxGetTickCount(void)
 {
-    uint32_t u32Tick = 0UL;
+    OS_UBase_t uxTick = 0UL;
     OS_Task__vEnterCritical();
     {
-        u32Tick = OS_Task__u32GetTickCount_NotSafe();
+        uxTick = OS_Task__uxGetTickCount_NotSafe();
     }
     OS_Task__vExitCritical();
-    return (u32Tick);
+    return (uxTick);
 }
 
-uint32_t OS_Task__u32GetTickCountFromISR(void)
+OS_UBase_t OS_Task__uxGetTickCountFromISR(void)
 {
-    uint32_t u32Return = 0UL;
-    uint32_t u32SavedInterruptStatus = 0UL;
-    u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+    OS_UBase_t uxReturn = 0UL;
+    OS_UBase_t uxSavedInterruptStatus = 0UL;
+    uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
     {
-        u32Return = OS_Task__u32GetTickCount_NotSafe();
+        uxReturn = OS_Task__uxGetTickCount_NotSafe();
     }
-    OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+    OS_Task__vClearInterruptMaskFromISR(uxSavedInterruptStatus);
 
-    return (u32Return);
+    return (uxReturn);
 }
 
-void OS_Task__vSetStepTick(const uint32_t u32TicksToJump)
+void OS_Task__vSetStepTick(const OS_UBase_t uxTicksToJump)
 {
-    uint32_t u32NextTaskUnblockTime = 0UL;
-    uint32_t u32TickCount = 0UL;
-    uint32_t u32TickNext = 0UL;
+    OS_UBase_t uxNextTaskUnblockTime = 0UL;
+    OS_UBase_t uxTickCount = 0UL;
+    OS_UBase_t uxTickNext = 0UL;
 
-    u32TickCount = OS_Task__u32GetTickCount_NotSafe();
-    u32NextTaskUnblockTime = OS_Task__u32GetNextTaskUnblockTime();
+    uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+    uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
 
-    u32TickNext = u32TickCount + u32TicksToJump;
-    if(u32TickNext <= u32NextTaskUnblockTime)
+    uxTickNext = uxTickCount + uxTicksToJump;
+    if(uxTickNext <= uxNextTaskUnblockTime)
     {
-        OS_Task__vSetTickCount(u32TickNext);
+        OS_Task__vSetTickCount(uxTickNext);
     }
 }
 
 
 
-uint32_t OS_Task__u32TaskIncrementTick(void)
+OS_Boolean_t OS_Task__boIncrementTick(void)
 {
-    OS_TASK_TCB * pstTCB;
-    OS_TASK_TCB * pstCurrentTCB;
-    uint32_t u32DataAuxiliar;
-    uint32_t u32SwitchRequired = 0UL;
-    uint32_t u32ListSize= 0UL;
-    uint32_t u32NextTaskUnblockTime = 0UL;
-    uint32_t u32PendedTicks = 0UL;
-    uint32_t u32YieldPending = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
-    CDLinkedList_nSTATUS enListIsEmpty = CDLinkedList_enSTATUS_OK;
-    OS_Task_List_Typedef* pstDelayedTaskList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstOwnerList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_TCB_TypeDef* pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstDelayedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstOwnerList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstReadyList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxDataAuxiliar = 0UL;
+    OS_UBase_t uxListSize= 0UL;
+    OS_UBase_t uxNextTaskUnblockTime = 0UL;
+    OS_UBase_t uxPendedTicks = 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_Boolean_t boListIsEmpty = FALSE;
+    OS_Boolean_t boYieldPending = FALSE;
+    OS_Boolean_t boSwitchRequired = FALSE;
 
     /* Called by the portable layer each time a tick interrupt occurs.
     Increments the tick then checks to see if the new tick value will cause any
     tasks to be unblocked. */
-    u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-    if(0UL == u32SchedulerSuspended)
+    uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+    if(0UL == uxSchedulerSuspended)
     {
         /* Increment the RTOS tick, switching the delayed and overflowed
         delayed lists if it wraps to 0. */
@@ -105,9 +105,9 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
         {
             /* Minor optimisation.  The tick count cannot change in this
             block. */
-            const uint32_t u32ConstTickCount = OS_Task__u32GetTickCount_NotSafe();
+            const OS_UBase_t uxConstTickCount = OS_Task__uxGetTickCount_NotSafe();
 
-            if(0UL == u32ConstTickCount)
+            if(0UL == uxConstTickCount)
             {
                 OS_Task__vSwitchDelayedLists();
             }
@@ -116,20 +116,20 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
             the queue in the order of their wake time - meaning once one task
             has been found whose block time has not expired there is no need to
             look any further down the list. */
-            u32NextTaskUnblockTime = OS_Task__u32GetNextTaskUnblockTime();
-            if( u32ConstTickCount >= u32NextTaskUnblockTime )
+            uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+            if( uxConstTickCount >= uxNextTaskUnblockTime )
             {
                 while(1UL)
                 {
 
                     pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
-                    enListIsEmpty = CDLinkedList__enIsEmpty(pstDelayedTaskList);
-                    if( CDLinkedList_enSTATUS_OK == enListIsEmpty )
+                    boListIsEmpty = OS_List__boIsEmpty(pstDelayedTaskList);
+                    if( FALSE != boListIsEmpty )
                     {
-                        /* The delayed list is empty.  Set u32NextTaskUnblockTime
+                        /* The delayed list is empty.  Set uxNextTaskUnblockTime
                         to the maximum possible value so it is extremely
                         unlikely that the
-                        if( OS_Task_u32TickCount >= u32NextTaskUnblockTime ) test will pass
+                        if( OS_Task_uxTickCount >= uxNextTaskUnblockTime ) test will pass
                         next time through. */
                         OS_Task__vSetNextTaskUnblockTime(OS_ADAPT_MAX_DELAY);
                         break;
@@ -140,29 +140,29 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
                         item at the head of the delayed list.  This is the time
                         at which the task at the head of the delayed list must
                         be removed from the Blocked state. */
-                        pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(pstDelayedTaskList);
-                        u32DataAuxiliar = CDLinkedList_Item__u32GetValue(&( pstTCB->stGenericListItem));
+                        pstTCB = (OS_Task_TCB_TypeDef *) OS_List__pvGetOwnerOfHeadEntry(pstDelayedTaskList);
+                        uxDataAuxiliar = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));
 
-                        if( u32ConstTickCount < u32DataAuxiliar )
+                        if( uxConstTickCount < uxDataAuxiliar )
                         {
                             /* It is not time to unblock this item yet, but the
                             data auxiliar is the time at which the task at the head
                             of the blocked list must be removed from the Blocked
                             state - so record the data auxiliar in
-                            u32NextTaskUnblockTime. */
-                            OS_Task__vSetNextTaskUnblockTime(u32NextTaskUnblockTime);
+                            uxNextTaskUnblockTime. */
+                            OS_Task__vSetNextTaskUnblockTime(uxNextTaskUnblockTime);
                             break;
                         }
 
                         /* It is time to remove the item from the Blocked state. */
-                        ( void ) CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
+                        (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
 
                         /* Is the task waiting on an event also?  If so remove
                         it from the event list. */
-                        pstOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stEventListItem));
-                        if(0UL != (uint32_t) pstOwnerList)
+                        pstOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+                        if(0UL != (OS_UBase_t) pstOwnerList)
                         {
-                            ( void ) CDLinkedList__enRemove(&( pstTCB->stEventListItem));
+                            (void) OS_List__uxRemove(&(pstTCB->stEventListItem));
                         }
 
                         /* Place the unblocked task into the appropriate ready
@@ -177,9 +177,9 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
                             priority that is equal to or higher than the
                             currently executing task. */
                             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                            if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
+                            if( pstTCB->uxPriorityTask >= pstCurrentTCB->uxPriorityTask )
                             {
-                                u32SwitchRequired = 1UL;
+                                boSwitchRequired = TRUE;
                             }
                         }
                     }
@@ -192,19 +192,19 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
             processing time (time slice) if preemption is on, and the application
             writer has not explicitly turned time slicing off. */
             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-            pstReadyList = OS_Task__pstGetReadyTasksLists( pstCurrentTCB->u32PriorityTask);
-            u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
-            if( 1UL < u32ListSize)
+            pstReadyList = OS_Task__pstGetReadyTasksLists(pstCurrentTCB->uxPriorityTask);
+            uxListSize = OS_List__uxGetLength(pstReadyList);
+            if( 1UL < uxListSize)
             {
-                u32SwitchRequired = 1UL;
+                boSwitchRequired = TRUE;
             }
         }
 
         {
             /* Guard against the tick hook being called when the pended tick
             count is being unwound (when the scheduler is being unlocked). */
-            u32PendedTicks = OS_Task__u32GetPendedTicks();
-            if(0UL == u32PendedTicks)
+            uxPendedTicks = OS_Task__uxGetPendedTicks();
+            if(0UL == uxPendedTicks)
             {
                 OS_External__vApplicationTickHook();
             }
@@ -222,31 +222,31 @@ uint32_t OS_Task__u32TaskIncrementTick(void)
     }
 
     {
-        u32YieldPending = OS_Task__u32GetYieldPending();
-        if(0UL != u32YieldPending)
+        boYieldPending = OS_Task__boGetYieldPending();
+        if(FALSE != boYieldPending)
         {
-            u32SwitchRequired = 1UL;
+            boSwitchRequired = TRUE;
         }
     }
 
-    return (u32SwitchRequired);
+    return (boSwitchRequired);
 }
 
 
 void OS_Task__vSwitchContext(void)
 {
 
-    uint32_t u32SchedulerSuspended = 0UL;
-    u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-    if(0UL != u32SchedulerSuspended)
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+    if(0UL != uxSchedulerSuspended)
     {
         /* The scheduler is currently suspended - do not allow a context
         switch. */
-        OS_Task__vSetYieldPending(1UL);
+        OS_Task__vSetYieldPending(TRUE);
     }
     else
     {
-        OS_Task__vSetYieldPending(0UL);
+        OS_Task__vSetYieldPending(FALSE);
 
         /* Check for stack overflow, if configured. */
         OS_Task__vCheckStackOverflow();
@@ -257,45 +257,45 @@ void OS_Task__vSwitchContext(void)
     }
 }
 
-static uint32_t OS_Task__u32GetExpectedIdleTime(void)
+static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void)
 {
-    uint32_t u32Return = 0UL;
-    OS_TASK_TCB*  pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32ListSize = 0UL;
-    uint32_t u32TickCount = 0UL;
-    uint32_t u32NextTaskUnblockTime = 0UL;
+    OS_Task_TCB_TypeDef*  pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxListSize = 0UL;
+    OS_UBase_t uxTickCount = 0UL;
+    OS_UBase_t uxNextTaskUnblockTime = 0UL;
+    OS_UBase_t uxReturn = 0UL;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
     pstList = OS_Task__pstGetReadyTasksLists(OS_TASK_IDLE_PRIORITY);
-    u32ListSize = CDLinkedList__u32GetSize(pstList);
-    if(OS_TASK_IDLE_PRIORITY < pstCurrentTCB->u32PriorityTask)
+    uxListSize = OS_List__uxGetLength(pstList);
+    if(OS_TASK_IDLE_PRIORITY < pstCurrentTCB->uxPriorityTask)
     {
-        u32Return = 0UL;
+        uxReturn = 0UL;
     }
-    else if(1UL < u32ListSize)
+    else if(1UL < uxListSize)
     {
         /* There are other idle priority tasks in the ready state.  If
         time slicing is used then the very next tick interrupt must be
         processed. */
-        u32Return = 0UL;
+        uxReturn = 0UL;
     }
     else
     {
-        u32NextTaskUnblockTime = OS_Task__u32GetNextTaskUnblockTime();
-        u32TickCount = OS_Task__u32GetTickCount_NotSafe();
-        u32Return = u32NextTaskUnblockTime - u32TickCount;
+        uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+        uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+        uxReturn = uxNextTaskUnblockTime - uxTickCount;
     }
 
-    return (u32Return);
+    return (uxReturn);
 }
 
 static void OS_Task__vIdle(void* pvParameters)
 {
-    uint32_t u32ListSize = (uint32_t) pvParameters;
-    uint32_t u32TickCount = (uint32_t) pvParameters;
-    uint32_t u32NextTaskUnblockTime = (uint32_t) pvParameters;
-    OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
+    OS_UBase_t uxListSize = (OS_UBase_t) pvParameters;
+    OS_UBase_t uxTickCount = (OS_UBase_t) pvParameters;
+    OS_UBase_t uxNextTaskUnblockTime = (OS_UBase_t) pvParameters;
+    OS_List_TypeDef* pstReadyList = (OS_List_TypeDef*) 0UL;
     /* Stop warnings. */
     (void) pvParameters;
 
@@ -315,9 +315,9 @@ static void OS_Task__vIdle(void* pvParameters)
             the ready list at the idle priority contains more than one task
             then a task other than the idle task is ready to execute. */
             pstReadyList = OS_Task__pstGetReadyTasksLists(OS_TASK_IDLE_PRIORITY);
-            u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
+            uxListSize = OS_List__uxGetLength(pstReadyList);
 
-            if(1UL < u32ListSize)
+            if(1UL < uxListSize)
             {
                 OS_Task__vYield();
             }
@@ -337,16 +337,16 @@ static void OS_Task__vIdle(void* pvParameters)
         user defined low power mode implementations require
         configUSE_TICKLESS_IDLE to be set to a value other than 1. */
         {
-            uint32_t u32ExpectedIdleTime = 0UL;
+            OS_UBase_t uxExpectedIdleTime = 0UL;
 
             /* It is not desirable to suspend then resume the scheduler on
             each iteration of the idle task.  Therefore, a preliminary
             test of the expected idle time is performed without the
             scheduler suspended.  The result here is not necessarily
             valid. */
-            u32ExpectedIdleTime = OS_Task__u32GetExpectedIdleTime();
+            uxExpectedIdleTime = OS_Task__uxGetExpectedIdleTime();
 
-            if( u32ExpectedIdleTime >= OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP )
+            if( uxExpectedIdleTime >= OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP )
             {
                 OS_Task__vSuspendAll();
                 {
@@ -354,28 +354,27 @@ static void OS_Task__vIdle(void* pvParameters)
                     time can be sampled again, and this time its value can
                     be used. */
 
-                    u32NextTaskUnblockTime = OS_Task__u32GetNextTaskUnblockTime();
-                    u32TickCount = OS_Task__u32GetTickCount_NotSafe();
-                    if(u32NextTaskUnblockTime >= u32TickCount)
+                    uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+                    uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+                    if(uxNextTaskUnblockTime >= uxTickCount)
                     {
-                        u32ExpectedIdleTime = OS_Task__u32GetExpectedIdleTime();
+                        uxExpectedIdleTime = OS_Task__uxGetExpectedIdleTime();
 
-                        if(OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP <= u32ExpectedIdleTime)
+                        if(OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP <= uxExpectedIdleTime)
                         {
-                            /* portSUPPRESS_TICKS_AND_SLEEP( u32ExpectedIdleTime );*/
+                            /* portSUPPRESS_TICKS_AND_SLEEP( uxExpectedIdleTime );*/
                         }
                     }
                 }
-                (void) OS_Task__u32ResumeAll();
+                (void) OS_Task__boResumeAll();
             }
         }
     }
 }
 
-void OS_Task__vStartScheduler(uint32_t u32UsPeriod)
+void OS_Task__vStartScheduler(OS_UBase_t uxUsPeriod)
 {
-    uint32_t u32Return = 0UL;
-    uint32_t u32Status = 0UL;
+    OS_UBase_t uxReturn = 0UL;
     OS_Task_Handle_TypeDef* pvIdleTaskHandle = (OS_Task_Handle_TypeDef*) 0UL;
 
     /* Add the idle task at the lowest priority. */
@@ -383,19 +382,24 @@ void OS_Task__vStartScheduler(uint32_t u32UsPeriod)
         /* Create the idle task, storing its handle in xIdleTaskHandle so it can
         be returned by the xTaskGetIdleTaskHandle() function. */
         pvIdleTaskHandle = OS_Task__pvGetIdleTaskHandle();
-        u32Return = OS_Task__u32TaskGenericCreate(&OS_Task__vIdle, "IDLE", OS_TASK_IDLE_STACK_SIZE, (void *) 0UL, ( OS_TASK_IDLE_PRIORITY ), pvIdleTaskHandle ); /*lint !e961 MISRA exception, justified as it is not a redundant explicit cast to all supported compilers. */
+        uxReturn = OS_Task__uxTaskGenericCreate(&OS_Task__vIdle,
+                                                "IDLE",
+                                                OS_TASK_IDLE_STACK_SIZE,
+                                                (void *) 0UL,
+                                                (OS_TASK_IDLE_PRIORITY),
+                                                pvIdleTaskHandle );
     }
 
     #if ( configUSE_TIMERS == 1 )
     {
-        if(1UL == u32Return)
+        if(1UL == uxReturn)
         {
-            u32Return = xTimerCreateTimerTask();
+            uxReturn = xTimerCreateTimerTask();
         }
     }
     #endif /* configUSE_TIMERS */
 
-    if(1UL == u32Return)
+    if(1UL == uxReturn)
     {
         /* Interrupts are turned off here, to ensure a tick does not occur
         before or during the call to xPortStartScheduler().  The stacks of
@@ -405,7 +409,7 @@ void OS_Task__vStartScheduler(uint32_t u32UsPeriod)
         OS_Task__vDisableInterrupts();
 
         OS_Task__vSetNextTaskUnblockTime(OS_ADAPT_MAX_DELAY);
-        OS_Task__vSetSchedulerRunning(1UL);
+        OS_Task__vSetSchedulerRunning(TRUE);
         OS_Task__vSetTickCount(0UL);
 
         /* If configGENERATE_RUN_TIME_STATS is defined then the following
@@ -416,23 +420,14 @@ void OS_Task__vStartScheduler(uint32_t u32UsPeriod)
 
         /* Setting up the timer tick is hardware specific and thus in the
         portable interface. */
-        u32Status = OS_Adapt__u32StartScheduler(u32UsPeriod);
-        if(0UL != u32Status)
-        {
-            /* Should not reach here as if the scheduler is running the
-            function will not return. */
-        }
-        else
-        {
-            /* Should only reach here if a task calls xTaskEndScheduler(). */
-        }
+        OS_Adapt__vStartScheduler(uxUsPeriod);
     }
     else
     {
         /* This line will only be reached if the kernel could not be started,
         because there was not enough FreeRTOS heap to create the idle task
         or the timer task. */
-        if(0UL == u32Return)
+        if(0UL == uxReturn)
         {
             OS_Task__vDisableInterrupts();
             while(1UL);
@@ -446,7 +441,7 @@ void OS_Task__vEndScheduler( void )
     routine so the original ISRs can be restored if necessary.  The port
     layer must ensure interrupts enable bit is left in the correct state. */
     OS_Task__vDisableInterrupts();
-    OS_Task__vSetSchedulerRunning(0UL);
+    OS_Task__vSetSchedulerRunning(FALSE);
     OS_Adapt__vEndScheduler();
 }
 

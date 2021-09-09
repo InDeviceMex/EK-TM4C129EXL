@@ -27,9 +27,7 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_Task_List_Typedef* OS_Task__pstGetReadyTasksLists(uint32_t u32Index);
-
+OS_List_TypeDef* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex);
 void OS_Task__vInitialiseReadyTaskLists(void);
-
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_READY_H_ */

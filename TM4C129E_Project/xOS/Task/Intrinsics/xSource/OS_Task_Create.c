@@ -23,40 +23,36 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Create.h>
 
-/* Other file private variables. --------------------------------*/
-static volatile uint32_t OS_Task_u32CurrentNumberOfTasks = 0UL;
-static uint32_t OS_Task_u32TaskNumber = 0UL;
+static volatile OS_UBase_t OS_Task_uxCurrentNumberOfTasks = 0UL;
+static OS_UBase_t OS_Task_uxTaskNumber = 0UL;
 
 
-uint32_t OS_Task__u32GetTaskNumber(void)
+OS_UBase_t OS_Task__uxGetTaskNumber(void)
 {
-    return (OS_Task_u32TaskNumber);
+    return (OS_Task_uxTaskNumber);
 }
 
-void OS_Task__vSetTaskNumber(uint32_t u32ValueArg)
+void OS_Task__vSetTaskNumber(OS_UBase_t uxValueArg)
 {
-    OS_Task_u32TaskNumber = u32ValueArg;
+    OS_Task_uxTaskNumber = uxValueArg;
 }
 
 void OS_Task__vIncreaseTaskNumber(void)
 {
-    ++OS_Task_u32TaskNumber;
+    ++OS_Task_uxTaskNumber;
 }
 
-uint32_t OS_Task__u32GetCurrentNumberOfTasks(void)
+OS_UBase_t OS_Task__uxGetCurrentNumberOfTasks(void)
 {
-    return (OS_Task_u32CurrentNumberOfTasks);
+    return (OS_Task_uxCurrentNumberOfTasks);
 }
 
 void OS_Task__vIncreaseCurrentNumberOfTasks(void)
 {
-    ++OS_Task_u32CurrentNumberOfTasks;
+    ++OS_Task_uxCurrentNumberOfTasks;
 }
 
 void OS_Task__vDecreaseCurrentNumberOfTasks(void)
 {
-    --OS_Task_u32CurrentNumberOfTasks;
+    --OS_Task_uxCurrentNumberOfTasks;
 }
-
-
-

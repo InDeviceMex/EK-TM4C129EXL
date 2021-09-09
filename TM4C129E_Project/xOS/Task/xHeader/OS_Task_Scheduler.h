@@ -27,14 +27,14 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32GetTickCount(void);
-uint32_t OS_Task__u32GetTickCountFromISR(void);
+OS_UBase_t OS_Task__uxGetTickCount(void);
+OS_UBase_t OS_Task__uxGetTickCountFromISR(void);
 
-uint32_t OS_Task__u32TaskIncrementTick(void);
+OS_Boolean_t OS_Task__boIncrementTick(void);
 void OS_Task__vSwitchContext(void);
-void OS_Task__vStartScheduler(uint32_t u32UsPeriod);
+void OS_Task__vStartScheduler(OS_UBase_t uxUsPeriod);
 void OS_Task__vEndScheduler( void );
 
-void OS_Task__vSetStepTick(const uint32_t u32TicksToJump);
+void OS_Task__vSetStepTick(const OS_UBase_t uxTicksToJump);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_SCHEDULER_H_ */

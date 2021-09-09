@@ -33,7 +33,7 @@ uint32_t CDLinkedList_Item__u32GetValue(const CDLinkedListItem_TypeDef* const ps
     return (u32ValueItemReg);
 }
 
-void CDLinkedList_Item__vSetValue(CDLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg)
+void CDLinkedList_Item__vSetValue(CDLinkedListItem_TypeDef* const pstItem, uint32_t u32ValueItemArg)
 {
     if(0UL != (uint32_t) pstItem)
     {

@@ -28,8 +28,8 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
 void OS_Task__vSelectHighestPriorityTask(void);
-void OS_Task__vResetReadyPriority(uint32_t u32PrioritArg);
+void OS_Task__vResetReadyPriority(OS_UBase_t uxPrioritArg);
 
-void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg);
+void OS_Task__vAddTaskToReadyList(OS_Task_TCB_TypeDef* pstTCBArg);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_READY_H_ */

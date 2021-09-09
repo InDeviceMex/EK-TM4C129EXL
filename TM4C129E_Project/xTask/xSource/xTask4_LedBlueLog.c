@@ -33,7 +33,7 @@ void xTask4_LedBlueLog(void* pvParams)
     uint32_t u32LastWakeTime = 0UL;
     uint32_t u32PinValue = (uint32_t) pvParams;
     static uint32_t u32CountTask = 0UL;
-    u32LastWakeTime = OS_Task__u32GetTickCount ();
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__enSetDigitalConfig(GPIO_enGPIOG0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     while(1UL)
     {

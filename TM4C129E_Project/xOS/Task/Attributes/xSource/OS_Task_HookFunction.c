@@ -25,78 +25,80 @@
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg, OS_Task_HookFunction_Typedef pu32fHookFunctionArg)
+void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
+                               OS_Task_HookFunction_Typedef puxfHookFunctionArg)
 {
-    OS_TASK_TCB *pstTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB *pstTCBCurrent = (OS_TASK_TCB*) 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
 
     /* If pvTaskArg is NULL then it is the task hook of the calling task that is
     getting set. */
-    if(0UL == (uint32_t) pvTaskArg)
+    if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
-        pstTCB = (OS_TASK_TCB*) pvTaskArg;
+        pstTCB = (OS_Task_TCB_TypeDef*) pvTaskArg;
     }
 
     /* Save the hook function in the TCB.  A critical section is required as
     the value can be accessed from an interrupt. */
     OS_Task__vEnterCritical();
-    pstTCB->pu32fHookFunction = pu32fHookFunctionArg;
+    pstTCB->puxfHookFunction = puxfHookFunctionArg;
     OS_Task__vExitCritical();
 }
-OS_Task_HookFunction_Typedef OS_Task__pu32fGetHookFunction(OS_Task_Handle_TypeDef pvTaskArg)
+OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_TypeDef pvTaskArg)
 {
-    OS_TASK_TCB *pstTCB;
-    OS_TASK_TCB *pstTCBCurrent = (OS_TASK_TCB*) 0UL;
-    OS_Task_HookFunction_Typedef pu32fReturn = (OS_Task_HookFunction_Typedef) 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_HookFunction_Typedef puxfReturn = (OS_Task_HookFunction_Typedef) 0UL;
 
     /* If pvTaskArg is NULL then we are setting our own task hook. */
-    if(0UL == (uint32_t) pvTaskArg)
+    if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
-        pstTCB = (OS_TASK_TCB *) pvTaskArg;
+        pstTCB = (OS_Task_TCB_TypeDef *) pvTaskArg;
     }
 
     /* Save the hook function in the TCB.  A critical section is required as
     the value can be accessed from an interrupt. */
     OS_Task__vEnterCritical();
     {
-        pu32fReturn = pstTCB->pu32fHookFunction;
+        puxfReturn = pstTCB->puxfHookFunction;
     }
     OS_Task__vExitCritical();
 
-    return (pu32fReturn);
+    return (puxfReturn);
 }
 
-uint32_t OS_task__u32CallHookFunction(OS_Task_Handle_TypeDef pvTaskArg, void* pvParameterArg)
+OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
+                                       void* pvParameterArg)
 {
-    OS_TASK_TCB *pstTCB;
-    OS_TASK_TCB *pstTCBCurrent = (OS_TASK_TCB*) 0UL;
-    uint32_t u32Return = 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_UBase_t uxReturn = 0UL;
 
     /* If pvTaskArg is NULL then we are calling our own task hook. */
-    if(0UL == (uint32_t) pvTaskArg)
+    if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
-        pstTCB = (OS_TASK_TCB*) pvTaskArg;
+        pstTCB = (OS_Task_TCB_TypeDef*) pvTaskArg;
     }
 
-    if(0UL != (uint32_t) pstTCB->pu32fHookFunction)
+    if(0UL != (OS_UBase_t) pstTCB->puxfHookFunction)
     {
-        u32Return = pstTCB->pu32fHookFunction(pvParameterArg);
+        uxReturn = pstTCB->puxfHookFunction(pvParameterArg);
     }
 
-    return (u32Return);
+    return (uxReturn);
 }

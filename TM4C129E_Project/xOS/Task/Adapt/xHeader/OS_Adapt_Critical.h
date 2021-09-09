@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 15 jul. 2021 @endverbatim
+ * @verbatim 9 sep. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,19 +19,19 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
-#define XOS_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
+#ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
+#define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
 
-#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
 
 void OS_Adapt__vExitCritical(void);
 void OS_Adapt__vEnterCritical(void);
 
-uint32_t OS_Adapt__u32GetCriticalNesting(void);
-void OS_Adapt__vSetCriticalNesting(uint32_t u32NestingValue);
+OS_UBase_t OS_Adapt__uxGetCriticalNesting(void);
+void OS_Adapt__vSetCriticalNesting(OS_UBase_t uxNestingValue);
 void OS_Adapt__vIncreaseCriticalNesting(void);
 
-#endif /* XOS_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_ */
+#endif /* XOS_TASK_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_ */

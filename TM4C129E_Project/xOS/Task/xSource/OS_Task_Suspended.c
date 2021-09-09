@@ -31,28 +31,28 @@
 void OS_Task__vSuspendAll(void)
 {
     /* A critical section is not required as the variable is of type
-    uint32_t.  Please read Richard Barry's reply in the following link to a
+    OS_UBase_t.  Please read Richard Barry's reply in the following link to a
     post in the FreeRTOS support forum before reporting this as a bug! -
     http://goo.gl/wu4acr */
     OS_Task__vIncreaseSchedulerSuspended();
 }
 
-uint32_t OS_Task__u32ResumeAll(void)
+OS_Boolean_t OS_Task__boResumeAll(void)
 {
-    OS_TASK_TCB *pstTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32AlreadyYielded = 0UL;
-    uint32_t u32PendedTicks = 0UL;
-    uint32_t u32YieldPending = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
-    uint32_t u32CurrentNumberOfTasks = 0UL;
-    CDLinkedList_nSTATUS enIsListEmpty = CDLinkedList_enSTATUS_OK;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstPendingReadyList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxPendedTicks = 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
+    OS_Boolean_t boYieldPending = FALSE;
+    OS_Boolean_t boAlreadyYielded = FALSE;
+    OS_Boolean_t boIsListEmpty = FALSE;
 
-    /* If u32SchedulerSuspended is zero then this function does not match a
+    /* If uxSchedulerSuspended is zero then this function does not match a
     previous call to vTaskSuspendAll(). */
-    u32SchedulerSuspended =  OS_Task__u32GetSchedulerSuspended();
-    if(0UL < u32SchedulerSuspended )
+    uxSchedulerSuspended =  OS_Task__uxGetSchedulerSuspended();
+    if(0UL < uxSchedulerSuspended )
     {
         /* It is possible that an ISR caused a task to be removed from an event
         list while the scheduler was suspended.  If this was the case then the
@@ -61,57 +61,58 @@ uint32_t OS_Task__u32ResumeAll(void)
         tasks from this list into their appropriate ready list. */
         OS_Task__vEnterCritical();
         {
-            --u32SchedulerSuspended;
-            OS_Task__vSetSchedulerSuspended(u32SchedulerSuspended);
+            --uxSchedulerSuspended;
+            OS_Task__vSetSchedulerSuspended(uxSchedulerSuspended);
 
-            if(0UL == u32SchedulerSuspended)
+            if(0UL == uxSchedulerSuspended)
             {
-                u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
-                if(0UL <  u32CurrentNumberOfTasks)
+                uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
+                if(0UL <  uxCurrentNumberOfTasks)
                 {
                     /* Move any readied tasks from the pending list into the
                     appropriate ready list. */
                     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
-                    enIsListEmpty = CDLinkedList__enIsEmpty(pstPendingReadyList);
-                    while(CDLinkedList_enSTATUS_ERROR == enIsListEmpty)
+                    boIsListEmpty = OS_List__boIsEmpty(pstPendingReadyList);
+                    while(FALSE == boIsListEmpty)
                     {
-                        pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(pstPendingReadyList);
-                        CDLinkedList__enRemove(&(pstTCB->stEventListItem));
-                        CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                        pstTCB = (OS_Task_TCB_TypeDef *) OS_List__pvGetOwnerOfHeadEntry(pstPendingReadyList);
+
+                        (void) OS_List__uxRemove(&(pstTCB->stEventListItem));
+                        (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                         OS_Task__vAddTaskToReadyList(pstTCB);
 
                         /* If the moved task has a priority higher than the current
                         task then a yield must be performed. */
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                        if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
+                        if( pstTCB->uxPriorityTask >= pstCurrentTCB->uxPriorityTask )
                         {
-                            OS_Task__vSetYieldPending(1UL);
+                            OS_Task__vSetYieldPending(TRUE);
                         }
 
-                        enIsListEmpty = CDLinkedList__enIsEmpty(pstPendingReadyList);
+                        boIsListEmpty = OS_List__boIsEmpty(pstPendingReadyList);
                     }
 
                     /* If any ticks occurred while the scheduler was suspended then
                     they should be processed now.  This ensures the tick count does
                     not slip, and that any delayed tasks are resumed at the correct
                     time. */
-                    u32PendedTicks = OS_Task__u32GetPendedTicks();
-                    if(0UL < u32PendedTicks)
+                    uxPendedTicks = OS_Task__uxGetPendedTicks();
+                    if(0UL < uxPendedTicks)
                     {
-                        while( 0UL < u32PendedTicks)
+                        while( 0UL < uxPendedTicks)
                         {
-                            if( OS_Task__u32TaskIncrementTick() != 0UL )
+                            if(FALSE != OS_Task__boIncrementTick())
                             {
-                                OS_Task__vSetYieldPending(1UL);
+                                OS_Task__vSetYieldPending(TRUE);
                             }
-                            --u32PendedTicks;
-                            OS_Task__vSetPendedTicks(u32PendedTicks);
+                            --uxPendedTicks;
+                            OS_Task__vSetPendedTicks(uxPendedTicks);
                         }
                     }
-                    u32YieldPending = OS_Task__u32GetYieldPending();
-                    if(1UL == u32YieldPending)
+                    boYieldPending = OS_Task__boGetYieldPending();
+                    if(TRUE == boYieldPending)
                     {
-                        u32AlreadyYielded = 1UL;
+                        boAlreadyYielded = TRUE;
                         OS_Task__vYieldIfUsingPreemption();
                     }
                 }
@@ -120,20 +121,20 @@ uint32_t OS_Task__u32ResumeAll(void)
         OS_Task__vExitCritical();
     }
 
-    return (u32AlreadyYielded);
+    return (boAlreadyYielded);
 }
 
 
 void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
 {
-    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB *) 0UL;
-    OS_TASK_TCB *pstTCB = (OS_TASK_TCB *) 0UL;
-    uint32_t u32SchedulerRunning = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
-    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32ListSize = 0UL;
-    uint32_t u32CurrentNumberOfTasks = 0UL;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_List_TypeDef* pstSuspendedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_UBase_t uxListSize = 0UL;
+    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
+    OS_Boolean_t boSchedulerRunning = FALSE;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
@@ -145,33 +146,30 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
 
         /* Remove task from the ready/delayed list and place in the
         suspended list. */
-
-        pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
-        CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
-        u32ListSize = CDLinkedList__u32GetSize(pstList);
-        if(0UL == u32ListSize)
+        uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
+        if(0UL == uxListSize)
         {
-            OS_Task__vResetReadyPriority(pstTCB->u32PriorityTask);
+            OS_Task__vResetReadyPriority(pstTCB->uxPriorityTask);
         }
 
         /* Is the task waiting on an event also? */
-        pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stEventListItem));
-        if( 0UL != (uint32_t)pstList )
+        pstList = (OS_List_TypeDef*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+        if( 0UL != (OS_UBase_t) pstList )
         {
-            (void) CDLinkedList__enRemove(&(pstTCB->stEventListItem));
+            (void) OS_List__uxRemove(&(pstTCB->stEventListItem));
         }
-        CDLinkedList__enInsertPreviousLastItemRead( pstSuspendedTaskList, &(pstTCB->stGenericListItem));
+        OS_List__vInsertEnd(pstSuspendedTaskList, &(pstTCB->stGenericListItem));
     }
     OS_Task__vExitCritical();
 
-    u32SchedulerRunning =  OS_Task__u32GetSchedulerRunning();
+    boSchedulerRunning =  OS_Task__boGetSchedulerRunning();
     if( pstTCB == pstCurrentTCB )
     {
-        if(0UL != u32SchedulerRunning)
+        if(FALSE != boSchedulerRunning)
         {
-            u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
+            uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
             /* The current task has just been suspended. */
-            if(0UL == u32SchedulerSuspended)
+            if(0UL == uxSchedulerSuspended)
             {
                 OS_Task__vYieldWithinAPI();
             }
@@ -181,15 +179,15 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
             /* The scheduler is not running, but the task that was pointed
             to by pstCurrentTCB has just been suspended and pstCurrentTCB
             must be adjusted to point to a different task. */
-            u32ListSize = CDLinkedList__u32GetSize(pstSuspendedTaskList);
-            u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
-            if( u32ListSize == u32CurrentNumberOfTasks )
+            uxListSize = OS_List__uxGetLength(pstSuspendedTaskList);
+            uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
+            if( uxListSize == uxCurrentNumberOfTasks )
             {
                 /* No other tasks are ready, so set pstCurrentTCB back to
                 NULL so when the next task is created pstCurrentTCB will
                 be set to point to it no matter what its relative priority
                 is. */
-                pstCurrentTCB = (OS_TASK_TCB*) 0UL;
+                pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
             }
             else
             {
@@ -199,7 +197,7 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
     }
     else
     {
-        if(0UL != u32SchedulerRunning)
+        if(FALSE != boSchedulerRunning)
         {
             /* A task other than the currently running task was suspended,
             reset the next expected unblock time in case it referred to the
@@ -215,31 +213,32 @@ void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend)
 
 void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume)
 {
-    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB *) 0UL;
-    OS_TASK_TCB * const pstTCB = ( OS_TASK_TCB * ) pvTaskToResume;
-    OS_Task_eStatus enStatus = OS_Task_enStatus_Ok;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_Task_TCB_TypeDef * const pstTCB = ( OS_Task_TCB_TypeDef * ) pvTaskToResume;
+    OS_Boolean_t boStatus = FALSE;
 
     /* It does not make sense to resume the calling task. */
-    if(0UL != (uint32_t) pvTaskToResume)
+    if(0UL != (OS_UBase_t) pvTaskToResume)
     {
         /* The parameter cannot be NULL as it is impossible to resume the
         currently executing task. */
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-        if((0UL != (uint32_t) pstTCB) && ((uint32_t) pstTCB != (uint32_t) pstCurrentTCB))
+        if((0UL != (OS_UBase_t) pstTCB) &&
+           ((OS_UBase_t) pstTCB != (OS_UBase_t) pstCurrentTCB))
         {
             OS_Task__vEnterCritical();
             {
-                enStatus = OS_Task__enIsTaskSuspended(pstTCB);
-                if(OS_Task_enStatus_Ok == enStatus)
+                boStatus = OS_Task__boIsTaskSuspended(pstTCB);
+                if(FALSE != boStatus)
                 {
 
                     /* As we are in a critical section we can access the ready
                     lists even if the scheduler is suspended. */
-                    ( void ) CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
+                    (void) OS_List__uxRemove(&( pstTCB->stGenericListItem));
                     OS_Task__vAddTaskToReadyList(pstTCB);
 
                     /* We may have just resumed a higher priority task. */
-                    if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
+                    if( pstTCB->uxPriorityTask >= pstCurrentTCB->uxPriorityTask )
                     {
                         /* This yield may not cause the task just resumed to run,
                         but will leave the lists in the correct state for the
@@ -253,36 +252,36 @@ void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume)
     }
 }
 
-uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
+OS_Boolean_t OS_Task__boResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
 {
-    uint32_t u32YieldRequired = 0UL;
-    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB *) 0UL;
-    OS_TASK_TCB * const pstTCB = ( OS_TASK_TCB * ) pvTaskToResume;
-    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32SavedInterruptStatus = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
-    OS_Task_eStatus enStatus = OS_Task_enStatus_Ok;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_Task_TCB_TypeDef * const pstTCB = ( OS_Task_TCB_TypeDef * ) pvTaskToResume;
+    OS_List_TypeDef* pstPendingReadyList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxSavedInterruptStatus = 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_Boolean_t boYieldRequired = FALSE;
+    OS_Boolean_t boStatus = FALSE;
 
-    if(0UL != (uint32_t) pvTaskToResume)
+    if(0UL != (OS_UBase_t) pvTaskToResume)
     {
-        u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+        uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
-            enStatus = OS_Task__enIsTaskSuspended(pstTCB);
-            if(OS_Task_enStatus_Ok == enStatus)
+            boStatus = OS_Task__boIsTaskSuspended(pstTCB);
+            if(FALSE != boStatus)
             {
                 /* Check the ready lists can be accessed. */
-                u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-                if(0UL == u32SchedulerSuspended)
+                uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+                if(0UL == uxSchedulerSuspended)
                 {
                     /* Ready lists can be accessed so move the task from the
                     suspended list to the ready list directly. */
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                    if( pstTCB->u32PriorityTask >= pstCurrentTCB->u32PriorityTask )
+                    if( pstTCB->uxPriorityTask >= pstCurrentTCB->uxPriorityTask )
                     {
-                        u32YieldRequired = 1UL;
+                        boYieldRequired = TRUE;
                     }
 
-                    ( void ) CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
+                    (void) OS_List__uxRemove(&( pstTCB->stGenericListItem));
                     OS_Task__vAddTaskToReadyList(pstTCB);
                 }
                 else
@@ -291,38 +290,36 @@ uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume)
                     is held in the pending ready list until the scheduler is
                     unsuspended. */
                     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
-                    CDLinkedList__enInsertPreviousLastItemRead(pstPendingReadyList, &(pstTCB->stEventListItem));
+                    OS_List__vInsertEnd(pstPendingReadyList, &(pstTCB->stEventListItem));
                 }
             }
         }
-        OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+        OS_Task__vClearInterruptMaskFromISR(uxSavedInterruptStatus);
     }
 
-    return (u32YieldRequired);
+    return (boYieldRequired);
 }
-
-
 
 OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
 {
     /* The idle task exists in addition to the application tasks. */
-    const uint32_t u32NonApplicationTasks = 1UL;
-    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32YieldPending = 0UL;
-    uint32_t u32ListLength = 0UL;
-    uint32_t u32CurrentNumberOfTasks = 0UL;
+    const OS_UBase_t uxNonApplicationTasks = 1UL;
+    OS_List_TypeDef* pstPendingReadyList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstSuspendedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxListLength = 0UL;
+    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
     OS_Task_eSleepModeStatus enReturn = OS_Task_enSleepModeStatus_StandardSleep;
+    OS_Boolean_t boYieldPending = FALSE;
 
     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
-    u32ListLength = CDLinkedList__u32GetSize(pstPendingReadyList);
-    u32YieldPending = OS_Task__u32GetYieldPending();
-    if(0UL != u32ListLength)
+    uxListLength = OS_List__uxGetLength(pstPendingReadyList);
+    boYieldPending = OS_Task__boGetYieldPending();
+    if(0UL != uxListLength)
     {
         /* A task was made ready while the scheduler was suspended. */
         enReturn = OS_Task_enSleepModeStatus_AbortSleep;
     }
-    else if(0UL !=  u32YieldPending)
+    else if(FALSE != boYieldPending)
     {
         /* A yield was pended while the scheduler was suspended. */
         enReturn = OS_Task_enSleepModeStatus_AbortSleep;
@@ -334,10 +331,10 @@ OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
         then it is safe to turn all clocks off and just wait for external
         interrupts. */
         pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
-        u32ListLength = CDLinkedList__u32GetSize(pstSuspendedTaskList);
-        u32CurrentNumberOfTasks = OS_Task__u32GetCurrentNumberOfTasks();
-        u32CurrentNumberOfTasks -= u32NonApplicationTasks;
-        if(u32ListLength == u32CurrentNumberOfTasks)
+        uxListLength = OS_List__uxGetLength(pstSuspendedTaskList);
+        uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
+        uxCurrentNumberOfTasks -= uxNonApplicationTasks;
+        if(uxListLength == uxCurrentNumberOfTasks)
         {
             enReturn = OS_Task_enSleepModeStatus_NoTasksWaitingTimeout;
         }

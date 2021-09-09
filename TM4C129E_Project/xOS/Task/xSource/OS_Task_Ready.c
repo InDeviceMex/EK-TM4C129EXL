@@ -27,54 +27,54 @@
 
 void OS_Task__vSelectHighestPriorityTask(void)
 {
-    uint32_t u32TopPriority = 0UL;
-    OS_Task_List_Typedef* pstReadyTask =  (OS_Task_List_Typedef*) 0UL;
-    OS_TASK_TCB* pstNewTCB = (OS_TASK_TCB*) 0UL;
-    uint32_t u32ListLenght = 0UL;
-    u32TopPriority = OS_Task__u32GetHighestPriority();
-    pstReadyTask = OS_Task__pstGetReadyTasksLists(u32TopPriority);
-    if(0UL != (uint32_t) pstReadyTask)
+    OS_List_TypeDef* pstReadyTask =  (OS_List_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef* pstNewTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_UBase_t uxTopPriority = 0UL;
+    OS_UBase_t uxListLenght = 0UL;
+
+    uxTopPriority = OS_Task__uxGetHighestPriority();
+    pstReadyTask = OS_Task__pstGetReadyTasksLists(uxTopPriority);
+    if(0UL != (OS_UBase_t) pstReadyTask)
     {
-        u32ListLenght = CDLinkedList__u32GetSize(pstReadyTask);
-        if(0UL != u32ListLenght)
+        uxListLenght = OS_List__uxGetLength(pstReadyTask);
+        if(0UL != uxListLenght)
         {
-            pstNewTCB = (OS_TASK_TCB*) CDLinkedList__pvGetDataNextItem(pstReadyTask);
+            pstNewTCB = (OS_Task_TCB_TypeDef*) OS_List__pvGetOwnerOfNextEntry(pstReadyTask);
             OS_Task__vSetCurrentTCB(pstNewTCB);
         }
     }
 }
 
-void OS_Task__vResetReadyPriority(uint32_t u32PrioritArg)
+void OS_Task__vResetReadyPriority(OS_UBase_t uxPrioritArg)
 {
-    OS_Task_List_Typedef* pstReadyTask =  (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32ListLenght = 0UL;
-    pstReadyTask = OS_Task__pstGetReadyTasksLists(u32PrioritArg);
-    if(0UL != (uint32_t) pstReadyTask)
+    OS_List_TypeDef* pstReadyTask =  (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxListLenght = 0UL;
+    pstReadyTask = OS_Task__pstGetReadyTasksLists(uxPrioritArg);
+    if(0UL != (OS_UBase_t) pstReadyTask)
     {
-        u32ListLenght = CDLinkedList__u32GetSize(pstReadyTask);
-        if(0UL == u32ListLenght)
+        uxListLenght = OS_List__uxGetLength(pstReadyTask);
+        if(0UL == uxListLenght)
         {
-            OS_Task__vClearReadyPriority(u32PrioritArg);
+            OS_Task__vClearReadyPriority(uxPrioritArg);
         }
     }
 }
 
 
-void OS_Task__vAddTaskToReadyList(OS_TASK_TCB* pstTCBArg)
+void OS_Task__vAddTaskToReadyList(OS_Task_TCB_TypeDef* pstTCBArg)
 {
-    OS_Task_List_Typedef* pstReadyTaskList =  (OS_Task_List_Typedef*) 0UL;
-    OS_Task_ListItem_TypeDef* pstTCBTask =  (OS_Task_ListItem_TypeDef*) 0UL;
-    uint32_t u32TCBPriority = 0UL;
-    if(0UL != (uint32_t) pstTCBArg)
+    OS_List_TypeDef* pstReadyTaskList =  (OS_List_TypeDef*) 0UL;
+    OS_ListItem_TypeDef* pstTCBTask =  (OS_ListItem_TypeDef*) 0UL;
+    OS_UBase_t uxTCBPriority = 0UL;
+    if(0UL != (OS_UBase_t) pstTCBArg)
     {
-        u32TCBPriority = pstTCBArg->u32PriorityTask;
-        OS_Task__vRecordReadyPriority(u32TCBPriority);
-        pstReadyTaskList = OS_Task__pstGetReadyTasksLists(u32TCBPriority);
-        if(0UL != (uint32_t) pstReadyTaskList)
+        uxTCBPriority = pstTCBArg->uxPriorityTask;
+        OS_Task__vRecordReadyPriority(uxTCBPriority);
+        pstReadyTaskList = OS_Task__pstGetReadyTasksLists(uxTCBPriority);
+        if(0UL != (OS_UBase_t) pstReadyTaskList)
         {
             pstTCBTask = &(pstTCBArg->stGenericListItem);
-            CDLinkedList__enInsertPreviousLastItemRead(pstReadyTaskList, pstTCBTask);
+            OS_List__vInsertEnd(pstReadyTaskList, pstTCBTask);
         }
     }
 }
-

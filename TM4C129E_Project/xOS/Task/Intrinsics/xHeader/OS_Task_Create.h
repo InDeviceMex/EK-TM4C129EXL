@@ -27,11 +27,11 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32GetTaskNumber(void);
-void OS_Task__vSetTaskNumber(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetTaskNumber(void);
+void OS_Task__vSetTaskNumber(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseTaskNumber(void);
 
-uint32_t OS_Task__u32GetCurrentNumberOfTasks(void);
+OS_UBase_t OS_Task__uxGetCurrentNumberOfTasks(void);
 void OS_Task__vIncreaseCurrentNumberOfTasks(void);
 void OS_Task__vDecreaseCurrentNumberOfTasks(void);
 

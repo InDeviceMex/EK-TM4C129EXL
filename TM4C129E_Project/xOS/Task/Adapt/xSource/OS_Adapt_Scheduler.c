@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 16 jul. 2021 @endverbatim
+ * @verbatim 9 sep. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,21 +19,21 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 16 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Adapt/xHeader/OS_Adapt_Scheduler.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Scheduler.h>
 
 #include <xApplication_MCU/Core/SCB/SCB.h>
 #include <xApplication_MCU/Core/SYSTICK/SYSTICK.h>
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Core/FPU/FPU.h>
+
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Critical.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
-
-
-static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod );
+static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod);
 
 __attribute__ (( naked ))
 static void OS_Adapt_vStartFirstTask(void);
@@ -44,18 +44,19 @@ static void OS_Adapt_vPendSVHandler(void);
 
 static void OS_Adapt_vSysTickHandler( void );
 
-OS_TASK_TCB *volatile *  OS_Adapt_ppstCurrentTCB = (OS_TASK_TCB**) 0UL;
-const uint32_t OS_Adapt_u32MaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY;
+OS_Task_TCB_TypeDef* volatile* OS_Adapt_ppstCurrentTCB = (OS_Task_TCB_TypeDef**) 0UL;
+const OS_UBase_t OS_Adapt_uxMaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY;
 
-static void OS_Adapt_vSetupTimerInterrupt( uint32_t u32UsPeriod )
-{    /* Configure SysTick to interrupt at the requested rate. */
-    SYSTICK__enInitUsVector(u32UsPeriod, SYSTICK_enPRI7, &OS_Adapt_vSysTickHandler);
+static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod)
+{
+    SYSTICK__enInitUsVector(uxUsPeriod, SYSTICK_enPRI7, &OS_Adapt_vSysTickHandler);
 }
 
-uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
+void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
 {
-
-    SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL, SCB_enVECISR_PENDSV);
+    SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler,
+                                   (void (**) (void)) 0UL,
+                                   SCB_enVECISR_PENDSV);
     SCB_SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
     /* Make PendSV and SysTick the lowest priority interrupts. */
     SCB_PendSV__vSetPriority(SCB_enSHPR7);
@@ -63,7 +64,7 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
 
     /* Start the timer that generates the tick ISR.  Interrupts are disabled
     here already. */
-    OS_Adapt_vSetupTimerInterrupt(u32UsPeriod);
+    OS_Adapt_vSetupTimerInterrupt(uxUsPeriod);
 
     /* Initialise the critical nesting count ready for the first task. */
     OS_Adapt__vSetCriticalNesting(0UL);
@@ -73,9 +74,6 @@ uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod )
     OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
     /* Start the first task. */
     OS_Adapt_vStartFirstTask();
-
-    /* Should not get here! */
-    return (0UL);
 }
 
 
@@ -98,7 +96,7 @@ static void OS_Adapt_vStartFirstTask(void)
                     " isb                   \n"
                     " svc #0                \n" /* System call to start first task. */
                     " nop                   \n"
-                    " bx r14                          \n"
+                    " bx r14                \n"
                 );
 }
 
@@ -135,12 +133,12 @@ static void OS_Adapt_vPendSVHandler (void)
     "   isb                                 \n"
     "                                       \n"
 #if defined (__TI_ARM__ )
-    "   movw r3, OS_Adapt_ppstCurrentTCB         \n"/* Get the location of the current TCB. */
-    "   movt r3, OS_Adapt_ppstCurrentTCB         \n"
+    "   movw r3, OS_Adapt_ppstCurrentTCB    \n"/* Get the location of the current TCB. */
+    "   movt r3, OS_Adapt_ppstCurrentTCB    \n"
 #elif defined (__GNUC__ )
-    "   ldr r3, = OS_Adapt_ppstCurrentTCB        \n"
+    "   ldr r3, = OS_Adapt_ppstCurrentTCB   \n"
 #endif
-    "   ldr r1, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
+    "   ldr r1, [r3]                        \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
     "   ldr r2, [r1]                        \n"
     "                                       \n"
     "   tst r14, #0x10                      \n" /* Is the task using the FPU context?  If so, push high vfp registers. */
@@ -153,12 +151,12 @@ static void OS_Adapt_vPendSVHandler (void)
     "                                       \n"
     "   stmdb sp!, {r3}                     \n"
 #if defined (__TI_ARM__ )
-    "   movw r0, OS_Adapt_u32MaxSyscallInterruptPriority         \n"/* Get the location of the current TCB. */
-    "   movt r0, OS_Adapt_u32MaxSyscallInterruptPriority         \n"
+    "   movw r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"/* Get the location of the current TCB. */
+    "   movt r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"
 #elif defined (__GNUC__ )
-    "   ldr r0, = OS_Adapt_u32MaxSyscallInterruptPriority        \n"
+    "   ldr r0, = OS_Adapt_uxMaxSyscallInterruptPriority        \n"
 #endif
-    "   ldr r1, [r0]                          \n"
+    "   ldr r1, [r0]                        \n"
     "   msr basepri, r1                     \n"
     "   dsb                                 \n"
     "   isb                                 \n");
@@ -193,16 +191,16 @@ static void OS_Adapt_vPendSVHandler (void)
 
 static void OS_Adapt_vSysTickHandler( void )
 {
-    uint32_t u32Status = 0UL;
+    OS_Boolean_t boSwitchRequired = FALSE;
     /* The SysTick runs at the lowest interrupt priority, so when this interrupt
     executes all interrupts must be unmasked.  There is therefore no need to
     save and then restore the interrupt mask value as its value is already
     known. */
-    ( void ) OS_Adapt__u32SetInterruptMaskFromISR();
+    (void) OS_Adapt__uxSetInterruptMaskFromISR();
     {
         /* Increment the RTOS tick. */
-        u32Status = OS_Task__u32TaskIncrementTick();
-        if(0UL !=  u32Status)
+        boSwitchRequired = OS_Task__boIncrementTick();
+        if(FALSE !=  boSwitchRequired)
         {
             /* A context switch is required.  Context switching is performed in
             the PendSV interrupt.  Pend the PendSV interrupt. */
@@ -214,14 +212,13 @@ static void OS_Adapt_vSysTickHandler( void )
 
 void OS_Adapt__vEndScheduler(void)
 {
-    uint32_t u32CriticalNestingReg = 0UL;
+    OS_UBase_t uxCriticalNestingReg = 0UL;
     /* Not implemented in ports where there is nothing to return to.
     Artificially force an assert. */
-    u32CriticalNestingReg = OS_Adapt__u32GetCriticalNesting();
-    if(1000UL != u32CriticalNestingReg)
+    uxCriticalNestingReg = OS_Adapt__uxGetCriticalNesting();
+    if(1000UL != uxCriticalNestingReg)
     {
         OS_Adapt__vDisableInterrupts();
         while(1UL);
     }
 }
-

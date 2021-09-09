@@ -22,11 +22,11 @@
  * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_XHEADER_OS_TASK_TCB_H_
-#define XOS_TASK_XHEADER_OS_TASK_TCB_H_
+#ifndef XOS_TASK_XHEADER_OS_Task_TCB_TypeDef_H_
+#define XOS_TASK_XHEADER_OS_Task_TCB_TypeDef_H_
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vDeleteTCB(OS_TASK_TCB* pstTCB);
+void OS_Task__vDeleteTCB(OS_Task_TCB_TypeDef* pstTCB);
 
-#endif /* XOS_TASK_XHEADER_OS_TASK_TCB_H_ */
+#endif /* XOS_TASK_XHEADER_OS_Task_TCB_TypeDef_H_ */

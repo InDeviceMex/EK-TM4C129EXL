@@ -27,11 +27,17 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vPlaceOnEventList(OS_Task_List_Typedef* const pstEventList, const uint32_t u32TicksToWait);
-void OS_Task__vPlaceOnEventListRestricted(OS_Task_List_Typedef * const pstEventList, const uint32_t u32TicksToWait, const uint32_t u32WaitIndefinitely);
-void OS_Task__vPlaceOnUnorderedEventList(OS_Task_List_Typedef* pstEventList, const uint32_t u32DataAuxiliar, const uint32_t u32TicksToWait);
-uint32_t OS_Task__u32RemoveFromEventList(const OS_Task_List_Typedef* const pstEventList);
-uint32_t OS_Task__u32RemoveFromUnorderedEventList(OS_Task_ListItem_TypeDef* pstEventListItem, const uint32_t u32DataAuxiliar);
-uint32_t OS_Task__u32ResetEventValue(void);
+void OS_Task__vPlaceOnEventList(OS_List_TypeDef* const pstEventList,
+                                const OS_UBase_t uxTicksToWait);
+void OS_Task__vPlaceOnEventListRestricted(OS_List_TypeDef* const pstEventList,
+                                          const OS_UBase_t uxTicksToWait,
+                                          const OS_Boolean_t boWaitIndefinitely);
+void OS_Task__vPlaceOnUnorderedEventList(OS_List_TypeDef* pstEventList,
+                                         const OS_UBase_t uxDataAuxiliar,
+                                         const OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Task__boRemoveFromEventList(const OS_List_TypeDef* const pstEventList);
+OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_TypeDef* pstEventListItem,
+                                                     const OS_UBase_t uxDataAuxiliar);
+OS_UBase_t OS_Task__uxResetEventValue(void);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_EVENT_H_ */

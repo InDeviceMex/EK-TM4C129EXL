@@ -28,48 +28,46 @@
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 
-uint32_t OS_Task__u32NotifyTake(uint32_t u32ClearCountOnExit, uint32_t u32TicksToWait)
+OS_UBase_t OS_Task__uxNotifyTake(OS_Boolean_t boClearCountOnExit,
+                                 OS_UBase_t uxTicksToWait)
 {
-    uint32_t u32TimeToWake = 0UL;
-    uint32_t u32Return = 0UL;
-    uint32_t u32ListSize = 0UL;
-    uint32_t u32TickCount = 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
+    OS_UBase_t uxTimeToWake = 0UL;
+    OS_UBase_t uxReturn = 0UL;
+    OS_UBase_t uxListSize = 0UL;
+    OS_UBase_t uxTickCount = 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstSuspendedTaskList = (OS_List_TypeDef*) 0UL;
 
     OS_Task__vEnterCritical();
     {
         /* Only block if the notification count is not already non-zero. */
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-        if(0UL == pstCurrentTCB->u32NotifiedValue)
+        if(0UL == pstCurrentTCB->uxNotifiedValue)
         {
             /* Mark this task as waiting for a notification. */
             pstCurrentTCB->enNotifyState = OS_Task_enNotifyState_WaitingNotification;
 
-            if(0UL < u32TicksToWait)
+            if(0UL < uxTicksToWait)
             {
                 /* The task is going to block.  First it must be removed
                 from the ready list. */
-                pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList(&(pstCurrentTCB->stGenericListItem));
-                CDLinkedList__enRemove(&(pstCurrentTCB->stGenericListItem));
-                u32ListSize = CDLinkedList__u32GetSize(pstList);
-                if(0UL == u32ListSize)
+                uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
+                if(0UL == uxListSize)
                 {
                     /* The current task must be in a ready list, so there is
                     no need to check, and the port reset macro can be called
                     directly. */
-                    OS_Task__vClearReadyPriority(pstCurrentTCB->u32PriorityTask);
+                    OS_Task__vClearReadyPriority(pstCurrentTCB->uxPriorityTask);
                 }
 
-                if(OS_ADAPT_MAX_DELAY == u32TicksToWait)
+                if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
                 {
                     /* Add the task to the suspended task list instead
                     of a delayed task list to ensure the task is not
                     woken by a timing event.  It will block
                     indefinitely. */
                     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
-                    CDLinkedList__enInsertPreviousLastItemRead(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
+                    OS_List__vInsertEnd(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
                 }
                 else
                 {
@@ -77,9 +75,9 @@ uint32_t OS_Task__u32NotifyTake(uint32_t u32ClearCountOnExit, uint32_t u32TicksT
                     woken if no notification events occur.  This may
                     overflow but this doesn't matter, the scheduler will
                     handle it. */
-                    u32TickCount = OS_Task__u32GetTickCount_NotSafe();
-                    u32TimeToWake = u32TickCount + u32TicksToWait;
-                    OS_Task__vAddCurrentTaskToDelayedList(u32TimeToWake);
+                    uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+                    uxTimeToWake = uxTickCount + uxTicksToWait;
+                    OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
                 }
 
                 /* All ports are written to allow a yield in a critical
@@ -94,38 +92,37 @@ uint32_t OS_Task__u32NotifyTake(uint32_t u32ClearCountOnExit, uint32_t u32TicksT
 
     OS_Task__vEnterCritical();
     {
-        u32Return = pstCurrentTCB->u32NotifiedValue;
+        uxReturn = pstCurrentTCB->uxNotifiedValue;
 
-        if(0UL != u32Return)
+        if(0UL != uxReturn)
         {
-            if(0UL != u32ClearCountOnExit)
+            if(FALSE != boClearCountOnExit)
             {
-                pstCurrentTCB->u32NotifiedValue = 0UL;
+                pstCurrentTCB->uxNotifiedValue = 0UL;
             }
             else
             {
-                (pstCurrentTCB->u32NotifiedValue)--;
+                (pstCurrentTCB->uxNotifiedValue)--;
             }
         }
         pstCurrentTCB->enNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
     }
     OS_Task__vExitCritical();
 
-    return (u32Return);
+    return (uxReturn);
 }
 
-uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
-                                uint32_t u32BitsToClearOnExit,
-                                uint32_t *pu32NotificationValue,
-                                uint32_t u32TicksToWait)
+OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
+                                OS_UBase_t uxBitsToClearOnExit,
+                                OS_UBase_t *puxNotificationValue,
+                                OS_UBase_t uxTicksToWait)
 {
-    uint32_t u32TimeToWake = 0UL;
-    uint32_t u32Return = 0UL;
-    uint32_t u32ListSize = 0UL;
-    uint32_t u32TickCount = 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
+    OS_UBase_t uxTimeToWake = 0UL;
+    OS_UBase_t uxListSize = 0UL;
+    OS_UBase_t uxTickCount = 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstSuspendedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_Boolean_t boReturn = FALSE;
 
     OS_Task__vEnterCritical();
     {
@@ -136,34 +133,32 @@ uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
             /* Clear bits in the task's notification value as bits may get
             set by the notifying task or interrupt.  This can be used to
             clear the value to zero. */
-            pstCurrentTCB->u32NotifiedValue &= ~u32BitsToClearOnEntry;
+            pstCurrentTCB->uxNotifiedValue &= ~uxBitsToClearOnEntry;
 
             /* Mark this task as waiting for a notification. */
             pstCurrentTCB->enNotifyState = OS_Task_enNotifyState_WaitingNotification;
 
-            if(0UL < u32TicksToWait)
+            if(0UL < uxTicksToWait)
             {
                 /* The task is going to block.  First it must be removed
                 from the    ready list. */
-                pstList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList(&(pstCurrentTCB->stGenericListItem));
-                CDLinkedList__enRemove(&(pstCurrentTCB->stGenericListItem));
-                u32ListSize = CDLinkedList__u32GetSize(pstList);
-                if(0UL == u32ListSize)
+                uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
+                if(0UL == uxListSize)
                 {
                     /* The current task must be in a ready list, so there is
                     no need to check, and the port reset macro can be called
                     directly. */
-                    OS_Task__vClearReadyPriority( pstCurrentTCB->u32PriorityTask);
+                    OS_Task__vClearReadyPriority( pstCurrentTCB->uxPriorityTask);
                 }
 
-                if(OS_ADAPT_MAX_DELAY == u32TicksToWait)
+                if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
                 {
                     /* Add the task to the suspended task list instead
                     of a delayed task list to ensure the task is not
                     woken by a timing event.  It will block
                     indefinitely. */
                     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
-                    CDLinkedList__enInsertPreviousLastItemRead(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
+                    OS_List__vInsertEnd(pstSuspendedTaskList,  &(pstCurrentTCB->stGenericListItem));
                 }
                 else
                 {
@@ -171,9 +166,9 @@ uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
                     woken if no notification events occur.  This may
                     overflow but this doesn't matter, the scheduler will
                     handle it. */
-                    u32TickCount = OS_Task__u32GetTickCount_NotSafe();
-                    u32TimeToWake = u32TickCount + u32TicksToWait;
-                    OS_Task__vAddCurrentTaskToDelayedList(u32TimeToWake);
+                    uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+                    uxTimeToWake = uxTickCount + uxTicksToWait;
+                    OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
                 }
 
                 /* All ports are written to allow a yield in a critical
@@ -188,11 +183,11 @@ uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
 
     OS_Task__vEnterCritical();
     {
-        if(0UL != pu32NotificationValue)
+        if(0UL != puxNotificationValue)
         {
             /* Output the current notification value, which may or may not
             have changed. */
-            *pu32NotificationValue = pstCurrentTCB->u32NotifiedValue;
+            *puxNotificationValue = pstCurrentTCB->uxNotifiedValue;
         }
 
         /* If eNotifyValue is set then either the task never entered the
@@ -202,43 +197,43 @@ uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
         if(OS_Task_enNotifyState_WaitingNotification == pstCurrentTCB->enNotifyState)
         {
             /* A notification was not received. */
-            u32Return = 0UL;
+            boReturn = FALSE;
         }
         else
         {
             /* A notification was already pending or a notification was
             received while the task was waiting. */
-            pstCurrentTCB->u32NotifiedValue &= ~u32BitsToClearOnExit;
-            u32Return = 1UL;
+            pstCurrentTCB->uxNotifiedValue &= ~uxBitsToClearOnExit;
+            boReturn = TRUE;
         }
 
         pstCurrentTCB->enNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
     }
     OS_Task__vExitCritical();
 
-    return (u32Return);
+    return (boReturn);
 }
 
-uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
-                             uint32_t u32Value,
+OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
+                             OS_UBase_t uxValue,
                              OS_Task_eNotifyAction enAction,
-                             uint32_t *pu32PreviousNotificationValue)
+                             OS_UBase_t *puxPreviousNotificationValue)
 {
-    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_TCB_TypeDef * pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
     OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-    uint32_t u32Return = 1UL;
+    OS_Boolean_t boReturn = TRUE;
 
-    if(0UL != (uint32_t) pvTaskToNotify)
+    if(0UL != (OS_UBase_t) pvTaskToNotify)
     {
-        pstTCB = ( OS_TASK_TCB * ) pvTaskToNotify;
+        pstTCB = (OS_Task_TCB_TypeDef *) pvTaskToNotify;
 
         OS_Task__vEnterCritical();
         {
-            if(0UL != (uint32_t) pu32PreviousNotificationValue)
+            if(0UL != (OS_UBase_t) puxPreviousNotificationValue)
             {
-                *pu32PreviousNotificationValue = pstTCB->u32NotifiedValue;
+                *puxPreviousNotificationValue = pstTCB->uxNotifiedValue;
             }
 
             enOriginalNotifyState = pstTCB->enNotifyState;
@@ -247,26 +242,26 @@ uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
             switch(enAction)
             {
                 case OS_Task_enNotifyAction_SetBits   :
-                    pstTCB->u32NotifiedValue |= u32Value;
+                    pstTCB->uxNotifiedValue |= uxValue;
                     break;
 
                 case OS_Task_enNotifyAction_Increment :
-                    (pstTCB->u32NotifiedValue)++;
+                    (pstTCB->uxNotifiedValue)++;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithOverwrite :
-                    pstTCB->u32NotifiedValue = (uint32_t) u32Value;
+                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithoutOverwrite :
                     if(enOriginalNotifyState != OS_Task_enNotifyState_Notified)
                     {
-                        pstTCB->u32NotifiedValue = (uint32_t) u32Value;
+                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
                     }
                     else
                     {
                         /* The value could not be written to the task. */
-                        u32Return = 0UL;
+                        boReturn = FALSE;
                     }
                     break;
 
@@ -282,12 +277,12 @@ uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
             notification then unblock it now. */
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
-                CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 OS_Task__vAddTaskToReadyList(pstTCB);
 
                 /* The task should not have been on an event list. */
-                pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
-                if( 0UL == (uint32_t) pstTCBOwnerList)
+                pstTCBOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer( &( pstTCB->stEventListItem));
+                if(0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
                     {
                         /* If a task is blocked waiting for a notification then
@@ -304,7 +299,7 @@ uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
                     }
 
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                    if( pstTCB->u32PriorityTask > pstCurrentTCB->u32PriorityTask )
+                    if( pstTCB->uxPriorityTask > pstCurrentTCB->uxPriorityTask )
                     {
                         /* The notified task has a priority above the currently
                         executing task so a yield is required. */
@@ -315,33 +310,33 @@ uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
         }
         OS_Task__vExitCritical();
     }
-    return (u32Return);
+    return (boReturn);
 }
 
-uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
-                                    uint32_t u32Value,
+OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
+                                    OS_UBase_t uxValue,
                                     OS_Task_eNotifyAction enAction,
-                                    uint32_t *pu32PreviousNotificationValue,
-                                    uint32_t *pu32HigherPriorityTaskWoken)
+                                    OS_UBase_t *puxPreviousNotificationValue,
+                                    OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_TCB_TypeDef * pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstPendingReadyList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
     OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-    uint32_t u32Return = 1UL;
-    uint32_t u32SavedInterruptStatus = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
+    OS_UBase_t uxSavedInterruptStatus = 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_Boolean_t boReturn = TRUE;
 
-    if(0UL != (uint32_t) pvTaskToNotify)
+    if(0UL != (OS_UBase_t) pvTaskToNotify)
     {
-        pstTCB = (OS_TASK_TCB *) pvTaskToNotify;
+        pstTCB = (OS_Task_TCB_TypeDef *) pvTaskToNotify;
 
-        u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+        uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
-            if(0UL != (uint32_t) pu32PreviousNotificationValue)
+            if(0UL != (OS_UBase_t) puxPreviousNotificationValue)
             {
-                *pu32PreviousNotificationValue = pstTCB->u32NotifiedValue;
+                *puxPreviousNotificationValue = pstTCB->uxNotifiedValue;
             }
 
             enOriginalNotifyState = pstTCB->enNotifyState;
@@ -350,26 +345,26 @@ uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
             switch(enAction)
             {
                 case OS_Task_enNotifyAction_SetBits   :
-                    pstTCB->u32NotifiedValue |= u32Value;
+                    pstTCB->uxNotifiedValue |= uxValue;
                     break;
 
                 case OS_Task_enNotifyAction_Increment :
-                    (pstTCB->u32NotifiedValue)++;
+                    (pstTCB->uxNotifiedValue)++;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithOverwrite :
-                    pstTCB->u32NotifiedValue = (uint32_t) u32Value;
+                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithoutOverwrite :
                     if(OS_Task_enNotifyState_Notified != enOriginalNotifyState)
                     {
-                        pstTCB->u32NotifiedValue = (uint32_t) u32Value;
+                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
                     }
                     else
                     {
                         /* The value could not be written to the task. */
-                        u32Return = 0UL;
+                        boReturn = FALSE;
                     }
                     break;
 
@@ -386,13 +381,13 @@ uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
                 /* The task should not have been on an event list. */
-                pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
-                if( 0UL == (uint32_t) pstTCBOwnerList)
+                pstTCBOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+                if(0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
-                    u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-                    if(0UL == u32SchedulerSuspended)
+                    uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+                    if(0UL == uxSchedulerSuspended)
                     {
-                        CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                        (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                         OS_Task__vAddTaskToReadyList(pstTCB);
                     }
                     else
@@ -400,64 +395,65 @@ uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
                         /* The delayed and ready lists cannot be accessed, so hold
                         this task pending until the scheduler is resumed. */
                         pstPendingReadyList = OS_Task__pstGetPendingReadyList();
-                        CDLinkedList__enInsertPreviousLastItemRead(pstPendingReadyList, &(pstTCB->stGenericListItem));
+                        OS_List__vInsertEnd(pstPendingReadyList,
+                                            &(pstTCB->stGenericListItem));
                     }
 
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                    if( pstTCB->u32PriorityTask > pstCurrentTCB->u32PriorityTask )
+                    if( pstTCB->uxPriorityTask > pstCurrentTCB->uxPriorityTask )
                     {
                         /* The notified task has a priority above the currently
                         executing task so a yield is required. */
-                        if(0UL != pu32HigherPriorityTaskWoken)
+                        if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
                         {
-                            *pu32HigherPriorityTaskWoken = 1UL;
+                            *pboHigherPriorityTaskWoken = TRUE;
                         }
                     }
                 }
             }
         }
-        OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+        OS_Task__vClearInterruptMaskFromISR(uxSavedInterruptStatus);
     }
 
-    return (u32Return);
+    return (boReturn);
 }
 
 void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
-                            uint32_t *pu32HigherPriorityTaskWoken)
+                            OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB *pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstPendingReadyList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
+    OS_Task_TCB_TypeDef * pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstPendingReadyList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxSavedInterruptStatus = 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
     OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-    uint32_t u32SavedInterruptStatus = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
 
-    if(0UL != (uint32_t) pvTaskToNotify)
+    if(0UL != (OS_UBase_t) pvTaskToNotify)
     {
-        pstTCB = (OS_TASK_TCB *) pvTaskToNotify;
+        pstTCB = (OS_Task_TCB_TypeDef *) pvTaskToNotify;
 
-        u32SavedInterruptStatus = OS_Task__u32SetInterruptMaskFromISR();
+        uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
             enOriginalNotifyState = pstTCB->enNotifyState;
             pstTCB->enNotifyState = OS_Task_enNotifyState_Notified;
 
             /* 'Giving' is equivalent to incrementing a count in a counting
             semaphore. */
-            (pstTCB->u32NotifiedValue)++;
+            (pstTCB->uxNotifiedValue)++;
 
             /* If the task is in the blocked state specifically to wait for a
             notification then unblock it now. */
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
                 /* The task should not have been on an event list. */
-                pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
-                if( 0UL == (uint32_t) pstTCBOwnerList)
+                pstTCBOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+                if( 0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
-                    u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-                    if(0UL == u32SchedulerSuspended)
+                    uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+                    if(0UL == uxSchedulerSuspended)
                     {
-                        CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                        (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                         OS_Task__vAddTaskToReadyList(pstTCB);
                     }
                     else
@@ -465,32 +461,33 @@ void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
                         /* The delayed and ready lists cannot be accessed, so hold
                         this task pending until the scheduler is resumed. */
                         pstPendingReadyList = OS_Task__pstGetPendingReadyList();
-                        CDLinkedList__enInsertPreviousLastItemRead(pstPendingReadyList, &(pstTCB->stEventListItem));
+                        OS_List__vInsertEnd(pstPendingReadyList,
+                                            &(pstTCB->stEventListItem));
                     }
 
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                    if( pstTCB->u32PriorityTask > pstCurrentTCB->u32PriorityTask )
+                    if( pstTCB->uxPriorityTask > pstCurrentTCB->uxPriorityTask )
                     {
                         /* The notified task has a priority above the currently
                         executing task so a yield is required. */
-                        if(0UL != (uint32_t) pu32HigherPriorityTaskWoken)
+                        if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
                         {
-                            *pu32HigherPriorityTaskWoken = 1UL;
+                            *pboHigherPriorityTaskWoken = TRUE;
                         }
                     }
                 }
             }
         }
-        OS_Task__vClearInterruptMaskFromISR(u32SavedInterruptStatus);
+        OS_Task__vClearInterruptMaskFromISR(uxSavedInterruptStatus);
     }
 }
 
-uint32_t OS_Task__u32NotifyStateClear(OS_Task_Handle_TypeDef pvTask)
+OS_Boolean_t OS_Task__boNotifyStateClear(OS_Task_Handle_TypeDef pvTask)
 {
-    OS_TASK_TCB * pstTCB = (OS_TASK_TCB*) 0UL;
-    uint32_t u32Return = 1UL;
+    OS_Task_TCB_TypeDef * pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Boolean_t boReturn = FALSE;
 
-    pstTCB = (OS_TASK_TCB*) pvTask;
+    pstTCB = (OS_Task_TCB_TypeDef*) pvTask;
 
     /* If null is passed in here then it is the calling task that is having
     its notification state cleared. */
@@ -501,14 +498,14 @@ uint32_t OS_Task__u32NotifyStateClear(OS_Task_Handle_TypeDef pvTask)
         if(OS_Task_enNotifyState_Notified == pstTCB->enNotifyState)
         {
             pstTCB->enNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-            u32Return = 1UL;
+            boReturn = TRUE;
         }
         else
         {
-            u32Return = 0UL;
+            boReturn = FALSE;
         }
     }
     OS_Task__vExitCritical();
 
-    return (u32Return);
+    return (boReturn);
 }

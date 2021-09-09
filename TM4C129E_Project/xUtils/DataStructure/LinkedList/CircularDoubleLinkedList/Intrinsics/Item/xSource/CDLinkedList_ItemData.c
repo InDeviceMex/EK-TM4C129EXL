@@ -34,7 +34,7 @@ void* CDLinkedList_Item__pvGetData(const CDLinkedListItem_TypeDef* const pstItem
     return (pvDataReg);
 }
 
-void CDLinkedList_Item__vSetData(CDLinkedListItem_TypeDef* pstItem, void* pvDataArg)
+void CDLinkedList_Item__vSetData(CDLinkedListItem_TypeDef* const pstItem, void* pvDataArg)
 {
     if(0UL != (uint32_t) pstItem)
     {

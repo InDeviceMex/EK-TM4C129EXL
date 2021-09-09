@@ -116,7 +116,7 @@ uint32_t CDLinkedList__u32GetValueHead(const CDLinkedList_TypeDef* pstList)
     return (u32ItemValue);
 }
 
-void* CDLinkedList__pvGetDataNextItem(CDLinkedList_TypeDef* pstList)
+void* CDLinkedList__pvGetDataNextItem(CDLinkedList_TypeDef* const pstList)
 {
     CDLinkedListItem_TypeDef* pstLastItemReg = (CDLinkedListItem_TypeDef*) 0UL;
     CDLinkedListItem_TypeDef* pstNextItemReg = (CDLinkedListItem_TypeDef*) 0UL;

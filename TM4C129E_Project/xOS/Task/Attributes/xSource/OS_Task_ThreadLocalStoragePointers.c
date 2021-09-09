@@ -25,26 +25,29 @@
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToSet, uint32_t u32Index, void *pvValueArg)
+void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToSet,
+                                            OS_UBase_t uxIndex,
+                                            void *pvValueArg)
 {
-    OS_TASK_TCB* pstTCB = (OS_TASK_TCB*) 0UL;
+    OS_Task_TCB_TypeDef* pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
 
-    if( u32Index < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
+    if( uxIndex < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
     {
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToSet);
-        pstTCB->pvThreadLocalStoragePointers[u32Index] = pvValueArg;
+        pstTCB->pvThreadLocalStoragePointers[uxIndex] = pvValueArg;
     }
 }
 
-void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToQuery, uint32_t u32Index)
+void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_TypeDef pvTaskToQuery,
+                                              OS_UBase_t uxIndex)
 {
     void* pvReturn = (void*) 0UL;
-    OS_TASK_TCB *pstTCB;
+    OS_Task_TCB_TypeDef *pstTCB;
 
-    if( u32Index < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
+    if( uxIndex < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
     {
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToQuery);
-        pvReturn = pstTCB->pvThreadLocalStoragePointers[u32Index] ;
+        pvReturn = pstTCB->pvThreadLocalStoragePointers[uxIndex] ;
     }
     else
     {

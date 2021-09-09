@@ -28,10 +28,10 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
 void OS_Task__vSuspendAll(void);
-uint32_t OS_Task__u32ResumeAll(void);
+OS_Boolean_t OS_Task__boResumeAll(void);
 void OS_Task__vSuspend(OS_Task_Handle_TypeDef pvTaskToSuspend);
 void OS_Task__vResume(OS_Task_Handle_TypeDef pvTaskToResume);
-uint32_t OS_Task__u32ResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume);
+OS_Boolean_t OS_Task__boResumeFromISR(OS_Task_Handle_TypeDef pvTaskToResume);
 
 OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void);
 

@@ -29,18 +29,17 @@
 
 OS_Task_Handle_TypeDef* OS_Task__pvGetIdleTaskHandle(void);
 
-uint32_t OS_Task__u32GetTickCount_NotSafe(void);
-void OS_Task__vSetTickCount(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetTickCount_NotSafe(void);
+void OS_Task__vSetTickCount(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseTickCount(void);
 
-uint32_t OS_Task__u32GetSchedulerSuspended(void);
-void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetSchedulerSuspended(void);
+void OS_Task__vSetSchedulerSuspended(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseSchedulerSuspended(void);
 
-uint32_t OS_Task__u32GetSchedulerRunning(void);
-void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg);
-void OS_Task__vIncreaseSchedulerRunning(void);
+OS_Boolean_t OS_Task__boGetSchedulerRunning(void);
+void OS_Task__vSetSchedulerRunning(OS_Boolean_t boValueArg);
 
-uint32_t xTaskGetSchedulerState(void);
+OS_Task_eScheduler OS_Task__enGetSchedulerState(void);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_SCHEDULER_H_ */

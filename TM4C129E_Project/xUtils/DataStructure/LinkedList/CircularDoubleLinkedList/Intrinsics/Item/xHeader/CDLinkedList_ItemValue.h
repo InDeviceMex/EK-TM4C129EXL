@@ -28,6 +28,6 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
 uint32_t CDLinkedList_Item__u32GetValue(const CDLinkedListItem_TypeDef* const pstItem);
-void CDLinkedList_Item__vSetValue(CDLinkedListItem_TypeDef* pstItem, uint32_t u32ValueItemArg);
+void CDLinkedList_Item__vSetValue(CDLinkedListItem_TypeDef* const pstItem, uint32_t u32ValueItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CDLINKEDLIST_ITEMVALUE_H_ */

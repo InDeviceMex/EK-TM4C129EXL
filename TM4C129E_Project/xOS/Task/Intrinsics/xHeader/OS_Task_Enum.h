@@ -25,8 +25,6 @@
 #ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
 #define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
 
-#include <xUtils/Standard/Standard.h>
-
 typedef enum
 {
     OS_Task_enStatus_Ok = 0UL,

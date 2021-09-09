@@ -27,13 +27,12 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_Task_List_Typedef* OS_Task__pstGetTasksWaitingTermination(void);
-uint32_t OS_Task__u32GetTasksDeleted(void);
-void OS_Task__vSetTasksDeleted(uint32_t u32ValueArg);
+OS_List_TypeDef* OS_Task__pstGetTasksWaitingTermination(void);
+OS_UBase_t OS_Task__uxGetTasksDeleted(void);
+void OS_Task__vSetTasksDeleted(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseTasksDeleted(void);
 void OS_Task__vDecreaseTasksDeleted(void);
 
 void OS_Task__vInitialiseDeletedTaskLists(void);
-
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DELETED_H_ */

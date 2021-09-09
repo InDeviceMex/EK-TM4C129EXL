@@ -30,12 +30,12 @@
 void OS_Task__vYield(void);
 void OS_Task__vYieldWithinAPI(void);
 void OS_Task__vYieldIfUsingPreemption(void);
-void OS_Task__vYieldFromISR(uint32_t u32Switch);
-void OS_Task__vEndSwitchingISR( uint32_t u32SwitchRequired);
+void OS_Task__vYieldFromISR(OS_Boolean_t boSwitch);
+void OS_Task__vEndSwitchingISR(OS_Boolean_t boSwitchRequired);
 void OS_Task__vDisableInterrupts(void);
 void OS_Task__vEnableInterrupts(void);
-uint32_t OS_Task__u32IsInterruptActive(void);
-uint32_t OS_Task__u32SetInterruptMaskFromISR(void);
-void OS_Task__vClearInterruptMaskFromISR(uint32_t u32Mask);
+OS_Boolean_t OS_Task__boIsInterruptActive(void);
+OS_UBase_t OS_Task__uxSetInterruptMaskFromISR(void);
+void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMask);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_INTERRUPT_H_ */

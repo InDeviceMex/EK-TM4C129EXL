@@ -27,12 +27,12 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32PriorityGet(OS_Task_Handle_TypeDef psTaskArg);
-uint32_t OS_Task__u32PriorityGetFromISR(OS_Task_Handle_TypeDef psTaskArg);
-void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, uint32_t u32NewPriority);
+OS_UBase_t OS_Task__uxPriorityGet(OS_Task_Handle_TypeDef psTaskArg);
+OS_UBase_t OS_Task__uxPriorityGetFromISR(OS_Task_Handle_TypeDef psTaskArg);
+void OS_Task__vPrioritySet(OS_Task_Handle_TypeDef psTaskArg, OS_UBase_t uxNewPriority);
 
 void OS_Task__vPriorityInherit(OS_Task_Handle_TypeDef const pvMutexHolder);
-uint32_t OS_Task__u32PriorityDisinherit(OS_Task_Handle_TypeDef const pvMutexHolder);
+OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_TypeDef const pvMutexHolder);
 
 void* OS_Task__pvIncrementMutexHeldCount(void);
 

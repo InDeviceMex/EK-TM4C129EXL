@@ -23,83 +23,77 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
 
-
 static OS_Task_Handle_TypeDef OS_Task_pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;         /*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
 
-static volatile uint32_t OS_Task_u32SchedulerSuspended = 0UL;
-static volatile uint32_t OS_Task_u32SchedulerRunning = 0UL;
+static volatile OS_UBase_t OS_Task_uxSchedulerSuspended = 0UL;
+static volatile OS_Boolean_t OS_Task_boSchedulerRunning = FALSE;
 
-static volatile uint32_t OS_Task_u32TickCount = 0UL;
+static volatile OS_UBase_t OS_Task_uxTickCount = 0UL;
 
 OS_Task_Handle_TypeDef* OS_Task__pvGetIdleTaskHandle(void)
 {
     return (&OS_Task_pvIdleTaskHandle);
 }
 
-uint32_t OS_Task__u32GetTickCount_NotSafe(void)
+OS_UBase_t OS_Task__uxGetTickCount_NotSafe(void)
 {
-    return (OS_Task_u32TickCount);
+    return (OS_Task_uxTickCount);
 }
 
-void OS_Task__vSetTickCount(uint32_t u32ValueArg)
+void OS_Task__vSetTickCount(OS_UBase_t uxValueArg)
 {
-    OS_Task_u32TickCount = u32ValueArg;
+    OS_Task_uxTickCount = uxValueArg;
 }
 
 void OS_Task__vIncreaseTickCount(void)
 {
-    OS_Task_u32TickCount++;
+    OS_Task_uxTickCount++;
 }
 
-uint32_t OS_Task__u32GetSchedulerSuspended(void)
+OS_UBase_t OS_Task__uxGetSchedulerSuspended(void)
 {
-    return (OS_Task_u32SchedulerSuspended);
+    return (OS_Task_uxSchedulerSuspended);
 }
 
-void OS_Task__vSetSchedulerSuspended(uint32_t u32ValueArg)
+void OS_Task__vSetSchedulerSuspended(OS_UBase_t uxValueArg)
 {
-    OS_Task_u32SchedulerSuspended = u32ValueArg;
+    OS_Task_uxSchedulerSuspended = uxValueArg;
 }
 
 void OS_Task__vIncreaseSchedulerSuspended(void)
 {
-    ++OS_Task_u32SchedulerSuspended;
+    ++OS_Task_uxSchedulerSuspended;
 }
 
-uint32_t OS_Task__u32GetSchedulerRunning(void)
+OS_Boolean_t OS_Task__boGetSchedulerRunning(void)
 {
-    return (OS_Task_u32SchedulerRunning);
+    return (OS_Task_boSchedulerRunning);
 }
 
-void OS_Task__vSetSchedulerRunning(uint32_t u32ValueArg)
+void OS_Task__vSetSchedulerRunning(OS_Boolean_t boValueArg)
 {
-    OS_Task_u32SchedulerRunning = u32ValueArg;
+    OS_Task_boSchedulerRunning = boValueArg;
 }
 
-void OS_Task__vIncreaseSchedulerRunning(void)
+OS_Task_eScheduler OS_Task__enGetSchedulerState(void)
 {
-    ++OS_Task_u32SchedulerRunning;
-}
+    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
 
-uint32_t xTaskGetSchedulerState(void)
-{
-    uint32_t u32Return = 0UL;
-
-    if(0UL == OS_Task_u32SchedulerRunning)
+    if(FALSE == OS_Task_boSchedulerRunning)
     {
-        u32Return = (uint32_t) OS_Task_enScheduler_Not_Started;
+        enSchedulerState = OS_Task_enScheduler_Not_Started;
     }
     else
     {
-        if(0UL == OS_Task_u32SchedulerSuspended)
+        if(0UL == OS_Task_uxSchedulerSuspended)
         {
-            u32Return = (uint32_t) OS_Task_enScheduler_Running;
+            enSchedulerState = OS_Task_enScheduler_Running;
         }
         else
         {
-            u32Return = (uint32_t) OS_Task_enScheduler_Suspended;
+            enSchedulerState = OS_Task_enScheduler_Suspended;
         }
     }
 
-    return (u32Return);
+    return (enSchedulerState);
 }

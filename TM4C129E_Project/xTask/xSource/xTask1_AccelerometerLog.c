@@ -34,7 +34,7 @@ void xTask1_AccelerometerLog(void* pvParams)
     int32_t s32ADCValueX = (int32_t) pvParams;
     int32_t s32ADCValueY = (int32_t) pvParams;
     int32_t s32ADCValueZ = (int32_t) pvParams;
-    u32LastWakeTime = OS_Task__u32GetTickCount ();
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(&s32ADCValueX, &s32ADCValueY, &s32ADCValueZ);

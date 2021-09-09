@@ -23,30 +23,27 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Priority.h>
 
+static volatile OS_UBase_t OS_Task_uxTopReadyPriority = OS_TASK_IDLE_PRIORITY;
 
-static volatile uint32_t OS_Task_u32TopReadyPriority = OS_TASK_IDLE_PRIORITY;
 
-
-uint32_t OS_Task__u32GetTopReadyPriority(void)
+OS_UBase_t OS_Task__uxGetTopReadyPriority(void)
 {
-    return (OS_Task_u32TopReadyPriority);
+    return (OS_Task_uxTopReadyPriority);
 }
 
-void OS_Task__vRecordReadyPriority(uint32_t u32PriorityArg)
+void OS_Task__vRecordReadyPriority(OS_UBase_t uxPriorityArg)
 {
-    OS_Adapt__vRecordReadyPriority(u32PriorityArg, &OS_Task_u32TopReadyPriority );
+    OS_Adapt__vRecordReadyPriority(uxPriorityArg, &OS_Task_uxTopReadyPriority);
 }
 
-uint32_t OS_Task__u32GetHighestPriority(void)
+void OS_Task__vClearReadyPriority(OS_UBase_t uxPriorityArg)
 {
-    uint32_t u32TopPriorityReg = 0UL;
-    OS_Adapt__vGetHighestPriority(&u32TopPriorityReg, OS_Task_u32TopReadyPriority);
-    return (u32TopPriorityReg);
+    OS_Adapt__vResetReadyPriority(uxPriorityArg, &OS_Task_uxTopReadyPriority);
 }
 
-void OS_Task__vClearReadyPriority(uint32_t u32PriorityArg)
+OS_UBase_t OS_Task__uxGetHighestPriority(void)
 {
-    OS_Adapt__vResetReadyPriority(u32PriorityArg, &OS_Task_u32TopReadyPriority );
+    OS_UBase_t uxTopPriorityReg = 0UL;
+    uxTopPriorityReg = OS_Adapt__uxGetHighestPriority(OS_Task_uxTopReadyPriority);
+    return (uxTopPriorityReg);
 }
-
-

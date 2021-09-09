@@ -32,6 +32,11 @@ typedef float float32_t;
 typedef double float64_t;
 typedef long double float128_t;
 
-
+/*boolean variables*/
+typedef enum
+{
+    FALSE = 0UL,
+    TRUE = 1UL,
+}boolean_t;
 
 #endif /* XUTILS_STANDARD_STANDARD_H_ */

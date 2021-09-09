@@ -27,8 +27,10 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg, OS_Task_HookFunction_Typedef pu32fHookFunctionArg);
-OS_Task_HookFunction_Typedef OS_Task__pu32fGetHookFunction(OS_Task_Handle_TypeDef pvTaskArg);
-uint32_t OS_task__u32CallHookFunction(OS_Task_Handle_TypeDef pvTaskArg, void* pvParameterArg);
+void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
+                               OS_Task_HookFunction_Typedef puxfHookFunctionArg);
+OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_TypeDef pvTaskArg);
+OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
+                                      void* pvParameterArg);
 
 #endif /* XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_HOOKFUNCTION_H_ */

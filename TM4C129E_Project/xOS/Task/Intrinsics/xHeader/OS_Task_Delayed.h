@@ -27,19 +27,17 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_Task_List_Typedef* OS_Task__pstGetOverflowDelayedTaskList(void);
-OS_Task_List_Typedef* OS_Task__pstGetDelayedTaskList(void);
+OS_List_TypeDef* OS_Task__pstGetOverflowDelayedTaskList(void);
+OS_List_TypeDef* OS_Task__pstGetDelayedTaskList(void);
 
-uint32_t OS_Task__u32GetNextTaskUnblockTime(void);
-void OS_Task__vSetNextTaskUnblockTime(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetNextTaskUnblockTime(void);
+void OS_Task__vSetNextTaskUnblockTime(OS_UBase_t uxValueArg);
 
-uint32_t OS_Task__u32GetNumOfOverflows(void);
-void OS_Task__vSetNumOfOverflows(uint32_t u32ValueArg);
+OS_UBase_t OS_Task__uxGetNumOfOverflows(void);
+void OS_Task__vSetNumOfOverflows(OS_UBase_t uxValueArg);
 
 void OS_Task__vResetNextTaskUnblockTime(void);
 void OS_Task__vInitialiseDelayedTaskLists(void);
 void OS_Task__vSwitchDelayedLists(void);
-
-
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DELAYED_H_ */

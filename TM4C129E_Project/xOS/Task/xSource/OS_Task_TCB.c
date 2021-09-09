@@ -24,16 +24,15 @@
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
-
 #include <xOS/Task/xHeader/OS_Task_Suspended.h>
 #include <stdlib.h>
 
-void OS_Task__vDeleteTCB(OS_TASK_TCB* pstTCB)
+void OS_Task__vDeleteTCB(OS_Task_TCB_TypeDef* pstTCB)
 {
     /**TODO: check is task suspend need to be called here*/
 
     OS_Task__vSuspendAll();
-    free(pstTCB->pu32Stack);
+    free(pstTCB->puxStack);
     free(pstTCB);
-    OS_Task__u32ResumeAll();
+    (void) OS_Task__boResumeAll();
 }

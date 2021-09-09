@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 15 jul. 2021 @endverbatim
+ * @verbatim 9 sep. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,25 +19,25 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 15 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Critical.h>
 
-#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Interrupt.h>
 
 static void OS_Adapt_Fault(void);
 
-static uint32_t OS_Adapt_u32CriticalNesting = 0xaaaaaaaa;
+static OS_UBase_t OS_Adapt_uxCriticalNesting = 0xaaaaaaaa;
 
 void OS_Adapt__vEnterCritical(void)
 {
     OS_Adapt__vDisableInterrupts();
-    OS_Adapt_u32CriticalNesting++;
+    OS_Adapt_uxCriticalNesting++;
 
 
-    if(1UL == OS_Adapt_u32CriticalNesting)
+    if(1UL == OS_Adapt_uxCriticalNesting)
     {
-        if(0UL != OS_Adapt__u32IsInterruptActive())
+        if(FALSE != OS_Adapt__boIsInterruptActive())
         {
             OS_Adapt_Fault();
         }
@@ -45,35 +45,32 @@ void OS_Adapt__vEnterCritical(void)
 
 }
 
-
 void OS_Adapt__vExitCritical(void)
 {
-    if(0UL != OS_Adapt_u32CriticalNesting)
+    if(0UL != OS_Adapt_uxCriticalNesting)
     {
-        OS_Adapt_u32CriticalNesting--;
-        if(0UL == OS_Adapt_u32CriticalNesting)
+        OS_Adapt_uxCriticalNesting--;
+        if(0UL == OS_Adapt_uxCriticalNesting)
         {
             OS_Adapt__vEnableInterrupts();
         }
     }
 }
 
-
-uint32_t OS_Adapt__u32GetCriticalNesting(void)
+OS_UBase_t OS_Adapt__uxGetCriticalNesting(void)
 {
-    return (OS_Adapt_u32CriticalNesting);
+    return (OS_Adapt_uxCriticalNesting);
 }
 
-void OS_Adapt__vSetCriticalNesting(uint32_t u32NestingValue)
+void OS_Adapt__vSetCriticalNesting(OS_UBase_t uxNestingValue)
 {
-    OS_Adapt_u32CriticalNesting = u32NestingValue;
+    OS_Adapt_uxCriticalNesting = uxNestingValue;
 }
 
 void OS_Adapt__vIncreaseCriticalNesting(void)
 {
-    OS_Adapt_u32CriticalNesting++;
+    OS_Adapt_uxCriticalNesting++;
 }
-
 
 static void OS_Adapt_Fault(void)
 {

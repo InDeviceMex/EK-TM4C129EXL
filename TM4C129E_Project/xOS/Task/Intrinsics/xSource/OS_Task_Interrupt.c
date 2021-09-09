@@ -23,7 +23,7 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Interrupt.h>
 
-#include <xOS/Adapt/OS_Adapt.h>
+#include <xOS/Task/Adapt/OS_Task_Adapt.h>
 
 void OS_Task__vYield(void)
 {
@@ -40,14 +40,14 @@ void OS_Task__vYieldIfUsingPreemption(void)
     OS_Task__vYieldWithinAPI();
 }
 
-void OS_Task__vYieldFromISR(uint32_t u32Switch)
+void OS_Task__vYieldFromISR(OS_Boolean_t boSwitch)
 {
-    OS_Adapt__vYieldFromISR(u32Switch);
+    OS_Adapt__vYieldFromISR(boSwitch);
 }
 
-void OS_Task__vEndSwitchingISR( uint32_t u32SwitchRequired)
+void OS_Task__vEndSwitchingISR(OS_Boolean_t boSwitchRequired)
 {
-    OS_Adapt__vEndSwitchingISR(u32SwitchRequired);
+    OS_Adapt__vEndSwitchingISR(boSwitchRequired);
 }
 
 void OS_Task__vDisableInterrupts(void)
@@ -60,20 +60,21 @@ void OS_Task__vEnableInterrupts(void)
     OS_Adapt__vEnableInterrupts();
 }
 
-uint32_t OS_Task__u32IsInterruptActive(void)
+OS_Boolean_t OS_Task__boIsInterruptActive(void)
 {
-    uint32_t u32IrqActive = 0UL;
-    u32IrqActive = OS_Adapt__u32IsInterruptActive();
-    return (u32IrqActive);
+    OS_Boolean_t boIrqActive = FALSE;
+    boIrqActive = OS_Adapt__boIsInterruptActive();
+    return (boIrqActive);
 }
 
-uint32_t OS_Task__u32SetInterruptMaskFromISR(void)
+OS_UBase_t OS_Task__uxSetInterruptMaskFromISR(void)
 {
-    return (OS_Adapt__u32SetInterruptMaskFromISR());
+    OS_UBase_t uxReturnMaskReg = 0UL;
+    uxReturnMaskReg = OS_Adapt__uxSetInterruptMaskFromISR();
+    return (uxReturnMaskReg);
 }
 
-
-void OS_Task__vClearInterruptMaskFromISR(uint32_t u32Mask)
+void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMask)
 {
-    OS_Adapt__vClearInterruptMaskFromISR(u32Mask);
+    OS_Adapt__vClearInterruptMaskFromISR(uxMask);
 }

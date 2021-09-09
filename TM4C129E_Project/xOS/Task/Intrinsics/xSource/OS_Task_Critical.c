@@ -23,7 +23,7 @@
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Critical.h>
 
-#include <xOS/Adapt/OS_Adapt.h>
+#include <xOS/Task/Adapt/OS_Task_Adapt.h>
 
 void OS_Task__vEnterCritical(void)
 {
@@ -32,7 +32,7 @@ void OS_Task__vEnterCritical(void)
 
 void OS_Task__vEnterCriticalFromISR(void)
 {
-    OS_Adapt__u32SetInterruptMaskFromISR();
+    OS_Adapt__uxSetInterruptMaskFromISR();
 }
 
 void OS_Task__vExitCritical(void)
@@ -40,7 +40,7 @@ void OS_Task__vExitCritical(void)
     OS_Adapt__vExitCritical();
 }
 
-void OS_Task__vExitCriticalFromISR(uint32_t u32Mask)
+void OS_Task__vExitCriticalFromISR(OS_UBase_t uxMask)
 {
-    OS_Adapt__vClearInterruptMaskFromISR(u32Mask);
+    OS_Adapt__vClearInterruptMaskFromISR(uxMask);
 }

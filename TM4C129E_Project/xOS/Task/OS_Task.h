@@ -34,6 +34,8 @@
  * 4.- check dependencies of every file
  * 5.- encapsulate repetitive code
  */
+
+#include <xOS/Task/Adapt/OS_Task_Adapt.h>
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 #include <xOS/Task/xHeader/OS_Task_Notify.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>

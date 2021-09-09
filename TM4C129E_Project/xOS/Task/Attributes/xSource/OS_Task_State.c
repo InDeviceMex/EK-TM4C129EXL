@@ -30,17 +30,17 @@
 
 OS_Task_eState OS_Task__enGetState(OS_Task_Handle_TypeDef pvTask)
 {
+    OS_List_TypeDef* pstStateList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstStateSuspendedList = (OS_List_TypeDef*) 0UL;
+    const OS_Task_TCB_TypeDef* const pstTCB = (OS_Task_TCB_TypeDef*) pvTask;
+    OS_Task_TCB_TypeDef* pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_List_TypeDef* pstDelayedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstOverflowDelayedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstSuspendedTaskList = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstTasksWaitingTermination = (OS_List_TypeDef*) 0UL;
     OS_Task_eState enReturn = OS_Task_enState_Undef;
-    OS_Task_List_Typedef* pstStateList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstStateSuspendedList = (OS_Task_List_Typedef*) 0UL;
-    const OS_TASK_TCB* const pstTCB = (OS_TASK_TCB*) pvTask;
-    OS_TASK_TCB* pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    OS_Task_List_Typedef* pstDelayedTaskList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstOverflowDelayedTaskList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstSuspendedTaskList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstTasksWaitingTermination = (OS_Task_List_Typedef*) 0UL;
 
-    if(0UL != (uint32_t) pstTCB)
+    if(0UL != (OS_UBase_t) pstTCB)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
@@ -52,7 +52,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_TypeDef pvTask)
         {
             OS_Task__vEnterCritical();
             {
-                pstStateList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList(&(pstTCB->stGenericListItem));
+                pstStateList = (OS_List_TypeDef*) OS_List__pvItemContainer(&(pstTCB->stGenericListItem));
             }
             OS_Task__vExitCritical();
 
@@ -71,8 +71,8 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_TypeDef pvTask)
                 /* The task being queried is referenced from the suspended
                 list.  Is it genuinely suspended or is it block
                 indefinitely? */
-                pstStateSuspendedList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList(&(pstTCB->stEventListItem));
-                if(0UL == (uint32_t) pstStateSuspendedList)
+                pstStateSuspendedList = (OS_List_TypeDef*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+                if(0UL == (OS_UBase_t) pstStateSuspendedList)
                 {
                     enReturn = OS_Task_enState_Suspended;
                 }
@@ -81,7 +81,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_TypeDef pvTask)
                     enReturn = OS_Task_enState_Blocked;
                 }
             }
-            else if( pstStateList == pstTasksWaitingTermination )
+            else if(pstStateList == pstTasksWaitingTermination)
             {
                 /* The task being queried is referenced from the deleted
                 tasks list. */

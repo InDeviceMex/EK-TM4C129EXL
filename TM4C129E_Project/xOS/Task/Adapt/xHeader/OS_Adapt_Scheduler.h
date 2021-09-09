@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 16 jul. 2021 @endverbatim
+ * @verbatim 9 sep. 2021 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,15 +19,15 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 16 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
-#define XOS_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
+#ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
+#define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
 
-#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
 
-uint32_t OS_Adapt__u32StartScheduler( uint32_t u32UsPeriod );
+void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod);
 void OS_Adapt__vEndScheduler(void);
 
-#endif /* XOS_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_ */
+#endif /* XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_ */

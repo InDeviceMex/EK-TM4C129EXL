@@ -31,14 +31,13 @@
 
 void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 {
-    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB *) 0UL;
-    OS_TASK_TCB *pstTCB = (OS_TASK_TCB *) 0UL ;
-    OS_Task_List_Typedef* pstTCBOwnerList = (OS_Task_List_Typedef*) 0UL;
-    OS_Task_List_Typedef* pstReadyList = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32ListSize = 0UL;
-    OS_Task_List_Typedef* pstTasksWaitingTermination = (OS_Task_List_Typedef*) 0UL;
-    uint32_t u32SchedulerRunning = 0UL;
-    uint32_t u32SchedulerSuspended = 0UL;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef *) 0UL ;
+    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxListSize = 0UL;
+    OS_List_TypeDef* pstTasksWaitingTermination = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_Boolean_t boSchedulerRunning = FALSE;
 
     OS_Task__vEnterCritical();
     {
@@ -50,22 +49,21 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         This will stop the task from be scheduled.  The idle task will check
         the termination list and free up any memory allocated by the
         scheduler for the TCB and stack. */
-        pstReadyList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &(pstTCB->stGenericListItem));
-        CDLinkedList__enRemove(&( pstTCB->stGenericListItem ));
-        u32ListSize = CDLinkedList__u32GetSize(pstReadyList);
-        if( 0UL == u32ListSize )
+        uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
+        if( 0UL == uxListSize )
         {
-            OS_Task__vResetReadyPriority( pstTCB->u32PriorityTask );
+            OS_Task__vResetReadyPriority( pstTCB->uxPriorityTask );
         }
 
         /* Is the task waiting on an event also? */
-        pstTCBOwnerList = (OS_Task_List_Typedef*) CDLinkedList_Item__pvGetOwnerList( &( pstTCB->stEventListItem));
-        if( 0UL != (uint32_t) pstTCBOwnerList)
+        pstTCBOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+        if( 0UL != (OS_UBase_t) pstTCBOwnerList)
         {
-            CDLinkedList__enRemove(&( pstTCB->stEventListItem ));
+            (void) OS_List__uxRemove(&( pstTCB->stEventListItem));
         }
         pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
-        CDLinkedList__enInsertPreviousLastItemRead( pstTasksWaitingTermination, &(pstTCB->stGenericListItem));
+        OS_List__vInsertEnd(pstTasksWaitingTermination,
+                            &(pstTCB->stGenericListItem));
 
         /* Increment the ucTasksDeleted variable so the idle task knows
         there is a task that has been deleted and that it should therefore
@@ -80,14 +78,14 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 
     /* Force a reschedule if it is the currently running task that has just
     been deleted. */
-    u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
-    if( 0UL != u32SchedulerRunning)
+    boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+    if(FALSE != boSchedulerRunning)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
         {
-            u32SchedulerSuspended = OS_Task__u32GetSchedulerSuspended();
-            if(0UL == u32SchedulerSuspended)
+            uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+            if(0UL == uxSchedulerSuspended)
             {
                 OS_Task__vYieldWithinAPI();
             }
@@ -105,33 +103,32 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
     }
 }
 
-
 void OS_Task__vCheckTasksWaitingTermination(void)
 {
-    CDLinkedList_nSTATUS enListIsEmpty = CDLinkedList_enSTATUS_OK;
-    uint32_t u32TasksDeleted = 0UL;
-    OS_Task_List_Typedef* pstTasksWaitingTermination = (OS_Task_List_Typedef*) 0UL;
+    OS_Boolean_t boListIsEmpty = FALSE;
+    OS_UBase_t uxTasksDeleted = 0UL;
+    OS_List_TypeDef* pstTasksWaitingTermination = (OS_List_TypeDef*) 0UL;
 
     /* ucTasksDeleted is used to prevent vTaskSuspendAll() being called
     too often in the idle task. */
-    u32TasksDeleted = OS_Task__u32GetTasksDeleted();
-    while(0UL < u32TasksDeleted)
+    uxTasksDeleted = OS_Task__uxGetTasksDeleted();
+    while(0UL < uxTasksDeleted)
     {
         pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
         OS_Task__vSuspendAll();
         {
-            enListIsEmpty = CDLinkedList__enIsEmpty(pstTasksWaitingTermination);
+            boListIsEmpty = OS_List__boIsEmpty(pstTasksWaitingTermination);
         }
-        (void) OS_Task__u32ResumeAll();
+        (void) OS_Task__boResumeAll();
 
-        if(CDLinkedList_enSTATUS_OK != enListIsEmpty)
+        if(FALSE == boListIsEmpty)
         {
-            OS_TASK_TCB* pstTCB = (OS_TASK_TCB*) 0UL;
+            OS_Task_TCB_TypeDef* pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
 
             OS_Task__vEnterCritical();
             {
-                pstTCB = ( OS_TASK_TCB * ) CDLinkedList__pvGetDataHead(pstTasksWaitingTermination);
-                (void) CDLinkedList__enRemove(&(pstTCB->stGenericListItem));
+                pstTCB = (OS_Task_TCB_TypeDef *) OS_List__pvGetOwnerOfHeadEntry(pstTasksWaitingTermination);
+                (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 OS_Task__vDecreaseCurrentNumberOfTasks();
                 OS_Task__vDecreaseTasksDeleted();
             }
@@ -140,4 +137,3 @@ void OS_Task__vCheckTasksWaitingTermination(void)
         }
     }
 }
-

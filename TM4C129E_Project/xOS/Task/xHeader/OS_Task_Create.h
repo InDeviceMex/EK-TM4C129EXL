@@ -27,8 +27,11 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcNameArg,
-                                        const uint32_t u32StackDepthArg, void * const pvParametersArg, uint32_t u32PriorityArg,
-                                        OS_Task_Handle_TypeDef * const pvCreatedTask );
+OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
+                                       const char * const pcNameArg,
+                                       const OS_UBase_t uxStackDepthArg,
+                                       void * const pvParametersArg,
+                                       OS_UBase_t uxPriorityArg,
+                                       OS_Task_Handle_TypeDef * const pvCreatedTask );
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_CREATE_H_ */

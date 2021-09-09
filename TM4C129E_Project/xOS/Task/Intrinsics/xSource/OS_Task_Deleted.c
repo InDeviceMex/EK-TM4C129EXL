@@ -22,39 +22,36 @@
  * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Deleted.h>
+/*< Tasks that have been deleted - but their memory not yet freed. */
+static OS_List_TypeDef OS_Task_stTasksWaitingTermination = (OS_List_TypeDef) {0UL} ;
+static volatile OS_UBase_t OS_Task_uxTasksDeleted = 0UL;
 
-
-static OS_Task_List_Typedef OS_Task_stTasksWaitingTermination;             /*< Tasks that have been deleted - but their memory not yet freed. */
-static volatile uint32_t OS_Task_u32TasksDeleted = 0UL;
-
-OS_Task_List_Typedef* OS_Task__pstGetTasksWaitingTermination(void)
+OS_List_TypeDef* OS_Task__pstGetTasksWaitingTermination(void)
 {
     return (&OS_Task_stTasksWaitingTermination);
 }
 
-uint32_t OS_Task__u32GetTasksDeleted(void)
+OS_UBase_t OS_Task__uxGetTasksDeleted(void)
 {
-    return (OS_Task_u32TasksDeleted);
+    return (OS_Task_uxTasksDeleted);
 }
 
-void OS_Task__vSetTasksDeleted(uint32_t u32ValueArg)
+void OS_Task__vSetTasksDeleted(OS_UBase_t uxValueArg)
 {
-    OS_Task_u32TasksDeleted = u32ValueArg;
+    OS_Task_uxTasksDeleted = uxValueArg;
 }
 
 void OS_Task__vIncreaseTasksDeleted(void)
 {
-    ++OS_Task_u32TasksDeleted;
+    ++OS_Task_uxTasksDeleted;
 }
 
 void OS_Task__vDecreaseTasksDeleted(void)
 {
-    --OS_Task_u32TasksDeleted;
+    --OS_Task_uxTasksDeleted;
 }
 
 void OS_Task__vInitialiseDeletedTaskLists(void)
 {
-    CDLinkedList__enInit( &OS_Task_stTasksWaitingTermination, (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
+    OS_List__vInit(&OS_Task_stTasksWaitingTermination);
 }
-
-

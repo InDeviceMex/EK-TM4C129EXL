@@ -25,7 +25,7 @@
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-#include <xOS/Adapt/xHeader/OS_Adapt_Stack.h>
+#include <xOS/Task/Adapt/xHeader/OS_Adapt_Stack.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 
 #define OS_TASK_STACK_FILL_BYTE  (0xA5U)
@@ -39,56 +39,66 @@
 static void OS_Task__vInitialiseTaskLists( void );
 
 
-uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg, const char * const pcNameArg,
-                                        const uint32_t u32StackDepthArg, void * const pvParametersArg, uint32_t u32PriorityArg,
+OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
+                                        const char * const pcNameArg,
+                                        const OS_UBase_t uxStackDepthArg,
+                                        void * const pvParametersArg,
+                                        OS_UBase_t uxPriorityArg,
                                         OS_Task_Handle_TypeDef * const pvCreatedTask )
 {
-    uint32_t u32Return = 1UL;
-    OS_TASK_TCB * pstNewTCB = (OS_TASK_TCB*) 0UL;
-    OS_TASK_TCB * pstCurrentTCB = (OS_TASK_TCB*) 0UL;
-    uint32_t *pu32TopOfStackReg = (uint32_t*) 0UL;
-    uint32_t u32SchedulerRunning = 0UL;
-    uint32_t u32CurrentNumberOfTask = 0UL;
+    OS_UBase_t uxReturn = 1UL;
+    OS_Task_TCB_TypeDef * pstNewTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;
+    OS_UBase_t *puxTopOfStackReg = (OS_UBase_t*) 0UL;
+    OS_UBase_t uxCurrentNumberOfTask = 0UL;
+    OS_Boolean_t boSchedulerRunning = FALSE;
 
-    if(0UL != (uint32_t) pfvTaskCodeArg)
+    if(0UL != (OS_UBase_t) pfvTaskCodeArg)
     {
-        if(OS_TASK_MAX_PRIORITIES > u32PriorityArg)
+        if(OS_TASK_MAX_PRIORITIES > uxPriorityArg)
         {
             /* Allocate the memory required by the TCB and stack for the new task,
             checking that the allocation was successful. */
-            pstNewTCB = OS_Task__pstAllocateTCBAndStack(u32StackDepthArg);
+            pstNewTCB = OS_Task__pstAllocateTCBAndStack(uxStackDepthArg);
 
-            if( 0UL != (uint32_t) pstNewTCB)
+            if(0UL != (OS_UBase_t) pstNewTCB)
             {
 
                 /* Check the alignment of the stack buffer is correct. */
-                if(0UL == (OS_ADAPT_BYTE_ALIGNMENT_MASK & (uint32_t) pstNewTCB->pu32Stack))
+                if(0UL ==
+                        (OS_ADAPT_BYTE_ALIGNMENT_MASK &
+                        (OS_UBase_t) pstNewTCB->puxStack))
                 {
 
                     /* If we want to use stack checking on architectures that use
                     a positive stack growth direction then we also need to store the
                     other extreme of the stack space. */
-                    pstNewTCB->pu32EndOfStack = pstNewTCB->pu32Stack;
-                    pstNewTCB->pu32EndOfStack += u32StackDepthArg;
-                    pstNewTCB->pu32EndOfStack -= 1UL;
+                    pstNewTCB->puxEndOfStack = pstNewTCB->puxStack;
+                    pstNewTCB->puxEndOfStack += uxStackDepthArg;
+                    pstNewTCB->puxEndOfStack -= 1UL;
 
-                    pu32TopOfStackReg = pstNewTCB->pu32EndOfStack;
+                    puxTopOfStackReg = pstNewTCB->puxEndOfStack;
                     /* Setup the newly allocated TCB with the initial state of the task. */
-                    OS_Task__vInitialiseTCBVariables( pstNewTCB, pcNameArg, u32PriorityArg);
+                    OS_Task__vInitialiseTCBVariables(pstNewTCB,
+                                                     pcNameArg,
+                                                     uxPriorityArg);
 
                     /* Initialize the TCB stack to look as if the task was already running,
                     but had been interrupted by the scheduler.  The return address is set
                     to the start of the task function. Once the stack has been initialised
                     the top of stack variable is updated. */
 
-                    pstNewTCB->pu32TopOfStack = OS_Adapt__p32InitialiseStack( pu32TopOfStackReg, (void (*)( void * pvParameters )) pfvTaskCodeArg, (void*) pvParametersArg);
+                    pstNewTCB->puxTopOfStack = OS_Adapt__puxInitialiseStack(
+                            puxTopOfStackReg,
+                            (void (*)( void * pvParameters )) pfvTaskCodeArg,
+                            (void*) pvParametersArg);
 
-                    if(0UL != (uint32_t) pvCreatedTask)
+                    if(0UL != (OS_UBase_t) pvCreatedTask)
                     {
                         /* Pass the TCB out - in an anonymous way.  The calling function/
                         task can use this as a handle to delete the task later if
                         required.*/
-                        *pvCreatedTask = ( OS_Task_Handle_TypeDef ) pstNewTCB;
+                        *pvCreatedTask = (OS_Task_Handle_TypeDef) pstNewTCB;
                     }
 
                     /* Ensure interrupts don't access the task lists while they are being
@@ -97,13 +107,13 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                     {
                         OS_Task__vIncreaseCurrentNumberOfTasks();
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                        if( 0UL == (uint32_t) pstCurrentTCB )
+                        if(0UL == (OS_UBase_t) pstCurrentTCB )
                         {
                             /* There are no other tasks, or all the other tasks are in
                             the suspended state - make this the current task. */
                             OS_Task__vSetCurrentTCB(pstNewTCB);
-                            u32CurrentNumberOfTask = OS_Task__u32GetCurrentNumberOfTasks();
-                            if(1UL == u32CurrentNumberOfTask)
+                            uxCurrentNumberOfTask = OS_Task__uxGetCurrentNumberOfTasks();
+                            if(1UL == uxCurrentNumberOfTask)
                             {
                                 /* This is the first task to be created so do the preliminary
                                 initialisation required.  We will not recover if this call
@@ -116,10 +126,10 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
                             /* If the scheduler is not already running, make this task the
                             current task if it is the highest priority task to be created
                             so far. */
-                            u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
-                            if( 0UL == u32SchedulerRunning)
+                            boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+                            if(FALSE == boSchedulerRunning)
                             {
-                                if( pstCurrentTCB->u32PriorityTask <= u32PriorityArg )
+                                if( pstCurrentTCB->uxPriorityTask <= uxPriorityArg )
                                 {
                                     OS_Task__vSetCurrentTCB(pstNewTCB);
                                 }
@@ -129,28 +139,28 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
 
                         {
                             /* Add a counter into the TCB for tracing only. */
-                            pstNewTCB->u32TCBNumber = (uint32_t) OS_Task__u32GetTaskNumber();
+                            pstNewTCB->uxTCBNumber = (OS_UBase_t) OS_Task__uxGetTaskNumber();
                         }
 
                         OS_Task__vAddTaskToReadyList(pstNewTCB);
 
-                        u32Return = 1UL;
+                        uxReturn = 1UL;
                     }
                     OS_Task__vExitCritical();
                 }
                 else
                 {
-                    u32Return = 2UL;
+                    uxReturn = 2UL;
                 }
 
-                if( u32Return == 1UL )
+                if( uxReturn == 1UL )
                 {
-                    u32SchedulerRunning = OS_Task__u32GetSchedulerRunning();
-                    if( 0UL != u32SchedulerRunning)
+                    boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+                    if(FALSE != boSchedulerRunning)
                     {
                         /* If the created task is of a higher priority than the current task
                         then it should run now. */
-                        if( pstCurrentTCB->u32PriorityTask < u32PriorityArg )
+                        if( pstCurrentTCB->uxPriorityTask < uxPriorityArg )
                         {
                             OS_Task__vYieldIfUsingPreemption();
                         }
@@ -159,7 +169,7 @@ uint32_t OS_Task__u32TaskGenericCreate( OS_Task_Function_Typedef pfvTaskCodeArg,
             }
         }
     }
-    return (u32Return);
+    return (uxReturn);
 }
 
 

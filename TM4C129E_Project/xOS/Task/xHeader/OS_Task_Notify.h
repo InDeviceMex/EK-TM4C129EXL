@@ -27,27 +27,28 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-uint32_t OS_Task__u32NotifyTake(uint32_t u32ClearCountOnExit, uint32_t u32TicksToWait);
+OS_UBase_t OS_Task__uxNotifyTake(OS_Boolean_t boClearCountOnExit,
+                                 OS_UBase_t uxTicksToWait);
 
-uint32_t OS_Task__u32NotifyWait(uint32_t u32BitsToClearOnEntry,
-                                uint32_t u32BitsToClearOnExit,
-                                uint32_t *pu32NotificationValue,
-                                uint32_t u32TicksToWait);
+OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
+                                OS_UBase_t uxBitsToClearOnExit,
+                                OS_UBase_t *puxNotificationValue,
+                                OS_UBase_t uxTicksToWait);
 
-uint32_t OS_Task__u32GenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
-                             uint32_t u32Value,
+OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_TypeDef pvTaskToNotify,
+                             OS_UBase_t uxValue,
                              OS_Task_eNotifyAction enAction,
-                             uint32_t *pu32PreviousNotificationValue);
+                             OS_UBase_t *puxPreviousNotificationValue);
 
-uint32_t OS_Task__u32GenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
-                                    uint32_t u32Value,
+OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
+                                    OS_UBase_t uxValue,
                                     OS_Task_eNotifyAction enAction,
-                                    uint32_t *pu32PreviousNotificationValue,
-                                    uint32_t *pu32HigherPriorityTaskWoken);
+                                    OS_UBase_t *puxPreviousNotificationValue,
+                                    OS_Boolean_t *pboHigherPriorityTaskWoken);
 
 void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_TypeDef pvTaskToNotify,
-                            uint32_t *pu32HigherPriorityTaskWoken);
+                            OS_Boolean_t *pboHigherPriorityTaskWoken);
 
-uint32_t OS_Task__u32NotifyStateClear(OS_Task_Handle_TypeDef pvTask);
+OS_Boolean_t OS_Task__boNotifyStateClear(OS_Task_Handle_TypeDef pvTask);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_NOTIFY_H_ */

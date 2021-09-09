@@ -22,27 +22,27 @@
  * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Ready.h>
+/*< Prioritised ready tasks. */
+static OS_List_TypeDef OS_Task_pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];
 
-static OS_Task_List_Typedef OS_Task_pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];/*< Prioritised ready tasks. */
-
-OS_Task_List_Typedef* OS_Task__pstGetReadyTasksLists(uint32_t u32Index)
+OS_List_TypeDef* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex)
 {
-    OS_Task_List_Typedef* pstReadyTaskReg = (OS_Task_List_Typedef*) 0UL;
-    if(OS_TASK_MAX_PRIORITIES > u32Index)
+    OS_List_TypeDef* pstReadyTaskReg = (OS_List_TypeDef*) 0UL;
+    if(OS_TASK_MAX_PRIORITIES > uxIndex)
     {
-        pstReadyTaskReg = &OS_Task_pstReadyTasksLists[u32Index];
+        pstReadyTaskReg = &OS_Task_pstReadyTasksLists[uxIndex];
     }
-
     return (pstReadyTaskReg);
 }
 
 
 void OS_Task__vInitialiseReadyTaskLists(void)
 {
-    uint32_t u32PriorityReg = 0UL;
-
-    for( u32PriorityReg = ( uint32_t ) 0U; u32PriorityReg < ( uint32_t ) OS_TASK_MAX_PRIORITIES; u32PriorityReg++ )
+    OS_UBase_t uxPriorityReg = 0UL;
+    for( uxPriorityReg = 0UL;
+         uxPriorityReg < OS_TASK_MAX_PRIORITIES;
+         uxPriorityReg++ )
     {
-        CDLinkedList__enInit( &(OS_Task_pstReadyTasksLists[u32PriorityReg]), (void (*) (void *DataContainer)) 0UL, (void (*) (void *Item)) 0UL);
+        OS_List__vInit(&(OS_Task_pstReadyTasksLists[uxPriorityReg]));
     }
 }
