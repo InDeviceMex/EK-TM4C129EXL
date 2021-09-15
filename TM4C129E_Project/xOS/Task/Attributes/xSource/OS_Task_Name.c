@@ -30,7 +30,7 @@ char* OS_Task__pcGetTaskName(OS_Task_Handle_TypeDef pvTaskToQuery)
 {
     OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
     char* pcTaskNameReg = (char*) 0UL;
-    /* If null is passed in here then the name of the calling task is being queried. */
+
     pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToQuery);
     if(0UL != (OS_UBase_t) pstTCB)
     {
@@ -38,5 +38,3 @@ char* OS_Task__pcGetTaskName(OS_Task_Handle_TypeDef pvTaskToQuery)
     }
     return (pcTaskNameReg);
 }
-
-

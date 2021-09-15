@@ -22,12 +22,13 @@
  * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Ready.h>
-/*< Prioritised ready tasks. */
+
 static OS_List_TypeDef OS_Task_pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];
 
 OS_List_TypeDef* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex)
 {
     OS_List_TypeDef* pstReadyTaskReg = (OS_List_TypeDef*) 0UL;
+
     if(OS_TASK_MAX_PRIORITIES > uxIndex)
     {
         pstReadyTaskReg = &OS_Task_pstReadyTasksLists[uxIndex];
@@ -39,6 +40,7 @@ OS_List_TypeDef* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex)
 void OS_Task__vInitialiseReadyTaskLists(void)
 {
     OS_UBase_t uxPriorityReg = 0UL;
+
     for( uxPriorityReg = 0UL;
          uxPriorityReg < OS_TASK_MAX_PRIORITIES;
          uxPriorityReg++ )

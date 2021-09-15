@@ -38,7 +38,7 @@ void xTask1_AccelerometerLog(void* pvParams)
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(&s32ADCValueX, &s32ADCValueY, &s32ADCValueZ);
-        OS_Task__vEnterCritical();
+        OS_Task__vSuspendAll();
 
         GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
                              "Accelerometer X: %d Y: %d Z: %d       ",
@@ -46,7 +46,7 @@ void xTask1_AccelerometerLog(void* pvParams)
                              s32ADCValueY,
                              s32ADCValueZ
                              );
-        OS_Task__vExitCritical();
+        OS_Task__boResumeAll();
         OS_Task__vDelayUntil(&u32LastWakeTime, 160UL);
     }
 }

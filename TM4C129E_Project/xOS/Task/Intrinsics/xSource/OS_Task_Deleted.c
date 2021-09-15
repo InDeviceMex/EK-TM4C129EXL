@@ -22,7 +22,7 @@
  * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Deleted.h>
-/*< Tasks that have been deleted - but their memory not yet freed. */
+
 static OS_List_TypeDef OS_Task_stTasksWaitingTermination = (OS_List_TypeDef) {0UL} ;
 static volatile OS_UBase_t OS_Task_uxTasksDeleted = 0UL;
 

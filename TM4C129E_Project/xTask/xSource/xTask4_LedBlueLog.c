@@ -39,7 +39,7 @@ void xTask4_LedBlueLog(void* pvParams)
     {
         GPIO__vSetData(GPIO_enPORT_G, GPIO_enPIN_0, u32PinValue);
         u32PinValue ^= GPIO_enPIN_0;
-        OS_Task__vEnterCritical();
+        OS_Task__vSuspendAll();
         if(0UL == u32PinValue)
         {
             GraphTerm__u32Printf(UART_enMODULE_0, 15UL, 0UL, "LED BLUE: ON  ");
@@ -48,7 +48,7 @@ void xTask4_LedBlueLog(void* pvParams)
         {
             GraphTerm__u32Printf(UART_enMODULE_0, 15UL, 0UL, "LED BLUE: OFF ");
         }
-        OS_Task__vExitCritical();
+        OS_Task__boResumeAll();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 500UL);
     }

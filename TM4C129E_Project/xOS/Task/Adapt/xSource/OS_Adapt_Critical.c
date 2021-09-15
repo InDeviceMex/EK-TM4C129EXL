@@ -34,7 +34,6 @@ void OS_Adapt__vEnterCritical(void)
     OS_Adapt__vDisableInterrupts();
     OS_Adapt_uxCriticalNesting++;
 
-
     if(1UL == OS_Adapt_uxCriticalNesting)
     {
         if(FALSE != OS_Adapt__boIsInterruptActive())

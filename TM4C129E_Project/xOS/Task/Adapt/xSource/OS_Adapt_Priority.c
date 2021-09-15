@@ -30,6 +30,7 @@ void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriority,
                                     volatile OS_UBase_t* puxReadyPriorities)
 {
     OS_UBase_t uxPriorityBitReg = 1UL;
+
     uxPriorityBitReg <<= uxPriority;
     *puxReadyPriorities |= uxPriorityBitReg;
 }
@@ -38,6 +39,7 @@ void OS_Adapt__vResetReadyPriority(OS_UBase_t uxPriority,
                                    volatile OS_UBase_t* puxReadyPriorities)
 {
     OS_UBase_t uxPriorityBitReg = 1UL;
+
     uxPriorityBitReg <<= uxPriority;
     *puxReadyPriorities &= ~uxPriorityBitReg;
 }
@@ -46,6 +48,7 @@ OS_UBase_t OS_Adapt__uxGetHighestPriority(volatile OS_UBase_t uxReadyPriorities)
 {
     OS_UBase_t uxCLZReg = 0UL;
     OS_UBase_t puxTopPriorityReg = 31UL;
+
     uxCLZReg = MCU__u32GetCounLeadingZeros(uxReadyPriorities);
     puxTopPriorityReg -= uxCLZReg;
     return(puxTopPriorityReg);

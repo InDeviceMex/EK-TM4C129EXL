@@ -86,14 +86,14 @@ void xTask2_JoystickLog(void* pvParams)
             }
         }
         ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
-        OS_Task__vEnterCritical();
+        OS_Task__vSuspendAll();
 
         GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
                              "LCD POS X: %d Y: %d            ",
                              u32LcdPosXCurrent,
                              u32LcdPosYCurrent
                              );
-        OS_Task__vExitCritical();
+        OS_Task__boResumeAll();
         u32CountImage++;
         if(u32CountImage > 50UL)
         {

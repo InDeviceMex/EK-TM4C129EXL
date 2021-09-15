@@ -279,7 +279,7 @@ ResetISR(void)
     uint32_t *pui32DestBss = (uint32_t*) 0UL;
 
 
-    __asm volatile(" cpsid i");
+    {__asm volatile(" cpsid i");}
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
@@ -330,7 +330,7 @@ ResetISR(void)
     /**/
 
 
-    __asm volatile(" cpsid i");
+    {__asm volatile(" cpsid i");}
 
     main();
 }

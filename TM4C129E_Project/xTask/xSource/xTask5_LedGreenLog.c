@@ -39,7 +39,7 @@ void xTask5_LedGreenLog(void* pvParams)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
         u32PinValue ^= GPIO_enPIN_3;
-        OS_Task__vEnterCritical();
+        OS_Task__vSuspendAll();
         if(0UL == u32PinValue)
         {
             GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: ON  ");
@@ -48,7 +48,7 @@ void xTask5_LedGreenLog(void* pvParams)
         {
             GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: OFF ");
         }
-        OS_Task__vExitCritical();
+        OS_Task__boResumeAll();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 1000UL);
     }

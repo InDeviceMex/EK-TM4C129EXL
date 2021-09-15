@@ -24,7 +24,6 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Suspended.h>
 
 static OS_List_TypeDef OS_Task_stPendingReadyList = (OS_List_TypeDef) {0UL};
-/*< Tasks that are currently suspended. */
 static OS_List_TypeDef OS_Task_stSuspendedTaskList = (OS_List_TypeDef) {0UL};
 
 static volatile OS_UBase_t OS_Task_uxPendedTicks = 0UL;
@@ -72,9 +71,9 @@ OS_List_TypeDef* OS_Task__pstGetSuspendedTaskList(void)
 
 OS_Boolean_t OS_Task__boIsTaskSuspended(const OS_Task_Handle_TypeDef pvTask)
 {
+    OS_Task_TCB_TypeDef* const pstTCB = (OS_Task_TCB_TypeDef*) pvTask;
     OS_Boolean_t boStatus = FALSE;
     OS_Boolean_t boListStatus = FALSE;
-    OS_Task_TCB_TypeDef* const pstTCB = (OS_Task_TCB_TypeDef*) pvTask;
 
     if(0UL != (OS_UBase_t) pstTCB)
     {

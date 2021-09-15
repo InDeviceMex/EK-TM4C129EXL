@@ -77,53 +77,53 @@ void UsageFault__vIRQVectorHandler(void)
     "MainStackUsage: \n"
     " mrs    R4, MSP \n"
 #if defined (__TI_ARM__ )
-    " movw R6, SCB_BusFault_pu32Context\n"
-    " movt R6, SCB_BusFault_pu32Context\n"
+    " movw R6, SCB_UsageFault_pu32Context\n"
+    " movt R6, SCB_UsageFault_pu32Context\n"
 #elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_pu32Context\n"
+    " ldr R6, = SCB_UsageFault_pu32Context\n"
 #endif
     " ldr R5, [R4, #0X10]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+    " str R5, [R6, #0x0]\n"/*SCB_UsageFault_pu32Context[0] R4*/
     " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
+    " str R5, [R6, #0x4]\n"/*SCB_UsageFault_pu32Context[1] R5*/
     " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
+    " str R5, [R6, #0x8]\n"/*SCB_UsageFault_pu32Context[2] R6*/
     " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
+    " str R5, [R6, #0xC]\n"/*SCB_UsageFault_pu32Context[3] R3*/
     " ldr R5, [R4, #0x20]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
+    " str R5, [R6, #0x10]\n"/*SCB_UsageFault_pu32Context[4] R52*/
     " ldr R5, [R4, #0x24]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
+    " str R5, [R6, #0x14]\n"/*SCB_UsageFault_pu32Context[5] LR*/
     " ldr R5, [R4, #0x28]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
+    " str R5, [R6, #0x18]\n"/*SCB_UsageFault_pu32Context[6] PC*/
     " ldr R5, [R4, #0x2C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+    " str R5, [R6, #0x1C]\n"/*SCB_UsageFault_pu32Context[7] PSR*/
     " b    ProcessUsage \n"
 
     "ProcessStackUsage: \n"
     " mrs    R4, PSP \n"
 #if defined (__TI_ARM__ )
-    " movw R6, SCB_BusFault_pu32Context\n"
-    " movt R6, SCB_BusFault_pu32Context\n"
+    " movw R6, SCB_UsageFault_pu32Context\n"
+    " movt R6, SCB_UsageFault_pu32Context\n"
 #elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_pu32Context\n"
+    " ldr R6, = SCB_UsageFault_pu32Context\n"
 #endif
     " ldr R5, [R4, #0X0]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+    " str R5, [R6, #0x0]\n"/*SCB_UsageFault_pu32Context[0] R4*/
     " ldr R5, [R4, #0x4]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
+    " str R5, [R6, #0x4]\n"/*SCB_UsageFault_pu32Context[1] R5*/
     " ldr R5, [R4, #0x8]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
+    " str R5, [R6, #0x8]\n"/*SCB_UsageFault_pu32Context[2] R6*/
     " ldr R5, [R4, #0xC]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
+    " str R5, [R6, #0xC]\n"/*SCB_UsageFault_pu32Context[3] R3*/
     " ldr R5, [R4, #0x10]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
+    " str R5, [R6, #0x10]\n"/*SCB_UsageFault_pu32Context[4] R52*/
     " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
+    " str R5, [R6, #0x14]\n"/*SCB_UsageFault_pu32Context[5] LR*/
     " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
+    " str R5, [R6, #0x18]\n"/*SCB_UsageFault_pu32Context[6] PC*/
     " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+    " str R5, [R6, #0x1C]\n"/*SCB_UsageFault_pu32Context[7] PSR*/
 
     "ProcessUsage: \n"
     " pop {R4-R7}\n"

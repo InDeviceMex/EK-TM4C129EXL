@@ -31,8 +31,6 @@ void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
     OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
     OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
 
-    /* If pvTaskArg is NULL then it is the task hook of the calling task that is
-    getting set. */
     if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
@@ -43,8 +41,6 @@ void OS_Task__vSetHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
         pstTCB = (OS_Task_TCB_TypeDef*) pvTaskArg;
     }
 
-    /* Save the hook function in the TCB.  A critical section is required as
-    the value can be accessed from an interrupt. */
     OS_Task__vEnterCritical();
     pstTCB->puxfHookFunction = puxfHookFunctionArg;
     OS_Task__vExitCritical();
@@ -55,7 +51,6 @@ OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_TypeDef
     OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
     OS_Task_HookFunction_Typedef puxfReturn = (OS_Task_HookFunction_Typedef) 0UL;
 
-    /* If pvTaskArg is NULL then we are setting our own task hook. */
     if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
@@ -66,12 +61,8 @@ OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_TypeDef
         pstTCB = (OS_Task_TCB_TypeDef *) pvTaskArg;
     }
 
-    /* Save the hook function in the TCB.  A critical section is required as
-    the value can be accessed from an interrupt. */
     OS_Task__vEnterCritical();
-    {
-        puxfReturn = pstTCB->puxfHookFunction;
-    }
+    puxfReturn = pstTCB->puxfHookFunction;
     OS_Task__vExitCritical();
 
     return (puxfReturn);
@@ -84,7 +75,6 @@ OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_TypeDef pvTaskArg,
     OS_Task_TCB_TypeDef *pstTCBCurrent = (OS_Task_TCB_TypeDef*) 0UL;
     OS_UBase_t uxReturn = 0UL;
 
-    /* If pvTaskArg is NULL then we are calling our own task hook. */
     if(0UL == (OS_UBase_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();

@@ -6,6 +6,7 @@
 #include <xTask/xTask.h>
 
 #include <xApplication/EDUMKII/EDUMKII.h>
+#include <xApplication/SHARP96_96/SHARP96_96.h>
 
 #include <xDriver_MCU/xDriver_MCU.h>
 #include <xApplication_MCU/xApplication_MCU.h>
@@ -107,6 +108,7 @@ uint32_t main(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC1);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI2);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI3);
     EEPROM__enInit();
     DMA__vInit();
     GPIO__vInit();
@@ -134,6 +136,8 @@ uint32_t main(void)
     GraphTerm__vHideCursor(UART_enMODULE_0);
     GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
 
+    SHARP_96_96__vInitDisplay();
+
     TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0W, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vSetClockSource(TIMER_enT0W, TIMER_enCLOCK_SYSCLK);
     TIMER__vEnInterruptVector(TIMER_enT0W, (TIMER_nPRIORITY) NVIC_enPriority_TIMER0A);
@@ -145,15 +149,15 @@ uint32_t main(void)
 
     OS_Task_Handle_TypeDef TaskHandeler[5UL] = {0UL};
     OS_Task__uxTaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
-                                  (void*) 0UL, 4UL, &TaskHandeler[1UL]);
+                                  (void*) 0UL, 4UL, &TaskHandeler[1UL],(uint32_t*) 0UL);
     OS_Task__uxTaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
-                                  (void*) 0UL, 2UL, &TaskHandeler[1UL]);
+                                  (void*) 0UL, 2UL, &TaskHandeler[1UL],(uint32_t*) 0UL);
     OS_Task__uxTaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
-                                  (void*) 0UL, 5UL, &TaskHandeler[2UL]);
+                                  (void*) 0UL, 5UL, &TaskHandeler[2UL],(uint32_t*) 0UL);
     OS_Task__uxTaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
-                                  (void*) 0UL, 3UL, &TaskHandeler[3UL]);
+                                  (void*) 0UL, 3UL, &TaskHandeler[3UL],(uint32_t*) 0UL);
     OS_Task__uxTaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
-                                  (void*) 0UL, 3UL, &TaskHandeler[4UL]);
+                                  (void*) 0UL, 3UL, &TaskHandeler[4UL],(uint32_t*) 0UL);
 
     OS_Task__vStartScheduler(1000UL);
     while(1UL)

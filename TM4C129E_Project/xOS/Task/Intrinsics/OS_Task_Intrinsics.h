@@ -32,6 +32,7 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Interrupt.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Priority.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Ready.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Runtime.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Suspended.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>

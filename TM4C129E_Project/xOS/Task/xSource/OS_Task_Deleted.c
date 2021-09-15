@@ -31,31 +31,23 @@
 
 void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 {
-    OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
-    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef *) 0UL ;
-    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
-    OS_UBase_t uxListSize = 0UL;
     OS_List_TypeDef* pstTasksWaitingTermination = (OS_List_TypeDef*) 0UL;
+    OS_List_TypeDef* pstTCBOwnerList = (OS_List_TypeDef*) 0UL;
+    OS_Task_TCB_TypeDef *pstCurrentTCB = (OS_Task_TCB_TypeDef *) 0UL;
+    OS_Task_TCB_TypeDef *pstTCB = (OS_Task_TCB_TypeDef *) 0UL ;
     OS_UBase_t uxSchedulerSuspended = 0UL;
+    OS_UBase_t uxListSize = 0UL;
     OS_Boolean_t boSchedulerRunning = FALSE;
 
     OS_Task__vEnterCritical();
     {
-        /* If null is passed in here then it is the calling task that is
-        being deleted. */
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToDelete);
-
-        /* Remove task from the ready list and place in the termination list.
-        This will stop the task from be scheduled.  The idle task will check
-        the termination list and free up any memory allocated by the
-        scheduler for the TCB and stack. */
         uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
         if( 0UL == uxListSize )
         {
             OS_Task__vResetReadyPriority( pstTCB->uxPriorityTask );
         }
 
-        /* Is the task waiting on an event also? */
         pstTCBOwnerList = (OS_List_TypeDef*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
         if( 0UL != (OS_UBase_t) pstTCBOwnerList)
         {
@@ -65,19 +57,11 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         OS_List__vInsertEnd(pstTasksWaitingTermination,
                             &(pstTCB->stGenericListItem));
 
-        /* Increment the ucTasksDeleted variable so the idle task knows
-        there is a task that has been deleted and that it should therefore
-        check the xTasksWaitingTermination list. */
         OS_Task__vIncreaseTasksDeleted();
-
-        /* Increment the uxTaskNumberVariable also so kernel aware debuggers
-        can detect that the task lists need re-generating. */
         OS_Task__vIncreaseTaskNumber();
     }
     OS_Task__vExitCritical();
 
-    /* Force a reschedule if it is the currently running task that has just
-    been deleted. */
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
@@ -92,8 +76,6 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
         }
         else
         {
-            /* Reset the next expected unblock time in case it referred to
-            the task that has just been deleted. */
             OS_Task__vEnterCritical();
             {
                 OS_Task__vResetNextTaskUnblockTime();
@@ -105,12 +87,10 @@ void OS_Task__vDelete(OS_Task_Handle_TypeDef pvTaskToDelete)
 
 void OS_Task__vCheckTasksWaitingTermination(void)
 {
-    OS_Boolean_t boListIsEmpty = FALSE;
-    OS_UBase_t uxTasksDeleted = 0UL;
     OS_List_TypeDef* pstTasksWaitingTermination = (OS_List_TypeDef*) 0UL;
+    OS_UBase_t uxTasksDeleted = 0UL;
+    OS_Boolean_t boListIsEmpty = FALSE;
 
-    /* ucTasksDeleted is used to prevent vTaskSuspendAll() being called
-    too often in the idle task. */
     uxTasksDeleted = OS_Task__uxGetTasksDeleted();
     while(0UL < uxTasksDeleted)
     {
@@ -124,7 +104,6 @@ void OS_Task__vCheckTasksWaitingTermination(void)
         if(FALSE == boListIsEmpty)
         {
             OS_Task_TCB_TypeDef* pstTCB = (OS_Task_TCB_TypeDef*) 0UL;
-
             OS_Task__vEnterCritical();
             {
                 pstTCB = (OS_Task_TCB_TypeDef *) OS_List__pvGetOwnerOfHeadEntry(pstTasksWaitingTermination);

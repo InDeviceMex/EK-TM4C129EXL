@@ -31,11 +31,6 @@ OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
                                          void (*pfvThreadArg)(void* pvParameters),
                                          void *pvParametersArg)
 {
-    /* Simulate the stack frame as it would be created by a context switch
-    interrupt. */
-
-    /* Offset added to account for the way the MCU uses the stack on entry/exit
-    of interrupts, and to ensure alignment. */
     puxTopOfStackArg -= 1UL;
 
     *puxTopOfStackArg = OS_KERNEL_INITIAL_XPSR;   /* xPSR */
@@ -44,16 +39,13 @@ OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
     puxTopOfStackArg-= 1UL;
     *puxTopOfStackArg = (OS_UBase_t) &OS_Adapt__vErrorTask;    /* LR */
 
-    /* Save code space by skipping register initialisation. */
     puxTopOfStackArg -= 5;  /* R12, R3, R2 and R1. */
     *puxTopOfStackArg =(OS_UBase_t) pvParametersArg;   /* R0 */
 
-    /* A save method is being used that requires each task to maintain its
-    own exec return value. */
     puxTopOfStackArg -= 1UL;
     *puxTopOfStackArg = OS_KERNEL_EXEC_RETURN;
 
-    puxTopOfStackArg -= 8;  /* R11, R10, R9, R8, R7, R6, R5 and R4. */
+    puxTopOfStackArg -= 8UL;  /* R11, R10, R9, R8, R7, R6, R5 and R4. */
 
     return (puxTopOfStackArg);
 }

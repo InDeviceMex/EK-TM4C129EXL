@@ -63,6 +63,7 @@ void OS_Task__vEnableInterrupts(void)
 OS_Boolean_t OS_Task__boIsInterruptActive(void)
 {
     OS_Boolean_t boIrqActive = FALSE;
+
     boIrqActive = OS_Adapt__boIsInterruptActive();
     return (boIrqActive);
 }
@@ -70,6 +71,7 @@ OS_Boolean_t OS_Task__boIsInterruptActive(void)
 OS_UBase_t OS_Task__uxSetInterruptMaskFromISR(void)
 {
     OS_UBase_t uxReturnMaskReg = 0UL;
+
     uxReturnMaskReg = OS_Adapt__uxSetInterruptMaskFromISR();
     return (uxReturnMaskReg);
 }

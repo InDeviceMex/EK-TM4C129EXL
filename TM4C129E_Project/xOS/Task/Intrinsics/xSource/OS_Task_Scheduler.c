@@ -31,6 +31,7 @@ static volatile OS_UBase_t OS_Task_uxTickCount = 0UL;
 OS_Task_Handle_TypeDef* OS_Task__pvGetIdleTaskHandle(void)
 {
     static OS_Task_Handle_TypeDef OS_Task_pvIdleTaskHandle = (OS_Task_Handle_TypeDef) 0UL;
+
     return (&OS_Task_pvIdleTaskHandle);
 }
 

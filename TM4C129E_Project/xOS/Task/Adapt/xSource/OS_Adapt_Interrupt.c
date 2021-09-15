@@ -63,6 +63,7 @@ OS_Boolean_t OS_Adapt__boIsInterruptActive(void)
 {
     OS_UBase_t uxInterruptActive = 0UL;
     OS_Boolean_t boInterruptState = FALSE;
+
     uxInterruptActive = (OS_UBase_t) SCB_ISR__enGetVectorActive();
     if(0UL != uxInterruptActive)
     {
@@ -74,11 +75,11 @@ OS_Boolean_t OS_Adapt__boIsInterruptActive(void)
 OS_UBase_t OS_Adapt__uxSetInterruptMaskFromISR(void)
 {
     OS_UBase_t uxInterrupt = 0UL;
+
     uxInterrupt = (OS_UBase_t) MCU__enSetBasePriorityInterrupt(
             (MCU_nPRIORITY) OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY);
     return (uxInterrupt);
 }
-
 
 void OS_Adapt__vClearInterruptMaskFromISR(OS_UBase_t uxMask)
 {

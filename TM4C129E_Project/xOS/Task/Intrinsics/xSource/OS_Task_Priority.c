@@ -25,7 +25,6 @@
 
 static volatile OS_UBase_t OS_Task_uxTopReadyPriority = OS_TASK_IDLE_PRIORITY;
 
-
 OS_UBase_t OS_Task__uxGetTopReadyPriority(void)
 {
     return (OS_Task_uxTopReadyPriority);
@@ -36,7 +35,7 @@ void OS_Task__vRecordReadyPriority(OS_UBase_t uxPriorityArg)
     OS_Adapt__vRecordReadyPriority(uxPriorityArg, &OS_Task_uxTopReadyPriority);
 }
 
-void OS_Task__vClearReadyPriority(OS_UBase_t uxPriorityArg)
+void OS_Task__vAdaptResetReadyPriority(OS_UBase_t uxPriorityArg)
 {
     OS_Adapt__vResetReadyPriority(uxPriorityArg, &OS_Task_uxTopReadyPriority);
 }
@@ -44,6 +43,7 @@ void OS_Task__vClearReadyPriority(OS_UBase_t uxPriorityArg)
 OS_UBase_t OS_Task__uxGetHighestPriority(void)
 {
     OS_UBase_t uxTopPriorityReg = 0UL;
+
     uxTopPriorityReg = OS_Adapt__uxGetHighestPriority(OS_Task_uxTopReadyPriority);
     return (uxTopPriorityReg);
 }

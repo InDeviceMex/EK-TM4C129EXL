@@ -58,21 +58,14 @@ void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
                                    (void (**) (void)) 0UL,
                                    SCB_enVECISR_PENDSV);
     SCB_SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
-    /* Make PendSV and SysTick the lowest priority interrupts. */
     SCB_PendSV__vSetPriority(SCB_enSHPR7);
     SCB_Systick__vSetPriority(SCB_enSHPR7);
 
-    /* Start the timer that generates the tick ISR.  Interrupts are disabled
-    here already. */
     OS_Adapt_vSetupTimerInterrupt(uxUsPeriod);
-
-    /* Initialise the critical nesting count ready for the first task. */
     OS_Adapt__vSetCriticalNesting(0UL);
 
-    /* Ensure the VFP is enabled - it should be anyway. */
     FPU__vInit();
     OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
-    /* Start the first task. */
     OS_Adapt_vStartFirstTask();
 }
 
@@ -125,8 +118,6 @@ __asm volatile (
 __attribute__ (( naked ))
 static void OS_Adapt_vPendSVHandler (void)
 {
-    /* This is a naked function. */
-
      __asm volatile
     (
     "   mrs r0, psp                         \n"
@@ -192,18 +183,12 @@ static void OS_Adapt_vPendSVHandler (void)
 static void OS_Adapt_vSysTickHandler( void )
 {
     OS_Boolean_t boSwitchRequired = FALSE;
-    /* The SysTick runs at the lowest interrupt priority, so when this interrupt
-    executes all interrupts must be unmasked.  There is therefore no need to
-    save and then restore the interrupt mask value as its value is already
-    known. */
+
     (void) OS_Adapt__uxSetInterruptMaskFromISR();
     {
-        /* Increment the RTOS tick. */
         boSwitchRequired = OS_Task__boIncrementTick();
         if(FALSE !=  boSwitchRequired)
         {
-            /* A context switch is required.  Context switching is performed in
-            the PendSV interrupt.  Pend the PendSV interrupt. */
             SCB_PendSV__vSetPending();
         }
     }
@@ -213,8 +198,7 @@ static void OS_Adapt_vSysTickHandler( void )
 void OS_Adapt__vEndScheduler(void)
 {
     OS_UBase_t uxCriticalNestingReg = 0UL;
-    /* Not implemented in ports where there is nothing to return to.
-    Artificially force an assert. */
+
     uxCriticalNestingReg = OS_Adapt__uxGetCriticalNesting();
     if(1000UL != uxCriticalNestingReg)
     {

@@ -32,7 +32,8 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_TypeDef* const pstTCB,
                                       OS_UBase_t uxPriorityArg);
 
 OS_Task_TCB_TypeDef *volatile * OS_Task__pstGetCurrentTCBAddress(void);
-OS_Task_TCB_TypeDef* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth);
+OS_Task_TCB_TypeDef* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth,
+                                                     OS_UBase_t* const puxStaticStackBuffer);
 OS_Task_TCB_TypeDef* OS_Task__pstGetCurrentTCB(void);
 OS_Task_TCB_TypeDef* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandle);
 

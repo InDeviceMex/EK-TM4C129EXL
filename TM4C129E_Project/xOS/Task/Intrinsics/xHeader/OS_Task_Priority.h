@@ -29,7 +29,7 @@
 
 OS_UBase_t OS_Task__uxGetTopReadyPriority(void);
 void OS_Task__vRecordReadyPriority(OS_UBase_t uxPriorityArg);
-void OS_Task__vClearReadyPriority(OS_UBase_t uxPriorityArg);
+void OS_Task__vAdaptResetReadyPriority(OS_UBase_t uxPriorityArg);
 OS_UBase_t OS_Task__uxGetHighestPriority(void);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_PRIORITY_H_ */
