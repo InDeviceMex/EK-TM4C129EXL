@@ -21,7 +21,7 @@
  * Date           Author     Version     Description
  * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Priority.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
 
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Common/MCU_Common.h>

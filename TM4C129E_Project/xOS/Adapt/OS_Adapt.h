@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_Task_Adapt.h
+ * @file OS_Adapt.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,13 +22,13 @@
  * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_ADAPT_OS_TASK_ADAPT_H_
-#define XOS_TASK_ADAPT_OS_TASK_ADAPT_H_
+#ifndef XOS_TASK_ADAPT_OS_ADAPT_H_
+#define XOS_TASK_ADAPT_OS_ADAPT_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Priority.h>
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Interrupt.h>
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Critical.h>
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Scheduler.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Scheduler.h>
 
-#endif /* XOS_TASK_ADAPT_OS_TASK_ADAPT_H_ */
+#endif /* XOS_TASK_ADAPT_OS_ADAPT_H_ */

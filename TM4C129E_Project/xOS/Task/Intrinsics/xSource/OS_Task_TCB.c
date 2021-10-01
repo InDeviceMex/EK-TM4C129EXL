@@ -67,7 +67,7 @@ OS_Task_TCB_TypeDef* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_TypeDef pxHandl
 }
 
 OS_Task_TCB_TypeDef* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth,
-                                                     OS_UBase_t* const puxStaticStackBuffer)
+                                                     const OS_UBase_t* const puxStaticStackBuffer)
 {
     OS_Task_TCB_TypeDef *pstNewTCB = (OS_Task_TCB_TypeDef*) 0UL;
     OS_UBase_t *puxStackReg = (OS_UBase_t*) 0UL;

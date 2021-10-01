@@ -25,6 +25,7 @@
 
 #include <xApplication/EDUMKII/EDUMKII.h>
 #include <xApplication/ST7735/ST7735.h>
+#include <xApplication/SHARP96_96/SHARP96_96.h>
 
 #include <xApplication_MCU/xApplication_MCU.h>
 

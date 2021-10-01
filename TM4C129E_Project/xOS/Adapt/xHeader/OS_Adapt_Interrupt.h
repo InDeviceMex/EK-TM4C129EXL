@@ -25,7 +25,7 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_INTERRUPT_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_INTERRUPT_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 void OS_Adapt__vYield(void);
 void OS_Adapt__vYieldWithinAPI(void);

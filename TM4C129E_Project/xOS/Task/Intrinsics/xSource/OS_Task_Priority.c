@@ -22,6 +22,7 @@
  * 21 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Priority.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Priority.h>
 
 static volatile OS_UBase_t OS_Task_uxTopReadyPriority = OS_TASK_IDLE_PRIORITY;
 

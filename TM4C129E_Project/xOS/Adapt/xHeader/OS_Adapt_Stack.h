@@ -25,7 +25,7 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_STACK_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_STACK_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
                                          void (*pfvThreadArg)(void* pvParameters),

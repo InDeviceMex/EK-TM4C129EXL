@@ -21,7 +21,7 @@
  * Date           Author     Version     Description
  * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Interrupt.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>

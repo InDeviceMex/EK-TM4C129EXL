@@ -55,7 +55,7 @@ extern uint32_t main(void);
 
 #pragma  DATA_SECTION(pui32MainStack, ".stack")
 
-uint8_t pui32MainStack[0x00000400UL - 8UL];
+uint8_t pui32MainStack[0x00000800UL - 8UL];
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/

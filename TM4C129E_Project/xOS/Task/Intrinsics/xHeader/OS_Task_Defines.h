@@ -25,9 +25,9 @@
 #ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_
 #define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_
 
-#include <xOS/Task/Adapt/OS_Task_Adapt.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Enum.h>
 #include <xOS/List/OS_List.h>
+#include "xOS/Adapt/OS_Adapt.h"
 
 #define OS_TASK_MINIMAL_STACK_SIZE (100UL)
 #define OS_TASK_IDLE_STACK_SIZE OS_TASK_MINIMAL_STACK_SIZE

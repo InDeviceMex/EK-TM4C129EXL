@@ -21,14 +21,14 @@
  * Date           Author     Version     Description
  * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Scheduler.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Scheduler.h>
 
 #include <xApplication_MCU/Core/SCB/SCB.h>
 #include <xApplication_MCU/Core/SYSTICK/SYSTICK.h>
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Core/FPU/FPU.h>
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>

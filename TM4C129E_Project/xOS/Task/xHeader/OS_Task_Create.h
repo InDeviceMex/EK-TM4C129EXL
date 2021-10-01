@@ -33,6 +33,6 @@ OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
                                         void * const pvParametersArg,
                                         OS_UBase_t uxPriorityArg,
                                         OS_Task_Handle_TypeDef * const pvCreatedTask,
-                                        OS_UBase_t* const puxStaticStackBuffer);
+                                        const OS_UBase_t* const puxStaticStackBuffer);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_CREATE_H_ */

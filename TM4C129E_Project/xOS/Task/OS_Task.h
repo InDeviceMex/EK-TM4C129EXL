@@ -35,11 +35,11 @@
  * 5.- encapsulate repetitive code
  */
 
-#include <xOS/Task/Adapt/OS_Task_Adapt.h>
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 #include <xOS/Task/xHeader/OS_Task_Notify.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
+#include <xOS/Task/xHeader/OS_Task_Suspended.h>
 #include <xOS/Task/xHeader/OS_Task_Delayed.h>
 
 #endif /* XOS_TASK_OS_TASK_H_ */
