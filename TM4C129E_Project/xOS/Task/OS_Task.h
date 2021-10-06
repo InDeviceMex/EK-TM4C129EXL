@@ -36,6 +36,7 @@
  */
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
+#include <xOS/Task/xHeader/OS_Task_Event.h>
 #include <xOS/Task/xHeader/OS_Task_Notify.h>
 #include <xOS/Task/xHeader/OS_Task_Create.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>

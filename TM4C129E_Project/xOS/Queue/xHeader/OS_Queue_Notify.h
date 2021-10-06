@@ -27,9 +27,7 @@
 
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Defines.h>
 
-
 OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_TypeDef * const pstQueue,
                                                  const OS_Queue_nPos enCopyPosition);
-
 
 #endif /* XOS_QUEUE_XHEADER_OS_QUEUE_NOTIFY_H_ */

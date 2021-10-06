@@ -24,8 +24,7 @@
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Lock.h>
 #include <xOS/Adapt/OS_Adapt.h>
 
-
-void OS_Queue_vLock(OS_Queue_TypeDef* pstQueue)
+void OS_Queue__vLock(OS_Queue_TypeDef* pstQueue)
 {
     OS_Adapt__vEnterCritical();
     {
