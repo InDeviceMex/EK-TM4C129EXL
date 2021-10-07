@@ -19,7 +19,8 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 9 sep. 2021     InDeviceMe
+ * x    1.0         initial Version@endverbatim
  */
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Runtime.h>
 

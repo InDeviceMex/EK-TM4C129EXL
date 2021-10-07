@@ -106,7 +106,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
         {
             if(255U == *pu8AddressArg)
             {
-                u16Delay = 500U;     /* If 255, delay for 500 u16Delay*/
+                u16Delay = 50U;     /* If 255, delay for 500 u16Delay*/
             }
             else
             {

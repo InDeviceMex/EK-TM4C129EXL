@@ -25,7 +25,7 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_PRIORITY_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_PRIORITY_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriority,
                                     volatile OS_UBase_t* puxReadyPriorities);

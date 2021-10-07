@@ -25,7 +25,7 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod);
 void OS_Adapt__vEndScheduler(void);

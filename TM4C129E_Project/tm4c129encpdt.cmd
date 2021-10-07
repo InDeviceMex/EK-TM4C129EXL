@@ -10,15 +10,15 @@
 
 MEMORY
 {
-    FLASH_VTABLE (RX)   : origin = 0x00000000, length = 0x00000400
-    FLASH_BANK01 (RX) : origin = 0x00000400, length = 0x0007FC00
+    FLASH_VTABLE (RX)   : origin = 0x00010000, length = 0x00000400
+    FLASH_BANK01 (RX) : origin = 0x00010400, length = 0x0006FC00
     FLASH_BANK23 (RX) : origin = 0x00080000, length = 0x00080000
-    SRAM_VTABLE (RWX) : origin = 0x20000000, length = 0x00000400 /*1K*/
-    SRAM_DMA (RW) : origin = 0x20000400, length = 0x00000200
-    SRAM_DMAALT (RW) : origin = 0x20000600, length = 0x00000200
-    SRAM_CODE (RWX) : origin = 0x20000800, length = 0x00001000 /*5K*/
-    SRAM (RW) : origin = 0x20001800, length = 0x00010800
-    SRAM_DYNAMIC (RW) : origin = 0x20012000, length = 0x0002C800 /*32K*/
+    SRAM_VTABLE (RWX) : origin = 0x20003000, length = 0x00000400 /*1K*/
+    SRAM_DMA (RW) : origin = 0x20003400, length = 0x00000200
+    SRAM_DMAALT (RW) : origin = 0x20003600, length = 0x00000200
+    SRAM_CODE (RWX) : origin = 0x20003800, length = 0x00001000 /*5K*/
+    SRAM (RW) : origin = 0x20004800, length = 0x00010800
+    SRAM_DYNAMIC (RW) : origin = 0x20015000, length = 0x0002A800 /*32K*/
     SRAM_MAIN_STACK (RW) : origin = 0x2003F800, length = 0x00000800 /*1.5K*/
 }
 
@@ -32,11 +32,11 @@ MEMORY
 --library=rtsv7M4_T_le_v4SPD16_xo_eabi.lib
 
 /* Section allocation in memory */
---stack_size=0x00000400
---heap_size=0x0002C800
+--stack_size=0x00000800
+--heap_size=0x0002A800
 SECTIONS
 {
-    .intvecs:   > 0x00000000
+    .intvecs:   > 0x00010000
     .text   :   > FLASH_BANK01
     .switch :   > FLASH_BANK01
     .const  :   > FLASH_BANK23

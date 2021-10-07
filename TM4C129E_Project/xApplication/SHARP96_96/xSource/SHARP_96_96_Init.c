@@ -31,7 +31,7 @@
 
 #define SHARP_96_96_SSI (SSI_enMODULE_3)
 
-uint8_t DisplayBuffer[96UL][96UL/8UL];
+uint8_t DisplayBuffer[128UL][128UL/8UL];
 
 static uint8_t Sharp_96_96_u8Reverse(uint8_t u8Row);
 
@@ -72,13 +72,13 @@ void SHARP_96_96__vInitDisplay(void)
     SHARP_96_96__vInitEnable();
     SHARP_96_96__vInitChipSelect();
 
-    // Provide power to LCD
+    /* Provide power to LCD */
     SHARP_96_96__vPowerOn();
 
-    // Turn on DISP
-    SHARP_96_96__vEnable();
+    /* Turn on DISP */
+    SHARP_96_96__vDisable();
 
-    // Configure LCD_SPI_CS_PIN as output pin
+    /* Configure LCD_SPI_CS_PIN as output pin */
     SHARP_96_96__vDisableChipSelect();
 
     SSI__vSetEnable(SHARP_96_96_SSI, SSI_enENABLE_STOP);
@@ -100,15 +100,15 @@ void SHARP_96_96__vInitDisplay(void)
     SHARP_96_96__vEnableChipSelect();
     for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
     SSI__u32SetData(SHARP_96_96_SSI, 0x80UL);
-    for(uint8_t u8Row = 0U; u8Row< 96U ;u8Row++)
+    for(uint8_t u8Row = 0U; u8Row< 128U ;u8Row++)
     {
         uint8_t u8AGRow = Sharp_96_96_u8Reverse((u8Row + 1U));
-        SSI__u32SetData(SHARP_96_96_SSI, u8AGRow);
-        for(uint8_t u8Column = 0U; u8Column< (96U/16U) ;u8Column++)
+        SSI__u32SetData(SHARP_96_96_SSI,(uint32_t) u8AGRow);
+        for(uint8_t u8Column = 0U; u8Column< (128U/16U) ;u8Column++)
         {
             SSI__u32SetData(SHARP_96_96_SSI, 0xFFU);
         }
-        for(uint8_t u8Column = (96U/16U); u8Column< (96U/8U) ;u8Column++)
+        for(uint8_t u8Column = (128U/16U); u8Column< (128U/8U) ;u8Column++)
         {
             SSI__u32SetData(SHARP_96_96_SSI, 0x00U);
         }
@@ -126,21 +126,24 @@ void SHARP_96_96__vInitDisplay(void)
     for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
     SHARP_96_96__vDisableChipSelect();
 
+    SHARP_96_96__vEnable();
+
 
 }
 
 const uint8_t Sharp_96_96_u8ReverseData[] =
 {
-    0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
-    0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF
+    0x0U, 0x8U, 0x4U, 0xCU, 0x2U, 0xAU, 0x6U, 0xEU,
+    0x1U, 0x9U, 0x5U, 0xDU, 0x3U, 0xBU, 0x7U, 0xFU
 };
 
 static uint8_t Sharp_96_96_u8Reverse(uint8_t u8Row)
 {
   uint8_t u8Result = 0U;
 
-  u8Result  = Sharp_96_96_u8ReverseData[u8Row & 0xF]<<4;
-  u8Result |= Sharp_96_96_u8ReverseData[(u8Row & 0xF0)>>4];
-  return u8Result;
+  u8Result  = Sharp_96_96_u8ReverseData[u8Row & 0xFU];
+  u8Result <<= 4U;
+  u8Result |= Sharp_96_96_u8ReverseData[(u8Row & 0xF0U)>>4U];
+  return (u8Result);
 }
 

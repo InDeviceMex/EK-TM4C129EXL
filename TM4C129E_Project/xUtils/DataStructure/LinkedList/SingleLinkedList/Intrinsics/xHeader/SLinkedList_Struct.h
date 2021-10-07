@@ -52,6 +52,4 @@ typedef struct SLinkedList
         SLinkedListItem_TypeDef *pstTail;
 }SLinkedList_TypeDef;
 
-
-
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_XHEADER_SLINKEDLIST_STRUCT_H_ */

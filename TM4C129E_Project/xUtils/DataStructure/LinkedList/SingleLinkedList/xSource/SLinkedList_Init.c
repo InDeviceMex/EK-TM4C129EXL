@@ -24,7 +24,8 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Init.h>
 #include <stdlib.h>
 
-SLinkedList_TypeDef* SLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item))
+SLinkedList_TypeDef* SLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer),
+                                          void (*pfvDestroyItemArg) (void *Item))
 {
     SLinkedList_TypeDef *pstList = 0;
 #if defined (__TI_ARM__ )

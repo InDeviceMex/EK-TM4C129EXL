@@ -25,7 +25,7 @@
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Stack.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Stack.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 
 static void OS_Task__vInitialiseTaskLists( void );
@@ -37,7 +37,7 @@ OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
                                         void * const pvParametersArg,
                                         OS_UBase_t uxPriorityArg,
                                         OS_Task_Handle_TypeDef * const pvCreatedTask,
-                                        OS_UBase_t* const puxStaticStackBuffer)
+                                        const OS_UBase_t* const puxStaticStackBuffer)
 {
     OS_Task_TCB_TypeDef * pstNewTCB = (OS_Task_TCB_TypeDef*) 0UL;
     OS_Task_TCB_TypeDef * pstCurrentTCB = (OS_Task_TCB_TypeDef*) 0UL;

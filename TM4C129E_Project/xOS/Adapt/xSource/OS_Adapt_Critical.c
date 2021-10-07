@@ -21,9 +21,9 @@
  * Date           Author     Version     Description
  * 9 sep. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Interrupt.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 
 static void OS_Adapt_Fault(void);
 

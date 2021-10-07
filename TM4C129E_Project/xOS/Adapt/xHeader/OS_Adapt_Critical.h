@@ -25,7 +25,7 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_CRITICAL_H_
 
-#include <xOS/Task/Adapt/xHeader/OS_Adapt_Defines.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 void OS_Adapt__vExitCritical(void);
 void OS_Adapt__vEnterCritical(void);
