@@ -37,7 +37,7 @@ uint32_t I2C_Master__u32GetSlaveAddress(I2C_nMODULE enModule)
     uint32_t u32SlaveAddressReg = 0UL;
     u32SlaveAddressReg = I2C__u32ReadRegister(enModule, I2C_MSA_OFFSET,
                                       I2C_MSA_SA_MASK, I2C_MSA_R_SA_BIT);
-    return u32SlaveAddressReg;
+    return (u32SlaveAddressReg);
 }
 
 void I2C_Master__vSetOperation(I2C_nMODULE enModule, I2C_nOPERATION enOperationArg)

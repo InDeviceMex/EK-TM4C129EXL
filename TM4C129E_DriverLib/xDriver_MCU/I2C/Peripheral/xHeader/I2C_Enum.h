@@ -389,6 +389,13 @@ typedef enum
 
 typedef enum
 {
+    I2C_enDMA_ENABLE_DIS = 0UL,
+    I2C_enDMA_ENABLE_ENA = 1UL,
+    I2C_enDMA_ENABLE_UNDEF = 0xFFFFFFFFUL,
+} I2C_nDMA_ENABLE;
+
+typedef enum
+{
     I2C_enSLAVE_ENABLE_DIS = 0UL,
     I2C_enSLAVE_ENABLE_DEVICE = 0x1UL,
     I2C_enSLAVE_ENABLE_TX_FIFO = 0x2UL,

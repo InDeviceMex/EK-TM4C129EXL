@@ -39,5 +39,3 @@ uint32_t I2C_Slave__u32GetMainOwnAddress(I2C_nMODULE enModule)
                                  I2C_SOAR_OAR_MASK, I2C_SOAR_R_OAR_BIT);
     return (u32MainAddressReg);
 }
-
-

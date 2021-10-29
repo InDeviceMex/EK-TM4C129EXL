@@ -26,9 +26,11 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vSetControl(I2C_nMODULE enModule, I2C_nMASTER_CONTROL enControlArg)
+void I2C_Master__vSetControl(I2C_nMODULE enModule,
+                             I2C_nMASTER_CONTROL enControlArg)
 {
     I2C__vWriteRegister(enModule, I2C_MCS_OFFSET, (uint32_t) enControlArg,
+                        I2C_MCS_R_BURST_MASK | I2C_MCS_R_QCMD_MASK |
                         I2C_MCS_R_HS_MASK | I2C_MCS_R_ACK_MASK |
                         I2C_MCS_R_STOP_MASK | I2C_MCS_R_START_MASK |
                         I2C_MCS_R_RUN_MASK,

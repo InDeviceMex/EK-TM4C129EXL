@@ -27,6 +27,8 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
+I2C_nDMA_ENABLE I2C_Master__enIsDMATxActive(I2C_nMODULE enModule);
+I2C_nDMA_ENABLE I2C_Master__enIsDMARxActive(I2C_nMODULE enModule);
 I2C_nSTATUS I2C_Master__enIsTimeoutError(I2C_nMODULE enModule);
 I2C_nMASTER_BUSY I2C_Master__enIsBusBusy(I2C_nMODULE enModule);
 I2C_nMASTER_IDLE I2C_Master__enIsControllerIdle(I2C_nMODULE enModule);

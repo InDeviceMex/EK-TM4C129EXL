@@ -26,10 +26,26 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
+I2C_nDMA_ENABLE I2C_Master__enIsDMATxActive(I2C_nMODULE enModule)
+{
+    I2C_nDMA_ENABLE enStatusReg = I2C_enDMA_ENABLE_DIS;
+    enStatusReg = (I2C_nDMA_ENABLE) I2C__u32ReadRegister(enModule, I2C_MCS_OFFSET,
+                        I2C_MCS_ACTDMATX_MASK, I2C_MCS_R_ACTDMATX_BIT);
+    return (enStatusReg);
+}
+
+I2C_nDMA_ENABLE I2C_Master__enIsDMARxActive(I2C_nMODULE enModule)
+{
+    I2C_nDMA_ENABLE enStatusReg = I2C_enDMA_ENABLE_DIS;
+    enStatusReg = (I2C_nDMA_ENABLE) I2C__u32ReadRegister(enModule,
+             I2C_MCS_OFFSET,I2C_MCS_ACTDMARX_MASK, I2C_MCS_R_ACTDMARX_BIT);
+    return (enStatusReg);
+}
+
 I2C_nSTATUS I2C_Master__enIsTimeoutError(I2C_nMODULE enModule)
 {
     I2C_nSTATUS enStatusReg = I2C_enSTATUS_OK;
-    I2C__u32ReadRegister(enModule, I2C_MCS_OFFSET,
+    enStatusReg = (I2C_nSTATUS) I2C__u32ReadRegister(enModule, I2C_MCS_OFFSET,
                         I2C_MCS_CLKTO_MASK, I2C_MCS_R_CLKTO_BIT);
     return (enStatusReg);
 }
