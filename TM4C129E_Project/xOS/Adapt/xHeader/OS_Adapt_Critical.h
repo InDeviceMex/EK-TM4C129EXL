@@ -29,6 +29,7 @@
 
 void OS_Adapt__vExitCritical(void);
 void OS_Adapt__vEnterCritical(void);
+void OS_Adapt__vFault(void);
 
 OS_UBase_t OS_Adapt__uxGetCriticalNesting(void);
 void OS_Adapt__vSetCriticalNesting(OS_UBase_t uxNestingValue);

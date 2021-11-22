@@ -77,8 +77,6 @@ void OS_Task__vSetStepTick(const OS_UBase_t uxTicksToJump)
     }
 }
 
-
-
 OS_Boolean_t OS_Task__boIncrementTick(void)
 {
     OS_List_t* pstDelayedTaskList = (OS_List_t*) 0UL;
@@ -88,7 +86,7 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
     OS_Task_TCB_t * pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t uxNextTaskUnblockTime = 0UL;
     OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxDataAuxiliar = 0UL;
+    OS_UBase_t uxItemValue = 0UL;
     OS_UBase_t uxPendedTicks = 0UL;
     OS_UBase_t uxListSize= 0UL;
     OS_Boolean_t boSwitchRequired = FALSE;
@@ -122,11 +120,11 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
                     else
                     {
                         pstTCB = (OS_Task_TCB_t *) OS_List__pvGetOwnerOfHeadEntry(pstDelayedTaskList);
-                        uxDataAuxiliar = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));
+                        uxItemValue = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));
 
-                        if( uxConstTickCount < uxDataAuxiliar )
+                        if( uxConstTickCount < uxItemValue )
                         {
-                            OS_Task__vSetNextTaskUnblockTime(uxNextTaskUnblockTime);
+                            OS_Task__vSetNextTaskUnblockTime(uxItemValue);
                             break;
                         }
                         (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
@@ -300,7 +298,7 @@ void OS_Task__vStartScheduler(OS_UBase_t uxUsPeriod)
         OS_Task__vSetTickCount(0UL);
         /* portCONFIGURE_TIMER_FOR_RUN_TIME_STATS(); */
 
-        OS_Adapt__vStartScheduler(uxUsPeriod);
+        (void) OS_Adapt__vStartScheduler(uxUsPeriod);
     }
     else
     {

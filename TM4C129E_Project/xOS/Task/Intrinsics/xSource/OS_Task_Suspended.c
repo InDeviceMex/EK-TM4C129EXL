@@ -75,7 +75,7 @@ OS_Boolean_t OS_Task__boIsTaskSuspended(const OS_Task_Handle_t pvTask)
     OS_Boolean_t boStatus = FALSE;
     OS_Boolean_t boListStatus = FALSE;
 
-    if(0UL != (OS_UBase_t) pstTCB)
+    if(0UL != (OS_UBase_t) pvTask)
     {
         boListStatus = OS_List__boIsContainedWithin(&OS_Task_stSuspendedTaskList,
                                                     &(pstTCB->stGenericListItem));

@@ -46,6 +46,11 @@ OS_UBase_t OS_Task__uxGetCurrentNumberOfTasks(void)
     return (OS_Task_uxCurrentNumberOfTasks);
 }
 
+OS_UBase_t OS_Task__uxGetNumberOfTasks(void)
+{
+    return (OS_Task_uxCurrentNumberOfTasks);
+}
+
 void OS_Task__vIncreaseCurrentNumberOfTasks(void)
 {
     ++OS_Task_uxCurrentNumberOfTasks;

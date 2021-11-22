@@ -86,7 +86,7 @@ typedef struct
     OS_UBase_t uxTaskNumber;       /*< Stores a number specifically for use by third party trace code. */
     OS_UBase_t uxBasePriority;     /*< The priority last assigned to the task - used by the priority inheritance mechanism. */
     OS_UBase_t uxMutexesHeld;
-    OS_Task_HookFunction_Typedef puxfHookFunction;
+    OS_Task_HookFunction_Typedef puxfTaskTag;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
     OS_UBase_t uxRunTimeCounter;   /*< Stores the amount of time the task has spent in the Running state. */
     volatile OS_UBase_t uxNotifiedValue;

@@ -108,7 +108,7 @@ void OS_Task__vPlaceOnEventListRestricted(OS_List_t* const pstEventList,
 }
 
 void OS_Task__vPlaceOnUnorderedEventList(OS_List_t* pstEventList,
-                                         const OS_UBase_t uxDataAuxiliar,
+                                         const OS_UBase_t uxItemValue,
                                          const OS_UBase_t uxTicksToWait)
 {
     OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
@@ -127,7 +127,7 @@ void OS_Task__vPlaceOnUnorderedEventList(OS_List_t* pstEventList,
         {
             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
             OS_List__vSetItemValue(&(pstCurrentTCB->stEventListItem),
-                             uxDataAuxiliar | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
+                                   uxItemValue | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
 
             OS_List__vInsertEnd(pstEventList, &(pstCurrentTCB->stEventListItem));
             uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
@@ -196,7 +196,7 @@ OS_Boolean_t OS_Task__boRemoveFromEventList(const OS_List_t* const pstEventList)
 }
 
 OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_t* pstEventListItem,
-                                                     const OS_UBase_t uxDataAuxiliar)
+                                                     const OS_UBase_t xItemValue)
 {
     OS_Task_TCB_t *pstUnblockedTCB = (OS_Task_TCB_t*) 0UL;
     OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
@@ -209,7 +209,7 @@ OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_t* pstEventList
     if(0UL != uxSchedulerSuspended)
     {
         OS_List__vSetItemValue(pstEventListItem,
-                 uxDataAuxiliar | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
+                   xItemValue | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
 
         pstUnblockedTCB = (OS_Task_TCB_t *) OS_List__pvGetItemOwner(pstEventListItem );
         if(0UL != (OS_UBase_t) pstUnblockedTCB)
@@ -233,7 +233,7 @@ OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_t* pstEventList
     return (boReturn);
 }
 
-OS_UBase_t OS_Task__uxResetEventValue(void)
+OS_UBase_t OS_Task__uxResetEventItemValue(void)
 {
     OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t uxResetValue = 0UL;

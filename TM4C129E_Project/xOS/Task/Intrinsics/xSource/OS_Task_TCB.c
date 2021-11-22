@@ -67,7 +67,7 @@ OS_Task_TCB_t* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_t pxHandle)
 }
 
 OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth,
-                                                     const OS_UBase_t* const puxStaticStackBuffer)
+                             const OS_UBase_t* const puxStaticStackBuffer)
 {
     OS_Task_TCB_t *pstNewTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t *puxStackReg = (OS_UBase_t*) 0UL;
@@ -138,9 +138,9 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
     }
     pstTCB->pcTaskName[uxCount] = (char) 0U;
 
-    if(uxPriorityArg > OS_TASK_MAX_PRIORITIES)
+    if(uxPriorityArg >= OS_TASK_MAX_PRIORITIES)
     {
-        uxPriorityArg = OS_TASK_MAX_PRIORITIES;
+        uxPriorityArg = OS_TASK_MAX_PRIORITIES - 1UL;
     }
 
     pstTCB->uxPriorityTask = (OS_UBase_t) uxPriorityArg;
@@ -159,7 +159,7 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
     OS_List__vSetItemOwner(pstListItemReg, ( void*) pstTCB);
 
     pstTCB->uxCriticalNesting = 0UL;
-    pstTCB->puxfHookFunction = (OS_Task_HookFunction_Typedef) 0UL;
+    pstTCB->puxfTaskTag = (OS_Task_HookFunction_Typedef) 0UL;
 
     for( uxCount = 0UL;
          uxCount < (OS_UBase_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS;

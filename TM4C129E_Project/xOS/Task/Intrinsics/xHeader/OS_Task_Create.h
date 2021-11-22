@@ -32,6 +32,7 @@ void OS_Task__vSetTaskNumber(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseTaskNumber(void);
 
 OS_UBase_t OS_Task__uxGetCurrentNumberOfTasks(void);
+OS_UBase_t OS_Task__uxGetNumberOfTasks(void);
 void OS_Task__vIncreaseCurrentNumberOfTasks(void);
 void OS_Task__vDecreaseCurrentNumberOfTasks(void);
 

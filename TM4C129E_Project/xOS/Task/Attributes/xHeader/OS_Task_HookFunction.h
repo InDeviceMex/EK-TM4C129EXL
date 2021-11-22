@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_Task_HookFunction.h
+ * @file OS_Task_TaskTag.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,15 +22,15 @@
  * 29 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_HOOKFUNCTION_H_
-#define XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_HOOKFUNCTION_H_
+#ifndef XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_TaskTag_H_
+#define XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_TaskTag_H_
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-void OS_Task__vSetHookFunction(OS_Task_Handle_t pvTaskArg,
+void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                OS_Task_HookFunction_Typedef puxfHookFunctionArg);
-OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_t pvTaskArg);
-OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_t pvTaskArg,
+OS_Task_HookFunction_Typedef OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg);
+OS_UBase_t OS_task__uxCallApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                       void* pvParameterArg);
 
-#endif /* XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_HOOKFUNCTION_H_ */
+#endif /* XOS_TASK_ATTRIBUTES_XHEADER_OS_TASK_TaskTag_H_ */

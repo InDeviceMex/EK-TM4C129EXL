@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_Task_HookFunction.c
+ * @file OS_Task_TaskTag.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -25,7 +25,7 @@
 
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
-void OS_Task__vSetHookFunction(OS_Task_Handle_t pvTaskArg,
+void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                OS_Task_HookFunction_Typedef puxfHookFunctionArg)
 {
     OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
@@ -42,10 +42,10 @@ void OS_Task__vSetHookFunction(OS_Task_Handle_t pvTaskArg,
     }
 
     OS_Task__vEnterCritical();
-    pstTCB->puxfHookFunction = puxfHookFunctionArg;
+    pstTCB->puxfTaskTag = puxfHookFunctionArg;
     OS_Task__vExitCritical();
 }
-OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_t pvTaskArg)
+OS_Task_HookFunction_Typedef OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg)
 {
     OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
     OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
@@ -62,13 +62,13 @@ OS_Task_HookFunction_Typedef OS_Task__puxfGetHookFunction(OS_Task_Handle_t pvTas
     }
 
     OS_Task__vEnterCritical();
-    puxfReturn = pstTCB->puxfHookFunction;
+    puxfReturn = pstTCB->puxfTaskTag;
     OS_Task__vExitCritical();
 
     return (puxfReturn);
 }
 
-OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_t pvTaskArg,
+OS_UBase_t OS_task__uxCallApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                        void* pvParameterArg)
 {
     OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
@@ -85,9 +85,9 @@ OS_UBase_t OS_task__uxCallHookFunction(OS_Task_Handle_t pvTaskArg,
         pstTCB = (OS_Task_TCB_t*) pvTaskArg;
     }
 
-    if(0UL != (OS_UBase_t) pstTCB->puxfHookFunction)
+    if(0UL != (OS_UBase_t) pstTCB->puxfTaskTag)
     {
-        uxReturn = pstTCB->puxfHookFunction(pvParameterArg);
+        uxReturn = pstTCB->puxfTaskTag(pvParameterArg);
     }
 
     return (uxReturn);
