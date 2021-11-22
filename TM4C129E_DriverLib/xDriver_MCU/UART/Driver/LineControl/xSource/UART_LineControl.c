@@ -38,7 +38,7 @@ void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg,
 }
 
 void UART__vSetLineControlStruct(UART_nMODULE enModule,
-                                 const UART_LINE_CONTROL_TypeDef stLineControl)
+                                 const UART_LINE_CONTROL_t stLineControl)
 {
     UART__vSetDataLength(enModule, stLineControl.enLength);
     UART__vSetFifoEnable(enModule, stLineControl.enFifo);
@@ -49,7 +49,7 @@ void UART__vSetLineControlStruct(UART_nMODULE enModule,
 }
 
 void UART__vSetLineControlStructPointer(UART_nMODULE enModule,
-                                        const UART_LINE_CONTROL_TypeDef* pstLineControl)
+                                        const UART_LINE_CONTROL_t* pstLineControl)
 {
     if((uint32_t) 0UL != (uint32_t) pstLineControl)
     {

@@ -48,8 +48,10 @@ inline uint32_t UART__u32GetDataWithStatus(UART_nMODULE enModule)
     return (u32DataReg);
 }
 
-uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray)
+uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray,
+                              uint32_t u32SizeBuffer)
 {
+    uint32_t u32Timeout = 100000UL;
     UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
 
     uint32_t u32UartBase = 0UL;
@@ -66,20 +68,30 @@ uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray)
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;
 
-        enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
-        while(UART_enFIFO_NO_EMPTY == enFifoEmpty)
+        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
         {
-            *pu32FifoArray = *pu32UartData;
-            pu32FifoArray += 0x1U;
-            u32Count++;
+
             enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
+            if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
+            {
+                *pu32FifoArray = *pu32UartData;
+                pu32FifoArray += 0x1U;
+                u32Count++;
+                u32Timeout = 100000UL;
+            }
+            else
+            {
+                u32Timeout--;
+            }
         }
     }
     return (u32Count);
 }
 
-uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray)
+uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
+                                  uint32_t u32SizeBuffer)
 {
+    uint32_t u32Timeout = 100000UL;
     UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
 
     uint32_t u32UartBase = 0UL;
@@ -96,13 +108,20 @@ uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray)
         u32UartBase += UART_DR_OFFSET;
         pu32UartData = (volatile uint32_t*) u32UartBase;
 
-        enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
-        while(UART_enFIFO_NO_EMPTY == enFifoEmpty)
+        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
         {
-            *pu8FifoArray = (uint8_t) *pu32UartData;
-            pu8FifoArray += 0x1U;
-            u32Count++;
             enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
+            if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
+            {
+                *pu8FifoArray = (uint8_t) *pu32UartData;
+                pu8FifoArray += 0x1U;
+                u32Count++;
+                u32Timeout = 100000UL;
+            }
+            else
+            {
+                u32Timeout--;
+            }
         }
     }
     return (u32Count);

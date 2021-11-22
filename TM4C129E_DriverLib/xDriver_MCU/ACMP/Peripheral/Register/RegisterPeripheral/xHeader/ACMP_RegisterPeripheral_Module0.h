@@ -33,56 +33,56 @@
 ************************************ ACMP *********************************************
 ******************************************************************************************/
 
-#define ACMP0    (((ACMP_TypeDef*) (ACMP0_BASE)))
+#define ACMP0    (((ACMP_t*) (ACMP0_BASE)))
 
 /******************************************************************************************
 ************************************ 1 MIS *********************************************
 ******************************************************************************************/
-#define ACMP0_MIS    (((ACMIS_TypeDef*) (ACMP0_BASE + ACMP_MIS_OFFSET )))
+#define ACMP0_MIS    (((ACMIS_t*) (ACMP0_BASE + ACMP_MIS_OFFSET )))
 #define ACMP0_MIS_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 2 RIS *********************************************
 ******************************************************************************************/
-#define ACMP0_RIS    (((ACRIS_TypeDef*) (ACMP0_BASE + ACMP_RIS_OFFSET )))
+#define ACMP0_RIS    (((ACRIS_t*) (ACMP0_BASE + ACMP_RIS_OFFSET )))
 #define ACMP0_RIS_R    (*((volatile const uint32_t*) (ACMP0_BASE +ACMP_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 3 INTEN *********************************************
 ******************************************************************************************/
-#define ACMP0_INTEN    (((ACINTEN_TypeDef*) (ACMP0_BASE + ACMP_INTEN_OFFSET )))
+#define ACMP0_INTEN    (((ACINTEN_t*) (ACMP0_BASE + ACMP_INTEN_OFFSET )))
 #define ACMP0_INTEN_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_INTEN_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 REFCTL *********************************************
 ******************************************************************************************/
-#define ACMP0_REFCTL    (((ACREFCTL_TypeDef*) (ACMP0_BASE + ACMP_REFCTL_OFFSET )))
+#define ACMP0_REFCTL    (((ACREFCTL_t*) (ACMP0_BASE + ACMP_REFCTL_OFFSET )))
 #define ACMP0_REFCTL_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_REFCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 5 STAT *********************************************
 ******************************************************************************************/
-#define ACMP0_STAT0    (((ACSTAT_TypeDef*) (ACMP0_BASE + ACMP_STAT0_OFFSET )))
+#define ACMP0_STAT0    (((ACSTAT_t*) (ACMP0_BASE + ACMP_STAT0_OFFSET )))
 #define ACMP0_STAT0_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT0_OFFSET)))
-#define ACMP0_STAT1    (((ACSTAT_TypeDef*) (ACMP0_BASE + ACMP_STAT1_OFFSET )))
+#define ACMP0_STAT1    (((ACSTAT_t*) (ACMP0_BASE + ACMP_STAT1_OFFSET )))
 #define ACMP0_STAT1_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT1_OFFSET)))
-#define ACMP0_STAT2    (((ACSTAT_TypeDef*) (ACMP0_BASE + ACMP_STAT2_OFFSET )))
+#define ACMP0_STAT2    (((ACSTAT_t*) (ACMP0_BASE + ACMP_STAT2_OFFSET )))
 #define ACMP0_STAT2_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_STAT2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 CTL *********************************************
 ******************************************************************************************/
-#define ACMP0_CTL0    (((ACCTL_TypeDef*) (ACMP0_BASE + ACMP_CTL0_OFFSET )))
+#define ACMP0_CTL0    (((ACCTL_t*) (ACMP0_BASE + ACMP_CTL0_OFFSET )))
 #define ACMP0_CTL0_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL0_OFFSET)))
-#define ACMP0_CTL1    (((ACCTL_TypeDef*) (ACMP0_BASE + ACMP_CTL1_OFFSET )))
+#define ACMP0_CTL1    (((ACCTL_t*) (ACMP0_BASE + ACMP_CTL1_OFFSET )))
 #define ACMP0_CTL1_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL1_OFFSET)))
-#define ACMP0_CTL2    (((ACCTL_TypeDef*) (ACMP0_BASE + ACMP_CTL2_OFFSET )))
+#define ACMP0_CTL2    (((ACCTL_t*) (ACMP0_BASE + ACMP_CTL2_OFFSET )))
 #define ACMP0_CTL2_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_CTL2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 PP *********************************************
 ******************************************************************************************/
-#define ACMP0_PP    (((ACMPPP_TypeDef*) (ACMP0_BASE + ACMP_PP_OFFSET )))
+#define ACMP0_PP    (((ACMPPP_t*) (ACMP0_BASE + ACMP_PP_OFFSET )))
 #define ACMP0_PP_R    (*((volatile uint32_t*) (ACMP0_BASE +ACMP_PP_OFFSET)))
 
 

@@ -42,7 +42,7 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/GPIO_RegisterPeripheral_Bitbanding_ModuleP.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/GPIO_RegisterPeripheral_Bitbanding_ModuleQ.h>
 
-#define GPIO_BITBANDING    ((GPIO_PORT_BITBANDING_TypeDef*) (GPIO_BITBANDING_BASE + (GPIO_OFFSET * 32UL)))
-#define GPIO_AUX_BITBANDING    ((GPIO_PORT_AUX_BITBANDING_TypeDef*) (GPIO_BITBANDING_BASE + (GPIO_OFFSET * 32UL)))
+#define GPIO_BITBANDING    ((GPIO_PORT_BITBANDING_t*) (GPIO_BITBANDING_BASE + (GPIO_OFFSET * 32UL)))
+#define GPIO_AUX_BITBANDING    ((GPIO_PORT_AUX_BITBANDING_t*) (GPIO_BITBANDING_BASE + (GPIO_OFFSET * 32UL)))
 
 #endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_GPIO_REGISTERPERIPHERAL_BITBANDING_H_ */

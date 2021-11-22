@@ -34,7 +34,7 @@ typedef volatile struct
     const uint32_t DREGION :8;
     const uint32_t IREGION :8;
     const uint32_t reserved1 :8;
-}MPU_TYPER_TypeDef;
+}MPU_TYPER_t;
 
 typedef volatile struct
 {
@@ -42,20 +42,20 @@ typedef volatile struct
     volatile uint32_t HFNMIENA :1;
     volatile uint32_t PRIVDEFENA :1;
     const    uint32_t reserved :29;
-}MPU_CTRL_TypeDef;
+}MPU_CTRL_t;
 
 typedef volatile struct
 {
     volatile uint32_t REGION :3;
     const    uint32_t reserved :29;
-}MPU_RNR_TypeDef;
+}MPU_RNR_t;
 
 typedef volatile struct
 {
     volatile uint32_t REGION :4;
     volatile uint32_t VALID :1;
     volatile uint32_t ADDR :27;
-}MPU_RBAR_TypeDef;
+}MPU_RBAR_t;
 
 typedef volatile struct
 {
@@ -79,7 +79,7 @@ typedef volatile struct
     const    uint32_t reserved2 :1;
     volatile uint32_t XN :1;
     const    uint32_t reserved3 :3;
-}MPU_RASR_TypeDef;
+}MPU_RASR_t;
 
 typedef volatile struct
 {
@@ -96,6 +96,6 @@ typedef volatile struct
     const    uint32_t reserved2 :1;
     volatile uint32_t XN :1;
     const    uint32_t reserved3 :3;
-}MPU_RASRb_TypeDef;
+}MPU_RASRb_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_STRUCT_MPU_STRUCTREGISTER_H_ */

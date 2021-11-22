@@ -48,44 +48,44 @@ typedef volatile struct
     const uint32_t reserved: 2;
     volatile uint32_t FILTCNT: 4;
     const uint32_t reserved2: 12;
-}QEICTL_TypeDef;
+}QEICTL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t ERROR: 1;
     volatile const uint32_t DIRECTION: 1;
     const uint32_t reserved: 30;
-}QEISTAT_TypeDef;
+}QEISTAT_t;
 
 typedef volatile struct
 {
     volatile uint32_t POSITION: 32;
-}QEIPOS_TypeDef;
+}QEIPOS_t;
 
 typedef volatile struct
 {
     volatile uint32_t MAXPOS: 32;
-}QEIMAXPOS_TypeDef;
+}QEIMAXPOS_t;
 
 typedef volatile struct
 {
     volatile uint32_t LOAD: 32;
-}QEILOAD_TypeDef;
+}QEILOAD_t;
 
 typedef volatile struct
 {
     volatile const uint32_t TIME: 32;
-}QEITIME_TypeDef;
+}QEITIME_t;
 
 typedef volatile struct
 {
     volatile const uint32_t COUNT: 32;
-}QEICOUNT_TypeDef;
+}QEICOUNT_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SPEED: 32;
-}QEISPEED_TypeDef;
+}QEISPEED_t;
 
 typedef volatile struct
 {
@@ -94,7 +94,7 @@ typedef volatile struct
     volatile uint32_t INTDIR: 1;
     volatile uint32_t INTERROR: 1;
     const uint32_t reserved: 28;
-}QEIINTEN_TypeDef;
+}QEIINTEN_t;
 
 typedef volatile struct
 {
@@ -103,7 +103,7 @@ typedef volatile struct
     volatile const uint32_t INTDIR: 1;
     volatile const uint32_t INTERROR: 1;
     const uint32_t reserved: 28;
-}QEIRIS_TypeDef;
+}QEIRIS_t;
 
 typedef volatile struct
 {
@@ -112,6 +112,6 @@ typedef volatile struct
     volatile uint32_t INTDIR: 1;
     volatile uint32_t INTERROR: 1;
     const uint32_t reserved: 28;
-}QEIISC_TypeDef;
+}QEIISC_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_STRUCT_XHEADER_QEI_STRUCTREGISTER_H_ */

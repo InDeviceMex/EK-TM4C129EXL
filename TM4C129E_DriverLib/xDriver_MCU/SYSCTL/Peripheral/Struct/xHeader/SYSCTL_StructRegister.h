@@ -35,7 +35,7 @@ typedef volatile struct
     const uint32_t reserved :4;
     volatile const uint32_t VER :3;
     const uint32_t reserved1 :1;
-}DID0_TypeDef;
+}DID0_t;
 
 typedef volatile struct
 {
@@ -48,7 +48,7 @@ typedef volatile struct
     volatile const uint32_t PARTNO :8;
     volatile const uint32_t FAM :4;
     volatile const uint32_t VER :4;
-}DID1_TypeDef;
+}DID1_t;
 
 typedef volatile struct
 {
@@ -56,7 +56,7 @@ typedef volatile struct
     const uint32_t reserved :6;
     volatile uint32_t VDDA_UBOR :2;
     const uint32_t reserved1 :22;
-}PTBOCTL_TypeDef;
+}PTBOCTL_t;
 
 typedef volatile struct
 {
@@ -69,7 +69,7 @@ typedef volatile struct
     volatile const uint32_t reserved3 :1;
     volatile const uint32_t MOSCPUPRIS :1;
     const uint32_t reserved4 :23;
-}RIS_TypeDef;
+}RIS_t;
 
 typedef volatile struct
 {
@@ -82,7 +82,7 @@ typedef volatile struct
     volatile uint32_t reserved3 :1;
     volatile uint32_t MOSCPUPIM :1;
     const uint32_t reserved4 :23;
-}IMC_TypeDef;
+}IMC_t;
 
 typedef volatile struct
 {
@@ -95,7 +95,7 @@ typedef volatile struct
     volatile uint32_t reserved3 :1;
     volatile uint32_t MOSCPUPMIS :1;
     const uint32_t reserved4 :23;
-}MISC_TypeDef;
+}MISC_t;
 
 typedef volatile struct
 {
@@ -110,7 +110,7 @@ typedef volatile struct
     const uint32_t reserved1 :3;
     volatile uint32_t MOSCFAIL :1;
     const uint32_t reserved2:15;
-}RESC_TypeDef;
+}RESC_t;
 
 typedef volatile struct
 {
@@ -118,7 +118,7 @@ typedef volatile struct
     const uint32_t reserved :3;
     volatile uint32_t VDDA_UBOR :1;
     const uint32_t reserved1 :27;
-}PWRTC_TypeDef;
+}PWRTC_t;
 
 typedef volatile struct
 {
@@ -133,7 +133,7 @@ typedef volatile struct
     const uint32_t reserved3 :6;
     volatile uint32_t MOSCFAIL :1;
     const uint32_t reserved4:15;
-}NMIC_TypeDef;
+}NMIC_t;
 
 typedef volatile struct
 {
@@ -143,12 +143,12 @@ typedef volatile struct
     volatile uint32_t PWRDN :1;
     volatile uint32_t OSCRNG :1;
     const uint32_t reserved :27;
-}MOSCCTL_TypeDef;
+}MOSCCTL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t RVP :32;
-}RVP_TypeDef;
+}RVP_t;
 
 typedef volatile struct
 {
@@ -184,7 +184,7 @@ typedef volatile struct
     volatile uint32_t READ_ENABLE29 :1;
     volatile uint32_t READ_ENABLE30 :1;
     volatile uint32_t READ_ENABLE31 :1;
-}FMPRE_TypeDef;
+}FMPRE_t;
 
 typedef volatile struct
 {
@@ -220,7 +220,7 @@ typedef volatile struct
     volatile uint32_t PROG_ENABLE29 :1;
     volatile uint32_t PROG_ENABLE30 :1;
     volatile uint32_t PROG_ENABLE31 :1;
-}FMPPE_TypeDef;
+}FMPPE_t;
 
 typedef volatile struct
 {
@@ -232,7 +232,7 @@ typedef volatile struct
     volatile uint32_t ACG :1;
     volatile uint32_t NEWFREQ :1;
     volatile uint32_t MEMTIMU :1;
-}RSCLKCFG_TypeDef;
+}RSCLKCFG_t;
 
 typedef volatile struct
 {
@@ -246,13 +246,13 @@ typedef volatile struct
     volatile uint32_t EBCE :1;
     volatile uint32_t EBCHT :4;
     const uint32_t reserved3 :6;
-}MEMTIM0_TypeDef;
+}MEMTIM0_t;
 
 typedef volatile struct
 {
     volatile uint32_t ALTCLK :4;
     const uint32_t reserved :28;
-}ALTCLKCFG_TypeDef;
+}ALTCLKCFG_t;
 
 typedef volatile struct
 {
@@ -262,7 +262,7 @@ typedef volatile struct
     const uint32_t reserved1 :6;
     volatile uint32_t MOSCDPD :1;
     volatile uint32_t PIOSCPD :1;
-}DSCLKCFG_TypeDef;
+}DSCLKCFG_t;
 
 typedef volatile struct
 {
@@ -271,7 +271,7 @@ typedef volatile struct
     volatile uint32_t SRC :2;
     const uint32_t reserved1 :13;
     volatile uint32_t EN :1;
-}DIVSCLK_TypeDef;
+}DIVSCLK_t;
 
 typedef volatile struct
 {
@@ -288,7 +288,7 @@ typedef volatile struct
     volatile const uint32_t TSPDE :1;
     volatile const uint32_t LDOSME :1;
     const uint32_t reserved4 :14;
-}SYSPROP_TypeDef;
+}SYSPROP_t;
 
 typedef volatile struct
 {
@@ -298,7 +298,7 @@ typedef volatile struct
     volatile uint32_t CAL :1;
     const uint32_t reserved1 :21;
     volatile uint32_t UTEN :1;
-}PIOSCCAL_TypeDef;
+}PIOSCCAL_t;
 
 typedef volatile struct
 {
@@ -308,7 +308,7 @@ typedef volatile struct
     const uint32_t reserved1 :6;
     volatile const uint32_t DT :7;
     const uint32_t reserved2 :9;
-}PIOSCSTAT_TypeDef;
+}PIOSCSTAT_t;
 
 typedef volatile struct
 {
@@ -317,7 +317,7 @@ typedef volatile struct
     const uint32_t reserved :3;
     volatile const uint32_t PLLPWR :1;
     const uint32_t reserved1 :8;
-}PLLFREQ0_TypeDef;
+}PLLFREQ0_t;
 
 typedef volatile struct
 {
@@ -325,13 +325,13 @@ typedef volatile struct
     const uint32_t reserved :3;
     volatile uint32_t Q :5;
     const uint32_t reserved1 :19;
-}PLLFREQ1_TypeDef;
+}PLLFREQ1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t LOCK :1;
     const uint32_t reserved :31;
-}PLLSTAT_TypeDef;
+}PLLSTAT_t;
 
 typedef volatile struct
 {
@@ -339,7 +339,7 @@ typedef volatile struct
     const uint32_t reserved :2;
     volatile uint32_t FLASHPM :2;
     const uint32_t reserved1 :26;
-}SLPPWRCFG_TypeDef;
+}SLPPWRCFG_t;
 
 typedef volatile struct
 {
@@ -350,41 +350,41 @@ typedef volatile struct
     volatile uint32_t TSPD :1;
     volatile uint32_t LDOSM :1;
     const uint32_t reserved2 :22;
-}DSLPPWRCFG_TypeDef;
+}DSLPPWRCFG_t;
 
 typedef volatile struct
 {
     volatile const uint32_t FWB :1;
     const uint32_t reserved :31;
-}NVMSTAT_TypeDef;
+}NVMSTAT_t;
 
 typedef volatile struct
 {
     volatile uint32_t VLDO :8;
     const uint32_t reserved :23;
     volatile uint32_t VADJEN :1;
-}LDOSPCTL_TypeDef;
+}LDOSPCTL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t NOPLL :8;
     volatile const uint32_t WITHPLL :8;
     const uint32_t reserved :16;
-}LDOSPCAL_TypeDef;
+}LDOSPCAL_t;
 
 typedef volatile struct
 {
     volatile uint32_t VLDO :8;
     const uint32_t reserved :23;
     volatile uint32_t VADJEN :1;
-}LDODPCTL_TypeDef;
+}LDODPCTL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t KHZ30 :8;
     volatile const uint32_t WITHPLL :8;
     const uint32_t reserved :16;
-}LDODPCAL_TypeDef;
+}LDODPCAL_t;
 
 typedef volatile struct
 {
@@ -402,7 +402,7 @@ typedef volatile struct
     volatile const uint32_t FLASHLP :1;
     volatile const uint32_t LDOUA :1;
     const uint32_t reserved2:12;
-}SDPMST_TypeDef;
+}SDPMST_t;
 
 typedef volatile struct
 {
@@ -411,65 +411,65 @@ typedef volatile struct
     volatile uint32_t WDOG0 :2;
     volatile uint32_t WDOG1 :2;
     const uint32_t reserved :24;
-}RESBEHAVCTL_TypeDef;
+}RESBEHAVCTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t CDOFF :24;
     volatile uint32_t KEY :8;
-}HSSR_TypeDef;
+}HSSR_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PWRSTAT :2;
     volatile const uint32_t MEMSTAT :2;
     const uint32_t reserved :28;
-}USBPDS_TypeDef;
+}USBPDS_t;
 
 typedef volatile struct
 {
     volatile uint32_t PWRCTL :2;
     const uint32_t reserved :30;
-}USBMPC_TypeDef;
+}USBMPC_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PWRSTAT :2;
     volatile const uint32_t MEMSTAT :2;
     const uint32_t reserved :28;
-}EMACPDS_TypeDef;
+}EMACPDS_t;
 
 typedef volatile struct
 {
     volatile uint32_t PWRCTL :2;
     const uint32_t reserved :30;
-}EMACMPC_TypeDef;
+}EMACMPC_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PWRSTAT :2;
     volatile const uint32_t MEMSTAT :2;
     const uint32_t reserved :28;
-}CAN0PDS_TypeDef;
+}CAN0PDS_t;
 
 typedef volatile struct
 {
     volatile uint32_t PWRCTL :2;
     const uint32_t reserved :30;
-}CAN0MPC_TypeDef;
+}CAN0MPC_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PWRSTAT :2;
     volatile const uint32_t MEMSTAT :2;
     const uint32_t reserved :28;
-}CAN1PDS_TypeDef;
+}CAN1PDS_t;
 
 typedef volatile struct
 {
     volatile uint32_t PWRCTL :2;
     const uint32_t reserved :30;
-}CAN1MPC_TypeDef;
+}CAN1MPC_t;
 
 typedef volatile struct
 {
@@ -484,12 +484,12 @@ typedef volatile struct
     volatile const uint32_t PORT :3;
     const uint32_t reserved2 :15;
     volatile const uint32_t NW :1;
-}BOOTCFG_TypeDef;
+}BOOTCFG_t;
 
 typedef volatile struct
 {
     volatile const uint32_t DATA :32;
-}USER_REG_TypeDef;
+}USER_REG_t;
 
 typedef volatile struct
 {
@@ -525,14 +525,14 @@ typedef volatile struct
     volatile uint32_t P29 :1;
     volatile uint32_t P30 :1;
     volatile uint32_t P31 :1;
-}PERIPHERAL_TypeDef;
+}PERIPHERAL_t;
 
 typedef volatile struct
 {
     volatile uint32_t WDT0_ :1;
     volatile uint32_t WDT1_ :1;
     const uint32_t reserved:30;
-}PERIPHERAL_WD_TypeDef;
+}PERIPHERAL_WD_t;
 
 typedef volatile struct
 {
@@ -545,7 +545,7 @@ typedef volatile struct
     volatile uint32_t TIMER6_ :1;
     volatile uint32_t TIMER7_ :1;
     const uint32_t reserved :24;
-}PERIPHERAL_TIMER_TypeDef;
+}PERIPHERAL_TIMER_t;
 
 typedef volatile struct
 {
@@ -565,25 +565,25 @@ typedef volatile struct
     volatile uint32_t GPIOP_ :1;
     volatile uint32_t GPIOQ_ :1;
     const uint32_t reserved :17;
-}PERIPHERAL_GPIO_TypeDef;
+}PERIPHERAL_GPIO_t;
 
 typedef volatile struct
 {
     volatile uint32_t UDMA_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_DMA_TypeDef;
+}PERIPHERAL_DMA_t;
 
 typedef volatile struct
 {
     volatile uint32_t EPI0_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_EPI_TypeDef;
+}PERIPHERAL_EPI_t;
 
 typedef volatile struct
 {
     volatile uint32_t HIB_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_HIB_TypeDef;
+}PERIPHERAL_HIB_t;
 
 typedef volatile struct
 {
@@ -596,7 +596,7 @@ typedef volatile struct
     volatile uint32_t UART6_ :1;
     volatile uint32_t UART7_ :1;
     const uint32_t reserved :24;
-}PERIPHERAL_UART_TypeDef;
+}PERIPHERAL_UART_t;
 
 typedef volatile struct
 {
@@ -605,7 +605,7 @@ typedef volatile struct
     volatile uint32_t SSI2_ :1;
     volatile uint32_t SSI3_ :1;
     const uint32_t reserved :28;
-}PERIPHERAL_SSI_TypeDef;
+}PERIPHERAL_SSI_t;
 
 typedef volatile struct
 {
@@ -620,128 +620,128 @@ typedef volatile struct
     volatile uint32_t I2C8_ :1;
     volatile uint32_t I2C9_ :1;
     const uint32_t reserved :22;
-}PERIPHERAL_I2C_TypeDef;
+}PERIPHERAL_I2C_t;
 
 typedef volatile struct
 {
     volatile uint32_t USB_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_USB_TypeDef;
+}PERIPHERAL_USB_t;
 
 typedef volatile struct
 {
     volatile uint32_t EPHY_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_EPHY_TypeDef;
+}PERIPHERAL_EPHY_t;
 
 typedef volatile struct
 {
     volatile uint32_t CAN0_ :1;
     volatile uint32_t CAN1_ :1;
     const uint32_t reserved :30;
-}PERIPHERAL_CAN_TypeDef;
+}PERIPHERAL_CAN_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADC0_ :1;
     volatile uint32_t ADC1_ :1;
     const uint32_t reserved:30;
-}PERIPHERAL_ADC_TypeDef;
+}PERIPHERAL_ADC_t;
 
 typedef volatile struct
 {
     volatile uint32_t ACMP_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_ACMP_TypeDef;
+}PERIPHERAL_ACMP_t;
 
 typedef volatile struct
 {
     volatile uint32_t PWM0_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_PWM_TypeDef;
+}PERIPHERAL_PWM_t;
 
 typedef volatile struct
 {
     volatile uint32_t QEI0_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_QEI_TypeDef;
+}PERIPHERAL_QEI_t;
 
 typedef volatile struct
 {
     volatile uint32_t LPC_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_LPC_TypeDef;
+}PERIPHERAL_LPC_t;
 
 typedef volatile struct
 {
     volatile uint32_t PECI_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_PECI_TypeDef;
+}PERIPHERAL_PECI_t;
 
 typedef volatile struct
 {
     volatile uint32_t FAN_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_FAN_TypeDef;
+}PERIPHERAL_FAN_t;
 
 typedef volatile struct
 {
     volatile uint32_t EEPROM_ :1;
     const uint32_t reserved:31;
-}PERIPHERAL_EEPROM_TypeDef;
+}PERIPHERAL_EEPROM_t;
 
 typedef volatile struct
 {
     volatile uint32_t WTIMER0_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_WTIMER_TypeDef;
+}PERIPHERAL_WTIMER_t;
 
 typedef volatile struct
 {
     volatile uint32_t RTS_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_RTS_TypeDef;
+}PERIPHERAL_RTS_t;
 
 typedef volatile struct
 {
     volatile uint32_t CCM_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_CCM_TypeDef;
+}PERIPHERAL_CCM_t;
 
 typedef volatile struct
 {
     volatile uint32_t LCD_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_LCD_TypeDef;
+}PERIPHERAL_LCD_t;
 
 typedef volatile struct
 {
     volatile uint32_t OWIRE_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_OWIRE_TypeDef;
+}PERIPHERAL_OWIRE_t;
 
 typedef volatile struct
 {
     volatile uint32_t EMAC_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_EMAC_TypeDef;
+}PERIPHERAL_EMAC_t;
 
 typedef volatile struct
 {
     volatile uint32_t PRB_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_PRB_TypeDef;
+}PERIPHERAL_PRB_t;
 
 typedef volatile struct
 {
     volatile uint32_t HIM_ :1;
     const uint32_t reserved :31;
-}PERIPHERAL_HIM_TypeDef;
+}PERIPHERAL_HIM_t;
 
 typedef volatile struct
 {
     volatile const uint32_t ID :32;
-}UNIQUEID_TypeDef;/*0x00000008*/
+}UNIQUEID_t;/*0x00000008*/
 
 typedef volatile struct
 {
@@ -749,6 +749,6 @@ typedef volatile struct
     volatile uint32_t AESCFG :1;
     volatile uint32_t DESCFG :1;
     const uint32_t reserved :29;
-}CCMCGREQ_TypeDef;
+}CCMCGREQ_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_STRUCT_SYSCTL_STRUCTREGISTER_H_ */

@@ -28,7 +28,7 @@
 #include <xDriver_MCU/WDT/Peripheral/Register/RegisterPeripheral/xHeader/WDT_RegisterPeripheral_Module0.h>
 #include <xDriver_MCU/WDT/Peripheral/Register/RegisterPeripheral/xHeader/WDT_RegisterPeripheral_Module1.h>
 
-#define WDT    ((WDTS_TypeDef*) (WDT_BASE))
+#define WDT    ((WDTS_t*) (WDT_BASE))
 
 uint32_t WDT__u32BlockBaseAddress(WDT_nMODULE enModuleArg);
 

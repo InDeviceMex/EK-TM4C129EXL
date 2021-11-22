@@ -32,27 +32,27 @@ typedef volatile struct
     union
     {
         volatile uint32_t CFG;
-        GPTMCFG_TypeDef CFG_Bit;
+        GPTMCFG_t CFG_Bit;
     };
     const uint32_t reserved [3UL];
     union
     {
         volatile uint32_t SYNC;
-        GPTMSYNC_TypeDef SYNC_Bit;
+        GPTMSYNC_t SYNC_Bit;
     };
     const uint32_t reserved1 [1003UL];
     union
     {
         volatile uint32_t PP;
-        GPTMPP_TypeDef PP_Bit;
+        GPTMPP_t PP_Bit;
     };
     const uint32_t reserved2;
     union
     {
         volatile uint32_t CC;
-        GPTMCC_TypeDef CC_Bit;
+        GPTMCC_t CC_Bit;
     };
     const uint32_t reserved3 [13UL];
-}GPTM_CTL_TypeDef;
+}GPTM_CTL_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_TIMER_STRUCTPERIPHERAL_CONTROL_32_H_ */

@@ -33,28 +33,28 @@
 
 typedef volatile struct
 {
-    GPTM_TypeDef MODULE0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-    GPTM_TypeDef reserved [170UL];
-    GPTM_TypeDef MODULE6_7 [(uint32_t) 2UL];
-}GPTMS_TypeDef;
+    GPTM_t MODULE0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+    GPTM_t reserved [170UL];
+    GPTM_t MODULE6_7 [(uint32_t) 2UL];
+}GPTMS_t;
 
 typedef volatile struct
 {
     union
     {
-        GPTM_CTL_TypeDef CTL0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TA_TypeDef TA0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TB_TypeDef TB0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TW_TypeDef TW0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_CTL_t CTL0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TA_t TA0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TB_t TB0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TW_t TW0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
     };
-    GPTM_TypeDef reserved [170UL];
+    GPTM_t reserved [170UL];
     union
     {
-        GPTM_CTL_TypeDef CTL6_7 [(uint32_t) 2UL];
-        GPTM_TA_TypeDef TA6_7 [(uint32_t) 2UL];
-        GPTM_TB_TypeDef TB6_7 [(uint32_t) 2UL];
-        GPTM_TW_TypeDef TW6_7 [(uint32_t) 2UL];
+        GPTM_CTL_t CTL6_7 [(uint32_t) 2UL];
+        GPTM_TA_t TA6_7 [(uint32_t) 2UL];
+        GPTM_TB_t TB6_7 [(uint32_t) 2UL];
+        GPTM_TW_t TW6_7 [(uint32_t) 2UL];
     };
-}GPTM_UNION_TypeDef;
+}GPTM_UNION_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_TIMER_STRUCTPERIPHERAL_H_ */

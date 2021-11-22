@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/Register/RegisterPeripheral/xHeader/QEI_RegisterPeripheral_Module0.h>
 
-#define QEI    ((QEIS_TypeDef*) (QEI_BASE))
+#define QEI    ((QEIS_t*) (QEI_BASE))
 
 uint32_t QEI__u32BlockBaseAddress(QEI_nMODULE enModuleArg);
 

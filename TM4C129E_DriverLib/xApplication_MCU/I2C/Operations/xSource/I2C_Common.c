@@ -34,15 +34,14 @@ I2C_nSTATUS I2C_Master__enWaitMultiMaster(I2C_nMODULE enModule)
     do
     {
         enBusBusy = I2C_Master__enIsBusBusy(enModule);
+        u32Timeout--;
         if(0UL == u32Timeout)
         {
             enStatus = I2C_enSTATUS_ERROR;
-            break;
         }
-        u32Timeout--;
-    }while(I2C_enMASTER_BUSY_IDLE != enBusBusy);
+    }while((I2C_enMASTER_BUSY_IDLE != enBusBusy) && (0UL != u32Timeout));
 
-    return enStatus;
+    return (enStatus);
 }
 
 I2C_nSTATUS I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule)
@@ -56,19 +55,20 @@ I2C_nSTATUS I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule)
     do
     {
         enControllerBusy = I2C_Master__enIsControllerBusy(enModule);
+        u32Timeout--;
         if(0UL == u32Timeout)
         {
-            return enStatus;
+            enStatus = I2C_enSTATUS_ERROR;
         }
-        u32Timeout--;
-    }while(I2C_enMASTER_BUSY_IDLE != enControllerBusy);
+    }while((I2C_enMASTER_BUSY_IDLE != enControllerBusy) && (0UL != u32Timeout));
 
-    enStatus = I2C_Master__enIsLastOperationError(enModule);
-    if(I2C_enSTATUS_OK != enStatus)
+    if(I2C_enSTATUS_ERROR != enStatus)
     {
-        return enStatus;
-        /*Error Handling*/
+        enStatus = I2C_Master__enIsLastOperationError(enModule);
+        if(I2C_enSTATUS_ERROR == enStatus)
+        {
+            /*Error Handling*/
+        }
     }
-
-    return enStatus;
+    return (enStatus);
 }

@@ -33,166 +33,166 @@ typedef volatile struct
     union
     {
             volatile uint32_t DR;
-            UARTDR_TypeDef DR_Bit;
+            UARTDR_t DR_Bit;
     };
     union
     {
             volatile const uint32_t RSR;
             volatile uint32_t ECR;
-            UARTRSR_TypeDef RSR_Bit;
-            UARTECR_TypeDef ECR_Bit;
+            UARTRSR_t RSR_Bit;
+            UARTECR_t ECR_Bit;
     };
     const uint32_t reserved [4UL];
     union
     {
             volatile const uint32_t FR;
-            UARTFR_TypeDef FR_Bit;
+            UARTFR_t FR_Bit;
     };
     const uint32_t reserved1 [1UL];
     union
     {
             volatile uint32_t ILPR;
-            UARTILPR_TypeDef ILPR_Bit;
+            UARTILPR_t ILPR_Bit;
     };
     union
     {
             volatile uint32_t IBRD;
-            UARTIBRD_TypeDef IBRD_Bit;
+            UARTIBRD_t IBRD_Bit;
     };
     union
     {
             volatile uint32_t FBRD;
-            UARTFBRD_TypeDef FBRD_Bit;
+            UARTFBRD_t FBRD_Bit;
     };
     union
     {
             volatile uint32_t LCRH;
-            UARTLCRH_TypeDef LCRH_Bit;
+            UARTLCRH_t LCRH_Bit;
     };
     union
     {
             volatile uint32_t CTL;
-            UARTCTL_TypeDef CTL_Bit;
+            UARTCTL_t CTL_Bit;
     };
     union
     {
             volatile uint32_t IFLS;
-            UARTIFLS_TypeDef IFLS_Bit;
+            UARTIFLS_t IFLS_Bit;
     };
     union
     {
             volatile uint32_t IM;
-            UARTIM_TypeDef IM_Bit;
+            UARTIM_t IM_Bit;
     };
     union
     {
             volatile const uint32_t RIS;
-            UARTRIS_TypeDef RIS_Bit;
+            UARTRIS_t RIS_Bit;
     };
     union
     {
             volatile const uint32_t MIS;
-            UARTMIS_TypeDef MIS_Bit;
+            UARTMIS_t MIS_Bit;
     };
     union
     {
             volatile uint32_t ICR;
-            UARTICR_TypeDef ICR_Bit;
+            UARTICR_t ICR_Bit;
     };
     union
     {
             volatile uint32_t DMACTL;
-            UARTDMACTL_TypeDef DMACTL_Bit;
+            UARTDMACTL_t DMACTL_Bit;
     };
     const uint32_t reserved2 [22UL];
     union
     {
             volatile uint32_t UART9BITADDR;
-            UART9BITADDR_TypeDef UART9BITADDR_Bit;
+            UART9BITADDR_t UART9BITADDR_Bit;
     };
     union
     {
             volatile uint32_t UART9BITAMASK;
-            UART9BITAMASK_TypeDef UART9BITAMASK_Bit;
+            UART9BITAMASK_t UART9BITAMASK_Bit;
     };
     const uint32_t reserved3 [965UL];
     union
     {
             volatile const uint32_t PP;
-            UARTPP_TypeDef PP_Bit;
+            UARTPP_t PP_Bit;
     };
     const uint32_t reserved4 [1UL];
     union
     {
             volatile uint32_t CC;
-            UARTCC_TypeDef CC_Bit;
+            UARTCC_t CC_Bit;
     };
     const uint32_t reserved5 [1UL];
     union
     {
             volatile const uint32_t PeriphID4;
-            UARTPeriphID4_TypeDef PeriphID4_Bit;
+            UARTPeriphID4_t PeriphID4_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID5;
-            UARTPeriphID5_TypeDef PeriphID5_Bit;
+            UARTPeriphID5_t PeriphID5_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID6;
-            UARTPeriphID6_TypeDef PeriphID6_Bit;
+            UARTPeriphID6_t PeriphID6_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID7;
-            UARTPeriphID7_TypeDef PeriphID7_Bit;
+            UARTPeriphID7_t PeriphID7_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID0;
-            UARTPeriphID0_TypeDef PeriphID0_Bit;
+            UARTPeriphID0_t PeriphID0_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID1;
-            UARTPeriphID1_TypeDef PeriphID1_Bit;
+            UARTPeriphID1_t PeriphID1_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID2;
-            UARTPeriphID2_TypeDef PeriphID2_Bit;
+            UARTPeriphID2_t PeriphID2_Bit;
     };
     union
     {
             volatile const uint32_t PeriphID3;
-            UARTPeriphID3_TypeDef PeriphID3_Bit;
+            UARTPeriphID3_t PeriphID3_Bit;
     };
     union
     {
             volatile const uint32_t CellID0;
-            UARTCellID0_TypeDef CellID0_Bit;
+            UARTCellID0_t CellID0_Bit;
     };
     union
     {
             volatile const uint32_t CellID1;
-            UARTCellID1_TypeDef CellID1_Bit;
+            UARTCellID1_t CellID1_Bit;
     };
     union
     {
             volatile const uint32_t CellID2;
-            UARTCellID2_TypeDef CellID2_Bit;
+            UARTCellID2_t CellID2_Bit;
     };
     union
     {
             volatile const uint32_t CellID3;
-            UARTCellID3_TypeDef CellID3_Bit;
+            UARTCellID3_t CellID3_Bit;
     };
-} UART_TypeDef;
+} UART_t;
 
 typedef volatile struct
 {
-    UART_TypeDef MODULE [(uint32_t) UART_enMODULE_MAX];
-} UARTS_TypeDef;
+    UART_t MODULE [(uint32_t) UART_enMODULE_MAX];
+} UARTS_t;
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_STRUCT_XHEADER_UART_STRUCTPERIPHERAL_H_ */

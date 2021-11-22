@@ -36,7 +36,7 @@ typedef volatile struct
     volatile uint32_t IN1;
     volatile uint32_t IN2;
     const uint32_t reserved [29UL];
-}BITBANDING_ACMIS_TypeDef;
+}BITBANDING_ACMIS_t;
 
 typedef volatile struct
 {
@@ -44,7 +44,7 @@ typedef volatile struct
     volatile const uint32_t IN1;
     volatile const uint32_t IN2;
     const uint32_t reserved [29UL];
-}BITBANDING_ACRIS_TypeDef;
+}BITBANDING_ACRIS_t;
 
 typedef volatile struct
 {
@@ -52,7 +52,7 @@ typedef volatile struct
     volatile uint32_t IN1;
     volatile uint32_t IN2;
     const uint32_t reserved [29UL];
-}BITBANDING_ACINTEN_TypeDef;
+}BITBANDING_ACINTEN_t;
 
 typedef volatile struct
 {
@@ -61,14 +61,14 @@ typedef volatile struct
     volatile uint32_t RNG;
     volatile uint32_t EN;
     const uint32_t reserved1 [22UL];
-}BITBANDING_ACREFCTL_TypeDef;
+}BITBANDING_ACREFCTL_t;
 
 typedef volatile struct
 {
     const uint32_t reserved;
     volatile const uint32_t OVAL;
     const uint32_t reserved1 [30UL];
-}BITBANDING_ACSTAT_TypeDef;
+}BITBANDING_ACSTAT_t;
 
 typedef volatile struct
 {
@@ -82,7 +82,7 @@ typedef volatile struct
     volatile uint32_t ASRCP [2UL];
     volatile uint32_t TOEN;
     const uint32_t reserved2 [20UL];
-}BITBANDING_ACCTL_TypeDef;
+}BITBANDING_ACCTL_t;
 
 typedef volatile struct
 {
@@ -94,6 +94,6 @@ typedef volatile struct
     volatile const uint32_t C1O;
     volatile const uint32_t C2O;
     const uint32_t reserved1 [13UL];
-}BITBANDING_ACMPPP_TypeDef;
+}BITBANDING_ACMPPP_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_STRUCT_XHEADER_ACMP_STRUCTREGISTER_BITBANDING_H_ */

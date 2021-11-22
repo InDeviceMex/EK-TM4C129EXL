@@ -389,6 +389,6 @@ typedef struct
         SYSCTL_nOSC enOscSource;
         SYSCTL_nBYPASS enOscBypass;
         SYSCTL_nVCO enVCORange;
-}SYSCTL_CONFIG_TypeDef;
+}SYSCTL_CONFIG_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_ENUM_H_ */

@@ -41,8 +41,8 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleP.h>
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/xHeader/GPIO_RegisterPeripheral_ModuleQ.h>
 
-#define GPIO    ((GPIO_PORT_TypeDef*) (GPIO_BASE))
-#define GPIO_AUX    ((GPIO_PORT_AUX_TypeDef*) (GPIO_BASE))
+#define GPIO    ((GPIO_PORT_t*) (GPIO_BASE))
+#define GPIO_AUX    ((GPIO_PORT_AUX_t*) (GPIO_BASE))
 
 uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg);
 

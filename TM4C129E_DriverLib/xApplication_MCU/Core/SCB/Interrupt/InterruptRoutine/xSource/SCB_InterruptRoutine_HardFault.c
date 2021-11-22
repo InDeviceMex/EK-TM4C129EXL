@@ -31,7 +31,7 @@
 
 uint32_t SCB_HardFault_pu32Context[8UL];
 
-UART_CONTROL_TypeDef enUartHardControl =
+UART_CONTROL_t enUartHardControl =
 {
     UART_enEOT_ALL,
     UART_enLOOPBACK_DIS,
@@ -45,7 +45,7 @@ UART_CONTROL_TypeDef enUartHardControl =
     UART_enLINE_DIS,
 };
 
-UART_LINE_CONTROL_TypeDef enUartHardLineControl =
+UART_LINE_CONTROL_t enUartHardLineControl =
 {
  UART_enFIFO_ENA,
  UART_enSTOP_ONE,
@@ -55,7 +55,7 @@ UART_LINE_CONTROL_TypeDef enUartHardLineControl =
  UART_enLENGTH_8BITS,
 };
 
-UART_LINE_TypeDef enUartHardLine =
+UART_LINE_t enUartHardLine =
 {
  UART_enLINE_SELECT_PRIMARY,
  UART_enLINE_SELECT_PRIMARY,

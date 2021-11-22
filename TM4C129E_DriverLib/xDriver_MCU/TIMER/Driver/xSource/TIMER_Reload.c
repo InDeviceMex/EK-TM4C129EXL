@@ -39,9 +39,9 @@ void TIMER__vSetReload(TIMER_nMODULE enModule, uint32_t u32Reload)
     TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_CC;
     TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
-    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig =
+    TIMER_Count32_Preescale_t stMatch32PreescalerConfig =
     {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
-    TIMER_Count32_TypeDef stReload32Config = {0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_t stReload32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
     uint32_t u32SubModule = 0UL;
@@ -118,9 +118,9 @@ uint32_t TIMER__u32GetReload(TIMER_nMODULE enModule)
     TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
 
-    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig =
+    TIMER_Count32_Preescale_t stMatch32PreescalerConfig =
     {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
-    TIMER_Count32_TypeDef stReload32Config = {0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_t stReload32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
     uint32_t u32SubModule = 0UL;

@@ -28,7 +28,7 @@
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberFormat.h>
 
 
-CONV_nSTATUS Conv__enNumber2String_Long(CONV_OUT_TypeDef pvfOut, char* pcBufferOut, uint32_t u32Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Negative, uint32_t u32Base, uint32_t u32Prec)
+CONV_nSTATUS Conv__enNumber2String_Long(CONV_OUT_t pvfOut, char* pcBufferOut, uint32_t u32Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Negative, uint32_t u32Base, uint32_t u32Prec)
 {
     return Conv__enNumber2String_LongLong(pvfOut, pcBufferOut, (uint64_t) u32Value, u32Index, u32MaxLenght, pu32BufOutLenght, u32Width, u32flags, u32Negative, (uint64_t) u32Base, u32Prec);
 }

@@ -31,12 +31,12 @@
 /******************************************************************************************
 ************************************ UART7 *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING    ((UART_BITBANDING_TypeDef*) (UART_BITBANDING_BASE + (UART7_OFFSET * 32U)))
+#define UART7_BITBANDING    ((UART_BITBANDING_t*) (UART_BITBANDING_BASE + (UART7_OFFSET * 32U)))
 
 /******************************************************************************************
 *********************************** * 1 DR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_DR    ((BITBANDING_UARTDR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DR_OFFSET) * 32U)))
+#define UART7_BITBANDING_DR    ((BITBANDING_UARTDR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DR_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_DR_FE    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DR_OFFSET) * 32U) + (UART_DR_R_FE_BIT * 4U))))
 #define UART7_BITBANDING_DR_PE    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DR_OFFSET) * 32U) + (UART_DR_R_PE_BIT * 4U))))
@@ -46,8 +46,8 @@
 /******************************************************************************************
 *********************************** * 2 RSR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_RSR    ((BITBANDING_UARTRSR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RSR_OFFSET) * 32U)))
-#define UART7_BITBANDING_ECR    ((BITBANDING_UARTECR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ECR_OFFSET) * 32U)))
+#define UART7_BITBANDING_RSR    ((BITBANDING_UARTRSR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RSR_OFFSET) * 32U)))
+#define UART7_BITBANDING_ECR    ((BITBANDING_UARTECR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ECR_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_RSR_FE    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RSR_OFFSET) * 32U) + (UART_RSR_R_FE_BIT * 4U))))
 #define UART7_BITBANDING_RSR_PE    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RSR_OFFSET) * 32U) + (UART_RSR_R_PE_BIT * 4U))))
@@ -57,7 +57,7 @@
 /******************************************************************************************
 *********************************** * 3 FR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_FR    ((BITBANDING_UARTFR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FR_OFFSET) * 32U)))
+#define UART7_BITBANDING_FR    ((BITBANDING_UARTFR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FR_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_FR_CTS    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FR_OFFSET) * 32U) + (UART_FR_R_CTS_BIT * 4U))))
 #define UART7_BITBANDING_FR_DSR    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FR_OFFSET) * 32U) + (UART_FR_R_DSR_BIT * 4U))))
@@ -72,22 +72,22 @@
 /******************************************************************************************
 *********************************** * 4 ILPR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_ILPR    ((BITBANDING_UARTILPR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ILPR_OFFSET) * 32U)))
+#define UART7_BITBANDING_ILPR    ((BITBANDING_UARTILPR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ILPR_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 5 IBRD *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_IBRD    ((BITBANDING_UARTIBRD_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IBRD_OFFSET) * 32U)))
+#define UART7_BITBANDING_IBRD    ((BITBANDING_UARTIBRD_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IBRD_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 6 FBRD *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_FBRD    ((BITBANDING_UARTFBRD_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FBRD_OFFSET) * 32U)))
+#define UART7_BITBANDING_FBRD    ((BITBANDING_UARTFBRD_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_FBRD_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 7 LCRH *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_LCRH    ((BITBANDING_UARTLCRH_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_LCRH_OFFSET) * 32U)))
+#define UART7_BITBANDING_LCRH    ((BITBANDING_UARTLCRH_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_LCRH_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_LCRH_BRK    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_LCRH_OFFSET) * 32U) + (UART_LCRH_R_BRK_BIT * 4U))))
 #define UART7_BITBANDING_LCRH_PEN    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_LCRH_OFFSET) * 32U) + (UART_LCRH_R_PEN_BIT * 4U))))
@@ -101,7 +101,7 @@
 /******************************************************************************************
 *********************************** * 8 CTL *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_CTL    ((BITBANDING_UARTCTL_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CTL_OFFSET) * 32U)))
+#define UART7_BITBANDING_CTL    ((BITBANDING_UARTCTL_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CTL_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_CTL_UARTEN    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CTL_OFFSET) * 32U) + (UART_CTL_R_UARTEN_BIT * 4U))))
 #define UART7_BITBANDING_CTL_SIREN    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CTL_OFFSET) * 32U) + (UART_CTL_R_SIREN_BIT * 4U))))
@@ -120,7 +120,7 @@
 /******************************************************************************************
 *********************************** * 9 IFLS *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_IFLS    ((BITBANDING_UARTIFLS_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IFLS_OFFSET) * 32U)))
+#define UART7_BITBANDING_IFLS    ((BITBANDING_UARTIFLS_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IFLS_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_IFLS_TXIFLSEL_0    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IFLS_OFFSET) * 32U) + ((UART_IFLS_R_TXIFLSEL_BIT + 0U) * 4U))))
 #define UART7_BITBANDING_IFLS_TXIFLSEL_1    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IFLS_OFFSET) * 32U) + ((UART_IFLS_R_TXIFLSEL_BIT + 1U) * 4U))))
@@ -132,7 +132,7 @@
 /******************************************************************************************
 *********************************** * 10 IM *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_IM    ((BITBANDING_UARTIM_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IM_OFFSET) * 32U)))
+#define UART7_BITBANDING_IM    ((BITBANDING_UARTIM_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IM_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_IM_RIIM    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IM_OFFSET) * 32U) + (UART_IM_R_RIIM_BIT * 4U))))
 #define UART7_BITBANDING_IM_CTSIM    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_IM_OFFSET) * 32U) + (UART_IM_R_CTSIM_BIT * 4U))))
@@ -153,7 +153,7 @@
 /******************************************************************************************
 *********************************** * 11 RIS *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_RIS    ((BITBANDING_UARTRIS_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RIS_OFFSET) * 32U)))
+#define UART7_BITBANDING_RIS    ((BITBANDING_UARTRIS_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RIS_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_RIS_RIRIS    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RIS_OFFSET) * 32U) + (UART_RIS_R_RIRIS_BIT * 4U))))
 #define UART7_BITBANDING_RIS_CTSRIS    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_RIS_OFFSET) * 32U) + (UART_RIS_R_CTSRIS_BIT * 4U))))
@@ -174,7 +174,7 @@
 /******************************************************************************************
 *********************************** * 12 MIS *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_MIS    ((BITBANDING_UARTMIS_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_MIS_OFFSET) * 32U)))
+#define UART7_BITBANDING_MIS    ((BITBANDING_UARTMIS_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_MIS_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_MIS_RIMIS    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_MIS_OFFSET) * 32U) + (UART_MIS_R_RIMIS_BIT * 4U))))
 #define UART7_BITBANDING_MIS_CTSMIS    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_MIS_OFFSET) * 32U) + (UART_MIS_R_CTSMIS_BIT * 4U))))
@@ -195,7 +195,7 @@
 /******************************************************************************************
 *********************************** * 13 ICR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_ICR    ((BITBANDING_UARTICR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ICR_OFFSET) * 32U)))
+#define UART7_BITBANDING_ICR    ((BITBANDING_UARTICR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ICR_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_ICR_RIIC    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ICR_OFFSET) * 32U) + (UART_ICR_R_RIIC_BIT * 4U))))
 #define UART7_BITBANDING_ICR_CTSIC    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_ICR_OFFSET) * 32U) + (UART_ICR_R_CTSIC_BIT * 4U))))
@@ -216,7 +216,7 @@
 /******************************************************************************************
 *********************************** * 14 DMACTL *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_DMACTL    ((BITBANDING_UARTDMACTL_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DMACTL_OFFSET) * 32U)))
+#define UART7_BITBANDING_DMACTL    ((BITBANDING_UARTDMACTL_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DMACTL_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_DMACTL_RXDMAE    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DMACTL_OFFSET) * 32U) + (UART_DMACTL_R_RXDMAE_BIT * 4U))))
 #define UART7_BITBANDING_DMACTL_TXDMAE    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_DMACTL_OFFSET) * 32U) + (UART_DMACTL_R_TXDMAE_BIT * 4U))))
@@ -225,17 +225,17 @@
 /******************************************************************************************
 *********************************** * 15 9BITADDR *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_9BITADDR    ((BITBANDING_9BITADDR_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_9BITADDR_OFFSET) * 32U)))
+#define UART7_BITBANDING_9BITADDR    ((BITBANDING_9BITADDR_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_9BITADDR_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 16 9BITAMASK *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_9BITAMASK    ((BITBANDING_9BITAMASK_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_9BITAMASK_OFFSET) * 32U)))
+#define UART7_BITBANDING_9BITAMASK    ((BITBANDING_9BITAMASK_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_9BITAMASK_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 17 PP *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_PP    ((BITBANDING_UARTPP_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PP_OFFSET) * 32U)))
+#define UART7_BITBANDING_PP    ((BITBANDING_UARTPP_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PP_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_PP_SC    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PP_OFFSET) * 32U) + (UART_PP_R_SC_BIT * 4U))))
 #define UART7_BITBANDING_PP_NB    (*((volatile const uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PP_OFFSET) * 32U) + (UART_PP_R_NB_BIT * 4U))))
@@ -245,7 +245,7 @@
 /******************************************************************************************
 *********************************** * 18 CC *********************************************
 ******************************************************************************************/
-#define UART7_BITBANDING_CC    ((BITBANDING_UARTCC_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CC_OFFSET) * 32U)))
+#define UART7_BITBANDING_CC    ((BITBANDING_UARTCC_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CC_OFFSET) * 32U)))
 
 #define UART7_BITBANDING_CC_CS_0    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CC_OFFSET) * 32U) + ((UART_CC_R_CS_BIT + 0U) * 4U))))
 #define UART7_BITBANDING_CC_CS_1    (*((volatile uint32_t *) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CC_OFFSET) * 32U) + ((UART_CC_R_CS_BIT + 1U) * 4U))))
@@ -256,72 +256,72 @@
  *********************************** * 19 PeriphID4 *********************************************
  ******************************************************************************************/
 /* UART7 PID4*/
-#define UART7_BITBANDING_PeriphID4    ((BITBANDING_UARTPeriphID4_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID4_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID4    ((BITBANDING_UARTPeriphID4_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID4_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 20 PeriphID5 *********************************************
  ******************************************************************************************/
 /* UART7 PID5*/
-#define UART7_BITBANDING_PeriphID5    ((BITBANDING_UARTPeriphID5_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID5_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID5    ((BITBANDING_UARTPeriphID5_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID5_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 21 PeriphID6 *********************************************
  ******************************************************************************************/
 /* UART7 PID6*/
-#define UART7_BITBANDING_PeriphID6    ((BITBANDING_UARTPeriphID6_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID6_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID6    ((BITBANDING_UARTPeriphID6_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID6_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 22 PeriphID7 *********************************************
  ******************************************************************************************/
 /* UART7 PID7*/
-#define UART7_BITBANDING_PeriphID7    ((BITBANDING_UARTPeriphID7_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID7_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID7    ((BITBANDING_UARTPeriphID7_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID7_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 23 PeriphID0 *********************************************
  ******************************************************************************************/
 /* UART7 PID0*/
-#define UART7_BITBANDING_PeriphID0    ((BITBANDING_UARTPeriphID0_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID0_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID0    ((BITBANDING_UARTPeriphID0_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 24 PeriphID1 *********************************************
  ******************************************************************************************/
 /* UART7 PID1*/
-#define UART7_BITBANDING_PeriphID1    ((BITBANDING_UARTPeriphID1_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID1_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID1    ((BITBANDING_UARTPeriphID1_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 25 PeriphID2 *********************************************
  ******************************************************************************************/
 /* UART7 PID2*/
-#define UART7_BITBANDING_PeriphID2    ((BITBANDING_UARTPeriphID2_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID2_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID2    ((BITBANDING_UARTPeriphID2_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 26 PeriphID3 *********************************************
  ******************************************************************************************/
 /* UART7 PID3*/
-#define UART7_BITBANDING_PeriphID3    ((BITBANDING_UARTPeriphID3_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID3_OFFSET) * 32U)))
+#define UART7_BITBANDING_PeriphID3    ((BITBANDING_UARTPeriphID3_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_PeriphID3_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 27 CellID0 *********************************************
  ******************************************************************************************/
 /* UART7 CID0*/
-#define UART7_BITBANDING_CellID0    ((BITBANDING_UARTCellID0_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID0_OFFSET) * 32U)))
+#define UART7_BITBANDING_CellID0    ((BITBANDING_UARTCellID0_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 28 CellID1 *********************************************
  ******************************************************************************************/
 /* UART7 CID1*/
-#define UART7_BITBANDING_CellID1    ((BITBANDING_UARTCellID1_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID1_OFFSET) * 32U)))
+#define UART7_BITBANDING_CellID1    ((BITBANDING_UARTCellID1_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 29 CellID2 *********************************************
  ******************************************************************************************/
 /* UART7 CID2*/
-#define UART7_BITBANDING_CellID2    ((BITBANDING_UARTCellID2_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID2_OFFSET) * 32U)))
+#define UART7_BITBANDING_CellID2    ((BITBANDING_UARTCellID2_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 30 CellID3 *********************************************
  ******************************************************************************************/
 /* UART7 CID3*/
-#define UART7_BITBANDING_CellID3    ((BITBANDING_UARTCellID3_TypeDef*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID3_OFFSET) * 32U)))
+#define UART7_BITBANDING_CellID3    ((BITBANDING_UARTCellID3_t*) (UART_BITBANDING_BASE + ((UART7_OFFSET + UART_CellID3_OFFSET) * 32U)))
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_XHEADER_UART_REGISTERPERIPHERAL_BITBANDING_MODULE7_H_ */

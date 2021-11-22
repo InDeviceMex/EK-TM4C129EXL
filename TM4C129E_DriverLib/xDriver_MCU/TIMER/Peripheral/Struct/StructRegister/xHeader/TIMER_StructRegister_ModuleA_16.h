@@ -47,7 +47,7 @@ typedef volatile struct
     volatile uint32_t TnCINTD :1;
     volatile uint32_t TCACT :3;
     const uint32_t reserved :16;
-}TA_GPTMMR_TypeDef;
+}TA_GPTMMR_t;
 
 typedef volatile struct
 {
@@ -58,7 +58,7 @@ typedef volatile struct
     volatile uint32_t TnOTE :1;
     volatile uint32_t TnPWML :1;
     const uint32_t reserved1 :25;
-}TA_GPTMCTL_TypeDef;
+}TA_GPTMCTL_t;
 
 typedef volatile struct
 {
@@ -69,7 +69,7 @@ typedef volatile struct
     volatile uint32_t TnMIM :1;
     volatile uint32_t DMAnIM :1;
     const uint32_t reserved1 :26;
-}TA_GPTMIMR_TypeDef;
+}TA_GPTMIMR_t;
 
 typedef volatile struct
 {
@@ -80,7 +80,7 @@ typedef volatile struct
     volatile const uint32_t TnMRIS :1;
     volatile const uint32_t DMAnRIS :1;
     const uint32_t reserved1 :26;
-}TA_GPTMRIS_TypeDef;
+}TA_GPTMRIS_t;
 
 typedef volatile struct
 {
@@ -91,7 +91,7 @@ typedef volatile struct
     volatile const uint32_t TnMMIS :1;
     volatile const uint32_t DMAnMIS :1;
     const uint32_t reserved1 :26;
-}TA_GPTMMIS_TypeDef;
+}TA_GPTMMIS_t;
 
 typedef volatile struct
 {
@@ -102,47 +102,47 @@ typedef volatile struct
     volatile uint32_t TnMCINT :1;
     volatile uint32_t DMAnINT :1;
     const uint32_t reserved1 :26;
-}TA_GPTMICR_TypeDef;
+}TA_GPTMICR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnILR :16;
     const uint32_t reserved :16;
-}TA_GPTMILR_TypeDef;
+}TA_GPTMILR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnMR :16;
     const uint32_t reserved :16;
-}TA_GPTMMATCHR_TypeDef;
+}TA_GPTMMATCHR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnPSR :8;
     const uint32_t reserved :24;
-}TA_GPTMPR_TypeDef;
+}TA_GPTMPR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnPSMR :8;
     const uint32_t reserved :24;
-}TA_GPTMPMR_TypeDef;
+}TA_GPTMPMR_t;
 
 typedef volatile struct
 {
     volatile const uint32_t TnR :32;
-}TA_GPTMR_TypeDef;
+}TA_GPTMR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnV :32;
-}TA_GPTMV_TypeDef;
+}TA_GPTMV_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PSS :16;
     const uint32_t reserved :16;
-}TA_GPTMPS_TypeDef;
+}TA_GPTMPS_t;
 
 typedef volatile struct
 {
@@ -152,7 +152,7 @@ typedef volatile struct
     const uint32_t reserved :1;
     volatile uint32_t TnMDMAEN :1;
     const uint32_t reserved1 :27;
-}TA_GPTMDMAEV_TypeDef;
+}TA_GPTMDMAEV_t;
 
 typedef volatile struct
 {
@@ -162,6 +162,6 @@ typedef volatile struct
     const uint32_t reserved :1;
     volatile uint32_t TnMADCEN :1;
     const uint32_t reserved1 :27;
-}TA_GPTMADCEV_TypeDef;
+}TA_GPTMADCEV_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_TIMER_STRUCTREGISTER_MODULEA_16_H_ */

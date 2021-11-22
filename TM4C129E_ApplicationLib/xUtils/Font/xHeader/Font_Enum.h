@@ -48,16 +48,16 @@ typedef struct
   uint32_t u32Bits;
   int8_t   u32Cor;
 
-} FONT_TypeDef;
+} FONT_t;
 
 typedef struct
 {
   char *pcString;
-  FONT_TypeDef *pstFont;
+  FONT_t *pstFont;
   uint16_t u16PosX;
   uint16_t u16PosY;
   uint16_t u16ColorFG;
   uint16_t u16CcolorBG;
-} STRING_TypeDef;
+} STRING_t;
 
 #endif /* XUTILS_FONT_XHEADER_FONT_ENUM_H_ */

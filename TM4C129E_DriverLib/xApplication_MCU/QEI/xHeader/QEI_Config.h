@@ -28,8 +28,8 @@
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Defines.h>
 
 QEI_nSTATUS QEI__enSetConfig(QEI_nMODULE enModule,
-                             const QEI_CONTROL_TypeDef* pstControlConfig,
-                             const QEI_SIGNAL_TypeDef* pstSignalConfig,
+                             const QEI_CONTROL_t* pstControlConfig,
+                             const QEI_SIGNAL_t* pstSignalConfig,
                              uint32_t u32InitialPosArg,
                              uint32_t u32MaxPositionArg,
                              uint32_t u32TimerLoad);

@@ -207,7 +207,7 @@ typedef struct
         UART_nPARITY enParity;
         UART_nPARITY_TYPE enParityType;
         UART_nPARITY_STICK enParityStick;
-}UART_PARITY_TypeDef;
+}UART_PARITY_t;
 
 typedef enum
 {
@@ -351,7 +351,7 @@ typedef struct
         UART_nLINE enDSRLine;
         UART_nLINE enDTRLine;
         UART_nLINE enRILine;
-}UART_CONTROL_TypeDef;
+}UART_CONTROL_t;
 
 typedef struct
 {
@@ -363,7 +363,7 @@ typedef struct
         UART_nLINE_SELECT enDSR;
         UART_nLINE_SELECT enDTR;
         UART_nLINE_SELECT enRI;
-}UART_LINE_TypeDef;
+}UART_LINE_t;
 
 typedef struct
 {
@@ -373,6 +373,6 @@ typedef struct
         UART_nPARITY_TYPE enParityType;
         UART_nPARITY_STICK enParityStick;
         UART_nLENGTH enLength;
-}UART_LINE_CONTROL_TypeDef;
+}UART_LINE_CONTROL_t;
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_XHEADER_UART_ENUM_H_ */

@@ -39,7 +39,7 @@ typedef struct
         uint32_t u32CountLowShiftLeft;
 
         uint32_t* pu32CountValue;
-}TIMER_Count32_Preescale_TypeDef;
+}TIMER_Count32_Preescale_t;
 
 typedef struct
 {
@@ -47,15 +47,15 @@ typedef struct
         uint32_t u32CountMask;
         uint32_t u32CountShiftRight;
         uint32_t* pu32CountValue;
-}TIMER_Count32_TypeDef;
+}TIMER_Count32_t;
 
 TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                                         const TIMER_Count32_TypeDef* pstCount);
+                                         const TIMER_Count32_t* pstCount);
 void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                               const TIMER_Count32_TypeDef* pstCount);
+                               const TIMER_Count32_t* pstCount);
 TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                                         const TIMER_Count32_Preescale_TypeDef* pstCount);
+                                         const TIMER_Count32_Preescale_t* pstCount);
 void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                               const TIMER_Count32_Preescale_TypeDef* pstCount);
+                               const TIMER_Count32_Preescale_t* pstCount);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_XHEADER_TIMER_COUNTGENERIC_H_ */

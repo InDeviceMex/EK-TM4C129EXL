@@ -44,7 +44,7 @@ CONV_nSTATUS Conv__enInversion(const char* const pcPointerIn, char* const pcPoin
     return (enStatus);
 }
 
-CONV_nSTATUS Conv__enOutInversion(CONV_OUT_TypeDef pvfOut, char* pvBufferOut, const char* pvBufferIn, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t u32BufInLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags)
+CONV_nSTATUS Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const char* pvBufferIn, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t u32BufInLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags)
 {
     CONV_nSTATUS enStatus = CONV_enSTATUS_ERROR;
     uint32_t u32Pos = 0;

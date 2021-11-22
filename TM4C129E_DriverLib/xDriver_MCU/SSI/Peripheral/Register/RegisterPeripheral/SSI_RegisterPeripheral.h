@@ -29,7 +29,7 @@
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral/xHeader/SSI_RegisterPeripheral_Module2.h>
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral/xHeader/SSI_RegisterPeripheral_Module3.h>
 
-#define SSI    ((SSIS_TypeDef*) (SSI_BASE))
+#define SSI    ((SSIS_t*) (SSI_BASE))
 
 uint32_t SSI__u32BlockBaseAddress(SSI_nMODULE enModuleArg);
 

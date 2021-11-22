@@ -28,7 +28,7 @@
 
 uint32_t SCB_BusFault_pu32Context[8UL] = {0UL};
 
-UART_CONTROL_TypeDef enUartBusControl =
+UART_CONTROL_t enUartBusControl =
 {
     UART_enEOT_ALL,
     UART_enLOOPBACK_DIS,
@@ -42,7 +42,7 @@ UART_CONTROL_TypeDef enUartBusControl =
     UART_enLINE_DIS,
 };
 
-UART_LINE_CONTROL_TypeDef enUartBusLineControl =
+UART_LINE_CONTROL_t enUartBusLineControl =
 {
  UART_enFIFO_ENA,
  UART_enSTOP_ONE,
@@ -52,7 +52,7 @@ UART_LINE_CONTROL_TypeDef enUartBusLineControl =
  UART_enLENGTH_8BITS,
 };
 
-UART_LINE_TypeDef enUartBusLine =
+UART_LINE_t enUartBusLine =
 {
  UART_enLINE_SELECT_PRIMARY,
  UART_enLINE_SELECT_PRIMARY,

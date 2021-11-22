@@ -32,56 +32,56 @@ typedef volatile struct
     union
     {
         volatile uint32_t FMA;
-        FMA_TypeDef FMA_Bit;
+        FMA_t FMA_Bit;
     };
     union
     {
         volatile uint32_t FMD;
-        FMD_TypeDef FMD_Bit;
+        FMD_t FMD_Bit;
     };
     union
     {
         volatile uint32_t FMC;
-        FMC_TypeDef FMC_Bit;
+        FMC_t FMC_Bit;
     };
     union
     {
         volatile const uint32_t FCRIS;
-        FCRIS_TypeDef FCRIS_Bit;
+        FCRIS_t FCRIS_Bit;
     };
     union
     {
         volatile uint32_t FCIM;
-        FCIM_TypeDef FCIM_Bit;
+        FCIM_t FCIM_Bit;
     };
     union
     {
         volatile uint32_t FCMISC;
-        FCMISC_TypeDef FCMISC_Bit;
+        FCMISC_t FCMISC_Bit;
     };
     const uint32_t reserved [2UL];
     union
     {
         volatile uint32_t FMC2;
-        FMC2_TypeDef FMC2_Bit;
+        FMC2_t FMC2_Bit;
     };
     const uint32_t reserved1 [3UL];
     union
     {
         volatile uint32_t FWBVAL;
-        FWBVAL_TypeDef FWBVAL_Bit;
+        FWBVAL_t FWBVAL_Bit;
     };
     const uint32_t reserved2 [2UL];
     union
     {
         volatile uint32_t FLPEKEY;
-        FLPEKEY_TypeDef FLPEKEY_Bit;
+        FLPEKEY_t FLPEKEY_Bit;
     };
     const uint32_t reserved3 [48UL];
     union
     {
         volatile uint32_t FWBn [32UL];
-        FWB_TypeDef FWBn_Bit [32UL];
+        FWB_t FWBn_Bit [32UL];
     };
 
 
@@ -89,33 +89,33 @@ typedef volatile struct
     union
     {
         volatile const uint32_t FLASHPP;
-        FLASHPP_TypeDef FLASHPP_Bit;
+        FLASHPP_t FLASHPP_Bit;
     };
     union
     {
         volatile const uint32_t SSIZE;
-        SSIZE_TypeDef SSIZE_Bit;
+        SSIZE_t SSIZE_Bit;
     };
     union
     {
         volatile const uint32_t FLASHCONF;
-        FLASHCONF_TypeDef FLASHCONF_Bit;
+        FLASHCONF_t FLASHCONF_Bit;
     };
     union
     {
         volatile const uint32_t ROMSWMAP;
-        ROMSWMAP_TypeDef ROMSWMAP_Bit;
+        ROMSWMAP_t ROMSWMAP_Bit;
     };
     union
     {
         volatile const uint32_t FLASHDMASZ;
-        FLASHDMASZ_TypeDef FLASHDMASZ_Bit;
+        FLASHDMASZ_t FLASHDMASZ_Bit;
     };
     union
     {
         volatile const uint32_t FLASHDMAST;
-        FLASHDMAST_TypeDef FLASHDMAST_Bit;
+        FLASHDMAST_t FLASHDMAST_Bit;
     };
-}FLASH_TypeDef;
+}FLASH_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_PERIPHERAL_FLASH_STRUCT_FLASH_STRUCTPERIPHERAL_H_ */

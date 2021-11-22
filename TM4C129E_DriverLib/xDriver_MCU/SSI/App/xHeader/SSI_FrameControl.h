@@ -33,8 +33,8 @@ void SSI__vSetFormatControl(SSI_nMODULE enModule,
                             SSI_nCLOCK_PHASE enClockPhaseArg,
                             SSI_nCLOCK_POLARITY enClockPolarityArg);
 void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
-                                  const SSI_FRAME_CONTROL_TypeDef stFormatControl);
+                                  const SSI_FRAME_CONTROL_t stFormatControl);
 void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
-                                         const SSI_FRAME_CONTROL_TypeDef* pstFormatControl);
+                                         const SSI_FRAME_CONTROL_t* pstFormatControl);
 
 #endif /* XDRIVER_MCU_SSI_APP_XHEADER_SSI_FRAMECONTROL_H_ */

@@ -25,6 +25,7 @@
 
 #include <xApplication_MCU/xApplication_MCU.h>
 #include <xDriver_MCU/xDriver_MCU.h>
+#include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
 
 #include <xOS/xOS.h>
 
@@ -35,6 +36,12 @@ void xTask5_LedGreenLog(void* pvParams)
 {
     uint32_t u32DataEncript1 = 0UL;
     uint32_t u32DataEncript2 = 0UL;
+
+    uint32_t u32DataCRC1 = 0UL;
+    uint32_t u32DataCRC2 = 0UL;
+    char* pcCRCValue = "123456789";
+    char* pcCRCValuepointer = pcCRCValue;
+
     uint32_t u32DataDesencript1 = 0UL;
     uint32_t u32DataDesencript2 = 0UL;
     uint32_t u32LastWakeTime = 0UL;
@@ -71,6 +78,195 @@ void xTask5_LedGreenLog(void* pvParams)
 
     while((u32DataDesencript1 != DATA_ENCRYPT_1) || (u32DataDesencript2 != DATA_ENCRYPT_2));
 
+#if 0
+    /* CRC-16/CCITT-FALSE */
+    CRC->SEED = 0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_1S;
+
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_CCITT_FALSE);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+
+    /* CRC-16/ARC */
+    CRC->SEED = 0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_8005 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_REVERSE |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_0S;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+    u32DataCRC2 = MCU__u16ReverseHalfWorld(u32DataCRC2);
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_ARC);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/AUG-CCITT */
+    CRC->SEED = 0x1D0FUL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_SEED;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_AUG_CCITT);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/BUYPASS */
+    CRC->SEED = 0x0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_8005 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_0S;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_BUYPASS);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/DDS-110 */
+    CRC->SEED = 0x800DUL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_8005 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_SEED;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_DDS_110);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/GENIBUS */
+    CRC->SEED = 0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_INVERT | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_1S;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_GENIBUS);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+
+    /* CRC-16/MAXIM */
+    CRC->SEED = 0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_8005 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_REVERSE |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_INVERT | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_0S;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+    u32DataCRC2 = MCU__u16ReverseHalfWorld(u32DataCRC2);
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_MAXIM);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/MCRF4XX */
+    CRC->SEED = 0UL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_REVERSE |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_1S;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+    u32DataCRC2 = MCU__u16ReverseHalfWorld(u32DataCRC2);
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_MCRF4XX);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/RIELLO */
+    CRC->SEED = 0xB2AAUL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_REVERSE |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_SEED;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+    u32DataCRC2 = MCU__u16ReverseHalfWorld(u32DataCRC2);
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_RIELLO);
+
+    while(u32DataCRC2 != u32DataCRC1);
+
+    /* CRC-16/TMS37157 */
+    CRC->SEED = 0x89ECUL;
+    CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_REVERSE |
+                CRC_CTRL_R_OBR_UNCHANGED | CRC_CTRL_R_RESINV_UNCHANGED | CRC_CTRL_R_SIZE_BYTE |
+                CRC_CTRL_R_INIT_SEED;
+    pcCRCValuepointer = pcCRCValue;
+    while(0UL != (uint32_t) *pcCRCValuepointer)
+    {
+        CRC->DIN = *pcCRCValuepointer;
+        pcCRCValuepointer++;
+    }
+    u32DataCRC2 = CRC->RSLTPP;
+    u32DataCRC2 &= 0xFFFF;
+    u32DataCRC2 = MCU__u16ReverseHalfWorld(u32DataCRC2);
+
+    u32DataCRC1 = CRC16__u16Calculate(pcCRCValue, 9U, CRC16_enSubType_TMS37157);
+
+    while(u32DataCRC2 != u32DataCRC1);
+#endif
     while(1UL)
     {
         GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);

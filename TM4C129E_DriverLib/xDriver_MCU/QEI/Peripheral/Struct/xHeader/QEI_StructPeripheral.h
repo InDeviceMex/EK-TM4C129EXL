@@ -34,64 +34,64 @@ typedef volatile struct
     union
     {
         volatile uint32_t CTL;
-        QEICTL_TypeDef CTL_Bit;
+        QEICTL_t CTL_Bit;
     };
     union
     {
         volatile const uint32_t STAT;
-        QEISTAT_TypeDef STAT_Bit;
+        QEISTAT_t STAT_Bit;
     };
     union
     {
         volatile uint32_t POS;
-        QEIPOS_TypeDef POS_Bit;
+        QEIPOS_t POS_Bit;
     };
     union
     {
         volatile uint32_t MAXPOS;
-        QEIMAXPOS_TypeDef MAXPOS_Bit;
+        QEIMAXPOS_t MAXPOS_Bit;
     };
     union
     {
         volatile uint32_t LOAD;
-        QEILOAD_TypeDef LOAD_Bit;
+        QEILOAD_t LOAD_Bit;
     };
     union
     {
         volatile const uint32_t TIME;
-        QEITIME_TypeDef TIME_Bit;
+        QEITIME_t TIME_Bit;
     };
     union
     {
         volatile const uint32_t COUNT;
-        QEICOUNT_TypeDef COUNT_Bit;
+        QEICOUNT_t COUNT_Bit;
     };
     union
     {
         volatile const uint32_t SPEED;
-        QEISPEED_TypeDef SPEED_Bit;
+        QEISPEED_t SPEED_Bit;
     };
     union
     {
         volatile uint32_t INTEN;
-        QEIINTEN_TypeDef INTEN_Bit;
+        QEIINTEN_t INTEN_Bit;
     };
     union
     {
         volatile const uint32_t RIS;
-        QEIRIS_TypeDef RIS_Bit;
+        QEIRIS_t RIS_Bit;
     };
     union
     {
         volatile const uint32_t ISC;
-        QEIISC_TypeDef ISC_Bit;
+        QEIISC_t ISC_Bit;
     };
     const uint32_t reserved [1013UL];
-}QEI_TypeDef;
+}QEI_t;
 
 typedef volatile struct
 {
-    QEI_TypeDef MODULE [(uint32_t) QEI_enMODULE_MAX];
-}QEIS_TypeDef;
+    QEI_t MODULE [(uint32_t) QEI_enMODULE_MAX];
+}QEIS_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_STRUCT_XHEADER_QEI_STRUCTPERIPHERAL_H_ */

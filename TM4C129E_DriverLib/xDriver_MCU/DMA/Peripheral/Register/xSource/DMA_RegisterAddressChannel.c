@@ -29,12 +29,12 @@
 #pragma DATA_SECTION(DMA__stChannel, ".dma")
 #pragma DATA_SECTION(DMA__stChannelAlt, ".dmaalt")
 
-volatile DMACHANNEL_TypeDef DMA__stChannel[DMACH_MAX];
-volatile DMACHANNEL_TypeDef DMA__stChannelAlt[DMACH_MAX];
+volatile DMACHANNEL_t DMA__stChannel[DMACH_MAX];
+volatile DMACHANNEL_t DMA__stChannelAlt[DMACH_MAX];
 
 #elif defined (__GNUC__ )
 
-__attribute__((section(".dma"))) volatile DMACHANNEL_TypeDef DMA__stChannel[DMACH_MAX];
-__attribute__((section(".dmaalt"))) volatile DMACHANNEL_TypeDef DMA__stChannelAlt[DMACH_MAX];
+__attribute__((section(".dma"))) volatile DMACHANNEL_t DMA__stChannel[DMACH_MAX];
+__attribute__((section(".dmaalt"))) volatile DMACHANNEL_t DMA__stChannelAlt[DMACH_MAX];
 
 #endif

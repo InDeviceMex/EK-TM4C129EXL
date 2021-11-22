@@ -26,6 +26,6 @@
 
 #include <xUtils/Graphics/Common/Graphics_Common.h>
 
-void Graphics__vClearSection (void (*pfvCallback)(Graphics_Layer_TypeDef* restrict pstLayerArg, Graphics_DIMENSIONS_TypeDef stDimensionsArg, uint32_t  u32Color), Graphics_Layer_TypeDef* restrict pstLayerArg, Graphics_DIMENSIONS_TypeDef stDimensionsArg, uint32_t  u32Color);
+void Graphics__vClearSection (void (*pfvCallback)(Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color), Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color);
 
 #endif /* XUTILS_GRAPHICS_XHEADER_GRAPHICS_CLEARSECTION_H_ */

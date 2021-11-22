@@ -35,7 +35,7 @@ typedef volatile struct
     volatile uint32_t SPH :1;
     volatile uint32_t SCR :8;
     const uint32_t reserved :16;
-} SSICR0_TypeDef;
+} SSICR0_t;
 
 typedef volatile struct
 {
@@ -51,13 +51,13 @@ typedef volatile struct
     volatile uint32_t FSSHLDFRM :1;
     volatile uint32_t EOM :1;
     const uint32_t reserved2 :20;
-} SSICR1_TypeDef;
+} SSICR1_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA :16;
     const uint32_t reserved :16;
-} SSIDR_TypeDef;
+} SSIDR_t;
 
 typedef volatile struct
 {
@@ -67,13 +67,13 @@ typedef volatile struct
     volatile const uint32_t RFF :1;
     volatile const uint32_t BSY :1;
     const uint32_t reserved :27;
-} SSISR_TypeDef;
+} SSISR_t;
 
 typedef volatile struct
 {
     volatile uint32_t CPSDVSR :8;
     const uint32_t reserved :24;
-} SSICPSR_TypeDef;
+} SSICPSR_t;
 
 typedef volatile struct
 {
@@ -85,7 +85,7 @@ typedef volatile struct
     volatile uint32_t DMATXIM :1;
     volatile uint32_t EOTIM :1;
     const uint32_t reserved :25;
-} SSIIM_TypeDef;
+} SSIIM_t;
 
 typedef volatile struct
 {
@@ -97,7 +97,7 @@ typedef volatile struct
     volatile const uint32_t DMATXRIS :1;
     volatile const uint32_t EOTRIS :1;
     const uint32_t reserved :25;
-} SSIRIS_TypeDef;
+} SSIRIS_t;
 
 typedef volatile struct
 {
@@ -109,7 +109,7 @@ typedef volatile struct
     volatile const uint32_t DMATXMIS :1;
     volatile const uint32_t EOTMIS :1;
     const uint32_t reserved :25;
-} SSIMIS_TypeDef;
+} SSIMIS_t;
 
 typedef volatile struct
 {
@@ -120,14 +120,14 @@ typedef volatile struct
     volatile uint32_t DMATXIC :1;
     volatile uint32_t EOTIC :1;
     const uint32_t reserved1 :25;
-} SSIICR_TypeDef;
+} SSIICR_t;
 
 typedef volatile struct
 {
     volatile uint32_t RXDMAE :1;
     volatile uint32_t TXDMAE :1;
     const uint32_t reserved :30;
-} SSIDMACTL_TypeDef;
+} SSIDMACTL_t;
 
 typedef volatile struct
 {
@@ -135,84 +135,84 @@ typedef volatile struct
     volatile const uint32_t MODE :2;
     volatile const uint32_t FSSHLDFRM :1;
     const uint32_t reserved :28;
-} SSIPP_TypeDef;
+} SSIPP_t;
 
 typedef volatile struct
 {
     volatile uint32_t CS :4;
     uint32_t reserved : 28;
-} SSICC_TypeDef;
+} SSICC_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID0 :8;
     const uint32_t reserved :24;
-}SSIPeriphID0_TypeDef;
+}SSIPeriphID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID1 :8;
     const uint32_t reserved :24;
-}SSIPeriphID1_TypeDef;
+}SSIPeriphID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID2 :8;
     const uint32_t reserved :24;
-}SSIPeriphID2_TypeDef;
+}SSIPeriphID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID3 :8;
     const uint32_t reserved :24;
-}SSIPeriphID3_TypeDef;
+}SSIPeriphID3_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID4 :8;
     const uint32_t reserved :24;
-}SSIPeriphID4_TypeDef;
+}SSIPeriphID4_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID5 :8;
     const uint32_t reserved :24;
-}SSIPeriphID5_TypeDef;
+}SSIPeriphID5_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID6 :8;
     const uint32_t reserved :24;
-}SSIPeriphID6_TypeDef;
+}SSIPeriphID6_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID7 :8;
     const uint32_t reserved :24;
-}SSIPeriphID7_TypeDef;
+}SSIPeriphID7_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID0 :8;
     const uint32_t reserved :24;
-}SSICellID0_TypeDef;
+}SSICellID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID1 :8;
     const uint32_t reserved :24;
-}SSICellID1_TypeDef;
+}SSICellID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID2 :8;
     const uint32_t reserved :24;
-}SSICellID2_TypeDef;
+}SSICellID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID3 :8;
     const uint32_t reserved :24;
-}SSICellID3_TypeDef;
+}SSICellID3_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_STRUCT_XHEADER_SSI_STRUCTREGISTER_H_ */

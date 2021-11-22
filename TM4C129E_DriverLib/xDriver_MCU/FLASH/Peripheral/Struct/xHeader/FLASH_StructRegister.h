@@ -31,12 +31,12 @@ typedef volatile struct
 {
     volatile uint32_t OFFSET :18;
     const uint32_t reserved :14;
-}FMA_TypeDef;
+}FMA_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA :32;
-}FMD_TypeDef;
+}FMD_t;
 
 typedef volatile struct
 {
@@ -46,7 +46,7 @@ typedef volatile struct
     volatile uint32_t COMT :1;
     const uint32_t reserved:12;
     volatile uint32_t WRKEY :16;
-}FMC_TypeDef;
+}FMC_t;
 
 typedef volatile struct
 {
@@ -60,7 +60,7 @@ typedef volatile struct
     const uint32_t reserved1:1;
     volatile const uint32_t PROGRIS :1;
     const uint32_t reserved2:18;
-}FCRIS_TypeDef;
+}FCRIS_t;
 
 typedef volatile struct
 {
@@ -74,7 +74,7 @@ typedef volatile struct
     const uint32_t reserved1 :1;
     volatile uint32_t PROGMASK :1;
     const uint32_t reserved2 :18;
-}FCIM_TypeDef;
+}FCIM_t;
 
 typedef volatile struct
 {
@@ -88,14 +88,14 @@ typedef volatile struct
     const uint32_t reserved1 :1;
     volatile uint32_t PROGMISC :1;
     const uint32_t reserved2 :18;
-}FCMISC_TypeDef;
+}FCMISC_t;
 
 typedef volatile struct
 {
     volatile uint32_t WRBUF :1;
     const uint32_t reserved:15;
     volatile uint32_t WRKEY :16;
-}FMC2_TypeDef;
+}FMC2_t;
 
 typedef volatile struct
 {
@@ -131,23 +131,23 @@ typedef volatile struct
     volatile uint32_t FWB29 :1;
     volatile uint32_t FWB30 :1;
     volatile uint32_t FWB31 :1;
-}FWBVAL_TypeDef;
+}FWBVAL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PEKEY :16;
     const uint32_t reserved :16;
-}FLPEKEY_TypeDef;
+}FLPEKEY_t;
 
 typedef volatile struct
 {
     volatile uint32_t FWB [32UL];
-}FWBn_TypeDef;
+}FWBn_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA :32;
-}FWB_TypeDef;
+}FWB_t;
 
 typedef volatile struct
 {
@@ -159,13 +159,13 @@ typedef volatile struct
     volatile const uint32_t FMM :1;
     volatile const uint32_t PFC :1;
     const uint32_t reserved1 :1;
-}FLASHPP_TypeDef;
+}FLASHPP_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SIZE :16;
     const uint32_t reserved :16;
-}SSIZE_TypeDef;
+}SSIZE_t;
 
 typedef volatile struct
 {
@@ -178,7 +178,7 @@ typedef volatile struct
     volatile uint32_t SPFE :1;
     volatile uint32_t FMME :1;
     const uint32_t reserved3 :1;
-}FLASHCONF_TypeDef;
+}FLASHCONF_t;
 
 typedef volatile struct
 {
@@ -191,19 +191,19 @@ typedef volatile struct
     volatile const uint32_t SW6EN :2;
     volatile const uint32_t SW7EN :2;
     const uint32_t reserved :16;
-}ROMSWMAP_TypeDef;
+}ROMSWMAP_t;
 
 typedef volatile struct
 {
     volatile uint32_t SIZE :18;
     const uint32_t reserved :14;
-}FLASHDMASZ_TypeDef;
+}FLASHDMASZ_t;
 
 typedef volatile struct
 {
     const uint32_t reserved :11;
     volatile uint32_t ADDR :18;
     const uint32_t reserved1 :3;
-}FLASHDMAST_TypeDef;
+}FLASHDMAST_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_PERIPHERAL_FLASH_STRUCT_FLASH_STRUCTREGISTER_H_ */

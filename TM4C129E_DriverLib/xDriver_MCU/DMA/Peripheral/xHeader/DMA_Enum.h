@@ -634,7 +634,7 @@ typedef enum
 #if 0
 /*
  * This Struct is already defined in DMA_StructRegisterChannel.h
- *  DMACHCTL_TypeDef
+ *  DMACHCTL_t
  *  */
 typedef struct
 {

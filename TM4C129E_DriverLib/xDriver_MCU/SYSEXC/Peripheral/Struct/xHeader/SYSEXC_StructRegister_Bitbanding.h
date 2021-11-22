@@ -36,7 +36,7 @@ typedef volatile struct
     volatile const uint32_t FPOFCRIS;
     volatile const uint32_t FPIXCRIS;
     const uint32_t reserved [26UL];
-}BITBANDING_SYSEXCRIS_TypeDef;
+}BITBANDING_SYSEXCRIS_t;
 
 
 typedef volatile struct
@@ -48,7 +48,7 @@ typedef volatile struct
     volatile uint32_t FPOFCIM;
     volatile uint32_t FPIXCIM;
     const uint32_t reserved [26UL];
-}BITBANDING_SYSEXCIM_TypeDef;
+}BITBANDING_SYSEXCIM_t;
 
 
 typedef volatile struct
@@ -60,7 +60,7 @@ typedef volatile struct
     volatile const uint32_t FPOFCMIS;
     volatile const uint32_t FPIXCMIS;
     const uint32_t reserved [26UL];
-}BITBANDING_SYSEXCMIS_TypeDef;
+}BITBANDING_SYSEXCMIS_t;
 
 
 typedef volatile struct
@@ -72,6 +72,6 @@ typedef volatile struct
     volatile uint32_t FPOFCCIC;
     volatile uint32_t FPIXCCIC;
     const uint32_t reserved [26UL];
-}BITBANDING_SYSEXCIC_TypeDef;
+}BITBANDING_SYSEXCIC_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSEXC_SYSEXC_PERIPHERAL_SYSEXC_STRUCT_SYSEXC_STRUCTREGISTER_BITBANDING_H_ */

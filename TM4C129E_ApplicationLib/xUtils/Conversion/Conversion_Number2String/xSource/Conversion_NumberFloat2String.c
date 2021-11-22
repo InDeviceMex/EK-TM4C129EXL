@@ -31,7 +31,7 @@
 
 
 #define FLOAT_PRECISION_MAX (14U)
-CONV_nSTATUS Conv__enNumber2String_Float(CONV_OUT_TypeDef pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec)
+CONV_nSTATUS Conv__enNumber2String_Float(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec)
 {
   char pvBufferIn[CONV_enBUFFER_SIZE_FLOAT];
   char* cFni = "fni";

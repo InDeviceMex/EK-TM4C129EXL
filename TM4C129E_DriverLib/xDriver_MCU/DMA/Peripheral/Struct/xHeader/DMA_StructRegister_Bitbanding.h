@@ -35,23 +35,23 @@ typedef volatile struct
     const uint32_t reserved1 [8UL];
     volatile const uint32_t DMACHANS [5UL];
     const uint32_t reserved2 [11UL];
-}BITBANDING_DMASTAT_TypeDef;
+}BITBANDING_DMASTAT_t;
 
 typedef volatile struct
 {
     volatile uint32_t MASTEN;
     const uint32_t reserved [31UL];
-}BITBANDING_DMACFG_TypeDef;
+}BITBANDING_DMACFG_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADDR [32UL];
-}BITBANDING_DMACTLBASE_TypeDef;
+}BITBANDING_DMACTLBASE_t;
 
 typedef volatile struct
 {
     volatile const uint32_t ADDR [32UL];
-}BITBANDING_DMAALTBASE_TypeDef;
+}BITBANDING_DMAALTBASE_t;
 
 typedef volatile struct
 {
@@ -87,7 +87,7 @@ typedef volatile struct
     volatile const uint32_t WAITREQ29;
     volatile const uint32_t WAITREQ30;
     volatile const uint32_t WAITREQ31;
-}BITBANDING_DMAWAITSTAT_TypeDef;
+}BITBANDING_DMAWAITSTAT_t;
 
 typedef volatile struct
 {
@@ -123,7 +123,7 @@ typedef volatile struct
     volatile uint32_t SWREQ29;
     volatile uint32_t SWREQ30;
     volatile uint32_t SWREQ31;
-}BITBANDING_DMASWREQ_TypeDef;
+}BITBANDING_DMASWREQ_t;
 
 typedef volatile struct
 {
@@ -159,7 +159,7 @@ typedef volatile struct
     volatile uint32_t SET29;
     volatile uint32_t SET30;
     volatile uint32_t SET31;
-}BITBANDING_DMASET_TypeDef;
+}BITBANDING_DMASET_t;
 
 typedef volatile struct
 {
@@ -195,13 +195,13 @@ typedef volatile struct
     volatile uint32_t CLR29;
     volatile uint32_t CLR30;
     volatile uint32_t CLR31;
-}BITBANDING_DMACLR_TypeDef;
+}BITBANDING_DMACLR_t;
 
 typedef volatile struct
 {
     volatile uint32_t ERRCLR;
     const uint32_t reserved [31UL];
-}BITBANDING_DMAERRCLR_TypeDef;
+}BITBANDING_DMAERRCLR_t;
 
 
 typedef volatile struct
@@ -238,7 +238,7 @@ typedef volatile struct
     volatile uint32_t CHASGN29;
     volatile uint32_t CHASGN30;
     volatile uint32_t CHASGN31;
-}BITBANDING_DMACHASGN_TypeDef;
+}BITBANDING_DMACHASGN_t;
 
 typedef volatile struct
 {
@@ -274,7 +274,7 @@ typedef volatile struct
     volatile uint32_t CHIS29;
     volatile uint32_t CHIS30;
     volatile uint32_t CHIS31;
-}BITBANDING_DMACHIS_TypeDef;
+}BITBANDING_DMACHIS_t;
 
 typedef volatile struct
 {
@@ -286,7 +286,7 @@ typedef volatile struct
     volatile uint32_t CH5SEL [4UL];
     volatile uint32_t CH6SEL [4UL];
     volatile uint32_t CH7SEL [4UL];
-}BITBANDING_DMACHMAP0_TypeDef;
+}BITBANDING_DMACHMAP0_t;
 
 typedef volatile struct
 {
@@ -298,7 +298,7 @@ typedef volatile struct
     volatile uint32_t CH13SEL [4UL];
     volatile uint32_t CH14SEL [4UL];
     volatile uint32_t CH15SEL [4UL];
-}BITBANDING_DMACHMAP1_TypeDef;
+}BITBANDING_DMACHMAP1_t;
 
 typedef volatile struct
 {
@@ -310,7 +310,7 @@ typedef volatile struct
     volatile uint32_t CH21SEL [4UL];
     volatile uint32_t CH22SEL [4UL];
     volatile uint32_t CH23SEL [4UL];
-}BITBANDING_DMACHMAP2_TypeDef;
+}BITBANDING_DMACHMAP2_t;
 
 typedef volatile struct
 {
@@ -322,60 +322,60 @@ typedef volatile struct
     volatile uint32_t CH29SEL [4UL];
     volatile uint32_t CH30SEL [4UL];
     volatile uint32_t CH31SEL [4UL];
-}BITBANDING_DMACHMAP3_TypeDef;
+}BITBANDING_DMACHMAP3_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID0 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPeriphID0_TypeDef;
+}BITBANDING_DMAPeriphID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID1 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPeriphID1_TypeDef;
+}BITBANDING_DMAPeriphID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID2 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPeriphID2_TypeDef;
+}BITBANDING_DMAPeriphID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID3 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPeriphID3_TypeDef;
+}BITBANDING_DMAPeriphID3_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID4 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPeriphID4_TypeDef;
+}BITBANDING_DMAPeriphID4_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID0 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPCellID0_TypeDef;
+}BITBANDING_DMAPCellID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID1 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPCellID1_TypeDef;
+}BITBANDING_DMAPCellID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID2 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPCellID2_TypeDef;
+}BITBANDING_DMAPCellID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID3 [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_DMAPCellID3_TypeDef;
+}BITBANDING_DMAPCellID3_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_BITBANDING_H_ */

@@ -61,7 +61,7 @@ typedef volatile struct
     volatile uint32_t NVIC_FLASH :1;
     volatile uint32_t NVIC_GPIOF :1;
     volatile uint32_t NVIC_GPIOG :1;
-}NVIC0_TypeDef;
+}NVIC0_t;
 
 typedef volatile struct
 {
@@ -97,7 +97,7 @@ typedef volatile struct
     volatile uint32_t NVIC_I2C2 :1;
     volatile uint32_t NVIC_I2C3 :1;
     volatile uint32_t NVIC_TIMER4A :1;
-}NVIC1_TypeDef;
+}NVIC1_t;
 
 typedef volatile struct
 {
@@ -133,7 +133,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOS :1;
     volatile uint32_t NVIC_SHA_MD5 :1;
     volatile uint32_t NVIC_AES :1;
-}NVIC2_TypeDef;
+}NVIC2_t;
 
 typedef volatile struct
 {
@@ -169,7 +169,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES141 :1;
     volatile uint32_t NVIC_RES142 :1;
     volatile uint32_t NVIC_RES143 :1;
-}NVIC3_TypeDef;
+}NVIC3_t;
 
 typedef volatile struct
 {
@@ -181,7 +181,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOC :3;/*2*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOD :3;/*3*/
-}IPR0_TypeDef;
+}IPR0_t;
 
 typedef volatile struct
 {
@@ -193,7 +193,7 @@ typedef volatile struct
     volatile uint32_t NVIC_UART1 :3;/*6*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_SSI0 :3;/*7*/
-}IPR1_TypeDef;
+}IPR1_t;
 
 typedef volatile struct
 {
@@ -205,7 +205,7 @@ typedef volatile struct
     volatile uint32_t NVIC_PWM0GEN0 :3;/*10*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_PWM0GEN1 :3;/*11*/
-}IPR2_TypeDef;
+}IPR2_t;
 
 typedef volatile struct
 {
@@ -217,7 +217,7 @@ typedef volatile struct
     volatile uint32_t NVIC_ADC0SEQ0 :3;/*14*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_ADC0SEQ1 :3;/*15*/
-}IPR3_TypeDef;
+}IPR3_t;
 
 typedef volatile struct
 {
@@ -229,7 +229,7 @@ typedef volatile struct
     volatile uint32_t NVIC_WDT01 :3;/*18*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TIMER0A :3;/*19*/
-}IPR4_TypeDef;
+}IPR4_t;
 
 typedef volatile struct
 {
@@ -241,7 +241,7 @@ typedef volatile struct
     volatile uint32_t NVIC_TIMER1B :3;/*22*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TIMER2A :3;/*23*/
-}IPR5_TypeDef;
+}IPR5_t;
 
 typedef volatile struct
 {
@@ -253,7 +253,7 @@ typedef volatile struct
     volatile uint32_t NVIC_ACMP1 :3;/*26*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_ACMP2 :3;/*27*/
-}IPR6_TypeDef;
+}IPR6_t;
 
 typedef volatile struct
 {
@@ -265,7 +265,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOF :3;/*30*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOG :3;/*31*/
-}IPR7_TypeDef;
+}IPR7_t;
 
 typedef volatile struct
 {
@@ -277,7 +277,7 @@ typedef volatile struct
     volatile uint32_t NVIC_SSI1 :3;/*34*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TIMER3A :3;/*35*/
-}IPR8_TypeDef;
+}IPR8_t;
 
 typedef volatile struct
 {
@@ -289,7 +289,7 @@ typedef volatile struct
     volatile uint32_t NVIC_CAN0 :3;/*38*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_CAN1 :3;/*39*/
-}IPR9_TypeDef;
+}IPR9_t;
 
 typedef volatile struct
 {
@@ -301,7 +301,7 @@ typedef volatile struct
     volatile uint32_t NVIC_USB :3;/*42*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_PWM0GEN3 :3;/*43*/
-}IPR10_TypeDef;
+}IPR10_t;
 
 typedef volatile struct
 {
@@ -313,7 +313,7 @@ typedef volatile struct
     volatile uint32_t NVIC_ADC1SEQ0 :3;/*46*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_ADC1SEQ1:3;/*47*/
-}IPR11_TypeDef;
+}IPR11_t;
 
 typedef volatile struct
 {
@@ -325,7 +325,7 @@ typedef volatile struct
     volatile uint32_t NVIC_EPI0 :3;/*50*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOJ :3;/*51*/
-}IPR12_TypeDef;
+}IPR12_t;
 
 typedef volatile struct
 {
@@ -337,7 +337,7 @@ typedef volatile struct
     volatile uint32_t NVIC_SSI2 :3;/*54*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_SSI3 :3;/*55*/
-}IPR13_TypeDef;
+}IPR13_t;
 
 typedef volatile struct
 {
@@ -349,7 +349,7 @@ typedef volatile struct
     volatile uint32_t NVIC_UART5 :3;/*58*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_UART6 :3;/*59*/
-}IPR14_TypeDef;
+}IPR14_t;
 
 typedef volatile struct
 {
@@ -361,7 +361,7 @@ typedef volatile struct
     volatile uint32_t NVIC_I2C3 :3;/*62*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TIMER4A :3;/*63*/
-}IPR15_TypeDef;
+}IPR15_t;
 
 typedef volatile struct
 {
@@ -373,7 +373,7 @@ typedef volatile struct
     volatile uint32_t NVIC_TIMER5B :3;/*66*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_SYSEXC :3;/*67*/
-}IPR16_TypeDef;
+}IPR16_t;
 
 typedef volatile struct
 {
@@ -385,7 +385,7 @@ typedef volatile struct
     volatile uint32_t NVIC_I2C4 :3;/*70*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_I2C5 :3;/*71*/
-}IPR17_TypeDef;
+}IPR17_t;
 
 typedef volatile struct
 {
@@ -397,7 +397,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES90 :3;/*74*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TAMPER :3;/*75*/
-}IPR18_TypeDef;
+}IPR18_t;
 
 typedef volatile struct
 {
@@ -409,7 +409,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOP2 :3;/*78*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOP3 :3;/*79*/
-}IPR19_TypeDef;
+}IPR19_t;
 
 typedef volatile struct
 {
@@ -421,7 +421,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOP6 :3;/*82*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOP7 :3;/*83*/
-}IPR20_TypeDef;
+}IPR20_t;
 
 
 typedef volatile struct
@@ -434,7 +434,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOQ2 :3;/*86*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOQ3 :3;/*87*/
-}IPR21_TypeDef;
+}IPR21_t;
 
 
 typedef volatile struct
@@ -447,7 +447,7 @@ typedef volatile struct
     volatile uint32_t NVIC_GPIOQ6 :3;/*90*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOQ7 :3;/*91*/
-}IPR22_TypeDef;
+}IPR22_t;
 
 
 typedef volatile struct
@@ -460,7 +460,7 @@ typedef volatile struct
     volatile uint32_t NVIC_SHA_MD5 :3;/*94*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_AES :3;/*95*/
-}IPR23_TypeDef;
+}IPR23_t;
 
 typedef volatile struct
 {
@@ -472,7 +472,7 @@ typedef volatile struct
     volatile uint32_t NVIC_TIMER6A :3;/*98*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_TIMER6B :3;/*99*/
-}IPR24_TypeDef;
+}IPR24_t;
 
 typedef volatile struct
 {
@@ -484,7 +484,7 @@ typedef volatile struct
     volatile uint32_t NVIC_I2C6 :3;/*102*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_I2C7 :3;/*103*/
-}IPR25_TypeDef;
+}IPR25_t;
 
 typedef volatile struct
 {
@@ -496,7 +496,7 @@ typedef volatile struct
     volatile uint32_t NVIC_PS2 :3;/*106*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_LEDSEQ :3;/*107*/
-}IPR26_TypeDef;
+}IPR26_t;
 
 typedef volatile struct
 {
@@ -508,7 +508,7 @@ typedef volatile struct
     volatile uint32_t NVIC_I2C9 :3;/*110*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_GPIOT :3;/*111*/
-}IPR27_TypeDef;
+}IPR27_t;
 
 typedef volatile struct
 {
@@ -520,7 +520,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES130 :3;/*114*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_RES131 :3;/*115*/
-}IPR28_TypeDef;
+}IPR28_t;
 
 typedef volatile struct
 {
@@ -532,7 +532,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES134 :3;/*118*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_RES135 :3;/*119*/
-}IPR29_TypeDef;
+}IPR29_t;
 
 typedef volatile struct
 {
@@ -544,7 +544,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES138 :3;/*122*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_RES139 :3;/*123*/
-}IPR30_TypeDef;
+}IPR30_t;
 
 typedef volatile struct
 {
@@ -556,7 +556,7 @@ typedef volatile struct
     volatile uint32_t NVIC_RES142 :3;/*126*/
     const uint32_t reserved3 :5;
     volatile uint32_t NVIC_RES143 :3;/*127*/
-}IPR31_TypeDef;
+}IPR31_t;
 
 typedef volatile struct
 {
@@ -568,7 +568,7 @@ typedef volatile struct
   volatile uint32_t IP2 :3;/*2*/
   const uint32_t reserved3:5;
   volatile uint32_t IP3 :3;/*3*/
-}IPRw_TypeDef;
+}IPRw_t;
 
 #if defined (__TI_ARM__ )
     #pragma CHECK_MISRA("-6.4")
@@ -577,25 +577,25 @@ typedef volatile struct
 {
      const uint8_t reserved :5;
      volatile uint8_t IP :3;
-}IPRb_TypeDef;
+}IPRb_t;
 #if defined (__TI_ARM__ )
     #pragma RESET_MISRA("6.4")
 #endif
 
 typedef volatile struct
 {
-    IPRb_TypeDef IPR[240];
-}IPRb__TypeDef;
+    IPRb_t IPR[240];
+}IPRb__t;
 
 typedef volatile struct
 {
-    IPRw_TypeDef IPR[60];
-}IPRw__TypeDef;
+    IPRw_t IPR[60];
+}IPRw__t;
 
 typedef volatile struct
 {
     volatile uint32_t INTID :8;
     const uint32_t reserved :24;
-}STIR_TypeDef;
+}STIR_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_STRUCT_NVIC_STRUCTREGISTER_H_ */

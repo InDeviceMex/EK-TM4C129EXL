@@ -120,16 +120,16 @@ GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(uint32_t) UART_enMODULE_MA
  };
 
 UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
-                               const UART_CONTROL_TypeDef* pstControlConfig,
-                               const UART_LINE_CONTROL_TypeDef* pstLineControlConfig,
+                               const UART_CONTROL_t* pstControlConfig,
+                               const UART_LINE_CONTROL_t* pstLineControlConfig,
                                uint32_t u32BaudRateArg,
-                               const UART_LINE_TypeDef* pstLineConfig)
+                               const UART_LINE_t* pstLineConfig)
 {
     UART_nSTATUS enReturn = UART_enSTATUS_ERROR;
     UART_nENABLE enEnableModule = UART_enENABLE_UNDEF;
     UART_nMODULE enModuleFilter = UART_enMODULE_0;
     UART_nBUSY enBusyModule = UART_enBUSY_UNDEF;
-    UART_LINE_CONTROL_TypeDef stLineControlConfig;
+    UART_LINE_CONTROL_t stLineControlConfig;
     uint32_t u32Line[MAX_LINE] = {0UL};
 
     if((0UL != (uint32_t) pstControlConfig) &&

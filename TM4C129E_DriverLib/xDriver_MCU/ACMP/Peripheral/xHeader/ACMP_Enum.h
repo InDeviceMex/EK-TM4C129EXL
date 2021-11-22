@@ -226,7 +226,7 @@ typedef struct
     ACMP_nADC_CONFIG enADCConfig;
     ACMP_nOUTPUT_INVERT enOutputInvert;
     ACMP_nVMAX_SOURCE enVmaxSource;
-}ACMP_CONTROL_TypeDef;
+}ACMP_CONTROL_t;
 
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_ */

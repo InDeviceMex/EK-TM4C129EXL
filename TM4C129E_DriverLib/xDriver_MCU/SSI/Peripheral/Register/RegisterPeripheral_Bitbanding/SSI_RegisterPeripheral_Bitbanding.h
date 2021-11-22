@@ -29,6 +29,6 @@
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/SSI_RegisterPeripheral_Bitbanding_Module2.h>
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/SSI_RegisterPeripheral_Bitbanding_Module3.h>
 
-#define SSI_BITBANDING    ((SSIS_BITBANDING_TypeDef*) (SSI_BITBANDING_BASE + (SSI_OFFSET * 32UL)))
+#define SSI_BITBANDING    ((SSIS_BITBANDING_t*) (SSI_BITBANDING_BASE + (SSI_OFFSET * 32UL)))
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_SSI_REGISTERPERIPHERAL_BITBANDING_H_ */

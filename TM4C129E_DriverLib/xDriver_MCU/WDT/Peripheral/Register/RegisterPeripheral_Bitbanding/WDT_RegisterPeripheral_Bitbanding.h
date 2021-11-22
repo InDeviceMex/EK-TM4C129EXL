@@ -28,6 +28,6 @@
 #include <xDriver_MCU/WDT/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/WDT_RegisterPeripheral_Bitbanding_Module0.h>
 #include <xDriver_MCU/WDT/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/WDT_RegisterPeripheral_Bitbanding_Module1.h>
 
-#define WDT_BITBANDING    ((WDT_BITBANDING_TypeDef*) (WDT_BITBANDING_BASE + (WDT_OFFSET * 32UL)))
+#define WDT_BITBANDING    ((WDT_BITBANDING_t*) (WDT_BITBANDING_BASE + (WDT_OFFSET * 32UL)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_REGISTER_WDT_REGISTERPERIPHERAL_BITBANDING_WDT_REGISTERPERIPHERAL_BITBANDING_H_ */

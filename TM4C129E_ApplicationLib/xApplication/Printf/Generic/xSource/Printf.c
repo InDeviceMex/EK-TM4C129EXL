@@ -16,7 +16,7 @@
     #pragma CHECK_MISRA("-6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 /* internal vsnprintf*/
-uint32_t vsnprintf__u32UserGeneric(CONV_OUT_TypeDef pvfOut, char* pcBuffer, const uint32_t u32MaxLength, const char* pcFormat, va_list vaList)
+uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint32_t u32MaxLength, const char* pcFormat, va_list vaList)
 {
   uint32_t u32Flags = 0U;
   uint32_t u32Width = 0U;
@@ -509,7 +509,8 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_TypeDef pvfOut, char* pcBuffer, cons
   /* termination*/
   if(u32Index > u32MaxLength)
   {
-      u32Index = u32MaxLength - 1U;
+      u32Index = u32MaxLength;
+      u32Index -= 1U;
   }
   pvfOut((char)0, pcBuffer, u32Index, u32MaxLength);
 
@@ -553,7 +554,7 @@ uint32_t fctprintf__u32User(void (*pfvFunctionOut) (char cCharacter, void* pvPri
 {
   va_list vaList;
   va_start(vaList, pcFormat);
-  CONV_OUT_WRAPPER_TypeDef out_fct_wrap = { pfvFunctionOut, pvPrintArguments };
+  CONV_OUT_WRAPPER_t out_fct_wrap = { pfvFunctionOut, pvPrintArguments };
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutFunction, (char*) & out_fct_wrap, (uint32_t) -1, pcFormat, vaList);
   va_end(vaList);
   return (u32Length);

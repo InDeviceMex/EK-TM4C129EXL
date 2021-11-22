@@ -21,7 +21,7 @@ typedef struct
     SYSCTL_nMEM_HIGHTIME enMemHighTimeTiming;
     SYSCTL_nMEM_WAITSTATE enMemoryWaitStateTiming;
     SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdgeTiming;
-}SYSCTL_MEM_TypeDef;
+}SYSCTL_MEM_t;
 
 static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock,
                                               SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
@@ -30,7 +30,7 @@ static void SYSCTL__vGetPredefineMemoryTiming(uint32_t u32SysClock,
 {
     uint32_t u32Iter = 0UL;
     uint32_t u32Freq = 0UL;
-    static const SYSCTL_MEM_TypeDef SYSCTL_stMemoryTiming[TIMING_SIZE] =
+    static const SYSCTL_MEM_t SYSCTL_stMemoryTiming[TIMING_SIZE] =
     {
         {
           16000000UL,

@@ -28,7 +28,7 @@
 #include <xDriver_MCU/ADC/Peripheral/Register/RegisterPeripheral/xHeader/ADC_RegisterPeripheral_Module0.h>
 #include <xDriver_MCU/ADC/Peripheral/Register/RegisterPeripheral/xHeader/ADC_RegisterPeripheral_Module1.h>
 
-#define ADC    ((ADCS_TypeDef*) (ADC_BASE))
+#define ADC    ((ADCS_t*) (ADC_BASE))
 
 uint32_t ADC__u32BlockBaseAddress(ADC_nMODULE enModuleArg);
 

@@ -32,29 +32,29 @@ typedef volatile struct
     volatile const uint32_t WORDCNT [16UL];
     volatile const uint32_t BLKCNT [11UL];
     const uint32_t reserved [5UL];
-}BITBANDING_EESIZE_TypeDef;
+}BITBANDING_EESIZE_t;
 
 typedef volatile struct
 {
     volatile uint32_t BLOCK [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_EEBLOCK_TypeDef;
+}BITBANDING_EEBLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t OFFSET [4UL];
     const uint32_t reserved [28UL];
-}BITBANDING_EEOFFSET_TypeDef;
+}BITBANDING_EEOFFSET_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE [32UL];
-}BITBANDING_EERDWR_TypeDef;
+}BITBANDING_EERDWR_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE [32UL];
-}BITBANDING_EERDWRINC_TypeDef;
+}BITBANDING_EERDWRINC_t;
 
 typedef volatile struct
 {
@@ -65,7 +65,7 @@ typedef volatile struct
     volatile const uint32_t NOPERM;
     volatile const uint32_t WRBUSY;
     const uint32_t reserved1 [26UL];
-}BITBANDING_EEDONE_TypeDef;
+}BITBANDING_EEDONE_t;
 
 typedef volatile struct
 {
@@ -74,30 +74,30 @@ typedef volatile struct
     volatile const uint32_t ERETRY;
     volatile const uint32_t PRETRY;
     const uint32_t reserved [28UL];
-}BITBANDING_EESUPP_TypeDef;
+}BITBANDING_EESUPP_t;
 
 typedef volatile struct
 {
     volatile uint32_t UNLOCK [32UL];
-}BITBANDING_EEUNLOCK_TypeDef;
+}BITBANDING_EEUNLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t PROT [3UL];
     volatile uint32_t ACC;
     const uint32_t reserved [28UL];
-}BITBANDING_EEPROT_TypeDef;
+}BITBANDING_EEPROT_t;
 
 typedef volatile struct
 {
     volatile uint32_t PASS [32UL];
-}BITBANDING_EEPASS_TypeDef;
+}BITBANDING_EEPASS_t;
 
 typedef volatile struct
 {
     volatile uint32_t INT;
     const uint32_t reserved [31UL];
-}BITBANDING_EEINT_TypeDef;
+}BITBANDING_EEINT_t;
 
 typedef volatile struct
 {
@@ -134,19 +134,19 @@ typedef volatile struct
     volatile uint32_t H30;
     volatile uint32_t H31;
     volatile uint32_t H32;
-}BITBANDING_EEHIDE_TypeDef;
+}BITBANDING_EEHIDE_t;
 
 typedef volatile struct
 {
     volatile uint32_t ME;
     const uint32_t reserved [15UL];
     volatile uint32_t KEY [16UL];
-}BITBANDING_EEDBGME_TypeDef;
+}BITBANDING_EEDBGME_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SIZE [5UL];
     const uint32_t reserved [27UL];
-}BITBANDING_EEPROMPP_TypeDef;
+}BITBANDING_EEPROMPP_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_STRUCT_EEPROM_STRUCTREGISTER_BITBANDING_H_ */

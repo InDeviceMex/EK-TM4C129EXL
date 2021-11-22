@@ -41,7 +41,7 @@ void xTask1_AccelerometerLog(void* pvParams)
         OS_Task__vSuspendAll();
 
         GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
-                             "Accelerometer X: %d Y: %d Z: %d       ",
+                             "Accelerometer X: %d Y: %d Z: %d        ",
                              s32ADCValueX,
                              s32ADCValueY,
                              s32ADCValueZ

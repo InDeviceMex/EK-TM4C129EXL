@@ -37,8 +37,8 @@ void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg,
                            UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg,
                            UART_nPARITY_STICK enParityStickArg);
 void UART__vSetLineControlStructPointer(UART_nMODULE enModule,
-                                        const UART_LINE_CONTROL_TypeDef* pstLineControl);
+                                        const UART_LINE_CONTROL_t* pstLineControl);
 void UART__vSetLineControlStruct(UART_nMODULE enModule,
-                                 const UART_LINE_CONTROL_TypeDef stLineControl);
+                                 const UART_LINE_CONTROL_t stLineControl);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_ */

@@ -30,12 +30,12 @@
 typedef volatile struct
 {
     volatile uint32_t ADDR: 32;
-}DMASRCENDP_TypeDef;
+}DMASRCENDP_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADDR: 32;
-}DMADSTENDP_TypeDef;
+}DMADSTENDP_t;
 
 typedef volatile struct
 {
@@ -51,6 +51,6 @@ typedef volatile struct
     volatile uint32_t SRCINC :2;
     volatile uint32_t DSTSIZE :2;
     volatile uint32_t DSTINC :2;
-}DMACHCTL_TypeDef;
+}DMACHCTL_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTERCHANNEL_H_ */

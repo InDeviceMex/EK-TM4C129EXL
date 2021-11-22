@@ -33,69 +33,69 @@ typedef volatile struct
     union
     {
         volatile uint32_t MIS;
-        ACMIS_TypeDef MIS_Bit;
+        ACMIS_t MIS_Bit;
     };
     union
     {
         volatile const uint32_t RIS;
-        ACRIS_TypeDef RIS_Bit;
+        ACRIS_t RIS_Bit;
     };
     union
     {
         volatile uint32_t INTEN;
-        ACINTEN_TypeDef INTEN_Bit;
+        ACINTEN_t INTEN_Bit;
     };
     const uint32_t reserved;
     union
     {
         volatile uint32_t REFCTL;
-        ACREFCTL_TypeDef REFCTL_Bit;
+        ACREFCTL_t REFCTL_Bit;
     };
     const uint32_t reserved1 [3UL];
     union
     {
         volatile uint32_t STAT0;
-        ACSTAT_TypeDef STAT0_Bit;
+        ACSTAT_t STAT0_Bit;
     };
     union
     {
         volatile uint32_t CTL0;
-        ACCTL_TypeDef CTL0_Bit;
+        ACCTL_t CTL0_Bit;
     };
     const uint32_t reserved2 [6UL];
     union
     {
         volatile uint32_t STAT1;
-        ACSTAT_TypeDef STAT1_Bit;
+        ACSTAT_t STAT1_Bit;
     };
     union
     {
         volatile uint32_t CTL1;
-        ACCTL_TypeDef CTL1_Bit;
+        ACCTL_t CTL1_Bit;
     };
     const uint32_t reserved3 [6UL];
     union
     {
         volatile uint32_t STAT2;
-        ACSTAT_TypeDef STAT2_Bit;
+        ACSTAT_t STAT2_Bit;
     };
     union
     {
         volatile uint32_t CTL2;
-        ACCTL_TypeDef CTL2_Bit;
+        ACCTL_t CTL2_Bit;
     };
     const uint32_t reserved4 [982UL];
     union
     {
         volatile uint32_t PP;
-        ACMPPP_TypeDef  PP_Bit;
+        ACMPPP_t  PP_Bit;
     };
     const uint32_t reserved5 [15UL];
-}ACMP_TypeDef;
+}ACMP_t;
 
 typedef volatile struct
 {
-    ACMP_TypeDef MODULE [(uint32_t) ACMP_enMODULE_MAX];
-}ACMPS_TypeDef;
+    ACMP_t MODULE [(uint32_t) ACMP_enMODULE_MAX];
+}ACMPS_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_STRUCT_XHEADER_ACMP_STRUCTPERIPHERAL_H_ */

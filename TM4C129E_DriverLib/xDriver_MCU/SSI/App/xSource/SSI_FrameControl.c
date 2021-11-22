@@ -38,7 +38,7 @@ void SSI__vSetFormatControl(SSI_nMODULE enModule,
 }
 
 void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
-                                  const SSI_FRAME_CONTROL_TypeDef stFormatControl)
+                                  const SSI_FRAME_CONTROL_t stFormatControl)
 {
     SSI__vSetDataLength(enModule, stFormatControl.enLengthData);
     SSI__vSetFormat(enModule, stFormatControl.enFormat);
@@ -47,7 +47,7 @@ void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
 }
 
 void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
-                                         const SSI_FRAME_CONTROL_TypeDef* pstFormatControl)
+                                         const SSI_FRAME_CONTROL_t* pstFormatControl)
 {
     if(0UL != (uint32_t) pstFormatControl)
     {

@@ -37,15 +37,15 @@ extern const uint16_t FONT_u16_8x8 [8UL * 96UL] ;
 extern const uint16_t FONT_u16_6x8[8UL * 96UL] ;
 extern const uint16_t FONT_u16_5x7[5UL * 99UL];
 
-extern FONT_TypeDef FONT_s16x24;
-extern FONT_TypeDef FONT_s11x16;
-extern FONT_TypeDef FONT_s8x16;
-extern FONT_TypeDef FONT_s8x16_MS_Gothic;
-extern FONT_TypeDef FONT_s8x16_System;
-extern FONT_TypeDef FONT_s12x12;
-extern FONT_TypeDef FONT_s8x12 ;
-extern FONT_TypeDef FONT_s8x8;
-extern FONT_TypeDef FONT_s6x8;
-extern FONT_TypeDef FONT_s5x7;
+extern FONT_t FONT_s16x24;
+extern FONT_t FONT_s11x16;
+extern FONT_t FONT_s8x16;
+extern FONT_t FONT_s8x16_MS_Gothic;
+extern FONT_t FONT_s8x16_System;
+extern FONT_t FONT_s12x12;
+extern FONT_t FONT_s8x12 ;
+extern FONT_t FONT_s8x8;
+extern FONT_t FONT_s6x8;
+extern FONT_t FONT_s5x7;
 
 #endif /* XUTILS_FONT_FONT_H_ */

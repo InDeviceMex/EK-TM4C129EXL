@@ -28,7 +28,7 @@
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
 TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                                         const TIMER_Count32_TypeDef* pstCount)
+                                         const TIMER_Count32_t* pstCount)
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
     uint32_t u32Reg = 0UL;
@@ -53,7 +53,7 @@ TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 }
 
 void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                               const TIMER_Count32_TypeDef* pstCount)
+                               const TIMER_Count32_t* pstCount)
 {
     uint32_t u32Reg = 0UL;
     uint32_t u32TimerBase = 0UL;
@@ -72,7 +72,7 @@ void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 }
 
 TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                                         const TIMER_Count32_Preescale_TypeDef* pstCount)
+                                         const TIMER_Count32_Preescale_t* pstCount)
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
 
@@ -115,7 +115,7 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 }
 
 void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                               const TIMER_Count32_Preescale_TypeDef* pstCount)
+                               const TIMER_Count32_Preescale_t* pstCount)
 {
     uint32_t u32Reg = 0ULL;
 

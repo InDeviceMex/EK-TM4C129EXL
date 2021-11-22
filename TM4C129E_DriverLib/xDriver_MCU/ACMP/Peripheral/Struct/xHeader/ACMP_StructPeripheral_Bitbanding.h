@@ -32,69 +32,69 @@ typedef volatile struct
     union
     {
         volatile uint32_t MIS [32UL];
-        BITBANDING_ACMIS_TypeDef MIS_Bit;
+        BITBANDING_ACMIS_t MIS_Bit;
     };
     union
     {
         volatile const uint32_t RIS [32UL];
-        BITBANDING_ACRIS_TypeDef RIS_Bit;
+        BITBANDING_ACRIS_t RIS_Bit;
     };
     union
     {
         volatile uint32_t INTEN [32UL];
-        BITBANDING_ACINTEN_TypeDef INTEN_Bit;
+        BITBANDING_ACINTEN_t INTEN_Bit;
     };
     const uint32_t reserved [32UL];
     union
     {
         volatile uint32_t REFCTL [32UL];
-        BITBANDING_ACREFCTL_TypeDef REFCTL_Bit;
+        BITBANDING_ACREFCTL_t REFCTL_Bit;
     };
     const uint32_t reserved1 [3UL * 32UL];
     union
     {
         volatile uint32_t STAT0 [32UL];
-        BITBANDING_ACSTAT_TypeDef STAT0_Bit;
+        BITBANDING_ACSTAT_t STAT0_Bit;
     };
     union
     {
         volatile uint32_t CTL0 [32UL];
-        BITBANDING_ACCTL_TypeDef CTL0_Bit;
+        BITBANDING_ACCTL_t CTL0_Bit;
     };
     const uint32_t reserved2 [6UL * 32UL];
     union
     {
         volatile uint32_t STAT1 [32UL];
-        BITBANDING_ACSTAT_TypeDef STAT1_Bit;
+        BITBANDING_ACSTAT_t STAT1_Bit;
     };
     union
     {
         volatile uint32_t CTL1 [32UL];
-        BITBANDING_ACCTL_TypeDef CTL1_Bit;
+        BITBANDING_ACCTL_t CTL1_Bit;
     };
     const uint32_t reserved3 [6UL * 32UL];
     union
     {
         volatile uint32_t STAT2 [32UL];
-        BITBANDING_ACSTAT_TypeDef STAT2_Bit;
+        BITBANDING_ACSTAT_t STAT2_Bit;
     };
     union
     {
         volatile uint32_t CTL2 [32UL];
-        BITBANDING_ACCTL_TypeDef CTL2_Bit;
+        BITBANDING_ACCTL_t CTL2_Bit;
     };
     const uint32_t reserved4 [982UL * 32UL];
     union
     {
         volatile uint32_t PP [32UL];
-        BITBANDING_ACMPPP_TypeDef  PP_Bit;
+        BITBANDING_ACMPPP_t  PP_Bit;
     };
     const uint32_t reserved5 [15UL * 32UL];
-}ACMP_BITBANDING_TypeDef;
+}ACMP_BITBANDING_t;
 
 typedef volatile struct
 {
-        ACMP_BITBANDING_TypeDef MODULE [(uint32_t) ACMP_enMODULE_MAX];
-}ACMPS_BITBANDING_TypeDef;
+        ACMP_BITBANDING_t MODULE [(uint32_t) ACMP_enMODULE_MAX];
+}ACMPS_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_STRUCT_XHEADER_ACMP_STRUCTPERIPHERAL_BITBANDING_H_ */

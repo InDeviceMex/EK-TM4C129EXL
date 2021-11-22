@@ -64,7 +64,7 @@ GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
 ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
                                ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
-                               const ACMP_CONTROL_TypeDef* pstControlConfig)
+                               const ACMP_CONTROL_t* pstControlConfig)
 {
     ACMP_nSTATUS enReturn = ACMP_enSTATUS_ERROR;
     ACMP_nMODULE enModuleFilter = ACMP_enMODULE_0;

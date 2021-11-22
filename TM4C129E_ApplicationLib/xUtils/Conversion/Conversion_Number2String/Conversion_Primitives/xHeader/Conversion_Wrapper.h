@@ -60,15 +60,15 @@ typedef enum
 typedef union {
   uint64_t UNSIGNED;
   float64_t   FLOAT;
-} CONV_FLOAT_UNION_TypeDef;
+} CONV_FLOAT_UNION_t;
 
 typedef void (*CONV_FUNCTION_Typedef) (char cCharacter, void* pvFuncArguments);
-typedef void (*CONV_OUT_TypeDef) (char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);
+typedef void (*CONV_OUT_t) (char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);
 
 typedef struct {
   CONV_FUNCTION_Typedef  pfvFunction;
   void* pvArguments;
-} CONV_OUT_WRAPPER_TypeDef;
+} CONV_OUT_WRAPPER_t;
 
 void Conv__vOutBuffer(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);
 void Conv__vOutNull(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);

@@ -45,10 +45,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~ (uint32_t) SCB_enNMI_MOSCFAIL;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & u32RegNMI));
+                SYSCTL_NMIC_R &= ~ (uint32_t) SCB_enNMI_MOSCFAIL;
+            }while(0UL != ((uint32_t) SCB_enNMI_MOSCFAIL & SYSCTL_NMIC_R));
 
             pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_MOSCFAIL);
             pfvCallback();
@@ -57,10 +55,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~(uint32_t) SCB_enNMI_TAMPER;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_TAMPER & u32RegNMI));
+                SYSCTL_NMIC_R &= ~(uint32_t) SCB_enNMI_TAMPER;
+            }while(0UL != ((uint32_t) SCB_enNMI_TAMPER & SYSCTL_NMIC_R));
 
             /**
              * TODO: Check if TAMPER requires to be cleared in HIB module
@@ -72,10 +68,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT1;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_WDT1 & u32RegNMI));
+                SYSCTL_NMIC_R &= ~(uint32_t) SCB_enNMI_WDT1;
+            }while(0UL != ((uint32_t) SCB_enNMI_WDT1 & SYSCTL_NMIC_R));
 
             pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT1);
             pfvCallback();
@@ -84,10 +78,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~(uint32_t) SCB_enNMI_WDT0;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_WDT0 & u32RegNMI));
+                SYSCTL_NMIC_R &= ~(uint32_t) SCB_enNMI_WDT0;
+            }while(0UL != ((uint32_t) SCB_enNMI_WDT0 & SYSCTL_NMIC_R));
 
             pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_WDT0);
             pfvCallback();
@@ -96,10 +88,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~(uint32_t) SCB_enNMI_POWER;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_POWER & u32RegNMI));
+                SYSCTL_NMIC_R &= ~(uint32_t) SCB_enNMI_POWER;
+            }while(0UL != ((uint32_t) SCB_enNMI_POWER & SYSCTL_NMIC_R));
 
             pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_POWER);
             pfvCallback();
@@ -108,10 +98,8 @@ void NMI__vIRQVectorHandler(void)
         {
             do
             {
-                u32RegNMI &= ~(uint32_t) SCB_enNMI_EXTERNAL;
-                SYSCTL_NMIC_R = (uint32_t) u32RegNMI;
-                u32RegNMI = (uint32_t) SYSCTL_NMIC_R;
-            }while(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & u32RegNMI));
+                SYSCTL_NMIC_R &= ~(uint32_t) SCB_enNMI_EXTERNAL;
+            }while(0UL != ((uint32_t) SCB_enNMI_EXTERNAL & SYSCTL_NMIC_R));
 
             pfvCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enNMI_BIT_EXTERNAL);
             pfvCallback();

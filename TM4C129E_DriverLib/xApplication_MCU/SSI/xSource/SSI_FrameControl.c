@@ -32,13 +32,13 @@ void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatAr
     SSI__vSetFormatControl(enModule, enFormatArg, enLengthDataArg, enClockPhaseArg, enClockPolarityArg);
 }
 
-void SSI__vSetClockAndFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_TypeDef stFormatControl, uint32_t u32ClockArg)
+void SSI__vSetClockAndFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t stFormatControl, uint32_t u32ClockArg)
 {
     SSI__vSetClock(enModule, u32ClockArg);
     SSI__vSetFormatControlStruct(enModule, stFormatControl);
 }
 
-void SSI__vSetClockAndFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_TypeDef* pstFormatControl, uint32_t u32ClockArg)
+void SSI__vSetClockAndFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t* pstFormatControl, uint32_t u32ClockArg)
 {
     SSI__vSetClock(enModule, u32ClockArg);
     SSI__vSetFormatControlStructPointer(enModule, pstFormatControl);

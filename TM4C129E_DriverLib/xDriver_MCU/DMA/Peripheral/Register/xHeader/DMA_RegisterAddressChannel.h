@@ -31,8 +31,8 @@
 #define DMACH_MAX    (32UL)
 #define DMACH_REG_NUM    (4UL)
 
-extern volatile DMACHANNEL_TypeDef DMA__stChannel[DMACH_MAX];
-extern volatile DMACHANNEL_TypeDef DMA__stChannelAlt[DMACH_MAX];
+extern volatile DMACHANNEL_t DMA__stChannel[DMACH_MAX];
+extern volatile DMACHANNEL_t DMA__stChannelAlt[DMACH_MAX];
 
 #define DMACH_BASE    ((uint32_t) DMA__stChannel)
 #define DMACH_OFFSET    ((uint32_t) DMA__stChannel & (uint32_t) 0x00FFFFFFUL)

@@ -35,6 +35,6 @@
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/I2C_RegisterPeripheral_Bitbanding_Module8.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral_Bitbanding/xHeader/I2C_RegisterPeripheral_Bitbanding_Module9.h>
 
-#define I2C_BITBANDING    ((I2CS_BITBANDING_TypeDef*) (I2C_BITBANDING_BASE + (I2C_OFFSET * 32UL)))
+#define I2C_BITBANDING    ((I2CS_BITBANDING_t*) (I2C_BITBANDING_BASE + (I2C_OFFSET * 32UL)))
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_I2C_REGISTERPERIPHERAL_BITBANDING_H_ */

@@ -268,7 +268,7 @@ typedef struct
     SSI_nLINE enDat3Line;
     SSI_nLINE enClkLine;
     SSI_nLINE enFssLine;
-}SSI_CONTROL_TypeDef;
+}SSI_CONTROL_t;
 
 typedef struct
 {
@@ -286,7 +286,7 @@ typedef struct
     SSI_nLINE_SELECT enDat3;
     SSI_nLINE_SELECT enClk;
     SSI_nLINE_SELECT enFss;
-}SSI_LINE_TypeDef;
+}SSI_LINE_t;
 
 typedef struct
 {
@@ -294,7 +294,7 @@ typedef struct
     SSI_nCLOCK_PHASE enClockPhase;
     SSI_nCLOCK_POLARITY enClockPolarity;
     SSI_nLENGTH enLengthData;
-}SSI_FRAME_CONTROL_TypeDef;
+}SSI_FRAME_CONTROL_t;
 
 typedef struct
 {
@@ -305,6 +305,6 @@ typedef struct
         uint8_t u8data;
         uint32_t u32data;
     };
-}SSI_ADVANCE_TypeDef;
+}SSI_ADVANCE_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_XHEADER_SSI_ENUM_H_ */

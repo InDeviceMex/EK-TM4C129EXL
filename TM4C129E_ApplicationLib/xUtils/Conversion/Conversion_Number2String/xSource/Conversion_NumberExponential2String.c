@@ -30,7 +30,7 @@
 
 
 
-CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_TypeDef pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec)
+CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec)
 {
 
     CONV_nSTATUS enConvStatus = CONV_enSTATUS_ERROR;
@@ -60,7 +60,7 @@ CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_TypeDef pvfOut, char* pc
 
     uint32_t  u32MinWidth = 0U;
     uint32_t u32FloatWidth = 0U;
-    CONV_FLOAT_UNION_TypeDef uFloatConversion = {0UL};
+    CONV_FLOAT_UNION_t uFloatConversion = {0UL};
     int64_t  s64Exponential2 = 0;
     int64_t  s64Exponential2Temp = 0;
     int64_t  s64ExponentialValue = 0;

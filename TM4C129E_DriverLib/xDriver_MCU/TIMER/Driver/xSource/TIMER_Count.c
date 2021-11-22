@@ -43,10 +43,10 @@ uint32_t TIMER__u32GetCount(TIMER_nMODULE enModule)
 
     TIMER_nSNAPSHOT enSnapshotVar = TIMER_enSNAPSHOT_DIS;
 
-    TIMER_Count32_Preescale_TypeDef stMatch32PreescalerConfig =
+    TIMER_Count32_Preescale_t stMatch32PreescalerConfig =
     {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL};
 
-    TIMER_Count32_TypeDef stCount32Config = {0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_t stCount32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
     uint32_t u32SubModule = 0UL;

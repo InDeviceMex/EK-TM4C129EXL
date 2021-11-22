@@ -32,13 +32,13 @@
 /******************************************************************************************
 ************************************ QEI *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING    ((QEI_BITBANDING_TypeDef*) (QEI_BITBANDING_BASE + (QEI0_OFFSET * 32UL)))
+#define QEI0_BITBANDING    ((QEI_BITBANDING_t*) (QEI_BITBANDING_BASE + (QEI0_OFFSET * 32UL)))
 
 
 /******************************************************************************************
 ************************************ 1 CTL *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_CTL    ((BITBANDING_QEICTL_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_CTL_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_CTL    ((BITBANDING_QEICTL_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_CTL_OFFSET) * 32UL)))
 
 #define QEI0_BITBANDING_CTL_ENABLE    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_CTL_OFFSET) * 32UL) + (QEI_CTL_R_ENABLE_BIT * 4UL))))
 #define QEI0_BITBANDING_CTL_SWAP    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_CTL_OFFSET) * 32UL) + (QEI_CTL_R_SWAP_BIT * 4UL))))
@@ -62,7 +62,7 @@
 /******************************************************************************************
 ************************************ 2 STAT *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_STAT    ((BITBANDING_QEISTAT_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_STAT_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_STAT    ((BITBANDING_QEISTAT_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_STAT_OFFSET) * 32UL)))
 
 #define QEI0_BITBANDING_STAT_ERROR    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_STAT_OFFSET) * 32UL) + (QEI_STAT_R_ERROR_BIT * 4UL))))
 #define QEI0_BITBANDING_STAT_DIRECTION    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_STAT_OFFSET) * 32UL) + (QEI_STAT_R_DIRECTION_BIT * 4UL))))
@@ -70,37 +70,37 @@
 /******************************************************************************************
 ************************************ 3 POS *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_POS    ((BITBANDING_QEIPOS_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_POS_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_POS    ((BITBANDING_QEIPOS_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_POS_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 4 MAXPOS *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_MAXPOS    ((BITBANDING_QEIMAXPOS_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_MAXPOS_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_MAXPOS    ((BITBANDING_QEIMAXPOS_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_MAXPOS_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 5 LOAD *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_LOAD    ((BITBANDING_QEILOAD_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_LOAD_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_LOAD    ((BITBANDING_QEILOAD_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_LOAD_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 6 TIME *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_TIME    ((BITBANDING_QEITIME_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_TIME_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_TIME    ((BITBANDING_QEITIME_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_TIME_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 7 COUNT *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_COUNT    ((BITBANDING_QEICOUNT_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_COUNT_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_COUNT    ((BITBANDING_QEICOUNT_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_COUNT_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 8 SPEED *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_SPEED    ((BITBANDING_QEISPEED_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_SPEED_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_SPEED    ((BITBANDING_QEISPEED_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_SPEED_OFFSET) * 32UL)))
 
 /******************************************************************************************
 ************************************ 9 INTEN *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_INTEN    ((BITBANDING_QEIINTEN_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_INTEN_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_INTEN    ((BITBANDING_QEIINTEN_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_INTEN_OFFSET) * 32UL)))
 
 #define QEI0_BITBANDING_INTEN_INTINDEX    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_INTEN_OFFSET) * 32UL) + (QEI_INTEN_R_INTINDEX_BIT * 4UL))))
 #define QEI0_BITBANDING_INTEN_INTTIMER    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_INTEN_OFFSET) * 32UL) + (QEI_INTEN_R_INTTIMER_BIT * 4UL))))
@@ -110,7 +110,7 @@
 /******************************************************************************************
 ************************************ 10 RIS *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_RIS    ((BITBANDING_QEIRIS_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_RIS_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_RIS    ((BITBANDING_QEIRIS_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_RIS_OFFSET) * 32UL)))
 
 #define QEI0_BITBANDING_RIS_INTINDEX    (*((volatile const uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_RIS_OFFSET) * 32UL) + (QEI_RIS_R_INTINDEX_BIT * 4UL))))
 #define QEI0_BITBANDING_RIS_INTTIMER    (*((volatile const uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_RIS_OFFSET) * 32UL) + (QEI_RIS_R_INTTIMER_BIT * 4UL))))
@@ -120,7 +120,7 @@
 /******************************************************************************************
 ************************************ 11 ISC *********************************************
 ******************************************************************************************/
-#define QEI0_BITBANDING_ISC    ((BITBANDING_QEIISC_TypeDef*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_ISC_OFFSET) * 32UL)))
+#define QEI0_BITBANDING_ISC    ((BITBANDING_QEIISC_t*) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_ISC_OFFSET) * 32UL)))
 
 #define QEI0_BITBANDING_ISC_INTINDEX    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_ISC_OFFSET) * 32UL) + (QEI_ISC_R_INTINDEX_BIT * 4UL))))
 #define QEI0_BITBANDING_ISC_INTTIMER    (*((volatile uint32_t *) (QEI_BITBANDING_BASE + ((QEI0_OFFSET + QEI_ISC_OFFSET) * 32UL) + (QEI_ISC_R_INTTIMER_BIT * 4UL))))

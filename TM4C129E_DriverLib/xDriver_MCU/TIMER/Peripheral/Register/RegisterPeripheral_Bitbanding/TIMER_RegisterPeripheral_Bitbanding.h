@@ -33,7 +33,7 @@
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral_Bitbanding/RegisterPeripheral_Bitbanding_ModuleW_32/TIMER_RegisterPeripheral_Bitbanding_ModuleW_32.h>
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral_Bitbanding/RegisterPeripheral_Bitbanding_Standard_32/TIMER_RegisterPeripheral_Bitbanding_Standard_32.h>
 
-#define GPTM_BITBANDING    ((GPTMS_BITBANDING_TypeDef*) (GPTM_BASE_BITBANDING + (GPTM_OFFSET * 32U)))
-#define GPTM_UNION_BITBANDING    ((GPTM_UNION_BITBANDING_TypeDef*) (GPTM_BASE_BITBANDING + (GPTM_OFFSET * 32U)))
+#define GPTM_BITBANDING    ((GPTMS_BITBANDING_t*) (GPTM_BASE_BITBANDING + (GPTM_OFFSET * 32U)))
+#define GPTM_UNION_BITBANDING    ((GPTM_UNION_BITBANDING_t*) (GPTM_BASE_BITBANDING + (GPTM_OFFSET * 32U)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_BITBANDING_TIMER_REGISTERPERIPHERAL_BITBANDING_H_ */

@@ -35,7 +35,7 @@ typedef volatile struct
 {
     volatile uint32_t CFG :3;
     const uint32_t reserved :29;
-}GPTMCFG_TypeDef;
+}GPTMCFG_t;
 
 typedef volatile struct
 {
@@ -48,7 +48,7 @@ typedef volatile struct
     volatile uint32_t SYNCT6 :2;
     volatile uint32_t SYNCT7 :2;
     const uint32_t reserved :16;
-}GPTMSYNC_TypeDef;
+}GPTMSYNC_t;
 
 typedef volatile struct
 {
@@ -57,12 +57,12 @@ typedef volatile struct
     volatile const uint32_t SYNCCNT :1;
     volatile const uint32_t ALTCLK :1;
     const uint32_t reserved :25;
-}GPTMPP_TypeDef;
+}GPTMPP_t;
 
 typedef volatile struct
 {
     volatile uint32_t ALTCLK :1;
     const uint32_t reserved :31;
-}GPTMCC_TypeDef;
+}GPTMCC_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_TIMER_STRUCTREGISTER_CONTROL_H_ */

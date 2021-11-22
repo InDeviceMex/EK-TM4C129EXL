@@ -30,5 +30,6 @@
 #include <xTask/xHeader/xTask3_ButtonsLog.h>
 #include <xTask/xHeader/xTask4_LedBlueLog.h>
 #include <xTask/xHeader/xTask5_LedGreenLog.h>
+#include <xTask/xHeader/xTask6_Commands.h>
 
 #endif /* XTASK_XTASK_H_ */

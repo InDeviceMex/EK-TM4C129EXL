@@ -47,7 +47,7 @@ typedef volatile struct
     volatile uint32_t TnCINTD;
     volatile uint32_t TCACT [3UL];
     const uint32_t reserved [16UL];
-}BITBANDING_TW_GPTMMR_TypeDef;
+}BITBANDING_TW_GPTMMR_t;
 
 typedef volatile struct
 {
@@ -58,7 +58,7 @@ typedef volatile struct
     volatile uint32_t TnOTE;
     volatile uint32_t TnPWML;
     const uint32_t reserved1 [25UL];
-}BITBANDING_TW_GPTMCTL_TypeDef;
+}BITBANDING_TW_GPTMCTL_t;
 
 typedef volatile struct
 {
@@ -69,7 +69,7 @@ typedef volatile struct
     volatile uint32_t TnMIM;
     volatile uint32_t DMAnIM;
     const uint32_t reserved1 [26UL];
-}BITBANDING_TW_GPTMIMR_TypeDef;
+}BITBANDING_TW_GPTMIMR_t;
 
 typedef volatile struct
 {
@@ -80,7 +80,7 @@ typedef volatile struct
     volatile const uint32_t TnMRIS;
     volatile const uint32_t DMAnRIS;
     const uint32_t reserved1 [26UL];
-}BITBANDING_TW_GPTMRIS_TypeDef;
+}BITBANDING_TW_GPTMRIS_t;
 
 typedef volatile struct
 {
@@ -91,7 +91,7 @@ typedef volatile struct
     volatile const uint32_t TnMMIS;
     volatile const uint32_t DMAnMIS;
     const uint32_t reserved1 [26UL];
-}BITBANDING_TW_GPTMMIS_TypeDef;
+}BITBANDING_TW_GPTMMIS_t;
 
 typedef volatile struct
 {
@@ -102,33 +102,33 @@ typedef volatile struct
     volatile uint32_t TnMCINT;
     volatile uint32_t DMAnINT;
     const uint32_t reserved1 [26UL];
-}BITBANDING_TW_GPTMICR_TypeDef;
+}BITBANDING_TW_GPTMICR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnILR [32UL];
-}BITBANDING_TW_GPTMILR_TypeDef;
+}BITBANDING_TW_GPTMILR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnMR [32UL];
-}BITBANDING_TW_GPTMMATCHR_TypeDef;
+}BITBANDING_TW_GPTMMATCHR_t;
 
 typedef volatile struct
 {
     volatile const uint32_t TnR [32UL];
-}BITBANDING_TW_GPTMR_TypeDef;
+}BITBANDING_TW_GPTMR_t;
 
 typedef volatile struct
 {
     volatile uint32_t TnV [32UL];
-}BITBANDING_TW_GPTMV_TypeDef;
+}BITBANDING_TW_GPTMV_t;
 
 typedef volatile struct
 {
     volatile const uint32_t RTCPD [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_TW_GPTMRTCPD_TypeDef;
+}BITBANDING_TW_GPTMRTCPD_t;
 
 typedef volatile struct
 {
@@ -138,7 +138,7 @@ typedef volatile struct
     volatile uint32_t RTCADCEN;
     volatile uint32_t TnMDMAEN;
     const uint32_t reserved1 [27UL];
-}BITBANDING_TW_GPTMDMAEV_TypeDef;
+}BITBANDING_TW_GPTMDMAEV_t;
 
 typedef volatile struct
 {
@@ -148,6 +148,6 @@ typedef volatile struct
     volatile uint32_t RTCADCEN;
     volatile uint32_t TnMADCEN;
     const uint32_t reserved1 [27UL];
-}BITBANDING_TW_GPTMADCEV_TypeDef;
+}BITBANDING_TW_GPTMADCEV_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_BITBANDING_TIMER_STRUCTREGISTER_BITBANDING_MODULEW_32_H_ */

@@ -29,12 +29,12 @@
 #include <xDriver_MCU/SYSEXC/Peripheral/Register/xHeader/SYSEXC_RegisterDefines.h>
 #include <xDriver_MCU/SYSEXC/Peripheral/Struct/xHeader/SYSEXC_StructPeripheral.h>
 
-#define SYSEXC_BITBANDING    ((SYSEXC_BITBANDING_TypeDef*) (SYSEXC_BITBANDING_BASE + (SYSEXC_OFFSET * 32UL)))
+#define SYSEXC_BITBANDING    ((SYSEXC_BITBANDING_t*) (SYSEXC_BITBANDING_BASE + (SYSEXC_OFFSET * 32UL)))
 
 /******************************************************************************************
 *********************************** * 1 RIS *********************************************
 ******************************************************************************************/
-#define SYSEXC_BITBANDING_RIS    ((BITBANDING_SYSEXCRIS_TypeDef*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_RIS_OFFSET) * 32UL)))
+#define SYSEXC_BITBANDING_RIS    ((BITBANDING_SYSEXCRIS_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_RIS_OFFSET) * 32UL)))
 
 #define SYSEXC_BITBANDING_RIS_FPIDCRIS    (*((volatile const uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_RIS_OFFSET) * 32UL) + (SYSEXC_RIS_R_FPIDCRIS_BIT * 4UL))))
 #define SYSEXC_BITBANDING_RIS_FPDZCRIS    (*((volatile const uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_RIS_OFFSET) * 32UL) + (SYSEXC_RIS_R_FPDZCRIS_BIT * 4UL))))
@@ -46,7 +46,7 @@
 /******************************************************************************************
 *********************************** * 2 IM *********************************************
 ******************************************************************************************/
-#define SYSEXC_BITBANDING_IM    ((BITBANDING_SYSEXCIM_TypeDef*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IM_OFFSET) * 32UL)))
+#define SYSEXC_BITBANDING_IM    ((BITBANDING_SYSEXCIM_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IM_OFFSET) * 32UL)))
 
 #define SYSEXC_BITBANDING_IM_FPIDCIM    (*((volatile uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IM_OFFSET) * 32UL) + (SYSEXC_IM_R_FPIDCIM_BIT * 4UL))))
 #define SYSEXC_BITBANDING_IM_FPDZCIM    (*((volatile uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IM_OFFSET) * 32UL) + (SYSEXC_IM_R_FPDZCIM_BIT * 4UL))))
@@ -58,7 +58,7 @@
 /******************************************************************************************
 *********************************** * 3 MIS *********************************************
 ******************************************************************************************/
-#define SYSEXC_BITBANDING_MIS    ((BITBANDING_SYSEXCMIS_TypeDef*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_MIS_OFFSET) * 32UL)))
+#define SYSEXC_BITBANDING_MIS    ((BITBANDING_SYSEXCMIS_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_MIS_OFFSET) * 32UL)))
 
 #define SYSEXC_BITBANDING_MIS_FPIDCMIS    (*((volatile const uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_MIS_OFFSET) * 32UL) + (SYSEXC_MIS_R_FPIDCMIS_BIT * 4UL))))
 #define SYSEXC_BITBANDING_MIS_FPDZCMIS    (*((volatile const uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_MIS_OFFSET) * 32UL) + (SYSEXC_MIS_R_FPDZCMIS_BIT * 4UL))))
@@ -70,7 +70,7 @@
 /******************************************************************************************
 *********************************** * 4 IC *********************************************
 ******************************************************************************************/
-#define SYSEXC_BITBANDING_IC    ((BITBANDING_SYSEXCIC_TypeDef*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IC_OFFSET) * 32UL)))
+#define SYSEXC_BITBANDING_IC    ((BITBANDING_SYSEXCIC_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IC_OFFSET) * 32UL)))
 
 #define SYSEXC_BITBANDING_IC_FPIDCIC    (*((volatile uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IC_OFFSET) * 32UL) + (SYSEXC_IC_R_FPIDCIC_BIT * 4UL))))
 #define SYSEXC_BITBANDING_IC_FPDZCIC    (*((volatile uint32_t*) (SYSEXC_BITBANDING_BASE + ((SYSEXC_OFFSET + SYSEXC_IC_OFFSET) * 32UL) + (SYSEXC_IC_R_FPDZCIC_BIT * 4UL))))

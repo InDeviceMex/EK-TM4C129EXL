@@ -42,7 +42,7 @@ uint32_t TIMER__u32GetFreeCount(TIMER_nMODULE enModule)
     TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_CC;
     TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
-    TIMER_Count32_TypeDef stFreeCount32Config = {0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_t stFreeCount32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
     static uint32_t u32u32TimerValue = 0UL;
@@ -107,7 +107,7 @@ void TIMER__vSetFreeRunningCount(TIMER_nMODULE enModule, uint32_t u32Count)
     TIMER_nALT_MODE enAltModeVar = TIMER_enALT_MODE_CC;
     TIMER_nCOUNT_DIR enDirectionVar = TIMER_enCOUNT_DIR_DOWN;
 
-    TIMER_Count32_TypeDef stFreeCount32Config = {0UL, 0UL, 0UL, 0UL};
+    TIMER_Count32_t stFreeCount32Config = {0UL, 0UL, 0UL, 0UL};
 
     static uint32_t u32TimerValue = 0UL;
     uint32_t u32SubModule = 0UL;

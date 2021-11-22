@@ -32,175 +32,175 @@ typedef volatile struct
     union
     {
         volatile const uint32_t STAT [32UL];
-        BITBANDING_DMASTAT_TypeDef STAT_Bit;
+        BITBANDING_DMASTAT_t STAT_Bit;
     };
     union
     {
         volatile uint32_t CFG [32UL];
-        BITBANDING_DMACFG_TypeDef CFG_Bit;
+        BITBANDING_DMACFG_t CFG_Bit;
     };
     union
     {
         volatile uint32_t CTLBASE [32UL];
-        BITBANDING_DMACTLBASE_TypeDef CTLBASE_Bit;
+        BITBANDING_DMACTLBASE_t CTLBASE_Bit;
     };
     union
     {
         volatile const uint32_t ALTBASE [32UL];
-        BITBANDING_DMAALTBASE_TypeDef ALTBASE_Bit;
+        BITBANDING_DMAALTBASE_t ALTBASE_Bit;
     };
     union
     {
         volatile const uint32_t WAITSTAT [32UL];
-        BITBANDING_DMAWAITSTAT_TypeDef WAITSTAT_Bit;
+        BITBANDING_DMAWAITSTAT_t WAITSTAT_Bit;
     };
     union
     {
         volatile uint32_t SWREQ [32UL];
-        BITBANDING_DMASWREQ_TypeDef SWREQ_Bit;
+        BITBANDING_DMASWREQ_t SWREQ_Bit;
     };
     union
     {
         volatile uint32_t USEBURSTSET [32UL];
-        BITBANDING_DMASET_TypeDef USEBURSTSET_Bit;
+        BITBANDING_DMASET_t USEBURSTSET_Bit;
     };
     union
     {
         volatile uint32_t USEBURSTCLR [32UL];
-        BITBANDING_DMACLR_TypeDef USEBURSTCLR_Bit;
+        BITBANDING_DMACLR_t USEBURSTCLR_Bit;
     };
     union
     {
         volatile uint32_t REQMASKSET [32UL];
-        BITBANDING_DMASET_TypeDef REQMASKSET_Bit;
+        BITBANDING_DMASET_t REQMASKSET_Bit;
     };
     union
     {
         volatile uint32_t REQMASKCLR [32UL];
-        BITBANDING_DMACLR_TypeDef REQMASKCLR_Bit;
+        BITBANDING_DMACLR_t REQMASKCLR_Bit;
     };
     union
     {
         volatile uint32_t ENASET [32UL];
-        BITBANDING_DMASET_TypeDef ENASET_Bit;
+        BITBANDING_DMASET_t ENASET_Bit;
     };
     union
     {
         volatile uint32_t ENACLR [32UL];
-        BITBANDING_DMACLR_TypeDef ENACLR_Bit;
+        BITBANDING_DMACLR_t ENACLR_Bit;
     };
     union
     {
         volatile uint32_t ALTSET [32UL];
-        BITBANDING_DMASET_TypeDef ALTSET_Bit;
+        BITBANDING_DMASET_t ALTSET_Bit;
     };
     union
     {
         volatile uint32_t ALTCLR [32UL];
-        BITBANDING_DMACLR_TypeDef ALTCLR_Bit;
+        BITBANDING_DMACLR_t ALTCLR_Bit;
     };
     union
     {
         volatile uint32_t PRIOSET [32UL];
-        BITBANDING_DMASET_TypeDef PRIOSET_Bit;
+        BITBANDING_DMASET_t PRIOSET_Bit;
     };
     union
     {
         volatile uint32_t PRIOCLR [32UL];
-        BITBANDING_DMACLR_TypeDef PRIOCLR_Bit;
+        BITBANDING_DMACLR_t PRIOCLR_Bit;
     };
     const uint32_t reserved [3UL * 32UL];
     union
     {
         volatile uint32_t ERRCLR [32UL];
-        BITBANDING_DMAERRCLR_TypeDef ERRCLR_Bit;
+        BITBANDING_DMAERRCLR_t ERRCLR_Bit;
     };
     const uint32_t reserved1 [300UL * 32UL];
     union
     {
         volatile uint32_t CHASGN [32UL];
-        BITBANDING_DMACHASGN_TypeDef CHASGN_Bit;
+        BITBANDING_DMACHASGN_t CHASGN_Bit;
     };
     union
     {
         volatile uint32_t CHIS [32UL];
-        BITBANDING_DMACHIS_TypeDef CHIS_Bit;
+        BITBANDING_DMACHIS_t CHIS_Bit;
     };
     const uint32_t reserved2 [2UL * 32UL];
 #if 0
     union
     {
         volatile uint32_t CHMAP0 [32UL];
-        BITBANDING_DMACHMAP0_TypeDef CHMAP0_Bit;
+        BITBANDING_DMACHMAP0_t CHMAP0_Bit;
     };
     union
     {
         volatile uint32_t CHMAP1 [32UL];
-        BITBANDING_DMACHMAP1_TypeDef CHMAP1_Bit;
+        BITBANDING_DMACHMAP1_t CHMAP1_Bit;
     };
     union
     {
         volatile uint32_t CHMAP2 [32UL];
-        BITBANDING_DMACHMAP2_TypeDef CHMAP2_Bit;
+        BITBANDING_DMACHMAP2_t CHMAP2_Bit;
     };
     union
     {
         volatile uint32_t CHMAP3 [32UL];
-        BITBANDING_DMACHMAP3_TypeDef CHMAP3_Bit;
+        BITBANDING_DMACHMAP3_t CHMAP3_Bit;
     };
 #endif
     union
     {
         volatile uint32_t CHMAP0 [4UL][32UL];
-        BITBANDING_DMACHMAP0_TypeDef CHMAP0_Bit [4UL];
+        BITBANDING_DMACHMAP0_t CHMAP0_Bit [4UL];
     };
     const uint32_t reserved3 [688UL * 32UL];
     union
     {
         volatile const uint32_t PeriphID0 [32UL];
-        BITBANDING_DMAPeriphID0_TypeDef PeriphID0_Bit;
+        BITBANDING_DMAPeriphID0_t PeriphID0_Bit;
     };
     union
     {
         volatile const uint32_t PeriphID1 [32UL];
-        BITBANDING_DMAPeriphID1_TypeDef PeriphID1_Bit;
+        BITBANDING_DMAPeriphID1_t PeriphID1_Bit;
     };
     union
     {
         volatile const uint32_t PeriphID2 [32UL];
-        BITBANDING_DMAPeriphID2_TypeDef PeriphID2_Bit;
+        BITBANDING_DMAPeriphID2_t PeriphID2_Bit;
     };
     union
     {
         volatile const uint32_t PeriphID3 [32UL];
-        BITBANDING_DMAPeriphID3_TypeDef PeriphID3_Bit;
+        BITBANDING_DMAPeriphID3_t PeriphID3_Bit;
     };
     union
     {
         volatile const uint32_t PeriphID4 [32UL];
-        BITBANDING_DMAPeriphID4_TypeDef PeriphID4_Bit;
+        BITBANDING_DMAPeriphID4_t PeriphID4_Bit;
     };
     const uint32_t reserved4 [7UL * 32UL];
     union
     {
         volatile const uint32_t PCellID0 [32UL];
-        BITBANDING_DMAPCellID0_TypeDef PCellID0_Bit;
+        BITBANDING_DMAPCellID0_t PCellID0_Bit;
     };
     union
     {
         volatile const uint32_t PCellID1 [32UL];
-        BITBANDING_DMAPCellID1_TypeDef PCellID1_Bit;
+        BITBANDING_DMAPCellID1_t PCellID1_Bit;
     };
     union
     {
         volatile const uint32_t PCellID2 [32UL];
-        BITBANDING_DMAPCellID2_TypeDef PCellID2_Bit;
+        BITBANDING_DMAPCellID2_t PCellID2_Bit;
     };
     union
     {
         volatile const uint32_t PCellID3 [32UL];
-        BITBANDING_DMAPCellID3_TypeDef PCellID3_Bit;
+        BITBANDING_DMAPCellID3_t PCellID3_Bit;
     };
-}DMA_BITBANDING_TypeDef;
+}DMA_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTPERIPHERAL_BITBANDING_H_ */

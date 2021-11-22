@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/Register/RegisterPeripheral/xHeader/ACMP_RegisterPeripheral_Module0.h>
 
-#define ACMP    ((ACMPS_TypeDef*) (ACMP_BASE))
+#define ACMP    ((ACMPS_t*) (ACMP_BASE))
 
 uint32_t ACMP__u32BlockBaseAddress(ACMP_nMODULE enModuleArg);
 

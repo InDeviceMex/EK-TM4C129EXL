@@ -32,29 +32,29 @@ typedef volatile struct
     volatile const uint32_t WORDCNT :16;
     volatile const uint32_t BLKCNT :11;
     const uint32_t reserved :5;
-}EESIZE_TypeDef;
+}EESIZE_t;
 
 typedef volatile struct
 {
     volatile uint32_t BLOCK :16;
     const uint32_t reserved :16;
-}EEBLOCK_TypeDef;
+}EEBLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t OFFSET :4;
     const uint32_t reserved :28;
-}EEOFFSET_TypeDef;
+}EEOFFSET_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE :32;
-}EERDWR_TypeDef;
+}EERDWR_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE :32;
-}EERDWRINC_TypeDef;
+}EERDWRINC_t;
 
 typedef volatile struct
 {
@@ -65,7 +65,7 @@ typedef volatile struct
     volatile const uint32_t NOPERM :1;
     volatile const uint32_t WRBUSY :1;
     const uint32_t reserved1 :26;
-}EEDONE_TypeDef;
+}EEDONE_t;
 
 typedef volatile struct
 {
@@ -74,30 +74,30 @@ typedef volatile struct
     volatile const uint32_t ERETRY :1;
     volatile const uint32_t PRETRY :1;
     const uint32_t reserved :28;
-}EESUPP_TypeDef;
+}EESUPP_t;
 
 typedef volatile struct
 {
     volatile uint32_t UNLOCK :32;
-}EEUNLOCK_TypeDef;
+}EEUNLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t PROT :3;
     volatile uint32_t ACC :1;
     const uint32_t reserved :28;
-}EEPROT_TypeDef;
+}EEPROT_t;
 
 typedef volatile struct
 {
     volatile uint32_t PASS :32;
-}EEPASS_TypeDef;
+}EEPASS_t;
 
 typedef volatile struct
 {
     volatile uint32_t INT :1;
     const uint32_t reserved :31;
-}EEINT_TypeDef;
+}EEINT_t;
 
 typedef volatile struct
 {
@@ -134,19 +134,19 @@ typedef volatile struct
     volatile uint32_t H30 :1;
     volatile uint32_t H31 :1;
     volatile uint32_t H32 :1;
-}EEHIDE_TypeDef;
+}EEHIDE_t;
 
 typedef volatile struct
 {
     volatile uint32_t ME :1;
     const uint32_t reserved :15;
     volatile uint32_t KEY :16;
-}EEDBGME_TypeDef;
+}EEDBGME_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SIZE :5;
     const uint32_t reserved :27;
-}EEPROMPP_TypeDef;
+}EEPROMPP_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_STRUCT_EEPROM_STRUCTREGISTER_H_ */

@@ -32,56 +32,56 @@ typedef volatile struct
     union
     {
         volatile uint32_t FMA [32UL];
-        BITBANDING_FMA_TypeDef FMA_Bit;
+        BITBANDING_FMA_t FMA_Bit;
     };
     union
     {
         volatile uint32_t FMD [32UL];
-        BITBANDING_FMD_TypeDef FMD_Bit;
+        BITBANDING_FMD_t FMD_Bit;
     };
     union
     {
         volatile uint32_t FMC [32UL];
-        BITBANDING_FMC_TypeDef FMC_Bit;
+        BITBANDING_FMC_t FMC_Bit;
     };
     union
     {
         volatile const uint32_t FCRIS [32UL];
-        BITBANDING_FCRIS_TypeDef FCRIS_Bit;
+        BITBANDING_FCRIS_t FCRIS_Bit;
     };
     union
     {
         volatile uint32_t FCIM [32UL];
-        BITBANDING_FCIM_TypeDef FCIM_Bit;
+        BITBANDING_FCIM_t FCIM_Bit;
     };
     union
     {
         volatile uint32_t FCMISC [32UL];
-        BITBANDING_FCMISC_TypeDef FCMISC_Bit;
+        BITBANDING_FCMISC_t FCMISC_Bit;
     };
     const uint32_t reserved [2UL * 32UL];
     union
     {
         volatile uint32_t FMC2 [32UL];
-        BITBANDING_FMC2_TypeDef FMC2_Bit;
+        BITBANDING_FMC2_t FMC2_Bit;
     };
     const uint32_t reserved1 [3UL * 32UL];
     union
     {
         volatile uint32_t FWBVAL [32UL];
-        BITBANDING_FWBVAL_TypeDef FWBVAL_Bit;
+        BITBANDING_FWBVAL_t FWBVAL_Bit;
     };
     const uint32_t reserved2 [2UL * 32UL];
     union
     {
         volatile uint32_t FLPEKEY [32UL];
-        BITBANDING_FLPEKEY_TypeDef FLPEKEY_Bit;
+        BITBANDING_FLPEKEY_t FLPEKEY_Bit;
     };
     const uint32_t reserved3 [48UL * 32UL];
     union
     {
         volatile uint32_t FWBn [32UL][32UL];
-        BITBANDING_FWB_TypeDef FWBn_Bit [32UL];
+        BITBANDING_FWB_t FWBn_Bit [32UL];
     };
 
 
@@ -89,33 +89,33 @@ typedef volatile struct
     union
     {
         volatile const uint32_t FLASHPP [32UL];
-        BITBANDING_FLASHPP_TypeDef FLASHPP_Bit;
+        BITBANDING_FLASHPP_t FLASHPP_Bit;
     };
     union
     {
         volatile const uint32_t SSIZE [32UL];
-        BITBANDING_SSIZE_TypeDef SSIZE_Bit;
+        BITBANDING_SSIZE_t SSIZE_Bit;
     };
     union
     {
         volatile const uint32_t FLASHCONF [32UL];
-        BITBANDING_FLASHCONF_TypeDef FLASHCONF_Bit;
+        BITBANDING_FLASHCONF_t FLASHCONF_Bit;
     };
     union
     {
         volatile const uint32_t ROMSWMAP [32UL];
-        BITBANDING_ROMSWMAP_TypeDef ROMSWMAP_Bit;
+        BITBANDING_ROMSWMAP_t ROMSWMAP_Bit;
     };
     union
     {
         volatile const uint32_t FLASHDMASZ [32UL];
-        BITBANDING_FLASHDMASZ_TypeDef FLASHDMASZ_Bit;
+        BITBANDING_FLASHDMASZ_t FLASHDMASZ_Bit;
     };
     union
     {
         volatile const uint32_t FLASHDMAST [32UL];
-        BITBANDING_FLASHDMAST_TypeDef FLASHDMAST_Bit;
+        BITBANDING_FLASHDMAST_t FLASHDMAST_Bit;
     };
-}FLASH_BITBANDING_TypeDef;
+}FLASH_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_PERIPHERAL_FLASH_STRUCT_FLASH_STRUCTPERIPHERAL_BITBANDING_H_ */

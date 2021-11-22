@@ -28,7 +28,7 @@
 
 uint32_t SCB_MemoryFault_pu32Context[8UL] = {0UL};
 
-UART_CONTROL_TypeDef enUartMemoryControl =
+UART_CONTROL_t enUartMemoryControl =
 {
     UART_enEOT_ALL,
     UART_enLOOPBACK_DIS,
@@ -42,7 +42,7 @@ UART_CONTROL_TypeDef enUartMemoryControl =
     UART_enLINE_DIS,
 };
 
-UART_LINE_CONTROL_TypeDef enUartMemoryLineControl =
+UART_LINE_CONTROL_t enUartMemoryLineControl =
 {
  UART_enFIFO_ENA,
  UART_enSTOP_ONE,
@@ -52,7 +52,7 @@ UART_LINE_CONTROL_TypeDef enUartMemoryLineControl =
  UART_enLENGTH_8BITS,
 };
 
-UART_LINE_TypeDef enUartMemoryLine =
+UART_LINE_t enUartMemoryLine =
 {
  UART_enLINE_SELECT_PRIMARY,
  UART_enLINE_SELECT_PRIMARY,

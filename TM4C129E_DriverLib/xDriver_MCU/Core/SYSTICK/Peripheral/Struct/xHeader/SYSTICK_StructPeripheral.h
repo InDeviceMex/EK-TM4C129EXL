@@ -33,23 +33,23 @@ typedef volatile struct
     union
     {
         volatile uint32_t CSR;
-        SYSTICK_CSR_TypeDef CSR_Bit;
+        SYSTICK_CSR_t CSR_Bit;
     };
     union
     {
         volatile uint32_t RVR;
-        SYSTICK_RVR_TypeDef RVR_Bit;
+        SYSTICK_RVR_t RVR_Bit;
     };
     union
     {
         volatile uint32_t CVR;
-        SYSTICK_CVR_TypeDef CVR_Bit;
+        SYSTICK_CVR_t CVR_Bit;
     };
     union
     {
         const uint32_t CR;
-        SYSTICK_CR_TypeDef CR_Bit;
+        SYSTICK_CR_t CR_Bit;
     };
-}SYSTICK_TypeDef;
+}SYSTICK_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_STRUCT_SYSTICK_STRUCTPERIPHERAL_H_ */

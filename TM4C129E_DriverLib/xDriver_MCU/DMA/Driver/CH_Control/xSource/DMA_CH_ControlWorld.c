@@ -27,14 +27,14 @@
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
 void DMA_CH__vSetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_TypeDef stChannelControlWorld)
+                                     DMACHCTL_t stChannelControlWorld)
 {
     volatile uint32_t *pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
     DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) *pu32Reg, 0xFFFFFFFFUL, 0UL);
 }
 
 void DMA_CH__vSetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_TypeDef stChannelControlWorld)
+                                       DMACHCTL_t stChannelControlWorld)
 {
     volatile uint32_t* pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
     DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) *pu32Reg, 0xFFFFFFFFUL, 0UL);
@@ -42,7 +42,7 @@ void DMA_CH__vSetAlternateControlWorld(DMA_nCH_MODULE enChannel,
 
 void DMA_CH__vSetControlWorld(DMA_nCH_MODULE enChannel,
                               DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_TypeDef stChannelControlWorld)
+                              DMACHCTL_t stChannelControlWorld)
 {
     volatile uint32_t* pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
     DMA_CH__vSetControlGeneric(enChannel, enChannelStructure,
@@ -91,7 +91,7 @@ uint32_t DMA_CH__u32GetControlWorld(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChan
 }
 
 void DMA_CH__vGetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_TypeDef* pstChannelControlWorld)
+                                     DMACHCTL_t* pstChannelControlWorld)
 {
     uint32_t u32Reg = 0UL;
     volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;
@@ -104,7 +104,7 @@ void DMA_CH__vGetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
 }
 
 void DMA_CH__vGetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_TypeDef* pstChannelControlWorld)
+                                       DMACHCTL_t* pstChannelControlWorld)
 {
     uint32_t u32Reg = 0UL;
     volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;
@@ -118,7 +118,7 @@ void DMA_CH__vGetAlternateControlWorld(DMA_nCH_MODULE enChannel,
 
 void DMA_CH__vGetControlWorld(DMA_nCH_MODULE enChannel,
                               DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_TypeDef* pstChannelControlWorld)
+                              DMACHCTL_t* pstChannelControlWorld)
 {
     uint32_t u32Reg = 0UL;
     volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;

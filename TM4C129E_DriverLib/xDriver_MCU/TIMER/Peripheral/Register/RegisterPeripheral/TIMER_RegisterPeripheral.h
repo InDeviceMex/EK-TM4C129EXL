@@ -33,8 +33,8 @@
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_ModuleW_32/TIMER_RegisterPeripheral_ModuleW_32.h>
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/RegisterPeripheral_Standard_32/TIMER_RegisterPeripheral_Standard_32.h>
 
-#define GPTM    (((GPTMS_TypeDef*) (GPTM_BASE)))
-#define GPTM_UNION    (((GPTM_UNION_TypeDef*) (GPTM_BASE)))
+#define GPTM    (((GPTMS_t*) (GPTM_BASE)))
+#define GPTM_UNION    (((GPTM_UNION_t*) (GPTM_BASE)))
 
 uint32_t TIMER__u32BlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg);
 

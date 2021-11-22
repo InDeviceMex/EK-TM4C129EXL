@@ -32,14 +32,14 @@ void Led2ON(void)
 uint32_t main(void)
 {
     volatile TIMER_nEVENT enEvent = TIMER_enEVENT_ALL;
-    SYSCTL_CONFIG_TypeDef stClockConfig =
+    SYSCTL_CONFIG_t stClockConfig =
     {
         SYSCTL_enXTAL_25MHZ,
         SYSCTL_enOSC_MOSC,
         SYSCTL_enPLL,
         SYSCTL_enVCO_480MHZ,
     };
-    UART_CONTROL_TypeDef enUart0Control =
+    UART_CONTROL_t enUart0Control =
     {
         UART_enEOT_ALL,
         UART_enLOOPBACK_DIS,
@@ -53,7 +53,7 @@ uint32_t main(void)
         UART_enLINE_DIS,
     };
 
-    UART_LINE_CONTROL_TypeDef enUart0LineControl =
+    UART_LINE_CONTROL_t enUart0LineControl =
     {
      UART_enFIFO_ENA,
      UART_enSTOP_ONE,
@@ -63,7 +63,7 @@ uint32_t main(void)
      UART_enLENGTH_8BITS,
     };
 
-    UART_LINE_TypeDef enUart0Line =
+    UART_LINE_t enUart0Line =
     {
      UART_enLINE_SELECT_PRIMARY,
      UART_enLINE_SELECT_PRIMARY,

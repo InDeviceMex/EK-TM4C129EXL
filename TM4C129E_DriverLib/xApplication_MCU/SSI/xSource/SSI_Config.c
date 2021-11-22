@@ -88,9 +88,9 @@ GPIO_nDIGITAL_FUNCTION SSI_enGpioInput[MAX_CONFIG]
 
 SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule,
                              SSI_nMS enMasterSlaveArg ,
-                             const SSI_CONTROL_TypeDef* const pstControlConfig,
-                             SSI_FRAME_CONTROL_TypeDef* const pstFrameControlConfig,
-                             uint32_t u32ClockArg, const SSI_LINE_TypeDef* pstLineConfig)
+                             const SSI_CONTROL_t* const pstControlConfig,
+                             SSI_FRAME_CONTROL_t* const pstFrameControlConfig,
+                             uint32_t u32ClockArg, const SSI_LINE_t* pstLineConfig)
 {
     SSI_nSTATUS enReturn = SSI_enSTATUS_ERROR;
     SSI_nENABLE enEnableModule = SSI_enENABLE_STOP;

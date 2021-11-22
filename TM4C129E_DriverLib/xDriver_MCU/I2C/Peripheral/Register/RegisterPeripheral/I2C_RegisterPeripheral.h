@@ -35,7 +35,7 @@
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module8.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module9.h>
 
-#define I2C    ((I2CS_TypeDef*) (I2C_BASE))
+#define I2C    ((I2CS_t*) (I2C_BASE))
 
 uint32_t I2C__u32BlockBaseAddress(I2C_nMODULE enModuleArg);
 

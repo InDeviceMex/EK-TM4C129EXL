@@ -45,7 +45,7 @@ UART_nSTATUS UART__enSetBaudRateAndLineControl(UART_nMODULE enModule,
 }
 
 UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule,
-                                             const UART_LINE_CONTROL_TypeDef stLineControl,
+                                             const UART_LINE_CONTROL_t stLineControl,
                                              uint32_t u32BaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_ERROR;
@@ -58,7 +58,7 @@ UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule,
 }
 
 UART_nSTATUS UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule,
-                                                const UART_LINE_CONTROL_TypeDef* pstLineControl,
+                                                const UART_LINE_CONTROL_t* pstLineControl,
                                                 uint32_t u32BaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_ERROR;

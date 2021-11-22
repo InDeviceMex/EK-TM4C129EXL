@@ -238,7 +238,7 @@ uint32_t SYSCTL__u32GetSystemClock(void)
 }
 
 SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
-                                        SYSCTL_CONFIG_TypeDef stClockConfig)
+                                        SYSCTL_CONFIG_t stClockConfig)
 {
     SYSCTL_nSTATUS enStatus = SYSCTL_enOK;
     SYSCTL_nXTAL enExtenalCrystal = SYSCTL_enXTAL_5MHZ;

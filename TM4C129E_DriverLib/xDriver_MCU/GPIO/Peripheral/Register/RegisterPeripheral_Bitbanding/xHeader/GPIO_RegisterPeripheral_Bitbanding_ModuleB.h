@@ -29,16 +29,16 @@
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterDefines/GPIO_RegisterDefines.h>
 #include <xDriver_MCU/GPIO/Peripheral/Struct/xHeader/GPIO_StructPeripheral_Bitbanding.h>
 
-#define GPIOB_BITBANDING    ((GPIO_BITBANDING_TypeDef*) (GPIO_BITBANDING_BASE + (GPIOB_OFFSET * 32UL)))
-#define GPIOB_AUX_BITBANDING    ((GPIO_AUX_BITBANDING_TypeDef*) (GPIO_BITBANDING_BASE + (GPIOB_OFFSET * 32UL)))
+#define GPIOB_BITBANDING    ((GPIO_BITBANDING_t*) (GPIO_BITBANDING_BASE + (GPIOB_OFFSET * 32UL)))
+#define GPIOB_AUX_BITBANDING    ((GPIO_AUX_BITBANDING_t*) (GPIO_BITBANDING_BASE + (GPIOB_OFFSET * 32UL)))
 
 /******************************************************************************************
  *********************************** * 1 DATA *********************************************
  ******************************************************************************************/
 
 /* GPIOB DATA*/
-#define GPIOB_BITBANDING_DATA_MASK    ((BITBANDING_GPIODATA_MASK_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DATA_MASK_OFFSET) * 32UL)))
-#define GPIOB_BITBANDING_DATA    ((BITBANDING_GPIODATA_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DATA_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DATA_MASK    ((BITBANDING_GPIODATA_MASK_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DATA_MASK_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DATA    ((BITBANDING_GPIODATA_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DATA_OFFSET) * 32UL)))
 
 /* GPIOB DATA BITBANDING*/
 #define GPIOB_BITBANDING_DATA0_MASK_DATA0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DATA0_MASK_OFFSET) * 32UL) + (GPIO_DATA_R_DATA0_BIT * 4UL))))
@@ -63,7 +63,7 @@
  *********************************** * 2 DIR *********************************************
  ******************************************************************************************/
 /* GPIOB DIR*/
-#define GPIOB_BITBANDING_DIR    ((BITBANDING_GPIODIR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DIR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DIR    ((BITBANDING_GPIODIR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DIR_OFFSET) * 32UL)))
 
 /* GPIOB DIR BITBANDING*/
 #define GPIOB_BITBANDING_DIR_DIR0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DIR_OFFSET) * 32UL) + (GPIO_DIR_R_DIR0_BIT * 4UL))))
@@ -79,7 +79,7 @@
  *********************************** * 3 IS *********************************************
  ******************************************************************************************/
 /* GPIOB IS*/
-#define GPIOB_BITBANDING_IS    ((BITBANDING_GPIOIS_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IS_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_IS    ((BITBANDING_GPIOIS_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IS_OFFSET) * 32UL)))
 
 /* GPIOB IS BITBANDING*/
 #define GPIOB_BITBANDING_IS_IS0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IS_OFFSET) * 32UL) + (GPIO_IS_R_IS0_BIT * 4UL))))
@@ -95,7 +95,7 @@
  *********************************** * 4 IBE *********************************************
  ******************************************************************************************/
 /* GPIOB IBE*/
-#define GPIOB_BITBANDING_IBE    ((BITBANDING_GPIOIBE_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IBE_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_IBE    ((BITBANDING_GPIOIBE_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IBE_OFFSET) * 32UL)))
 
 /* GPIOB IBE BITBANDING*/
 #define GPIOB_BITBANDING_IBE_IBE0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IBE_OFFSET) * 32UL) + (GPIO_IBE_R_IBE0_BIT * 4UL))))
@@ -111,7 +111,7 @@
  *********************************** * 5 IEV *********************************************
  ******************************************************************************************/
 /* GPIOB IEV*/
-#define GPIOB_BITBANDING_IEV    ((BITBANDING_GPIOIEV_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IEV_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_IEV    ((BITBANDING_GPIOIEV_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IEV_OFFSET) * 32UL)))
 
 /* GPIOB IEV BITBANDING*/
 #define GPIOB_BITBANDING_IEV_IEV0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IEV_OFFSET) * 32UL) + (GPIO_IEV_R_IEV0_BIT * 4UL))))
@@ -127,7 +127,7 @@
  *********************************** * 6 IM *********************************************
  ******************************************************************************************/
 /* GPIOB IME*/
-#define GPIOB_BITBANDING_IM    ((BITBANDING_GPIOIM_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IM_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_IM    ((BITBANDING_GPIOIM_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IM_OFFSET) * 32UL)))
 
 /* GPIOB IME BITBANDING*/
 #define GPIOB_BITBANDING_IM_IME0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_IM_OFFSET) * 32UL) + (GPIO_IM_R_IME0_BIT * 4UL))))
@@ -144,7 +144,7 @@
  *********************************** * 7 RIS *********************************************
  ******************************************************************************************/
 /* GPIOB RIS*/
-#define GPIOB_BITBANDING_RIS    ((BITBANDING_GPIORIS_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_RIS_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_RIS    ((BITBANDING_GPIORIS_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_RIS_OFFSET) * 32UL)))
 
 /* GPIOB RIS BITBANDING*/
 #define GPIOB_BITBANDING_RIS_RIS0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_RIS_OFFSET) * 32UL) + (GPIO_RIS_R_RIS0_BIT * 4UL))))
@@ -161,7 +161,7 @@
  *********************************** * 8 MIS *********************************************
  ******************************************************************************************/
 /* GPIOB MIS*/
-#define GPIOB_BITBANDING_MIS    ((BITBANDING_GPIOMIS_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_MIS_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_MIS    ((BITBANDING_GPIOMIS_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_MIS_OFFSET) * 32UL)))
 
 /* GPIOB MIS BITBANDING*/
 #define GPIOB_BITBANDING_MIS_MIS0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_MIS_OFFSET) * 32UL) + (GPIO_MIS_R_MIS0_BIT * 4UL))))
@@ -178,7 +178,7 @@
  *********************************** * 9 ICR *********************************************
  ******************************************************************************************/
 /* GPIOB IC*/
-#define GPIOB_BITBANDING_ICR    ((BITBANDING_GPIOICR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ICR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_ICR    ((BITBANDING_GPIOICR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ICR_OFFSET) * 32UL)))
 
 /* GPIOB IC BITBANDING*/
 #define GPIOB_BITBANDING_ICR_IC0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ICR_OFFSET) * 32UL) + (GPIO_ICR_R_IC0_BIT * 4UL))))
@@ -194,7 +194,7 @@
  *********************************** * 10 AFSEL *********************************************
  ******************************************************************************************/
 /* GPIOB AFSEL*/
-#define GPIOB_BITBANDING_AFSEL    ((BITBANDING_GPIOBFSEL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AFSEL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_AFSEL    ((BITBANDING_GPIOBFSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AFSEL_OFFSET) * 32UL)))
 
 /* GPIOB AFSEL BITBANDING*/
 #define GPIOB_BITBANDING_AFSEL_AFSEL0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AFSEL_OFFSET) * 32UL) + (GPIO_AFSEL_R_AFSEL0_BIT * 4UL))))
@@ -210,13 +210,13 @@
  *********************************** * 11 DRR ARRAY *********************************************
  ******************************************************************************************/
 /* GPIOB DRV2*/
-#define GPIOB_BITBANDING_DRR    ((BITBANDING_GPIODRR_ARRAY_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR2R_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DRR    ((BITBANDING_GPIODRR_ARRAY_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR2R_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 11 DR2R *********************************************
  ******************************************************************************************/
 /* GPIOB DRV2*/
-#define GPIOB_BITBANDING_DR2R    ((BITBANDING_GPIODR2R_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR2R_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DR2R    ((BITBANDING_GPIODR2R_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR2R_OFFSET) * 32UL)))
 
 /* GPIOB DRV2 BITBANDING*/
 #define GPIOB_BITBANDING_DR2R_DRV20    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR2R_OFFSET) * 32UL) + (GPIO_DR2R_R_DRV20_BIT * 4UL))))
@@ -232,7 +232,7 @@
  *********************************** * 12 DR4R *********************************************
  ******************************************************************************************/
 /* GPIOB DRV4*/
-#define GPIOB_BITBANDING_DR4R    ((BITBANDING_GPIODR4R_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR4R_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DR4R    ((BITBANDING_GPIODR4R_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR4R_OFFSET) * 32UL)))
 
 /* GPIOB DRV4 BITBANDING*/
 #define GPIOB_BITBANDING_DR4R_DRV40    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR4R_OFFSET) * 32UL) + (GPIO_DR4R_R_DRV40_BIT * 4UL))))
@@ -248,7 +248,7 @@
  *********************************** * 13 DR8R *********************************************
  ******************************************************************************************/
 /* GPIOB DRV8*/
-#define GPIOB_BITBANDING_DR8R    ((BITBANDING_GPIODR8R_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR8R_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DR8R    ((BITBANDING_GPIODR8R_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR8R_OFFSET) * 32UL)))
 
 /* GPIOB DRV8 BITBANDING*/
 #define GPIOB_BITBANDING_DR8R_DRV80    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR8R_OFFSET) * 32UL) + (GPIO_DR8R_R_DRV80_BIT * 4UL))))
@@ -264,7 +264,7 @@
  *********************************** * 14 ODR *********************************************
  ******************************************************************************************/
 /* GPIOB ODE*/
-#define GPIOB_BITBANDING_ODR    ((BITBANDING_GPIOODR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ODR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_ODR    ((BITBANDING_GPIOODR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ODR_OFFSET) * 32UL)))
 
 /* GPIOB ODE BITBANDING*/
 #define GPIOB_BITBANDING_ODR_ODE0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ODR_OFFSET) * 32UL) + (GPIO_ODR_R_ODE0_BIT * 4UL))))
@@ -280,7 +280,7 @@
  *********************************** * 15 PUR *********************************************
  ******************************************************************************************/
 /* GPIOB PUE*/
-#define GPIOB_BITBANDING_PUR    ((BITBANDING_GPIOPUR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PUR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PUR    ((BITBANDING_GPIOPUR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PUR_OFFSET) * 32UL)))
 
 /* GPIOB PUE BITBANDING*/
 #define GPIOB_BITBANDING_PUR_PUE0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PUR_OFFSET) * 32UL) + (GPIO_PUR_R_PUE0_BIT * 4UL))))
@@ -296,7 +296,7 @@
  *********************************** * 16 PDR *********************************************
  ******************************************************************************************/
 /* GPIOB PDE*/
-#define GPIOB_BITBANDING_PDR    ((BITBANDING_GPIOPDR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PDR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PDR    ((BITBANDING_GPIOPDR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PDR_OFFSET) * 32UL)))
 
 /* GPIOB PDE BITBANDING*/
 #define GPIOB_BITBANDING_PDR_PDE0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PDR_OFFSET) * 32UL) + (GPIO_PDR_R_PDE0_BIT * 4UL))))
@@ -312,7 +312,7 @@
  *********************************** * 17 SLR *********************************************
  ******************************************************************************************/
 /* GPIOB SLR*/
-#define GPIOB_BITBANDING_SLR    ((BITBANDING_GPIOSLR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SLR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_SLR    ((BITBANDING_GPIOSLR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SLR_OFFSET) * 32UL)))
 
 /* GPIOB SLR BITBANDING*/
 #define GPIOB_BITBANDING_SLR_SLR0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SLR_OFFSET) * 32UL) + (GPIO_SLR_R_SLR0_BIT * 4UL))))
@@ -328,7 +328,7 @@
  *********************************** * 18 DEN *********************************************
  ******************************************************************************************/
 /* GPIOB DEN*/
-#define GPIOB_BITBANDING_DEN    ((BITBANDING_GPIODEN_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DEN_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DEN    ((BITBANDING_GPIODEN_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DEN_OFFSET) * 32UL)))
 
 /* GPIOB DEN BITBANDING*/
 #define GPIOB_BITBANDING_DEN_DEN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DEN_OFFSET) * 32UL) + (GPIO_DEN_R_DEN0_BIT * 4UL))))
@@ -344,13 +344,13 @@
  *********************************** * 19 LOCK *********************************************
  ******************************************************************************************/
 /* GPIOB LOCK*/
-#define GPIOB_BITBANDING_LOCK    ((BITBANDING_GPIOLOCK_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_LOCK_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_LOCK    ((BITBANDING_GPIOLOCK_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_LOCK_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 20 CR *********************************************
  ******************************************************************************************/
 /* GPIOB CR*/
-#define GPIOB_BITBANDING_CR    ((BITBANDING_GPIOCR_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CR_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_CR    ((BITBANDING_GPIOCR_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CR_OFFSET) * 32UL)))
 
 /* GPIOB CR BITBANDING*/
 #define GPIOB_BITBANDING_CR_CR0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CR_OFFSET) * 32UL) + (GPIO_CR_R_CR0_BIT * 4UL))))
@@ -366,7 +366,7 @@
  *********************************** * 21 AMSEL *********************************************
  ******************************************************************************************/
 /* GPIOB AMSEL*/
-#define GPIOB_BITBANDING_AMSEL    ((BITBANDING_GPIOBMSEL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AMSEL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_AMSEL    ((BITBANDING_GPIOBMSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AMSEL_OFFSET) * 32UL)))
 
 /* GPIOB AMSEL BITBANDING*/
 #define GPIOB_BITBANDING_AMSEL_AMSEL0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_AMSEL_OFFSET) * 32UL) + (GPIO_AMSEL_R_AMSEL0_BIT * 4UL))))
@@ -382,13 +382,13 @@
  *********************************** * 22 PCTL *********************************************
  ******************************************************************************************/
 /* GPIOB PCTL*/
-#define GPIOB_BITBANDING_PCTL    ((BITBANDING_GPIOPCTL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PCTL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PCTL    ((BITBANDING_GPIOPCTL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PCTL_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 23 ADCCTL *********************************************
  ******************************************************************************************/
 /* GPIOB ADCCTL*/
-#define GPIOB_BITBANDING_ADCCTL    ((BITBANDING_GPIOBDCCTL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_ADCCTL    ((BITBANDING_GPIOBDCCTL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL)))
 
 /* GPIOB ADCCTL BITBANDING*/
 #define GPIOB_BITBANDING_ADCCTL_ADCEN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL) + (GPIO_ADCCTL_R_ADCEN0_BIT * 4UL))))
@@ -404,7 +404,7 @@
  *********************************** * 24 DMACTL *********************************************
  ******************************************************************************************/
 /* GPIOB DMACTL*/
-#define GPIOB_BITBANDING_DMACTL    ((BITBANDING_GPIODMACTL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DMACTL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DMACTL    ((BITBANDING_GPIODMACTL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DMACTL_OFFSET) * 32UL)))
 
 /* GPIOB DMACTL BITBANDING*/
 #define GPIOB_BITBANDING_DMACTL_DMAEN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DMACTL_OFFSET) * 32UL) + (GPIO_DMACTL_R_DMAEN0_BIT * 4UL))))
@@ -420,7 +420,7 @@
  *********************************** * 25 SI *********************************************
  ******************************************************************************************/
 /* GPIOB SI*/
-#define GPIOB_BITBANDING_SI    ((BITBANDING_GPIOSI_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SI_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_SI    ((BITBANDING_GPIOSI_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SI_OFFSET) * 32UL)))
 
 /* GPIOB SI BITBANDING*/
 #define GPIOB_BITBANDING_SI_SUM    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_SI_OFFSET) * 32UL) + (GPIO_SI_R_SUM_BIT * 4UL))))
@@ -429,7 +429,7 @@
  *********************************** * 26 DR12R *********************************************
  ******************************************************************************************/
 /* GPIOB DR12R*/
-#define GPIOB_BITBANDING_DR12R    ((BITBANDING_GPIODR12R_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR12R_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_DR12R    ((BITBANDING_GPIODR12R_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR12R_OFFSET) * 32UL)))
 
 /* GPIOB DR12R BITBANDING*/
 #define GPIOB_BITBANDING_DR12R_DRV120    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_DR12R_OFFSET) * 32UL) + (GPIO_DR12R_R_DRV120_BIT * 4UL))))
@@ -445,7 +445,7 @@
  *********************************** * 27 WAKEPEN *********************************************
  ******************************************************************************************/
 /* GPIOB WAKEPEN*/
-#define GPIOB_BITBANDING_WAKEPEN    ((BITBANDING_GPIOWAKEPEN_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKEPEN_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_WAKEPEN    ((BITBANDING_GPIOWAKEPEN_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKEPEN_OFFSET) * 32UL)))
 
 /* GPIOB WAKEPEN BITBANDING*/
 #define GPIOB_BITBANDING_WAKEPEN_WAKEP4    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKEPEN_OFFSET) * 32UL) + (GPIO_WAKEPEN_R_WAKEP4_BIT * 4UL))))
@@ -457,7 +457,7 @@
  *********************************** * 28 WAKELVL *********************************************
  ******************************************************************************************/
 /* GPIOB WAKELVL*/
-#define GPIOB_BITBANDING_WAKELVL    ((BITBANDING_GPIOWAKELVL_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKELVL_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_WAKELVL    ((BITBANDING_GPIOWAKELVL_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKELVL_OFFSET) * 32UL)))
 
 /* GPIOB WAKELVL BITBANDING*/
 #define GPIOB_BITBANDING_WAKELVL_WAKELVL4    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKELVL_OFFSET) * 32UL) + (GPIO_WAKELVL_R_WAKELVL4_BIT * 4UL))))
@@ -469,7 +469,7 @@
  *********************************** * 29 WAKESTAT *********************************************
  ******************************************************************************************/
 /* GPIOB WAKESTAT*/
-#define GPIOB_BITBANDING_WAKESTAT    ((BITBANDING_GPIOWAKESTAT_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKESTAT_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_WAKESTAT    ((BITBANDING_GPIOWAKESTAT_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKESTAT_OFFSET) * 32UL)))
 
 /* GPIOB WAKESTAT BITBANDING*/
 #define GPIOB_BITBANDING_WAKESTAT_STAT4    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_WAKESTAT_OFFSET) * 32UL) + (GPIO_WAKESTAT_R_STAT4_BIT * 4UL))))
@@ -481,7 +481,7 @@
  *********************************** * 30 PP *********************************************
  ******************************************************************************************/
 /* GPIOB PP*/
-#define GPIOB_BITBANDING_PP    ((BITBANDING_GPIOPP_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PP_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PP    ((BITBANDING_GPIOPP_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PP_OFFSET) * 32UL)))
 
 /* GPIOB PP BITBANDING*/
 #define GPIOB_BITBANDING_PP_EDE4    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PP_OFFSET) * 32UL) + (GPIO_PP_R_EDE4_BIT * 4UL))))
@@ -493,7 +493,7 @@
  *********************************** * 31 PC *********************************************
  ******************************************************************************************/
 /* GPIOB PC*/
-#define GPIOB_BITBANDING_PC    ((BITBANDING_GPIOPC_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PC_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PC    ((BITBANDING_GPIOPC_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PC_OFFSET) * 32UL)))
 
 /* GPIOB PC BITBANDING*/
 #define GPIOB_BITBANDING_PC_EDM0_0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PC_OFFSET) * 32UL) + ((GPIO_PC_R_EDM0_BIT + 0UL) * 4UL))))
@@ -517,72 +517,72 @@
  *********************************** * 32 PeriphID4 *********************************************
  ******************************************************************************************/
 /* GPIOB PID4*/
-#define GPIOB_BITBANDING_PeriphID4    ((BITBANDING_GPIOPeriphID4_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID4_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID4    ((BITBANDING_GPIOPeriphID4_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID4_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 33 PeriphID5 *********************************************
  ******************************************************************************************/
 /* GPIOB PID5*/
-#define GPIOB_BITBANDING_PeriphID5    ((BITBANDING_GPIOPeriphID5_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID5_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID5    ((BITBANDING_GPIOPeriphID5_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID5_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 34 PeriphID6 *********************************************
  ******************************************************************************************/
 /* GPIOB PID6*/
-#define GPIOB_BITBANDING_PeriphID6    ((BITBANDING_GPIOPeriphID6_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID6_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID6    ((BITBANDING_GPIOPeriphID6_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID6_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 35 PeriphID7 *********************************************
  ******************************************************************************************/
 /* GPIOB PID7*/
-#define GPIOB_BITBANDING_PeriphID7    ((BITBANDING_GPIOPeriphID7_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID7_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID7    ((BITBANDING_GPIOPeriphID7_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID7_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 36 PeriphID0 *********************************************
  ******************************************************************************************/
 /* GPIOB PID0*/
-#define GPIOB_BITBANDING_PeriphID0    ((BITBANDING_GPIOPeriphID0_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID0_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID0    ((BITBANDING_GPIOPeriphID0_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID0_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 37 PeriphID1 *********************************************
  ******************************************************************************************/
 /* GPIOB PID1*/
-#define GPIOB_BITBANDING_PeriphID1    ((BITBANDING_GPIOPeriphID1_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID1_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID1    ((BITBANDING_GPIOPeriphID1_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID1_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 38 PeriphID2 *********************************************
  ******************************************************************************************/
 /* GPIOB PID2*/
-#define GPIOB_BITBANDING_PeriphID2    ((BITBANDING_GPIOPeriphID2_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID2_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID2    ((BITBANDING_GPIOPeriphID2_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID2_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 39 PeriphID3 *********************************************
  ******************************************************************************************/
 /* GPIOB PID3*/
-#define GPIOB_BITBANDING_PeriphID3    ((BITBANDING_GPIOPeriphID3_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID3_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_PeriphID3    ((BITBANDING_GPIOPeriphID3_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_PeriphID3_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 40 CellID0 *********************************************
  ******************************************************************************************/
 /* GPIOB CID0*/
-#define GPIOB_BITBANDING_CellID0    ((BITBANDING_GPIOCellID0_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID0_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_CellID0    ((BITBANDING_GPIOCellID0_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID0_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 41 CellID1 *********************************************
  ******************************************************************************************/
 /* GPIOB CID1*/
-#define GPIOB_BITBANDING_CellID1    ((BITBANDING_GPIOCellID1_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID1_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_CellID1    ((BITBANDING_GPIOCellID1_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID1_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 42 CellID2 *********************************************
  ******************************************************************************************/
 /* GPIOB CID2*/
-#define GPIOB_BITBANDING_CellID2    ((BITBANDING_GPIOCellID2_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID2_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_CellID2    ((BITBANDING_GPIOCellID2_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID2_OFFSET) * 32UL)))
 
 /******************************************************************************************
  *********************************** * 43 CellID3 *********************************************
  ******************************************************************************************/
 /* GPIOB CID3*/
-#define GPIOB_BITBANDING_CellID3    ((BITBANDING_GPIOCellID3_TypeDef*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID3_OFFSET) * 32UL)))
+#define GPIOB_BITBANDING_CellID3    ((BITBANDING_GPIOCellID3_t*) (GPIO_BITBANDING_BASE + ((GPIOB_OFFSET + GPIO_CellID3_OFFSET) * 32UL)))
 
 #endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_XHEADER_GPIO_REGISTERPERIPHERAL_BITBANDING_MODULEB_H_ */

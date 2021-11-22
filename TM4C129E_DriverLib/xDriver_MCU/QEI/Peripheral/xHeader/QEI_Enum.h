@@ -223,7 +223,7 @@ typedef struct
     QEI_nINPUT_FILTER_COUNT enInputFilterCount;
     QEI_nSTALL enStall;
     QEI_nENABLE enEnableModule;
-}QEI_CONTROL_TypeDef;
+}QEI_CONTROL_t;
 
 typedef struct
 {
@@ -233,6 +233,6 @@ typedef struct
     QEI_nSIGNAL_SELECT enPhA;
     QEI_nSIGNAL_SELECT enPhB;
     QEI_nSIGNAL_SELECT enIDX;
-}QEI_SIGNAL_TypeDef;
+}QEI_SIGNAL_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_XHEADER_QEI_ENUM_H_ */

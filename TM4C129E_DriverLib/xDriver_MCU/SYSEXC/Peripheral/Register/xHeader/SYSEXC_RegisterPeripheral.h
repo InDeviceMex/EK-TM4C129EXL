@@ -27,30 +27,30 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-#define SYSEXC    ((SYSEXC_TypeDef*) (SYSEXC_BASE))
+#define SYSEXC    ((SYSEXC_t*) (SYSEXC_BASE))
 
 /******************************************************************************************
 ************************************ 1 RIS *********************************************
 ******************************************************************************************/
-#define SYSEXC_RIS    ((SYSEXCRIS_TypeDef*) (SYSEXC_BASE + SYSEXC_RIS_OFFSET))
+#define SYSEXC_RIS    ((SYSEXCRIS_t*) (SYSEXC_BASE + SYSEXC_RIS_OFFSET))
 #define SYSEXC_RIS_R    (*((volatile const uint32_t*) (SYSEXC_BASE + SYSEXC_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 2 IM *********************************************
 ******************************************************************************************/
-#define SYSEXC_IM    ((SYSEXCIM_TypeDef*) (SYSEXC_BASE + SYSEXC_IM_OFFSET))
+#define SYSEXC_IM    ((SYSEXCIM_t*) (SYSEXC_BASE + SYSEXC_IM_OFFSET))
 #define SYSEXC_IM_R    (*((volatile uint32_t*) (SYSEXC_BASE + SYSEXC_IM_OFFSET)))
 
 /******************************************************************************************
 ************************************ 3 MIS *********************************************
 ******************************************************************************************/
-#define SYSEXC_MIS    ((SYSEXCMIS_TypeDef*) (SYSEXC_BASE + SYSEXC_MIS_OFFSET))
+#define SYSEXC_MIS    ((SYSEXCMIS_t*) (SYSEXC_BASE + SYSEXC_MIS_OFFSET))
 #define SYSEXC_MIS_R    (*((volatile const uint32_t*) (SYSEXC_BASE + SYSEXC_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 IC *********************************************
 ******************************************************************************************/
-#define SYSEXC_IC    ((SYSEXCIC_TypeDef*) (SYSEXC_BASE + SYSEXC_IC_OFFSET))
+#define SYSEXC_IC    ((SYSEXCIC_t*) (SYSEXC_BASE + SYSEXC_IC_OFFSET))
 #define SYSEXC_IC_R    (*((volatile uint32_t*) (SYSEXC_BASE + SYSEXC_IC_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSEXC_SYSEXC_PERIPHERAL_SYSEXC_REGISTER_SYSEXC_REGISTERPERIPHERAL_H_ */

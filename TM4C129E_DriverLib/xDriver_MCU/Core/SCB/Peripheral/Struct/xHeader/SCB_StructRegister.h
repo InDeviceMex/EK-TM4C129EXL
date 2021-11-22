@@ -31,7 +31,7 @@ typedef volatile struct
 {
     volatile const uint32_t INTLINESNUM :5;
     const    uint32_t reserved :27;
-}ICTLR_TypeDef;
+}ICTLR_t;
 
 typedef volatile struct
 {
@@ -42,7 +42,7 @@ typedef volatile struct
     volatile uint32_t DISFPCA :1;
     volatile uint32_t DISOOFP :1;
     const    uint32_t reserved1 :22;
-}ACTLR_TypeDef;
+}ACTLR_t;
 
 typedef volatile struct
 {
@@ -51,7 +51,7 @@ typedef volatile struct
     volatile const uint32_t CON :4;
     volatile const uint32_t VARIANT :4;
     volatile const uint32_t IMPLEMENTER:8;
-}CPUID_TypeDef;
+}CPUID_t;
 
 typedef volatile struct
 {
@@ -69,13 +69,13 @@ typedef volatile struct
     volatile uint32_t       PENDSVSET :1;
     const    uint32_t       reserved3 :2;
     volatile uint32_t       NMIPENDSET :1;
-}ICSR_TypeDef   ;
+}ICSR_t   ;
 
 typedef volatile struct
 {
     const    uint32_t reserved :10;
     volatile uint32_t TBLOFF :22;
-}VTOR_TypeDef;
+}VTOR_t;
 
 typedef volatile struct
 {
@@ -87,7 +87,7 @@ typedef volatile struct
     const    uint32_t      reserved1 :4;
     volatile const uint32_t ENDIANESS :1;
     volatile uint32_t      VECTKEY :16;
-}AIRCR_TypeDef;
+}AIRCR_t;
 
 typedef volatile struct
 {
@@ -97,7 +97,7 @@ typedef volatile struct
     const    uint32_t reserved1 :1;
     volatile uint32_t SEVONPEND :1;
     const    uint32_t reserved2 :27;
-}SCR_TypeDef;
+}SCR_t;
 
 typedef volatile struct
 {
@@ -110,7 +110,7 @@ typedef volatile struct
     volatile uint32_t BFHFNMIGN :1;
     volatile uint32_t STKALIGN :1;
     const    uint32_t reserved2 :22;
-}CCR_TypeDef;
+}CCR_t;
 
 typedef volatile struct
 {
@@ -121,13 +121,13 @@ typedef volatile struct
     const    uint32_t reserved2 :5;
     volatile uint32_t USAGE :3;
     const    uint32_t reserved3 :8;
-}SHPR1_TypeDef;
+}SHPR1_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :29 ;
     volatile uint32_t SVCALL :3;
-}SHPR2_TypeDef;
+}SHPR2_t;
 
 typedef volatile struct
 {
@@ -137,7 +137,7 @@ typedef volatile struct
     volatile uint32_t PENDSV :3;
     const    uint32_t reserved2 :5;
     volatile uint32_t SYSTICK :3;
-}SHPR3_TypeDef;
+}SHPR3_t;
 
 typedef volatile struct
 {
@@ -159,7 +159,7 @@ typedef volatile struct
     volatile uint32_t BUSFAULTENA:1;
     volatile uint32_t USGFAULTENA:1;
     const    uint32_t reserved3 :13;
-}SHCSR_TypeDef;
+}SHCSR_t;
 
 typedef volatile struct
 {
@@ -187,7 +187,7 @@ typedef volatile struct
     volatile uint32_t UNALIGNED :1;
     volatile uint32_t DIVBYZERO :1;
     const    uint32_t reserved4 :6;
-}CFSR_TypeDef;
+}CFSR_t;
 
 typedef volatile struct
 {
@@ -200,7 +200,7 @@ typedef volatile struct
   const    uint32_t   reserved1 :1;
   volatile uint32_t  MMARVALID :1;
   const    uint32_t   reserved2 : 24;
-}MCFSR_TypeDef;
+}MCFSR_t;
 
 typedef volatile struct
 {
@@ -214,7 +214,7 @@ typedef volatile struct
     const    uint32_t reserved1 :1;
     volatile uint32_t BFARVALID :1;
     const    uint32_t   reserved2 :16;
-}BCFSR_TypeDef;
+}BCFSR_t;
 
 typedef volatile struct
 {
@@ -227,7 +227,7 @@ typedef volatile struct
     volatile uint32_t UNALIGNED :1;
     volatile uint32_t DIVBYZERO :1;
     const    uint32_t reserved2 :6;
-}UCFSR_TypeDef;
+}UCFSR_t;
 
 typedef volatile struct
 {
@@ -236,7 +236,7 @@ typedef volatile struct
     const    uint32_t reserved1 :28;
     volatile uint32_t FORCED :1;
     volatile uint32_t DEBUGEVT :1;
-}HFSR_TypeDef;
+}HFSR_t;
 
 typedef volatile struct
 {
@@ -246,48 +246,48 @@ typedef volatile struct
     volatile uint32_t VCATCH :1;
     volatile uint32_t EXTERNAL :1;
     const    uint32_t reserved :27;
-}DFSR_TypeDef;
+}DFSR_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADDRESS :32;
-}MMFAR_TypeDef;
+}MMFAR_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADDRESS :32;
-}BFAR_TypeDef;
+}BFAR_t;
 
 typedef volatile struct
 {
     volatile uint32_t IMPDEF :32;
-}AFSR_TypeDef;
+}AFSR_t;
 
 typedef volatile struct
 {
     volatile const uint32_t STATE0 :4;
     volatile const uint32_t STATE1 :4;
     const    uint32_t reserved :24;
-}PFR0_TypeDef;
+}PFR0_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :8;
     volatile const uint32_t MICROCONTROLLER_PROGRAMMERS_MODEL :4;
     const    uint32_t reserved1 :20;
-}PFR1_TypeDef;
+}PFR1_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :20;
     volatile const uint32_t MICROCONTROLLER_DEBUG_MODEL :4;
     const    uint32_t reserved1 :8;
-}DFR0_TypeDef;
+}DFR0_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :32;
-}AFR0_TypeDef;
+}AFR0_t;
 
 typedef volatile struct
 {
@@ -298,24 +298,24 @@ typedef volatile struct
     const    uint32_t reserved1 :4;
     volatile const uint32_t AUILIARY_REGISTER_SUPPORT :4;
     const    uint32_t reserved2 :8;
-}MMFR0_TypeDef;
+}MMFR0_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :32;
-}MMFR1_TypeDef;
+}MMFR1_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :24;
     volatile const uint32_t WAIT_FOR_INTERRUPT_STALLING :4;
     const    uint32_t reserved1 :4;
-}MMFR2_TypeDef;
+}MMFR2_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :32;
-}MMFR3_TypeDef;
+}MMFR3_t;
 
 typedef volatile struct
 {
@@ -327,7 +327,7 @@ typedef volatile struct
     volatile const uint32_t DEBUG_INSTRS :4;
     volatile const uint32_t DIVIDE_INSTRS :4;
     const    uint32_t reserved1 :4;
-}ISAR0_TypeDef;
+}ISAR0_t;
 
 typedef volatile struct
 {
@@ -337,7 +337,7 @@ typedef volatile struct
     volatile const uint32_t IMMEDIATE_INSTRS:4;
     volatile const uint32_t INTERWORK_INSTRS :4;
     const    uint32_t reserved1 :4;
-}ISAR1_TypeDef;
+}ISAR1_t;
 
 typedef volatile struct
 {
@@ -349,7 +349,7 @@ typedef volatile struct
     volatile const uint32_t MULTU_INSTRS :4;
     const    uint32_t reserved :4;
     volatile const uint32_t REVERSAL_INSTRS :4;
-}ISAR2_TypeDef;
+}ISAR2_t;
 
 typedef volatile struct
 {
@@ -361,7 +361,7 @@ typedef volatile struct
     volatile const uint32_t THUMBCOPY_INSTRS :4;
     volatile const uint32_t TRUENOP_INSTRS :4;
     const    uint32_t reserved :4;
-}ISAR3_TypeDef;
+}ISAR3_t;
 
 typedef volatile struct
 {
@@ -373,6 +373,6 @@ typedef volatile struct
     volatile const uint32_t SYNCPRIM_INSTRS_FRAC :4;
     volatile const uint32_t PSR_M_INSTRS :4;
     const    uint32_t reserved1 :4;
-}ISAR4_TypeDef;
+}ISAR4_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_STRUCT_SCB_STRUCTREGISTER_H_ */

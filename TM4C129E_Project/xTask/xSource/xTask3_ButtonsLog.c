@@ -88,12 +88,6 @@ void xTask3_ButtonsLog(void* pvParams)
                              pcStateButton[2UL]
                              );
 
-        /*
-        UART__u32Printf(UART_enMODULE_2, "%cBUTTON1: %s BUTTON2: %s SELECT: %s \n\r", (char) 0x00,
-                             pcStateButton[0UL],
-                             pcStateButton[1UL],
-                             pcStateButton[2UL]);
-                             */
         OS_Task__boResumeAll();
         u32CountTask++;
         OS_Task__vDelayUntil(&u32LastWakeTime, 75UL);

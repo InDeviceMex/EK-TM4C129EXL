@@ -34,7 +34,7 @@
 #include <xDriver_MCU/UART/Peripheral/Register/RegisterPeripheral/xHeader/UART_RegisterPeripheral_Module6.h>
 #include <xDriver_MCU/UART/Peripheral/Register/RegisterPeripheral/xHeader/UART_RegisterPeripheral_Module7.h>
 
-#define UART    ((UARTS_TypeDef*) (UART_BASE))
+#define UART    ((UARTS_t*) (UART_BASE))
 
 uint32_t UART__u32BlockBaseAddress(UART_nMODULE enModuleArg);
 
