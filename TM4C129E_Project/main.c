@@ -37,7 +37,6 @@ void Led2ON(void)
 uint32_t main(void)
 
 {
-    volatile TIMER_nEVENT enEvent = TIMER_enEVENT_ALL;
     SYSCTL_CONFIG_t stClockConfig =
     {
         SYSCTL_enXTAL_25MHZ,

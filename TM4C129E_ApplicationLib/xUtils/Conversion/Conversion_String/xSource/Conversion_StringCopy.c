@@ -44,3 +44,116 @@ char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t
     return (pcStringDest);
 }
 
+#define CONV_WORDSIZE   sizeof(int)
+#define CONV_WORDMASK   (CONV_WORDSIZE - 1UL)
+
+void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength)
+{
+    char* pcMemoryDestReg = (char*) pvMemoryDest;
+    char* pcMemorySourceReg = (char*) pvMemorySource;
+    size_t szAlign = 0UL;
+    if(((uint32_t) pvMemorySource != (uint32_t) pvMemoryDest) && (0UL != szLength ))
+    {
+        if((uint32_t) pcMemoryDestReg < (uint32_t) pcMemorySourceReg)
+        {
+            szAlign = (size_t) pcMemorySourceReg;
+            size_t szTempAlign = szAlign;
+            szTempAlign |= (size_t) pcMemoryDestReg;
+            if(szTempAlign & CONV_WORDMASK)
+            {
+                szTempAlign = szAlign ^ (size_t) pcMemoryDestReg;
+                if((szTempAlign & CONV_WORDMASK) || (szLength < CONV_WORDSIZE))
+                {
+                    szAlign =  szLength;
+                }
+                else
+                {
+                    szTempAlign = szAlign & CONV_WORDMASK;
+                    szAlign = CONV_WORDSIZE;
+                    szAlign -= szTempAlign;
+                }
+                szLength -= szAlign;
+                do
+                {
+                    *pcMemoryDestReg = *pcMemorySourceReg;
+                    pcMemoryDestReg++;
+                    pcMemorySourceReg++;
+                }while(--szAlign);
+            }
+            szAlign = szLength;
+            szAlign /= CONV_WORDSIZE;
+            if(0UL != szAlign)
+            {
+                do
+                {
+                    *((int*)pcMemoryDestReg) = *((int*)pcMemorySourceReg);
+                    pcMemorySourceReg += CONV_WORDSIZE;
+                    pcMemoryDestReg += CONV_WORDSIZE;
+                }while(--szAlign);
+            }
+            szAlign = szLength;
+            szAlign &= CONV_WORDMASK;
+            if(0UL != szAlign)
+            {
+                do
+                {
+                    *pcMemoryDestReg = *pcMemorySourceReg;
+                    pcMemorySourceReg += 1UL;
+                    pcMemoryDestReg += 1UL;
+                }while(--szAlign);
+            }
+        }
+        else
+        {
+            pcMemorySourceReg += szLength;
+            pcMemoryDestReg += szLength;
+            szAlign = (size_t) pcMemorySourceReg;
+            size_t szTempAlign = szAlign;
+            szTempAlign |= (size_t) pcMemoryDestReg;
+            if(szTempAlign & CONV_WORDMASK)
+            {
+                szTempAlign = szAlign ^ (size_t) pcMemoryDestReg;
+                if((szTempAlign & CONV_WORDMASK) || (szLength <= CONV_WORDSIZE))
+                {
+                    szAlign =  szLength;
+                }
+                else
+                {
+                    szAlign &= CONV_WORDMASK;
+                }
+                szLength -= szAlign;
+                do
+                {
+                    pcMemoryDestReg--;
+                    pcMemorySourceReg--;
+                    *pcMemoryDestReg = *pcMemorySourceReg;
+                }while(--szAlign);
+
+            }
+            szAlign = szLength;
+            szAlign /= CONV_WORDSIZE;
+            if(0UL != szAlign)
+            {
+                do
+                {
+                    pcMemorySourceReg -= CONV_WORDSIZE;
+                    pcMemoryDestReg -= CONV_WORDSIZE;
+                    *((int*)pcMemoryDestReg) = *((int*)pcMemorySourceReg);
+                }while(--szAlign);
+            }
+            szAlign = szLength;
+            szAlign &= CONV_WORDMASK;
+            if(0UL != szAlign)
+            {
+                do
+                {
+                    pcMemorySourceReg -= 1UL;
+                    pcMemoryDestReg -= 1UL;
+                    *pcMemoryDestReg = *pcMemorySourceReg;
+                }while(--szAlign);
+            }
+        }
+    }
+    return (pvMemoryDest);
+}
+

@@ -137,7 +137,7 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
 
     OS_Task__vEnterCritical();
     {
-        if(0UL != puxNotificationValue)
+        if(0UL != (uint32_t) puxNotificationValue)
         {
             *puxNotificationValue = pstCurrentTCB->uxNotifiedValue;
         }

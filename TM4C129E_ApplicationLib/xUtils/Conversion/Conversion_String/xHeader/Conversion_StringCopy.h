@@ -27,5 +27,6 @@
 #include <xUtils/Standard/Standard.h>
 
 char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t u32MaxSize);
+void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOPY_H_ */

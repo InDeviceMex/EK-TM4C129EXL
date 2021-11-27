@@ -35,7 +35,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const uint8_t u8QueueLength,
     OS_UBase_t uxQueueSizeInBytes = 0UL;
     OS_Queue_Handle_t pvReturn = (OS_Queue_Handle_t) 0UL;
 
-    if(0U < u8QueueLength);
+    if(0U < u8QueueLength)
     {
         if(0UL != uxItemSizeArg)
         {

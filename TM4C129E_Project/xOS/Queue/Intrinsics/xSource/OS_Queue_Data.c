@@ -24,6 +24,7 @@
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Data.h>
 
 #include <xOS/Task/xHeader/OS_Task_Priority.h>
+#include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCopy.h>
 
 OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
                                          const void *pvItemToQueue,
@@ -42,7 +43,7 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
     }
     else if(OS_Queue_enPos_SEND_TO_BACK == enPosition)
     {
-        (void) memcpy((void*) pstQueue->ps8WriteTo,
+        (void) CONV_pvMemoryCopy((void*) pstQueue->ps8WriteTo,
                       pvItemToQueue,
                       (size_t) pstQueue->uxItemSize);
 
@@ -54,7 +55,7 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
     }
     else
     {
-        (void) memcpy((void*) pstQueue->ps8ReadFrom,
+        (void) CONV_pvMemoryCopy((void*) pstQueue->ps8ReadFrom,
                       pvItemToQueue,
                       (size_t) pstQueue->uxItemSize);
 
@@ -93,7 +94,7 @@ void OS_Queue__vCopyDataFromQueue(OS_Queue_t* const pstQueue,
         {
             pstQueue->ps8ReadFrom = pstQueue->ps8Head;
         }
-        (void) memcpy((void*) pvBuffer,
+        (void) CONV_pvMemoryCopy((void*) pvBuffer,
                       (void*) pstQueue->ps8ReadFrom,
                       (size_t) pstQueue->uxItemSize);
     }
