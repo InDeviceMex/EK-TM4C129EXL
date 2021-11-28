@@ -26,7 +26,7 @@
 
 #include <xApplication/ST7735/Graphics/Common/ST7735_Common.h>
 
-void ST7735__vSetWorkingWindow(ST7735_Layer_Typedef* restrict enLayerArg, ST7735_DIMENSIONS_Typedef stDimesionsArg);
-void ST7735__vSetWorkingArea(ST7735_Layer_Typedef* restrict enLayerArg, ST7735_DIMENSIONS_Typedef stDimesionsArg);
+void ST7735__vSetWorkingWindow(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg);
+void ST7735__vSetWorkingArea(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg);
 
 #endif /* XAPPLICATION_ST7735_GRAPHICS_XHEADER_ST7735_WORKINGAREA_H_ */

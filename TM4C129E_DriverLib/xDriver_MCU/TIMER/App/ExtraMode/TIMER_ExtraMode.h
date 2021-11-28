@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EXTRAMODE_Typedef* pstExtraMode);
+TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EXTRAMODE_t* pstExtraMode);
 
-void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_Typedef* pstExtraMode);
-TIMER_EXTRAMODE_Typedef* TIMER__pstGetExtraMode(TIMER_nMODULE enModule);
+void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_t* pstExtraMode);
+TIMER_EXTRAMODE_t* TIMER__pstGetExtraMode(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_APP_TIMER_EXTRAMODE_TIMER_EXTRAMODE_H_ */

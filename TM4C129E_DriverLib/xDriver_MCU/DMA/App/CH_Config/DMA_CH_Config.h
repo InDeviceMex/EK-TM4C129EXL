@@ -27,11 +27,11 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetConfigStruct(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_Typedef pstConfig);
+void DMA_CH__vSetConfigStruct(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_t pstConfig);
 
-void DMA_CH__vGetConfig(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_Typedef* pstConfig);
-DMA_CONFIG_Typedef* DMA_CH__pstGetConfig(DMA_nCH_MODULE enDMAChannel);
+void DMA_CH__vGetConfig(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_t* pstConfig);
+DMA_CONFIG_t* DMA_CH__pstGetConfig(DMA_nCH_MODULE enDMAChannel);
 
-void DMA_CH__vDeleteConfigStruct(DMA_CONFIG_Typedef* pstConfig);
+void DMA_CH__vDeleteConfigStruct(DMA_CONFIG_t* pstConfig);
 
 #endif /* XDRIVER_MCU_DMA_APP_CH_CONFIG_DMA_CH_CONFIG_H_ */

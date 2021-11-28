@@ -32,9 +32,9 @@
 
 #include <xDriver_MCU/SSI/SSI.h>
 
-void ST7735__vClearSectionWrapper(ST7735_Layer_Typedef* restrict enLayerArg, ST7735_DIMENSIONS_Typedef stDimesionsArg, uint32_t u32Color);
+void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color);
 
-void ST7735__vClearSectionWrapper(ST7735_Layer_Typedef* restrict enLayerArg, ST7735_DIMENSIONS_Typedef stDimesionsArg, uint32_t u32Color)
+void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color)
 {
     uint32_t u32TotalDim = 0UL;
     if(0UL != (uint32_t) enLayerArg)
@@ -49,7 +49,7 @@ void ST7735__vClearSectionWrapper(ST7735_Layer_Typedef* restrict enLayerArg, ST7
     }
 }
 
-void ST7735__vClearSection(ST7735_Layer_Typedef* restrict enLayerArg, ST7735_DIMENSIONS_Typedef stDimesionsArg, uint32_t u32Color)
+void ST7735__vClearSection(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color)
 {
     Graphics__vClearSection(&ST7735__vClearSectionWrapper ,enLayerArg, stDimesionsArg, u32Color);
 

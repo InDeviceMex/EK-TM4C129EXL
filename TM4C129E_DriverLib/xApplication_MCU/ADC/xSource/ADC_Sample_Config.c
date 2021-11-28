@@ -27,7 +27,7 @@
 
 ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                    ADC_nMUX enMux,
-                                   const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+                                   const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)
@@ -53,7 +53,7 @@ ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequen
 }
 ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                        ADC_nMUX enMux,
-                                       const ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+                                       const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
     ADC_nSEQ_INPUT_GPIO enAdcGpioInput [ADC_enSEQ_INPUT_MAX ] =
     {
@@ -80,7 +80,7 @@ ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
 
 
 ADC_nSTATUS ADC__enGetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                   ADC_nMUX enMux, ADC_SAMPLE_CONFIG_Typedef* pstSampleConfig)
+                                   ADC_nMUX enMux, ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)

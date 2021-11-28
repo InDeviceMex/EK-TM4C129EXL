@@ -28,6 +28,6 @@
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 TIMER_nSTATUS TIMER__enSetMode_Reload(TIMER_nMODULE enModule, TIMER_nMODE enModeArg, uint32_t u32Reload);
-TIMER_nSTATUS TIMER__enSetModeStruct_Reload(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode, uint32_t u32Reload);
+TIMER_nSTATUS TIMER__enSetModeStruct_Reload(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, uint32_t u32Reload);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_APP_TIMER_MODERELOAD_TIMER_MODERELOAD_H_ */

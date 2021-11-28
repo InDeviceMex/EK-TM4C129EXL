@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vCreateModeStructPointer(TIMER_nMODE enModeArg, TIMER_MODE_Typedef* pstMode)
+void TIMER__vCreateModeStructPointer(TIMER_nMODE enModeArg, TIMER_MODE_t* pstMode)
 {
     if(0UL != (uint32_t) pstMode)
     {
@@ -42,13 +42,13 @@ void TIMER__vCreateModeStructPointer(TIMER_nMODE enModeArg, TIMER_MODE_Typedef* 
     }
 }
 
-TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enModeArg)
+TIMER_MODE_t* TIMER__pstCreateModeStruct(TIMER_nMODE enModeArg)
 {
-    TIMER_MODE_Typedef* pstMode = 0;
+    TIMER_MODE_t* pstMode = 0;
     #if defined (__TI_ARM__ )
-    pstMode = (TIMER_MODE_Typedef*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_Typedef));
+    pstMode = (TIMER_MODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_t));
     #elif defined (__GNUC__ )
-    pstMode = (TIMER_MODE_Typedef*) malloc((size_t) sizeof(TIMER_MODE_Typedef));
+    pstMode = (TIMER_MODE_t*) malloc((size_t) sizeof(TIMER_MODE_t));
     #endif
     if(0UL != (uint32_t) pstMode)
     {
@@ -65,8 +65,8 @@ TIMER_MODE_Typedef* TIMER__pstCreateModeStruct(TIMER_nMODE enModeArg)
     return (pstMode);
 }
 
-void TIMER__vDeleteModeStruct(TIMER_MODE_Typedef* pstMode)
+void TIMER__vDeleteModeStruct(TIMER_MODE_t* pstMode)
 {
     free(pstMode);
-    pstMode = (TIMER_MODE_Typedef*) 0UL;
+    pstMode = (TIMER_MODE_t*) 0UL;
 }

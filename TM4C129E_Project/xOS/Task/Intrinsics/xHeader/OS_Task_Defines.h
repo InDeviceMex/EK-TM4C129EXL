@@ -49,8 +49,8 @@
 
 typedef void * OS_Task_Handle_t;
 
-typedef OS_UBase_t (*OS_Task_HookFunction_Typedef)(void* pvParameters);
-typedef void (*OS_Task_Function_Typedef)(void* pvParameters);
+typedef OS_UBase_t (*OS_Task_HookFunction_t)(void* pvParameters);
+typedef void (*OS_Task_Function_t)(void* pvParameters);
 
 typedef struct
 {
@@ -86,7 +86,7 @@ typedef struct
     OS_UBase_t uxTaskNumber;       /*< Stores a number specifically for use by third party trace code. */
     OS_UBase_t uxBasePriority;     /*< The priority last assigned to the task - used by the priority inheritance mechanism. */
     OS_UBase_t uxMutexesHeld;
-    OS_Task_HookFunction_Typedef puxfTaskTag;
+    OS_Task_HookFunction_t puxfTaskTag;
     void *pvThreadLocalStoragePointers[OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS];
     OS_UBase_t uxRunTimeCounter;   /*< Stores the amount of time the task has spent in the Running state. */
     volatile OS_UBase_t uxNotifiedValue;

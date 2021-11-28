@@ -159,7 +159,7 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
     OS_List__vSetItemOwner(pstListItemReg, ( void*) pstTCB);
 
     pstTCB->uxCriticalNesting = 0UL;
-    pstTCB->puxfTaskTag = (OS_Task_HookFunction_Typedef) 0UL;
+    pstTCB->puxfTaskTag = (OS_Task_HookFunction_t) 0UL;
 
     for( uxCount = 0UL;
          uxCount < (OS_UBase_t) OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS;

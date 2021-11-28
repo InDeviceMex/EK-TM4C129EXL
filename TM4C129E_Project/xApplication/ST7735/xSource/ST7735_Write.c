@@ -86,7 +86,7 @@ DMACHCTL_t enDMAChControlBuffer = {
 
 void ST7735__vInitWriteDMAConfig(void)
 {
-    DMA_CONFIG_Typedef enDMAChConfig= {
+    DMA_CONFIG_t enDMAChConfig= {
         DMA_enCH_REQTYPE_BOTH,
         DMA_enCH_PERIPHERAL_ENA,
         DMA_enCH_CTL_PRIMARY ,

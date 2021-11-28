@@ -1272,6 +1272,6 @@ typedef struct
         GPIO_nDIR enDirection;
         GPIO_nOUTMODE enOutputMode;
         GPIO_nRESMODE enResistorMode;
-} GPIO_CONFIG_Typedef;
+} GPIO_CONFIG_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_ENUM_H_ */

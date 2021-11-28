@@ -30,7 +30,7 @@
 
 void EDUMKII_Common_vTimerInit(void)
 {
-    TIMER_EXTRAMODE_Typedef pstExtraMode;
+    TIMER_EXTRAMODE_t pstExtraMode;
     static uint32_t u32Init = 0UL;
     if(0UL == u32Init)
     {

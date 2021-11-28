@@ -38,7 +38,7 @@
 void EDUMKII_Microphone_vInit(void)
 {
     uint32_t* pu32MicrophoneArray = (uint32_t*) 0UL;
-    ADC_SAMPLE_CONFIG_Typedef stADC0SampleConfig = {
+    ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
         EDUMKII_MICROPHONE_INPUT,
         ADC_enSEQ_INPUT_DIFF_DIS,
         ADC_enSEQ_INPUT_ENDED_ENA,
@@ -49,7 +49,7 @@ void EDUMKII_Microphone_vInit(void)
         ADC_enCOMPARATOR_0
     };
 
-    DMA_CONFIG_Typedef enDMAChConfig= {
+    DMA_CONFIG_t enDMAChConfig= {
         DMA_enCH_REQTYPE_BOTH,
         DMA_enCH_PERIPHERAL_ENA,
         DMA_enCH_CTL_PRIMARY ,

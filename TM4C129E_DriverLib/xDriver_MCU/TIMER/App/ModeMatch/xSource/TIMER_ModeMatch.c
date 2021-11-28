@@ -37,7 +37,7 @@ TIMER_nSTATUS TIMER__enSetMode_Match(TIMER_nMODULE enModule, TIMER_nMODE enModeA
     return (enReturn);
 }
 
-TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode, uint32_t u32Match)
+TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, uint32_t u32Match)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     enReturn = TIMER__enSetModeStruct(enModule, pstMode);

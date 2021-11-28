@@ -24,6 +24,11 @@
 #include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCopy.h>
 
+static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
+static void CONV_vCopyLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength);
+static void CONV_vCopyReverseLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
+static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength);
+
 char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t u32MaxSize)
 {
     char* pcStringReg = pcStringDest;
@@ -47,111 +52,125 @@ char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t
 #define CONV_WORDSIZE   sizeof(int)
 #define CONV_WORDMASK   (CONV_WORDSIZE - 1UL)
 
+static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength)
+{
+    if(0UL != szLength)
+    {
+        do
+        {
+            *pcMemoryDest = *pcMemorySource;
+            pcMemorySource += 1UL;
+            pcMemoryDest += 1UL;
+            szLength--;
+        }while(0UL != szLength);
+    }
+
+}
+
+static void CONV_vCopyLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength)
+{
+    if(0UL != szLength)
+    {
+        do
+        {
+            *pwMemoryDest = *pwMemorySource;
+            pwMemorySource += 1UL;
+            pwMemoryDest += 1UL;
+            szLength--;
+        }while(0UL != szLength);
+    }
+
+}
+static void CONV_vCopyReverseLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength)
+{
+    if(0UL != szLength)
+    {
+        do
+        {
+            pcMemoryDest -= 1UL;
+            pcMemorySource -= 1UL;
+            *pcMemoryDest = *pcMemorySource;
+            szLength--;
+        }while(0UL != szLength);
+    }
+}
+
+static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength)
+{
+    if(0UL != szLength)
+    {
+        do
+        {
+            pwMemoryDest -= 1UL;
+            pwMemorySource -= 1UL;
+            *pwMemoryDest = *pwMemorySource;
+            szLength--;
+        }while(0UL != szLength);
+    }
+}
+
 void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength)
 {
     char* pcMemoryDestReg = (char*) pvMemoryDest;
     char* pcMemorySourceReg = (char*) pvMemorySource;
-    size_t szAlign = 0UL;
+    size_t szSizeTem = 0UL;
     if(((uint32_t) pvMemorySource != (uint32_t) pvMemoryDest) && (0UL != szLength ))
     {
         if((uint32_t) pcMemoryDestReg < (uint32_t) pcMemorySourceReg)
         {
-            szAlign = (size_t) pcMemorySourceReg;
-            size_t szTempAlign = szAlign;
+            szSizeTem = (size_t) pcMemorySourceReg;
+            size_t szTempAlign = szSizeTem;
             szTempAlign |= (size_t) pcMemoryDestReg;
             if(szTempAlign & CONV_WORDMASK)
             {
-                szTempAlign = szAlign ^ (size_t) pcMemoryDestReg;
+                szTempAlign = szSizeTem ^ (size_t) pcMemoryDestReg;
                 if((szTempAlign & CONV_WORDMASK) || (szLength < CONV_WORDSIZE))
                 {
-                    szAlign =  szLength;
+                    szSizeTem =  szLength;
                 }
                 else
                 {
-                    szTempAlign = szAlign & CONV_WORDMASK;
-                    szAlign = CONV_WORDSIZE;
-                    szAlign -= szTempAlign;
+                    szTempAlign = szSizeTem & CONV_WORDMASK;
+                    szSizeTem = CONV_WORDSIZE;
+                    szSizeTem -= szTempAlign;
                 }
-                szLength -= szAlign;
-                do
-                {
-                    *pcMemoryDestReg = *pcMemorySourceReg;
-                    pcMemoryDestReg++;
-                    pcMemorySourceReg++;
-                }while(--szAlign);
+                szLength -= szSizeTem;
+                CONV_vCopyLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
             }
-            szAlign = szLength;
-            szAlign /= CONV_WORDSIZE;
-            if(0UL != szAlign)
-            {
-                do
-                {
-                    *((int*)pcMemoryDestReg) = *((int*)pcMemorySourceReg);
-                    pcMemorySourceReg += CONV_WORDSIZE;
-                    pcMemoryDestReg += CONV_WORDSIZE;
-                }while(--szAlign);
-            }
-            szAlign = szLength;
-            szAlign &= CONV_WORDMASK;
-            if(0UL != szAlign)
-            {
-                do
-                {
-                    *pcMemoryDestReg = *pcMemorySourceReg;
-                    pcMemorySourceReg += 1UL;
-                    pcMemoryDestReg += 1UL;
-                }while(--szAlign);
-            }
+            szSizeTem = szLength;
+            szSizeTem /= CONV_WORDSIZE;
+            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (int*)pcMemorySourceReg, szSizeTem);            }
+            szSizeTem = szLength;
+            szSizeTem &= CONV_WORDMASK;
+            CONV_vCopyLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
         }
         else
         {
             pcMemorySourceReg += szLength;
             pcMemoryDestReg += szLength;
-            szAlign = (size_t) pcMemorySourceReg;
-            size_t szTempAlign = szAlign;
+            szSizeTem = (size_t) pcMemorySourceReg;
+            size_t szTempAlign = szSizeTem;
             szTempAlign |= (size_t) pcMemoryDestReg;
             if(szTempAlign & CONV_WORDMASK)
             {
-                szTempAlign = szAlign ^ (size_t) pcMemoryDestReg;
+                szTempAlign = szSizeTem ^ (size_t) pcMemoryDestReg;
                 if((szTempAlign & CONV_WORDMASK) || (szLength <= CONV_WORDSIZE))
                 {
-                    szAlign =  szLength;
+                    szSizeTem =  szLength;
                 }
                 else
                 {
-                    szAlign &= CONV_WORDMASK;
+                    szSizeTem &= CONV_WORDMASK;
                 }
-                szLength -= szAlign;
-                do
-                {
-                    pcMemoryDestReg--;
-                    pcMemorySourceReg--;
-                    *pcMemoryDestReg = *pcMemorySourceReg;
-                }while(--szAlign);
-
+                szLength -= szSizeTem;
+                CONV_vCopyReverseLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
             }
-            szAlign = szLength;
-            szAlign /= CONV_WORDSIZE;
-            if(0UL != szAlign)
-            {
-                do
-                {
-                    pcMemorySourceReg -= CONV_WORDSIZE;
-                    pcMemoryDestReg -= CONV_WORDSIZE;
-                    *((int*)pcMemoryDestReg) = *((int*)pcMemorySourceReg);
-                }while(--szAlign);
-            }
-            szAlign = szLength;
-            szAlign &= CONV_WORDMASK;
-            if(0UL != szAlign)
-            {
-                do
-                {
-                    pcMemorySourceReg -= 1UL;
-                    pcMemoryDestReg -= 1UL;
-                    *pcMemoryDestReg = *pcMemorySourceReg;
-                }while(--szAlign);
-            }
+            szSizeTem = szLength;
+            szSizeTem /= CONV_WORDSIZE;
+            CONV_vCopyReverseLoopIntIf((int*) pcMemoryDestReg, (int*) pcMemorySourceReg ,szSizeTem);
+            szSizeTem = szLength;
+            szSizeTem &= CONV_WORDMASK;
+            CONV_vCopyReverseLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
         }
     }
     return (pvMemoryDest);

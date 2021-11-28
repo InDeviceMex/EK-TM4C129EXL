@@ -533,6 +533,6 @@ typedef struct
     ADC_nSEQ_INPUT_OPERATION enOperation;
     ADC_nSEQ_SAMPLE_HOLD enSampleHold;
     ADC_nCOMPARATOR enComparator;
-}ADC_SAMPLE_CONFIG_Typedef;
+}ADC_SAMPLE_CONFIG_t;
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_ENUM_H_ */

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/TIMER/App/Mode/xHeader/TIMER_ModeStruct.h>
 #include <xDriver_MCU/TIMER/Driver/TIMER_Driver.h>
 
-TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EXTRAMODE_Typedef* pstExtraMode)
+TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EXTRAMODE_t* pstExtraMode)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstExtraMode)
@@ -52,7 +52,7 @@ TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EX
 
 }
 
-void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_Typedef* pstExtraMode)
+void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_t* pstExtraMode)
 {
     if(0UL != (uint32_t) pstExtraMode)
     {
@@ -71,13 +71,13 @@ void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_Typedef* pstEx
 
 
 
-TIMER_EXTRAMODE_Typedef* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
+TIMER_EXTRAMODE_t* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
 {
-    TIMER_EXTRAMODE_Typedef* pstExtraMode = 0UL;
+    TIMER_EXTRAMODE_t* pstExtraMode = 0UL;
     #if defined (__TI_ARM__ )
-    pstExtraMode = (TIMER_EXTRAMODE_Typedef*) memalign((size_t) 4, (size_t) sizeof(TIMER_EXTRAMODE_Typedef));
+    pstExtraMode = (TIMER_EXTRAMODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_EXTRAMODE_t));
     #elif defined (__GNUC__ )
-    pstExtraMode = (TIMER_EXTRAMODE_Typedef*) malloc((size_t) sizeof(TIMER_EXTRAMODE_Typedef));
+    pstExtraMode = (TIMER_EXTRAMODE_t*) malloc((size_t) sizeof(TIMER_EXTRAMODE_t));
     #endif
 
     if(0UL != (uint32_t) pstExtraMode)

@@ -647,7 +647,7 @@ typedef struct
     uint32_t sourceInc :2;
     uint32_t destSize :2;
     uint32_t destInc :2;
-}DMA_CONTROL_Typedef;
+}DMA_CONTROL_t;
 #endif
 
 typedef struct
@@ -660,7 +660,7 @@ typedef struct
     DMA_nCH_SRC_INC enSourceInc;
     DMA_nCH_DST_SIZE enDestSize;
     DMA_nCH_DST_INC enDestInc;
-}DMA_CONTROL_Typedef;
+}DMA_CONTROL_t;
 
 typedef struct
 {
@@ -669,6 +669,6 @@ typedef struct
     DMA_nCH_CTL enControlStructure;
     DMA_nCH_PRIO enChannelPriority;
     DMA_nCH_ENCODER enEncoder;
-}DMA_CONFIG_Typedef;
+}DMA_CONFIG_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_ENUM_H_ */

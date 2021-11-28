@@ -28,8 +28,8 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
 void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
-                               OS_Task_HookFunction_Typedef puxfHookFunctionArg);
-OS_Task_HookFunction_Typedef OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg);
+                               OS_Task_HookFunction_t puxfHookFunctionArg);
+OS_Task_HookFunction_t OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg);
 OS_UBase_t OS_task__uxCallApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                       void* pvParameterArg);
 

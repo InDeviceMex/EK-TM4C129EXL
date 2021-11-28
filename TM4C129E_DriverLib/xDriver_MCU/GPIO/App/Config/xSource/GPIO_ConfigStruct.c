@@ -25,7 +25,7 @@
 
 #include <stdlib.h>
 
-void GPIO__vCreateConfigStructPointer(GPIO_nCONFIG enConfig, GPIO_CONFIG_Typedef *pstConfig)
+void GPIO__vCreateConfigStructPointer(GPIO_nCONFIG enConfig, GPIO_CONFIG_t *pstConfig)
 {
     uint32_t u32Reg = 0UL;
     uint32_t u32Config = 0UL;
@@ -54,16 +54,16 @@ void GPIO__vCreateConfigStructPointer(GPIO_nCONFIG enConfig, GPIO_CONFIG_Typedef
     }
 }
 
-GPIO_CONFIG_Typedef* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
+GPIO_CONFIG_t* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
 {
     uint32_t u32Reg = 0UL;
     uint32_t u32Config = 0UL;
-    GPIO_CONFIG_Typedef *pstConfig = 0UL;
+    GPIO_CONFIG_t *pstConfig = 0UL;
 #if defined (__TI_ARM__ )
-    pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4,
-                                                 (size_t) (sizeof(GPIO_CONFIG_Typedef)));
+    pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
+                                                 (size_t) (sizeof(GPIO_CONFIG_t)));
 #elif defined (__GNUC__ )
-    pstConfig = (GPIO_CONFIG_Typedef*) malloc((size_t) sizeof(GPIO_CONFIG_Typedef));
+    pstConfig = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
     #endif
 
     if(0UL != (uint32_t) pstConfig)
@@ -92,9 +92,9 @@ GPIO_CONFIG_Typedef* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
     return (pstConfig);
 }
 
-void GPIO__vDeleteConfigStruct(GPIO_CONFIG_Typedef *pstConfig)
+void GPIO__vDeleteConfigStruct(GPIO_CONFIG_t *pstConfig)
 {
     free(pstConfig);
-    pstConfig = (GPIO_CONFIG_Typedef*) 0UL;
+    pstConfig = (GPIO_CONFIG_t*) 0UL;
 }
 

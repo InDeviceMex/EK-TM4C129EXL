@@ -30,7 +30,7 @@
 TIMER_nSTATUS TIMER__enSetMode(TIMER_nMODULE enModule, TIMER_nMODE enModeArg)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
-    TIMER_MODE_Typedef* pstMode = TIMER__pstCreateModeStruct(enModeArg);
+    TIMER_MODE_t* pstMode = TIMER__pstCreateModeStruct(enModeArg);
 
     if(0UL != (uint32_t) pstMode)
     {
@@ -53,7 +53,7 @@ TIMER_nSTATUS TIMER__enSetMode(TIMER_nMODULE enModule, TIMER_nMODE enModeArg)
 
 }
 
-TIMER_nSTATUS TIMER__enSetModeStruct(TIMER_nMODULE enModule, const TIMER_MODE_Typedef* pstMode)
+TIMER_nSTATUS TIMER__enSetModeStruct(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstMode)
@@ -115,7 +115,7 @@ TIMER_nMODE TIMER__enGetMode(TIMER_nMODULE enModule)
     return (enModeVar);
 }
 
-TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_Typedef* pstMode)
+TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_t* pstMode)
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstMode)
@@ -134,13 +134,13 @@ TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_Typedef*
     return (enStatus);
 }
 
-TIMER_MODE_Typedef* TIMER__pstGetMode(TIMER_nMODULE enModule)
+TIMER_MODE_t* TIMER__pstGetMode(TIMER_nMODULE enModule)
 {
-    TIMER_MODE_Typedef* pstMode = 0UL;
+    TIMER_MODE_t* pstMode = 0UL;
     #if defined (__TI_ARM__ )
-    pstMode = (TIMER_MODE_Typedef*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_Typedef));
+    pstMode = (TIMER_MODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_t));
     #elif defined (__GNUC__ )
-    pstMode = (TIMER_MODE_Typedef*) malloc(sizeof(TIMER_MODE_Typedef));
+    pstMode = (TIMER_MODE_t*) malloc(sizeof(TIMER_MODE_t));
     #endif
     if(0UL != (uint32_t) pstMode)
     {

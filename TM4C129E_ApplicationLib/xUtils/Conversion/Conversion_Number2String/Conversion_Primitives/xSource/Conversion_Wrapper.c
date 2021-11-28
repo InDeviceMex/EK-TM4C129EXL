@@ -62,12 +62,12 @@ void Conv__vOutFunction(char cCharacter, void* pvBuffer, uint32_t u32Index, uint
 {
     (void)u32Index; (void)u32MaxLenght;
     CONV_OUT_WRAPPER_t* pvOutWrapper = 0;
-    CONV_FUNCTION_Typedef pvOutFunction = 0;
+    CONV_FUNCTION_t pvOutFunction = 0;
     void* pvOutFunctionArguments = 0;
     if((void*)0 != pvBuffer)
     {
       pvOutWrapper = (CONV_OUT_WRAPPER_t*)pvBuffer;
-      pvOutFunction = (CONV_FUNCTION_Typedef) pvOutWrapper->pfvFunction;
+      pvOutFunction = (CONV_FUNCTION_t) pvOutWrapper->pfvFunction;
       pvOutFunctionArguments = pvOutWrapper->pvArguments;
       if ((char)0 != cCharacter)
       {

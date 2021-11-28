@@ -27,7 +27,7 @@
 #include <xApplication_MCU/WDT/xHeader/WDT_DisInterrupt.h>
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Dependencies.h>
 
-WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_Typedef* pstMode)
+WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_t* pstMode)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
     if((uint32_t) 0U != (uint32_t) pstMode )
@@ -52,7 +52,7 @@ WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_Typedef* p
 WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enModeArg)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
-    WDT_MODE_Typedef* pstMode = WDT__pstCreateModeStruct(enModeArg);
+    WDT_MODE_t* pstMode = WDT__pstCreateModeStruct(enModeArg);
 
     if(0UL != (uint32_t) pstMode )
     {
@@ -87,7 +87,7 @@ WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule)
     return (enModeReg);
 }
 
-void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_Typedef* pstMode)
+void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_t* pstMode)
 {
     if(0UL != (uint32_t) pstMode )
     {
@@ -98,13 +98,13 @@ void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_Typedef* pstMode)
     }
 }
 
-WDT_MODE_Typedef* WDT__pstGetMode(WDT_nMODULE enModule)
+WDT_MODE_t* WDT__pstGetMode(WDT_nMODULE enModule)
 {
-    WDT_MODE_Typedef* pstMode = (WDT_MODE_Typedef*) 0UL;
+    WDT_MODE_t* pstMode = (WDT_MODE_t*) 0UL;
     #if defined (__TI_ARM__ )
-    pstMode = (WDT_MODE_Typedef*) memalign((size_t) 4UL, (size_t) sizeof(WDT_MODE_Typedef) );
+    pstMode = (WDT_MODE_t*) memalign((size_t) 4UL, (size_t) sizeof(WDT_MODE_t) );
     #elif defined (__GNUC__ )
-    pstMode = (WDT_MODE_Typedef*) malloc(sizeof(WDT_MODE_Typedef));
+    pstMode = (WDT_MODE_t*) malloc(sizeof(WDT_MODE_t));
     #endif
     if(0UL != (uint32_t) pstMode )
     {

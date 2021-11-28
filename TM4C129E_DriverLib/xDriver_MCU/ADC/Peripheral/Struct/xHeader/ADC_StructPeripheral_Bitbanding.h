@@ -70,7 +70,7 @@ typedef volatile struct
           volatile uint32_t SSTSH [32UL];
           BITBANDING_ADCSSTSH8_t SSTSH_Bit;
       };
-}BITBANDING_ADCINPUT_Typedef;
+}BITBANDING_ADCINPUT_t;
 
 typedef volatile struct
 {
@@ -149,7 +149,7 @@ typedef volatile struct
 
     const uint32_t reserved1 [32UL];
 
-    BITBANDING_ADCINPUT_Typedef INPUT [4UL];
+    BITBANDING_ADCINPUT_t INPUT [4UL];
 
     const uint32_t reserved5 [32UL * 784UL];
     union

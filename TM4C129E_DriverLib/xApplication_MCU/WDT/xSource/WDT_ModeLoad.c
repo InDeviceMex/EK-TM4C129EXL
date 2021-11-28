@@ -36,7 +36,7 @@ WDT_nSTATUS WDT__enSetMode_Load(WDT_nMODULE enModule, WDT_nMODE enModeArg, uint3
 }
 
 WDT_nSTATUS WDT__enSetModeStruct_Load(WDT_nMODULE enModule,
-                                      const WDT_MODE_Typedef* pstMode,
+                                      const WDT_MODE_t* pstMode,
                                       uint32_t u32Load)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;

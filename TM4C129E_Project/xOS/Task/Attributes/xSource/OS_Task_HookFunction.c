@@ -26,7 +26,7 @@
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
 void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
-                               OS_Task_HookFunction_Typedef puxfHookFunctionArg)
+                               OS_Task_HookFunction_t puxfHookFunctionArg)
 {
     OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
     OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
@@ -45,11 +45,11 @@ void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
     pstTCB->puxfTaskTag = puxfHookFunctionArg;
     OS_Task__vExitCritical();
 }
-OS_Task_HookFunction_Typedef OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg)
+OS_Task_HookFunction_t OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg)
 {
     OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
     OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
-    OS_Task_HookFunction_Typedef puxfReturn = (OS_Task_HookFunction_Typedef) 0UL;
+    OS_Task_HookFunction_t puxfReturn = (OS_Task_HookFunction_t) 0UL;
 
     if(0UL == (OS_UBase_t) pvTaskArg)
     {

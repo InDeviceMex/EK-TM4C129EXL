@@ -62,11 +62,11 @@ typedef union {
   float64_t   FLOAT;
 } CONV_FLOAT_UNION_t;
 
-typedef void (*CONV_FUNCTION_Typedef) (char cCharacter, void* pvFuncArguments);
+typedef void (*CONV_FUNCTION_t) (char cCharacter, void* pvFuncArguments);
 typedef void (*CONV_OUT_t) (char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);
 
 typedef struct {
-  CONV_FUNCTION_Typedef  pfvFunction;
+  CONV_FUNCTION_t  pfvFunction;
   void* pvArguments;
 } CONV_OUT_WRAPPER_t;
 

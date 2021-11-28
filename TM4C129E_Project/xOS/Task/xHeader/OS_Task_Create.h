@@ -27,7 +27,7 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
+OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
                                         const char * const pcNameArg,
                                         OS_UBase_t uxStackDepthArg,
                                         void * const pvParametersArg,

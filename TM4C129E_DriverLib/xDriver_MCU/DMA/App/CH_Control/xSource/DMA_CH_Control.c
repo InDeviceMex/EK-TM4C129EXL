@@ -28,20 +28,20 @@
 #include <xDriver_MCU/DMA/Driver/DMA_Driver.h>
 
 void DMA_CH__vSetPrimaryControlStruct(DMA_nCH_MODULE enDMAChannel,
-                                      DMA_CONTROL_Typedef pstControl)
+                                      DMA_CONTROL_t pstControl)
 {
     DMA_CH__vSetControlStruct(enDMAChannel, DMA_enCH_CTL_PRIMARY, pstControl);
 }
 
 void DMA_CH__vSetAlternateControlStruct(DMA_nCH_MODULE enDMAChannel,
-                                        DMA_CONTROL_Typedef pstControl)
+                                        DMA_CONTROL_t pstControl)
 {
     DMA_CH__vSetControlStruct(enDMAChannel, DMA_enCH_CTL_ALTERNATE, pstControl);
 }
 
 void DMA_CH__vSetControlStruct(DMA_nCH_MODULE enDMAChannel,
                                DMA_nCH_CTL enChannelStructure,
-                               DMA_CONTROL_Typedef pstControl)
+                               DMA_CONTROL_t pstControl)
 {
     DMA_CH__vSetTransferMode(enDMAChannel, enChannelStructure, pstControl.enTransferMode);
     DMA_CH__vSetBurst(enDMAChannel, enChannelStructure, pstControl.enUseBurst);
@@ -54,7 +54,7 @@ void DMA_CH__vSetControlStruct(DMA_nCH_MODULE enDMAChannel,
 }
 
 DMA_nSTATUS DMA_CH__enGetPrimaryControl(DMA_nCH_MODULE enDMAChannel,
-                                        DMA_CONTROL_Typedef* pstControl)
+                                        DMA_CONTROL_t* pstControl)
 {
     DMA_nSTATUS enStatusReg = DMA_enSTATUS_ERROR;
     enStatusReg = DMA_CH__enGetControl(enDMAChannel, DMA_enCH_CTL_PRIMARY, pstControl);
@@ -62,7 +62,7 @@ DMA_nSTATUS DMA_CH__enGetPrimaryControl(DMA_nCH_MODULE enDMAChannel,
 }
 
 DMA_nSTATUS DMA_CH__enGetAlternateControl(DMA_nCH_MODULE enDMAChannel,
-                                          DMA_CONTROL_Typedef* pstControl)
+                                          DMA_CONTROL_t* pstControl)
 {
     DMA_nSTATUS enStatusReg = DMA_enSTATUS_ERROR;
     enStatusReg = DMA_CH__enGetControl(enDMAChannel, DMA_enCH_CTL_ALTERNATE, pstControl);
@@ -71,7 +71,7 @@ DMA_nSTATUS DMA_CH__enGetAlternateControl(DMA_nCH_MODULE enDMAChannel,
 
 DMA_nSTATUS DMA_CH__enGetControl(DMA_nCH_MODULE enDMAChannel,
                                  DMA_nCH_CTL enChannelStructure,
-                                 DMA_CONTROL_Typedef* pstControl)
+                                 DMA_CONTROL_t* pstControl)
 {
     DMA_nSTATUS enStatusReg = DMA_enSTATUS_ERROR;
 
@@ -89,32 +89,32 @@ DMA_nSTATUS DMA_CH__enGetControl(DMA_nCH_MODULE enDMAChannel,
     return (enStatusReg);
 }
 
-DMA_CONTROL_Typedef* DMA_CH__pstGetPrimaryControl(DMA_nCH_MODULE enDMAChannel)
+DMA_CONTROL_t* DMA_CH__pstGetPrimaryControl(DMA_nCH_MODULE enDMAChannel)
 {
     return (DMA_CH__pstGetControl(enDMAChannel, DMA_enCH_CTL_PRIMARY));
 }
 
-DMA_CONTROL_Typedef* DMA_CH__pstGetAlternateControl(DMA_nCH_MODULE enDMAChannel)
+DMA_CONTROL_t* DMA_CH__pstGetAlternateControl(DMA_nCH_MODULE enDMAChannel)
 {
     return (DMA_CH__pstGetControl(enDMAChannel, DMA_enCH_CTL_ALTERNATE));
 }
 
-DMA_CONTROL_Typedef* DMA_CH__pstGetControl(DMA_nCH_MODULE enDMAChannel,
+DMA_CONTROL_t* DMA_CH__pstGetControl(DMA_nCH_MODULE enDMAChannel,
                                            DMA_nCH_CTL enChannelStructure)
 {
-    DMA_CONTROL_Typedef* pstControl = 0UL;
+    DMA_CONTROL_t* pstControl = 0UL;
     #if defined (__TI_ARM__ )
-    pstControl = (DMA_CONTROL_Typedef*) memalign( (size_t) 4,
-                                                  (size_t) sizeof(DMA_CONTROL_Typedef));
+    pstControl = (DMA_CONTROL_t*) memalign( (size_t) 4,
+                                                  (size_t) sizeof(DMA_CONTROL_t));
     #elif defined (__GNUC__ )
-    pstControl = (DMA_CONTROL_Typedef*) malloc(sizeof(DMA_CONTROL_Typedef));
+    pstControl = (DMA_CONTROL_t*) malloc(sizeof(DMA_CONTROL_t));
     #endif
     DMA_CH__enGetControl(enDMAChannel, enChannelStructure, pstControl);
     return (pstControl);
 }
 
-void DMA_CH__vDeleteControlStruct(DMA_CONTROL_Typedef* pstControl)
+void DMA_CH__vDeleteControlStruct(DMA_CONTROL_t* pstControl)
 {
     free(pstControl);
-    pstControl = (DMA_CONTROL_Typedef*) 0UL;
+    pstControl = (DMA_CONTROL_t*) 0UL;
 }

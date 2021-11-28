@@ -39,7 +39,7 @@
 void EDUMKII_Accelerometer_vInit(void)
 {
     uint32_t* pu32AccelerometerArray = (uint32_t*) 0UL;
-    ADC_SAMPLE_CONFIG_Typedef stADC0SampleConfig = {
+    ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
      ADC_enSEQ_INPUT_0,
      ADC_enSEQ_INPUT_DIFF_DIS,
      ADC_enSEQ_INPUT_ENDED_DIS,
@@ -50,7 +50,7 @@ void EDUMKII_Accelerometer_vInit(void)
      ADC_enCOMPARATOR_0
     };
 
-    DMA_CONFIG_Typedef enDMAChConfig = {
+    DMA_CONFIG_t enDMAChConfig = {
         DMA_enCH_REQTYPE_BOTH, DMA_enCH_PERIPHERAL_ENA, DMA_enCH_CTL_PRIMARY, DMA_enCH_PRIO_HIGH, DMA_enCH_ENCODER_0
     };
 

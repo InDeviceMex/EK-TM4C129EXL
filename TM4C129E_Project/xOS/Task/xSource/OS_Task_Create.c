@@ -31,7 +31,7 @@
 static void OS_Task__vInitialiseTaskLists( void );
 
 
-OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_Typedef pfvTaskCodeArg,
+OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
                                         const char * const pcNameArg,
                                         OS_UBase_t uxStackDepthArg,
                                         void * const pvParametersArg,

@@ -42,7 +42,7 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
 
     if(GPIO_enGPIO_UNDEF != enFunction)
     {
-        GPIO_CONFIG_Typedef *pstConfig = GPIO__pstCreateConfigStruct(enConfigParam);
+        GPIO_CONFIG_t *pstConfig = GPIO__pstCreateConfigStruct(enConfigParam);
 
         if(0UL != (uint32_t) pstConfig)
         {
@@ -73,7 +73,7 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
 }
 
 GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
-                                            const GPIO_CONFIG_Typedef *pstConfig)
+                                            const GPIO_CONFIG_t *pstConfig)
 {
     GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
 
@@ -155,7 +155,7 @@ GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
     return (enConfig);
 }
 
-void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_Typedef *pstConfig)
+void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_t *pstConfig)
 {
     GPIO_nPORT enPort = GPIO_enPORT_A;
     GPIO_nPIN enPin = GPIO_enPIN_0;
@@ -186,9 +186,9 @@ void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_Type
     }
 }
 
-GPIO_CONFIG_Typedef* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
+GPIO_CONFIG_t* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
 {
-    GPIO_CONFIG_Typedef *pstConfig = 0UL;
+    GPIO_CONFIG_t *pstConfig = 0UL;
 
     GPIO_nPORT enPort = GPIO_enPORT_A;
     GPIO_nPIN enPin = GPIO_enPIN_0;
@@ -199,10 +199,10 @@ GPIO_CONFIG_Typedef* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction
     if(GPIO_enGPIO_UNDEF != enFunction)
     {
     #if defined (__TI_ARM__ )
-        pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4,
-                                             (size_t) (sizeof(GPIO_CONFIG_Typedef) ));
+        pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
+                                             (size_t) (sizeof(GPIO_CONFIG_t) ));
     #elif defined (__GNUC__ )
-        pstConfig = (GPIO_CONFIG_Typedef*) malloc( (size_t) sizeof(GPIO_CONFIG_Typedef));
+        pstConfig = (GPIO_CONFIG_t*) malloc( (size_t) sizeof(GPIO_CONFIG_t));
     #endif
 
         if(0UL != (uint32_t) pstConfig)

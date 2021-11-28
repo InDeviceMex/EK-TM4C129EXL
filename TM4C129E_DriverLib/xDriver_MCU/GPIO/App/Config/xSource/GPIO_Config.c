@@ -31,7 +31,7 @@ GPIO_nSTATUS GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
                                GPIO_nCONFIG enConfigParam)
 {
     GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
-    GPIO_CONFIG_Typedef *pstConfig = GPIO__pstCreateConfigStruct(enConfigParam);
+    GPIO_CONFIG_t *pstConfig = GPIO__pstCreateConfigStruct(enConfigParam);
 
     if(0UL != (uint32_t) pstConfig)
     {
@@ -46,7 +46,7 @@ GPIO_nSTATUS GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
 }
 
 GPIO_nSTATUS GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPIN enPin,
-                                     const GPIO_CONFIG_Typedef *pstConfig)
+                                     const GPIO_CONFIG_t *pstConfig)
 {
     GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstConfig)
@@ -89,7 +89,7 @@ GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
     return (enConfig);
 }
 
-void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_Typedef *pstConfig)
+void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_t *pstConfig)
 {
     if(0UL != (uint32_t) pstConfig)
     {
@@ -100,14 +100,14 @@ void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_Typedef *p
     }
 }
 
-GPIO_CONFIG_Typedef* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_CONFIG_t* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
-    GPIO_CONFIG_Typedef *pstConfig = 0UL;
+    GPIO_CONFIG_t *pstConfig = 0UL;
 #if defined (__TI_ARM__ )
-    pstConfig = (GPIO_CONFIG_Typedef*) memalign( (size_t) 4,
-                                                 (size_t) (sizeof(GPIO_CONFIG_Typedef)));
+    pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
+                                                 (size_t) (sizeof(GPIO_CONFIG_t)));
 #elif defined (__GNUC__ )
-    pstConfig = (GPIO_CONFIG_Typedef*) malloc((size_t) sizeof(GPIO_CONFIG_Typedef));
+    pstConfig = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
     #endif
 
     if(0UL != (uint32_t) pstConfig)

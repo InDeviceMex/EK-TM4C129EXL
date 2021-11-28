@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_Typedef* pstMode)
+void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_t* pstMode)
 {
     if((uint32_t) 0U != (uint32_t) pstMode )
     {
@@ -37,13 +37,13 @@ void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_Typedef* pstMod
     }
 }
 
-WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enModeArg)
+WDT_MODE_t* WDT__pstCreateModeStruct(WDT_nMODE enModeArg)
 {
-    WDT_MODE_Typedef* pstMode = (WDT_MODE_Typedef*) 0UL;
+    WDT_MODE_t* pstMode = (WDT_MODE_t*) 0UL;
     #if defined (__TI_ARM__ )
-    pstMode = (WDT_MODE_Typedef*) memalign((size_t) 4UL, (size_t) sizeof(WDT_MODE_Typedef));
+    pstMode = (WDT_MODE_t*) memalign((size_t) 4UL, (size_t) sizeof(WDT_MODE_t));
     #elif defined (__GNUC__ )
-    pstMode = (WDT_MODE_Typedef*) malloc((size_t) sizeof(WDT_MODE_Typedef));
+    pstMode = (WDT_MODE_t*) malloc((size_t) sizeof(WDT_MODE_t));
     #endif
     if(0UL != (uint32_t) pstMode )
     {
@@ -52,8 +52,8 @@ WDT_MODE_Typedef* WDT__pstCreateModeStruct(WDT_nMODE enModeArg)
     return (pstMode);
 }
 
-void WDT__vDeleteModeStruct(WDT_MODE_Typedef* pstMode)
+void WDT__vDeleteModeStruct(WDT_MODE_t* pstMode)
 {
     free(pstMode);
-    pstMode = (WDT_MODE_Typedef*) 0UL;
+    pstMode = (WDT_MODE_t*) 0UL;
 }

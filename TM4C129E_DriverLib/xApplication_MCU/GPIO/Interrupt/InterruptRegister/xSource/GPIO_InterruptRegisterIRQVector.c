@@ -73,7 +73,7 @@ void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
     {
         if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
         {
-            if(GPIO_enPIN_0 != enPinNumber)
+            if(GPIO_enPIN_NUMBER0 != enPinNumber)
             {
                 enVector = SCB_enVECISR_GPIO_PQ[u32Port][u32PinNumber];
                 SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,

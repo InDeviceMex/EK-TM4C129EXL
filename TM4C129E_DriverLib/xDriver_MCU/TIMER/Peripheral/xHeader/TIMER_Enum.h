@@ -479,7 +479,7 @@ typedef struct
     TIMER_nPWM_OUT_INIT enPWMOutInit;
     TIMER_nPWM_OUTPUT enPWMOut;
     TIMER_nEDGE_EVENT enEdgeEvent;
-}TIMER_MODE_Typedef;
+}TIMER_MODE_t;
 
 typedef struct
 {
@@ -493,6 +493,6 @@ typedef struct
     TIMER_nADC_TRIGGER enADCTrigger;
     TIMER_nTIMEOUT_INT enTimeOutInterrupt;
     TIMER_nMATCH_EVENT enMatchEvent;
-}TIMER_EXTRAMODE_Typedef;
+}TIMER_EXTRAMODE_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_ENUM_H_ */

@@ -28,10 +28,10 @@
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
 WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enModeArg);
-WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_Typedef* pstMode);
+WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_t* pstMode);
 
 WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule);
-void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_Typedef* pstMode);
-WDT_MODE_Typedef* WDT__pstGetMode(WDT_nMODULE enModule);
+void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_t* pstMode);
+WDT_MODE_t* WDT__pstGetMode(WDT_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_WDT_XHEADER_WDT_MODE_H_ */

@@ -152,7 +152,7 @@ typedef struct
     WDT_nSTALL enStall;
     WDT_nINT_TYPE enIntType;
     WDT_nRESET enResetOutput;
-}WDT_MODE_Typedef;
+}WDT_MODE_t;
 
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_ENUM_H_ */

@@ -96,7 +96,7 @@ void GPIO_SW__vRegisterIRQSourceHandler_PQ(void (*pfIrqSourceHandler) (void),
     {
         if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
         {
-            if(GPIO_enPIN_0 != enPinNumber)
+            if(GPIO_enPIN_NUMBER0 != enPinNumber)
             {
                 MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                        GPIO_SW__pvfGetIRQSourceHandlerPointer_PQ(enPort, enPinNumber),

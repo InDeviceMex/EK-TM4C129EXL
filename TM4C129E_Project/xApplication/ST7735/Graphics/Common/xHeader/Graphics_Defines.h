@@ -26,7 +26,7 @@
 
 #include <xUtils/Graphics/Common/Graphics_Common.h>
 
-typedef Graphics_Layer_t ST7735_Layer_Typedef;
-typedef Graphics_DIMENSIONS_t ST7735_DIMENSIONS_Typedef;
+typedef Graphics_Layer_t ST7735_Layer_t;
+typedef Graphics_DIMENSIONS_t ST7735_DIMENSIONS_t;
 
 #endif /* XAPPLICATION_ST7735_GRAPHICS_COMMON_XHEADER_GRAPHICS_DEFINES_H_ */
