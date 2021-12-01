@@ -26,23 +26,7 @@
 static OS_List_t OS_Task_stPendingReadyList = (OS_List_t) {0UL};
 static OS_List_t OS_Task_stSuspendedTaskList = (OS_List_t) {0UL};
 
-static volatile OS_UBase_t OS_Task_uxPendedTicks = 0UL;
 static volatile OS_Boolean_t OS_Task_boYieldPending = FALSE;
-
-OS_UBase_t OS_Task__uxGetPendedTicks(void)
-{
-    return (OS_Task_uxPendedTicks);
-}
-
-void OS_Task__vSetPendedTicks(OS_UBase_t uxValueArg)
-{
-    OS_Task_uxPendedTicks = uxValueArg;
-}
-
-void OS_Task__vIncreasePendedTicks(void)
-{
-    ++OS_Task_uxPendedTicks;
-}
 
 OS_Boolean_t OS_Task__boGetYieldPending(void)
 {

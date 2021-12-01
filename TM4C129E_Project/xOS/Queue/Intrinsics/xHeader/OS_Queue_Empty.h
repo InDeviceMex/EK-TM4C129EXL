@@ -28,6 +28,6 @@
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Defines.h>
 
 OS_Boolean_t OS_Queue__boIsQueueEmpty(const OS_Queue_t* pstQueue);
-OS_Boolean_t OS_Queue__boIsQueueEmptyFromISR(const OS_Queue_Handle_t* pstQueue);
+OS_Boolean_t OS_Queue__boIsQueueEmptyFromISR(const OS_Queue_Handle_t* const pstQueue);
 
 #endif /* XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_EMPTY_H_ */

@@ -219,7 +219,7 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
                 (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 OS_Task__vAddTaskToReadyList(pstTCB);
 
-                pstTCBOwnerList = (OS_List_t*) OS_List__pvItemContainer( &( pstTCB->stEventListItem));
+                pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer( &( pstTCB->stEventListItem));
                 if(0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
                     OS_Task__vResetNextTaskUnblockTime();
@@ -299,7 +299,7 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
 
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
-                pstTCBOwnerList = (OS_List_t*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+                pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
                 if(0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
                     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
@@ -355,7 +355,7 @@ void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_t pvTaskToNotify,
 
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
-                pstTCBOwnerList = (OS_List_t*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+                pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
                 if( 0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
                     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();

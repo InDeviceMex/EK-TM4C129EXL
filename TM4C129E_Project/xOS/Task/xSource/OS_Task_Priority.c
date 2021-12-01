@@ -137,16 +137,16 @@ void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority)
 
 }
 
-void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolder)
+void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolderArg)
 {
     OS_List_t* pstReadyList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolder;
+    OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolderArg;
     OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t uxEventValue = 0UL;
     OS_UBase_t uxListSize = 0UL;
     OS_Boolean_t boIsListOwner = FALSE;
 
-    if(0UL != (OS_UBase_t) pvMutexHolder)
+    if(0UL != (OS_UBase_t) pvMutexHolderArg)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB->uxPriorityTask < pstCurrentTCB->uxPriorityTask )
@@ -180,15 +180,15 @@ void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolder)
     }
 }
 
-OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolder)
+OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderArg)
 {
-    OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolder;
+    OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolderArg;
     OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t uxListSize = 0UL;
     OS_UBase_t uxPriority = 0UL;
     OS_Boolean_t boReturn = FALSE;
 
-    if(0UL != (uint32_t) pvMutexHolder)
+    if(0UL != (uint32_t) pvMutexHolderArg)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if(pstTCB == pstCurrentTCB)

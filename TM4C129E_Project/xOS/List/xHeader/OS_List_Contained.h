@@ -27,7 +27,7 @@
 
 #include <xOS/List/xHeader/OS_List_Defines.h>
 
-void* OS_List__pvItemContainer(const OS_ListItem_t* const pstListItemArg);
+void* OS_List__pvGetItemContainer(const OS_ListItem_t* const pstListItemArg);
 
 OS_Boolean_t OS_List__boIsContainedWithin(const OS_List_t* const pstListArg ,
                                           const OS_ListItem_t* const pstListItemArg);

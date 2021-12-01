@@ -31,6 +31,7 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
                                          const OS_Queue_nPos enPosition)
 {
     OS_Boolean_t boReturn = FALSE;
+    size_t szItemSizeReg = 0UL;
 
     if(0UL == pstQueue->uxItemSize)
     {
@@ -43,9 +44,10 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
     }
     else if(OS_Queue_enPos_SEND_TO_BACK == enPosition)
     {
+        szItemSizeReg = pstQueue->uxItemSize;
         (void) CONV_pvMemoryCopy((void*) pstQueue->ps8WriteTo,
                       pvItemToQueue,
-                      (size_t) pstQueue->uxItemSize);
+                      (size_t) szItemSizeReg);
 
         pstQueue->ps8WriteTo += pstQueue->uxItemSize;
         if(pstQueue->ps8WriteTo >= pstQueue->ps8Tail)
@@ -55,9 +57,10 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
     }
     else
     {
+        szItemSizeReg = pstQueue->uxItemSize;
         (void) CONV_pvMemoryCopy((void*) pstQueue->ps8ReadFrom,
                       pvItemToQueue,
-                      (size_t) pstQueue->uxItemSize);
+                      (size_t) szItemSizeReg);
 
         pstQueue->ps8ReadFrom -= pstQueue->uxItemSize;
         if(pstQueue->ps8ReadFrom < pstQueue->ps8Head)

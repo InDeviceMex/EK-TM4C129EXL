@@ -42,7 +42,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateCountingSemaphore(const OS_UBase_t uxMaxCoun
             if(0UL != (OS_UBase_t) pvHandle)
             {
                 pstHandle = (OS_Queue_t*) pvHandle;
-                (pstHandle)->uxMessagesWaiting = uxInitialCount;
+                (pstHandle)->uxMessagesWaiting =  (OS_UBase_t) uxInitialCount;
             }
         }
     }

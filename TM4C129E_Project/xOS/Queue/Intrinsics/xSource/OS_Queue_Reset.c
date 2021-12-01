@@ -52,8 +52,7 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
             pvQueue->ps8WriteTo = pvQueue->ps8Head;
 
             u8LengthReg -= 1UL;
-            uxTotalLenght = (OS_UBase_t) u8LengthReg;
-            uxTotalLenght *= pvQueue->uxItemSize;
+            uxTotalLenght = (OS_UBase_t) u8LengthReg * pvQueue->uxItemSize;
             pvQueue->ps8ReadFrom = pvQueue->ps8Head;
             pvQueue->ps8ReadFrom += uxTotalLenght;
 

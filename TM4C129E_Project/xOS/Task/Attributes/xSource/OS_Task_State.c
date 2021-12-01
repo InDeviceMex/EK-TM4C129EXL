@@ -51,7 +51,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
         {
             OS_Task__vEnterCritical();
             {
-                pstStateList = (OS_List_t*) OS_List__pvItemContainer(&(pstTCB->stGenericListItem));
+                pstStateList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stGenericListItem));
             }
             OS_Task__vExitCritical();
 
@@ -66,7 +66,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
             }
             else if( pstStateList == pstSuspendedTaskList )
             {
-                pstStateSuspendedList = (OS_List_t*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+                pstStateSuspendedList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
                 if(0UL == (OS_UBase_t) pstStateSuspendedList)
                 {
                     enReturn = OS_Task_enState_Suspended;

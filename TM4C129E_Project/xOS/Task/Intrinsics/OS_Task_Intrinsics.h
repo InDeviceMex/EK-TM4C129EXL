@@ -36,5 +36,6 @@
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Suspended.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Tick.h>
 
 #endif /* XOS_TASK_INTRINSICS_OS_TASK_INTRINSICS_H_ */

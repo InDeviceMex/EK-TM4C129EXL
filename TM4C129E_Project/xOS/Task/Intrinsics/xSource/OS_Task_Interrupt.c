@@ -21,8 +21,9 @@
  * Date           Author     Version     Description
  * 20 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/Adapt/OS_Adapt.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Interrupt.h>
+
+#include <xOS/Adapt/OS_Adapt.h>
 
 void OS_Task__vYield(void)
 {

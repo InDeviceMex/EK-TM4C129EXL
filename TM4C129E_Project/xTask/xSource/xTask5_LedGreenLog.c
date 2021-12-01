@@ -34,16 +34,6 @@
 
 void xTask5_LedGreenLog(void* pvParams)
 {
-    uint32_t u32DataEncript1 = 0UL;
-    uint32_t u32DataEncript2 = 0UL;
-
-    uint32_t u32DataCRC1 = 0UL;
-    uint32_t u32DataCRC2 = 0UL;
-    char* pcCRCValue = "123456789";
-    char* pcCRCValuepointer = pcCRCValue;
-
-    uint32_t u32DataDesencript1 = 0UL;
-    uint32_t u32DataDesencript2 = 0UL;
     uint32_t u32LastWakeTime = 0UL;
     uint32_t u32PinValue = (uint32_t) pvParams;
     static uint32_t u32CountTask = 0UL;
@@ -54,6 +44,15 @@ void xTask5_LedGreenLog(void* pvParams)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCCM);
 
 
+#if 0
+    uint32_t u32DataEncript1 = 0UL;
+    uint32_t u32DataEncript2 = 0UL;
+    uint32_t u32DataDesencript1 = 0UL;
+    uint32_t u32DataDesencript2 = 0UL;
+    uint32_t u32DataCRC1 = 0UL;
+    uint32_t u32DataCRC2 = 0UL;
+    char* pcCRCValue = "123456789";
+    char* pcCRCValuepointer = pcCRCValue;
     (*((volatile uint32_t*) (0x44038000UL + 0x34))) =  0x2UL;
     while(((*((volatile uint32_t*) (0x44038000UL + 0x38))) & 0x1UL) == 0UL);
     (*((volatile uint32_t*) (0x44038000UL + 0x34))) =  0x0UL;
@@ -78,7 +77,6 @@ void xTask5_LedGreenLog(void* pvParams)
 
     while((u32DataDesencript1 != DATA_ENCRYPT_1) || (u32DataDesencript2 != DATA_ENCRYPT_2));
 
-#if 0
     /* CRC-16/CCITT-FALSE */
     CRC->SEED = 0UL;
     CRC->CTRL = CRC_CTRL_R_TYPE_POL_1021 | CRC_CTRL_R_ENDIAN_B3_B2_B1_B0 | CRC_CTRL_R_BR_UNCHANGED |

@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_CoRoutines_Defines.h
+ * @file OS_CoRoutine_Defines.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,19 +22,22 @@
  * 27 nov. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_DEFINES_H_
-#define XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_DEFINES_H_
+#ifndef XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_DEFINES_H_
+#define XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_DEFINES_H_
 
-#include <xOS/CoRoutines/Intrinsics/xHeader/OS_CoRoutines_Enum.h>
+#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Enum.h>
 #include <xOS/List/OS_List.h>
 #include "xOS/Adapt/OS_Adapt.h"
 
-typedef void * OS_CoRoutines_Handle_t;
-typedef void (*OS_CoRoutines_Function_t)(OS_CoRoutines_Handle_t, OS_UBase_t);
+#define OS_COROUTINE_MAX_PRIORITIES    (40UL)
+#define OS_COROUTINE_INITIAL_STATE    (0UL)
+
+typedef void * OS_CoRoutine_Handle_t;
+typedef void (*OS_CoRoutine_Function_t)(OS_CoRoutine_Handle_t pvfHandleArg, OS_UBase_t uxIndexArg);
 
 typedef struct
 {
-    OS_CoRoutines_Function_t pvfCoRoutineFunction;
+    OS_CoRoutine_Function_t pvfCoRoutineFunction;
 
     OS_ListItem_t stGenericListItem;
     OS_ListItem_t stEventListItem;
@@ -42,9 +45,6 @@ typedef struct
     OS_UBase_t uxPriorityCoRoutine;
     OS_UBase_t uxIndex;        /*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
     uint16_t u16State;       /*< Stores a number specifically for use by third party trace code. */
-} OS_CoRoutines_CRCB_t;
+} OS_CoRoutine_CRCB_t;
 
-
-
-
-#endif /* XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_DEFINES_H_ */
+#endif /* XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_DEFINES_H_ */

@@ -127,7 +127,7 @@ void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
             OS_Task__vResetReadyPriority(pstTCB->uxPriorityTask);
         }
 
-        pstList = (OS_List_t*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+        pstList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
         if( 0UL != (OS_UBase_t) pstList )
         {
             (void) OS_List__uxRemove(&(pstTCB->stEventListItem));

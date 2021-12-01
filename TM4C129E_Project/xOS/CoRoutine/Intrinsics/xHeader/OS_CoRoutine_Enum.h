@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_CoRoutines_Intrinsics.h
+ * @file OS_CoRoutine_Enum.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,11 +22,11 @@
  * 27 nov. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_COROUTINES_INTRINSICS_OS_COROUTINES_INTRINSICS_H_
-#define XOS_COROUTINES_INTRINSICS_OS_COROUTINES_INTRINSICS_H_
+#ifndef XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_ENUM_H_
+#define XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_ENUM_H_
 
 
 
 
 
-#endif /* XOS_COROUTINES_INTRINSICS_OS_COROUTINES_INTRINSICS_H_ */
+#endif /* XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_ENUM_H_ */

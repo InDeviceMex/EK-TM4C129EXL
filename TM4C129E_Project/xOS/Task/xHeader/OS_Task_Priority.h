@@ -31,8 +31,8 @@ OS_UBase_t OS_Task__uxPriorityGet(OS_Task_Handle_t psTaskArg);
 OS_UBase_t OS_Task__uxPriorityGetFromISR(OS_Task_Handle_t psTaskArg);
 void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority);
 
-void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolder);
-OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolder);
+void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolderArg);
+OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderArg);
 
 void* OS_Task__pvIncrementMutexHeldCount(void);
 

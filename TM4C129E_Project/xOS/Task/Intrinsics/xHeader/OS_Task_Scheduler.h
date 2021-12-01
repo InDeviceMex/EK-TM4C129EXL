@@ -29,10 +29,6 @@
 
 OS_Task_Handle_t* OS_Task__pvGetIdleTaskHandle(void);
 
-OS_UBase_t OS_Task__uxGetTickCount_NotSafe(void);
-void OS_Task__vSetTickCount(OS_UBase_t uxValueArg);
-void OS_Task__vIncreaseTickCount(void);
-
 OS_UBase_t OS_Task__uxGetSchedulerSuspended(void);
 void OS_Task__vSetSchedulerSuspended(OS_UBase_t uxValueArg);
 void OS_Task__vIncreaseSchedulerSuspended(void);

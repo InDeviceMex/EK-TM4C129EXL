@@ -23,7 +23,7 @@
  */
 #include <xOS/List/xHeader/OS_List_Contained.h>
 
-void* OS_List__pvItemContainer(const OS_ListItem_t* const pstListItemArg)
+void* OS_List__pvGetItemContainer(const OS_ListItem_t* const pstListItemArg)
 {
     void* pvItemOwnerListReg = (void*) 0UL;
     if(0UL != (OS_UBase_t) pstListItemArg)

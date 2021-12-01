@@ -1,6 +1,6 @@
 /**
  *
- * @file OS_CoRoutines_Enum.h
+ * @file OS_CoRoutine_Ready.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -22,11 +22,13 @@
  * 27 nov. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_ENUM_H_
-#define XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_ENUM_H_
+#ifndef XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_
+#define XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_
 
+#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Defines.h>
 
+void OS_CoRoutine__vAddToReadyList(OS_CoRoutine_CRCB_t* pstCRCBArg);
+void OS_CoRoutine__vAddToReadyQueue(OS_CoRoutine_CRCB_t* pstCRCBArg);
+void OS_CoRoutine__vCheckPendingReadyList(void);
 
-
-
-#endif /* XOS_COROUTINES_INTRINSICS_XHEADER_OS_COROUTINES_ENUM_H_ */
+#endif /* XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_ */

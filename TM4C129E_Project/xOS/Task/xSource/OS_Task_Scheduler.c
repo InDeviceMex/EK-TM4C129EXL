@@ -129,7 +129,7 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
                         }
                         (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
 
-                        pstOwnerList = (OS_List_t*) OS_List__pvItemContainer(&(pstTCB->stEventListItem));
+                        pstOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
                         if(0UL != (OS_UBase_t) pstOwnerList)
                         {
                             (void) OS_List__uxRemove(&(pstTCB->stEventListItem));

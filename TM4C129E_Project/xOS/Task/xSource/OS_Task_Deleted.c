@@ -48,7 +48,7 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
             OS_Task__vResetReadyPriority( pstTCB->uxPriorityTask );
         }
 
-        pstTCBOwnerList = (OS_List_t*) OS_List__pvItemContainer(&( pstTCB->stEventListItem));
+        pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
         if( 0UL != (OS_UBase_t) pstTCBOwnerList)
         {
             (void) OS_List__uxRemove(&( pstTCB->stEventListItem));

@@ -44,7 +44,6 @@ void ST7735__vDMATxEndInterupt(void);
 void ST7735__vDMATxInterupt(void);
 static void ST7735__vSetTransferSizeLeft(uint32_t u32SizeArg);
 static void ST7735__vSetTransferStruct(DMACHCTL_t* pstTransfer);
-static void ST7735__vSetTransferAddress(uint32_t u32Address);
 uint32_t ST7735__u32GetTransferAddress(void);
 uint32_t ST7735__u32GetTransferSizeLeft(void);
 DMACHCTL_t* ST7735__pstGetTransferStruct(void);
@@ -123,11 +122,6 @@ static void ST7735__vSetTransferStruct(DMACHCTL_t* pstTransfer)
 DMACHCTL_t* ST7735__pstGetTransferStruct(void)
 {
     return (ST7735_pstDMATransferStruct);
-}
-
-static void ST7735__vSetTransferAddress(uint32_t u32Address)
-{
-    ST7735_u32DMATransferAddress = u32Address;
 }
 
 uint32_t ST7735__u32GetTransferAddress(void)

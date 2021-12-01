@@ -29,7 +29,7 @@
 OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQueue,
                                                  const OS_Queue_nPos enCopyPosition)
 {
-    OS_Queue_t* pstQueueSetContainer = (OS_Queue_t*) 0UL;
+    OS_Queue_t* pstQueueSetContainerReg = (OS_Queue_t*) 0UL;
     OS_UBase_t uxMessagesWaitingReg = 0UL;
     OS_Boolean_t boReturn = FALSE;
     OS_Boolean_t boListEmpty = FALSE;
@@ -39,24 +39,24 @@ OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQue
     /* This function must be called form a critical section. */
     if(0UL != (OS_UBase_t) pstQueue)
     {
-        pstQueueSetContainer = pstQueue->pstQueueSetContainer;
-        if(0UL != (OS_UBase_t) pstQueueSetContainer)
+        pstQueueSetContainerReg = pstQueue->pstQueueSetContainer;
+        if(0UL != (OS_UBase_t) pstQueueSetContainerReg)
         {
-            uxMessagesWaitingReg = pstQueueSetContainer->uxMessagesWaiting;
-            u8LengthReg = pstQueueSetContainer->u8Length;
+            uxMessagesWaitingReg = pstQueueSetContainerReg->uxMessagesWaiting;
+            u8LengthReg = pstQueueSetContainerReg->u8Length;
             if(uxMessagesWaitingReg < u8LengthReg)
             {
                 /* The data copied is the handle of the queue that contains data. */
-                boReturn = OS_Queue__boCopyDataToQueue(pstQueueSetContainer,
+                boReturn = OS_Queue__boCopyDataToQueue(pstQueueSetContainerReg,
                                                        &pstQueue,
                                                        enCopyPosition);
 
-                if(OS_QUEUE_UNLOCKED == pstQueueSetContainer->xTxLock)
+                if(OS_QUEUE_UNLOCKED == pstQueueSetContainerReg->xTxLock)
                 {
-                    boListEmpty = OS_List__boIsEmpty(&(pstQueueSetContainer->stTasksWaitingToReceive));
+                    boListEmpty = OS_List__boIsEmpty(&(pstQueueSetContainerReg->stTasksWaitingToReceive));
                     if(FALSE == boListEmpty)
                     {
-                        boRemoved = OS_Task__boRemoveFromEventList(&(pstQueueSetContainer->stTasksWaitingToReceive));
+                        boRemoved = OS_Task__boRemoveFromEventList(&(pstQueueSetContainerReg->stTasksWaitingToReceive));
                         if(FALSE != boRemoved)
                         {
                             /* The task waiting has a higher priority. */
@@ -66,7 +66,7 @@ OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQue
                 }
                 else
                 {
-                    (pstQueueSetContainer->xTxLock)++;
+                    (pstQueueSetContainerReg->xTxLock)++;
                 }
             }
         }
