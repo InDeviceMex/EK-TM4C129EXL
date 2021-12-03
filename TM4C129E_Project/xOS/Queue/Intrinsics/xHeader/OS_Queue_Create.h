@@ -27,7 +27,7 @@
 
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Defines.h>
 
-OS_Queue_Handle_t OS_Queue__pvGenericCreate(const uint8_t u8QueueLength,
+OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
                                              const OS_UBase_t uxItemSizeArg,
                                              const OS_Queue_nType enQueueTypeArg);
 

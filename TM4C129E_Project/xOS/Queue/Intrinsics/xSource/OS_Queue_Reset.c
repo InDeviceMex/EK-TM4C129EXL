@@ -32,7 +32,8 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
 {
     OS_Queue_t * const pvQueue = (OS_Queue_t *) pvQueueHandle;
     OS_List_t* pstListReg = (OS_List_t*) 0UL;
-    uint8_t u8LengthReg = 0UL;
+    OS_UBase_t uxLengthReg = 0UL;
+    OS_UBase_t uxLength2Reg = 0UL;
     OS_UBase_t uxTotalLenght = 0UL;
     OS_Boolean_t boEmptyList = FALSE;
     OS_Boolean_t boRemoveItem = FALSE;
@@ -42,8 +43,9 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
     {
         OS_Adapt__vEnterCritical();
         {
-            u8LengthReg = pvQueue->u8Length;
-            uxTotalLenght = (OS_UBase_t) u8LengthReg;
+            uxLengthReg = pvQueue->uxLength;
+            uxLength2Reg = pvQueue->uxLength - 1UL;
+            uxTotalLenght = (OS_UBase_t) uxLengthReg;
             uxTotalLenght *= pvQueue->uxItemSize;
             pvQueue->ps8Tail = pvQueue->ps8Head;
             pvQueue->ps8Tail += uxTotalLenght;
@@ -51,8 +53,8 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
             pvQueue->uxMessagesWaiting = (OS_UBase_t) 0UL;
             pvQueue->ps8WriteTo = pvQueue->ps8Head;
 
-            u8LengthReg -= 1UL;
-            uxTotalLenght = (OS_UBase_t) u8LengthReg * pvQueue->uxItemSize;
+            uxTotalLenght = uxLength2Reg;
+            uxTotalLenght *= pvQueue->uxItemSize;
             pvQueue->ps8ReadFrom = pvQueue->ps8Head;
             pvQueue->ps8ReadFrom += uxTotalLenght;
 

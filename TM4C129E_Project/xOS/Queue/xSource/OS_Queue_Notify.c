@@ -34,7 +34,7 @@ OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQue
     OS_Boolean_t boReturn = FALSE;
     OS_Boolean_t boListEmpty = FALSE;
     OS_Boolean_t boRemoved = FALSE;
-    uint8_t u8LengthReg = 0U;
+    OS_UBase_t uxLengthReg = 0U;
 
     /* This function must be called form a critical section. */
     if(0UL != (OS_UBase_t) pstQueue)
@@ -43,8 +43,8 @@ OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQue
         if(0UL != (OS_UBase_t) pstQueueSetContainerReg)
         {
             uxMessagesWaitingReg = pstQueueSetContainerReg->uxMessagesWaiting;
-            u8LengthReg = pstQueueSetContainerReg->u8Length;
-            if(uxMessagesWaitingReg < u8LengthReg)
+            uxLengthReg = pstQueueSetContainerReg->uxLength;
+            if(uxMessagesWaitingReg < uxLengthReg)
             {
                 /* The data copied is the handle of the queue that contains data. */
                 boReturn = OS_Queue__boCopyDataToQueue(pstQueueSetContainerReg,

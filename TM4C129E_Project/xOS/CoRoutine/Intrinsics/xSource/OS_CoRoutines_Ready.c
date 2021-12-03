@@ -38,7 +38,7 @@ void OS_CoRoutine__vSetTopReadyPriority(OS_UBase_t uxValueArg)
     OS_CoRoutine_uxTopReadyPriority = uxValueArg;
 }
 
-void OS_CoRoutine__vSetTopReadyPriority_CRCB(OS_CoRoutine_CRCB_t* pstCRCBArg)
+void OS_CoRoutine__vSetTopReadyPriority_CRCB(const OS_CoRoutine_CRCB_t* pstCRCBArg)
 {
     OS_UBase_t uxPriorityCRCB = 0UL;
     if(0UL != (OS_UBase_t) pstCRCBArg)

@@ -30,12 +30,17 @@
 #include <xOS/List/OS_List.h>
 
 #define OS_QUEUE_UNLOCKED    ((OS_UBase_t) -1)
+#define OS_QUEUE_BLOCKED    ((OS_UBase_t) -4 )
+#define OS_QUEUE_YIELD    ((OS_UBase_t) -5 )
 #define OS_QUEUE_LOCKED_UNMODIFIED    (0UL)
 
 #define OS_QUEUE_IS_MUTEX    (0UL)
 
 #define OS_QUEUE_SEMAPHORE_ITEM_LENGTH    (0UL)
 #define OS_QUEUE_MUTEX_GIVE_BLOCK_TIME    (0UL)
+
+#define OS_QUEUE_EMPTY  (FALSE)
+#define OS_QUEUE_FULL   (FALSE)
 
 typedef void* OS_Queue_Handle_t;
 typedef void* OS_Queue_SetHandle_t;
@@ -65,7 +70,7 @@ typedef struct OS_Queue_Definition
     OS_List_t stTasksWaitingToReceive;  /*< List of tasks that are blocked waiting to read from this queue.  Stored in priority order. */
 
     volatile OS_UBase_t uxMessagesWaiting;/*< The number of items currently in the queue. */
-    uint8_t u8Length;           /*< The length of the queue defined as the number of items it will hold, not the number of bytes. */
+    OS_UBase_t uxLength;           /*< The length of the queue defined as the number of items it will hold, not the number of bytes. */
     OS_UBase_t uxItemSize;         /*< The size of each items that the queue will hold. */
 
     volatile OS_UBase_t xRxLock;    /*< Stores the number of items received from the queue (removed from the queue) while the queue was locked.  Set to queueUNLOCKED when the queue is not locked. */

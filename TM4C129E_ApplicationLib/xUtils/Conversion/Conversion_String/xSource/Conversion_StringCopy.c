@@ -139,7 +139,7 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             }
             szSizeTem = szLength;
             szSizeTem /= CONV_WORDSIZE;
-            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (int*)pcMemorySourceReg, szSizeTem);            }
+            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (int*)pcMemorySourceReg, szSizeTem);
             szSizeTem = szLength;
             szSizeTem &= CONV_WORDMASK;
             CONV_vCopyLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);

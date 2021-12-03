@@ -23,6 +23,9 @@
  */
 #include <xOS/Queue/xHeader/OS_Queue_Mutex.h>
 
+#include <xOS/Queue/xHeader/OS_Queue_Send.h>
+#include <xOS/Queue/xHeader/OS_Queue_Receive.h>
+
 #include <stdlib.h>
 #include <xOS/Adapt/OS_Adapt.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
@@ -54,7 +57,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
         an item size of 0 as nothing is actually copied into or out
         of the mutex. */
         pstNewQueue->uxMessagesWaiting = (OS_UBase_t) 0UL;
-        pstNewQueue->u8Length = (uint8_t) 1U;
+        pstNewQueue->uxLength = 1UL;
         pstNewQueue->uxItemSize = (OS_UBase_t) 0UL;
         pstNewQueue->xRxLock = OS_QUEUE_UNLOCKED;
         pstNewQueue->xTxLock = OS_QUEUE_UNLOCKED;
@@ -67,7 +70,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
         pstListReg = &(pstNewQueue->stTasksWaitingToReceive);
         OS_List__vInit(pstListReg);
 
-        (void) OS_Queue__xGenericSend(pstNewQueue, NULL, 0UL, OS_Queue_enPos_SEND_TO_BACK);
+        (void) OS_Queue__boGenericSend(pstNewQueue, (const void*) 0UL, 0UL, OS_Queue_enPos_SEND_TO_BACK);
     }
 
     return (pstNewQueue);
@@ -102,9 +105,9 @@ OS_Boolean_t OS_Queue__boGiveMutexRecursive(OS_Queue_Handle_t pvMutex)
             {
                 /* Return the mutex.  This will automatically unblock any other
                 task that might be waiting to access the mutex. */
-                (void) OS_Queue__xGenericSend(pstMutex, NULL,
+                (void) OS_Queue__boGenericSend(pstMutex, (const void *) 0UL,
                                             OS_QUEUE_MUTEX_GIVE_BLOCK_TIME,
-                                            OS_Queue_enPos_SEND_TO_BACK );
+                                            OS_Queue_enPos_SEND_TO_BACK);
             }
             boReturn = TRUE;
         }
@@ -129,7 +132,7 @@ OS_Boolean_t OS_Queue__boTakeMutexRecursive(OS_Queue_Handle_t pvMutex,
         }
         else
         {
-            boReturn = OS_Queue__boGenericReceive(pstMutex, NULL, uxTicksToWait, FALSE);
+            boReturn = OS_Queue__boGenericReceive(pstMutex, (void*) 0UL, uxTicksToWait, FALSE);
 
             /* pdPASS will only be returned if the mutex was successfully
             obtained.  The calling task may have entered the Blocked state

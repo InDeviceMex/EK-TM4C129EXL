@@ -27,10 +27,6 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_UBase_t OS_Task__uxGetPendedTicks(void);
-void OS_Task__vSetPendedTicks(OS_UBase_t uxValueArg);
-void OS_Task__vIncreasePendedTicks(void);
-
 OS_Boolean_t OS_Task__boGetYieldPending(void);
 void OS_Task__vSetYieldPending(OS_Boolean_t boValueArg);
 void OS_Task__vMissedYield(void);

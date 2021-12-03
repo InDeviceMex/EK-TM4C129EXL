@@ -26,7 +26,7 @@
 #include <xOS/Queue/xHeader/OS_Queue_Notify.h>
 #include <xOS/Task/OS_Task.h>
 
-void OS_Queue__vUnlock(OS_Queue_t * const pstQueue)
+void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
 {
     OS_Boolean_t boNotifySet = FALSE;
     OS_Boolean_t boListEmpty = FALSE;

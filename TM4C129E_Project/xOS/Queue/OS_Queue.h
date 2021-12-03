@@ -25,8 +25,15 @@
 #ifndef XOS_QUEUE_OS_QUEUE_H_
 #define XOS_QUEUE_OS_QUEUE_H_
 
-
-
-
+#include <xOS/Queue/xHeader/OS_Queue_CoRoutine.h>
+#include <xOS/Queue/xHeader/OS_Queue_Delete.h>
+#include <xOS/Queue/xHeader/OS_Queue_Lock.h>
+#include <xOS/Queue/xHeader/OS_Queue_Mutex.h>
+#include <xOS/Queue/xHeader/OS_Queue_Notify.h>
+#include <xOS/Queue/xHeader/OS_Queue_Peek.h>
+#include <xOS/Queue/xHeader/OS_Queue_Receive.h>
+#include <xOS/Queue/xHeader/OS_Queue_Semaphore.h>
+#include <xOS/Queue/xHeader/OS_Queue_Send.h>
+#include <xOS/Queue/xHeader/OS_Queue_Set.h>
 
 #endif /* XOS_QUEUE_OS_QUEUE_H_ */

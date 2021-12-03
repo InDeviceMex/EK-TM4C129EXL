@@ -45,6 +45,29 @@ void OS_CoRoutine__vAddToReadyList(OS_CoRoutine_CRCB_t* pstCRCBArg)
     }
 }
 
+void OS_CoRoutine__vAddToReadyQueue(OS_CoRoutine_CRCB_t* pstCRCBArg)
+{
+    OS_List_t* pstReadyCoRoutineList =  (OS_List_t*) 0UL;
+    OS_UBase_t uxTopCoRoutineReadyPriority = 0UL;
+    OS_ListItem_t* pstCRCBCoRoutine =  (OS_ListItem_t*) 0UL;
+    OS_UBase_t uxCRCBPriority = 0UL;
+    if(0UL != (OS_UBase_t) pstCRCBArg)
+    {
+        uxTopCoRoutineReadyPriority = OS_CoRoutine__uxGetTopReadyPriority();
+        uxCRCBPriority = pstCRCBArg->uxPriorityCoRoutine;
+        if(uxCRCBPriority > uxTopCoRoutineReadyPriority)
+        {
+            OS_CoRoutine__vSetTopReadyPriority(uxCRCBPriority);
+        }
+        pstReadyCoRoutineList = OS_CoRoutine__pstGetReadyLists(uxCRCBPriority);
+        if(0UL != (OS_UBase_t) pstReadyCoRoutineList)
+        {
+            pstCRCBCoRoutine = &(pstCRCBArg->stGenericListItem);
+            OS_List__vInsertEnd(pstReadyCoRoutineList, pstCRCBCoRoutine);
+        }
+    }
+}
+
 void OS_CoRoutine__vCheckPendingReadyList(void)
 {
 

@@ -27,7 +27,7 @@
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Reset.h>
 #include <xOS/Adapt/OS_Adapt.h>
 
-OS_Queue_Handle_t OS_Queue__pvGenericCreate(const uint8_t u8QueueLength,
+OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
                                              const OS_UBase_t uxItemSizeArg,
                                              const OS_Queue_nType enQueueTypeArg)
 {
@@ -35,11 +35,11 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const uint8_t u8QueueLength,
     OS_UBase_t uxQueueSizeInBytes = 0UL;
     OS_Queue_Handle_t pvReturn = (OS_Queue_Handle_t) 0UL;
 
-    if(0U < u8QueueLength)
+    if(0U < uxQueueLength)
     {
         if(0UL != uxItemSizeArg)
         {
-            uxQueueSizeInBytes = (OS_UBase_t) u8QueueLength;
+            uxQueueSizeInBytes = (OS_UBase_t) uxQueueLength;
             uxQueueSizeInBytes *= uxItemSizeArg;
             uxQueueSizeInBytes += 1UL;
         }
@@ -62,7 +62,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const uint8_t u8QueueLength,
                 pstNewQueue->ps8Head += sizeof(OS_Queue_t);
             }
 
-            pstNewQueue->u8Length = (uint8_t) u8QueueLength;
+            pstNewQueue->uxLength = (OS_UBase_t) uxQueueLength;
             pstNewQueue->uxItemSize = (OS_UBase_t) uxItemSizeArg;
             (void) OS_Queue__boGenericReset(pstNewQueue, TRUE);
 

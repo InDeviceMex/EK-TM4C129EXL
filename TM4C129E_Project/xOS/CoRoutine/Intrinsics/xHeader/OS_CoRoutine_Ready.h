@@ -29,7 +29,7 @@
 
 OS_UBase_t OS_CoRoutine__uxGetTopReadyPriority(void);
 void OS_CoRoutine__vSetTopReadyPriority(OS_UBase_t uxValueArg);
-void OS_CoRoutine__vSetTopReadyPriority_CRCB(OS_CoRoutine_CRCB_t* pstCRCBArg);
+void OS_CoRoutine__vSetTopReadyPriority_CRCB(const OS_CoRoutine_CRCB_t* pstCRCBArg);
 OS_List_t* OS_CoRoutine__pstGetPendingReadyList(void);
 OS_List_t* OS_CoRoutine__pstGetReadyLists(OS_UBase_t uxIndexArg);
 void OS_CoRoutine__vInitialiseReadyLists(void);

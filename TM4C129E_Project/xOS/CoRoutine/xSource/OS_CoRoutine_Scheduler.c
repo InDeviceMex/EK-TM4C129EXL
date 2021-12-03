@@ -35,7 +35,7 @@ void OS_CoRoutine__vSchedule(void)
     OS_UBase_t uxIndexReg = 0UL;
     OS_List_t* pstReadyListReg = (OS_List_t*) 0UL;
     OS_CoRoutine_CRCB_t* pstCurrentCoRoutine = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_CoRoutine_Function_t pvfCoRoutineFunctionReg = (OS_CoRoutine_Function_t*) 0UL;
+    OS_CoRoutine_Function_t pvfCoRoutineFunctionReg = (OS_CoRoutine_Function_t) 0UL;
     /* See if any co-routines readied by events need moving to the ready lists. */
     OS_CoRoutine__vCheckPendingReadyList();
 

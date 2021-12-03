@@ -30,5 +30,6 @@
 void OS_Queue__vRegisterQueue( OS_Queue_Handle_t pvQueue,
                               const char* pcQueueNameArg);
 void OS_Queue__vUnregisterQueue(OS_Queue_Handle_t pvQueue);
+void OS_Queue__vAddToRegistry( OS_Queue_Handle_t pvQueue, const char* const pcQueueNameArg);
 
 #endif /* XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_REGISTRY_H_ */

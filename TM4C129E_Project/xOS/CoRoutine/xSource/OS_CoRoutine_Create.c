@@ -55,7 +55,7 @@ OS_UBase_t OS_CoRoutine__uxCreate( OS_CoRoutine_Function_t pvfCoRoutineCode, OS_
             /* If pstCurrentCoRoutine is NULL then this is the first co-routine to
             be created and the co-routine data structures need initialising. */
             pstCurrentCoRoutine = OS_CoRoutine__pstGetCurrentCRCB();
-            if(0UL == pstCurrentCoRoutine)
+            if(0UL == (OS_UBase_t) pstCurrentCoRoutine)
             {
                 OS_CoRoutine__vSetCurrentCRCB(pstCoRoutine);
                 OS_CoRoutine__vInitialiseLists();
