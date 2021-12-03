@@ -64,7 +64,9 @@ void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK 
 
 void EDUMKII_Joystick_vIRQSourceHandler(void)
 {
-    DMACHCTL_t enChControl = {
+    DMACHANNEL_t* pstDmaChannel = (DMACHANNEL_t*) 0UL;
+    volatile uint32_t* u32TempReg = (uint32_t*) 0UL;
+    static DMACHCTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enCH_BURST_OFF,
          2UL-1U,
@@ -79,7 +81,9 @@ void EDUMKII_Joystick_vIRQSourceHandler(void)
          DMA_enCH_DST_INC_WORD,
     };
 
-    DMACH->DMACh[15UL].CHCTL = *((volatile uint32_t*) &enChControl);
+    pstDmaChannel = &(DMACH->DMACh[15UL]);
+    u32TempReg = (volatile uint32_t*) &enChControl;
+    pstDmaChannel->CHCTL = *u32TempReg;
     DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 15UL;
     u32JostickFlag = 1UL;
 }

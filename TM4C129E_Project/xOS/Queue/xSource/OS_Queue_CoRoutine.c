@@ -64,7 +64,7 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
             else
             {
                 OS_Adapt__vEnableInterrupts();
-                return (OS_QUEUE_FULL);
+                return((OS_UBase_t) OS_QUEUE_FULL);
             }
         }
     }
@@ -77,7 +77,7 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
         {
             /* There is room in the queue, copy the data into the queue. */
             (void) OS_Queue__boCopyDataToQueue(pstQueueReg, pvItemToQueue, OS_Queue_enPos_SEND_TO_BACK);
-            uxReturn = TRUE;
+            uxReturn = (OS_UBase_t) TRUE;
 
             /* Were any co-routines waiting for data to become available? */
             boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
@@ -98,7 +98,7 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
         }
         else
         {
-            uxReturn = OS_QUEUE_FULL;
+            uxReturn = (OS_UBase_t) OS_QUEUE_FULL;
         }
     }
     OS_Adapt__vEnableInterrupts();
@@ -136,7 +136,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
             else
             {
                 OS_Adapt__vEnableInterrupts();
-                return (OS_QUEUE_FULL);
+                return ((OS_UBase_t) OS_QUEUE_FULL);
             }
         }
     }
@@ -155,7 +155,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
             --( pstQueueReg->uxMessagesWaiting );
             (void) CONV_pvMemoryCopy((void*) pvBuffer, (void*) (pstQueueReg->ps8ReadFrom), (size_t) pstQueueReg->uxItemSize);
 
-            uxReturn = TRUE;
+            uxReturn = (OS_UBase_t) TRUE;
 
             /* Were any co-routines waiting for space to become available? */
             boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
@@ -174,7 +174,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
         }
         else
         {
-            uxReturn = FALSE;
+            uxReturn = (OS_UBase_t) FALSE;
         }
     }
     OS_Adapt__vEnableInterrupts();
