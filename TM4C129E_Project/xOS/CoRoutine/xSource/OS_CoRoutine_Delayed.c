@@ -137,3 +137,13 @@ void OS_CoRoutine__vCheckDelayedList(void)
     }
     OS_CoRoutine__vSetLastTickCount(uxCoRoutineTickCount);
 }
+
+#if 0
+void OS_CoRoutine__vDelay(OS_CoRoutine_CRCB_t* pstCRCB, OS_UBase_t uxTicksToDelay)
+{
+    if(0UL < uxTicksToDelay)
+    {
+        vCoRoutineAddToDelayedList( ( xTicksToDelay ), NULL );
+    }
+}
+#endif

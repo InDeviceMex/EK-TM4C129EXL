@@ -218,7 +218,7 @@ OS_Boolean_t OS_Queue__boCoRoutineSendFromISR(OS_Queue_Handle_t pvQueue,
 
 OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                                  void *pvBuffer,
-                                                 OS_Boolean_t* pxCoRoutineWoken)
+                                                 OS_Boolean_t* pboCoRoutineWoken)
 {
     OS_Boolean_t boReturn = FALSE;
     OS_Boolean_t boStatus = FALSE;
@@ -238,7 +238,7 @@ OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
         --(pstQueueReg->uxMessagesWaiting);
         ( void ) CONV_pvMemoryCopy((void*) pvBuffer, (void*) pstQueueReg->ps8ReadFrom, (size_t) pstQueueReg->uxItemSize);
 
-        if(FALSE == (*pxCoRoutineWoken))
+        if(FALSE == (*pboCoRoutineWoken))
         {
             boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToSend));
             if(FALSE == boIsListEmpty )
@@ -246,7 +246,7 @@ OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
                 boStatus = OS_CoRoutine__boRemoveFromEventList(&( pstQueueReg->stTasksWaitingToSend));
                 if(FALSE != boStatus)
                 {
-                    *pxCoRoutineWoken = TRUE;
+                    *pboCoRoutineWoken = TRUE;
                 }
             }
         }

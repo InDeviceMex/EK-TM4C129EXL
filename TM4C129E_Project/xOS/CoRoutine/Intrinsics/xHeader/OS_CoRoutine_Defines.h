@@ -32,6 +32,12 @@
 #define OS_COROUTINE_MAX_PRIORITIES    (40UL)
 #define OS_COROUTINE_INITIAL_STATE    (0UL)
 
+#define CO_ROUTINE_START(pstCRCB)   switch(pstCRCB->uxState) { case 0UL:
+#define CO_ROUTINE_SET_STATE0()  case (__LINE__ * 2UL):
+#define CO_ROUTINE_SET_STATE1()  pstCRCB->uxState = ((__LINE__ * 2UL) + 1UL); return; case ((__LINE__ * 2UL) + 1UL):
+
+#define CO_ROUTINE_END()    }
+
 typedef void * OS_CoRoutine_Handle_t;
 typedef void (*OS_CoRoutine_Function_t)(OS_CoRoutine_Handle_t pvfHandleArg, OS_UBase_t uxIndexArg);
 

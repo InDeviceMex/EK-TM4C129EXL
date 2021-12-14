@@ -38,6 +38,6 @@ OS_Boolean_t OS_Queue__boCoRoutineSendFromISR(OS_Queue_Handle_t pvQueue,
                                               OS_Boolean_t boCoRoutinePreviouslyWoken);
 OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                                  void *pvBuffer,
-                                                 OS_Boolean_t* pxCoRoutineWoken);
+                                                 OS_Boolean_t* pboCoRoutineWoken);
 
 #endif /* XOS_QUEUE_XHEADER_OS_QUEUE_COROUTINE_H_ */
