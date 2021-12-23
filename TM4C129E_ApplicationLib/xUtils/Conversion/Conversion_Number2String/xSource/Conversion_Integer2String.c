@@ -132,8 +132,7 @@ uint8_t Conv__u8DInt2String(int64_t s64Number, uint8_t u8Positive, uint8_t u8Pad
         }
         else{}
     }
-    u32ResultAux = ((uint32_t) &CONV_pcConvTemp[21 - 1]);
-    s64NumberReg = (int64_t) u32ResultAux;
+    s64NumberReg = (int64_t) &CONV_pcConvTemp[21 - 1];
     s64NumberReg += 1;
     u32ResultAux = ((uint32_t) pcPointerActual);
     s64NumberReg -= (int64_t) u32ResultAux;/*realiza la resta de cuantos caracteres se utilizaron*/
@@ -189,8 +188,7 @@ uint8_t Conv__u8Int2String(int64_t s64Number, char* pcConv)
         pcPointerActual -= 1U;
         *pcPointerActual = '-';/*si el s32Numero es negativo guarda el signo negativo*/
     }
-    u32ResultAux = ((uint32_t) CONV_pcConvTemp);
-    s64NumberReg = (int64_t) u32ResultAux;
+    s64NumberReg = (int64_t) CONV_pcConvTemp;
     s64NumberReg += (int64_t) INT2STRINGMAX;
     s64NumberReg -= 1;
     u32ResultAux = ((uint32_t) pcPointerActual);
@@ -251,8 +249,6 @@ uint8_t Conv__u8Int2StringZeros(int64_t s64Number, int8_t s8CerosLeft, char* pcC
 
     }  while((s64NumberReg != 0) && (pcPointerActual>(pcPointerActualAux)));/*mientras exista un digito sigue el ciclo*/
 
-    pcPointerActualAux = CONV_pcConvTemp;
-    pcPointerActualAux += s8FlagSign;
     while((pcPointerActual>(pcPointerActualAux)) && (s8CerosLeft>0))
     {
         pcPointerActual -= 1U;
@@ -264,8 +260,7 @@ uint8_t Conv__u8Int2StringZeros(int64_t s64Number, int8_t s8CerosLeft, char* pcC
         pcPointerActual -= 1U;
         *pcPointerActual = '-';/*si el s32Numero es negativo guarda el signo negativo*/
     }
-    u32ResultAux = ((uint32_t) CONV_pcConvTemp);
-    s64NumberReg = (int64_t) u32ResultAux;
+    s64NumberReg = (int64_t) CONV_pcConvTemp;
     s64NumberReg += (int64_t) INT2STRINGMAX;
     s64NumberReg -= 1;
     u32ResultAux = ((uint32_t) pcPointerActual);

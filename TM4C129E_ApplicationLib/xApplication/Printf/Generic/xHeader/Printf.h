@@ -20,6 +20,6 @@ uint32_t  snprintf__u32User(char* pcBuffer, uint32_t u32Count, const char* pcFor
 uint32_t vprintf__u32User(const char* pcFormat, va_list vaList);
 uint32_t vsprintf__u32User(char* pcBuffer, const char* pcFormat, va_list vaList);
 uint32_t vsnprintf__u32User(char* pcBuffer, const uint32_t u32Count, const char* pcFormat, va_list vaList);
-uint32_t fctprintf__u32User(void (*pfvFunctionOut)(char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...);
+uint32_t fctprintf__u32User(void (*pvfFunctionOut)(char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...);
 
 #endif /* HEADER_APP_PRINTF_H_ */

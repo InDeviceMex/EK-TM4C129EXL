@@ -36,11 +36,14 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
   float64_t  f64DoubleArgument = 0;
   uintptr_t pvPointerArgument = 0U;
   int32_t  s32WidthArgument = 0;
+  int32_t  s32WidthArgumentTemp = 0;
   int32_t  s32PrecisionArgument = 0;
   int32_t  s32ValueArgument = 0L;
+  int32_t  s32ValueArgumentTemp = 0L;
   uint32_t  u32ValueArgument = 0UL;
   char*  pcValueArgument = 0U;
   int64_t  s64ValueArgument = 0LL;
+  int64_t  s64ValueArgumentTemp = 0LL;
   uint64_t  u64ValueArgument = 0ULL;
   uint16_t  u16ValueArgument = 0U;
   int16_t  s16ValueArgument = 0;
@@ -119,8 +122,9 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
         if (s32WidthArgument < 0)
         {
             u32Flags |= (uint32_t) CONV_enFLAGS_LEFT;    /* reverse padding*/
-            s32WidthArgument = -s32WidthArgument;
-            u32Width = (uint32_t) (s32WidthArgument);
+            s32WidthArgumentTemp = 0;
+            s32WidthArgumentTemp -= s32WidthArgument;
+            u32Width = (uint32_t) (s32WidthArgumentTemp);
         }
         else
         {
@@ -257,8 +261,9 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
                 }
                 else
                 {
-                    s64ValueArgument = 0 - s64ValueArgument;
-                    u64ValueTemp = (uint64_t) s64ValueArgument;
+                    s64ValueArgumentTemp = 0;
+                    s64ValueArgumentTemp -= s64ValueArgument;
+                    u64ValueTemp = (uint64_t) s64ValueArgumentTemp;
                     u32Negative = 1U;
                 }
 
@@ -275,8 +280,9 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
               }
               else
               {
-                  s32ValueArgument = 0 - s32ValueArgument;
-                  u32ValueTemp = (uint32_t) s32ValueArgument;
+                  s32ValueArgumentTemp = 0;
+                  s32ValueArgumentTemp -= s32ValueArgument;
+                  u32ValueTemp = (uint32_t) s32ValueArgumentTemp;
                   u32Negative = 1U;
               }
 
@@ -308,8 +314,9 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
               }
               else
               {
-                  s32ValueArgument = 0 - s32ValueArgument;
-                  u32ValueTemp = (uint32_t) s32ValueArgument;
+                  s32ValueArgumentTemp = 0;
+                  s32ValueArgumentTemp -= s32ValueArgument;
+                  u32ValueTemp = (uint32_t) s32ValueArgumentTemp;
                   u32Negative = 1U;
               }
 
@@ -550,11 +557,11 @@ uint32_t  snprintf__u32User(char* pcBuffer, uint32_t u32Count, const char* pcFor
 }
 
 
-uint32_t fctprintf__u32User(void (*pfvFunctionOut) (char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...)
+uint32_t fctprintf__u32User(void (*pvfFunctionOut) (char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...)
 {
   va_list vaList;
   va_start(vaList, pcFormat);
-  CONV_OUT_WRAPPER_t out_fct_wrap = { pfvFunctionOut, pvPrintArguments };
+  CONV_OUT_WRAPPER_t out_fct_wrap = { pvfFunctionOut, pvPrintArguments };
   const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutFunction, (char*) & out_fct_wrap, (uint32_t) -1, pcFormat, vaList);
   va_end(vaList);
   return (u32Length);

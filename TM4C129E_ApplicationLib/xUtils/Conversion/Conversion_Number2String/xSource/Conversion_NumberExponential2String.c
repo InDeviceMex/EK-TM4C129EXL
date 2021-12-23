@@ -80,7 +80,9 @@ CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBuffer
             if(f64Value < 0.0)
             {
                 u32Negative = 1U;
-                f64Value = -f64Value;
+                f64ValueTemp = 0.0;
+                f64ValueTemp -= f64Value;
+                f64Value = f64ValueTemp;
             }
             else
             {
@@ -93,14 +95,14 @@ CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBuffer
                 u32Prec = CONV_DEFAULT_FLOAT_PRECISION;
             }
 
-            uFloatConversion.FLOAT = f64Value;
+            uFloatConversion.FLOAT = (float64_t) f64Value;
             u64Temp = (uint64_t) uFloatConversion.UNSIGNED >> (uint64_t) 52ULL;
             u64Temp &= (uint64_t) 0x07FFULL;
             u64TempLong = u64Temp;
             s64Exponential2 = (int64_t) u64TempLong;
             s64Exponential2 -= 1023;           /* effectively log2*/
 
-            u64Temp = uFloatConversion.UNSIGNED;
+            u64Temp = (uint64_t) uFloatConversion.UNSIGNED;
             u64TempShift = 1ULL;
             u64TempShift <<= 52ULL;
             u64TempShift -= 1ULL;

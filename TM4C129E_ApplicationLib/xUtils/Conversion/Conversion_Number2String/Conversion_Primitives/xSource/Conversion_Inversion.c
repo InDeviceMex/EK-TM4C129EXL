@@ -83,7 +83,7 @@ CONV_nSTATUS Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const ch
         }
 
     }
-    *pu32BufOutLenght = u32Index;
+    *pu32BufOutLenght = (uint32_t) u32Index;
     return (enStatus);
 }
 

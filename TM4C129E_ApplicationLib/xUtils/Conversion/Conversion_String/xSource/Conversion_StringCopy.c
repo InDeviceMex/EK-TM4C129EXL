@@ -24,6 +24,10 @@
 #include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCopy.h>
 
+#if defined (__TI_ARM__ )
+    #pragma CHECK_MISRA("-6.3")
+#endif
+
 static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
 static void CONV_vCopyLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength);
 static void CONV_vCopyReverseLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
@@ -49,7 +53,7 @@ char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t
     return (pcStringDest);
 }
 
-#define CONV_WORDSIZE   sizeof(int)
+#define CONV_WORDSIZE   ((size_t) sizeof(int))
 #define CONV_WORDMASK   (CONV_WORDSIZE - 1UL)
 
 static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength)
@@ -112,7 +116,7 @@ static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySou
 void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength)
 {
     char* pcMemoryDestReg = (char*) pvMemoryDest;
-    char* pcMemorySourceReg = (char*) pvMemorySource;
+    const char* pcMemorySourceReg = (const char*) pvMemorySource;
     size_t szSizeTem = 0UL;
     if(((uint32_t) pvMemorySource != (uint32_t) pvMemoryDest) && (0UL != szLength ))
     {
@@ -121,7 +125,7 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             szSizeTem = (size_t) pcMemorySourceReg;
             size_t szTempAlign = szSizeTem;
             szTempAlign |= (size_t) pcMemoryDestReg;
-            if(szTempAlign & CONV_WORDMASK)
+            if(0UL != (szTempAlign & CONV_WORDMASK))
             {
                 szTempAlign = szSizeTem ^ (size_t) pcMemoryDestReg;
                 if((szTempAlign & CONV_WORDMASK) || (szLength < CONV_WORDSIZE))
@@ -139,7 +143,7 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             }
             szSizeTem = szLength;
             szSizeTem /= CONV_WORDSIZE;
-            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (int*)pcMemorySourceReg, szSizeTem);
+            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (const int*)pcMemorySourceReg, szSizeTem);
             szSizeTem = szLength;
             szSizeTem &= CONV_WORDMASK;
             CONV_vCopyLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
@@ -153,7 +157,8 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             szTempAlign |= (size_t) pcMemoryDestReg;
             if(szTempAlign & CONV_WORDMASK)
             {
-                szTempAlign = szSizeTem ^ (size_t) pcMemoryDestReg;
+                szTempAlign = szSizeTem;
+                szTempAlign ^= (size_t) pcMemoryDestReg;
                 if((szTempAlign & CONV_WORDMASK) || (szLength <= CONV_WORDSIZE))
                 {
                     szSizeTem =  szLength;
@@ -167,7 +172,7 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             }
             szSizeTem = szLength;
             szSizeTem /= CONV_WORDSIZE;
-            CONV_vCopyReverseLoopIntIf((int*) pcMemoryDestReg, (int*) pcMemorySourceReg ,szSizeTem);
+            CONV_vCopyReverseLoopIntIf((int*) pcMemoryDestReg, (const int*) pcMemorySourceReg ,szSizeTem);
             szSizeTem = szLength;
             szSizeTem &= CONV_WORDMASK;
             CONV_vCopyReverseLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
@@ -176,3 +181,6 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
     return (pvMemoryDest);
 }
 
+#if defined (__TI_ARM__ )
+    #pragma RESET_MISRA("6.3")
+#endif

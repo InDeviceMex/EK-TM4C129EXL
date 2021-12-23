@@ -66,7 +66,7 @@ typedef void (*CONV_FUNCTION_t) (char cCharacter, void* pvFuncArguments);
 typedef void (*CONV_OUT_t) (char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght);
 
 typedef struct {
-  CONV_FUNCTION_t  pfvFunction;
+  CONV_FUNCTION_t  pvfFunction;
   void* pvArguments;
 } CONV_OUT_WRAPPER_t;
 

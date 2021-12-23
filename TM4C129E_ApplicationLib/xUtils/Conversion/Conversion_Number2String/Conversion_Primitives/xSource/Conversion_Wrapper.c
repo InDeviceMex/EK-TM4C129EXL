@@ -67,7 +67,7 @@ void Conv__vOutFunction(char cCharacter, void* pvBuffer, uint32_t u32Index, uint
     if((void*)0 != pvBuffer)
     {
       pvOutWrapper = (CONV_OUT_WRAPPER_t*)pvBuffer;
-      pvOutFunction = (CONV_FUNCTION_t) pvOutWrapper->pfvFunction;
+      pvOutFunction = (CONV_FUNCTION_t) pvOutWrapper->pvfFunction;
       pvOutFunctionArguments = pvOutWrapper->pvArguments;
       if ((char)0 != cCharacter)
       {
