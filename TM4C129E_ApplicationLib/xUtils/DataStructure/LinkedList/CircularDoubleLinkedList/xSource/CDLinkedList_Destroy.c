@@ -34,36 +34,36 @@ void CDLinkedList__vDestroy(CDLinkedList_t* pstList)
      CDLinkedListItem_t* pstTailItem = (CDLinkedListItem_t*) 0UL;
      void * pvDataItem = (void*)0UL;
      uint32_t u32SizeReg = 0UL;
-     void (*pfvListDestroy) (void* List) = (void (*) (void* List) )0UL;
+     void (*pvfListDestroy) (void* List) = (void (*) (void* List) )0UL;
 
      if((CDLinkedList_t*)0 != pstList)
      {
          enStatus = CDLinkedList_enSTATUS_OK;
          u32SizeReg = CDLinkedList__u32GetSize(pstList);
-         pfvListDestroy = pstList->pfvDestroy;
+         pvfListDestroy = pstList->pvfDestroy;
          while (u32SizeReg> 0UL)
          {
              pstTailItem = CDLinkedList__pstGetTail(pstList);
              enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
-             if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pfvDestroyItemData))
+             if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pvfDestroyItemData))
              {
-                 pstList->pfvDestroyItemData(pvDataItem);
+                 pstList->pvfDestroyItemData(pvDataItem);
              }
              u32SizeReg = CDLinkedList__u32GetSize(pstList);
          }
 
          pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
-         pstList->pfvDestroy = (void (*) (void* List)) 0UL;
-         pstList->pfvDestroyItemData = (void (*) (void* DataContainer)) 0UL;
-         pstList->pfvDestroyItem = (void (*) (void* Item)) 0UL;
+         pstList->pvfDestroy = (void (*) (void* List)) 0UL;
+         pstList->pvfDestroyItemData = (void (*) (void* DataContainer)) 0UL;
+         pstList->pvfDestroyItem = (void (*) (void* Item)) 0UL;
          pstList->pstHead = (CDLinkedListItem_t *) 0UL;
          pstList->pstTail = (CDLinkedListItem_t *) 0UL;
          pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
          pstList->u32Size = 0UL;
 
-         if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pfvListDestroy))
+         if((CDLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pvfListDestroy))
          {
-             pfvListDestroy(pstList);
+             pvfListDestroy(pstList);
              pstList = (CDLinkedList_t*)0UL;
          }
      }

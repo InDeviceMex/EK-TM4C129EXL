@@ -135,7 +135,7 @@ void HardFault__vIRQVectorHandler(void)
     uint32_t u32FaultType = 0UL;
     uint32_t u32HardFault = 0U;
     uint32_t u32HardMemoryFault = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32FaultType = SCB_HFSR_R;
 
@@ -194,14 +194,14 @@ void HardFault__vIRQVectorHandler(void)
         u32HardMemoryFault = SCB_HardFault_pu32Context[6UL];
         GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                         u32HardMemoryFault);
-        pfvCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_VECT);
-        pfvCallback();
+        pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_VECT);
+        pvfCallback();
     }
     else
     {
         GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "SW triggered Hard exception Detected\n\r");
-        pfvCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_SW);
-        pfvCallback();
+        pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_SW);
+        pvfCallback();
     }
     __asm volatile(
             " pop {R0,LR} \n"

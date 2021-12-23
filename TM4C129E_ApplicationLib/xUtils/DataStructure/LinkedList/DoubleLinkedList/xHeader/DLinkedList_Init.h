@@ -26,10 +26,10 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedList_t* DLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item));
+DLinkedList_t* DLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item));
 
 DLinkedList_nSTATUS DLinkedList__enInit(DLinkedList_t* pstList,
-                                        void (*pfvDestroyItemDataArg) (void *DataContainer),
-                                        void (*pfvDestroyItemArg) (void *Item));
+                                        void (*pvfDestroyItemDataArg) (void *DataContainer),
+                                        void (*pvfDestroyItemArg) (void *Item));
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INIT_H_ */

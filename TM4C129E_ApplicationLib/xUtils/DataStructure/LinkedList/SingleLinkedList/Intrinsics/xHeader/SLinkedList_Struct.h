@@ -44,9 +44,9 @@ typedef struct SLinkedList
 {
         uint32_t u32Size;
         uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
-        void (*pfvDestroyItemData) (void *DataContainer);
-        void (*pfvDestroyItem) (void *Item);
-        void (*pfvDestroy) (void* List);
+        void (*pvfDestroyItemData) (void *DataContainer);
+        void (*pvfDestroyItem) (void *Item);
+        void (*pvfDestroy) (void* List);
         SLinkedListItem_t *pstLastItemRead;
         SLinkedListItem_t *pstHead;
         SLinkedListItem_t *pstTail;

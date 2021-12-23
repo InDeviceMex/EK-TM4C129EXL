@@ -127,11 +127,11 @@ static SLinkedList_nSTATUS SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, 
 
                 SLinkedList_Item__vSetOwnerList(pstItemToRemove,  (void *) 0UL);
                 SLinkedList_Item__vSetNextItem(pstItemToRemove,  (SLinkedListItem_t *) 0UL);
-                if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
+                if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
                 {
                     SLinkedList_Item__vSetValue(pstItemToRemove, 0UL);
                     SLinkedList_Item__vSetData(pstItemToRemove,  (void *) 0UL);
-                    pstList->pfvDestroyItem(pstItemToRemove);
+                    pstList->pvfDestroyItem(pstItemToRemove);
                     pstItemToRemove = (SLinkedListItem_t*) 0UL;
                 }
 

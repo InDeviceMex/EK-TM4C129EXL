@@ -132,7 +132,7 @@ void BusFault__vIRQVectorHandler(void)
     uint32_t u32BusFault = 0U;
     uint32_t u32BusAddressFault = 0U;
     uint32_t u32BusAddressValid = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32BusFault = SCB_CFSR_R;
     u32BusFault >>= 8UL;
@@ -165,8 +165,8 @@ void BusFault__vIRQVectorHandler(void)
 
     if(0UL == ((uint32_t) SCB_enBUS_ALL & u32BusFault))
     {
-        pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_SW);
-        pfvCallback();
+        pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_SW);
+        pvfCallback();
     }
     else
     {
@@ -175,30 +175,30 @@ void BusFault__vIRQVectorHandler(void)
             SCB_CFSR_R = SCB_CFSR_R_BFARVALID_CLEAR;
             u32BusFault &= ~(uint32_t) SCB_enBUS_BFARVALID;
             u32BusAddressValid = 1UL;
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_BFARVALID);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_BFARVALID);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_LSPERR & u32BusFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_LSPERR_CLEAR;
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_LSPERR);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_LSPERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_STKERR & u32BusFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_STKERR_CLEAR;
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                             u32BusAddressFault);
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_STKERR);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_STKERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_UNSTKERR & u32BusFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_UNSTKERR_CLEAR;
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                             u32BusAddressFault);
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_UNSTKERR);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_UNSTKERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_IMPRECISERR & u32BusFault)
         {
@@ -207,8 +207,8 @@ void BusFault__vIRQVectorHandler(void)
             UART__u32Printf(UART_enMODULE_0,
                             "Instruction Access Fault Address (Possible or near): %X\n\r",
                             u32BusAddressFault);
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_IMPRECISERR);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_IMPRECISERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_PRECISERR & u32BusFault)
         {
@@ -222,8 +222,8 @@ void BusFault__vIRQVectorHandler(void)
             u32BusAddressFault = SCB_BusFault_pu32Context[6UL];
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Bus Access Fault Address: %X\n\r",
                             u32BusAddressFault);
-            pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_PRECISERR);
-            pfvCallback();
+            pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_PRECISERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enBUS_IBUSERR & u32BusFault)
         {
@@ -231,8 +231,8 @@ void BusFault__vIRQVectorHandler(void)
                     u32BusAddressFault = SCB_BusFault_pu32Context[6UL];
                     GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Bus Access Fault Address: %X\n\r",
                                     u32BusAddressFault);
-                    pfvCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_IBUSERR);
-                    pfvCallback();
+                    pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enBUS_BIT_IBUSERR);
+                    pvfCallback();
         }
     }
     __asm volatile(

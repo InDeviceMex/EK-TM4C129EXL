@@ -32,17 +32,17 @@ void WDT01__vIRQVectorHandler(void)
     volatile uint32_t u32Enable = 0U;
     volatile uint32_t u32Ready = 0U;
     volatile uint32_t u32RegWrite1 = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Ready = SYSCTL_PRWD_R;
     if(0UL == ((SYSCTL_PRWD_R_WDT0_MASK | SYSCTL_PRWD_R_WDT1_MASK) & u32Ready))
     {
-        pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
+        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                    WDT_enINTERRUPT_SW);
-        pfvCallback();
-        pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
+        pvfCallback();
+        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
                                                    WDT_enINTERRUPT_SW);
-        pfvCallback();
+        pvfCallback();
 
     }
     else
@@ -54,9 +54,9 @@ void WDT01__vIRQVectorHandler(void)
             {
                 u32Enable = 1UL;
                 WDT0_ICR_R = WDT_ICR_R_INTCLR_CLEAR;
-                pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
+                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                            WDT_enINTERRUPT_WDT);
-                pfvCallback();
+                pvfCallback();
             }
 
         }
@@ -73,20 +73,20 @@ void WDT01__vIRQVectorHandler(void)
                     u32RegWrite1 &= WDT_CTL_R_WRC_MASK;
                 }while(WDT_CTL_R_WRC_PROGRESS == u32RegWrite1);
 
-                pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
+                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
                                                            WDT_enINTERRUPT_WDT);
-                pfvCallback();
+                pvfCallback();
             }
 
         }
         if(0UL == u32Enable)
         {
-            pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
+            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                        WDT_enINTERRUPT_WDT);
-            pfvCallback();
-            pfvCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
+            pvfCallback();
+            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
                                                        WDT_enINTERRUPT_WDT);
-            pfvCallback();
+            pvfCallback();
         }
     }
 }

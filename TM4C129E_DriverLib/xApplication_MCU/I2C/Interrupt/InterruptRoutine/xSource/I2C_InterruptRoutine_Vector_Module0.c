@@ -33,17 +33,17 @@ void I2C0__vIRQVectorHandler(void)
     volatile uint32_t u32RegMaster = 0U;
     volatile uint32_t u32RegSlave = 0U;
     volatile uint32_t u32Ready = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Ready = SYSCTL_PRI2C_R;
     if(SYSCTL_PRI2C_R_I2C0_NOREADY == (SYSCTL_PRI2C_R_I2C0_MASK & u32Ready))
     {
-        pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+        pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                    I2C_enMASTER_INTERRUPT_SW);
-        pfvCallback();
-        pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+        pvfCallback();
+        pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                    I2C_enSLAVE_INTERRUPT_SW);
-        pfvCallback();
+        pvfCallback();
     }
     else
     {
@@ -54,12 +54,12 @@ void I2C0__vIRQVectorHandler(void)
         u32Reg = u32Reg1 | u32Reg2;
         if(0UL == u32Reg)
         {
-            pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+            pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                        I2C_enMASTER_INTERRUPT_SW);
-            pfvCallback();
-            pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+            pvfCallback();
+            pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                        I2C_enSLAVE_INTERRUPT_SW);
-            pfvCallback();
+            pvfCallback();
         }
         else
         {
@@ -68,86 +68,86 @@ void I2C0__vIRQVectorHandler(void)
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_MASTER & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_MASTER;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                    I2C_enMASTER_INTERRUPT_MASTER);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_CLOCK_TIMEOUT & u32RegMaster)
                 {
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_CLOCK_TIMEOUT);
-                    pfvCallback();
+                    pvfCallback();
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_CLOCK_TIMEOUT;
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_DMA & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_DMA;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                               I2C_enMASTER_INTERRUPT_RECEIVE_DMA);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_DMA & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_DMA;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                               I2C_enMASTER_INTERRUPT_TRANSMIT_DMA);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_ADDR_DATA_NACK & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_ADDR_DATA_NACK;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_ADDR_DATA_NACK);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_START_DETECTION & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_START_DETECTION;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_START_DETECTION);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_STOP_DETECTION & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_STOP_DETECTION;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_STOP_DETECTION);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_ARBITRATION_LOST & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_ARBITRATION_LOST;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_ARBITRATION_LOST);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_FIFO_REQ & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_FIFO_REQ;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                               I2C_enMASTER_INTERRUPT_TRANSMIT_FIFO_REQ);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_FIFO_REQ & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_FIFO_REQ;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                               I2C_enMASTER_INTERRUPT_RECEIVE_FIFO_REQ);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_FIFO_EMPTY & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_TRANSMIT_FIFO_EMPTY;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                               I2C_enMASTER_INTERRUPT_TRANSMIT_FIFO_EMPTY);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_FIFO_FULL & u32RegMaster)
                 {
                     I2C0_MICR_R = (uint32_t) I2C_enMASTER_INT_SOURCE_RECEIVE_FIFO_FULL;
-                    pfvCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                           I2C_enMASTER_INTERRUPT_RECEIVE_FIFO_FULL);
-                    pfvCallback();
+                    pvfCallback();
                 }
             }
             if(0UL != u32RegSlave)
@@ -155,65 +155,65 @@ void I2C0__vIRQVectorHandler(void)
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_DATA & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_DATA;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                   I2C_enSLAVE_INTERRUPT_DATA);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_START_CONDITION & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_START_CONDITION;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_START_CONDITION);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_STOP_CONDITION & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_STOP_CONDITION;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                     I2C_enSLAVE_INTERRUPT_STOP_CONDITION);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_DMA & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_DMA;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_RECEIVE_DMA);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_DMA & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_DMA;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_TRANSMIT_DMA);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_FIFO_REQ & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_FIFO_REQ;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_TRANSMIT_FIFO_REQ);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_FIFO_REQ & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_FIFO_REQ;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_RECEIVE_FIFO_REQ);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_FIFO_EMPTY & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_TRANSMIT_FIFO_EMPTY;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_TRANSMIT_FIFO_EMPTY);
-                    pfvCallback();
+                    pvfCallback();
                 }
                 if((uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_FIFO_FULL & u32RegSlave)
                 {
                     I2C0_SICR_R = (uint32_t) I2C_enSLAVE_INT_SOURCE_RECEIVE_FIFO_FULL;
-                    pfvCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
+                    pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_0,
                                                 I2C_enSLAVE_INTERRUPT_RECEIVE_FIFO_FULL);
-                    pfvCallback();
+                    pvfCallback();
                 }
             }
         }

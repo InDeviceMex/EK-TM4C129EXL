@@ -28,14 +28,14 @@
 static void OS_Adapt__vErrorTask(void);
 
 OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
-                                         void (*pfvThreadArg)(void* pvParameters),
+                                         void (*pvfThreadArg)(void* pvParameters),
                                          void *pvParametersArg)
 {
     puxTopOfStackArg -= 1UL;
 
     *puxTopOfStackArg = OS_KERNEL_INITIAL_XPSR;   /* xPSR */
     puxTopOfStackArg-= 1UL;
-    *puxTopOfStackArg = (OS_UBase_t)  pfvThreadArg; /* PC */
+    *puxTopOfStackArg = (OS_UBase_t)  pvfThreadArg; /* PC */
     puxTopOfStackArg-= 1UL;
     *puxTopOfStackArg = (OS_UBase_t) &OS_Adapt__vErrorTask;    /* LR */
 

@@ -40,7 +40,29 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
                              OS_Task_eNotifyAction enAction,
                              OS_UBase_t *puxPreviousNotificationValue);
 
+OS_Boolean_t OS_Task__boNotify( OS_Task_Handle_t pvTaskToNotify,
+                             OS_UBase_t uxValue,
+                             OS_Task_eNotifyAction enAction);
+
+OS_Boolean_t OS_Task__boNotifyAndQuery( OS_Task_Handle_t pvTaskToNotify,
+                             OS_UBase_t uxValue,
+                             OS_Task_eNotifyAction enAction,
+                             OS_UBase_t *puxPreviousNotificationValue);
+
+OS_Boolean_t OS_Task__boNotifyGive( OS_Task_Handle_t pvTaskToNotify);
+
 OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
+                                    OS_UBase_t uxValue,
+                                    OS_Task_eNotifyAction enAction,
+                                    OS_UBase_t *puxPreviousNotificationValue,
+                                    OS_Boolean_t *pboHigherPriorityTaskWoken);
+
+OS_Boolean_t OS_Task__boNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
+                                    OS_UBase_t uxValue,
+                                    OS_Task_eNotifyAction enAction,
+                                    OS_Boolean_t *pboHigherPriorityTaskWoken);
+
+OS_Boolean_t OS_Task__boNotifyAndQueryFromISR(OS_Task_Handle_t pvTaskToNotify,
                                     OS_UBase_t uxValue,
                                     OS_Task_eNotifyAction enAction,
                                     OS_UBase_t *puxPreviousNotificationValue,

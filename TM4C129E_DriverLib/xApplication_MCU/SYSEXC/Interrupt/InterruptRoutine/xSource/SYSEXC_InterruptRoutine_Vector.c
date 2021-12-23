@@ -57,7 +57,7 @@ void SYSEXC__vIRQVectorHandler(void)
     " pop {R4-R7}\n");
 
     volatile uint32_t u32Reg = 0UL;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Reg = SYSEXC_MIS_R;
 
@@ -78,46 +78,46 @@ void SYSEXC__vIRQVectorHandler(void)
 
     if(0UL == (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_ALL))
     {
-        pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_SW);
-        pfvCallback();
+        pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_SW);
+        pvfCallback();
     }
     else
     {
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DENORMAL;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DENORMAL);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DENORMAL);
+            pvfCallback();
         }
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_DIV0))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_DIV0;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DIV0);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DIV0);
+            pvfCallback();
         }
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INVALID))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INVALID;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INVALID);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INVALID);
+            pvfCallback();
         }
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_UNDERFLOW;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_UNDERFLOW);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_UNDERFLOW);
+            pvfCallback();
         }
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_OVERFLOW;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_OVERFLOW);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_OVERFLOW);
+            pvfCallback();
         }
         if(0UL != (u32Reg & (uint32_t) SYSEXC_enINT_SOURCE_INEXACT))
         {
             SYSEXC_IC_R = (uint32_t) SYSEXC_enINT_SOURCE_INEXACT;
-            pfvCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INEXACT);
-            pfvCallback();
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INEXACT);
+            pvfCallback();
         }
     }
 }

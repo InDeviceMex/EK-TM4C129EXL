@@ -93,4 +93,14 @@ typedef struct
     volatile OS_Task_eNotifyState enNotifyState;
 } OS_Task_TCB_t;
 
+typedef struct
+{
+    OS_Task_Function_t pvfTaskCode;
+    const char * const pcName;  /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+    OS_UBase_t uxStackDepth;
+    void *pvParameters;
+    OS_UBase_t uxPriority;
+    OS_UBase_t *puxStackBuffer;
+} OS_Task_Parameters_t;
+
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_DEFINES_H_ */

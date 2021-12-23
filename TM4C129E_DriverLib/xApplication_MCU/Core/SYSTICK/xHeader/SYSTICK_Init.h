@@ -30,14 +30,14 @@
 SYSTICK_nSTATUS SYSTICK__enInitTickVector(uint32_t u32Tick,
                                           SYSTICK_nPRIORITY enPriority,
                                           SYSTICK_nCLKSOURCE enClockSource,
-                                          void(*pfvVector) (void));
+                                          void(*pvfVector) (void));
 SYSTICK_nSTATUS SYSTICK__enInitTick(uint32_t u32Tick,
                                     SYSTICK_nPRIORITY enPriority,
                                     SYSTICK_nCLKSOURCE enClockSource);
 
 SYSTICK_nSTATUS SYSTICK__enInitUsVector(uint32_t u32TimeUs,
                                         SYSTICK_nPRIORITY enPriority,
-                                        void(*pfvVector) (void));
+                                        void(*pvfVector) (void));
 SYSTICK_nSTATUS SYSTICK__enInitUs(uint32_t u32TimeUs,
                                   SYSTICK_nPRIORITY enPriority);
 

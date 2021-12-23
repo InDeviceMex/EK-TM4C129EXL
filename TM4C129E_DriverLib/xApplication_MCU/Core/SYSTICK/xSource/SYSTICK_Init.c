@@ -49,7 +49,7 @@ void SYSTICK_Delay__vIRQVectorHandler(void)
 }
 
 SYSTICK_nSTATUS SYSTICK__enInitTickVector(uint32_t u32Tick, SYSTICK_nPRIORITY enPriority,
-                                          SYSTICK_nCLKSOURCE enClockSource, void(*pfvVector) (void))
+                                          SYSTICK_nCLKSOURCE enClockSource, void(*pvfVector) (void))
 {
     MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
@@ -87,7 +87,7 @@ SYSTICK_nSTATUS SYSTICK__enInitTickVector(uint32_t u32Tick, SYSTICK_nPRIORITY en
         SYSTICK__vSetTickPeriod(u32Tick);
 
 
-        SYSTICK__vRegisterIRQVectorHandler(pfvVector);
+        SYSTICK__vRegisterIRQVectorHandler(pvfVector);
         SYSTICK__vEnInterruptVector(enPriority);
         SYSTICK__vSetReload(u32Tick);
         SYSTICK__vClearCurrent();
@@ -103,7 +103,7 @@ SYSTICK_nSTATUS SYSTICK__enInitTick(uint32_t u32Tick, SYSTICK_nPRIORITY enPriori
     return (SYSTICK__enInitTickVector(u32Tick, enPriority, enClockSource, &SYSTICK_Delay__vIRQVectorHandler));
 }
 
-SYSTICK_nSTATUS SYSTICK__enInitUsVector(uint32_t u32TimeUs, SYSTICK_nPRIORITY enPriority, void(*pfvVector) (void))
+SYSTICK_nSTATUS SYSTICK__enInitUsVector(uint32_t u32TimeUs, SYSTICK_nPRIORITY enPriority, void(*pvfVector) (void))
 {
     SYSTICK_nCLKSOURCE enClockSource = SYSTICK_enSYSCLK;
     SYSTICK_nSTATUS enReturn = SYSTICK_enERROR;
@@ -136,7 +136,7 @@ SYSTICK_nSTATUS SYSTICK__enInitUsVector(uint32_t u32TimeUs, SYSTICK_nPRIORITY en
 
     if(SYSTICK_enOK == enReturn)
     {
-        enReturn = SYSTICK__enInitTickVector(u32Tick, enPriority, enClockSource, pfvVector);
+        enReturn = SYSTICK__enInitTickVector(u32Tick, enPriority, enClockSource, pvfVector);
     }
     return (enReturn);
 }

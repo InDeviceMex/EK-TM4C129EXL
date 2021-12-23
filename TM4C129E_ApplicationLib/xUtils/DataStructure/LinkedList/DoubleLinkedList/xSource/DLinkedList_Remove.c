@@ -92,11 +92,11 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
             DLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
             DLinkedList_Item__vSetNextItem(pstItem,  (DLinkedListItem_t *) 0UL);
             DLinkedList_Item__vSetPreviousItem(pstItem,  (DLinkedListItem_t *) 0UL);
-            if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
+            if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
             {
                 DLinkedList_Item__vSetValue(pstItem, 0UL);
                 DLinkedList_Item__vSetData(pstItem,  (void *) 0UL);
-                pstList->pfvDestroyItem(pstItem);
+                pstList->pvfDestroyItem(pstItem);
                 pstItem = (DLinkedListItem_t*) 0UL;
             }
 

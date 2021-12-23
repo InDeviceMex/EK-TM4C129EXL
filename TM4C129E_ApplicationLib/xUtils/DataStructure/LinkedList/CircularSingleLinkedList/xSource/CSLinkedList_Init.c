@@ -24,7 +24,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/xHeader/CSLinkedList_Init.h>
 #include <stdlib.h>
 
-CSLinkedList_t* CSLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item))
+CSLinkedList_t* CSLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
 {
     CSLinkedList_t *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -35,9 +35,9 @@ CSLinkedList_t* CSLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataC
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
         pstList->u32Size = 0UL;
-        pstList->pfvDestroy = &free;
-        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
-        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pvfDestroy = &free;
+        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (CSLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (CSLinkedListItem_t*)  0UL;
     }
@@ -45,17 +45,17 @@ CSLinkedList_t* CSLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataC
 }
 
 CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_t* pstList,
-                                          void (*pfvDestroyItemDataArg) (void *DataContainer),
-                                          void (*pfvDestroyItemArg) (void *Item))
+                                          void (*pvfDestroyItemDataArg) (void *DataContainer),
+                                          void (*pvfDestroyItemArg) (void *Item))
 {
     CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
         enStatus = CSLinkedList_enSTATUS_OK;
         pstList->u32Size = 0UL;
-        pstList->pfvDestroy = (void (*) (void* List))0UL;
-        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
-        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pvfDestroy = (void (*) (void* List))0UL;
+        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (CSLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (CSLinkedListItem_t*)  0UL;
     }

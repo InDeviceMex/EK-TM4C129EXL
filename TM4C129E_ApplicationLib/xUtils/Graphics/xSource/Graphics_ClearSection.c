@@ -24,7 +24,7 @@
 
 #include <xUtils/Graphics/xHeader/Graphics_ClearSection.h>
 
-void Graphics__vClearSection (void (*pfvCallback)(Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color), Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color)
+void Graphics__vClearSection (void (*pvfCallback)(Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color), Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color)
 {
     Graphics_nSTATUS enStatus = Graphics_enSTATUS_OK;
     uint32_t u32StatusWidth = 0UL;
@@ -51,7 +51,7 @@ void Graphics__vClearSection (void (*pfvCallback)(Graphics_Layer_t* restrict pst
 
         if(Graphics_enSTATUS_OK == enStatus)
         {
-            pfvCallback(pstLayerArg, stDimensionsArg, u32Color);
+            pvfCallback(pstLayerArg, stDimensionsArg, u32Color);
         }
     }
 }

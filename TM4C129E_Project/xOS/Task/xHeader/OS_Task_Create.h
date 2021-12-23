@@ -27,12 +27,20 @@
 
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 
-OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
+OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                                         const char * const pcNameArg,
                                         OS_UBase_t uxStackDepthArg,
                                         void * const pvParametersArg,
                                         OS_UBase_t uxPriorityArg,
                                         OS_Task_Handle_t * const pvCreatedTask,
                                         const OS_UBase_t* const puxStaticStackBuffer);
+OS_UBase_t OS_Task__uxCreate(OS_Task_Function_t pvfTaskCodeArg,
+                                        const char * const pcNameArg,
+                                        OS_UBase_t uxStackDepthArg,
+                                        void * const pvParametersArg,
+                                        OS_UBase_t uxPriorityArg,
+                                        OS_Task_Handle_t * const pvCreatedTask);
+
+OS_UBase_t OS_Task__uxCreateRestricted(OS_Task_Parameters_t* pstTaskParametersArg, OS_Task_Handle_t* const pxCreatedTask);
 
 #endif /* XOS_TASK_XHEADER_OS_TASK_CREATE_H_ */

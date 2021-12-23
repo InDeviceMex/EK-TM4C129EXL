@@ -28,40 +28,40 @@
 void SYSCTL__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Reg = (uint32_t) SYSCTL_MISC_R;
 
     if(0UL == ((uint32_t) SYSCTL_enINT_SOURCE_ALL & u32Reg))
     {
-        pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_SW);
-        pfvCallback();
+        pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_SW);
+        pvfCallback();
     }
     else
     {
         if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_BOR & u32Reg))
         {
             SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_BOR;
-            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
-            pfvCallback();
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
+            pvfCallback();
         }
         if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOF & u32Reg))
         {
             SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOF;
-            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
-            pfvCallback();
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
+            pvfCallback();
         }
         if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_PLLL & u32Reg))
         {
             SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_PLLL;
-            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
-            pfvCallback();
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
+            pvfCallback();
         }
         if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP & u32Reg))
         {
             SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP;
-            pfvCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
-            pfvCallback();
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
+            pvfCallback();
         }
     }
 }

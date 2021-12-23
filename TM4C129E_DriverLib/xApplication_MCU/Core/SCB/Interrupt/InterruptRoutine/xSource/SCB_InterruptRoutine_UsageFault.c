@@ -131,7 +131,7 @@ void UsageFault__vIRQVectorHandler(void)
 
     uint32_t u32UsageFault = 0U;
     uint32_t u32UsageAddressFault = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32UsageFault = SCB_CFSR_R;
     u32UsageFault >>= 16UL;
@@ -165,8 +165,8 @@ void UsageFault__vIRQVectorHandler(void)
 
     if(0UL == ((uint32_t) SCB_enUSAGE_ALL & u32UsageFault))
     {
-        pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_SW);
-        pfvCallback();
+        pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_SW);
+        pvfCallback();
     }
     else
     {
@@ -176,8 +176,8 @@ void UsageFault__vIRQVectorHandler(void)
             u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Instruction Fault Address: %X\n\r",
                             u32UsageAddressFault);
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNDEFINSTR);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNDEFINSTR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enUSAGE_INVSTATE & u32UsageFault)
         {
@@ -185,8 +185,8 @@ void UsageFault__vIRQVectorHandler(void)
             u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Invalid Sate Instruction Fault Address: %X\n\r",
                             u32UsageAddressFault);
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVSTATE);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVSTATE);
+            pvfCallback();
         }
         if((uint32_t) SCB_enUSAGE_INVPC & u32UsageFault)
         {
@@ -195,16 +195,16 @@ void UsageFault__vIRQVectorHandler(void)
             UART__u32Printf(UART_enMODULE_0,
                             "Invalid PC Load Fault Address: %X\n\r",
                             u32UsageAddressFault);
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVPC);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVPC);
+            pvfCallback();
         }
         if((uint32_t) SCB_enUSAGE_NOCP & u32UsageFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_NOCP_CLEAR;
             UART__u32Printf(UART_enMODULE_0,
                             "FPU Coprocessor has an invalid state.\n\r");
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_NOCP);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_NOCP);
+            pvfCallback();
         }
         if((uint32_t) SCB_enUSAGE_UNALIGNED & u32UsageFault)
         {
@@ -213,8 +213,8 @@ void UsageFault__vIRQVectorHandler(void)
             UART__u32Printf(UART_enMODULE_0,
                             "Unaligned Fault Address: %X\n\r",
                             u32UsageAddressFault);
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNALIGNED);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNALIGNED);
+            pvfCallback();
         }
         if((uint32_t) SCB_enUSAGE_DIVBYZERO & u32UsageFault)
         {
@@ -223,8 +223,8 @@ void UsageFault__vIRQVectorHandler(void)
             UART__u32Printf(UART_enMODULE_0,
                             "Div0 Fault Address: %X\n\r",
                             u32UsageAddressFault);
-            pfvCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_DIVBYZERO);
-            pfvCallback();
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_DIVBYZERO);
+            pvfCallback();
         }
     }
     __asm volatile(

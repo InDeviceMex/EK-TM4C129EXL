@@ -24,7 +24,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
 #include <stdlib.h>
 
-CDLinkedList_t* CDLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item))
+CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
 {
     CDLinkedList_t *pstList = 0;
 #if defined (__TI_ARM__ )
@@ -35,9 +35,9 @@ CDLinkedList_t* CDLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataC
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
         pstList->u32Size = 0UL;
-        pstList->pfvDestroy = &free;
-        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
-        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pvfDestroy = &free;
+        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (CDLinkedListItem_t*)  0UL;
         pstList->pstTail = (CDLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
@@ -47,17 +47,17 @@ CDLinkedList_t* CDLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataC
 
 
 CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_t* pstList,
-                                          void (*pfvDestroyItemDataArg) (void *DataContainer),
-                                          void (*pfvDestroyItemArg) (void *Item))
+                                          void (*pvfDestroyItemDataArg) (void *DataContainer),
+                                          void (*pvfDestroyItemArg) (void *Item))
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     if((uint32_t) 0UL != (uint32_t) pstList)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
         pstList->u32Size = 0UL;
-        pstList->pfvDestroy = (void (*) (void* List))0UL;
-        pstList->pfvDestroyItemData = pfvDestroyItemDataArg;
-        pstList->pfvDestroyItem = pfvDestroyItemArg;
+        pstList->pvfDestroy = (void (*) (void* List))0UL;
+        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (CDLinkedListItem_t*)  0UL;
         pstList->pstTail = (CDLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;

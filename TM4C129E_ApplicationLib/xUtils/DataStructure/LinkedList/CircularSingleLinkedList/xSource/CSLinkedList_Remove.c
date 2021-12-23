@@ -85,11 +85,11 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_t* ps
 
             CSLinkedList_Item__vSetOwnerList(pstItemToRemove,  (void *) 0UL);
             CSLinkedList_Item__vSetNextItem(pstItemToRemove,  (CSLinkedListItem_t *) 0UL);
-            if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
+            if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
             {
                 CSLinkedList_Item__vSetValue(pstItemToRemove, 0UL);
                 CSLinkedList_Item__vSetData(pstItemToRemove,  (void *) 0UL);
-                pstList->pfvDestroyItem(pstItemToRemove);
+                pstList->pvfDestroyItem(pstItemToRemove);
                 pstItemToRemove = (CSLinkedListItem_t*) 0UL;
             }
 
@@ -240,11 +240,11 @@ CSLinkedList_nSTATUS CSLinkedList__enRemoveInList_GetData(CSLinkedList_t* pstLis
             {
                 CSLinkedList_Item__vSetOwnerList(pstItemToRemove,  (void *) 0UL);
                 CSLinkedList_Item__vSetNextItem(pstItemToRemove,  (CSLinkedListItem_t *) 0UL);
-                if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
+                if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
                 {
                     CSLinkedList_Item__vSetValue(pstItemToRemove, 0UL);
                     CSLinkedList_Item__vSetData(pstItemToRemove,  (void *) 0UL);
-                    pstList->pfvDestroyItem(pstItemToRemove);
+                    pstList->pvfDestroyItem(pstItemToRemove);
                     pstItemToRemove = (CSLinkedListItem_t*) 0UL;
                 }
 

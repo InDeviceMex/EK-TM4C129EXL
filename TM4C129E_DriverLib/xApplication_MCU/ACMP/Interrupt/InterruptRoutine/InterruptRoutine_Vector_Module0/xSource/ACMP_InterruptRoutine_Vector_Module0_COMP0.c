@@ -29,14 +29,14 @@ void ACMP0_Comp0__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
     volatile uint32_t u32Ready = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Ready = SYSCTL_PRACMP_R;
     if(SYSCTL_PRACMP_R_ACMP_NOREADY == (SYSCTL_PRACMP_R_ACMP_MASK & u32Ready))
     {
-        pfvCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+        pvfCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
                                                       ACMP_enCOMP_0);
-        pfvCallback();
+        pvfCallback();
     }
     else
     {
@@ -44,15 +44,15 @@ void ACMP0_Comp0__vIRQVectorHandler(void)
         if((uint32_t) ACMP_enCOMPMASK_0 & u32Reg)
         {
             ACMP0_MIS_R = (uint32_t) ACMP_enCOMPMASK_0;
-            pfvCallback = ACMP__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+            pvfCallback = ACMP__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
                                                        ACMP_enCOMP_0);
-            pfvCallback();
+            pvfCallback();
         }
         else
         {
-            pfvCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
+            pvfCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0,
                                                           ACMP_enCOMP_0);
-            pfvCallback();
+            pvfCallback();
         }
     }
 }

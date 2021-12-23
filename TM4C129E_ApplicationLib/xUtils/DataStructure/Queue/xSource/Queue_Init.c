@@ -24,19 +24,19 @@
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Init.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Init.h>
 
-Queue_t* Queue__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer),
-                              void (*pfvDestroyItemArg) (void *Item))
+Queue_t* Queue__pstInit(void (*pvfDestroyElementDataArg) (void *DataContainer),
+                              void (*pvfDestroyItemArg) (void *Item))
 {
-    return (Queue_t*)SLinkedList__pstInit(pfvDestroyElementDataArg, pfvDestroyItemArg);
+    return (Queue_t*)SLinkedList__pstInit(pvfDestroyElementDataArg, pvfDestroyItemArg);
 }
 
 Queue_nSTATUS Queue__enInit(Queue_t* pstQueue,
-                            void (*pfvDestroyElementDataArg) (void *DataContainer),
-                            void (*pfvDestroyItemArg) (void *Item))
+                            void (*pvfDestroyElementDataArg) (void *DataContainer),
+                            void (*pvfDestroyItemArg) (void *Item))
 {
     return (Queue_nSTATUS) SLinkedList__enInit( (SLinkedList_t*) pstQueue,
-                                                pfvDestroyElementDataArg,
-                                                pfvDestroyItemArg);
+                                                pvfDestroyElementDataArg,
+                                                pvfDestroyItemArg);
 }
 
 

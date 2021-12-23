@@ -273,7 +273,7 @@ void OS_Task__vStartScheduler(OS_UBase_t uxUsPeriod)
     OS_UBase_t uxReturn = 0UL;
 
     pvIdleTaskHandle = OS_Task__pvGetIdleTaskHandle();
-    uxReturn = OS_Task__uxTaskGenericCreate(&OS_Task__vIdle,
+    uxReturn = OS_Task__uxGenericCreate(&OS_Task__vIdle,
                                             "IDLE",
                                             OS_TASK_IDLE_STACK_SIZE,
                                             (void *) 0UL,

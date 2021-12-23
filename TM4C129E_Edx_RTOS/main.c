@@ -144,17 +144,17 @@ uint32_t main(void)
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_t TaskHandeler[5UL] = {0UL};
-    OS_Task__uxTaskGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
+    OS_Task__uxGenericCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
                                   (void*) 0UL, 4UL, &TaskHandeler[0UL],(uint32_t*) 0UL);
-    OS_Task__uxTaskGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
+    OS_Task__uxGenericCreate(&xTask2_JoystickLog, "Task 2", 300UL,
                                   (void*) 0UL, 2UL, &TaskHandeler[1UL],(uint32_t*) 0UL);
-    OS_Task__uxTaskGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
+    OS_Task__uxGenericCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
                                   (void*) 0UL, 5UL, &TaskHandeler[2UL],(uint32_t*) 0UL);
-    OS_Task__uxTaskGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
+    OS_Task__uxGenericCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
                                   (void*) 0UL, 3UL, &TaskHandeler[3UL],(uint32_t*) 0UL);
-    OS_Task__uxTaskGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
+    OS_Task__uxGenericCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
                                   (void*) 0UL, 3UL, &TaskHandeler[4UL],(uint32_t*) 0UL);
-    OS_Task__uxTaskGenericCreate(&xTask6_Commands, "Task 6", 900UL,
+    OS_Task__uxGenericCreate(&xTask6_Commands, "Task 6", 900UL,
                                   (void*) 0UL, 2UL, &TaskHandeler[5UL],(uint32_t*) 0UL);
 
     OS_Task__vStartScheduler(1000UL);

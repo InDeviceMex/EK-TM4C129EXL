@@ -28,13 +28,13 @@ void DMA_ERROR__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
     volatile uint32_t u32Ready = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32Ready = SYSCTL_PRDMA_R;
     if(SYSCTL_PRDMA_R_UDMA_NOREADY == (SYSCTL_PRDMA_R_UDMA_MASK & u32Ready))
     {
-        pfvCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_SW);
-        pfvCallback();
+        pvfCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_SW);
+        pvfCallback();
     }
     else
     {
@@ -42,13 +42,13 @@ void DMA_ERROR__vIRQVectorHandler(void)
         if(DMA_ERRCLR_R_ERRCLR_MASK & u32Reg)
         {
             DMA_ERRCLR_R = DMA_ERRCLR_ERRCLR_CLEAR;
-            pfvCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_ERROR);
-            pfvCallback();
+            pvfCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_ERROR);
+            pvfCallback();
         }
         else
         {
-            pfvCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_SW);
-            pfvCallback();
+            pvfCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enINT_ERROR_SW);
+            pvfCallback();
         }
     }
 }

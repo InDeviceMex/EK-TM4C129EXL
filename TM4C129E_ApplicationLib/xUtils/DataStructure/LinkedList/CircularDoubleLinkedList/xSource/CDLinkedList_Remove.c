@@ -82,11 +82,11 @@ CDLinkedList_nSTATUS CDLinkedList__enRemoveInList_GetData(CDLinkedList_t* pstLis
             CDLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
             CDLinkedList_Item__vSetNextItem(pstItem,  (CDLinkedListItem_t *) 0UL);
             CDLinkedList_Item__vSetPreviousItem(pstItem,  (CDLinkedListItem_t *) 0UL);
-            if(0UL !=  (uint32_t)  pstList->pfvDestroyItem)
+            if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
             {
                 CDLinkedList_Item__vSetValue(pstItem, 0UL);
                 CDLinkedList_Item__vSetData(pstItem,  (void *) 0UL);
-                pstList->pfvDestroyItem(pstItem);
+                pstList->pvfDestroyItem(pstItem);
                 pstItem = (CDLinkedListItem_t*) 0UL;
             }
 

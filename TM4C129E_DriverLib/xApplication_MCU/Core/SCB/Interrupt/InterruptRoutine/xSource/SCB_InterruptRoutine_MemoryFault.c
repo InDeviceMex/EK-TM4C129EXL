@@ -132,7 +132,7 @@ void MemoryFault__vIRQVectorHandler(void)
     uint32_t u32MemoryFault = 0U;
     uint32_t u32MemoryAddressFault = 0U;
     uint32_t u32MemoryAddressValid = 0U;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32MemoryFault = SCB_CFSR_R;
     u32MemoryFault >>= 0UL;
@@ -166,8 +166,8 @@ void MemoryFault__vIRQVectorHandler(void)
 
     if(0UL == ((uint32_t) SCB_enMEMORY_ALL & u32MemoryFault))
     {
-        pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_SW);
-        pfvCallback();
+        pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_SW);
+        pvfCallback();
     }
     else
     {
@@ -176,31 +176,31 @@ void MemoryFault__vIRQVectorHandler(void)
             SCB_CFSR_R = SCB_CFSR_R_MMARVALID_CLEAR;
             u32MemoryFault &= ~(uint32_t) SCB_enMEMORY_MMARVALID;
             u32MemoryAddressValid = 1UL;
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MMARVALID);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MMARVALID);
+            pvfCallback();
         }
 
         if((uint32_t) SCB_enMEMORY_MLSPERR & u32MemoryFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_MLSPERR_CLEAR;
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MLSPERR);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MLSPERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enMEMORY_MSTKERR & u32MemoryFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_MSTKERR_CLEAR;
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                             u32MemoryAddressFault);
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MSTKERR);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MSTKERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enMEMORY_MUNSTKERR & u32MemoryFault)
         {
             SCB_CFSR_R = SCB_CFSR_R_MUNSTKERR_CLEAR;
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Context Values could not be invalid\n\r",
                             u32MemoryAddressFault);
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MUNSTKERR);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_MUNSTKERR);
+            pvfCallback();
         }
         if((uint32_t) SCB_enMEMORY_DACCVIOL & u32MemoryFault)
         {
@@ -208,8 +208,8 @@ void MemoryFault__vIRQVectorHandler(void)
             u32MemoryAddressFault = SCB_MemoryFault_pu32Context[6UL];
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                             u32MemoryAddressFault);
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_DACCVIOL);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_DACCVIOL);
+            pvfCallback();
         }
         if((uint32_t) SCB_enMEMORY_IACCVIOL & u32MemoryFault)
         {
@@ -223,8 +223,8 @@ void MemoryFault__vIRQVectorHandler(void)
             u32MemoryAddressFault = SCB_MemoryFault_pu32Context[6UL];
             GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
                             u32MemoryAddressFault);
-            pfvCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_IACCVIOL);
-            pfvCallback();
+            pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMEMORY_BIT_IACCVIOL);
+            pvfCallback();
         }
     }
     __asm volatile(

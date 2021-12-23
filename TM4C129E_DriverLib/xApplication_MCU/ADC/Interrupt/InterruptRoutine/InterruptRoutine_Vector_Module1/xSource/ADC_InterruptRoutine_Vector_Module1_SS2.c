@@ -37,7 +37,7 @@ void ADC1_SS2__vIRQVectorHandler(void)
     volatile uint32_t u32RegCompSelect = 0UL;
     volatile uint32_t u32RegCompMux = 0UL;
     volatile uint32_t u32RegCompMuxBit = 0UL;
-    void(*pfvCallback)(void)  = (void(*)(void)) 0UL;
+    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
     uint32_t u32Pos = 0UL;
     uint32_t u32Shift = 0x1UL;
     uint32_t u32Offset = 0x0UL;
@@ -45,18 +45,18 @@ void ADC1_SS2__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRADC_R;
     if(SYSCTL_PRADC_R_ADC1_NOREADY == (SYSCTL_PRADC_R_ADC1_MASK & u32Ready))
     {
-        pfvCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+        pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                      ADC_enSEQ_2);
-        pfvCallback();
+        pvfCallback();
     }
     else
     {
         u32Reg = ADC1_ISC_R;
         if(0UL == ((ADC_DMA_COMPARATIVE|ADC_Sample_COMPARATIVE|ADC_Comp_COMPARATIVE ) &u32Reg))
         {
-            pfvCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+            pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                          ADC_enSEQ_2);
-            pfvCallback();
+            pvfCallback();
         }
         else
         {
@@ -65,18 +65,18 @@ void ADC1_SS2__vIRQVectorHandler(void)
             if(u32Reg & ADC_DMA_COMPARATIVE)
             {
                 ADC1_ISC_R = ADC_DMA_COMPARATIVE;
-                pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                pvfCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                                  ADC_enSEQ_2,
                                                                  ADC_enINT_SOURCE_DMA);
-                pfvCallback();
+                pvfCallback();
             }
             if(u32Reg & ADC_Sample_COMPARATIVE)
             {
                 ADC1_ISC_R = ADC_Sample_COMPARATIVE;
-                pfvCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                pvfCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                                  ADC_enSEQ_2,
                                                                  ADC_enINT_SOURCE_SAMPLE);
-                pfvCallback();
+                pvfCallback();
             }
             if(u32Reg & ADC_Comp_COMPARATIVE)
             {
@@ -92,10 +92,10 @@ void ADC1_SS2__vIRQVectorHandler(void)
                         if(u32RegCompInterrupt & u32RegCompMuxBit)
                         {
                             ADC1_DCISC_R = (uint32_t) u32RegCompMuxBit;
-                            pfvCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                            pvfCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                                        ADC_enSEQ_2,
                                                                        (ADC_nCOMPARATOR) u32RegCompMux);
-                            pfvCallback();
+                            pvfCallback();
                         }
                     }
                     u32Offset += 0x4UL;

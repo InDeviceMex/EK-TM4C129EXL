@@ -26,10 +26,10 @@
 
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Struct.h>
 
-Queue_t* Queue__pstInit(void (*pfvDestroyElementDataArg) (void *DataContainer),
-                              void (*pfvDestroyItemArg) (void *Item));
+Queue_t* Queue__pstInit(void (*pvfDestroyElementDataArg) (void *DataContainer),
+                              void (*pvfDestroyItemArg) (void *Item));
 Queue_nSTATUS Queue__enInit(Queue_t* pstQueue,
-                            void (*pfvDestroyElementDataArg) (void *DataContainer),
-                            void (*pfvDestroyItemArg) (void *Item));
+                            void (*pvfDestroyElementDataArg) (void *DataContainer),
+                            void (*pvfDestroyItemArg) (void *Item));
 
 #endif /* XUTILS_DATASTRUCTURE_QUEUE_XHEADER_QUEUE_INIT_H_ */

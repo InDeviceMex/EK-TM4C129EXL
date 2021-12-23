@@ -27,10 +27,10 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-CSLinkedList_t* CSLinkedList__pstInit(void (*pfvDestroyItemDataArg) (void *DataContainer), void (*pfvDestroyItemArg) (void *Item));
+CSLinkedList_t* CSLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item));
 CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_t* pstList,
-                                          void (*pfvDestroyItemDataArg) (void *DataContainer),
-                                          void (*pfvDestroyItemArg) (void *Item));
+                                          void (*pvfDestroyItemDataArg) (void *DataContainer),
+                                          void (*pvfDestroyItemArg) (void *Item));
 
 
 

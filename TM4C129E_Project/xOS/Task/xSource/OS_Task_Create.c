@@ -31,7 +31,7 @@
 static void OS_Task__vInitialiseTaskLists( void );
 
 
-OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
+OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                                         const char * const pcNameArg,
                                         OS_UBase_t uxStackDepthArg,
                                         void * const pvParametersArg,
@@ -46,7 +46,7 @@ OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
     OS_UBase_t uxReturn = 1UL;
     OS_Boolean_t boSchedulerRunning = FALSE;
 
-    if(0UL != (OS_UBase_t) pfvTaskCodeArg)
+    if(0UL != (OS_UBase_t) pvfTaskCodeArg)
     {
         if(OS_TASK_MAX_PRIORITIES > uxPriorityArg)
         {
@@ -69,7 +69,7 @@ OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
 
                     pstNewTCB->puxTopOfStack = OS_Adapt__puxInitialiseStack(
                             puxTopOfStackReg,
-                            (void (*)( void * pvParameters )) pfvTaskCodeArg,
+                            (void (*)( void * pvParameters )) pvfTaskCodeArg,
                             (void*) pvParametersArg);
 
                     if(0UL != (OS_UBase_t) pvCreatedTask)
@@ -134,6 +134,36 @@ OS_UBase_t OS_Task__uxTaskGenericCreate(OS_Task_Function_t pfvTaskCodeArg,
     return (uxReturn);
 }
 
+OS_UBase_t OS_Task__uxCreate(OS_Task_Function_t pvfTaskCodeArg,
+                                        const char * const pcNameArg,
+                                        OS_UBase_t uxStackDepthArg,
+                                        void * const pvParametersArg,
+                                        OS_UBase_t uxPriorityArg,
+                                        OS_Task_Handle_t * const pvCreatedTask)
+{
+    OS_UBase_t uxReturn = 0UL;
+
+    uxReturn = OS_Task__uxGenericCreate(pvfTaskCodeArg, pcNameArg, uxStackDepthArg, pvParametersArg,
+                                        uxPriorityArg, pvCreatedTask, (const OS_UBase_t*) 0UL);
+
+    return (uxReturn);
+}
+
+
+OS_UBase_t OS_Task__uxCreateRestricted(OS_Task_Parameters_t* pstTaskParametersArg, OS_Task_Handle_t* const pxCreatedTask)
+{
+    OS_UBase_t uxReturn = 0UL;
+    OS_Task_Function_t pvfTaskCodeReg = pstTaskParametersArg->pvfTaskCode;
+    const char * const pcNameReg = pstTaskParametersArg->pcName;
+    OS_UBase_t uxStackDepthReg = pstTaskParametersArg->uxStackDepth;
+    void * const pvParametersReg = pstTaskParametersArg->pvParameters;
+    OS_UBase_t uxPriorityReg = pstTaskParametersArg->uxPriority;
+    const OS_UBase_t* const puxStaticStackBuffer = pstTaskParametersArg->puxStackBuffer;
+
+    uxReturn = OS_Task__uxGenericCreate(pvfTaskCodeReg, pcNameReg, uxStackDepthReg, pvParametersReg, uxPriorityReg, pxCreatedTask, puxStaticStackBuffer);
+
+    return (uxReturn);
+}
 
 static void OS_Task__vInitialiseTaskLists( void )
 {
