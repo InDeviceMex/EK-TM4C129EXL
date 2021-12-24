@@ -87,11 +87,11 @@ void EDUMKII_Joystick_vInit(void)
         pu32JoystickArray = EDUMKII_Joystick_vSampleArray();
         pu32JoystickArray += 1UL;
         DMA_CH__vSetPrimaryDestEndAddress(DMA_enCH_MODULE_15, (uint32_t) pu32JoystickArray);
-        DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_15, (uint32_t) (ADC0_BASE + ADC_SSFIFO1_OFFSET));
+        DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
         DMA_CH__vSetPrimaryControlWorld(DMA_enCH_MODULE_15, enDMAChControl);
 
         DMA_CH__vSetAlternateDestEndAddress(DMA_enCH_MODULE_15, (uint32_t) pu32JoystickArray);
-        DMA_CH__vSetAlternateSourceEndAddress(DMA_enCH_MODULE_15, (uint32_t) (ADC0_BASE + ADC_SSFIFO1_OFFSET));
+        DMA_CH__vSetAlternateSourceEndAddress(DMA_enCH_MODULE_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
         DMA_CH__vSetAlternateControlWorld(DMA_enCH_MODULE_15, enDMAChControl);
 
         DMA_CH__vSetConfigStruct(DMA_enCH_MODULE_15, enDMAChConfig);

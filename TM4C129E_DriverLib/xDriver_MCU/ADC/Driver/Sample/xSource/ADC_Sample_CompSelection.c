@@ -29,7 +29,7 @@
 void ADC__vSetSampleCompSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                   ADC_nMUX enMux, ADC_nCOMPARATOR enSampleComparator)
 {
-    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSDC_OFFSET,
+    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_DC_OFFSET,
                            (uint32_t) enMux, (uint32_t) enSampleComparator,
                            ADC_SSDC_S0DCSEL_MASK, ADC_SSDC_R_S0DCSEL_BIT);
 }
@@ -39,7 +39,7 @@ ADC_nCOMPARATOR ADC__enGetSampleCompSelection(ADC_nMODULE enModule, ADC_nSEQUENC
 {
     ADC_nCOMPARATOR enCompNumReg = ADC_enCOMPARATOR_0;
     enCompNumReg = (ADC_nCOMPARATOR) ADC__u32GetSampleGeneric((uint32_t) enModule,
-                                                     (uint32_t) enSequencer, ADC_SSDC_OFFSET,
+                                                     (uint32_t) enSequencer, ADC_SS_DC_OFFSET,
                                                      (uint32_t) enMux, ADC_SSDC_S0DCSEL_MASK,
                                                      ADC_SSDC_R_S0DCSEL_BIT);
     return (enCompNumReg);

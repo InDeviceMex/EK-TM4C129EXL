@@ -33,12 +33,12 @@ typedef volatile struct
     union
       {
           volatile uint32_t SSMUX;
-          ADCSSMUX8_t SSMUX_Bit;
+          ADCSS8_MUX_t SSMUX_Bit;
       };
       union
       {
           volatile uint32_t SSCTL;
-          ADCSSCTL8_t SSCTL_Bit;
+          ADCSS8_CTL_t SSCTL_Bit;
       };
       union
       {
@@ -53,24 +53,24 @@ typedef volatile struct
       union
       {
           volatile uint32_t SSOP;
-          ADCSSOP8_t SSOP_Bit;
+          ADCSS8_OP_t SSOP_Bit;
       };
       union
       {
           volatile uint32_t SSDC;
-          ADCSSDC8_t SSDC_Bit;
+          ADCSS8_DC_t SSDC_Bit;
       };
       union
       {
           volatile uint32_t SSEMUX;
-          ADCSSEMUX8_t SSEMUX_Bit;
+          ADCSS8_EMUX_t SSEMUX_Bit;
       };
       union
       {
           volatile uint32_t SSTSH;
-          ADCSSTSH8_t SSTSH_Bit;
+          ADCSS8_TSH_t SSTSH_Bit;
       };
-}ADCINPUT_t;
+}ADCSEQUENCER_t;
 
 typedef volatile struct
 {
@@ -92,7 +92,7 @@ typedef volatile struct
     union
     {
         volatile uint32_t ISC;
-        ADCISC_t ISC_Bit;
+        ADC_ISC_t ISC_Bit;
     };
     union
     {
@@ -116,8 +116,8 @@ typedef volatile struct
     };
     union
     {
-        volatile uint32_t SSPRI;
-        ADCSSPRI_t SSPRI_Bit;
+        volatile uint32_t SS_PRI;
+        ADCSS_PRI_t SS_PRI_Bit;
     };
     union
     {
@@ -138,37 +138,37 @@ typedef volatile struct
     };
     union
     {
-        volatile uint32_t DCISC;
-        ADCDCISC_t DCISC_Bit;
+        volatile uint32_t DC_ISC;
+        ADCDC_ISC_t DC_ISC_Bit;
     };
     union
     {
         volatile uint32_t CTL;
-        ADCCTL_t CTL_Bit;
+        ADC_CTL_t CTL_Bit;
     };
 
     const uint32_t reserved1;
 
-    ADCINPUT_t INPUT [4UL];
+    ADCSEQUENCER_t SEQUENCER [4UL];
 
     const uint32_t reserved5 [784UL];
     union
     {
-        volatile uint32_t DCRIC;
-        ADCDCRIC_t DCRIC_Bit;
+        volatile uint32_t DC_RIC;
+        ADCDC_RIC_t DC_RIC_Bit;
     };
 
     const uint32_t reserved6 [63UL];
     union
     {
-        volatile uint32_t DCCTL [8UL];
-        ADCDCCTL_t DCCTL_Bit [8UL];
+        volatile uint32_t DC_CTL [8UL];
+        ADCDC_CTL_t DC_CTL_Bit [8UL];
     };
     const uint32_t reserved7 [8UL];
     union
     {
-        volatile uint32_t DCCMP [8UL];
-        ADCDCCMP_t DCCMP_Bit [8UL];
+        volatile uint32_t DC_CMP [8UL];
+        ADCDC_CMP_t DC_CMP_Bit [8UL];
     };
 
     const uint32_t reserved8 [88UL];

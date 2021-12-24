@@ -99,7 +99,7 @@ typedef volatile struct
     volatile const uint32_t DCINSS2: 1;
     volatile const uint32_t DCINSS3: 1;
     const uint32_t reserved2: 12;
-}ADCISC_t;
+}ADC_ISC_t;
 
 typedef volatile struct
 {
@@ -151,7 +151,7 @@ typedef volatile struct
     const uint32_t reserved3: 2;
     volatile uint32_t SS3: 2;
     const uint32_t reserved4: 18;
-}ADCSSPRI_t;
+}ADCSS_PRI_t;
 
 typedef volatile struct
 {
@@ -185,7 +185,7 @@ typedef volatile struct
 {
     volatile uint32_t VREF: 1;
     const uint32_t reserved: 31;
-}ADCCTL_t;
+}ADC_CTL_t;
 
 typedef volatile struct
 {
@@ -227,7 +227,7 @@ typedef volatile struct
     volatile uint32_t MUX5: 4;
     volatile uint32_t MUX6: 4;
     volatile uint32_t MUX7: 4;
-}ADCSSMUX8_t;
+}ADCSS8_MUX_t;
 
 typedef volatile struct
 {
@@ -236,13 +236,13 @@ typedef volatile struct
     volatile uint32_t MUX2: 4;
     volatile uint32_t MUX3: 4;
     const uint32_t reserved: 16;
-}ADCSSMUX4_t;
+}ADCSS4_MUX_t;
 
 typedef volatile struct
 {
     volatile uint32_t MUX0: 4;
     const uint32_t reserved: 28;
-}ADCSSMUX1_t;
+}ADCSS1_MUX_t;
 
 typedef volatile struct
 {
@@ -262,7 +262,7 @@ typedef volatile struct
     const uint32_t reserved6: 3;
     volatile uint32_t EMUX7: 1;
     const uint32_t reserved7: 3;
-}ADCSSEMUX8_t;
+}ADCSS8_EMUX_t;
 
 typedef volatile struct
 {
@@ -274,13 +274,13 @@ typedef volatile struct
     const uint32_t reserved2: 3;
     volatile uint32_t EMUX3: 1;
     const uint32_t reserved3: 19;
-}ADCSSEMUX4_t;
+}ADCSS4_EMUX_t;
 
 typedef volatile struct
 {
     volatile uint32_t EMUX0: 1;
     const uint32_t reserved: 31;
-}ADCSSEMUX1_t;
+}ADCSS1_EMUX_t;
 
 typedef volatile struct
 {
@@ -292,7 +292,7 @@ typedef volatile struct
     volatile uint32_t TSH5: 4;
     volatile uint32_t TSH6: 4;
     volatile uint32_t TSH7: 4;
-}ADCSSTSH8_t;
+}ADCSS8_TSH_t;
 
 typedef volatile struct
 {
@@ -301,13 +301,13 @@ typedef volatile struct
     volatile uint32_t TSH2: 4;
     volatile uint32_t TSH3: 4;
     const uint32_t reserved: 16;
-}ADCSSTSH4_t;
+}ADCSS4_TSH_t;
 
 typedef volatile struct
 {
     volatile uint32_t TSH0: 4;
     const uint32_t reserved: 28;
-}ADCSSTSH1_t;
+}ADCSS1_TSH_t;
 
 
 typedef volatile struct
@@ -344,7 +344,7 @@ typedef volatile struct
     volatile uint32_t END7: 1;
     volatile uint32_t IE7: 1;
     volatile uint32_t TS7: 1;
-}ADCSSCTL8_t;
+}ADCSS8_CTL_t;
 
 typedef volatile struct
 {
@@ -365,7 +365,7 @@ typedef volatile struct
     volatile uint32_t IE3: 1;
     volatile uint32_t TS3: 1;
     const uint32_t reserved: 16;
-}ADCSSCTL4_t;
+}ADCSS4_CTL_t;
 
 typedef volatile struct
 {
@@ -374,7 +374,7 @@ typedef volatile struct
     volatile uint32_t IE0: 1;
     volatile uint32_t TS0: 1;
     const uint32_t reserved: 28;
-}ADCSSCTL1_t;
+}ADCSS1_CTL_t;
 
 typedef volatile struct
 {
@@ -414,7 +414,7 @@ typedef volatile struct
     const uint32_t reserved6: 3;
     volatile uint32_t S7DCOP: 1;
     const uint32_t reserved7: 3;
-}ADCSSOP8_t;
+}ADCSS8_OP_t;
 
 typedef volatile struct
 {
@@ -426,13 +426,13 @@ typedef volatile struct
     const uint32_t reserved2: 3;
     volatile uint32_t S3DCOP: 1;
     const uint32_t reserved3: 19;
-}ADCSSOP4_t;
+}ADCSS4_OP_t;
 
 typedef volatile struct
 {
     volatile uint32_t S0DCOP: 1;
     const uint32_t reserved: 31;
-}ADCSSOP1_t;
+}ADCSS1_OP_t;
 
 typedef volatile struct
 {
@@ -444,7 +444,7 @@ typedef volatile struct
     volatile uint32_t S5DCSEL: 4;
     volatile uint32_t S6DCSEL: 4;
     volatile uint32_t S7DCSEL: 4;
-}ADCSSDC8_t;
+}ADCSS8_DC_t;
 
 typedef volatile struct
 {
@@ -453,13 +453,13 @@ typedef volatile struct
     volatile uint32_t S2DCSEL: 4;
     volatile uint32_t S3DCSEL: 4;
     const uint32_t reserved: 16;
-}ADCSSDC4_t;
+}ADCSS4_DC_t;
 
 typedef volatile struct
 {
     volatile uint32_t S0DCSEL: 4;
     const uint32_t reserved: 28;
-}ADCSSDC1_t;
+}ADCSS1_DC_t;
 
 
 /**
@@ -477,7 +477,7 @@ typedef volatile struct
     volatile uint32_t DCINT6: 1;
     volatile uint32_t DCINT7: 1;
     const uint32_t reserved: 24;
-}ADCDCISC_t;
+}ADCDC_ISC_t;
 
 typedef volatile struct
 {
@@ -499,7 +499,7 @@ typedef volatile struct
     volatile uint32_t DCTRIG6  : 1;
     volatile uint32_t DCTRIG7  : 1;
     const uint32_t reserved1: 8;
-}ADCDCRIC_t;
+}ADCDC_RIC_t;
 
 /**
  * ADC Sequence Digital Comparator configurations
@@ -515,7 +515,7 @@ typedef volatile struct
     volatile uint32_t CTC: 2;
     volatile uint32_t CTE: 1;
     const uint32_t reserved1: 19;
-}ADCDCCTL_t;
+}ADCDC_CTL_t;
 
 typedef volatile struct
 {
@@ -523,6 +523,6 @@ typedef volatile struct
     const uint32_t reserved: 4;
     volatile uint32_t COMP1: 12;
     const uint32_t reserved1: 4;
-}ADCDCCMP_t;
+}ADCDC_CMP_t;
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_STRUCT_XHEADER_ADC_STRUCTREGISTER_H_ */

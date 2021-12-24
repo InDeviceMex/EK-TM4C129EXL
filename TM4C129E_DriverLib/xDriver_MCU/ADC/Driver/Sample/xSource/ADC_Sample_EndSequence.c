@@ -29,7 +29,7 @@
 void ADC__vSetSampleEndSequence(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                 ADC_nMUX enMux, ADC_nSEQ_INPUT_ENDED enSampleEndSequence)
 {
-    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSCTL_OFFSET,
+    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_CTL_OFFSET,
                            (uint32_t) enMux, (uint32_t) enSampleEndSequence,
                            ADC_SSCTL_END0_MASK, ADC_SSCTL_R_END0_BIT);
 }
@@ -40,7 +40,7 @@ ADC_nSEQ_INPUT_ENDED ADC__enGetSampleEndSequence(ADC_nMODULE enModule,
     ADC_nSEQ_INPUT_ENDED enSeqInputEnded = ADC_enSEQ_INPUT_ENDED_DIS;
     enSeqInputEnded = (ADC_nSEQ_INPUT_ENDED) ADC__u32GetSampleGeneric((uint32_t) enModule,
                                                                       (uint32_t) enSequencer,
-                                                                      ADC_SSCTL_OFFSET,
+                                                                      ADC_SS_CTL_OFFSET,
                                                                       (uint32_t) enMux,
                                                                       ADC_SSCTL_END0_MASK,
                                                                       ADC_SSCTL_R_END0_BIT);

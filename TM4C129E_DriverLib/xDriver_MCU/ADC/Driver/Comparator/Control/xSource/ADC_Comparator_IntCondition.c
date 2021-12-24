@@ -31,13 +31,13 @@ void ADC__vSetCompIntCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
 {
     ADC__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp,
                                 (uint32_t) enActCompIntCondition,
-                                ADC_DCCTL_CIC_MASK, ADC_DCCTL_R_CIC_BIT);
+                                ADC_DC_CTL_CIC_MASK, ADC_DC_CTL_R_CIC_BIT);
 }
 
 ADC_nCOMP_INT_COND ADC__enGetCompIntCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
     ADC_nCOMP_INT_COND enCompInt = ADC_enCOMP_INT_COND_LOW;
     enCompInt = (ADC_nCOMP_INT_COND) ADC__u32GetCompGenericControl((uint32_t) enModule,
-                               (uint32_t) enActComp, ADC_DCCTL_CIC_MASK, ADC_DCCTL_R_CIC_BIT);
+                               (uint32_t) enActComp, ADC_DC_CTL_CIC_MASK, ADC_DC_CTL_R_CIC_BIT);
     return (enCompInt);
 }

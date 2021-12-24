@@ -44,10 +44,10 @@ void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequence
     u32MuxInput *= 4UL; /* each mux have 4 bits*/
     u32MuxInput += ADC_SSCTL_R_IE0_BIT;
 
-    u32Sequencer *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32Sequencer *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32Sequencer *= 4UL;
-    u32Sequencer += ADC_SSMUX0_OFFSET;
-    u32Sequencer += ADC_SSCTL_OFFSET;
+    u32Sequencer += ADC_SS_REGISTER_BASE_OFFSET;
+    u32Sequencer += ADC_SS_CTL_OFFSET;
 
     ADC__vWriteRegister(enModule , u32Sequencer, ADC_SSCTL_IE0_ENA,
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
@@ -66,10 +66,10 @@ void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequenc
     u32MuxInput *= 4UL; /* each mux have 4 bits*/
     u32MuxInput += ADC_SSCTL_R_IE0_BIT;
 
-    u32Sequencer *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32Sequencer *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32Sequencer *= 4UL;
-    u32Sequencer += ADC_SSMUX0_OFFSET;
-    u32Sequencer += ADC_SSCTL_OFFSET;
+    u32Sequencer += ADC_SS_REGISTER_BASE_OFFSET;
+    u32Sequencer += ADC_SS_CTL_OFFSET;
 
     ADC__vWriteRegister(enModule , u32Sequencer, ADC_SSCTL_IE0_DIS,
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
@@ -90,10 +90,10 @@ ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
     u32MuxInput *= 4UL; /* each mux have 4 bits*/
     u32MuxInput += ADC_SSCTL_R_IE0_BIT;
 
-    u32Sequencer *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32Sequencer *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32Sequencer *= 4UL;
-    u32Sequencer += ADC_SSMUX0_OFFSET;
-    u32Sequencer += ADC_SSCTL_OFFSET;
+    u32Sequencer += ADC_SS_REGISTER_BASE_OFFSET;
+    u32Sequencer += ADC_SS_CTL_OFFSET;
 
     enIntInputState = (ADC_nSEQ_INPUT_INT) ADC__u32ReadRegister(enModule, u32Sequencer,
                                                         ADC_SSCTL_IE0_MASK, u32MuxInput);

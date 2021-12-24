@@ -29,7 +29,7 @@
 void ADC__vSetSampleSampleHold(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                ADC_nMUX enMux, ADC_nSEQ_SAMPLE_HOLD enSampleSampleHold)
 {
-    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSTSH_OFFSET,
+    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_TSH_OFFSET,
                            (uint32_t) enMux, (uint32_t) enSampleSampleHold,
                            ADC_SSTSH_TSH0_MASK, ADC_SSTSH_R_TSH0_BIT);
 }
@@ -40,7 +40,7 @@ ADC_nSEQ_SAMPLE_HOLD ADC__enGetSampleSampleHold(ADC_nMODULE enModule,
     ADC_nSEQ_SAMPLE_HOLD enSeqSampleHoldReg = ADC_enSEQ_SAMPLE_HOLD_4;
     enSeqSampleHoldReg = (ADC_nSEQ_SAMPLE_HOLD) ADC__u32GetSampleGeneric((uint32_t) enModule,
                                                      (uint32_t) enSequencer,
-                                                     ADC_SSTSH_OFFSET, (uint32_t) enMux,
+                                                     ADC_SS_TSH_OFFSET, (uint32_t) enMux,
                                                      ADC_SSTSH_TSH0_MASK, ADC_SSTSH_R_TSH0_BIT);
     return (enSeqSampleHoldReg);
 }

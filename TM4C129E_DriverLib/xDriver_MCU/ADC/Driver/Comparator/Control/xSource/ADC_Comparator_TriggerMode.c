@@ -30,13 +30,13 @@ void ADC__vSetCompTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
                               ADC_nCOMP_TRIGGER_MODE enActCompTriggerMode)
 {
     ADC__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp,
-            (uint32_t) enActCompTriggerMode, ADC_DCCTL_CTM_MASK, ADC_DCCTL_R_CTM_BIT);
+            (uint32_t) enActCompTriggerMode, ADC_DC_CTL_CTM_MASK, ADC_DC_CTL_R_CTM_BIT);
 }
 
 ADC_nCOMP_TRIGGER_MODE ADC__enGetCompTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
 {
     ADC_nCOMP_TRIGGER_MODE enCompTrigger = ADC_enCOMP_TRIGGER_MODE_ALWAYS;
     enCompTrigger = (ADC_nCOMP_TRIGGER_MODE) ADC__u32GetCompGenericControl((uint32_t) enModule,
-                           (uint32_t) enActComp, ADC_DCCTL_CTM_MASK, ADC_DCCTL_R_CTM_BIT);
+                           (uint32_t) enActComp, ADC_DC_CTL_CTM_MASK, ADC_DC_CTL_R_CTM_BIT);
     return (enCompTrigger);
 }

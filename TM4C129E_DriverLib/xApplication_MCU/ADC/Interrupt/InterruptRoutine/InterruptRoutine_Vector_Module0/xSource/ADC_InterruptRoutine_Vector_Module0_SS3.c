@@ -60,8 +60,8 @@ void ADC0_SS3__vIRQVectorHandler(void)
         }
         else
         {
-            u32RegCompInterrupt = ADC0_DCISC_R;
-            u32RegCompSelect = ADC0_SSOP3_R;
+            u32RegCompInterrupt = ADC0_DC_ISC_R;
+            u32RegCompSelect = ADC0_SS3_OP_R;
             if(u32Reg & ADC_DMA_COMPARATIVE)
             {
                 ADC0_ISC_R = ADC_DMA_COMPARATIVE;
@@ -85,13 +85,13 @@ void ADC0_SS3__vIRQVectorHandler(void)
                 {
                     if(u32RegCompSelect & u32Shift)
                     {
-                        u32RegCompMux = ADC0_SSDC3_R >> u32Offset;
+                        u32RegCompMux = ADC0_SS3_DC_R >> u32Offset;
                         u32RegCompMux &= 0xFUL;
                         u32RegCompMuxBit = 1UL;
                         u32RegCompMuxBit <<= u32RegCompMux;
                         if(u32RegCompInterrupt & u32RegCompMuxBit)
                         {
-                            ADC0_DCISC_R = (uint32_t) u32RegCompMuxBit;
+                            ADC0_DC_ISC_R = (uint32_t) u32RegCompMuxBit;
                             pvfCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_0,
                                                                    ADC_enSEQ_3,
                                                                    (ADC_nCOMPARATOR) u32RegCompMux);

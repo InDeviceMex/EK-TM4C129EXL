@@ -36,11 +36,11 @@ void ADC__vSetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequen
     u32ExtendedInputSelection &= 0x1UL;
     u32InputSelection &= 0xFUL;
 
-    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSEMUX_OFFSET,
+    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_EMUX_OFFSET,
                            (uint32_t) enMux, u32ExtendedInputSelection,
                            ADC_SSEMUX_EMUX0_MASK, ADC_SSEMUX_R_EMUX0_BIT);
 
-    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SSMUX_OFFSET,
+    ADC__vSetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_MUX_OFFSET,
                            (uint32_t) enMux, u32InputSelection,
                            ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
 }
@@ -52,11 +52,11 @@ ADC_nSEQ_INPUT ADC__enGetSampleInputSelection(ADC_nMODULE enModule, ADC_nSEQUENC
     uint32_t u32InputSelection = 0UL;
     uint32_t u32ExtendedInputSelection = 0UL;
     u32InputSelection = ADC__u32GetSampleGeneric((uint32_t) enModule, (uint32_t) enSequencer,
-                                                 ADC_SSMUX_OFFSET, (uint32_t) enMux,
+                                                 ADC_SS_MUX_OFFSET, (uint32_t) enMux,
                                                  ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
     u32ExtendedInputSelection = ADC__u32GetSampleGeneric((uint32_t) enModule,
                                                          (uint32_t) enSequencer,
-                                                 ADC_SSEMUX_OFFSET, (uint32_t) enMux,
+                                                 ADC_SS_EMUX_OFFSET, (uint32_t) enMux,
                                                  ADC_SSEMUX_EMUX0_MASK, ADC_SSEMUX_R_EMUX0_BIT);
     u32ExtendedInputSelection &= 0x1UL;
     u32InputSelection &= 0xFUL;

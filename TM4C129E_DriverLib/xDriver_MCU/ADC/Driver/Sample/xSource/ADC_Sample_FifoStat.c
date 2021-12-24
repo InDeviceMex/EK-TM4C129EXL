@@ -38,10 +38,10 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
 
     u32SequencerReg = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
 
-    u32SequencerReg *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32SequencerReg *= 4UL;
-    u32SequencerReg += ADC_SSMUX0_OFFSET;
-    u32SequencerReg += ADC_SSFSTAT_OFFSET;
+    u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
+    u32SequencerReg += ADC_SS_FSTAT_OFFSET;
 
     u32RegEmpty = ADC__u32ReadRegister(enModule , u32SequencerReg,
                                        ADC_SSFSTAT_EMPTY_MASK, ADC_SSFSTAT_R_EMPTY_BIT);
@@ -86,10 +86,10 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
     {
         u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
         u32SequencerReg = u32Sequencer;
-        u32SequencerReg *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+        u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
         u32SequencerReg *= 4UL;
-        u32SequencerReg += ADC_SSMUX0_OFFSET;
-        u32SequencerReg += ADC_SSFIFO_OFFSET;
+        u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
+        u32SequencerReg += ADC_SS_FIFO_OFFSET;
         u32AdcBase += u32SequencerReg;
         pu32AdcSeq = (volatile uint32_t*) u32AdcBase;
 
@@ -128,19 +128,19 @@ uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
         switch(u32Sequencer)
         {
         case (uint32_t) ADC_enSEQ_0:
-            u32AdcBase += ADC_SSFIFO0_OFFSET;
+            u32AdcBase += ADC_SS0_FIFO_OFFSET;
             u32Value = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_1:
-                u32AdcBase += ADC_SSFIFO1_OFFSET;
+                u32AdcBase += ADC_SS1_FIFO_OFFSET;
                 u32Value = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_2:
-                u32AdcBase += ADC_SSFIFO2_OFFSET;
+                u32AdcBase += ADC_SS2_FIFO_OFFSET;
                 u32Value = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_3:
-                u32AdcBase += ADC_SSFIFO3_OFFSET;
+                u32AdcBase += ADC_SS3_FIFO_OFFSET;
                 u32Value = *((volatile uint32_t*)u32AdcBase);
             break;
         default:

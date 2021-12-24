@@ -47,9 +47,9 @@ void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
     u32MuxInputReg *= 4UL; /* each mux have 4 bits*/
     u32MuxInputReg += u32FeatureBitAdd;
 
-    u32SequencerReg *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32SequencerReg *= 4UL;
-    u32SequencerReg += ADC_SSMUX0_OFFSET;
+    u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
     u32SequencerReg += u32OffsetRegister;
 
     ADC__vWriteRegister((ADC_nMODULE) u32Module , u32SequencerReg, u32Feature,
@@ -72,9 +72,9 @@ uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
     u32MuxInputReg *= 4UL; /* each mux have 4 bits*/
     u32MuxInputReg += u32FeatureBitAdd;
 
-    u32SequencerReg *= ADC_INPUT_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
     u32SequencerReg *= 4UL;
-    u32SequencerReg += ADC_SSMUX0_OFFSET;
+    u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
     u32SequencerReg += u32OffsetRegister;
 
     u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32SequencerReg,
