@@ -30,6 +30,6 @@
 void QEI__vEnInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
 void QEI__vDisInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
 void QEI__vClearInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
-QEI_nINT_STATUS QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
+QEI_nINT_SOURCE QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_INTRINSICS_INTERRUPT_XHEADER_QEI_INTERRUPTSOURCE_H_ */

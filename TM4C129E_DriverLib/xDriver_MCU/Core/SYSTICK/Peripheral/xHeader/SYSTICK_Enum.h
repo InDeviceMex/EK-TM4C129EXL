@@ -37,8 +37,8 @@ typedef enum
 
 typedef enum
 {
-    SYSTICK_enINT_NOOCCUR = 0UL,
-    SYSTICK_enINT_OCCUR = 1UL,
+    SYSTICK_enINT_STATUS_NOOCCUR = 0UL,
+    SYSTICK_enINT_STATUS_OCCUR = 1UL,
 } SYSTICK_nINT_STATUS;
 
 typedef enum

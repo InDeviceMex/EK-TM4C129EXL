@@ -51,22 +51,15 @@ void QEI__vClearInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceIn
     QEI__vWriteRegister(enModule , QEI_ISC_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-QEI_nINT_STATUS QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
+QEI_nINT_SOURCE QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
 {
-    QEI_nINT_STATUS enInterruptReg = QEI_enINT_STATUS_UNDEF;
+    QEI_nINT_SOURCE enInterruptReg = QEI_enINT_SOURCE_NONE;
     uint32_t u32SourceInt = 0UL;
     uint32_t u32Register= 0xFFFFFFFFUL;
     u32SourceInt &= (uint32_t) QEI_enINT_SOURCE_ALL;
     u32Register = QEI__u32ReadRegister(enModule , QEI_RIS_OFFSET,
                                       (uint32_t) u32SourceInt, 0UL);
-    if(0UL != u32Register)
-    {
-        enInterruptReg = QEI_enINT_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = QEI_enINT_NOOCCUR;
-    }
+    enInterruptReg = (QEI_nINT_SOURCE) u32Register;
 
     return (enInterruptReg);
 }

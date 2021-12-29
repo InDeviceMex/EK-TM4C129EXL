@@ -51,23 +51,15 @@ void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceIn
     SSI__vWriteRegister(enModule , SSI_ICR_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-SSI_nINT_STATUS SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
+SSI_nINT_SOURCE SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
 {
-    SSI_nINT_STATUS enInterruptReg = SSI_enINT_NOOCCUR;
+    SSI_nINT_SOURCE enInterruptReg = SSI_enINT_SOURCE_NONE;
     uint32_t u32SourceInt = 0UL;
     uint32_t u32Register= 0UL;
     u32SourceInt = (uint32_t) enSourceInt;
     u32SourceInt &= (uint32_t) SSI_enINT_SOURCE_ALL;
     u32Register = SSI__u32ReadRegister(enModule , SSI_RIS_OFFSET, (uint32_t) u32SourceInt, 0UL);
-
-    if(0UL != u32Register)
-    {
-        enInterruptReg = SSI_enINT_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = SSI_enINT_NOOCCUR;
-    }
+    enInterruptReg = (SSI_nINT_SOURCE) u32Register;
 
     return (enInterruptReg);
 }

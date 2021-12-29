@@ -29,8 +29,8 @@
 
 typedef enum
 {
-    TIMER_enINT_NOOCCUR = 0UL,
-    TIMER_enINT_OCCUR = 1UL,
+    TIMER_enINT_STATUS_NOOCCUR = 0UL,
+    TIMER_enINT_STATUS_OCCUR = 1UL,
     TIMER_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 }TIMER_nINT_STATUS;
 
@@ -115,6 +115,7 @@ typedef enum
 
 typedef enum
 {
+    TIMER_enINT_NONE = 0x00UL,
     TIMER_enINT_TIMEOUT = 0x01UL,
     TIMER_enINT_CAPTURE_MATCH = 0x02UL,
     TIMER_enINT_CAPTURE_EVENT = 0x04UL,
@@ -128,6 +129,7 @@ typedef enum
 
 typedef enum
 {
+    TIMER_enINT_TA_NONE = 0x0UL,
     TIMER_enINT_TA_TIMEOUT = 0x1UL,
     TIMER_enINT_TA_CAPTURE_MATCH = 0x2UL,
     /*TAPWMIE needs to be enabled with PWM mode*/
@@ -140,6 +142,7 @@ typedef enum
 
 typedef enum
 {
+    TIMER_enINT_TW_NONE = 0x0UL,
     TIMER_enINT_TW_TIMEOUT = 0x1UL,
     TIMER_enINT_TW_CAPTURE_MATCH = 0x2UL,
     TIMER_enINT_TW_CAPTURE_EVENT = 0x4UL,
@@ -152,6 +155,7 @@ typedef enum
 
 typedef enum
 {
+    TIMER_enINT_TB_NONE = 0x0UL,
     TIMER_enINT_TB_TIMEOUT = (uint32_t) 0x1UL << 8UL,
     TIMER_enINT_TB_CAPTURE_MATCH = (uint32_t) 0x2UL << 8UL,
     /*TBPWMIE needs to be enabled with PWM mode*/

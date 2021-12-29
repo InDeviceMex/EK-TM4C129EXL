@@ -31,7 +31,7 @@ static const uint32_t ADC_u32MuxMax[(uint32_t) ADC_enSEQ_MAX] =
 {(uint32_t) ADC_enMUX_MAX, (uint32_t) ADC_enMUX_4,
  (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_0};
 
-void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequencer,
+void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                 ADC_nMUX enMuxInput)
 {
     uint32_t u32Sequencer = 0UL;
@@ -53,7 +53,41 @@ void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequence
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
 }
 
-void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequencer,
+void ADC__vEnSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+                                ADC_nMUX enMuxInput)
+{
+    uint32_t u32SequencerMask = 0UL;
+    uint32_t u32Sequencer = 0UL;
+    uint32_t u32SequencerReg = 0UL;
+    uint32_t u32MuxInput = 0UL;
+    uint32_t u32MuxMax = 0U;
+    u32SequencerMask = (uint32_t) enSequencerMask;
+    u32SequencerMask &= (uint32_t) ADC_enSEQMASK_MAX;
+    while(0UL != u32SequencerMask)
+    {
+        if(1UL & u32SequencerMask)
+        {
+            u32MuxMax = ADC_u32MuxMax[u32Sequencer];
+            u32MuxInput = MCU__u32CheckParams((uint32_t) enMuxInput, u32MuxMax);
+
+            u32MuxInput *= 4UL; /* each mux have 4 bits*/
+            u32MuxInput += ADC_SSCTL_R_IE0_BIT;
+
+            u32SequencerReg = u32Sequencer;
+            u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+            u32SequencerReg *= 4UL;
+            u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
+            u32SequencerReg += ADC_SS_CTL_OFFSET;
+
+            ADC__vWriteRegister(enModule , u32SequencerReg, ADC_SSCTL_IE0_ENA,
+                                ADC_SSCTL_IE0_MASK, u32MuxInput);
+        }
+        u32SequencerMask >>= 1UL;
+        u32Sequencer++;
+    }
+}
+
+void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                  ADC_nMUX enMuxInput)
 {
     uint32_t u32Sequencer = 0UL;
@@ -73,6 +107,40 @@ void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER  enSequenc
 
     ADC__vWriteRegister(enModule , u32Sequencer, ADC_SSCTL_IE0_DIS,
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
+}
+
+void ADC__vDisSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+                                ADC_nMUX enMuxInput)
+{
+    uint32_t u32SequencerMask = 0UL;
+    uint32_t u32Sequencer = 0UL;
+    uint32_t u32SequencerReg = 0UL;
+    uint32_t u32MuxInput = 0UL;
+    uint32_t u32MuxMax = 0U;
+    u32SequencerMask = (uint32_t) enSequencerMask;
+    u32SequencerMask &= (uint32_t) ADC_enSEQMASK_MAX;
+    while(0UL != u32SequencerMask)
+    {
+        if(1UL & u32SequencerMask)
+        {
+            u32MuxMax = ADC_u32MuxMax[u32Sequencer];
+            u32MuxInput = MCU__u32CheckParams((uint32_t) enMuxInput, u32MuxMax);
+
+            u32MuxInput *= 4UL; /* each mux have 4 bits*/
+            u32MuxInput += ADC_SSCTL_R_IE0_BIT;
+
+            u32SequencerReg = u32Sequencer;
+            u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+            u32SequencerReg *= 4UL;
+            u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
+            u32SequencerReg += ADC_SS_CTL_OFFSET;
+
+            ADC__vWriteRegister(enModule , u32SequencerReg, ADC_SSCTL_IE0_DIS,
+                                ADC_SSCTL_IE0_MASK, u32MuxInput);
+        }
+        u32SequencerMask >>= 1UL;
+        u32Sequencer++;
+    }
 }
 
 ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
@@ -98,5 +166,50 @@ ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
     enIntInputState = (ADC_nSEQ_INPUT_INT) ADC__u32ReadRegister(enModule, u32Sequencer,
                                                         ADC_SSCTL_IE0_MASK, u32MuxInput);
     return (enIntInputState);
+}
+
+
+ADC_nSEQMASK ADC__enGetSeqMaskInterruptSample(ADC_nMODULE enModule,
+                                                    ADC_nSEQMASK enSequencerMask,
+                                                    ADC_nMUX enMuxInput)
+{
+    uint32_t u32SequencerMask = 0UL;
+    uint32_t u32Sequencer = 3UL;
+    uint32_t u32SequencerReg = 0UL;
+    uint32_t u32MuxInput = 0UL;
+    uint32_t u32MuxMax = 0U;
+    ADC_nSEQMASK enResult = ADC_enSEQMASK_NONE;
+    uint32_t u32Result = 0U;
+    u32SequencerMask = (uint32_t) enSequencerMask;
+    u32SequencerMask &= (uint32_t) ADC_enSEQMASK_MAX;
+    while(0UL != u32SequencerMask)
+    {
+        if(8UL & u32SequencerMask)
+        {
+            u32MuxMax = ADC_u32MuxMax[u32Sequencer];
+            u32MuxInput = MCU__u32CheckParams((uint32_t) enMuxInput, u32MuxMax);
+
+            u32MuxInput *= 4UL; /* each mux have 4 bits*/
+            u32MuxInput += ADC_SSCTL_R_IE0_BIT;
+
+            u32SequencerReg = u32Sequencer;
+            u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+            u32SequencerReg *= 4UL;
+            u32SequencerReg += ADC_SS_REGISTER_BASE_OFFSET;
+            u32SequencerReg += ADC_SS_CTL_OFFSET;
+
+            u32Result |= ADC__u32ReadRegister(enModule, u32SequencerReg,
+                                ADC_SSCTL_IE0_MASK, u32MuxInput);
+
+        }
+        u32Result <<= 1UL;
+        u32SequencerMask <<= 1UL;
+        u32SequencerMask &= (uint32_t) ADC_enSEQMASK_MAX;
+        u32Sequencer--;
+    }
+
+    enResult = (ADC_nSEQMASK) u32Result;
+
+    return (enResult);
 }
 

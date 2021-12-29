@@ -30,6 +30,6 @@
 void I2C_Master__vEnInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
 void I2C_Master__vDisInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
 void I2C_Master__vClearInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
-I2C_nINT_STATUS I2C_Master__enStatusInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
+I2C_nMASTER_INT_SOURCE I2C_Master__enStatusInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_XHEADER_I2C_MASTER_INTERRUPTSOURCE_H_ */

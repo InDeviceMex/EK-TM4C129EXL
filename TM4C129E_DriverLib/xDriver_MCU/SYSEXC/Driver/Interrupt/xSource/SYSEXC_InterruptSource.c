@@ -50,23 +50,15 @@ void SYSEXC__vClearInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
                         u32InterruptParam, u32InterruptParam, 0UL);
 }
 
-SYSEXC_nINT_STATUS SYSEXC__enStatusInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
+SYSEXC_nINT_SOURCE SYSEXC__enStatusInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
 {
-    SYSEXC_nINT_STATUS enStatus = SYSEXC_enINT_NOOCCUR;
+    SYSEXC_nINT_SOURCE enStatus = SYSEXC_enINT_SOURCE_NONE;
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     uint32_t u32Reg = 0UL;
 
     u32InterruptParam &= (uint32_t) SYSEXC_enINT_SOURCE_ALL;
     u32Reg = MCU__u32ReadRegister(SYSEXC_BASE, SYSEXC_RIS_OFFSET, u32InterruptParam, 0UL);
-
-    if(0UL != u32Reg)
-    {
-        enStatus = SYSEXC_enINT_OCCUR;
-    }
-    else
-    {
-        enStatus = SYSEXC_enINT_NOOCCUR;
-    }
+    enStatus = (SYSEXC_nINT_SOURCE) u32Reg;
 
     return (enStatus);
 }

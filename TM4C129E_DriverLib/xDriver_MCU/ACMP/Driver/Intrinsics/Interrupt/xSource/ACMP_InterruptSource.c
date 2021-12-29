@@ -54,22 +54,14 @@ void ACMP__vClearInterruptSource(ACMP_nMODULE enModule, ACMP_nCOMPMASK enCompMas
                          u32CompMask, 0xFFFFFFFFUL, 0UL);
 }
 
-ACMP_nINT_STATUS ACMP__enStatusInterruptSource(ACMP_nMODULE enModule, ACMP_nCOMPMASK enCompMask)
+ACMP_nCOMPMASK ACMP__enStatusInterruptSource(ACMP_nMODULE enModule, ACMP_nCOMPMASK enCompMask)
 {
-    ACMP_nINT_STATUS enInterruptReg = ACMP_enINT_NOOCCUR;
+    ACMP_nCOMPMASK enInterruptReg = ACMP_enCOMPMASK_NONE;
     uint32_t u32CompMask = 0UL;
     uint32_t u32Register= 0UL;
 
     u32CompMask = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ACMP_enCOMPMASK_ALL);
     u32Register = ACMP__u32ReadRegister(enModule , ACMP_RIS_OFFSET, u32CompMask, 0UL);
-
-    if(0UL != u32Register)
-    {
-        enInterruptReg = ACMP_enINT_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = ACMP_enINT_NOOCCUR;
-    }
+    enInterruptReg = (ACMP_nCOMPMASK) u32Register;
     return (enInterruptReg);
 }

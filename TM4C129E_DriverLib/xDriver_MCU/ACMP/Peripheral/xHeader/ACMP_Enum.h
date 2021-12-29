@@ -70,6 +70,7 @@ typedef enum
 
 typedef enum
 {
+    ACMP_enCOMPMASK_NONE = 0x0UL,
     ACMP_enCOMPMASK_0 = 0x1UL,
     ACMP_enCOMPMASK_1 = 0x2UL,
     ACMP_enCOMPMASK_2 = 0x4UL,
@@ -79,8 +80,8 @@ typedef enum
 
 typedef enum
 {
-    ACMP_enINT_NOOCCUR = 0UL,
-    ACMP_enINT_OCCUR = 1UL,
+    ACMP_enINT_STATUS_NOOCCUR = 0UL,
+    ACMP_enINT_STATUS_OCCUR = 1UL,
     ACMP_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 } ACMP_nINT_STATUS;
 

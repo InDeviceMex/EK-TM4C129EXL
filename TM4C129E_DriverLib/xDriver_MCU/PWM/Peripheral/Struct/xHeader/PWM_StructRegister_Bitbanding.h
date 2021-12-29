@@ -141,14 +141,14 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile uint32_t PWM0;
-    volatile uint32_t PWM1;
-    volatile uint32_t PWM2;
-    volatile uint32_t PWM3;
-    volatile uint32_t PWM4;
-    volatile uint32_t PWM5;
-    volatile uint32_t PWM6;
-    volatile uint32_t PWM7;
+    volatile uint32_t PWM0_;
+    volatile uint32_t PWM1_;
+    volatile uint32_t PWM2_;
+    volatile uint32_t PWM3_;
+    volatile uint32_t PWM4_;
+    volatile uint32_t PWM5_;
+    volatile uint32_t PWM6_;
+    volatile uint32_t PWM7_;
     const uint32_t reserved [24UL];
 }BITBANDING_PWMFAULTVAL_t;
 
@@ -184,7 +184,7 @@ typedef volatile struct
     volatile uint32_t PWMDIV [3UL];
     const uint32_t reserved [5UL];
     volatile uint32_t USEPWM;
-    const uint32_t reserved [23UL];
+    const uint32_t reserved1 [23UL];
 }BITBANDING_PWMCC_t;
 
 
@@ -226,7 +226,7 @@ typedef volatile struct
     volatile uint32_t TRCMPAD;
     volatile uint32_t TRCMPBU;
     volatile uint32_t TRCMPBD;
-    const uint32_t reserved [18UL];
+    const uint32_t reserved1 [18UL];
 }BITBANDING_PWMnINTEN_t;
 
 typedef volatile struct

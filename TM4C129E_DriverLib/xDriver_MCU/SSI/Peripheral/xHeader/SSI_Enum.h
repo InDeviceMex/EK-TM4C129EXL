@@ -77,6 +77,7 @@ typedef enum
 
 typedef enum
 {
+    SSI_enINT_SOURCE_NONE = 0x0UL,
     SSI_enINT_SOURCE_RECEIVE_OVERRUN = 0x1UL,
     SSI_enINT_SOURCE_RECEIVE_TIMEOUT = 0x2UL,
     SSI_enINT_SOURCE_RECEIVE = 0x4UL,
@@ -89,8 +90,8 @@ typedef enum
 
 typedef enum
 {
-    SSI_enINT_NOOCCUR = 0UL,
-    SSI_enINT_OCCUR = 1UL,
+    SSI_enINT_STATUS_NOOCCUR = 0UL,
+    SSI_enINT_STATUS_OCCUR = 1UL,
     SSI_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 } SSI_nINT_STATUS;
 

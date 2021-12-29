@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vEnInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator)
+void ADC__vEnInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR enSeqComparator)
 {
     uint32_t u32RegisterOffset = ADC_DC_CTL_OFFSET;
     uint32_t u32Comparator = 0UL;
@@ -39,7 +39,7 @@ void ADC__vEnInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparato
                         ADC_DC_CTL_CIE_MASK, ADC_DC_CTL_R_CIE_BIT);
 }
 
-void ADC__vDisInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator)
+void ADC__vDisInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR enSeqComparator)
 {
     uint32_t u32RegisterOffset = ADC_DC_CTL_OFFSET;
     uint32_t u32Comparator = 0UL;
@@ -51,7 +51,7 @@ void ADC__vDisInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparat
                         ADC_DC_CTL_CIE_MASK, ADC_DC_CTL_R_CIE_BIT);
 }
 
-void ADC__vClearInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator)
+void ADC__vClearInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR enSeqComparator)
 {
     uint32_t u32Comparator = 0UL;
     u32Comparator = MCU__u32CheckParams((uint32_t) enSeqComparator,
@@ -61,7 +61,7 @@ void ADC__vClearInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqCompar
 }
 
 ADC_nCOMP_INT_STATUS ADC__enStatusInterruptComp(ADC_nMODULE enModule,
-                                                ADC_nCOMPARATOR  enSeqComparator)
+                                                ADC_nCOMPARATOR enSeqComparator)
 {
     ADC_nCOMP_INT_STATUS enInterruptReg = ADC_enCOMP_INT_STATUS_UNDEF;
     uint32_t u32Comparator = 0UL;

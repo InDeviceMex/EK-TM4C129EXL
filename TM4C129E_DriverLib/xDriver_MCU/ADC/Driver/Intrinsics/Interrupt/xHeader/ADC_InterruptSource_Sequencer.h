@@ -36,7 +36,7 @@ void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule,
 void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule,
                                    ADC_nSEQMASK enSequence,
                                    ADC_nINT_SOURCE enSourceInt);
-ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequence,
                                                     ADC_nINT_SOURCE enSourceInt);
 

@@ -51,22 +51,16 @@ void UART__vClearInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourc
     UART__vWriteRegister(enModule , UART_ICR_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-UART_nINT_STATUS UART__enStatusInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
+UART_nINT_SOURCE UART__enStatusInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {
-    UART_nINT_STATUS enInterruptReg = UART_enINT_NOOCCUR;
+    UART_nINT_SOURCE enInterruptReg = UART_enINT_SOURCE_NONE;
     uint32_t u32SourceInt = 0UL;
     uint32_t u32Register= 0UL;
     u32SourceInt = (uint32_t) enSourceInt;
     u32SourceInt &= (uint32_t) UART_enINT_SOURCE_ALL;
     u32Register = UART__u32ReadRegister(enModule , UART_RIS_OFFSET,
                                    (uint32_t) u32SourceInt, 0UL);
-    if(0UL != u32Register)
-    {
-        enInterruptReg = UART_enINT_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = UART_enINT_NOOCCUR;
-    }
+    enInterruptReg = (UART_nINT_SOURCE) u32Register;
+
     return (enInterruptReg);
 }

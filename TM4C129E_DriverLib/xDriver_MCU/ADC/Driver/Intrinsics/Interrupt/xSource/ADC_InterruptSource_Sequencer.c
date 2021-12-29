@@ -93,11 +93,11 @@ void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence
                         (uint32_t) enSequence, u32BitPos);
 }
 
-ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequence,
                                                     ADC_nINT_SOURCE enSourceInt)
 {
-    ADC_nSEQ_INT_STATUS enInterruptReg = ADC_enSEQ_INT_STATUS_UNDEF;
+    ADC_nSEQMASK enInterruptReg = ADC_enSEQMASK_NONE;
     uint32_t u32Module = 0UL;
     uint32_t u32SourceInt = 0UL;
     uint32_t u32BitPos = 0UL;
@@ -108,15 +108,6 @@ ADC_nSEQ_INT_STATUS ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
     u32BitPos *= 8UL;
     u32Register = ADC__u32ReadRegister((ADC_nMODULE) u32Module , ADC_RIS_OFFSET,
                                        (uint32_t) enSequence, u32BitPos);
-
-    if(0UL != u32Register)
-    {
-        enInterruptReg = ADC_enSEQ_INT_STATUS_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = ADC_enSEQ_INT_STATUS_NOOCCUR;
-    }
-
+    enInterruptReg = (ADC_nSEQMASK) u32Register;
     return (enInterruptReg);
 }

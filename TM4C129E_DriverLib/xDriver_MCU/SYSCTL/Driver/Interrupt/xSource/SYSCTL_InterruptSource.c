@@ -47,23 +47,15 @@ void SYSCTL__vClearInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MISC_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-SYSCTL_nINT_STATUS SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
+SYSCTL_nINT_SOURCE SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
-    SYSCTL_nINT_STATUS enInterruptReg = SYSCTL_enINT_NOOCCUR;
+    SYSCTL_nINT_SOURCE enInterruptReg = SYSCTL_enINT_SOURCE_NONE;
     uint32_t u32SourceInt = (uint32_t) enSourceInt ;
     uint32_t u32Register= 0UL;
 
     u32SourceInt &= (uint32_t) SYSCTL_enINT_SOURCE_ALL;
     u32Register = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET, u32SourceInt, 0UL);
-
-    if(0UL != u32Register)
-    {
-        enInterruptReg = SYSCTL_enINT_OCCUR;
-    }
-    else
-    {
-        enInterruptReg = SYSCTL_enINT_NOOCCUR;
-    }
+    enInterruptReg = (SYSCTL_nINT_SOURCE) u32Register;
 
     return (enInterruptReg);
 }

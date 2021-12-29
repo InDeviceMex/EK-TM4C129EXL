@@ -102,6 +102,7 @@ typedef enum
 
 typedef enum
 {
+    I2C_enMASTER_INT_SOURCE_NONE = 0x0UL,
     I2C_enMASTER_INT_SOURCE_MASTER = 0x1UL,
     I2C_enMASTER_INT_SOURCE_CLOCK_TIMEOUT = 0x2UL,
     I2C_enMASTER_INT_SOURCE_RECEIVE_DMA = 0x4UL,
@@ -137,6 +138,7 @@ typedef enum
 
 typedef enum
 {
+    I2C_enSLAVE_INT_SOURCE_NONE = 0x0UL,
     I2C_enSLAVE_INT_SOURCE_DATA = 0x1UL,
     I2C_enSLAVE_INT_SOURCE_START_CONDITION = 0x2UL,
     I2C_enSLAVE_INT_SOURCE_STOP_CONDITION = 0x4UL,
@@ -154,8 +156,8 @@ typedef enum
  */
 typedef enum
 {
-    I2C_enINT_NOOCCUR = 0UL,              /*!< I2C_enINT_NOOCCUR */
-    I2C_enINT_OCCUR = 1UL,                /*!< I2C_enINT_OCCUR */
+    I2C_enINT_STATUS_NOOCCUR = 0UL,              /*!< I2C_enINT_STATUS_NOOCCUR */
+    I2C_enINT_STATUS_OCCUR = 1UL,                /*!< I2C_enINT_STATUS_OCCUR */
     I2C_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,/*!< I2C_enINT_STATUS_UNDEF */
 } I2C_nINT_STATUS;
 

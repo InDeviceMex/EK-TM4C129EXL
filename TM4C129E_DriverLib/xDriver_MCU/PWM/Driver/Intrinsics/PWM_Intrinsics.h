@@ -25,8 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_DRIVER_INTRINSICS_PWM_INTRINSICS_H_
 #define XDRIVER_MCU_PWM_DRIVER_INTRINSICS_PWM_INTRINSICS_H_
 
-
-
-
+#include <xDriver_MCU/PWM/Driver/Intrinsics/Interrupt/PWM_Interrupt.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/Primitives/PWM_Primitives.h>
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_PWM_INTRINSICS_H_ */

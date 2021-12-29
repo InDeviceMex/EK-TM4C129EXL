@@ -50,22 +50,14 @@ void FLASH__vClearInterruptSource(FLASH_nINT enInterruptParam)
                         u32InterruptParam, u32InterruptParam, 0UL);
 }
 
-FLASH_nINT_STATUS FLASH__enStatusInterruptSource(FLASH_nINT enInterruptParam)
+FLASH_nINT FLASH__enStatusInterruptSource(FLASH_nINT enInterruptParam)
 {
-    FLASH_nINT_STATUS enStatus = FLASH_enINT_NOOCCUR;
+    FLASH_nINT enStatus = FLASH_enINT_NONE;
     uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
     uint32_t u32Reg = 0UL;
 
     u32InterruptParam &= (uint32_t) FLASH_enINT_ALL;
     u32Reg = MCU__u32ReadRegister(FLASH_BASE, FLASH_FCRIS_OFFSET, u32InterruptParam, 0UL);
-
-    if(0UL != u32Reg)
-    {
-        enStatus = FLASH_enINT_OCCUR;
-    }
-    else
-    {
-        enStatus = FLASH_enINT_NOOCCUR;
-    }
+    enStatus = (FLASH_nINT) u32Reg;
     return (enStatus);
 }

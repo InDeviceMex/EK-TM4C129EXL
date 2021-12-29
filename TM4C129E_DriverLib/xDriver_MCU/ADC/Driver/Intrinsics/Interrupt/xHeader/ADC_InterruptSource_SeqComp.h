@@ -31,6 +31,6 @@ void ADC__vEnInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparato
 void ADC__vDisInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
 void ADC__vClearInterruptComp(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
 ADC_nCOMP_INT_STATUS ADC__enStatusInterruptComp(ADC_nMODULE enModule,
-                                                ADC_nCOMPARATOR  enSeqComparator);
+                                                ADC_nCOMPARATOR enSeqComparator);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_ADC_INTERRUPTSOURCE_SEQCOMP_H_ */

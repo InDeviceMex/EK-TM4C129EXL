@@ -197,7 +197,7 @@ typedef volatile struct
 
     PWMGENERATOR_EXT_t GENERATOR_EXT [4UL];
 
-    const uint32_t reserved2 [397UL];
+    const uint32_t reserved2 [368UL];
     union
     {
         volatile const uint32_t PP;

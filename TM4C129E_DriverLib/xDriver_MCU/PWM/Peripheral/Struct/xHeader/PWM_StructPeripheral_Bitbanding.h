@@ -197,7 +197,7 @@ typedef volatile struct
 
     BITBANDING_PWMGENERATOR_EXT_t GENERATOR_EXT [4UL];
 
-    const uint32_t reserved2 [397UL * 32UL];
+    const uint32_t reserved2 [368UL * 32UL];
     union
     {
         volatile const uint32_t PP [32UL];

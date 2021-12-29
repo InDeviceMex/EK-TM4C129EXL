@@ -36,8 +36,8 @@ typedef enum
 
 typedef enum
 {
-    GPIO_enINT_NOOCCUR = 0UL,
-    GPIO_enINT_OCCUR = 1UL,
+    GPIO_enINT_STATUS_NOOCCUR = 0UL,
+    GPIO_enINT_STATUS_OCCUR = 1UL,
     GPIO_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 } GPIO_nINT_STATUS;
 
@@ -68,6 +68,7 @@ typedef enum
 } GPIO_nPORT;
 typedef enum
 {
+    GPIO_enPIN_NONE = 0x0UL,
     GPIO_enPIN_0 = 0x1UL,
     GPIO_enPIN_1 = 0x2UL,
     GPIO_enPIN_2 = 0x4UL,

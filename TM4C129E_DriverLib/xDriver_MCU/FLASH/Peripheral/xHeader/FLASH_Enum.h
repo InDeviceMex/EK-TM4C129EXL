@@ -31,6 +31,7 @@ typedef enum
 
 typedef enum
 {
+    FLASH_enINT_NONE = 0x00UL,
     FLASH_enINT_ACCESS = 0x01UL,
     FLASH_enINT_PROGRAMMING = 0x02UL,
     FLASH_enINT_EEPROM = 0x04UL,
@@ -45,8 +46,8 @@ typedef enum
 
 typedef enum
 {
-    FLASH_enINT_NOOCCUR = 0UL,
-    FLASH_enINT_OCCUR = 1UL,
+    FLASH_enINT_STATUS_NOOCCUR = 0UL,
+    FLASH_enINT_STATUS_OCCUR = 1UL,
     FLASH_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 }FLASH_nINT_STATUS;
 

@@ -80,6 +80,7 @@ typedef enum
 
 typedef enum
 {
+    ADC_enSEQMASK_NONE = 0x0UL,
     ADC_enSEQMASK_0 = 0x1UL,
     ADC_enSEQMASK_1 = 0x2UL,
     ADC_enSEQMASK_2 = 0x4UL,
@@ -321,8 +322,8 @@ typedef enum
 
 typedef enum
 {
-    ADC_enCOMP_INT_NOOCCUR = 0UL,
-    ADC_enCOMP_INT_OCCUR = 1UL,
+    ADC_enCOMP_INT_STATUS_NOOCCUR = 0UL,
+    ADC_enCOMP_INT_STATUS_OCCUR = 1UL,
     ADC_enCOMP_INT_CLEAR = 1UL,
     ADC_enCOMP_INT_STATUS_UNDEF = 0xFFFFFFFFUL,
 }ADC_nCOMP_INT_STATUS;

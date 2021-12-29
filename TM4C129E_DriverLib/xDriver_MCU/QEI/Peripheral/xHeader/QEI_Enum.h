@@ -73,6 +73,7 @@ typedef enum
 
 typedef enum
 {
+    QEI_enINT_SOURCE_NONE = 0x0UL,
     QEI_enINT_SOURCE_INDEX = 0x1UL,
     QEI_enINT_SOURCE_TIMER = 0x2UL,
     QEI_enINT_SOURCE_DIRECTION = 0x4UL,
@@ -83,8 +84,8 @@ typedef enum
 
 typedef enum
 {
-    QEI_enINT_NOOCCUR = 0UL,
-    QEI_enINT_OCCUR = 1UL,
+    QEI_enINT_STATUS_NOOCCUR = 0UL,
+    QEI_enINT_STATUS_OCCUR = 1UL,
     QEI_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 } QEI_nINT_STATUS;
 

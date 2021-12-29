@@ -58,6 +58,7 @@ typedef enum
 
 typedef enum
 {
+    SYSCTL_enINT_SOURCE_NONE = 0x0UL,
     SYSCTL_enINT_SOURCE_BOR = 0x2UL,
     SYSCTL_enINT_SOURCE_MOF = 0x8UL,
     SYSCTL_enINT_SOURCE_PLLL = 0x40UL,
@@ -67,8 +68,8 @@ typedef enum
 
 typedef enum
 {
-    SYSCTL_enINT_NOOCCUR = 0UL,
-    SYSCTL_enINT_OCCUR = 1UL,
+    SYSCTL_enINT_STATUS_NOOCCUR = 0UL,
+    SYSCTL_enINT_STATUS_OCCUR = 1UL,
     SYSCTL_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
 } SYSCTL_nINT_STATUS;
 

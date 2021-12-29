@@ -30,6 +30,6 @@
 void SYSCTL__vEnInterruptSource(SYSCTL_nINT_SOURCE enSourceInt);
 void SYSCTL__vDisInterruptSource(SYSCTL_nINT_SOURCE enSourceInt);
 void SYSCTL__vClearInterruptSource(SYSCTL_nINT_SOURCE enSourceInt);
-SYSCTL_nINT_STATUS SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt);
+SYSCTL_nINT_SOURCE SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_INTERRUPT_XHEADER_SYSCTL_INTERRUPTSOURCE_H_ */

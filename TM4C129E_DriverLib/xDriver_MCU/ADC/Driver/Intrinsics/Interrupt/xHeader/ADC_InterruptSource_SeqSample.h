@@ -30,11 +30,18 @@
 void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule,
                                 ADC_nSEQUENCER  enSequencer,
                                 ADC_nMUX enMuxInput);
+void ADC__vEnSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+                                ADC_nMUX enMuxInput);
 void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule,
                                  ADC_nSEQUENCER  enSequencer,
                                  ADC_nMUX enMuxInput);
+void ADC__vDisSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+                                ADC_nMUX enMuxInput);
 ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
                                                 ADC_nSEQUENCER  enSequencer,
                                                 ADC_nMUX enMuxInput);
+ADC_nSEQMASK ADC__enGetSeqMaskInterruptSample(ADC_nMODULE enModule,
+                                                    ADC_nSEQMASK enSequencerMask,
+                                                    ADC_nMUX enMuxInput);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_ADC_INTERRUPTSOURCE_SEQSAMPLE_H_ */

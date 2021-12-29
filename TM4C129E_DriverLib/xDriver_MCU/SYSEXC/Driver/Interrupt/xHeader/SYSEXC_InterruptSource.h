@@ -30,6 +30,6 @@
 void SYSEXC__vEnInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam);
 void SYSEXC__vDisInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam);
 void SYSEXC__vClearInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam);
-SYSEXC_nINT_STATUS SYSEXC__enStatusInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam);
+SYSEXC_nINT_SOURCE SYSEXC__enStatusInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam);
 
 #endif /* XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SYSEXC_INTERRUPTSOURCE_H_ */

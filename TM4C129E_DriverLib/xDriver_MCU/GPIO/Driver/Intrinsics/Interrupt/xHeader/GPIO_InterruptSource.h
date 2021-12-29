@@ -30,7 +30,7 @@
 void GPIO__vEnInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vDisInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 void GPIO__vClearInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
-GPIO_nINT_STATUS GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
+GPIO_nPIN GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin);
 
 
 void GPIO__vEnInterruptSourceDMA(GPIO_nPORT enPort);

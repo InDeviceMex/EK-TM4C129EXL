@@ -45,16 +45,16 @@ void EEPROM__vClearInterruptVector(void)
 
 EEPROM_nINT_STATUS EEPROM__enStatusInterruptVector(void)
 {
-    EEPROM_nINT_STATUS enEEPROMStatus = EEPROM_enINT_NOOCCUR;
-    FLASH_nINT_STATUS enFlashStatus = FLASH_enINT_NOOCCUR;
-    enFlashStatus = FLASH__enStatusInterruptSource(FLASH_enINT_EEPROM);
-    if(FLASH_enINT_OCCUR == enFlashStatus)
+    EEPROM_nINT_STATUS enEEPROMStatus = EEPROM_enINT_STATUS_NOOCCUR;
+    uint32_t u32FlashStatus = 0UL;
+    u32FlashStatus = (uint32_t) FLASH__enStatusInterruptSource(FLASH_enINT_EEPROM);
+    if((uint32_t) FLASH_enINT_EEPROM == (u32FlashStatus & (uint32_t) FLASH_enINT_EEPROM))
     {
-        enEEPROMStatus = EEPROM_enINT_OCCUR;
+        enEEPROMStatus = EEPROM_enINT_STATUS_OCCUR;
     }
     else
     {
-        enEEPROMStatus = EEPROM_enINT_NOOCCUR;
+        enEEPROMStatus = EEPROM_enINT_STATUS_NOOCCUR;
     }
 
     return (enEEPROMStatus);
