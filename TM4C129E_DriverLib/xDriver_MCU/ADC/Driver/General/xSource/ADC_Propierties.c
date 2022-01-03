@@ -34,7 +34,7 @@ ADC_nSEQ_INPUT ADC__enGetMaxInputNumber(ADC_nMODULE enModule)
     return (enSeqInput);
 }
 
-ADC_nCOMPARATOR ADC__enGetMaxCompNumber(ADC_nMODULE enModule)
+ADC_nCOMPARATOR ADC_Comparator__enGetMaxNumber(ADC_nMODULE enModule)
 {
     ADC_nCOMPARATOR enComparatorReg = ADC_enCOMPARATOR_0;
     enComparatorReg = (ADC_nCOMPARATOR) (ADC__u32GetGeneralGeneric((uint32_t) enModule,

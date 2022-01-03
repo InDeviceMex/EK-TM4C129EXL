@@ -39,7 +39,7 @@ uint32_t* EDUMKII_Joystick_vSampleArray(void)
 void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y)
 {
     u32JostickFlag = 0UL;
-    ADC__vSetSequencerInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];
@@ -53,7 +53,7 @@ void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect)
 void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect)
 {
     u32JostickFlag = 0UL;
-    ADC__vSetSequencerInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];

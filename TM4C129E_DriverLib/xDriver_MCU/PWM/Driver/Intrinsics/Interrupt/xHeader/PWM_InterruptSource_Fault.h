@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM__vEnInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
-void PWM__vDisInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
-void PWM__vClearInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
-PWM_nFAULTMASK PWM__enStatusInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
+void PWM_Fault__vEnInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
+void PWM_Fault__vDisInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
+void PWM_Fault__vClearInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
+PWM_nFAULTMASK PWM_Fault__enStatusInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_INTERRUPT_XHEADER_PWM_INTERRUPTSOURCE_FAULT_H_ */

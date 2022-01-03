@@ -31,7 +31,7 @@ static const uint32_t ADC_u32MuxMax[(uint32_t) ADC_enSEQ_MAX] =
 {(uint32_t) ADC_enMUX_MAX, (uint32_t) ADC_enMUX_4,
  (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_0};
 
-void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+void ADC_Sample__vEnSeqInterrupt(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                 ADC_nMUX enMuxInput)
 {
     uint32_t u32Sequencer = 0UL;
@@ -53,7 +53,7 @@ void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
 }
 
-void ADC__vEnSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+void ADC_Sample__vEnSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
                                 ADC_nMUX enMuxInput)
 {
     uint32_t u32SequencerMask = 0UL;
@@ -87,7 +87,7 @@ void ADC__vEnSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequenc
     }
 }
 
-void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+void ADC_Sample__vDisSeqInterrupt(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                  ADC_nMUX enMuxInput)
 {
     uint32_t u32Sequencer = 0UL;
@@ -109,7 +109,7 @@ void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence
                         ADC_SSCTL_IE0_MASK, u32MuxInput);
 }
 
-void ADC__vDisSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+void ADC_Sample__vDisSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
                                 ADC_nMUX enMuxInput)
 {
     uint32_t u32SequencerMask = 0UL;
@@ -143,7 +143,7 @@ void ADC__vDisSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequen
     }
 }
 
-ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
+ADC_nSEQ_INPUT_INT ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
                                                 ADC_nSEQUENCER enSequencer,
                                                 ADC_nMUX enMuxInput)
 {
@@ -169,7 +169,7 @@ ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
 }
 
 
-ADC_nSEQMASK ADC__enGetSeqMaskInterruptSample(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC_Sample__enGetSeqMaskInterrupt(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequencerMask,
                                                     ADC_nMUX enMuxInput)
 {

@@ -50,6 +50,7 @@ void xTask2_JoystickLog(void* pvParams)
     static uint16_t u16BufferSPI[128UL * 128UL] = {0UL};
     const uint16_t* pu16Pointer = 0UL;
     u32LastWakeTime = OS_Task__uxGetTickCount ();
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
     GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
                          "LCD POS Initializing...   "
                          );

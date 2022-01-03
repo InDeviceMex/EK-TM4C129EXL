@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
+void ADC_Comparator__vSetGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
                                  uint32_t u32Feature, uint32_t u32FeatureMask,
                                  uint32_t u32FeatureBit);
-uint32_t ADC__u32GetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
+uint32_t ADC_Comparator__u32GetGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
                                        uint32_t u32FeatureMask, uint32_t u32FeatureBit);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_GENERIC_H_ */

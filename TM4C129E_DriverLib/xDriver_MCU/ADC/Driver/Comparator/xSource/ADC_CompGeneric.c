@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vSetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator,
+void ADC_Comparator__vSetGeneric(uint32_t u32Module, uint32_t  u32Comparator,
                           uint32_t u32RegisterOffset, uint32_t u32Feature,
                           uint32_t u32FeatureMask, uint32_t u32FeatureBit)
 {
@@ -40,7 +40,7 @@ void ADC__vSetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator,
                         u32Feature, u32FeatureMask, u32FeatureBit);
 }
 
-uint32_t ADC__u32GetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator,
+uint32_t ADC_Comparator__u32GetGeneric(uint32_t u32Module, uint32_t  u32Comparator,
                                 uint32_t u32RegisterOffset, uint32_t u32FeatureMask,
                                 uint32_t u32FeatureBit)
 {

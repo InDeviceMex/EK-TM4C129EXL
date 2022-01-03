@@ -26,18 +26,18 @@
 #include <xDriver_MCU/ADC/Driver/Comparator/Control/xHeader/ADC_Comparator_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetCompTriggerCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
+void ADC_Comparator__vSetTriggerCondition(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
                                    ADC_nCOMP_TRIGGER_COND enActCompTriggerCondition)
 {
-    ADC__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enActComp,
+    ADC_Comparator__vSetGenericControl((uint32_t) enModule, (uint32_t) enActComp,
         (uint32_t) enActCompTriggerCondition, ADC_DC_CTL_CTC_MASK, ADC_DC_CTL_R_CTC_BIT);
 }
 
-ADC_nCOMP_TRIGGER_COND ADC__enGetCompTriggerCondition(ADC_nMODULE enModule,
+ADC_nCOMP_TRIGGER_COND ADC_Comparator__enGetTriggerCondition(ADC_nMODULE enModule,
                                                   ADC_nCOMPARATOR enActComp)
 {
     ADC_nCOMP_TRIGGER_COND enCompTrigger = ADC_enCOMP_TRIGGER_COND_LOW;
-    enCompTrigger = (ADC_nCOMP_TRIGGER_COND) ADC__u32GetCompGenericControl((uint32_t) enModule,
+    enCompTrigger = (ADC_nCOMP_TRIGGER_COND) ADC_Comparator__u32GetGenericControl((uint32_t) enModule,
                                (uint32_t) enActComp, ADC_DC_CTL_CTC_MASK, ADC_DC_CTL_R_CTC_BIT);
     return (enCompTrigger);
 }

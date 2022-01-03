@@ -26,6 +26,7 @@
 #include <xApplication_MCU/xApplication_MCU.h>
 #include <xDriver_MCU/xDriver_MCU.h>
 #include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
+#include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 #include <xOS/xOS.h>
 
@@ -36,13 +37,41 @@ void xTask5_LedGreenLog(void* pvParams)
 {
     uint32_t u32LastWakeTime = 0UL;
     uint32_t u32PinValue = (uint32_t) pvParams;
-    static uint32_t u32CountTask = 0UL;
+    static uint32_t u32CountTask = 0x00FUL;
     u32LastWakeTime = OS_Task__uxGetTickCount();
-    GPIO__enSetDigitalConfig(GPIO_enGPIOF3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
     /*Remove and replace by DES APIs*/
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCCM);
 
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
+
+
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+
+    PWM0->CC = PWM_CC_R_USEPWM_DIVIDER | PWM_CC_R_PWMDIV_64;
+
+    PWM0->GENERATOR[1UL].CTL |= PWM_GEN_CTL_R_MODE_DOWN | PWM_GEN_CTL_R_DEBUG_RUN;
+    PWM0->GENERATOR[1UL].LOAD = 0x00FUL;
+    PWM0->GENERATOR[1UL].CMPB = u32CountTask;
+    PWM0->GENERATOR[1UL].GENB = PWM_GEN_GENB_R_ACTZERO_LOW | PWM_GEN_GENB_R_ACTLOAD_NOTHING | PWM_GEN_GENB_R_ACTCMPBD_HIGH;
+    PWM0->GENERATOR[1UL].DBCTL = 0UL;
+
+    PWM0->ENUPD |= PWM_ENUPD_R_ENUPD3_LOCAL_SYNC;
+    PWM0->FAULT &= ~PWM_FAULT_R_FAULT3_ENA;
+    PWM0->INVERT &= ~PWM_INVERT_R_PWM3INV_ENA;
+    PWM0->GENERATOR[1UL].CTL |= PWM_GEN_CTL_R_ENABLE_ENA;
+    PWM0->ENABLE |= PWM_ENABLE_R_PWM3EN_ENA;
+
+
+    PWM0->GENERATOR[1UL].CMPA = u32CountTask;
+    PWM0->GENERATOR[1UL].GENA = PWM_GEN_GENA_R_ACTZERO_LOW | PWM_GEN_GENA_R_ACTLOAD_NOTHING | PWM_GEN_GENA_R_ACTCMPAD_HIGH;
+
+    PWM0->ENUPD |= PWM_ENUPD_R_ENUPD2_LOCAL_SYNC;
+    PWM0->FAULT &= ~PWM_FAULT_R_FAULT2_ENA;
+    PWM0->INVERT &= ~PWM_INVERT_R_PWM2INV_ENA;
+    PWM0->ENABLE |= PWM_ENABLE_R_PWM2EN_ENA;
 
 #if 0
     uint32_t u32DataEncript1 = 0UL;
@@ -267,19 +296,19 @@ void xTask5_LedGreenLog(void* pvParams)
 #endif
     while(1UL)
     {
-        GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_3, u32PinValue);
-        u32PinValue ^= GPIO_enPIN_3;
-        OS_Task__vSuspendAll();
-        if(0UL == u32PinValue)
+
+        if(u32CountTask > 0x0UL)
         {
-            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: ON  ");
+            u32CountTask--;
         }
         else
         {
-            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 0UL, "LED GREEN: OFF ");
+
+            u32CountTask = 0xFUL;
         }
-        OS_Task__boResumeAll();
-        u32CountTask++;
-        OS_Task__vDelayUntil(&u32LastWakeTime, 1000UL);
+        PWM0->GENERATOR[1UL].CMPB = u32CountTask;
+        PWM0->GENERATOR[1UL].CMPA = u32CountTask;
+
+        OS_Task__vDelayUntil(&u32LastWakeTime, 500UL);
     }
 }

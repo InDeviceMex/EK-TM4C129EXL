@@ -27,16 +27,16 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule,
+void ADC_Sequencer__vEnInterruptSource(ADC_nMODULE enModule,
                                 ADC_nSEQMASK enSequence,
                                 ADC_nINT_SOURCE enSourceInt);
-void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule,
+void ADC_Sequencer__vDisInterruptSource(ADC_nMODULE enModule,
                                  ADC_nSEQMASK enSequence,
                                  ADC_nINT_SOURCE enSourceInt);
-void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule,
+void ADC_Sequencer__vClearInterruptSource(ADC_nMODULE enModule,
                                    ADC_nSEQMASK enSequence,
                                    ADC_nINT_SOURCE enSourceInt);
-ADC_nSEQMASK ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC_Sequencer__enStatusInterruptSource(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequence,
                                                     ADC_nINT_SOURCE enSourceInt);
 

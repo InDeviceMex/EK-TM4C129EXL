@@ -26,7 +26,7 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vResetCompIntConditions(ADC_nMODULE enModule, ADC_nCOMPMASK  enActCompMask)
+void ADC_Comparator__vResetInterruptConditions(ADC_nMODULE enModule, ADC_nCOMPMASK  enActCompMask)
 {
     ADC__vWriteRegister(enModule, ADC_DC_RIC_OFFSET, (uint32_t) enActCompMask,
                         (uint32_t) ADC_enCOMPMASK_MAX, ADC_DC_RIC_R_DCINT0_BIT);

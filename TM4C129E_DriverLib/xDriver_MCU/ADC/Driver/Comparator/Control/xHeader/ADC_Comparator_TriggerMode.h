@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetCompTriggerMode(ADC_nMODULE enModule,
+void ADC_Comparator__vSetTriggerMode(ADC_nMODULE enModule,
                               ADC_nCOMPARATOR enActComp,
                               ADC_nCOMP_TRIGGER_MODE enActCompTriggerMode);
-ADC_nCOMP_TRIGGER_MODE ADC__enGetCompTriggerMode(ADC_nMODULE enModule,
+ADC_nCOMP_TRIGGER_MODE ADC_Comparator__enGetTriggerMode(ADC_nMODULE enModule,
                                                  ADC_nCOMPARATOR enActComp);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_TRIGGERMODE_H_ */

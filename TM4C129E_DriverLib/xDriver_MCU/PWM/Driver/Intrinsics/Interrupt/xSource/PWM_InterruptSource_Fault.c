@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 #include <xDriver_MCU/PWM/Driver/Intrinsics/Primitives/PWM_Primitives.h>
 
-void PWM__vEnInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
+void PWM_Fault__vEnInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32FaultReg = 0UL;
@@ -38,7 +38,7 @@ void PWM__vEnInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
                         u32FaultReg, u32FaultReg, PWM_INTEN_R_INTFAULT0_BIT);
 }
 
-void PWM__vDisInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
+void PWM_Fault__vDisInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32FaultReg = 0UL;
@@ -49,7 +49,7 @@ void PWM__vDisInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
                         0UL, u32FaultReg, PWM_INTEN_R_INTFAULT0_BIT);
 }
 
-void PWM__vClearInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
+void PWM_Fault__vClearInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32FaultReg = 0UL;
@@ -60,7 +60,7 @@ void PWM__vClearInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
                         u32FaultReg, u32FaultReg, PWM_ISC_R_INTFAULT0_BIT);
 }
 
-PWM_nFAULTMASK PWM__enStatusInterruptFault(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
+PWM_nFAULTMASK PWM_Fault__enStatusInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
 {
     PWM_nFAULTMASK enInterruptReg = PWM_enFAULTMASK_NONE;
     uint32_t u32Register = 0UL;

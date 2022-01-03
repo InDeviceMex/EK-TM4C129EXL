@@ -39,7 +39,7 @@ uint32_t* EDUMKII_Microphone_vSampleArray(void)
 void EDUMKII_Microphone_vSample(uint32_t *u32Input)
 {
     u32MicrophoneFlag = 0UL;
-    ADC__vSetSequencerInitConv(ADC_enMODULE_0, ADC_enSEQMASK_0);
+    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_0);
     while(0UL == u32MicrophoneFlag){}
     *u32Input = u32MicrophoneFifoArray[0];
 }

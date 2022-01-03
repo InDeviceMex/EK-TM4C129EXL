@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSequencerInitConv(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+void ADC_Sequencer__vSetInitConv(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_INITCONV_H_ */

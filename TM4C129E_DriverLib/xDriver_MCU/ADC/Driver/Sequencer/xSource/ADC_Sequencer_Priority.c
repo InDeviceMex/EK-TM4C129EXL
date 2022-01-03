@@ -26,19 +26,19 @@
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetSequencerPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
+void ADC_Sequencer__vSetPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
                                 ADC_nSEQ_PRIORITY enSeqPriority)
 {
-    ADC__vSetSequencerGenericBit((uint32_t) enModule, ADC_SS_PRI_OFFSET, (uint32_t) enSequence,
+    ADC_Sequencer__vSetGenericBit((uint32_t) enModule, ADC_SS_PRI_OFFSET, (uint32_t) enSequence,
                                  (uint32_t) enSeqPriority, ADC_SS_PRI_SS0_MASK,
                                  (ADC_SS_PRI_R_SS1_BIT - ADC_SS_PRI_R_SS0_BIT),
                                  ADC_SS_PRI_R_SS0_BIT);
 }
 
-ADC_nSEQ_PRIORITY ADC__enGetSequencerPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
+ADC_nSEQ_PRIORITY ADC_Sequencer__enGetPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
 {
     ADC_nSEQ_PRIORITY enSeqPriorityReg = ADC_enSEQ_PRIORITY_HIGH;
-    enSeqPriorityReg = (ADC_nSEQ_PRIORITY) (ADC__u32GetSequencerGenericBit((uint32_t) enModule,
+    enSeqPriorityReg = (ADC_nSEQ_PRIORITY) (ADC_Sequencer__u32GetGenericBit((uint32_t) enModule,
                                            ADC_SS_PRI_OFFSET, (uint32_t) enSequence,
                                            ADC_SS_PRI_SS0_MASK,
                                            (ADC_SS_PRI_R_SS1_BIT - ADC_SS_PRI_R_SS0_BIT),

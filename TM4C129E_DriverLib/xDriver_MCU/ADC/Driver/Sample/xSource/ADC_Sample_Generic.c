@@ -31,7 +31,7 @@ static const uint32_t ADC_u32MuxMax[(uint32_t) ADC_enSEQ_MAX] =
 {(uint32_t) ADC_enMUX_MAX, (uint32_t) ADC_enMUX_4,
  (uint32_t) ADC_enMUX_4, (uint32_t) ADC_enMUX_1};
 
-void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+void ADC_Sample__vSetGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
                             uint32_t u32OffsetRegister, uint32_t u32MuxInput,
                             uint32_t u32Feature, uint32_t u32FeatureMask,
                             uint32_t u32FeatureBitAdd)
@@ -56,7 +56,7 @@ void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
                         u32FeatureMask, u32MuxInputReg);
 }
 
-uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+uint32_t ADC_Sample__u32GetGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
                                   uint32_t u32OffsetRegister, uint32_t u32MuxInput,
                                   uint32_t u32FeatureMask, uint32_t u32FeatureBitAdd)
 {

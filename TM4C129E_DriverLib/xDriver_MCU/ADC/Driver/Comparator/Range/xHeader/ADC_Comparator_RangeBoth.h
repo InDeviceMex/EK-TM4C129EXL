@@ -26,11 +26,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-ADC_nSTATUS ADC__enGetCompRange(ADC_nMODULE enModule,
+ADC_nSTATUS ADC_Comparator__enGetRange(ADC_nMODULE enModule,
                                 ADC_nCOMPARATOR enActComp,
                                 uint32_t* pu32CompRangeLow,
                                 uint32_t* pu32CompRangeHigh);
-void ADC__vSetCompRange(ADC_nMODULE enModule,
+void ADC_Comparator__vSetRange(ADC_nMODULE enModule,
                         ADC_nCOMPARATOR enActComp,
                         uint32_t u32CompRangeLow,
                         uint32_t u32CompRangeHigh);

@@ -27,16 +27,16 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSequencerEnable(ADC_nMODULE enModule,
+void ADC_Sequencer__vSetEnable(ADC_nMODULE enModule,
                               ADC_nSEQMASK enSequence,
                               ADC_nSEQ_ENABLE enSeqEnable);
-ADC_nSEQ_ENABLE ADC__enGetSequencerEnable(ADC_nMODULE enModule,
+ADC_nSEQ_ENABLE ADC_Sequencer__enGetEnable(ADC_nMODULE enModule,
                                           ADC_nSEQMASK enSequence);
 
-void ADC__vSetDMAEnable(ADC_nMODULE enModule,
+void ADC_Sequencer__vSetDMAEnable(ADC_nMODULE enModule,
                         ADC_nSEQMASK enSequence,
                         ADC_nDMA_ENABLE enSeqDMAEnable);
-ADC_nDMA_ENABLE ADC__enGetDMAEnable(ADC_nMODULE enModule,
+ADC_nDMA_ENABLE ADC_Sequencer__enGetDMAEnable(ADC_nMODULE enModule,
                                     ADC_nSEQMASK enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_ENABLE_H_ */

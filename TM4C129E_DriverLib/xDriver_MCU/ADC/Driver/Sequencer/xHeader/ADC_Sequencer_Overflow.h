@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vClearSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
-ADC_nSEQ_OV ADC__enGetSequencerOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+void ADC_Sequencer__vClearOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+ADC_nSEQ_OV ADC_Sequencer__enGetOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_OVERFLOW_H_ */

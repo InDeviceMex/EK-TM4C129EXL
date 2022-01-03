@@ -92,27 +92,27 @@ void EDUMKII_Accelerometer_vInit(void)
     GPIO__vSetAnalogFunction(EDUMKII_ACCEL_AXIS_Y);
     GPIO__vSetAnalogFunction(EDUMKII_ACCEL_AXIS_Z);
 
-    ADC__vSetSequencerEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enSEQ_ENABLE_DIS);
-    ADC__vSetSequencerTrigger(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSEQ_TRIGGER_SOFTWARE);
+    ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enSEQ_ENABLE_DIS);
+    ADC_Sequencer__vSetTrigger(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSEQ_TRIGGER_SOFTWARE);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_X_INPUT;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_0, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_0, &stADC0SampleConfig);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Y_INPUT;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_1, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_1, &stADC0SampleConfig);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_2, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_2, &stADC0SampleConfig);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
     stADC0SampleConfig.enInterrupt = ADC_enSEQ_INPUT_INT_ENA;
     stADC0SampleConfig.enEnded = ADC_enSEQ_INPUT_ENDED_ENA;
-    ADC__enSetSampleConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_3, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enMUX_3, &stADC0SampleConfig);
 
-    ADC__vEnSeqInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enINT_SOURCE_DMA);
+    ADC_Sequencer__vEnInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enINT_SOURCE_DMA);
     ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_2, (ADC_nPRIORITY) NVIC_enPriority_ADC0SEQ2);
-    ADC__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enDMA_ENABLE_ENA);
-    ADC__vSetSequencerEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enSEQ_ENABLE_ENA);
+    ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enDMA_ENABLE_ENA);
+    ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_2, ADC_enSEQ_ENABLE_ENA);
 }
 
 

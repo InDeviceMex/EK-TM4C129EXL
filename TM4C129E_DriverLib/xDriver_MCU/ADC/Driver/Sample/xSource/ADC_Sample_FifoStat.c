@@ -28,7 +28,7 @@
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
+ADC_nSEQ_FIFO ADC_Sample__enGetFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
 {
     uint32_t u32RegEmpty = 0UL;
     uint32_t u32RegFull = 0UL;
@@ -66,7 +66,7 @@ ADC_nSEQ_FIFO ADC__enGetSampleFifoStat(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     return (enFeature);
 }
 
-uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+uint32_t ADC_Sample__u32GetFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                      uint32_t* pu32FifoArray)
 {
     ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_FULL;
@@ -93,14 +93,14 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
         u32AdcBase += u32SequencerReg;
         pu32AdcSeq = (volatile uint32_t*) u32AdcBase;
 
-        enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module,
+        enFeature = ADC_Sample__enGetFifoStat((ADC_nMODULE)u32Module,
                                              (ADC_nSEQUENCER)u32Sequencer);
         while(ADC_enSEQ_FIFO_EMPTY != enFeature)
         {
             *pu32FifoArray = *pu32AdcSeq;
             pu32FifoArray += 0x1U;
             u32Count++;
-            enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module,
+            enFeature = ADC_Sample__enGetFifoStat((ADC_nMODULE)u32Module,
                                                  (ADC_nSEQUENCER)u32Sequencer);
         }
 
@@ -108,7 +108,7 @@ uint32_t ADC__u32GetSampleFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSequ
     return (u32Count);
 }
 
-uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
+uint32_t ADC_Sample__u32GetValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer)
 {
     ADC_nSEQ_FIFO enFeature = ADC_enSEQ_FIFO_FULL;
 
@@ -122,7 +122,7 @@ uint32_t ADC__u32GetSampleValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
 
     u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
-    enFeature = ADC__enGetSampleFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
+    enFeature = ADC_Sample__enGetFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
     if(ADC_enSEQ_FIFO_EMPTY != enFeature)
     {
         switch(u32Sequencer)

@@ -27,10 +27,11 @@ void NMISW(void)
 
 void Led2ON(void)
 {
+#if 0
     static uint32_t u32PinValue = (uint32_t) GPIO_enPIN_0;
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, u32PinValue);
     u32PinValue ^= (uint32_t) GPIO_enPIN_0;
-
+#endif
 }
 
 
@@ -143,7 +144,7 @@ uint32_t main(void)
                                  30000000UL - 1UL, 0UL);
     TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
-    OS_Task_Handle_t TaskHandeler[5UL] = {0UL};
+    OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
     OS_Task__uxCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
                                   (void*) 0UL, 4UL, &TaskHandeler[0UL]);
     OS_Task__uxCreate(&xTask2_JoystickLog, "Task 2", 300UL,

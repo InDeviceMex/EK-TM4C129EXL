@@ -27,11 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+void ADC_Sample__vSetGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
                             uint32_t u32OffsetRegister, uint32_t u32MuxInput,
                             uint32_t u32Feature, uint32_t u32FeatureMask,
                             uint32_t u32FeatureBitAdd);
-uint32_t ADC__u32GetSampleGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
+uint32_t ADC_Sample__u32GetGeneric(uint32_t u32Module, uint32_t  u32Sequencer,
                                   uint32_t u32OffsetRegister, uint32_t u32MuxInput,
                                   uint32_t u32FeatureMask, uint32_t u32FeatureBitAdd);
 

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+void ADC_Sequencer__vEnInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
                                 ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
@@ -53,7 +53,7 @@ void ADC__vEnSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
     }
 }
 
-void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+void ADC_Sequencer__vDisInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
                                  ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
@@ -79,7 +79,7 @@ void ADC__vDisSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
     }
 }
 
-void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
+void ADC_Sequencer__vClearInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence,
                                    ADC_nINT_SOURCE enSourceInt)
 {
     uint32_t u32Module = 0UL;
@@ -93,7 +93,7 @@ void ADC__vClearSeqInterruptSource(ADC_nMODULE enModule, ADC_nSEQMASK enSequence
                         (uint32_t) enSequence, u32BitPos);
 }
 
-ADC_nSEQMASK ADC__enStatusSeqInterruptSource(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC_Sequencer__enStatusInterruptSource(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequence,
                                                     ADC_nINT_SOURCE enSourceInt)
 {

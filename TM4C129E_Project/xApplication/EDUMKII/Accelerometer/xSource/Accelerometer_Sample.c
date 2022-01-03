@@ -38,7 +38,7 @@ uint32_t* EDUMKII_Accelerometer_vSampleArray(void)
 void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
 {
     u32AccelerometerFlag = 0UL;
-    ADC__vSetSequencerInitConv(ADC_enMODULE_0, ADC_enSEQMASK_2);
+    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_2);
     while(0UL == u32AccelerometerFlag){}
     *s32X = (int32_t) u32AccelerometerFifoArray[0] - 2048;
     *s32Y = (int32_t) u32AccelerometerFifoArray[1] - 2048;

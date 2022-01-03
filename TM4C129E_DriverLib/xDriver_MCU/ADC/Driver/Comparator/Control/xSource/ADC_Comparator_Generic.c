@@ -26,19 +26,19 @@
 #include <xDriver_MCU/ADC/Driver/Comparator/xHeader/ADC_CompGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
+void ADC_Comparator__vSetGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
                                  uint32_t u32Feature, uint32_t u32FeatureMask,
                                  uint32_t u32FeatureBit)
 {
-    ADC__vSetCompGeneric(u32Module , u32Comparator, ADC_DC_CTL_OFFSET, u32Feature,
+    ADC_Comparator__vSetGeneric(u32Module , u32Comparator, ADC_DC_CTL_OFFSET, u32Feature,
                          u32FeatureMask, u32FeatureBit);
 }
 
-uint32_t ADC__u32GetCompGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
+uint32_t ADC_Comparator__u32GetGenericControl(uint32_t u32Module, uint32_t  u32Comparator,
                                        uint32_t u32FeatureMask, uint32_t u32FeatureBit)
 {
     uint32_t u32Reg = 0UL;
-    u32Reg = ADC__u32GetCompGeneric(u32Module, u32Comparator, ADC_DC_CTL_OFFSET,
+    u32Reg = ADC_Comparator__u32GetGeneric(u32Module, u32Comparator, ADC_DC_CTL_OFFSET,
                                     u32FeatureMask, u32FeatureBit);
     return (u32Reg);
 }

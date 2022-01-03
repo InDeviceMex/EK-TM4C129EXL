@@ -27,20 +27,20 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vEnSeqInterruptSample(ADC_nMODULE enModule,
+void ADC_Sample__vEnSeqInterrupt(ADC_nMODULE enModule,
                                 ADC_nSEQUENCER  enSequencer,
                                 ADC_nMUX enMuxInput);
-void ADC__vEnSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+void ADC_Sample__vEnSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
                                 ADC_nMUX enMuxInput);
-void ADC__vDisSeqInterruptSample(ADC_nMODULE enModule,
+void ADC_Sample__vDisSeqInterrupt(ADC_nMODULE enModule,
                                  ADC_nSEQUENCER  enSequencer,
                                  ADC_nMUX enMuxInput);
-void ADC__vDisSeqMaskInterruptSample(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
+void ADC_Sample__vDisSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
                                 ADC_nMUX enMuxInput);
-ADC_nSEQ_INPUT_INT ADC__enGetSeqInterruptSample(ADC_nMODULE enModule,
+ADC_nSEQ_INPUT_INT ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
                                                 ADC_nSEQUENCER  enSequencer,
                                                 ADC_nMUX enMuxInput);
-ADC_nSEQMASK ADC__enGetSeqMaskInterruptSample(ADC_nMODULE enModule,
+ADC_nSEQMASK ADC_Sample__enGetSeqMaskInterrupt(ADC_nMODULE enModule,
                                                     ADC_nSEQMASK enSequencerMask,
                                                     ADC_nMUX enMuxInput);
 

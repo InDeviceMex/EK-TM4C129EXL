@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32Feature, uint32_t u32FeatureMask, uint32_t u32FeatureBit);
-uint32_t ADC__u32GetCompGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32FeatureMask, uint32_t u32FeatureBit);
+void ADC_Comparator__vSetGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32Feature, uint32_t u32FeatureMask, uint32_t u32FeatureBit);
+uint32_t ADC_Comparator__u32GetGeneric(uint32_t u32Module, uint32_t  u32Comparator, uint32_t u32RegisterOffset, uint32_t u32FeatureMask, uint32_t u32FeatureBit);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_XHEADER_ADC_COMPGENERIC_H_ */

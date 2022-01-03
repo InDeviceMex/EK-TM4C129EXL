@@ -25,33 +25,33 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
-ADC_nSTATUS ADC__enSetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nSTATUS ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                    ADC_nMUX enMux,
                                    const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)
     {
-        ADC__vSetSampleInputSelection(enModule, enSequencer, enMux, pstSampleConfig->enInput);
-        ADC__vSetSampleSampleHold(enModule, enSequencer, enMux, pstSampleConfig->enSampleHold);
-        ADC__vSetSampleTempSelection(enModule, enSequencer, enMux, pstSampleConfig->enTempSensor);
-        ADC__vSetSampleEndSequence(enModule, enSequencer, enMux, pstSampleConfig->enEnded);
-        ADC__vSetSampleDifferential(enModule, enSequencer, enMux, pstSampleConfig->enDifferential);
-        ADC__vSetSampleOperation(enModule, enSequencer, enMux, pstSampleConfig->enOperation);
-        ADC__vSetSampleCompSelection(enModule, enSequencer, enMux, pstSampleConfig->enComparator);
+        ADC_Sample__vSetInputSelection(enModule, enSequencer, enMux, pstSampleConfig->enInput);
+        ADC_Sample__vSetSampleHold(enModule, enSequencer, enMux, pstSampleConfig->enSampleHold);
+        ADC_Sample__vSetTempSelection(enModule, enSequencer, enMux, pstSampleConfig->enTempSensor);
+        ADC_Sample__vSetEndSequence(enModule, enSequencer, enMux, pstSampleConfig->enEnded);
+        ADC_Sample__vSetDifferential(enModule, enSequencer, enMux, pstSampleConfig->enDifferential);
+        ADC_Sample__vSetOperation(enModule, enSequencer, enMux, pstSampleConfig->enOperation);
+        ADC_Sample__vSetCompSelection(enModule, enSequencer, enMux, pstSampleConfig->enComparator);
         if(ADC_enSEQ_INPUT_INT_ENA == pstSampleConfig->enInterrupt)
         {
-            ADC__vEnSeqInterruptSample(enModule, enSequencer, enMux);
+            ADC_Sample__vEnSeqInterrupt(enModule, enSequencer, enMux);
         }
         else
         {
-            ADC__vDisSeqInterruptSample(enModule, enSequencer, enMux);
+            ADC_Sample__vDisSeqInterrupt(enModule, enSequencer, enMux);
         }
         enReturn = ADC_enSTATUS_OK;
     }
     return (enReturn);
 }
-ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nSTATUS ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                        ADC_nMUX enMux,
                                        const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
@@ -73,26 +73,26 @@ ADC_nSTATUS ADC__enSetSampleConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
     if(0UL != (uint32_t) pstSampleConfig)
     {
         GPIO__vSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(uint32_t) pstSampleConfig->enInput]);
-        enReturn = ADC__enSetSampleConfig(enModule, enSequencer, enMux, pstSampleConfig);
+        enReturn = ADC_Sample__enSetConfig(enModule, enSequencer, enMux, pstSampleConfig);
     }
     return (enReturn);
 }
 
 
-ADC_nSTATUS ADC__enGetSampleConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nSTATUS ADC_Sample__enGetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                    ADC_nMUX enMux, ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
     ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
     if(0UL != (uint32_t) pstSampleConfig)
     {
-        pstSampleConfig->enInput = ADC__enGetSampleInputSelection(enModule, enSequencer, enMux);
-        pstSampleConfig->enSampleHold = ADC__enGetSampleSampleHold(enModule, enSequencer, enMux);
-        pstSampleConfig->enTempSensor = ADC__enGetSampleTempSelection(enModule, enSequencer, enMux);
-        pstSampleConfig->enEnded = ADC__enGetSampleEndSequence(enModule, enSequencer, enMux);
-        pstSampleConfig->enDifferential = ADC__enGetSampleDifferential(enModule, enSequencer, enMux);
-        pstSampleConfig->enOperation = ADC__enGetSampleOperation(enModule, enSequencer, enMux);
-        pstSampleConfig->enComparator = ADC__enGetSampleCompSelection(enModule, enSequencer, enMux);
-        pstSampleConfig->enInterrupt = ADC__enGetSeqInterruptSample(enModule, enSequencer, enMux);
+        pstSampleConfig->enInput = ADC_Sample__enGetInputSelection(enModule, enSequencer, enMux);
+        pstSampleConfig->enSampleHold = ADC_Sample__enGetSampleHold(enModule, enSequencer, enMux);
+        pstSampleConfig->enTempSensor = ADC_Sample__enGetTempSelection(enModule, enSequencer, enMux);
+        pstSampleConfig->enEnded = ADC_Sample__enGetEndSequence(enModule, enSequencer, enMux);
+        pstSampleConfig->enDifferential = ADC_Sample__enGetDifferential(enModule, enSequencer, enMux);
+        pstSampleConfig->enOperation = ADC_Sample__enGetOperation(enModule, enSequencer, enMux);
+        pstSampleConfig->enComparator = ADC_Sample__enGetCompSelection(enModule, enSequencer, enMux);
+        pstSampleConfig->enInterrupt = ADC_Sample__enGetSeqInterrupt(enModule, enSequencer, enMux);
         enReturn = ADC_enSTATUS_OK;
     }
     return (enReturn);

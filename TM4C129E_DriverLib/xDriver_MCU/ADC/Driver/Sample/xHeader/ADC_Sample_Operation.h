@@ -27,11 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSampleOperation(ADC_nMODULE enModule,
+void ADC_Sample__vSetOperation(ADC_nMODULE enModule,
                               ADC_nSEQUENCER enSequencer,
                               ADC_nMUX enMux,
                               ADC_nSEQ_INPUT_OPERATION enSampleOperation);
-ADC_nSEQ_INPUT_OPERATION ADC__enGetSampleOperation(ADC_nMODULE enModule,
+ADC_nSEQ_INPUT_OPERATION ADC_Sample__enGetOperation(ADC_nMODULE enModule,
                                                    ADC_nSEQUENCER enSequencer,
                                                    ADC_nMUX enMux);
 

@@ -26,7 +26,7 @@
 #include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeHigher.h>
 #include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeLower.h>
 
-void ADC__vSetCompRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
+void ADC_Comparator__vSetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
                         uint32_t u32CompRangeLow, uint32_t u32CompRangeHigh)
 {
     uint32_t u32CompRangeTemp = 0UL;
@@ -36,11 +36,11 @@ void ADC__vSetCompRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
         u32CompRangeLow = u32CompRangeHigh;
         u32CompRangeHigh = u32CompRangeTemp;
     }
-    ADC__vSetCompRangeLow(enModule, enActComp, u32CompRangeLow);
-    ADC__vSetCompRangeHigh(enModule, enActComp, u32CompRangeHigh);
+    ADC_Comparator__vSetRangeLow(enModule, enActComp, u32CompRangeLow);
+    ADC_Comparator__vSetRangeHigh(enModule, enActComp, u32CompRangeHigh);
 }
 
-ADC_nSTATUS ADC__enGetCompRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
+ADC_nSTATUS ADC_Comparator__enGetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
                                 uint32_t* pu32CompRangeLow, uint32_t* pu32CompRangeHigh)
 {
     ADC_nSTATUS enStatus = ADC_enSTATUS_ERROR;
@@ -49,8 +49,8 @@ ADC_nSTATUS ADC__enGetCompRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
     if((0UL != (uint32_t) pu32CompRangeLow) && (0UL != (uint32_t) pu32CompRangeHigh))
     {
         enStatus = ADC_enSTATUS_OK;
-        u32CompRangeLow = ADC__u32GetCompRangeLow(enModule, enActComp);
-        u32CompRangeHigh = ADC__u32GetCompRangeHigh(enModule, enActComp);
+        u32CompRangeLow = ADC_Comparator__u32GetRangeLow(enModule, enActComp);
+        u32CompRangeHigh = ADC_Comparator__u32GetRangeHigh(enModule, enActComp);
         *pu32CompRangeLow = u32CompRangeLow;
         *pu32CompRangeHigh = u32CompRangeHigh;
     }

@@ -27,12 +27,13 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC__vSetSequencerGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+void ADC_Sequencer__vSetGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
                                uint32_t u32Sequence, uint32_t u32Feature,
                                uint32_t u32FeatureBit)
 {
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQMASK_MAX);
+    u32SequencerReg = u32Sequence;
+    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
     if(0UL != u32Feature)
     {
         ADC__vWriteRegister((ADC_nMODULE) u32Module, u32OffsetRegister,
@@ -45,25 +46,27 @@ void ADC__vSetSequencerGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
     }
 }
 
-void ADC__vSetSequencerGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
+void ADC_Sequencer__vSetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
                                   uint32_t u32Sequence, uint32_t u32Feature,
                                   uint32_t u32FeatureMask, uint32_t u32FeatureBitMult,
                                   uint32_t u32FeatureBitAdd)
 {
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQ_MAX);
+    u32SequencerReg = u32Sequence;
+    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
     u32SequencerReg *= u32FeatureBitMult;
     u32SequencerReg += u32FeatureBitAdd;
     ADC__vWriteRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32Feature,
                         u32FeatureMask, u32SequencerReg);
 }
 
-uint32_t ADC__u32GetSequencerGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+uint32_t ADC_Sequencer__u32GetGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
                                      uint32_t u32Sequence, uint32_t u32FeatureBit)
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQMASK_MAX);
+    u32SequencerReg = u32Sequence;
+    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
     u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32OffsetRegister,
                                       u32SequencerReg, u32FeatureBit);
 
@@ -79,13 +82,14 @@ uint32_t ADC__u32GetSequencerGeneric(uint32_t u32Module, uint32_t u32OffsetRegis
     return (u32Feature);
 }
 
-uint32_t ADC__u32GetSequencerGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
+uint32_t ADC_Sequencer__u32GetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
                                         uint32_t u32Sequence, uint32_t u32FeatureMask,
                                         uint32_t u32FeatureBitMult, uint32_t u32FeatureBitAdd)
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQ_MAX);
+    u32SequencerReg = u32Sequence;
+    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
     u32SequencerReg *= u32FeatureBitMult;
     u32SequencerReg += u32FeatureBitAdd;
     u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32OffsetRegister,

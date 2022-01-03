@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vClearSequencerUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
-ADC_nSEQ_UV ADC__enGetSequencerUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+void ADC_Sequencer__vClearUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+ADC_nSEQ_UV ADC_Sequencer__enGetUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_UNDERFLOW_H_ */
