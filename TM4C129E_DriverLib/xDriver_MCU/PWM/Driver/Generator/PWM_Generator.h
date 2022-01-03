@@ -25,8 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_DRIVER_GENERATOR_PWM_GENERATOR_H_
 #define XDRIVER_MCU_PWM_DRIVER_GENERATOR_PWM_GENERATOR_H_
 
-
-
-
+#include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_ClearCount.h>
+#include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Sync.h>
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_PWM_GENERATOR_H_ */

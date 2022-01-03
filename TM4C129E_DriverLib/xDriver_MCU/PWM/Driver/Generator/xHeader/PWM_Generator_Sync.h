@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetGlobalSync(PWM_nMODULE enModule,
-                              PWM_nGENMASK enSequence);
+void PWM_Generator__vSetGlobalSynq(PWM_nMODULE enModule, PWM_nGENMASK enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_SYNC_H_ */

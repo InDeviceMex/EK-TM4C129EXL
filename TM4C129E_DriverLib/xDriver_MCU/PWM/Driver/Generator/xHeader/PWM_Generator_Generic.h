@@ -35,7 +35,4 @@ void PWM_Generator__vSetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegiste
                                   uint32_t u32FeatureMask, uint32_t u32FeatureBitMult,
                                   uint32_t u32FeatureBitAdd);
 
-
-
-
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_GENERIC_H_ */

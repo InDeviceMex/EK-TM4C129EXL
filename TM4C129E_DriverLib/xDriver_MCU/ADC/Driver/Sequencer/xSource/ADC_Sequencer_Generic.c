@@ -52,8 +52,7 @@ void ADC_Sequencer__vSetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegiste
                                   uint32_t u32FeatureBitAdd)
 {
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = u32Sequence;
-    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
+    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQ_MAX);
     u32SequencerReg *= u32FeatureBitMult;
     u32SequencerReg += u32FeatureBitAdd;
     ADC__vWriteRegister((ADC_nMODULE) u32Module, u32OffsetRegister, u32Feature,
@@ -88,8 +87,7 @@ uint32_t ADC_Sequencer__u32GetGenericBit(uint32_t u32Module, uint32_t u32OffsetR
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32SequencerReg = 0UL;
-    u32SequencerReg = u32Sequence;
-    u32SequencerReg &= (uint32_t) ADC_enSEQMASK_MAX;
+    u32SequencerReg = MCU__u32CheckParams(u32Sequence, (uint32_t) ADC_enSEQ_MAX);
     u32SequencerReg *= u32FeatureBitMult;
     u32SequencerReg += u32FeatureBitAdd;
     u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module , u32OffsetRegister,
