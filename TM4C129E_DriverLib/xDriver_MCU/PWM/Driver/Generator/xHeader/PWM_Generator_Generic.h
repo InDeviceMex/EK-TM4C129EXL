@@ -27,12 +27,17 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+void PWM_Generator__vSetGenericMask(uint32_t u32Module, uint32_t u32OffsetRegister,
                                uint32_t u32Generator, uint32_t u32Feature,
                                uint32_t u32FeatureBit);
-void PWM_Generator__vSetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
-                                  uint32_t u32Generator, uint32_t u32Feature,
-                                  uint32_t u32FeatureMask, uint32_t u32FeatureBitMult,
-                                  uint32_t u32FeatureBitAdd);
+
+void PWM_Generator__vSetGeneric(uint32_t u32Module, uint32_t  u32Generator,
+                               uint32_t u32OffsetRegister, uint32_t u32Feature,
+                               uint32_t u32FeatureMask, uint32_t u32FeatureBit);
+
+
+uint32_t PWM_Generator__u32GetGeneric(uint32_t u32Module, uint32_t  u32Generator,
+                                  uint32_t u32OffsetRegister,
+                                  uint32_t u32FeatureMask, uint32_t u32FeatureBit);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_GENERIC_H_ */

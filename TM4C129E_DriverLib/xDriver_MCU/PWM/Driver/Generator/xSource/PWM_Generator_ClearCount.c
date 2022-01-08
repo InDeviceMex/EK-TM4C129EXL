@@ -28,6 +28,6 @@
 
 void PWM_Generator__vSetClearCount(PWM_nMODULE enModule, PWM_nGENMASK enGenerator)
 {
-    PWM_Generator__vSetGeneric((uint32_t) enModule, PWM_SYNC_OFFSET, (uint32_t) enGenerator,
+    PWM_Generator__vSetGenericMask((uint32_t) enModule, PWM_SYNC_OFFSET, (uint32_t) enGenerator,
                               1UL, 0UL);
 }

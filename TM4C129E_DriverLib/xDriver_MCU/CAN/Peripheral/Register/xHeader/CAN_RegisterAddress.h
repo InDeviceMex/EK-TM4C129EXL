@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_XHEADER_CAN_REGISTERADDRESS_H_
 #define XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_XHEADER_CAN_REGISTERADDRESS_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 #define CAN_INTERFACE_REGISTER_NUM    ((uint32_t) 24UL)
 #define CAN_MESSAGE_REGISTER_NUM    ((uint32_t) 4UL)

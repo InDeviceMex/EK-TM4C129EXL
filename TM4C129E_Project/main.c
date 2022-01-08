@@ -16,22 +16,12 @@
 
 uint32_t main(void);
 
-void Led2ON(void);
 void NMISW(void);
 
 
 void NMISW(void)
 {
     MCU__vNoOperation();
-}
-
-void Led2ON(void)
-{
-#if 0
-    static uint32_t u32PinValue = (uint32_t) GPIO_enPIN_0;
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, u32PinValue);
-    u32PinValue ^= (uint32_t) GPIO_enPIN_0;
-#endif
 }
 
 
@@ -134,15 +124,6 @@ uint32_t main(void)
     GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
 
     SHARP_96_96__vInitDisplay();
-
-    TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0W, TIMER_enINTERRUPT_TIMEOUT);
-    TIMER__vSetClockSource(TIMER_enT0W, TIMER_enCLOCK_SYSCLK);
-    TIMER__vEnInterruptVector(TIMER_enT0W, (TIMER_nPRIORITY) NVIC_enPriority_TIMER0A);
-    TIMER__vEnInterruptSource(TIMER_enT0W, TIMER_enINT_TIMEOUT);
-    TIMER__vSetStall(TIMER_enT0W, TIMER_enSTALL_FREEZE);
-    TIMER__enSetMode_ReloadMatch(TIMER_enT0W, TIMER_enMODE_PERIODIC_WIDE_DOWN,
-                                 30000000UL - 1UL, 0UL);
-    TIMER__vSetEnable(TIMER_enT0W, TIMER_enENABLE_START);
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
     OS_Task__uxCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,

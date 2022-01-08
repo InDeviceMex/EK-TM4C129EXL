@@ -50,20 +50,30 @@ void PWM__vSetClockDivisorNum(PWM_nMODULE enModule, uint32_t u32DivisorArg)
     uint32_t u32ValueReg = 0UL;
     uint32_t u32DivisorReg = u32DivisorArg;
     u32DivisorReg &= (uint32_t) PWM_enCLOCK_DIV_NUM_MASK;
-    u32DivisorReg >>= 1UL;
+
     if(0UL != u32DivisorReg)
     {
-        while(0UL != u32DivisorReg)
+        if(1UL == u32DivisorReg)
         {
-            if(1UL & u32DivisorReg)
-            {
-                u32ValueReg = u32CountReg;
-            }
-            u32DivisorReg >>= 1UL;
-            u32CountReg++;
+            PWM__vSetClockSource(enModule, PWM_enCLOCK_SYSCLK);
         }
-        PWM__vSetGeneralGeneric((uint32_t) enModule, PWM_CC_OFFSET, u32ValueReg,
-                                PWM_CC_PWMDIV_MASK, PWM_CC_R_PWMDIV_BIT);
+        else
+        {
+
+            PWM__vSetClockSource(enModule, PWM_enCLOCK_DIVIDER);
+            u32DivisorReg >>= 1UL;
+            while(0UL != u32DivisorReg)
+            {
+                u32CountReg++;
+                if(1UL & u32DivisorReg)
+                {
+                    u32ValueReg = u32CountReg;
+                }
+                u32DivisorReg >>= 1UL;
+            }
+            PWM__vSetGeneralGeneric((uint32_t) enModule, PWM_CC_OFFSET, u32ValueReg,
+                                    PWM_CC_PWMDIV_MASK, PWM_CC_R_PWMDIV_BIT);
+        }
     }
 }
 
@@ -77,11 +87,18 @@ PWM_nCLOCK_DIV PWM__enGetClockDivisor(PWM_nMODULE enModule)
 
 uint32_t PWM__u32GetClockDivisor(PWM_nMODULE enModule)
 {
+    PWM_nCLOCK enClockReg = PWM_enCLOCK_SYSCLK;
     uint32_t u32DivisorBitReg = 0UL;
-    uint32_t u32DivisorReg = 0UL;
-    u32DivisorBitReg = PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_CC_OFFSET,
-                                              PWM_CC_PWMDIV_MASK, PWM_CC_R_PWMDIV_BIT);
-    u32DivisorBitReg++;
-    u32DivisorReg = 1UL << u32DivisorBitReg;
+    uint32_t u32DivisorReg = 1UL;
+
+    enClockReg = PWM__enGetClockSource(enModule);
+    if(PWM_enCLOCK_SYSCLK != enClockReg)
+    {
+        u32DivisorBitReg = PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_CC_OFFSET,
+                                                  PWM_CC_PWMDIV_MASK, PWM_CC_R_PWMDIV_BIT);
+        u32DivisorBitReg++;
+        u32DivisorReg = 1UL;
+        u32DivisorReg <<= (uint32_t) u32DivisorBitReg;
+    }
     return (u32DivisorReg);
 }

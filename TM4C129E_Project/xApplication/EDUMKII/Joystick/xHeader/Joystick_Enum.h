@@ -26,6 +26,7 @@
 
 #include <xUtils/Standard/Standard.h>
 
+#if defined(BOOSTER_PACK1)
 #define EDUMKII_SELECT (GPIO_enGPIOC6)
 #define EDUMKII_SELECT_PORT (GPIO_enPORT_C)
 #define EDUMKII_SELECT_PIN (GPIO_enPIN_6)
@@ -35,6 +36,17 @@
 
 #define EDUMKII_AXIS_Y (GPIO_enAIN0)
 #define EDUMKII_AXIS_Y_INPUT (ADC_enSEQ_INPUT_0)
+#else
+#define EDUMKII_SELECT (GPIO_enGPIOD4)
+#define EDUMKII_SELECT_PORT (GPIO_enPORT_D)
+#define EDUMKII_SELECT_PIN (GPIO_enPIN_4)
+
+#define EDUMKII_AXIS_X (GPIO_enAIN13)
+#define EDUMKII_AXIS_X_INPUT (ADC_enSEQ_INPUT_13)
+
+#define EDUMKII_AXIS_Y (GPIO_enAIN17)
+#define EDUMKII_AXIS_Y_INPUT (ADC_enSEQ_INPUT_17)
+#endif
 
 typedef enum
 {

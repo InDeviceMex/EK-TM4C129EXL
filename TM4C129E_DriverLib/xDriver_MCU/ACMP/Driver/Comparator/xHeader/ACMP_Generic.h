@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_GENERIC_H_
 #define XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_GENERIC_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 void ACMP__vSetCompGeneric(uint32_t u32Module, uint32_t  u32ComparatorArg,
                            uint32_t u32OffsetRegister, uint32_t u32FeatureValue,

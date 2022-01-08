@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_
 #define XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 typedef enum
 {

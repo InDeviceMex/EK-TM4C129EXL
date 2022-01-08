@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 #include <xDriver_MCU/PWM/Driver/Intrinsics/Primitives/PWM_Primitives.h>
 
-void PWM_Generator__vSetGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
+void PWM_Generator__vSetGenericMask(uint32_t u32Module, uint32_t u32OffsetRegister,
                                uint32_t u32Generator, uint32_t u32Feature,
                                uint32_t u32FeatureBit)
 {
@@ -46,15 +46,39 @@ void PWM_Generator__vSetGeneric(uint32_t u32Module, uint32_t u32OffsetRegister,
     }
 }
 
-void PWM_Generator__vSetGenericBit(uint32_t u32Module, uint32_t u32OffsetRegister,
-                                  uint32_t u32Generator, uint32_t u32Feature,
-                                  uint32_t u32FeatureMask, uint32_t u32FeatureBitMult,
-                                  uint32_t u32FeatureBitAdd)
+void PWM_Generator__vSetGeneric(uint32_t u32Module, uint32_t  u32Generator,
+                            uint32_t u32OffsetRegister, uint32_t u32Feature,
+                            uint32_t u32FeatureMask, uint32_t u32FeatureBit)
 {
     uint32_t u32GeneratorReg = 0UL;
+
     u32GeneratorReg = MCU__u32CheckParams(u32Generator, (uint32_t) PWM_enGEN_MAX);
-    u32GeneratorReg *= u32FeatureBitMult;
-    u32GeneratorReg += u32FeatureBitAdd;
-    PWM__vWriteRegister((PWM_nMODULE) u32Module, u32OffsetRegister, u32Feature,
-                        u32FeatureMask, u32GeneratorReg);
+
+
+    u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for generators*/
+    u32GeneratorReg *= 4UL;
+    u32GeneratorReg += PWM_GEN_REGISTER_BASE_OFFSET;
+    u32GeneratorReg += u32OffsetRegister;
+
+    PWM__vWriteRegister((PWM_nMODULE) u32Module , u32GeneratorReg, u32Feature,
+                        u32FeatureMask, u32FeatureBit);
+}
+
+uint32_t PWM_Generator__u32GetGeneric(uint32_t u32Module, uint32_t  u32Generator,
+                                  uint32_t u32OffsetRegister,
+                                  uint32_t u32FeatureMask, uint32_t u32FeatureBit)
+{
+    uint32_t u32Feature = 0UL;
+    uint32_t u32GeneratorReg = 0UL;
+
+    u32GeneratorReg = MCU__u32CheckParams(u32Generator, (uint32_t) PWM_enGEN_MAX);
+
+    u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+    u32GeneratorReg *= 4UL;
+    u32GeneratorReg += PWM_GEN_REGISTER_BASE_OFFSET;
+    u32GeneratorReg += u32OffsetRegister;
+
+    u32Feature = PWM__u32ReadRegister((PWM_nMODULE) u32Module , u32GeneratorReg,
+                                      u32FeatureMask, u32FeatureBit);
+    return (u32Feature);
 }

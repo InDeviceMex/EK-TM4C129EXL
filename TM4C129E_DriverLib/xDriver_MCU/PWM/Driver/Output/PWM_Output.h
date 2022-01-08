@@ -25,8 +25,10 @@
 #ifndef XDRIVER_MCU_PWM_DRIVER_OUTPUT_PWM_OUTPUT_H_
 #define XDRIVER_MCU_PWM_DRIVER_OUTPUT_PWM_OUTPUT_H_
 
-
-
-
+#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Enable.h>
+#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Fault.h>
+#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_FaultValue.h>
+#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Invert.h>
+#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Update.h>
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_OUTPUT_PWM_OUTPUT_H_ */

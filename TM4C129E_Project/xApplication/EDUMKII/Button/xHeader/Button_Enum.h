@@ -26,6 +26,7 @@
 
 #include <xUtils/Standard/Standard.h>
 
+#if defined(BOOSTER_PACK1)
 #define EDUMKII_BUTTON_1 (GPIO_enGPIOL1)
 #define EDUMKII_BUTTON_2 (GPIO_enGPIOL2)
 
@@ -34,6 +35,16 @@
 
 #define EDUMKII_BUTTON_1_PIN (GPIO_enPIN_1)
 #define EDUMKII_BUTTON_2_PIN (GPIO_enPIN_2)
+#else
+#define EDUMKII_BUTTON_1 (GPIO_enGPIOH1)
+#define EDUMKII_BUTTON_2 (GPIO_enGPIOK6)
+
+#define EDUMKII_BUTTON_1_PORT (GPIO_enPORT_H)
+#define EDUMKII_BUTTON_2_PORT (GPIO_enPORT_K)
+
+#define EDUMKII_BUTTON_1_PIN (GPIO_enPIN_1)
+#define EDUMKII_BUTTON_2_PIN (GPIO_enPIN_6)
+#endif
 
 typedef enum
 {

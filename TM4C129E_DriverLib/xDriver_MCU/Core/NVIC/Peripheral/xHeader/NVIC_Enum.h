@@ -319,6 +319,7 @@ typedef enum
 {
     NVIC_enPriority_SSI2 = 0UL,
     NVIC_enPriority_GPIOC = 5UL,
+    NVIC_enPriority_GPIOD = 5UL,
     NVIC_enPriority_ADC0SEQ0 = 5UL,
     NVIC_enPriority_ADC0SEQ1 = 5UL,
     NVIC_enPriority_ADC0SEQ2 = 5UL,
@@ -327,7 +328,6 @@ typedef enum
 
      NVIC_enPriority_GPIOA = 7UL,
      NVIC_enPriority_GPIOB = 7UL,
-     NVIC_enPriority_GPIOD = 7UL,
      NVIC_enPriority_GPIOE = 7UL,
      NVIC_enPriority_UART0 = 7UL,
      NVIC_enPriority_UART1 = 7UL,

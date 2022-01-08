@@ -27,6 +27,10 @@
 #define ST7735_WIDTH  (128UL)
 #define ST7735_HEIGHT (128UL)
 
+#if defined(BOOSTER_PACK1)
 #define ST7735_SSI (SSI_enMODULE_2)
+#else
+#define ST7735_SSI (SSI_enMODULE_2)
+#endif
 
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_DEFINES_H_ */
