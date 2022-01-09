@@ -26,21 +26,21 @@
 #include <xDriver_MCU/Core/SCB/SCB.h>
 #include <xDriver_MCU/Common/MCU_Common.h>
 
-void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriority,
+void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriorityArg,
                                     volatile OS_UBase_t* puxReadyPriorities)
 {
     OS_UBase_t uxPriorityBitReg = 1UL;
 
-    uxPriorityBitReg <<= uxPriority;
+    uxPriorityBitReg <<= uxPriorityArg;
     *puxReadyPriorities |= uxPriorityBitReg;
 }
 
-void OS_Adapt__vResetReadyPriority(OS_UBase_t uxPriority,
+void OS_Adapt__vResetReadyPriority(OS_UBase_t uxPriorityArg,
                                    volatile OS_UBase_t* puxReadyPriorities)
 {
     OS_UBase_t uxPriorityBitReg = 1UL;
 
-    uxPriorityBitReg <<= uxPriority;
+    uxPriorityBitReg <<= uxPriorityArg;
     *puxReadyPriorities &= ~uxPriorityBitReg;
 }
 

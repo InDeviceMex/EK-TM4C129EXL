@@ -49,8 +49,8 @@
 
 typedef void * OS_Task_Handle_t;
 
-typedef OS_UBase_t (*OS_Task_HookFunction_t)(void* pvParameters);
-typedef void (*OS_Task_Function_t)(void* pvParameters);
+typedef OS_UBase_t (*OS_Task_HookFunction_t)(void* pvParametersArg);
+typedef void (*OS_Task_Function_t)(void* pvParametersArg);
 
 typedef struct
 {

@@ -166,7 +166,7 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
             GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RX_LINE]]
                                                      [(uint32_t) enModuleFilter]
                                                       [RX_LINE],
-                                   GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                                   GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
         }
         if(UART_enLINE_ENA == pstControlConfig->enTxLine)
         {

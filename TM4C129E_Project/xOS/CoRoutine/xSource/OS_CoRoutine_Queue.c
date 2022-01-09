@@ -21,7 +21,7 @@
  * Date           Author     Version     Description
  * 3 dic. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-#include <xOS/CoRoutine/xHeader/OS_CoRoutine_Event.h>
+#include <xOS/CoRoutine/xHeader/OS_CoRoutine_Queue.h>
 
 #include <xOS/CoRoutine/Intrinsics/OS_CoRoutine_Intrinsics.h>
 #include <xOS/Queue/xHeader/OS_Queue_CoRoutine.h>

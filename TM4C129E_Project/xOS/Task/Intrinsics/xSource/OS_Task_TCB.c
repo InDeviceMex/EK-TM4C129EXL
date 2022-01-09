@@ -66,7 +66,7 @@ OS_Task_TCB_t* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_t pxHandle)
     return (osTCBReg);
 }
 
-OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth,
+OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
                              const OS_UBase_t* const puxStaticStackBuffer)
 {
     OS_Task_TCB_t *pstNewTCB = (OS_Task_TCB_t*) 0UL;
@@ -74,7 +74,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepth,
 
     #if defined (__TI_ARM__ )
         puxStackReg = (OS_UBase_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
-                                             (size_t) uxStackDepth * sizeof(OS_UBase_t));
+                                             (size_t) uxStackDepthArg * sizeof(OS_UBase_t));
     #elif defined (__GNUC__ )
     puxStackReg = (OS_UBase_t*) malloc(uxStackDepth * sizeof(OS_UBase_t));
     #endif

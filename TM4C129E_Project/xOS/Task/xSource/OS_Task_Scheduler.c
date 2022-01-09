@@ -33,7 +33,7 @@
 
 
 static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void);
-static void OS_Task__vIdle(void* pvParameters);
+static void OS_Task__vIdle(void* pvParametersArg);
 
 OS_UBase_t OS_Task__uxGetTickCount(void)
 {
@@ -224,13 +224,13 @@ static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void)
     return (uxReturn);
 }
 
-static void OS_Task__vIdle(void* pvParameters)
+static void OS_Task__vIdle(void* pvParametersArg)
 {
     OS_List_t* pstReadyList = (OS_List_t*) 0UL;
-    OS_UBase_t uxNextTaskUnblockTime = (OS_UBase_t) pvParameters;
-    OS_UBase_t uxTickCount = (OS_UBase_t) pvParameters;
-    OS_UBase_t uxListSize = (OS_UBase_t) pvParameters;
-    (void) pvParameters;
+    OS_UBase_t uxNextTaskUnblockTime = (OS_UBase_t) pvParametersArg;
+    OS_UBase_t uxTickCount = (OS_UBase_t) pvParametersArg;
+    OS_UBase_t uxListSize = (OS_UBase_t) pvParametersArg;
+    (void) pvParametersArg;
 
     while(1UL)
     {

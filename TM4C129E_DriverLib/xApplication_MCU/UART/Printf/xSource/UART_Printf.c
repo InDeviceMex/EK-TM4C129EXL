@@ -29,6 +29,8 @@
     #pragma CHECK_MISRA("-6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 
+#define PRINF_TIMEOUT (100000UL)
+
 uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... )
 {
     uint32_t u32Lengtht = 0UL;
@@ -39,7 +41,7 @@ uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... )
     u32Lengtht = vsnprintf__u32User(pcBufferReg, 400UL, pcFormat,vaList);
     va_end(vaList);
     pcBufferRegPointer = pcBufferReg;
-    UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht);
+    UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht, PRINF_TIMEOUT);
     return  (u32Lengtht);
 }
 
@@ -50,7 +52,7 @@ uint32_t UART__u32vsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list v
     char* pcBufferRegPointer = 0UL;
     u32Lengtht = vsnprintf__u32User(pcBufferReg, 400UL, pcFormat,vaList);
     pcBufferRegPointer = pcBufferReg;
-    UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht);
+    UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht, PRINF_TIMEOUT);
     return (u32Lengtht);
 }
 

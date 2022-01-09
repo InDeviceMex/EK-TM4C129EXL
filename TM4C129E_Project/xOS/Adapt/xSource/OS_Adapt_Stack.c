@@ -28,7 +28,7 @@
 static void OS_Adapt__vErrorTask(void);
 
 OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
-                                         void (*pvfThreadArg)(void* pvParameters),
+                                         void (*pvfThreadArg)(void* pvParametersArg),
                                          void *pvParametersArg)
 {
     puxTopOfStackArg -= 1UL;

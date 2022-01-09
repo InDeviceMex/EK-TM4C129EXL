@@ -185,7 +185,7 @@ OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderA
     OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolderArg;
     OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t uxListSize = 0UL;
-    OS_UBase_t uxPriority = 0UL;
+    OS_UBase_t uxPriorityReg = 0UL;
     OS_Boolean_t boReturn = FALSE;
 
     if(0UL != (uint32_t) pvMutexHolderArg)
@@ -207,9 +207,9 @@ OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderA
                         }
                         pstTCB->uxPriorityTask = pstTCB->uxBasePriority;
 
-                        uxPriority = OS_TASK_MAX_PRIORITIES;
-                        uxPriority -= pstTCB->uxPriorityTask;
-                        OS_List__vSetItemValue(&(pstTCB->stEventListItem), uxPriority);
+                        uxPriorityReg = OS_TASK_MAX_PRIORITIES;
+                        uxPriorityReg -= pstTCB->uxPriorityTask;
+                        OS_List__vSetItemValue(&(pstTCB->stEventListItem), uxPriorityReg);
                         OS_Task__vAddTaskToReadyList(pstTCB);
                         boReturn = TRUE;
                     }

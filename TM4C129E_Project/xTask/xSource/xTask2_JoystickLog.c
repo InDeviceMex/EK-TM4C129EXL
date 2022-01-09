@@ -51,9 +51,11 @@ void xTask2_JoystickLog(void* pvParams)
     const uint16_t* pu16Pointer = 0UL;
     u32LastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
+    OS_Task__vSuspendAll();
     GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
                          "LCD POS Initializing...   "
                          );
+    OS_Task__boResumeAll();
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enPIN_2);
     while(1UL)

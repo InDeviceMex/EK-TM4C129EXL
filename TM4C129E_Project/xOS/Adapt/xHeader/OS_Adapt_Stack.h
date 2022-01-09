@@ -28,7 +28,7 @@
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
 OS_UBase_t* OS_Adapt__puxInitialiseStack(OS_UBase_t* puxTopOfStackArg,
-                                         void (*pvfThreadArg)(void* pvParameters),
+                                         void (*pvfThreadArg)(void* pvParametersArg),
                                          void *pvParametersArg);
 
 #endif /* XOS_TASK_ADAPT_XHEADER_OS_ADAPT_STACK_H_ */

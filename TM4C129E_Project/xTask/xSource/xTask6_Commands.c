@@ -86,19 +86,19 @@ void xTask6_Commands(void* pvParams)
         GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 5UL,
                              "Waiting For Data:\n\r"
                              );
-        OS_Task__boResumeAll();
         uint32_t u32Received = 0UL;
-        u32Received = UART__u32ReceiveRaw(UART_enMODULE_6, &u8DatareceivedSize, 1UL);
+        u32Received = UART__u32ReceiveRaw(UART_enMODULE_6, &u8DatareceivedSize, 1UL, 10000UL);
+        OS_Task__boResumeAll();
         if( u32Received != 0UL)
         {
 
-            UART__u32ReceiveRaw(UART_enMODULE_6, pu8Datareceived, (uint32_t) u8DatareceivedSize);
-
             OS_Task__vSuspendAll();
+            UART__u32ReceiveRaw(UART_enMODULE_6, pu8Datareceived, (uint32_t) u8DatareceivedSize, 10000UL);
+
             GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 6UL,
                                  "Data Received: "
                                  );
-            UART__vSendRaw(UART_enMODULE_0, pu8Datareceived,  (uint32_t) u8DatareceivedSize);
+            UART__vSendRaw(UART_enMODULE_0, pu8Datareceived,  (uint32_t) u8DatareceivedSize, 10000UL);
             OS_Task__boResumeAll();
         }
         OS_Task__vDelayUntil(&u32LastWakeTime, 1000UL);

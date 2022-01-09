@@ -45,7 +45,7 @@ PWM_nGENERATOR_ENABLE PWM_Generator__enGetADCTrigger(PWM_nMODULE enModule, PWM_n
 
     u32BitOffset = PWM_GEN_INTEN_R_TRCNTZERO_BIT;
     u32BitOffset += (uint32_t) enEventArg;
-    enEnableReg = (PWM_nACTION) PWM_Generator__u32GetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_INTEN_OFFSET,
+    enEnableReg = (PWM_nGENERATOR_ENABLE) PWM_Generator__u32GetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_INTEN_OFFSET,
                                                              PWM_GEN_INTEN_TRCNTZERO_MASK, u32BitOffset);
     return (enEnableReg);
 }

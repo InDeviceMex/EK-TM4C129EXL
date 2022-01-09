@@ -116,7 +116,7 @@ uint32_t main(void)
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
-                      &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
+                      &enUart0Control, &enUart0LineControl, 115200UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
     GraphTerm__vClearScreen(UART_enMODULE_0);

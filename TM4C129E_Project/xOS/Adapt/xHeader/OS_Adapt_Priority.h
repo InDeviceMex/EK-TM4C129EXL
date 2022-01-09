@@ -27,9 +27,9 @@
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
-void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriority,
+void OS_Adapt__vRecordReadyPriority(OS_UBase_t uxPriorityArg,
                                     volatile OS_UBase_t* puxReadyPriorities);
-void OS_Adapt__vResetReadyPriority(OS_UBase_t uxPriority,
+void OS_Adapt__vResetReadyPriority(OS_UBase_t uxPriorityArg,
                                    volatile OS_UBase_t* puxReadyPriorities);
 OS_UBase_t OS_Adapt__uxGetHighestPriority(volatile OS_UBase_t uxReadyPriorities);
 
