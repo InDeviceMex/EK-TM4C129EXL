@@ -23,7 +23,8 @@
  */
 #include <xDriver_MCU/PWM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/PWM_InterruptRoutine_Source.h>
 
-static void PWM_vIRQSourceHandler_Dummy(void);
+static void PWM_vIRQSourceHandler_Dummy_Blocking(void);
+static void WDT_vIRQSourceHandler_Dummy(void);
 
 void (*PWM_Generator__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
                                     [(uint32_t)PWM_enGEN_MAX]
@@ -31,24 +32,24 @@ void (*PWM_Generator__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
 {
     {
         {
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy,
-             &PWM_vIRQSourceHandler_Dummy
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+             &PWM_vIRQSourceHandler_Dummy_Blocking
         }
     }
 };
@@ -59,21 +60,26 @@ void (*PWM_Fault__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
 {
  {
     {
-        &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &PWM_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
     }
  }
 };
 
-static void PWM_vIRQSourceHandler_Dummy(void)
+static void WDT_vIRQSourceHandler_Dummy(void)
+{
+
+}
+
+static void PWM_vIRQSourceHandler_Dummy_Blocking(void)
 {
     while(1UL){}
 }

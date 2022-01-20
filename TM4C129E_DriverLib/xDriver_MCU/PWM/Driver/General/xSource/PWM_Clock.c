@@ -64,11 +64,11 @@ void PWM__vSetClockDivisorNum(PWM_nMODULE enModule, uint32_t u32DivisorArg)
             u32DivisorReg >>= 1UL;
             while(0UL != u32DivisorReg)
             {
-                u32CountReg++;
                 if(1UL & u32DivisorReg)
                 {
                     u32ValueReg = u32CountReg;
                 }
+                u32CountReg++;
                 u32DivisorReg >>= 1UL;
             }
             PWM__vSetGeneralGeneric((uint32_t) enModule, PWM_CC_OFFSET, u32ValueReg,

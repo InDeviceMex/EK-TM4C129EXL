@@ -23,6 +23,7 @@
  */
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/TIMER_InterruptRoutine_Source.h>
 
+void TIMER_vIRQSourceHandler_Dummy_Blocking(void);
 void TIMER_vIRQSourceHandler_Dummy(void);
 
 void (*TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL]
@@ -31,108 +32,112 @@ void (*TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL]
 {
     {
         {
-            &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-            &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-            &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-            &TIMER_vIRQSourceHandler_Dummy
+            &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+            &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+            &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+            &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         },
         {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
         }
     },
     {
          {
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-             &TIMER_vIRQSourceHandler_Dummy
+             &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+             &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          },
          {
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy,
-              &TIMER_vIRQSourceHandler_Dummy
+              &TIMER_vIRQSourceHandler_Dummy, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking, &TIMER_vIRQSourceHandler_Dummy_Blocking,
+              &TIMER_vIRQSourceHandler_Dummy_Blocking
          }
     }
 
 };
 
 void TIMER_vIRQSourceHandler_Dummy(void)
+{
+}
+
+void TIMER_vIRQSourceHandler_Dummy_Blocking(void)
 {
     while(1UL){}
 }

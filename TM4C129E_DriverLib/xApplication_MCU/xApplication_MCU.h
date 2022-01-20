@@ -49,7 +49,7 @@
 /*#include <xApplication_MCU/ETH/ETH.h>       Chapter 23*/
 /*#include <xApplication_MCU/USB/USB.h>       Chapter 24*/
 #include <xApplication_MCU/ACMP/ACMP.h>     /*Chapter 25*/
-/*#include <xApplication_MCU/PWM/PWM.h>       Chapter 26*/
+#include <xApplication_MCU/PWM/PWM.h>       /*Chapter 26*/
 #include <xApplication_MCU/QEI/QEI.h>       /*Chapter 27*/
 
 #endif /* XAPPLICATION_MCU_XAPPLICATION_MCU_H_ */

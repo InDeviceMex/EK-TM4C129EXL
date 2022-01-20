@@ -108,6 +108,7 @@ uint32_t main(void)
     ADC__vInit();
     UART__vInit();
     SSI__vInit();
+    PWM__vInit();
 
     EDUMKII_Button_vInit(EDUMKII_enBUTTON_ALL);
     EDUMKII_Accelerometer_vInit();

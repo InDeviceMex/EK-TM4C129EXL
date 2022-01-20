@@ -25,6 +25,12 @@
 #ifndef XTASK_XHEADER_XTASK4_LEDBLUELOG_H_
 #define XTASK_XHEADER_XTASK4_LEDBLUELOG_H_
 
+#include <xUtils/Standard/Standard.h>
+
+extern uint32_t u32CountTask;
+extern uint64_t u64PWMValue;
+extern uint32_t u32ConfigurationDone;
+
 void xTask4_LedBlueLog(void* pvParams);
 
 #endif /* XTASK_XHEADER_XTASK4_LEDBLUELOG_H_ */

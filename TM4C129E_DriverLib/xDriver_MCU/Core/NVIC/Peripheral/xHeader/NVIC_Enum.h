@@ -325,6 +325,7 @@ typedef enum
     NVIC_enPriority_ADC0SEQ2 = 5UL,
     NVIC_enPriority_TIMER0A = 6UL,
     NVIC_enPriority_GPIOL = 6UL,
+    NVIC_enPriority_PWM0GEN2 = 7UL,
 
      NVIC_enPriority_GPIOA = 7UL,
      NVIC_enPriority_GPIOB = 7UL,
@@ -336,7 +337,6 @@ typedef enum
      NVIC_enPriority_PWM0FAULT = 7UL,
      NVIC_enPriority_PWM0GEN0 = 7UL,
      NVIC_enPriority_PWM0GEN1 = 7UL,
-     NVIC_enPriority_PWM0GEN2 = 7UL,
      NVIC_enPriority_QEI0 = 7UL,
      NVIC_enPriority_ADC0SEQ3 = 7UL,
      NVIC_enPriority_WDT01 = 7UL,

@@ -33,7 +33,7 @@ void PWM_Fault__vEnInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
     uint32_t u32FaultReg = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32FaultReg = (uint32_t) enFaultArg;
-    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_MAX;
+    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_ALL;
     PWM__vWriteRegister((PWM_nMODULE) u32Module , PWM_INTEN_OFFSET,
                         u32FaultReg, u32FaultReg, PWM_INTEN_R_INTFAULT0_BIT);
 }
@@ -44,7 +44,7 @@ void PWM_Fault__vDisInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
     uint32_t u32FaultReg = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32FaultReg = (uint32_t) enFaultArg;
-    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_MAX;
+    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_ALL;
     PWM__vWriteRegister((PWM_nMODULE) u32Module , PWM_INTEN_OFFSET,
                         0UL, u32FaultReg, PWM_INTEN_R_INTFAULT0_BIT);
 }
@@ -55,7 +55,7 @@ void PWM_Fault__vClearInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK enFaultArg)
     uint32_t u32FaultReg = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32FaultReg = (uint32_t) enFaultArg;
-    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_MAX;
+    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_ALL;
     PWM__vWriteRegister((PWM_nMODULE) u32Module, PWM_ISC_OFFSET,
                         u32FaultReg, u32FaultReg, PWM_ISC_R_INTFAULT0_BIT);
 }
@@ -68,7 +68,7 @@ PWM_nFAULTMASK PWM_Fault__enStatusInterrupt(PWM_nMODULE enModule, PWM_nFAULTMASK
     uint32_t u32FaultReg = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32FaultReg = (uint32_t) enFaultArg;
-    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_MAX;
+    u32FaultReg &= (uint32_t) PWM_enFAULTMASK_ALL;
     u32Register = PWM__u32ReadRegister((PWM_nMODULE) u32Module , PWM_RIS_OFFSET,
                                        u32FaultReg, PWM_RIS_R_INTFAULT0_BIT);
 
