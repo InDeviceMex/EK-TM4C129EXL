@@ -23,5 +23,11 @@
  */
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterPeripheral/CAN_RegisterPeripheral.h>
 
-CAN_TypeDef* CAN_BLOCK[(uint32_t) CAN_enMODULE_MAX] = {CAN0, CAN1};
-uint32_t CAN_BLOCK_ADDRESS[(uint32_t) CAN_enMODULE_MAX] = {CAN0_BASE, CAN1_BASE};
+uint32_t CAN__u32BlockBaseAddress(CAN_nMODULE enModuleArg)
+{
+    uint32_t CAN_BLOCK_BASE[(uint32_t) CAN_enMODULE_MAX] =
+    {
+     CAN0_BASE, CAN1_BASE
+    };
+    return (CAN_BLOCK_BASE[(uint32_t) enModuleArg]);
+}

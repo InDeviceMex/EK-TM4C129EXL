@@ -31,10 +31,26 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                                        void* const pvBuffer,
                                        OS_UBase_t uxTicksToWait,
                                        const OS_Boolean_t boJustPeeking);
+OS_Boolean_t OS_Queue__boPeek( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait);
 
 OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                    void * const pvBuffer,
                                    OS_Boolean_t* const pboHigherPriorityTaskWoken);
 
+OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait,
+                                       const OS_Boolean_t boJustPeeking);
+OS_Boolean_t OS_Queue__boAltPeek( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boAltReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait);
 
 #endif /* XOS_QUEUE_XHEADER_OS_QUEUE_RECEIVE_H_ */

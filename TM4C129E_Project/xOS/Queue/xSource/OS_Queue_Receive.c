@@ -180,6 +180,26 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
     return (FALSE);
 }
 
+OS_Boolean_t OS_Queue__boPeek( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait)
+{
+    OS_Boolean_t boReturn = FALSE;
+    boReturn = OS_Queue__boGenericReceive(pvQueue, pvBuffer, uxTicksToWait, TRUE);
+
+    return (boReturn);
+}
+
+OS_Boolean_t OS_Queue__boReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait)
+{
+    OS_Boolean_t boReturn = FALSE;
+    boReturn = OS_Queue__boGenericReceive(pvQueue, pvBuffer, uxTicksToWait, FALSE);
+
+    return (boReturn);
+}
+
 OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                    void * const pvBuffer,
                                    OS_Boolean_t* const pboHigherPriorityTaskWoken)
@@ -241,5 +261,162 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
         }
     }
     return (xReturn);
+}
+
+OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait,
+                                       const OS_Boolean_t boJustPeeking)
+{
+    OS_Boolean_t boEntryTimeSet = FALSE;
+    OS_Boolean_t boStatus = FALSE;
+    OS_Boolean_t boIsListEmpty = FALSE;
+    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
+    int8_t* ps8OriginalReadPosition = (int8_t*) 0UL;
+    OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
+
+    if(0UL != (OS_UBase_t) pstQueueReg)
+    {
+        if((0UL != (OS_UBase_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
+        {
+            enSchedulerState = OS_Task__enGetSchedulerState();
+            if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
+            {
+                /* This function relaxes the coding standard somewhat to allow return
+                statements within the function itself.  This is done in the interest
+                of execution time efficiency. */
+                while(1UL)
+                {
+                    OS_Task__vEnterCritical();
+                    {
+                        /* Is there data in the queue now?  To be running the calling task
+                        must be the highest priority task wanting to access the queue. */
+                        if(0UL < pstQueueReg->uxMessagesWaiting)
+                        {
+                            /* Remember the read position in case the queue is only being
+                            peeked. */
+                            ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
+                            OS_Queue__vCopyDataFromQueue(pstQueueReg, pvBuffer);
+
+                            if(FALSE == boJustPeeking)
+                            {
+                                /* Actually removing data, not just peeking. */
+                                --(pstQueueReg->uxMessagesWaiting);
+
+                                if(OS_QUEUE_IS_MUTEX == pstQueueReg->uxQueueType)
+                                {
+                                    /* Record the information required to implement
+                                    priority inheritance should it become necessary. */
+                                    pstQueueReg->pvMutexHolder = OS_Task__pvGetCurrentTaskHandle();
+                                }
+
+                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
+                                if(FALSE == boIsListEmpty)
+                                {
+                                    boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToSend));
+                                    if(TRUE == boStatus)
+                                    {
+                                        OS_Queue__vYieldWithinAPI();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                /* The data is not being removed, so reset the read
+                                pointer. */
+                                pstQueueReg->ps8ReadFrom = ps8OriginalReadPosition;
+
+                                /* The data is being left in the queue, so see if there are
+                                any other tasks waiting for the data. */
+                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                                if(FALSE == boIsListEmpty)
+                                {
+                                    boStatus = OS_Task__boRemoveFromEventList( &(pstQueueReg->stTasksWaitingToReceive));
+                                    if(FALSE != boStatus)
+                                    {
+                                        /* The task waiting has a higher priority than this task. */
+                                        OS_Queue__vYieldWithinAPI();
+                                    }
+                                }
+                            }
+                            OS_Task__vExitCritical();
+                            return (TRUE);
+                        }
+                        else
+                        {
+                            if(0UL == uxTicksToWait)
+                            {
+                                /* The queue was empty and no block time is specified (or
+                                the block time has expired) so leave now. */
+                                OS_Task__vExitCritical();
+                                return (OS_QUEUE_EMPTY);
+                            }
+                            else if(FALSE == boEntryTimeSet)
+                            {
+                                /* The queue was empty and a block time was specified so
+                                configure the timeout structure. */
+                                OS_Task__vSetTimeOutState(&stTimeOut);
+                                boEntryTimeSet = TRUE;
+                            }
+                        }
+                    }
+                    OS_Task__vExitCritical();
+
+                    OS_Task__vEnterCritical();
+                    {
+                        /* Update the timeout state to see if it has expired yet. */
+                        boStatus = OS_Task__boCheckForTimeOut( &stTimeOut, &uxTicksToWait);
+                        if(FALSE == boStatus)
+                        {
+                            boIsListEmpty = OS_Queue__boIsQueueEmpty(pstQueueReg);
+                            if(FALSE != boIsListEmpty)
+                            {
+                                if(OS_QUEUE_IS_MUTEX == pstQueueReg->uxQueueType)
+                                {
+                                    OS_Task__vEnterCritical();
+                                    {
+                                        OS_Task__vPriorityInherit(pstQueueReg->pvMutexHolder);
+                                    }
+                                    OS_Task__vExitCritical();
+                                }
+
+                                OS_Task__vPlaceOnEventList(&(pstQueueReg->stTasksWaitingToReceive), uxTicksToWait);
+                                OS_Adapt__vYieldWithinAPI();
+                            }
+                        }
+                        else
+                        {
+                            OS_Task__vExitCritical();
+                            return (OS_QUEUE_EMPTY);
+                        }
+                    }
+                    OS_Task__vExitCritical();
+                }
+            }
+        }
+    }
+    return (FALSE);
+}
+
+
+OS_Boolean_t OS_Queue__boAltPeek( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait)
+{
+    OS_Boolean_t boReturn = FALSE;
+    boReturn = OS_Queue__boAltGenericReceive(pvQueue, pvBuffer, uxTicksToWait, TRUE);
+
+    return (boReturn);
+}
+
+OS_Boolean_t OS_Queue__boAltReceive( OS_Queue_Handle_t pvQueue,
+                                       void* const pvBuffer,
+                                       OS_UBase_t uxTicksToWait)
+{
+    OS_Boolean_t boReturn = FALSE;
+    boReturn = OS_Queue__boAltGenericReceive(pvQueue, pvBuffer, uxTicksToWait, FALSE);
+
+    return (boReturn);
 }
 

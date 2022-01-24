@@ -47,12 +47,12 @@
 /*--------*/
 #define CAN_ERR_R_RP_MASK    ((uint32_t) 0x00008000UL)
 #define CAN_ERR_R_RP_BIT    ((uint32_t) 15UL)
-#define CAN_ERR_R_RP_LS    ((uint32_t) 0x00000000UL)
-#define CAN_ERR_R_RP_GT    ((uint32_t) 0x00008000UL)
+#define CAN_ERR_R_RP_LESS    ((uint32_t) 0x00000000UL)
+#define CAN_ERR_R_RP_GREATER    ((uint32_t) 0x00008000UL)
 
 #define CAN_ERR_RP_MASK    ((uint32_t) 0x00000001UL)
-#define CAN_ERR_RP_LS    ((uint32_t) 0x00000000UL)
-#define CAN_ERR_RP_GT    ((uint32_t) 0x00000001UL)
+#define CAN_ERR_RP_LESS    ((uint32_t) 0x00000000UL)
+#define CAN_ERR_RP_GREATER    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_CAN_REGISTERDEFINES_ERR_H_ */

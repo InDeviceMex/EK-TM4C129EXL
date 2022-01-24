@@ -124,12 +124,12 @@
 /*--------*/
 
 /*--------*/
-#define CAN_IFnCMSK_R_WRNRD_WRNRD    ((uint32_t) 0x00000040UL)
-#define CAN_IFnCMSK_R_WRNRD_BIT    ((uint32_t) 6UL)
+#define CAN_IFnCMSK_R_WRNRD_MASK    ((uint32_t) 0x00000080UL)
+#define CAN_IFnCMSK_R_WRNRD_BIT    ((uint32_t) 7UL)
 #define CAN_IFnCMSK_R_WRNRD_FIFO2REG    ((uint32_t) 0x00000000UL)
-#define CAN_IFnCMSK_R_WRNRD_REG2FIFO    ((uint32_t) 0x00000040UL)
+#define CAN_IFnCMSK_R_WRNRD_REG2FIFO    ((uint32_t) 0x00000080UL)
 
-#define CAN_IFnCMSK_WRNRD_WRNRD    ((uint32_t) 0x00000001UL)
+#define CAN_IFnCMSK_WRNRD_MASK    ((uint32_t) 0x00000001UL)
 #define CAN_IFnCMSK_WRNRD_FIFO2REG    ((uint32_t) 0x00000000UL)
 #define CAN_IFnCMSK_WRNRD_REG2FIFO    ((uint32_t) 0x00000001UL)
 /*--------*/

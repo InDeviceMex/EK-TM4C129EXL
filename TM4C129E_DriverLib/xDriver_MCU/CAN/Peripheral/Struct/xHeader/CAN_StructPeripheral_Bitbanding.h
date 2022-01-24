@@ -33,60 +33,60 @@ typedef volatile struct
     union
     {
       volatile uint32_t IFnCRQ [32UL];
-      BITBANDING_CANIFnCRQ_TypeDef IFnCRQ_Bit;
+      BITBANDING_CANIFnCRQ_t IFnCRQ_Bit;
     };
     union
     {
       volatile uint32_t IFnCMSK [32UL];
-      BITBANDING_CANIFnCMSK_TypeDef IF1CMSK_Bit;
+      BITBANDING_CANIFnCMSK_t IF1CMSK_Bit;
     };
     union
     {
       volatile const uint32_t IFnMSK1 [32UL];
-      BITBANDING_CANIFnMSK1_TypeDef IFnMSK1_Bit;
+      BITBANDING_CANIFnMSK1_t IFnMSK1_Bit;
     };
     union
     {
       volatile const uint32_t IFnMSK2 [32UL];
-      BITBANDING_CANIFnMSK2_TypeDef IFnMSK2_Bit;
+      BITBANDING_CANIFnMSK2_t IFnMSK2_Bit;
     };
     union
     {
       volatile uint32_t IFnARB1 [32UL];
-      BITBANDING_CANIFnARB1_TypeDef IFnARB1_Bit;
+      BITBANDING_CANIFnARB1_t IFnARB1_Bit;
     };
     union
     {
       volatile uint32_t IFnARB2 [32UL];
-      BITBANDING_CANIFnARB2_TypeDef IFnARB2_Bit;
+      BITBANDING_CANIFnARB2_t IFnARB2_Bit;
     };
     union
     {
       volatile uint32_t IFnMCTL [32UL];
-      BITBANDING_CANIFnMCTL_TypeDef IFnMCTL_Bit;
+      BITBANDING_CANIFnMCTL_t IFnMCTL_Bit;
     };
     union
     {
       volatile uint32_t IFnDA1 [32UL];
-      BITBANDING_CANIFnDA1_TypeDef IFnDA1_Bit;
+      BITBANDING_CANIFnDA1_t IFnDA1_Bit;
     };
     union
     {
       volatile uint32_t IFnDA2 [32UL];
-      BITBANDING_CANIFnDA2_TypeDef IFnDA2_Bit;
+      BITBANDING_CANIFnDA2_t IFnDA2_Bit;
     };
     union
     {
       volatile uint32_t IFnDB1 [32UL];
-      BITBANDING_CANIFnDB1_TypeDef IFnDB1_Bit;
+      BITBANDING_CANIFnDB1_t IFnDB1_Bit;
     };
     union
     {
       volatile uint32_t IFnDB2 [32UL];
-      BITBANDING_CANIFnDB2_TypeDef IFnDB2_Bit;
+      BITBANDING_CANIFnDB2_t IFnDB2_Bit;
     };
     const uint32_t reserved [13UL * 32UL];
-}BITBANDING_CANINTERFACE_TypeDef;
+}BITBANDING_CANINTERFACE_t;
 
 typedef volatile struct
 {
@@ -95,115 +95,115 @@ typedef volatile struct
     {
       volatile uint32_t TXRQ1 [32UL];
       volatile uint32_t TXRQ_LOW [32UL];
-      BITBANDING_CANTXRQn_TypeDef TXRQ1_Bit;
-      BITBANDING_CANTXRQn_TypeDef TXRQ_LOW_Bit;
+      BITBANDING_CANTXRQn_t TXRQ1_Bit;
+      BITBANDING_CANTXRQn_t TXRQ_LOW_Bit;
     };
     union
     {
       volatile uint32_t TXRQ2 [32UL];
       volatile uint32_t TXRQ_HIGH [32UL];
-      BITBANDING_CANTXRQn_TypeDef TXRQ2_Bit;
-      BITBANDING_CANTXRQn_TypeDef TXRQ_HIGH_Bit;
+      BITBANDING_CANTXRQn_t TXRQ2_Bit;
+      BITBANDING_CANTXRQn_t TXRQ_HIGH_Bit;
     };
     const uint32_t reserved [6UL * 32UL];
     union
     {
       volatile const uint32_t NWDA1 [32UL];
       volatile const uint32_t NWDA_LOW [32UL];
-      BITBANDING_CANNWDAn_TypeDef NWDA1_Bit;
-      BITBANDING_CANNWDAn_TypeDef NWDA_LOW_Bit;
+      BITBANDING_CANNWDAn_t NWDA1_Bit;
+      BITBANDING_CANNWDAn_t NWDA_LOW_Bit;
     };
     union
     {
       volatile const uint32_t NWDA2 [32UL];
       volatile const uint32_t NWDA_HIGH [32UL];
-      BITBANDING_CANNWDAn_TypeDef NWDA2_Bit;
-      BITBANDING_CANNWDAn_TypeDef NWDA_HIGH_Bit;
+      BITBANDING_CANNWDAn_t NWDA2_Bit;
+      BITBANDING_CANNWDAn_t NWDA_HIGH_Bit;
     };
     const uint32_t reserved1 [6UL * 32UL];
     union
     {
       volatile uint32_t MSG1INT [32UL];
       volatile uint32_t MSGINT_LOW [32UL];
-      BITBANDING_CANMSGnINT_TypeDef MSG1INT_Bit;
-      BITBANDING_CANMSGnINT_TypeDef MSGINT_LOW_Bit;
+      BITBANDING_CANMSGnINT_t MSG1INT_Bit;
+      BITBANDING_CANMSGnINT_t MSGINT_LOW_Bit;
     };
     union
     {
       volatile uint32_t MSG2INT [32UL];
       volatile uint32_t MSGINT_HIGH [32UL];
-      BITBANDING_CANMSGnINT_TypeDef MSG2INT_Bit;
-      BITBANDING_CANMSGnINT_TypeDef MSGINT_HIGH_Bit;
+      BITBANDING_CANMSGnINT_t MSG2INT_Bit;
+      BITBANDING_CANMSGnINT_t MSGINT_HIGH_Bit;
     };
     const uint32_t reserved2 [6UL * 32UL];
     union
     {
       volatile uint32_t MSG1VAL [32UL];
       volatile uint32_t MSGVAL_LOW [32UL];
-      BITBANDING_CANMSGnVAL_TypeDef MSG1VAL_Bit;
-      BITBANDING_CANMSGnVAL_TypeDef MSGVAL_LOW_Bit;
+      BITBANDING_CANMSGnVAL_t MSG1VAL_Bit;
+      BITBANDING_CANMSGnVAL_t MSGVAL_LOW_Bit;
     };
     union
     {
       volatile uint32_t MSG2VAL [32UL];
       volatile uint32_t MSGVAL_HIGH [32UL];
-      BITBANDING_CANMSGnVAL_TypeDef MSG2VAL_Bit;
-      BITBANDING_CANMSGnVAL_TypeDef MSGVAL_HIGH_Bit;
+      BITBANDING_CANMSGnVAL_t MSG2VAL_Bit;
+      BITBANDING_CANMSGnVAL_t MSGVAL_HIGH_Bit;
     };
-}BITBANDING_CANMESSAGE_TypeDef;
+}BITBANDING_CANMESSAGE_t;
 
 typedef volatile struct
 {
     union
     {
       volatile uint32_t CTL [32UL];
-      BITBANDING_CANCTL_TypeDef CTL_Bit;
+      BITBANDING_CANCTL_t CTL_Bit;
     };
     union
     {
       volatile uint32_t STS [32UL];
-      BITBANDING_CANSTS_TypeDef STS_Bit;
+      BITBANDING_CANSTS_t STS_Bit;
     };
     union
     {
       volatile const uint32_t ERR [32UL];
-      BITBANDING_CANERR_TypeDef ERR_Bit;
+      BITBANDING_CANERR_t ERR_Bit;
     };
     union
     {
       volatile uint32_t BIT [32UL];
-      BITBANDING_CANBIT_TypeDef BIT_Bit;
+      BITBANDING_CANBIT_t BIT_Bit;
     };
     union
     {
       volatile const uint32_t INT [32UL];
-      BITBANDING_CANINT_TypeDef INT_Bit;
+      BITBANDING_CANINT_t INT_Bit;
     };
     union
     {
       volatile uint32_t TST [32UL];
-      BITBANDING_CANTST_TypeDef TST_Bit;
+      BITBANDING_CANTST_t TST_Bit;
     };
     union
     {
       volatile uint32_t BRPE [32UL];
-      BITBANDING_CANBRPE_TypeDef BRPE_Bit;
+      BITBANDING_CANBRPE_t BRPE_Bit;
     };
     const uint32_t reserved [1UL * 32UL];
 
-    BITBANDING_CANINTERFACE_TypeDef INTERFACE[2UL];
+    BITBANDING_CANINTERFACE_t INTERFACE[2UL];
 
     const uint32_t reserved1 [8UL * 32UL];
 
-    BITBANDING_CANMESSAGE_TypeDef MESSAGE [32UL];
+    BITBANDING_CANMESSAGE_t MESSAGE [32UL];
 
     const uint32_t reserved2 [934UL * 32UL];
-}CAN_BITBANDING_TypeDef;
+}CAN_BITBANDING_t;
 
 
 typedef volatile struct
 {
-    CAN_BITBANDING_TypeDef MODULE [(uint32_t) CAN_enMODULE_MAX];
-}CANS_BITBANDING_TypeDef;
+    CAN_BITBANDING_t MODULE [(uint32_t) CAN_enMODULE_MAX];
+}CANS_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_CAN_PERIPHERAL_STRUCT_XHEADER_CAN_STRUCTPERIPHERAL_BITBANDING_H_ */

@@ -90,3 +90,11 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
     }
     return (boResult);
 }
+
+OS_Boolean_t OS_Queue__boReset(OS_Queue_Handle_t pvQueueHandle)
+{
+    OS_Boolean_t boResult = FALSE;
+    boResult = OS_Queue__boGenericReset(pvQueueHandle, FALSE);
+    return (boResult);
+
+}

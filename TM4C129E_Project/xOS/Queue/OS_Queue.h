@@ -25,6 +25,8 @@
 #ifndef XOS_QUEUE_OS_QUEUE_H_
 #define XOS_QUEUE_OS_QUEUE_H_
 
+#include <xOS/Queue/Semaphore/OS_Semaphore.h>
+#include <xOS/Queue/Intrinsics/OS_Queue_Intrinsics.h>
 #include <xOS/Queue/xHeader/OS_Queue_CoRoutine.h>
 #include <xOS/Queue/xHeader/OS_Queue_Delete.h>
 #include <xOS/Queue/xHeader/OS_Queue_Lock.h>

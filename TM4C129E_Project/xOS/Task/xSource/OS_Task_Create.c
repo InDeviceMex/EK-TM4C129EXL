@@ -69,7 +69,7 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
 
                     pstNewTCB->puxTopOfStack = OS_Adapt__puxInitialiseStack(
                             puxTopOfStackReg,
-                            (void (*)( void * pvParametersArg )) pvfTaskCodeArg,
+                            (void (*)(void *pvParametersArgument)) pvfTaskCodeArg,
                             (void*) pvParametersArg);
 
                     if(0UL != (OS_UBase_t) pvCreatedTask)

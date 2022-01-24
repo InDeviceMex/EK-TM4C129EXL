@@ -29,6 +29,7 @@
 
 OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
                                       OS_Boolean_t boNewQueue);
+OS_Boolean_t OS_Queue__boReset(OS_Queue_Handle_t pvQueueHandle);
 
 
 #endif /* XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_RESET_H_ */

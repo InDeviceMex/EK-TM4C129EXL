@@ -1,6 +1,6 @@
 /**
  *
- * @file PWM_Fault.h
+ * @file OS_Semaphore_Delete.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 7 ene. 2022 @endverbatim
+ * @verbatim 20 ene. 2022 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,14 +19,16 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 7 ene. 2022     InDeviceMex    1.0         initial Version@endverbatim
+ * 20 ene. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
+#include <xOS/Queue/Semaphore/xHeader/OS_Semaphore_Delete.h>
 
-#ifndef XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_
-#define XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_
+#include <xOS/Queue/OS_Queue.h>
+
+void OS_Semaphore__vDelete(OS_Semaphore_Handle_t pvSemaphoreArg)
+{
+    OS_Queue__vDelete(pvSemaphoreArg);
+}
 
 
-/**TODO: add fault source value and fault source */
 
-
-#endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_ */

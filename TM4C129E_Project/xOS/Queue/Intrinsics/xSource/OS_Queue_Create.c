@@ -45,9 +45,9 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
         }
         #if defined (__TI_ARM__ )
             pstNewQueue = (OS_Queue_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
-                                                 (size_t) uxQueueSizeInBytes * sizeof(OS_Queue_t));
+                                                 (size_t) uxQueueSizeInBytes + sizeof(OS_Queue_t));
         #elif defined (__GNUC__ )
-            pstNewQueue = (OS_Queue_t*) malloc((size_t) uxQueueSizeInBytes * sizeof(OS_Queue_t));
+            pstNewQueue = (OS_Queue_t*) malloc((size_t) uxQueueSizeInBytes + sizeof(OS_Queue_t));
         #endif
 
         if(0UL !=  (OS_UBase_t) pstNewQueue)
@@ -73,3 +73,14 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
     }
     return (pvReturn);
 }
+
+
+OS_Queue_Handle_t OS_Queue__pvCreate(const OS_UBase_t uxQueueLength,
+                                     const OS_UBase_t uxItemSizeArg)
+{
+    OS_Queue_Handle_t pvHandleReg = (OS_Queue_Handle_t) 0UL;
+    pvHandleReg = OS_Queue__pvGenericCreate(uxQueueLength, uxItemSizeArg, OS_Queue_enType_BASE);
+    return (pvHandleReg);
+}
+
+

@@ -28,9 +28,8 @@
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterPeripheral/xHeader/CAN_RegisterPeripheral_Module0.h>
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterPeripheral/xHeader/CAN_RegisterPeripheral_Module1.h>
 
-#define CAN    ((CANS_TypeDef*) (CAN_BASE))
+#define CAN    ((CANS_t*) (CAN_BASE))
 
-extern CAN_TypeDef* CAN_BLOCK[(uint32_t) CAN_enMODULE_MAX];
-extern uint32_t CAN_BLOCK_ADDRESS[(uint32_t) CAN_enMODULE_MAX];
+uint32_t CAN__u32BlockBaseAddress(CAN_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_CAN_REGISTERPERIPHERAL_H_ */

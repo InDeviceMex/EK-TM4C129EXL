@@ -31,16 +31,45 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                                    const void * const pvItemToQueue,
                                    OS_UBase_t uxTicksToWait,
                                    const OS_Queue_nPos enCopyPosition);
+OS_Boolean_t OS_Queue__boSendToFront(OS_Queue_Handle_t pvQueue,
+                                   const void* const pvItemToQueue,
+                                   OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boSendToBack(OS_Queue_Handle_t pvQueue,
+                                   const void* const pvItemToQueue,
+                                   OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boSend(OS_Queue_Handle_t pvQueue,
+                                   const void* const pvItemToQueue,
+                                   OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boOverwrite(OS_Queue_Handle_t pvQueue,
+                                   const void* const pvItemToQueue);
 
 OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                                             const void* const pvItemToQueue,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken,
                                             const OS_Queue_nPos enCopyPosition);
+OS_Boolean_t OS_Queue__boSendToFrontFromISR(OS_Queue_Handle_t pvQueueArg,
+                                            const void* const pvItemToQueue,
+                                            OS_Boolean_t* const pboHigherPriorityTaskWoken);
+OS_Boolean_t OS_Queue__boSendToBackFromISR(OS_Queue_Handle_t pvQueueArg,
+                                            const void* const pvItemToQueue,
+                                            OS_Boolean_t* const pboHigherPriorityTaskWoken);
+OS_Boolean_t OS_Queue__boOverwriteFromISR(OS_Queue_Handle_t pvQueueArg,
+                                            const void* const pvItemToQueue,
+                                            OS_Boolean_t* const pboHigherPriorityTaskWoken);
+OS_Boolean_t OS_Queue__boSendFromISR(OS_Queue_Handle_t pvQueueArg,
+                                            const void* const pvItemToQueue,
+                                            OS_Boolean_t* const pboHigherPriorityTaskWoken);
 
 OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
                                         const void* const pvItemToQueue,
                                         OS_UBase_t uxTicksToWait,
                                         OS_Queue_nPos enCopyPosition);
+OS_Boolean_t OS_Queue__boAltSendToFront(OS_Queue_Handle_t pvQueue,
+                                        const void* const pvItemToQueue,
+                                        OS_UBase_t uxTicksToWait);
+OS_Boolean_t OS_Queue__boAltSendToBack(OS_Queue_Handle_t pvQueue,
+                                   const void* const pvItemToQueue,
+                                   OS_UBase_t uxTicksToWait);
 
 OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                                       OS_Boolean_t* const pboHigherPriorityTaskWoken);

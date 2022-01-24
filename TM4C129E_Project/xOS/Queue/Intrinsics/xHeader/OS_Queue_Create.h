@@ -31,4 +31,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
                                              const OS_UBase_t uxItemSizeArg,
                                              const OS_Queue_nType enQueueTypeArg);
 
+OS_Queue_Handle_t OS_Queue__pvCreate(const OS_UBase_t uxQueueLength,
+                                     const OS_UBase_t uxItemSizeArg);
+
 #endif /* XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_CREATE_H_ */

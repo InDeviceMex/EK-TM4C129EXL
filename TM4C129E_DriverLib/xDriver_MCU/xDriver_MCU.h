@@ -45,7 +45,7 @@
 #include <xDriver_MCU/UART/UART.h>     /*Chapter 19*/
 #include <xDriver_MCU/SSI/SSI.h>       /*Chapter 20*/
 #include <xDriver_MCU/I2C/I2C.h>       /*Chapter 21 TODO: DMA handling is pending*/
-/*#include <xDriver_MCU/CAN/CAN.h>       Chapter 22*/
+#include <xDriver_MCU/CAN/CAN.h>       /*Chapter 22 TODO: All the features*/
 /*#include <xDriver_MCU/ETH/ETH.h>       Chapter 23*/
 /*#include <xDriver_MCU/USB/USB.h>       Chapter 24*/
 #include <xDriver_MCU/ACMP/ACMP.h>     /*Chapter 25*/
