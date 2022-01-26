@@ -39,8 +39,8 @@ typedef enum
     TRUE = 1UL,
 }boolean_t;
 
-typedef uint32_t UBase_t;
-typedef uint32_t pointer_t;
-typedef int32_t Base_t;
+typedef unsigned int UBase_t;
+typedef unsigned int pointer_t;
+typedef int Base_t;
 
 #endif /* XUTILS_STANDARD_STANDARD_H_ */

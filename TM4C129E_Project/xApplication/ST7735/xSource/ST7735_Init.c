@@ -273,3 +273,100 @@ void ST7735__vSetAddrWindow(uint32_t u32CoordX0, uint32_t u32CoordY0, uint32_t u
 
     ST7735__u32WriteCommand(ST7735_enCOMMAND_RAMWR);
 }
+
+
+void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32CoordY0, char cASCII, uint16_t u16Color, FONT_t* sFontType)
+{
+  uint16_t u16Row = 0, u16Column = 0;
+  uint32_t  u32AddressX = u32CoordX0, u32PosY =0;
+
+  const uint16_t* restrict character;
+
+  if((u32CoordY0+sFontType->u32Height)>ST7735_u32HeightArg)
+      return;
+
+  if((u32CoordX0+sFontType->u32Width)>ST7735_u32WidthArg)
+      return;
+
+  character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII-' ') * sFontType->u32Height]);
+
+  u32PosY = u32CoordY0 * ST7735_u32WidthArg * 2UL;
+
+  if(sFontType->u32Width==11)
+  {
+      character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII-0x20) * sFontType->u32Width]);
+      u32PosY = u32CoordY0;
+      for(u16Row = 0; u16Row < sFontType->u32Height; u16Row++)
+      {
+            for(u16Column = 0; u16Column < sFontType->u32Width;u16Column++)
+            {
+                if((((character[u16Column] )>>(u16Row))&1) )
+                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*((u32PosY*ST7735_u32WidthArg) + u32AddressX ))) = u16Color;
+                u32AddressX++;
+            }
+        u32AddressX =  u32CoordX0;
+        u32PosY++;
+      }
+  }
+  else if (sFontType->u32Width==7)
+  {
+      for(u16Row = 0; u16Row < sFontType->u32Width; u16Row++)
+      {
+            for(u16Column = 0; u16Column < sFontType->u32Height;u16Column++)
+            {
+                if((((character[u16Column] )>>(u16Row))&1) )
+                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                u32AddressX++;
+            }
+        u32AddressX += (ST7735_u32WidthArg - sFontType->u32Height);
+      }
+  }
+  else
+    for(u16Row = 0; u16Row < sFontType->u32Height; u16Row++)
+    {
+        if(sFontType->u32Height==24)
+            for(u16Column = 0; u16Column < sFontType->u32Width;u16Column++)
+            {
+                if((((character[u16Row] )>>(u16Column))&1) )
+                    *( uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                u32AddressX++;
+            }
+        else
+            for(u16Column = sFontType->u32Bits; u16Column > (sFontType->u32Bits-sFontType->u32Width);u16Column--)
+            {
+                if((((character[u16Row] )>>(u16Column-1))&1) )
+                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                u32AddressX++;
+            }
+        u32AddressX += (ST7735_u32WidthArg - sFontType->u32Width);
+    }
+}
+
+
+void ST7735__vBufferString(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32CoordY0, char* cASCII, uint16_t u16Color, FONT_t* sFontType)
+{
+    uint32_t u32CoordX = u32CoordX0;
+    uint32_t u32CoordY = u32CoordY0;
+    while(0UL != (uint32_t) (*cASCII))
+    {
+        if((uint32_t) '\n' == (uint32_t) (*cASCII))
+        {
+            u32CoordY += sFontType->u32Height + 2UL;
+        }
+        else if((uint32_t) '\r' == (uint32_t) (*cASCII))
+        {
+            u32CoordX = u32CoordX0;
+        }
+        else
+        {
+            if((u32CoordX + sFontType->u32Width) > ST7735_u32WidthArg)
+            {
+                u32CoordY += sFontType->u32Height + 2UL;
+                u32CoordX = u32CoordX0;
+            }
+            ST7735__vBufferChar(pu16Buffer, u32CoordX, u32CoordY, *cASCII, u16Color, sFontType);
+            u32CoordX += sFontType->u32Width;
+        }
+        cASCII++;
+    }
+}
