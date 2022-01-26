@@ -60,16 +60,28 @@ void (*PWM_Fault__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
 {
  {
     {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking
     },
     {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking
+        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
+        &PWM_vIRQSourceHandler_Dummy_Blocking
     }
  }
 };

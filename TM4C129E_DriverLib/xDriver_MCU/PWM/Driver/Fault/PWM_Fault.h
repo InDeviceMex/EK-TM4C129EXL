@@ -25,6 +25,11 @@
 #ifndef XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_
 #define XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_
 
+#include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_Comparator.h>
+#include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_Input.h>
+#include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_Latch.h>
+#include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_MinimumPeriod.h>
+#include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_MultiSource.h>
 
 /**TODO: add fault source value and fault source */
 

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Fault__vSetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nFAULT_LATCH_ENABLE enLatchArg)
+                               PWM_nFAULT_ENABLE enLatchArg)
 {
     PWM_Fault__vSetGeneric((uint32_t) enModule,
                            (uint32_t) enGenerator,
@@ -37,10 +37,10 @@ void PWM_Fault__vSetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                            PWM_GEN_CTL_R_LATCH_BIT);
 }
 
-PWM_nFAULT_LATCH_ENABLE PWM_Fault__enGetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nFAULT_ENABLE PWM_Fault__enGetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
-    PWM_nFAULT_LATCH_ENABLE enLatchReg = PWM_enFAULT_LATCH_ENABLE_DIS;
-    enLatchReg = (PWM_nFAULT_LATCH_ENABLE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
+    PWM_nFAULT_ENABLE enLatchReg = PWM_enFAULT_ENABLE_DIS;
+    enLatchReg = (PWM_nFAULT_ENABLE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_CTL_OFFSET,
                                        PWM_GEN_CTL_LATCH_MASK,

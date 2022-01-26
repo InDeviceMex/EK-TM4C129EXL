@@ -25,8 +25,18 @@
 #ifndef XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_COMPARATOR_H_
 #define XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_COMPARATOR_H_
 
+#include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
+void PWM_Fault__vSetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                                PWM_nFAULT_DCOMP enFaultDCompSource);
+void PWM_Fault__vEnableDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                                               PWM_nFAULT_DCOMP enFaultDCompSource,
+                                               PWM_nFAULT_ENABLE enFaultDCompEnable);
+PWM_nFAULT_DCOMP PWM_Fault__enGetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
-
+void PWM_Fault__vClearDigitalComparatorStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                                PWM_nFAULT_DCOMP enFaultDCompSource);
+PWM_nFAULT_DCOMP PWM_Fault__enGetDigitalComparatorStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                                             PWM_nFAULT_DCOMP enFaultDCompSource);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_COMPARATOR_H_ */

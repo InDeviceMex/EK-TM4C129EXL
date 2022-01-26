@@ -28,7 +28,7 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_Fault__vSetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nFAULT_LATCH_ENABLE enLatchArg);
-PWM_nFAULT_LATCH_ENABLE PWM_Fault__enGetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+                               PWM_nFAULT_ENABLE enLatchArg);
+PWM_nFAULT_ENABLE PWM_Fault__enGetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_LATCH_H_ */

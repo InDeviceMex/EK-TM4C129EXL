@@ -34,4 +34,11 @@ uint32_t PWM_Fault__u32GetGeneric(uint32_t u32Module, uint32_t  u32Generator,
                                   uint32_t u32OffsetRegister,
                                   uint32_t u32FeatureMask, uint32_t u32FeatureBit);
 
+void PWM_Fault__vSetGenericExt(uint32_t u32Module, uint32_t  u32Generator,
+                            uint32_t u32OffsetRegister, uint32_t u32Feature,
+                            uint32_t u32FeatureMask, uint32_t u32FeatureBit);
+uint32_t PWM_Fault__u32GetGenericExt(uint32_t u32Module, uint32_t  u32Generator,
+                                  uint32_t u32OffsetRegister,
+                                  uint32_t u32FeatureMask, uint32_t u32FeatureBit);
+
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_GENERIC_H_ */
