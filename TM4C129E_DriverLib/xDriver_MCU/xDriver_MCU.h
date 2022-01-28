@@ -49,7 +49,7 @@
 /*#include <xDriver_MCU/ETH/ETH.h>       Chapter 23*/
 /*#include <xDriver_MCU/USB/USB.h>       Chapter 24*/
 #include <xDriver_MCU/ACMP/ACMP.h>     /*Chapter 25*/
-#include <xDriver_MCU/PWM/PWM.h>       /*Chapter 26 TODO: features pending*/
+#include <xDriver_MCU/PWM/PWM.h>       /*Chapter 26*/
 #include <xDriver_MCU/QEI/QEI.h>       /*Chapter 27*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DRIVER_H_ */

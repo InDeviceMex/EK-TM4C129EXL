@@ -31,7 +31,4 @@
 #include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_MinimumPeriod.h>
 #include <xDriver_MCU/PWM/Driver/Fault/xHeader/PWM_Fault_MultiSource.h>
 
-/**TODO: add fault source value and fault source */
-
-
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_PWM_FAULT_H_ */
