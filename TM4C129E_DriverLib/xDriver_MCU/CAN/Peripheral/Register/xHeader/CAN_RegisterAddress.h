@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-#define CAN_INTERFACE_REGISTER_NUM    ((uint32_t) 24UL)
-#define CAN_MESSAGE_REGISTER_NUM    ((uint32_t) 4UL)
+#define CAN_IF_REGISTER_NUM    ((uint32_t) 24UL)
+#define CAN_MSG_REGISTER_NUM    ((uint32_t) 4UL)
 
 #define CAN_BASE    ((uint32_t) 0x40040000UL)
 #define CAN0_BASE    ((uint32_t) 0x40040000UL)
@@ -60,8 +60,8 @@
 #define CAN_IFnDB1_OFFSET    ((uint32_t) 0x0024UL)
 #define CAN_IFnDB2_OFFSET    ((uint32_t) 0x0028UL)
 
-#define CAN_INTERFACE_REGISTER_INITIAL    ((uint32_t) 0x0020UL)
-#define CAN_INTERFACE_REGISTER_OFFSET    ((uint32_t) 0x0060UL)
+#define CAN_IF_REGISTER_INITIAL    ((uint32_t) 0x0020UL)
+#define CAN_IF_REGISTER_OFFSET    ((uint32_t) 0x0060UL)
 
 
 #define CAN_IF1CRQ_OFFSET    ((uint32_t) 0x0020UL)
@@ -88,8 +88,8 @@
 #define CAN_IF2DB1_OFFSET    ((uint32_t) 0x00A4UL)
 #define CAN_IF2DB2_OFFSET    ((uint32_t) 0x00A8UL)
 
-#define CAN_MESSAGE_REGISTER_INITIAL    ((uint32_t) 0x0100UL)
-#define CAN_MESSAGE_REGISTER_OFFSET    ((uint32_t) 0x0020UL)
+#define CAN_MSG_REGISTER_INITIAL    ((uint32_t) 0x0100UL)
+#define CAN_MSG_REGISTER_OFFSET    ((uint32_t) 0x0020UL)
 
 #define CAN_TXRQ_OFFSET    ((uint32_t) 0x0100UL)
 #define CAN_TXRQ1_OFFSET    ((uint32_t) 0x0100UL)

@@ -22,6 +22,7 @@
  * 19 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xTask/xHeader/xTask4_LedBlueLog.h>
+#include <xTask/xHeader/xSemaphores.h>
 
 #include <xUtils/Conversion/Conversion_String2Number/Conversion_String2Number.h>
 #include <xApplication_MCU/xApplication_MCU.h>
@@ -89,7 +90,7 @@ void PwmServoLoadIrq(void)
         u32CountTaskOld += 157UL;
     }
 
-    PWM0_GEN2_CMPA_R = (uint32_t) u32CountTaskOld + 7500UL - 1UL;
+    PWM0_GEN2_CMPA_R = ((uint32_t) u32CountTaskOld + 7500UL) - 1UL;
 
     if(u32CountTaskOld == u32CountTask)
     {
@@ -102,7 +103,7 @@ void PwmServoLoadIrq(void)
 void xTask4_LedBlueLog(void* pvParams)
 {
     uint32_t u32LastWakeTime = 0UL;
-    uint32_t u32PinValue = (uint32_t) pvParams;
+    boolean_t boSemphoreReceived = FALSE;
     static uint32_t u32Count = 37499UL;
     u32LastWakeTime = OS_Task__uxGetTickCount();
     uint8_t pu8DataTerminal[10UL] = {0UL};
@@ -156,7 +157,7 @@ void xTask4_LedBlueLog(void* pvParams)
                                  (1200000UL - 1UL), 0UL);
 
     TIMER__vClearInterruptSource(TIMER_enT4W, TIMER_enINT_TIMEOUT);
-    TIMER__vSetEnable(TIMER_enT4W, TIMER_enENABLE_START);
+    //TIMER__vSetEnable(TIMER_enT4W, TIMER_enENABLE_START);
 
 
 
@@ -174,7 +175,7 @@ void xTask4_LedBlueLog(void* pvParams)
     PWM_Generator__vSetLoad(PWM_enMODULE_0, PWM_enGEN_2, 37499UL);
 
     PWM_Generator__vSetCompare(PWM_enMODULE_0,PWM_enGEN_1, PWM_enOUTPUT_BOTH, u32Count);
-    PWM_Generator__vSetCompare(PWM_enMODULE_0, PWM_enGEN_2, PWM_enOUTPUT_A, 7850UL + 7500UL - 1UL);
+    PWM_Generator__vSetCompare(PWM_enMODULE_0, PWM_enGEN_2, PWM_enOUTPUT_A, 1UL);
 
     PWM_Generator__vSetOutputAction(PWM_enMODULE_0, PWM_enGEN_1, PWM_enOUTPUT_BOTH, PWM_enEVENT_ZERO, PWM_enACTION_HIGH);
     PWM_Generator__vSetOutputAction(PWM_enMODULE_0, PWM_enGEN_1, PWM_enOUTPUT_BOTH, PWM_enEVENT_LOAD, PWM_enACTION_NOTHING);
@@ -222,30 +223,59 @@ void xTask4_LedBlueLog(void* pvParams)
         }
 
 
-        OS_Task__vSuspendAll();
-        enDataAvailable = UART__enIsFifoReceiveEmpty(UART_enMODULE_0);
-        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 7UL,
-                             "RPM percentage: %d.%d%%   ",
-                             (u32PWMMotor/10UL),(u32PWMMotor%10UL)
-                             );
+        if(0UL != UartSemaphoreHandle)
+        {
+            boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
+            if(FALSE != boSemphoreReceived)
+            {
+                enDataAvailable = UART__enIsFifoReceiveEmpty(UART_enMODULE_0);
+                GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 7UL,
+                                     "RPM percentage: %d.%d%%   ",
+                                     (u32PWMMotor/10UL),(u32PWMMotor%10UL)
+                                     );
+                OS_Semaphore__boGive(UartSemaphoreHandle);
+            }
+        }
+
         if( UART_enFIFO_EMPTY != enDataAvailable)
         {
-            pu8DataTerminal[u32CountDataTerminal] = UART__u32GetData(UART_enMODULE_0);
-            if(('9' < pu8DataTerminal[u32CountDataTerminal]) || ('0' > pu8DataTerminal[u32CountDataTerminal]))
+
+            if(0UL != UartSemaphoreHandle)
+            {
+                boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
+                if(FALSE != boSemphoreReceived)
+                {
+                    pu8DataTerminal[u32CountDataTerminal] = UART__u32GetData(UART_enMODULE_0);
+                    OS_Semaphore__boGive(UartSemaphoreHandle);
+                }
+            }
+
+
+            if(('9' < (char) pu8DataTerminal[u32CountDataTerminal]) || ('0' > (char) pu8DataTerminal[u32CountDataTerminal]))
             {
                 pu8DataTerminal[u32CountDataTerminal] = 0U;
                 ppu8DataTerminal = pu8DataTerminal;
-                u32PwmCount = Conv__s32String2UInteger(&ppu8DataTerminal, &u64PWMValue);
+                u32PwmCount = Conv__s32String2UInteger((const char**) &ppu8DataTerminal, &u64PWMValue);
                 if(0UL != u32PwmCount)
                 {
                     if(u64PWMValue > 100UL)
                     {
                         u64PWMValue = 100UL;
                     }
-                    GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 8UL,
-                                         "Insert new PWM value: %d  \n\r",
-                                         u64PWMValue
-                                         );
+
+                    if(0UL != UartSemaphoreHandle)
+                    {
+                        boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
+                        if(FALSE != boSemphoreReceived)
+                        {
+                            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 8UL,
+                                                 "Insert new PWM value: %d  \n\r",
+                                                 u64PWMValue
+                                                 );
+                            OS_Semaphore__boGive(UartSemaphoreHandle);
+                        }
+                    }
+
                     u32PwmCount = 0UL;
                     u32CountDataTerminal = 0UL;
                     u32Count = 37500UL * u64PWMValue;
@@ -274,7 +304,6 @@ void xTask4_LedBlueLog(void* pvParams)
                 u32CountDataTerminal++;
             }
         }
-        OS_Task__boResumeAll();
 
         OS_Task__vDelayUntil(&u32LastWakeTime, 200UL);
     }

@@ -83,10 +83,12 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
         u32Reg = *pu32Peripheral;
         /*Get Value in bit position*/
         u32FeatureValue &= u32MaskFeature;
-        u32FeatureValue <<= u32BitFeature;
-
-        /*Get Value to clear*/
-        u32MaskFeature <<= u32BitFeature;
+        if(0UL != u32BitFeature)
+        {
+            u32FeatureValue <<= u32BitFeature;
+            /*Get Value to clear*/
+            u32MaskFeature <<= u32BitFeature;
+        }
 
         u32Reg &= ~u32MaskFeature;
         u32Reg |= u32FeatureValue;

@@ -22,6 +22,7 @@
  * 19 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xTask/xHeader/xTask3_ButtonsLog.h>
+#include <xTask/xHeader/xSemaphores.h>
 
 #include <xApplication/EDUMKII/EDUMKII.h>
 
@@ -32,18 +33,33 @@
 
 void xTask3_ButtonsLog(void* pvParams)
 {
+    /*Period Handling*/
+    uint32_t u32CurrentTime = 0UL;
+    uint32_t u32NewTime = 0UL;
+    uint32_t u32DiffTime = 0UL;
+    uint32_t u32DiffPeriod = 0UL;
+    uint32_t u32PeriodTask = (uint32_t) pvParams;
+
+    /*Semaphore handling*/
+    boolean_t boSemphoreReceived = FALSE;
+
+
+    /*Buttons and Led handling*/
     char* pcState[2UL] = {"OFF", "ON "};
     char* pcStateButton[3UL] = {(char*)0UL,(char*) 0UL,(char*) 0UL};
-    uint32_t u32LastWakeTime = (uint32_t) pvParams;
     EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
     EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
-    static uint32_t u32CountTask = 0UL;
-    u32LastWakeTime = OS_Task__uxGetTickCount ();
+
+    GPIO__vSetReady(GPIO_enPORT_N);
+    GPIO__vSetReady(GPIO_enPORT_F);
+
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+
     while(1UL)
     {
+        u32CurrentTime = OS_Task__uxGetTickCount ();
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);
         EDUMKII_Joystick_vSampleSelect(&enSelect);
 
@@ -57,6 +73,7 @@ void xTask3_ButtonsLog(void* pvParams)
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
             pcStateButton[0UL] = pcState[0UL];
         }
+
         if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
         {
             GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
@@ -78,18 +95,33 @@ void xTask3_ButtonsLog(void* pvParams)
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
             pcStateButton[2UL] = pcState[0UL];
         }
+        OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
 
-        OS_Task__vSuspendAll();
+        if(0UL != UartSemaphoreHandle)
+        {
+            u32NewTime = OS_Task__uxGetTickCount();
+            u32DiffTime = u32NewTime;
+            u32DiffTime -= u32CurrentTime;
+            u32DiffPeriod = u32PeriodTask;
+            u32DiffPeriod -= u32DiffTime;
+            boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, u32DiffPeriod);
+            if(FALSE != boSemphoreReceived)
+            {
+                GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
+                                     "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
+                                     pcStateButton[0UL],
+                                     pcStateButton[1UL],
+                                     pcStateButton[2UL]
+                                     );
+                OS_Semaphore__boGive(UartSemaphoreHandle);
+            }
+        }
 
-        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
-                             "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
-                             pcStateButton[0UL],
-                             pcStateButton[1UL],
-                             pcStateButton[2UL]
-                             );
-
-        OS_Task__boResumeAll();
-        u32CountTask++;
-        OS_Task__vDelayUntil(&u32LastWakeTime, 75UL);
+        u32NewTime = OS_Task__uxGetTickCount();
+        u32DiffTime = u32NewTime;
+        u32DiffTime -= u32CurrentTime;
+        u32DiffPeriod = u32PeriodTask;
+        u32DiffPeriod -= u32DiffTime;
+        OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
     }
 }

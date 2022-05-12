@@ -31,8 +31,12 @@
 
 void xTask5_LedGreenLog(void* pvParams)
 {
-    uint32_t u32LastWakeTime = 0UL;
-    u32LastWakeTime = OS_Task__uxGetTickCount();
+    /*Period Handling*/
+    uint32_t u32CurrentTime = 0UL;
+    uint32_t u32NewTime = 0UL;
+    uint32_t u32DiffTime = 0UL;
+    uint32_t u32DiffPeriod = 0UL;
+    uint32_t u32PeriodTask = (uint32_t) pvParams;
 
     /*Remove and replace by DES APIs*/
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCCM);
@@ -260,6 +264,13 @@ void xTask5_LedGreenLog(void* pvParams)
 #endif
     while(1UL)
     {
-        OS_Task__vDelayUntil(&u32LastWakeTime, 100UL);
+        u32CurrentTime = OS_Task__uxGetTickCount ();
+        u32NewTime = OS_Task__uxGetTickCount();
+        u32DiffTime = u32NewTime;
+        u32DiffTime -= u32CurrentTime;
+        u32DiffPeriod = u32PeriodTask;
+        u32DiffPeriod -= u32DiffTime;
+
+        OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
     }
 }

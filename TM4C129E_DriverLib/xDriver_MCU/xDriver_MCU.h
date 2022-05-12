@@ -24,6 +24,21 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DRIVER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DRIVER_H_
 
+/**TODO:
+ * IN GPIO module add the functionality of ByNumber to modify only 1 bit of the register
+ * Modify every register defines referenced to bit shift example:
+ * #define PORT_DIR_R_PIN_ALL_BIT ((uint8_t) 0U)
+ * #define PORT_DIR_R_PIN_ALL_MASK ((uint8_t) 0xFFU << PORT_DIR_R_PIN0_BIT)
+ * #define PORT_DIR_R_PIN_ALL_INPUT ((uint8_t) 0x00U << PORT_DIR_R_PIN0_BIT)
+ * #define PORT_DIR_R_PIN_ALL_OUTPUT ((uint8_t) 0xFFU << PORT_DIR_R_PIN0_BIT)
+
+ * #define PORT_DIR_PIN_ALL_MASK ((uint8_t) 0xFFU)
+ * #define PORT_DIR_PIN_ALL_INPUT ((uint8_t) 0x00U)
+ * #define PORT_DIR_PIN_ALL_OUTPUT ((uint8_t) 0xFFU)
+ * Create a new typedef of the protoype fo every source interrupt
+ * typedef uint16_t (*MCU__pu16fIRQSourceHandler_t)(uintptr_t uptrModule, uint8_t u8IntSource);
+ * Add two parameter a every source interrupt routines*/
+
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/Core.h> /*Chapter 3*/
 

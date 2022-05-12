@@ -202,6 +202,25 @@ typedef volatile struct
     const uint32_t reserved: 16;
 }CANTXRQn_t;
 
+typedef volatile struct
+{
+    volatile const uint32_t NEWDAT: 16;
+    const uint32_t reserved: 16;
+}CANNWDAn_t;
+
+typedef volatile struct
+{
+    volatile const uint32_t INTPND: 16;
+    const uint32_t reserved: 16;
+}CANMSGnINT_t;
+
+typedef volatile struct
+{
+    volatile const uint32_t MSGVAL: 16;
+    const uint32_t reserved: 16;
+}CANMSGnVAL_t;
+
+
 #if defined (__TI_ARM__ )
     #pragma CHECK_MISRA("-6.4")
 #endif
@@ -216,12 +235,6 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile const uint32_t NEWDAT: 16;
-    const uint32_t reserved: 16;
-}CANNWDAn_t;
-
-typedef volatile struct
-{
     volatile uint64_t NEWDAT_0_15: 16;
     const uint64_t reserved: 16;
     volatile uint64_t NEWDAT_16_31: 16;
@@ -230,23 +243,11 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile const uint32_t INTPND: 16;
-    const uint32_t reserved: 16;
-}CANMSGnINT_t;
-
-typedef volatile struct
-{
     volatile uint64_t INTPND_0_15: 16;
     const uint64_t reserved: 16;
     volatile uint64_t INTPND_16_31: 16;
     const uint64_t reserved1: 16;
 }CANMSGINT_t;
-
-typedef volatile struct
-{
-    volatile const uint32_t MSGVAL: 16;
-    const uint32_t reserved: 16;
-}CANMSGnVAL_t;
 
 typedef volatile struct
 {

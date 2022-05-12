@@ -27,6 +27,7 @@
 
 #include <xApplication_MCU/PWM/Interrupt/PWM_Interrupt.h>
 #include <xApplication_MCU/PWM/Intrinsics/PWM_Intrinsics.h>
+#include <xApplication_MCU/PWM/xHeader/PWM_Compare.h>
 #include <xApplication_MCU/PWM/xHeader/PWM_Init.h>
 #include <xApplication_MCU/PWM/xHeader/PWM_Period.h>
 

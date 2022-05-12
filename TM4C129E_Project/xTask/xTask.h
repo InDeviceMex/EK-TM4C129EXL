@@ -25,11 +25,13 @@
 #ifndef XTASK_XTASK_H_
 #define XTASK_XTASK_H_
 
+#include <xTask/xHeader/xSemaphores.h>
 #include <xTask/xHeader/xTask1_AccelerometerLog.h>
 #include <xTask/xHeader/xTask2_JoystickLog.h>
 #include <xTask/xHeader/xTask3_ButtonsLog.h>
 #include <xTask/xHeader/xTask4_LedBlueLog.h>
 #include <xTask/xHeader/xTask5_LedGreenLog.h>
 #include <xTask/xHeader/xTask6_Commands.h>
+#include <xTask/xHeader/xTask7_ControllerCar.h>
 
 #endif /* XTASK_XTASK_H_ */

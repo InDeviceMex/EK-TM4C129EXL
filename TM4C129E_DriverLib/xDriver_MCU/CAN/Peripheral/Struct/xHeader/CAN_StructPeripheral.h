@@ -32,58 +32,58 @@ typedef volatile struct
 {
     union
     {
-      volatile uint32_t IFnCRQ;
-      CANIFnCRQ_t IFnCRQ_Bit;
+      volatile uint32_t CRQ;
+      CANIFnCRQ_t CRQ_Bit;
     };
     union
     {
-      volatile uint32_t IFnCMSK;
-      CANIFnCMSK_t IFnCMSK_Bit;
+      volatile uint32_t CMSK;
+      CANIFnCMSK_t CMSK_Bit;
     };
     union
     {
-      volatile uint32_t IFnMSK1;
-      CANIFnMSK1_t IFnMSK1_Bit;
+      volatile uint32_t MSK1;
+      CANIFnMSK1_t MSK1_Bit;
     };
     union
     {
-      volatile uint32_t IFnMSK2;
-      CANIFnMSK2_t IFnMSK2_Bit;
+      volatile uint32_t MSK2;
+      CANIFnMSK2_t MSK2_Bit;
     };
     union
     {
-      volatile uint32_t IFnARB1;
-      CANIFnARB1_t IFnARB1_Bit;
+      volatile uint32_t ARB1;
+      CANIFnARB1_t ARB1_Bit;
     };
     union
     {
-      volatile uint32_t IFnARB2;
-      CANIFnARB2_t IFnARB2_Bit;
+      volatile uint32_t ARB2;
+      CANIFnARB2_t ARB2_Bit;
     };
     union
     {
-      volatile uint32_t IFnMCTL;
-      CANIFnMCTL_t IFnMCTL_Bit;
+      volatile uint32_t MCTL;
+      CANIFnMCTL_t MCTL_Bit;
     };
     union
     {
-      volatile uint32_t IFnDA1;
-      CANIFnDA1_t IFnDA1_Bit;
+      volatile uint32_t DA1;
+      CANIFnDA1_t DA1_Bit;
     };
     union
     {
-      volatile uint32_t IFnDA2;
-      CANIFnDA2_t IFnDA2_Bit;
+      volatile uint32_t DA2;
+      CANIFnDA2_t DA2_Bit;
     };
     union
     {
-      volatile uint32_t IFnDB1;
-      CANIFnDB1_t IFnDB1_Bit;
+      volatile uint32_t DB1;
+      CANIFnDB1_t DB1_Bit;
     };
     union
     {
-      volatile uint32_t IFnDB2;
-      CANIFnDB2_t IFnDB2_Bit;
+      volatile uint32_t DB2;
+      CANIFnDB2_t DB2_Bit;
     };
     const uint32_t reserved [13UL];
 }CANINTERFACE_t;
@@ -191,11 +191,11 @@ typedef volatile struct
     };
     const uint32_t reserved [1UL];
 
-    CANINTERFACE_t INTERFACE[2UL];
+    CANINTERFACE_t IF[2UL];
 
     const uint32_t reserved1 [8UL];
 
-    CANMESSAGE_t MESSAGE;
+    CANMESSAGE_t MSG;
 
     const uint32_t reserved2 [934UL];
 }CAN_t;
