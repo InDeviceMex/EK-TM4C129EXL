@@ -27,7 +27,7 @@
 CSLinkedList_t* CSLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
 {
     CSLinkedList_t *pstList = 0;
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstList = (CSLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(CSLinkedList_t));
 #elif defined (__GNUC__ )
     pstList = (CSLinkedList_t*) malloc(sizeof(CSLinkedList_t));

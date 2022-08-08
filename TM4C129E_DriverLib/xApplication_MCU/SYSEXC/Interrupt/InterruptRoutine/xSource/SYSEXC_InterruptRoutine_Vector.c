@@ -32,7 +32,7 @@ void SYSEXC__vIRQVectorHandler(void)
     __asm volatile(
     " PUSH {R4-R7}\n"
     " MRS R4, MSP\n"
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     " movw R6, SYSEXC_pu32Context\n"
     " movt R6, SYSEXC_pu32Context\n"
 #elif defined (__GNUC__ )

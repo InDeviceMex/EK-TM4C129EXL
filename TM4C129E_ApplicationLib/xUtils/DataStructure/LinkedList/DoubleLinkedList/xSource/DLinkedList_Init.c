@@ -28,7 +28,7 @@
 DLinkedList_t* DLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
 {
     DLinkedList_t *pstList = 0;
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstList = (DLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(DLinkedList_t));
 #elif defined (__GNUC__ )
     pstList = (DLinkedList_t*) malloc(sizeof(DLinkedList_t));

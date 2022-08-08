@@ -76,7 +76,7 @@ void BusFault__vIRQVectorHandler(void)
 
     "MainStackBus: \n"
     " mrs    R4, MSP \n"
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     " movw R6, SCB_BusFault_pu32Context\n"
     " movt R6, SCB_BusFault_pu32Context\n"
 #elif defined (__GNUC__ )
@@ -102,7 +102,7 @@ void BusFault__vIRQVectorHandler(void)
 
     "ProcessStackBus: \n"
     " mrs    R4, PSP \n"
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     " movw R6, SCB_BusFault_pu32Context\n"
     " movt R6, SCB_BusFault_pu32Context\n"
 #elif defined (__GNUC__ )

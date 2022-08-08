@@ -35,7 +35,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
     OS_Queue_t* pstNewQueue = (OS_Queue_t*) 0UL;
     OS_List_t* pstListReg = (OS_List_t*) 0UL;
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstNewQueue = (OS_Queue_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
                                                sizeof(OS_Queue_t));
 #elif defined (__GNUC__ )

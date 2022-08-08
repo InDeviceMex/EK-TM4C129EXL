@@ -103,7 +103,7 @@ void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_t *pstConf
 GPIO_CONFIG_t* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
 {
     GPIO_CONFIG_t *pstConfig = 0UL;
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
                                                  (size_t) (sizeof(GPIO_CONFIG_t)));
 #elif defined (__GNUC__ )

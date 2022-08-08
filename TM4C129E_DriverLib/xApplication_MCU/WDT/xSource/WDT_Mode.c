@@ -101,7 +101,7 @@ void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_t* pstMode)
 WDT_MODE_t* WDT__pstGetMode(WDT_nMODULE enModule)
 {
     WDT_MODE_t* pstMode = (WDT_MODE_t*) 0UL;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstMode = (WDT_MODE_t*) memalign((size_t) 4UL, (size_t) sizeof(WDT_MODE_t) );
     #elif defined (__GNUC__ )
     pstMode = (WDT_MODE_t*) malloc(sizeof(WDT_MODE_t));

@@ -29,7 +29,7 @@
 #define ROW_MAX (48UL)
 #define COLUMN_MAX (84UL)
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-4.1")
 #endif
 
@@ -63,6 +63,6 @@ void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, uint32_t u32Column, ui
     UART__u32Printf(enModule,"\x1B[%u;%uH",u32Row, u32Column);
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("4.1")
 #endif

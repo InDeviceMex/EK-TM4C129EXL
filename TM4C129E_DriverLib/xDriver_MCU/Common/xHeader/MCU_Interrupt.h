@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(MCU__enDisGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__vEnGlobalInterrupt_RAM, ".ramcode")
@@ -159,7 +159,7 @@ MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);
 __attribute__((naked))
 MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void);
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-19.7,-19.13")
 #endif
 
@@ -169,7 +169,7 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void);
 #define MCU__vSetBreakpoint(values)    {__asm volatile(STRINGIZE_NX(\t BKPT values));}
 #define MCU__vSupervisorCall(values)    {__asm volatile(STRINGIZE_NX(\t SVC values));}
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("19.7,19.13")
 #endif
 

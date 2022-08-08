@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(MCU__u32CheckParams_RAM, ".ramcode")
 
@@ -39,7 +39,7 @@ uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
 
 #endif
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-8.5")
 #endif
 
@@ -58,7 +58,7 @@ inline uint32_t MCU__u32CheckParams(uint32_t u32Module, uint32_t u32ModuleMax)
     return (u32Module);
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("8.5")
 #endif
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_CHECKPARAMS_H_ */

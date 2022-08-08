@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Defines.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH__enWrite, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteBuf, ".ramcode")

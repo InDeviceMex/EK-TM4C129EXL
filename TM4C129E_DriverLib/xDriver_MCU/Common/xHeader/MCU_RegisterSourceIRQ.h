@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(MCU__vRegisterIRQSourceHandler_RAM, ".ramcode")
 

@@ -24,7 +24,7 @@
 #include <xDriver_MCU/DMA/Peripheral/Register/xHeader/DMA_RegisterAddressChannel.h>
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma DATA_SECTION(DMA__stChannel, ".dma")
 #pragma DATA_SECTION(DMA__stChannelAlt, ".dmaalt")

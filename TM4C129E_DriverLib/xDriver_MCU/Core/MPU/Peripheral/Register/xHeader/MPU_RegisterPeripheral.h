@@ -28,14 +28,14 @@
 #include <xDriver_MCU/Core/MPU/Peripheral/Register/xHeader/MPU_RegisterAddress.h>
 #include <xDriver_MCU/Core/MPU/Peripheral/Struct/xHeader/MPU_StructPeripheral.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-19.7")
 #endif
 
 #define MPU    (((MPU_t*) (MPU_BASE + MPU_OFFSET)))
 #define MPU_R(offset)    (*((volatile uint32_t*) (MPU_BASE + offset)))
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("19.7")
 #endif
 /**********************************************************************************************

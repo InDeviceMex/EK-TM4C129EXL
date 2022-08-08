@@ -221,7 +221,7 @@ typedef volatile struct
 }CANMSGnVAL_t;
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-6.4")
 #endif
 
@@ -257,7 +257,7 @@ typedef volatile struct
     const uint64_t reserved1: 16;
 }CANMSGVAL_t;
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("6.4")
 #endif
 

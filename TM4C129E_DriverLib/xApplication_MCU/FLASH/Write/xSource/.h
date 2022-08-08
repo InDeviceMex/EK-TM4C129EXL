@@ -26,7 +26,7 @@
 #define XAPPLICATION_MCU_FLASH_WRITE_XSOURCE__H_
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH__enWriteWorld, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteHalfWorld, ".ramcode")

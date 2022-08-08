@@ -25,7 +25,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma DATA_SECTION(SCB__pfnVectors, ".vtable")
 #elif defined (__GNUC__ )
 __attribute__((section(".vtable")))

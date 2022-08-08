@@ -72,7 +72,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
     OS_Task_TCB_t *pstNewTCB = (OS_Task_TCB_t*) 0UL;
     OS_UBase_t *puxStackReg = (OS_UBase_t*) 0UL;
 
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         puxStackReg = (OS_UBase_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
                                              (size_t) uxStackDepthArg * sizeof(OS_UBase_t));
     #elif defined (__GNUC__ )
@@ -81,7 +81,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
 
     if(0UL != (OS_UBase_t) puxStackReg)
     {
-        #if defined (__TI_ARM__ )
+        #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pstNewTCB = (OS_Task_TCB_t*) memalign(8UL, (size_t) sizeof(OS_Task_TCB_t));
         #elif defined (__GNUC__ )
         pstNewTCB = (OS_Task_TCB_t*) malloc(sizeof(OS_Task_TCB_t));

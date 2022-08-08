@@ -43,7 +43,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
             uxQueueSizeInBytes *= uxItemSizeArg;
             uxQueueSizeInBytes += 1UL;
         }
-        #if defined (__TI_ARM__ )
+        #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewQueue = (OS_Queue_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
                                                  (size_t) uxQueueSizeInBytes + sizeof(OS_Queue_t));
         #elif defined (__GNUC__ )

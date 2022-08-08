@@ -137,7 +137,7 @@ TIMER_nSTATUS TIMER__enGetModeStruct(TIMER_nMODULE enModule, TIMER_MODE_t* pstMo
 TIMER_MODE_t* TIMER__pstGetMode(TIMER_nMODULE enModule)
 {
     TIMER_MODE_t* pstMode = 0UL;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstMode = (TIMER_MODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_t));
     #elif defined (__GNUC__ )
     pstMode = (TIMER_MODE_t*) malloc(sizeof(TIMER_MODE_t));

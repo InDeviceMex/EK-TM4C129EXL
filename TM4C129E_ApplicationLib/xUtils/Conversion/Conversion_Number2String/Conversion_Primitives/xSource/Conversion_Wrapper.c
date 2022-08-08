@@ -23,7 +23,7 @@
  */
 #include <xUtils/Conversion/Conversion_Number2String/Conversion_Primitives/xHeader/Conversion_Wrapper.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-16.7")
 #endif
 
@@ -76,6 +76,6 @@ void Conv__vOutFunction(char cCharacter, void* pvBuffer, uint32_t u32Index, uint
     }
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("16.7")
 #endif

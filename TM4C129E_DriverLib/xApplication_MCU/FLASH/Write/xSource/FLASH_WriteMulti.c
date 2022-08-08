@@ -29,7 +29,7 @@
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH_vFillBlock, ".ramcode")
 #pragma  CODE_SECTION(FLASH_enWriteMultiAux, ".ramcode")
@@ -188,7 +188,7 @@ static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
 
     if((u32AddressTotal <= u32FlashSize) && (0UL != u32Count))
     {
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pu32PageDataInitial =
                 (uint32_t*) memalign( (size_t) 4UL,
                                       (size_t) (sizeof(uint8_t) * u32FlashSectorSize));

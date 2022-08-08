@@ -45,7 +45,7 @@ OS_UBase_t OS_CoRoutine__uxCreate( OS_CoRoutine_Function_t pvfCoRoutineCode, OS_
     if(0UL != (OS_UBase_t) pvfCoRoutineCode)
     {
         /* Allocate the memory that will store the co-routine control block. */
-        #if defined (__TI_ARM__ )
+        #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstCoRoutine = (OS_CoRoutine_CRCB_t*) memalign(8UL, (size_t) sizeof(OS_CoRoutine_CRCB_t));
         #elif defined (__GNUC__ )
             pstCoRoutine = (OS_CoRoutine_CRCB_t*) malloc(sizeof(OS_CoRoutine_CRCB_t));

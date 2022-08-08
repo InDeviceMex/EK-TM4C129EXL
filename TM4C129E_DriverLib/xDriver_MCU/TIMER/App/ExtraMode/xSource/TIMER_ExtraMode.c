@@ -74,7 +74,7 @@ void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_t* pstExtraMod
 TIMER_EXTRAMODE_t* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
 {
     TIMER_EXTRAMODE_t* pstExtraMode = 0UL;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstExtraMode = (TIMER_EXTRAMODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_EXTRAMODE_t));
     #elif defined (__GNUC__ )
     pstExtraMode = (TIMER_EXTRAMODE_t*) malloc((size_t) sizeof(TIMER_EXTRAMODE_t));

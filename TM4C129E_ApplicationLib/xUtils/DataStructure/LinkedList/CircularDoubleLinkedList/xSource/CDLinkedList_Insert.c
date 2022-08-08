@@ -151,7 +151,7 @@ CDLinkedListItem_t* CDLinkedList__pstInsertNext_WithData(CDLinkedList_t* pstList
         u32SizeReg = CDLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (CDLinkedListItem_t*) malloc(sizeof(CDLinkedListItem_t));
@@ -172,7 +172,7 @@ CDLinkedListItem_t* CDLinkedList__pstInsertNext(CDLinkedList_t* pstList, CDLinke
         u32SizeReg = CDLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (CDLinkedListItem_t*) malloc(sizeof(CDLinkedListItem_t));
@@ -213,7 +213,7 @@ CDLinkedListItem_t* CDLinkedList__pstInsertPrevious_WithData(CDLinkedList_t* pst
         u32SizeReg = CDLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (CDLinkedListItem_t*) malloc(sizeof(CDLinkedListItem_t));
@@ -235,7 +235,7 @@ CDLinkedListItem_t* CDLinkedList__pstInsertPrevious(CDLinkedList_t* pstList, CDL
         u32SizeReg = CDLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (CDLinkedListItem_t*) malloc(sizeof(CDLinkedListItem_t));

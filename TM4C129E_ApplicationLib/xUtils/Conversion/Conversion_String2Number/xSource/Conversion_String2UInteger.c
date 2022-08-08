@@ -25,7 +25,7 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/Conversion_Number.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-16.7")
 #endif
 
@@ -55,6 +55,6 @@ int32_t Conv__s32String2UInteger(const char** pcString, uint64_t* pu64NumUnsigne
     return (s32Length);
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("16.7")
 #endif

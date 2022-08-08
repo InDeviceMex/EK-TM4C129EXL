@@ -74,7 +74,7 @@ __attribute__ (( naked ))
 static void OS_Adapt_vStartFirstTask(void)
 {
      __asm volatile(
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
                     " movw r0, #0xED08      \n"/* Use the NVIC offset register to locate the stack. */
                     " movt r0, #0xE000      \n"
 #elif defined (__GNUC__ )
@@ -97,7 +97,7 @@ __attribute__ (( naked ))
 static void OS_Adapt_vSVCHandler(void)
 {
 __asm volatile (
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
                 "   movw r3, OS_Adapt_ppstCurrentTCB     \n"/* Get the location of the current TCB. */
                 "   movt r3, OS_Adapt_ppstCurrentTCB     \n"
 #elif defined (__GNUC__ )
@@ -123,7 +123,7 @@ static void OS_Adapt_vPendSVHandler (void)
     "   mrs r0, psp                         \n"
     "   isb                                 \n"
     "                                       \n"
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     "   movw r3, OS_Adapt_ppstCurrentTCB    \n"/* Get the location of the current TCB. */
     "   movt r3, OS_Adapt_ppstCurrentTCB    \n"
 #elif defined (__GNUC__ )
@@ -141,7 +141,7 @@ static void OS_Adapt_vPendSVHandler (void)
     "   str r0, [r2]                        \n" /* Save the new top of stack into the first member of the TCB. */
     "                                       \n"
     "   stmdb sp!, {r3}                     \n"
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     "   movw r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"/* Get the location of the current TCB. */
     "   movt r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"
 #elif defined (__GNUC__ )

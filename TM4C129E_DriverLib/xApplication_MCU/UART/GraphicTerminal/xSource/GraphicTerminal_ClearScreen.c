@@ -26,7 +26,7 @@
 #include <xApplication_MCU/UART/Printf/UART_Printf.h>
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-4.1")
 #endif
 
@@ -35,6 +35,6 @@ void GraphTerm__vClearScreen(UART_nMODULE enModule)
     UART__u32Printf(enModule,"\x1B[2J" );
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("4.1")
 #endif

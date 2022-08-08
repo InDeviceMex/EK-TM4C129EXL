@@ -27,7 +27,7 @@
 CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
 {
     CDLinkedList_t *pstList = 0;
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstList = (CDLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedList_t));
 #elif defined (__GNUC__ )
     pstList = (CDLinkedList_t*) malloc(sizeof(CDLinkedList_t));

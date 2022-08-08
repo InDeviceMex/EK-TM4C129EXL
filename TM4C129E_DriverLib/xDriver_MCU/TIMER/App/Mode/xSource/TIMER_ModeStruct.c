@@ -45,7 +45,7 @@ void TIMER__vCreateModeStructPointer(TIMER_nMODE enModeArg, TIMER_MODE_t* pstMod
 TIMER_MODE_t* TIMER__pstCreateModeStruct(TIMER_nMODE enModeArg)
 {
     TIMER_MODE_t* pstMode = 0;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstMode = (TIMER_MODE_t*) memalign((size_t) 4, (size_t) sizeof(TIMER_MODE_t));
     #elif defined (__GNUC__ )
     pstMode = (TIMER_MODE_t*) malloc((size_t) sizeof(TIMER_MODE_t));

@@ -12,7 +12,7 @@
 #include <xUtils/Conversion/Conversion_String/Conversion_String.h>
 #include <xUtils/Conversion/Conversion_String2Number/Conversion_String2Number.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 /* internal vsnprintf*/
@@ -584,6 +584,6 @@ uint32_t vsnprintf__u32User(char* pcBuffer, const uint32_t u32Count, const char*
 }
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("6.3, 10.1, 10.3, 12.2, 12.7, 12.10, 14.5, 16.1")
 #endif

@@ -190,7 +190,7 @@ DLinkedListItem_t* DLinkedList__pstInsertNext_WithData(DLinkedList_t* pstList,
         u32SizeReg = DLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstPreviousItemArg) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (DLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(DLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (DLinkedListItem_t*) malloc(sizeof(DLinkedListItem_t));
@@ -213,7 +213,7 @@ DLinkedListItem_t* DLinkedList__pstInsertNext(DLinkedList_t* pstList,
         u32SizeReg = DLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstPreviousItemArg) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (DLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(DLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (DLinkedListItem_t*) malloc(sizeof(DLinkedListItem_t));
@@ -257,7 +257,7 @@ DLinkedListItem_t* DLinkedList__pstInsertPrevious_WithData(DLinkedList_t* pstLis
         u32SizeReg = DLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstNextItemArg) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (DLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(DLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (DLinkedListItem_t*) malloc(sizeof(DLinkedListItem_t));
@@ -279,7 +279,7 @@ DLinkedListItem_t* DLinkedList__pstInsertPrevious(DLinkedList_t* pstList,
         u32SizeReg = DLinkedList__u32GetSize(pstList);
         if(((uint32_t) 0UL != (uint32_t) pstNextItemArg) || (0UL == u32SizeReg))
         {
-            #if defined (__TI_ARM__ )
+            #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (DLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(DLinkedListItem_t));
             #elif defined (__GNUC__ )
             pstNewItem = (DLinkedListItem_t*) malloc(sizeof(DLinkedListItem_t));

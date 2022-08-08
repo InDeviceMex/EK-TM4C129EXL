@@ -109,7 +109,7 @@ SLinkedListItem_t* SLinkedList__pstInsertNext_WithData(SLinkedList_t* pstList,
      SLinkedListItem_t* pstNewItem = (SLinkedListItem_t*) 0UL ;
      if(((uint32_t) 0UL != (uint32_t) pstList))
      {
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
          pstNewItem = (SLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(SLinkedListItem_t));
     #elif defined (__GNUC__ )
          pstNewItem = (SLinkedListItem_t*) malloc(sizeof(SLinkedListItem_t));
@@ -126,7 +126,7 @@ SLinkedListItem_t* SLinkedList__pstInsertNext(SLinkedList_t* pstList,
      pstNewItem = SLinkedList__pstInsertNext_WithData(pstList, pstPreviousItemArg, (void*)0UL);
      if(((uint32_t) 0UL != (uint32_t) pstList))
      {
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
          pstNewItem = (SLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(SLinkedListItem_t));
     #elif defined (__GNUC__ )
          pstNewItem = (SLinkedListItem_t*) malloc(sizeof(SLinkedListItem_t));

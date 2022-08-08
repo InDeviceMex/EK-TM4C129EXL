@@ -29,7 +29,7 @@
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH_enIsDataErased, ".ramcode")
 #pragma  CODE_SECTION(FLASH_vSetData, ".ramcode")
@@ -187,7 +187,7 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
         }
         else
         {
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pu32PageDataInitial =
                     (uint32_t*) memalign( (size_t) 4UL,
                                           (size_t) (sizeof(uint8_t) * u32FlashSectorSize));

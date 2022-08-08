@@ -47,7 +47,7 @@ void DMA_CH__vGetConfig(DMA_nCH_MODULE enDMAChannel, DMA_CONFIG_t* pstConfig)
 DMA_CONFIG_t* DMA_CH__pstGetConfig(DMA_nCH_MODULE enDMAChannel)
 {
     DMA_CONFIG_t* pstConfig = 0UL;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstConfig = (DMA_CONFIG_t*) memalign( (size_t) 4,
                                                 (size_t) sizeof(DMA_CONFIG_t));
     #elif defined (__GNUC__ )

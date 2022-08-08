@@ -28,7 +28,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(MCU__vWriteRegister_RAM, ".ramcode")
 
@@ -49,7 +49,7 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase,
 
 #endif
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-8.5")
 #endif
 
@@ -117,7 +117,7 @@ inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
     MCU__vSetGlobalInterrupt(enStatus);
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("8.5")
 #endif
 

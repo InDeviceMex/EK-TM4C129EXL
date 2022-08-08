@@ -37,7 +37,7 @@ static void IntDefaultHandler(void);
 
 extern void SYSTICKHandler(void);
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 /*******************************************************************************/
 /**/
 /* External declaration for the reset handler that is to be called when the*/

@@ -27,7 +27,7 @@
 #include <xApplication_MCU/UART/GraphicTerminal/xHeader/GraphicTerminal_Cursor.h>
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-4.1, -6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 
@@ -48,6 +48,6 @@ void GraphTerm__vSetFontColor(UART_nMODULE enModule, uint32_t u32RedColor,uint32
 }
 
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("4.1, 6.3, 10.1, 10.3, 12.2, 12.7, 12.10, 14.5, 16.1")
 #endif

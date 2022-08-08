@@ -24,7 +24,7 @@
 #include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCopy.h>
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-6.3")
 #endif
 
@@ -181,6 +181,6 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
     return (pvMemoryDest);
 }
 
-#if defined (__TI_ARM__ )
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("6.3")
 #endif

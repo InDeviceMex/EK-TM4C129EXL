@@ -198,7 +198,7 @@ GPIO_CONFIG_t* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
 
     if(GPIO_enGPIO_UNDEF != enFunction)
     {
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
                                              (size_t) (sizeof(GPIO_CONFIG_t) ));
     #elif defined (__GNUC__ )

@@ -47,7 +47,7 @@ DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld,
 DMA_CONTROL_t* DMA_CH__pstCreateControlStruct(uint32_t u32ControlWorld)
 {
     DMA_CONTROL_t* pstControl = 0UL;
-    #if defined (__TI_ARM__ )
+    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstControl = (DMA_CONTROL_t*) memalign( (size_t) 4,
                                                   (size_t) sizeof(DMA_CONTROL_t));
     #elif defined (__GNUC__ )
