@@ -23,9 +23,9 @@
  */
 #include <xDriver_MCU/ACMP/Peripheral/Register/RegisterPeripheral/ACMP_RegisterPeripheral.h>
 
-uint32_t ACMP__u32BlockBaseAddress(ACMP_nMODULE enModuleArg)
+uintptr_t ACMP__uptrBlockBaseAddress(ACMP_nMODULE enModuleArg)
 {
-    uint32_t ACMP_BLOCK_BASE[(uint32_t) ACMP_enMODULE_MAX] =
+    uintptr_t ACMP_BLOCK_BASE[(uint32_t) ACMP_enMODULE_MAX] =
     {
      ACMP0_BASE
     };

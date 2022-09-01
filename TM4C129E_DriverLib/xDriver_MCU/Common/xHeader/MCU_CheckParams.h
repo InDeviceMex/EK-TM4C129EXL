@@ -30,12 +30,12 @@
 
 #pragma  CODE_SECTION(MCU__u32CheckParams_RAM, ".ramcode")
 
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
+MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
+MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
 
 #endif
 
@@ -43,19 +43,21 @@ uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax);
     #pragma CHECK_MISRA("-8.5")
 #endif
 
-inline uint32_t MCU__u32CheckParams(uint32_t u32Module, uint32_t u32ModuleMax);
+inline MCU_nERROR MCU__enCheckParams(uint32_t u32Module, uint32_t u32ModuleMax);
 
 
-inline uint32_t MCU__u32CheckParams(uint32_t u32Module, uint32_t u32ModuleMax)
+inline MCU_nERROR MCU__enCheckParams(uint32_t u32Module, uint32_t u32ModuleMax)
 {
-#if !defined(Opt_Check)
-    if((u32ModuleMax <= u32Module) && (0UL != u32ModuleMax))
+    MCU_nERROR enErrorReg;
+    if(u32ModuleMax <= u32Module)
     {
-        u32ModuleMax--;
-        u32Module = u32ModuleMax;
+        enErrorReg = MCU_enERROR_VALUE;
     }
-#endif
-    return (u32Module);
+    else
+    {
+        enErrorReg = MCU_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

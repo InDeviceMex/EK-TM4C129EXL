@@ -26,16 +26,29 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-uint32_t ACMP__u32ReadRegister(ACMP_nMODULE enModule, uint32_t u32OffsetRegister,
-                              uint32_t u32MaskFeature, uint32_t u32BitFeature)
+ACMP_nERROR ACMP__enReadRegister(ACMP_nMODULE enModuleArg, ACMP_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32FeatureValue = 0UL;
-    uint32_t u32ACMPBase = 0UL;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ACMP_enMODULE_MAX);
-
-    u32ACMPBase = ACMP__u32BlockBaseAddress((ACMP_nMODULE) u32Module);
-    u32FeatureValue = MCU__u32ReadRegister(u32ACMPBase, u32OffsetRegister,
-                                           u32MaskFeature, u32BitFeature);
-    return (u32FeatureValue);
+    uintptr_t uptrModuleBase;
+    uint32_t u32RegisterValue;
+    ACMP_nERROR enReturnReg;
+    MCU_nERROR enMCUErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enMCUErrorReg = MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+        if(MCU_enERROR_OK != enMCUErrorReg)
+        {
+            uptrModuleBase = ACMP__uptrBlockBaseAddress(enModuleArg);
+            pstRegisterDataArg->uptrAddress += uptrModuleBase;
+            enReturnReg = MCU__enReadRegister(pstRegisterDataArg);
+        }
+        else
+        {
+            enReturnReg = ACMP_enERROR_VALUE;
+        }
+    }
+    else
+    {
+        enReturnReg = ACMP_enERROR_POINTER;
+    }
+    return (enReturnReg);
 }

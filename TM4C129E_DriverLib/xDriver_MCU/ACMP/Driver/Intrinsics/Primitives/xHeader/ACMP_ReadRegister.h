@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-uint32_t ACMP__u32ReadRegister(ACMP_nMODULE enModule, uint32_t u32OffsetRegister,
-                                  uint32_t u32MaskFeature, uint32_t u32BitFeature);
+ACMP_nERROR ACMP__enReadRegister(ACMP_nMODULE enModuleArg, ACMP_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_ACMP_READREGISTER_H_ */

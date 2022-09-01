@@ -24,38 +24,54 @@
 #include <xDriver_MCU/Common/xHeader/MCU_RegisterSourceIRQ.h>
 #include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 
-void MCU__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                    void (**pfIrqVectorHandler) (void),
+MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                    MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                     uint32_t u32InterruptSource,
                                     uint32_t u32InterruptSourceMax)
 {
-    uint32_t u32Interrupt = 0UL;
-    uint32_t u32IrqSourceHandler = 0UL;
-    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqVectorHandler))
+    uint32_t u32IrqSourceHandler;
+    MCU_nERROR enErrorReg;
+    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqArrayHandler))
     {
-        u32Interrupt = MCU__u32CheckParams(u32InterruptSource, u32InterruptSourceMax);
-        u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
-        u32IrqSourceHandler |= 1UL;
+        enErrorReg = MCU__enCheckParams(u32InterruptSource, u32InterruptSourceMax);
+        if(MCU_enERROR_OK == enErrorReg)
+        {
+            u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
+            u32IrqSourceHandler |= 1UL;
 
-        pfIrqVectorHandler += u32Interrupt;
-        *pfIrqVectorHandler = (void (*) (void)) u32IrqSourceHandler;
+            pfIrqArrayHandler += u32InterruptSource;
+            *pfIrqArrayHandler = (void (*) (void)) u32IrqSourceHandler;
+        }
     }
+    else
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
-                                        void (**pfIrqVectorHandler) (void),
+void MCU__vRegisterIRQSourceHandler_RAM(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                        MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax)
 {
-    uint32_t u32Interrupt = 0UL;
-    uint32_t u32IrqSourceHandler = 0UL;
-    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqVectorHandler))
+    uint32_t u32IrqSourceHandler;
+    MCU_nERROR enErrorReg;
+    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqArrayHandler))
     {
-        u32Interrupt = MCU__u32CheckParams_RAM(u32InterruptSource, u32InterruptSourceMax);
-        u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
-        u32IrqSourceHandler |= 1UL;
+        enErrorReg = MCU__enCheckParams_RAM(u32InterruptSource, u32InterruptSourceMax);
+        if(MCU_enERROR_OK == enErrorReg)
+        {
+            u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
+            u32IrqSourceHandler |= 1UL;
 
-        pfIrqVectorHandler += u32Interrupt;
-        *pfIrqVectorHandler = (void (*) (void)) u32IrqSourceHandler;
+            pfIrqArrayHandler += u32InterruptSource;
+            *pfIrqArrayHandler = (void (*) (void)) u32IrqSourceHandler;
+        }
     }
+    else
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

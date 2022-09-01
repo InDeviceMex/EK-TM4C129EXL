@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
                                ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
                                const ACMP_CONTROL_t* pstControlConfig);

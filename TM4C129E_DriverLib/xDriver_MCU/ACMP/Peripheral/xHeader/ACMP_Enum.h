@@ -28,10 +28,11 @@
 
 typedef enum
 {
-    ACMP_enSTATUS_OK = 0UL,
-    ACMP_enSTATUS_ERROR = 1UL,
-    ACMP_enSTATUS_UNDEF = 0xFFFFFFFFUL,
-}ACMP_nSTATUS;
+    ACMP_enERROR_OK = 0UL,
+    ACMP_enERROR_POINTER = 1UL,
+    ACMP_enERROR_VALUE = 2UL,
+    ACMP_enERROR_UNDEF = 0xFFFFFFFFUL,
+}ACMP_nERROR;
 
 typedef enum
 {
@@ -229,5 +230,7 @@ typedef struct
     ACMP_nVMAX_SOURCE enVmaxSource;
 }ACMP_CONTROL_t;
 
+
+typedef MCU_Register_t ACMP_Register_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_ */

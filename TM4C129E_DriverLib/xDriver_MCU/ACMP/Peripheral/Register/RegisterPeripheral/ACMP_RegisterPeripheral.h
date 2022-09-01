@@ -29,6 +29,6 @@
 
 #define ACMP    ((ACMPS_t*) (ACMP_BASE))
 
-uint32_t ACMP__u32BlockBaseAddress(ACMP_nMODULE enModuleArg);
+uintptr_t ACMP__uptrBlockBaseAddress(ACMP_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_ACMP_REGISTERPERIPHERAL_H_ */

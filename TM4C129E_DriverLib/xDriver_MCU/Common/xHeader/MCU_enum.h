@@ -29,6 +29,14 @@
 
 typedef enum
 {
+    MCU_enERROR_OK = 0UL,
+    MCU_enERROR_POINTER = 1UL,
+    MCU_enERROR_VALUE = 2UL,
+    MCU_enERROR_UNDEF = 0xFFFFFFFFUL,
+}MCU_nERROR;
+
+typedef enum
+{
     MCU_enENABLE_ENA = 0UL,
     MCU_enENABLE_DIS = 1UL,
 }MCU_nENABLE;
@@ -69,5 +77,13 @@ typedef enum
     MCU_enPRI7 = 7UL,
     MCU_enDEFAULT = 0xFFFFFFFFUL,
 }MCU_nPRIORITY;
+
+typedef struct
+{
+    uintptr_t uptrAddress;
+    uint32_t u32Value;
+    uint32_t u32Mask;
+    uint8_t u8Shift;
+}MCU_Register_t;
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_ENUM_H_ */

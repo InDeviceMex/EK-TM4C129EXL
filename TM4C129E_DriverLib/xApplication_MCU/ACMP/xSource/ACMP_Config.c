@@ -61,12 +61,12 @@ GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
     },
 };
 
-ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
                                ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
                                const ACMP_CONTROL_t* pstControlConfig)
 {
-    ACMP_nSTATUS enReturn = ACMP_enSTATUS_ERROR;
+    ACMP_nERROR enReturn = ACMP_enERROR_ERROR;
     ACMP_nMODULE enModuleFilter = ACMP_enMODULE_0;
     ACMP_nLINE_OUT_SELECT enLineOutFilter = ACMP_enLINE_OUT_SELECT_PRIMARY;
     ACMP_nCOMP enCompFilter = ACMP_enCOMP_0;
@@ -139,7 +139,7 @@ ACMP_nSTATUS ACMP__enSetConfig(ACMP_nMODULE enModule,
         {
             ACMP__vEnInterruptSource(enModuleFilter, enCompMask);
         }
-        enReturn = ACMP_enSTATUS_OK;
+        enReturn = ACMP_enERROR_OK;
     }
     return (enReturn);
 }

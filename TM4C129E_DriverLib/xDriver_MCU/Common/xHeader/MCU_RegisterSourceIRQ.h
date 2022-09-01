@@ -31,23 +31,23 @@
 
 #pragma  CODE_SECTION(MCU__vRegisterIRQSourceHandler_RAM, ".ramcode")
 
-void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
-                                        void (**pfIrqVectorHandler) (void),
+MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                        MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
-                                        void (**pfIrqVectorHandler) (void),
+MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                        MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax);
 
 #endif
 
-void MCU__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                    void (**pfIrqVectorHandler) (void),
+MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                    MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                     uint32_t u32InterruptSource,
                                     uint32_t u32InterruptSourceMax);
 

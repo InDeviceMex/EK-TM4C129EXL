@@ -25,61 +25,122 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
-                             uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                             uint32_t u32BitFeature)
+MCU_nERROR MCU__enWriteRegister_RAM(MCU_Register_t* pstRegisterDataArg)
 {
-    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
-    uint32_t u32Reg = u32FeatureValue;
-    volatile uint32_t* pu32Peripheral = 0UL;
+    volatile uint32_t* pu32RegisterAddress;
+    uintptr_t uptrRegisterAddress;
+    uint32_t u32RegisterValue;
+    uint32_t u32RegisterMask;
+    uint32_t u32Reg;
+    MCU_nENABLE enStatus;
+    MCU_nERROR enErrorReg;
+    uint8_t u8RegisterShift;
 
-    u32PeripheralBase += u32OffsetRegister;
-    enStatus = MCU__enDisGlobalInterrupt();
-    pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
-    if(0xFFFFFFFFUL != u32MaskFeature)
+    if(0U != (uintptr_t) pstRegisterDataArg)
     {
-        u32Reg = *pu32Peripheral;
-        /*Get Value in bit position*/
-        u32FeatureValue &= u32MaskFeature;
-        if(0UL != u32BitFeature)
-        {
-            u32FeatureValue <<= u32BitFeature;
-            /*Get Value to clear*/
-            u32MaskFeature <<= u32BitFeature;
-        }
-        u32Reg &= ~u32MaskFeature;
-        u32Reg |= u32FeatureValue;
-    }
+        u32RegisterValue = pstRegisterDataArg->u32Value;
+        u32RegisterMask = pstRegisterDataArg->u32Mask;
+        u8RegisterShift = pstRegisterDataArg->u8Shift;
+        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-    (*pu32Peripheral) = (uint32_t) u32Reg;
-    MCU__vSetGlobalInterrupt(enStatus);
+        enErrorReg = MCU_enERROR_OK;
+        enStatus = MCU__enDisGlobalInterrupt_RAM();
+        u32Reg = u32RegisterValue;
+        pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
+        if(MCU_MASK_32 != u32RegisterMask)
+        {
+            u32Reg = *pu32RegisterAddress;
+            u32RegisterValue &= u32RegisterMask;
+            if(0U != u8RegisterShift)
+            {
+                u32RegisterValue <<= u8RegisterShift;
+                u32RegisterMask <<= u8RegisterShift;
+            }
+            u32Reg &= ~u32RegisterMask;
+            u32Reg |= u32RegisterValue;
+        }
+        *pu32RegisterAddress = u32Reg;
+        (void) MCU__vSetGlobalInterrupt_RAM(enStatus);
+    }
+    else
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
 }
 
 
-void MCU__vWriteRegister_8bits(uint32_t u32PeripheralRegister,
-                               uint8_t u8FeatureValue,
-                               uint8_t u8MaskFeature,
-                               uint8_t u8BitFeature)
+MCU_nERROR MCU__enWriteRegister(MCU_Register_t* pstRegisterDataArg)
 {
-    uint8_t u8Reg = u8FeatureValue;
-    volatile uint8_t* pu8PeripheralRegister = (volatile uint8_t*) 0UL;
-    uint16_t u16StatusInterrupt = 0U;
+    volatile uint32_t* pu32RegisterAddress;
+    uintptr_t uptrRegisterAddress;
+    uint32_t u32RegisterValue;
+    uint32_t u32RegisterMask;
+    uint32_t u32Reg;
+    MCU_nENABLE enStatus;
+    MCU_nERROR enErrorReg;
+    uint8_t u8RegisterShift;
 
-    u16StatusInterrupt = _get_interrupt_state();
-    _DINT();
-    pu8PeripheralRegister = (volatile uint8_t*) u32PeripheralRegister;
-    if(0xFFU != u8MaskFeature)
+    if(0U != (uintptr_t) pstRegisterDataArg)
     {
-        u8Reg = *pu8PeripheralRegister;
-        u8FeatureValue &= u8MaskFeature;
-        if(0U != u8BitFeature)
+        u32RegisterValue = pstRegisterDataArg->u32Value;
+        u32RegisterMask = pstRegisterDataArg->u32Mask;
+        u8RegisterShift = pstRegisterDataArg->u8Shift;
+        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+
+        enErrorReg = MCU_enERROR_OK;
+        enStatus = MCU__enDisGlobalInterrupt();
+        u32Reg = u32RegisterValue;
+        pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
+        if(MCU_MASK_32 != u32RegisterMask)
         {
-            u8FeatureValue <<= u8BitFeature;
-            u8MaskFeature <<= u8BitFeature;
+            u32Reg = *pu32RegisterAddress;
+            u32RegisterValue &= u32RegisterMask;
+            if(0U != u8RegisterShift)
+            {
+                u32RegisterValue <<= u8RegisterShift;
+                u32RegisterMask <<= u8RegisterShift;
+            }
+            u32Reg &= ~u32RegisterMask;
+            u32Reg |= u32RegisterValue;
         }
-        u8Reg &= ~u8MaskFeature;
-        u8Reg |= u8FeatureValue;
+        *pu32RegisterAddress = u32Reg;
+        (void) MCU__vSetGlobalInterrupt(enStatus);
     }
-    *pu8PeripheralRegister = u8Reg;
-    _set_interrupt_state(u16StatusInterrupt);
+    else
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+}
+
+MCU_nERROR MCU__enWriteRegister_Direct(MCU_Register_t* pstRegisterDataArg)
+{
+    volatile uint32_t* pu32RegisterAddress;
+    uintptr_t uptrRegisterAddress;
+    uint32_t u32RegisterValue;
+    uint32_t u32RegisterMask;
+    uint32_t u32Reg;
+    MCU_nENABLE enStatus;
+    MCU_nERROR enErrorReg;
+    uint8_t u8RegisterShift;
+
+    if(0U != (uintptr_t) pstRegisterDataArg)
+    {
+        u32RegisterValue = pstRegisterDataArg->u32Value;
+        u32RegisterMask = pstRegisterDataArg->u32Mask;
+        u8RegisterShift = pstRegisterDataArg->u8Shift;
+        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+
+        enErrorReg = MCU_enERROR_OK;
+        enStatus = MCU__enDisGlobalInterrupt();
+        u32Reg = u32RegisterValue;
+        pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
+        u32RegisterValue &= u32RegisterMask;
+        u32RegisterValue <<= u8RegisterShift;
+        *pu32RegisterAddress = u32Reg;
+        (void) MCU__vSetGlobalInterrupt(enStatus);
+    }
+    else
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
 }
