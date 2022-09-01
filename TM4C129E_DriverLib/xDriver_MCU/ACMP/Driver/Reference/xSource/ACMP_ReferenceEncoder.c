@@ -26,17 +26,37 @@
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Primitives/ACMP_Primitives.h>
 
-void ACMP__vSetReferenceEncoder(ACMP_nMODULE enModule, uint32_t u32EncoderValue)
+ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t u32EncoderValueArg)
 {
-    ACMP__vWriteRegister(enModule , ACMP_REFCTL_OFFSET, u32EncoderValue,
-                         ACMP_REFCTL_VREF_MASK, ACMP_REFCTL_R_VREF_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_REFCTL_R_VREF_BIT;
+    stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
+    stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+    stRegister.u32Value = u32EncoderValueArg;
+    enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-uint32_t ACMP__u32GetReferenceEncoder(ACMP_nMODULE enModule)
+ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t* pu32EncoderValueArg)
 {
-    uint32_t u32EncoderValueReg = 0UL;
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
 
-    u32EncoderValueReg = ACMP__u32ReadRegister(enModule, ACMP_REFCTL_OFFSET,
-                                   ACMP_REFCTL_VREF_MASK, ACMP_REFCTL_R_VREF_BIT);
-    return (u32EncoderValueReg);
+    if(0UL != (uintptr_t) pu32EncoderValueArg)
+    {
+        stRegister.u8Shift = ACMP_REFCTL_R_VREF_BIT;
+        stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
+        stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+        enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
+
+        *pu32EncoderValueArg = stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

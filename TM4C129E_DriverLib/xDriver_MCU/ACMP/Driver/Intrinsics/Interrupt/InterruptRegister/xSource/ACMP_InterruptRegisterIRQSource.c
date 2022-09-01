@@ -27,24 +27,30 @@
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ACMP_InterruptRoutine_Source.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-void ACMP__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                         ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                         ACMP_nMODULE enModuleArg,
                                          ACMP_nCOMP enComparatorArg)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32Comparator = 0UL;
+    ACMP_pvfIRQSourceHandler_t* pvfIrqHandler;
+    ACMP_nERROR enErrorReg;
 
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    if(0UL != (uintptr_t) pfIrqSourceHandler)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) ACMP_enMODULE_MAX);
-        u32Comparator = MCU__u32CheckParams( (uint32_t) enComparatorArg,
-                                             (uint32_t) ACMP_enCOMP_MAX);
-
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       ACMP__pvfGetIRQSourceHandlerPointer((ACMP_nMODULE) u32Module,
-                                                               (ACMP_nCOMP) u32Comparator),
-                       0UL,
-                       1UL);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+            if(ACMP_enERROR_OK == enErrorReg)
+            {
+                pvfIrqHandler = ACMP__pvfGetIRQSourceHandlerPointer(enModuleArg, enComparatorArg);
+                enErrorReg = (ACMP_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+            }
+        }
     }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

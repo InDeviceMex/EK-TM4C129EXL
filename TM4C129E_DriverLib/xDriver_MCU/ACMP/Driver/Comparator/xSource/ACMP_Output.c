@@ -27,13 +27,23 @@
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
 
-ACMP_nOUTPUT_VALUE ACMP__enGetComparatorOutput(ACMP_nMODULE enModule,
-                                                ACMP_nCOMP  enComparatorArg)
+ACMP_nERROR ACMP__enGetComparatorOutput(ACMP_nMODULE enModuleArg, ACMP_nCOMP  enComparatorArg, ACMP_nOUTPUT_VALUE* penOutputValArg)
 {
-    ACMP_nOUTPUT_VALUE enOutputValueReg = ACMP_enOUTPUT_VALUE_VMIN_GREATER;
-    enOutputValueReg = (ACMP_nOUTPUT_VALUE) ACMP__u32GetCompGeneric((uint32_t) enModule,
-                                            (uint32_t) enComparatorArg,
-                                            ACMP_STAT_OFFSET, ACMP_STAT_OVAL_MASK,
-                                            ACMP_STAT_R_OVAL_BIT);
-    return (enOutputValueReg);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penOutputValArg)
+    {
+        stRegister.u8Shift = ACMP_STAT_R_OVAL_BIT;
+        stRegister.u32Mask = ACMP_STAT_OVAL_MASK;
+        stRegister.uptrAddress = ACMP_STAT_OFFSET;
+        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+        *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

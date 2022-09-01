@@ -26,16 +26,37 @@
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_ControlGeneric.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-void ACMP__vSetComparatorOutputInvert(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg, ACMP_nOUTPUT_INVERT enOutputInvertArg)
+ACMP_nERROR ACMP__enSetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enOutputInvertArg)
 {
-    ACMP__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enComparatorArg, (uint32_t) enOutputInvertArg, ACMP_CTL_CINV_MASK, ACMP_CTL_R_CINV_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_CTL_R_CINV_BIT;
+    stRegister.u32Mask = ACMP_CTL_CINV_MASK;
+    stRegister.uptrAddress = ACMP_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enOutputInvertArg;
+    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ACMP_nOUTPUT_INVERT ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penOutputInvertArg)
 {
-    ACMP_nOUTPUT_INVERT enOutputInvertReg = ACMP_enOUTPUT_INVERT_DIS;
-    enOutputInvertReg = (ACMP_nOUTPUT_INVERT) ACMP__u32GetCompGenericControl((uint32_t) enModule,
-                                                     (uint32_t) enComparatorArg,
-                                                     ACMP_CTL_CINV_MASK, ACMP_CTL_R_CINV_BIT);
-    return (enOutputInvertReg);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penOutputInvertArg)
+    {
+        stRegister.u8Shift = ACMP_CTL_R_CINV_BIT;
+        stRegister.u32Mask = ACMP_CTL_CINV_MASK;
+        stRegister.uptrAddress = ACMP_CTL_OFFSET;
+        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+        *penOutputInvertArg = (ACMP_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

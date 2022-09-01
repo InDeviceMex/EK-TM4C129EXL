@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetReferenceRange(ACMP_nMODULE enModule, ACMP_nREFERENCE_RANGE enReferenceRangeArg);
-ACMP_nREFERENCE_RANGE ACMP__enGetReferenceRange(ACMP_nMODULE enModule);
+ACMP_nERROR ACMP__enSetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_RANGE enReferenceRangeArg);
+ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_RANGE* penReferenceRangeArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_REFERENCE_XHEADER_ACMP_REFERENCERANGE_H_ */

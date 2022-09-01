@@ -24,8 +24,8 @@
 #include <xDriver_MCU/Common/xHeader/MCU_RegisterSourceIRQ.h>
 #include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 
-MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                    MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
+MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                    MCU_pvfIRQSourceHandler_t* pfIrqArrayHandler,
                                     uint32_t u32InterruptSource,
                                     uint32_t u32InterruptSourceMax)
 {

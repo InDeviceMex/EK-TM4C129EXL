@@ -26,18 +26,38 @@
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Primitives/ACMP_Primitives.h>
 
-void ACMP__vSetReferenceEnable(ACMP_nMODULE enModule, ACMP_nREFERENCE enReferenceEnableArg)
+ACMP_nERROR ACMP__enSetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE enStateArg)
 {
-    ACMP__vWriteRegister(enModule , ACMP_REFCTL_OFFSET, (uint32_t) enReferenceEnableArg,
-                         ACMP_REFCTL_EN_MASK, ACMP_REFCTL_R_EN_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_REFCTL_R_EN_BIT;
+    stRegister.u32Mask = ACMP_REFCTL_EN_MASK;
+    stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ACMP_nREFERENCE ACMP__enGetReferenceEnable(ACMP_nMODULE enModule)
+ACMP_nERROR ACMP__enGetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE* penStateArg)
 {
-    ACMP_nREFERENCE enReference = ACMP_enREFERENCE_DIS;
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
 
-    enReference = (ACMP_nREFERENCE) ACMP__u32ReadRegister(enModule, ACMP_REFCTL_OFFSET,
-                         ACMP_REFCTL_EN_MASK, ACMP_REFCTL_R_EN_BIT);
-    return (enReference);
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u8Shift = ACMP_REFCTL_R_EN_BIT;
+        stRegister.u32Mask = ACMP_REFCTL_EN_MASK;
+        stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+        enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
+
+        *penStateArg = (ACMP_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 

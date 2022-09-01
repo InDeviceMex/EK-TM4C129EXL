@@ -26,17 +26,37 @@
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Primitives/ACMP_Primitives.h>
 
-void ACMP__vSetReferenceRange(ACMP_nMODULE enModule, ACMP_nREFERENCE_RANGE enReferenceRangeArg)
+ACMP_nERROR ACMP__enSetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_RANGE enReferenceRangeArg)
 {
-    ACMP__vWriteRegister(enModule , ACMP_REFCTL_OFFSET, (uint32_t) enReferenceRangeArg,
-                         ACMP_REFCTL_RNG_MASK, ACMP_REFCTL_R_RNG_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_REFCTL_R_RNG_BIT;
+    stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
+    stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enReferenceRangeArg;
+    enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ACMP_nREFERENCE_RANGE ACMP__enGetReferenceRange(ACMP_nMODULE enModule)
+ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_RANGE* penReferenceRangeArg)
 {
-    ACMP_nREFERENCE_RANGE enReferenceRange = ACMP_enREFERENCE_RANGE_HIGH;
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
 
-    enReferenceRange = (ACMP_nREFERENCE_RANGE) ACMP__u32ReadRegister(enModule, ACMP_REFCTL_OFFSET,
-                                                ACMP_REFCTL_RNG_MASK, ACMP_REFCTL_R_RNG_BIT);
-    return (enReferenceRange);
+    if(0UL != (uintptr_t) penReferenceRangeArg)
+    {
+        stRegister.u8Shift = ACMP_REFCTL_R_RNG_BIT;
+        stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
+        stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+        enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
+
+        *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

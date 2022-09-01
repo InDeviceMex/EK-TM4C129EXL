@@ -27,11 +27,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
-void ACMP__vSetCompGeneric(uint32_t u32Module, uint32_t  u32ComparatorArg,
-                           uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                           uint32_t u32MaskFeature, uint32_t u32BitFeature);
-uint32_t ACMP__u32GetCompGeneric(uint32_t u32Module, uint32_t  u32ComparatorArg,
-                                 uint32_t u32OffsetRegister, uint32_t u32MaskFeature,
-                                 uint32_t u32BitFeature);
+ACMP_nERROR ACMP__enSetCompGeneric(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_Register_t* pstRegisterDataArg);
+ACMP_nERROR ACMP__enGetCompGeneric(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_GENERIC_H_ */

@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetComparatorADCTriggerLevel(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
                                          ACMP_nCOMP enComparatorArg,
-                                         ACMP_nADC_LEVEL enTriggerLevelArg);
-ACMP_nADC_LEVEL ACMP__enGetComparatorADCTriggerLevel(ACMP_nMODULE enModule,
-                                                     ACMP_nCOMP enComparatorArg);
+                                         ACMP_nLEVEL enTriggerLevelArg);
+ACMP_nERROR ACMP__enGetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
+                                                     ACMP_nCOMP enComparatorArg,
+                                                     ACMP_nLEVEL* penTriggerLevelArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_CONTROL_XHEADER_ACMP_TRIGGERLEVEL_H_ */

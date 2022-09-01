@@ -27,8 +27,12 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetADCTriggerConfig(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                 ACMP_nCOMP enComparatorArg,
                                 ACMP_nADC_CONFIG enIntConfigArg);
+
+ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
+                               ACMP_nCOMP enComparatorArg,
+                               ACMP_nADC_CONFIG* penIntConfigArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_ADCTRIGGERCONFIG_H_ */

@@ -26,20 +26,40 @@
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_ControlGeneric.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-void ACMP__vSetComparatorADCTrigger(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetComparatorADCTriggerState(ACMP_nMODULE enModuleArg,
                                     ACMP_nCOMP enComparatorArg,
-                                    ACMP_nADC enTriggerEnable)
+                                    ACMP_nSTATE enTriggerStateArg)
 {
-    ACMP__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enComparatorArg,
-                                 (uint32_t) enTriggerEnable,
-                                 ACMP_CTL_TOEN_MASK, ACMP_CTL_R_TOEN_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_CTL_R_TOEN_BIT;
+    stRegister.u32Mask = ACMP_CTL_TOEN_MASK;
+    stRegister.uptrAddress = ACMP_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enTriggerStateArg;
+    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ACMP_nADC ACMP__enGetComparatorADCTrigger(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enGetComparatorADCTriggerState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
+                                          ACMP_nSTATE* penTriggerStateArg)
 {
-    ACMP_nADC enAdcEnaReg = ACMP_enADC_DIS;
-    enAdcEnaReg = (ACMP_nADC) ACMP__u32GetCompGenericControl((uint32_t) enModule,
-                                 (uint32_t) enComparatorArg,
-                                 ACMP_CTL_TOEN_MASK, ACMP_CTL_R_TOEN_BIT);
-    return (enAdcEnaReg);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penTriggerStateArg)
+    {
+        stRegister.u8Shift = ACMP_CTL_R_TOEN_BIT;
+        stRegister.u32Mask = ACMP_CTL_TOEN_MASK;
+        stRegister.uptrAddress = ACMP_CTL_OFFSET;
+        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+        *penTriggerStateArg = (ACMP_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

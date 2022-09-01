@@ -27,7 +27,8 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetReferenceEnable(ACMP_nMODULE enModule, ACMP_nREFERENCE enReferenceEnableArg);
-ACMP_nREFERENCE ACMP__enGetReferenceEnable(ACMP_nMODULE enModule);
+ACMP_nERROR ACMP__enSetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE enStateArg);
+
+ACMP_nERROR ACMP__enGetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_REFERENCE_XHEADER_ACMP_REFERENCEENABLE_H_ */

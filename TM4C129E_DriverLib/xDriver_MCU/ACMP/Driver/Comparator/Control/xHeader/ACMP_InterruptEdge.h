@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetComparatorInterruptTriggerEdge(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetComparatorInterruptTriggerEdge(ACMP_nMODULE enModuleArg,
                                               ACMP_nCOMP enComparatorArg,
-                                              ACMP_nINT_EDGE enTriggerEdgeArg);
-ACMP_nINT_EDGE ACMP__enGetComparatorInterruptTriggerEdge(ACMP_nMODULE enModule,
-                                                         ACMP_nCOMP enComparatorArg);
+                                              ACMP_nEDGE enTriggerEdgeArg);
+ACMP_nERROR ACMP__enGetComparatorInterruptTriggerEdge(ACMP_nMODULE enModuleArg,
+                                                         ACMP_nCOMP enComparatorArg,
+                                                         ACMP_nEDGE* penTriggerEdgeArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_CONTROL_XHEADER_ACMP_INTERRUPTEDGE_H_ */

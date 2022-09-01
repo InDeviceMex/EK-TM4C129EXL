@@ -27,10 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetComparatorOutputInvert(ACMP_nMODULE enModule,
-                                      ACMP_nCOMP enComparatorArg,
-                                      ACMP_nOUTPUT_INVERT enOutputInvertArg);
-ACMP_nOUTPUT_INVERT ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModule,
-                                                      ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enSetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enOutputInvertArg);
+ACMP_nERROR ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penOutputInvertArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_CONTROL_XHEADER_ACMP_OUTPUTINVERT_H_ */

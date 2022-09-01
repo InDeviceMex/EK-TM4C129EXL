@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetComparatorInterruptTriggerLevel(ACMP_nMODULE enModule,
-                                               ACMP_nCOMP enComparatorArg,
-                                               ACMP_nINT_LEVEL enInterruptLevelArg);
-ACMP_nINT_LEVEL ACMP__enGetComparatorInterruptTriggerLevel(ACMP_nMODULE enModule,
-                                                           ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enSetComparatorInterruptTriggerLevel(ACMP_nMODULE enModuleArg,
+                                                       ACMP_nCOMP enComparatorArg,
+                                                       ACMP_nLEVEL enInterruptLevelArg);
+ACMP_nERROR ACMP__enGetComparatorInterruptTriggerLevel(ACMP_nMODULE enModuleArg,
+                                                       ACMP_nCOMP enComparatorArg,
+                                                       ACMP_nLEVEL* penInterruptLevelArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_CONTROL_XHEADER_ACMP_INTERRUPTLEVEL_H_ */

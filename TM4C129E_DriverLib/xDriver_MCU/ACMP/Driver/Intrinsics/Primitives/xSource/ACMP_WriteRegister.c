@@ -28,29 +28,23 @@
 
 ACMP_nERROR ACMP__enWriteRegister(ACMP_nMODULE enModuleArg, ACMP_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32ACMPBase;
-    uint32_t u32Module;
-    ACMP_nERROR enReturnReg;
-    MCU_nERROR enMCUErrorReg;
+    uintptr_t uptrModuleBase;
+    ACMP_nERROR enErrorReg;
     if(0UL != (uint32_t) pstRegisterDataArg)
     {
-        enMCUErrorReg = MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
-        if(MCU_enERROR_OK != enMCUErrorReg)
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+        if(ACMP_enERROR_OK == enErrorReg)
         {
             uptrModuleBase = ACMP__uptrBlockBaseAddress(enModuleArg);
             pstRegisterDataArg->uptrAddress += uptrModuleBase;
-            enReturnReg = MCU__enWriteRegister(pstRegisterDataArg);
-        }
-        else
-        {
-            enReturnReg = ACMP_enERROR_VALUE;
+            enErrorReg = (ACMP_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
         }
     }
     else
     {
-        enReturnReg = ACMP_enERROR_POINTER;
+        enErrorReg = ACMP_enERROR_POINTER;
     }
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 

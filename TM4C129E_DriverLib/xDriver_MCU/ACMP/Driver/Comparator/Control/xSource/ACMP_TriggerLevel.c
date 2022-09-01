@@ -26,21 +26,41 @@
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_ControlGeneric.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-void ACMP__vSetComparatorADCTriggerLevel(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
                                          ACMP_nCOMP enComparatorArg,
-                                         ACMP_nADC_LEVEL enTriggerLevelArg)
+                                         ACMP_nLEVEL enTriggerLevelArg)
 {
-    ACMP__vSetCompGenericControl((uint32_t) enModule, (uint32_t) enComparatorArg,
-                                 (uint32_t) enTriggerLevelArg,
-                                 ACMP_CTL_TSLVAL_MASK, ACMP_CTL_R_TSLVAL_BIT);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    stRegister.u8Shift = ACMP_CTL_R_TSLVAL_BIT;
+    stRegister.u32Mask = ACMP_CTL_TSLVAL_MASK;
+    stRegister.uptrAddress = ACMP_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enTriggerLevelArg;
+    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ACMP_nADC_LEVEL ACMP__enGetComparatorADCTriggerLevel(ACMP_nMODULE enModule,
-                                                     ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enGetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
+                                                     ACMP_nCOMP enComparatorArg,
+                                                     ACMP_nLEVEL* penTriggerLevelArg)
 {
-    ACMP_nADC_LEVEL enAdcLevelReg = ACMP_enADC_LEVEL_LOW;
-    enAdcLevelReg = (ACMP_nADC_LEVEL) ACMP__u32GetCompGenericControl((uint32_t) enModule,
-                                             (uint32_t) enComparatorArg,
-                                             ACMP_CTL_TSLVAL_MASK, ACMP_CTL_R_TSLVAL_BIT);
-    return (enAdcLevelReg);
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penTriggerLevelArg)
+    {
+        stRegister.u8Shift = ACMP_CTL_R_TSLVAL_BIT;
+        stRegister.u32Mask = ACMP_CTL_TSLVAL_MASK;
+        stRegister.uptrAddress = ACMP_CTL_OFFSET;
+        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+        *penTriggerLevelArg = (ACMP_nLEVEL) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

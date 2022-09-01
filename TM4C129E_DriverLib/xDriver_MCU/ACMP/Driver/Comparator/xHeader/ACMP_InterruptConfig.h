@@ -27,8 +27,11 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetInterruptConfig(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetInterruptConfig(ACMP_nMODULE enModuleArg,
                                ACMP_nCOMP enComparatorArg,
                                ACMP_nINT_CONFIG enIntConfigArg);
+ACMP_nERROR ACMP__enGetInterruptConfig(ACMP_nMODULE enModuleArg,
+                               ACMP_nCOMP enComparatorArg,
+                               ACMP_nINT_CONFIG* penIntConfigArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_XHEADER_ACMP_INTERRUPTCONFIG_H_ */

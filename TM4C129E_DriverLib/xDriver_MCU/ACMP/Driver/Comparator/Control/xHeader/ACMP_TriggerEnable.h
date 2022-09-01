@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-void ACMP__vSetComparatorADCTrigger(ACMP_nMODULE enModule,
+ACMP_nERROR ACMP__enSetComparatorADCTriggerState(ACMP_nMODULE enModuleArg,
                                     ACMP_nCOMP enComparatorArg,
-                                    ACMP_nADC enTriggerEnable);
-ACMP_nADC ACMP__enGetComparatorADCTrigger(ACMP_nMODULE enModule,
-                                          ACMP_nCOMP enComparatorArg);
+                                    ACMP_nSTATE enTriggerStateArg);
+ACMP_nERROR ACMP__enGetComparatorADCTriggerState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
+                                          ACMP_nSTATE* penTriggerStateArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_COMPARATOR_CONTROL_XHEADER_ACMP_TRIGGERENABLE_H_ */
