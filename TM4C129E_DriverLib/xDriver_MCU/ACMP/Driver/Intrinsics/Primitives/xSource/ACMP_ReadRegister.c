@@ -29,7 +29,6 @@
 ACMP_nERROR ACMP__enReadRegister(ACMP_nMODULE enModuleArg, ACMP_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
-    uint32_t u32RegisterValue;
     ACMP_nERROR enErrorReg;
     if(0UL != (uint32_t) pstRegisterDataArg)
     {

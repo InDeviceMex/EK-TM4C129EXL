@@ -76,7 +76,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
         puxStackReg = (OS_UBase_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
                                              (size_t) uxStackDepthArg * sizeof(OS_UBase_t));
     #elif defined (__GNUC__ )
-    puxStackReg = (OS_UBase_t*) malloc(uxStackDepth * sizeof(OS_UBase_t));
+        puxStackReg = (OS_UBase_t*) malloc(uxStackDepthArg * sizeof(OS_UBase_t));
     #endif
 
     if(0UL != (OS_UBase_t) puxStackReg)

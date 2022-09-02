@@ -116,7 +116,7 @@ uint32_t ADC_Sample__u32GetValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence
 
     uint32_t u32Module = 0UL;
     uint32_t u32Sequencer = 0UL;
-    uint32_t u32Value = 0UL;
+    uint32_t u32ValueReg = 0UL;
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
@@ -129,24 +129,24 @@ uint32_t ADC_Sample__u32GetValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence
         {
         case (uint32_t) ADC_enSEQ_0:
             u32AdcBase += ADC_SS0_FIFO_OFFSET;
-            u32Value = *((volatile uint32_t*)u32AdcBase);
+            u32ValueReg = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_1:
-                u32AdcBase += ADC_SS1_FIFO_OFFSET;
-                u32Value = *((volatile uint32_t*)u32AdcBase);
+            u32AdcBase += ADC_SS1_FIFO_OFFSET;
+            u32ValueReg = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_2:
-                u32AdcBase += ADC_SS2_FIFO_OFFSET;
-                u32Value = *((volatile uint32_t*)u32AdcBase);
+            u32AdcBase += ADC_SS2_FIFO_OFFSET;
+            u32ValueReg = *((volatile uint32_t*)u32AdcBase);
             break;
         case (uint32_t) ADC_enSEQ_3:
-                u32AdcBase += ADC_SS3_FIFO_OFFSET;
-                u32Value = *((volatile uint32_t*)u32AdcBase);
+            u32AdcBase += ADC_SS3_FIFO_OFFSET;
+            u32ValueReg = *((volatile uint32_t*)u32AdcBase);
             break;
         default:
             break;
         }
     }
 
-    return (u32Value);
+    return (u32ValueReg);
 }

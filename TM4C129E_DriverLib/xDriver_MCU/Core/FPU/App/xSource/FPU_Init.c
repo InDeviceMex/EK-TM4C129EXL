@@ -27,13 +27,11 @@
 
 void FPU__vInit(void)
 {
-    FPU__vSetAccessType(FPU_enFULL_ACCESS);
-    FPU__vSetLazyPreservation(FPU_enLAZY_PRESERVATION_ENA);
-    FPU__vSetAutoPreservation(FPU_enAUTO_PRESERVATION_ENA);
-    /*FPU__vSetHalfPrecision(FPU_enHALF_PRECISION_IEEE);*/
-    /*FPU__vSetNAN(FPU_enNAN_PROPAGATE);*/
-    /*FPU__vSetRounding(FPU_enROUNDING_NEAREST);*/
+    FPU__enSetAccessType(FPU_enMODULE_0, FPU_enACCESS_FULL);
+    FPU__enSetLazyPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+    FPU__enSetAutoPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+    FPU__vSetMode(FPU_enMODULE_0, FPU_enMODE_DENORMAL);
+    FPU__vSetHalfPrecision(FPU_enMODULE_0, FPU_enHALF_PRECISION_IEEE);
+    FPU__vSetNAN(FPU_enMODULE_0, FPU_enNAN_PROPAGATE);
+    FPU__vSetRoundingMode(FPU_enMODULE_0, FPU_enROUNDING_NEAREST);
 }
-
-
-

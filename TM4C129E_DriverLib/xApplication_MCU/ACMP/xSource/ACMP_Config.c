@@ -30,43 +30,45 @@
 #define ACMP_LINE_MAX (2UL)
 #define MAX_CONFIG (2UL)
 
-GPIO_nDIGITAL_FUNCTION ACMP_enGpioOutput[MAX_CONFIG]
-                                        [(uint32_t) ACMP_enMODULE_MAX]
-                                        [(uint32_t) ACMP_enCOMP_MAX] =
-{
- {
-    {
-        GPIO_enC0O,
-        GPIO_enC1O,
-        GPIO_enC2O,
-    },
- },
- {
-    {
-        GPIO_enC0O_L2,
-        GPIO_enC1O_L3,
-        GPIO_enC2O,
-    },
- },
-};
-
-GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
-                                        [(uint32_t) ACMP_enCOMP_MAX]
-                                        [(uint32_t) ACMP_LINE_MAX] =
-{
-    {
-        {GPIO_enC0P, GPIO_enC0M},
-        {GPIO_enC1P, GPIO_enC1M},
-        {GPIO_enC2P, GPIO_enC2M},
-    },
-};
 
 ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
                                ACMP_nCOMP enCompArg ,
                                ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
                                const ACMP_CONTROL_t* pstControlConfig)
 {
-    ACMP_nERROR enReturn = ACMP_enERROR_ERROR;
+    const GPIO_nDIGITAL_FUNCTION ACMP_enGpioOutput[MAX_CONFIG]
+                                            [(uint32_t) ACMP_enMODULE_MAX]
+                                            [(uint32_t) ACMP_enCOMP_MAX] =
+    {
+     {
+        {
+            GPIO_enC0O,
+            GPIO_enC1O,
+            GPIO_enC2O,
+        },
+     },
+     {
+        {
+            GPIO_enC0O_L2,
+            GPIO_enC1O_L3,
+            GPIO_enC2O,
+        },
+     },
+    };
+
+    const GPIO_nANALOG_FUNCTION ACMP_enAnalogInput[(uint32_t) ACMP_enMODULE_MAX]
+                                            [(uint32_t) ACMP_enCOMP_MAX]
+                                            [(uint32_t) ACMP_LINE_MAX] =
+    {
+        {
+            {GPIO_enC0P, GPIO_enC0M},
+            {GPIO_enC1P, GPIO_enC1M},
+            {GPIO_enC2P, GPIO_enC2M},
+        },
+    };
+
+
+    ACMP_nERROR enReturn = ACMP_enERROR_POINTER;
     ACMP_nMODULE enModuleFilter = ACMP_enMODULE_0;
     ACMP_nLINE_OUT_SELECT enLineOutFilter = ACMP_enLINE_OUT_SELECT_PRIMARY;
     ACMP_nCOMP enCompFilter = ACMP_enCOMP_0;
@@ -108,7 +110,7 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
                 break;
         }
 
-        if(ACMP_enOUTPUT_ENA == pstControlConfig->enOutputEnable)
+        if(ACMP_enSTATE_ENA == pstControlConfig->enOutputEnable)
         {
             enDigitalOutputReg = ACMP_enGpioOutput[(uint32_t)enLineOutFilter]
                                                   [(uint32_t) enModuleFilter]
@@ -118,26 +120,26 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
         }
 
 
-        ACMP__vSetComparatorVmaxSource(enModuleFilter, enCompFilter,
+        ACMP__enSetComparatorVmaxSource(enModuleFilter, enCompFilter,
                                        pstControlConfig->enVmaxSource);
-        ACMP__vSetComparatorOutputInvert(enModuleFilter, enCompFilter,
+        ACMP__enSetComparatorOutputInvert(enModuleFilter, enCompFilter,
                                          pstControlConfig->enOutputInvert);
-        ACMP__vSetADCTriggerConfig(enModuleFilter, enCompFilter,
+        ACMP__enSetADCTriggerConfig(enModuleFilter, enCompFilter,
                                    pstControlConfig->enADCConfig);
-        ACMP__vSetInterruptConfig(enModuleFilter, enCompFilter,
+        ACMP__enSetInterruptConfig(enModuleFilter, enCompFilter,
                                   pstControlConfig->enIntConfig);
 
-        ACMP__vSetComparatorADCTrigger(enModuleFilter, enCompFilter,
+        ACMP__enSetComparatorADCTriggerState(enModuleFilter, enCompFilter,
                                        pstControlConfig->enADCEnable);
 
         u32CompMask <<= (uint32_t) enCompFilter;
-        if(ACMP_enINT_DIS == pstControlConfig->enIntEnable)
+        if(ACMP_enSTATE_DIS == pstControlConfig->enIntEnable)
         {
-            ACMP__vDisInterruptSource(enModuleFilter, enCompMask);
+            ACMP__enDisableInterruptSourceByMask(enModuleFilter, enCompMask);
         }
         else
         {
-            ACMP__vEnInterruptSource(enModuleFilter, enCompMask);
+            ACMP__enEnableInterruptSourceByMask(enModuleFilter, enCompMask);
         }
         enReturn = ACMP_enERROR_OK;
     }

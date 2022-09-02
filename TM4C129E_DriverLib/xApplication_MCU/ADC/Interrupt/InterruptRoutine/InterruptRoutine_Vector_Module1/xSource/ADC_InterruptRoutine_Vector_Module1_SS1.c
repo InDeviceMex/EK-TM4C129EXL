@@ -39,7 +39,7 @@ void ADC1_SS1__vIRQVectorHandler(void)
     volatile uint32_t u32RegCompMuxBit = 0UL;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
     uint32_t u32Pos = 0UL;
-    uint32_t u32Shift = 0x1UL;
+    uint32_t u32ShiftReg = 0x1UL;
     uint32_t u32Offset = 0x0UL;
 
     u32Ready = SYSCTL_PRADC_R;
@@ -83,7 +83,7 @@ void ADC1_SS1__vIRQVectorHandler(void)
                 ADC1_ISC_R = ADC_Comp_COMPARATIVE;
                 for(u32Pos = (uint32_t) ADC_enMUX_0; u32Pos < (uint32_t) ADC_enMUX_MAX; u32Pos++)
                 {
-                    if(u32RegCompSelect & u32Shift)
+                    if(u32RegCompSelect & u32ShiftReg)
                     {
                         u32RegCompMux = ADC1_SS1_DC_R >> u32Offset;
                         u32RegCompMux &= 0xFUL;
@@ -99,7 +99,7 @@ void ADC1_SS1__vIRQVectorHandler(void)
                         }
                     }
                     u32Offset += 0x4UL;
-                    u32Shift <<= 4UL;
+                    u32ShiftReg <<= 4UL;
                 }
             }
         }

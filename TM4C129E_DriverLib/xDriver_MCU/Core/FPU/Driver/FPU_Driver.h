@@ -29,6 +29,7 @@
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_AutoPreservation.h>
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_HalfPrecision.h>
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_LazyPreservation.h>
+#include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_Mode.h>
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_NAN.h>
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_Rounding.h>
 

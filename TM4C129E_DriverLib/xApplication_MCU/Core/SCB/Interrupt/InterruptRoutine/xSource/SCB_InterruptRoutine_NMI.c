@@ -29,7 +29,6 @@
 void NMI__vIRQVectorHandler(void)
 {
     volatile uint32_t u32RegNMI = 0UL;
-    volatile uint32_t u32RegNMITemp = 0UL;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
     u32RegNMI = SYSCTL_NMIC_R;

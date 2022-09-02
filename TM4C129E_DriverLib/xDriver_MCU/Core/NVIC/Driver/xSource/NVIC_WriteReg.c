@@ -26,7 +26,7 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-void NVIC__vWriteRegister(NVIC_nSTIR enIRQ, uint32_t u32RegisterOffset, uint32_t u32Value)
+void NVIC__vWriteRegister(NVIC_nSTIR enIRQ, uint32_t u32RegisterOffset, uint32_t u32ValueArg)
 {
     uint32_t u32IsrIndex = 0UL;
     uint32_t u32IsrBit = 0UL;
@@ -37,6 +37,6 @@ void NVIC__vWriteRegister(NVIC_nSTIR enIRQ, uint32_t u32RegisterOffset, uint32_t
     u32IsrIndex = u32IRQ / 32UL;
     u32IsrIndex *= 4UL;
     u32RegisterOffset += u32IsrIndex;
-    MCU__vWriteRegister(NVIC_BASE, u32RegisterOffset, u32Value, 0x1UL, u32IsrBit);
+    MCU__vWriteRegister(NVIC_BASE, u32RegisterOffset, u32ValueArg, 0x1UL, u32IsrBit);
 
 }

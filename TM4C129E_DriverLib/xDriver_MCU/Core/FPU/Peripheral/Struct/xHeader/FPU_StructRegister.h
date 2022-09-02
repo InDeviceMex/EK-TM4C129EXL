@@ -33,7 +33,7 @@ typedef volatile struct
     volatile uint32_t CP10 :2;
     volatile uint32_t CP11 :2;
     const    uint32_t reserved1 :8;
-}CPACR_t;
+}FPU_CPACR_t;
 
 typedef volatile struct
 {
@@ -49,13 +49,13 @@ typedef volatile struct
     const    uint32_t reserved2 :21;
     volatile uint32_t LSPEN :1;
     volatile uint32_t ASPEN :1;
-}FPCCR_t;
+}FPU_CCR_t;
 
 typedef volatile struct
 {
     const    uint32_t reserved :3;
     volatile uint32_t ADDRESS :29;
-}FPCAR_t;
+}FPU_CAR_t;
 
 typedef volatile struct
 {
@@ -76,7 +76,7 @@ typedef volatile struct
     volatile uint32_t C :1;
     volatile uint32_t Z :1;
     volatile uint32_t N :1;
-}FPSCR_t;
+}FPU_SCR_t;
 
 typedef volatile struct
 {
@@ -86,7 +86,7 @@ typedef volatile struct
     volatile uint32_t DN :1;
     volatile uint32_t AHP :1;
     const    uint32_t reserved1 :5;
-}FPDSCR_t;
+}FPU_DSCR_t;
 
 typedef volatile struct
 {
@@ -98,7 +98,7 @@ typedef volatile struct
     const  uint32_t Square_root :4;
     const  uint32_t Short_vectors :4;
     const  uint32_t P_rounding_modes :4;
-}MVFR0_t;
+}FPU_MVFR0_t;
 
 typedef volatile struct
 {
@@ -107,6 +107,6 @@ typedef volatile struct
     const  uint32_t reserved :16;
     const  uint32_t FP_HPFP :4;
     const  uint32_t FP_fused_MAC :4;
-}MVFR1_t;
+}FPU_MVFR1_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_PERIPHERAL_FPU_STRUCT_FPU_STRUCTREGISTER_H_ */

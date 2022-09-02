@@ -34,7 +34,7 @@ ACMP_nERROR ACMP__enGetComparatorOutput(ACMP_nMODULE enModuleArg, ACMP_nCOMP  en
 
     if(0UL != (uintptr_t) penOutputValArg)
     {
-        stRegister.u8Shift = ACMP_STAT_R_OVAL_BIT;
+        stRegister.u32Shift = ACMP_STAT_R_OVAL_BIT;
         stRegister.u32Mask = ACMP_STAT_OVAL_MASK;
         stRegister.uptrAddress = ACMP_STAT_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);

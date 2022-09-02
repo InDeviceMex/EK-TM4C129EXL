@@ -31,9 +31,9 @@
 #define FPU_OFFSET    ((uint32_t) 0x00000D88UL)
 
 #define FPU_CPACR_OFFSET    ((uint32_t) 0x0D88UL)
-#define FPU_FPCCR_OFFSET    ((uint32_t) 0x0F34UL)
-#define FPU_FPCAR_OFFSET    ((uint32_t) 0x0F38UL)
-#define FPU_FPDSCR_OFFSET    ((uint32_t) 0x0F3CUL)
+#define FPU_CCR_OFFSET    ((uint32_t) 0x0F34UL)
+#define FPU_CAR_OFFSET    ((uint32_t) 0x0F38UL)
+#define FPU_DSCR_OFFSET    ((uint32_t) 0x0F3CUL)
 #define FPU_MVFR0_OFFSET    ((uint32_t) 0x0F40UL)
 #define FPU_MVFR1_OFFSET    ((uint32_t) 0x0F44UL)
 #define FPU_MVFR2_OFFSET    ((uint32_t) 0x0F48UL)

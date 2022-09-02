@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_OutputInvert.h>
 
-#include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_ControlGeneric.h>
+#include <xDriver_MCU/ACMP/Driver/Comparator/xHeader/ACMP_Generic.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
 ACMP_nERROR ACMP__enSetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enOutputInvertArg)
@@ -31,7 +31,7 @@ ACMP_nERROR ACMP__enSetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCO
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u8Shift = ACMP_CTL_R_CINV_BIT;
+    stRegister.u32Shift = ACMP_CTL_R_CINV_BIT;
     stRegister.u32Mask = ACMP_CTL_CINV_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.u32Value = (uint32_t) enOutputInvertArg;
@@ -47,7 +47,7 @@ ACMP_nERROR ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCO
 
     if(0UL != (uintptr_t) penOutputInvertArg)
     {
-        stRegister.u8Shift = ACMP_CTL_R_CINV_BIT;
+        stRegister.u32Shift = ACMP_CTL_R_CINV_BIT;
         stRegister.u32Mask = ACMP_CTL_CINV_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);

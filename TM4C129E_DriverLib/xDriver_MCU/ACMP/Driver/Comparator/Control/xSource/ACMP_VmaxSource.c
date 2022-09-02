@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_VmaxSource.h>
 
-#include <xDriver_MCU/ACMP/Driver/Comparator/Control/xHeader/ACMP_ControlGeneric.h>
+#include <xDriver_MCU/ACMP/Driver/Comparator/xHeader/ACMP_Generic.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
 ACMP_nERROR ACMP__enSetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
@@ -33,7 +33,7 @@ ACMP_nERROR ACMP__enSetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u8Shift = ACMP_CTL_R_ASRCP_BIT;
+    stRegister.u32Shift = ACMP_CTL_R_ASRCP_BIT;
     stRegister.u32Mask = ACMP_CTL_ASRCP_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.u32Value = (uint32_t) enVmaxPinSourceArg;
@@ -51,7 +51,7 @@ ACMP_nERROR ACMP__enGetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
 
     if(0UL != (uintptr_t) penVmaxPinSourceArg)
     {
-        stRegister.u8Shift = ACMP_CTL_R_ASRCP_BIT;
+        stRegister.u32Shift = ACMP_CTL_R_ASRCP_BIT;
         stRegister.u32Mask = ACMP_CTL_ASRCP_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);

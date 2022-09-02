@@ -29,14 +29,14 @@
 FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
 {
     FLASH_nSTATUS enStatusReg = FLASH_enERROR;
-    uint32_t u32Value = 0UL;
+    uint32_t u32ValueReg = 0UL;
     uint32_t u32FlashSize = FLASH__u32GetSize();
 
     u32Address &= ~(uint32_t) 0x3UL;
     if(u32Address < u32FlashSize)
     {
-        u32Value = *((uint32_t*) u32Address);
-        if(0xFFFFFFFFUL == u32Value)
+        u32ValueReg = *((uint32_t*) u32Address);
+        if(0xFFFFFFFFUL == u32ValueReg)
         {
             MCU__vWriteRegister(FLASH_BASE, FLASH_FMD_OFFSET,
                                 u32Data, FLASH_FMD_R_DATA_MASK, 0UL);
@@ -52,7 +52,7 @@ FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
 FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count)
 {
     FLASH_nSTATUS enStatusReg = FLASH_enERROR;
-    uint32_t u32Value = 0UL;
+    uint32_t u32ValueReg = 0UL;
     uint32_t u32CountActual = 0UL;
     uint32_t u32RegisterOffset = 0UL;
     uint32_t u32Offset = 0UL;
@@ -78,8 +78,8 @@ FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, u
         {
             pu32Address = (uint32_t*)u32Address;
             pu32Address += u32CountActual;
-            u32Value = *pu32Address;
-            if(0xFFFFFFFFUL == u32Value)
+            u32ValueReg = *pu32Address;
+            if(0xFFFFFFFFUL == u32ValueReg)
             {
                 MCU__vWriteRegister(FLASH_BASE, u32RegisterOffset, *pu32Data, 0xFFFFFFFFU, 0UL);
             }

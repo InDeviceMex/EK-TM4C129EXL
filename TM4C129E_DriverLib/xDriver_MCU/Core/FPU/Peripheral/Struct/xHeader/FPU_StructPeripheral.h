@@ -32,35 +32,35 @@ typedef volatile struct
     union
     {
         volatile uint32_t CPACR;
-        CPACR_t CPACR_Bit;
+        FPU_CPACR_t CPACR_Bit;
     };
     uint32_t reserved[106UL];
     union
     {
-        volatile uint32_t FPCCR;
-        FPCCR_t FPCCR_Bit;
+        volatile uint32_t CCR;
+        FPU_CCR_t CCR_Bit;
     };
     union
     {
-        volatile uint32_t FPCAR;
-        FPCAR_t FPCAR_Bit;
+        volatile uint32_t CAR;
+        FPU_CAR_t CAR_Bit;
     };
     union
     {
-        volatile uint32_t FPDSCR;
-        FPDSCR_t FPDSCR_Bit;
+        volatile uint32_t DSCR;
+        FPU_DSCR_t DSCR_Bit;
     };
     union
     {
-        const  uint32_t MVFR0;
-        MVFR0_t MVFR0_Bit;
+        const uint32_t MVFR0;
+        FPU_MVFR0_t MVFR0_Bit;
     };
     union
     {
-        const  uint32_t MVFR1;
-        MVFR1_t MVFR1_Bit;
+        const uint32_t MVFR1;
+        FPU_MVFR1_t MVFR1_Bit;
     };
-        const  uint32_t MVFR2;
+    const uint32_t MVFR2;
 }FPU_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_PERIPHERAL_FPU_STRUCT_FPU_STRUCTPERIPHERAL_H_ */

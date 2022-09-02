@@ -10,7 +10,8 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-FPU_nNAN FPU__enGetNAN(void);
-void FPU__vSetNAN(FPU_nNAN enNAN);
+void FPU__vSetNAN(FPU_nMODULE enModuleArg, FPU_nNAN enNANArg);
+FPU_nNAN FPU__enGetNAN(FPU_nMODULE enModuleArg);
+FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_DRIVER_FPU_NAN_H_ */

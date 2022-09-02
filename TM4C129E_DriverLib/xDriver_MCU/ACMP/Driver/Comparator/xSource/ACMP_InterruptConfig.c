@@ -76,6 +76,8 @@ ACMP_nERROR ACMP__enGetInterruptConfig(ACMP_nMODULE enModuleArg,
 
     if(0UL != (uintptr_t) penIntConfigArg)
     {
+        enEdgeReg = ACMP_enEDGE_NONE;
+        enLevelReg = ACMP_enLEVEL_LOW;
         enErrorReg = ACMP__enGetComparatorInterruptTriggerEdge(enModuleArg, enComparatorArg, &enEdgeReg);
         if(ACMP_enERROR_OK == enErrorReg)
         {

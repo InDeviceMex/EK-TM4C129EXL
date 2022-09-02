@@ -120,15 +120,15 @@ float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
 
     if(ACMP_REFCTL_VREF_MASK >=  u32VoltageStep)
     {
-        ACMP__vSetReferenceRange(enModule, enVoltageRange);
-        ACMP__vSetReferenceEncoder(enModule, u32VoltageStep);
-        ACMP__vSetReferenceEnable(enModule, ACMP_enREFERENCE_ENA);
+        ACMP__enSetReferenceRange(enModule, enVoltageRange);
+        ACMP__enSetReferenceEncoder(enModule, u32VoltageStep);
+        ACMP__enSetReferenceState(enModule, ACMP_enSTATE_ENA);
     }
     else
     {
-        ACMP__vSetReferenceRange(enModule, ACMP_enREFERENCE_RANGE_HIGH);
-        ACMP__vSetReferenceEncoder(enModule, 0UL);
-        ACMP__vSetReferenceEnable(enModule, ACMP_enREFERENCE_DIS);
+        ACMP__enSetReferenceRange(enModule, ACMP_enREFERENCE_RANGE_HIGH);
+        ACMP__enSetReferenceEncoder(enModule, 0UL);
+        ACMP__enSetReferenceState(enModule, ACMP_enSTATE_DIS);
     }
     f32VoltageCurrent =  ACMP__f32GetVoltageReference(enModule);
     MCU__vSetFPUContextActive(enFPUActive);
@@ -143,13 +143,13 @@ float32_t ACMP__f32GetVoltageReference(ACMP_nMODULE enModule)
     float32_t f32VoltagePorcentageInit = 0.0f;
     uint32_t u32EncoderValueReg = 0UL;
     ACMP_nREFERENCE_RANGE enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
-    ACMP_nREFERENCE enVoltageEnable = ACMP_enREFERENCE_DIS;
+    ACMP_nSTATE enVoltageEnable = ACMP_enSTATE_DIS;
 
-    enVoltageEnable = ACMP__enGetReferenceEnable(enModule);
-    if(ACMP_enREFERENCE_ENA == enVoltageEnable)
+    ACMP__enGetReferenceState(enModule, &enVoltageEnable);
+    if(ACMP_enSTATE_ENA == enVoltageEnable)
     {
-        u32EncoderValueReg = ACMP__u32GetReferenceEncoder(enModule);
-        enVoltageRange = ACMP__enGetReferenceRange(enModule);
+        ACMP__enGetReferenceEncoder(enModule, &u32EncoderValueReg);
+        ACMP__enGetReferenceRange(enModule, &enVoltageRange);
         f32VoltagePorcentage = (float32_t) u32EncoderValueReg;
         f32VoltagePorcentage *= 100.0f;
         if(ACMP_enREFERENCE_RANGE_LOW == enVoltageRange)

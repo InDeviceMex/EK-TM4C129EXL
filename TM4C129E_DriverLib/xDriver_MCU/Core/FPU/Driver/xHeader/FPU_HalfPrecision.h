@@ -10,7 +10,10 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-FPU_nHALF_PRECISION FPU__enGetHalfPrecision(void);
-void FPU__vSetHalfPrecision(FPU_nHALF_PRECISION enHalfPrecision);
+void FPU__vSetHalfPrecision(FPU_nMODULE enModuleArg,
+                                   FPU_nHALF_PRECISION enHalfPrecisionArg);
+FPU_nHALF_PRECISION FPU__enGetHalfPrecision(FPU_nMODULE enModuleArg);
+FPU_nERROR FPU__enGetHalfPrecisionDefault(FPU_nMODULE enModuleArg,
+                                   FPU_nHALF_PRECISION* penHalfPrecisionArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_DRIVER_FPU_HALFPRECISION_H_ */

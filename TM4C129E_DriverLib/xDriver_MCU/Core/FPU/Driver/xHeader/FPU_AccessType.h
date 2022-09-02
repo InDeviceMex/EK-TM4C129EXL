@@ -10,7 +10,9 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-FPU_nACCESS FPU__enGetAccessType(void);
-void FPU__vSetAccessType(FPU_nACCESS enAccessType);
+FPU_nERROR FPU__enSetAccessType(FPU_nMODULE enModuleArg,
+                                FPU_nACCESS enAccessTypeArg);
+FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg,
+                                FPU_nACCESS* penAccessTypeArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_DRIVER_FPU_ACCESSTYPE_H_ */

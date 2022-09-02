@@ -26,6 +26,7 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Basics.h>
 #include <xDriver_MCU/Common/xHeader/MCU_ControlReg.h>
+#include <xDriver_MCU/Common/xHeader/MCU_FloatingPoint.h>
 #include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 #include <xDriver_MCU/Common/xHeader/MCU_ReadReg.h>

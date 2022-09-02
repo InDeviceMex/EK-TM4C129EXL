@@ -8,17 +8,42 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/FPU/Peripheral/FPU_Peripheral.h>
+#include <xDriver_MCU/Core/FPU/Driver/Intrinsics/Primitives/FPU_Primitives.h>
 
-FPU_nROUNDING FPU__enGetRounding(void)
+void FPU__vSetRoundingMode(FPU_nMODULE enModuleArg,
+                                   FPU_nROUNDING enRoundingArg)
 {
-    FPU_nROUNDING enReturn = FPU_enROUNDING_NEAREST;
-    enReturn = (FPU_nROUNDING) MCU__u32ReadRegister(FPU_BASE, FPU_FPDSCR_OFFSET,
-                                FPU_FPDSCR_RMODE_MASK, FPU_FPDSCR_R_RMODE_BIT);
-    return (enReturn);
+    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_RMODE_MASK, (uint32_t) enRoundingArg);
 }
 
-void FPU__vSetRounding(FPU_nROUNDING enRounding)
+FPU_nROUNDING FPU__enGetRoundingMode(FPU_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(FPU_BASE, FPU_FPDSCR_OFFSET, (uint32_t) enRounding,
-                        FPU_FPDSCR_RMODE_MASK, FPU_FPDSCR_R_RMODE_BIT);
+    uint32_t u32RoundingReg;
+    u32RoundingReg = MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_RMODE_MASK);
+    u32RoundingReg >>= FPU_DSCR_R_RMODE_BIT;
+    return ((FPU_nROUNDING) u32RoundingReg);
 }
+
+FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg,
+                                   FPU_nROUNDING* penRoundingArg)
+{
+    FPU_Register_t stRegister;
+    FPU_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penRoundingArg)
+    {
+        stRegister.u32Shift = FPU_DSCR_R_RMODE_BIT;
+        stRegister.u32Mask = FPU_DSCR_RMODE_MASK;
+        stRegister.uptrAddress = FPU_DSCR_OFFSET;
+        enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+
+        *penRoundingArg = (FPU_nROUNDING) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
+}
+

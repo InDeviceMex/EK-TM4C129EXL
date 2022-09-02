@@ -83,7 +83,7 @@ typedef struct
     uintptr_t uptrAddress;
     uint32_t u32Value;
     uint32_t u32Mask;
-    uint8_t u8Shift;
+    uint32_t u32Shift;
 }MCU_Register_t;
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_ENUM_H_ */

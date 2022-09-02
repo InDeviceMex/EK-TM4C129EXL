@@ -8,32 +8,66 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/FPU/Peripheral/FPU_Peripheral.h>
+#include <xDriver_MCU/Core/FPU/Driver/Intrinsics/Primitives/FPU_Primitives.h>
 
-FPU_nACCESS FPU__enGetAccessType(void)
+FPU_nERROR FPU__enSetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS enAccessTypeArg)
 {
-    FPU_nACCESS enReturn = FPU_enDENIED;
-    uint32_t u32RegCP10 = 0UL;
-    uint32_t u32RegCP11 = 0UL;
+    FPU_Register_t stRegister;
+    uint32_t u32Access;
+    uint32_t u32Access1;
+    uint32_t u32AccessMask;
+    FPU_nERROR enErrorReg;
 
-    u32RegCP10 = MCU__u32ReadRegister(FPU_BASE, FPU_CPACR_OFFSET,
-                                      FPU_CPACR_CP10_MASK, FPU_CPACR_R_CP10_BIT);
-    u32RegCP11 = MCU__u32ReadRegister(FPU_BASE, FPU_CPACR_OFFSET,
-                                      FPU_CPACR_CP11_MASK, FPU_CPACR_R_CP11_BIT);
-    if(u32RegCP11 == u32RegCP10)
-    {
-        enReturn = (FPU_nACCESS) u32RegCP11;
-    }
-    return (enReturn);
+    u32AccessMask = FPU_CPACR_CP11_MASK;
+    u32AccessMask <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
+    u32AccessMask |= FPU_CPACR_CP10_MASK;
+
+    u32Access = (uint32_t) enAccessTypeArg;
+    u32Access &= FPU_CPACR_CP11_MASK;
+    u32Access1 = u32Access;
+    u32Access <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
+    u32Access |= u32Access1;
+
+    stRegister.u32Shift = FPU_CPACR_R_CP10_BIT;
+    stRegister.u32Mask = (uint32_t) u32AccessMask;
+    stRegister.uptrAddress = FPU_CPACR_OFFSET;
+    stRegister.u32Value = (uint32_t) u32Access;
+    enErrorReg = FPU__enWriteRegister(enModuleArg, &stRegister);
+    MCU__vBlocking();
+
+    return (enErrorReg);
 }
 
-void FPU__vSetAccessType(FPU_nACCESS enAccessType)
+FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessTypeArg)
 {
-    uint32_t u32AccessMask = FPU_CPACR_CP10_MASK;
-    uint32_t u32Access = (uint32_t) enAccessType;
-    u32Access &= FPU_CPACR_CP10_MASK;
-    u32Access |= (u32Access << 2UL);
-    u32AccessMask |= (u32AccessMask << 2UL);
-    MCU__vWriteRegister(FPU_BASE, FPU_CPACR_OFFSET,
-                        u32Access, u32AccessMask, FPU_CPACR_R_CP10_BIT);
-    MCU__vBlocking();
+    FPU_Register_t stRegister;
+    uint32_t u32RegCP10;
+    uint32_t u32RegCP11;
+    FPU_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penAccessTypeArg)
+    {
+        stRegister.u32Shift = FPU_CPACR_R_CP10_BIT;
+        stRegister.u32Mask = FPU_CPACR_CP10_MASK;
+        stRegister.uptrAddress = FPU_CPACR_OFFSET;
+        enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+        u32RegCP10 = stRegister.u32Value;
+
+        stRegister.u32Shift = FPU_CPACR_R_CP11_BIT;
+        stRegister.u32Mask = FPU_CPACR_CP11_MASK;
+        enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+        u32RegCP11 = stRegister.u32Value;
+
+        if(u32RegCP11 != u32RegCP10)
+        {
+            u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
+        }
+
+        *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
+    }
+    else
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

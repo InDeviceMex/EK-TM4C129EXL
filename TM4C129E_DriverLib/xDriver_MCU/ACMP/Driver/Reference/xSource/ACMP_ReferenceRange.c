@@ -31,7 +31,7 @@ ACMP_nERROR ACMP__enSetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u8Shift = ACMP_REFCTL_R_RNG_BIT;
+    stRegister.u32Shift = ACMP_REFCTL_R_RNG_BIT;
     stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
     stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
     stRegister.u32Value = (uint32_t) enReferenceRangeArg;
@@ -47,7 +47,7 @@ ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
 
     if(0UL != (uintptr_t) penReferenceRangeArg)
     {
-        stRegister.u8Shift = ACMP_REFCTL_R_RNG_BIT;
+        stRegister.u32Shift = ACMP_REFCTL_R_RNG_BIT;
         stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);

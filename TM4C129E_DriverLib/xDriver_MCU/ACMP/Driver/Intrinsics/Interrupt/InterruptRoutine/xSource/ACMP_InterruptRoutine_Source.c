@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ACMP_InterruptRoutine_Source.h>
 
-static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModule, void* pvArguments);
+static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModule, void* pvArgument);
 
 static ACMP_pvfIRQSourceHandler_t ACMP_SW__vIRQSourceHandler[(uint32_t)ACMP_enMODULE_MAX][(uint32_t)ACMP_enCOMP_MAX] =
 {
@@ -43,10 +43,10 @@ static ACMP_pvfIRQSourceHandler_t ACMP__vIRQSourceHandler[(uint32_t)ACMP_enMODUL
     }
 };
 
-static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModule, void* pvArguments)
+static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModule, void* pvArgument)
 {
     (void) uptrModule;
-    (void) pvArguments;
+    (void) pvArgument;
 
     while(1UL){}
 }

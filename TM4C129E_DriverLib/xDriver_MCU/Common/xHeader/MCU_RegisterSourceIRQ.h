@@ -25,29 +25,46 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_REGISTERSOURCEIRQ_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_REGISTERSOURCEIRQ_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(MCU__vRegisterIRQSourceHandler_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__enRegisterIRQSourceHandler_RAM, ".ramcode")
 
-MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                        MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
+MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                        MCU_pvfIRQSourceHandler_t* pfIrqArrayHandler,
+                                        uint32_t u32InterruptSource,
+                                        uint32_t u32InterruptSourceMax);
+
+void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
+                                        void (**pfIrqVectorHandler) (void),
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                        MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
+MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                        MCU_pvfIRQSourceHandler_t* pfIrqArrayHandler,
+                                        uint32_t u32InterruptSource,
+                                        uint32_t u32InterruptSourceMax);
+
+__attribute__((section(".ramcode")))
+void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
+                                        void (**pfIrqVectorHandler) (void),
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax);
 
 #endif
 
-MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU__pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                    MCU__pvfIRQSourceHandler_t* pfIrqArrayHandler,
+MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                    MCU_pvfIRQSourceHandler_t* pfIrqArrayHandler,
+                                    uint32_t u32InterruptSource,
+                                    uint32_t u32InterruptSourceMax);
+
+void MCU__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
+                                    void (**pfIrqVectorHandler) (void),
                                     uint32_t u32InterruptSource,
                                     uint32_t u32InterruptSourceMax);
 

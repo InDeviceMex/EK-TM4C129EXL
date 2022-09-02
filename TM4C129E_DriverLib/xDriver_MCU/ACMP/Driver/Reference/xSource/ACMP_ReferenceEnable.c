@@ -31,7 +31,7 @@ ACMP_nERROR ACMP__enSetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE enSt
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u8Shift = ACMP_REFCTL_R_EN_BIT;
+    stRegister.u32Shift = ACMP_REFCTL_R_EN_BIT;
     stRegister.u32Mask = ACMP_REFCTL_EN_MASK;
     stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
     stRegister.u32Value = (uint32_t) enStateArg;
@@ -47,7 +47,7 @@ ACMP_nERROR ACMP__enGetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE* pen
 
     if(0UL != (uintptr_t) penStateArg)
     {
-        stRegister.u8Shift = ACMP_REFCTL_R_EN_BIT;
+        stRegister.u32Shift = ACMP_REFCTL_R_EN_BIT;
         stRegister.u32Mask = ACMP_REFCTL_EN_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);

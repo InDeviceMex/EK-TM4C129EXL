@@ -6,19 +6,43 @@
  */
 #include <xDriver_MCU/Core/FPU/Driver/xHeader/FPU_AutoPreservation.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/FPU/Peripheral/FPU_Peripheral.h>
+#include <xDriver_MCU/Core/FPU/Driver/Intrinsics/Primitives/FPU_Primitives.h>
 
-FPU_nAUTO_PRESERVATION FPU__enGetAutoPreservation(void)
+FPU_nERROR FPU__enSetAutoPreservationState(FPU_nMODULE enModuleArg,
+                                           FPU_nSTATE enStateArg)
 {
-    FPU_nAUTO_PRESERVATION enReturn = FPU_enAUTO_PRESERVATION_DIS;
-    enReturn = (FPU_nAUTO_PRESERVATION) MCU__u32ReadRegister(FPU_BASE, FPU_FPCCR_OFFSET,
-                                             FPU_FPCCR_ASPEN_MASK, FPU_FPCCR_R_ASPEN_BIT);
-    return (enReturn);
+    FPU_Register_t stRegister;
+    FPU_nERROR enErrorReg;
+
+    stRegister.u32Shift = FPU_CCR_R_ASPEN_BIT;
+    stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
+    stRegister.uptrAddress = FPU_CCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = FPU__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void FPU__vSetAutoPreservation(FPU_nAUTO_PRESERVATION enAuto)
+FPU_nERROR FPU__enGetAutoPreservationState(FPU_nMODULE enModuleArg,
+                                           FPU_nSTATE* penStateArg)
 {
-    MCU__vWriteRegister(FPU_BASE, FPU_FPCCR_OFFSET, (uint32_t) enAuto,
-                        FPU_FPCCR_ASPEN_MASK, FPU_FPCCR_R_ASPEN_BIT);
+    FPU_Register_t stRegister;
+
+    FPU_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = FPU_CCR_R_ASPEN_BIT;
+        stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
+        stRegister.uptrAddress = FPU_CCR_OFFSET;
+        enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+
+        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

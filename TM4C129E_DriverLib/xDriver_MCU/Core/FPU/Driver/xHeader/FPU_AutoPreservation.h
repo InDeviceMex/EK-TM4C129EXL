@@ -10,7 +10,9 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-FPU_nAUTO_PRESERVATION FPU__enGetAutoPreservation(void);
-void FPU__vSetAutoPreservation(FPU_nAUTO_PRESERVATION enAuto);
+FPU_nERROR FPU__enSetAutoPreservationState(FPU_nMODULE enModuleArg,
+                                           FPU_nSTATE enStateArg);
+FPU_nERROR FPU__enGetAutoPreservationState(FPU_nMODULE enModuleArg,
+                                           FPU_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_DRIVER_FPU_AUTOPRESERVATION_H_ */

@@ -8,17 +8,39 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/FPU/Peripheral/FPU_Peripheral.h>
+#include <xDriver_MCU/Core/FPU/Driver/Intrinsics/Primitives/FPU_Primitives.h>
 
-FPU_nNAN FPU__enGetNAN(void)
+void FPU__vSetNAN(FPU_nMODULE enModuleArg, FPU_nNAN enNANArg)
 {
-    FPU_nNAN enReturn = FPU_enNAN_PROPAGATE;
-    enReturn = (FPU_nNAN) MCU__u32ReadRegister(FPU_BASE, FPU_FPDSCR_OFFSET,
-                                   FPU_FPDSCR_DN_MASK, FPU_FPDSCR_R_DN_BIT);
-    return (enReturn);
+    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_DN_MASK, (uint32_t) enNANArg);
 }
 
-void FPU__vSetNAN(FPU_nNAN enNAN)
+FPU_nNAN FPU__enGetNAN(FPU_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(FPU_BASE, FPU_FPDSCR_OFFSET, (uint32_t) enNAN,
-                        FPU_FPDSCR_DN_MASK, FPU_FPDSCR_R_DN_BIT);
+    FPU_nNAN enNANReg;
+    enNANReg = (FPU_nNAN) MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_DN_BIT);
+    return (enNANReg);
 }
+
+FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg)
+{
+    FPU_Register_t stRegister;
+
+    FPU_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penNANArg)
+    {
+        stRegister.u32Shift = FPU_DSCR_R_DN_BIT;
+        stRegister.u32Mask = FPU_DSCR_DN_MASK;
+        stRegister.uptrAddress = FPU_DSCR_OFFSET;
+        enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+
+        *penNANArg = (FPU_nNAN) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+

@@ -58,169 +58,169 @@
 /*----------*/
 
 /*********************************************************************************************/
-/************************************* 2 FPCCR ***********************************************/
+/************************************* 2 CCR ***********************************************/
 /*********************************************************************************************/
 
 /*----------*/
-#define FPU_FPCCR_R_LSPACT_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_R_LSPACT_BIT    (0UL)
-#define FPU_FPCCR_R_LSPACT_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_LSPACT_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_R_LSPACT_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_R_LSPACT_BIT    (0UL)
+#define FPU_CCR_R_LSPACT_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_LSPACT_SET    ((uint32_t) 0x00000001UL)
 
-#define FPU_FPCCR_LSPACT_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_LSPACT_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_LSPACT_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_LSPACT_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_LSPACT_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_LSPACT_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_USER_MASK    ((uint32_t) 0x00000002UL)
-#define FPU_FPCCR_R_USER_BIT    (1UL)
-#define FPU_FPCCR_R_USER_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_USER_SET    ((uint32_t) 0x00000002UL)
+#define FPU_CCR_R_USER_MASK    ((uint32_t) 0x00000002UL)
+#define FPU_CCR_R_USER_BIT    (1UL)
+#define FPU_CCR_R_USER_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_USER_SET    ((uint32_t) 0x00000002UL)
 
-#define FPU_FPCCR_USER_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_USER_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_USER_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_USER_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_USER_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_USER_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_THREAD_MASK    ((uint32_t) 0x00000008UL)
-#define FPU_FPCCR_R_THREAD_BIT    (3UL)
-#define FPU_FPCCR_R_THREAD_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_THREAD_SET    ((uint32_t) 0x00000008UL)
+#define FPU_CCR_R_THREAD_MASK    ((uint32_t) 0x00000008UL)
+#define FPU_CCR_R_THREAD_BIT    (3UL)
+#define FPU_CCR_R_THREAD_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_THREAD_SET    ((uint32_t) 0x00000008UL)
 
-#define FPU_FPCCR_THREAD_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_THREAD_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_THREAD_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_THREAD_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_THREAD_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_THREAD_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_HFRDY_MASK    ((uint32_t) 0x00000010UL)
-#define FPU_FPCCR_R_HFRDY_BIT    (4UL)
-#define FPU_FPCCR_R_HFRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_HFRDY_SET    ((uint32_t) 0x00000010UL)
+#define FPU_CCR_R_HFRDY_MASK    ((uint32_t) 0x00000010UL)
+#define FPU_CCR_R_HFRDY_BIT    (4UL)
+#define FPU_CCR_R_HFRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_HFRDY_SET    ((uint32_t) 0x00000010UL)
 
-#define FPU_FPCCR_HFRDY_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_HFRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_HFRDY_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_HFRDY_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_HFRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_HFRDY_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_MMRDY_MASK    ((uint32_t) 0x00000020UL)
-#define FPU_FPCCR_R_MMRDY_BIT    (5UL)
-#define FPU_FPCCR_R_MMRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_MMRDY_SET    ((uint32_t) 0x00000020UL)
+#define FPU_CCR_R_MMRDY_MASK    ((uint32_t) 0x00000020UL)
+#define FPU_CCR_R_MMRDY_BIT    (5UL)
+#define FPU_CCR_R_MMRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_MMRDY_SET    ((uint32_t) 0x00000020UL)
 
-#define FPU_FPCCR_MMRDY_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_MMRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_MMRDY_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_MMRDY_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_MMRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_MMRDY_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_BFRDY_MASK    ((uint32_t) 0x00000040UL)
-#define FPU_FPCCR_R_BFRDY_BIT    (6UL)
-#define FPU_FPCCR_R_BFRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_BFRDY_SET    ((uint32_t) 0x00000040UL)
+#define FPU_CCR_R_BFRDY_MASK    ((uint32_t) 0x00000040UL)
+#define FPU_CCR_R_BFRDY_BIT    (6UL)
+#define FPU_CCR_R_BFRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_BFRDY_SET    ((uint32_t) 0x00000040UL)
 
-#define FPU_FPCCR_BFRDY_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_BFRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_BFRDY_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_BFRDY_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_BFRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_BFRDY_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_MONRDY_MASK    ((uint32_t) 0x00000100UL)
-#define FPU_FPCCR_R_MONRDY_BIT    (8UL)
-#define FPU_FPCCR_R_MONRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_MONRDY_SET    ((uint32_t) 0x00000100UL)
+#define FPU_CCR_R_MONRDY_MASK    ((uint32_t) 0x00000100UL)
+#define FPU_CCR_R_MONRDY_BIT    (8UL)
+#define FPU_CCR_R_MONRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_MONRDY_SET    ((uint32_t) 0x00000100UL)
 
-#define FPU_FPCCR_MONRDY_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_MONRDY_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_MONRDY_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_MONRDY_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_MONRDY_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_MONRDY_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_LSPEN_MASK    ((uint32_t) 0x40000000UL)
-#define FPU_FPCCR_R_LSPEN_BIT    (30UL)
-#define FPU_FPCCR_R_LSPEN_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_LSPEN_SET    ((uint32_t) 0x40000000UL)
+#define FPU_CCR_R_LSPEN_MASK    ((uint32_t) 0x40000000UL)
+#define FPU_CCR_R_LSPEN_BIT    (30UL)
+#define FPU_CCR_R_LSPEN_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_LSPEN_SET    ((uint32_t) 0x40000000UL)
 
-#define FPU_FPCCR_LSPEN_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_LSPEN_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_LSPEN_SET    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_LSPEN_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_LSPEN_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_LSPEN_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPCCR_R_ASPEN_MASK    ((uint32_t) 0x80000000UL)
-#define FPU_FPCCR_R_ASPEN_BIT    (31UL)
-#define FPU_FPCCR_R_ASPEN_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_R_ASPEN_SET    ((uint32_t) 0x80000000UL)
+#define FPU_CCR_R_ASPEN_MASK    ((uint32_t) 0x80000000UL)
+#define FPU_CCR_R_ASPEN_BIT    (31UL)
+#define FPU_CCR_R_ASPEN_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_R_ASPEN_SET    ((uint32_t) 0x80000000UL)
 
-#define FPU_FPCCR_ASPEN_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPCCR_ASPEN_NOSET    ((uint32_t) 0x00000000UL)
-#define FPU_FPCCR_ASPEN_SET    ((uint32_t) 0x00000001UL)
-/*----------*/
-
-/*********************************************************************************************/
-/************************************* 3 FPCAR ***********************************************/
-/*********************************************************************************************/
-
-/*----------*/
-#define FPU_FPCAR_R_ADDRESS_MASK    ((uint32_t) 0xFFFFFFF8UL)
-#define FPU_FPCAR_R_ADDRESS_BIT    (3UL)
-
-#define FPU_FPCAR_ADDRESS_MASK    ((uint32_t) 0x1FFFFFFFUL)
+#define FPU_CCR_ASPEN_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_CCR_ASPEN_NOSET    ((uint32_t) 0x00000000UL)
+#define FPU_CCR_ASPEN_SET    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*********************************************************************************************/
-/************************************* 4 FPDSCR ***********************************************/
+/************************************* 3 CAR ***********************************************/
 /*********************************************************************************************/
 
 /*----------*/
-#define FPU_FPDSCR_R_RMODE_MASK    ((uint32_t) 0x00C00000UL)
-#define FPU_FPDSCR_R_RMODE_BIT    (22UL)
-#define FPU_FPDSCR_R_RMODE_RN    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_R_RMODE_RP    ((uint32_t) 0x00400000UL)
-#define FPU_FPDSCR_R_RMODE_RM    ((uint32_t) 0x00800000UL)
-#define FPU_FPDSCR_R_RMODE_RZ    ((uint32_t) 0x00C00000UL)
+#define FPU_CAR_R_ADDRESS_MASK    ((uint32_t) 0xFFFFFFF8UL)
+#define FPU_CAR_R_ADDRESS_BIT    (3UL)
 
-#define FPU_FPDSCR_RMODE_MASK    ((uint32_t) 0x00000003UL)
-#define FPU_FPDSCR_RMODE_RN    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_RMODE_RP    ((uint32_t) 0x00000001UL)
-#define FPU_FPDSCR_RMODE_RM    ((uint32_t) 0x00000002UL)
-#define FPU_FPDSCR_RMODE_RZ    ((uint32_t) 0x00000003UL)
+#define FPU_CAR_ADDRESS_MASK    ((uint32_t) 0x1FFFFFFFUL)
+/*----------*/
+
+/*********************************************************************************************/
+/************************************* 4 DSCR ***********************************************/
+/*********************************************************************************************/
+
+/*----------*/
+#define FPU_DSCR_R_RMODE_MASK    ((uint32_t) 0x00C00000UL)
+#define FPU_DSCR_R_RMODE_BIT    (22UL)
+#define FPU_DSCR_R_RMODE_RN    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_R_RMODE_RP    ((uint32_t) 0x00400000UL)
+#define FPU_DSCR_R_RMODE_RM    ((uint32_t) 0x00800000UL)
+#define FPU_DSCR_R_RMODE_RZ    ((uint32_t) 0x00C00000UL)
+
+#define FPU_DSCR_RMODE_MASK    ((uint32_t) 0x00000003UL)
+#define FPU_DSCR_RMODE_RN    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_RMODE_RP    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_RMODE_RM    ((uint32_t) 0x00000002UL)
+#define FPU_DSCR_RMODE_RZ    ((uint32_t) 0x00000003UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPDSCR_R_FZ_MASK    ((uint32_t) 0x01000000UL)
-#define FPU_FPDSCR_R_FZ_BIT    (24UL)
-#define FPU_FPDSCR_R_FZ_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_R_FZ_1    ((uint32_t) 0x01000000UL)
+#define FPU_DSCR_R_FZ_MASK    ((uint32_t) 0x01000000UL)
+#define FPU_DSCR_R_FZ_BIT    (24UL)
+#define FPU_DSCR_R_FZ_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_R_FZ_1    ((uint32_t) 0x01000000UL)
 
-#define FPU_FPDSCR_FZ_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPDSCR_FZ_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_FZ_1    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_FZ_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_FZ_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_FZ_1    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPDSCR_R_DN_MASK    ((uint32_t) 0x02000000UL)
-#define FPU_FPDSCR_R_DN_BIT    (25UL)
-#define FPU_FPDSCR_R_DN_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_R_DN_1    ((uint32_t) 0x02000000UL)
+#define FPU_DSCR_R_DN_MASK    ((uint32_t) 0x02000000UL)
+#define FPU_DSCR_R_DN_BIT    (25UL)
+#define FPU_DSCR_R_DN_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_R_DN_1    ((uint32_t) 0x02000000UL)
 
-#define FPU_FPDSCR_DN_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPDSCR_DN_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_DN_1    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_DN_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_DN_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_DN_1    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define FPU_FPDSCR_R_AHP_MASK    ((uint32_t) 0x04000000UL)
-#define FPU_FPDSCR_R_AHP_BIT    (26UL)
-#define FPU_FPDSCR_R_AHP_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_R_AHP_1    ((uint32_t) 0x04000000UL)
+#define FPU_DSCR_R_AHP_MASK    ((uint32_t) 0x04000000UL)
+#define FPU_DSCR_R_AHP_BIT    (26UL)
+#define FPU_DSCR_R_AHP_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_R_AHP_1    ((uint32_t) 0x04000000UL)
 
-#define FPU_FPDSCR_AHP_MASK    ((uint32_t) 0x00000001UL)
-#define FPU_FPDSCR_AHP_0    ((uint32_t) 0x00000000UL)
-#define FPU_FPDSCR_AHP_1    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_AHP_MASK    ((uint32_t) 0x00000001UL)
+#define FPU_DSCR_AHP_0    ((uint32_t) 0x00000000UL)
+#define FPU_DSCR_AHP_1    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*********************************************************************************************/

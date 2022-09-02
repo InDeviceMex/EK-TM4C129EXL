@@ -31,7 +31,7 @@ ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t u32En
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u8Shift = ACMP_REFCTL_R_VREF_BIT;
+    stRegister.u32Shift = ACMP_REFCTL_R_VREF_BIT;
     stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
     stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
     stRegister.u32Value = u32EncoderValueArg;
@@ -47,7 +47,7 @@ ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t* pu32
 
     if(0UL != (uintptr_t) pu32EncoderValueArg)
     {
-        stRegister.u8Shift = ACMP_REFCTL_R_VREF_BIT;
+        stRegister.u32Shift = ACMP_REFCTL_R_VREF_BIT;
         stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);

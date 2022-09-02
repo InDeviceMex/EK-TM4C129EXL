@@ -10,7 +10,10 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-FPU_nROUNDING FPU__enGetRounding(void);
-void FPU__vSetRounding(FPU_nROUNDING enRounding);
+void FPU__vSetRoundingMode(FPU_nMODULE enModuleArg, FPU_nROUNDING enRoundingArg);
+FPU_nROUNDING FPU__enGetRoundingMode(FPU_nMODULE enModuleArg);
+
+FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg,
+                                   FPU_nROUNDING* penRoundingArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_DRIVER_FPU_ROUNDING_H_ */

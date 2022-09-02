@@ -36,3 +36,16 @@ MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax)
     }
     return (enErrorReg);
 }
+
+uint32_t MCU__u32CheckParams_RAM(uint32_t u32Module, uint32_t u32ModuleMax)
+{
+#if !defined(Opt_Check)
+    if((u32ModuleMax <= u32Module) && (0UL != u32ModuleMax))
+    {
+        u32ModuleMax--;
+        u32Module = u32ModuleMax;
+    }
+#endif
+    return (u32Module);
+}
+
