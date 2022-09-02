@@ -48,9 +48,6 @@
 **/.settings/**
 **/.launches/**
 **/.launches/
-.cproject
-.project
-.ccsproject
 
 #Doxygen Generator
 **/html
@@ -67,6 +64,10 @@ dkms.conf
 .metadata/
 dvt/
 RemoteSystemsTempFiles/
+.jxbrowser.userdata/
+.jxbrowser.userdata/**
+**/.jxbrowser.userdata
+**/.jxbrowser.userdata/**
 .jxbrowser-data/
 .jxbrowser-data/**
 **/.jxbrowser-data
