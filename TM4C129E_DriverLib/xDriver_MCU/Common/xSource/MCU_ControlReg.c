@@ -23,7 +23,6 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_ControlReg.h>
 
-__attribute__((naked))
 void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
 {
     __asm volatile(
@@ -32,11 +31,9 @@ void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
           " bfi     r1, r0, #2, #1\n"
           " msr     CONTROL, r1\n"
           " dsb \n"
-          " isb\n"
-          " bx      lr\n");
+          " isb\n");
 }
 
-__attribute__((naked))
 MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
 {
     __asm volatile(
@@ -46,12 +43,10 @@ MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
           " msr     CONTROL, r1\n"
           " dsb \n"
           " isb\n"
-          " mov     r0, r2\n"
-          " bx      lr\n");
-    return ((MCU_nFPU_STATE) 0UL);
+          " mov     r0, r2\n");
+    return (enStateCoprocessor);
 }
 
-__attribute__((naked))
 MCU_nFPU_STATE MCU__enGetFPUContextActive(void)
 {
     __asm volatile(
@@ -61,7 +56,6 @@ MCU_nFPU_STATE MCU__enGetFPUContextActive(void)
     return ((MCU_nFPU_STATE) 0UL);
 }
 
-__attribute__((naked))
 MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack)
 {
     __asm volatile(
@@ -71,12 +65,10 @@ MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack)
           " msr     CONTROL, r1\n"
           " dsb \n"
           " isb\n"
-          " mov     r0, r2\n"
-          " bx      lr\n");
-    return ((MCU_nSTACK) 0UL);
+          " mov     r0, r2\n");
+    return (enStack);
 }
 
-__attribute__((naked))
 MCU_nSTACK MCU__enGetStackActive(void)
 {
     __asm volatile(
@@ -86,17 +78,14 @@ MCU_nSTACK MCU__enGetStackActive(void)
     return ((MCU_nSTACK) 0UL);
 }
 
-__attribute__((naked))
 void MCU__vSetPSPValue(uint32_t u32StackValue)
 {
     __asm volatile(
           " msr PSP, r0\n"
           " dsb \n"
-          " isb\n"
-          " bx      lr\n");
+          " isb\n");
 }
 
-__attribute__((naked))
 uint32_t MCU__u32GetPSPValue(void)
 {
     __asm volatile(" mrs     r0, PSP\n"
@@ -104,17 +93,14 @@ uint32_t MCU__u32GetPSPValue(void)
     return ((uint32_t) 0UL);
 }
 
-__attribute__((naked))
 void MCU__vSetMSPValue(uint32_t u32StackValue)
 {
     __asm volatile(
           " msr     MSP, r0\n"
           " dsb \n"
-          " isb\n"
-          " bx      lr\n");
+          " isb\n");
 }
 
-__attribute__((naked))
 uint32_t MCU__u32GetMSPValue(void)
 {
     __asm volatile(" mrs     r0, MSP\n"
@@ -122,8 +108,6 @@ uint32_t MCU__u32GetMSPValue(void)
     return ((uint32_t) 0UL);
 }
 
-
-__attribute__((naked))
 void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue)
 {
     if(MCU_enSTACK_MSP == enStack)
@@ -138,10 +122,8 @@ void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue)
                 " dsb \n"
                 " isb\n");
     }
-    __asm volatile(" bx      lr\n");
 }
 
-__attribute__((naked))
 uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack)
 {
     if(MCU_enSTACK_MSP == enStack)
@@ -156,11 +138,9 @@ uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack)
                 " dsb \n"
                 " isb\n");
     }
-    __asm volatile(" bx      lr\n");
-    return ((uint32_t) 0UL);
+    return (enStack);
 }
 
-__attribute__((naked))
 MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel)
 {
     __asm volatile(
@@ -170,12 +150,10 @@ MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel)
           " msr     CONTROL, r1\n"
           " dsb \n"
           " isb\n"
-          " mov     r0, r2\n"
-          " bx      lr\n");
-    return ((MCU_nTHREAD_LEVEL) 0UL);
+          " mov     r0, r2\n");
+    return (enLevel);
 }
 
-__attribute__((naked))
 MCU_nTHREAD_LEVEL MCU__enGetThreadLevel(void)
 {
     __asm volatile(
