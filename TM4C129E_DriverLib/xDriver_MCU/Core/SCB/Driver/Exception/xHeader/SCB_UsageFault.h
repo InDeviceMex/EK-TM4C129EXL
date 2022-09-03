@@ -27,14 +27,18 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_UsageFault__vSetPriority(SCB_nPRIORITY enUsageFaultPriority);
-SCB_nPRIORITY SCB_UsageFault__enGetPriority(void);
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_UsageFault__vSetPending(void);
-void SCB_UsageFault__vClearPending(void);
-SCB_nPENDSTATE SCB_UsageFault__enGetPending(void);
+SCB_nERROR SCB_UsageFault__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg);
+SCB_nERROR SCB_UsageFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg);
 
-void SCB_UsageFault__vEnable(void);
-void SCB_UsageFault__vDisable(void);
+SCB_nERROR SCB_UsageFault__enSetPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_UsageFault__enClearPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_UsageFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg);
+
+SCB_nERROR SCB_UsageFault__enSetState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg);
+SCB_nERROR SCB_UsageFault__enEnable(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_UsageFault__enDisable(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_UsageFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_USAGEFAULT_H_ */

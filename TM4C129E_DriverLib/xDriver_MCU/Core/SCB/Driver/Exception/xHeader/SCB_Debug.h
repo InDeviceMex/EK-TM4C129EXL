@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_Debug__vSetPriority(SCB_nPRIORITY enDebugPriority);
-SCB_nPRIORITY SCB_Debug__enGetPriority(void);
+SCB_nERROR SCB_Debug__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg);
+SCB_nERROR SCB_Debug__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_DEBUG_H_ */

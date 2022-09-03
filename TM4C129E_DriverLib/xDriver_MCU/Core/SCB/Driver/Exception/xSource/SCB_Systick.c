@@ -25,40 +25,91 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB_Systick__vSetPriority(SCB_nPRIORITY enSystickPriority)
+SCB_nERROR SCB_SYSTICK__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SHPR3_R_SYSTICK_BIT;
+    stRegister.u32Mask = SCB_SHPR3_SYSTICK_MASK;
+    stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+    stRegister.u32Value = (uint32_t) enPriorityArg;
     MCU__vDataSyncBarrier();
-    MCU__vWriteRegister(SCB_BASE, SCB_SHPR3_OFFSET, (uint32_t) enSystickPriority,
-                        SCB_SHPR3_SYSTICK_MASK, SCB_SHPR3_R_SYSTICK_BIT);
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
+
+    return (enErrorReg);
 }
 
-SCB_nPRIORITY SCB_Systick__enGetPriority(void)
+SCB_nERROR SCB_SYSTICK__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
 {
-    SCB_nPRIORITY enPriReg = SCB_enPRI0;
-    enPriReg = (SCB_nPRIORITY) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR3_OFFSET,
-                                                SCB_SHPR3_SYSTICK_MASK, SCB_SHPR3_R_SYSTICK_BIT);
-    return (enPriReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
+    if(0UL != (uintptr_t) enPriorityArg)
+    {
+        stRegister.u32Shift = SCB_SHPR3_R_SYSTICK_BIT;
+        stRegister.u32Mask = SCB_SHPR3_SYSTICK_MASK;
+        stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-void SCB_Systick__vSetPending(void)
+SCB_nERROR SCB_SYSTICK__enSetPending(SCB_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_PENDSTSET_SET,
-                        SCB_ICSR_PENDSTSET_MASK, SCB_ICSR_R_PENDSTSET_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_ICSR_R_PENDSTSET_BIT;
+    stRegister.u32Mask = SCB_ICSR_PENDSTSET_MASK;
+    stRegister.uptrAddress = SCB_ICSR_OFFSET;
+    stRegister.u32Value = SCB_ICSR_PENDSTSET_SET;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SCB_Systick__vClearPending(void)
+
+SCB_nERROR SCB_SYSTICK__enClearPending(SCB_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_PENDSTCLR_REMOVE,
-                        SCB_ICSR_PENDSTCLR_MASK, SCB_ICSR_R_PENDSTCLR_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_ICSR_R_PENDSTCLR_BIT;
+    stRegister.u32Mask = SCB_ICSR_PENDSTCLR_MASK;
+    stRegister.uptrAddress = SCB_ICSR_OFFSET;
+    stRegister.u32Value = SCB_ICSR_PENDSTCLR_REMOVE;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-SCB_nPENDSTATE SCB_Systick__enGetPending(void)
+SCB_nERROR SCB_SYSTICK__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
-    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                                     SCB_ICSR_PENDSTSET_MASK, SCB_ICSR_R_PENDSTSET_BIT);
-    return (enPendReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enStateArg)
+    {
+        stRegister.u32Shift = SCB_ICSR_R_PENDSTSET_BIT;
+        stRegister.u32Mask = SCB_ICSR_PENDSTSET_MASK;
+        stRegister.uptrAddress = SCB_ICSR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

@@ -25,9 +25,18 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB_NMI__vSetPending(void)
+SCB_nERROR SCB_NMI__enSetPending(SCB_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_NMIPENDSET_SET,
-                        SCB_ICSR_NMIPENDSET_MASK, SCB_ICSR_R_NMIPENDSET_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_ICSR_R_NMIPENDSET_BIT;
+    stRegister.u32Mask = SCB_ICSR_NMIPENDSET_MASK;
+    stRegister.uptrAddress = SCB_ICSR_OFFSET;
+    stRegister.u32Value = SCB_ICSR_NMIPENDSET_SET;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }

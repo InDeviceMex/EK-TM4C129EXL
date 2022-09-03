@@ -25,20 +25,42 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB_Debug__vSetPriority(SCB_nPRIORITY enDebugPriority)
+SCB_nERROR SCB_Debug__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SHPR3_R_DEBUG_BIT;
+    stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
+    stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+    stRegister.u32Value = (uint32_t) enPriorityArg;
     MCU__vDataSyncBarrier();
-    MCU__vWriteRegister(SCB_BASE, SCB_SHPR3_OFFSET, (uint32_t) enDebugPriority,
-                        SCB_SHPR3_DEBUG_MASK, SCB_SHPR3_R_DEBUG_BIT);
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
+
+    return (enErrorReg);
 }
 
-SCB_nPRIORITY SCB_Debug__enGetPriority(void)
+SCB_nERROR SCB_Debug__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
 {
-    SCB_nPRIORITY enPriReg = SCB_enPRI0;
-    enPriReg = (SCB_nPRIORITY) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR3_OFFSET,
-                                  SCB_SHPR3_DEBUG_MASK, SCB_SHPR3_R_DEBUG_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
-    return (enPriReg);
+    if(0UL != (uintptr_t) enPriorityArg)
+    {
+        stRegister.u32Shift = SCB_SHPR3_R_DEBUG_BIT;
+        stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
+        stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+

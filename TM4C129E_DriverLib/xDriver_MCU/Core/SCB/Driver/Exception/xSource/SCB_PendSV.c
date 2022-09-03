@@ -25,40 +25,94 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB_PendSV__vSetPending(void)
+SCB_nERROR SCB_PendSV__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_PENDSVSET_SET,
-                        SCB_ICSR_PENDSVSET_MASK, SCB_ICSR_R_PENDSVSET_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SHPR3_R_PENDSV_BIT;
+    stRegister.u32Mask = SCB_SHPR3_PENDSV_MASK;
+    stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+    stRegister.u32Value = (uint32_t) enPriorityArg;
+    MCU__vDataSyncBarrier();
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+    MCU__vDataSyncBarrier();
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB_PendSV__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
+{
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enPriorityArg)
+    {
+        stRegister.u32Shift = SCB_SHPR3_R_PENDSV_BIT;
+        stRegister.u32Mask = SCB_SHPR3_PENDSV_MASK;
+        stRegister.uptrAddress = SCB_SHPR3_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB_PendSV__enSetPending(SCB_nMODULE enModuleArg)
+{
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_ICSR_R_PENDSVSET_BIT;
+    stRegister.u32Mask = SCB_ICSR_PENDSVSET_MASK;
+    stRegister.uptrAddress = SCB_ICSR_OFFSET;
+    stRegister.u32Value = SCB_ICSR_PENDSVSET_SET;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
     MCU__vInstructionSyncBarrier();
-}
-void SCB_PendSV__vClearPending(void)
-{
-    MCU__vWriteRegister(SCB_BASE, SCB_ICSR_OFFSET, SCB_ICSR_PENDSVCLR_REMOVE,
-                        SCB_ICSR_PENDSVCLR_MASK, SCB_ICSR_R_PENDSVCLR_BIT);
+
+    return (enErrorReg);
 }
 
-SCB_nPENDSTATE SCB_PendSV__enGetPending(void)
+
+SCB_nERROR SCB_PendSV__enClearPending(SCB_nMODULE enModuleArg)
 {
-    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
-    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                                  SCB_ICSR_PENDSVSET_MASK, SCB_ICSR_R_PENDSVSET_BIT);
-    return (enPendReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_ICSR_R_PENDSVCLR_BIT;
+    stRegister.u32Mask = SCB_ICSR_PENDSVCLR_MASK;
+    stRegister.uptrAddress = SCB_ICSR_OFFSET;
+    stRegister.u32Value = SCB_ICSR_PENDSVCLR_REMOVE;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SCB_PendSV__vSetPriority(SCB_nPRIORITY enPendSVPriority)
+SCB_nERROR SCB_PendSV__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    MCU__vDataSyncBarrier();
-    MCU__vWriteRegister(SCB_BASE, SCB_SHPR3_OFFSET, (uint32_t) enPendSVPriority,
-                        SCB_SHPR3_PENDSV_MASK, SCB_SHPR3_R_PENDSV_BIT);
-    MCU__vDataSyncBarrier();
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enStateArg)
+    {
+        stRegister.u32Shift = SCB_ICSR_R_PENDSVSET_BIT;
+        stRegister.u32Mask = SCB_ICSR_PENDSVSET_MASK;
+        stRegister.uptrAddress = SCB_ICSR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-SCB_nPRIORITY SCB_PendSV__enGetPriority(void)
-{
-    SCB_nPRIORITY enPriReg = SCB_enPRI0;
-    enPriReg = (SCB_nPRIORITY) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR3_OFFSET,
-                                  SCB_SHPR3_PENDSV_MASK, SCB_SHPR3_R_PENDSV_BIT);
-    return (enPriReg);
-}

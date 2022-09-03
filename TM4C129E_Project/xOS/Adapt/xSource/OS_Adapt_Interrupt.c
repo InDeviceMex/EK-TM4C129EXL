@@ -28,12 +28,12 @@
 
 void OS_Adapt__vYield(void)
 {
-    SCB_PendSV__vSetPending();
+    SCB_PendSV__enSetPending(SCB_enMODULE_0);
 }
 
 void OS_Adapt__vYieldWithinAPI(void)
 {
-    SCB_PendSV__vSetPending();
+    SCB_PendSV__enSetPending(SCB_enMODULE_0);
 }
 
 void OS_Adapt__vYieldFromISR(OS_Boolean_t boSwitch)
@@ -64,7 +64,7 @@ OS_Boolean_t OS_Adapt__boIsInterruptActive(void)
     OS_UBase_t uxInterruptActive = 0UL;
     OS_Boolean_t boInterruptState = FALSE;
 
-    uxInterruptActive = (OS_UBase_t) SCB_ISR__enGetVectorActive();
+    SCB_ISR__enGetVectorActive(SCB_enMODULE_0, (SCB_nVECISR*) &uxInterruptActive);
     if(0UL != uxInterruptActive)
     {
         boInterruptState = TRUE;

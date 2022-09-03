@@ -25,6 +25,8 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_NMI_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_NMI_H_
 
-void SCB_NMI__vSetPending(void);
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
+
+SCB_nERROR SCB_NMI__enSetPending(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_NMI_H_ */

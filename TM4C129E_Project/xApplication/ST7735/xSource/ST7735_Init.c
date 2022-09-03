@@ -292,13 +292,13 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
 
   u32PosY = u32CoordY0 * ST7735_u32WidthArg * 2UL;
 
-  if(sFontType->u32Width==11)
+  if(sFontType->u32Width == 11UL)
   {
-      character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII-0x20) * sFontType->u32Width]);
+      character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII - 0x20UL) * sFontType->u32Width]);
       u32PosY = u32CoordY0;
       for(u16Row = 0; u16Row < sFontType->u32Height; u16Row++)
       {
-            for(u16Column = 0; u16Column < sFontType->u32Width;u16Column++)
+            for(u16Column = 0U; u16Column < sFontType->u32Width; u16Column++)
             {
                 if((((character[u16Column] )>>(u16Row))&1) )
                     *(uint16_t*) ((uint32_t) pu16Buffer + (2*((u32PosY*ST7735_u32WidthArg) + u32AddressX ))) = u16Color;
@@ -315,7 +315,7 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
             for(u16Column = 0; u16Column < sFontType->u32Height;u16Column++)
             {
                 if((((character[u16Column] )>>(u16Row))&1) )
-                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                    *(uint16_t*) ((uint32_t) pu16Buffer + (2U * u32AddressX) + u32PosY) = u16Color;
                 u32AddressX++;
             }
         u32AddressX += (ST7735_u32WidthArg - sFontType->u32Height);

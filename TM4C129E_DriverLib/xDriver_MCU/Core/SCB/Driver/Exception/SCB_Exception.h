@@ -35,6 +35,6 @@
 #include "xHeader/SCB_Debug.h"
 #include "xHeader/SCB_Systick.h"
 
-void SCB__vEnableAllExceptions(void);
+SCB_nERROR SCB__enEnableAllExceptions(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_EXCEPTION_SCB_EXCEPTION_H_ */

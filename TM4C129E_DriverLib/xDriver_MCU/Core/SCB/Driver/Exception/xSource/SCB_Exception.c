@@ -23,9 +23,17 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/Exception/SCB_Exception.h>
 
-void SCB__vEnableAllExceptions(void)
+SCB_nERROR SCB__enEnableAllExceptions(SCB_nMODULE enModuleArg)
 {
-    SCB_UsageFault__vEnable();
-    SCB_BusFault__vEnable();
-    SCB_MemoryFault__vEnable();
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB_UsageFault__enEnable(enModuleArg);
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB_BusFault__enEnable(enModuleArg);
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = SCB_MemoryFault__enEnable(enModuleArg);
+        }
+    }
+    return (enErrorReg);
 }

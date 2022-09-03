@@ -27,11 +27,11 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_SVCall__vSetPending(void);
-void SCB_SVCall__vClearPending(void);
-SCB_nPENDSTATE SCB_SVCall__enGetPending(void);
+SCB_nERROR SCB_SVCall__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg);
+SCB_nERROR SCB_SVCall__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg);
 
-void SCB_SVCall__vSetPriority(SCB_nPRIORITY enSVCallPriority);
-SCB_nPRIORITY SCB_SVCall__enGetPriority(void);
+SCB_nERROR SCB_SVCall__enSetPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_SVCall__enClearPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_SVCall__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SVCALL_H_ */

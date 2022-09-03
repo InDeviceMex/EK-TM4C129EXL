@@ -23,30 +23,70 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/Exception/xHeader/SCB_ISR.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-SCB_nPENDSTATE SCB_ISR__enGetPendingState(void)
+
+SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_nPENDSTATE enPendReg = SCB_enNOPENDING;
-    enPendReg = (SCB_nPENDSTATE) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                                 SCB_ICSR_ISRPENDING_MASK, SCB_ICSR_R_ISRPENDING_BIT);
-    return (enPendReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enStateArg)
+    {
+        stRegister.u32Shift = SCB_ICSR_R_ISRPENDING_BIT;
+        stRegister.u32Mask = SCB_ICSR_ISRPENDING_MASK;
+        stRegister.uptrAddress = SCB_ICSR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
-SCB_nVECISR SCB_ISR__enGetVectorPending(void)
+
+SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enVectorArg)
 {
-    SCB_nVECISR enVectorReg = SCB_enVECISR_THREAD;
-    enVectorReg = (SCB_nVECISR) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                              SCB_ICSR_VECTPENDING_MASK, SCB_ICSR_R_VECTPENDING_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
-    return (enVectorReg);
+    if(0UL != (uintptr_t) enVectorArg)
+    {
+        stRegister.u32Shift = SCB_ICSR_R_VECTPENDING_BIT;
+        stRegister.u32Mask = SCB_ICSR_VECTPENDING_MASK;
+        stRegister.uptrAddress = SCB_ICSR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
-SCB_nVECISR SCB_ISR__enGetVectorActive(void)
+
+SCB_nERROR SCB_ISR__enGetVectorActive(SCB_nMODULE enModuleArg, SCB_nVECISR* enVectorArg)
 {
-    SCB_nVECISR enVectorReg = SCB_enVECISR_THREAD;
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
-    enVectorReg = (SCB_nVECISR) MCU__u32ReadRegister(SCB_BASE, SCB_ICSR_OFFSET,
-                              SCB_ICSR_VECTACTIVE_MASK, SCB_ICSR_R_VECTACTIVE_BIT);
+    if(0UL != (uintptr_t) enVectorArg)
+    {
+        stRegister.u32Shift = SCB_ICSR_R_VECTACTIVE_BIT;
+        stRegister.u32Mask = SCB_ICSR_VECTACTIVE_MASK;
+        stRegister.uptrAddress = SCB_ICSR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
 
-    return (enVectorReg);
+        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+

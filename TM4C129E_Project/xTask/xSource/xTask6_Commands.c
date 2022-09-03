@@ -326,22 +326,22 @@ void CAN1__vInit(void)
 
 static const uint16_t CAN__u16CANBitValues[] =
 {
-    CAN_BIT_VALUE(2, 1, 1),     // 4 clocks/bit
-    CAN_BIT_VALUE(3, 1, 1),     // 5 clocks/bit
-    CAN_BIT_VALUE(3, 2, 2),     // 6 clocks/bit
-    CAN_BIT_VALUE(4, 2, 2),     // 7 clocks/bit
-    CAN_BIT_VALUE(4, 3, 3),     // 8 clocks/bit
-    CAN_BIT_VALUE(5, 3, 3),     // 9 clocks/bit
-    CAN_BIT_VALUE(5, 4, 4),     // 10 clocks/bit
-    CAN_BIT_VALUE(6, 4, 4),     // 11 clocks/bit
-    CAN_BIT_VALUE(6, 5, 4),     // 12 clocks/bit
-    CAN_BIT_VALUE(7, 5, 4),     // 13 clocks/bit
-    CAN_BIT_VALUE(7, 6, 4),     // 14 clocks/bit
-    CAN_BIT_VALUE(8, 6, 4),     // 15 clocks/bit
-    CAN_BIT_VALUE(8, 7, 4),     // 16 clocks/bit
-    CAN_BIT_VALUE(9, 7, 4),     // 17 clocks/bit
-    CAN_BIT_VALUE(9, 8, 4),     // 18 clocks/bit
-    CAN_BIT_VALUE(10, 8, 4)     // 19 clocks/bit
+    CAN_BIT_VALUE(2, 1, 1),     /* 4 clocks/bit*/
+    CAN_BIT_VALUE(3, 1, 1),     /* 5 clocks/bit*/
+    CAN_BIT_VALUE(3, 2, 2),     /* 6 clocks/bit*/
+    CAN_BIT_VALUE(4, 2, 2),     /* 7 clocks/bit*/
+    CAN_BIT_VALUE(4, 3, 3),     /* 8 clocks/bit*/
+    CAN_BIT_VALUE(5, 3, 3),     /* 9 clocks/bit*/
+    CAN_BIT_VALUE(5, 4, 4),     /* 10 clocks/bit*/
+    CAN_BIT_VALUE(6, 4, 4),     /* 11 clocks/bit*/
+    CAN_BIT_VALUE(6, 5, 4),     /* 12 clocks/bit*/
+    CAN_BIT_VALUE(7, 5, 4),     /* 13 clocks/bit*/
+    CAN_BIT_VALUE(7, 6, 4),     /* 14 clocks/bit*/
+    CAN_BIT_VALUE(8, 6, 4),     /* 15 clocks/bit*/
+    CAN_BIT_VALUE(8, 7, 4),     /* 16 clocks/bit*/
+    CAN_BIT_VALUE(9, 7, 4),     /* 17 clocks/bit*/
+    CAN_BIT_VALUE(9, 8, 4),     /* 18 clocks/bit*/
+    CAN_BIT_VALUE(10, 8, 4)     /* 19 clocks/bit*/
 };
 
 uint32_t CAN0__u32BitRateSet(uint32_t u32BitRate)
