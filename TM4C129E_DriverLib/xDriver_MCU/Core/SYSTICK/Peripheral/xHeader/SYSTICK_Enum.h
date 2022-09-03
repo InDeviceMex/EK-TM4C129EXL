@@ -8,19 +8,27 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 typedef enum
 {
-    SYSTICK_enOK = 0UL,
-    SYSTICK_enERROR = 1UL,
-}SYSTICK_nSTATUS;
+    SYSTICK_enERROR_OK = (uint32_t) MCU_enERROR_OK,
+    SYSTICK_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
+    SYSTICK_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    SYSTICK_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+}SYSTICK_nERROR;
 
 typedef enum
 {
-    SYSTICK_enENABLE_DIS = 0UL,
-    SYSTICK_enENABLE_ENA = 1UL,
-}SYSTICK_nENABLE;
+    SYSTICK_enMODULE_0 = 0UL,
+    SYSTICK_enMODULE_MAX = 1UL,
+}SYSTICK_nMODULE;
+
+typedef enum
+{
+    SYSTICK_enSTATE_DIS = 0UL,
+    SYSTICK_enSTATE_ENA = 1UL,
+}SYSTICK_nSTATE;
 
 typedef enum
 {
@@ -37,14 +45,17 @@ typedef enum
 
 typedef enum
 {
-    SYSTICK_enINT_STATUS_NOOCCUR = 0UL,
-    SYSTICK_enINT_STATUS_OCCUR = 1UL,
-} SYSTICK_nINT_STATUS;
+    SYSTICK_enSTATUS_NOOCCUR = 0UL,
+    SYSTICK_enSTATUS_OCCUR = 1UL,
+} SYSTICK_nSTATUS;
 
 typedef enum
 {
     SYSTICK_enPIOSC4 = 0UL,
     SYSTICK_enSYSCLK = 1UL,
 }SYSTICK_nCLKSOURCE;
+
+typedef MCU_Register_t SYSTICK_Register_t;
+typedef MCU_pvfIRQSourceHandler_t SYSTICK_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_ENUM_H_ */

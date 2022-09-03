@@ -43,7 +43,9 @@ void MCU__vSetFPUStatusControl(uint32_t u32ValueArg)
 uint32_t MCU__u32GetFPUStatusControl(void)
 {
     __asm volatile(
-          " vmrs    r0, FPSCR\n");
+          " vmrs    r0, FPSCR\n"
+          " bx      lr\n");
+       return (0UL);
 }
 
 

@@ -30,8 +30,11 @@ uint64_t SYSTICK__u64GetTickAccumulated(void)
 {
     uint64_t u64CountTick = SYSTICK__u32GetTickPeriod();
     uint64_t u64FreeCount = SYSTICK__u32GetFreeCount();
+    uint32_t u32Current;
     u64FreeCount += 1ULL;
     u64CountTick *= u64FreeCount;
-    u64CountTick -= SYSTICK__u32GetCurrent();
+    u32Current = 0U;
+    SYSTICK__enGetCurrentValue(SYSTICK_enMODULE_0, &u32Current);
+    u64CountTick -= u32Current;
     return (u64CountTick);
 }

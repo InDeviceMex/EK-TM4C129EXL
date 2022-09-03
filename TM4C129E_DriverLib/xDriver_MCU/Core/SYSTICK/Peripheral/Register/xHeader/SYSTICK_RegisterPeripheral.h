@@ -25,6 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_REGISTER_SYSTICK_REGISTERPERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_REGISTER_SYSTICK_REGISTERPERIPHERAL_H_
 
+#include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/Struct/xHeader/SYSTICK_StructPeripheral.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/Register/xHeader/SYSTICK_RegisterAddress.h>
 
@@ -53,5 +54,7 @@
 ***********************************************************************************************/
 #define SYSTICK_CR    ((SYSTICK_CR_t*) (SYSTICK_BASE + SYSTICK_CR_OFFSET))
 #define SYSTICK_CR_R    (*((volatile uint32_t*) (SYSTICK_BASE + SYSTICK_CR_OFFSET)))
+
+uintptr_t SYSTICK__uptrBlockBaseAddress(SYSTICK_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_REGISTER_SYSTICK_REGISTERPERIPHERAL_H_ */

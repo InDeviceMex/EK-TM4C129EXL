@@ -23,21 +23,44 @@
  */
 #include <xDriver_MCU/Core/SYSTICK/Driver/xHeader/SYSTICK_ClockSource.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
+#include <xDriver_MCU/Core/SYSTICK/Driver/Intrinsics/Primitives/SYSTICK_Primitives.h>
 
-void SYSTICK__vSetClockSource(SYSTICK_nCLKSOURCE enClockSource)
+SYSTICK_nERROR SYSTICK__enSetClockSource(SYSTICK_nMODULE enModuleArg,
+                                         SYSTICK_nCLKSOURCE enClockSrcArg)
 {
-    MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, (uint32_t) enClockSource,
-                        SYSTICK_CSR_CLKSOURCE_MASK, SYSTICK_CSR_R_CLKSOURCE_BIT);
+    SYSTICK_Register_t stRegister;
+    SYSTICK_nERROR enErrorReg;
+
+    stRegister.u32Shift = SYSTICK_CSR_R_CLKSOURCE_BIT;
+    stRegister.u32Mask = SYSTICK_CSR_CLKSOURCE_MASK;
+    stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
+    stRegister.u32Value = (uint32_t) enClockSrcArg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-SYSTICK_nCLKSOURCE SYSTICK__enGetClockSource(void)
+SYSTICK_nERROR SYSTICK__enGetClockSource(SYSTICK_nMODULE enModuleArg,
+                                         SYSTICK_nCLKSOURCE* penClockSrcArg)
 {
-    SYSTICK_nCLKSOURCE enReturn = SYSTICK_enPIOSC4;
-    enReturn = (SYSTICK_nCLKSOURCE) MCU__u32ReadRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET,
-                           SYSTICK_CSR_CLKSOURCE_MASK, SYSTICK_CSR_R_CLKSOURCE_BIT);
-    return (enReturn);
-}
+    SYSTICK_Register_t stRegister;
 
+    SYSTICK_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penClockSrcArg)
+    {
+        stRegister.u32Shift = SYSTICK_CSR_R_CLKSOURCE_BIT;
+        stRegister.u32Mask = SYSTICK_CSR_CLKSOURCE_MASK;
+        stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
+        enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
+
+        *penClockSrcArg = (SYSTICK_nCLKSOURCE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
 

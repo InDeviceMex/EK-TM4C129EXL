@@ -37,7 +37,7 @@ void SYSTICK__vDelayUs(uint32_t u32TimeUs)
 
     u64PsTick = SYSTICK__u32GetTickPs();
     u64TimePs = (uint64_t) u32TimeUs * 1000000ULL;
-    u64CountMax = u64TimePs /  u64PsTick;
+    u64CountMax = u64TimePs / u64PsTick;
 
     u64TickAccumulatedDelta = SYSTICK__u64GetTickAccumulated();
     u64TickAccumulatedDelta -= u64TickAccumulatedInitial;

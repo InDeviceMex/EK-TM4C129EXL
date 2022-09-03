@@ -30,6 +30,6 @@
 void SYSTICK__vEnInterruptVector(SYSTICK_nPRIORITY enPriority);
 void SYSTICK__vDisInterruptVector(void);
 void SYSTICK__vClearInterruptVector(void);
-SYSTICK_nINT_STATUS SYSTICK__enStatusInterruptVector(void);
+SYSTICK_nSTATUS SYSTICK__enStatusInterruptVector(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_INTERRUPT_XHEADER_SYSTICK_INTERRUPTVECTOR_H_ */

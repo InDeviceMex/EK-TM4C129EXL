@@ -40,13 +40,13 @@ void SYSTICK__vDisInterruptVector(void)
 
 void SYSTICK__vClearInterruptVector(void)
 {
-    SYSTICK__vClearCurrent();
+    SYSTICK__enClearCurrentValue(SYSTICK_enMODULE_0);
 }
 
-SYSTICK_nINT_STATUS SYSTICK__enStatusInterruptVector(void)
+SYSTICK_nSTATUS SYSTICK__enStatusInterruptVector(void)
 {
-    SYSTICK_nINT_STATUS enReturn = SYSTICK_enINT_STATUS_NOOCCUR;
-    enReturn = (SYSTICK_nINT_STATUS) MCU__u32ReadRegister(SYSTICK_BASE,
+    SYSTICK_nSTATUS enReturn = SYSTICK_enSTATUS_NOOCCUR;
+    enReturn = (SYSTICK_nSTATUS) MCU__u32ReadRegister(SYSTICK_BASE,
               SYSTICK_CSR_OFFSET, SYSTICK_CSR_COUNTFLAG_MASK, SYSTICK_CSR_R_COUNTFLAG_BIT);
     return (enReturn);
 }

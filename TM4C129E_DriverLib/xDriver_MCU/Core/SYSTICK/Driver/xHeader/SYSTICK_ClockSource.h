@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 
-void SYSTICK__vSetClockSource(SYSTICK_nCLKSOURCE enClockSource);
-SYSTICK_nCLKSOURCE SYSTICK__enGetClockSource(void);
+SYSTICK_nERROR SYSTICK__enSetClockSource(SYSTICK_nMODULE enModuleArg,
+                                         SYSTICK_nCLKSOURCE enClockSrcArg);
+SYSTICK_nERROR SYSTICK__enGetClockSource(SYSTICK_nMODULE enModuleArg,
+                                         SYSTICK_nCLKSOURCE* penClockSrcArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_CLOCKSOURCE_H_ */

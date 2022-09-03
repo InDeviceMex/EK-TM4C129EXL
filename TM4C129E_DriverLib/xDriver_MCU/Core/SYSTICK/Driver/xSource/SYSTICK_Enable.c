@@ -23,31 +23,60 @@
  */
 #include <xDriver_MCU/Core/SYSTICK/Driver/xHeader/SYSTICK_Enable.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
+#include <xDriver_MCU/Core/SYSTICK/Driver/Intrinsics/Primitives/SYSTICK_Primitives.h>
 
-void SYSTICK__vSetEnable(SYSTICK_nENABLE enEnableState)
+SYSTICK_nERROR SYSTICK__enSetState(SYSTICK_nMODULE enModuleArg,
+                                   SYSTICK_nSTATE enEnableStateArg)
 {
-    MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, (uint32_t) enEnableState,
-                        SYSTICK_CSR_ENABLE_MASK, SYSTICK_CSR_R_ENABLE_BIT);
+    SYSTICK_Register_t stRegister;
+    SYSTICK_nERROR enErrorReg;
+
+    stRegister.u32Shift = SYSTICK_CSR_R_ENABLE_BIT;
+    stRegister.u32Mask = SYSTICK_CSR_ENABLE_MASK;
+    stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
+    stRegister.u32Value = (uint32_t) enEnableStateArg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SYSTICK__vEnable(void)
+SYSTICK_nERROR SYSTICK__enEnable(SYSTICK_nMODULE enModuleArg)
 {
-    SYSTICK__vSetEnable(SYSTICK_enENABLE_ENA);
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetState(enModuleArg, SYSTICK_enSTATE_ENA);
+    return (enErrorReg);
 }
 
-void SYSTICK__vDisable(void)
+SYSTICK_nERROR SYSTICK__enDisable(SYSTICK_nMODULE enModuleArg)
 {
-    SYSTICK__vSetEnable(SYSTICK_enENABLE_DIS);
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetState(enModuleArg, SYSTICK_enSTATE_DIS);
+    return (enErrorReg);
 }
 
-SYSTICK_nENABLE SYSTICK__enGetEnable(void)
+SYSTICK_nERROR SYSTICK__enGetState(SYSTICK_nMODULE enModuleArg,
+                                   SYSTICK_nSTATE* penEnableStateArg)
 {
-    SYSTICK_nENABLE enReturn = SYSTICK_enENABLE_DIS;
-    enReturn = (SYSTICK_nENABLE)  MCU__u32ReadRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET,
-                                           SYSTICK_CSR_ENABLE_MASK, SYSTICK_CSR_R_ENABLE_BIT);
-    return (enReturn);
+    SYSTICK_Register_t stRegister;
+
+    SYSTICK_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penEnableStateArg)
+    {
+        stRegister.u32Shift = SYSTICK_CSR_R_ENABLE_BIT;
+        stRegister.u32Mask = SYSTICK_CSR_ENABLE_MASK;
+        stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
+        enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
+
+        *penEnableStateArg = (SYSTICK_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+
 
 

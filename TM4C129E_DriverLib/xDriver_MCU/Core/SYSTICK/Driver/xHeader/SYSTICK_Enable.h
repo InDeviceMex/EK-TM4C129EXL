@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 
-void SYSTICK__vSetEnable(SYSTICK_nENABLE enEnableState);
-void SYSTICK__vEnable(void);
-void SYSTICK__vDisable(void);
-
-SYSTICK_nENABLE SYSTICK__enGetEnable(void);
+SYSTICK_nERROR SYSTICK__enSetState(SYSTICK_nMODULE enModuleArg,
+                                   SYSTICK_nSTATE enEnableStateArg);
+SYSTICK_nERROR SYSTICK__enEnable(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enDisable(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enGetState(SYSTICK_nMODULE enModuleArg,
+                                   SYSTICK_nSTATE* penEnableStateArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_ENABLE_H_ */

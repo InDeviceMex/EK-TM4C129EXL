@@ -25,9 +25,10 @@
 #ifndef XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_CURRENT_H_
 #define XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_CURRENT_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 
-void SYSTICK__vClearCurrent(void);
-uint32_t SYSTICK__u32GetCurrent(void);
+SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
+                                         uint32_t* u32ValueArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_CURRENT_H_ */

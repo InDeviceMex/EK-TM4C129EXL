@@ -23,22 +23,44 @@
  */
 #include <xDriver_MCU/Core/SYSTICK/Driver/xHeader/SYSTICK_Current.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
+#include <xDriver_MCU/Core/SYSTICK/Driver/Intrinsics/Primitives/SYSTICK_Primitives.h>
 
-void SYSTICK__vClearCurrent(void)
+SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CVR_OFFSET, 0UL,
-                        SYSTICK_CVR_CURRENT_MASK, SYSTICK_CVR_R_CURRENT_BIT);
+    SYSTICK_Register_t stRegister;
+    SYSTICK_nERROR enErrorReg;
+
+    stRegister.u32Shift = SYSTICK_CVR_R_CURRENT_BIT;
+    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
+    stRegister.u32Value = 0U;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
+SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
 
-uint32_t SYSTICK__u32GetCurrent(void)
+                                         uint32_t* u32ValueArg)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = MCU__u32ReadRegister(SYSTICK_BASE, SYSTICK_CVR_OFFSET,
-                                           SYSTICK_CVR_CURRENT_MASK, SYSTICK_CVR_R_CURRENT_BIT);
-    u32Reg++;
-    return (u32Reg);
+    SYSTICK_Register_t stRegister;
+
+    SYSTICK_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) u32ValueArg)
+    {
+        stRegister.u32Shift = SYSTICK_CVR_R_CURRENT_BIT;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
+        enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
+
+        *u32ValueArg = stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
 

@@ -126,19 +126,13 @@ void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue)
 
 uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack)
 {
-    if(MCU_enSTACK_MSP == enStack)
-    {
-        __asm volatile(" mrs     r0, MSP\n"
-                " dsb \n"
-                " isb\n");
-    }
-    else
-    {
-        __asm volatile(" mrs     r0, PSP\n"
-                " dsb \n"
-                " isb\n");
-    }
-    return (enStack);
+    __asm volatile(" cmp     r0, #0\n"
+            " ite  eq\n"
+            " mrseq     r0, MSP\n"
+            " mrsne     r0, PSP\n"
+            " dsb \n"
+            " isb\n");
+    return ((uint32_t) enStack);
 }
 
 MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel)

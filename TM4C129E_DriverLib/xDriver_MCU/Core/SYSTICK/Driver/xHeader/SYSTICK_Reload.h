@@ -25,9 +25,11 @@
 #ifndef XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_RELOAD_H_
 #define XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_RELOAD_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 
-void SYSTICK__vSetReload(uint32_t u32ReloadValue);
-uint32_t SYSTICK__enGetReload(void);
+SYSTICK_nERROR SYSTICK__enClearReloadValue(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enSetReloadValue(SYSTICK_nMODULE enModuleArg, uint32_t u32ReloadValueArg);
+SYSTICK_nERROR SYSTICK__enGetReloadValue(SYSTICK_nMODULE enModuleArg,
+                                         uint32_t* u32ValueArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_RELOAD_H_ */

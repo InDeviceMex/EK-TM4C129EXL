@@ -23,27 +23,63 @@
  */
 #include <xDriver_MCU/Core/SYSTICK/Driver/xHeader/SYSTICK_Reload.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
+#include <xDriver_MCU/Core/SYSTICK/Driver/Intrinsics/Primitives/SYSTICK_Primitives.h>
 
-void SYSTICK__vSetReload(uint32_t u32ReloadValue)
+SYSTICK_nERROR SYSTICK__enClearReloadValue(SYSTICK_nMODULE enModuleArg)
 {
-    if(0UL != u32ReloadValue)
+    SYSTICK_Register_t stRegister;
+    SYSTICK_nERROR enErrorReg;
+
+    stRegister.u32Shift = SYSTICK_RVR_R_RELOAD_BIT;
+    stRegister.u32Mask = SYSTICK_RVR_RELOAD_MASK;
+    stRegister.uptrAddress = SYSTICK_RVR_OFFSET;
+    stRegister.u32Value = 0U;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enSetReloadValue(SYSTICK_nMODULE enModuleArg, uint32_t u32ReloadValueArg)
+{
+    SYSTICK_Register_t stRegister;
+    SYSTICK_nERROR enErrorReg;
+
+    if(0UL < u32ReloadValueArg)
     {
-        u32ReloadValue--;
-        MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_RVR_OFFSET, u32ReloadValue,
-                            SYSTICK_RVR_RELOAD_MASK, SYSTICK_RVR_R_RELOAD_BIT);
+        stRegister.u32Shift = SYSTICK_RVR_R_RELOAD_BIT;
+        stRegister.u32Mask = SYSTICK_RVR_RELOAD_MASK;
+        stRegister.uptrAddress = SYSTICK_RVR_OFFSET;
+        stRegister.u32Value = (uint32_t) u32ReloadValueArg;
+        enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
     }
+    else
+    {
+        enErrorReg = SYSTICK_enERROR_VALUE;
+    }
+
+    return (enErrorReg);
 }
 
-uint32_t SYSTICK__enGetReload(void)
+SYSTICK_nERROR SYSTICK__enGetReloadValue(SYSTICK_nMODULE enModuleArg,
+                                         uint32_t* u32ValueArg)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = MCU__u32ReadRegister(SYSTICK_BASE, SYSTICK_RVR_OFFSET,
-                                           SYSTICK_RVR_RELOAD_MASK, SYSTICK_RVR_R_RELOAD_BIT);
-    u32Reg++;
-    return (u32Reg);
+    SYSTICK_Register_t stRegister;
+
+    SYSTICK_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) u32ValueArg)
+    {
+        stRegister.u32Shift = SYSTICK_RVR_R_RELOAD_BIT;
+        stRegister.u32Mask = SYSTICK_RVR_RELOAD_MASK;
+        stRegister.uptrAddress = SYSTICK_RVR_OFFSET;
+        enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
+
+        *u32ValueArg = stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
-
-
-

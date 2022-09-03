@@ -32,10 +32,15 @@ static uint64_t SYSTICK__u64GetTime(uint32_t u32Divisor)
 {
     uint64_t u64UsPeriod = SYSTICK__u64GetPsPeriod();
     uint64_t u64TickUs = (uint64_t) SYSTICK__u32GetTickPs();
-    uint64_t u64Current = (uint64_t) SYSTICK__u32GetCurrent();
+    uint64_t u64Current;
+    uint32_t u32Current;
     uint32_t u32FreeCount = SYSTICK__u32GetFreeCount();
     u32FreeCount += 1UL;
+    u32Current = 0UL;
+    SYSTICK__enGetCurrentValue(SYSTICK_enMODULE_0, &u32Current);
 
+    u64Current = (uint64_t) u32Current;
+    u64Current += 1ULL;
     u64Current *= u64TickUs;
     u64UsPeriod *=  (uint64_t) u32FreeCount ;
     u64UsPeriod -= u64Current;
