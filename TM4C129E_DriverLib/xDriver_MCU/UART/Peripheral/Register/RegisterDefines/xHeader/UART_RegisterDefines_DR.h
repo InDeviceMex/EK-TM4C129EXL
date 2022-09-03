@@ -39,45 +39,45 @@
 /*--------*/
 #define UART_DR_R_FE_MASK    ((uint32_t) 0x00000100UL)
 #define UART_DR_R_FE_BIT    ((uint32_t) 8UL)
-#define UART_DR_R_FE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_R_FE_OCCUR    ((uint32_t) 0x00000100UL)
+#define UART_DR_R_FE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_R_FE_ACTIVE    ((uint32_t) 0x00000100UL)
 
 #define UART_DR_FE_MASK    ((uint32_t) 0x00000001UL)
-#define UART_DR_FE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_FE_OCCUR    ((uint32_t) 0x00000001UL)
+#define UART_DR_FE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_FE_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
 #define UART_DR_R_PE_MASK    ((uint32_t) 0x00000200UL)
 #define UART_DR_R_PE_BIT    ((uint32_t) 9UL)
-#define UART_DR_R_PE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_R_PE_OCCUR    ((uint32_t) 0x00000200UL)
+#define UART_DR_R_PE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_R_PE_ACTIVE    ((uint32_t) 0x00000200UL)
 
 #define UART_DR_PE_MASK    ((uint32_t) 0x00000001UL)
-#define UART_DR_PE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_PE_OCCUR    ((uint32_t) 0x00000001UL)
+#define UART_DR_PE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_PE_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
 #define UART_DR_R_BE_MASK    ((uint32_t) 0x00000400UL)
 #define UART_DR_R_BE_BIT    ((uint32_t) 10UL)
-#define UART_DR_R_BE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_R_BE_OCCUR    ((uint32_t) 0x00000400UL)
+#define UART_DR_R_BE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_R_BE_ACTIVE    ((uint32_t) 0x00000400UL)
 
 #define UART_DR_BE_MASK    ((uint32_t) 0x00000001UL)
-#define UART_DR_BE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_BE_OCCUR    ((uint32_t) 0x00000001UL)
+#define UART_DR_BE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_BE_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
 #define UART_DR_R_OE_MASK    ((uint32_t) 0x00000800UL)
 #define UART_DR_R_OE_BIT    ((uint32_t) 11UL)
-#define UART_DR_R_OE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_R_OE_OCCUR    ((uint32_t) 0x00000800UL)
+#define UART_DR_R_OE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_R_OE_ACTIVE    ((uint32_t) 0x00000800UL)
 
 #define UART_DR_OE_MASK    ((uint32_t) 0x00000001UL)
-#define UART_DR_OE_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define UART_DR_OE_OCCUR    ((uint32_t) 0x00000001UL)
+#define UART_DR_OE_INACTIVE    ((uint32_t) 0x00000000UL)
+#define UART_DR_OE_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_DR_H_ */

@@ -232,13 +232,13 @@
 #define QEI_STAT_R_ERROR_MASK    ((uint32_t) 0x00000001UL)
 #define QEI_STAT_R_ERROR_BIT    ((uint32_t) 0UL)
 #define QEI_STAT_R_ERROR_NA    ((uint32_t) 0x00000000UL)
-#define QEI_STAT_R_ERROR_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define QEI_STAT_R_ERROR_OCCUR    ((uint32_t) 0x00000001UL)
+#define QEI_STAT_R_ERROR_INACTIVE    ((uint32_t) 0x00000000UL)
+#define QEI_STAT_R_ERROR_ACTIVE    ((uint32_t) 0x00000001UL)
 
 #define QEI_STAT_ERROR_MASK    ((uint32_t) 0x00000001UL)
 #define QEI_STAT_ERROR_NA    ((uint32_t) 0x00000000UL)
-#define QEI_STAT_ERROR_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define QEI_STAT_ERROR_OCCUR    ((uint32_t) 0x00000001UL)
+#define QEI_STAT_ERROR_INACTIVE    ((uint32_t) 0x00000000UL)
+#define QEI_STAT_ERROR_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
@@ -415,49 +415,49 @@
 /*----------*/
 #define QEI_ISC_R_INTINDEX_MASK    ((uint32_t) 0x00000001U)
 #define QEI_ISC_R_INTINDEX_BIT    ((uint32_t) 0U)
-#define QEI_ISC_R_INTINDEX_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_R_INTINDEX_OCCUR    ((uint32_t) 0x00000001U)
+#define QEI_ISC_R_INTINDEX_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_R_INTINDEX_ACTIVE    ((uint32_t) 0x00000001U)
 #define QEI_ISC_R_INTINDEX_CLEAR    ((uint32_t) 0x00000001U)
 
 #define QEI_ISC_INTINDEX_MASK    ((uint32_t) 0x00000001U)
-#define QEI_ISC_INTINDEX_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_INTINDEX_OCCUR    ((uint32_t) 0x00000001U)
+#define QEI_ISC_INTINDEX_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_INTINDEX_ACTIVE    ((uint32_t) 0x00000001U)
 /*----------*/
 
 /*----------*/
 #define QEI_ISC_R_INTTIMER_MASK    ((uint32_t) 0x00000002U)
 #define QEI_ISC_R_INTTIMER_BIT    ((uint32_t) 1U)
-#define QEI_ISC_R_INTTIMER_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_R_INTTIMER_OCCUR    ((uint32_t) 0x00000002U)
+#define QEI_ISC_R_INTTIMER_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_R_INTTIMER_ACTIVE    ((uint32_t) 0x00000002U)
 #define QEI_ISC_R_INTTIMER_CLEAR    ((uint32_t) 0x00000002U)
 
 #define QEI_ISC_INTTIMER_MASK    ((uint32_t) 0x00000001U)
-#define QEI_ISC_INTTIMER_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_INTTIMER_OCCUR    ((uint32_t) 0x00000001U)
+#define QEI_ISC_INTTIMER_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_INTTIMER_ACTIVE    ((uint32_t) 0x00000001U)
 /*----------*/
 
 /*----------*/
 #define QEI_ISC_R_INTDIR_MASK    ((uint32_t) 0x00000004U)
 #define QEI_ISC_R_INTDIR_BIT    ((uint32_t) 2U)
-#define QEI_ISC_R_INTDIR_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_R_INTDIR_OCCUR    ((uint32_t) 0x0000004U)
+#define QEI_ISC_R_INTDIR_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_R_INTDIR_ACTIVE    ((uint32_t) 0x0000004U)
 #define QEI_ISC_R_INTDIR_CLEAR    ((uint32_t) 0x0000004U)
 
 #define QEI_ISC_INTDIR_MASK    ((uint32_t) 0x00000001U)
-#define QEI_ISC_INTDIR_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_INTDIR_OCCUR    ((uint32_t) 0x00000001U)
+#define QEI_ISC_INTDIR_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_INTDIR_ACTIVE    ((uint32_t) 0x00000001U)
 /*----------*/
 
 /*----------*/
 #define QEI_ISC_R_INTERROR_MASK    ((uint32_t) 0x00000008U)
 #define QEI_ISC_R_INTERROR_BIT    ((uint32_t) 3U)
-#define QEI_ISC_R_INTERROR_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_R_INTERROR_OCCUR    ((uint32_t) 0x0000008U)
+#define QEI_ISC_R_INTERROR_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_R_INTERROR_ACTIVE    ((uint32_t) 0x0000008U)
 #define QEI_ISC_R_INTERROR_CLEAR    ((uint32_t) 0x0000008U)
 
 #define QEI_ISC_INTERROR_MASK    ((uint32_t) 0x00000001U)
-#define QEI_ISC_INTERROR_NOOCCUR    ((uint32_t) 0x00000000U)
-#define QEI_ISC_INTERROR_OCCUR    ((uint32_t) 0x00000001U)
+#define QEI_ISC_INTERROR_INACTIVE    ((uint32_t) 0x00000000U)
+#define QEI_ISC_INTERROR_ACTIVE    ((uint32_t) 0x00000001U)
 /*----------*/
 
 

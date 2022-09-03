@@ -47,7 +47,7 @@ SCB_nPENDSTATE SCB_PendSV__enGetPending(void)
     return (enPendReg);
 }
 
-void SCB_PendSV__vSetPriority(SCB_nSHPR enPendSVPriority)
+void SCB_PendSV__vSetPriority(SCB_nPRIORITY enPendSVPriority)
 {
     MCU__vDataSyncBarrier();
     MCU__vWriteRegister(SCB_BASE, SCB_SHPR3_OFFSET, (uint32_t) enPendSVPriority,
@@ -55,10 +55,10 @@ void SCB_PendSV__vSetPriority(SCB_nSHPR enPendSVPriority)
     MCU__vDataSyncBarrier();
 }
 
-SCB_nSHPR SCB_PendSV__enGetPriority(void)
+SCB_nPRIORITY SCB_PendSV__enGetPriority(void)
 {
-    SCB_nSHPR enPriReg = SCB_enSHPR0;
-    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR3_OFFSET,
+    SCB_nPRIORITY enPriReg = SCB_enPRI0;
+    enPriReg = (SCB_nPRIORITY) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR3_OFFSET,
                                   SCB_SHPR3_PENDSV_MASK, SCB_SHPR3_R_PENDSV_BIT);
     return (enPriReg);
 }

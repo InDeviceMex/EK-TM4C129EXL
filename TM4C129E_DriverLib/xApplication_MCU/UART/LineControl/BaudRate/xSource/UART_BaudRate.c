@@ -27,7 +27,7 @@
 
 UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     UART_nSTATUS enStatus = UART_enSTATUS_OK;
     UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
@@ -109,7 +109,7 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg)
 
 uint32_t UART__u32GetBaudRate(UART_nMODULE enModule)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
     UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_DIS;

@@ -37,21 +37,17 @@ typedef enum
 
 typedef enum
 {
-    MCU_enENABLE_ENA = 0UL,
-    MCU_enENABLE_DIS = 1UL,
-}MCU_nENABLE;
-
-typedef enum
-{
-    MCU_enSTATE_ACTIVE = 0UL,
-    MCU_enSTATE_INACTIVE = 1UL,
+    MCU_enSTATE_ENA = 0UL,
+    MCU_enSTATE_DIS = 1UL,
+    MCU_enSTATE_UNDEF = 0xFFFFFFFFUL,
 }MCU_nSTATE;
 
 typedef enum
 {
-    MCU_enFPU_STATE_INACTIVE = 0UL,
-    MCU_enFPU_STATE_ACTIVE = 1UL,
-}MCU_nFPU_STATE;
+    MCU_enSTATUS_ACTIVE = 0UL,
+    MCU_enSTATUS_INACTIVE = 1UL,
+    MCU_enSTATUS_UNDEF = 0xFFFFFFFFUL,
+}MCU_nSTATUS;
 
 typedef enum
 {
@@ -75,6 +71,7 @@ typedef enum
     MCU_enPRI5 = 5UL,
     MCU_enPRI6 = 6UL,
     MCU_enPRI7 = 7UL,
+    MCU_enPRIMAX = 8UL,
     MCU_enDEFAULT = 0xFFFFFFFFUL,
 }MCU_nPRIORITY;
 

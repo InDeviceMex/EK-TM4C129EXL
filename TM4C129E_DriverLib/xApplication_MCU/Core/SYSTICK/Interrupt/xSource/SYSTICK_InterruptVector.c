@@ -27,7 +27,7 @@
 
 void SYSTICK__vEnInterruptVector(SYSTICK_nPRIORITY enPriority)
 {
-    SCB_Systick__vSetPriority((SCB_nSHPR) enPriority);
+    SCB_Systick__vSetPriority((SCB_nPRIORITY) enPriority);
     MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, SYSTICK_CSR_TICKINT_ENA,
                         SYSTICK_CSR_TICKINT_MASK, SYSTICK_CSR_R_TICKINT_BIT);
 }
@@ -45,7 +45,7 @@ void SYSTICK__vClearInterruptVector(void)
 
 SYSTICK_nSTATUS SYSTICK__enStatusInterruptVector(void)
 {
-    SYSTICK_nSTATUS enReturn = SYSTICK_enSTATUS_NOOCCUR;
+    SYSTICK_nSTATUS enReturn = SYSTICK_enSTATUS_INACTIVE;
     enReturn = (SYSTICK_nSTATUS) MCU__u32ReadRegister(SYSTICK_BASE,
               SYSTICK_CSR_OFFSET, SYSTICK_CSR_COUNTFLAG_MASK, SYSTICK_CSR_R_COUNTFLAG_BIT);
     return (enReturn);

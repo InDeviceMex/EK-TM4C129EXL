@@ -34,7 +34,7 @@ void ADC_Sequencer__vClearOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence
 
 ADC_nSEQ_OV ADC_Sequencer__enGetOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
 {
-    ADC_nSEQ_OV enSeqOVReg = ADC_enSEQ_OV_NOOCCUR;
+    ADC_nSEQ_OV enSeqOVReg = ADC_enSEQ_OV_INACTIVE;
     enSeqOVReg = (ADC_nSEQ_OV) (ADC_Sequencer__u32GetGeneric((uint32_t) enModule,
                                             ADC_OSTAT_OFFSET, (uint32_t) enSequence, 0UL));
     return (enSeqOVReg);

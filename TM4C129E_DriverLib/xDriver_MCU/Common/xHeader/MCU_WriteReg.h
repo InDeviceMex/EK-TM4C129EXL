@@ -78,7 +78,7 @@ inline void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataAr
     uint32_t u32RegisterValue;
     uint32_t u32RegisterMask;
     uint32_t u32Reg;
-    MCU_nENABLE enStatus;
+    MCU_nSTATE enStatus;
     uint32_t u32RegisterShift;
 
     if(0U != (uintptr_t) pstRegisterDataArg)
@@ -115,7 +115,7 @@ inline void MCU__vWriteRegister_DirectNew(const MCU_Register_t* const pstRegiste
     uint32_t u32RegisterValue;
     uint32_t u32RegisterMask;
     uint32_t u32Reg;
-    MCU_nENABLE enStatus;
+    MCU_nSTATE enStatus;
     uint32_t u32RegisterShift;
 
     if(0U != (uintptr_t) pstRegisterDataArg)
@@ -145,7 +145,7 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
 {
     uint32_t u32Reg = u32FeatureValue;
     volatile uint32_t* pu32Peripheral = 0UL;
-    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
+    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
 
     u32PeripheralBase += u32OffsetRegister;
     enStatus = MCU__enDisGlobalInterrupt();
@@ -176,7 +176,7 @@ inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
                                        uint32_t u32MaskFeature,
                                        uint32_t u32BitFeature)
 {
-    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
+    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
     volatile uint32_t* pu32Peripheral = 0UL;
 
     u32PeripheralBase += u32OffsetRegister;

@@ -32,21 +32,22 @@ typedef enum
 
 typedef enum
 {
-    SYSTICK_enPRI0 = 0UL,
-    SYSTICK_enPRI1 = 1UL,
-    SYSTICK_enPRI2 = 2UL,
-    SYSTICK_enPRI3 = 3UL,
-    SYSTICK_enPRI4 = 4UL,
-    SYSTICK_enPRI5 = 5UL,
-    SYSTICK_enPRI6 = 6UL,
-    SYSTICK_enPRI7 = 7UL,
-    SYSTICK_enDEFAULT = 0xFFFFFFFFUL,
+    SYSTICK_enPRI0 = (uint32_t) MCU_enPRI0,
+    SYSTICK_enPRI1 = (uint32_t) MCU_enPRI1,
+    SYSTICK_enPRI2 = (uint32_t) MCU_enPRI2,
+    SYSTICK_enPRI3 = (uint32_t) MCU_enPRI3,
+    SYSTICK_enPRI4 = (uint32_t) MCU_enPRI4,
+    SYSTICK_enPRI5 = (uint32_t) MCU_enPRI5,
+    SYSTICK_enPRI6 = (uint32_t) MCU_enPRI6,
+    SYSTICK_enPRI7 = (uint32_t) MCU_enPRI7,
+    SYSTICK_enPRIMAX = (uint32_t) MCU_enPRIMAX,
+    SYSTICK_enDEFAULT = (uint32_t) MCU_enDEFAULT,
 }SYSTICK_nPRIORITY;
 
 typedef enum
 {
-    SYSTICK_enSTATUS_NOOCCUR = 0UL,
-    SYSTICK_enSTATUS_OCCUR = 1UL,
+    SYSTICK_enSTATUS_INACTIVE = 0UL,
+    SYSTICK_enSTATUS_ACTIVE = 1UL,
 } SYSTICK_nSTATUS;
 
 typedef enum

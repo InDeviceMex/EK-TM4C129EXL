@@ -49,7 +49,7 @@ void WDT__vClearInterruptSource(WDT_nMODULE enModule)
 
 WDT_nINT_STATUS WDT__enStatusInterruptSource(WDT_nMODULE enModule)
 {
-    WDT_nINT_STATUS enIntStatusReg = WDT_enINT_STATUS_NOOCCUR;
+    WDT_nINT_STATUS enIntStatusReg = WDT_enINT_STATUS_INACTIVE;
 
     enIntStatusReg = (WDT_nINT_STATUS) WDT__u32ReadRegister(enModule, WDT_RIS_OFFSET,
                                                WDT_RIS_RIS_MASK, WDT_RIS_R_RIS_BIT);

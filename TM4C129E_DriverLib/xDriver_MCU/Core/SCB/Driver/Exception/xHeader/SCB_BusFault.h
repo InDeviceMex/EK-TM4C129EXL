@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_BusFault__vSetPriority(SCB_nSHPR enSCBPriority);
-SCB_nSHPR SCB_BusFault__enGetPriority(void);
+void SCB_BusFault__vSetPriority(SCB_nPRIORITY enSCBPriority);
+SCB_nPRIORITY SCB_BusFault__enGetPriority(void);
 
 void SCB_BusFault__vSetPending(void);
 void SCB_BusFault__vClearPending(void);

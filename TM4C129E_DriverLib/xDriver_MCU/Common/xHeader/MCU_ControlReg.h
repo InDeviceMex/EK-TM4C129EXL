@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
-void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor);
-MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor);
-MCU_nFPU_STATE MCU__enGetFPUContextActive(void);
+void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
+MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
+MCU_nSTATUS MCU__enGetFPUContextActive(void);
 
 
 MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack);

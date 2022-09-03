@@ -44,7 +44,7 @@ void SCB__vSetVectorTable(uint32_t u32Offset)
     uint32_t u32TableAddress = 0UL;
     uint32_t u32FlashSize = 0UL;
     uint32_t u32Count = 0UL;
-    MCU_nENABLE enInterruptState = MCU_enENABLE_DIS;
+    MCU_nSTATE enInterruptState = MCU_enSTATE_DIS;
 
     u32Offset &= ~(uint32_t) 0x3FFUL;
     u32TableAddress = SCB__u32GetVectorOffset();

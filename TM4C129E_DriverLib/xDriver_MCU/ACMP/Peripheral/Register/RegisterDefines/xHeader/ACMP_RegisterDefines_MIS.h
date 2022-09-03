@@ -32,52 +32,52 @@
 /*--------*/
 #define ACMP_MIS_R_IN_MASK    ((uint32_t) 0x00000007U)
 #define ACMP_MIS_R_IN_BIT    ((uint32_t) 0U)
-#define ACMP_MIS_R_IN_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_R_IN_OCCUR    ((uint32_t) 0x00000007U)
+#define ACMP_MIS_R_IN_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_R_IN_ACTIVE    ((uint32_t) 0x00000007U)
 #define ACMP_MIS_R_IN_CLEAR    ((uint32_t) 0x00000007U)
 
 #define ACMP_MIS_IN_MASK    ((uint32_t) 0x00000007U)
-#define ACMP_MIS_IN_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_IN_OCCUR    ((uint32_t) 0x00000007U)
+#define ACMP_MIS_IN_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_IN_ACTIVE    ((uint32_t) 0x00000007U)
 #define ACMP_MIS_IN_CLEAR    ((uint32_t) 0x00000007U)
 /*--------*/
 
 /*--------*/
 #define ACMP_MIS_R_IN0_MASK    ((uint32_t) 0x00000001U)
 #define ACMP_MIS_R_IN0_BIT    ((uint32_t) 0U)
-#define ACMP_MIS_R_IN0_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_R_IN0_OCCUR    ((uint32_t) 0x00000001U)
+#define ACMP_MIS_R_IN0_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_R_IN0_ACTIVE    ((uint32_t) 0x00000001U)
 #define ACMP_MIS_R_IN0_CLEAR    ((uint32_t) 0x00000001U)
 
 #define ACMP_MIS_IN0_MASK    ((uint32_t) 0x00000001U)
-#define ACMP_MIS_IN0_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_IN0_OCCUR    ((uint32_t) 0x00000001U)
+#define ACMP_MIS_IN0_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_IN0_ACTIVE    ((uint32_t) 0x00000001U)
 #define ACMP_MIS_IN0_CLEAR    ((uint32_t) 0x00000001U)
 /*--------*/
 
 /*--------*/
 #define ACMP_MIS_R_IN1_MASK    ((uint32_t) 0x00000002U)
 #define ACMP_MIS_R_IN1_BIT    ((uint32_t) 1U)
-#define ACMP_MIS_R_IN1_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_R_IN1_OCCUR    ((uint32_t) 0x00000002U)
+#define ACMP_MIS_R_IN1_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_R_IN1_ACTIVE    ((uint32_t) 0x00000002U)
 #define ACMP_MIS_R_IN1_CLEAR    ((uint32_t) 0x00000002U)
 
 #define ACMP_MIS_IN1_MASK    ((uint32_t) 0x00000001U)
-#define ACMP_MIS_IN1_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_IN1_OCCUR    ((uint32_t) 0x00000001U)
+#define ACMP_MIS_IN1_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_IN1_ACTIVE    ((uint32_t) 0x00000001U)
 #define ACMP_MIS_IN1_CLEAR    ((uint32_t) 0x00000001U)
 /*--------*/
 
 /*--------*/
 #define ACMP_MIS_R_IN2_MASK    ((uint32_t) 0x00000004U)
 #define ACMP_MIS_R_IN2_BIT    ((uint32_t) 2U)
-#define ACMP_MIS_R_IN2_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_R_IN2_OCCUR    ((uint32_t) 0x00000004U)
+#define ACMP_MIS_R_IN2_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_R_IN2_ACTIVE    ((uint32_t) 0x00000004U)
 #define ACMP_MIS_R_IN2_CLEAR    ((uint32_t) 0x00000004U)
 
 #define ACMP_MIS_IN2_MASK    ((uint32_t) 0x00000001U)
-#define ACMP_MIS_IN2_NOOCCUR    ((uint32_t) 0x00000000U)
-#define ACMP_MIS_IN2_OCCUR    ((uint32_t) 0x00000001U)
+#define ACMP_MIS_IN2_INACTIVE    ((uint32_t) 0x00000000U)
+#define ACMP_MIS_IN2_ACTIVE    ((uint32_t) 0x00000001U)
 #define ACMP_MIS_IN2_CLEAR    ((uint32_t) 0x00000001U)
 /*--------*/
 

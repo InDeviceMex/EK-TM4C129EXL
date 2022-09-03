@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_ControlReg.h>
 
-void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
+void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor)
 {
     __asm volatile(
           " mrs     r1, CONTROL\n"
@@ -34,7 +34,7 @@ void MCU__vSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
           " isb\n");
 }
 
-MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
+MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor)
 {
     __asm volatile(
           " mrs     r1, CONTROL\n"
@@ -47,13 +47,13 @@ MCU_nFPU_STATE MCU__enSetFPUContextActive(MCU_nFPU_STATE enStateCoprocessor)
     return (enStateCoprocessor);
 }
 
-MCU_nFPU_STATE MCU__enGetFPUContextActive(void)
+MCU_nSTATUS MCU__enGetFPUContextActive(void)
 {
     __asm volatile(
           " mrs     r1, CONTROL\n"
           " ubfx    r0, r1, #2, #1\n"
           " bx      lr\n");
-    return ((MCU_nFPU_STATE) 0UL);
+    return ((MCU_nSTATUS) 0UL);
 }
 
 MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack)

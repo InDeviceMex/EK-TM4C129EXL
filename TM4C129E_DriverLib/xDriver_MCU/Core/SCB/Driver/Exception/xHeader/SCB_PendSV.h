@@ -31,7 +31,7 @@ void SCB_PendSV__vSetPending(void);
 void SCB_PendSV__vClearPending(void);
 SCB_nPENDSTATE SCB_PendSV__enGetPending(void);
 
-void SCB_PendSV__vSetPriority(SCB_nSHPR enPendSVPriority);
-SCB_nSHPR SCB_PendSV__enGetPriority(void);
+void SCB_PendSV__vSetPriority(SCB_nPRIORITY enPendSVPriority);
+SCB_nPRIORITY SCB_PendSV__enGetPriority(void);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_PENDSV_H_ */

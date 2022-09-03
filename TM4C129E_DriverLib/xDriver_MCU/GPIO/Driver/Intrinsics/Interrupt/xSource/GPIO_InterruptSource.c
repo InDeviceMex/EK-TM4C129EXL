@@ -73,18 +73,18 @@ GPIO_nPIN GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
 
 GPIO_nINT_STATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO_nINT_STATUS enStatus = GPIO_enINT_STATUS_NOOCCUR;
+    GPIO_nINT_STATUS enStatus = GPIO_enINT_STATUS_INACTIVE;
     uint32_t u32Reg = 0UL;
 
     u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET,
                                    GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
     if(0UL != u32Reg)
     {
-        enStatus = GPIO_enINT_STATUS_OCCUR;
+        enStatus = GPIO_enINT_STATUS_ACTIVE;
     }
     else
     {
-        enStatus = GPIO_enINT_STATUS_NOOCCUR;
+        enStatus = GPIO_enINT_STATUS_INACTIVE;
     }
     return (enStatus);
 }

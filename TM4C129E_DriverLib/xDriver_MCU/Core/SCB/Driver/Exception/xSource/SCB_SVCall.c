@@ -26,7 +26,7 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
 
-void SCB_SVCall__vSetPriority(SCB_nSHPR enSVCallPriority)
+void SCB_SVCall__vSetPriority(SCB_nPRIORITY enSVCallPriority)
 {
     MCU__vDataSyncBarrier();
     MCU__vWriteRegister(SCB_BASE, SCB_SHPR2_OFFSET, (uint32_t) enSVCallPriority,
@@ -34,10 +34,10 @@ void SCB_SVCall__vSetPriority(SCB_nSHPR enSVCallPriority)
     MCU__vDataSyncBarrier();
 }
 
-SCB_nSHPR SCB_SVCall__enGetPriority(void)
+SCB_nPRIORITY SCB_SVCall__enGetPriority(void)
 {
-    SCB_nSHPR enPriReg = SCB_enSHPR0;
-    enPriReg = (SCB_nSHPR) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR2_OFFSET,
+    SCB_nPRIORITY enPriReg = SCB_enPRI0;
+    enPriReg = (SCB_nPRIORITY) MCU__u32ReadRegister(SCB_BASE, SCB_SHPR2_OFFSET,
                                   SCB_SHPR2_SVCALL_MASK, SCB_SHPR2_R_SVCALL_BIT);
     return (enPriReg);
 }

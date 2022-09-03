@@ -46,18 +46,18 @@
 #pragma  CODE_SECTION(MCU__enSetBasePriorityInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetBasePriorityInterrupt_RAM, ".ramcode")
 
-MCU_nENABLE MCU__enDisGlobalInterrupt_RAM(void);
+MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void);
 void MCU__vEnGlobalInterrupt_RAM(void);
-MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void);
-void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enGetGlobalInterrupt_RAM(void);
+MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void);
+void MCU__vSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void);
 
 
-MCU_nENABLE MCU__enDisGlobalFault_RAM(void);
-MCU_nENABLE MCU__enEnGlobalFault_RAM(void);
-MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enGetGlobalFault_RAM(void);
+MCU_nSTATE MCU__enDisGlobalFault_RAM(void);
+MCU_nSTATE MCU__enEnGlobalFault_RAM(void);
+MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enGetGlobalFault_RAM(void);
 
 
 void MCU__vSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt);
@@ -72,18 +72,18 @@ void MCU__vSendEvent_RAM(void);
 
 #elif defined (__GNUC__ )
 
-MCU_nENABLE MCU__enDisGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
 void MCU__vEnGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
-void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enGetGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
+void MCU__vSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void)__attribute__((section(".ramcode")));
 
 
-MCU_nENABLE MCU__enDisGlobalFault_RAM(void)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enEnGlobalFault_RAM(void)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt)__attribute__((section(".ramcode")));
-MCU_nENABLE MCU__enGetGlobalFault_RAM(void)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enDisGlobalFault_RAM(void)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enEnGlobalFault_RAM(void)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt)__attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enGetGlobalFault_RAM(void)__attribute__((section(".ramcode")));
 
 
 void MCU__vSetBasePriorityInterrupt_RAM(MCU_nPRIORITY enStateInterrupt)__attribute__((section(".ramcode")));
@@ -103,18 +103,18 @@ void MCU__vWaitForEvent(void);
 void MCU__vSendEvent(void);
 
 
-MCU_nENABLE MCU__enDisGlobalInterrupt(void);
+MCU_nSTATE MCU__enDisGlobalInterrupt(void);
 void MCU__vEnGlobalInterrupt(void);
-MCU_nENABLE MCU__enEnGlobalInterrupt(void);
-void MCU__vSetGlobalInterrupt(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enGetGlobalInterrupt(void);
+MCU_nSTATE MCU__enEnGlobalInterrupt(void);
+void MCU__vSetGlobalInterrupt(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enSetGlobalInterrupt(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enGetGlobalInterrupt(void);
 
 
-MCU_nENABLE MCU__enDisGlobalFault(void);
-MCU_nENABLE MCU__enEnGlobalFault(void);
-MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enStateInterrupt);
-MCU_nENABLE MCU__enGetGlobalFault(void);
+MCU_nSTATE MCU__enDisGlobalFault(void);
+MCU_nSTATE MCU__enEnGlobalFault(void);
+MCU_nSTATE MCU__enSetGlobalFault(MCU_nSTATE enStateInterrupt);
+MCU_nSTATE MCU__enGetGlobalFault(void);
 
 
 void MCU__vSetBasePriorityInterrupt(MCU_nPRIORITY enStateInterrupt);

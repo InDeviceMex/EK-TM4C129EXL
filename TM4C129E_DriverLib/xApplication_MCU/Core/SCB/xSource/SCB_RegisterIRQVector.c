@@ -34,7 +34,7 @@ void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
     uint32_t* pu32BaseVector = 0UL;
     uint32_t u32FlashSize = 0UL;
     uint32_t u32IrqVectorHandler = 0UL;
-    MCU_nENABLE enInterruptState = MCU_enENABLE_DIS;
+    MCU_nSTATE enInterruptState = MCU_enSTATE_DIS;
 
     if(0UL != (uint32_t) pfIrqVectorHandler)
     {

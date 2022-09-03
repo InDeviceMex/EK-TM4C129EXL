@@ -25,15 +25,17 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 #define SCB_VECTOR_TABLE_SIZE ((uint32_t) 0x00000100UL)
 
 typedef enum
 {
-    SCB_enOK = 0UL,
-    SCB_enERROR = 1UL,
-}SCB_nSTATUS;
+    SCB_enERROR_OK = (uint32_t) MCU_enERROR_OK,
+    SCB_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
+    SCB_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    SCB_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+}SCB_nERROR;
 
 typedef enum
 {
@@ -167,17 +169,20 @@ typedef enum
     SCB_enMEMORY_BIT_MAX = 7UL,
 }SCB_nMEMORY_BIT;
 
+
 typedef enum
 {
-    SCB_enSHPR0 = 0UL,
-    SCB_enSHPR1 = 1UL,
-    SCB_enSHPR2 = 2UL,
-    SCB_enSHPR3 = 3UL,
-    SCB_enSHPR4 = 4UL,
-    SCB_enSHPR5 = 5UL,
-    SCB_enSHPR6 = 6UL,
-    SCB_enSHPR7 = 7UL,
-}SCB_nSHPR;
+    SCB_enPRI0 = (uint32_t) MCU_enPRI0,
+    SCB_enPRI1 = (uint32_t) MCU_enPRI1,
+    SCB_enPRI2 = (uint32_t) MCU_enPRI2,
+    SCB_enPRI3 = (uint32_t) MCU_enPRI3,
+    SCB_enPRI4 = (uint32_t) MCU_enPRI4,
+    SCB_enPRI5 = (uint32_t) MCU_enPRI5,
+    SCB_enPRI6 = (uint32_t) MCU_enPRI6,
+    SCB_enPRI7 = (uint32_t) MCU_enPRI7,
+    SCB_enPRIMAX = (uint32_t) MCU_enPRIMAX,
+    SCB_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+}SCB_nPRIORITY;
 
 typedef enum
 {

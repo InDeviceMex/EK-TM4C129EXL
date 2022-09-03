@@ -31,7 +31,7 @@ void SCB_SVCall__vSetPending(void);
 void SCB_SVCall__vClearPending(void);
 SCB_nPENDSTATE SCB_SVCall__enGetPending(void);
 
-void SCB_SVCall__vSetPriority(SCB_nSHPR enSVCallPriority);
-SCB_nSHPR SCB_SVCall__enGetPriority(void);
+void SCB_SVCall__vSetPriority(SCB_nPRIORITY enSVCallPriority);
+SCB_nPRIORITY SCB_SVCall__enGetPriority(void);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SVCALL_H_ */

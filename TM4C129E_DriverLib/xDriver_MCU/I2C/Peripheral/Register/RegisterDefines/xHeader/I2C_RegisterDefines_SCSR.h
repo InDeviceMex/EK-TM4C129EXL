@@ -76,12 +76,12 @@
 /*--------*/
 #define I2C_SCSR_R_QCMDST_MASK    ((uint32_t) 0x00000010UL)
 #define I2C_SCSR_R_QCMDST_BIT    ((uint32_t) 4UL)
-#define I2C_SCSR_R_QCMDST_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define I2C_SCSR_R_QCMDST_OCCUR    ((uint32_t) 0x00000010UL)
+#define I2C_SCSR_R_QCMDST_INACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_R_QCMDST_ACTIVE    ((uint32_t) 0x00000010UL)
 
 #define I2C_SCSR_QCMDST_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SCSR_QCMDST_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define I2C_SCSR_QCMDST_OCCUR    ((uint32_t) 0x00000001UL)
+#define I2C_SCSR_QCMDST_INACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_SCSR_QCMDST_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/

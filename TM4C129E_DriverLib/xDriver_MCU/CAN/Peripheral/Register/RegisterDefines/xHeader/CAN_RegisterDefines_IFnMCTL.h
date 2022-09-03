@@ -124,12 +124,12 @@
 /*--------*/
 #define CAN_IFnMCTL_R_INTPND_MASK    ((uint32_t) 0x00002000UL)
 #define CAN_IFnMCTL_R_INTPND_BIT    ((uint32_t) 13UL)
-#define CAN_IFnMCTL_R_INTPND_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define CAN_IFnMCTL_R_INTPND_OCCUR    ((uint32_t) 0x00002000UL)
+#define CAN_IFnMCTL_R_INTPND_INACTIVE    ((uint32_t) 0x00000000UL)
+#define CAN_IFnMCTL_R_INTPND_ACTIVE    ((uint32_t) 0x00002000UL)
 
 #define CAN_IFnMCTL_INTPND_MASK    ((uint32_t) 0x00000001UL)
-#define CAN_IFnMCTL_INTPND_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define CAN_IFnMCTL_INTPND_OCCUR    ((uint32_t) 0x00000001UL)
+#define CAN_IFnMCTL_INTPND_INACTIVE    ((uint32_t) 0x00000000UL)
+#define CAN_IFnMCTL_INTPND_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/

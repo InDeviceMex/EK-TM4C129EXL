@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_UsageFault__vSetPriority(SCB_nSHPR enUsageFaultPriority);
-SCB_nSHPR SCB_UsageFault__enGetPriority(void);
+void SCB_UsageFault__vSetPriority(SCB_nPRIORITY enUsageFaultPriority);
+SCB_nPRIORITY SCB_UsageFault__enGetPriority(void);
 
 void SCB_UsageFault__vSetPending(void);
 void SCB_UsageFault__vClearPending(void);

@@ -31,7 +31,7 @@ void SCB_Systick__vSetPending(void);
 void SCB_Systick__vClearPending(void);
 SCB_nPENDSTATE SCB_Systick__enGetPending(void);
 
-void SCB_Systick__vSetPriority(SCB_nSHPR enSystickPriority);
-SCB_nSHPR SCB_Systick__enGetPriority(void);
+void SCB_Systick__vSetPriority(SCB_nPRIORITY enSystickPriority);
+SCB_nPRIORITY SCB_Systick__enGetPriority(void);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSTICK_H_ */

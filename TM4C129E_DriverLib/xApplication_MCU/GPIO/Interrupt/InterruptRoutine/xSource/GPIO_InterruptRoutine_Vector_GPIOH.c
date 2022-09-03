@@ -41,14 +41,14 @@ void GPIOH__vIRQVectorHandler(void)
     {
         u32Reg = GPIOH_MIS_R;
 
-        if(0UL == (((uint32_t) GPIO_enPIN_ALL | GPIO_MIS_R_DMAMIS_OCCUR) & u32Reg))
+        if(0UL == (((uint32_t) GPIO_enPIN_ALL | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
         {
             pvfCallback = GPIO_SW__pvfGetIRQSourceHandler(GPIO_enPORT_H);
             pvfCallback();
         }
         else
         {
-            if((uint32_t) GPIO_MIS_R_DMAMIS_OCCUR & u32Reg)
+            if((uint32_t) GPIO_MIS_R_DMAMIS_ACTIVE & u32Reg)
             {
                 GPIOH_ICR_R = GPIO_ICR_R_DMAIC_CLEAR;
                 pvfCallback = GPIO_DMA__pvfGetIRQSourceHandler(GPIO_enPORT_H);

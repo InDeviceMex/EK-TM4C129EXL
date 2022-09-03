@@ -28,7 +28,7 @@
 
 void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32Divider = 0.0f;
     uint32_t u32Divider = 0UL;
@@ -44,7 +44,7 @@ void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
 
 uint32_t UART__u32GetIrDALowPowerFrequency(UART_nMODULE enModule)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32Divider = 0.0f;
     uint32_t u32Result = 0UL;

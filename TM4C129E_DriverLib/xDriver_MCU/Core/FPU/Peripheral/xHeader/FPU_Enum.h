@@ -20,6 +20,20 @@ typedef enum
 
 typedef enum
 {
+    FPU_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
+    FPU_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
+    FPU_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+} FPU_nSTATE;
+
+typedef enum
+{
+    FPU_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
+    FPU_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
+    FPU_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+} FPU_nSTATUS;
+
+typedef enum
+{
     FPU_enMODULE_0 = 0UL,
     FPU_enMODULE_MAX = 1UL,
 }FPU_nMODULE;
@@ -30,19 +44,6 @@ typedef enum
     FPU_enACCESS_ONLY_PRIVILEGED = 1UL,
     FPU_enACCESS_FULL = 3UL,
 }FPU_nACCESS;
-
-typedef enum
-{
-    FPU_enSTATE_DIS = 0UL,
-    FPU_enSTATE_ENA = 1UL,
-}FPU_nSTATE;
-
-typedef enum
-{
-    FPU_enSTATUS_NOACTIVE = 0UL,
-    FPU_enSTATUS_ACTIVE = 1UL,
-}FPU_nSTATUS;
-
 typedef enum
 {
     FPU_enHALF_PRECISION_IEEE = 0UL,

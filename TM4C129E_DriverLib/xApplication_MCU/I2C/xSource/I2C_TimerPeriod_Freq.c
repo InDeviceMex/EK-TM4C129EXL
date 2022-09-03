@@ -33,7 +33,7 @@
 
 I2C_nSTATUS I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32FrequencyArg)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     I2C_nSTATUS enStatus = I2C_enSTATUS_ERROR;
     uint32_t u32SysFrec = 0UL;
@@ -82,7 +82,7 @@ I2C_nSTATUS I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32Frequen
 
 uint32_t I2C_Master__u32GetFrequency(I2C_nMODULE enModule)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     I2C_nMASTER_HIGHSPEED enHighSpeed = I2C_enMASTER_HIGHSPEED_UNDEF;
     uint32_t u32SysFrec = 0UL;

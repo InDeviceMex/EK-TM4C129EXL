@@ -36,17 +36,31 @@ typedef enum
 
 typedef enum
 {
-    ACMP_enSTATE_DIS = 0UL,
-    ACMP_enSTATE_ENA = 1UL,
-    ACMP_enSTATE_UNDEF = 0xFFFFFFFFUL,
+    ACMP_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
+    ACMP_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
+    ACMP_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
 } ACMP_nSTATE;
 
 typedef enum
 {
-    ACMP_enSTATUS_NOOCCUR = 0UL,
-    ACMP_enSTATUS_OCCUR = 1UL,
-    ACMP_enSTATUS_UNDEF = 0xFFFFFFFFUL,
+    ACMP_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
+    ACMP_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
+    ACMP_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
 } ACMP_nSTATUS;
+
+typedef enum
+{
+    ACMP_enPRI0 = (uint32_t) MCU_enPRI0,
+    ACMP_enPRI1 = (uint32_t) MCU_enPRI1,
+    ACMP_enPRI2 = (uint32_t) MCU_enPRI2,
+    ACMP_enPRI3 = (uint32_t) MCU_enPRI3,
+    ACMP_enPRI4 = (uint32_t) MCU_enPRI4,
+    ACMP_enPRI5 = (uint32_t) MCU_enPRI5,
+    ACMP_enPRI6 = (uint32_t) MCU_enPRI6,
+    ACMP_enPRI7 = (uint32_t) MCU_enPRI7,
+    ACMP_enPRIMAX = (uint32_t) MCU_enPRIMAX,
+    ACMP_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+}ACMP_nPRIORITY;
 
 typedef enum
 {
@@ -59,20 +73,6 @@ typedef enum
     ACMP_enMODULE_0 = 0UL,
     ACMP_enMODULE_MAX = 1UL,
 }ACMP_nMODULE;
-
-typedef enum
-{
-    ACMP_enPRI0 = 0UL,
-    ACMP_enPRI1 = 1UL,
-    ACMP_enPRI2 = 2UL,
-    ACMP_enPRI3 = 3UL,
-    ACMP_enPRI4 = 4UL,
-    ACMP_enPRI5 = 5UL,
-    ACMP_enPRI6 = 6UL,
-    ACMP_enPRI7 = 7UL,
-    ACMP_enPRIMAX = 7UL,
-    ACMP_enDEFAULT = 0xFFFFFFFFUL,
-}ACMP_nPRIORITY;
 
 typedef enum
 {

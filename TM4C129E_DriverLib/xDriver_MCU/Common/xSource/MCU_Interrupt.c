@@ -24,14 +24,14 @@
 #include <xDriver_MCU/Common/xHeader/MCU_Interrupt.h>
 
 
-MCU_nENABLE MCU__enDisGlobalInterrupt(void)
+MCU_nSTATE MCU__enDisGlobalInterrupt(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
            " cpsid   i \n"
            " dsb \n"
            " isb\n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
@@ -44,18 +44,18 @@ void MCU__vEnGlobalInterrupt(void)
 }
 
 
-MCU_nENABLE MCU__enEnGlobalInterrupt(void)
+MCU_nSTATE MCU__enEnGlobalInterrupt(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
            " cpsie   i \n"
            " dsb \n"
            " isb\n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-void MCU__vSetGlobalInterrupt(MCU_nENABLE enStateInterrupt)
+void MCU__vSetGlobalInterrupt(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(" msr     PRIMASK, r0 \n"
             " dsb \n"
@@ -63,7 +63,7 @@ void MCU__vSetGlobalInterrupt(MCU_nENABLE enStateInterrupt)
 }
 
 
-MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enStateInterrupt)
+MCU_nSTATE MCU__enSetGlobalInterrupt(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(
           " mrs     r1, PRIMASK \n"
@@ -75,22 +75,22 @@ MCU_nENABLE MCU__enSetGlobalInterrupt(MCU_nENABLE enStateInterrupt)
 }
 
 
-MCU_nENABLE MCU__enGetGlobalInterrupt(void)
+MCU_nSTATE MCU__enGetGlobalInterrupt(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-MCU_nENABLE MCU__enDisGlobalInterrupt_RAM(void)
+MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " cpsid   i \n"
           " dsb \n"
           " isb\n"
           " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
@@ -103,18 +103,18 @@ void MCU__vEnGlobalInterrupt_RAM(void)
 }
 
 
-MCU_nENABLE MCU__enEnGlobalInterrupt_RAM(void)
+MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " cpsie   i \n"
           " dsb \n"
           " isb\n"
           " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)
+void MCU__vSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(
             " msr     PRIMASK, r0 \n"
@@ -123,7 +123,7 @@ void MCU__vSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)
 }
 
 
-MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)
+MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(
           " mrs     r1, PRIMASK \n"
@@ -135,11 +135,11 @@ MCU_nENABLE MCU__enSetGlobalInterrupt_RAM(MCU_nENABLE enStateInterrupt)
 }
 
 
-MCU_nENABLE MCU__enGetGlobalInterrupt_RAM(void)
+MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
@@ -263,29 +263,29 @@ void MCU__vSendEvent(void)
 }
 
 
-MCU_nENABLE MCU__enDisGlobalFault(void)
+MCU_nSTATE MCU__enDisGlobalFault(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " cpsid   f \n"
            " dsb \n"
            " isb \n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-MCU_nENABLE MCU__enEnGlobalFault(void)
+MCU_nSTATE MCU__enEnGlobalFault(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " cpsie   f \n"
            " dsb \n"
            " isb \n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enStateInterrupt)
+MCU_nSTATE MCU__enSetGlobalFault(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(
           " mrs     r1, FAULTMASK \n"
@@ -297,37 +297,37 @@ MCU_nENABLE MCU__enSetGlobalFault(MCU_nENABLE enStateInterrupt)
 }
 
 
-MCU_nENABLE MCU__enGetGlobalFault(void)
+MCU_nSTATE MCU__enGetGlobalFault(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
 
-MCU_nENABLE MCU__enDisGlobalFault_RAM(void)
+MCU_nSTATE MCU__enDisGlobalFault_RAM(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " cpsid   f \n"
            " dsb \n"
            " isb \n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
 
-MCU_nENABLE MCU__enEnGlobalFault_RAM(void)
+MCU_nSTATE MCU__enEnGlobalFault_RAM(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " cpsie   f \n"
            " dsb \n"
            " isb \n"
            " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }
 
-MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt)
+MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt)
 {
     __asm volatile(
           " mrs     r1, FAULTMASK \n"
@@ -338,9 +338,9 @@ MCU_nENABLE MCU__enSetGlobalFault_RAM(MCU_nENABLE enStateInterrupt)
     return (enStateInterrupt);
 }
 
-MCU_nENABLE MCU__enGetGlobalFault_RAM(void)
+MCU_nSTATE MCU__enGetGlobalFault_RAM(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
           " bx      lr \n");
-    return ((MCU_nENABLE) 0UL);
+    return ((MCU_nSTATE) 0UL);
 }

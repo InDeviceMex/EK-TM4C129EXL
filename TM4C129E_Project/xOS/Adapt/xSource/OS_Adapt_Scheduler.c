@@ -58,8 +58,8 @@ void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
                                    (void (**) (void)) 0UL,
                                    SCB_enVECISR_PENDSV);
     SCB_SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
-    SCB_PendSV__vSetPriority(SCB_enSHPR7);
-    SCB_Systick__vSetPriority(SCB_enSHPR7);
+    SCB_PendSV__vSetPriority(SCB_enPRI7);
+    SCB_Systick__vSetPriority(SCB_enPRI7);
 
     OS_Adapt_vSetupTimerInterrupt(uxUsPeriod);
     OS_Adapt__vSetCriticalNesting(0UL);

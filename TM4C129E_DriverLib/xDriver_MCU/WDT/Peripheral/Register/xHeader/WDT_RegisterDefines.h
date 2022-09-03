@@ -131,12 +131,12 @@
 /*--------*/
 #define WDT_MIS_R_MIS_MASK    ((uint32_t) 0x00000001UL)
 #define WDT_MIS_R_MIS_BIT    ((uint32_t) 0UL)
-#define WDT_MIS_R_MIS_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define WDT_MIS_R_MIS_OCCUR    ((uint32_t) 0x00000001UL)
+#define WDT_MIS_R_MIS_INACTIVE    ((uint32_t) 0x00000000UL)
+#define WDT_MIS_R_MIS_ACTIVE    ((uint32_t) 0x00000001UL)
 
 #define WDT_MIS_MIS_MASK    ((uint32_t) 0x00000001UL)
-#define WDT_MIS_MIS_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define WDT_MIS_MIS_OCCUR    ((uint32_t) 0x00000001UL)
+#define WDT_MIS_MIS_INACTIVE    ((uint32_t) 0x00000000UL)
+#define WDT_MIS_MIS_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
 
 /******************************************************************************************

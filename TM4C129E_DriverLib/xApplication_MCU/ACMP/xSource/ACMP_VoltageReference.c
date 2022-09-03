@@ -28,7 +28,7 @@
 float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
                                    float32_t f32VoltageReferencePorcentage)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32VoltageProcentage1 = 0.0f;
     float32_t f32VoltageProcentage2 = 0.0f;
@@ -137,7 +137,7 @@ float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
 
 float32_t ACMP__f32GetVoltageReference(ACMP_nMODULE enModule)
 {
-    MCU_nFPU_STATE enFPUActive = MCU_enFPU_STATE_INACTIVE;
+    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
     enFPUActive = MCU__enGetFPUContextActive();
     float32_t f32VoltagePorcentage = 0.0f;
     float32_t f32VoltagePorcentageInit = 0.0f;

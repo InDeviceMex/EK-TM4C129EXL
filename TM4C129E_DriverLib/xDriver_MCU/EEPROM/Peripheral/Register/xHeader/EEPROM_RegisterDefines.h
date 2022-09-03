@@ -291,12 +291,12 @@
 /*----------*/
 #define EEPROM_EEINT_R_INT_MASK    ((uint32_t) 0x00000001UL)
 #define EEPROM_EEINT_R_INT_BIT    (0UL)
-#define EEPROM_EEINT_R_INT_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define EEPROM_EEINT_R_INT_OCCUR    ((uint32_t) 0x00000001UL)
+#define EEPROM_EEINT_R_INT_INACTIVE    ((uint32_t) 0x00000000UL)
+#define EEPROM_EEINT_R_INT_ACTIVE    ((uint32_t) 0x00000001UL)
 
 #define EEPROM_EEINT_INT_MASK    ((uint32_t) 0x00000001UL)
-#define EEPROM_EEINT_INT_NOOCCUR    ((uint32_t) 0x00000000UL)
-#define EEPROM_EEINT_INT_OCCUR    ((uint32_t) 0x00000001UL)
+#define EEPROM_EEINT_INT_INACTIVE    ((uint32_t) 0x00000000UL)
+#define EEPROM_EEINT_INT_ACTIVE    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /******************************************************************************************

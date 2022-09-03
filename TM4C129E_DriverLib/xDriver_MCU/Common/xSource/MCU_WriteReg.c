@@ -32,7 +32,7 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
     uint32_t u32RegisterValue;
     uint32_t u32RegisterMask;
     uint32_t u32Reg;
-    MCU_nENABLE enStatus;
+    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
@@ -78,7 +78,7 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
     uint32_t u32RegisterValue;
     uint32_t u32RegisterMask;
     uint32_t u32Reg;
-    MCU_nENABLE enStatus;
+    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
@@ -123,7 +123,7 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
     uint32_t u32RegisterValue;
     uint32_t u32RegisterMask;
     uint32_t u32Reg;
-    MCU_nENABLE enStatus;
+    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
@@ -155,7 +155,7 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
                              uint32_t u32FeatureValue, uint32_t u32MaskFeature,
                              uint32_t u32BitFeature)
 {
-    MCU_nENABLE enStatus = MCU_enENABLE_ENA;
+    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
     uint32_t u32Reg = u32FeatureValue;
     volatile uint32_t* pu32Peripheral = 0UL;
 
