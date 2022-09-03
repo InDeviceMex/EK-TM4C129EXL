@@ -25,47 +25,75 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vReqSysReset(void)
+SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg)
 {
-    uint32_t u32Reg = 0UL;
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
-    u32Reg = MCU__u32ReadRegister(SCB_BASE, SCB_AIRCR_OFFSET,
-                  SCB_AIRCR_VECTKEY_MASK, SCB_AIRCR_R_VECTKEY_BIT);
-    if(SCB_AIRCR_VECTKEY_READ == u32Reg)
+    stRegister.u32Shift = SCB_AIRCR_R_VECTKEY_BIT;
+    stRegister.u32Mask = SCB_AIRCR_VECTKEY_MASK ;
+    stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+    enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        MCU__vDataSyncBarrier();
-        MCU__vWriteRegister(SCB_BASE, SCB_AIRCR_OFFSET,
-                (SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_VECTRESET_NOUSE),
-                (SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_VECTRESET_MASK),
-                0UL);
-        MCU__vDataSyncBarrier();
-
-        while(1UL)
+        if(SCB_AIRCR_VECTKEY_READ == stRegister.u32Value)
         {
-          MCU__vNoOperation();
+            stRegister.u32Shift = 0UL;
+            stRegister.u32Mask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_SYSRESETREQ_RESET;
+            stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+            stRegister.u32Value = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_SYSRESETREQ_MASK;
+            MCU__vDataSyncBarrier();
+            enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+            MCU__vDataSyncBarrier();
+
+            while(1U)
+            {
+                MCU__vNoOperation();
+            }
+        }
+        else
+        {
+            enErrorReg = SCB_enERROR_VALUE;
         }
     }
+
+    return (enErrorReg);
 }
 
-void SCB__vReqSysReset_Peripheral(void)
+SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg)
 {
-    uint32_t u32Reg = 0UL;
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
 
-    u32Reg = MCU__u32ReadRegister(SCB_BASE, SCB_AIRCR_OFFSET,
-                          SCB_AIRCR_VECTKEY_MASK, SCB_AIRCR_R_VECTKEY_BIT);
-    if(SCB_AIRCR_VECTKEY_READ == u32Reg)
+    stRegister.u32Shift = SCB_AIRCR_R_VECTKEY_BIT;
+    stRegister.u32Mask = SCB_AIRCR_VECTKEY_MASK;
+    stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+    enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        MCU__vDataSyncBarrier();
-        MCU__vWriteRegister(SCB_BASE, SCB_AIRCR_OFFSET,
-                            (SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_SYSRESETREQ_RESET),
-                            (SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_SYSRESETREQ_MASK),
-                            0UL);
-        MCU__vDataSyncBarrier();
-
-        while(1U)
+        if(SCB_AIRCR_VECTKEY_READ == stRegister.u32Value)
         {
-            MCU__vNoOperation();
+            stRegister.u32Shift = 0UL;
+            stRegister.u32Mask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_VECTRESET_NOUSE;
+            stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+            stRegister.u32Value = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_VECTRESET_NOEFFECT;
+            MCU__vDataSyncBarrier();
+            enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+            MCU__vDataSyncBarrier();
+
+            while(1U)
+            {
+                MCU__vNoOperation();
+            }
+        }
+        else
+        {
+            enErrorReg = SCB_enERROR_VALUE;
         }
     }
+
+    return (enErrorReg);
 }
+

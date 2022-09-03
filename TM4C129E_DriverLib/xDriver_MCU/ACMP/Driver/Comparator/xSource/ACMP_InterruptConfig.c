@@ -100,6 +100,11 @@ ACMP_nERROR ACMP__enGetInterruptConfig(ACMP_nMODULE enModuleArg,
                 *penIntConfigArg = (ACMP_nINT_CONFIG) u32Sense;
             }
         }
+        else
+        {
+            enEdgeReg = ACMP_enEDGE_NONE;
+            enLevelReg = ACMP_enLEVEL_LOW;
+        }
     }
     else
     {

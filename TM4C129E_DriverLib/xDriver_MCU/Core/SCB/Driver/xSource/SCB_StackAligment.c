@@ -23,19 +23,40 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/xHeader/SCB_StackAligment.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vSetStackAligment(SCB_nAlignment enAlign)
+SCB_nERROR SCB__enSetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN enAlignArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, (uint32_t) enAlign,
-                        SCB_CCR_STKALIGN_MASK, SCB_CCR_R_STKALIGN_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_CCR_R_STKALIGN_BIT;
+    stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
+    stRegister.uptrAddress = SCB_CCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enAlignArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-SCB_nAlignment SCB__enGetStackAligment(void)
+SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlignArg)
 {
-    SCB_nAlignment enAlignReg = SCB_enALIGN_4BYTE;
-    enAlignReg = (SCB_nAlignment) MCU__u32ReadRegister(SCB_BASE, SCB_CCR_OFFSET,
-                                     SCB_CCR_STKALIGN_MASK, SCB_CCR_R_STKALIGN_BIT);
-    return (enAlignReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penAlignArg)
+    {
+        stRegister.u32Shift = SCB_CCR_R_STKALIGN_BIT;
+        stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
+        stRegister.uptrAddress = SCB_CCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

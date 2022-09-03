@@ -25,7 +25,12 @@
 #ifndef XDRIVER_MCU_CORE_SCB_DRIVER_TRAPS_XHEADER_SCB_DIVISIONTRAP_H_
 #define XDRIVER_MCU_CORE_SCB_DRIVER_TRAPS_XHEADER_SCB_DIVISIONTRAP_H_
 
-void SCB__vEnDivisionTrap(void);
-void SCB__vDisDivisionTrap(void);
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
+
+SCB_nERROR SCB__enSetDivisionTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg);
+SCB_nERROR SCB__enGetDivisionTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg);
+
+SCB_nERROR SCB__enEnableDivisionTrap(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB__enDisableDivisionTrap(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_CORE_SCB_DRIVER_TRAPS_XHEADER_SCB_DIVISIONTRAP_H_ */

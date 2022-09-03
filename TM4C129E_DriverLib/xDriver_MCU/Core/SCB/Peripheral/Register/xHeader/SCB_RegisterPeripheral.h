@@ -25,6 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_REGISTER_SCB_REGISTERPERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_REGISTER_SCB_REGISTERPERIPHERAL_H_
 
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/Struct/xHeader/SCB_StructPeripheral.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/Register/xHeader/SCB_RegisterAddress.h>
 
@@ -229,5 +230,7 @@
 /********************************************************************************************/
 #define SCB_ISAR4    (((ISAR4_t*) (SCB_BASE + SCB_ISAR4_OFFSET)))
 #define SCB_ISAR4_R    (*((volatile const uint32_t*) (SCB_BASE + SCB_ISAR4_OFFSET)))
+
+uintptr_t SCB__uptrBlockBaseAddress(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_REGISTER_SCB_REGISTERPERIPHERAL_H_ */

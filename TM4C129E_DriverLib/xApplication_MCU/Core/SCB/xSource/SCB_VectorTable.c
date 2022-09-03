@@ -47,7 +47,7 @@ void SCB__vSetVectorTable(uint32_t u32Offset)
     MCU_nSTATE enInterruptState = MCU_enSTATE_DIS;
 
     u32Offset &= ~(uint32_t) 0x3FFUL;
-    u32TableAddress = SCB__u32GetVectorOffset();
+    SCB__enGetVectorOffset(SCB_enMODULE_0, &u32TableAddress);
 
     u32FlashSize = FLASH__u32GetSize();
     if(u32FlashSize > u32Offset)
@@ -67,7 +67,7 @@ void SCB__vSetVectorTable(uint32_t u32Offset)
             pu32Table += 1U;
         }
     }
-    SCB__vSetVectorOffset(u32Offset);
+    SCB__enSetVectorOffset(SCB_enMODULE_0, u32Offset);
 }
 
 

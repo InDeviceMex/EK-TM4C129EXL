@@ -23,17 +23,58 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/Traps/xHeader/SCB_UnalignTrap.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vEnUnalignTrap(void)
+SCB_nERROR SCB__enSetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_UNALIGN_TRP_TRAP,
-                        SCB_CCR_UNALIGN_TRP_MASK, SCB_CCR_R_UNALIGN_TRP_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_CCR_R_UNALIGN_TRP_BIT;
+    stRegister.u32Mask = SCB_CCR_UNALIGN_TRP_MASK;
+    stRegister.uptrAddress = SCB_CCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SCB__vDisUnalignTrap(void)
+SCB_nERROR SCB__enEnableUnalignTrap(SCB_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_UNALIGN_TRP_NOTRAP,
-                        SCB_CCR_UNALIGN_TRP_MASK, SCB_CCR_R_UNALIGN_TRP_BIT);
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, SCB_enSTATE_ENA);
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enDisableUnalignTrap(SCB_nMODULE enModuleArg)
+{
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, SCB_enSTATE_DIS);
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enGetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg)
+{
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = SCB_CCR_R_UNALIGN_TRP_BIT;
+        stRegister.u32Mask = SCB_CCR_UNALIGN_TRP_MASK;
+        stRegister.uptrAddress = SCB_CCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

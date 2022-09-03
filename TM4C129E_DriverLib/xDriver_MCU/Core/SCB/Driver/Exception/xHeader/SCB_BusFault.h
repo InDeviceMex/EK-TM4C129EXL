@@ -27,16 +27,18 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB_BusFault__vSetPriority(SCB_nPRIORITY enSCBPriority);
-SCB_nPRIORITY SCB_BusFault__enGetPriority(void);
+SCB_nERROR SCB_BusFault__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg);
+SCB_nERROR SCB_BusFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg);
 
-void SCB_BusFault__vSetPending(void);
-void SCB_BusFault__vClearPending(void);
-SCB_nPENDSTATE SCB_BusFault__enGetPending(void);
+SCB_nERROR SCB_BusFault__enSetPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_BusFault__enClearPending(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_BusFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg);
 
-void SCB_BusFault__vEnable(void);
-void SCB_BusFault__vDisable(void);
+SCB_nERROR SCB_BusFault__enSetState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg);
+SCB_nERROR SCB_BusFault__enEnable(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_BusFault__enDisable(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB_BusFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg);
 
-uint32_t SCB_BusFault_u32GetAddress(void);
+SCB_nERROR SCB_BusFault_enGetFaultAddress(SCB_nMODULE enModuleArg, uint32_t* pu32FaultAddressArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_BUSFAULT_H_ */

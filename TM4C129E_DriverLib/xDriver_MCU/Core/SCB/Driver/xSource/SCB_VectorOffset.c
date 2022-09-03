@@ -25,21 +25,44 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vSetVectorOffset(uint32_t u32Offset)
+SCB_nERROR SCB__enSetVectorOffset(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg)
 {
-    MCU_nSTATE enInterruptState = MCU_enSTATE_ENA;
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+    MCU_nSTATE enInterruptState;
+
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = SCB_VTOR_R_TBLOFF_MASK;
+    stRegister.uptrAddress = SCB_VTOR_OFFSET;
+    stRegister.u32Value = u32OffsetArg;
     enInterruptState = MCU__enDisGlobalInterrupt();
-    MCU__vWriteRegister(SCB_BASE, SCB_VTOR_OFFSET, u32Offset,
-                        SCB_VTOR_R_TBLOFF_MASK, 0UL);
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
     MCU__vSetGlobalInterrupt(enInterruptState);
+
+    return (enErrorReg);
 }
 
-uint32_t SCB__u32GetVectorOffset(void)
+SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, uint32_t* pu32OffsetArg)
 {
-    uint32_t u32VectorOffsetReg = 0UL;
-    u32VectorOffsetReg =  MCU__u32ReadRegister(SCB_BASE, SCB_VTOR_OFFSET,
-                                      SCB_VTOR_R_TBLOFF_MASK, 0UL);
-    return (u32VectorOffsetReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32OffsetArg)
+    {
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = SCB_VTOR_R_TBLOFF_MASK;
+        stRegister.uptrAddress = SCB_VTOR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *pu32OffsetArg = stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+

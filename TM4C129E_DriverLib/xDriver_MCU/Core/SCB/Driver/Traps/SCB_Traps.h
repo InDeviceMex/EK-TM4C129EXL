@@ -28,6 +28,8 @@
 #include <xDriver_MCU/Core/SCB/Driver/Traps/xHeader/SCB_DivisionTrap.h>
 #include <xDriver_MCU/Core/SCB/Driver/Traps/xHeader/SCB_UnalignTrap.h>
 
-void SCB__vEnableAllTraps(void);
+SCB_nERROR SCB__enSetAllTrapsEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg);
+SCB_nERROR SCB__enEnableAllTraps(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB__enDisableAllTraps(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_CORE_SCB_DRIVER_TRAPS_SCB_TRAPS_H_ */

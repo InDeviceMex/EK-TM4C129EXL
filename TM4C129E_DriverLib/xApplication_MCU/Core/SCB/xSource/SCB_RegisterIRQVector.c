@@ -41,7 +41,7 @@ void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
         u32IrqVectorHandler = (uint32_t) pfIrqVectorHandler;
         u32IrqVectorHandler |= 1UL;
 
-        u32BaseVector = SCB__u32GetVectorOffset();
+        SCB__enGetVectorOffset(SCB_enMODULE_0, &u32BaseVector);
 
         u32Vector = (uint32_t) enVector;
         u32Vector *= 4UL;

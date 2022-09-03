@@ -23,8 +23,29 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/Traps/SCB_Traps.h>
 
-void SCB__vEnableAllTraps(void)
+SCB_nERROR SCB__enSetAllTrapsEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
-    SCB__vEnDivisionTrap();
-    SCB__vEnUnalignTrap();
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetDivisionTrapEnableState(enModuleArg, enStateArg);
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enEnableAllTraps(SCB_nMODULE enModuleArg)
+{
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enSetAllTrapsEnableState(enModuleArg, SCB_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enDisableAllTraps(SCB_nMODULE enModuleArg)
+{
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enSetAllTrapsEnableState(enModuleArg, SCB_enSTATE_DIS);
+    return (enErrorReg);
 }

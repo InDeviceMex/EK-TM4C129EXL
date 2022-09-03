@@ -20,14 +20,14 @@ typedef enum
 
 typedef enum
 {
-    SYSTICK_enMODULE_0 = 0UL,
-    SYSTICK_enMODULE_MAX = 1UL,
-}SYSTICK_nMODULE;
+    SYSTICK_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
+    SYSTICK_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
+} SYSTICK_nSTATUS;
 
 typedef enum
 {
-    SYSTICK_enSTATE_DIS = 0UL,
-    SYSTICK_enSTATE_ENA = 1UL,
+    SYSTICK_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
+    SYSTICK_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
 }SYSTICK_nSTATE;
 
 typedef enum
@@ -46,9 +46,9 @@ typedef enum
 
 typedef enum
 {
-    SYSTICK_enSTATUS_INACTIVE = 0UL,
-    SYSTICK_enSTATUS_ACTIVE = 1UL,
-} SYSTICK_nSTATUS;
+    SYSTICK_enMODULE_0 = 0UL,
+    SYSTICK_enMODULE_MAX = 1UL,
+}SYSTICK_nMODULE;
 
 typedef enum
 {

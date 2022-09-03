@@ -25,7 +25,9 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSRESET_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSRESET_H_
 
-void SCB__vReqSysReset(void);
-void SCB__vReqSysReset_Peripheral(void);
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
+
+SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SYSRESET_H_ */

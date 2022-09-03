@@ -39,6 +39,33 @@ typedef enum
 
 typedef enum
 {
+    SCB_enPRI0 = (uint32_t) MCU_enPRI0,
+    SCB_enPRI1 = (uint32_t) MCU_enPRI1,
+    SCB_enPRI2 = (uint32_t) MCU_enPRI2,
+    SCB_enPRI3 = (uint32_t) MCU_enPRI3,
+    SCB_enPRI4 = (uint32_t) MCU_enPRI4,
+    SCB_enPRI5 = (uint32_t) MCU_enPRI5,
+    SCB_enPRI6 = (uint32_t) MCU_enPRI6,
+    SCB_enPRI7 = (uint32_t) MCU_enPRI7,
+    SCB_enPRIMAX = (uint32_t) MCU_enPRIMAX,
+    SCB_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+}SCB_nPRIORITY;
+
+
+typedef enum
+{
+    SCB_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
+    SCB_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
+}SCB_nSTATE;
+
+typedef enum
+{
+    SCB_enMODULE_0 = 0UL,
+    SCB_enMODULE_MAX = 1UL,
+}SCB_nMODULE;
+
+typedef enum
+{
     SCB_enPRIGROUP_XXX = 0UL,
     SCB_enPRIGROUP_XXY = 1UL,
     SCB_enPRIGROUP_XYY = 2UL,
@@ -169,48 +196,33 @@ typedef enum
     SCB_enMEMORY_BIT_MAX = 7UL,
 }SCB_nMEMORY_BIT;
 
-
-typedef enum
-{
-    SCB_enPRI0 = (uint32_t) MCU_enPRI0,
-    SCB_enPRI1 = (uint32_t) MCU_enPRI1,
-    SCB_enPRI2 = (uint32_t) MCU_enPRI2,
-    SCB_enPRI3 = (uint32_t) MCU_enPRI3,
-    SCB_enPRI4 = (uint32_t) MCU_enPRI4,
-    SCB_enPRI5 = (uint32_t) MCU_enPRI5,
-    SCB_enPRI6 = (uint32_t) MCU_enPRI6,
-    SCB_enPRI7 = (uint32_t) MCU_enPRI7,
-    SCB_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    SCB_enDEFAULT = (uint32_t) MCU_enDEFAULT,
-}SCB_nPRIORITY;
-
 typedef enum
 {
     SCB_enALIGN_4BYTE = 0UL,
     SCB_enALIGN_8BYTE = 1UL,
     SCB_enALIGN_ERROR = 0xFFFFFFFFUL,
-}SCB_nAlignment;
+}SCB_nALIGN;
 
 typedef enum
 {
     SCB_enWAKEUP_ONLY = 0UL,
     SCB_enWAKEUP_ALL = 1UL,
-    SCB_enWAKEUP_ERROR = 0xFFFFFFFFUL,
-}SCB_nWAKEUPSOURCE;
+    SCB_enWAKEUP_UNDEF = 0xFFFFFFFFUL,
+}SCB_nWAKEUP;
 
 typedef enum
 {
     SCB_enSLEEPONEXIT_NOSLEEP = 0UL,
     SCB_enSLEEPONEXIT_SLEEP = 1UL,
-    SCB_enSLEEPONEXIT_ERROR = 0xFFFFFFFFUL,
+    SCB_enSLEEPONEXIT_UNDEF = 0xFFFFFFFFUL,
 }SCB_nSLEEPONEXIT;
 
 typedef enum
 {
-    SCB_enSleepDeep_Sleep = 0UL,
-    SCB_enSleepDeep_DeepSleep = 1UL,
-    SCB_enSleepDeep_ERROR = 0xFFFFFFFFUL,
-}SCB_nSleepDeep;
+    SCB_enSLEEPMODE_SLEEP = 0UL,
+    SCB_enSLEEPMODE_DEEPSLEEP = 1UL,
+    SCB_enSLEEPMODE_UNDEF = 0xFFFFFFFFUL,
+}SCB_nSLEEPMODE;
 
 typedef enum
 {
@@ -345,5 +357,8 @@ typedef enum
     SCB_enVECISR_FAN = 112UL + 16UL,
     SCB_enVECISR_RES129 = 113UL + 16UL,
 }SCB_nVECISR;
+
+typedef MCU_Register_t SCB_Register_t;
+typedef MCU_pvfIRQSourceHandler_t SCB_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_ENUM_H_ */

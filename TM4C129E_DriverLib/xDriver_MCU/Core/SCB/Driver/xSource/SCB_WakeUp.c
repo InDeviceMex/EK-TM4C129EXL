@@ -23,18 +23,41 @@
  */
 #include <xDriver_MCU/Core/SCB/Driver/xHeader/SCB_WakeUp.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vSetWakeUpSource(SCB_nWAKEUPSOURCE enSource)
+SCB_nERROR SCB__enSetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP enSourceArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_SCR_OFFSET, (uint32_t) enSource,
-                        SCB_SCR_SEVONPEND_MASK, SCB_SCR_R_SEVONPEND_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SCR_R_SEVONPEND_BIT;
+    stRegister.u32Mask = SCB_SCR_SEVONPEND_MASK;
+    stRegister.uptrAddress = SCB_SCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enSourceArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
-SCB_nWAKEUPSOURCE SCB__enGetWakeUpSource(void)
+
+SCB_nERROR SCB__enGetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP* enSourceArg)
 {
-    SCB_nWAKEUPSOURCE enWakeSrcReg = SCB_enWAKEUP_ONLY;
-    enWakeSrcReg = (SCB_nWAKEUPSOURCE) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
-                                  SCB_SCR_SEVONPEND_MASK, SCB_SCR_R_SEVONPEND_BIT);
-    return (enWakeSrcReg);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enSourceArg)
+    {
+        stRegister.u32Shift = SCB_SCR_R_SEVONPEND_BIT;
+        stRegister.u32Mask = SCB_SCR_SEVONPEND_MASK;
+        stRegister.uptrAddress = SCB_SCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enSourceArg = (SCB_nWAKEUP) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+

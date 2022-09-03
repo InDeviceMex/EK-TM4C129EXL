@@ -21,20 +21,60 @@
  * Date           Author     Version     Description
  * 2 jul. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
-
 #include <xDriver_MCU/Core/SCB/Driver/xHeader/SCB_SoftwareInterruptTrigger.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-void SCB__vEnUnprivilegedSWTrigger(void)
+SCB_nERROR SCB__enSetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_USERSETMPEND_ENA,
-                        SCB_CCR_USERSETMPEND_MASK, SCB_CCR_R_USERSETMPEND_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_CCR_R_USERSETMPEND_BIT;
+    stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
+    stRegister.uptrAddress = SCB_CCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SCB__vDisUnprivilegedSWTrigger(void)
+SCB_nERROR SCB__enEnableUnprivilegedSWTrigger(SCB_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_CCR_OFFSET, SCB_CCR_USERSETMPEND_DIS,
-                        SCB_CCR_USERSETMPEND_MASK, SCB_CCR_R_USERSETMPEND_BIT);
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetUnprivilegedSWTriggerEnableState(enModuleArg, SCB_enSTATE_ENA);
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enDisableUnprivilegedSWTrigger(SCB_nMODULE enModuleArg)
+{
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetUnprivilegedSWTriggerEnableState(enModuleArg, SCB_enSTATE_DIS);
+
+    return (enErrorReg);
+}
+
+SCB_nERROR SCB__enGetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg)
+{
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = SCB_CCR_R_USERSETMPEND_BIT;
+        stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
+        stRegister.uptrAddress = SCB_CCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

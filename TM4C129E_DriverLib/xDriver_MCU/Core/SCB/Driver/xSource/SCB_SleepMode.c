@@ -25,40 +25,96 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
+#include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-
-void SCB__vSetSleepMode(SCB_nSleepDeep enSleepMode)
+SCB_nERROR SCB__enSetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE enSleepModeArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_SCR_OFFSET, (uint32_t) enSleepMode,
-                        SCB_SCR_SLEEPDEEP_MASK, SCB_SCR_R_SLEEPDEEP_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SCR_R_SLEEPDEEP_BIT;
+    stRegister.u32Mask = SCB_SCR_SLEEPDEEP_MASK;
+    stRegister.uptrAddress = SCB_SCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enSleepModeArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void SCB__vDeepSleepMode(void)
+SCB_nERROR SCB__enGetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE* penSleepModeArg)
 {
-    SCB__vSetSleepMode(SCB_enSleepDeep_DeepSleep);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penSleepModeArg)
+    {
+        stRegister.u32Shift = SCB_SCR_R_SLEEPDEEP_BIT;
+        stRegister.u32Mask = SCB_SCR_SLEEPDEEP_MASK;
+        stRegister.uptrAddress = SCB_SCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *penSleepModeArg = (SCB_nSLEEPMODE) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+
+
+SCB_nERROR SCB__enEnterDeepSleep(SCB_nMODULE enModuleArg)
+{
+    SCB_nERROR enErrorReg;
+
+    enErrorReg = SCB__enSetSleepMode(enModuleArg, SCB_enSLEEPMODE_DEEPSLEEP);
     MCU__vWaitForInterrupt();
-    SCB__vSetSleepMode(SCB_enSleepDeep_Sleep);
+
+    return (enErrorReg);
 }
 
-SCB_nSleepDeep SCB__enGetSleepMode(void)
+SCB_nERROR SCB__enEnterSleep(SCB_nMODULE enModuleArg)
 {
-    SCB_nSleepDeep enSleepDeepReg = SCB_enSleepDeep_Sleep;
-    enSleepDeepReg = (SCB_nSleepDeep) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
-                                         SCB_SCR_SLEEPDEEP_MASK, SCB_SCR_R_SLEEPDEEP_BIT);
+    SCB_nERROR enErrorReg;
 
-    return (enSleepDeepReg);
+    enErrorReg = SCB__enSetSleepMode(enModuleArg, SCB_enSLEEPMODE_SLEEP);
+    MCU__vWaitForInterrupt();
+
+    return (enErrorReg);
 }
 
-void SCB__vSetSLEEPONEXIT(SCB_nSLEEPONEXIT enSleepMode)
+
+SCB_nERROR SCB__enSetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT enSleepOnExitArg)
 {
-    MCU__vWriteRegister(SCB_BASE, SCB_SCR_OFFSET, (uint32_t) enSleepMode,
-                        SCB_SCR_SLEEPONEXIT_MASK, SCB_SCR_R_SLEEPONEXIT_BIT);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    stRegister.u32Shift = SCB_SCR_R_SLEEPONEXIT_BIT;
+    stRegister.u32Mask = SCB_SCR_SLEEPONEXIT_MASK;
+    stRegister.uptrAddress = SCB_SCR_OFFSET;
+    stRegister.u32Value = (uint32_t) enSleepOnExitArg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-SCB_nSLEEPONEXIT SCB__enGetSLEEPONEXIT(void)
+SCB_nERROR SCB__enGetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT* enSleepOnExitArg)
 {
-    SCB_nSLEEPONEXIT enReturn = SCB_enSLEEPONEXIT_NOSLEEP;
-    enReturn = (SCB_nSLEEPONEXIT) MCU__u32ReadRegister(SCB_BASE, SCB_SCR_OFFSET,
-                                   SCB_SCR_SLEEPONEXIT_MASK, SCB_SCR_R_SLEEPONEXIT_BIT);
-    return (enReturn);
+    SCB_Register_t stRegister;
+    SCB_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enSleepOnExitArg)
+    {
+        stRegister.u32Shift = SCB_SCR_R_SLEEPONEXIT_BIT;
+        stRegister.u32Mask = SCB_SCR_SLEEPONEXIT_MASK;
+        stRegister.uptrAddress = SCB_SCR_OFFSET;
+        enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
+
+        *enSleepOnExitArg = (SCB_nSLEEPONEXIT) stRegister.u32Value;
+    }
+    else
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

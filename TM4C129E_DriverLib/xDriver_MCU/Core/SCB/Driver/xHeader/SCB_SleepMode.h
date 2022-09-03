@@ -27,11 +27,12 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB__vSetSleepMode(SCB_nSleepDeep enSleepMode);
-void SCB__vDeepSleepMode(void);
-SCB_nSleepDeep SCB__enGetSleepMode(void);
+SCB_nERROR SCB__enSetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE enSleepModeArg);
+SCB_nERROR SCB__enGetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE* penSleepModeArg);
+SCB_nERROR SCB__enEnterDeepSleep(SCB_nMODULE enModuleArg);
+SCB_nERROR SCB__enEnterSleep(SCB_nMODULE enModuleArg);
 
-void SCB__vSetSLEEPONEXIT(SCB_nSLEEPONEXIT enSleepMode);
-SCB_nSLEEPONEXIT SCB__enGetSLEEPONEXIT(void);
+SCB_nERROR SCB__enSetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT enSleepOnExitArg);
+SCB_nERROR SCB__enGetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT* enSleepOnExitArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_SLEEPMODE_H_ */

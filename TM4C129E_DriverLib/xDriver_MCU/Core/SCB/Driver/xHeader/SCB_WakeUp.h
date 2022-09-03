@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-void SCB__vSetWakeUpSource(SCB_nWAKEUPSOURCE enSource);
-SCB_nWAKEUPSOURCE SCB__enGetWakeUpSource(void);
+SCB_nERROR SCB__enSetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP enSourceArg);
+SCB_nERROR SCB__enGetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP* enSourceArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_WAKEUP_H_ */
