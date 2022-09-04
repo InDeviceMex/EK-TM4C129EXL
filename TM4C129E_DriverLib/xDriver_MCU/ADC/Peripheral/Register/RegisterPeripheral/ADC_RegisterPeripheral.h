@@ -30,6 +30,6 @@
 
 #define ADC    ((ADCS_t*) (ADC_BASE))
 
-uint32_t ADC__u32BlockBaseAddress(ADC_nMODULE enModuleArg);
+uintptr_t ADC__uptrBlockBaseAddress(ADC_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_ADC_REGISTERPERIPHERAL_H_ */

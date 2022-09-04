@@ -25,7 +25,7 @@
 
 uint32_t WDT__u32BlockBaseAddress(WDT_nMODULE enModuleArg)
 {
-    uint32_t WDT_BLOCK_BASE[(uint32_t) WDT_enMODULE_MAX] =
+    const uintptr_t WDT_BLOCK_BASE[(uint32_t) WDT_enMODULE_MAX] =
     {
      WDT0_BASE, WDT1_BASE
     };

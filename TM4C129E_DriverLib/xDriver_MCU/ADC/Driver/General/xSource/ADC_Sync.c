@@ -26,16 +26,16 @@
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSYNC enSync)
+void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSTATE enSync)
 {
     ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, (uint32_t) enSync,
                             ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
 }
 
-ADC_nSYNC ADC__enGetSync(ADC_nMODULE enModule)
+ADC_nSTATE ADC__enGetSync(ADC_nMODULE enModule)
 {
-    ADC_nSYNC enSyncReg = ADC_enSYNC_DISABLE;
-    enSyncReg = (ADC_nSYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule,
+    ADC_nSTATE enSyncReg = ADC_enSTATE_DIS;
+    enSyncReg = (ADC_nSTATE) ADC__u32GetGeneralGeneric((uint32_t) enModule,
                               ADC_PSSI_OFFSET, ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
     return (enSyncReg);
 }

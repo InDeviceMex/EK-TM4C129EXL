@@ -27,7 +27,7 @@
 
 uint32_t I2C__u32BlockBaseAddress(I2C_nMODULE enModuleArg)
 {
-    uint32_t I2C_BLOCK_BASE[(uint32_t) I2C_enMODULE_MAX] =
+    const uintptr_t I2C_BLOCK_BASE[(uint32_t) I2C_enMODULE_MAX] =
     {
      I2C0_BASE, I2C1_BASE, I2C2_BASE, I2C3_BASE,
      I2C4_BASE, I2C5_BASE, I2C6_BASE, I2C7_BASE,

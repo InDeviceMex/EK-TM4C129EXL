@@ -34,7 +34,7 @@ uint32_t ADC__u32ReadRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister,
     uint32_t u32Module = 0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
 
-    u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
+    u32AdcBase = ADC__uptrBlockBaseAddress((ADC_nMODULE) u32Module);
     u32FeatureValue = MCU__u32ReadRegister(u32AdcBase, u32OffsetRegister, u32MaskFeature,
                                            u32BitFeature);
 

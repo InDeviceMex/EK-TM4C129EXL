@@ -30,8 +30,8 @@
 void ADC_Sample__vSetDifferential(ADC_nMODULE enModule,
                                  ADC_nSEQUENCER enSequencer,
                                  ADC_nMUX enMux,
-                                 ADC_nSEQ_INPUT_DIFF enSampleDifferential);
-ADC_nSEQ_INPUT_DIFF ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
+                                 ADC_nSTATE enSampleDifferential);
+ADC_nSTATE ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
                                                  ADC_nSEQUENCER enSequencer,
                                                  ADC_nMUX enMux);
 

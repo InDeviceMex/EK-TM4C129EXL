@@ -143,11 +143,11 @@ void ADC_Sample__vDisSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSeque
     }
 }
 
-ADC_nSEQ_INPUT_INT ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
+ADC_nSTATE ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
                                                 ADC_nSEQUENCER enSequencer,
                                                 ADC_nMUX enMuxInput)
 {
-    ADC_nSEQ_INPUT_INT enIntInputState = ADC_enSEQ_INPUT_INT_UNDEF;
+    ADC_nSTATE enIntInputState = ADC_enSTATE_UNDEF;
     uint32_t u32Sequencer = 0UL;
     uint32_t u32MuxInput = 0UL;
     uint32_t u32MuxMax = 0U;
@@ -163,7 +163,7 @@ ADC_nSEQ_INPUT_INT ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
     u32Sequencer += ADC_SS_REGISTER_BASE_OFFSET;
     u32Sequencer += ADC_SS_CTL_OFFSET;
 
-    enIntInputState = (ADC_nSEQ_INPUT_INT) ADC__u32ReadRegister(enModule, u32Sequencer,
+    enIntInputState = (ADC_nSTATE) ADC__u32ReadRegister(enModule, u32Sequencer,
                                                         ADC_SSCTL_IE0_MASK, u32MuxInput);
     return (enIntInputState);
 }

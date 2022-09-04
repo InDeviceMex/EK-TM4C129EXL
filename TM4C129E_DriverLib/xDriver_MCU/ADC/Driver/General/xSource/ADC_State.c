@@ -26,10 +26,10 @@
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-ADC_nSTATE ADC__enGetState(ADC_nMODULE enModule)
+ADC_nSTATUS ADC__enGetState(ADC_nMODULE enModule)
 {
-    ADC_nSTATE enStateReg = ADC_enSTATE_IDLE;
-    enStateReg = (ADC_nSTATE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET,
+    ADC_nSTATUS enStateReg = ADC_enSTATUS_INACTIVE;
+    enStateReg = (ADC_nSTATUS) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET,
                                                     ADC_ACTSS_BUSY_MASK, ADC_ACTSS_R_BUSY_BIT);
     return (enStateReg);
 }

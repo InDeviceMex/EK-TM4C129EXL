@@ -25,11 +25,11 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
-ADC_nSTATUS ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nERROR ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                    ADC_nMUX enMux,
                                    const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
-    ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
+    ADC_nERROR enReturn = ADC_enERROR_UNDEF;
     if(0UL != (uint32_t) pstSampleConfig)
     {
         ADC_Sample__vSetInputSelection(enModule, enSequencer, enMux, pstSampleConfig->enInput);
@@ -39,7 +39,7 @@ ADC_nSTATUS ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSeque
         ADC_Sample__vSetDifferential(enModule, enSequencer, enMux, pstSampleConfig->enDifferential);
         ADC_Sample__vSetOperation(enModule, enSequencer, enMux, pstSampleConfig->enOperation);
         ADC_Sample__vSetCompSelection(enModule, enSequencer, enMux, pstSampleConfig->enComparator);
-        if(ADC_enSEQ_INPUT_INT_ENA == pstSampleConfig->enInterrupt)
+        if(ADC_enSTATE_ENA == pstSampleConfig->enInterrupt)
         {
             ADC_Sample__vEnSeqInterrupt(enModule, enSequencer, enMux);
         }
@@ -47,11 +47,11 @@ ADC_nSTATUS ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSeque
         {
             ADC_Sample__vDisSeqInterrupt(enModule, enSequencer, enMux);
         }
-        enReturn = ADC_enSTATUS_OK;
+        enReturn = ADC_enERROR_OK;
     }
     return (enReturn);
 }
-ADC_nSTATUS ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                        ADC_nMUX enMux,
                                        const ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
@@ -68,7 +68,7 @@ ADC_nSTATUS ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enS
         ADC_enSEQ_INPUT_GPIO_16, ADC_enSEQ_INPUT_GPIO_17,
         ADC_enSEQ_INPUT_GPIO_18, ADC_enSEQ_INPUT_GPIO_19
     };
-    ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
+    ADC_nERROR enReturn = ADC_enERROR_UNDEF;
 
     if(0UL != (uint32_t) pstSampleConfig)
     {
@@ -79,10 +79,10 @@ ADC_nSTATUS ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enS
 }
 
 
-ADC_nSTATUS ADC_Sample__enGetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
+ADC_nERROR ADC_Sample__enGetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
                                    ADC_nMUX enMux, ADC_SAMPLE_CONFIG_t* pstSampleConfig)
 {
-    ADC_nSTATUS enReturn = ADC_enSTATUS_ERROR;
+    ADC_nERROR enReturn = ADC_enERROR_UNDEF;
     if(0UL != (uint32_t) pstSampleConfig)
     {
         pstSampleConfig->enInput = ADC_Sample__enGetInputSelection(enModule, enSequencer, enMux);
@@ -93,7 +93,7 @@ ADC_nSTATUS ADC_Sample__enGetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSeque
         pstSampleConfig->enOperation = ADC_Sample__enGetOperation(enModule, enSequencer, enMux);
         pstSampleConfig->enComparator = ADC_Sample__enGetCompSelection(enModule, enSequencer, enMux);
         pstSampleConfig->enInterrupt = ADC_Sample__enGetSeqInterrupt(enModule, enSequencer, enMux);
-        enReturn = ADC_enSTATUS_OK;
+        enReturn = ADC_enERROR_OK;
     }
     return (enReturn);
 }

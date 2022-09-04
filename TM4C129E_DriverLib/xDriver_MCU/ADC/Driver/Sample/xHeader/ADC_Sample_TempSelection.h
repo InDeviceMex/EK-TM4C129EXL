@@ -30,8 +30,8 @@
 void ADC_Sample__vSetTempSelection(ADC_nMODULE enModule,
                                   ADC_nSEQUENCER enSequencer,
                                   ADC_nMUX enMux,
-                                  ADC_nSEQ_INPUT_TEMP enSampleTempSelection);
-ADC_nSEQ_INPUT_TEMP ADC_Sample__enGetTempSelection(ADC_nMODULE enModule,
+                                  ADC_nSTATE enSampleTempSelection);
+ADC_nSTATE ADC_Sample__enGetTempSelection(ADC_nMODULE enModule,
                                                   ADC_nSEQUENCER enSequencer,
                                                   ADC_nMUX enMux);
 

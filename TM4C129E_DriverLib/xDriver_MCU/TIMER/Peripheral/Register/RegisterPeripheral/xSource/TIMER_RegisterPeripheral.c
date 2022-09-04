@@ -25,7 +25,7 @@
 
 uint32_t TIMER__u32BlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg)
 {
-    uint32_t TIMER_BLOCK_BASE[(uint32_t) TIMER_enMODULE_NUM_MAX] =
+    const uintptr_t TIMER_BLOCK_BASE[(uint32_t) TIMER_enMODULE_NUM_MAX] =
     {
      GPTM0_BASE,
      GPTM1_BASE,

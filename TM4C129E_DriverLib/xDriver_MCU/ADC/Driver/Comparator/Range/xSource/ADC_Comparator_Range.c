@@ -40,15 +40,15 @@ void ADC_Comparator__vSetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
     ADC_Comparator__vSetRangeHigh(enModule, enActComp, u32CompRangeHigh);
 }
 
-ADC_nSTATUS ADC_Comparator__enGetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
+ADC_nERROR ADC_Comparator__enGetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
                                 uint32_t* pu32CompRangeLow, uint32_t* pu32CompRangeHigh)
 {
-    ADC_nSTATUS enStatus = ADC_enSTATUS_ERROR;
+    ADC_nERROR enStatus = ADC_enERROR_UNDEF;
     uint32_t u32CompRangeLow = 0UL;
     uint32_t u32CompRangeHigh = 0UL;
     if((0UL != (uint32_t) pu32CompRangeLow) && (0UL != (uint32_t) pu32CompRangeHigh))
     {
-        enStatus = ADC_enSTATUS_OK;
+        enStatus = ADC_enERROR_OK;
         u32CompRangeLow = ADC_Comparator__u32GetRangeLow(enModule, enActComp);
         u32CompRangeHigh = ADC_Comparator__u32GetRangeHigh(enModule, enActComp);
         *pu32CompRangeLow = u32CompRangeLow;

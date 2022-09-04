@@ -25,7 +25,7 @@
 
 uint32_t CAN__u32BlockBaseAddress(CAN_nMODULE enModuleArg)
 {
-    uint32_t CAN_BLOCK_BASE[(uint32_t) CAN_enMODULE_MAX] =
+    const uintptr_t CAN_BLOCK_BASE[(uint32_t) CAN_enMODULE_MAX] =
     {
      CAN0_BASE, CAN1_BASE
     };

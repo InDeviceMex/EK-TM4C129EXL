@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSYNC enSync);
-ADC_nSYNC ADC__enGetSync(ADC_nMODULE enModule);
+void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSTATE enSync);
+ADC_nSTATE ADC__enGetSync(ADC_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_SYNC_H_ */

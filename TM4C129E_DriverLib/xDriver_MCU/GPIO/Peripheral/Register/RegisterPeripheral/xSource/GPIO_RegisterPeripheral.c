@@ -27,7 +27,7 @@
 
 uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
 {
-    uint32_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX] =
+    const uintptr_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX] =
     {
      GPIOA_BASE, GPIOB_BASE, GPIOC_BASE, GPIOD_BASE,
      GPIOE_BASE, GPIOF_BASE, GPIOG_BASE, GPIOH_BASE,

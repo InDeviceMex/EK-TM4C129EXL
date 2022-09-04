@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-ADC_nSTATE ADC__enGetState(ADC_nMODULE enModule);
+ADC_nSTATUS ADC__enGetState(ADC_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_STATE_H_ */

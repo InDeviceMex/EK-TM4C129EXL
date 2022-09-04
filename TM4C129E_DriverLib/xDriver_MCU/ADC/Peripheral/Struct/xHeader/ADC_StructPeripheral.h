@@ -32,62 +32,62 @@ typedef volatile struct
 {
     union
       {
-          volatile uint32_t SSMUX;
-          ADCSS8_MUX_t SSMUX_Bit;
+          volatile uint32_t MUX;
+          ADC_SS8_MUX_t MUX_Bit;
       };
       union
       {
-          volatile uint32_t SSCTL;
-          ADCSS8_CTL_t SSCTL_Bit;
+          volatile uint32_t CTL;
+          ADC_SS8_CTL_t CTL_Bit;
       };
       union
       {
-          volatile const uint32_t SSFIFO;
-          ADCSSFIFO_t SSFIFO_Bit;
+          volatile const uint32_t FIFO;
+          ADC_SS_FIFO_t FIFO_Bit;
       };
       union
       {
-          volatile const uint32_t SSFSTAT;
-          ADCSSFSTAT_t SSFSTAT_Bit;
+          volatile const uint32_t FSTAT;
+          ADC_SS_FSTAT_t FSTAT_Bit;
       };
       union
       {
-          volatile uint32_t SSOP;
-          ADCSS8_OP_t SSOP_Bit;
+          volatile uint32_t OP;
+          ADC_SS8_OP_t OP_Bit;
       };
       union
       {
-          volatile uint32_t SSDC;
-          ADCSS8_DC_t SSDC_Bit;
+          volatile uint32_t DC;
+          ADC_SS8_DC_t DC_Bit;
       };
       union
       {
-          volatile uint32_t SSEMUX;
-          ADCSS8_EMUX_t SSEMUX_Bit;
+          volatile uint32_t EMUX;
+          ADC_SS8_EMUX_t EMUX_Bit;
       };
       union
       {
-          volatile uint32_t SSTSH;
-          ADCSS8_TSH_t SSTSH_Bit;
+          volatile uint32_t TSH;
+          ADC_SS8_TSH_t TSH_Bit;
       };
-}ADCSEQUENCER_t;
+}ADC_SEQUENCER_t;
 
 typedef volatile struct
 {
     union
     {
         volatile uint32_t ACTSS;
-        ADCACTSS_t ACTSS_Bit;
+        ADC_ACTSS_t ACTSS_Bit;
     };
     union
     {
         volatile const uint32_t RIS;
-        ADCRIS_t RIS_Bit;
+        ADC_RIS_t RIS_Bit;
     };
     union
     {
         volatile uint32_t IM;
-        ADCIM_t IM_Bit;
+        ADC_IM_t IM_Bit;
     };
     union
     {
@@ -97,49 +97,49 @@ typedef volatile struct
     union
     {
         volatile uint32_t OSTAT;
-        ADCOSTAT_t OSTAT_Bit;
+        ADC_OSTAT_t OSTAT_Bit;
     };
     union
     {
         volatile uint32_t EMUX;
-        ADCEMUX_t EMUX_Bit;
+        ADC_EMUX_t EMUX_Bit;
     };
     union
     {
         volatile uint32_t USTAT;
-        ADCUSTAT_t USTAT_Bit;
+        ADC_USTAT_t USTAT_Bit;
     };
     union
     {
         volatile uint32_t TSSEL;
-        ADCTSSEL_t TSSEL_Bit;
+        ADC_TSSEL_t TSSEL_Bit;
     };
     union
     {
-        volatile uint32_t SS_PRI;
-        ADCSS_PRI_t SS_PRI_Bit;
+        volatile uint32_t SSPRI;
+        ADC_SSPRI_t SSPRI_Bit;
     };
     union
     {
         volatile uint32_t SPC;
-        ADCSPC_t SPC_Bit;
+        ADC_SPC_t SPC_Bit;
     };
     union
     {
         volatile uint32_t PSSI;
-        ADCPSSI_t PSSI_Bit;
+        ADC_PSSI_t PSSI_Bit;
     };
 
     const uint32_t reserved;
     union
     {
         volatile uint32_t SAC;
-        ADCSAC_t SAC_Bit;
+        ADC_SAC_t SAC_Bit;
     };
     union
     {
         volatile uint32_t DC_ISC;
-        ADCDC_ISC_t DC_ISC_Bit;
+        ADC_DC_ISC_t DC_ISC_Bit;
     };
     union
     {
@@ -149,43 +149,43 @@ typedef volatile struct
 
     const uint32_t reserved1;
 
-    ADCSEQUENCER_t SEQUENCER [4UL];
+    ADC_SEQUENCER_t SEQUENCER [4UL];
 
     const uint32_t reserved5 [784UL];
     union
     {
         volatile uint32_t DC_RIC;
-        ADCDC_RIC_t DC_RIC_Bit;
+        ADC_DC_RIC_t DC_RIC_Bit;
     };
 
     const uint32_t reserved6 [63UL];
     union
     {
         volatile uint32_t DC_CTL [8UL];
-        ADCDC_CTL_t DC_CTL_Bit [8UL];
+        ADC_DC_CTL_t DC_CTL_Bit [8UL];
     };
     const uint32_t reserved7 [8UL];
     union
     {
         volatile uint32_t DC_CMP [8UL];
-        ADCDC_CMP_t DC_CMP_Bit [8UL];
+        ADC_DC_CMP_t DC_CMP_Bit [8UL];
     };
 
     const uint32_t reserved8 [88UL];
     union
     {
         volatile const uint32_t PP;
-        ADCPP_t PP_Bit;
+        ADC_PP_t PP_Bit;
     };
     union
     {
         volatile uint32_t PC;
-        ADCPC_t PC_Bit;
+        ADC_PC_t PC_Bit;
     };
     union
     {
         volatile uint32_t CC;
-        ADCCC_t CC_Bit;
+        ADC_CC_t CC_Bit;
     };
 
     const uint32_t reserved9 [13UL];

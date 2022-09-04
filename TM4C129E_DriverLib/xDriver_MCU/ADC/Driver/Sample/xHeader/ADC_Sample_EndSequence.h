@@ -30,8 +30,8 @@
 void ADC_Sample__vSetEndSequence(ADC_nMODULE enModule,
                                 ADC_nSEQUENCER enSequencer,
                                 ADC_nMUX enMux,
-                                ADC_nSEQ_INPUT_ENDED enSampleEndSequence);
-ADC_nSEQ_INPUT_ENDED ADC_Sample__enGetEndSequence(ADC_nMODULE enModule,
+                                ADC_nSTATE enSampleEndSequence);
+ADC_nSTATE ADC_Sample__enGetEndSequence(ADC_nMODULE enModule,
                                                  ADC_nSEQUENCER enSequencer,
                                                  ADC_nMUX enMux);
 

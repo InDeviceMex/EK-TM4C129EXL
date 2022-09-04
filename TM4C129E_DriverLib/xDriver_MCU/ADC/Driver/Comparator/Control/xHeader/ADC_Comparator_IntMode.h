@@ -29,8 +29,8 @@
 
 void ADC_Comparator__vSetInterruptMode(ADC_nMODULE enModule,
                           ADC_nCOMPARATOR enActComp,
-                          ADC_nCOMP_INT_MODE enActCompIntMode);
-ADC_nCOMP_INT_MODE ADC_Comparator__enGetInterruptMode(ADC_nMODULE enModule,
+                          ADC_nCOMP_MODE enActCompIntMode);
+ADC_nCOMP_MODE ADC_Comparator__enGetInterruptMode(ADC_nMODULE enModule,
                                          ADC_nCOMPARATOR enActComp);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_INTMODE_H_ */

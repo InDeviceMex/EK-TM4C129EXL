@@ -37,7 +37,7 @@ void ADC_Sample__vDisSeqInterrupt(ADC_nMODULE enModule,
                                  ADC_nMUX enMuxInput);
 void ADC_Sample__vDisSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
                                 ADC_nMUX enMuxInput);
-ADC_nSEQ_INPUT_INT ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
+ADC_nSTATE ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
                                                 ADC_nSEQUENCER  enSequencer,
                                                 ADC_nMUX enMuxInput);
 ADC_nSEQMASK ADC_Sample__enGetSeqMaskInterrupt(ADC_nMODULE enModule,

@@ -47,12 +47,12 @@
 #define ADC_EMUX_OFFSET    ((uint32_t) 0x0014UL)
 #define ADC_USTAT_OFFSET    ((uint32_t) 0x0018UL)
 #define ADC_TSSEL_OFFSET    ((uint32_t) 0x001CUL)
+#define ADC_SSPRI_OFFSET    ((uint32_t) 0x0020UL)
 #define ADC_SPC_OFFSET    ((uint32_t) 0x0024UL)
 #define ADC_PSSI_OFFSET    ((uint32_t) 0x0028UL)
 #define ADC_SAC_OFFSET    ((uint32_t) 0x0030UL)
 #define ADC_CTL_OFFSET    ((uint32_t) 0x0038UL)
 
-#define ADC_SS_PRI_OFFSET    ((uint32_t) 0x0020UL)
 
 #define ADC_SS_MUX_OFFSET    ((uint32_t) 0x0000UL)
 #define ADC_SS_CTL_OFFSET    ((uint32_t) 0x0004UL)

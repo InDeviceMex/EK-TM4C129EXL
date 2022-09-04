@@ -27,18 +27,18 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
 void ADC_Sample__vSetDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                 ADC_nMUX enMux, ADC_nSEQ_INPUT_DIFF enSampleDifferential)
+                                 ADC_nMUX enMux, ADC_nSTATE enSampleDifferential)
 {
     ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_CTL_OFFSET,
                            (uint32_t) enMux, (uint32_t) enSampleDifferential,
                            ADC_SSCTL_D0_MASK, ADC_SSCTL_R_D0_BIT);
 }
 
-ADC_nSEQ_INPUT_DIFF ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
+ADC_nSTATE ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
                                                  ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    ADC_nSEQ_INPUT_DIFF enSeqInputDif = ADC_enSEQ_INPUT_DIFF_DIS;
-    enSeqInputDif = (ADC_nSEQ_INPUT_DIFF) ADC_Sample__u32GetGeneric((uint32_t) enModule,
+    ADC_nSTATE enSeqInputDif = ADC_enSTATE_DIS;
+    enSeqInputDif = (ADC_nSTATE) ADC_Sample__u32GetGeneric((uint32_t) enModule,
                                                                (uint32_t) enSequencer,
                                                                ADC_SS_CTL_OFFSET,
                                                                (uint32_t) enMux,

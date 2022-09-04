@@ -25,7 +25,7 @@
 
 uint32_t PWM__u32BlockBaseAddress(PWM_nMODULE enModuleArg)
 {
-    uint32_t PWM_BLOCK_BASE[(uint32_t) PWM_enMODULE_MAX] =
+    const uintptr_t PWM_BLOCK_BASE[(uint32_t) PWM_enMODULE_MAX] =
     {
      PWM0_BASE
     };

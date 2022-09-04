@@ -25,7 +25,7 @@
 
 uint32_t UART__u32BlockBaseAddress(UART_nMODULE enModuleArg)
 {
-    uint32_t UART_BLOCK_BASE[(uint32_t) UART_enMODULE_MAX] =
+    const uintptr_t UART_BLOCK_BASE[(uint32_t) UART_enMODULE_MAX] =
     {
      UART0_BASE, UART1_BASE, UART2_BASE, UART3_BASE,
      UART4_BASE, UART5_BASE, UART6_BASE, UART7_BASE

@@ -60,14 +60,14 @@ void ADC_Comparator__vClearInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR enSeq
                         ADC_DC_ISC_DCINT_MASK, u32Comparator);
 }
 
-ADC_nCOMP_INT_STATUS ADC_Comparator__enStatusInterrupt(ADC_nMODULE enModule,
+ADC_nSTATUS ADC_Comparator__enStatusInterrupt(ADC_nMODULE enModule,
                                                 ADC_nCOMPARATOR enSeqComparator)
 {
-    ADC_nCOMP_INT_STATUS enInterruptReg = ADC_enCOMP_INT_STATUS_UNDEF;
+    ADC_nSTATUS enInterruptReg = ADC_enSTATUS_UNDEF;
     uint32_t u32Comparator = 0UL;
     u32Comparator = MCU__u32CheckParams((uint32_t) enSeqComparator,
                                         (uint32_t) ADC_enCOMPARATOR_MAX);
-    enInterruptReg = (ADC_nCOMP_INT_STATUS) ADC__u32ReadRegister(enModule, ADC_DC_ISC_OFFSET,
+    enInterruptReg = (ADC_nSTATUS) ADC__u32ReadRegister(enModule, ADC_DC_ISC_OFFSET,
                                                          ADC_DC_ISC_DCINT_MASK, u32Comparator);
     return (enInterruptReg);
 }

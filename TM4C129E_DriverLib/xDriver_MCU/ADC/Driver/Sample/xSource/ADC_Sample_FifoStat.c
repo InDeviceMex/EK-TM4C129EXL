@@ -84,7 +84,7 @@ uint32_t ADC_Sample__u32GetFifoValues(ADC_nMODULE enModule, ADC_nSEQUENCER enSeq
 
     if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
     {
-        u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
+        u32AdcBase = ADC__uptrBlockBaseAddress((ADC_nMODULE) u32Module);
         u32SequencerReg = u32Sequencer;
         u32SequencerReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
         u32SequencerReg *= 4UL;
@@ -121,7 +121,7 @@ uint32_t ADC_Sample__u32GetValue(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
     u32Sequencer = MCU__u32CheckParams((uint32_t) enSequencer, (uint32_t) ADC_enSEQ_MAX);
 
-    u32AdcBase = ADC__u32BlockBaseAddress((ADC_nMODULE) u32Module);
+    u32AdcBase = ADC__uptrBlockBaseAddress((ADC_nMODULE) u32Module);
     enFeature = ADC_Sample__enGetFifoStat((ADC_nMODULE)u32Module, (ADC_nSEQUENCER)u32Sequencer);
     if(ADC_enSEQ_FIFO_EMPTY != enFeature)
     {

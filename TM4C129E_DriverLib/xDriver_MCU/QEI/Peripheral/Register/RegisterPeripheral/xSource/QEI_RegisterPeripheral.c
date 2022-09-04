@@ -25,7 +25,7 @@
 
 uint32_t QEI__u32BlockBaseAddress(QEI_nMODULE enModuleArg)
 {
-    uint32_t QEI_BLOCK_BASE[(uint32_t) QEI_enMODULE_MAX] =
+    const uintptr_t QEI_BLOCK_BASE[(uint32_t) QEI_enMODULE_MAX] =
     {
      QEI0_BASE
     };

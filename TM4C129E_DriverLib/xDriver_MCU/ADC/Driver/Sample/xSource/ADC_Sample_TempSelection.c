@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
 void ADC_Sample__vSetTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                  ADC_nMUX enMux, ADC_nSEQ_INPUT_TEMP enSampleTempSelection)
+                                  ADC_nMUX enMux, ADC_nSTATE enSampleTempSelection)
 {
     ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer,
                            ADC_SS_CTL_OFFSET, (uint32_t) enMux,
@@ -35,11 +35,11 @@ void ADC_Sample__vSetTempSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequen
                            ADC_SSCTL_TS0_MASK, ADC_SSCTL_R_TS0_BIT);
 }
 
-ADC_nSEQ_INPUT_TEMP ADC_Sample__enGetTempSelection(ADC_nMODULE enModule,
+ADC_nSTATE ADC_Sample__enGetTempSelection(ADC_nMODULE enModule,
                                                   ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    ADC_nSEQ_INPUT_TEMP enSeqInputTemp = ADC_enSEQ_INPUT_TEMP_DIS;
-    enSeqInputTemp = (ADC_nSEQ_INPUT_TEMP) ADC_Sample__u32GetGeneric((uint32_t) enModule,
+    ADC_nSTATE enSeqInputTemp = ADC_enSTATE_DIS;
+    enSeqInputTemp = (ADC_nSTATE) ADC_Sample__u32GetGeneric((uint32_t) enModule,
                                                     (uint32_t) enSequencer, ADC_SS_CTL_OFFSET,
                                                     (uint32_t) enMux, ADC_SSCTL_TS0_MASK,
                                                     ADC_SSCTL_R_TS0_BIT);

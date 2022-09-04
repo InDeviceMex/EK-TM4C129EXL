@@ -29,14 +29,14 @@
 
 void ADC_Sequencer__vSetEnable(ADC_nMODULE enModule,
                               ADC_nSEQMASK enSequence,
-                              ADC_nSEQ_ENABLE enSeqEnable);
-ADC_nSEQ_ENABLE ADC_Sequencer__enGetEnable(ADC_nMODULE enModule,
+                              ADC_nSTATE enSeqEnable);
+ADC_nSTATE ADC_Sequencer__enGetEnable(ADC_nMODULE enModule,
                                           ADC_nSEQMASK enSequence);
 
 void ADC_Sequencer__vSetDMAEnable(ADC_nMODULE enModule,
                         ADC_nSEQMASK enSequence,
-                        ADC_nDMA_ENABLE enSeqDMAEnable);
-ADC_nDMA_ENABLE ADC_Sequencer__enGetDMAEnable(ADC_nMODULE enModule,
+                        ADC_nSTATE enSeqDMAEnable);
+ADC_nSTATE ADC_Sequencer__enGetDMAEnable(ADC_nMODULE enModule,
                                     ADC_nSEQMASK enSequence);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_ENABLE_H_ */

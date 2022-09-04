@@ -27,18 +27,18 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
 void ADC_Sample__vSetEndSequence(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                ADC_nMUX enMux, ADC_nSEQ_INPUT_ENDED enSampleEndSequence)
+                                ADC_nMUX enMux, ADC_nSTATE enSampleEndSequence)
 {
     ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_CTL_OFFSET,
                            (uint32_t) enMux, (uint32_t) enSampleEndSequence,
                            ADC_SSCTL_END0_MASK, ADC_SSCTL_R_END0_BIT);
 }
 
-ADC_nSEQ_INPUT_ENDED ADC_Sample__enGetEndSequence(ADC_nMODULE enModule,
+ADC_nSTATE ADC_Sample__enGetEndSequence(ADC_nMODULE enModule,
                                                  ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
 {
-    ADC_nSEQ_INPUT_ENDED enSeqInputEnded = ADC_enSEQ_INPUT_ENDED_DIS;
-    enSeqInputEnded = (ADC_nSEQ_INPUT_ENDED) ADC_Sample__u32GetGeneric((uint32_t) enModule,
+    ADC_nSTATE enSeqInputEnded = ADC_enSTATE_DIS;
+    enSeqInputEnded = (ADC_nSTATE) ADC_Sample__u32GetGeneric((uint32_t) enModule,
                                                                       (uint32_t) enSequencer,
                                                                       ADC_SS_CTL_OFFSET,
                                                                       (uint32_t) enMux,

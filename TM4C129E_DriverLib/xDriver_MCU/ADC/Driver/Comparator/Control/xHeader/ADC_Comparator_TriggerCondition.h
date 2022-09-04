@@ -29,8 +29,8 @@
 
 void ADC_Comparator__vSetTriggerCondition(ADC_nMODULE enModule,
                                    ADC_nCOMPARATOR enActComp,
-                                   ADC_nCOMP_TRIGGER_COND enActCompTriggerCondition);
-ADC_nCOMP_TRIGGER_COND ADC_Comparator__enGetTriggerCondition(ADC_nMODULE enModule,
+                                   ADC_nCOMP_CONDITION enActCompTriggerCondition);
+ADC_nCOMP_CONDITION ADC_Comparator__enGetTriggerCondition(ADC_nMODULE enModule,
                                                       ADC_nCOMPARATOR enActComp);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_TRIGGERCONDITION_H_ */

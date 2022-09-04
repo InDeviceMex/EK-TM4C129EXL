@@ -25,7 +25,7 @@
 
 uintptr_t ACMP__uptrBlockBaseAddress(ACMP_nMODULE enModuleArg)
 {
-    uintptr_t ACMP_BLOCK_BASE[(uint32_t) ACMP_enMODULE_MAX] =
+    const uintptr_t ACMP_BLOCK_BASE[(uint32_t) ACMP_enMODULE_MAX] =
     {
      ACMP0_BASE
     };

@@ -40,10 +40,10 @@ void EDUMKII_Joystick_vInit(void)
     uint32_t* pu32JoystickArray = (uint32_t*) 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
      ADC_enSEQ_INPUT_0,
-     ADC_enSEQ_INPUT_DIFF_DIS,
-     ADC_enSEQ_INPUT_ENDED_DIS,
-     ADC_enSEQ_INPUT_INT_DIS,
-     ADC_enSEQ_INPUT_TEMP_DIS,
+     ADC_enSTATE_DIS,
+     ADC_enSTATE_DIS,
+     ADC_enSTATE_DIS,
+     ADC_enSTATE_DIS,
      ADC_enSEQ_INPUT_OPERATION_SAMPLE,
      ADC_enSEQ_SAMPLE_HOLD_8,
      ADC_enCOMPARATOR_0
@@ -102,22 +102,22 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__vSetAnalogFunction(EDUMKII_AXIS_X);
         GPIO__vSetAnalogFunction(EDUMKII_AXIS_Y);
 
-        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSEQ_ENABLE_DIS);
+        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_DIS);
         ADC_Sequencer__vSetTrigger(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSEQ_TRIGGER_SOFTWARE);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_X_INPUT;
         ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enMUX_0, &stADC0SampleConfig);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_Y_INPUT;
-        stADC0SampleConfig.enInterrupt = ADC_enSEQ_INPUT_INT_ENA;
-        stADC0SampleConfig.enEnded = ADC_enSEQ_INPUT_ENDED_ENA;
+        stADC0SampleConfig.enInterrupt = ADC_enSTATE_ENA;
+        stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
         ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enMUX_1, &stADC0SampleConfig);
 
         ADC_Sequencer__vEnInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_SOURCE_DMA);
         ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_1,
                                 (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
-        ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enDMA_ENABLE_ENA);
-        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSEQ_ENABLE_ENA);
+        ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
         u32Init = 1UL;
     }
 }

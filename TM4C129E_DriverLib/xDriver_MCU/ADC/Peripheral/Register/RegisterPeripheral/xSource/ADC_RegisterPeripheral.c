@@ -23,9 +23,9 @@
  */
 #include <xDriver_MCU/ADC/Peripheral/Register/RegisterPeripheral/ADC_RegisterPeripheral.h>
 
-uint32_t ADC__u32BlockBaseAddress(ADC_nMODULE enModuleArg)
+uintptr_t ADC__uptrBlockBaseAddress(ADC_nMODULE enModuleArg)
 {
-    uint32_t ADC_BLOCK_BASE[(uint32_t) ADC_enMODULE_MAX] =
+    const uintptr_t ADC_BLOCK_BASE[(uint32_t) ADC_enMODULE_MAX] =
     {
      ADC0_BASE, ADC1_BASE
     };

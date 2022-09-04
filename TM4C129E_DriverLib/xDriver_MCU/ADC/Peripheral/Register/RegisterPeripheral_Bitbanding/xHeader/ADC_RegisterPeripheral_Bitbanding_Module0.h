@@ -37,7 +37,7 @@
 /******************************************************************************************
 *********************************** * 1 ACTSS *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_ACTSS    ((BITBANDING_ADCACTSS_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_ACTSS_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_ACTSS    ((BITBANDING_ADC_ACTSS_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_ACTSS_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_ACTSS_ASEN0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_ACTSS_OFFSET) * 32UL) + (ADC_ACTSS_R_ASEN0_BIT * 4UL))))
 #define ADC0_BITBANDING_ACTSS_ASEN1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_ACTSS_OFFSET) * 32UL) + (ADC_ACTSS_R_ASEN1_BIT * 4UL))))
@@ -52,7 +52,7 @@
 /******************************************************************************************
 *********************************** * 2 RIS *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_RIS    ((BITBANDING_ADCRIS_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_RIS_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_RIS    ((BITBANDING_ADC_RIS_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_RIS_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_RIS_INR0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_RIS_OFFSET) * 32UL) + (ADC_RIS_R_INR0_BIT * 4UL))))
 #define ADC0_BITBANDING_RIS_INR1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_RIS_OFFSET) * 32UL) + (ADC_RIS_R_INR1_BIT * 4UL))))
@@ -67,7 +67,7 @@
 /******************************************************************************************
 *********************************** * 3 IM *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_IM    ((BITBANDING_ADCIM_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_IM_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_IM    ((BITBANDING_ADC_IM_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_IM_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_IM_MASK0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_IM_OFFSET) * 32UL) + (ADC_IM_R_MASK0_BIT * 4UL))))
 #define ADC0_BITBANDING_IM_MASK1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_IM_OFFSET) * 32UL) + (ADC_IM_R_MASK1_BIT * 4UL))))
@@ -103,7 +103,7 @@
 /******************************************************************************************
 *********************************** * 5 OSTAT *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_OSTAT    ((BITBANDING_ADCOSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_OSTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_OSTAT    ((BITBANDING_ADC_OSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_OSTAT_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_OSTAT_OV0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_OSTAT_OFFSET) * 32UL) + (ADC_OSTAT_R_OV0_BIT * 4UL))))
 #define ADC0_BITBANDING_OSTAT_OV1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_OSTAT_OFFSET) * 32UL) + (ADC_OSTAT_R_OV1_BIT * 4UL))))
@@ -113,7 +113,7 @@
 /******************************************************************************************
 *********************************** * 6 EMUX *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_EMUX    ((BITBANDING_ADCEMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_EMUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_EMUX    ((BITBANDING_ADC_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_EMUX_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_EMUX_EM0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_EMUX_OFFSET) * 32UL) + ((ADC_EMUX_R_EM0_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_EMUX_EM0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_EMUX_OFFSET) * 32UL) + ((ADC_EMUX_R_EM0_BIT + 1UL) * 4UL))))
@@ -135,7 +135,7 @@
 /******************************************************************************************
 *********************************** * 7 USTAT *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_USTAT    ((BITBANDING_ADCUSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_USTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_USTAT    ((BITBANDING_ADC_USTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_USTAT_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_USTAT_UV0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_USTAT_OFFSET) * 32UL) + (ADC_USTAT_R_UV0_BIT * 4UL))))
 #define ADC0_BITBANDING_USTAT_UV1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_USTAT_OFFSET) * 32UL) + (ADC_USTAT_R_UV1_BIT * 4UL))))
@@ -145,7 +145,7 @@
 /******************************************************************************************
 *********************************** * 8 TSSEL *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_TSSEL    ((BITBANDING_ADCTSSEL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_TSSEL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_TSSEL    ((BITBANDING_ADC_TSSEL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_TSSEL_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_TSSEL_PS0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_TSSEL_OFFSET) * 32UL) + ((ADC_TSSEL_R_PS0_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_TSSEL_PS0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_TSSEL_OFFSET) * 32UL) + ((ADC_TSSEL_R_PS0_BIT + 1UL) * 4UL))))
@@ -157,23 +157,23 @@
 #define ADC0_BITBANDING_TSSEL_PS3_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_TSSEL_OFFSET) * 32UL) + ((ADC_TSSEL_R_PS3_BIT + 1UL) * 4UL))))
 
 /******************************************************************************************
-*********************************** * 9 SS_PRI *********************************************
+*********************************** * 9 SSPRI *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS_PRI    ((BITBANDING_ADCSS_PRI_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SSPRI    ((BITBANDING_ADC_SSPRI_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL)))
 
-#define ADC0_BITBANDING_SS_PRI_SS0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS0_BIT + 0UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS0_BIT + 1UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS1_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS1_BIT + 0UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS1_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS1_BIT + 1UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS2_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS2_BIT + 0UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS2_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS2_BIT + 1UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS3_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS3_BIT + 0UL) * 4UL))))
-#define ADC0_BITBANDING_SS_PRI_SS3_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS_PRI_OFFSET) * 32UL) + ((ADC_SS_PRI_R_SS3_BIT + 1UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS0_BIT + 0UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS0_BIT + 1UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS1_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS1_BIT + 0UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS1_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS1_BIT + 1UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS2_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS2_BIT + 0UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS2_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS2_BIT + 1UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS3_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS3_BIT + 0UL) * 4UL))))
+#define ADC0_BITBANDING_SSPRI_SS3_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SSPRI_OFFSET) * 32UL) + ((ADC_SSPRI_R_SS3_BIT + 1UL) * 4UL))))
 
 /******************************************************************************************
 *********************************** * 10 SPC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SPC    ((BITBANDING_ADCSPC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SPC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SPC    ((BITBANDING_ADC_SPC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SPC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SPC_PHASE_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SPC_OFFSET) * 32UL) + ((ADC_SPC_R_PHASE_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SPC_PHASE_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SPC_OFFSET) * 32UL) + ((ADC_SPC_R_PHASE_BIT + 1UL) * 4UL))))
@@ -183,7 +183,7 @@
 /******************************************************************************************
 *********************************** * 11 PSSI *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_PSSI    ((BITBANDING_ADCPSSI_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PSSI_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_PSSI    ((BITBANDING_ADC_PSSI_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PSSI_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_PSSI_SS0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PSSI_OFFSET) * 32UL) + (ADC_PSSI_R_SS0_BIT * 4UL))))
 #define ADC0_BITBANDING_PSSI_SS1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PSSI_OFFSET) * 32UL) + (ADC_PSSI_R_SS1_BIT * 4UL))))
@@ -195,7 +195,7 @@
 /******************************************************************************************
 *********************************** * 12 SAC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SAC    ((BITBANDING_ADCSAC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SAC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SAC    ((BITBANDING_ADC_SAC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SAC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SAC_AVG_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SAC_OFFSET) * 32UL) + ((ADC_SAC_R_AVG_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SAC_AVG_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SAC_OFFSET) * 32UL) + ((ADC_SAC_R_AVG_BIT + 1UL) * 4UL))))
@@ -204,7 +204,7 @@
 /******************************************************************************************
 *********************************** * 13 DC_ISC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_DC_ISC    ((BITBANDING_ADCDC_ISC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_ISC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC_ISC    ((BITBANDING_ADC_DC_ISC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_ISC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_DC_ISC_DCINT0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_ISC_OFFSET) * 32UL) + (ADC_DC_ISC_R_DCINT0_BIT * 4UL))))
 #define ADC0_BITBANDING_DC_ISC_DCINT1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_ISC_OFFSET) * 32UL) + (ADC_DC_ISC_R_DCINT1_BIT * 4UL))))
@@ -225,10 +225,10 @@
 /******************************************************************************************
 *********************************** * 15 SSMUX *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_MUX    ((BITBANDING_ADCSS8_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_MUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_MUX    ((BITBANDING_ADCSS4_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_MUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_MUX    ((BITBANDING_ADCSS4_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_MUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_MUX    ((BITBANDING_ADCSS1_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_MUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_MUX    ((BITBANDING_ADC_SS8_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_MUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_MUX    ((BITBANDING_ADC_SS4_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_MUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_MUX    ((BITBANDING_ADC_SS4_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_MUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_MUX    ((BITBANDING_ADC_SS1_MUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_MUX_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_MUX_MUX0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_MUX_OFFSET) * 32UL) + ((ADC_SSMUX_R_MUX0_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SS0_MUX_MUX0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_MUX_OFFSET) * 32UL) + ((ADC_SSMUX_R_MUX0_BIT + 1UL) * 4UL))))
@@ -305,10 +305,10 @@
 /******************************************************************************************
 *********************************** * 16 SSCTL *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_CTL    ((BITBANDING_ADCSS8_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_CTL    ((BITBANDING_ADCSS4_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_CTL    ((BITBANDING_ADCSS4_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_CTL    ((BITBANDING_ADCSS1_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_CTL    ((BITBANDING_ADC_SS8_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_CTL    ((BITBANDING_ADC_SS4_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_CTL    ((BITBANDING_ADC_SS4_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_CTL    ((BITBANDING_ADC_SS1_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_CTL_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_CTL_D0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_CTL_OFFSET) * 32UL) + (ADC_SSCTL_R_D0_BIT * 4UL))))
 #define ADC0_BITBANDING_SS0_CTL_END0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_CTL_OFFSET) * 32UL) + (ADC_SSCTL_R_END0_BIT * 4UL))))
@@ -385,18 +385,18 @@
 /******************************************************************************************
 *********************************** * 17 SSFIFO *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_FIFO    ((BITBANDING_ADCSSFIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FIFO_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_FIFO    ((BITBANDING_ADCSSFIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_FIFO_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_FIFO    ((BITBANDING_ADCSSFIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_FIFO_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_FIFO    ((BITBANDING_ADCSSFIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_FIFO_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_FIFO    ((BITBANDING_ADC_SS_FIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FIFO_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_FIFO    ((BITBANDING_ADC_SS_FIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_FIFO_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_FIFO    ((BITBANDING_ADC_SS_FIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_FIFO_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_FIFO    ((BITBANDING_ADC_SS_FIFO_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_FIFO_OFFSET) * 32UL)))
 
 /******************************************************************************************
 *********************************** * 18 SSFSTAT *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_FSTAT    ((BITBANDING_ADCSSFSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FSTAT_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_FSTAT    ((BITBANDING_ADCSSFSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_FSTAT_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_FSTAT    ((BITBANDING_ADCSSFSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_FSTAT_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_FSTAT    ((BITBANDING_ADCSSFSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_FSTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_FSTAT    ((BITBANDING_ADC_SS_FSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FSTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_FSTAT    ((BITBANDING_ADC_SS_FSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_FSTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_FSTAT    ((BITBANDING_ADC_SS_FSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_FSTAT_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_FSTAT    ((BITBANDING_ADC_SS_FSTAT_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_FSTAT_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_FSTAT_TPTR_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FSTAT_OFFSET) * 32UL) + ((ADC_SSFSTAT_R_TPTR_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SS0_FSTAT_TPTR_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_FSTAT_OFFSET) * 32UL) + ((ADC_SSFSTAT_R_TPTR_BIT + 1UL) * 4UL))))
@@ -445,10 +445,10 @@
 /******************************************************************************************
 *********************************** * 19 SSOP *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_OP    ((BITBANDING_ADCSS8_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_OP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_OP    ((BITBANDING_ADCSS4_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_OP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_OP    ((BITBANDING_ADCSS4_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_OP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_OP    ((BITBANDING_ADCSS1_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_OP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_OP    ((BITBANDING_ADC_SS8_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_OP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_OP    ((BITBANDING_ADC_SS4_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_OP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_OP    ((BITBANDING_ADC_SS4_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_OP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_OP    ((BITBANDING_ADC_SS1_OP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_OP_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_OP_S0DCOP    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_OP_OFFSET) * 32UL) + (ADC_SSOP_R_S0DCOP_BIT * 4UL))))
 #define ADC0_BITBANDING_SS0_OP_S1DCOP    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_OP_OFFSET) * 32UL) + (ADC_SSOP_R_S1DCOP_BIT * 4UL))))
@@ -474,10 +474,10 @@
 /******************************************************************************************
 *********************************** * 20 SSDC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_DC    ((BITBANDING_ADCSS8_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_DC_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_DC    ((BITBANDING_ADCSS4_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_DC_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_DC    ((BITBANDING_ADCSS4_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_DC_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_DC    ((BITBANDING_ADCSS1_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_DC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_DC    ((BITBANDING_ADC_SS8_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_DC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_DC    ((BITBANDING_ADC_SS4_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_DC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_DC    ((BITBANDING_ADC_SS4_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_DC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_DC    ((BITBANDING_ADC_SS1_DC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_DC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_DC_S0DCSEL_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_DC_OFFSET) * 32UL) + ((ADC_SSDC_R_S0DCSEL_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SS0_DC_S0DCSEL_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_DC_OFFSET) * 32UL) + ((ADC_SSDC_R_S0DCSEL_BIT + 1UL) * 4UL))))
@@ -554,10 +554,10 @@
 /******************************************************************************************
 *********************************** * 20 SSEMUX *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_EMUX    ((BITBANDING_ADCSS8_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_EMUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_EMUX    ((BITBANDING_ADCSS4_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_EMUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_EMUX    ((BITBANDING_ADCSS4_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_EMUX_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_EMUX    ((BITBANDING_ADCSS1_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_EMUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_EMUX    ((BITBANDING_ADC_SS8_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_EMUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_EMUX    ((BITBANDING_ADC_SS4_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_EMUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_EMUX    ((BITBANDING_ADC_SS4_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_EMUX_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_EMUX    ((BITBANDING_ADC_SS1_EMUX_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_EMUX_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_EMUX_EMUX0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_EMUX_OFFSET) * 32UL) + (ADC_SSEMUX_R_EMUX0_BIT * 4UL))))
 #define ADC0_BITBANDING_SS0_EMUX_EMUX1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_EMUX_OFFSET) * 32UL) + (ADC_SSEMUX_R_EMUX1_BIT * 4UL))))
@@ -583,10 +583,10 @@
 /******************************************************************************************
 *********************************** * 20 SSTSH *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_SS0_TSH    ((BITBANDING_ADCSS8_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_TSH_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS1_TSH    ((BITBANDING_ADCSS4_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_TSH_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS2_TSH    ((BITBANDING_ADCSS4_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_TSH_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_SS3_TSH    ((BITBANDING_ADCSS1_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_TSH_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS0_TSH    ((BITBANDING_ADC_SS8_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_TSH_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS1_TSH    ((BITBANDING_ADC_SS4_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS1_TSH_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS2_TSH    ((BITBANDING_ADC_SS4_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS2_TSH_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_SS3_TSH    ((BITBANDING_ADC_SS1_TSH_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS3_TSH_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_SS0_TSH_TSH0_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_TSH_OFFSET) * 32UL) + ((ADC_SSTSH_R_TSH0_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_SS0_TSH_TSH0_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_SS0_TSH_OFFSET) * 32UL) + ((ADC_SSTSH_R_TSH0_BIT + 1UL) * 4UL))))
@@ -663,7 +663,7 @@
 /******************************************************************************************
 *********************************** * 21 DC_RIC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_DC_RIC    ((BITBANDING_ADCDC_RIC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_RIC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC_RIC    ((BITBANDING_ADC_DC_RIC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_RIC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_DC_RIC_DCINT0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_RIC_OFFSET) * 32UL) + (ADC_DC_RIC_R_DCINT0_BIT * 4UL))))
 #define ADC0_BITBANDING_DC_RIC_DCINT1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC_RIC_OFFSET) * 32UL) + (ADC_DC_RIC_R_DCINT1_BIT * 4UL))))
@@ -685,14 +685,14 @@
 /******************************************************************************************
 *********************************** * 22 DC_CTL *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_DC0_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC1_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC1_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC2_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC2_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC3_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC3_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC4_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC4_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC5_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC5_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC6_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC6_CTL_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC7_CTL    ((BITBANDING_ADCDC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC7_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC0_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC1_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC1_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC2_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC2_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC3_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC3_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC4_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC4_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC5_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC5_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC6_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC6_CTL_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC7_CTL    ((BITBANDING_ADC_DC_CTL_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC7_CTL_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_DC0_CTL_CIM_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CTL_OFFSET) * 32UL) + ((ADC_DC_CTL_R_CIM_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_DC0_CTL_CIM_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CTL_OFFSET) * 32UL) + ((ADC_DC_CTL_R_CIM_BIT + 1UL) * 4UL))))
@@ -786,24 +786,24 @@
 /******************************************************************************************
 *********************************** * 23 DC_CMP *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_DC0_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC1_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC1_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC2_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC2_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC3_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC3_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC4_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC4_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC5_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC5_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC6_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC6_CMP_OFFSET) * 32UL)))
-#define ADC0_BITBANDING_DC7_CMP    ((BITBANDING_ADCDC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC7_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC0_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC0_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC1_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC1_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC2_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC2_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC3_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC3_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC4_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC4_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC5_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC5_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC6_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC6_CMP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_DC7_CMP    ((BITBANDING_ADC_DC_CMP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_DC7_CMP_OFFSET) * 32UL)))
 
 /******************************************************************************************
 *********************************** * 24 PP *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_PP    ((BITBANDING_ADCPP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PP_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_PP    ((BITBANDING_ADC_PP_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PP_OFFSET) * 32UL)))
 
 /******************************************************************************************
 *********************************** * 25 PC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_PC    ((BITBANDING_ADCPC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_PC    ((BITBANDING_ADC_PC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_PC_MCR_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PC_OFFSET) * 32UL) + ((ADC_PC_R_MCR_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_PC_MCR_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_PC_OFFSET) * 32UL) + ((ADC_PC_R_MCR_BIT + 1UL) * 4UL))))
@@ -813,7 +813,7 @@
 /******************************************************************************************
 *********************************** * 26 CC *********************************************
 ******************************************************************************************/
-#define ADC0_BITBANDING_CC    ((BITBANDING_ADCCC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_CC_OFFSET) * 32UL)))
+#define ADC0_BITBANDING_CC    ((BITBANDING_ADC_CC_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_CC_OFFSET) * 32UL)))
 
 #define ADC0_BITBANDING_CC_CS_0    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_CC_OFFSET) * 32UL) + ((ADC_CC_R_CS_BIT + 0UL) * 4UL))))
 #define ADC0_BITBANDING_CC_CS_1    (*((volatile uint32_t*) (ADC_BITBANDING_BASE + ((ADC0_OFFSET + ADC_CC_OFFSET) * 32UL) + ((ADC_CC_R_CS_BIT + 1UL) * 4UL))))

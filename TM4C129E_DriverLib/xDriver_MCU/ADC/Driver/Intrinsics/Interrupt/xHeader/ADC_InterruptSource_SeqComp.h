@@ -30,7 +30,7 @@
 void ADC_Comparator__vEnInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
 void ADC_Comparator__vDisInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
 void ADC_Comparator__vClearInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
-ADC_nCOMP_INT_STATUS ADC_Comparator__enStatusInterrupt(ADC_nMODULE enModule,
+ADC_nSTATUS ADC_Comparator__enStatusInterrupt(ADC_nMODULE enModule,
                                                 ADC_nCOMPARATOR enSeqComparator);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_ADC_INTERRUPTSOURCE_SEQCOMP_H_ */
