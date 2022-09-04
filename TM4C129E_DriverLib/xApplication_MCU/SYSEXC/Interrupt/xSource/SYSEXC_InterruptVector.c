@@ -27,7 +27,7 @@
 
 void SYSEXC__vEnInterruptVector(SYSEXC_nPRIORITY enSYSEXCPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_SYSEXC;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSEXC;
 
     enSYSEXCPriority &= 0x7U;
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enSYSEXCPriority);
@@ -35,6 +35,6 @@ void SYSEXC__vEnInterruptVector(SYSEXC_nPRIORITY enSYSEXCPriority)
 
 void SYSEXC__vDisInterruptVector(void)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_SYSEXC;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSEXC;
     NVIC__vClearEnableIRQ(enVector);
 }

@@ -25,19 +25,19 @@
 
 #include <xApplication_MCU/TIMER/Intrinsics/xHeader/TIMER_Dependencies.h>
 
-static NVIC_nSTIR TIMER__enGetInterruptVector(TIMER_nMODULE enModule);
+static NVIC_nVECTOR TIMER__enGetInterruptVector(TIMER_nMODULE enModule);
 
-static NVIC_nSTIR TIMER__enGetInterruptVector(TIMER_nMODULE enModule)
+static NVIC_nVECTOR TIMER__enGetInterruptVector(TIMER_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_TIMER0A;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_TIMER0A;
     uint32_t u32SubModule = 0UL;
     uint32_t u32ModuleNumber = 0UL;
-    static NVIC_nSTIR NVIC_VECTOR_TIMER[(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX] =
+    static NVIC_nVECTOR NVIC_VECTOR_TIMER[(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX] =
     {
-            {NVIC_enSTIR_TIMER0A, NVIC_enSTIR_TIMER1A, NVIC_enSTIR_TIMER2A, NVIC_enSTIR_TIMER3A,
-             NVIC_enSTIR_TIMER4A, NVIC_enSTIR_TIMER5A, NVIC_enSTIR_TIMER6A, NVIC_enSTIR_TIMER7A},
-            {NVIC_enSTIR_TIMER0B, NVIC_enSTIR_TIMER1B, NVIC_enSTIR_TIMER2B, NVIC_enSTIR_TIMER3B,
-             NVIC_enSTIR_TIMER4B, NVIC_enSTIR_TIMER5B, NVIC_enSTIR_TIMER6B, NVIC_enSTIR_TIMER7B},
+            {NVIC_enVECTOR_TIMER0A, NVIC_enVECTOR_TIMER1A, NVIC_enVECTOR_TIMER2A, NVIC_enVECTOR_TIMER3A,
+             NVIC_enVECTOR_TIMER4A, NVIC_enVECTOR_TIMER5A, NVIC_enVECTOR_TIMER6A, NVIC_enVECTOR_TIMER7A},
+            {NVIC_enVECTOR_TIMER0B, NVIC_enVECTOR_TIMER1B, NVIC_enVECTOR_TIMER2B, NVIC_enVECTOR_TIMER3B,
+             NVIC_enVECTOR_TIMER4B, NVIC_enVECTOR_TIMER5B, NVIC_enVECTOR_TIMER6B, NVIC_enVECTOR_TIMER7B},
     };
     TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
     u32SubModule &= 0x1UL;
@@ -47,14 +47,14 @@ static NVIC_nSTIR TIMER__enGetInterruptVector(TIMER_nMODULE enModule)
 
 void TIMER__vEnInterruptVector(TIMER_nMODULE enModule, TIMER_nPRIORITY enTimerPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_TIMER0A;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_TIMER0A;
     enVector = TIMER__enGetInterruptVector(enModule);
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enTimerPriority);
 }
 
 void TIMER__vDisInterruptVector(TIMER_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_TIMER0A;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_TIMER0A;
     enVector = TIMER__enGetInterruptVector(enModule);
     NVIC__vClearEnableIRQ(enVector);
 }

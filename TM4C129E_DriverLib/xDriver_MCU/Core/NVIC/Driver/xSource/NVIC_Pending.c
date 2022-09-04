@@ -27,19 +27,19 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_WriteReg.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-NVIC_nPENDING NVIC__enGetPendingIRQ(NVIC_nSTIR enIRQ)
+NVIC_nPENDSTATE NVIC__enGetPendingIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC_nPENDING enPendingReg = NVIC_enNOPENDING;
-    enPendingReg = (NVIC_nPENDING) NVIC__u32ReadRegister(enIRQ, NVIC_ISPR_OFFSET);
+    NVIC_nPENDSTATE enPendingReg = NVIC_enNOPENDING;
+    enPendingReg = (NVIC_nPENDSTATE) NVIC__u32ReadRegister(enIRQ, NVIC_ISPR_OFFSET);
     return (enPendingReg);
 }
 
-void NVIC__vSetPendingIRQ(NVIC_nSTIR enIRQ)
+void NVIC__vSetPendingIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ISPR_OFFSET, (uint32_t) NVIC_enENABLE);
+    NVIC__vWriteRegister(enIRQ, NVIC_ISPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
 }
 
-void NVIC__vClearPendingIRQ(NVIC_nSTIR enIRQ)
+void NVIC__vClearPendingIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ICPR_OFFSET, (uint32_t) NVIC_enENABLE);
+    NVIC__vWriteRegister(enIRQ, NVIC_ICPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
 }

@@ -25,47 +25,47 @@
 
 #include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Dependencies.h>
 
-static NVIC_nSTIR NVIC_enSTIR_GPIO[ (uint32_t) GPIO_enPORT_MAX] =
-{ NVIC_enSTIR_GPIOA, NVIC_enSTIR_GPIOB, NVIC_enSTIR_GPIOC,
-  NVIC_enSTIR_GPIOD, NVIC_enSTIR_GPIOE, NVIC_enSTIR_GPIOF,
-  NVIC_enSTIR_GPIOG, NVIC_enSTIR_GPIOH, NVIC_enSTIR_GPIOJ,
-  NVIC_enSTIR_GPIOK, NVIC_enSTIR_GPIOL, NVIC_enSTIR_GPIOM,
-  NVIC_enSTIR_GPION, NVIC_enSTIR_GPIOP, NVIC_enSTIR_GPIOQ};
+static NVIC_nVECTOR NVIC_enVECTOR_GPIO[ (uint32_t) GPIO_enPORT_MAX] =
+{ NVIC_enVECTOR_GPIOA, NVIC_enVECTOR_GPIOB, NVIC_enVECTOR_GPIOC,
+  NVIC_enVECTOR_GPIOD, NVIC_enVECTOR_GPIOE, NVIC_enVECTOR_GPIOF,
+  NVIC_enVECTOR_GPIOG, NVIC_enVECTOR_GPIOH, NVIC_enVECTOR_GPIOJ,
+  NVIC_enVECTOR_GPIOK, NVIC_enVECTOR_GPIOL, NVIC_enVECTOR_GPIOM,
+  NVIC_enVECTOR_GPION, NVIC_enVECTOR_GPIOP, NVIC_enVECTOR_GPIOQ};
 
 void GPIO__vEnInterruptVector(GPIO_nPORT enPort, GPIO_nPRIORITY enGPIOPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_GPIOA;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOA;
     enPort = (GPIO_nPORT) MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
 
-    enVector = NVIC_enSTIR_GPIO[ (uint32_t) enPort];
+    enVector = NVIC_enVECTOR_GPIO[ (uint32_t) enPort];
 
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enGPIOPriority);
 }
 
 void GPIO__vDisInterruptVector(GPIO_nPORT enPort)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_GPIOA;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOA;
     enPort = (GPIO_nPORT) MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
 
-    enVector = NVIC_enSTIR_GPIO[ (uint32_t) enPort];
+    enVector = NVIC_enVECTOR_GPIO[ (uint32_t) enPort];
     NVIC__vClearEnableIRQ(enVector);
 }
 
-static NVIC_nSTIR NVIC_enSTIR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_NUMBER_MAX] =
+static NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_NUMBER_MAX] =
 {
   {
-   NVIC_enSTIR_GPIOP, NVIC_enSTIR_GPIOP1, NVIC_enSTIR_GPIOP2, NVIC_enSTIR_GPIOP3,
-   NVIC_enSTIR_GPIOP4, NVIC_enSTIR_GPIOP5, NVIC_enSTIR_GPIOP6, NVIC_enSTIR_GPIOP7
+   NVIC_enVECTOR_GPIOP, NVIC_enVECTOR_GPIOP1, NVIC_enVECTOR_GPIOP2, NVIC_enVECTOR_GPIOP3,
+   NVIC_enVECTOR_GPIOP4, NVIC_enVECTOR_GPIOP5, NVIC_enVECTOR_GPIOP6, NVIC_enVECTOR_GPIOP7
   },
   {
-   NVIC_enSTIR_GPIOQ, NVIC_enSTIR_GPIOP1, NVIC_enSTIR_GPIOP2, NVIC_enSTIR_GPIOP3,
-   NVIC_enSTIR_GPIOQ4, NVIC_enSTIR_GPIOQ5, NVIC_enSTIR_GPIOQ6, NVIC_enSTIR_GPIOQ7
+   NVIC_enVECTOR_GPIOQ, NVIC_enVECTOR_GPIOP1, NVIC_enVECTOR_GPIOP2, NVIC_enVECTOR_GPIOP3,
+   NVIC_enVECTOR_GPIOQ4, NVIC_enVECTOR_GPIOQ5, NVIC_enVECTOR_GPIOQ6, NVIC_enVECTOR_GPIOQ7
   },
 };
 
 void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber, GPIO_nPRIORITY enGPIOPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_GPIOP;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOP;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort ))
@@ -84,7 +84,7 @@ void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber
             break;
         }
 
-        enVector = NVIC_enSTIR_GPIOPQ_PIN[u32Port][u32PinNumber];
+        enVector = NVIC_enVECTOR_GPIOPQ_PIN[u32Port][u32PinNumber];
 
         NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enGPIOPriority);
     }
@@ -92,7 +92,7 @@ void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber
 
 void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_GPIOP;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOP;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort ))
@@ -111,7 +111,7 @@ void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumbe
             break;
         }
 
-        enVector = NVIC_enSTIR_GPIOPQ_PIN[u32Port][u32PinNumber];
+        enVector = NVIC_enVECTOR_GPIOPQ_PIN[u32Port][u32PinNumber];
 
         NVIC__vClearEnableIRQ(enVector);
     }

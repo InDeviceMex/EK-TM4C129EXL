@@ -26,9 +26,9 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_ReadReg.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-NVIC_nACTIVE NVIC__enGetActiveIRQ(NVIC_nSTIR enIRQ)
+NVIC_nSTATUS NVIC__enGetActiveIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC_nACTIVE enActiveReg = NVIC_enNOACTIVE;
-    enActiveReg = (NVIC_nACTIVE ) NVIC__u32ReadRegister(enIRQ, NVIC_IABR_OFFSET);
+    NVIC_nSTATUS enActiveReg = NVIC_enSTATUS_INACTIVE;
+    enActiveReg = (NVIC_nSTATUS ) NVIC__u32ReadRegister(enIRQ, NVIC_IABR_OFFSET);
     return (enActiveReg);
 }

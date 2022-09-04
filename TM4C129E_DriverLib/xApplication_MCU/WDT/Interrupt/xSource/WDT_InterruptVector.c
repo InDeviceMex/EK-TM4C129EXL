@@ -27,12 +27,12 @@
 
 void WDT__vEnInterruptVector(WDT_nPRIORITY enPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_WDT01;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_WDT01;
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enPriority);
 }
 
 void WDT__vDisInterruptVector(void)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_WDT01;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_WDT01;
     NVIC__vClearEnableIRQ(enVector);
 }

@@ -28,21 +28,21 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_Priority.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-NVIC_nENABLE NVIC__enGetEnableIRQ(NVIC_nSTIR enIRQ)
+NVIC_nSTATE NVIC__enGetEnableIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC_nENABLE enEnableReg = NVIC_enDISABLE;
-    enEnableReg = (NVIC_nENABLE) NVIC__u32ReadRegister(enIRQ, NVIC_ISER_OFFSET);
+    NVIC_nSTATE enEnableReg = NVIC_enSTATE_DIS;
+    enEnableReg = (NVIC_nSTATE) NVIC__u32ReadRegister(enIRQ, NVIC_ISER_OFFSET);
     return (enEnableReg);
 }
 
-void NVIC__vSetEnableIRQ(NVIC_nSTIR enIRQ, NVIC_nPRIORITY enPriority)
+void NVIC__vSetEnableIRQ(NVIC_nVECTOR enIRQ, NVIC_nPRIORITY enPriority)
 {
     NVIC__vSetPriorityIRQ(enIRQ, enPriority);
-    NVIC__vWriteRegister(enIRQ, NVIC_ISER_OFFSET, (uint32_t) NVIC_enENABLE);
+    NVIC__vWriteRegister(enIRQ, NVIC_ISER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
 
 }
 
-void NVIC__vClearEnableIRQ(NVIC_nSTIR enIRQ)
+void NVIC__vClearEnableIRQ(NVIC_nVECTOR enIRQ)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ICER_OFFSET, (uint32_t) NVIC_enENABLE);
+    NVIC__vWriteRegister(enIRQ, NVIC_ICER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
 }

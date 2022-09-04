@@ -26,7 +26,7 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-void NVIC__vTriggerIRQ(NVIC_nSTIR enIRQ)
+void NVIC__vTriggerIRQ(NVIC_nVECTOR enIRQ)
 {
     uint32_t u32IRQ = 0UL;
 

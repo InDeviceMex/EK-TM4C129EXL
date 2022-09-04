@@ -27,12 +27,12 @@
 
 void FLASH__vEnInterruptVector(FLASH_nPRIORITY enFlashPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_FLASH;
-    NVIC__vSetEnableIRQ( (NVIC_nSTIR) enVector, (NVIC_nPRIORITY) enFlashPriority);
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_FLASH;
+    NVIC__vSetEnableIRQ( (NVIC_nVECTOR) enVector, (NVIC_nPRIORITY) enFlashPriority);
 }
 
 void FLASH__vDisInterruptVector(void)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_FLASH;
-    NVIC__vClearEnableIRQ( (NVIC_nSTIR) enVector);
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_FLASH;
+    NVIC__vClearEnableIRQ( (NVIC_nVECTOR) enVector);
 }

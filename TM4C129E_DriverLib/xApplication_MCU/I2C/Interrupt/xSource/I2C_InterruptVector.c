@@ -25,16 +25,16 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-static NVIC_nSTIR I2C__enGetInterruptVector(I2C_nMODULE enModule);
+static NVIC_nVECTOR I2C__enGetInterruptVector(I2C_nMODULE enModule);
 
-static NVIC_nSTIR I2C__enGetInterruptVector(I2C_nMODULE enModule)
+static NVIC_nVECTOR I2C__enGetInterruptVector(I2C_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_I2C0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
     uint32_t u32Module = 0UL;
-    NVIC_nSTIR NVIC_VECTOR_I2C[(uint32_t) I2C_enMODULE_MAX] =
+    NVIC_nVECTOR NVIC_VECTOR_I2C[(uint32_t) I2C_enMODULE_MAX] =
     {
-        NVIC_enSTIR_I2C0, NVIC_enSTIR_I2C1, NVIC_enSTIR_I2C2, NVIC_enSTIR_I2C3, NVIC_enSTIR_I2C4,
-        NVIC_enSTIR_I2C5, NVIC_enSTIR_I2C6, NVIC_enSTIR_I2C7, NVIC_enSTIR_I2C8, NVIC_enSTIR_I2C9
+        NVIC_enVECTOR_I2C0, NVIC_enVECTOR_I2C1, NVIC_enVECTOR_I2C2, NVIC_enVECTOR_I2C3, NVIC_enVECTOR_I2C4,
+        NVIC_enVECTOR_I2C5, NVIC_enVECTOR_I2C6, NVIC_enVECTOR_I2C7, NVIC_enVECTOR_I2C8, NVIC_enVECTOR_I2C9
     };
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
@@ -44,14 +44,14 @@ static NVIC_nSTIR I2C__enGetInterruptVector(I2C_nMODULE enModule)
 
 void I2C__vEnInterruptVector(I2C_nMODULE enModule, I2C_nPRIORITY enI2CPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_I2C0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
     enVector = I2C__enGetInterruptVector(enModule);
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enI2CPriority);
 }
 
 void I2C__vDisInterruptVector(I2C_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_I2C0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
     enVector = I2C__enGetInterruptVector(enModule);
     NVIC__vClearEnableIRQ(enVector);
 }

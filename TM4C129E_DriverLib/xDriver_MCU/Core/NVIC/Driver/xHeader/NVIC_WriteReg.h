@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-void NVIC__vWriteRegister(NVIC_nSTIR enIRQ, uint32_t u32RegisterOffset, uint32_t u32ValueArg);
+void NVIC__vWriteRegister(NVIC_nVECTOR enIRQ, uint32_t u32RegisterOffset, uint32_t u32ValueArg);
 
 #endif /* XDRIVER_MCU_CORE_NVIC_DRIVER_XHEADER_NVIC_WRITEREG_H_ */

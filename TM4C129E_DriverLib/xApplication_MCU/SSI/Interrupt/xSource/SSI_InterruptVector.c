@@ -25,15 +25,15 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-static NVIC_nSTIR SSI__enGetInterruptVector(SSI_nMODULE enModule);
+static NVIC_nVECTOR SSI__enGetInterruptVector(SSI_nMODULE enModule);
 
-static NVIC_nSTIR SSI__enGetInterruptVector(SSI_nMODULE enModule)
+static NVIC_nVECTOR SSI__enGetInterruptVector(SSI_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_SSI0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
     uint32_t u32Module = 0UL;
-    NVIC_nSTIR NVIC_VECTOR_SSI[(uint32_t) SSI_enMODULE_MAX] =
+    NVIC_nVECTOR NVIC_VECTOR_SSI[(uint32_t) SSI_enMODULE_MAX] =
     {
-        NVIC_enSTIR_SSI0, NVIC_enSTIR_SSI1, NVIC_enSTIR_SSI2, NVIC_enSTIR_SSI3,
+        NVIC_enVECTOR_SSI0, NVIC_enVECTOR_SSI1, NVIC_enVECTOR_SSI2, NVIC_enVECTOR_SSI3,
     };
 
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
@@ -43,14 +43,14 @@ static NVIC_nSTIR SSI__enGetInterruptVector(SSI_nMODULE enModule)
 
 void SSI__vEnInterruptVector(SSI_nMODULE enModule, SSI_nPRIORITY enSSIPriority)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_SSI0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
     enVector = SSI__enGetInterruptVector(enModule);
     NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enSSIPriority);
 }
 
 void SSI__vDisInterruptVector(SSI_nMODULE enModule)
 {
-    NVIC_nSTIR enVector = NVIC_enSTIR_SSI0;
+    NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
     enVector = SSI__enGetInterruptVector(enModule);
     NVIC__vClearEnableIRQ(enVector);
 }

@@ -25,11 +25,11 @@
 
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
-static NVIC_nSTIR NVIC_VECTOR_DMA[(uint32_t) DMA_enVECTOR_MAX] = { NVIC_enSTIR_UDMASOFT, NVIC_enSTIR_UDMAERROR};
+static NVIC_nVECTOR NVIC_VECTOR_DMA[(uint32_t) DMA_enVECTOR_MAX] = { NVIC_enVECTOR_UDMASOFT, NVIC_enVECTOR_UDMAERROR};
 
 void DMA__vEnInterruptVector(DMA_nVECTOR enVector, DMA_nPRIORITY enDmaPriority)
 {
-    NVIC_nSTIR enVectorNvic = NVIC_enSTIR_UDMASOFT;
+    NVIC_nVECTOR enVectorNvic = NVIC_enVECTOR_UDMASOFT;
     enVector = (DMA_nVECTOR) MCU__u32CheckParams( (uint32_t) enVector, (uint32_t) DMA_enVECTOR_MAX);
 
     enVectorNvic = NVIC_VECTOR_DMA[ (uint32_t) enVector];
@@ -38,7 +38,7 @@ void DMA__vEnInterruptVector(DMA_nVECTOR enVector, DMA_nPRIORITY enDmaPriority)
 
 void DMA__vDisInterruptVector(DMA_nVECTOR enVector)
 {
-    NVIC_nSTIR enVectorNvic = NVIC_enSTIR_UDMASOFT;
+    NVIC_nVECTOR enVectorNvic = NVIC_enVECTOR_UDMASOFT;
     enVector = (DMA_nVECTOR) MCU__u32CheckParams( (uint32_t) enVector, (uint32_t) DMA_enVECTOR_MAX);
 
     enVectorNvic = NVIC_VECTOR_DMA[ (uint32_t) enVector];
