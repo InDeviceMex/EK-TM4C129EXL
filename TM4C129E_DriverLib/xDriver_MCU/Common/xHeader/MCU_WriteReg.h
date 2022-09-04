@@ -88,7 +88,6 @@ inline void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataAr
         u32RegisterShift = pstRegisterDataArg->u32Shift;
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        enStatus = MCU__enDisGlobalInterrupt();
         u32Reg = u32RegisterValue;
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
         if(MCU_MASK_32 != u32RegisterMask)
@@ -103,6 +102,7 @@ inline void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataAr
             u32Reg &= ~u32RegisterMask;
             u32Reg |= u32RegisterValue;
         }
+        enStatus = MCU__enDisGlobalInterrupt();
         *pu32RegisterAddress = (uint32_t) u32Reg;
         MCU__vSetGlobalInterrupt(enStatus);
     }
@@ -125,11 +125,11 @@ inline void MCU__vWriteRegister_DirectNew(const MCU_Register_t* const pstRegiste
         u32RegisterShift = pstRegisterDataArg->u32Shift;
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        enStatus = MCU__enDisGlobalInterrupt();
         u32Reg = u32RegisterValue;
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
         u32RegisterValue &= u32RegisterMask;
         u32RegisterValue <<= u32RegisterShift;
+        enStatus = MCU__enDisGlobalInterrupt();
         *pu32RegisterAddress = u32Reg;
         MCU__vSetGlobalInterrupt(enStatus);
     }
@@ -148,7 +148,6 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
     MCU_nSTATE enStatus = MCU_enSTATE_ENA;
 
     u32PeripheralBase += u32OffsetRegister;
-    enStatus = MCU__enDisGlobalInterrupt();
     pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
     if(0xFFFFFFFFUL != u32MaskFeature)
     {
@@ -166,6 +165,7 @@ inline void MCU__vWriteRegister(uint32_t u32PeripheralBase,
         u32Reg |= u32FeatureValue;
     }
 
+    enStatus = MCU__enDisGlobalInterrupt();
     (*pu32Peripheral) = (uint32_t) u32Reg;
     (void) MCU__vSetGlobalInterrupt(enStatus);
 }
@@ -180,11 +180,11 @@ inline void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
     volatile uint32_t* pu32Peripheral = 0UL;
 
     u32PeripheralBase += u32OffsetRegister;
-    enStatus = MCU__enDisGlobalInterrupt();
     pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
     /*Get Value in bit position*/
     u32FeatureValue &= u32MaskFeature;
     u32FeatureValue <<= u32BitFeature;
+    enStatus = MCU__enDisGlobalInterrupt();
     (*pu32Peripheral) = (uint32_t) u32FeatureValue;
     MCU__vSetGlobalInterrupt(enStatus);
 }

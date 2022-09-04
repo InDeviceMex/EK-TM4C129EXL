@@ -25,15 +25,20 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_BASICS_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_BASICS_H_
 
-__attribute__((naked))
-void MCU__vNoOperation(void);
-__attribute__((naked))
-void MCU__vDataSyncBarrier(void);
-__attribute__((naked))
-void MCU__vInstructionSyncBarrier(void);
-__attribute__((naked))
-void MCU__vDataMemoryBarrier(void);
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    #pragma CHECK_MISRA("-19.7")
+#endif
 
-void MCU__vBlocking(void);
+#define MCU__vNoOperation() {__asm volatile(" NOP \n");}
+#define MCU__vDataSyncBarrier() {__asm volatile(" DSB \n");}
+#define MCU__vInstructionSyncBarrier() {__asm volatile(" ISB \n");}
+#define MCU__vDataMemoryBarrier() {__asm volatile(" DMB \n");}
+
+#define MCU__vBlocking() { MCU__vDataSyncBarrier(); MCU__vInstructionSyncBarrier();}
+
+
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    #pragma RESET_MISRA("19.7")
+#endif
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_BASICS_H_ */

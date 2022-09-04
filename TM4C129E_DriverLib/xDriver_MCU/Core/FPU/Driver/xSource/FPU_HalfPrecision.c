@@ -13,7 +13,7 @@
 void FPU__vSetHalfPrecision(FPU_nMODULE enModuleArg,
                                    FPU_nHALF_PRECISION enHalfPrecisionArg)
 {
-    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_AHP_MASK, (uint32_t) enHalfPrecisionArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_AHP_MASK, (uint32_t) enHalfPrecisionArg);
 }
 
 FPU_nHALF_PRECISION FPU__enGetHalfPrecision(FPU_nMODULE enModuleArg)

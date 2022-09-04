@@ -117,7 +117,7 @@ uint32_t main(void)
 
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
-                      &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
+                      &enUart0Control, &enUart0LineControl, 9600UL, &enUart0Line );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
 
@@ -140,19 +140,19 @@ uint32_t main(void)
     UartSemaphoreHandle = OS_Semaphore__pvCreateMutex();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    /* OS_Task__uxCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
-                                   (void*) 160UL, 4UL, &TaskHandeler[0UL]);
-     OS_Task__uxCreate(&xTask2_JoystickLog, "Task 2", 300UL,
-                                   (void*) 30UL, 2UL, &TaskHandeler[1UL]);
+     OS_Task__uxCreate(&xTask1_AccelerometerLog, "Task 1", 300UL,
+                                   (void*) 200UL, 5UL, &TaskHandeler[0UL]);
      OS_Task__uxCreate(&xTask3_ButtonsLog, "Task 3", 300UL,
-                                   (void*) 75UL, 5UL, &TaskHandeler[2UL]);
-     OS_Task__uxCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
+                                   (void*) 100UL, 4UL, &TaskHandeler[1UL]);
+     OS_Task__uxCreate(&xTask2_JoystickLog, "Task 2", 300UL,
+                                   (void*) 33UL, 3UL, &TaskHandeler[2UL]);
+     /*  OS_Task__uxCreate(&xTask4_LedBlueLog, "Task 4", 300UL,
                                    (void*) 0UL, 3UL, &TaskHandeler[3UL]);
      OS_Task__uxCreate(&xTask5_LedGreenLog, "Task 5", 300UL,
-                                   (void*) 100UL, 3UL, &TaskHandeler[4UL]);*/
+                                   (void*) 100UL, 3UL, &TaskHandeler[4UL]);
      OS_Task__uxCreate(&xTask6_Commands, "Task 6", 900UL,
                                    (void*) 10UL, 2UL, &TaskHandeler[5UL]);
-     /*
+
      OS_Task__uxCreate(&xTask7_ControllerCar , "Task 7", 900UL,
                                    (void*) 30UL, 3UL, &TaskHandeler[6UL]);
  */

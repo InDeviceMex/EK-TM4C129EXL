@@ -13,7 +13,7 @@
 void FPU__vSetRoundingMode(FPU_nMODULE enModuleArg,
                                    FPU_nROUNDING enRoundingArg)
 {
-    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_RMODE_MASK, (uint32_t) enRoundingArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_RMODE_MASK, (uint32_t) enRoundingArg);
 }
 
 FPU_nROUNDING FPU__enGetRoundingMode(FPU_nMODULE enModuleArg)

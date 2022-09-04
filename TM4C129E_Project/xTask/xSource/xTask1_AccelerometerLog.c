@@ -74,6 +74,10 @@ void xTask1_AccelerometerLog(void* pvParams)
         u32DiffTime -= u32CurrentTime;
         u32DiffPeriod = u32PeriodTask;
         u32DiffPeriod -= u32DiffTime;
+        if(u32DiffPeriod > u32PeriodTask)
+        {
+            u32DiffPeriod = u32PeriodTask;
+        }
 
         OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
     }

@@ -29,7 +29,7 @@
 
 void FPU__vSetMode(FPU_nMODULE enModuleArg, FPU_nMODE enModeArg)
 {
-    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_FZ_MASK, (uint32_t) enModeArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_FZ_MASK, (uint32_t) enModeArg);
 }
 
 FPU_nMODE FPU__enGetMode(FPU_nMODULE enModuleArg)

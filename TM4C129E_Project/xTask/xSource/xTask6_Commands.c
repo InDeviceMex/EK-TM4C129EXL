@@ -105,7 +105,6 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
     uint32_t u32Length = 0UL;
     uint32_t u32Data = 0UL;
     uint32_t u32Data2 = 0UL;
-    boolean_t boTransferData = FALSE;
     if((0UL != (uint32_t) pu8Message) && (0UL != u32MessageLength))
     {
         do
@@ -119,7 +118,6 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
 
         u32MsgCtrl |= CAN_IFnMCTL_R_TXRQST_REQ;
         u32ArbReg2 = CAN_IFnARB2_R_DIR_TRANSMIT;
-        boTransferData = TRUE;
         u32CmdMaskReg |= CAN_IFnCMSK_R_ARB_TRANSFER;
 
         u32ID = 0UL;
@@ -142,7 +140,7 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
         pu8Message += 1UL;
         u32Data2 <<= 8UL;
         u32Data |= u32Data2;
-        CAN0_IF1DA1_R = u32Data;
+        CAN0_IF1DA1_R = (uint32_t) u32Data;
 
         u32Data = (uint32_t) *pu8Message;
         pu8Message += 1UL;
@@ -150,7 +148,7 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
         pu8Message += 1UL;
         u32Data2 <<= 8UL;
         u32Data |= u32Data2;
-        CAN0_IF1DA2_R = u32Data;
+        CAN0_IF1DA2_R = (uint32_t) u32Data;
 
         u32Data = (uint32_t) *pu8Message;
         pu8Message += 1UL;
@@ -158,7 +156,7 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
         pu8Message += 1UL;
         u32Data2 <<= 8UL;
         u32Data |= u32Data2;
-        CAN0_IF1DB1_R = u32Data;
+        CAN0_IF1DB1_R = (uint32_t) u32Data;
 
         u32Data = (uint32_t) *pu8Message;
         pu8Message += 1UL;
@@ -166,11 +164,11 @@ void CAN0__vSendMessage(uint8_t* pu8Message, uint32_t u32MessageLength)
         pu8Message += 1UL;
         u32Data2 <<= 8UL;
         u32Data |= u32Data2;
-        CAN0_IF1DB2_R = u32Data;
+        CAN0_IF1DB2_R = (uint32_t) u32Data;
 
-        CAN0_IF1CMSK_R = u32CmdMaskReg;
-        CAN0_IF1ARB2_R = u32ArbReg2;
-        CAN0_IF1MCTL_R = u32MsgCtrl;
+        CAN0_IF1CMSK_R = (uint32_t) u32CmdMaskReg;
+        CAN0_IF1ARB2_R = (uint32_t) u32ArbReg2;
+        CAN0_IF1MCTL_R = (uint32_t) u32MsgCtrl;
         CAN0_IF1CRQ_R = 1UL & CAN_IFnCRQ_R_MNUM_MASK;
     }
 
@@ -185,9 +183,6 @@ void CAN1__vSetMessage(void)
     uint32_t u32MsgCtrl = 0UL;
     uint32_t u32ID = 0UL;
     uint32_t u32Length = 0UL;
-    uint32_t u32Data = 0UL;
-    uint32_t u32Data2 = 0UL;
-    boolean_t boTransferData = FALSE;
 
     do
     {
@@ -199,7 +194,6 @@ void CAN1__vSetMessage(void)
                     CAN_IFnCMSK_R_DATAB_TRANSFER | CAN_IFnCMSK_R_CONTROL_TRANSFER;
 
     u32ArbReg2 = 0UL;
-    boTransferData = FALSE;
     u32ID = 0UL;
     u32ID <<= 2UL;
     u32ID &= CAN_IFnARB2_R_ID_MASK;
@@ -224,12 +218,12 @@ void CAN1__vSetMessage(void)
     u32MsgCtrl |= CAN_IFnMCTL_R_EOB_END;
     u32MsgCtrl |= CAN_IFnMCTL_R_RXIE_SET;
 
-    CAN1_IF1CMSK_R = u32CmdMaskReg;
+    CAN1_IF1CMSK_R = (uint32_t) u32CmdMaskReg;
     CAN1_IF1MSK1_R = 0UL;
-    CAN1_IF1MSK2_R = u32MaskReg2;
+    CAN1_IF1MSK2_R = (uint32_t) u32MaskReg2;
     CAN1_IF1ARB1_R = 0UL;
-    CAN1_IF1ARB2_R = u32ArbReg2;
-    CAN1_IF1MCTL_R = u32MsgCtrl;
+    CAN1_IF1ARB2_R = (uint32_t) u32ArbReg2;
+    CAN1_IF1MCTL_R = (uint32_t) u32MsgCtrl;
     CAN1_IF1CRQ_R = 1UL & CAN_IFnCRQ_R_MNUM_MASK;
 
 }
@@ -252,10 +246,10 @@ void CAN0__vInit(void)
     {
         do
         {
-            u32Busy = CAN0_IF1CRQ_R;
+            u32Busy = (uint32_t) CAN0_IF1CRQ_R;
             u32Busy &= CAN_IFnCRQ_R_BUSY_MASK;
         }while(0UL != u32Busy);
-        CAN0_IF1CRQ_R = u32Message;
+        CAN0_IF1CRQ_R = (uint32_t) u32Message;
     }
 
     CAN0_IF1CMSK_R = CAN_IFnCMSK_R_NEWDAT_CLEAR | CAN_IFnCMSK_R_CLRINTPND_CLEAR;
@@ -264,10 +258,10 @@ void CAN0__vInit(void)
     {
         do
         {
-            u32Busy = CAN0_IF1CRQ_R;
+            u32Busy = (uint32_t) CAN0_IF1CRQ_R;
             u32Busy &= CAN_IFnCRQ_R_BUSY_MASK;
         }while(0UL != u32Busy);
-        CAN0_IF1CRQ_R = u32Message;
+        CAN0_IF1CRQ_R = (uint32_t) u32Message;
     }
 
     uint32_t u32State = CAN0_STS_R;
@@ -291,7 +285,7 @@ void CAN1__vInit(void)
     {
         do
         {
-            u32Busy = CAN1_IF1CRQ_R;
+            u32Busy = (uint32_t) CAN1_IF1CRQ_R;
             u32Busy &= CAN_IFnCRQ_R_BUSY_MASK;
         }while(0UL != u32Busy);
         CAN1_IF1CRQ_R = u32Message;
@@ -347,9 +341,6 @@ static const uint16_t CAN__u16CANBitValues[] =
 uint32_t CAN0__u32BitRateSet(uint32_t u32BitRate)
 {
     uint32_t u32DesiredRatio = 0UL;
-    uint32_t u32CANBits = 0UL;
-    uint32_t u32PreDivide = 0UL;
-    uint32_t u32RegValue = 0UL;
     uint32_t u32SourceClock = 0UL;
     uint16_t u16CANCTL = 0U;
 
@@ -360,7 +351,7 @@ uint32_t CAN0__u32BitRateSet(uint32_t u32BitRate)
         u32DesiredRatio /= u32BitRate;
         u32DesiredRatio /= 5UL;
 
-        u16CANCTL = CAN0_CTL_R;
+        u16CANCTL = (uint16_t) CAN0_CTL_R;
         CAN0_CTL_R = u16CANCTL | CAN_CTL_R_INIT_INIT |
                                  CAN_CTL_R_CCE_ENA;
 
@@ -369,7 +360,7 @@ uint32_t CAN0__u32BitRateSet(uint32_t u32BitRate)
         CAN0_BIT->TSEG2 = 1UL - 1UL;
         CAN0_BIT->SJW = 1UL - 1UL;
 
-        CAN0_CTL_R = u16CANCTL;
+        CAN0_CTL_R = (uint32_t) u16CANCTL;
 
     }
     return(0UL);
@@ -378,9 +369,6 @@ uint32_t CAN0__u32BitRateSet(uint32_t u32BitRate)
 uint32_t CAN1__u32BitRateSet(uint32_t u32BitRate)
 {
     uint32_t u32DesiredRatio = 0UL;
-    uint32_t u32CANBits = 0UL;
-    uint32_t u32PreDivide = 0UL;
-    uint32_t u32RegValue = 0UL;
     uint32_t u32SourceClock = 0UL;
     uint16_t u16CANCTL = 0U;
 
@@ -393,7 +381,7 @@ uint32_t CAN1__u32BitRateSet(uint32_t u32BitRate)
             u32DesiredRatio /= u32BitRate;
             u32DesiredRatio /= 5UL;
 
-            u16CANCTL = CAN1_CTL_R;
+            u16CANCTL = (uint16_t) CAN1_CTL_R;
             CAN1_CTL_R = u16CANCTL | CAN_CTL_R_INIT_INIT |
                                      CAN_CTL_R_CCE_ENA;
 
@@ -402,7 +390,7 @@ uint32_t CAN1__u32BitRateSet(uint32_t u32BitRate)
             CAN1_BIT->TSEG2 = 1UL - 1UL;
             CAN1_BIT->SJW = 1UL - 1UL;
 
-            CAN1_CTL_R = u16CANCTL;
+            CAN1_CTL_R = (uint32_t) u16CANCTL;
 
         }
     }

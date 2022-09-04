@@ -75,7 +75,7 @@ OS_Boolean_t OS_Task__boCheckForTimeOut(OS_Task_TimeOut_t * const pstTimeOut,
                 }
                 else
                 {
-                    boReturn = FALSE;
+                    boReturn = TRUE;
                 }
             }
         }

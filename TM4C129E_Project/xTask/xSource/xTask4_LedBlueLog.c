@@ -157,7 +157,7 @@ void xTask4_LedBlueLog(void* pvParams)
                                  (1200000UL - 1UL), 0UL);
 
     TIMER__vClearInterruptSource(TIMER_enT4W, TIMER_enINT_TIMEOUT);
-    //TIMER__vSetEnable(TIMER_enT4W, TIMER_enENABLE_START);
+    /* TIMER__vSetEnable(TIMER_enT4W, TIMER_enENABLE_START); */
 
 
 
@@ -278,7 +278,8 @@ void xTask4_LedBlueLog(void* pvParams)
 
                     u32PwmCount = 0UL;
                     u32CountDataTerminal = 0UL;
-                    u32Count = 37500UL * u64PWMValue;
+                    u32Count = 37500UL;
+                    u32Count *= (uint32_t) u64PWMValue;
                     u32Count /= 100UL;
                     u32Count--;
 

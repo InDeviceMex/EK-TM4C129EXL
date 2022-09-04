@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_enum.h>
 
-uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32ValueArg);
-uint8_t MCU__u8ReverseByte(uint8_t u8Value);
-uint16_t MCU__u16ReverseHalfWorld(uint16_t u16Value);
-uint32_t MCU__u32ReverseWorld(uint32_t u32ValueArg);
+__attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32ValueArg);
+__attribute__((naked)) uint8_t MCU__u8ReverseByte(uint8_t u8Value);
+__attribute__((naked)) uint16_t MCU__u16ReverseHalfWorld(uint16_t u16Value);
+__attribute__((naked)) uint32_t MCU__u32ReverseWorld(uint32_t u32ValueArg);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_SPECIALINTRUCTIONS_H_ */

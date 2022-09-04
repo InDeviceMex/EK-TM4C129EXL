@@ -49,7 +49,7 @@ void SVCall__vIRQVectorHandler(void)
 
         "Process: \n"
         " sub    r1, #2 \n"
-        " ldr    r0, [r1] \n"
+        " ldrb    r0, [r1] \n"
         " and    r0, #0xFF \n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         " movw R1, SVCall_u32Function\n"

@@ -277,7 +277,8 @@ void ST7735__vSetAddrWindow(uint32_t u32CoordX0, uint32_t u32CoordY0, uint32_t u
 
 void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32CoordY0, char cASCII, uint16_t u16Color, FONT_t* sFontType)
 {
-  uint16_t u16Row = 0, u16Column = 0;
+  uint16_t u16Row = 0, u16Column = 0, u16ValueReg;
+  uint32_t u32IndexReg;
   uint32_t  u32AddressX = u32CoordX0, u32PosY =0;
 
   const uint16_t* restrict character;
@@ -288,54 +289,91 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
   if((u32CoordX0+sFontType->u32Width)>ST7735_u32WidthArg)
       return;
 
-  character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII-' ') * sFontType->u32Height]);
+  u32IndexReg = (uint32_t) cASCII;
+  u32IndexReg -= (uint32_t) ' ';
+  u32IndexReg *= sFontType->u32Height;
+  character=(const uint16_t*)(&(sFontType->pu16Ascii[u32IndexReg]));
 
-  u32PosY = u32CoordY0 * ST7735_u32WidthArg * 2UL;
+  u32PosY = u32CoordY0;
+  u32PosY *= ST7735_u32WidthArg;
+  u32PosY *= 2UL;
 
   if(sFontType->u32Width == 11UL)
   {
-      character=(const uint16_t*)(&sFontType->pu16Ascii[(cASCII - 0x20UL) * sFontType->u32Width]);
+      u32IndexReg = (uint32_t) cASCII;
+      u32IndexReg -= (uint32_t) 0x20UL;
+      u32IndexReg *= sFontType->u32Width;
+      character=(const uint16_t*)(&(sFontType->pu16Ascii[u32IndexReg]));
       u32PosY = u32CoordY0;
-      for(u16Row = 0; u16Row < sFontType->u32Height; u16Row++)
+      for(u16Row = 0U; u16Row < sFontType->u32Height; u16Row++)
       {
             for(u16Column = 0U; u16Column < sFontType->u32Width; u16Column++)
             {
-                if((((character[u16Column] )>>(u16Row))&1) )
-                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*((u32PosY*ST7735_u32WidthArg) + u32AddressX ))) = u16Color;
+                u16ValueReg = character[u16Column];
+                u16ValueReg >>= u16Row;
+                if(1U & u16ValueReg)
+                {
+                    u32IndexReg = u32PosY;
+                    u32IndexReg *= ST7735_u32WidthArg;
+                    u32IndexReg += u32AddressX;
+                    u32IndexReg *= 2UL;
+                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                }
                 u32AddressX++;
             }
         u32AddressX =  u32CoordX0;
         u32PosY++;
       }
   }
-  else if (sFontType->u32Width==7)
+  else if (sFontType->u32Width == 7U)
   {
-      for(u16Row = 0; u16Row < sFontType->u32Width; u16Row++)
+      for(u16Row = 0U; u16Row < sFontType->u32Width; u16Row++)
       {
-            for(u16Column = 0; u16Column < sFontType->u32Height;u16Column++)
+            for(u16Column = 0U; u16Column < sFontType->u32Height; u16Column++)
             {
-                if((((character[u16Column] )>>(u16Row))&1) )
-                    *(uint16_t*) ((uint32_t) pu16Buffer + (2U * u32AddressX) + u32PosY) = u16Color;
+                u16ValueReg = character[u16Column];
+                u16ValueReg >>= u16Row;
+                if(1U & u16ValueReg)
+                {
+                    u32IndexReg = u32AddressX;
+                    u32IndexReg *= 2U;
+                    u32IndexReg += u32PosY;
+                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg ) = u16Color;
+                }
                 u32AddressX++;
             }
         u32AddressX += (ST7735_u32WidthArg - sFontType->u32Height);
       }
   }
   else
-    for(u16Row = 0; u16Row < sFontType->u32Height; u16Row++)
+    for(u16Row = 0U; u16Row < sFontType->u32Height; u16Row++)
     {
-        if(sFontType->u32Height==24)
-            for(u16Column = 0; u16Column < sFontType->u32Width;u16Column++)
+        if(sFontType->u32Height == 24U)
+            for(u16Column = 0U; u16Column < sFontType->u32Width;u16Column++)
             {
-                if((((character[u16Row] )>>(u16Column))&1) )
-                    *( uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                u16ValueReg = character[u16Row];
+                u16ValueReg >>= u16Column;
+                if(1U & u16ValueReg)
+                {
+                    u32IndexReg = u32AddressX;
+                    u32IndexReg *= 2U;
+                    u32IndexReg += u32PosY;
+                    *( uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                }
                 u32AddressX++;
             }
         else
-            for(u16Column = sFontType->u32Bits; u16Column > (sFontType->u32Bits-sFontType->u32Width);u16Column--)
+            for(u16Column = sFontType->u32Bits; u16Column > (sFontType->u32Bits - sFontType->u32Width); u16Column--)
             {
-                if((((character[u16Row] )>>(u16Column-1))&1) )
-                    *(uint16_t*) ((uint32_t) pu16Buffer + (2*u32AddressX) + u32PosY) = u16Color;
+                u16ValueReg = character[u16Row];
+                u16ValueReg >>= (u16Column - 1U);
+                if(1U & u16ValueReg)
+                {
+                    u32IndexReg = u32AddressX;
+                    u32IndexReg *= 2U;
+                    u32IndexReg += u32PosY;
+                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                }
                 u32AddressX++;
             }
         u32AddressX += (ST7735_u32WidthArg - sFontType->u32Width);
@@ -351,7 +389,8 @@ void ST7735__vBufferString(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u
     {
         if((uint32_t) '\n' == (uint32_t) (*cASCII))
         {
-            u32CoordY += sFontType->u32Height + 2UL;
+            u32CoordY += sFontType->u32Height;
+            u32CoordY += 2UL;
         }
         else if((uint32_t) '\r' == (uint32_t) (*cASCII))
         {
@@ -361,12 +400,13 @@ void ST7735__vBufferString(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u
         {
             if((u32CoordX + sFontType->u32Width) > ST7735_u32WidthArg)
             {
-                u32CoordY += sFontType->u32Height + 2UL;
+                u32CoordY += sFontType->u32Height;
+                u32CoordY += 2UL;
                 u32CoordX = u32CoordX0;
             }
             ST7735__vBufferChar(pu16Buffer, u32CoordX, u32CoordY, *cASCII, u16Color, sFontType);
             u32CoordX += sFontType->u32Width;
         }
-        cASCII++;
+        cASCII += 1U;
     }
 }

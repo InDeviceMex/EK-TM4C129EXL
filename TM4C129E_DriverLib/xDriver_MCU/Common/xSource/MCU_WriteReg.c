@@ -44,7 +44,6 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
         enErrorReg = MCU_enERROR_OK;
-        enStatus = MCU__enDisGlobalInterrupt_RAM();
         u32Reg = u32RegisterValue;
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
         if(MCU_MASK_32 != u32RegisterMask)
@@ -59,6 +58,7 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
             u32Reg &= ~u32RegisterMask;
             u32Reg |= u32RegisterValue;
         }
+        enStatus = MCU__enDisGlobalInterrupt_RAM();
         *pu32RegisterAddress = (uint32_t) u32Reg;
         (void) MCU__vSetGlobalInterrupt_RAM(enStatus);
     }
@@ -90,7 +90,6 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
         enErrorReg = MCU_enERROR_OK;
-        enStatus = MCU__enDisGlobalInterrupt();
         u32Reg = u32RegisterValue;
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
         if(MCU_MASK_32 != u32RegisterMask)
@@ -105,6 +104,7 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
             u32Reg &= ~u32RegisterMask;
             u32Reg |= u32RegisterValue;
         }
+        enStatus = MCU__enDisGlobalInterrupt();
         *pu32RegisterAddress = (uint32_t) u32Reg;
         (void) MCU__vSetGlobalInterrupt(enStatus);
     }
@@ -135,11 +135,11 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
         enErrorReg = MCU_enERROR_OK;
-        enStatus = MCU__enDisGlobalInterrupt();
         u32Reg = u32RegisterValue;
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
         u32RegisterValue &= u32RegisterMask;
         u32RegisterValue <<= u32RegisterShift;
+        enStatus = MCU__enDisGlobalInterrupt();
         *pu32RegisterAddress = u32Reg;
         (void) MCU__vSetGlobalInterrupt(enStatus);
     }
@@ -160,7 +160,6 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
     volatile uint32_t* pu32Peripheral = 0UL;
 
     u32PeripheralBase += u32OffsetRegister;
-    enStatus = MCU__enDisGlobalInterrupt();
     pu32Peripheral = (volatile uint32_t*) u32PeripheralBase;
     if(0xFFFFFFFFUL != u32MaskFeature)
     {
@@ -176,7 +175,7 @@ void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegis
         u32Reg &= ~u32MaskFeature;
         u32Reg |= u32FeatureValue;
     }
-
+    enStatus = MCU__enDisGlobalInterrupt();
     (*pu32Peripheral) = (uint32_t) u32Reg;
     MCU__vSetGlobalInterrupt(enStatus);
 }

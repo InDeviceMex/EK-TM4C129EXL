@@ -12,7 +12,7 @@
 
 void FPU__vSetNAN(FPU_nMODULE enModuleArg, FPU_nNAN enNANArg)
 {
-    MCU__vSetFPUStatusControlMask(FPU_DSCR_R_DN_MASK, (uint32_t) enNANArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_DN_MASK, (uint32_t) enNANArg);
 }
 
 FPU_nNAN FPU__enGetNAN(FPU_nMODULE enModuleArg)
