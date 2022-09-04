@@ -130,6 +130,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DATA_SECTIONS.563480448" name="Place data items into their own section (-fdata-sections)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DATA_SECTIONS" value="true" valueType="boolean"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DEFINE.258354433" name="Define symbols (-D)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="PART_TM4C129ENCPDT"/>
+									<listOptionValue builtIn="false" value="BOOSTER_PACK1"/>
 									<listOptionValue builtIn="false" value="__RELEASE__"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.INCLUDE_PATH.580701899" name="Include paths (-I)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.INCLUDE_PATH" valueType="includePath">
@@ -152,6 +153,8 @@
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DEBUG.1388280727" name="Generate debug information (-g)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DEBUG" value="true" valueType="boolean"/>
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DWARF_VERSION.1969980574" name="Generate debug information in DWARF version (-gdwarf-)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DWARF_VERSION" value="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.DWARF_VERSION.4" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.PROF.1778822679" name="Enable function profiling (-p)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.PROF" value="false" valueType="boolean"/>
+								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_C.200580041" name="C Language standard (-std)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_C" value="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_C.GNU18" valueType="enumerated"/>
+								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_CPP.753716798" name="C++ Language standard (-std)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_CPP" value="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compilerID.STD_CPP.GNUPP2A" valueType="enumerated"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__C_SRCS.624619669" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__C_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__CPP_SRCS.154932020" name="C++ Sources" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__CPP_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__ASM_SRCS.993427583" name="Assembly Sources" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_9.0.compiler.inputType__ASM_SRCS"/>
@@ -336,6 +339,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_20.2.compilerID.GCC.1379086163" name="Enable support for GCC extensions (DEPRECATED) (--gcc)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_20.2.compilerID.GCC" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.TMS470_20.2.compilerID.DEFINE.1117659726" name="Pre-define NAME (--define, -D)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_20.2.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="ccs=&quot;ccs&quot;"/>
+									<listOptionValue builtIn="false" value="BOOSTER_PACK1"/>
 									<listOptionValue builtIn="false" value="PART_TM4C129ENCPDT"/>
 									<listOptionValue builtIn="false" value="Opt_Check"/>
 									<listOptionValue builtIn="false" value="__RELEASE__"/>
