@@ -1,6 +1,6 @@
 /**
  *
- * @file NVIC_ReadRegister.h
+ * @file NVIC_RegisterPeripheral.c
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -21,12 +21,17 @@
  * Date           Author     Version     Description
  * 1 sep. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
+#include <xDriver_MCU/Core/NVIC/Peripheral/Register/xHeader/NVIC_RegisterPeripheral.h>
 
-#ifndef XDRIVER_MCU_CORE_NVIC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_NVIC_READREGISTER_H_
-#define XDRIVER_MCU_CORE_NVIC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_NVIC_READREGISTER_H_
+uintptr_t NVIC__uptrBlockBaseAddress(NVIC_nMODULE enModuleArg)
+{
+    uintptr_t NVIC_BLOCK_BASE[(uint32_t) NVIC_enMODULE_MAX] =
+    {
+     NVIC_BASE
+    };
+    return (NVIC_BLOCK_BASE[(uint32_t) enModuleArg]);
+}
 
-#include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-NVIC_nERROR NVIC__enReadRegister(NVIC_nMODULE enModuleArg, NVIC_Register_t* pstRegisterDataArg);
 
-#endif /* XDRIVER_MCU_CORE_NVIC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_NVIC_READREGISTER_H_ */
+

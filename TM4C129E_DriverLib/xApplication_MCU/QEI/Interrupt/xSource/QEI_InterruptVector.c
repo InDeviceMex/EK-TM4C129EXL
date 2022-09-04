@@ -45,12 +45,12 @@ void QEI__vEnInterruptVector(QEI_nMODULE enModule, QEI_nPRIORITY enQEIPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_QEI0;
     enVector = QEI__enGetInterruptVector(enModule);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enQEIPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enQEIPriority);
 }
 
 void QEI__vDisInterruptVector(QEI_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_QEI0;
     enVector = QEI__enGetInterruptVector(enModule);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

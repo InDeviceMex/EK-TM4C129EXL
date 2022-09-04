@@ -129,7 +129,7 @@ void xTask4_LedBlueLog(void* pvParams)
 
     TIMER__vRegisterIRQSourceHandler(&Led2ON, TIMER_enT0A, TIMER_enINTERRUPT_CAPTURE_EVENT);
     TIMER__vSetClockSource(TIMER_enT0A, TIMER_enCLOCK_SYSCLK);
-    TIMER__vEnInterruptVector(TIMER_enT0A, (TIMER_nPRIORITY) NVIC_enPriority_TIMER0A);
+    TIMER__vEnInterruptVector(TIMER_enT0A, (TIMER_nPRIORITY) NVIC_enVECTOR_PRI_TIMER0A);
     TIMER__vEnInterruptSource(TIMER_enT0A, TIMER_enINT_CAPTURE_EVENT);
     TIMER__vSetStall(TIMER_enT0A, TIMER_enSTALL_FREEZE);
     TIMER__enSetMode_ReloadMatch(TIMER_enT0A, TIMER_enMODE_EDGE_TIME_POSITIVE_INDIVIDUAL_UP,
@@ -137,7 +137,7 @@ void xTask4_LedBlueLog(void* pvParams)
 
     TIMER__vRegisterIRQSourceHandler(&Led2Timeout, TIMER_enT0B, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vSetClockSource(TIMER_enT0B, TIMER_enCLOCK_SYSCLK);
-    TIMER__vEnInterruptVector(TIMER_enT0B, (TIMER_nPRIORITY) NVIC_enPriority_TIMER0A);
+    TIMER__vEnInterruptVector(TIMER_enT0B, (TIMER_nPRIORITY) NVIC_enVECTOR_PRI_TIMER0A);
     TIMER__vEnInterruptSource(TIMER_enT0B, TIMER_enINT_TIMEOUT);
     TIMER__vSetStall(TIMER_enT0B, TIMER_enSTALL_FREEZE);
     TIMER__enSetMode_ReloadMatch(TIMER_enT0B, TIMER_enMODE_PERIODIC_INDIVIDUAL_UP,
@@ -151,7 +151,7 @@ void xTask4_LedBlueLog(void* pvParams)
 
     TIMER__vRegisterIRQSourceHandler(&PwmServoLoadIrq, TIMER_enT4W, TIMER_enINTERRUPT_TIMEOUT);
     TIMER__vSetClockSource(TIMER_enT4W, TIMER_enCLOCK_SYSCLK);
-    TIMER__vEnInterruptVector(TIMER_enT4W, (TIMER_nPRIORITY) NVIC_enPriority_TIMER4A);
+    TIMER__vEnInterruptVector(TIMER_enT4W, (TIMER_nPRIORITY) NVIC_enVECTOR_PRI_TIMER4A);
     TIMER__vSetStall(TIMER_enT4W, TIMER_enSTALL_FREEZE);
     TIMER__enSetMode_ReloadMatch(TIMER_enT4W, TIMER_enMODE_PERIODIC_WIDE_UP,
                                  (1200000UL - 1UL), 0UL);
@@ -223,7 +223,7 @@ void xTask4_LedBlueLog(void* pvParams)
         }
 
 
-        if(0UL != UartSemaphoreHandle)
+        if(0UL != (uintptr_t) UartSemaphoreHandle)
         {
             boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
             if(FALSE != boSemphoreReceived)
@@ -240,7 +240,7 @@ void xTask4_LedBlueLog(void* pvParams)
         if( UART_enFIFO_EMPTY != enDataAvailable)
         {
 
-            if(0UL != UartSemaphoreHandle)
+            if(0UL != (uintptr_t) UartSemaphoreHandle)
             {
                 boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
                 if(FALSE != boSemphoreReceived)
@@ -263,7 +263,7 @@ void xTask4_LedBlueLog(void* pvParams)
                         u64PWMValue = 100UL;
                     }
 
-                    if(0UL != UartSemaphoreHandle)
+                    if(0UL != (uintptr_t) UartSemaphoreHandle)
                     {
                         boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 0UL);
                         if(FALSE != boSemphoreReceived)

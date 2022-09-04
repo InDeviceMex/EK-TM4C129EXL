@@ -66,26 +66,26 @@ void PWM_Generator__vEnInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGe
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0GEN0;
     enVector = PWM_Generator__enGetInterruptVector(enModule, enGenerator);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enPWMPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enPWMPriority);
 }
 
 void PWM_Generator__vDisInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0GEN0;
     enVector = PWM_Generator__enGetInterruptVector(enModule, enGenerator);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }
 
 void PWM_Fault__vEnInterruptVector(PWM_nMODULE enModule, PWM_nPRIORITY enPWMPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0FAULT;
     enVector = PWM_Fault__enGetInterruptVector(enModule);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enPWMPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enPWMPriority);
 }
 
 void PWM_Fault__vDisInterruptVector(PWM_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0FAULT;
     enVector = PWM_Fault__enGetInterruptVector(enModule);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

@@ -39,7 +39,7 @@ void GPIO__vEnInterruptVector(GPIO_nPORT enPort, GPIO_nPRIORITY enGPIOPriority)
 
     enVector = NVIC_enVECTOR_GPIO[ (uint32_t) enPort];
 
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enGPIOPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enGPIOPriority);
 }
 
 void GPIO__vDisInterruptVector(GPIO_nPORT enPort)
@@ -48,7 +48,7 @@ void GPIO__vDisInterruptVector(GPIO_nPORT enPort)
     enPort = (GPIO_nPORT) MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
 
     enVector = NVIC_enVECTOR_GPIO[ (uint32_t) enPort];
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }
 
 static NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_NUMBER_MAX] =
@@ -86,7 +86,7 @@ void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber
 
         enVector = NVIC_enVECTOR_GPIOPQ_PIN[u32Port][u32PinNumber];
 
-        NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enGPIOPriority);
+        NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enGPIOPriority);
     }
 }
 
@@ -113,6 +113,6 @@ void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumbe
 
         enVector = NVIC_enVECTOR_GPIOPQ_PIN[u32Port][u32PinNumber];
 
-        NVIC__vClearEnableIRQ(enVector);
+        NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
     }
 }

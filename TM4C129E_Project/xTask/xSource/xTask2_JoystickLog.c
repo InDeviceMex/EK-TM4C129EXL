@@ -71,7 +71,7 @@ void xTask2_JoystickLog(void* pvParams)
     OS_Semaphore__boGive(YoystickSemaphoreHandle);
 
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
-    if(0UL != UartSemaphoreHandle)
+    if(0UL != (uintptr_t) UartSemaphoreHandle)
     {
         boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, 100UL);
         if(FALSE != boSemphoreReceived)
@@ -159,7 +159,7 @@ void xTask2_JoystickLog(void* pvParams)
                          );
         ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
         ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
-        if(0UL != UartSemaphoreHandle)
+        if(0UL != (uintptr_t) UartSemaphoreHandle)
         {
             u32NewTime = OS_Task__uxGetTickCount();
             u32DiffTime = u32NewTime;

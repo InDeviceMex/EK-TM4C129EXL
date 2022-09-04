@@ -97,7 +97,7 @@ void EDUMKII_Microphone_vInit(void)
 
     ADC_Sequencer__vEnInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_SOURCE_DMA);
     ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_0,
-                            (ADC_nPRIORITY) NVIC_enPriority_ADC0SEQ0);
+                            (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
     ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enDMA_ENABLE_ENA);
     ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSEQ_ENABLE_ENA);
 }

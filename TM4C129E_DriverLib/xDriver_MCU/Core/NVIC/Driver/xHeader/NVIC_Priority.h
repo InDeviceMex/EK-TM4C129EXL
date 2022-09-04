@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-void NVIC__vSetPriorityIRQ(NVIC_nVECTOR enIRQ, NVIC_nPRIORITY enPriority);
-NVIC_nPRIORITY NVIC__enGetPriorityIRQ(NVIC_nVECTOR enIRQ);
+NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY* penPriorityArg);
+NVIC_nERROR NVIC__enSetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY enPriorityArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_DRIVER_NVIC_PRIORITY_H_ */

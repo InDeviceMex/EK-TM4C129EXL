@@ -71,8 +71,8 @@ void xTask6_Commands(void* pvParams)
     CAN0_CTL_R |= CAN_CTL_R_EIE_ENA | CAN_CTL_R_SIE_ENA | CAN_CTL_R_IE_ENA;
     CAN1_CTL_R |= CAN_CTL_R_EIE_ENA | CAN_CTL_R_SIE_ENA | CAN_CTL_R_IE_ENA;
 
-    NVIC__vSetEnableIRQ(NVIC_enVECTOR_CAN0, NVIC_enPRI2);
-    NVIC__vSetEnableIRQ(NVIC_enVECTOR_CAN1, NVIC_enPRI1);
+    NVIC__enEnableVector(NVIC_enMODULE_0, NVIC_enVECTOR_CAN0, NVIC_enPRI2);
+    NVIC__enEnableVector(NVIC_enMODULE_0, NVIC_enVECTOR_CAN1, NVIC_enPRI1);
     CAN0_CTL_R &= ~CAN_CTL_R_INIT_INIT;
     CAN1_CTL_R &= ~CAN_CTL_R_INIT_INIT;
 
@@ -406,7 +406,7 @@ void CAN0_ISR(void)
 
     if(u32Status == CAN_INT_R_INTID_STATUS)
     {
-        uint32_t u32Reg = 0UL;
+        uint32_t u32Reg;
         u32Reg = CAN0_STS_R;
         CAN0_STS_R = ~(CAN_STS_R_RXOK_OK | CAN_STS_R_TXOK_OK |
                                         CAN_STS_R_LEC_MASK);
@@ -441,7 +441,7 @@ void CAN1_ISR(void)
 
     if(u32Status == CAN_INT_R_INTID_STATUS)
     {
-        uint32_t u32Reg = 0UL;
+        uint32_t u32Reg;
         u32Reg = CAN1_STS_R;
         CAN1_STS_R = ~(CAN_STS_R_RXOK_OK | CAN_STS_R_TXOK_OK |
                                         CAN_STS_R_LEC_MASK);

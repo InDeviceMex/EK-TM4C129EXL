@@ -46,7 +46,7 @@ EEPROM_nSTATUS EEPROM__enInit (void)
     EEPROM__vSetReady();
     EEPROM__vRegisterIRQVectorHandler(pfIrqVectorHandler);
 
-    /*NVIC__vSetEnableIRQ(NVIC_enVECTOR_FLASH, NVIC_enPRI7);*/
+    /*NVIC__enEnableVector(NVIC_enVECTOR_FLASH, NVIC_enPRI7);*/
 
 
     /*

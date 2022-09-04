@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-NVIC_nSTATUS NVIC__enGetActiveIRQ(NVIC_nVECTOR enIRQ);
+NVIC_nERROR NVIC__enGetActiveVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_DRIVER_NVIC_ACTIVE_H_ */

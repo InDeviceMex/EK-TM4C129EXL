@@ -25,6 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_REGISTER_NVIC_REGISTERPERIPHERAL_H_
 #define XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_REGISTER_NVIC_REGISTERPERIPHERAL_H_
 
+#include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/Struct/xHeader/NVIC_StructPeripheral.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/Register/xHeader/NVIC_RegisterAddress.h>
 
@@ -355,5 +356,8 @@
 /******************************************************************************************/
 #define NVIC_STIR    (((STIR_t*) (NVIC_BASE + NVIC_STIR_OFFSET)))
 #define NVIC_STIR_R    (*((volatile uint32_t*) (NVIC_BASE + NVIC_STIR_OFFSET)))
+
+uintptr_t NVIC__uptrBlockBaseAddress(NVIC_nMODULE enModuleArg);
+
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_REGISTER_NVIC_REGISTERPERIPHERAL_H_ */

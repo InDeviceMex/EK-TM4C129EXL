@@ -24,44 +24,76 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_Priority.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/Core/NVIC/Driver/Intrinsics/NVIC_Intrinsics.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-void NVIC__vSetPriorityIRQ(NVIC_nVECTOR enIRQ, NVIC_nPRIORITY enPriority)
+NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY* penPriorityArg)
 {
-    uint32_t u32RegisterOffset = NVIC_IPR_OFFSET;
-    uint32_t u32IsrIndex = 0UL;
-    uint32_t u32IsrBit = 0UL;
-    uint32_t u32Priority = 0UL;
-    uint32_t u32IRQ = 0UL;
+    NVIC_Register_t stRegister;
+    NVIC_nERROR enErrorReg;
+    uint32_t u32VectorIndex;
+    uint32_t u32VectorBit;
+    uintptr_t uptrRegisterOffset;
+    if(0U != (uintptr_t) penPriorityArg)
+    {
+        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+        if(NVIC_enERROR_OK == enErrorReg)
+        {
+            uptrRegisterOffset = NVIC_IPR_OFFSET;
 
-    u32Priority = MCU__u32CheckParams( (uint32_t) enPriority, NVIC_PRI_MAX);
-    u32IRQ = MCU__u32CheckParams( (uint32_t) enIRQ, NVIC_IRQ_MAX);
-    u32IsrBit = u32IRQ % 4UL;
-    u32IsrBit *= 8UL;
-    u32IsrBit += NVIC_PRI_BIT_OFFSET;
-    u32IsrIndex = u32IRQ / 4UL;
-    u32IsrIndex *= 4UL;
-    u32RegisterOffset += u32IsrIndex;
-    MCU__vWriteRegister(NVIC_BASE, u32RegisterOffset, u32Priority, NVIC_PRI_MASK, u32IsrBit);
+            u32VectorBit = (uint32_t) enVectorArg;
+            u32VectorBit %= 4UL;
+            u32VectorBit <<= 3U;
+
+            u32VectorIndex = (uint32_t) enVectorArg;
+            u32VectorIndex &= ~(0x00000003UL);
+
+            uptrRegisterOffset += u32VectorIndex;
+
+            stRegister.u32Shift = (uint32_t) u32VectorBit;
+            stRegister.u32Mask = NVIC_PRI_MASK;
+            stRegister.uptrAddress = (uint32_t) uptrRegisterOffset;
+            enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
+
+            *penPriorityArg = (NVIC_nPRIORITY) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = NVIC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-NVIC_nPRIORITY  NVIC__enGetPriorityIRQ(NVIC_nVECTOR enIRQ)
+
+NVIC_nERROR NVIC__enSetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY enPriorityArg)
 {
-    NVIC_nPRIORITY enPriority = NVIC_enDEFAULT;
-    uint32_t u32RegisterOffset = NVIC_IPR_OFFSET;
-    uint32_t u32IsrIndex = 0UL;
-    uint32_t u32IsrBit = 0UL;
-    uint32_t u32IRQ = 0UL;
+    NVIC_Register_t stRegister;
+    NVIC_nERROR enErrorReg;
+    uint32_t u32VectorBit;
+    uint32_t u32VectorIndex;
+    uintptr_t uptrRegisterOffset;
 
-    u32IRQ = MCU__u32CheckParams( (uint32_t) enIRQ, NVIC_IRQ_MAX);
-    u32IsrBit = u32IRQ % 4UL;
-    u32IsrBit *= 8UL;
-    u32IsrIndex = u32IRQ / 4UL;
-    u32IsrIndex *= 4UL;
-    u32RegisterOffset += u32IsrIndex;
+    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        uptrRegisterOffset = NVIC_IPR_OFFSET;
+        u32VectorBit = (uint32_t) enVectorArg;
+        u32VectorBit %= 4UL;
+        u32VectorBit <<= 3U;
+        u32VectorBit += NVIC_PRI_BIT_OFFSET;
 
-    enPriority = (NVIC_nPRIORITY) MCU__u32ReadRegister(NVIC_BASE, u32RegisterOffset,
-                                                       NVIC_PRI_MASK, u32IsrBit);
+        u32VectorIndex = (uint32_t) enVectorArg;
+        u32VectorIndex &= ~(0x00000003UL);
 
-    return (enPriority);
+        uptrRegisterOffset += u32VectorIndex;
+
+        stRegister.u32Shift = (uint32_t) u32VectorBit;
+        stRegister.u32Mask = NVIC_PRI_MASK;
+        stRegister.uptrAddress = (uint32_t) uptrRegisterOffset;
+        stRegister.u32Value = (uint32_t) enPriorityArg;
+        enErrorReg = NVIC__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
 }
+

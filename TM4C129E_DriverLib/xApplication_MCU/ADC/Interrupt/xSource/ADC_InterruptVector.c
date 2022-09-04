@@ -52,14 +52,14 @@ void ADC__vEnInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_ADC0SEQ0;
     enVector = ADC__enGetInterruptVector(enModule, enSequence);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enADCPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enADCPriority);
 }
 
 void ADC__vDisInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_ADC0SEQ0;
     enVector = ADC__enGetInterruptVector(enModule, enSequence);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }
 
 

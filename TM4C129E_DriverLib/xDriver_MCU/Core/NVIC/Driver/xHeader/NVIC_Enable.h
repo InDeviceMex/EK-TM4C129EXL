@@ -27,8 +27,10 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-NVIC_nSTATE NVIC__enGetEnableIRQ(NVIC_nVECTOR enIRQ);
-void NVIC__vSetEnableIRQ(NVIC_nVECTOR enIRQ, NVIC_nPRIORITY enPriority);
-void NVIC__vClearEnableIRQ(NVIC_nVECTOR enIRQ);
+NVIC_nERROR NVIC__enGetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATE* penStateArg);
+NVIC_nERROR NVIC__enSetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATE enStateArg);
+
+NVIC_nERROR NVIC__enEnableVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY enPriority);
+NVIC_nERROR NVIC__enDisableVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_DRIVER_NVIC_ENABLE_H_ */

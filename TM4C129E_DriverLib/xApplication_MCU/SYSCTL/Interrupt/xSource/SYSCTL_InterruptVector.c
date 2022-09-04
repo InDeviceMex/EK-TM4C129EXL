@@ -29,11 +29,11 @@ void SYSCTL__vEnInterruptVector(SYSCTL_nPRIORITY enSYSCTLPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSCTL;
     enSYSCTLPriority &= 0x7U;
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enSYSCTLPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enSYSCTLPriority);
 }
 
 void SYSCTL__vDisInterruptVector(void)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSCTL;
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

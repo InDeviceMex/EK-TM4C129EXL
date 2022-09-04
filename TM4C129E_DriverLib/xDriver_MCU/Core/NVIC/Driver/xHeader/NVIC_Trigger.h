@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-void NVIC__vTriggerIRQ(NVIC_nVECTOR enIRQ);
+NVIC_nERROR NVIC__enTriggerVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_DRIVER_NVIC_TRIGGER_H_ */

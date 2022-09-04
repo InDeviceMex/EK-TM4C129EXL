@@ -28,21 +28,50 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_Priority.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-NVIC_nSTATE NVIC__enGetEnableIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enGetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATE* penStateArg)
 {
-    NVIC_nSTATE enEnableReg = NVIC_enSTATE_DIS;
-    enEnableReg = (NVIC_nSTATE) NVIC__u32ReadRegister(enIRQ, NVIC_ISER_OFFSET);
-    return (enEnableReg);
+    NVIC_nERROR enErrorReg;
+    if(0U != (uintptr_t) penStateArg)
+    {
+        enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (uint32_t*) penStateArg);
+    }
+    else
+    {
+        enErrorReg = NVIC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-void NVIC__vSetEnableIRQ(NVIC_nVECTOR enIRQ, NVIC_nPRIORITY enPriority)
+NVIC_nERROR NVIC__enSetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATE enStateArg)
 {
-    NVIC__vSetPriorityIRQ(enIRQ, enPriority);
-    NVIC__vWriteRegister(enIRQ, NVIC_ISER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    NVIC_nERROR enErrorReg;
+    if(NVIC_enSTATE_DIS == enStateArg)
+    {
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    }
+    else
+    {
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    }
+    return (enErrorReg);
 
 }
 
-void NVIC__vClearEnableIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enEnableVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY enPriority)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ICER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    NVIC_nERROR enErrorReg;
+    enErrorReg = NVIC__enSetVectorPriority(enModuleArg, enVectorArg, enPriority);
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = NVIC__enSetVectorState(enModuleArg, enVectorArg, NVIC_enSTATE_ENA);
+    }
+    return (enErrorReg);
+
+}
+
+NVIC_nERROR NVIC__enDisableVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg)
+{
+    NVIC_nERROR enErrorReg;
+    enErrorReg = NVIC__enSetVectorState(enModuleArg, enVectorArg, NVIC_enSTATE_DIS);
+    return (enErrorReg);
 }

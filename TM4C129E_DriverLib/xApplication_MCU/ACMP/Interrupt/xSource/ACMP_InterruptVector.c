@@ -52,12 +52,12 @@ void ACMP__vEnInterruptVector(ACMP_nMODULE enModule,
 {
     NVIC_nVECTOR enVector;
     enVector = ACMP__enGetInterruptVector(enModule, enComparatorArg);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enACMPPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enACMPPriority);
 }
 
 void ACMP__vDisInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
 {
     NVIC_nVECTOR enVector;
     enVector = ACMP__enGetInterruptVector(enModule, enComparatorArg);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

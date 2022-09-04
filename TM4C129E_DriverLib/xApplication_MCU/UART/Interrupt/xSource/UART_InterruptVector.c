@@ -46,12 +46,12 @@ void UART__vEnInterruptVector(UART_nMODULE enModule, UART_nPRIORITY enUARTPriori
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_UART0;
     enVector = UART__enGetInterruptVector(enModule);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enUARTPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enUARTPriority);
 }
 
 void UART__vDisInterruptVector(UART_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_UART0;
     enVector = UART__enGetInterruptVector(enModule);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

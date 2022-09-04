@@ -46,12 +46,12 @@ void I2C__vEnInterruptVector(I2C_nMODULE enModule, I2C_nPRIORITY enI2CPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
     enVector = I2C__enGetInterruptVector(enModule);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enI2CPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enI2CPriority);
 }
 
 void I2C__vDisInterruptVector(I2C_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
     enVector = I2C__enGetInterruptVector(enModule);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

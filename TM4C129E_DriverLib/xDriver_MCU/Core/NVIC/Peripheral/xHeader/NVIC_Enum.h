@@ -25,8 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
-
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 typedef enum
 {
@@ -34,7 +33,7 @@ typedef enum
     NVIC_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
     NVIC_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
     NVIC_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
-}NVIC_enERROR;
+}NVIC_nERROR;
 
 typedef enum
 {
@@ -47,6 +46,7 @@ typedef enum
 {
     NVIC_enNOPENDING = 0UL,
     NVIC_enPENDING = 1UL,
+    NVIC_enPENDSTATE_UNDEF = 0xFFFFFFFFUL,
 }NVIC_nPENDSTATE;
 
 typedef enum
@@ -192,6 +192,7 @@ typedef enum
      NVIC_enVECTOR_GPIOT = 111UL,
      NVIC_enVECTOR_FAN = 112UL,
      NVIC_enVECTOR_RES129 = 113UL,
+     NVIC_enVECTOR_MAX = 114UL,
 }NVIC_nVECTOR;
 
 typedef enum
@@ -325,7 +326,6 @@ typedef enum
       RES129_IRQn = 113,
 }IRQn_Type;
 
-
 typedef enum
 {
     NVIC_enVECTOR_PRI_SSI2 = 0UL,
@@ -445,127 +445,8 @@ typedef enum
      NVIC_enVECTOR_PRI_RES129 = 7UL,
 }NVIC_nVECTOR_PRI;
 
-
 typedef MCU_Register_t NVIC_Register_t;
 typedef MCU_pvfIRQSourceHandler_t NVIC_pvfIRQSourceHandler_t;
 
-typedef enum
-{
-    NVIC_enPriority_SSI2 = 0UL,
-    NVIC_enPriority_GPIOC = 5UL,
-    NVIC_enPriority_GPIOD = 5UL,
-    NVIC_enPriority_ADC0SEQ0 = 5UL,
-    NVIC_enPriority_ADC0SEQ1 = 5UL,
-    NVIC_enPriority_ADC0SEQ2 = 5UL,
-    NVIC_enPriority_TIMER0A = 6UL,
-    NVIC_enPriority_GPIOL = 6UL,
-    NVIC_enPriority_PWM0GEN2 = 7UL,
-
-     NVIC_enPriority_GPIOA = 7UL,
-     NVIC_enPriority_GPIOB = 7UL,
-     NVIC_enPriority_GPIOE = 7UL,
-     NVIC_enPriority_UART0 = 7UL,
-     NVIC_enPriority_UART1 = 7UL,
-     NVIC_enPriority_SSI0 = 7UL,
-     NVIC_enPriority_I2C0 = 7UL,
-     NVIC_enPriority_PWM0FAULT = 7UL,
-     NVIC_enPriority_PWM0GEN0 = 7UL,
-     NVIC_enPriority_PWM0GEN1 = 7UL,
-     NVIC_enPriority_QEI0 = 7UL,
-     NVIC_enPriority_ADC0SEQ3 = 7UL,
-     NVIC_enPriority_WDT01 = 7UL,
-     NVIC_enPriority_TIMER0B = 7UL,
-     NVIC_enPriority_TIMER1A = 7UL,
-     NVIC_enPriority_TIMER1B = 7UL,
-     NVIC_enPriority_TIMER2A = 7UL,
-     NVIC_enPriority_TIMER2B = 7UL,
-     NVIC_enPriority_ACMP0 = 7UL,
-     NVIC_enPriority_ACMP1 = 7UL,
-     NVIC_enPriority_ACMP2 = 7UL,
-     NVIC_enPriority_SYSCTL = 7UL,
-     NVIC_enPriority_FLASH = 7UL,
-     NVIC_enPriority_GPIOF = 7UL,
-     NVIC_enPriority_GPIOG = 7UL,
-     NVIC_enPriority_GPIOH = 7UL,
-     NVIC_enPriority_UART2 = 7UL,
-     NVIC_enPriority_SSI1 = 7UL,
-     NVIC_enPriority_TIMER3A = 7UL,
-     NVIC_enPriority_TIMER3B = 7UL,
-     NVIC_enPriority_I2C1 = 7UL,
-     NVIC_enPriority_CAN0 = 7UL,
-     NVIC_enPriority_CAN1 = 7UL,
-     NVIC_enPriority_ETH = 7UL,
-     NVIC_enPriority_HIB = 7UL,
-     NVIC_enPriority_USB = 7UL,
-     NVIC_enPriority_PWM0GEN3 = 7UL,
-     NVIC_enPriority_UDMASOFT = 7UL,
-     NVIC_enPriority_UDMAERROR = 7UL,
-     NVIC_enPriority_ADC1SEQ0 = 7UL,
-     NVIC_enPriority_ADC1SEQ1 = 7UL,
-     NVIC_enPriority_ADC1SEQ2 = 7UL,
-     NVIC_enPriority_ADC1SEQ3 = 7UL,
-     NVIC_enPriority_EPI0 = 7UL,
-     NVIC_enPriority_GPIOJ = 7UL,
-     NVIC_enPriority_GPIOK = 7UL,
-     NVIC_enPriority_SSI3 = 7UL,
-     NVIC_enPriority_UART3 = 7UL,
-     NVIC_enPriority_UART4 = 7UL,
-     NVIC_enPriority_UART5 = 7UL,
-     NVIC_enPriority_UART6 = 7UL,
-     NVIC_enPriority_UART7 = 7UL,
-     NVIC_enPriority_I2C2 = 7UL,
-     NVIC_enPriority_I2C3 = 7UL,
-     NVIC_enPriority_TIMER4A = 7UL,
-     NVIC_enPriority_TIMER4B = 7UL,
-     NVIC_enPriority_TIMER5A = 7UL,
-     NVIC_enPriority_TIMER5B = 7UL,
-     NVIC_enPriority_SYSEXC = 7UL,
-     NVIC_enPriority_RES84 = 7UL,
-     NVIC_enPriority_RES85 = 7UL,
-     NVIC_enPriority_I2C4 = 7UL,
-     NVIC_enPriority_I2C5 = 7UL,
-     NVIC_enPriority_GPIOM = 7UL,
-     NVIC_enPriority_GPION = 7UL,
-     NVIC_enPriority_RES90 = 7UL,
-     NVIC_enPriority_TAMPER = 7UL,
-     NVIC_enPriority_GPIOP = 7UL,
-     NVIC_enPriority_GPIOP1 = 7UL,
-     NVIC_enPriority_GPIOP2 = 7UL,
-     NVIC_enPriority_GPIOP3 = 7UL,
-     NVIC_enPriority_GPIOP4 = 7UL,
-     NVIC_enPriority_GPIOP5 = 7UL,
-     NVIC_enPriority_GPIOP6 = 7UL,
-     NVIC_enPriority_GPIOP7 = 7UL,
-     NVIC_enPriority_GPIOQ = 7UL,
-     NVIC_enPriority_GPIOQ1 = 7UL,
-     NVIC_enPriority_GPIOQ2 = 7UL,
-     NVIC_enPriority_GPIOQ3 = 7UL,
-     NVIC_enPriority_GPIOQ4 = 7UL,
-     NVIC_enPriority_GPIOQ5 = 7UL,
-     NVIC_enPriority_GPIOQ6 = 7UL,
-     NVIC_enPriority_GPIOQ7 = 7UL,
-     NVIC_enPriority_GPIOR = 7UL,
-     NVIC_enPriority_GPIOS = 7UL,
-     NVIC_enPriority_SHA_MD5 = 7UL,
-     NVIC_enPriority_AES = 7UL,
-     NVIC_enPriority_DES = 7UL,
-     NVIC_enPriority_LCD = 7UL,
-     NVIC_enPriority_TIMER6A = 7UL,
-     NVIC_enPriority_TIMER6B = 7UL,
-     NVIC_enPriority_TIMER7A = 7UL,
-     NVIC_enPriority_TIMER7B = 7UL,
-     NVIC_enPriority_I2C6 = 7UL,
-     NVIC_enPriority_I2C7 = 7UL,
-     NVIC_enPriority_KEYBOARD = 7UL,
-     NVIC_enPriority_ONEWIRE = 7UL,
-     NVIC_enPriority_PS2 = 7UL,
-     NVIC_enPriority_LEDSEQ = 7UL,
-     NVIC_enPriority_IR = 7UL,
-     NVIC_enPriority_I2C8 = 7UL,
-     NVIC_enPriority_I2C9 = 7UL,
-     NVIC_enPriority_GPIOT = 7UL,
-     NVIC_enPriority_FAN = 7UL,
-     NVIC_enPriority_RES129 = 7UL,
-}NVIC_nPriority;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_NVIC_NVIC_PERIPHERAL_NVIC_ENUM_H_ */

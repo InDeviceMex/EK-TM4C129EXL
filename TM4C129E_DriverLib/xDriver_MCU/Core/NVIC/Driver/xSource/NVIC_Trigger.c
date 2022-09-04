@@ -24,13 +24,23 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_Trigger.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/Core/NVIC/Driver/Intrinsics/NVIC_Intrinsics.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-void NVIC__vTriggerIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enTriggerVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg)
 {
-    uint32_t u32IRQ = 0UL;
+    NVIC_Register_t stRegister;
+    NVIC_nERROR enErrorReg;
 
-    u32IRQ = MCU__u32CheckParams( (uint32_t) enIRQ, NVIC_IRQ_MAX);
-    MCU__vWriteRegister(NVIC_BASE, NVIC_STIR_OFFSET, u32IRQ, NVIC_STIR_R_INTID_MASK,
-                        NVIC_STIR_R_INTID_BIT);
+    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = NVIC_STIR_R_INTID_BIT;
+        stRegister.u32Mask = NVIC_STIR_R_INTID_MASK;
+        stRegister.uptrAddress = NVIC_STIR_OFFSET;
+        stRegister.u32Value = (uint32_t) enVectorArg;
+        enErrorReg = NVIC__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }

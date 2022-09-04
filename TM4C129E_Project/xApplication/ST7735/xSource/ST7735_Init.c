@@ -100,7 +100,7 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
     SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_DIS);
     SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
     SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-    SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enPriority_SSI2);
+    SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
     ST7735__vEnableChipSelect();
     ST7735__vClearReset();
     ST7735__vDelay1ms(10UL);

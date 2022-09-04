@@ -324,7 +324,7 @@ ResetISR(void)
     /* APIs must be done here prior to the float32_ting-point unit being enabled.*/
 
     FPU__vInit();
-    NVIC__vDeInitInterrupts();
+    NVIC__enDisableAllInterrupts(NVIC_enMODULE_0);
     SCB__vInit();
     FLASH__enInit();
     /**/

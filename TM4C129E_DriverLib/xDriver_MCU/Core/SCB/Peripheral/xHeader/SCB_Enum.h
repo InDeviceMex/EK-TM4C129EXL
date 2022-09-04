@@ -356,6 +356,7 @@ typedef enum
     SCB_enVECISR_GPIOT = 111UL + 16UL,
     SCB_enVECISR_FAN = 112UL + 16UL,
     SCB_enVECISR_RES129 = 113UL + 16UL,
+    SCB_enVECISR_MAX = 114UL + 16UL,
 }SCB_nVECISR;
 
 typedef MCU_Register_t SCB_Register_t;

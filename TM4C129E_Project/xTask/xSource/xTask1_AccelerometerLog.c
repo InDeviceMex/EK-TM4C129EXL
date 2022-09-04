@@ -48,7 +48,7 @@ void xTask1_AccelerometerLog(void* pvParams)
         u32CurrentTime = OS_Task__uxGetTickCount ();
         EDUMKII_Accelerometer_vSample(&s32ADCValue[0UL], &s32ADCValue[1UL], &s32ADCValue[2UL]);
         OS_Queue__boOverwrite(AccelerometerQueueHandle, s32ADCValue);
-        if(0UL != UartSemaphoreHandle)
+        if(0UL != (uintptr_t) UartSemaphoreHandle)
         {
             u32NewTime = OS_Task__uxGetTickCount();
             u32DiffTime = u32NewTime;

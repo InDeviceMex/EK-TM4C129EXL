@@ -45,12 +45,12 @@ void SSI__vEnInterruptVector(SSI_nMODULE enModule, SSI_nPRIORITY enSSIPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
     enVector = SSI__enGetInterruptVector(enModule);
-    NVIC__vSetEnableIRQ(enVector, (NVIC_nPRIORITY) enSSIPriority);
+    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enSSIPriority);
 }
 
 void SSI__vDisInterruptVector(SSI_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
     enVector = SSI__enGetInterruptVector(enModule);
-    NVIC__vClearEnableIRQ(enVector);
+    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }

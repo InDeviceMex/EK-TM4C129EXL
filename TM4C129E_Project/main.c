@@ -130,7 +130,6 @@ uint32_t main(void)
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);
-    volatile uint32_t u32Load = PWM_Generator__u32GetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0);
     SHARP_96_96__vInitDisplay();
 
     YoystickQueueHandle = OS_Queue__pvCreate(1UL, 2UL * sizeof(uint32_t));

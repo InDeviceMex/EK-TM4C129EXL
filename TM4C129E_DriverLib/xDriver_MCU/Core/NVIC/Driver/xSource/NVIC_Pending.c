@@ -27,19 +27,46 @@
 #include <xDriver_MCU/Core/NVIC/Driver/xHeader/NVIC_WriteReg.h>
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 
-NVIC_nPENDSTATE NVIC__enGetPendingIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE* penStateArg)
 {
-    NVIC_nPENDSTATE enPendingReg = NVIC_enNOPENDING;
-    enPendingReg = (NVIC_nPENDSTATE) NVIC__u32ReadRegister(enIRQ, NVIC_ISPR_OFFSET);
-    return (enPendingReg);
+    NVIC_nERROR enErrorReg;
+    if(0U != (uintptr_t) penStateArg)
+    {
+        enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t*) penStateArg);
+    }
+    else
+    {
+        enErrorReg = NVIC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-void NVIC__vSetPendingIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enSetPendingVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE enStateArg)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ISPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    NVIC_nERROR enErrorReg;
+    if(NVIC_enNOPENDING == enStateArg)
+    {
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    }
+    else
+    {
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    }
+    return (enErrorReg);
+
 }
 
-void NVIC__vClearPendingIRQ(NVIC_nVECTOR enIRQ)
+NVIC_nERROR NVIC__enSetPendingVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg)
 {
-    NVIC__vWriteRegister(enIRQ, NVIC_ICPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+    NVIC_nERROR enErrorReg;
+    enErrorReg = NVIC__enSetPendingVectorState(enModuleArg, enVectorArg, NVIC_enPENDING);
+    return (enErrorReg);
+
+}
+
+NVIC_nERROR NVIC__enClearPendingVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg)
+{
+    NVIC_nERROR enErrorReg;
+    enErrorReg = NVIC__enSetPendingVectorState(enModuleArg, enVectorArg, NVIC_enNOPENDING);
+    return (enErrorReg);
 }

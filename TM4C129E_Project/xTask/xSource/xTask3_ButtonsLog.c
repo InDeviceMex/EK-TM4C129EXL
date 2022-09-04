@@ -97,7 +97,7 @@ void xTask3_ButtonsLog(void* pvParams)
         }
         OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
 
-        if(0UL != UartSemaphoreHandle)
+        if(0UL != (uintptr_t) UartSemaphoreHandle)
         {
             u32NewTime = OS_Task__uxGetTickCount();
             u32DiffTime = u32NewTime;
