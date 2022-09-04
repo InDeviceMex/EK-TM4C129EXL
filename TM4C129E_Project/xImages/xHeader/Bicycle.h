@@ -27,6 +27,6 @@
 
 #include <xUtils/Standard/Standard.h>
 
-const uint8_t* Images__pu8BicyclePointer(void);
+__attribute__((aligned(4))) const uint8_t* Images__pu8BicyclePointer(void);
 
 #endif /* XIMAGES_XHEADER_BICYCLE_H_ */

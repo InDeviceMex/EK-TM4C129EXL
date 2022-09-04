@@ -27,6 +27,6 @@
 
 #include <xUtils/Standard/Standard.h>
 
-const uint8_t* Images__pu8DolphinPointer(void);
+__attribute__((aligned(4))) const uint8_t* Images__pu8DolphinPointer(void);
 
 #endif /* XIMAGES_XHEADER_DOLPHIN_H_ */
