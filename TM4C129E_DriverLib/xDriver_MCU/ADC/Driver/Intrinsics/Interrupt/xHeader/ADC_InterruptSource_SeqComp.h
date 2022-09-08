@@ -27,10 +27,27 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Comparator__vEnInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
-void ADC_Comparator__vDisInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
-void ADC_Comparator__vClearInterrupt(ADC_nMODULE enModule, ADC_nCOMPARATOR  enSeqComparator);
-ADC_nSTATUS ADC_Comparator__enStatusInterrupt(ADC_nMODULE enModule,
-                                                ADC_nCOMPARATOR enSeqComparator);
+ADC_nERROR ADC_Comparator__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                           ADC_nSTATE enStateArg);
+ADC_nERROR ADC_Comparator__enSetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                             ADC_nSTATE enStateArg);
+
+ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                           ADC_nCOMPMASK* penComparatorGetArg);
+ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                             ADC_nSTATE* penStateArg);
+
+ADC_nERROR ADC_Comparator__enEnableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg);
+ADC_nERROR ADC_Comparator__enEnableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg);
+ADC_nERROR ADC_Comparator__enDisableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg);
+ADC_nERROR ADC_Comparator__enDisableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg);
+
+ADC_nERROR ADC_Comparator__enClearInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg);
+ADC_nERROR ADC_Comparator__enClearInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg);
+
+ADC_nERROR ADC_Comparator__enStatusInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                         ADC_nCOMPMASK* penComparatorGetArg);
+ADC_nERROR ADC_Comparator__enStatusInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_ADC_INTERRUPTSOURCE_SEQCOMP_H_ */

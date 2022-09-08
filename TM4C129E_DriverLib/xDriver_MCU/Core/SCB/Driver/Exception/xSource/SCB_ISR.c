@@ -38,8 +38,10 @@ SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* e
         stRegister.u32Mask = SCB_ICSR_ISRPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -59,8 +61,10 @@ SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enV
         stRegister.u32Mask = SCB_ICSR_VECTPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        }
     }
     else
     {
@@ -80,8 +84,10 @@ SCB_nERROR SCB_ISR__enGetVectorActive(SCB_nMODULE enModuleArg, SCB_nVECISR* enVe
         stRegister.u32Mask = SCB_ICSR_VECTACTIVE_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        }
     }
     else
     {

@@ -23,20 +23,78 @@
  */
 #include <xDriver_MCU/ADC/Driver/Comparator/Control/xHeader/ADC_Comparator_TriggerMode.h>
 
-#include <xDriver_MCU/ADC/Driver/Comparator/Control/xHeader/ADC_Comparator_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Comparator/xHeader/ADC_CompGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Comparator__vSetTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
-                              ADC_nCOMP_MODE enActCompTriggerMode)
+ADC_nERROR ADC_Comparator__enSetTriggerModeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                         ADC_nCOMP_MODE enTriggerModeArg)
 {
-    ADC_Comparator__vSetGenericControl((uint32_t) enModule, (uint32_t) enActComp,
-            (uint32_t) enActCompTriggerMode, ADC_DC_CTL_CTM_MASK, ADC_DC_CTL_R_CTM_BIT);
+    uint32_t u32ComparatorReg;
+    uint32_t u32ComparatorMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
+
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
+    {
+        u32ComparatorReg = 0U;
+        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        while(0U != u32ComparatorMaskReg)
+        {
+            if(0UL != (ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            {
+                enErrorReg = ADC_Comparator__enSetTriggerModeByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, enTriggerModeArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                break;
+            }
+            u32ComparatorReg++;
+            u32ComparatorMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorMemoryReg);
 }
 
-ADC_nCOMP_MODE ADC_Comparator__enGetTriggerMode(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
+ADC_nERROR ADC_Comparator__enSetTriggerModeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                    ADC_nCOMP_MODE enTriggerModeArg)
 {
-    ADC_nCOMP_MODE enCompTrigger = ADC_enCOMP_MODE_ALWAYS;
-    enCompTrigger = (ADC_nCOMP_MODE) ADC_Comparator__u32GetGenericControl((uint32_t) enModule,
-                           (uint32_t) enActComp, ADC_DC_CTL_CTM_MASK, ADC_DC_CTL_R_CTM_BIT);
-    return (enCompTrigger);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_DC_CTL_R_CTM_BIT;
+    stRegister.u32Mask = ADC_DC_CTL_CTM_MASK;
+    stRegister.uptrAddress = ADC_DC_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enTriggerModeArg;
+    enErrorReg = ADC_Comparator__enSetGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Comparator__enGetTriggerModeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nCOMP_MODE* penTriggerModeArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penTriggerModeArg)
+    {
+        stRegister.u32Shift = ADC_DC_CTL_R_CTM_BIT;
+        stRegister.u32Mask = ADC_DC_CTL_CTM_MASK;
+        stRegister.uptrAddress = ADC_DC_CTL_OFFSET;
+        enErrorReg = ADC_Comparator__enGetGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penTriggerModeArg = (ADC_nCOMP_MODE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

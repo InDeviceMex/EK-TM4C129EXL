@@ -28,16 +28,16 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           ADC_nMODULE enModule,
-                                           ADC_nSEQUENCER enSequencer);
-void ADC_Sample__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           ADC_nMODULE enModule,
-                                           ADC_nSEQUENCER enSequencer,
-                                           ADC_nINT_SOURCE enIntSourceArg);
-void ADC_Comp__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                         ADC_nMODULE enModule,
-                                         ADC_nSEQUENCER enSequence,
-                                         ADC_nCOMPARATOR enSeqComparator);
+ADC_nERROR ADC_SW__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                              ADC_nMODULE enModuleArg,
+                                              ADC_nSEQUENCER enSequencerArg);
+ADC_nERROR ADC_Sequencer__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                     ADC_nMODULE enModuleArg,
+                                                     ADC_nSEQUENCER enSequencerArg,
+                                                     ADC_nINT_TYPE enIntSourceArg);
+ADC_nERROR ADC_Comparator__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                      ADC_nMODULE enModuleArg,
+                                                      ADC_nSEQUENCER enSequencerArg,
+                                                      ADC_nCOMPARATOR enComparatorArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_ADC_INTERRUPTREGISTERIRQSOURCE_H_ */

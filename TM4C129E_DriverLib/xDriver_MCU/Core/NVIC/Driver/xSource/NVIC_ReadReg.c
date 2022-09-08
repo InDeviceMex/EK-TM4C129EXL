@@ -54,8 +54,10 @@ NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg
             stRegister.u32Mask = 0x1UL;
             stRegister.uptrAddress = (uint32_t) uptrRegisterOffsetArg;
             enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
-
-            *pu32ValueArg = stRegister.u32Value;
+            if(NVIC_enERROR_OK == enErrorReg)
+            {
+                *pu32ValueArg = stRegister.u32Value;
+            }
         }
     }
     else

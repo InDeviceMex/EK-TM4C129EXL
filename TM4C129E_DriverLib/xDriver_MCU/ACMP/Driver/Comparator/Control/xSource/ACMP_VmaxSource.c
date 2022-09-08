@@ -55,8 +55,11 @@ ACMP_nERROR ACMP__enGetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
         stRegister.u32Mask = ACMP_CTL_ASRCP_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penVmaxPinSourceArg = (ACMP_nVMAX_SOURCE) stRegister.u32Value;
+        }
 
-        *penVmaxPinSourceArg = (ACMP_nVMAX_SOURCE) stRegister.u32Value;
     }
     else
     {

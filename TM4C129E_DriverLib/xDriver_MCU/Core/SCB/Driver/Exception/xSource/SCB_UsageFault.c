@@ -54,8 +54,10 @@ SCB_nERROR SCB_UsageFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY*
         stRegister.u32Mask = SCB_SHPR1_USAGE_MASK;
         stRegister.uptrAddress = SCB_SHPR1_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        }
     }
     else
     {
@@ -105,8 +107,10 @@ SCB_nERROR SCB_UsageFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE*
         stRegister.u32Mask = SCB_SHCSR_USGFAULTPENDED_MASK;
         stRegister.uptrAddress = SCB_SHCSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -157,8 +161,10 @@ SCB_nERROR SCB_UsageFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penSt
         stRegister.u32Mask = SCB_SHCSR_USGFAULTENA_MASK;
         stRegister.uptrAddress = SCB_SHCSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {

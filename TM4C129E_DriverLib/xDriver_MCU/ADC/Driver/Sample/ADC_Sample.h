@@ -28,7 +28,6 @@
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_CompSelection.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Differential.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_EndSequence.h>
-#include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_FifoStat.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_InputSelection.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Operation.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_SampleHold.h>

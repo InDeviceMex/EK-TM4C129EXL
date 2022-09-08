@@ -23,19 +23,101 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Underflow.h>
 
-#include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sequencer__vClearUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
+ADC_nERROR ADC_Sequencer__enClearUnderflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg)
 {
-    ADC_Sequencer__vSetGeneric((uint32_t) enModule, ADC_USTAT_OFFSET,
-                              (uint32_t) enSequence, 1UL, 0UL);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = ADC_USTAT_R_UV0_BIT;
+        stRegister.u32Mask = (uint32_t) enSequencerMaskArg;
+        stRegister.uptrAddress = ADC_USTAT_OFFSET;
+        stRegister.u32Value = (uint32_t) enSequencerMaskArg;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
 
-ADC_nSTATUS ADC_Sequencer__enGetUnderflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence)
+ADC_nERROR ADC_Sequencer__enClearUnderflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg)
 {
-    ADC_nSTATUS enSeqUVReg = ADC_enSTATUS_INACTIVE;
-    enSeqUVReg = (ADC_nSTATUS) (ADC_Sequencer__u32GetGeneric((uint32_t) enModule,
-                                            ADC_USTAT_OFFSET, (uint32_t) enSequence, 0UL));
-    return (enSeqUVReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enSequencerArg;
+        stRegister.u32Shift += ADC_USTAT_R_UV0_BIT;
+        stRegister.u32Mask = ADC_USTAT_UV0_MASK;
+        stRegister.uptrAddress = ADC_USTAT_OFFSET;
+        stRegister.u32Value = ADC_USTAT_UV0_MASK;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
+}
+
+
+ADC_nERROR ADC_Sequencer__enGetUnderflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQMASK* penStatusArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStatusArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Shift = ADC_USTAT_R_UV0_BIT;
+            stRegister.u32Mask = (uint32_t) enSequencerMaskArg;
+            stRegister.uptrAddress = ADC_USTAT_OFFSET;
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                *penStatusArg = (ADC_nSEQMASK) stRegister.u32Value;
+            }
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Sequencer__GetUnderflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                              ADC_nSTATUS* penStatusArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStatusArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Shift = (uint32_t) enSequencerArg;
+            stRegister.u32Shift += ADC_USTAT_R_UV0_BIT;
+            stRegister.u32Mask = ADC_USTAT_UV0_MASK;
+            stRegister.uptrAddress = ADC_USTAT_OFFSET;
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                *penStatusArg = (ADC_nSTATUS) stRegister.u32Value;
+            }
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

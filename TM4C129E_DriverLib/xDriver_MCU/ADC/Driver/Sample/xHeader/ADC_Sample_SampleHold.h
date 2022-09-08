@@ -27,12 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sample__vSetSampleHold(ADC_nMODULE enModule,
-                               ADC_nSEQUENCER enSequencer,
-                               ADC_nMUX enMux,
-                               ADC_nSEQ_SAMPLE_HOLD enSampleSampleHold);
-ADC_nSEQ_SAMPLE_HOLD ADC_Sample__enGetSampleHold(ADC_nMODULE enModule,
-                                                ADC_nSEQUENCER enSequencer,
-                                                ADC_nMUX enMux);
+ADC_nERROR ADC_Sample__enSetSampleHoldByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nSH enSampleHoldArg);
+ADC_nERROR ADC_Sample__enSetSampleHoldByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSH enSampleHoldArg);
+
+ADC_nERROR ADC_Sample__enGetSampleHoldByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSH* penSampleHoldArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SAMPLE_XHEADER_ADC_SAMPLE_SAMPLEHOLD_H_ */

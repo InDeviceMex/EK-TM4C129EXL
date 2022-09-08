@@ -51,8 +51,10 @@ SCB_nERROR SCB__enGetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP* enSource
         stRegister.u32Mask = SCB_SCR_SEVONPEND_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enSourceArg = (SCB_nWAKEUP) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enSourceArg = (SCB_nWAKEUP) stRegister.u32Value;
+        }
     }
     else
     {

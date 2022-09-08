@@ -54,8 +54,10 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
             stRegister.u32Mask = NVIC_PRI_MASK;
             stRegister.uptrAddress = (uint32_t) uptrRegisterOffset;
             enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
-
-            *penPriorityArg = (NVIC_nPRIORITY) stRegister.u32Value;
+            if(NVIC_enERROR_OK == enErrorReg)
+            {
+                *penPriorityArg = (NVIC_nPRIORITY) stRegister.u32Value;
+            }
         }
     }
     else

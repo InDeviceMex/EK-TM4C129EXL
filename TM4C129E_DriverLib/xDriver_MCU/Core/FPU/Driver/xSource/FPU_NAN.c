@@ -34,8 +34,10 @@ FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg)
         stRegister.u32Mask = FPU_DSCR_DN_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penNANArg = (FPU_nNAN) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penNANArg = (FPU_nNAN) stRegister.u32Value;
+        }
     }
     else
     {

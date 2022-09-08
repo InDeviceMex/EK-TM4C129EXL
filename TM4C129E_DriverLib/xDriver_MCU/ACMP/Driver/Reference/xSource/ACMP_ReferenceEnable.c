@@ -51,8 +51,10 @@ ACMP_nERROR ACMP__enGetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE* pen
         stRegister.u32Mask = ACMP_REFCTL_EN_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (ACMP_nSTATE) stRegister.u32Value;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (ACMP_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {

@@ -23,25 +23,84 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Trigger.h>
 
-#include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sequencer__vSetTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
-                               ADC_nSEQ_TRIGGER enSeqTrigger)
+ADC_nERROR ADC_Sequencer__enSetTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                             ADC_nTRIGGER enTriggerArg)
 {
-    ADC_Sequencer__vSetGenericBit((uint32_t) enModule, ADC_EMUX_OFFSET, (uint32_t) enSequence,
-                                 (uint32_t) enSeqTrigger, ADC_EMUX_EM0_MASK,
-                                 (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT),
-                                 ADC_EMUX_R_EM0_BIT);
+    uint32_t u32SequencerReg;
+    uint32_t u32SequencerMaskReg;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32SequencerReg = 0U;
+        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        while(0U != u32SequencerMaskReg)
+        {
+            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            {
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                break;
+            }
+            u32SequencerReg++;
+            u32SequencerMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorReg);
 }
 
-ADC_nSEQ_TRIGGER ADC_Sequencer__enGetTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
+ADC_nERROR ADC_Sequencer__enSetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nTRIGGER enTriggerArg)
 {
-    ADC_nSEQ_TRIGGER enSeqTriggerReg = ADC_enSEQ_TRIGGER_SOFTWARE;
-    enSeqTriggerReg = (ADC_nSEQ_TRIGGER) (ADC_Sequencer__u32GetGenericBit((uint32_t) enModule,
-                                                 ADC_EMUX_OFFSET, (uint32_t) enSequence,
-                                                 ADC_EMUX_EM0_MASK,
-                                                 (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT),
-                                                 ADC_EMUX_R_EM0_BIT));
-    return (enSeqTriggerReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enSequencerArg;
+        stRegister.u32Shift *= (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT);
+        stRegister.u32Shift += ADC_EMUX_R_EM0_BIT;
+        stRegister.u32Mask = ADC_EMUX_EM0_MASK;
+        stRegister.uptrAddress = ADC_EMUX_OFFSET;
+        stRegister.u32Value = (uint32_t) enTriggerArg;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
+
+ADC_nERROR ADC_Sequencer__enGetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                               ADC_nTRIGGER* penTriggerArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penTriggerArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Shift = (uint32_t) enSequencerArg;
+            stRegister.u32Shift *= (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT);
+            stRegister.u32Shift += ADC_EMUX_R_EM0_BIT;
+            stRegister.u32Mask = ADC_EMUX_EM0_MASK;
+            stRegister.uptrAddress = ADC_EMUX_OFFSET;
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                *penTriggerArg = (ADC_nTRIGGER) stRegister.u32Value;
+            }
+        }
+    }
+    return (enErrorReg);
+}
+

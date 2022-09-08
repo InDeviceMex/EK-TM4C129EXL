@@ -37,8 +37,10 @@ FPU_nERROR FPU__enGetLazyPreservationState(FPU_nMODULE enModuleArg,
         stRegister.u32Mask = FPU_CCR_LSPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -60,8 +62,10 @@ FPU_nERROR FPU__enGetLazyPreservationStatus(FPU_nMODULE enModuleArg,
         stRegister.u32Mask = FPU_CCR_LSPACT_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penStatusArg = (FPU_nSTATUS) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (FPU_nSTATUS) stRegister.u32Value;
+        }
     }
     else
     {

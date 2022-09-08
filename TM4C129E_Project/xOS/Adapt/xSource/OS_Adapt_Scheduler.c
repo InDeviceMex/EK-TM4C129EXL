@@ -64,7 +64,7 @@ void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
     OS_Adapt_vSetupTimerInterrupt(uxUsPeriod);
     OS_Adapt__vSetCriticalNesting(0UL);
 
-    FPU__vInit();
+    FPU__enInit(FPU_enMODULE_0);
     OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
     OS_Adapt_vStartFirstTask();
 }

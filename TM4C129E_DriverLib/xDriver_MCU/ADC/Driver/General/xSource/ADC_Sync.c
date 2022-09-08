@@ -23,19 +23,56 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_Sync.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSTATE enSync)
+ADC_nERROR ADC__enSetSync(ADC_nMODULE enModuleArg, ADC_nSTATE enSyncArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, (uint32_t) enSync,
-                            ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_PSSI_R_SYNCWAIT_BIT;
+    stRegister.u32Mask = ADC_PSSI_SYNCWAIT_MASK;
+    stRegister.uptrAddress = ADC_PSSI_OFFSET;
+    stRegister.u32Value = (uint32_t) enSyncArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ADC_nSTATE ADC__enGetSync(ADC_nMODULE enModule)
+ADC_nERROR ADC__enEnableSync(ADC_nMODULE enModuleArg)
 {
-    ADC_nSTATE enSyncReg = ADC_enSTATE_DIS;
-    enSyncReg = (ADC_nSTATE) ADC__u32GetGeneralGeneric((uint32_t) enModule,
-                              ADC_PSSI_OFFSET, ADC_PSSI_SYNCWAIT_MASK, ADC_PSSI_R_SYNCWAIT_BIT);
-    return (enSyncReg);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC__enSetSync(enModuleArg, ADC_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC__enDisableSync(ADC_nMODULE enModuleArg)
+{
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC__enSetSync(enModuleArg, ADC_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC__enGetSync(ADC_nMODULE enModuleArg, ADC_nSTATE* penSyncArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penSyncArg)
+    {
+        stRegister.u32Shift = ADC_PSSI_R_SYNCWAIT_BIT;
+        stRegister.u32Mask = ADC_PSSI_SYNCWAIT_MASK;
+        stRegister.uptrAddress = ADC_PSSI_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penSyncArg = (ADC_nSTATE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

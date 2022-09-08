@@ -31,6 +31,6 @@
 #define MCU_MASK_32 (0xFFFFFFFFUL)
 
 typedef void (*MCU_pvfIRQVectorHandler_t)(void);
-typedef void (*MCU_pvfIRQSourceHandler_t)(uintptr_t uptrModule, void* pvArgument);
+typedef void (*MCU_pvfIRQSourceHandler_t)(uintptr_t uptrModuleArg, void* pvArgument);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_VARIABLES_H_ */

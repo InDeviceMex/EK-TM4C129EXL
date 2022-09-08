@@ -54,8 +54,10 @@ SCB_nERROR SCB_SVCall__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enP
         stRegister.u32Mask = SCB_SHPR2_SVCALL_MASK;
         stRegister.uptrAddress = SCB_SHPR2_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        }
     }
     else
     {
@@ -104,8 +106,10 @@ SCB_nERROR SCB_SVCall__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enS
         stRegister.u32Mask = SCB_SHCSR_SVCALLPENDED_MASK;
         stRegister.uptrAddress = SCB_SHCSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        }
     }
     else
     {

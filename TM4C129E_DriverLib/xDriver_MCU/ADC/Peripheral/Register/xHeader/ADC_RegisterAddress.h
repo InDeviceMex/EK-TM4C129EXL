@@ -51,6 +51,7 @@
 #define ADC_SPC_OFFSET    ((uint32_t) 0x0024UL)
 #define ADC_PSSI_OFFSET    ((uint32_t) 0x0028UL)
 #define ADC_SAC_OFFSET    ((uint32_t) 0x0030UL)
+#define ADC_DCISC_OFFSET    ((uint32_t) 0x0034UL)
 #define ADC_CTL_OFFSET    ((uint32_t) 0x0038UL)
 
 
@@ -102,7 +103,6 @@
 #define ADC_SS3_EMUX_OFFSET    ((uint32_t) ((ADC_SS_REGISTER_OFFSET * 3UL) + ADC_SS_EMUX_OFFSET + ADC_SS_REGISTER_BASE_OFFSET))
 #define ADC_SS3_TSH_OFFSET    ((uint32_t) ((ADC_SS_REGISTER_OFFSET * 3UL) + ADC_SS_TSH_OFFSET + ADC_SS_REGISTER_BASE_OFFSET))
 
-#define ADC_DC_ISC_OFFSET    ((uint32_t) 0x0034UL)
 #define ADC_DC_RIC_OFFSET    ((uint32_t) 0x0D00UL)
 
 #define ADC_DC_CTL_OFFSET    ((uint32_t) 0x0E00UL)

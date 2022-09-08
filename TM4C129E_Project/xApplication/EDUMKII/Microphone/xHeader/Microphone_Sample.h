@@ -29,7 +29,7 @@
 
 uint32_t* EDUMKII_Microphone_vSampleArray(void);
 void EDUMKII_Microphone_vSample(uint32_t *u32Input);
-void EDUMKII_Microphone_vIRQSourceHandler(void);
+void EDUMKII_Microphone_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 
 
 

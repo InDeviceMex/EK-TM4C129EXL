@@ -44,8 +44,8 @@ void EDUMKII_Microphone_vInit(void)
         ADC_enSTATE_ENA,
         ADC_enSTATE_ENA,
         ADC_enSTATE_DIS,
-        ADC_enSEQ_INPUT_OPERATION_SAMPLE,
-        ADC_enSEQ_SAMPLE_HOLD_8,
+        ADC_enSAMPLE_MODE_SAMPLE,
+        ADC_enSH_8,
         ADC_enCOMPARATOR_0
     };
 
@@ -72,8 +72,8 @@ void EDUMKII_Microphone_vInit(void)
          DMA_enCH_DST_INC_WORD,
     };
 
-    ADC_Sample__vRegisterIRQSourceHandler(&EDUMKII_Microphone_vIRQSourceHandler,
-                                        ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_SOURCE_DMA);
+    ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Microphone_vIRQSourceHandler,
+                                        ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_TYPE_DMA);
 
     pu32MicrophoneArray = EDUMKII_Microphone_vSampleArray();
     DMA_CH__vSetPrimaryDestEndAddress(DMA_enCH_MODULE_14, (uint32_t) pu32MicrophoneArray);
@@ -91,15 +91,15 @@ void EDUMKII_Microphone_vInit(void)
 
     GPIO__vSetAnalogFunction(EDUMKII_MICROPHONE);
 
-    ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_DIS);
-    ADC_Sequencer__vSetTrigger(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSEQ_TRIGGER_SOFTWARE);
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enMUX_0, &stADC0SampleConfig);
+    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_DIS);
+    ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enTRIGGER_SOFTWARE);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
-    ADC_Sequencer__vEnInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_SOURCE_DMA);
+    ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_TYPE_DMA);
     ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_0,
                             (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
-    ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
-    ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
 }
 
 

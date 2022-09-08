@@ -26,15 +26,24 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vWriteRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature)
+ADC_nERROR ADC__enWriteRegister(ADC_nMODULE enModuleArg, ADC_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32AdcBase = 0UL;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
+    uintptr_t uptrModuleBase;
+    ADC_nERROR enErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            uptrModuleBase = ADC__uptrBlockBaseAddress(enModuleArg);
+            pstRegisterDataArg->uptrAddress += uptrModuleBase;
+            enErrorReg = (ADC_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
 
-    u32AdcBase = ADC__uptrBlockBaseAddress((ADC_nMODULE) u32Module);
-    MCU__vWriteRegister(u32AdcBase, u32OffsetRegister, u32FeatureValue,
-                        u32MaskFeature, u32BitFeature);
+    return (enErrorReg);
 }

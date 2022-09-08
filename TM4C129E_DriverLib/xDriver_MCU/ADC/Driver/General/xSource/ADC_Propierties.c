@@ -23,21 +23,51 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_Propierties.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-ADC_nSEQ_INPUT ADC__enGetMaxInputNumber(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetMaximumInputNumber(ADC_nMODULE enModuleArg, uint32_t* pu32InputNumberArg)
 {
-    ADC_nSEQ_INPUT enSeqInput = ADC_enSEQ_INPUT_0;
-    enSeqInput = (ADC_nSEQ_INPUT) (ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_PP_OFFSET,
-                                                     ADC_PP_CH_MASK, ADC_PP_R_CH_BIT) - 1UL);
-    return (enSeqInput);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32InputNumberArg)
+    {
+        stRegister.u32Shift = ADC_PP_R_CH_BIT;
+        stRegister.u32Mask = ADC_PP_CH_MASK;
+        stRegister.uptrAddress = ADC_PP_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *pu32InputNumberArg = stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-ADC_nCOMPARATOR ADC_Comparator__enGetMaxNumber(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetMaximumComparatorNumber(ADC_nMODULE enModuleArg, uint32_t* pu32ComparatorNumberArg)
 {
-    ADC_nCOMPARATOR enComparatorReg = ADC_enCOMPARATOR_0;
-    enComparatorReg = (ADC_nCOMPARATOR) (ADC__u32GetGeneralGeneric((uint32_t) enModule,
-                                   ADC_PP_OFFSET, ADC_PP_DC_MASK, ADC_PP_R_DC_BIT) - 1UL);
-    return (enComparatorReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32ComparatorNumberArg)
+    {
+        stRegister.u32Shift = ADC_PP_R_DC_BIT;
+        stRegister.u32Mask = ADC_PP_DC_MASK;
+        stRegister.uptrAddress = ADC_PP_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *pu32ComparatorNumberArg = stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

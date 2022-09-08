@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Comparator__vResetInterruptConditions(ADC_nMODULE enModule, ADC_nCOMPMASK  enActCompMask);
+ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg);
+ADC_nERROR ADC_Comparator__enResetInterruptConditionsByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_RESET_XHEADER_ADC_COMPARATOR_RESETINTERRUPT_H_ */

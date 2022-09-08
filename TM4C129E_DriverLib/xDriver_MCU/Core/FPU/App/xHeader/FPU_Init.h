@@ -25,6 +25,8 @@
 #ifndef XDRIVER_MCU_CORE_FPU_APP_XHEADER_FPU_INIT_H_
 #define XDRIVER_MCU_CORE_FPU_APP_XHEADER_FPU_INIT_H_
 
-void FPU__vInit(void);
+#include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
+
+FPU_nERROR FPU__enInit(FPU_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_CORE_FPU_APP_XHEADER_FPU_INIT_H_ */

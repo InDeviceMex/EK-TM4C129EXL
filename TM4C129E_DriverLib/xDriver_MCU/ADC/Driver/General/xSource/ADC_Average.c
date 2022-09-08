@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_Average.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetAverage(ADC_nMODULE enModule, ADC_nAVERAGE enAverage)
+ADC_nERROR ADC__enSetAverageSampling(ADC_nMODULE enModuleArg, ADC_nAVERAGE enAverageArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_SAC_OFFSET, (uint32_t) enAverage,
-                            ADC_SAC_AVG_MASK, ADC_SAC_R_AVG_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_SAC_R_AVG_BIT;
+    stRegister.u32Mask = ADC_SAC_AVG_MASK;
+    stRegister.uptrAddress = ADC_SAC_OFFSET;
+    stRegister.u32Value = (uint32_t) enAverageArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ADC_nAVERAGE ADC__enGetAverage(ADC_nMODULE enModule)
+
+ADC_nERROR ADC__enGetAverageSampling(ADC_nMODULE enModuleArg, ADC_nAVERAGE* penAverageArg)
 {
-    ADC_nAVERAGE enAverageReg = ADC_enAVERAGE_DIS;
-    enAverageReg = (ADC_nAVERAGE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SAC_OFFSET,
-                                                        ADC_SAC_AVG_MASK, ADC_SAC_R_AVG_BIT);
-    return (enAverageReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penAverageArg)
+    {
+        stRegister.u32Shift = ADC_SAC_R_AVG_BIT;
+        stRegister.u32Mask = ADC_SAC_AVG_MASK;
+        stRegister.uptrAddress = ADC_SAC_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penAverageArg = (ADC_nAVERAGE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
+

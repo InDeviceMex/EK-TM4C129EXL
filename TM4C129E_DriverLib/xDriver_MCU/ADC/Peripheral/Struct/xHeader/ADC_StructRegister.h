@@ -477,7 +477,7 @@ typedef volatile struct
     volatile uint32_t DCINT6: 1;
     volatile uint32_t DCINT7: 1;
     const uint32_t reserved: 24;
-}ADC_DC_ISC_t;
+}ADC_DCISC_t;
 
 typedef volatile struct
 {

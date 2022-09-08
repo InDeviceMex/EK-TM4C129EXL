@@ -23,25 +23,84 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Priority.h>
 
-#include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sequencer__vSetPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence,
-                                ADC_nSEQ_PRIORITY enSeqPriority)
+ADC_nERROR ADC_Sequencer__enSetPriorityByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQ_PRIORITY enPriorityArg)
 {
-    ADC_Sequencer__vSetGenericBit((uint32_t) enModule, ADC_SSPRI_OFFSET, (uint32_t) enSequence,
-                                 (uint32_t) enSeqPriority, ADC_SSPRI_SS0_MASK,
-                                 (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT),
-                                 ADC_SSPRI_R_SS0_BIT);
+    uint32_t u32SequencerReg;
+    uint32_t u32SequencerMaskReg;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32SequencerReg = 0U;
+        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        while(0U != u32SequencerMaskReg)
+        {
+            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            {
+                enErrorReg = ADC_Sequencer__enSetPriorityByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enPriorityArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                break;
+            }
+            u32SequencerReg++;
+            u32SequencerMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorReg);
 }
 
-ADC_nSEQ_PRIORITY ADC_Sequencer__enGetPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence)
+ADC_nERROR ADC_Sequencer__enSetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nSEQ_PRIORITY enPriorityArg)
 {
-    ADC_nSEQ_PRIORITY enSeqPriorityReg = ADC_enSEQ_PRIORITY_HIGH;
-    enSeqPriorityReg = (ADC_nSEQ_PRIORITY) (ADC_Sequencer__u32GetGenericBit((uint32_t) enModule,
-                                           ADC_SSPRI_OFFSET, (uint32_t) enSequence,
-                                           ADC_SSPRI_SS0_MASK,
-                                           (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT),
-                                           ADC_SSPRI_R_SS0_BIT));
-    return (enSeqPriorityReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enSequencerArg;
+        stRegister.u32Shift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
+        stRegister.u32Shift += ADC_SSPRI_R_SS0_BIT;
+        stRegister.u32Mask = ADC_SSPRI_SS0_MASK;
+        stRegister.uptrAddress = ADC_SSPRI_OFFSET;
+        stRegister.u32Value = (uint32_t) enPriorityArg;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Sequencer__enGetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                       ADC_nSEQ_PRIORITY* penPriorityArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penPriorityArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Shift = (uint32_t) enSequencerArg;
+            stRegister.u32Shift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
+            stRegister.u32Shift += ADC_SSPRI_R_SS0_BIT;
+            stRegister.u32Mask = ADC_SSPRI_SS0_MASK;
+            stRegister.uptrAddress = ADC_SSPRI_OFFSET;
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                *penPriorityArg = (ADC_nSEQ_PRIORITY) stRegister.u32Value;
+            }
+        }
+    }
+    return (enErrorReg);
 }

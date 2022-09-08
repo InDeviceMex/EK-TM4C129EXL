@@ -23,33 +23,55 @@
  */
 #include <xDriver_MCU/ADC/Driver/Comparator/xHeader/ADC_CompGeneric.h>
 
-#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
-#include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC_Comparator__vSetGeneric(uint32_t u32Module, uint32_t  u32Comparator,
-                          uint32_t u32RegisterOffset, uint32_t u32Feature,
-                          uint32_t u32FeatureMask, uint32_t u32FeatureBit)
+ADC_nERROR ADC_Comparator__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR  enComparatorArg,
+                                       ADC_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32ComparatorReg = 0UL;
-    u32ComparatorReg = MCU__u32CheckParams((uint32_t) u32Comparator,
-                                           (uint32_t) ADC_enCOMPARATOR_MAX);
-    u32ComparatorReg *= 4UL;
-    u32RegisterOffset += u32ComparatorReg;
-    ADC__vWriteRegister((ADC_nMODULE) u32Module , u32RegisterOffset,
-                        u32Feature, u32FeatureMask, u32FeatureBit);
+    uintptr_t uptrComparatorOffsetReg;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
+            uptrComparatorOffsetReg <<= 2UL;
+            pstRegisterDataArg->uptrAddress += uptrComparatorOffsetReg;
+            enErrorReg = ADC__enWriteRegister(enModuleArg, pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
+
 }
 
-uint32_t ADC_Comparator__u32GetGeneric(uint32_t u32Module, uint32_t  u32Comparator,
-                                uint32_t u32RegisterOffset, uint32_t u32FeatureMask,
-                                uint32_t u32FeatureBit)
+ADC_nERROR ADC_Comparator__enGetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR  enComparatorArg,
+                                        ADC_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32Feature = 0UL;
-    uint32_t u32ComparatorReg = 0UL;
-    u32ComparatorReg = MCU__u32CheckParams(u32Comparator, (uint32_t) ADC_enCOMPARATOR_MAX);
-    u32ComparatorReg *= 4UL;
-    u32RegisterOffset += u32ComparatorReg;
-    u32Feature = ADC__u32ReadRegister((ADC_nMODULE) u32Module, u32RegisterOffset,
-                                      u32FeatureMask, u32FeatureBit);
-    return (u32Feature);
+    uintptr_t uptrComparatorOffsetReg;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
+            uptrComparatorOffsetReg <<= 2UL;
+            pstRegisterDataArg->uptrAddress += uptrComparatorOffsetReg;
+            enErrorReg = ADC__enReadRegister(enModuleArg, pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

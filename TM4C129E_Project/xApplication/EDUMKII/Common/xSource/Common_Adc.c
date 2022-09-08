@@ -34,10 +34,10 @@ void EDUMKII_Common_vAdcInit(void)
     static uint32_t u32Init = 0UL;
     if(0UL == u32Init)
     {
-        ADC__vSetConversionRate(ADC_enMODULE_1, ADC_enCONVERSION_RATE_1);
-        ADC__vSetVCODivisor(ADC_enMODULE_1, 480UL/32UL);
-        ADC__vSetClockSource(ADC_enMODULE_1, ADC_enCLOCK_PLL_VCO);
-        ADC__vSetAverage(ADC_enMODULE_1, ADC_enAVERAGE_DIS);
+        ADC__enSetConversionRate(ADC_enMODULE_1, ADC_enCONVERSION_RATE_1);
+        ADC__enSetVCODivisor(ADC_enMODULE_1, 480UL/32UL);
+        ADC__enSetClockSource(ADC_enMODULE_1, ADC_enCLOCK_PLL_VCO);
+        ADC__enSetAverageSampling(ADC_enMODULE_1, ADC_enAVERAGE_DIS);
         u32Init = 1UL;
     }
 }

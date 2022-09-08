@@ -26,8 +26,6 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vWriteRegister(ADC_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature);
+ADC_nERROR ADC__enWriteRegister(ADC_nMODULE enModuleArg, ADC_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_ADC_WRITEREGISTER_H_ */

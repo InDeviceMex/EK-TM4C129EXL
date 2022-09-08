@@ -51,8 +51,10 @@ SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlign
         stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
+        }
     }
     else
     {

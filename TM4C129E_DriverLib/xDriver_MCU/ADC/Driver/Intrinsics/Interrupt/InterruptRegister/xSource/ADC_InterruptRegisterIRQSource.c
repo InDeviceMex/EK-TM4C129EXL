@@ -27,76 +27,74 @@
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ADC_InterruptRoutine_Source.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           ADC_nMODULE enModule,
-                                           ADC_nSEQUENCER enSequencer)
+ADC_nERROR ADC_SW__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                              ADC_nMODULE enModuleArg,
+                                              ADC_nSEQUENCER enSequencerArg)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32Sequencer = 0UL;
+    ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
+    ADC_nERROR enErrorReg;
 
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) ADC_enMODULE_MAX);
-        u32Sequencer = MCU__u32CheckParams( (uint32_t) enSequencer,
-                                            (uint32_t) ADC_enSEQ_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                   ADC_SW__pvfGetIRQSourceHandlerPointer((ADC_nMODULE) u32Module,
-                                                             (ADC_nSEQUENCER) u32Sequencer),
-                   0UL,
-                   1UL);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            pvfIrqHandler = ADC_SW__pvfGetIRQSourceHandlerPointer(enModuleArg, enSequencerArg);
+            enErrorReg = (ADC_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+        }
     }
+
+    return (enErrorReg);
 }
 
-void ADC_Sample__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           ADC_nMODULE enModule,
-                                           ADC_nSEQUENCER enSequencer,
-                                           ADC_nINT_SOURCE enIntSourceArg)
+ADC_nERROR ADC_Sequencer__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                     ADC_nMODULE enModuleArg,
+                                                     ADC_nSEQUENCER enSequencerArg,
+                                                     ADC_nINT_TYPE enIntSourceArg)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32Sequencer = 0UL;
-    uint32_t u32IntSourceReg = 0UL;
+    ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
+    ADC_nERROR enErrorReg;
 
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) ADC_enMODULE_MAX);
-        u32Sequencer = MCU__u32CheckParams( (uint32_t) enSequencer,
-                                            (uint32_t) ADC_enSEQ_MAX);
-        u32IntSourceReg = MCU__u32CheckParams( (uint32_t) enIntSourceArg,
-                                               (uint32_t) ADC_enINT_SOURCE_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                   ADC_Sample__pvfGetIRQSourceHandlerPointer((ADC_nMODULE) u32Module,
-                                                             (ADC_nSEQUENCER) u32Sequencer,
-                                                             (ADC_nINT_SOURCE) u32IntSourceReg),
-                   0UL,
-                   1UL);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enIntSourceArg, (uint32_t) ADC_enINT_TYPE_MAX);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                pvfIrqHandler = ADC_Sequencer__pvfGetIRQSourceHandlerPointer(enModuleArg, enSequencerArg, enIntSourceArg);
+                enErrorReg = (ADC_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+            }
+        }
     }
+
+    return (enErrorReg);
 }
 
-void ADC_Comp__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                         ADC_nMODULE enModule,
-                                         ADC_nSEQUENCER enSequence,
-                                         ADC_nCOMPARATOR enSeqComparator)
+ADC_nERROR ADC_Comparator__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                      ADC_nMODULE enModuleArg,
+                                                      ADC_nSEQUENCER enSequencerArg,
+                                                      ADC_nCOMPARATOR enComparatorArg)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32Sequencer = 0UL;
-    uint32_t u32Comparator = 0UL;
+    ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
+    ADC_nERROR enErrorReg;
 
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) ADC_enMODULE_MAX);
-        u32Sequencer = MCU__u32CheckParams( (uint32_t) enSequence,
-                                            (uint32_t) ADC_enSEQ_MAX);
-        u32Comparator = MCU__u32CheckParams( (uint32_t) enSeqComparator,
-                                             (uint32_t) ADC_enCOMPARATOR_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       ADC_Comp__pvfGetIRQSourceHandlerPointer((ADC_nMODULE) u32Module,
-                                                               (ADC_nSEQUENCER) u32Sequencer,
-                                                               (ADC_nCOMPARATOR) u32Comparator),
-                       0UL,
-                       1UL);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                pvfIrqHandler = ADC_Comparator__pvfGetIRQSourceHandlerPointer(enModuleArg, enSequencerArg, enComparatorArg);
+                enErrorReg = (ADC_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+            }
+        }
     }
+    return (enErrorReg);
 }
-

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetVoltageReference(ADC_nMODULE enModule, ADC_nVREF enVoltageReference);
-ADC_nVREF ADC__enGetVoltageReference(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetVoltageReference(ADC_nMODULE enModuleArg, ADC_nVREF enVoltageReferenceArg);
+ADC_nERROR ADC__enGetVoltageReference(ADC_nMODULE enModuleArg, ADC_nVREF* penVoltageReferenceArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_VREF_H_ */

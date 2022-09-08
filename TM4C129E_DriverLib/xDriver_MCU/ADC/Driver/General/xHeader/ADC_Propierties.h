@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-ADC_nSEQ_INPUT ADC__enGetMaxInputNumber(ADC_nMODULE enModule);
-ADC_nCOMPARATOR ADC_Comparator__enGetMaxNumber(ADC_nMODULE enModule);
+ADC_nERROR ADC__enGetMaximumInputNumber(ADC_nMODULE enModuleArg, uint32_t* pu32InputNumberArg);
+ADC_nERROR ADC__enGetMaximumComparatorNumber(ADC_nMODULE enModuleArg, uint32_t* pu32ComparatorNumberArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_PROPIERTIES_H_ */

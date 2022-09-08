@@ -21,38 +21,74 @@
  * Date           Author     Version     Description
  * 5 dic. 2020     vyldram    1.0         initial Version@endverbatim
  */
-#include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeBoth.h>
+#include <xDriver_MCU/ADC/Driver/Comparator/Range/ADC_Comparator_Range.h>
 
-#include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeHigher.h>
-#include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeLower.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
 
-void ADC_Comparator__vSetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
-                        uint32_t u32CompRangeLow, uint32_t u32CompRangeHigh)
+
+ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                            uint32_t u32RangeLowArg, uint32_t u32RangeHighArg)
 {
-    uint32_t u32CompRangeTemp = 0UL;
-    if(u32CompRangeLow > u32CompRangeHigh)
+    uint32_t u32ComparatorReg;
+    uint32_t u32ComparatorMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
+
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        u32CompRangeTemp = u32CompRangeHigh;
-        u32CompRangeLow = u32CompRangeHigh;
-        u32CompRangeHigh = u32CompRangeTemp;
+        u32ComparatorReg = 0U;
+        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        while(0U != u32ComparatorMaskReg)
+        {
+            if(0UL != (ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            {
+                enErrorReg = ADC_Comparator__enSetRangeByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, u32RangeLowArg, u32RangeHighArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                break;
+            }
+            u32ComparatorReg++;
+            u32ComparatorMaskReg >>= 1U;
+        }
     }
-    ADC_Comparator__vSetRangeLow(enModule, enActComp, u32CompRangeLow);
-    ADC_Comparator__vSetRangeHigh(enModule, enActComp, u32CompRangeHigh);
+
+    return (enErrorMemoryReg);
 }
 
-ADC_nERROR ADC_Comparator__enGetRange(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
-                                uint32_t* pu32CompRangeLow, uint32_t* pu32CompRangeHigh)
+ADC_nERROR ADC_Comparator__enSetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                              uint32_t u32RangeLowArg, uint32_t u32RangeHighArg)
 {
-    ADC_nERROR enStatus = ADC_enERROR_UNDEF;
-    uint32_t u32CompRangeLow = 0UL;
-    uint32_t u32CompRangeHigh = 0UL;
-    if((0UL != (uint32_t) pu32CompRangeLow) && (0UL != (uint32_t) pu32CompRangeHigh))
+    uint32_t u32CompRangeTemp;
+    ADC_nERROR enErrorReg;
+
+    if(u32RangeLowArg > u32RangeHighArg)
     {
-        enStatus = ADC_enERROR_OK;
-        u32CompRangeLow = ADC_Comparator__u32GetRangeLow(enModule, enActComp);
-        u32CompRangeHigh = ADC_Comparator__u32GetRangeHigh(enModule, enActComp);
-        *pu32CompRangeLow = u32CompRangeLow;
-        *pu32CompRangeHigh = u32CompRangeHigh;
+        u32CompRangeTemp = u32RangeLowArg;
+        u32RangeLowArg = u32RangeHighArg;
+        u32RangeHighArg = u32CompRangeTemp;
     }
-    return (enStatus);
+
+    enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, enComparatorArg, u32RangeLowArg);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ADC_Comparator__enSetRangeHighByNumber(enModuleArg, enComparatorArg, u32RangeHighArg);
+    }
+
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Comparator__enGetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                              uint32_t* pu32RangeLowArg, uint32_t* pu32RangeHighArg)
+{
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = ADC_Comparator__enGetRangeLowByNumber(enModuleArg, enComparatorArg, pu32RangeLowArg);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ADC_Comparator__enGetRangeHighByNumber(enModuleArg, enComparatorArg, pu32RangeHighArg);
+    }
+    return (enErrorReg);
 }

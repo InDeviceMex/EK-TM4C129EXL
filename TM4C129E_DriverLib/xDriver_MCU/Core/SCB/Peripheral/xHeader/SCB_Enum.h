@@ -34,6 +34,7 @@ typedef enum
     SCB_enERROR_OK = (uint32_t) MCU_enERROR_OK,
     SCB_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
     SCB_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    SCB_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
     SCB_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
 }SCB_nERROR;
 

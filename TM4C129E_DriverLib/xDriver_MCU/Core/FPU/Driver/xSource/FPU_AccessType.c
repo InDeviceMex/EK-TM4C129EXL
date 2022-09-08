@@ -56,14 +56,17 @@ FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessT
         stRegister.u32Shift = FPU_CPACR_R_CP11_BIT;
         stRegister.u32Mask = FPU_CPACR_CP11_MASK;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-        u32RegCP11 = stRegister.u32Value;
-
-        if(u32RegCP11 != u32RegCP10)
+        if(FPU_enERROR_OK == enErrorReg)
         {
-            u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
-        }
+            u32RegCP11 = stRegister.u32Value;
 
-        *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
+            if(u32RegCP11 != u32RegCP10)
+            {
+                u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
+            }
+
+            *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
+        }
     }
     else
     {

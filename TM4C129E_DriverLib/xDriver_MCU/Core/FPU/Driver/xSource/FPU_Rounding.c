@@ -36,8 +36,10 @@ FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg,
         stRegister.u32Mask = FPU_DSCR_RMODE_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penRoundingArg = (FPU_nROUNDING) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penRoundingArg = (FPU_nROUNDING) stRegister.u32Value;
+        }
     }
     else
     {

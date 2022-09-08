@@ -31,6 +31,7 @@ typedef enum
     ACMP_enERROR_OK = (uint32_t) MCU_enERROR_OK,
     ACMP_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
     ACMP_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    ACMP_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
     ACMP_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
 }ACMP_nERROR;
 

@@ -27,9 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sequencer__vSetPriority(ADC_nMODULE enModule,
-                                ADC_nSEQUENCER enSequence,
-                                ADC_nSEQ_PRIORITY enSeqPriority);
-ADC_nSEQ_PRIORITY ADC_Sequencer__enGetPriority(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
+ADC_nERROR ADC_Sequencer__enSetPriorityByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQ_PRIORITY enPriorityArg);
+ADC_nERROR ADC_Sequencer__enSetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nSEQ_PRIORITY enPriorityArg);
+
+ADC_nERROR ADC_Sequencer__enGetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                       ADC_nSEQ_PRIORITY* penPriorityArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_PRIORITY_H_ */

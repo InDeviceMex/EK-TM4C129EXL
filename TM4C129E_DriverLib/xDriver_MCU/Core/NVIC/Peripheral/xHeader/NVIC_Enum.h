@@ -32,6 +32,7 @@ typedef enum
     NVIC_enERROR_OK = (uint32_t) MCU_enERROR_OK,
     NVIC_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
     NVIC_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    NVIC_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
     NVIC_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
 }NVIC_nERROR;
 

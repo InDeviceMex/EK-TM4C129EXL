@@ -23,13 +23,28 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_State.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-ADC_nSTATUS ADC__enGetState(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetStatus(ADC_nMODULE enModuleArg, ADC_nSTATUS* penStatusArg)
 {
-    ADC_nSTATUS enStateReg = ADC_enSTATUS_INACTIVE;
-    enStateReg = (ADC_nSTATUS) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_ACTSS_OFFSET,
-                                                    ADC_ACTSS_BUSY_MASK, ADC_ACTSS_R_BUSY_BIT);
-    return (enStateReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStatusArg)
+    {
+        stRegister.u32Shift = ADC_ACTSS_R_BUSY_BIT;
+        stRegister.u32Mask = ADC_ACTSS_BUSY_MASK;
+        stRegister.uptrAddress = ADC_ACTSS_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (ADC_nSTATUS) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

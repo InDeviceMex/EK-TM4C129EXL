@@ -56,7 +56,7 @@ inline MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMa
     MCU_nERROR enErrorReg;
     if(u32ModuleMaxArg <= u32ModuleArg)
     {
-        enErrorReg = MCU_enERROR_VALUE;
+        enErrorReg = MCU_enERROR_RANGE;
     }
     else
     {

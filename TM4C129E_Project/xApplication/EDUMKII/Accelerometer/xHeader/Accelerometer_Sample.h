@@ -29,7 +29,7 @@
 
 uint32_t* EDUMKII_Accelerometer_vSampleArray(void);
 void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z );
-void EDUMKII_Accelerometer_vIRQSourceHandler(void);
+void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 
 
 #endif /* XAPPLICATION_EDUMKII_ACCELEROMETER_XHEADER_ACCELEROMETER_SAMPLE_H_ */

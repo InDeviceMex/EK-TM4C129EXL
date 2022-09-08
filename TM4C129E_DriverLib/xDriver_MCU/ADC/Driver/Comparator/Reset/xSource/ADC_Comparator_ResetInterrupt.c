@@ -23,11 +23,56 @@
  */
 #include <xDriver_MCU/ADC/Driver/Comparator/Reset/xHeader/ADC_Comparator_ResetInterrupt.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
-#include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-void ADC_Comparator__vResetInterruptConditions(ADC_nMODULE enModule, ADC_nCOMPMASK  enActCompMask)
+ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg)
 {
-    ADC__vWriteRegister(enModule, ADC_DC_RIC_OFFSET, (uint32_t) enActCompMask,
-                        (uint32_t) ADC_enCOMPMASK_MAX, ADC_DC_RIC_R_DCINT0_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = ADC_DC_RIC_R_DCINT0_BIT;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
+        stRegister.u32Value = (uint32_t) enComparatorMaskArg;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            do
+            {
+                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
+        }
+    }
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Comparator__enResetInterruptConditionsByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enComparatorArg;
+        stRegister.u32Shift += ADC_DC_RIC_R_DCINT0_BIT;
+        stRegister.u32Mask = ADC_DC_RIC_DCINT0_MASK;
+        stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
+        stRegister.u32Value = ADC_DC_RIC_DCINT0_RESET;
+        enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            do
+            {
+                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
+        }
+    }
+    return (enErrorReg);
 }

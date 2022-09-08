@@ -63,8 +63,10 @@ SCB_nERROR SCB__enGetPriorityGroup(SCB_nMODULE enModuleArg, SCB_nPRIGROUP* penGr
         stRegister.u32Mask = SCB_AIRCR_PRIGROUP_MASK;
         stRegister.uptrAddress = SCB_AIRCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penGroupArg = (SCB_nPRIGROUP) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penGroupArg = (SCB_nPRIGROUP) stRegister.u32Value;
+        }
     }
     else
     {

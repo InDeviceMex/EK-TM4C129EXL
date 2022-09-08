@@ -29,13 +29,6 @@
 NVIC_nERROR NVIC__enGetActiveVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATUS* penStatusArg)
 {
     NVIC_nERROR enErrorReg;
-    if(0U != (uintptr_t) penStatusArg)
-    {
-        enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_IABR_OFFSET, (uint32_t*) penStatusArg);
-    }
-    else
-    {
-        enErrorReg = NVIC_enERROR_POINTER;
-    }
+    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_IABR_OFFSET, (uint32_t*) penStatusArg);
     return (enErrorReg);
 }

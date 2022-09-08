@@ -55,8 +55,11 @@ ACMP_nERROR ACMP__enGetComparatorInterruptTriggerLevel(ACMP_nMODULE enModuleArg,
         stRegister.u32Mask = ACMP_CTL_ISLVAL_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penInterruptLevelArg = (ACMP_nLEVEL) stRegister.u32Value;
+        }
 
-        *penInterruptLevelArg = (ACMP_nLEVEL) stRegister.u32Value;
     }
     else
     {

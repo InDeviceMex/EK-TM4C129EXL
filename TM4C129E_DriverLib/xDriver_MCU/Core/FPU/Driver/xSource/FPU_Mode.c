@@ -51,8 +51,10 @@ FPU_nERROR FPU__enGetModeDefault(FPU_nMODULE enModuleArg, FPU_nMODE* penModeArg)
         stRegister.u32Mask = FPU_DSCR_FZ_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penModeArg = (FPU_nMODE) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penModeArg = (FPU_nMODE) stRegister.u32Value;
+        }
     }
     else
     {

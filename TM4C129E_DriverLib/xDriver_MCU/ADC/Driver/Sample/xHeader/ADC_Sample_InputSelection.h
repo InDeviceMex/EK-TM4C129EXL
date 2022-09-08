@@ -22,17 +22,16 @@
  * 23 nov. 2020     vyldram    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_INPUTSELECTION_H_
-#define XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_INPUTSELECTION_H_
+#ifndef XDRIVER_MCU_ADC_DRIVER_SAMPLE_XHEADER_ADC_SAMPLE_INPUTSELECTION_H_
+#define XDRIVER_MCU_ADC_DRIVER_SAMPLE_XHEADER_ADC_SAMPLE_INPUTSELECTION_H_
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sample__vSetInputSelection(ADC_nMODULE enModule,
-                                   ADC_nSEQUENCER enSequencer,
-                                   ADC_nMUX enMux,
-                                   ADC_nSEQ_INPUT enSampleInputSelection);
-ADC_nSEQ_INPUT ADC_Sample__enGetInputSelection(ADC_nMODULE enModule,
-                                              ADC_nSEQUENCER enSequencer,
-                                              ADC_nMUX enMux);
+ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg);
+ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg);
+ADC_nERROR ADC_Sample__enGetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nINPUT* penInputArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_INPUTSELECTION_H_ */

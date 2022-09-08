@@ -34,22 +34,17 @@
 void xTask3_ButtonsLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32CurrentTime = 0UL;
-    uint32_t u32NewTime = 0UL;
-    uint32_t u32DiffTime = 0UL;
-    uint32_t u32DiffPeriod = 0UL;
+    uint32_t u32LastWakeTime;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
-
-    /*Semaphore handling*/
-    boolean_t boSemphoreReceived = FALSE;
 
 
     /*Buttons and Led handling*/
     char* pcState[2UL] = {"OFF", "ON "};
-    char* pcStateButton[3UL] = {(char*)0UL,(char*) 0UL,(char*) 0UL};
-    EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
-    EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
+    char* pcStateButton[3UL];
+    EDUMKII_nBUTTON enButtonSelect;
+    EDUMKII_nJOYSTICK enSelect;
 
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__vSetReady(GPIO_enPORT_N);
     GPIO__vSetReady(GPIO_enPORT_F);
 
@@ -59,7 +54,6 @@ void xTask3_ButtonsLog(void* pvParams)
 
     while(1UL)
     {
-        u32CurrentTime = OS_Task__uxGetTickCount ();
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);
         EDUMKII_Joystick_vSampleSelect(&enSelect);
 
@@ -95,37 +89,8 @@ void xTask3_ButtonsLog(void* pvParams)
             GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
             pcStateButton[2UL] = pcState[0UL];
         }
+
         OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
-
-        if(0UL != (uintptr_t) UartSemaphoreHandle)
-        {
-            u32NewTime = OS_Task__uxGetTickCount();
-            u32DiffTime = u32NewTime;
-            u32DiffTime -= u32CurrentTime;
-            u32DiffPeriod = u32PeriodTask;
-            u32DiffPeriod -= u32DiffTime;
-            boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, u32DiffPeriod);
-            if(FALSE != boSemphoreReceived)
-            {
-                GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
-                                     "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
-                                     pcStateButton[0UL],
-                                     pcStateButton[1UL],
-                                     pcStateButton[2UL]
-                                     );
-                OS_Semaphore__boGive(UartSemaphoreHandle);
-            }
-        }
-
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32DiffTime = u32NewTime;
-        u32DiffTime -= u32CurrentTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32DiffTime;
-        if(u32DiffPeriod > u32PeriodTask)
-        {
-            u32DiffPeriod = u32PeriodTask;
-        }
-        OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
+        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
 }

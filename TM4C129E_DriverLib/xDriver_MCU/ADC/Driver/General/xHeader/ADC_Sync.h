@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetSync(ADC_nMODULE enModule, ADC_nSTATE enSync);
-ADC_nSTATE ADC__enGetSync(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetSync(ADC_nMODULE enModuleArg, ADC_nSTATE enSyncArg);
+ADC_nERROR ADC__enEnableSync(ADC_nMODULE enModuleArg);
+ADC_nERROR ADC__enDisableSync(ADC_nMODULE enModuleArg);
+ADC_nERROR ADC__enGetSync(ADC_nMODULE enModuleArg, ADC_nSTATE* penSyncArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_SYNC_H_ */

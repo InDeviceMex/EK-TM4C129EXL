@@ -15,6 +15,7 @@ typedef enum
     FPU_enERROR_OK = (uint32_t) MCU_enERROR_OK,
     FPU_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
     FPU_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    FPU_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
     FPU_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
 }FPU_nERROR;
 

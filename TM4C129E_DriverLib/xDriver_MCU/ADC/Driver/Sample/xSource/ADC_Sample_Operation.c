@@ -23,27 +23,76 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Operation.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sample__vSetOperation(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                              ADC_nMUX enMux, ADC_nSEQ_INPUT_OPERATION enSampleOperation)
+ADC_nERROR ADC_Sample__enSetOperationModeByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nSAMPLE_MODE enOperationModeArg)
 {
-    ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_OP_OFFSET,
-                           (uint32_t) enMux, (uint32_t) enSampleOperation,
-                           ADC_SSOP_S0DCOP_MASK, ADC_SSOP_R_S0DCOP_BIT);
+    uint32_t u32SequencerReg;
+    uint32_t u32SequencerMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
+
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
+    {
+        u32SequencerReg = 0U;
+        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        while(0U != u32SequencerMaskReg)
+        {
+            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            {
+                enErrorReg = ADC_Sample__enSetOperationModeByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enSampleArg, enOperationModeArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                enErrorMemoryReg = enErrorReg;
+            }
+            u32SequencerReg++;
+            u32SequencerMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorMemoryReg);
 }
 
-ADC_nSEQ_INPUT_OPERATION ADC_Sample__enGetOperation(ADC_nMODULE enModule,
-                                                   ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
+ADC_nERROR ADC_Sample__enSetOperationModeByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSAMPLE_MODE enOperationModeArg)
 {
-    ADC_nSEQ_INPUT_OPERATION enSeqInputOp = ADC_enSEQ_INPUT_OPERATION_SAMPLE;
-    enSeqInputOp = (ADC_nSEQ_INPUT_OPERATION) ADC_Sample__u32GetGeneric((uint32_t) enModule,
-                                               (uint32_t) enSequencer, ADC_SS_OP_OFFSET,
-                                               (uint32_t) enMux, ADC_SSOP_S0DCOP_MASK,
-                                               ADC_SSOP_R_S0DCOP_BIT);
-    return (enSeqInputOp);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_SS_OP_R_S0DCOP_BIT;
+    stRegister.u32Mask = ADC_SS_OP_S0DCOP_MASK;
+    stRegister.uptrAddress = ADC_SS_OP_OFFSET;
+    stRegister.u32Value = (uint32_t) enOperationModeArg;
+    enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+    return (enErrorReg);
 }
 
+ADC_nERROR ADC_Sample__enGetOperationModeByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSAMPLE_MODE* penOperationModeArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
 
-
+    if(0UL != (uintptr_t) penOperationModeArg)
+    {
+        stRegister.u32Shift = ADC_SS_OP_R_S0DCOP_BIT;
+        stRegister.u32Mask = ADC_SS_OP_S0DCOP_MASK;
+        stRegister.uptrAddress = ADC_SS_OP_OFFSET;
+        enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penOperationModeArg = (ADC_nSAMPLE_MODE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}

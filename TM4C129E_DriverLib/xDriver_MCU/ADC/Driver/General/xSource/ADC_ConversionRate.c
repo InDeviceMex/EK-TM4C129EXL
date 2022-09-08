@@ -23,25 +23,43 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_ConversionRate.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetConversionRate(ADC_nMODULE enModule, ADC_nCONVERSION_RATE enConversionRateArg)
+ADC_nERROR ADC__enSetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RATE enConversionRateArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PC_OFFSET, (uint32_t) enConversionRateArg,
-                            ADC_PC_MCR_MASK, ADC_PC_R_MCR_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_PC_R_MCR_BIT;
+    stRegister.u32Mask = ADC_PC_MCR_MASK;
+    stRegister.uptrAddress = ADC_PC_OFFSET;
+    stRegister.u32Value = (uint32_t) enConversionRateArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ADC_nCONVERSION_RATE ADC__enGetConversionRate(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RATE* penConversionRateArg)
 {
-    ADC_nCONVERSION_RATE enConversionReg = ADC_enCONVERSION_RATE_112;
-    enConversionReg = (ADC_nCONVERSION_RATE) ADC__u32GetGeneralGeneric((uint32_t) enModule,
-                                                                       ADC_PC_OFFSET,
-                                                                       ADC_PC_MCR_MASK,
-                                                                       ADC_PC_R_MCR_BIT);
-    return (enConversionReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penConversionRateArg)
+    {
+        stRegister.u32Shift = ADC_PC_R_MCR_BIT;
+        stRegister.u32Mask = ADC_PC_MCR_MASK;
+        stRegister.uptrAddress = ADC_PC_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penConversionRateArg = (ADC_nCONVERSION_RATE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
-
-
-
 

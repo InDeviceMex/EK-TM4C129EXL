@@ -36,8 +36,10 @@ FPU_nERROR FPU__enGetHalfPrecisionDefault(FPU_nMODULE enModuleArg,
         stRegister.u32Mask = FPU_DSCR_AHP_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-
-        *penHalfPrecisionArg = (FPU_nHALF_PRECISION) stRegister.u32Value;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penHalfPrecisionArg = (FPU_nHALF_PRECISION) stRegister.u32Value;
+        }
     }
     else
     {

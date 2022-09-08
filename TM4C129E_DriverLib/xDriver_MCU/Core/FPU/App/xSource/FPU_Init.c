@@ -25,13 +25,25 @@
 
 #include <xDriver_MCU/Core/FPU/Driver/FPU_Driver.h>
 
-void FPU__vInit(void)
+FPU_nERROR FPU__enInit(FPU_nMODULE enModuleArg)
 {
-    FPU__enSetAccessType(FPU_enMODULE_0, FPU_enACCESS_FULL);
-    FPU__enSetLazyPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
-    FPU__enSetAutoPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
-    FPU__vSetMode(FPU_enMODULE_0, FPU_enMODE_DENORMAL);
-    FPU__vSetHalfPrecision(FPU_enMODULE_0, FPU_enHALF_PRECISION_IEEE);
-    FPU__vSetNAN(FPU_enMODULE_0, FPU_enNAN_PROPAGATE);
-    FPU__vSetRoundingMode(FPU_enMODULE_0, FPU_enROUNDING_NEAREST);
+    FPU_nERROR enErrorReg;
+    enErrorReg = FPU__enSetAccessType(FPU_enMODULE_0, FPU_enACCESS_FULL);
+    if(FPU_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FPU__enSetAutoPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = FPU__enSetLazyPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+            if(FPU_enERROR_OK == enErrorReg)
+            {
+                FPU__vSetMode(FPU_enMODULE_0, FPU_enMODE_DENORMAL);
+                FPU__vSetHalfPrecision(FPU_enMODULE_0, FPU_enHALF_PRECISION_IEEE);
+                FPU__vSetNAN(FPU_enMODULE_0, FPU_enNAN_PROPAGATE);
+                FPU__vSetRoundingMode(FPU_enMODULE_0, FPU_enROUNDING_NEAREST);
+            }
+        }
+    }
+
+    return (enErrorReg);
 }

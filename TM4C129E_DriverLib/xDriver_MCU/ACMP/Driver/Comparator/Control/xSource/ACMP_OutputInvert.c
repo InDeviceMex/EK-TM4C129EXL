@@ -51,8 +51,11 @@ ACMP_nERROR ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCO
         stRegister.u32Mask = ACMP_CTL_CINV_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penOutputInvertArg = (ACMP_nSTATE) stRegister.u32Value;
+        }
 
-        *penOutputInvertArg = (ACMP_nSTATE) stRegister.u32Value;
     }
     else
     {

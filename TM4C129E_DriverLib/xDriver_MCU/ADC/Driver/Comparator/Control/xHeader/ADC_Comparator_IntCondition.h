@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Comparator__vSetInterruptCondition(ADC_nMODULE enModule,
-                               ADC_nCOMPARATOR enActComp,
-                               ADC_nCOMP_CONDITION enActCompIntCondition);
-ADC_nCOMP_CONDITION ADC_Comparator__enGetInterruptCondition(ADC_nMODULE enModule,
-                                              ADC_nCOMPARATOR enActComp);
+ADC_nERROR ADC_Comparator__enSetInterruptConditionByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                         ADC_nCOMP_CONDITION enInterruptConditionArg);
+ADC_nERROR ADC_Comparator__enSetInterruptConditionByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nCOMP_CONDITION enInterruptConditionArg);
+ADC_nERROR ADC_Comparator__enGetInterruptConditionByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nCOMP_CONDITION* penInterruptConditionArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_INTCONDITION_H_ */

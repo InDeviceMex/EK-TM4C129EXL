@@ -23,47 +23,111 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_InputSelection.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sample__vSetInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                   ADC_nMUX enMux, ADC_nSEQ_INPUT enSampleInputSelection)
+ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg)
 {
-    uint32_t u32InputSelection = (uint32_t) enSampleInputSelection;
-    uint32_t u32ExtendedInputSelection = (uint32_t) enSampleInputSelection;
+    uint32_t u32SequencerReg;
+    uint32_t u32SequencerMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
 
-    u32ExtendedInputSelection >>= 4UL;
-    u32ExtendedInputSelection &= 0x1UL;
-    u32InputSelection &= 0xFUL;
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
+    {
+        u32SequencerReg = 0U;
+        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        while(0U != u32SequencerMaskReg)
+        {
+            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            {
+                enErrorReg = ADC_Sample__enSetInputByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enSampleArg, enInputArg);
+            }
 
-    ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_EMUX_OFFSET,
-                           (uint32_t) enMux, u32ExtendedInputSelection,
-                           ADC_SSEMUX_EMUX0_MASK, ADC_SSEMUX_R_EMUX0_BIT);
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                enErrorMemoryReg = enErrorReg;
+            }
+            u32SequencerReg++;
+            u32SequencerMaskReg >>= 1U;
+        }
+    }
 
-    ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_MUX_OFFSET,
-                           (uint32_t) enMux, u32InputSelection,
-                           ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
+    return (enErrorMemoryReg);
 }
 
-ADC_nSEQ_INPUT ADC_Sample__enGetInputSelection(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                              ADC_nMUX enMux)
+ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg)
 {
-    uint32_t u32Input = 0UL;
-    uint32_t u32InputSelection = 0UL;
-    uint32_t u32ExtendedInputSelection = 0UL;
-    u32InputSelection = ADC_Sample__u32GetGeneric((uint32_t) enModule, (uint32_t) enSequencer,
-                                                 ADC_SS_MUX_OFFSET, (uint32_t) enMux,
-                                                 ADC_SSMUX_MUX0_MASK, ADC_SSMUX_R_MUX0_BIT);
-    u32ExtendedInputSelection = ADC_Sample__u32GetGeneric((uint32_t) enModule,
-                                                         (uint32_t) enSequencer,
-                                                 ADC_SS_EMUX_OFFSET, (uint32_t) enMux,
-                                                 ADC_SSEMUX_EMUX0_MASK, ADC_SSEMUX_R_EMUX0_BIT);
-    u32ExtendedInputSelection &= 0x1UL;
-    u32InputSelection &= 0xFUL;
-    u32ExtendedInputSelection <<= 4UL;
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+    uint32_t u32InputReg;
+    uint32_t u32ExtendedInputReg;
 
-    u32Input = u32ExtendedInputSelection;
-    u32Input |= u32InputSelection;
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInputArg, (uint32_t) ADC_enINPUT_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32ExtendedInputReg = (uint32_t) enInputArg;
+        u32ExtendedInputReg >>=  ADC_SS_MUX_R_MUX1_BIT;
+        u32ExtendedInputReg &= ADC_SS_EMUX_EMUX0_MASK;
 
-    return ((ADC_nSEQ_INPUT) u32Input);
+        stRegister.u32Shift = ADC_SS_EMUX_R_EMUX0_BIT;
+        stRegister.u32Mask = ADC_SS_EMUX_EMUX0_MASK;
+        stRegister.uptrAddress = ADC_SS_EMUX_OFFSET;
+        stRegister.u32Value = (uint32_t) u32ExtendedInputReg;
+        enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+
+            u32InputReg = (uint32_t) enInputArg;
+            u32InputReg &= ADC_SS_MUX_MUX0_MASK;
+
+            stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
+            stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
+            stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
+            stRegister.u32Value = (uint32_t) u32InputReg;
+            enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+        }
+    }
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Sample__enGetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nINPUT* penInputArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+    uint32_t u32InputReg;
+
+    if(0UL != (uintptr_t) penInputArg)
+    {
+        stRegister.u32Shift = ADC_SS_EMUX_R_EMUX0_BIT;
+        stRegister.u32Mask = ADC_SS_EMUX_EMUX0_MASK;
+        stRegister.uptrAddress = ADC_SS_EMUX_OFFSET;
+        enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            u32InputReg = stRegister.u32Value;
+            u32InputReg <<= ADC_SS_MUX_R_MUX1_BIT;
+
+            stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
+            stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
+            stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
+            enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+            if(ADC_enERROR_OK == enErrorReg)
+            {
+                u32InputReg |= stRegister.u32Value;
+                *penInputArg = (ADC_nINPUT) u32InputReg;
+            }
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

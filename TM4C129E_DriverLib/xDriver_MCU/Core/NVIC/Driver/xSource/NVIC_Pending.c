@@ -30,14 +30,7 @@
 NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE* penStateArg)
 {
     NVIC_nERROR enErrorReg;
-    if(0U != (uintptr_t) penStateArg)
-    {
-        enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t*) penStateArg);
-    }
-    else
-    {
-        enErrorReg = NVIC_enERROR_POINTER;
-    }
+    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t*) penStateArg);
     return (enErrorReg);
 }
 

@@ -18,8 +18,8 @@ MEMORY
     SRAM_DMAALT (RW) : origin = 0x20000600, length = 0x00000200
     SRAM_CODE (RWX) : origin = 0x20000800, length = 0x00001000 /*5K*/
     SRAM (RW) : origin = 0x20001800, length = 0x00010800
-    SRAM_DYNAMIC (RW) : origin = 0x20012000, length = 0x0002C800 /*32K*/
-    SRAM_MAIN_STACK (RW) : origin = 0x2003F800, length = 0x00000800 /*1.5K*/
+    SRAM_DYNAMIC (RW) : origin = 0x20012000, length = 0x0002DE00 /*32K*/
+    SRAM_MAIN_STACK (RW) : origin = 0x2003FE00, length = 0x00000200 /*1.5K*/
 }
 
 /* The following command line options are set as part of the CCS project.    */
@@ -32,7 +32,7 @@ MEMORY
 --library=rtsv7M4_T_le_v4SPD16_xo_eabi.lib
 
 /* Section allocation in memory */
---stack_size=0x00000800
+--stack_size=0x00000200
 --heap_size=0x0002C800
 SECTIONS
 {

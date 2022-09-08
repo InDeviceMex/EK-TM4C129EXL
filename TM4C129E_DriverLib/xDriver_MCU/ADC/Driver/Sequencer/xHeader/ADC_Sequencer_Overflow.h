@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sequencer__vClearOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
-ADC_nSTATUS ADC_Sequencer__enGetOverflow(ADC_nMODULE enModule, ADC_nSEQMASK enSequence);
+ADC_nERROR ADC_Sequencer__enClearOverflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg);
+ADC_nERROR ADC_Sequencer__enClearOverflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg);
+
+ADC_nERROR ADC_Sequencer__enGetOverflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQMASK* penStatusArg);
+ADC_nERROR ADC_Sequencer__GetOverflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                              ADC_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_OVERFLOW_H_ */

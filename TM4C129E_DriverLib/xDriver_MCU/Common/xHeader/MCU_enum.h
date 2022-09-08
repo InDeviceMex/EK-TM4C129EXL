@@ -32,6 +32,8 @@ typedef enum
     MCU_enERROR_OK = 0UL,
     MCU_enERROR_POINTER = 1UL,
     MCU_enERROR_VALUE = 2UL,
+    MCU_enERROR_RANGE = 3UL,
+    MCU_enERROR_EMPTY = 4UL,
     MCU_enERROR_UNDEF = 0xFFFFFFFFUL,
 }MCU_nERROR;
 

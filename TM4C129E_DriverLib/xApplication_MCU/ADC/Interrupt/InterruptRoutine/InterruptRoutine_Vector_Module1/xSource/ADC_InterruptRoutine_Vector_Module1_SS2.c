@@ -25,80 +25,92 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
-#define ADC_DMA_COMPARATIVE ((uint32_t) ((uint32_t) ADC_enSEQ_SOURCE_DMA << (uint32_t) ADC_enSEQ_2))
-#define ADC_Sample_COMPARATIVE ((uint32_t) ((uint32_t) ADC_enSEQ_SOURCE_SAMPLE << (uint32_t) ADC_enSEQ_2))
-#define ADC_Comp_COMPARATIVE ((uint32_t) ((uint32_t) ADC_enSEQ_SOURCE_COMP << (uint32_t) ADC_enSEQ_2))
-
 void ADC1_SS2__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Ready = 0U;
-    volatile uint32_t u32RegCompInterrupt = 0UL;
-    volatile uint32_t u32RegCompSelect = 0UL;
-    volatile uint32_t u32RegCompMux = 0UL;
-    volatile uint32_t u32RegCompMuxBit = 0UL;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
-    uint32_t u32Pos = 0UL;
-    uint32_t u32ShiftReg = 0x1UL;
-    uint32_t u32Offset = 0x0UL;
+    uint32_t u32Reg;
+    uint32_t u32Ready;
+    uint32_t u32RegCompInterrupt;
+    uint32_t u32RegCompSelect;
+    uint32_t u32RegCompMux;
+    uint32_t u32RegCompEnable;
+    uint32_t u32RegCompMuxBit;
+    uint32_t u32OffsetReg;
+    uint32_t u32Pos;
+    uint32_t u32ShiftReg;
+    uint32_t u32TempReg;
+    ADC_pvfIRQSourceHandler_t pvfCallback;
 
     u32Ready = SYSCTL_PRADC_R;
     if(SYSCTL_PRADC_R_ADC1_NOREADY == (SYSCTL_PRADC_R_ADC1_MASK & u32Ready))
     {
         pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                      ADC_enSEQ_2);
-        pvfCallback();
+        pvfCallback(ADC1_BASE, (void*) ADC_enSEQ_2);
     }
     else
     {
         u32Reg = ADC1_ISC_R;
-        if(0UL == ((ADC_DMA_COMPARATIVE|ADC_Sample_COMPARATIVE|ADC_Comp_COMPARATIVE ) &u32Reg))
+        if(0UL == ((ADC_ISC_R_DMAIN2_MASK | ADC_ISC_R_IN2_MASK | ADC_ISC_R_DCINSS2_MASK ) &u32Reg))
         {
             pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                          ADC_enSEQ_2);
-            pvfCallback();
+            pvfCallback(ADC1_BASE, (void*) ADC_enSEQ_2);
         }
         else
         {
-            u32RegCompInterrupt = ADC1_DC_ISC_R;
-            u32RegCompSelect = ADC1_SS2_OP_R;
-            if(u32Reg & ADC_DMA_COMPARATIVE)
+            if(u32Reg & ADC_ISC_R_DMAIN2_MASK)
             {
-                ADC1_ISC_R = ADC_DMA_COMPARATIVE;
-                pvfCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                ADC1_ISC_R =  ADC_ISC_R_DMAIN2_CLEAR;
+                pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                                  ADC_enSEQ_2,
-                                                                 ADC_enINT_SOURCE_DMA);
-                pvfCallback();
+                                                                 ADC_enINT_TYPE_DMA);
+                pvfCallback(ADC1_BASE, (void*) ADC_enSEQ_2);
             }
-            if(u32Reg & ADC_Sample_COMPARATIVE)
+            if(u32Reg & ADC_ISC_R_IN2_MASK)
             {
-                ADC1_ISC_R = ADC_Sample_COMPARATIVE;
-                pvfCallback = ADC_Sample__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                ADC1_ISC_R =  ADC_ISC_R_IN2_MASK;
+                pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_1,
                                                                  ADC_enSEQ_2,
-                                                                 ADC_enINT_SOURCE_SAMPLE);
-                pvfCallback();
+                                                                 ADC_enINT_TYPE_SAMPLE);
+                pvfCallback(ADC1_BASE, (void*) ADC_enSEQ_2);
             }
-            if(u32Reg & ADC_Comp_COMPARATIVE)
+            if(u32Reg & ADC_ISC_R_DCINSS2_MASK)
             {
-                ADC1_ISC_R = ADC_Comp_COMPARATIVE;
-                for(u32Pos = (uint32_t) ADC_enMUX_0; u32Pos < (uint32_t) ADC_enMUX_MAX; u32Pos++)
+                ADC1_ISC_R = ADC_ISC_R_DCINSS2_CLEAR;
+                pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                                                                 ADC_enSEQ_2,
+                                                                 ADC_enINT_TYPE_COMP);
+                pvfCallback(ADC1_BASE, (void*) ADC_enSEQ_2);
+
+                u32RegCompInterrupt = ADC1_DCISC_R;
+                u32OffsetReg = ADC_DC_CTL_OFFSET;
+                u32RegCompMux = ADC1_SS2_DC_R;
+                u32RegCompSelect = ADC1_SS2_OP_R;
+                u32ShiftReg = 0x1UL;
+                for(u32Pos = (uint32_t) ADC_enSAMPLE_0; u32Pos < (uint32_t) ADC_enSAMPLE_4; u32Pos++)
                 {
                     if(u32RegCompSelect & u32ShiftReg)
                     {
-                        u32RegCompMux = ADC1_SS2_DC_R >> u32Offset;
-                        u32RegCompMux &= 0xFUL;
+                        u32TempReg = u32RegCompMux;
+                        u32TempReg &= 0xFUL;
                         u32RegCompMuxBit = 1UL;
-                        u32RegCompMuxBit <<= u32RegCompMux;
+                        u32RegCompMuxBit <<= u32TempReg;
                         if(u32RegCompInterrupt & u32RegCompMuxBit)
                         {
-                            ADC1_DC_ISC_R = (uint32_t) u32RegCompMuxBit;
-                            pvfCallback = ADC_Comp__pvfGetIRQSourceHandler(ADC_enMODULE_1,
-                                                                       ADC_enSEQ_2,
-                                                                       (ADC_nCOMPARATOR) u32RegCompMux);
-                            pvfCallback();
+                            u32RegCompEnable = *((uint32_t*) u32OffsetReg);
+
+                            if(u32RegCompEnable & ADC_DC_CTL_R_CIE_MASK)
+                            {
+                                ADC1_DCISC_R = (uint32_t) u32RegCompMuxBit;
+                                pvfCallback = ADC_Comparator__pvfGetIRQSourceHandler(ADC_enMODULE_1,
+                                                                           ADC_enSEQ_2,
+                                                                           (ADC_nCOMPARATOR) u32TempReg);
+                                pvfCallback(ADC1_BASE, (void*) u32TempReg);
+                            }
                         }
                     }
-                    u32Offset += 0x4UL;
+                    u32OffsetReg += 4UL;
+                    u32RegCompMux >>= 2UL;
                     u32ShiftReg <<= 4UL;
                 }
             }

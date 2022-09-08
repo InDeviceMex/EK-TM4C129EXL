@@ -28,7 +28,7 @@ MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxAr
     MCU_nERROR enErrorReg;
     if(u32ModuleMaxArg <= u32ModuleArg)
     {
-        enErrorReg = MCU_enERROR_VALUE;
+        enErrorReg = MCU_enERROR_RANGE;
     }
     else
     {

@@ -51,8 +51,10 @@ ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
         stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-
-        *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
+        }
     }
     else
     {

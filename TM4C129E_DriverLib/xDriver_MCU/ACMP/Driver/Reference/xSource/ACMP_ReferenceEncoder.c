@@ -51,8 +51,10 @@ ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t* pu32
         stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-
-        *pu32EncoderValueArg = stRegister.u32Value;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *pu32EncoderValueArg = stRegister.u32Value;
+        }
     }
     else
     {

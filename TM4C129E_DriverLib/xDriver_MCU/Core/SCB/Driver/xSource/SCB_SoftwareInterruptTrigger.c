@@ -69,8 +69,10 @@ SCB_nERROR SCB__enGetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, S
         stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {

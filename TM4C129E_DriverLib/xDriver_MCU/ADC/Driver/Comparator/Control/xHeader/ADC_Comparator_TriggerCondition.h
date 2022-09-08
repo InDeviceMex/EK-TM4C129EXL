@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Comparator__vSetTriggerCondition(ADC_nMODULE enModule,
-                                   ADC_nCOMPARATOR enActComp,
-                                   ADC_nCOMP_CONDITION enActCompTriggerCondition);
-ADC_nCOMP_CONDITION ADC_Comparator__enGetTriggerCondition(ADC_nMODULE enModule,
-                                                      ADC_nCOMPARATOR enActComp);
+ADC_nERROR ADC_Comparator__enSetTriggerConditionsByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                                         ADC_nCOMP_CONDITION enTriggerConditionsArg);
+ADC_nERROR ADC_Comparator__enSetTriggerConditionsByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nCOMP_CONDITION enTriggerConditionsArg);
+ADC_nERROR ADC_Comparator__enGetTriggerConditionsByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                           ADC_nCOMP_CONDITION* penTriggerConditionsArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_CONTROL_XHEADER_ADC_COMPARATOR_TRIGGERCONDITION_H_ */

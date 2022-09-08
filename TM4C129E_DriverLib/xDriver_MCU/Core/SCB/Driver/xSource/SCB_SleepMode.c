@@ -52,8 +52,10 @@ SCB_nERROR SCB__enGetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE* penSleep
         stRegister.u32Mask = SCB_SCR_SLEEPDEEP_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penSleepModeArg = (SCB_nSLEEPMODE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penSleepModeArg = (SCB_nSLEEPMODE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -109,8 +111,10 @@ SCB_nERROR SCB__enGetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT* enSl
         stRegister.u32Mask = SCB_SCR_SLEEPONEXIT_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enSleepOnExitArg = (SCB_nSLEEPONEXIT) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enSleepOnExitArg = (SCB_nSLEEPONEXIT) stRegister.u32Value;
+        }
     }
     else
     {

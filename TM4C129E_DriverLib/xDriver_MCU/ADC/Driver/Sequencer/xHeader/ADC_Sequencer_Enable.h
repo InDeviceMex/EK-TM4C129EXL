@@ -27,16 +27,24 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sequencer__vSetEnable(ADC_nMODULE enModule,
-                              ADC_nSEQMASK enSequence,
-                              ADC_nSTATE enSeqEnable);
-ADC_nSTATE ADC_Sequencer__enGetEnable(ADC_nMODULE enModule,
-                                          ADC_nSEQMASK enSequence);
+ADC_nERROR ADC_Sequencer__enSetStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                           ADC_nSTATE enStateArg);
+ADC_nERROR ADC_Sequencer__enSetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                             ADC_nSTATE enStateArg);
 
-void ADC_Sequencer__vSetDMAEnable(ADC_nMODULE enModule,
-                        ADC_nSEQMASK enSequence,
-                        ADC_nSTATE enSeqDMAEnable);
-ADC_nSTATE ADC_Sequencer__enGetDMAEnable(ADC_nMODULE enModule,
-                                    ADC_nSEQMASK enSequence);
+ADC_nERROR ADC_Sequencer__enGetStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                           ADC_nSEQMASK* penSequencerMaskReqArg);
+ADC_nERROR ADC_Sequencer__GetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                           ADC_nSTATE* penStateArg);
+
+ADC_nERROR ADC_Sequencer__enSetDMAStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSTATE enDMAStateArg);
+ADC_nERROR ADC_Sequencer__enSetDMAStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nSTATE enDMAStateArg);
+
+ADC_nERROR ADC_Sequencer__enGetDMAStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQMASK* penSequencerMaskReqArg);
+ADC_nERROR ADC_Sequencer__GetDMAStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                              ADC_nSTATE* penDMAStateArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_ENABLE_H_ */

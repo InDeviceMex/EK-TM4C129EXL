@@ -39,13 +39,13 @@ void EDUMKII_Joystick_vInit(void)
     static uint32_t u32Init = 0UL;
     uint32_t* pu32JoystickArray = (uint32_t*) 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
-     ADC_enSEQ_INPUT_0,
+     ADC_enINPUT_0,
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
-     ADC_enSEQ_INPUT_OPERATION_SAMPLE,
-     ADC_enSEQ_SAMPLE_HOLD_8,
+     ADC_enSAMPLE_MODE_SAMPLE,
+     ADC_enSH_8,
      ADC_enCOMPARATOR_0
     };
 
@@ -81,8 +81,8 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__vSetInterruptSourceConfig(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, GPIO_enINT_CONFIG_EDGE_BOTH);
         GPIO__vEnInterruptSource(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
 
-        ADC_Sample__vRegisterIRQSourceHandler(&EDUMKII_Joystick_vIRQSourceHandler,
-                                            ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_SOURCE_DMA);
+        ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Joystick_vIRQSourceHandler,
+                                            ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
 
         pu32JoystickArray = EDUMKII_Joystick_vSampleArray();
         pu32JoystickArray += 1UL;
@@ -102,22 +102,22 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__vSetAnalogFunction(EDUMKII_AXIS_X);
         GPIO__vSetAnalogFunction(EDUMKII_AXIS_Y);
 
-        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_DIS);
-        ADC_Sequencer__vSetTrigger(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSEQ_TRIGGER_SOFTWARE);
+        ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_DIS);
+        ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enTRIGGER_SOFTWARE);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_X_INPUT;
-        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enMUX_0, &stADC0SampleConfig);
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_Y_INPUT;
         stADC0SampleConfig.enInterrupt = ADC_enSTATE_ENA;
         stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
-        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enMUX_1, &stADC0SampleConfig);
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_1, &stADC0SampleConfig);
 
-        ADC_Sequencer__vEnInterruptSource(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_SOURCE_DMA);
+        ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_TYPE_DMA);
         ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_1,
                                 (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
-        ADC_Sequencer__vSetDMAEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
-        ADC_Sequencer__vSetEnable(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
         u32Init = 1UL;
     }
 }

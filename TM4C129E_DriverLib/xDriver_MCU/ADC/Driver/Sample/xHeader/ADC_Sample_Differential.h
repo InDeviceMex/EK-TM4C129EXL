@@ -22,17 +22,16 @@
  * 24 nov. 2020     vyldram    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_DIFFERENTIAL_H_
-#define XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_DIFFERENTIAL_H_
+#ifndef XDRIVER_MCU_ADC_DRIVER_SAMPLE_XHEADER_ADC_SAMPLE_DIFFERENTIAL_H_
+#define XDRIVER_MCU_ADC_DRIVER_SAMPLE_XHEADER_ADC_SAMPLE_DIFFERENTIAL_H_
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sample__vSetDifferential(ADC_nMODULE enModule,
-                                 ADC_nSEQUENCER enSequencer,
-                                 ADC_nMUX enMux,
-                                 ADC_nSTATE enSampleDifferential);
-ADC_nSTATE ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
-                                                 ADC_nSEQUENCER enSequencer,
-                                                 ADC_nMUX enMux);
+ADC_nERROR ADC_Sample__enSetDifferentialByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg);
+ADC_nERROR ADC_Sample__enSetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg);
+ADC_nERROR ADC_Sample__enGetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_Sample_XHEADER_ADC_Sample_DIFFERENTIAL_H_ */

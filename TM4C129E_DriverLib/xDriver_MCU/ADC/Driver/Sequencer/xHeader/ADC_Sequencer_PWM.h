@@ -27,9 +27,11 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sequencer__vSetPWMTrigger(ADC_nMODULE enModule,
-                                  ADC_nSEQUENCER enSequence,
-                                  ADC_nSEQ_PWM enSeqPWMTrigger);
-ADC_nSEQ_PWM ADC_Sequencer__enGetPWMTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
+ADC_nERROR ADC_Sequencer__enSetPWMTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                              ADC_nSEQ_PWM enPWMTriggerArg);
+ADC_nERROR ADC_Sequencer__enSetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nSEQ_PWM enPWMTriggerArg);
+ADC_nERROR ADC_Sequencer__enGetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                       ADC_nSEQ_PWM* penPWMTriggerArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_PWM_H_ */

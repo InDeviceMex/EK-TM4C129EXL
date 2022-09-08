@@ -54,8 +54,10 @@ SCB_nERROR SCB_Debug__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPr
         stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
         stRegister.uptrAddress = SCB_SHPR3_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        }
     }
     else
     {

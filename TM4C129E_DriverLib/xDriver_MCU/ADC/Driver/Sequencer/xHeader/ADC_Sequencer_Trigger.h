@@ -27,9 +27,12 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sequencer__vSetTrigger(ADC_nMODULE enModule,
-                               ADC_nSEQUENCER enSequence,
-                               ADC_nSEQ_TRIGGER enSeqTrigger);
-ADC_nSEQ_TRIGGER ADC_Sequencer__enGetTrigger(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
+ADC_nERROR ADC_Sequencer__enSetTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                             ADC_nTRIGGER enTriggerArg);
+ADC_nERROR ADC_Sequencer__enSetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                ADC_nTRIGGER enTriggerArg);
+
+ADC_nERROR ADC_Sequencer__enGetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                               ADC_nTRIGGER* penTriggerArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_TRIGGER_H_ */

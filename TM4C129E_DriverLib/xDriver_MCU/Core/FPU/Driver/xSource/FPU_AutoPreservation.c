@@ -37,8 +37,11 @@ FPU_nERROR FPU__enGetAutoPreservationState(FPU_nMODULE enModuleArg,
         stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+        }
 
-        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
     }
     else
     {

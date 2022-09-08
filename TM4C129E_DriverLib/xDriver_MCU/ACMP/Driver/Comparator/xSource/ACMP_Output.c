@@ -38,8 +38,10 @@ ACMP_nERROR ACMP__enGetComparatorOutput(ACMP_nMODULE enModuleArg, ACMP_nCOMP  en
         stRegister.u32Mask = ACMP_STAT_OVAL_MASK;
         stRegister.uptrAddress = ACMP_STAT_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-
-        *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.u32Value;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.u32Value;
+        }
     }
     else
     {

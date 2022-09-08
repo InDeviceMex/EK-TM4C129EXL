@@ -33,7 +33,7 @@ ACMP_nERROR ACMP__enSetInterruptSourceStateByMask(ACMP_nMODULE enModuleArg, ACMP
     uint32_t u32ValueReg;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, ((uint32_t) ACMP_enCOMPMASK_MAX) + 1U);
     if(ACMP_enERROR_OK == enErrorReg)
     {
         if(ACMP_enSTATE_DIS == enStateArg)
@@ -79,7 +79,7 @@ ACMP_nERROR ACMP__enGetInterruptSourceStateByMask(ACMP_nMODULE enModuleArg, ACMP
 
     if(0UL != (uintptr_t) penCompGetArg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, ((uint32_t) ACMP_enCOMPMASK_MAX) + 1U);
         if(ACMP_enERROR_OK == enErrorReg)
         {
             stRegister.u32Shift = 0U;
@@ -162,7 +162,7 @@ ACMP_nERROR ACMP__enClearInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nC
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, ((uint32_t) ACMP_enCOMPMASK_MAX) + 1U);
     if(ACMP_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0U;
@@ -203,7 +203,7 @@ ACMP_nERROR ACMP__enStatusInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_n
 
     if(0UL != (uintptr_t) penCompStatusArg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, ((uint32_t) ACMP_enCOMPMASK_MAX) + 1U);
         if(ACMP_enERROR_OK == enErrorReg)
         {
             stRegister.u32Shift = 0U;
@@ -253,7 +253,7 @@ ACMP_nERROR ACMP__enStatusMaskedInterruptSourceByMask(ACMP_nMODULE enModuleArg, 
 
     if(0UL != (uintptr_t) penCompStatusArg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, ((uint32_t) ACMP_enCOMPMASK_MAX) + 1U);
         if(ACMP_enERROR_OK == enErrorReg)
         {
             stRegister.u32Shift = 0U;

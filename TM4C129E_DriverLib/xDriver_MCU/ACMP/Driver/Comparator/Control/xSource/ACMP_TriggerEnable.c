@@ -54,8 +54,11 @@ ACMP_nERROR ACMP__enGetComparatorADCTriggerState(ACMP_nMODULE enModuleArg, ACMP_
         stRegister.u32Mask = ACMP_CTL_TOEN_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penTriggerStateArg = (ACMP_nSTATE) stRegister.u32Value;
+        }
 
-        *penTriggerStateArg = (ACMP_nSTATE) stRegister.u32Value;
     }
     else
     {

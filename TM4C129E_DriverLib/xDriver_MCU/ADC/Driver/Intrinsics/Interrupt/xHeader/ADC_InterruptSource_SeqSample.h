@@ -27,21 +27,23 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC_Sample__vEnSeqInterrupt(ADC_nMODULE enModule,
-                                ADC_nSEQUENCER  enSequencer,
-                                ADC_nMUX enMuxInput);
-void ADC_Sample__vEnSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
-                                ADC_nMUX enMuxInput);
-void ADC_Sample__vDisSeqInterrupt(ADC_nMODULE enModule,
-                                 ADC_nSEQUENCER  enSequencer,
-                                 ADC_nMUX enMuxInput);
-void ADC_Sample__vDisSeqMaskInterrupt(ADC_nMODULE enModule, ADC_nSEQMASK enSequencerMask,
-                                ADC_nMUX enMuxInput);
-ADC_nSTATE ADC_Sample__enGetSeqInterrupt(ADC_nMODULE enModule,
-                                                ADC_nSEQUENCER  enSequencer,
-                                                ADC_nMUX enMuxInput);
-ADC_nSEQMASK ADC_Sample__enGetSeqMaskInterrupt(ADC_nMODULE enModule,
-                                                    ADC_nSEQMASK enSequencerMask,
-                                                    ADC_nMUX enMuxInput);
+ADC_nERROR ADC_Sample__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                       ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg);
+ADC_nERROR ADC_Sample__enSetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                         ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg);
+
+ADC_nERROR ADC_Sample__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                       ADC_nSAMPLE enSampleArg, ADC_nSEQMASK* penSequencerGetArg);
+ADC_nERROR ADC_Sample__enGetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                         ADC_nSAMPLE enSampleArg, ADC_nSTATE* penStateArg);
+
+ADC_nERROR ADC_Sample__enEnableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                     ADC_nSAMPLE enSampleArg);
+ADC_nERROR ADC_Sample__enEnableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                       ADC_nSAMPLE enSampleArg);
+ADC_nERROR ADC_Sample__enDisableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                      ADC_nSAMPLE enSampleArg);
+ADC_nERROR ADC_Sample__enDisableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                        ADC_nSAMPLE enSampleArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_INTRINSICS_INTERRUPT_XHEADER_ADC_INTERRUPTSOURCE_SEQSAMPLE_H_ */

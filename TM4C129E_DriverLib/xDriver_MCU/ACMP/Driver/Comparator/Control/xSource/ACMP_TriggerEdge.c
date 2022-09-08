@@ -55,8 +55,11 @@ ACMP_nERROR ACMP__enGetComparatorADCTriggerEdge(ACMP_nMODULE enModuleArg,
         stRegister.u32Mask = ACMP_CTL_TSEN_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penTriggerEdgeArg = (ACMP_nEDGE) stRegister.u32Value;
+        }
 
-        *penTriggerEdgeArg = (ACMP_nEDGE) stRegister.u32Value;
     }
     else
     {

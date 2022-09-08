@@ -54,8 +54,10 @@ SCB_nERROR SCB_BusFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* e
         stRegister.u32Mask = SCB_SHPR1_BUS_MASK;
         stRegister.uptrAddress = SCB_SHPR1_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        }
     }
     else
     {
@@ -105,8 +107,10 @@ SCB_nERROR SCB_BusFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* e
         stRegister.u32Mask = SCB_SHCSR_BUSFAULTPENDED_MASK;
         stRegister.uptrAddress = SCB_SHCSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -157,8 +161,10 @@ SCB_nERROR SCB_BusFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStat
         stRegister.u32Mask = SCB_SHCSR_BUSFAULTENA_MASK;
         stRegister.uptrAddress = SCB_SHCSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {
@@ -179,8 +185,10 @@ SCB_nERROR SCB_BusFault_enGetFaultAddress(SCB_nMODULE enModuleArg, uint32_t* pu3
         stRegister.u32Mask = SCB_BFAR_ADDRESS_MASK;
         stRegister.uptrAddress = SCB_BFAR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *pu32FaultAddressArg = stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *pu32FaultAddressArg = stRegister.u32Value;
+        }
     }
     else
     {

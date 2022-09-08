@@ -39,7 +39,7 @@ uint32_t* EDUMKII_Joystick_vSampleArray(void)
 void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y)
 {
     u32JostickFlag = 0UL;
-    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_1);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];
@@ -53,7 +53,7 @@ void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect)
 void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect)
 {
     u32JostickFlag = 0UL;
-    ADC_Sequencer__vSetInitConv(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_1);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];
@@ -62,7 +62,7 @@ void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK 
 
 }
 
-void EDUMKII_Joystick_vIRQSourceHandler(void)
+void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     DMACHANNEL_t* pstDmaChannel = (DMACHANNEL_t*) 0UL;
     volatile uint32_t* u32TempReg = (uint32_t*) 0UL;

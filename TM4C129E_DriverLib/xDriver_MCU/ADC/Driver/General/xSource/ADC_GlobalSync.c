@@ -23,24 +23,50 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GlobalSync.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetGlobalSync(ADC_nMODULE enModule, ADC_nGLOBAL_SYNC enGlobalSync)
+ADC_nERROR ADC__enSetGlobalSync(ADC_nMODULE enModuleArg, ADC_nGLOBAL_SYNC enGlobalSyncArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_PSSI_OFFSET, (uint32_t) enGlobalSync,
-                            ADC_PSSI_GSYNC_MASK, ADC_PSSI_R_GSYNC_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_PSSI_R_GSYNC_BIT;
+    stRegister.u32Mask = ADC_PSSI_GSYNC_MASK;
+    stRegister.uptrAddress = ADC_PSSI_OFFSET;
+    stRegister.u32Value = (uint32_t) enGlobalSyncArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-void ADC__vInitGlobalSync(ADC_nMODULE enModule)
+
+ADC_nERROR ADC__enInitGlobalSync(ADC_nMODULE enModuleArg)
 {
-    ADC__vSetGlobalSync(enModule,ADC_enGLOBAL_SYNC_INIT);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC__enSetGlobalSync(enModuleArg, ADC_enGLOBAL_SYNC_INIT);
+    return (enErrorReg);
 }
 
-ADC_nGLOBAL_SYNC ADC__enGetGlobalSync(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetGlobalSync(ADC_nMODULE enModuleArg, ADC_nGLOBAL_SYNC* enGlobalSyncArg)
 {
-    ADC_nGLOBAL_SYNC enGlobalSync = ADC_enGLOBAL_SYNC_NOEFFECT;
-    enGlobalSync = (ADC_nGLOBAL_SYNC) ADC__u32GetGeneralGeneric((uint32_t) enModule,
-                                    ADC_PSSI_OFFSET, ADC_PSSI_GSYNC_MASK, ADC_PSSI_R_GSYNC_BIT);
-    return (enGlobalSync);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) enGlobalSyncArg)
+    {
+        stRegister.u32Shift = ADC_PSSI_R_GSYNC_BIT;
+        stRegister.u32Mask = ADC_PSSI_GSYNC_MASK;
+        stRegister.uptrAddress = ADC_PSSI_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *enGlobalSyncArg = (ADC_nGLOBAL_SYNC) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

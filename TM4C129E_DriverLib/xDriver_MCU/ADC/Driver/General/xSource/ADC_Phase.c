@@ -23,19 +23,42 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_Phase.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetPhase(ADC_nMODULE enModule, ADC_nPHASE enPhase)
+ADC_nERROR ADC__enSetPhaseLag(ADC_nMODULE enModuleArg, ADC_nPHASE enPhaseArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_SPC_OFFSET, (uint32_t) enPhase,
-                            ADC_SPC_PHASE_MASK, ADC_SPC_R_PHASE_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_SPC_R_PHASE_BIT;
+    stRegister.u32Mask = ADC_SPC_PHASE_MASK;
+    stRegister.uptrAddress = ADC_SPC_OFFSET;
+    stRegister.u32Value = (uint32_t) enPhaseArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ADC_nPHASE ADC__enGetPhase(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetPhaseLag(ADC_nMODULE enModuleArg, ADC_nPHASE* penPhaseArg)
 {
-    ADC_nPHASE enPhaseReg = ADC_enPHASE_0;
-    enPhaseReg = (ADC_nPHASE) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_SPC_OFFSET,
-                                                    ADC_SPC_PHASE_MASK, ADC_SPC_R_PHASE_BIT);
-    return (enPhaseReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penPhaseArg)
+    {
+        stRegister.u32Shift = ADC_SPC_R_PHASE_BIT;
+        stRegister.u32Mask = ADC_SPC_PHASE_MASK;
+        stRegister.uptrAddress = ADC_SPC_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penPhaseArg = (ADC_nPHASE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

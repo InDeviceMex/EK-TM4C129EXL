@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetConversionRate(ADC_nMODULE enModule, ADC_nCONVERSION_RATE enConversionRateArg);
-ADC_nCONVERSION_RATE ADC__enGetConversionRate(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RATE enConversionRateArg);
+ADC_nERROR ADC__enGetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RATE* penConversionRateArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_CONVERSIONRATE_H_ */

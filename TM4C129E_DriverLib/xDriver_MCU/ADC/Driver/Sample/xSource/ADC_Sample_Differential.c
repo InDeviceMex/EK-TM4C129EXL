@@ -23,26 +23,77 @@
  */
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Differential.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/ADC/Driver/Sample/xHeader/ADC_Sample_Generic.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Sample__vSetDifferential(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer,
-                                 ADC_nMUX enMux, ADC_nSTATE enSampleDifferential)
+ADC_nERROR ADC_Sample__enSetDifferentialByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
+                                                ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg)
 {
-    ADC_Sample__vSetGeneric((uint32_t) enModule, (uint32_t) enSequencer, ADC_SS_CTL_OFFSET,
-                           (uint32_t) enMux, (uint32_t) enSampleDifferential,
-                           ADC_SSCTL_D0_MASK, ADC_SSCTL_R_D0_BIT);
+    uint32_t u32SequencerReg;
+    uint32_t u32SequencerMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
+
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
+    {
+        u32SequencerReg = 0U;
+        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        while(0U != u32SequencerMaskReg)
+        {
+            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            {
+                enErrorReg = ADC_Sample__enSetDifferentialByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enSampleArg, enStateArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                enErrorMemoryReg = enErrorReg;
+            }
+            u32SequencerReg++;
+            u32SequencerMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorMemoryReg);
 }
 
-ADC_nSTATE ADC_Sample__enGetDifferential(ADC_nMODULE enModule,
-                                                 ADC_nSEQUENCER enSequencer, ADC_nMUX enMux)
+ADC_nERROR ADC_Sample__enSetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg)
 {
-    ADC_nSTATE enSeqInputDif = ADC_enSTATE_DIS;
-    enSeqInputDif = (ADC_nSTATE) ADC_Sample__u32GetGeneric((uint32_t) enModule,
-                                                               (uint32_t) enSequencer,
-                                                               ADC_SS_CTL_OFFSET,
-                                                               (uint32_t) enMux,
-                                                               ADC_SSCTL_D0_MASK,
-                                                               ADC_SSCTL_R_D0_BIT);
-    return (enSeqInputDif);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+
+    stRegister.u32Shift = ADC_SS_CTL_R_D0_BIT;
+    stRegister.u32Mask = ADC_SS_CTL_D0_MASK;
+    stRegister.uptrAddress = ADC_SS_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Sample__enGetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+                                                  ADC_nSAMPLE enSampleArg, ADC_nSTATE* penStateArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = ADC_SS_CTL_R_D0_BIT;
+        stRegister.u32Mask = ADC_SS_CTL_D0_MASK;
+        stRegister.uptrAddress = ADC_SS_CTL_OFFSET;
+        enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (ADC_nSTATE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

@@ -138,8 +138,8 @@ typedef volatile struct
     };
     union
     {
-        volatile uint32_t DC_ISC [32UL];
-        BITBANDING_ADC_DC_ISC_t DC_ISC_Bit;
+        volatile uint32_t DCISC [32UL];
+        BITBANDING_ADC_DCISC_t DCISC_Bit;
     };
     union
     {

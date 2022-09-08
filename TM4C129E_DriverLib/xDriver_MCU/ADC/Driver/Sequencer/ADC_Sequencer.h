@@ -26,6 +26,7 @@
 #define XDRIVER_MCU_ADC_DRIVER_SEQUENCER_ADC_SEQUENCER_H_
 
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Enable.h>
+#include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Fifo.h>
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_InitConv.h>
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Overflow.h>
 #include <xDriver_MCU/ADC/Driver/Sequencer/xHeader/ADC_Sequencer_Priority.h>

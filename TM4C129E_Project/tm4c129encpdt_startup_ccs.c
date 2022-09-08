@@ -56,7 +56,7 @@ extern uint32_t main(void);
 
 #pragma  DATA_SECTION(pui32MainStack, ".stack")
 
-uint8_t pui32MainStack[0x00000800UL - 8UL];
+uint8_t pui32MainStack[0x00000200UL - 8UL];
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/
@@ -323,7 +323,7 @@ ResetISR(void)
     /* enabled).  Any configuration of the float32_ting-point unit using DriverLib*/
     /* APIs must be done here prior to the float32_ting-point unit being enabled.*/
 
-    FPU__vInit();
+    FPU__enInit(FPU_enMODULE_0);
     NVIC__enDisableAllInterrupts(NVIC_enMODULE_0);
     SCB__vInit();
     FLASH__enInit();

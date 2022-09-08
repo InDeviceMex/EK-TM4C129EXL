@@ -23,36 +23,81 @@
  */
 #include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_ClockConfig.h>
 
-#include <xDriver_MCU/ADC/Driver/General/xHeader/ADC_GeneralGeneric.h>
+#include <xDriver_MCU/ADC/Driver/Intrinsics/ADC_Intrinsics.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC__vSetClockSource(ADC_nMODULE enModule, ADC_nCLOCK enClock)
+ADC_nERROR ADC__enSetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK enClockSourceArg)
 {
-    ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET, (uint32_t) enClock,
-                            ADC_CC_CS_MASK, ADC_CC_R_CS_BIT);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_CC_R_CS_BIT;
+    stRegister.u32Mask = ADC_CC_CS_MASK;
+    stRegister.uptrAddress = ADC_CC_OFFSET;
+    stRegister.u32Value = (uint32_t) enClockSourceArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-ADC_nCLOCK ADC__enGetClockSource(ADC_nMODULE enModule)
+ADC_nERROR ADC__enGetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK* penClockSourceArg)
 {
-    return ((ADC_nCLOCK) ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET,
-                                                   ADC_CC_CS_MASK, ADC_CC_R_CS_BIT));
-}
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
 
-void ADC__vSetVCODivisor(ADC_nMODULE enModule, uint32_t u32DivisorArg)
-{
-    if(0UL != u32DivisorArg)
+    if(0UL != (uintptr_t) penClockSourceArg)
     {
-        u32DivisorArg--;
-        ADC__vSetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET, u32DivisorArg,
-                                ADC_CC_CLKDIV_MASK, ADC_CC_R_CLKDIV_BIT);
+        stRegister.u32Shift = ADC_CC_R_CS_BIT;
+        stRegister.u32Mask = ADC_CC_CS_MASK;
+        stRegister.uptrAddress = ADC_CC_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penClockSourceArg = (ADC_nCLOCK) stRegister.u32Value;
+        }
     }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-uint32_t ADC__u32GetVCODivisor(ADC_nMODULE enModule)
+
+ADC_nERROR ADC__enSetVCODivisor(ADC_nMODULE enModuleArg, uint32_t u32VCODivisorArg)
 {
-    uint32_t u32DivisorArg = 0UL;
-    u32DivisorArg = ADC__u32GetGeneralGeneric((uint32_t) enModule, ADC_CC_OFFSET,
-                                              ADC_CC_CLKDIV_MASK, ADC_CC_R_CLKDIV_BIT);
-    u32DivisorArg++;
-    return (u32DivisorArg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_CC_R_CLKDIV_BIT;
+    stRegister.u32Mask = ADC_CC_CLKDIV_MASK;
+    stRegister.uptrAddress = ADC_CC_OFFSET;
+    stRegister.u32Value = u32VCODivisorArg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
+
+ADC_nERROR ADC__enGetVCODivisor(ADC_nMODULE enModuleArg, uint32_t* pu32VCODivisorArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32VCODivisorArg)
+    {
+        stRegister.u32Shift = ADC_CC_R_CLKDIV_BIT;
+        stRegister.u32Mask = ADC_CC_CLKDIV_MASK;
+        stRegister.uptrAddress = ADC_CC_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *pu32VCODivisorArg = stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+

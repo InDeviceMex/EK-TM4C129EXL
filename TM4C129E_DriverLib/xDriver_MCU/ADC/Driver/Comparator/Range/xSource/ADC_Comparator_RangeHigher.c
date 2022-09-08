@@ -23,20 +23,78 @@
  */
 #include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_RangeHigher.h>
 
-#include <xDriver_MCU/ADC/Driver/Comparator/Range/xHeader/ADC_Comparator_GenericRange.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/ADC/Driver/Comparator/xHeader/ADC_CompGeneric.h>
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
-void ADC_Comparator__vSetRangeHigh(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp,
-                            uint32_t u32CompRangeHigh)
+ADC_nERROR ADC_Comparator__enSetRangeHighByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
+                                            uint32_t u32RangeHighArg)
 {
-    ADC_Comparator__vSetGenericRange((uint32_t) enModule, (uint32_t) enActComp,
-                              u32CompRangeHigh, ADC_DC_CMP_COMP1_MASK, ADC_DC_CMP_R_COMP1_BIT);
+    uint32_t u32ComparatorReg;
+    uint32_t u32ComparatorMaskReg;
+    ADC_nERROR enErrorReg;
+    ADC_nERROR enErrorMemoryReg;
+
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    if(ADC_enERROR_OK == enErrorMemoryReg)
+    {
+        u32ComparatorReg = 0U;
+        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        while(0U != u32ComparatorMaskReg)
+        {
+            if(0UL != (ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            {
+                enErrorReg = ADC_Comparator__enSetRangeHighByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, u32RangeHighArg);
+            }
+
+            if(ADC_enERROR_OK != enErrorReg)
+            {
+                break;
+            }
+            u32ComparatorReg++;
+            u32ComparatorMaskReg >>= 1U;
+        }
+    }
+
+    return (enErrorMemoryReg);
 }
 
-uint32_t ADC_Comparator__u32GetRangeHigh(ADC_nMODULE enModule, ADC_nCOMPARATOR enActComp)
+ADC_nERROR ADC_Comparator__enSetRangeHighByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                  uint32_t u32RangeHighArg)
 {
-    uint32_t u32RangeReg = 0UL;
-    u32RangeReg = ADC_Comparator__u32GetGenericRange((uint32_t) enModule, (uint32_t) enActComp,
-                                     ADC_DC_CMP_COMP1_MASK, ADC_DC_CMP_R_COMP1_BIT);
-    return (u32RangeReg);
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    stRegister.u32Shift = ADC_DC_CMP_R_COMP1_BIT;
+    stRegister.u32Mask = ADC_DC_CMP_COMP1_MASK;
+    stRegister.uptrAddress = ADC_DC_CMP_OFFSET;
+    stRegister.u32Value = u32RangeHighArg;
+    enErrorReg = ADC_Comparator__enSetGeneric(enModuleArg, enComparatorArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+ADC_nERROR ADC_Comparator__enGetRangeHighByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
+                                                  uint32_t* pu32RangeHighArg)
+{
+    ADC_Register_t stRegister;
+    ADC_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32RangeHighArg)
+    {
+        stRegister.u32Shift = ADC_DC_CMP_R_COMP1_BIT;
+        stRegister.u32Mask = ADC_DC_CMP_COMP1_MASK;
+        stRegister.uptrAddress = ADC_DC_CMP_OFFSET;
+        enErrorReg = ADC_Comparator__enGetGeneric(enModuleArg, enComparatorArg, &stRegister);
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *pu32RangeHighArg = stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

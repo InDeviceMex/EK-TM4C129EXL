@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
-void ADC__vSetClockSource(ADC_nMODULE enModule, ADC_nCLOCK enClock);
-ADC_nCLOCK ADC__enGetClockSource(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK enClockSourceArg);
+ADC_nERROR ADC__enGetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK* penClockSourceArg);
 
-void ADC__vSetVCODivisor(ADC_nMODULE enModule, uint32_t u32DivisorArg);
-uint32_t ADC__u32GetVCODivisor(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetVCODivisor(ADC_nMODULE enModuleArg, uint32_t u32VCODivisorArg);
+ADC_nERROR ADC__enGetVCODivisor(ADC_nMODULE enModuleArg, uint32_t* pu32VCODivisorArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_CLOCKCONFIG_H_ */

@@ -69,8 +69,10 @@ SCB_nERROR SCB__enGetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE*
         stRegister.u32Mask = SCB_CCR_UNALIGN_TRP_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-
-        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        }
     }
     else
     {
