@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterPeripheral/CAN_RegisterPeripheral.h>
 
-uint32_t CAN__u32BlockBaseAddress(CAN_nMODULE enModuleArg)
+uintptr_t CAN__uptrBlockBaseAddress(CAN_nMODULE enModuleArg)
 {
     const uintptr_t CAN_BLOCK_BASE[(uint32_t) CAN_enMODULE_MAX] =
     {

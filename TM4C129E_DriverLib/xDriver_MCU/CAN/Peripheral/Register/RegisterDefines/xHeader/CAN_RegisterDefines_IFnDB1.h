@@ -1,6 +1,6 @@
 /**
  *
- * @file CAN_RegisterDefines_IFnDB1.h
+ * @file CAN_RegisterDefines_IFn_DB1.h
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -28,22 +28,22 @@
 #include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
 
 /******************************************************************************************
-************************************ 24,28 IFnDB1 *********************************************
+************************************ 24,28 IFn_DB1 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define CAN_IFnDB1_R_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFnDB1_R_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFnDB1_R_DATA4_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFnDB1_R_DATA5_MASK    ((uint32_t) 0x0000FF00UL)
-#define CAN_IFnDB1_R_DATA_BIT    ((uint32_t) 0UL)
-#define CAN_IFnDB1_R_DATA45_BIT    ((uint32_t) 0UL)
-#define CAN_IFnDB1_R_DATA4_BIT    ((uint32_t) 0UL)
-#define CAN_IFnDB1_R_DATA5_BIT    ((uint32_t) 8UL)
+#define CAN_IFn_DB1_R_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_R_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_R_DATA4_MASK    ((uint32_t) 0x000000FFUL)
+#define CAN_IFn_DB1_R_DATA5_MASK    ((uint32_t) 0x0000FF00UL)
+#define CAN_IFn_DB1_R_DATA_BIT    ((uint32_t) 0UL)
+#define CAN_IFn_DB1_R_DATA45_BIT    ((uint32_t) 0UL)
+#define CAN_IFn_DB1_R_DATA4_BIT    ((uint32_t) 0UL)
+#define CAN_IFn_DB1_R_DATA5_BIT    ((uint32_t) 8UL)
 
-#define CAN_IFnDB1_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFnDB1_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFnDB1_DATA4_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFnDB1_DATA5_MASK    ((uint32_t) 0x0000FFUL)
+#define CAN_IFn_DB1_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_DATA4_MASK    ((uint32_t) 0x000000FFUL)
+#define CAN_IFn_DB1_DATA5_MASK    ((uint32_t) 0x0000FFUL)
 /*--------*/
 
 

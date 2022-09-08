@@ -139,14 +139,14 @@ uint32_t main(void)
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 80UL,
-                                  (void*) 150UL, 3UL, &TaskHandeler[0UL]);
-    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 80UL,
-                                  (void*) 150UL, 3UL, &TaskHandeler[1UL]);
-    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 80UL,
-                                  (void*) 150UL, 3UL, &TaskHandeler[2UL]);
     OS_Task__uxCreate(&xTask8_Debug, "UART Task", 300UL,
-                                  (void*) 100UL, 2UL, &TaskHandeler[3UL]);
+                                  (void*) 250UL, 5UL, &TaskHandeler[3UL]);
+    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 80UL,
+                                  (void*) 150UL, 4UL, &TaskHandeler[1UL]);
+    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 80UL,
+                                  (void*) 100UL, 3UL, &TaskHandeler[0UL]);
+    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 80UL,
+                                  (void*) 30UL, 2UL, &TaskHandeler[2UL]);
     OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 300UL,
                                   (void*) 25UL, 2UL, &TaskHandeler[4UL]);
     OS_Task__vStartScheduler(1000UL);

@@ -42,7 +42,7 @@ typedef volatile struct
     volatile uint32_t CCE;
     volatile uint32_t TEST;
     const uint32_t reserved1 [24UL];
-}BITBANDING_CANCTL_t;
+}BITBANDING_CAN_CTL_t;
 
 typedef volatile struct
 {
@@ -53,7 +53,7 @@ typedef volatile struct
     volatile const uint32_t EWARN;
     volatile const uint32_t BOFF;
     const uint32_t reserved [24UL];
-}BITBANDING_CANSTS_t;
+}BITBANDING_CAN_STS_t;
 
 typedef volatile struct
 {
@@ -61,7 +61,7 @@ typedef volatile struct
     volatile const uint32_t REC [7UL];
     volatile const uint32_t RP;
     const uint32_t reserved [16UL];
-}BITBANDING_CANERR_t;
+}BITBANDING_CAN_ERR_t;
 
 typedef volatile struct
 {
@@ -70,13 +70,13 @@ typedef volatile struct
     volatile uint32_t TSEG1 [4UL];
     volatile uint32_t TSEG2 [3UL];
     const uint32_t reserved [17UL];
-}BITBANDING_CANBIT_t;
+}BITBANDING_CAN_BIT_t;
 
 typedef volatile struct
 {
     volatile const uint32_t INTID [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANINT_t;
+}BITBANDING_CAN_INT_t;
 
 typedef volatile struct
 {
@@ -87,13 +87,13 @@ typedef volatile struct
     volatile uint32_t TX [2UL];
     volatile const uint32_t RX;
     const uint32_t reserved1 [24UL];
-}BITBANDING_CANTST_t;
+}BITBANDING_CAN_TST_t;
 
 typedef volatile struct
 {
     volatile uint32_t BRPE [4UL];
     const uint32_t reserved [28UL];
-}BITBANDING_CANBRPE_t;
+}BITBANDING_CAN_BRPE_t;
 
 typedef volatile struct
 {
@@ -101,7 +101,7 @@ typedef volatile struct
     const uint32_t reserved [9UL];
     volatile const uint32_t BUSY;
     const uint32_t reserved1 [16UL];
-}BITBANDING_CANIFnCRQ_t;
+}BITBANDING_CAN_IFn_CRQ_t;
 
 typedef volatile struct
 {
@@ -114,13 +114,13 @@ typedef volatile struct
     volatile uint32_t MASK;
     volatile uint32_t WRNRD;
     const uint32_t reserved [24UL];
-}BITBANDING_CANIFnCMSK_t;
+}BITBANDING_CAN_IFn_CMSK_t;
 
 typedef volatile struct
 {
     volatile uint32_t MSK [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnMSK1_t;
+}BITBANDING_CAN_IFn_MSK1_t;
 
 typedef volatile struct
 {
@@ -129,22 +129,22 @@ typedef volatile struct
     volatile uint32_t MDIR;
     volatile uint32_t MXTD;
     const uint32_t reserved1 [16UL];
-}BITBANDING_CANIFnMSK2_t;
+}BITBANDING_CAN_IFn_MSK2_t;
 
 typedef volatile struct
 {
     volatile uint32_t ID [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnARB1_t;
+}BITBANDING_CAN_IFn_ARB1_t;
 
 typedef volatile struct
 {
     volatile uint32_t ID [13UL];
     volatile uint32_t DIR;
     volatile uint32_t MXTD;
-    volatile uint32_t MSGVAL;
+    volatile uint32_t MSG_VAL;
     const uint32_t reserved1 [16UL];
-}BITBANDING_CANIFnARB2_t;
+}BITBANDING_CAN_IFn_ARB2_t;
 
 typedef volatile struct
 {
@@ -160,64 +160,64 @@ typedef volatile struct
     volatile uint32_t MSGLST;
     volatile uint32_t NEWDAT;
     const uint32_t reserved1 [16UL];
-}BITBANDING_CANIFnMCTL_t;
+}BITBANDING_CAN_IFn_MCTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnD_t;
+}BITBANDING_CAN_IFn_D_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA0 [8UL];
     volatile uint32_t DATA1 [8UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnDA1_t; /*IFnDA1*/
+}BITBANDING_CAN_IFn_DA1_t; /*IFn_DA1*/
 
 typedef volatile struct
 {
     volatile uint32_t DATA2 [8UL];
     volatile uint32_t DATA3 [8UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnDA2_t; /*IFnDA2*/
+}BITBANDING_CAN_IFn_DA2_t; /*IFn_DA2*/
 
 typedef volatile struct
 {
     volatile uint32_t DATA4 [8UL];
     volatile uint32_t DATA5 [8UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnDB1_t; /*IFnDB1*/
+}BITBANDING_CAN_IFn_DB1_t; /*IFn_DB1*/
 
 typedef volatile struct
 {
     volatile uint32_t DATA6 [8UL];
     volatile uint32_t DATA7 [8UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANIFnDB2_t; /*IFnDB2*/
+}BITBANDING_CAN_IFn_DB2_t; /*IFn_DB2*/
 
 typedef volatile struct
 {
     volatile uint32_t TXRQST [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANTXRQn_t;
+}BITBANDING_CAN_TXRQn_t;
 
 typedef volatile struct
 {
     volatile const uint32_t NEWDAT [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANNWDAn_t;
+}BITBANDING_CAN_NWDAn_t;
 
 typedef volatile struct
 {
     volatile const uint32_t INTPND [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANMSGnINT_t;
+}BITBANDING_CAN_MSGn_INT_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t MSGVAL [16UL];
+    volatile const uint32_t MSG_VAL [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_CANMSGnVAL_t;
+}BITBANDING_CAN_MSGn_VAL_t;
 
 #endif /* XDRIVER_MCU_CAN_PERIPHERAL_STRUCT_XHEADER_CAN_STRUCTREGISTER_BITBANDING_H_ */

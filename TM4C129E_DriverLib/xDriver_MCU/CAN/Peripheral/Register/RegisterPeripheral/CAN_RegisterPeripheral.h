@@ -30,6 +30,6 @@
 
 #define CAN    ((CANS_t*) (CAN_BASE))
 
-uint32_t CAN__u32BlockBaseAddress(CAN_nMODULE enModuleArg);
+uintptr_t CAN__uptrBlockBaseAddress(CAN_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_CAN_REGISTERPERIPHERAL_H_ */

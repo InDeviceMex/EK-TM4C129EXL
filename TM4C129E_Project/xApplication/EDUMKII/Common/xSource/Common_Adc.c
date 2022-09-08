@@ -35,7 +35,7 @@ void EDUMKII_Common_vAdcInit(void)
     if(0UL == u32Init)
     {
         ADC__enSetConversionRate(ADC_enMODULE_1, ADC_enCONVERSION_RATE_1);
-        ADC__enSetVCODivisor(ADC_enMODULE_1, 480UL/32UL);
+        ADC__enSetVCODivisor(ADC_enMODULE_1, (480UL/32UL) - 1U);
         ADC__enSetClockSource(ADC_enMODULE_1, ADC_enCLOCK_PLL_VCO);
         ADC__enSetAverageSampling(ADC_enMODULE_1, ADC_enAVERAGE_DIS);
         u32Init = 1UL;
