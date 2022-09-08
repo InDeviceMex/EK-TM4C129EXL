@@ -33,23 +33,23 @@ typedef volatile struct
     union
     {
         volatile uint32_t CTRL;
-        CRCCTRL_t CTRL_Bit;
+        CRC_CTRL_t CTRL_Bit;
     };
     const uint32_t reserved1 [3UL];
     union
     {
         volatile uint32_t SEED;
-        CRCSEED_t SEED_Bit;
+        CRC_SEED_t SEED_Bit;
     };
     union
     {
         volatile uint32_t DIN;
-        CRCDIN_t DIN_Bit;
+        CRC_DIN_t DIN_Bit;
     };
     union
     {
         volatile const uint32_t RSLTPP;
-        CRCRSLTPP_t RSLTPP_Bit;
+        CRC_RSLTPP_t RSLTPP_Bit;
     };
     const uint32_t reserved2 [761UL];
 }CRC_t;
