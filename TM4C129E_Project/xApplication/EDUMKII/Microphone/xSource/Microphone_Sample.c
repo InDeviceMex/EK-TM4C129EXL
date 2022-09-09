@@ -39,7 +39,7 @@ uint32_t* EDUMKII_Microphone_vSampleArray(void)
 void EDUMKII_Microphone_vSample(uint32_t *u32Input)
 {
     u32MicrophoneFlag = 0UL;
-    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_0);
+    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_3);
     while(0UL == u32MicrophoneFlag){}
     *u32Input = u32MicrophoneFifoArray[0];
 }
@@ -63,10 +63,10 @@ void EDUMKII_Microphone_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgum
          DMA_enCH_DST_INC_WORD,
     };
 
-    pstDmaChannel = &(DMACH->DMACh[14UL]);
+    pstDmaChannel = &(DMACH->DMACh[(uint32_t) DMA_enCH_MODULE_17]);
     u32TempReg = (volatile uint32_t*) &enChControl;
     pstDmaChannel->CHCTL = *u32TempReg;
-    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 14UL;
+    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << (uint32_t) DMA_enCH_MODULE_17;
     u32MicrophoneFlag = 1UL;
 }
 

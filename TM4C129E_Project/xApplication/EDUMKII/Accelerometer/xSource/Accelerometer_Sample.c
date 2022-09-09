@@ -38,7 +38,7 @@ uint32_t* EDUMKII_Accelerometer_vSampleArray(void)
 void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
 {
     u32AccelerometerFlag = 0UL;
-    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_2);
+    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_0);
     while(0UL == u32AccelerometerFlag){}
     *s32X = (int32_t) u32AccelerometerFifoArray[0] - 2048;
     *s32Y = (int32_t) u32AccelerometerFifoArray[1] - 2048;
@@ -64,10 +64,10 @@ void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvAr
          DMA_enCH_DST_INC_WORD,
     };
 
-    pstDmaChannel = &(DMACH->DMACh[16UL]);
+    pstDmaChannel = &(DMACH->DMACh[(uint32_t) DMA_enCH_MODULE_14]);
     u32TempReg = (volatile uint32_t*) &enChControl;
     pstDmaChannel->CHCTL = *u32TempReg;
-    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 16UL;
+    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << (uint32_t) DMA_enCH_MODULE_14;
     u32AccelerometerFlag = 1UL;
 }
 

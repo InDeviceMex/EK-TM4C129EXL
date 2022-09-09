@@ -73,33 +73,33 @@ void EDUMKII_Microphone_vInit(void)
     };
 
     ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Microphone_vIRQSourceHandler,
-                                        ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_TYPE_DMA);
+                                        ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_DMA);
 
     pu32MicrophoneArray = EDUMKII_Microphone_vSampleArray();
-    DMA_CH__vSetPrimaryDestEndAddress(DMA_enCH_MODULE_14, (uint32_t) pu32MicrophoneArray);
-    DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH__vSetPrimaryControlWorld(DMA_enCH_MODULE_14, enDMAChControl);
+    DMA_CH__vSetPrimaryDestEndAddress(DMA_enCH_MODULE_17, (uint32_t) pu32MicrophoneArray);
+    DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
+    DMA_CH__vSetPrimaryControlWorld(DMA_enCH_MODULE_17, enDMAChControl);
 
-    DMA_CH__vSetAlternateDestEndAddress(DMA_enCH_MODULE_14, (uint32_t) pu32MicrophoneArray);
-    DMA_CH__vSetAlternateSourceEndAddress(DMA_enCH_MODULE_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH__vSetAlternateControlWorld(DMA_enCH_MODULE_14, enDMAChControl);
+    DMA_CH__vSetAlternateDestEndAddress(DMA_enCH_MODULE_17, (uint32_t) pu32MicrophoneArray);
+    DMA_CH__vSetAlternateSourceEndAddress(DMA_enCH_MODULE_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
+    DMA_CH__vSetAlternateControlWorld(DMA_enCH_MODULE_17, enDMAChControl);
 
-    DMA_CH__vSetConfigStruct(DMA_enCH_MODULE_14, enDMAChConfig);
-    DMA_CH__vSetEnable(DMA_enCH_MODULE_14, DMA_enCH_ENA_ENA);
+    DMA_CH__vSetConfigStruct(DMA_enCH_MODULE_17, enDMAChConfig);
+    DMA_CH__vSetEnable(DMA_enCH_MODULE_17, DMA_enCH_ENA_ENA);
 
     EDUMKII_Common_vAdcInit();
 
     GPIO__vSetAnalogFunction(EDUMKII_MICROPHONE);
 
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_DIS);
-    ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enTRIGGER_SOFTWARE);
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_0, &stADC0SampleConfig);
+    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_DIS);
+    ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enTRIGGER_SOFTWARE);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
-    ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_TYPE_DMA);
-    ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_0,
-                            (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
-    ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enINT_TYPE_DMA);
+    ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_3,
+                            (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ3);
+    ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_ENA);
 }
 
 

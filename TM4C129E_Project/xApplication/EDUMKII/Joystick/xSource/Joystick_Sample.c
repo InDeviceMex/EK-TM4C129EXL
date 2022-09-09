@@ -81,10 +81,10 @@ void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgumen
          DMA_enCH_DST_INC_WORD,
     };
 
-    pstDmaChannel = &(DMACH->DMACh[15UL]);
+    pstDmaChannel = &(DMACH->DMACh[(uint32_t) DMA_enCH_MODULE_15]);
     u32TempReg = (volatile uint32_t*) &enChControl;
     pstDmaChannel->CHCTL = *u32TempReg;
-    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 15UL;
+    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << (uint32_t) DMA_enCH_MODULE_15;
     u32JostickFlag = 1UL;
 }
 
