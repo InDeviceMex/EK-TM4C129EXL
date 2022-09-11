@@ -32,24 +32,24 @@ typedef volatile struct
     union
     {
         volatile uint32_t SRCENDP;
-        DMASRCENDP_t SRCENDP_Bit;
+        DMA_CH_SRCENDP_t SRCENDP_Bit;
     };
     union
     {
         volatile uint32_t DSTENDP;
-        DMADSTENDP_t DSTENDP_Bit;
+        DMA_CH_DSTENDP_t DSTENDP_Bit;
     };
     union
     {
-        volatile uint32_t CHCTL;
-        DMACHCTL_t CHCTL_Bit;
+        volatile uint32_t CTL;
+        DMA_CH_CTL_t CTL_Bit;
     };
     const uint32_t reserved;
-}DMACHANNEL_t;
+}DMA_CHANNEL_t;
 
 typedef volatile struct
 {
-    DMACHANNEL_t DMACh [32UL];
-}DMACH_t;
+    DMA_CHANNEL_t CH [32UL];
+}DMA_CH_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTPERIPHERALCHANNEL_H_ */

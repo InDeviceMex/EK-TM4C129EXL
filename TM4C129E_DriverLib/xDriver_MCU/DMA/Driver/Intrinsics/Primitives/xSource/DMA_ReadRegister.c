@@ -26,11 +26,23 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-uint32_t DMA__u32ReadRegister(uint32_t u32OffsetRegister, uint32_t u32MaskFeature,
-                              uint32_t u32BitFeature)
+DMA_nERROR DMA__enReadRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32FeatureValue = 0UL;
-    u32FeatureValue = MCU__u32ReadRegister(DMA_BASE, u32OffsetRegister,
-                                           u32MaskFeature, u32BitFeature);
-    return (u32FeatureValue);
+    uintptr_t uptrModuleBase;
+    DMA_nERROR enErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
+            pstRegisterDataArg->uptrAddress += uptrModuleBase;
+            enErrorReg = (DMA_nERROR) MCU__enReadRegister(pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

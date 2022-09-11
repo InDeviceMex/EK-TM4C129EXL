@@ -27,14 +27,11 @@
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma DATA_SECTION(DMA__stChannel, ".dma")
-#pragma DATA_SECTION(DMA__stChannelAlt, ".dmaalt")
 
-volatile DMACHANNEL_t DMA__stChannel[DMACH_MAX];
-volatile DMACHANNEL_t DMA__stChannelAlt[DMACH_MAX];
+volatile DMA_CHANNEL_t DMA__stChannel[DMA_CH_MAX * 2UL] __attribute__((aligned(1024)));
 
 #elif defined (__GNUC__ )
 
-__attribute__((section(".dma"))) volatile DMACHANNEL_t DMA__stChannel[DMACH_MAX];
-__attribute__((section(".dmaalt"))) volatile DMACHANNEL_t DMA__stChannelAlt[DMACH_MAX];
+__attribute__((section(".dma"))) volatile DMA_CHANNEL_t DMA__stChannel[DMA_CH_MAX * 2UL] __attribute__((aligned(1024)));
 
 #endif

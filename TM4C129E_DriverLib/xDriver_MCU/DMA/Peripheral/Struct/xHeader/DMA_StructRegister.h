@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 typedef volatile struct
 {
@@ -33,25 +33,25 @@ typedef volatile struct
     const uint32_t reserved :3;
     volatile const uint32_t STATE :4;
     const uint32_t reserved1:8;
-    volatile const uint32_t DMACHANS :5;
+    volatile const uint32_t CHANS :5;
     const uint32_t reserved2:11;
-}DMASTAT_t;
+}DMA_STAT_t;
 
 typedef volatile struct
 {
     volatile uint32_t MASTEN :1;
     const uint32_t reserved :31;
-}DMACFG_t;
+}DMA_CFG_t;
 
 typedef volatile struct
 {
     volatile uint32_t ADDR :32;
-}DMACTLBASE_t;
+}DMA_CTLBASE_t;
 
 typedef volatile struct
 {
     volatile const uint32_t ADDR :32;
-}DMAALTBASE_t;
+}DMA_ALTBASE_t;
 
 typedef volatile struct
 {
@@ -87,7 +87,7 @@ typedef volatile struct
     volatile const uint32_t WAITREQ29 :1;
     volatile const uint32_t WAITREQ30 :1;
     volatile const uint32_t WAITREQ31 :1;
-}DMAWAITSTAT_t;
+}DMA_CH_WAITSTAT_t;
 
 typedef volatile struct
 {
@@ -123,7 +123,7 @@ typedef volatile struct
     volatile uint32_t SWREQ29 :1;
     volatile uint32_t SWREQ30 :1;
     volatile uint32_t SWREQ31 :1;
-}DMASWREQ_t;
+}DMA_CH_SWREQ_t;
 
 typedef volatile struct
 {
@@ -159,7 +159,7 @@ typedef volatile struct
     volatile uint32_t SET29 :1;
     volatile uint32_t SET30 :1;
     volatile uint32_t SET31 :1;
-}DMASET_t;
+}DMA_CH_SET_t;
 
 typedef volatile struct
 {
@@ -195,195 +195,195 @@ typedef volatile struct
     volatile uint32_t CLR29 :1;
     volatile uint32_t CLR30 :1;
     volatile uint32_t CLR31 :1;
-}DMACLR_t;
+}DMA_CH_CLR_t;
 
 typedef volatile struct
 {
     volatile uint32_t ERRCLR :1;
     const uint32_t reserved :31;
-}DMAERRCLR_t;
+}DMA_ERRCLR_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CHASGN0 :1;
-    volatile uint32_t CHASGN1 :1;
-    volatile uint32_t CHASGN2 :1;
-    volatile uint32_t CHASGN3 :1;
-    volatile uint32_t CHASGN4 :1;
-    volatile uint32_t CHASGN5 :1;
-    volatile uint32_t CHASGN6 :1;
-    volatile uint32_t CHASGN7 :1;
-    volatile uint32_t CHASGN8 :1;
-    volatile uint32_t CHASGN9 :1;
-    volatile uint32_t CHASGN10 :1;
-    volatile uint32_t CHASGN11 :1;
-    volatile uint32_t CHASGN12 :1;
-    volatile uint32_t CHASGN13 :1;
-    volatile uint32_t CHASGN14 :1;
-    volatile uint32_t CHASGN15 :1;
-    volatile uint32_t CHASGN16 :1;
-    volatile uint32_t CHASGN17 :1;
-    volatile uint32_t CHASGN18 :1;
-    volatile uint32_t CHASGN19 :1;
-    volatile uint32_t CHASGN20 :1;
-    volatile uint32_t CHASGN21 :1;
-    volatile uint32_t CHASGN22 :1;
-    volatile uint32_t CHASGN23 :1;
-    volatile uint32_t CHASGN24 :1;
-    volatile uint32_t CHASGN25 :1;
-    volatile uint32_t CHASGN26 :1;
-    volatile uint32_t CHASGN27 :1;
-    volatile uint32_t CHASGN28 :1;
-    volatile uint32_t CHASGN29 :1;
-    volatile uint32_t CHASGN30 :1;
-    volatile uint32_t CHASGN31 :1;
-}DMACHASGN_t;
+    volatile uint32_t ASGN0 :1;
+    volatile uint32_t ASGN1 :1;
+    volatile uint32_t ASGN2 :1;
+    volatile uint32_t ASGN3 :1;
+    volatile uint32_t ASGN4 :1;
+    volatile uint32_t ASGN5 :1;
+    volatile uint32_t ASGN6 :1;
+    volatile uint32_t ASGN7 :1;
+    volatile uint32_t ASGN8 :1;
+    volatile uint32_t ASGN9 :1;
+    volatile uint32_t ASGN10 :1;
+    volatile uint32_t ASGN11 :1;
+    volatile uint32_t ASGN12 :1;
+    volatile uint32_t ASGN13 :1;
+    volatile uint32_t ASGN14 :1;
+    volatile uint32_t ASGN15 :1;
+    volatile uint32_t ASGN16 :1;
+    volatile uint32_t ASGN17 :1;
+    volatile uint32_t ASGN18 :1;
+    volatile uint32_t ASGN19 :1;
+    volatile uint32_t ASGN20 :1;
+    volatile uint32_t ASGN21 :1;
+    volatile uint32_t ASGN22 :1;
+    volatile uint32_t ASGN23 :1;
+    volatile uint32_t ASGN24 :1;
+    volatile uint32_t ASGN25 :1;
+    volatile uint32_t ASGN26 :1;
+    volatile uint32_t ASGN27 :1;
+    volatile uint32_t ASGN28 :1;
+    volatile uint32_t ASGN29 :1;
+    volatile uint32_t ASGN30 :1;
+    volatile uint32_t ASGN31 :1;
+}DMA_CH_ASGN_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CHIS0 :1;
-    volatile uint32_t CHIS1 :1;
-    volatile uint32_t CHIS2 :1;
-    volatile uint32_t CHIS3 :1;
-    volatile uint32_t CHIS4 :1;
-    volatile uint32_t CHIS5 :1;
-    volatile uint32_t CHIS6 :1;
-    volatile uint32_t CHIS7 :1;
-    volatile uint32_t CHIS8 :1;
-    volatile uint32_t CHIS9 :1;
-    volatile uint32_t CHIS10 :1;
-    volatile uint32_t CHIS11 :1;
-    volatile uint32_t CHIS12 :1;
-    volatile uint32_t CHIS13 :1;
-    volatile uint32_t CHIS14 :1;
-    volatile uint32_t CHIS15 :1;
-    volatile uint32_t CHIS16 :1;
-    volatile uint32_t CHIS17 :1;
-    volatile uint32_t CHIS18 :1;
-    volatile uint32_t CHIS19 :1;
-    volatile uint32_t CHIS20 :1;
-    volatile uint32_t CHIS21 :1;
-    volatile uint32_t CHIS22 :1;
-    volatile uint32_t CHIS23 :1;
-    volatile uint32_t CHIS24 :1;
-    volatile uint32_t CHIS25 :1;
-    volatile uint32_t CHIS26 :1;
-    volatile uint32_t CHIS27 :1;
-    volatile uint32_t CHIS28 :1;
-    volatile uint32_t CHIS29 :1;
-    volatile uint32_t CHIS30 :1;
-    volatile uint32_t CHIS31 :1;
-}DMACHIS_t;
+    volatile uint32_t IS0 :1;
+    volatile uint32_t IS1 :1;
+    volatile uint32_t IS2 :1;
+    volatile uint32_t IS3 :1;
+    volatile uint32_t IS4 :1;
+    volatile uint32_t IS5 :1;
+    volatile uint32_t IS6 :1;
+    volatile uint32_t IS7 :1;
+    volatile uint32_t IS8 :1;
+    volatile uint32_t IS9 :1;
+    volatile uint32_t IS10 :1;
+    volatile uint32_t IS11 :1;
+    volatile uint32_t IS12 :1;
+    volatile uint32_t IS13 :1;
+    volatile uint32_t IS14 :1;
+    volatile uint32_t IS15 :1;
+    volatile uint32_t IS16 :1;
+    volatile uint32_t IS17 :1;
+    volatile uint32_t IS18 :1;
+    volatile uint32_t IS19 :1;
+    volatile uint32_t IS20 :1;
+    volatile uint32_t IS21 :1;
+    volatile uint32_t IS22 :1;
+    volatile uint32_t IS23 :1;
+    volatile uint32_t IS24 :1;
+    volatile uint32_t IS25 :1;
+    volatile uint32_t IS26 :1;
+    volatile uint32_t IS27 :1;
+    volatile uint32_t IS28 :1;
+    volatile uint32_t IS29 :1;
+    volatile uint32_t IS30 :1;
+    volatile uint32_t IS31 :1;
+}DMA_CH_IS_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CH0SEL :4;
-    volatile uint32_t CH1SEL :4;
-    volatile uint32_t CH2SEL :4;
-    volatile uint32_t CH3SEL :4;
-    volatile uint32_t CH4SEL :4;
-    volatile uint32_t CH5SEL :4;
-    volatile uint32_t CH6SEL :4;
-    volatile uint32_t CH7SEL :4;
-}DMACHMAP0_t;
+    volatile uint32_t MAP0 :4;
+    volatile uint32_t MAP1 :4;
+    volatile uint32_t MAP2 :4;
+    volatile uint32_t MAP3 :4;
+    volatile uint32_t MAP4 :4;
+    volatile uint32_t MAP5 :4;
+    volatile uint32_t MAP6 :4;
+    volatile uint32_t MAP7 :4;
+}DMA_CH_MAP0_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CH8SEL :4;
-    volatile uint32_t CH9SEL :4;
-    volatile uint32_t CH10SEL :4;
-    volatile uint32_t CH11SEL :4;
-    volatile uint32_t CH12SEL :4;
-    volatile uint32_t CH13SEL :4;
-    volatile uint32_t CH14SEL :4;
-    volatile uint32_t CH15SEL :4;
-}DMACHMAP1_t;
+    volatile uint32_t MAP8 :4;
+    volatile uint32_t MAP9 :4;
+    volatile uint32_t MAP10 :4;
+    volatile uint32_t MAP11 :4;
+    volatile uint32_t MAP12 :4;
+    volatile uint32_t MAP13 :4;
+    volatile uint32_t MAP14 :4;
+    volatile uint32_t MAP15 :4;
+}DMA_CH_MAP1_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CH16SEL :4;
-    volatile uint32_t CH17SEL :4;
-    volatile uint32_t CH18SEL :4;
-    volatile uint32_t CH19SEL :4;
-    volatile uint32_t CH20SEL :4;
-    volatile uint32_t CH21SEL :4;
-    volatile uint32_t CH22SEL :4;
-    volatile uint32_t CH23SEL :4;
-}DMACHMAP2_t;
+    volatile uint32_t MAP16 :4;
+    volatile uint32_t MAP17 :4;
+    volatile uint32_t MAP18 :4;
+    volatile uint32_t MAP19 :4;
+    volatile uint32_t MAP20 :4;
+    volatile uint32_t MAP21 :4;
+    volatile uint32_t MAP22 :4;
+    volatile uint32_t MAP23 :4;
+}DMA_CH_MAP2_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CH24SEL :4;
-    volatile uint32_t CH25SEL :4;
-    volatile uint32_t CH26SEL :4;
-    volatile uint32_t CH27SEL :4;
-    volatile uint32_t CH28SEL :4;
-    volatile uint32_t CH29SEL :4;
-    volatile uint32_t CH30SEL :4;
-    volatile uint32_t CH31SEL :4;
-}DMACHMAP3_t;
+    volatile uint32_t MAP24 :4;
+    volatile uint32_t MAP25 :4;
+    volatile uint32_t MAP26 :4;
+    volatile uint32_t MAP27 :4;
+    volatile uint32_t MAP28 :4;
+    volatile uint32_t MAP29 :4;
+    volatile uint32_t MAP30 :4;
+    volatile uint32_t MAP31 :4;
+}DMA_CH_MAP3_t;
 
 typedef volatile struct
 {
         union
         {
-                volatile uint32_t CHMAP [4UL];
-                DMACHMAP0_t CHMAP_bit [4UL];
+                volatile uint32_t MAP [4UL];
+                DMA_CH_MAP0_t MAP_bit [4UL];
         };
-}DMACHMAP_t;
+}DMA_CH_MAP_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID0 :8;
     const uint32_t reserved :24;
-}DMAPeriphID0_t;
+}DMA_PeriphID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID1 :8;
     const uint32_t reserved :24;
-}DMAPeriphID1_t;
+}DMA_PeriphID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID2 :8;
     const uint32_t reserved :24;
-}DMAPeriphID2_t;
+}DMA_PeriphID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID3 :8;
     const uint32_t reserved :24;
-}DMAPeriphID3_t;
+}DMA_PeriphID3_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PID4 :8;
     const uint32_t reserved :24;
-}DMAPeriphID4_t;
+}DMA_PeriphID4_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID0 :8;
     const uint32_t reserved :24;
-}DMAPCellID0_t;
+}DMA_PCellID0_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID1 :8;
     const uint32_t reserved :24;
-}DMAPCellID1_t;
+}DMA_PCellID1_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID2 :8;
     const uint32_t reserved :24;
-}DMAPCellID2_t;
+}DMA_PCellID2_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CID3 :8;
     const uint32_t reserved :24;
-}DMAPCellID3_t;
+}DMA_PCellID3_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_H_ */

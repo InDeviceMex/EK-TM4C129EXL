@@ -25,9 +25,10 @@
 #ifndef XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLPOINTER_H_
 #define XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLPOINTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA__vSetChannelControlPointer(uint32_t u32ControlAddress);
-uint32_t DMA__u32GetChannelControlPointer(void);
+DMA_nERROR DMA__enSetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t uptrControlAddressArg);
+DMA_nERROR DMA__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t* puptrControlAddressArg);
+DMA_nERROR DMA_CH__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, uintptr_t* puptrControlAddressArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLPOINTER_H_ */

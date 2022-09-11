@@ -43,62 +43,63 @@
 void ST7735__vDMATxEndInterupt(void);
 void ST7735__vDMATxInterupt(void);
 static void ST7735__vSetTransferSizeLeft(uint32_t u32SizeArg);
-static void ST7735__vSetTransferStruct(DMACHCTL_t* pstTransfer);
+static void ST7735__vSetTransferStruct(DMA_CH_CTL_t* pstTransfer);
 uint32_t ST7735__u32GetTransferAddress(void);
 uint32_t ST7735__u32GetTransferSizeLeft(void);
-DMACHCTL_t* ST7735__pstGetTransferStruct(void);
+DMA_CH_CTL_t* ST7735__pstGetTransferStruct(void);
 
 volatile uint32_t ST7735_vDMATxInteruptStatus = 0UL;
 volatile uint32_t ST7735_u32DMATransferSizeLeft = 0UL;
 volatile uint32_t ST7735_u32DMATransferAddress = 0UL;
-volatile DMACHCTL_t* ST7735_pstDMATransferStruct = (DMACHCTL_t*) 0UL;
+volatile DMA_CH_CTL_t* ST7735_pstDMATransferStruct = (DMA_CH_CTL_t*) 0UL;
 
-DMACHCTL_t enDMAChControlPrim = {
+DMA_CH_CTL_t stDMAChControlPrim = {
     DMA_enCH_MODE_BASIC,
-    DMA_enCH_BURST_ON,
+    DMA_enSTATE_DIS,
     0UL,
-    DMA_enCH_BURST_SIZE_8,
-    0,
-    0,
-    0,
-    0,
-    DMA_enCH_SRC_SIZE_HALF_WORD,
-    DMA_enCH_SRC_INC_NO,
-    DMA_enCH_DST_SIZE_HALF_WORD,
-    DMA_enCH_DST_INC_NO,
+    DMA_enCH_ARBITRATION_SIZE_8,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_NO,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_NO,
 };
 
-DMACHCTL_t enDMAChControlBuffer = {
+DMA_CH_CTL_t stDMAChControlBuffer = {
     DMA_enCH_MODE_BASIC,
-    DMA_enCH_BURST_ON,
+    DMA_enSTATE_DIS,
     0UL,
-    DMA_enCH_BURST_SIZE_8,
-    0,
-    0,
-    0,
-    0,
-    DMA_enCH_SRC_SIZE_HALF_WORD,
-    DMA_enCH_SRC_INC_HALF_WORD,
-    DMA_enCH_DST_SIZE_HALF_WORD,
-    DMA_enCH_DST_INC_NO,
+    DMA_enCH_ARBITRATION_SIZE_8,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_HALF_WORD,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_NO,
 };
 
 void ST7735__vInitWriteDMAConfig(void)
 {
-    DMA_CONFIG_t enDMAChConfig= {
+    DMA_CONFIG_t stDMAChConfig= {
+        DMA_enSTATE_DIS,
         DMA_enCH_REQTYPE_BOTH,
         DMA_enCH_PERIPHERAL_ENA,
-        DMA_enCH_CTL_PRIMARY ,
-        DMA_enCH_PRIO_HIGH ,
+        DMA_enCH_CONTROL_PRIMARY ,
+        DMA_enCH_PRIORITY_HIGH ,
         DMA_enCH_ENCODER_2
     };
 
     SSI__vRegisterIRQSourceHandler(&ST7735__vDMATxInterupt, ST7735_SSI, SSI_enINTERRUPT_TRANSMIT_DMA);
-    DMA_CH__vSetPrimaryDestEndAddress(DMA_enCH_MODULE_13, (uint32_t) (SSI2_BASE + SSI_DR_OFFSET));
-    DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_13, (uint32_t) 0UL);
+    DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) (SSI2_BASE + SSI_DR_OFFSET));
+    DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) 0UL);
 
-    DMA_CH__vSetPriority(DMA_enCH_MODULE_13, DMA_enCH_PRIO_HIGH);
-    DMA_CH__vSetConfigStruct(DMA_enCH_MODULE_13, enDMAChConfig);
+    DMA_CH__enSetPriorityByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enCH_PRIORITY_HIGH);
+    DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_13, &stDMAChConfig);
 
 }
 
@@ -114,12 +115,12 @@ uint32_t ST7735__u32GetTransferSizeLeft(void)
     return (u32SizeArg);
 }
 
-static void ST7735__vSetTransferStruct(DMACHCTL_t* pstTransfer)
+static void ST7735__vSetTransferStruct(DMA_CH_CTL_t* pstTransfer)
 {
     ST7735_pstDMATransferStruct = pstTransfer;
 }
 
-DMACHCTL_t* ST7735__pstGetTransferStruct(void)
+DMA_CH_CTL_t* ST7735__pstGetTransferStruct(void)
 {
     return (ST7735_pstDMATransferStruct);
 }
@@ -190,23 +191,23 @@ uint32_t ST7735__u32WriteDMA(uint32_t u32DataArg, uint32_t u32BufferCant)
         ST7735__vEnableChipSelect();
         ST7735__vSetData();
         ST7735__vSetDMATxInterupt(1UL);
-        enDMAChControlPrim.XFERMODE = DMA_enCH_MODE_BASIC;
+        stDMAChControlPrim.XFERMODE = DMA_enCH_MODE_BASIC;
         if(u32BufferCant > 1024UL)
         {
-            enDMAChControlPrim.XFERSIZE = 1024UL - 1UL;
+            stDMAChControlPrim.XFERSIZE = 1024UL - 1UL;
             u32BufferCant -= 1024UL;
         }
         else
         {
-            enDMAChControlPrim.XFERSIZE = u32BufferCant - 1UL;
+            stDMAChControlPrim.XFERSIZE = u32BufferCant - 1UL;
             u32BufferCant = 0UL;
         }
         ST7735__vSetTransferSizeLeft(u32BufferCant);
 
-        DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_13, (uint32_t) &u32DataReg);
-        DMA_CH__vSetPrimaryControlWorld(DMA_enCH_MODULE_13, enDMAChControlPrim);
-        ST7735__vSetTransferStruct(&enDMAChControlPrim);
-        DMA_CH__vSetEnable(DMA_enCH_MODULE_13, DMA_enCH_ENA_ENA);
+        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) &u32DataReg);
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, stDMAChControlPrim);
+        ST7735__vSetTransferStruct(&stDMAChControlPrim);
+        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
         SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);
 
         do
@@ -235,26 +236,26 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
         ST7735__vEnableChipSelect();
         ST7735__vSetData();
         ST7735__vSetDMATxInterupt(1UL);
-        enDMAChControlBuffer.XFERMODE = DMA_enCH_MODE_BASIC;
+        stDMAChControlBuffer.XFERMODE = DMA_enCH_MODE_BASIC;
         if(u32BufferCant > 1024UL)
         {
-            enDMAChControlBuffer.XFERSIZE = 1024UL - 1UL;
+            stDMAChControlBuffer.XFERSIZE = 1024UL - 1UL;
             pu32DataRegLast += 1024UL - 1UL;
             u32BufferCant -= 1024UL;
         }
         else
         {
-            enDMAChControlBuffer.XFERSIZE = u32BufferCant - 1UL;
+            stDMAChControlBuffer.XFERSIZE = u32BufferCant - 1UL;
             pu32DataRegLast += u32BufferCant;
             pu32DataRegLast -= 1UL;
             u32BufferCant = 0UL;
         }
         ST7735__vSetTransferSizeLeft(u32BufferCant);
 
-        DMA_CH__vSetPrimarySourceEndAddress(DMA_enCH_MODULE_13, (uint32_t) pu32DataRegLast);
-        DMA_CH__vSetPrimaryControlWorld(DMA_enCH_MODULE_13, enDMAChControlBuffer);
-        ST7735__vSetTransferStruct(&enDMAChControlBuffer);
-        DMA_CH__vSetEnable(DMA_enCH_MODULE_13, DMA_enCH_ENA_ENA);
+        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) pu32DataRegLast);
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, stDMAChControlBuffer);
+        ST7735__vSetTransferStruct(&stDMAChControlBuffer);
+        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
         SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);
 
         do
@@ -277,11 +278,11 @@ void ST7735__vDMATxInterupt(void)
     uint32_t u32Address = 0UL;
     uint32_t u32MultiWord = 0UL;
     uint32_t u32Multi = 0UL;
-    DMACHCTL_t* pstDMAChannel = (DMACHCTL_t*) 0UL;
+    DMA_CH_CTL_t* pstDMAChannel = (DMA_CH_CTL_t*) 0UL;
     if(0UL != ST7735_u32DMATransferSizeLeft)
     {
         pstDMAChannel = ST7735__pstGetTransferStruct();
-        u32Address = DMACH->DMACh[13UL].SRCENDP;
+        u32Address = DMA_CH_PRIMARY->CH[13UL].SRCENDP;
         u32Multi = pstDMAChannel->SRCINC;
         u32Multi += 1UL;
         u32Multi &= 0x3UL;
@@ -305,9 +306,9 @@ void ST7735__vDMATxInterupt(void)
             u32Address += u32MultiWord;
             ST7735_u32DMATransferSizeLeft = 0UL;
         }
-        DMACH->DMACh[13UL].SRCENDP = (uint32_t) u32Address;
-        DMACH->DMACh[13UL].CHCTL = *((volatile uint32_t*) pstDMAChannel);
-        DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << 13UL;
+        DMA_CH_PRIMARY->CH[13UL].SRCENDP = (uint32_t) u32Address;
+        DMA_CH_PRIMARY->CH[13UL].CTL = *((volatile uint32_t*) pstDMAChannel);
+        DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << 13UL;
         SSI2_DMACTL_R |= SSI_DMACTL_R_TXDMAE_MASK;
     }
     else

@@ -30,6 +30,6 @@
 void DMA__vReset(DMA_nMODULE enModule);
 void DMA__vSetReady(DMA_nMODULE enModule);
 void DMA__vClearReady(DMA_nMODULE enModule);
-DMA_nREADY DMA__enIsReady(DMA_nMODULE enModule);
+DMA_nSTATUS DMA__enIsReady(DMA_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_DMA_INTRINSICS_XHEADER_DMA_READY_H_ */

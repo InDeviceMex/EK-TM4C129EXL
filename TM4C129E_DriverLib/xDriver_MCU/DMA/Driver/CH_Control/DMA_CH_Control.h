@@ -31,10 +31,12 @@
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_TransferMode.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_TransferSize.h>
 
+#include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceAccess.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceAddress.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceIncrement.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceSize.h>
 
+#include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_DestinationAccess.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_DestinationAddress.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_DestinationIncrement.h>
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_DestinationSize.h>

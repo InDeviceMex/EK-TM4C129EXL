@@ -26,33 +26,93 @@
 #include <stdlib.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-DMA_nSTATUS DMA_CH__enCreateControlStructPointer(uint32_t u32ControlWorld,
-                                                 DMA_CONTROL_t* pstControl)
+DMA_nERROR DMA_CH__enConvertControlStructure(uint32_t u32ControlWorldArg,
+                                             DMA_CONTROL_t* pstControlArg)
 {
-    DMA_nSTATUS enStatusReg = DMA_enSTATUS_ERROR;
-    if(0UL != (uint32_t) pstControl)
+    DMA_nERROR enErrorReg;
+    uint32_t u32ControlReg;
+    if(0UL != (uintptr_t) pstControlArg)
     {
-        pstControl->enTransferMode = (DMA_nCH_MODE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_XFERMODE_BIT) & DMAALTCH_CHCTL_XFERMODE_MASK);
-        pstControl->enUseBurst = (DMA_nCH_BURST) ((u32ControlWorld >> DMAALTCH_CHCTL_R_NXTUSEBURST_BIT) & DMAALTCH_CHCTL_NXTUSEBURST_MASK);
-        pstControl->u32TransferSize = (((u32ControlWorld >> DMAALTCH_CHCTL_R_XFERSIZE_BIT) & DMAALTCH_CHCTL_XFERSIZE_MASK) + 1U);
-        pstControl->enBurstSize = (DMA_nCH_BURST_SIZE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_ARBSIZE_BIT) & DMAALTCH_CHCTL_ARBSIZE_MASK);
-        pstControl->enSourceSize = (DMA_nCH_SRC_SIZE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_SRCSIZE_BIT) & DMAALTCH_CHCTL_SRCSIZE_MASK);
-        pstControl->enSourceInc = (DMA_nCH_SRC_INC) ((u32ControlWorld >> DMAALTCH_CHCTL_R_SRCINC_BIT) & DMAALTCH_CHCTL_SRCINC_MASK);
-        pstControl->enDestSize = (DMA_nCH_DST_SIZE) ((u32ControlWorld >> DMAALTCH_CHCTL_R_DSTSIZE_BIT) & DMAALTCH_CHCTL_DSTSIZE_MASK);
-        pstControl->enDestInc = (DMA_nCH_DST_INC) ((u32ControlWorld >> DMAALTCH_CHCTL_R_DSTINC_BIT) & DMAALTCH_CHCTL_DSTINC_MASK);
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_XFERMODE_BIT;
+        u32ControlReg &= DMA_CH_CTL_XFERMODE_MASK;
+        pstControlArg->enTransferMode = (DMA_nCH_MODE) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_NXTUSEBURST_BIT;
+        u32ControlReg &= DMA_CH_CTL_NXTUSEBURST_MASK;
+        pstControlArg->enUseLastBurst = (DMA_nSTATE) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_XFERSIZE_BIT;
+        u32ControlReg &= DMA_CH_CTL_XFERSIZE_MASK;
+        u32ControlReg += 1UL;
+        pstControlArg->u32TransferSize = (uint32_t) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_SRCPROT0_BIT;
+        u32ControlReg &= DMA_CH_CTL_SRCPROT0_MASK;
+        pstControlArg->enSourceAccess = (DMA_nCH_ACCESS) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_DSTPROT0_BIT;
+        u32ControlReg &= DMA_CH_CTL_DSTPROT0_MASK;
+        pstControlArg->enDestinationAccess = (DMA_nCH_ACCESS) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_ARBSIZE_BIT;
+        u32ControlReg &= DMA_CH_CTL_ARBSIZE_MASK;
+        pstControlArg->enArbitrationSize = (DMA_nCH_ARBITRATION_SIZE) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_SRCSIZE_BIT;
+        u32ControlReg &= DMA_CH_CTL_SRCSIZE_MASK;
+        pstControlArg->enSourceDataSize = (DMA_nCH_DATA_SIZE) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_SRCINC_BIT;
+        u32ControlReg &= DMA_CH_CTL_SRCINC_MASK;
+        pstControlArg->enSourceIncrement = (DMA_nCH_INCREMENT) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_DSTSIZE_BIT;
+        u32ControlReg &= DMA_CH_CTL_DSTSIZE_MASK;
+        pstControlArg->enDestinationDataSize = (DMA_nCH_DATA_SIZE) u32ControlReg;
+
+        u32ControlReg = u32ControlWorldArg;
+        u32ControlReg >>= DMA_CH_CTL_R_DSTINC_BIT;
+        u32ControlReg &= DMA_CH_CTL_DSTINC_MASK;
+        pstControlArg->enDestinationIncrement = (DMA_nCH_INCREMENT) u32ControlReg;
     }
-    return (enStatusReg);
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-DMA_CONTROL_t* DMA_CH__pstCreateControlStruct(uint32_t u32ControlWorld)
+DMA_nERROR DMA_CH__enConvertControlStructure_Create(uint32_t u32ControlWorldArg,
+                                                    DMA_CONTROL_t** pstControlArg)
 {
-    DMA_CONTROL_t* pstControl = 0UL;
-    #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    pstControl = (DMA_CONTROL_t*) memalign( (size_t) 4,
-                                                  (size_t) sizeof(DMA_CONTROL_t));
-    #elif defined (__GNUC__ )
-    pstControl = (DMA_CONTROL_t*) malloc( (size_t) sizeof(DMA_CONTROL_t));
-    #endif
-    DMA_CH__enCreateControlStructPointer(u32ControlWorld, pstControl);
-    return (pstControl);
+    DMA_CONTROL_t* pstControlReg;
+    DMA_nERROR enErrorReg;
+    if(0UL != (uintptr_t) pstControlArg)
+    {
+        #if defined (__TI_ARM__ ) || defined (__MSP430__ )
+        pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
+                                                      (size_t) sizeof(DMA_CONTROL_t));
+        #elif defined (__GNUC__ )
+        pstControlReg = (DMA_CONTROL_t*) malloc( (size_t) sizeof(DMA_CONTROL_t));
+        #endif
+        enErrorReg = DMA_CH__enConvertControlStructure(u32ControlWorldArg, pstControlReg);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pstControlArg = pstControlReg;
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

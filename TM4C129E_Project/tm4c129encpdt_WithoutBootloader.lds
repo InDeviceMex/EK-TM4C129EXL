@@ -13,8 +13,7 @@ MEMORY
     FLASH_BANK01 (RX) : ORIGIN = 0x00000400, LENGTH = 0x0007FC00
     FLASH_BANK23 (RX) : ORIGIN = 0x00080000, LENGTH = 0x00080000
     SRAM_VTABLE (RWX) : ORIGIN = 0x20000000, LENGTH = 0x00000400 /*1K*/
-    SRAM_DMA (RW) : ORIGIN = 0x20000400, LENGTH = 0x00000200
-    SRAM_DMAALT (RW) : ORIGIN = 0x20000600, LENGTH = 0x00000200
+    SRAM_DMA (RW) : ORIGIN = 0x20000400, LENGTH = 0x00000400
     SRAM_CODE (RWX) : ORIGIN = 0x20000800, LENGTH = 0x00001000 /*5K*/
     SRAM (RW) : ORIGIN = 0x20001800, LENGTH = 0x00010800
     SRAM_DYNAMIC (RW) : ORIGIN = 0x20012000, LENGTH = 0x0002C800 /*32K*/
@@ -105,16 +104,6 @@ SECTIONS {
         . = ALIGN (4);
         __dma_end__ = .;
     } > SRAM_DMA
-
-    .dmaalt : {
-        . = ALIGN(4);
-        __dmaalt_start__ = .;
-        *(.shdmaalt)
-        *(.dmaalt)
-        *(.dmaalt.*)
-        . = ALIGN (4);
-        __dmaalt_end__ = .;
-    } > SRAM_DMAALT
 
     .bss : {
         __bss_start__ = .;

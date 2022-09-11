@@ -22,20 +22,62 @@
  * 20 sep. 2020     vyldram    1.0         initial Version@endverbatim
  */
 #include <xDriver_MCU/DMA/Driver/CH_Config/xHeader/DMA_CH_WaitOnRequest.h>
-
-#include <xDriver_MCU/DMA/Driver/CH_Config/xHeader/DMA_CH_ConfigGeneric.h>
 #include <xDriver_MCU/DMA/Driver/xHeader/DMA_Enable.h>
+
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-DMA_nCH_WAITING DMA_CH__enGetWaitStatus(DMA_nCH_MODULE enChannel)
+DMA_nERROR DMA_CH__enIsWaitOnRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                           DMA_nCHMASK* penCHMaskReqArg)
 {
-    DMA_nCH_WAITING enChannelWaiting = DMA_enCH_WAITING_NO;
-    DMA_nENABLE enModuleEnable = DMA_enENABLE_DIS;
-    enModuleEnable = DMA__enGetModuleEnable();
-    if(DMA_enENABLE_ENA == enModuleEnable)
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penCHMaskReqArg)
     {
-        enChannelWaiting = (DMA_nCH_WAITING) DMA_CH__u32GetConfigGeneric(enChannel,
-                                                                 DMA_WAITSTAT_OFFSET);
+        stRegister.u32Shift = DMA_CH_WAITSTAT_R_WAITREQ0_BIT;
+        stRegister.u32Mask = (uint32_t) enChannelMaskArg;
+        stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penCHMaskReqArg = (DMA_nCHMASK) stRegister.u32Value;
+        }
     }
-    return (enChannelWaiting);
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                           DMA_nCH_WAITREQ* penStateArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Shift = (uint32_t) enChannelArg;
+            stRegister.u32Shift += DMA_CH_WAITSTAT_R_WAITREQ0_BIT;
+            stRegister.u32Mask = DMA_CH_WAITSTAT_WAITREQ0_MASK;
+            stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
+            enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+            if(DMA_enERROR_OK == enErrorReg)
+            {
+                *penStateArg = (DMA_nCH_WAITREQ) stRegister.u32Value;
+            }
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

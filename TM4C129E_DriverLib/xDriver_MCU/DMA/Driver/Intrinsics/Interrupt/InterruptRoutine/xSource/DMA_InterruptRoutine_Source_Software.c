@@ -23,50 +23,85 @@
  */
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/DMA_InterruptRoutine_Source_Software.h>
 
-static void DMA_CH_vIRQSourceHandler_Dummy(void);
+static void DMA_CH_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
 
-static void (*DMA_CH__vIRQSourceHandler_Software[(uint32_t) DMA_enCH_INT_SOFT_MAX]) (void)=
+static DMA_pvfIRQSourceHandler_t DMA_CH_vIRQSourceHandler_Software[(uint32_t)DMA_enMODULE_MAX]
+                                                                  [(uint32_t) DMA_enCH_MAX + 1UL] =
 {
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy
+    {
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy
+    }
 };
 
-static void (*DMA__vIRQSourceHandler_Error[(uint32_t) DMA_enINT_ERROR_MAX]) (void)=
+static DMA_pvfIRQSourceHandler_t DMA_vIRQSourceHandler_Error[(uint32_t)DMA_enMODULE_MAX]
+                                                            [(uint32_t) DMA_enINT_ERROR_MAX] =
 {
-    &DMA_CH_vIRQSourceHandler_Dummy,&DMA_CH_vIRQSourceHandler_Dummy,
+    {
+        &DMA_CH_vIRQSourceHandler_Dummy,
+        &DMA_CH_vIRQSourceHandler_Dummy
+    }
 };
 
-static void DMA_CH_vIRQSourceHandler_Dummy(void)
+static void DMA_CH_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
 {
+    (void) uptrModuleArg;
+    (void) pvArgument;
 
+    while(1UL){}
 }
 
-void (*DMA__pvfGetIRQSourceHandler_Error(DMA_nINT_ERROR enInterruptSourceArg))(void)
+
+DMA_pvfIRQSourceHandler_t DMA__pvfGetIRQSourceHandler_Error(DMA_nMODULE enModuleArg,
+                                                            DMA_nINT_ERROR enInterruptSourceArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = DMA__vIRQSourceHandler_Error[(uint32_t) enInterruptSourceArg];
+    DMA_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = DMA_vIRQSourceHandler_Error[(uint32_t) enModuleArg]
+                                                 [(uint32_t) enInterruptSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**DMA__pvfGetIRQSourceHandlerPointer_Error(DMA_nINT_ERROR enInterruptSourceArg))(void)
+
+DMA_pvfIRQSourceHandler_t* DMA__pvfGetIRQSourceHandlerPointer_Error(DMA_nMODULE enModuleArg,
+                                                                    DMA_nINT_ERROR enInterruptSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &DMA__vIRQSourceHandler_Error[(uint32_t) enInterruptSourceArg];
+    DMA_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &DMA_vIRQSourceHandler_Error[(uint32_t) enModuleArg]
+                                                  [(uint32_t) enInterruptSourceArg];
     return (pvfFunctionReg);
 }
 
-void (*DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void)
+
+DMA_pvfIRQSourceHandler_t DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nMODULE enModuleArg,
+                                                                  DMA_nCH enChannelArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg];
+    DMA_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = DMA_CH_vIRQSourceHandler_Software[(uint32_t) enModuleArg]
+                                                      [(uint32_t) enChannelArg];
     return (pvfFunctionReg);
 }
 
-void (**DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void)
+
+DMA_pvfIRQSourceHandler_t* DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nMODULE enModuleArg,
+                                                                 DMA_nCH enChannelArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &DMA_CH__vIRQSourceHandler_Software[(uint32_t) enInterruptSourceArg];
+    DMA_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &DMA_CH_vIRQSourceHandler_Software[(uint32_t) enModuleArg]
+                                                       [(uint32_t) enChannelArg];
     return (pvfFunctionReg);
 }

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA__vClearModuleError(void);
-DMA_nERROR DMA__enGetModuleError(void);
+DMA_nERROR DMA__enClearError(DMA_nMODULE enModuleArg);
+DMA_nERROR DMA__enGetError(DMA_nMODULE enModuleArg, DMA_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_ERROR_H_ */

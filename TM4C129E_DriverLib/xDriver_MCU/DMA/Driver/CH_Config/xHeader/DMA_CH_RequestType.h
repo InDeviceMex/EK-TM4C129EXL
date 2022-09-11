@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetRequestType(DMA_nCH_MODULE enChannel, DMA_nCH_REQTYPE enRequestType);
-DMA_nCH_REQTYPE DMA_CH__enGetRequestType(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetRequestTypeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                          DMA_nCH_REQTYPE enRequestTypeArg);
+DMA_nERROR DMA_CH__enSetRequestTypeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                            DMA_nCH_REQTYPE enRequestTypeArg);
+
+DMA_nERROR DMA_CH__enGetRequestTypeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                           DMA_nCHMASK* penCHMaskReqArg);
+DMA_nERROR DMA_CH__enGetRequestTypeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                           DMA_nCH_REQTYPE* penRequestTypeArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_REQUESTTYPE_H_ */

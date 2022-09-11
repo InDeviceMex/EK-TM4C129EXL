@@ -27,6 +27,9 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-DMA_nCH_WAITING DMA_CH__enGetWaitStatus(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enIsWaitOnRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                           DMA_nCHMASK* penCHMaskReqArg);
+DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                           DMA_nCH_WAITREQ* penStateArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_WAITONREQUEST_H_ */

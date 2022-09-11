@@ -27,17 +27,25 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimarySourceIncrement(DMA_nCH_MODULE enChannel,
-                                        DMA_nCH_SRC_INC enChannelSourceIncrement);
-void DMA_CH__vSetAlternateSourceIncrement(DMA_nCH_MODULE enChannel,
-                                          DMA_nCH_SRC_INC enChannelSourceIncrement);
-void DMA_CH__vSetSourceIncrement(DMA_nCH_MODULE enChannel,
-                                 DMA_nCH_CTL enChannelStructure,
-                                 DMA_nCH_SRC_INC enChannelSourceIncrement);
+DMA_nERROR DMA_CH__enSetSourceTransferIncrementByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_nCH_INCREMENT enIncrementArg);
+DMA_nERROR DMA_CH_Primary__enSetSourceTransferIncrementByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                               DMA_nCH_INCREMENT enIncrementArg);
+DMA_nERROR DMA_CH_Alternate__enSetSourceTransferIncrementByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                                 DMA_nCH_INCREMENT enIncrementArg);
 
-DMA_nCH_SRC_INC DMA_CH__enGetAlternateSourceIncrement(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_INC DMA_CH__enGetPrimarySourceIncrement(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_INC DMA_CH__enGetSourceIncrement(DMA_nCH_MODULE enChannel,
-                                             DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enSetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, DMA_nCH_INCREMENT enIncrementArg);
+DMA_nERROR DMA_CH_Primary__enSetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_INCREMENT enIncrementArg);
+DMA_nERROR DMA_CH_Alternate__enSetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_INCREMENT enIncrementArg);
+
+DMA_nERROR DMA_CH__enGetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL enControlArg, DMA_nCH_INCREMENT* penIncrementArg);
+DMA_nERROR DMA_CH_Primary__enGetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_INCREMENT* penIncrementArg);
+DMA_nERROR DMA_CH_Alternate__enGetSourceTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_INCREMENT* penIncrementArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_SOURCEINCREMENT_H_ */

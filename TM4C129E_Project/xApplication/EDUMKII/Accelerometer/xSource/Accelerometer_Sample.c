@@ -47,27 +47,27 @@ void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
 
 void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    DMACHANNEL_t* pstDmaChannel;
-    volatile uint32_t* u32TempReg;
-    static const DMACHCTL_t enChControl = {
+    DMA_CHANNEL_t* pstDmaChannel;
+    const uint32_t* u32TempReg;
+    static const DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
-         DMA_enCH_BURST_OFF,
+         DMA_enSTATE_DIS,
          4UL-1UL,
-         DMA_enCH_BURST_SIZE_4,
+         DMA_enCH_ARBITRATION_SIZE_4,
+         DMA_enCH_ACCESS_NON_PRIVILEGED,
          0UL,
+         DMA_enCH_ACCESS_NON_PRIVILEGED,
          0UL,
-         0UL,
-         0UL,
-         DMA_enCH_SRC_SIZE_WORD,
-         DMA_enCH_SRC_INC_NO,
-         DMA_enCH_DST_SIZE_WORD,
-         DMA_enCH_DST_INC_WORD,
+         DMA_enCH_DATA_SIZE_WORD,
+         DMA_enCH_INCREMENT_NO,
+         DMA_enCH_DATA_SIZE_WORD,
+         DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMACH->DMACh[(uint32_t) DMA_enCH_MODULE_14]);
-    u32TempReg = (volatile uint32_t*) &enChControl;
-    pstDmaChannel->CHCTL = *u32TempReg;
-    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << (uint32_t) DMA_enCH_MODULE_14;
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_14]);
+    u32TempReg = (const uint32_t*) &enChControl;
+    pstDmaChannel->CTL = *u32TempReg;
+    DMA->CH_ENASET = (uint32_t)DMA_enSTATE_ENA << (uint32_t) DMA_enCH_14;
     u32AccelerometerFlag = 1UL;
 }
 

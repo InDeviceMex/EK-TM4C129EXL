@@ -27,7 +27,13 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPriority(DMA_nCH_MODULE enChannel, DMA_nCH_PRIO enDMAChannelPriority);
-DMA_nCH_PRIO DMA_CH__enGetPriority(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetPriorityByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                          DMA_nCH_PRIORITY enPriorityArg);
+DMA_nERROR DMA_CH__enSetPriorityByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                            DMA_nCH_PRIORITY enPriorityArg);
+DMA_nERROR DMA_CH__enGetPriorityByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                           DMA_nCHMASK* penCHMaskReqArg);
+DMA_nERROR DMA_CH__enGetPriorityByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                           DMA_nCH_PRIORITY* penPriorityArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_PRIORITY_H_ */

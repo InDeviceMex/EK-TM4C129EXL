@@ -27,16 +27,25 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimaryBurstSize(DMA_nCH_MODULE enChannel,
-                                  DMA_nCH_BURST_SIZE enChannelBurstSize);
-void DMA_CH__vSetAlternateBurstSize(DMA_nCH_MODULE enChannel,
-                                    DMA_nCH_BURST_SIZE enChannelBurstSize);
-void DMA_CH__vSetBurstSize(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure,
-                           DMA_nCH_BURST_SIZE enChannelBurstSize);
+DMA_nERROR DMA_CH__enSetArbitrationSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_nCH_ARBITRATION_SIZE enSizeArg);
+DMA_nERROR DMA_CH_Primary__enSetArbitrationSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        DMA_nCH_ARBITRATION_SIZE enSizeArg);
+DMA_nERROR DMA_CH_Alternate__enSetArbitrationSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        DMA_nCH_ARBITRATION_SIZE enSizeArg);
 
-DMA_nCH_BURST_SIZE DMA_CH__enGetAlternateBurstSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_BURST_SIZE DMA_CH__enGetPrimaryBurstSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_BURST_SIZE DMA_CH__enGetBurstSize(DMA_nCH_MODULE enChannel,
-                                          DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enSetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, DMA_nCH_ARBITRATION_SIZE enSizeArg);
+DMA_nERROR DMA_CH_Primary__enSetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_nCH_ARBITRATION_SIZE enSizeArg);
+DMA_nERROR DMA_CH_Alternate__enSetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_nCH_ARBITRATION_SIZE enSizeArg);
+
+DMA_nERROR DMA_CH__enGetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_nCH_ARBITRATION_SIZE* penSizeArg);
+DMA_nERROR DMA_CH_Primary__enGetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_nCH_ARBITRATION_SIZE* penSizeArg);
+DMA_nERROR DMA_CH_Alternate__enGetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          DMA_nCH_ARBITRATION_SIZE* penSizeArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_BURSTSIZE_H_ */

@@ -37,7 +37,7 @@
 /******************************************************************************************
 *********************************** * 1 CTL *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_CTL    ((BITBANDING_CAN_CTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_CTL_OFFSET) * 32U)))
+#define CAN0_BITBANDING_CTL    ((CAN_BITBANDING_CTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_CTL_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_CTL_INIT    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_CTL_OFFSET) * 32U) + (CAN_CTL_R_INIT_BIT * 4U))))
 #define CAN0_BITBANDING_CTL_IE    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_CTL_OFFSET) * 32U) + (CAN_CTL_R_IE_BIT * 4U))))
@@ -50,7 +50,7 @@
 /******************************************************************************************
 *********************************** * 2 STS *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_STS    ((BITBANDING_CAN_STS_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_STS_OFFSET) * 32U)))
+#define CAN0_BITBANDING_STS    ((CAN_BITBANDING_STS_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_STS_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_STS_LEC_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_STS_OFFSET) * 32U) + ((CAN_STS_R_LEC_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_STS_LEC_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_STS_OFFSET) * 32U) + ((CAN_STS_R_LEC_BIT + 1UL) * 4U))))
@@ -64,14 +64,14 @@
 /******************************************************************************************
 *********************************** * 3 ERR *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_ERR    ((BITBANDING_CAN_ERR_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_ERR_OFFSET) * 32U)))
+#define CAN0_BITBANDING_ERR    ((CAN_BITBANDING_ERR_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_ERR_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_ERR_RP    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_ERR_OFFSET) * 32U) + (CAN_ERR_R_RP_BIT * 4U))))
 
 /******************************************************************************************
 *********************************** * 4 BIT *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_BIT    ((BITBANDING_CAN_BIT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BIT_OFFSET) * 32U)))
+#define CAN0_BITBANDING_BIT    ((CAN_BITBANDING_BIT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BIT_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_BIT_BRP_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BIT_OFFSET) * 32U) + ((CAN_BIT_R_BRP_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_BIT_BRP_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BIT_OFFSET) * 32U) + ((CAN_BIT_R_BRP_BIT + 1UL) * 4U))))
@@ -92,7 +92,7 @@
 /******************************************************************************************
 *********************************** * 5 INT *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_INT    ((BITBANDING_CAN_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_INT_OFFSET) * 32U)))
+#define CAN0_BITBANDING_INT    ((CAN_BITBANDING_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_INT_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_BIT_INTID_0    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_INT_OFFSET) * 32U) + ((CAN_INT_R_INTID_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_BIT_INTID_1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_INT_OFFSET) * 32U) + ((CAN_INT_R_INTID_BIT + 1UL) * 4U))))
@@ -130,7 +130,7 @@
 /******************************************************************************************
 *********************************** * 6 TST *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_TST    ((BITBANDING_CAN_TST_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TST_OFFSET) * 32U)))
+#define CAN0_BITBANDING_TST    ((CAN_BITBANDING_TST_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TST_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_TST_BASIC    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TST_OFFSET) * 32U) + (CAN_TST_R_BASIC_BIT * 4U))))
 #define CAN0_BITBANDING_TST_SILENT    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TST_OFFSET) * 32U) + (CAN_TST_R_SILENT_BIT * 4U))))
@@ -142,7 +142,7 @@
 /******************************************************************************************
 *********************************** * 7 BRPE *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_BRPE    ((BITBANDING_CAN_BRPE_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BRPE_OFFSET) * 32U)))
+#define CAN0_BITBANDING_BRPE    ((CAN_BITBANDING_BRPE_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BRPE_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_BRPE_BRPE_0    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BRPE_OFFSET) * 32U) + ((CAN_BRPE_R_BRPE_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_BRPE_BRPE_1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_BRPE_OFFSET) * 32U) + ((CAN_BRPE_R_BRPE_BIT + 1UL) * 4U))))
@@ -152,8 +152,8 @@
 /******************************************************************************************
 *********************************** * 8-9 IFn_CRQ *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_CRQ    ((BITBANDING_CAN_IFn_CRQ_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CRQ_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_CRQ    ((BITBANDING_CAN_IFn_CRQ_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_CRQ_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_CRQ    ((CAN_BITBANDING_IFn_CRQ_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CRQ_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_CRQ    ((CAN_BITBANDING_IFn_CRQ_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_CRQ_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_CRQ_MNUM_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CRQ_OFFSET) * 32U) + ((CAN_IFn_CRQ_R_MNUM_BIT + 0UL)* 4U))))
 #define CAN0_BITBANDING_IF1_CRQ_MNUM_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CRQ_OFFSET) * 32U) + ((CAN_IFn_CRQ_R_MNUM_BIT + 1UL)* 4U))))
@@ -174,8 +174,8 @@
 /******************************************************************************************
 *********************************** * 10-11 IFn_CMSK *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_CMSK    ((BITBANDING_CAN_IFn_CMSK_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CMSK_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_CMSK    ((BITBANDING_CAN_IFn_CMSK_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_CMSK_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_CMSK    ((CAN_BITBANDING_IFn_CMSK_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CMSK_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_CMSK    ((CAN_BITBANDING_IFn_CMSK_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_CMSK_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_CMSK_DATAB    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CMSK_OFFSET) * 32U) + (CAN_IFn_CMSK_R_DATAB_BIT * 4U))))
 #define CAN0_BITBANDING_IF1_CMSK_DATAA    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_CMSK_OFFSET) * 32U) + (CAN_IFn_CMSK_R_DATAA_BIT * 4U))))
@@ -200,8 +200,8 @@
 /******************************************************************************************
 *********************************** * 12-13 IFn_MSK1 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_MSK1    ((BITBANDING_CAN_IFn_MSK1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_MSK1    ((BITBANDING_CAN_IFn_MSK1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MSK1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_MSK1    ((CAN_BITBANDING_IFn_MSK1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_MSK1    ((CAN_BITBANDING_IFn_MSK1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MSK1_OFFSET) * 32U)))
 
 
 #define CAN0_BITBANDING_IF1_MSK1_MSK_EX_ID0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK1_OFFSET) * 32U) + ((CAN_IFn_MSK1_R_MSK_BIT + 0UL)* 4U))))
@@ -242,8 +242,8 @@
 /******************************************************************************************
 *********************************** * 14-15 IFn_MSK2 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_MSK2    ((BITBANDING_CAN_IFn_MSK2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK2_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_MSK2    ((BITBANDING_CAN_IFn_MSK2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MSK2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_MSK2    ((CAN_BITBANDING_IFn_MSK2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_MSK2    ((CAN_BITBANDING_IFn_MSK2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MSK2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_MSK2_MSK_EX_ID16    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK2_OFFSET) * 32U) + ((CAN_IFn_MSK2_R_MSK_BIT + 0UL)* 4U))))
 #define CAN0_BITBANDING_IF1_MSK2_MSK_EX_ID17    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MSK2_OFFSET) * 32U) + ((CAN_IFn_MSK2_R_MSK_BIT + 1UL)* 4U))))
@@ -302,8 +302,8 @@
 /******************************************************************************************
 *********************************** * 16-17 IFn_ARB1 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_ARB1    ((BITBANDING_CAN_IFn_ARB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_ARB1    ((BITBANDING_CAN_IFn_ARB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_ARB1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_ARB1    ((CAN_BITBANDING_IFn_ARB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_ARB1    ((CAN_BITBANDING_IFn_ARB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_ARB1_OFFSET) * 32U)))
 
 
 #define CAN0_BITBANDING_IF1_ARB1_ID_EX_ID0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB1_OFFSET) * 32U) + ((CAN_IFn_ARB1_R_ID_BIT + 0UL)* 4U))))
@@ -344,8 +344,8 @@
 /******************************************************************************************
 *********************************** * 18-19 IFn_ARB2 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_ARB2    ((BITBANDING_CAN_IFn_ARB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB2_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_ARB2    ((BITBANDING_CAN_IFn_ARB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_ARB2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_ARB2    ((CAN_BITBANDING_IFn_ARB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_ARB2    ((CAN_BITBANDING_IFn_ARB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_ARB2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_ARB2_ID_EX_ID16    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB2_OFFSET) * 32U) + ((CAN_IFn_ARB2_R_ID_BIT + 0UL)* 4U))))
 #define CAN0_BITBANDING_IF1_ARB2_ID_EX_ID17    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_ARB2_OFFSET) * 32U) + ((CAN_IFn_ARB2_R_ID_BIT + 1UL)* 4U))))
@@ -406,8 +406,8 @@
 /******************************************************************************************
 *********************************** * 20-21 IFn_MCTL *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_MCTL    ((BITBANDING_CAN_IFn_MCTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MCTL_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_MCTL    ((BITBANDING_CAN_IFn_MCTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MCTL_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_MCTL    ((CAN_BITBANDING_IFn_MCTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MCTL_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_MCTL    ((CAN_BITBANDING_IFn_MCTL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_MCTL_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_MCTL_DLC_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MCTL_OFFSET) * 32U) + ((CAN_IFn_MCTL_R_DLC_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_IF1_MCTL_DLC_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_MCTL_OFFSET) * 32U) + ((CAN_IFn_MCTL_R_DLC_BIT + 1UL) * 4U))))
@@ -440,8 +440,8 @@
 /******************************************************************************************
 *********************************** * 22-23 IFn_DA1 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_DA1    ((BITBANDING_CAN_IFn_DA1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_DA1    ((BITBANDING_CAN_IFn_DA1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DA1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_DA1    ((CAN_BITBANDING_IFn_DA1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_DA1    ((CAN_BITBANDING_IFn_DA1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DA1_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_DA1_DATA0_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA1_OFFSET) * 32U) + ((CAN_IFn_DA1_R_DATA0_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_IF1_DA1_DATA0_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA1_OFFSET) * 32U) + ((CAN_IFn_DA1_R_DATA0_BIT + 1UL) * 4U))))
@@ -481,8 +481,8 @@
 /******************************************************************************************
 *********************************** * 24-25 IFn_DA2 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_DA2    ((BITBANDING_CAN_IFn_DA2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA2_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_DA2    ((BITBANDING_CAN_IFn_DA2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DA2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_DA2    ((CAN_BITBANDING_IFn_DA2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_DA2    ((CAN_BITBANDING_IFn_DA2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DA2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_DA2_DATA2_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA2_OFFSET) * 32U) + ((CAN_IFn_DA2_R_DATA2_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_IF1_DA2_DATA2_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DA2_OFFSET) * 32U) + ((CAN_IFn_DA2_R_DATA2_BIT + 1UL) * 4U))))
@@ -522,8 +522,8 @@
 /******************************************************************************************
 *********************************** * 26-27 IFn_DB1 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_DB1    ((BITBANDING_CAN_IFn_DB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_DB1    ((BITBANDING_CAN_IFn_DB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DB1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_DB1    ((CAN_BITBANDING_IFn_DB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_DB1    ((CAN_BITBANDING_IFn_DB1_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DB1_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_DB1_DATA4_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB1_OFFSET) * 32U) + ((CAN_IFn_DB1_R_DATA4_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_IF1_DB1_DATA4_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB1_OFFSET) * 32U) + ((CAN_IFn_DB1_R_DATA4_BIT + 1UL) * 4U))))
@@ -563,8 +563,8 @@
 /******************************************************************************************
 *********************************** * 28-29 IFn_DB2 *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_IF1_DB2    ((BITBANDING_CAN_IFn_DB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB2_OFFSET) * 32U)))
-#define CAN0_BITBANDING_IF2_DB2    ((BITBANDING_CAN_IFn_DB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DB2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF1_DB2    ((CAN_BITBANDING_IFn_DB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_IF2_DB2    ((CAN_BITBANDING_IFn_DB2_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF2_DB2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_IF1_DB2_DATA6_0    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB2_OFFSET) * 32U) + ((CAN_IFn_DB2_R_DATA6_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_IF1_DB2_DATA6_1    (*((volatile uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_IF1_DB2_OFFSET) * 32U) + ((CAN_IFn_DB2_R_DATA6_BIT + 1UL) * 4U))))
@@ -604,8 +604,8 @@
 /******************************************************************************************
 *********************************** * 30 - 31 TXRQn *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_TXRQ1    ((BITBANDING_CAN_TXRQn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_TXRQ2    ((BITBANDING_CAN_TXRQn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_TXRQ1    ((CAN_BITBANDING_TXRQn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_TXRQ2    ((CAN_BITBANDING_TXRQn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_TXRQ1_TXRQST1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ1_OFFSET) * 32U) + ((CAN_TXRQ1_R_TXRQST_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_TXRQ1_TXRQST2    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_TXRQ1_OFFSET) * 32U) + ((CAN_TXRQ1_R_TXRQST_BIT + 1UL) * 4U))))
@@ -645,8 +645,8 @@
 /******************************************************************************************
 *********************************** * 32 - 33 NWDAn *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_NWDA1    ((BITBANDING_CAN_NWDAn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA1_OFFSET) * 32U)))
-#define CAN0_BITBANDING_NWDA2    ((BITBANDING_CAN_NWDAn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA2_OFFSET) * 32U)))
+#define CAN0_BITBANDING_NWDA1    ((CAN_BITBANDING_NWDAn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA1_OFFSET) * 32U)))
+#define CAN0_BITBANDING_NWDA2    ((CAN_BITBANDING_NWDAn_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA2_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_NWDA1_NEWDAT1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA1_OFFSET) * 32U) + ((CAN_NWDA1_R_NEWDAT_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_NWDA1_NEWDAT2    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_NWDA1_OFFSET) * 32U) + ((CAN_NWDA1_R_NEWDAT_BIT + 1UL) * 4U))))
@@ -686,8 +686,8 @@
 /******************************************************************************************
 *********************************** * 34 - 35 MSGnINT *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_MSG1_INT    ((BITBANDING_CAN_MSGn_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_INT_OFFSET) * 32U)))
-#define CAN0_BITBANDING_MSG2_INT    ((BITBANDING_CAN_MSGn_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG2_INT_OFFSET) * 32U)))
+#define CAN0_BITBANDING_MSG1_INT    ((CAN_BITBANDING_MSGn_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_INT_OFFSET) * 32U)))
+#define CAN0_BITBANDING_MSG2_INT    ((CAN_BITBANDING_MSGn_INT_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG2_INT_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_MSG1_INT_INTPND1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_INT_OFFSET) * 32U) + ((CAN_MSG1_INT_R_INTPND_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_MSG1_INT_INTPND2    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_INT_OFFSET) * 32U) + ((CAN_MSG1_INT_R_INTPND_BIT + 1UL) * 4U))))
@@ -727,8 +727,8 @@
 /******************************************************************************************
 *********************************** * 36 - 37 MSGnVAL *********************************************
 ******************************************************************************************/
-#define CAN0_BITBANDING_MSG1_VAL    ((BITBANDING_CAN_MSGn_VAL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_VAL_OFFSET) * 32U)))
-#define CAN0_BITBANDING_MSG2_VAL    ((BITBANDING_CAN_MSGn_VAL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG2_VAL_OFFSET) * 32U)))
+#define CAN0_BITBANDING_MSG1_VAL    ((CAN_BITBANDING_MSGn_VAL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_VAL_OFFSET) * 32U)))
+#define CAN0_BITBANDING_MSG2_VAL    ((CAN_BITBANDING_MSGn_VAL_t*) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG2_VAL_OFFSET) * 32U)))
 
 #define CAN0_BITBANDING_MSG1_VAL_MSG_VAL1    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_VAL_OFFSET) * 32U) + ((CAN_MSG1_VAL_R_MSG_VAL_BIT + 0UL) * 4U))))
 #define CAN0_BITBANDING_MSG1_VAL_MSG_VAL2    (*((volatile const uint32_t *) (CAN_BITBANDING_BASE + ((CAN0_OFFSET + CAN_MSG1_VAL_OFFSET) * 32U) + ((CAN_MSG1_VAL_R_MSG_VAL_BIT + 1UL) * 4U))))

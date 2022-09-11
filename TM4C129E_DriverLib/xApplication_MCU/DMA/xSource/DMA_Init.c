@@ -26,16 +26,24 @@
 #include <xApplication_MCU/DMA/Interrupt/DMA_Interrupt.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
-void DMA__vInit(void)
+DMA_nERROR DMA__enInit(DMA_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    DMA_nERROR enErrorReg;
+    void (*pfIrqVectorHandler) (void);
 
-    pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_SW);
-    DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_SW);
+    enErrorReg = DMA__enSetPrimaryControlStructureAddress(enModuleArg, DMA_CH_PRIMARY_BASE);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA__enSetState(enModuleArg, DMA_enSTATE_ENA);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_SOFTWARE);
+            DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_SOFTWARE);
 
-    pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_ERROR);
-    DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_ERROR);
+            pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_ERROR);
+            DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_ERROR);
+        }
+    }
 
-    DMA__vSetChannelControlPointer( (uint32_t) DMA__stChannel);
-    DMA__vSetModuleEnable(DMA_enENABLE_ENA);
+    return (enErrorReg);
 }

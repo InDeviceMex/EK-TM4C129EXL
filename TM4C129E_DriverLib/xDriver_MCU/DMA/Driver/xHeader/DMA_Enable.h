@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA__vSetModuleEnable(DMA_nENABLE enModuleEnable);
-DMA_nENABLE DMA__enGetModuleEnable(void);
+DMA_nERROR DMA__enSetState(DMA_nMODULE enModuleArg, DMA_nSTATE enStateArg);
+DMA_nERROR DMA__enGetState(DMA_nMODULE enModuleArg, DMA_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_ENABLE_H_ */

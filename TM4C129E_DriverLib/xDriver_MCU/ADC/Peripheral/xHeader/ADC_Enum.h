@@ -49,7 +49,6 @@ typedef enum
 {
     ADC_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
     ADC_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    ADC_enSTATUS_CLEAR = (uint32_t) MCU_enSTATUS_CLEAR,
     ADC_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
 } ADC_nSTATUS;
 
@@ -66,12 +65,6 @@ typedef enum
     ADC_enPRIMAX = (uint32_t) MCU_enPRIMAX,
     ADC_enDEFAULT = (uint32_t) MCU_enDEFAULT,
 }ADC_nPRIORITY;
-
-typedef enum
-{
-    ADC_enNOREADY = 0UL,
-    ADC_enREADY = 1UL,
-}ADC_nREADY;
 
 typedef enum
 {

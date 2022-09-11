@@ -29,6 +29,6 @@
 
 void ADC__vSetReady(ADC_nMODULE enModule);
 void ADC__vClearReady(ADC_nMODULE enModule);
-ADC_nREADY ADC__enIsReady(ADC_nMODULE enModule);
+ADC_nSTATUS ADC__enIsReady(ADC_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_ADC_INTRINSICS_XHEADER_ADC_READY_H_ */

@@ -48,16 +48,16 @@ void DMA__vClearReady(DMA_nMODULE enModule)
     enPeripheral |= enModule;
     SYSCTL__vClearReady(enPeripheral);
 }
-DMA_nREADY DMA__enIsReady(DMA_nMODULE enModule)
+DMA_nSTATUS DMA__enIsReady(DMA_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    DMA_nREADY enReady = DMA_enNOREADY;
+    DMA_nSTATUS enReady = DMA_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
     enModule = (DMA_nMODULE) MCU__u32CheckParams( (uint32_t) enModule, (uint32_t) DMA_enMODULE_MAX);
     enPeripheral |= enModule;
-    enReady = (DMA_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (DMA_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    DMA_nREADY enReady = DMA_enREADY;
+    DMA_nSTATUS enReady = DMA_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

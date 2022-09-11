@@ -23,19 +23,42 @@
  */
 #include <xDriver_MCU/DMA/Driver/xHeader/DMA_Enable.h>
 
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/DMA_Primitives.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA__vSetModuleEnable(DMA_nENABLE enModuleEnable)
+DMA_nERROR DMA__enSetState(DMA_nMODULE enModuleArg, DMA_nSTATE enStateArg)
 {
-    DMA__vWriteRegister(DMA_CFG_OFFSET, (uint32_t) enModuleEnable,
-                        DMA_CFG_MASTEN_MASK, DMA_CFG_R_MASTEN_BIT);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = DMA_CFG_R_MASTEN_BIT;
+    stRegister.u32Mask = DMA_CFG_MASTEN_MASK;
+    stRegister.uptrAddress = DMA_CFG_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-DMA_nENABLE DMA__enGetModuleEnable(void)
+DMA_nERROR DMA__enGetState(DMA_nMODULE enModuleArg, DMA_nSTATE* penStateArg)
 {
-    DMA_nENABLE enModuleEnable = DMA_enENABLE_DIS;
-    enModuleEnable = (DMA_nENABLE) DMA__u32ReadRegister(DMA_STAT_OFFSET,
-                                    DMA_STAT_MASTEN_MASK, DMA_STAT_R_MASTEN_BIT);
-    return (enModuleEnable);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = DMA_STAT_R_MASTEN_BIT;
+        stRegister.u32Mask = DMA_STAT_MASTEN_MASK;
+        stRegister.uptrAddress = DMA_STAT_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (DMA_nSTATE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

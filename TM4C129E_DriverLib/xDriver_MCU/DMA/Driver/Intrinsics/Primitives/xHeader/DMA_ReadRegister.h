@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-uint32_t DMA__u32ReadRegister(uint32_t u32OffsetRegister, uint32_t u32MaskFeature,
-                              uint32_t u32BitFeature);
+DMA_nERROR DMA__enReadRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_DMA_READREGISTER_H_ */

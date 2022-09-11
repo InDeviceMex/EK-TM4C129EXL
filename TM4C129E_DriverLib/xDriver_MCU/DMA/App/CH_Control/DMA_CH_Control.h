@@ -27,18 +27,27 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimaryControlStruct(DMA_nCH_MODULE enDMAChannel, DMA_CONTROL_t pstControl);
-void DMA_CH__vSetAlternateControlStruct(DMA_nCH_MODULE enDMAChannel, DMA_CONTROL_t pstControl);
-void DMA_CH__vSetControlStruct(DMA_nCH_MODULE enDMAChannel, DMA_nCH_CTL enChannelStructure, DMA_CONTROL_t pstControl);
+DMA_nERROR DMA_CH_Primary__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                 DMA_CONTROL_t* pstControlArg);
+DMA_nERROR DMA_CH_Alternate__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                   DMA_CONTROL_t* pstControlArg);
+DMA_nERROR DMA_CH__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                         DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t* pstControlArg);
 
-DMA_nSTATUS DMA_CH__enGetPrimaryControl(DMA_nCH_MODULE enDMAChannel, DMA_CONTROL_t* pstControl);
-DMA_nSTATUS DMA_CH__enGetAlternateControl(DMA_nCH_MODULE enDMAChannel, DMA_CONTROL_t* pstControl);
-DMA_nSTATUS DMA_CH__enGetControl(DMA_nCH_MODULE enDMAChannel, DMA_nCH_CTL enChannelStructure, DMA_CONTROL_t* pstControl);
 
-DMA_CONTROL_t* DMA_CH__pstGetPrimaryControl(DMA_nCH_MODULE enDMAChannel);
-DMA_CONTROL_t* DMA_CH__pstGetAlternateControl(DMA_nCH_MODULE enDMAChannel);
-DMA_CONTROL_t* DMA_CH__pstGetControl(DMA_nCH_MODULE enDMAChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH_Primary__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                 DMA_CONTROL_t* pstControlArg);
+DMA_nERROR DMA_CH_Alternate__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                   DMA_CONTROL_t* pstControlArg);
+DMA_nERROR DMA_CH__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                         DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t* pstControlArg);
 
-void DMA_CH__vDeleteControlStruct(DMA_CONTROL_t* pstControl);
+DMA_nERROR DMA_CH_Primary__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_CONTROL_t** pstControlArg);
+DMA_nERROR DMA_CH_Alternate__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                      DMA_CONTROL_t** pstControlArg);
+DMA_nERROR DMA_CH__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                            DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t** pstControlArg);
+void DMA_CH__vDeleteControlParameters(DMA_CONTROL_t* pstControl);
 
 #endif /* XDRIVER_MCU_DMA_APP_CH_CONTROL_DMA_CH_CONTROL_H_ */

@@ -37,7 +37,7 @@
 /******************************************************************************************
 ************************************ 1 MIS *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_MIS    (((BITBANDING_ACMIS_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_MIS_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_MIS    (((ACMP_BITBANDING_MIS_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_MIS_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_MIS_IN0    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_MIS_OFFSET) * 32U) + (ACMP_MIS_R_IN0_BIT * 4U))))
 #define ACMP0_BITBANDING_MIS_IN1    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_MIS_OFFSET) * 32U) + (ACMP_MIS_R_IN1_BIT * 4U))))
@@ -46,7 +46,7 @@
 /******************************************************************************************
 ************************************ 2 RIS *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_RIS    (((BITBANDING_ACRIS_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_RIS_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_RIS    (((ACMP_BITBANDING_RIS_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_RIS_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_RIS_IN0    (*((volatile const uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_RIS_OFFSET) * 32U) + (ACMP_RIS_R_IN0_BIT * 4U))))
 #define ACMP0_BITBANDING_RIS_IN1    (*((volatile const uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_RIS_OFFSET) * 32U) + (ACMP_RIS_R_IN1_BIT * 4U))))
@@ -55,7 +55,7 @@
 /******************************************************************************************
 ************************************ 3 INTEN *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_INTEN    (((BITBANDING_ACINTEN_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_INTEN_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_INTEN    (((ACMP_BITBANDING_INTEN_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_INTEN_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_INTEN_IN0    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_INTEN_OFFSET) * 32U) + (ACMP_INTEN_R_IN0_BIT * 4U))))
 #define ACMP0_BITBANDING_INTEN_IN1    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_INTEN_OFFSET) * 32U) + (ACMP_INTEN_R_IN1_BIT * 4U))))
@@ -64,7 +64,7 @@
 /******************************************************************************************
 ************************************ 4 REFCTL *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_REFCTL    (((BITBANDING_ACREFCTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_REFCTL_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_REFCTL    (((ACMP_BITBANDING_REFCTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_REFCTL_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_REFCTL_VREF_0    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_REFCTL_OFFSET) * 32U) + ((ACMP_REFCTL_R_VREF_BIT + 0) * 4U))))
 #define ACMP0_BITBANDING_REFCTL_VREF_1    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_REFCTL_OFFSET) * 32U) + ((ACMP_REFCTL_R_VREF_BIT + 1) * 4U))))
@@ -76,9 +76,9 @@
 /******************************************************************************************
 ************************************ 5 STAT *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_STAT0    (((BITBANDING_ACSTAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT0_OFFSET) * 32U))))
-#define ACMP0_BITBANDING_STAT1    (((BITBANDING_ACSTAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT1_OFFSET) * 32U))))
-#define ACMP0_BITBANDING_STAT2    (((BITBANDING_ACSTAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT2_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_STAT0    (((ACMP_BITBANDING_STAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT0_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_STAT1    (((ACMP_BITBANDING_STAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT1_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_STAT2    (((ACMP_BITBANDING_STAT_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT2_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_STAT0_OVAL    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT0_OFFSET) * 32U) + (ACMP_STAT_R_OVAL_BIT * 4U))))
 #define ACMP0_BITBANDING_STAT1_OVAL    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_STAT1_OFFSET) * 32U) + (ACMP_STAT_R_OVAL_BIT * 4U))))
@@ -87,9 +87,9 @@
 /******************************************************************************************
 ************************************ 6 CTL *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_CTL0    (((BITBANDING_ACCTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL0_OFFSET) * 32U))))
-#define ACMP0_BITBANDING_CTL1    (((BITBANDING_ACCTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL1_OFFSET) * 32U))))
-#define ACMP0_BITBANDING_CTL2    (((BITBANDING_ACCTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL2_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_CTL0    (((ACMP_BITBANDING_CTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL0_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_CTL1    (((ACMP_BITBANDING_CTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL1_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_CTL2    (((ACMP_BITBANDING_CTL_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL2_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_CTL0_CINV    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL0_OFFSET) * 32U) + (ACMP_CTL_R_CINV_BIT * 4U))))
 #define ACMP0_BITBANDING_CTL0_ISEN_0    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_CTL0_OFFSET) * 32U) + ((ACMP_CTL_R_ISEN_BIT + 0U) * 4U))))
@@ -127,7 +127,7 @@
 /******************************************************************************************
 ************************************ 3 PP *********************************************
 ******************************************************************************************/
-#define ACMP0_BITBANDING_PP    (((BITBANDING_ACMPPP_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_PP_OFFSET) * 32U))))
+#define ACMP0_BITBANDING_PP    (((ACMP_BITBANDING_PP_t*) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_PP_OFFSET) * 32U))))
 
 #define ACMP0_BITBANDING_PP_CMP0    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_PP_OFFSET) * 32U) + (ACMP_PP_R_CMP0_BIT * 4U))))
 #define ACMP0_BITBANDING_PP_CMP1    (*((volatile uint32_t *) (ACMP_BITBANDING_BASE + ((ACMP0_OFFSET + ACMP_PP_OFFSET) * 32U) + (ACMP_PP_R_CMP1_BIT * 4U))))

@@ -27,9 +27,15 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetEncoder(DMA_nCH_MODULE enChannel, DMA_nCH_ENCODER enChannelEncoder);
-void DMA_CH__vSetEncoderDefine(DMA_nCHSRC enChannelEncoder);
-DMA_nCH_ENCODER DMA_CH__enGetEncoder(DMA_nCH_MODULE enChannel);
-DMA_nCHSRC DMA_CH__enGetEncoderDefine(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetEncoderByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                      DMA_nCH_ENCODER enEncoderArg);
+DMA_nERROR DMA_CH__enSetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                        DMA_nCH_ENCODER enEncoderArg);
+DMA_nERROR DMA_CH__enGetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                       DMA_nCH_ENCODER* penEncoderArg);
+
+DMA_nERROR DMA_CH__enSetTrigger(DMA_nMODULE enModuleArg, DMA_nCH_TRIGGER enChannelTriggerArg);
+DMA_nERROR DMA_CH__enGetTrigger(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                DMA_nCH_TRIGGER* penChannelTriggerArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_ENCODER_H_ */

@@ -26,17 +26,33 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vWriteRegister(uint32_t u32ChBase, uint32_t u32ChNum,
-                            uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                            uint32_t u32MaskFeature, uint32_t u32BitFeature)
+DMA_nERROR DMA_CH__enWriteRegister(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, DMA_nCH_CONTROL enControlArg, DMA_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32RegChannel = 0UL;
-    u32ChNum = MCU__u32CheckParams(u32ChNum, DMA_enCH_MODULE_MAX);
+    uintptr_t uptrModuleBase;
+    uintptr_t uptrChannelOffset;
+    DMA_nERROR enErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+            if(DMA_enERROR_OK == enErrorReg)
+            {
+                uptrModuleBase = DMA_CH__uptrBlockBaseAddress(enModuleArg, enControlArg);
 
-    u32RegChannel = DMACH_REG_NUM;
-    u32RegChannel *= u32ChNum;
-    u32RegChannel *= 4UL;
-    u32ChBase += u32RegChannel;
-    MCU__vWriteRegister(u32ChBase, u32OffsetRegister, u32FeatureValue,
-                        u32MaskFeature, u32BitFeature);
+                uptrChannelOffset = (uint32_t) enChannelArg;
+                uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
+                uptrModuleBase += uptrChannelOffset;
+                pstRegisterDataArg->uptrAddress += uptrModuleBase;
+                enErrorReg = (DMA_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+            }
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

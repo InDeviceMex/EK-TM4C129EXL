@@ -23,64 +23,123 @@
  */
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceAddress.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/DMA_Primitives.h>
 
-void DMA_CH__vSetPrimarySourceEndAddress(DMA_nCH_MODULE enChannel,
-                                         uint32_t u32SourceAddress)
+DMA_nERROR DMA_CH__enSetSourceEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, uint32_t u32EndAddressArg)
 {
-    DMA_CH__vWriteRegister( (uint32_t) DMACH_BASE, (uint32_t) enChannel,
-                            DMACH_SRCENDP_OFFSET, u32SourceAddress, 0xFFFFFFFFUL, 0UL);
-}
+    uint32_t u32ChannelReg;
+    uint32_t u32ChannelMaskReg;
+    DMA_nERROR enErrorReg;
 
-void DMA_CH__vSetAlternateSourceEndAddress(DMA_nCH_MODULE enChannel,
-                                           uint32_t u32SourceAddress)
-{
-    DMA_CH__vWriteRegister( (uint32_t) DMAALTCH_BASE, (uint32_t) enChannel,
-                            DMACH_SRCENDP_OFFSET, u32SourceAddress, 0xFFFFFFFFUL, 0UL);
-}
-
-void DMA_CH__vSetSourceEndAddress(DMA_nCH_MODULE enChannel,
-                                  DMA_nCH_CTL enChannelStructure,
-                                  uint32_t u32SourceAddress)
-{
-    if(DMA_enCH_CTL_PRIMARY == enChannelStructure)
+    u32ChannelReg = 0U;
+    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    while(0U != u32ChannelMaskReg)
     {
-        DMA_CH__vSetPrimarySourceEndAddress(enChannel, u32SourceAddress);
+        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        {
+            enErrorReg = DMA_CH__enSetSourceEndAddressByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, u32EndAddressArg);
+        }
+
+        if(DMA_enERROR_OK != enErrorReg)
+        {
+            break;
+        }
+        u32ChannelReg++;
+        u32ChannelMaskReg >>= 1U;
     }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enSetSourceEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        uint32_t u32EndAddressArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceEndAddressByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, u32EndAddressArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enSetSourceEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        uint32_t u32EndAddressArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceEndAddressByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, u32EndAddressArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enSetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, uint32_t u32EndAddressArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = DMA_CH_SRCENDP_R_ADDR_BIT;
+    stRegister.u32Mask = DMA_CH_SRCENDP_ADDR_MASK;
+    stRegister.uptrAddress = DMA_CH_SRCENDP_OFFSET;
+    stRegister.u32Value = u32EndAddressArg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t u32EndAddressArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceEndAddressByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, u32EndAddressArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t u32EndAddressArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceEndAddressByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, u32EndAddressArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enGetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL enControlArg, uint32_t* pu32EndAddressArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32EndAddressArg)
+    {
+        stRegister.u32Shift = DMA_CH_SRCENDP_R_ADDR_BIT;
+        stRegister.u32Mask = DMA_CH_SRCENDP_ADDR_MASK;
+        stRegister.uptrAddress = DMA_CH_SRCENDP_OFFSET;
+        enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pu32EndAddressArg = (uint32_t) stRegister.u32Value;
+        }
+}
     else
     {
-        DMA_CH__vSetAlternateSourceEndAddress(enChannel, u32SourceAddress);
+        enErrorReg = DMA_enERROR_POINTER;
     }
+
+    return (enErrorReg);
 }
 
-uint32_t DMA_CH__u32GetPrimarySourceEndAddress(DMA_nCH_MODULE enChannel)
+DMA_nERROR DMA_CH_Primary__enGetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t* pu32EndAddressArg)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = DMA_CH__u32ReadRegister( (uint32_t) DMACH_BASE, (uint32_t) enChannel,
-                                      DMACH_SRCENDP_OFFSET, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetSourceEndAddressByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pu32EndAddressArg);
+    return (enErrorReg);
 }
 
-uint32_t DMA_CH__u32GetAlternateSourceEndAddress(DMA_nCH_MODULE enChannel)
+DMA_nERROR DMA_CH_Alternate__enGetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          uint32_t* pu32EndAddressArg)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = DMA_CH__u32ReadRegister( (uint32_t) DMAALTCH_BASE, (uint32_t) enChannel,
-                                      DMACH_SRCENDP_OFFSET, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
-}
-
-uint32_t DMA_CH__u32GetSourceEndAddress(DMA_nCH_MODULE enChannel,
-                                        DMA_nCH_CTL enChannelStructure)
-{
-    uint32_t u32Reg = 0UL;
-    if(DMA_enCH_CTL_PRIMARY == enChannelStructure)
-    {
-        u32Reg = DMA_CH__u32GetPrimarySourceEndAddress(enChannel);
-    }
-    else
-    {
-        u32Reg = DMA_CH__u32GetAlternateSourceEndAddress(enChannel);
-    }
-    return (u32Reg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetSourceEndAddressByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pu32EndAddressArg);
+    return (enErrorReg);
 }

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-DMA_nSTATE DMA__enGetModuleState(void);
-uint32_t DMA__u32GetModulechannels(void);
+DMA_nERROR DMA__enGetStateMachine(DMA_nMODULE enModuleArg, DMA_nSTATE_MACHINE* penStateArg);
+DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, uint32_t* pu32ChannelNumberArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_STATE_H_ */

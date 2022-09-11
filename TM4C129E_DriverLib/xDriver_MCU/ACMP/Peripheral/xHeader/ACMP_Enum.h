@@ -65,12 +65,6 @@ typedef enum
 
 typedef enum
 {
-    ACMP_enNOREADY = 0UL,
-    ACMP_enREADY = 1UL,
-}ACMP_nREADY;
-
-typedef enum
-{
     ACMP_enMODULE_0 = 0UL,
     ACMP_enMODULE_MAX = 1UL,
 }ACMP_nMODULE;

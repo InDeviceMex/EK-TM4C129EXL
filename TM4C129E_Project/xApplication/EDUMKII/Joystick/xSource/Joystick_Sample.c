@@ -64,27 +64,27 @@ void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK 
 
 void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    DMACHANNEL_t* pstDmaChannel = (DMACHANNEL_t*) 0UL;
+    DMA_CHANNEL_t* pstDmaChannel = (DMA_CHANNEL_t*) 0UL;
     volatile uint32_t* u32TempReg = (uint32_t*) 0UL;
-    static DMACHCTL_t enChControl = {
+    static DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
-         DMA_enCH_BURST_OFF,
+         DMA_enSTATE_DIS,
          2UL-1U,
-         DMA_enCH_BURST_SIZE_2,
-         0,
-         0,
-         0,
-         0,
-         DMA_enCH_SRC_SIZE_WORD,
-         DMA_enCH_SRC_INC_NO,
-         DMA_enCH_DST_SIZE_WORD,
-         DMA_enCH_DST_INC_WORD,
+         DMA_enCH_ARBITRATION_SIZE_2,
+         DMA_enCH_ACCESS_NON_PRIVILEGED,
+         0UL,
+         DMA_enCH_ACCESS_NON_PRIVILEGED,
+         0UL,
+         DMA_enCH_DATA_SIZE_WORD,
+         DMA_enCH_INCREMENT_NO,
+         DMA_enCH_DATA_SIZE_WORD,
+         DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMACH->DMACh[(uint32_t) DMA_enCH_MODULE_15]);
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_15]);
     u32TempReg = (volatile uint32_t*) &enChControl;
-    pstDmaChannel->CHCTL = *u32TempReg;
-    DMA->ENASET = (uint32_t)  DMA_enCH_ENA_ENA << (uint32_t) DMA_enCH_MODULE_15;
+    pstDmaChannel->CTL = *u32TempReg;
+    DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << (uint32_t) DMA_enCH_15;
     u32JostickFlag = 1UL;
 }
 

@@ -14,8 +14,7 @@ MEMORY
     FLASH_BANK01 (RX) : origin = 0x00010400, length = 0x0006FC00
     FLASH_BANK23 (RX) : origin = 0x00080000, length = 0x00080000
     SRAM_VTABLE (RWX) : origin = 0x20003000, length = 0x00000400 /*1K*/
-    SRAM_DMA (RW) : origin = 0x20003400, length = 0x00000200
-    SRAM_DMAALT (RW) : origin = 0x20003600, length = 0x00000200
+    SRAM_DMA (RW) : origin = 0x20003400, length = 0x00000400
     SRAM_CODE (RWX) : origin = 0x20003800, length = 0x00001000 /*5K*/
     SRAM (RW) : origin = 0x20004800, length = 0x00010800
     SRAM_DYNAMIC (RW) : origin = 0x20015000, length = 0x0002A800 /*32K*/
@@ -77,7 +76,6 @@ SECTIONS
     } > SRAM_PROCESS_STACK
 */
     .dma    :   > SRAM_DMA
-    .dmaalt :   > SRAM_DMAALT
 
 
 }

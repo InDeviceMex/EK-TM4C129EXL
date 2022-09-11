@@ -27,33 +27,46 @@
 
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vSetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_t stChannelControlWorld);
-void DMA_CH__vSetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_t stChannelControlWorld);
-void DMA_CH__vSetControlWorld(DMA_nCH_MODULE enChannel,
-                              DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_t stChannelControlWorld);
+DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg);
+DMA_nERROR DMA_CH_Primary__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                      DMA_CH_CTL_t stControlArg);
+DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        DMA_CH_CTL_t stControlArg);
 
-void DMA_CH__vSetPrimaryControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                            uint32_t u32ChannelControlWorld);
-void DMA_CH__vSetAlternateControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                              uint32_t u32ChannelControlWorld);
-void DMA_CH__vSetControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                     DMA_nCH_CTL enChannelStructure,
-                                     uint32_t u32ChannelControlWorld);
+DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg);
+DMA_nERROR DMA_CH_Primary__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_CH_CTL_t stControlArg);
+DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          DMA_CH_CTL_t stControlArg);
 
-uint32_t DMA_CH__u32GetAlternateControlWorld(DMA_nCH_MODULE enChannel);
-uint32_t DMA_CH__u32GetPrimaryControlWorld(DMA_nCH_MODULE enChannel);
-uint32_t DMA_CH__u32GetControlWorld(DMA_nCH_MODULE enChannel,
-                                    DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg);
+DMA_nERROR DMA_CH_Primary__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_CH_CTL_t* pstControlArg);
+DMA_nERROR DMA_CH_Alternate__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          DMA_CH_CTL_t* pstControlArg);
 
-void DMA_CH__vGetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_t* pstChannelControlWorld);
-void DMA_CH__vGetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_t* pstChannelControlWorld);
-void DMA_CH__vGetControlWorld(DMA_nCH_MODULE enChannel,
-                              DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_t* pstChannelControlWorld);
 
+DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg);
+DMA_nERROR DMA_CH_Primary__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                   uint32_t u32ControlArg);
+DMA_nERROR DMA_CH_Alternate__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                     uint32_t u32ControlArg);
+
+DMA_nERROR DMA_CH__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                             DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg);
+DMA_nERROR DMA_CH_Primary__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                     uint32_t u32ControlArg);
+DMA_nERROR DMA_CH_Alternate__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                       uint32_t u32ControlArg);
+
+DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32ControlArg);
+DMA_nERROR DMA_CH_Primary__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                     uint32_t* pu32ControlArg);
+DMA_nERROR DMA_CH_Alternate__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          uint32_t* pu32ControlArg);
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_CONTROLWORLD_H_ */

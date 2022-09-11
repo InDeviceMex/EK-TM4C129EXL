@@ -26,142 +26,69 @@
 
 void DMA_SW__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Priority = 0UL;
-    volatile uint32_t u32IntStatus = 0UL;
-    volatile uint32_t u32Ready = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    uint32_t u32Priority;
+    uint32_t u32IntStatus;
+    uint32_t u32SwMask;
+    uint32_t u32Enable;
+    uint32_t u32Ready;
+    uint32_t u32ShiftReg;
+    uint32_t u32Count;
+    DMA_pvfIRQSourceHandler_t pvfCallback;
 
     u32Ready = SYSCTL_PRDMA_R;
     if(SYSCTL_PRDMA_R_UDMA_NOREADY == (SYSCTL_PRDMA_R_UDMA_MASK & u32Ready))
     {
-        pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_SW);
-        pvfCallback();
+        pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, DMA_enCH_SW);
+        pvfCallback(DMA_BASE, (void*) DMA_enCH_SW);
     }
     else
     {
-        u32IntStatus = DMA_CHIS_R;
-        if(0UL == (u32IntStatus &
-                (DMA_CHIS_R_CHIS3_MASK | DMA_CHIS_R_CHIS22_MASK |
-                 DMA_PRIOSET_R_SET23_MASK | DMA_PRIOSET_R_SET25_MASK |
-                 DMA_PRIOSET_R_SET26_MASK | DMA_PRIOSET_R_SET27_MASK |
-                 DMA_PRIOSET_R_SET30_MASK) ))
+        u32Enable = DMA_CH_ENASET_R;
+        u32SwMask = DMA_CH_REQMASKSET_R;
+        u32IntStatus = DMA_CH_IS_R;
+        u32IntStatus &= u32SwMask;
+        u32IntStatus &= u32Enable;
+        if(0UL == u32IntStatus)
         {
-            pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_SW);
-            pvfCallback();
+            pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, DMA_enCH_SW);
+            pvfCallback(DMA_BASE, (void*) DMA_enCH_SW);
         }
         else
         {
-            u32Priority = DMA_PRIOSET_R;
-            if(DMA_CHIS_R_CHIS3_MASK & u32IntStatus)
+            u32Priority = DMA_CH_PRIOSET_R;
+            if(0UL != u32Priority)
             {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET3_MASK))
+                u32Count = 0U;
+                u32ShiftReg = 1UL;
+                while((0UL != u32Priority) && (0UL != u32IntStatus))
                 {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_03);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS3_MASK;
+                    if(u32ShiftReg & u32IntStatus)
+                    {
+                        if(0UL != (u32Priority & u32ShiftReg))
+                        {
+                            pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, (DMA_nCH) u32Count);
+                            pvfCallback(DMA_BASE, (void*) u32Count);
+                            DMA_CH_IS_R = (uint32_t) u32ShiftReg;
+                        }
+                    }
+                    u32ShiftReg <<= 1U;
+                    u32Priority >>= 1U;
+                    u32Count++;
                 }
             }
 
-            if(DMA_CHIS_R_CHIS22_MASK & u32IntStatus)
+            u32Count = 0U;
+            u32ShiftReg = 1UL;
+            while(0UL != u32IntStatus)
             {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET22_MASK))
+                if(u32ShiftReg & u32IntStatus)
                 {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_22);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS22_MASK;
+                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, (DMA_nCH) u32Count);
+                    pvfCallback(DMA_BASE, (void*) u32Count);
+                    DMA_CH_IS_R = (uint32_t) u32ShiftReg;
                 }
-            }
-
-            if(DMA_CHIS_R_CHIS23_MASK & u32IntStatus)
-            {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET23_MASK))
-                {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_23);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS23_MASK;
-                }
-            }
-
-            if(DMA_CHIS_R_CHIS25_MASK & u32IntStatus)
-            {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET25_MASK))
-                {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_25);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS25_MASK;
-                }
-            }
-
-            if(DMA_CHIS_R_CHIS26_MASK & u32IntStatus)
-            {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET26_MASK))
-                {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_26);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS26_MASK;
-                }
-            }
-
-            if(DMA_CHIS_R_CHIS27_MASK & u32IntStatus)
-            {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET27_MASK))
-                {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_27);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS27_MASK;
-                }
-            }
-
-            if(DMA_CHIS_R_CHIS30_MASK & u32IntStatus)
-            {
-                if(0UL != (u32Priority & DMA_PRIOSET_R_SET30_MASK))
-                {
-                    pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_30);
-                    pvfCallback();
-                    DMA_CHIS_R = DMA_CHIS_R_CHIS30_MASK;
-                }
-            }
-
-            if(DMA_CHIS_R_CHIS22_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_22);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS22_MASK;
-            }
-
-            if(DMA_CHIS_R_CHIS23_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_23);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS23_MASK;
-            }
-
-            if(DMA_CHIS_R_CHIS25_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_25);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS25_MASK;
-            }
-
-            if(DMA_CHIS_R_CHIS26_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_26);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS26_MASK;
-            }
-
-            if(DMA_CHIS_R_CHIS27_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_27);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS27_MASK;
-            }
-
-            if(DMA_CHIS_R_CHIS30_MASK & u32IntStatus)
-            {
-                pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enCH_INT_SOFT_30);
-                pvfCallback();
-                DMA_CHIS_R = DMA_CHIS_R_CHIS30_MASK;
+                u32ShiftReg <<= 1U;
+                u32Count++;
             }
         }
     }

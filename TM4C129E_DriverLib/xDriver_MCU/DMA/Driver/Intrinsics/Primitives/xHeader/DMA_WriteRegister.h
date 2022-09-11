@@ -25,11 +25,9 @@
 #ifndef XDRIVER_MCU_DMA_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_DMA_WRITEREGISTER_H_
 #define XDRIVER_MCU_DMA_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_DMA_WRITEREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA__vWriteRegister(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                         uint32_t u32MaskFeature, uint32_t u32BitFeature);
-void DMA__vWriteRegister_Direct(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                                uint32_t u32MaskFeature, uint32_t u32BitFeature);
+DMA_nERROR DMA__enWriteRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg);
+DMA_nERROR DMA__enWriteRegister_Direct(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_DMA_WRITEREGISTER_H_ */

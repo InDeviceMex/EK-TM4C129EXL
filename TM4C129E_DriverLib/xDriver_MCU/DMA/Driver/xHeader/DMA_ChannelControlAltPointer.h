@@ -25,8 +25,9 @@
 #ifndef XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLALTPOINTER_H_
 #define XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLALTPOINTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-uint32_t DMA__u32GetChannelControlAltPointer(void);
+DMA_nERROR DMA__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t* puptrControlAddressArg);
+DMA_nERROR DMA_CH__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, uintptr_t* puptrControlAddressArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_CHANNELCONTROLALTPOINTER_H_ */

@@ -23,109 +23,247 @@
  */
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_ControlWorld.h>
 
-#include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_ControlGeneric.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vSetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_t stChannelControlWorld)
+DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg)
 {
-    volatile uint32_t *pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
-    DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) *pu32Reg, 0xFFFFFFFFUL, 0UL);
-}
+    uint32_t u32ChannelReg;
+    uint32_t u32ChannelMaskReg;
+    DMA_nERROR enErrorReg;
 
-void DMA_CH__vSetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_t stChannelControlWorld)
-{
-    volatile uint32_t* pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
-    DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) *pu32Reg, 0xFFFFFFFFUL, 0UL);
-}
-
-void DMA_CH__vSetControlWorld(DMA_nCH_MODULE enChannel,
-                              DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_t stChannelControlWorld)
-{
-    volatile uint32_t* pu32Reg = (volatile uint32_t*) &stChannelControlWorld;
-    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure,
-                               (uint32_t) *pu32Reg, 0xFFFFFFFFUL, 0UL);
-}
-
-void DMA_CH__vSetPrimaryControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                            uint32_t u32ChannelControlWorld)
-{
-    DMA_CH__vSetPrimaryControlGeneric(enChannel, u32ChannelControlWorld, 0xFFFFFFFFUL, 0UL);
-}
-
-void DMA_CH__vSetAlternateControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                              uint32_t u32ChannelControlWorld)
-{
-    DMA_CH__vSetAlternateControlGeneric(enChannel, u32ChannelControlWorld, 0xFFFFFFFFUL, 0UL);
-}
-
-void DMA_CH__vSetControlWorldInteger(DMA_nCH_MODULE enChannel,
-                                     DMA_nCH_CTL enChannelStructure,
-                                     uint32_t u32ChannelControlWorld)
-{
-    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure,
-                               u32ChannelControlWorld, 0xFFFFFFFFUL, 0UL);
-}
-
-uint32_t DMA_CH__u32GetPrimaryControlWorld(DMA_nCH_MODULE enChannel)
-{
-    uint32_t u32Reg = 0UL;
-    u32Reg = DMA_CH__u32GetPrimaryControlGeneric(enChannel, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
-}
-
-uint32_t DMA_CH__u32GetAlternateControlWorld(DMA_nCH_MODULE enChannel)
-{
-    uint32_t u32Reg = 0UL;
-    u32Reg = DMA_CH__u32GetAlternateControlGeneric(enChannel, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
-}
-
-uint32_t DMA_CH__u32GetControlWorld(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
-{
-    uint32_t u32Reg = 0UL;
-    u32Reg = DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure, 0xFFFFFFFFUL, 0UL);
-    return (u32Reg);
-}
-
-void DMA_CH__vGetPrimaryControlWorld(DMA_nCH_MODULE enChannel,
-                                     DMACHCTL_t* pstChannelControlWorld)
-{
-    uint32_t u32Reg = 0UL;
-    volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;
-    if(0UL != (uint32_t) pstChannelControlWorld)
+    u32ChannelReg = 0U;
+    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    while(0U != u32ChannelMaskReg)
     {
-        pu32Reg = (volatile uint32_t*) pstChannelControlWorld;
-        u32Reg = DMA_CH__u32GetPrimaryControlWorld(enChannel);
-        *pu32Reg = u32Reg;
+        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        {
+            enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, stControlArg);
+        }
+
+        if(DMA_enERROR_OK != enErrorReg)
+        {
+            break;
+        }
+        u32ChannelReg++;
+        u32ChannelMaskReg >>= 1U;
     }
+
+    return (enErrorReg);
 }
 
-void DMA_CH__vGetAlternateControlWorld(DMA_nCH_MODULE enChannel,
-                                       DMACHCTL_t* pstChannelControlWorld)
+DMA_nERROR DMA_CH_Primary__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                      DMA_CH_CTL_t stControlArg)
 {
-    uint32_t u32Reg = 0UL;
-    volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;
-    if(0UL != (uint32_t) pstChannelControlWorld)
-    {
-        pu32Reg = (volatile uint32_t*) pstChannelControlWorld;
-        u32Reg = DMA_CH__u32GetAlternateControlWorld(enChannel);
-        *pu32Reg = u32Reg;
-    }
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, stControlArg);
+    return (enErrorReg);
 }
 
-void DMA_CH__vGetControlWorld(DMA_nCH_MODULE enChannel,
-                              DMA_nCH_CTL enChannelStructure,
-                              DMACHCTL_t* pstChannelControlWorld)
+DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                                 DMA_CH_CTL_t stControlArg)
 {
-    uint32_t u32Reg = 0UL;
-    volatile uint32_t* pu32Reg = (volatile uint32_t*) 0UL;
-    if(0UL != (uint32_t) pstChannelControlWorld)
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, stControlArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg)
+{
+    DMA_Register_t stRegister;
+    static volatile uint32_t *pu32ControlReg;
+    DMA_nERROR enErrorReg;
+
+    pu32ControlReg = (volatile uint32_t*) &stControlArg;
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) *pu32ControlReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_CH_CTL_t stControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, stControlArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          DMA_CH_CTL_t stControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, stControlArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
+{
+    DMA_Register_t stRegister;
+    volatile uint32_t* pu32ControlReg;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pstControlArg)
     {
-        pu32Reg = (volatile uint32_t*) pstChannelControlWorld;
-        u32Reg = DMA_CH__u32GetControlWorld(enChannel, enChannelStructure);
-        *pu32Reg = u32Reg;
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+        enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            pu32ControlReg = (volatile uint32_t*) pstControlArg;
+            *pu32ControlReg = stRegister.u32Value;
+        }
+}
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
     }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_CH_CTL_t* pstControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pstControlArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          DMA_CH_CTL_t* pstControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pstControlArg);
+    return (enErrorReg);
+}
+
+
+
+
+DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg)
+{
+    uint32_t u32ChannelReg;
+    uint32_t u32ChannelMaskReg;
+    DMA_nERROR enErrorReg;
+
+    u32ChannelReg = 0U;
+    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    while(0U != u32ChannelMaskReg)
+    {
+        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        {
+            enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, u32ControlArg);
+        }
+
+        if(DMA_enERROR_OK != enErrorReg)
+        {
+            break;
+        }
+        u32ChannelReg++;
+        u32ChannelMaskReg >>= 1U;
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                      uint32_t u32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, u32ControlArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                                 uint32_t u32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, u32ControlArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+    stRegister.u32Value = u32ControlArg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t u32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, u32ControlArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          uint32_t u32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, u32ControlArg);
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32ControlArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32ControlArg)
+    {
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+        enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pu32ControlArg = stRegister.u32Value;
+        }
+}
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                     uint32_t* pu32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pu32ControlArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          uint32_t* pu32ControlArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pu32ControlArg);
+    return (enErrorReg);
 }

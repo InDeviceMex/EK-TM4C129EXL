@@ -27,17 +27,26 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimaryTransferMode(DMA_nCH_MODULE enChannel,
-                                     DMA_nCH_MODE enChannelTransferMode);
-void DMA_CH__vSetAlternateTransferMode(DMA_nCH_MODULE enChannel,
-                                       DMA_nCH_MODE enChannelTransferMode);
-void DMA_CH__vSetTransferMode(DMA_nCH_MODULE enChannel,
-                              DMA_nCH_CTL enChannelStructure,
-                              DMA_nCH_MODE enChannelTransferMode);
+DMA_nERROR DMA_CH__enSetTransferModeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                           DMA_nCH_CONTROL enControlArg, DMA_nCH_MODE enModeArg);
+DMA_nERROR DMA_CH_Primary__enSetTransferModeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                   DMA_nCH_MODE enModeArg);
+DMA_nERROR DMA_CH_Alternate__enSetTransferModeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                     DMA_nCH_MODE enModeArg);
 
-DMA_nCH_MODE DMA_CH__enGetAlternateTransferMode(DMA_nCH_MODULE enChannel);
-DMA_nCH_MODE DMA_CH__enGetPrimaryTransferMode(DMA_nCH_MODULE enChannel);
-DMA_nCH_MODE DMA_CH__enGetTransferMode(DMA_nCH_MODULE enChannel,
-                                       DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enSetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                             DMA_nCH_CONTROL enControlArg, DMA_nCH_MODE enModeArg);
+DMA_nERROR DMA_CH_Primary__enSetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                     DMA_nCH_MODE enModeArg);
+DMA_nERROR DMA_CH_Alternate__enSetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                       DMA_nCH_MODE enModeArg);
+
+
+DMA_nERROR DMA_CH__enGetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                             DMA_nCH_CONTROL enControlArg, DMA_nCH_MODE* penModeArg);
+DMA_nERROR DMA_CH_Primary__enGetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                     DMA_nCH_MODE* penModeArg);
+DMA_nERROR DMA_CH_Alternate__enGetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                       DMA_nCH_MODE* penModeArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_TRANSFERMODE_H_ */

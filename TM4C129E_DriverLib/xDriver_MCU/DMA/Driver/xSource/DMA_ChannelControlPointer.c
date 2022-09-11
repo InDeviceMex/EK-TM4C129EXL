@@ -23,17 +23,63 @@
  */
 #include <xDriver_MCU/DMA/Driver/xHeader/DMA_ChannelControlPointer.h>
 
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/DMA_Primitives.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA__vSetChannelControlPointer(uint32_t u32ControlAddress)
+DMA_nERROR DMA__enSetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t uptrControlAddressArg)
 {
-    DMA__vWriteRegister(DMA_CTLBASE_OFFSET, u32ControlAddress, DMA_CTLBASE_R_ADDR_MASK, 0UL);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = DMA_CTLBASE_R_ADDR_MASK;
+    stRegister.uptrAddress = DMA_CTLBASE_OFFSET;
+    stRegister.u32Value = (uint32_t) uptrControlAddressArg;
+    enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-uint32_t DMA__u32GetChannelControlPointer(void)
+DMA_nERROR DMA__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t* puptrControlAddressArg)
 {
-    uint32_t u32CtlPointerReg = 0UL;
-    u32CtlPointerReg = DMA__u32ReadRegister(DMA_CTLBASE_OFFSET, DMA_CTLBASE_R_ADDR_MASK, 0UL);
-    return (u32CtlPointerReg);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) puptrControlAddressArg)
+    {
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = DMA_CTLBASE_R_ADDR_MASK;
+        stRegister.uptrAddress = DMA_CTLBASE_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *puptrControlAddressArg = (uintptr_t) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
+}
+
+
+DMA_nERROR DMA_CH__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, uintptr_t* puptrControlAddressArg)
+{
+    uintptr_t uptrChannelOffset;
+    DMA_nERROR enErrorReg;
+
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA__enGetPrimaryControlStructureAddress(enModuleArg, puptrControlAddressArg);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            uptrChannelOffset = (uintptr_t) enChannelArg;
+            uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
+            *puptrControlAddressArg += uptrChannelOffset;
+        }
+    }
+    return (enErrorReg);
 }

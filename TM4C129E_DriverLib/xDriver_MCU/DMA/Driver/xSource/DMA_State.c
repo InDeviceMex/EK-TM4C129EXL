@@ -23,21 +23,53 @@
  */
 #include <xDriver_MCU/DMA/Driver/xHeader/DMA_State.h>
 
-#include <xDriver_MCU/DMA/Driver/Intrinsics/Primitives/DMA_Primitives.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-DMA_nSTATE DMA__enGetModuleState(void)
+DMA_nERROR DMA__enGetStateMachine(DMA_nMODULE enModuleArg, DMA_nSTATE_MACHINE* penStateArg)
 {
-    DMA_nSTATE enModuleState = DMA_enSTATE_IDLE;
-    enModuleState = (DMA_nSTATE) DMA__u32ReadRegister(DMA_STAT_OFFSET,
-                                  DMA_STAT_STATE_MASK, DMA_STAT_R_STATE_BIT);
-    return (enModuleState);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = DMA_STAT_R_STATE_BIT;
+        stRegister.u32Mask = DMA_STAT_STATE_MASK;
+        stRegister.uptrAddress = DMA_STAT_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (DMA_nSTATE_MACHINE) stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-uint32_t DMA__u32GetModulechannels(void)
+
+DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, uint32_t* pu32ChannelNumberArg)
 {
-    DMA_nCH_MODULE enModuleChannels = DMA_enCH_MODULE_0;
-    enModuleChannels = (DMA_nCH_MODULE) DMA__u32ReadRegister(DMA_STAT_OFFSET,
-                                         DMA_STAT_DMACHANS_MASK, DMA_STAT_R_DMACHANS_BIT);
-    return (enModuleChannels);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) pu32ChannelNumberArg)
+    {
+        stRegister.u32Shift = DMA_STAT_R_CHANS_BIT;
+        stRegister.u32Mask = DMA_STAT_CHANS_MASK;
+        stRegister.uptrAddress = DMA_STAT_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            stRegister.u32Value += 1U;
+            *pu32ChannelNumberArg = stRegister.u32Value;
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }

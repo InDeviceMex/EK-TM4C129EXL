@@ -26,16 +26,46 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA__vWriteRegister(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                         uint32_t u32MaskFeature, uint32_t u32BitFeature)
+DMA_nERROR DMA__enWriteRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg)
 {
-    MCU__vWriteRegister(DMA_BASE, u32OffsetRegister, u32FeatureValue,
-                        u32MaskFeature, u32BitFeature);
+    uintptr_t uptrModuleBase;
+    DMA_nERROR enErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
+            pstRegisterDataArg->uptrAddress += uptrModuleBase;
+            enErrorReg = (DMA_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }
 
-void DMA__vWriteRegister_Direct(uint32_t u32OffsetRegister, uint32_t u32FeatureValue,
-                                uint32_t u32MaskFeature, uint32_t u32BitFeature)
+DMA_nERROR DMA__enWriteRegister_Direct(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg)
 {
-    MCU__vWriteRegister_Direct(DMA_BASE, u32OffsetRegister, u32FeatureValue,
-                               u32MaskFeature, u32BitFeature);
+    uintptr_t uptrModuleBase;
+    DMA_nERROR enErrorReg;
+    if(0UL != (uint32_t) pstRegisterDataArg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
+            pstRegisterDataArg->uptrAddress += uptrModuleBase;
+            enErrorReg = (DMA_nERROR) MCU__enWriteRegister_Direct(pstRegisterDataArg);
+        }
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
 }

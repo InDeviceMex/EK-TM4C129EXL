@@ -29,6 +29,6 @@
 
 void ACMP__vSetReady(ACMP_nMODULE enModule);
 void ACMP__vClearReady(ACMP_nMODULE enModule);
-ACMP_nREADY ACMP__enIsReady(ACMP_nMODULE enModule);
+ACMP_nSTATUS ACMP__enIsReady(ACMP_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_ACMP_INTRINSICS_XHEADER_ACMP_READY_H_ */

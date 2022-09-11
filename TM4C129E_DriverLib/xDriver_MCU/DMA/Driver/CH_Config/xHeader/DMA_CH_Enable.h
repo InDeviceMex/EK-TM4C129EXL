@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetEnable(DMA_nCH_MODULE enChannel, DMA_nCH_ENA enEnable);
-DMA_nCH_ENA DMA_CH__enGetEnable(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetStateByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                    DMA_nSTATE enStateArg);
+DMA_nERROR DMA_CH__enSetStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                      DMA_nSTATE enStateArg);
+
+DMA_nERROR DMA_CH__enGetStateByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                    DMA_nCHMASK* penCHMaskReqArg);
+DMA_nERROR DMA_CH__enGetStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                    DMA_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_ENABLE_H_ */

@@ -27,10 +27,14 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void (*DMA__pvfGetIRQSourceHandler_Error(DMA_nINT_ERROR enInterruptSourceArg))(void);
-void (**DMA__pvfGetIRQSourceHandlerPointer_Error(DMA_nINT_ERROR enInterruptSourceArg))(void);
+DMA_pvfIRQSourceHandler_t DMA__pvfGetIRQSourceHandler_Error(DMA_nMODULE enModuleArg,
+                                                            DMA_nINT_ERROR enInterruptSourceArg);
+DMA_pvfIRQSourceHandler_t* DMA__pvfGetIRQSourceHandlerPointer_Error(DMA_nMODULE enModuleArg,
+                                                                    DMA_nINT_ERROR enInterruptSourceArg);
 
-void (*DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void);
-void (**DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nCH_INT_SOFT enInterruptSourceArg))(void);
+DMA_pvfIRQSourceHandler_t DMA_CH__pvfGetIRQSourceHandler_Software(DMA_nMODULE enModuleArg,
+                                                                  DMA_nCH enChannelArg);
+DMA_pvfIRQSourceHandler_t* DMA_CH__pvfGetIRQSourceHandlerPointer_Software(DMA_nMODULE enModuleArg,
+                                                                 DMA_nCH enChannelArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_DMA_INTERRUPTROUTINE_SOURCE_SOFTWARE_H_ */

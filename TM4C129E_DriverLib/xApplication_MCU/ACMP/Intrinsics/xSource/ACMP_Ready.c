@@ -32,7 +32,7 @@ static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_ACMP[(uint32_t) ACMP_enMODULE_MAX] = {SY
 void ACMP__vSetReady(ACMP_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    ACMP_nREADY enReady = ACMP_enNOREADY;
+    ACMP_nSTATUS enReady = ACMP_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enACMP;
     uint32_t u32Module = 0UL;
 
@@ -40,7 +40,7 @@ void ACMP__vSetReady(ACMP_nMODULE enModule)
 
     enPeripheral = SYSCTL_VECTOR_ACMP[u32Module];
     enReady = ACMP__enIsReady((ACMP_nMODULE) u32Module);
-    if(ACMP_enNOREADY == enReady)
+    if(ACMP_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
         SYSCTL__vReset(enPeripheral);
@@ -62,17 +62,17 @@ void ACMP__vClearReady(ACMP_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-ACMP_nREADY ACMP__enIsReady(ACMP_nMODULE enModule)
+ACMP_nSTATUS ACMP__enIsReady(ACMP_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    ACMP_nREADY enReady = ACMP_enNOREADY;
+    ACMP_nSTATUS enReady = ACMP_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enACMP;
     uint32_t u32Module =0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ACMP_enMODULE_MAX);
     enPeripheral = SYSCTL_VECTOR_ACMP[u32Module];
-    enReady = (ACMP_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (ACMP_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    ACMP_nREADY enReady = ACMP_enREADY;
+    ACMP_nSTATUS enReady = ACMP_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

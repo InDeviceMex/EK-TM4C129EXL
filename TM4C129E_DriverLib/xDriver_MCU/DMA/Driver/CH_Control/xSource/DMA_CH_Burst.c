@@ -23,51 +23,124 @@
  */
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_Burst.h>
 
-#include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_ControlGeneric.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vSetPrimaryBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst)
+DMA_nERROR DMA_CH__enUseLastBurstTransferByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                DMA_nCH_CONTROL enControlArg, DMA_nSTATE enStateArg)
 {
-    DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) enChannelBurst,
-                      DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    uint32_t u32ChannelReg;
+    uint32_t u32ChannelMaskReg;
+    DMA_nERROR enErrorReg;
+
+    u32ChannelReg = 0U;
+    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    while(0U != u32ChannelMaskReg)
+    {
+        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        {
+            enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enStateArg);
+        }
+
+        if(DMA_enERROR_OK != enErrorReg)
+        {
+            break;
+        }
+        u32ChannelReg++;
+        u32ChannelMaskReg >>= 1U;
+    }
+
+    return (enErrorReg);
 }
 
-void DMA_CH__vSetAlternateBurst(DMA_nCH_MODULE enChannel, DMA_nCH_BURST enChannelBurst)
+DMA_nERROR DMA_CH_Primary__enUseLastBurstTransferByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        DMA_nSTATE enStateArg)
 {
-    DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) enChannelBurst,
-                    DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enUseLastBurstTransferByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, enStateArg);
+    return (enErrorReg);
 }
 
-void DMA_CH__vSetBurst(DMA_nCH_MODULE enChannel,
-                       DMA_nCH_CTL enChannelStructure,
-                       DMA_nCH_BURST enChannelBurst)
+DMA_nERROR DMA_CH_Alternate__enUseLastBurstTransferByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        DMA_nSTATE enStateArg)
 {
-    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure,
-                               (uint32_t) enChannelBurst,
-                               DMACH_CHCTL_NXTUSEBURST_MASK,
-                               DMACH_CHCTL_R_NXTUSEBURST_BIT);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enUseLastBurstTransferByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, enStateArg);
+    return (enErrorReg);
 }
 
-DMA_nCH_BURST DMA_CH__enGetPrimaryBurst(DMA_nCH_MODULE enChannel)
+
+DMA_nERROR DMA_CH__enUseLastBurstTransferByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, DMA_nSTATE enStateArg)
 {
-    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
-    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetPrimaryControlGeneric(enChannel,
-                                DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enBurstReg);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = DMA_CH_CTL_R_NXTUSEBURST_BIT;
+    stRegister.u32Mask = DMA_CH_CTL_NXTUSEBURST_MASK;
+    stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-DMA_nCH_BURST DMA_CH__enGetAlternateBurst(DMA_nCH_MODULE enChannel)
+DMA_nERROR DMA_CH_Primary__enUseLastBurstTransferByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_nSTATE enStateArg)
 {
-    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
-    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetAlternateControlGeneric(enChannel,
-                          DMAALTCH_CHCTL_NXTUSEBURST_MASK, DMAALTCH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enBurstReg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, enStateArg);
+    return (enErrorReg);
 }
 
-DMA_nCH_BURST DMA_CH__enGetBurst(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure)
+DMA_nERROR DMA_CH_Alternate__enUseLastBurstTransferByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        DMA_nSTATE enStateArg)
 {
-    DMA_nCH_BURST enBurstReg = DMA_enCH_BURST_OFF;
-    enBurstReg = (DMA_nCH_BURST) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure,
-                                  DMACH_CHCTL_NXTUSEBURST_MASK, DMACH_CHCTL_R_NXTUSEBURST_BIT);
-    return (enBurstReg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, enStateArg);
+    return (enErrorReg);
 }
+
+
+    DMA_nERROR DMA_CH__enGetLastBurstTransferStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                           DMA_nCH_CONTROL enControlArg, DMA_nSTATE* penStateArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penStateArg)
+    {
+        stRegister.u32Shift = DMA_CH_CTL_R_NXTUSEBURST_BIT;
+        stRegister.u32Mask = DMA_CH_CTL_NXTUSEBURST_MASK;
+        stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+        enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (DMA_nSTATE) stRegister.u32Value;
+        }
+}
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enGetLastBurstTransferStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                               DMA_nSTATE* penStateArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetLastBurstTransferStateByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, penStateArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enGetLastBurstTransferStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nSTATE* penStateArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetLastBurstTransferStateByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penStateArg);
+    return (enErrorReg);
+}
+

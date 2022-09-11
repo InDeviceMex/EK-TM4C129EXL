@@ -27,17 +27,25 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetPrimarySourceSize(DMA_nCH_MODULE enChannel,
-                                   DMA_nCH_SRC_SIZE enChannelSourceSize);
-void DMA_CH__vSetAlternateSourceSize(DMA_nCH_MODULE enChannel,
-                                     DMA_nCH_SRC_SIZE enChannelSourceSize);
-void DMA_CH__vSetSourceSize(DMA_nCH_MODULE enChannel,
-                            DMA_nCH_CTL enChannelStructure,
-                            DMA_nCH_SRC_SIZE enChannelSourceSize);
+DMA_nERROR DMA_CH__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg);
+DMA_nERROR DMA_CH_Primary__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                               DMA_nCH_DATA_SIZE enDataSizeArg);
+DMA_nERROR DMA_CH_Alternate__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                                 DMA_nCH_DATA_SIZE enDataSizeArg);
 
-DMA_nCH_SRC_SIZE DMA_CH__enGetAlternateSourceSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_SIZE DMA_CH__enGetPrimarySourceSize(DMA_nCH_MODULE enChannel);
-DMA_nCH_SRC_SIZE DMA_CH__enGetSourceSize(DMA_nCH_MODULE enChannel,
-                                         DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg);
+DMA_nERROR DMA_CH_Primary__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_DATA_SIZE enDataSizeArg);
+DMA_nERROR DMA_CH_Alternate__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_DATA_SIZE enDataSizeArg);
+
+DMA_nERROR DMA_CH__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE* penDataSizeArg);
+DMA_nERROR DMA_CH_Primary__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_DATA_SIZE* penDataSizeArg);
+DMA_nERROR DMA_CH_Alternate__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_DATA_SIZE* penDataSizeArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_SOURCESIZE_H_ */

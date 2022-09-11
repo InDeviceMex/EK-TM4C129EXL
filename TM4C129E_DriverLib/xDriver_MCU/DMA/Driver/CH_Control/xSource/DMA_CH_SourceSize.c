@@ -23,52 +23,124 @@
  */
 #include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_SourceSize.h>
 
-#include <xDriver_MCU/DMA/Driver/CH_Control/xHeader/DMA_CH_ControlGeneric.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/DMA/Driver/Intrinsics/DMA_Intrinsics.h>
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA_CH__vSetPrimarySourceSize(DMA_nCH_MODULE enChannel,
-                                   DMA_nCH_SRC_SIZE enChannelSourceSize)
+DMA_nERROR DMA_CH__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_CH__vSetPrimaryControlGeneric(enChannel, (uint32_t) enChannelSourceSize,
-                              DMACH_CHCTL_SRCSIZE_MASK, DMACH_CHCTL_R_SRCSIZE_BIT);
+    uint32_t u32ChannelReg;
+    uint32_t u32ChannelMaskReg;
+    DMA_nERROR enErrorReg;
+
+    u32ChannelReg = 0U;
+    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    while(0U != u32ChannelMaskReg)
+    {
+        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        {
+            enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enDataSizeArg);
+        }
+
+        if(DMA_enERROR_OK != enErrorReg)
+        {
+            break;
+        }
+        u32ChannelReg++;
+        u32ChannelMaskReg >>= 1U;
+    }
+
+    return (enErrorReg);
 }
 
-void DMA_CH__vSetAlternateSourceSize(DMA_nCH_MODULE enChannel,
-                                     DMA_nCH_SRC_SIZE enChannelSourceSize)
+DMA_nERROR DMA_CH_Primary__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                               DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_CH__vSetAlternateControlGeneric(enChannel, (uint32_t) enChannelSourceSize,
-                            DMAALTCH_CHCTL_SRCSIZE_MASK, DMAALTCH_CHCTL_R_SRCSIZE_BIT);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceDataSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, enDataSizeArg);
+    return (enErrorReg);
 }
 
-void DMA_CH__vSetSourceSize(DMA_nCH_MODULE enChannel,
-                            DMA_nCH_CTL enChannelStructure,
-                            DMA_nCH_SRC_SIZE enChannelSourceSize)
+DMA_nERROR DMA_CH_Alternate__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                                 DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_CH__vSetControlGeneric(enChannel, enChannelStructure, (uint32_t) enChannelSourceSize,
-                               DMACH_CHCTL_SRCSIZE_MASK, DMACH_CHCTL_R_SRCSIZE_BIT);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceDataSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, enDataSizeArg);
+    return (enErrorReg);
 }
 
-DMA_nCH_SRC_SIZE DMA_CH__enGetPrimarySourceSize(DMA_nCH_MODULE enChannel)
+
+DMA_nERROR DMA_CH__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_nCH_SRC_SIZE enReg = DMA_enCH_SRC_SIZE_BYTE;
-    enReg = (DMA_nCH_SRC_SIZE) DMA_CH__u32GetPrimaryControlGeneric(enChannel,
-                               DMACH_CHCTL_SRCSIZE_MASK, DMACH_CHCTL_R_SRCSIZE_BIT);
-    return (enReg);
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    stRegister.u32Shift = DMA_CH_CTL_R_SRCSIZE_BIT;
+    stRegister.u32Mask = DMA_CH_CTL_SRCSIZE_MASK;
+    stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enDataSizeArg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-DMA_nCH_SRC_SIZE DMA_CH__enGetAlternateSourceSize(DMA_nCH_MODULE enChannel)
+DMA_nERROR DMA_CH_Primary__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_nCH_SRC_SIZE enReg = DMA_enCH_SRC_SIZE_BYTE;
-    enReg = (DMA_nCH_SRC_SIZE) DMA_CH__u32GetAlternateControlGeneric(enChannel,
-                         DMAALTCH_CHCTL_SRCSIZE_MASK, DMAALTCH_CHCTL_R_SRCSIZE_BIT);
-    return (enReg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, enDataSizeArg);
+    return (enErrorReg);
 }
 
-DMA_nCH_SRC_SIZE DMA_CH__enGetSourceSize(DMA_nCH_MODULE enChannel,
-                                         DMA_nCH_CTL enChannelStructure)
+DMA_nERROR DMA_CH_Alternate__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    DMA_nCH_SRC_SIZE enReg = DMA_enCH_SRC_SIZE_BYTE;
-    enReg = (DMA_nCH_SRC_SIZE) DMA_CH__u32GetControlGeneric(enChannel, enChannelStructure,
-                                DMACH_CHCTL_SRCSIZE_MASK, DMACH_CHCTL_R_SRCSIZE_BIT);
-    return (enReg);
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, enDataSizeArg);
+    return (enErrorReg);
 }
+
+
+DMA_nERROR DMA_CH__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE* penDataSizeArg)
+{
+    DMA_Register_t stRegister;
+    DMA_nERROR enErrorReg;
+
+    if(0UL != (uintptr_t) penDataSizeArg)
+    {
+        stRegister.u32Shift = DMA_CH_CTL_R_SRCSIZE_BIT;
+        stRegister.u32Mask = DMA_CH_CTL_SRCSIZE_MASK;
+        stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+        enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.u32Value;
+        }
+}
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Primary__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                 DMA_nCH_DATA_SIZE* penDataSizeArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetSourceDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, penDataSizeArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA_CH_Alternate__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                                   DMA_nCH_DATA_SIZE* penDataSizeArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enGetSourceDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penDataSizeArg);
+    return (enErrorReg);
+}
+

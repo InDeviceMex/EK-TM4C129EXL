@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_DMA_XHEADER_DMA_INIT_H_
 #define XAPPLICATION_MCU_DMA_XHEADER_DMA_INIT_H_
 
-void DMA__vInit(void);
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
+
+DMA_nERROR DMA__enInit(DMA_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_DMA_XHEADER_DMA_INIT_H_ */

@@ -27,14 +27,25 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetAlternateDestEndAddress(DMA_nCH_MODULE enChannel, uint32_t u32DestAddress);
-void DMA_CH__vSetPrimaryDestEndAddress(DMA_nCH_MODULE enChannel, uint32_t u32DestAddress);
-void DMA_CH__vSetDestEndAddress(DMA_nCH_MODULE enChannel,
-                                DMA_nCH_CTL enChannelStructure,
-                                uint32_t u32DestAddress);
+DMA_nERROR DMA_CH__enSetDestinationEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                              DMA_nCH_CONTROL enControlArg, uint32_t u32EndAddressArg);
+DMA_nERROR DMA_CH_Primary__enSetDestinationEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        uint32_t u32EndAddressArg);
+DMA_nERROR DMA_CH_Alternate__enSetDestinationEndAddressByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                        uint32_t u32EndAddressArg);
 
-uint32_t DMA_CH__u32GetPrimaryDestEndAddress(DMA_nCH_MODULE enChannel);
-uint32_t DMA_CH__u32GetAlternateDestEndAddress(DMA_nCH_MODULE enChannel);
-uint32_t DMA_CH__u32GetDestEndAddress(DMA_nCH_MODULE enChannel, DMA_nCH_CTL enChannelStructure);
+DMA_nERROR DMA_CH__enSetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                  DMA_nCH_CONTROL enControlArg, uint32_t u32EndAddressArg);
+DMA_nERROR DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t u32EndAddressArg);
+DMA_nERROR DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t u32EndAddressArg);
+
+DMA_nERROR DMA_CH__enGetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL enControlArg, uint32_t* pu32EndAddressArg);
+DMA_nERROR DMA_CH_Primary__enGetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                        uint32_t* pu32EndAddressArg);
+DMA_nERROR DMA_CH_Alternate__enGetDestinationEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                          uint32_t* pu32EndAddressArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_DESTINATIONADDRESS_H_ */

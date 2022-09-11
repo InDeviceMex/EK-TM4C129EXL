@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetSoftwareRequest(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetSoftwareRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg);
+DMA_nERROR DMA_CH__enSetSoftwareRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_SOFTWAREREQUEST_H_ */

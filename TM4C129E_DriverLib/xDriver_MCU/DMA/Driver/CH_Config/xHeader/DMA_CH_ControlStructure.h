@@ -27,8 +27,14 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-void DMA_CH__vSetControlStructure(DMA_nCH_MODULE enChannel,
-                                  DMA_nCH_CTL enChannelControlStructure);
-DMA_nCH_CTL DMA_CH__enGetControlStructure(DMA_nCH_MODULE enChannel);
+DMA_nERROR DMA_CH__enSetActiveControStructureByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                    DMA_nCH_CONTROL enActiveControStructureArg);
+DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                      DMA_nCH_CONTROL enActiveControStructureArg);
+
+DMA_nERROR DMA_CH__enGetActiveControStructureByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
+                                                    DMA_nCHMASK* penCHMaskReqArg);
+DMA_nERROR DMA_CH__enGetActiveControStructureByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                    DMA_nCH_CONTROL* penActiveControStructureArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONFIG_XHEADER_DMA_CH_CONTROLSTRUCTURE_H_ */

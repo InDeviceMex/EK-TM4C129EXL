@@ -25,18 +25,46 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/DMA/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/DMA_InterruptRoutine_Source_Software.h>
+#include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
-void DMA__vRegisterIRQSourceHandler_Software(void (*pfIrqSourceHandler) (void),
-                                             DMA_nCH_INT_SOFT enInterruptParam)
+DMA_nERROR DMA_CH__enRegisterIRQSourceHandler_Software(DMA_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                      DMA_nMODULE enModuleArg,
+                                                      DMA_nCH enChannelArg)
 {
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
+    DMA_nERROR enErrorReg;
+
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
-                                                  (uint32_t) DMA_enCH_INT_SOFT_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           DMA_CH__pvfGetIRQSourceHandlerPointer_Software((DMA_nCH_INT_SOFT) u32InterruptSource),
-           0UL,
-           1UL);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, ((uint32_t) DMA_enCH_MAX + 1UL));
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            pvfIrqHandler = DMA_CH__pvfGetIRQSourceHandlerPointer_Software(enModuleArg, enChannelArg);
+            enErrorReg = (DMA_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+        }
     }
+
+    return (enErrorReg);
 }
+
+DMA_nERROR DMA__enRegisterIRQSourceHandler_Error(DMA_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                  DMA_nMODULE enModuleArg,
+                                                  DMA_nINT_ERROR enInterruptSourceArg)
+{
+    DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
+    DMA_nERROR enErrorReg;
+
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enInterruptSourceArg, (uint32_t) DMA_enINT_ERROR_MAX);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            pvfIrqHandler = DMA__pvfGetIRQSourceHandlerPointer_Error(enModuleArg, enInterruptSourceArg);
+            enErrorReg = (DMA_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+        }
+    }
+    return (enErrorReg);
+}
+
