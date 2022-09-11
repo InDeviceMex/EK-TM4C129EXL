@@ -48,7 +48,7 @@ void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
 void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     DMA_CHANNEL_t* pstDmaChannel;
-    const uint32_t* u32TempReg;
+    const volatile uint32_t* u32TempReg;
     static const DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
@@ -65,7 +65,7 @@ void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvAr
     };
 
     pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_14]);
-    u32TempReg = (const uint32_t*) &enChControl;
+    u32TempReg = (const volatile uint32_t*) &enChControl;
     pstDmaChannel->CTL = *u32TempReg;
     DMA->CH_ENASET = (uint32_t)DMA_enSTATE_ENA << (uint32_t) DMA_enCH_14;
     u32AccelerometerFlag = 1UL;

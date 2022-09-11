@@ -34,13 +34,22 @@ void xTask2_JoystickLog(void* pvParams)
     /*Period Handling*/
     uint32_t u32LastWakeTime;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
+    int32_t u32YostickValueOld[2UL];
     uint32_t u32YostickValue[2UL];
 
     u32LastWakeTime = OS_Task__uxGetTickCount ();
+
+    u32YostickValueOld[0U] = 0UL;
+    u32YostickValueOld[1U] = 0UL;
     while(1UL)
     {
         EDUMKII_Joystick_vSampleXY(&u32YostickValue[0UL], &u32YostickValue[1UL]);
-        OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
+        if((u32YostickValueOld[0UL] != u32YostickValue[0UL]) || (u32YostickValueOld[1UL] != u32YostickValue[1UL]))
+        {
+            u32YostickValueOld[0U] = u32YostickValueOld[0UL];
+            u32YostickValueOld[1U] = u32YostickValueOld[1UL];
+            OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
+        }
         OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
 }

@@ -49,19 +49,21 @@ void xTask9_TFT(void* pvParams)
     int32_t s32AccelValue[3UL];
     char* pcStateButton[3UL];
 
-    uint32_t u32LcdPosXCurrent;
-    uint32_t u32LcdPosYCurrent;
+    uint32_t u32LcdPosXCurrent = 0UL;
+    uint32_t u32LcdPosYCurrent = 0UL;
     uint32_t u32LcdPosX;
     uint32_t u32LcdPosY;
-    uint32_t u32Count;
-    uint32_t u32CountImage;
+    uint32_t u32Count= 0U;
+    uint32_t u32CountImage = 0UL;
     uint32_t u32Image= 0U;
     uint16_t u16IndexReg;
     static uint16_t u16BufferSPI[128UL * 128UL];
     char pcConvert1[50UL];
     char pcConvert2[50UL];
     char pcConvert3[50UL];
-    const uint16_t* pu16Pointer;
+    const uint16_t* pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
+    OS_Queue_Handle_t QueueHandle = (OS_Queue_Handle_t) 0UL;
+    OS_Boolean_t boResult;
 
     GPIO__vSetReady(GPIO_enPORT_F);
     GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
@@ -72,25 +74,36 @@ void xTask9_TFT(void* pvParams)
     u32LastWakeTime = OS_Task__uxGetTickCount ();
     while(1UL)
     {
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(AccelerometerQueueHandle, s32AccelValue, u32DiffPeriod);
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(ButtonQueueHandle, pcStateButton, u32DiffPeriod);
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(YoystickQueueHandle, u32JostickValue, u32DiffPeriod);
+        boResult = OS_Queue__boPeek(AccelerometerQueueHandle, s32AccelValue, 0UL);
+        if(TRUE == boResult)
+        {
+            sprintf__u32User(pcConvert3, "ACCELEROMETER\n\rX:%4dY:%4dZ:%4d",
+                             s32AccelValue[0UL],
+                             s32AccelValue[1UL],
+                             s32AccelValue[2UL]
+                             );
+        }
+        boResult = OS_Queue__boPeek(ButtonQueueHandle, pcStateButton, 0UL);
+        if(TRUE == boResult)
+        {
+            sprintf__u32User(pcConvert1, "BUTTON\n\r1:%s 2:%s 3:%s",
+                             pcStateButton[0UL],
+                             pcStateButton[1UL],
+                             pcStateButton[2UL]
+                             );
+        }
+        boResult = OS_Queue__boPeek(YoystickQueueHandle, u32JostickValue, 0UL);
+        if(TRUE == boResult)
+        {
+            sprintf__u32User(pcConvert2, "YOYSTICK\n\rX:%4d Y:%4d",
+                             u32JostickValue[0UL],
+                             u32JostickValue[1UL]
+                             );
+            u32LcdPosXCurrent = Math__u32Map(u32JostickValue[0UL], 4096UL, 0UL, 128UL - 120UL, 0UL);
+            u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32JostickValue[1UL],
+                                                        4096, 0, 0, 128 - 76);
+        }
 
-        u32LcdPosXCurrent = Math__u32Map(u32JostickValue[0UL], 4096UL, 0UL, 128UL - 120UL, 0UL);
-        u32LcdPosYCurrent = (uint32_t) Math__s32Map((int32_t) u32JostickValue[1UL],
-                                                    4096, 0, 0, 128 - 76);
         if(u32Image)
         {
             pu16Pointer = (const uint16_t*) Images__pu8DolphinPointer();
@@ -99,9 +112,11 @@ void xTask9_TFT(void* pvParams)
         {
             pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
         }
-        for(u32LcdPosY = 0UL; u32LcdPosY < 128UL *128UL; u32LcdPosY++)
+        uint32_t* u32ValueP = (uint32_t*)(&u16BufferSPI[0UL]);
+        for(u32LcdPosY = 0UL; u32LcdPosY < 128UL *128UL / 2UL; u32LcdPosY++)
         {
-            u16BufferSPI[u32LcdPosY] = 0UL;
+            *u32ValueP = 0UL;
+            u32ValueP += 1U;
         }
         for(u32LcdPosY = u32LcdPosYCurrent ;
             u32LcdPosY < (u32LcdPosYCurrent + 76UL);
@@ -118,20 +133,7 @@ void xTask9_TFT(void* pvParams)
                 pu16Pointer += 1UL;
             }
         }
-        sprintf__u32User(pcConvert1, "BUTTON\n\r1:%s 2:%s 3:%s",
-                         pcStateButton[0UL],
-                         pcStateButton[1UL],
-                         pcStateButton[2UL]
-                         );
-        sprintf__u32User(pcConvert2, "YOYSTICK\n\rX:%4d Y:%4d",
-                         u32JostickValue[0UL],
-                         u32JostickValue[1UL]
-                         );
-        sprintf__u32User(pcConvert3, "ACCELEROMETER\n\rX:%4dY:%4dZ:%4d",
-                         s32AccelValue[0UL],
-                         s32AccelValue[1UL],
-                         s32AccelValue[2UL]
-                         );
+
         ST7735__vBufferString(u16BufferSPI, 0UL, 0UL, pcConvert1, 0xFFFFUL, &FONT_s5x7);
         ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, pcConvert2, 0xFFFFUL, &FONT_s5x7);
         ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, pcConvert3, 0xFFFFUL, &FONT_s5x7);

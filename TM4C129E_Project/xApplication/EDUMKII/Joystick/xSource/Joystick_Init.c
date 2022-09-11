@@ -89,11 +89,11 @@ void EDUMKII_Joystick_vInit(void)
         pu32JoystickArray += 1UL;
         DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32JoystickArray);
         DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
-        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, stDMAChControl);
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
 
         DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32JoystickArray);
         DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
-        DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, stDMAChControl);
+        DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
 
         DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_15, &stDMAChConfig);
         DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_15, DMA_enSTATE_ENA);

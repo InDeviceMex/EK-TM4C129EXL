@@ -28,7 +28,7 @@
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
 DMA_nERROR DMA_CH__enSetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                        DMA_CONFIG_t* pstConfigArg);
+                                        const DMA_CONFIG_t* const pstConfigArg);
 DMA_nERROR DMA_CH__enGetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                         DMA_CONFIG_t* pstConfigArg);
 

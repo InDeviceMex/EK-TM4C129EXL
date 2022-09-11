@@ -27,23 +27,32 @@
 #include <xDriver_MCU/DMA/Driver/DMA_Driver.h>
 
 DMA_nERROR DMA_CH__enSetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                        DMA_CONFIG_t* pstConfigArg)
+                                        const DMA_CONFIG_t* const pstConfigArg)
 {
     DMA_nERROR enErrorReg;
     if(0UL != (uintptr_t) pstConfigArg)
     {
-    enErrorReg = DMA_CH__enSetActiveControStructureByNumber(enModuleArg, enChannelArg, pstConfigArg->enControlStructure);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-    enErrorReg = DMA_CH__enSetPriorityByNumber(enModuleArg, enChannelArg, pstConfigArg->enChannelPriority);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-    enErrorReg = DMA_CH__enSetEncoderByNumber(enModuleArg, enChannelArg, pstConfigArg->enEncoder);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-    enErrorReg = DMA_CH__enSetPeripheralStateByNumber(enModuleArg, enChannelArg, pstConfigArg->enPeripheralEnable);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-    enErrorReg = DMA_CH__enSetRequestTypeByNumber(enModuleArg, enChannelArg, pstConfigArg->enRequestType);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-    enErrorReg = DMA_CH__enSetStateByNumber(enModuleArg, enChannelArg, pstConfigArg->enChannelEnable);
-    if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
+        enErrorReg = DMA_CH__enSetActiveControStructureByNumber(enModuleArg, enChannelArg, pstConfigArg->enControlStructure);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = DMA_CH__enSetPriorityByNumber(enModuleArg, enChannelArg, pstConfigArg->enChannelPriority);
+            if(DMA_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = DMA_CH__enSetEncoderByNumber(enModuleArg, enChannelArg, pstConfigArg->enEncoder);
+                if(DMA_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = DMA_CH__enSetPeripheralStateByNumber(enModuleArg, enChannelArg, pstConfigArg->enPeripheralEnable);
+                    if(DMA_enERROR_OK == enErrorReg)
+                    {
+                        enErrorReg = DMA_CH__enSetRequestTypeByNumber(enModuleArg, enChannelArg, pstConfigArg->enRequestType);
+                        if(DMA_enERROR_OK == enErrorReg)
+                        {
+                            enErrorReg = DMA_CH__enSetStateByNumber(enModuleArg, enChannelArg, pstConfigArg->enChannelEnable);
+                        }
+                    }
+                }
+            }
+        }
     }
     else
     {
@@ -59,15 +68,26 @@ DMA_nERROR DMA_CH__enGetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChan
     if(0UL != (uint32_t) pstConfigArg)
     {
         enErrorReg = DMA_CH__enGetActiveControStructureByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enControlStructure));
-        if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-        enErrorReg = DMA_CH__enGetPriorityByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enChannelPriority));
-        if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-        enErrorReg = DMA_CH__enGetEncoderByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enEncoder));
-        if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-        enErrorReg = DMA_CH__enGetPeripheralStateByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enPeripheralEnable));
-        if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
-        enErrorReg = DMA_CH__enGetRequestTypeByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enRequestType));
-        if(DMA_enERROR_OK != enErrorReg){ return (enErrorReg);}
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = DMA_CH__enGetPriorityByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enChannelPriority));
+            if(DMA_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = DMA_CH__enGetEncoderByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enEncoder));
+                if(DMA_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = DMA_CH__enGetPeripheralStateByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enPeripheralEnable));
+                    if(DMA_enERROR_OK == enErrorReg)
+                    {
+                        enErrorReg = DMA_CH__enGetRequestTypeByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enRequestType));
+                        if(DMA_enERROR_OK == enErrorReg)
+                        {
+                            enErrorReg = DMA_CH__enGetStateByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enChannelEnable));
+                        }
+                    }
+                }
+            }
+        }
     }
     else
     {

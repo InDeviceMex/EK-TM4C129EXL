@@ -79,11 +79,11 @@ void EDUMKII_Microphone_vInit(void)
     pu32MicrophoneArray = EDUMKII_Microphone_vSampleArray();
     DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) pu32MicrophoneArray);
     DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
-    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, stDMAChControl);
+    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, &stDMAChControl);
 
     DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) pu32MicrophoneArray);
     DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
-    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, stDMAChControl);
+    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, &stDMAChControl);
 
     DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_17, &stDMAChConfig);
     DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_17, DMA_enSTATE_ENA);

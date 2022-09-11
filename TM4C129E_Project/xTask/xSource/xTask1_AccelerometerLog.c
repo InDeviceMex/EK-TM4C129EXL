@@ -35,13 +35,23 @@ void xTask1_AccelerometerLog(void* pvParams)
     uint32_t u32LastWakeTime;
 
     /*Accelerometer handling*/
+    int32_t s32AccelValueOld[3UL];
     int32_t s32AccelValue[3UL];
     u32LastWakeTime = OS_Task__uxGetTickCount ();
 
+    s32AccelValueOld[0U] = 0;
+    s32AccelValueOld[1U] = 0;
+    s32AccelValueOld[2U] = 0;
     while(1UL)
     {
-        EDUMKII_Accelerometer_vSample(&s32AccelValue[0UL], &s32AccelValue[1UL], &s32AccelValue[2UL]);
-        OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
+        EDUMKII_Accelerometer_vSample(&(s32AccelValue[0UL]), &(s32AccelValue[1UL]), &(s32AccelValue[2UL]));
+        if((s32AccelValueOld[0UL] != s32AccelValue[0UL]) || (s32AccelValueOld[1UL] != s32AccelValue[1UL]) || (s32AccelValueOld[2UL] != s32AccelValue[2UL]))
+        {
+            s32AccelValueOld[0U] = s32AccelValue[0UL];
+            s32AccelValueOld[1U] = s32AccelValue[1UL];
+            s32AccelValueOld[2U] = s32AccelValue[2UL];
+            OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
+        }
         OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
 }

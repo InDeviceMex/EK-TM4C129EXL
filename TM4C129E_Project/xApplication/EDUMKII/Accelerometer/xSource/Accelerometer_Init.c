@@ -82,11 +82,11 @@ void EDUMKII_Accelerometer_vInit(void)
 
     DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) pu32AccelerometerArray);
     DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, stDMAChControl);
+    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, &stDMAChControl);
 
     DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) pu32AccelerometerArray);
     DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, stDMAChControl);
+    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, &stDMAChControl);
 
     DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_14, &stDMAChConfig);
     DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_14, DMA_enSTATE_ENA);

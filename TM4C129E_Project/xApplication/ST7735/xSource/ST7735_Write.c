@@ -205,7 +205,7 @@ uint32_t ST7735__u32WriteDMA(uint32_t u32DataArg, uint32_t u32BufferCant)
         ST7735__vSetTransferSizeLeft(u32BufferCant);
 
         DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) &u32DataReg);
-        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, stDMAChControlPrim);
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlPrim);
         ST7735__vSetTransferStruct(&stDMAChControlPrim);
         DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
         SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);
@@ -253,7 +253,7 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
         ST7735__vSetTransferSizeLeft(u32BufferCant);
 
         DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (uint32_t) pu32DataRegLast);
-        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, stDMAChControlBuffer);
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlBuffer);
         ST7735__vSetTransferStruct(&stDMAChControlBuffer);
         DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
         SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);

@@ -28,7 +28,7 @@
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
 DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg)
+                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
     uint32_t u32ChannelReg;
     uint32_t u32ChannelMaskReg;
@@ -40,7 +40,7 @@ DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMA
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
-            enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, stControlArg);
+            enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, pstControlArg);
         }
 
         if(DMA_enERROR_OK != enErrorReg)
@@ -55,52 +55,59 @@ DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMA
 }
 
 DMA_nERROR DMA_CH_Primary__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                      DMA_CH_CTL_t stControlArg)
+                                                      DMA_CH_CTL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, stControlArg);
+    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, pstControlArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                                 DMA_CH_CTL_t stControlArg)
+                                                                 DMA_CH_CTL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, stControlArg);
+    enErrorReg = DMA_CH__enSetControlRegisterByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, pstControlArg);
     return (enErrorReg);
 }
 
 
 DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg)
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
     DMA_Register_t stRegister;
-    static volatile uint32_t *pu32ControlReg;
+    volatile uint32_t *pu32ControlReg;
     DMA_nERROR enErrorReg;
 
-    pu32ControlReg = (volatile uint32_t*) &stControlArg;
+    if(0UL != (uintptr_t) pstControlArg)
+    {
+    pu32ControlReg = (volatile uint32_t*) pstControlArg;
     stRegister.u32Shift = 0UL;
     stRegister.u32Mask = MCU_MASK_32;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.u32Value = (uint32_t) *pu32ControlReg;
     enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+    }
+    else
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        DMA_CH_CTL_t stControlArg)
+                                                        DMA_CH_CTL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, stControlArg);
+    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pstControlArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          DMA_CH_CTL_t stControlArg)
+                                                          DMA_CH_CTL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, stControlArg);
+    enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pstControlArg);
     return (enErrorReg);
 }
 

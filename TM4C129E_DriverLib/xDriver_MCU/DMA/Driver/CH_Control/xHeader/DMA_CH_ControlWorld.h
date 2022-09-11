@@ -28,18 +28,18 @@
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
 DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg);
+                                              DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg);
 DMA_nERROR DMA_CH_Primary__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                      DMA_CH_CTL_t stControlArg);
+                                                      DMA_CH_CTL_t* pstControlArg);
 DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                        DMA_CH_CTL_t stControlArg);
+                                                        DMA_CH_CTL_t* pstControlArg);
 
 DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t stControlArg);
+                                                DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg);
 DMA_nERROR DMA_CH_Primary__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        DMA_CH_CTL_t stControlArg);
+                                                        DMA_CH_CTL_t* pstControlArg);
 DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          DMA_CH_CTL_t stControlArg);
+                                                          DMA_CH_CTL_t* pstControlArg);
 
 DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                 DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg);

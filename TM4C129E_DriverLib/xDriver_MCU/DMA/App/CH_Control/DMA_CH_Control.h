@@ -28,11 +28,11 @@
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
 DMA_nERROR DMA_CH_Primary__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                 DMA_CONTROL_t* pstControlArg);
+                                                  const DMA_CONTROL_t* const pstControlArg);
 DMA_nERROR DMA_CH_Alternate__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                   DMA_CONTROL_t* pstControlArg);
+                                                    const DMA_CONTROL_t* const pstControlArg);
 DMA_nERROR DMA_CH__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                         DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t* pstControlArg);
+                                         DMA_nCH_CONTROL enControlArg,  const DMA_CONTROL_t* const pstControlArg);
 
 
 DMA_nERROR DMA_CH_Primary__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,

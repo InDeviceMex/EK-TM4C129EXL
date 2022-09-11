@@ -37,6 +37,7 @@ void xTask8_Debug(void* pvParams)
     uint32_t u32NewTime;
     uint32_t u32DiffPeriod;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
+    OS_Boolean_t boResult;
 
     uint32_t u32JostickValue[2UL];
     int32_t s32AccelValue[3UL];
@@ -49,39 +50,36 @@ void xTask8_Debug(void* pvParams)
     u32LastWakeTime = OS_Task__uxGetTickCount ();
     while(1UL)
     {
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(AccelerometerQueueHandle, s32AccelValue, u32DiffPeriod);
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(ButtonQueueHandle, pcStateButton, u32DiffPeriod);
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32NewTime -= u32LastWakeTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32NewTime;
-        OS_Queue__boPeek(YoystickQueueHandle, u32JostickValue, u32DiffPeriod);
 
-        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
-                             "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
-                             pcStateButton[0UL],
-                             pcStateButton[1UL],
-                             pcStateButton[2UL]
-                             );
-        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
-                             "YOYSTICK POS X: %d Y: %d            ",
-                             u32JostickValue[0UL],
-                             u32JostickValue[1UL]
-                             );
-        GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
-                             "Accelerometer X: %d Y: %d Z: %d        ",
-                             s32AccelValue[0UL],
-                             s32AccelValue[1UL],
-                             s32AccelValue[2UL]
-                             );
+        boResult = OS_Queue__boPeek(AccelerometerQueueHandle, s32AccelValue, 0UL);
+        if(TRUE == boResult)
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
+                                 "Accelerometer X: %d Y: %d Z: %d        ",
+                                 s32AccelValue[0UL],
+                                 s32AccelValue[1UL],
+                                 s32AccelValue[2UL]
+                                 );
+        }
+        boResult = OS_Queue__boPeek(ButtonQueueHandle, pcStateButton, 0UL);
+        if(TRUE == boResult)
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
+                                 "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
+                                 pcStateButton[0UL],
+                                 pcStateButton[1UL],
+                                 pcStateButton[2UL]
+                                 );
+        }
+        boResult = OS_Queue__boPeek(YoystickQueueHandle, u32JostickValue, 0UL);
+        if(TRUE == boResult)
+        {
+            GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 2UL,
+                                 "YOYSTICK POS X: %d Y: %d            ",
+                                 u32JostickValue[0UL],
+                                 u32JostickValue[1UL]
+                                 );
+        }
 
         OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
