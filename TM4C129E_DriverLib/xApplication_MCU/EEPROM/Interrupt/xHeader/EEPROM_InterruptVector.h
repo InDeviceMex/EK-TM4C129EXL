@@ -30,6 +30,6 @@
 void EEPROM__vEnInterruptVector(void);
 void EEPROM__vDisInterruptVector(void);
 void EEPROM__vClearInterruptVector(void);
-EEPROM_nINT_STATUS EEPROM__enStatusInterruptVector(void);
+EEPROM_nSTATUS EEPROM__enStatusInterruptVector(void);
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTERRUPT_XHEADER_EEPROM_INTERRUPTVECTOR_H_ */

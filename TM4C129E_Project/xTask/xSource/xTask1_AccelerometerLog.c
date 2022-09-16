@@ -42,6 +42,10 @@ void xTask1_AccelerometerLog(void* pvParams)
     s32AccelValueOld[0U] = 0;
     s32AccelValueOld[1U] = 0;
     s32AccelValueOld[2U] = 0;
+    s32AccelValue[0U] = 0;
+    s32AccelValue[1U] = 0;
+    s32AccelValue[2U] = 0;
+    OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(&(s32AccelValue[0UL]), &(s32AccelValue[1UL]), &(s32AccelValue[2UL]));

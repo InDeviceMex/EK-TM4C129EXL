@@ -34,8 +34,6 @@ void xTask8_Debug(void* pvParams)
 {
     /*Period Handling*/
     uint32_t u32LastWakeTime;
-    uint32_t u32NewTime;
-    uint32_t u32DiffPeriod;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
     OS_Boolean_t boResult;
 

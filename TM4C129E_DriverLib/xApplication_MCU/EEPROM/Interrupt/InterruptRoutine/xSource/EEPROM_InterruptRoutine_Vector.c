@@ -29,44 +29,44 @@ void EEPROM__vIRQVectorHandler(void)
 {
     volatile uint32_t u32Reg = 0UL;
     volatile uint32_t u32Ready = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    EEPROM_pvfIRQSourceHandler_t pvfCallback;
 
     u32Ready = SYSCTL_PREEPROM_R;
     if(SYSCTL_PREEPROM_R_EEPROM_NOREADY == (SYSCTL_PREEPROM_R_EEPROM_MASK & u32Ready))
     {
-        pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_SW);
-        pvfCallback();
+        pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_SW);
+        pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_SW);
     }
     else
     {
-        u32Reg = EEPROM_EEDONE_R;
+        u32Reg = EEPROM_DONE_R;
 
         if(0UL == ((uint32_t) EEPROM_enINT_ALL & u32Reg))
         {
-            pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_SW);
-            pvfCallback();
+            pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_SW);
+            pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_SW);
         }
         else
         {
             if((uint32_t) EEPROM_enINT_ERASE & u32Reg)
             {
-                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_ERASE);
-                pvfCallback();
+                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_ERASE);
+                pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_ERASE);
             }
             if((uint32_t) EEPROM_enINT_COPY & u32Reg)
             {
-                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_COPY);
-                pvfCallback();
+                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_COPY);
+                pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_COPY);
             }
             if((uint32_t) EEPROM_enINT_NOPERMISSION & u32Reg)
             {
-                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_NOPERMISSION);
-                pvfCallback();
+                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_NOPERMISSION);
+                pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_NOPERMISSION);
             }
             if((uint32_t) EEPROM_enINT_WRITE & u32Reg)
             {
-                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enINTERRUPT_WRITE);
-                pvfCallback();
+                pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINTERRUPT_WRITE);
+                pvfCallback(EEPROM_BASE, (void*) EEPROM_enINTERRUPT_WRITE);
             }
         }
     }

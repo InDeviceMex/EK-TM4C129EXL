@@ -6,102 +6,115 @@
  */
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_ReadMulti.h>
 
+#include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_WorldCount.h>
+
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_Read.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
-EEPROM_nSTATUS EEPROM__enReadMultiAlt (void* pvData, uint32_t u32Address,
-                                       uint16_t u16Count, EEPROM_nVARIABLE enVariableType);
+EEPROM_nERROR EEPROM__enReadMultiAlt (EEPROM_nMODULE enModuleArg, void* pvDataArg, uint32_t u32AddressArg,
+                                       uint16_t u16CountArg, EEPROM_nVARIABLE enVariableTypeArg);
 
-EEPROM_nSTATUS EEPROM__enReadMultiAlt (void* pvData, uint32_t u32Address,
-                                       uint16_t u16Count, EEPROM_nVARIABLE enVariableType)
+EEPROM_nERROR EEPROM__enReadMultiAlt (EEPROM_nMODULE enModuleArg, void* pvDataArg, uint32_t u32AddressArg,
+                                       uint16_t u16CountArg, EEPROM_nVARIABLE enVariableTypeArg)
 {
-    EEPROM_nSTATUS enStatusReg = EEPROM_enERROR;
-    uint32_t u32MaxAddress = 0UL;
-    uint32_t u32Offset = 1UL;
+    EEPROM_nERROR enErrorReg;
+    uint32_t u32MaxAddress;
+    uint32_t u32OffsetReg;
 
-    uint8_t* pu8Data = 0UL;
-    uint16_t* pu16Data = 0UL;
-    uint32_t* pu32Data = 0UL;
+    uint8_t* pu8Data;
+    uint16_t* pu16Data;
+    uint32_t* pu32Data;
 
-    if(0UL != (uint32_t) pvData)
+    if(0UL != (uint32_t) pvDataArg)
     {
-        enStatusReg = EEPROM_enOK;
-        u32MaxAddress = EEPROM__u32GetWorldCount();
-        u32MaxAddress <<= 2UL;
-        u32Offset <<= (uint32_t) enVariableType;
-        switch (enVariableType)
+        u32MaxAddress = 0UL;
+        enErrorReg = EEPROM__enGetWordCount(enModuleArg, &u32MaxAddress);
+        if(EEPROM_enERROR_OK == enErrorReg)
         {
-            case EEPROM_enVARIABLE_BYTE:
-                pu8Data = (uint8_t*) pvData;
-                while((u32MaxAddress > u32Address) &&
-                      (u16Count> (uint16_t) 0UL) &&
-                      (EEPROM_enOK == enStatusReg))
-                {
-                    enStatusReg = EEPROM__enReadByte(pu8Data, u32Address);
-                    pu8Data += 1UL;
-                    u32Address += u32Offset;
-                    u16Count--;
-                }
-            break;
-            case EEPROM_enVARIABLE_HALFWORD:
-                pu16Data = (uint16_t*) pvData;
-                while((u32MaxAddress > u32Address) &&
-                      (u16Count> (uint16_t) 0UL) &&
-                      (EEPROM_enOK == enStatusReg))
-                {
-                    enStatusReg = EEPROM__enReadHalfWorld(pu16Data, u32Address);
-                    pu16Data += 1UL;
-                    u32Address += u32Offset;
-                    u16Count--;
-                }
-            break;
-            case EEPROM_enVARIABLE_WORD:
-                pu32Data = (uint32_t*) pvData;
-                while((u32MaxAddress > u32Address) &&
-                      (u16Count> (uint16_t) 0UL) &&
-                      (EEPROM_enOK == enStatusReg))
-                {
-                    enStatusReg = EEPROM__enReadWorld(pu32Data, u32Address);
-                    pu32Data += 1UL;
-                    u32Address += u32Offset;
-                    u16Count--;
-                }
-            break;
-            default:
-                enStatusReg = EEPROM_enERROR;
-            break;
+            u32MaxAddress <<= 2UL;
+
+            switch (enVariableTypeArg)
+            {
+                case EEPROM_enVARIABLE_BYTE:
+                    pu8Data = (uint8_t*) pvDataArg;
+                    u32OffsetReg = 1UL;
+                    while((u32MaxAddress > u32AddressArg) &&
+                          (u16CountArg > 0U) &&
+                          (EEPROM_enERROR_OK == enErrorReg))
+                    {
+                        enErrorReg = EEPROM__enReadByte(enModuleArg, pu8Data, u32AddressArg);
+                        pu8Data += 1UL;
+                        u32AddressArg += u32OffsetReg;
+                        u16CountArg--;
+                    }
+                break;
+                case EEPROM_enVARIABLE_HALFWORD:
+                    pu16Data = (uint16_t*) pvDataArg;
+                    u32OffsetReg = 2UL;
+                    while((u32MaxAddress > u32AddressArg) &&
+                          (u16CountArg > 0U) &&
+                          (EEPROM_enERROR_OK == enErrorReg))
+                    {
+                        enErrorReg = EEPROM__enReadHalfWord(enModuleArg, pu16Data, u32AddressArg);
+                        pu16Data += 1UL;
+                        u32AddressArg += u32OffsetReg;
+                        u16CountArg--;
+                    }
+                break;
+                case EEPROM_enVARIABLE_WORD:
+
+                    pu32Data = (uint32_t*) pvDataArg;
+                    u32OffsetReg = 4UL;
+                    while((u32MaxAddress > u32AddressArg) &&
+                          (u16CountArg > 0U) &&
+                          (EEPROM_enERROR_OK == enErrorReg))
+                    {
+                        enErrorReg = EEPROM__enReadWord(enModuleArg, pu32Data, u32AddressArg);
+                        pu32Data += 1UL;
+                        u32AddressArg += u32OffsetReg;
+                        u16CountArg--;
+                    }
+                break;
+                default:
+                    enErrorReg = EEPROM_enERROR_VALUE;
+                break;
+            }
         }
     }
-    return (enStatusReg);
+    else
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    return (enErrorReg);
 }
 
-EEPROM_nSTATUS EEPROM__enReadMultiWorld (uint32_t *pu32Data,
-                                         uint32_t u32Address,
-                                         uint16_t u16Count)
+EEPROM_nERROR EEPROM__enReadMultiWord(EEPROM_nMODULE enModuleArg, uint32_t *pu32Data,
+                                       uint32_t u32Address,
+                                       uint16_t u16Count)
 {
-    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
-    enStatusReg = EEPROM__enReadMultiAlt ( (void*) pu32Data, u32Address,
-                                           u16Count, EEPROM_enVARIABLE_WORD);
-    return (enStatusReg);
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enReadMultiAlt(enModuleArg, (void*) pu32Data, u32Address,
+                                         u16Count, EEPROM_enVARIABLE_WORD);
+    return (enErrorReg);
 }
 
-EEPROM_nSTATUS EEPROM__enReadMultiHalfWorld (uint16_t *pu16Data,
-                                             uint32_t u32Address,
-                                             uint16_t u16Count)
+EEPROM_nERROR EEPROM__enReadMultiHalfWord(EEPROM_nMODULE enModuleArg, uint16_t *pu16Data,
+                                           uint32_t u32Address,
+                                           uint16_t u16Count)
 {
-    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
-    enStatusReg = EEPROM__enReadMultiAlt ( (void*) pu16Data, u32Address,
-                                           u16Count, EEPROM_enVARIABLE_HALFWORD);
-    return (enStatusReg);
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enReadMultiAlt(enModuleArg, (void*) pu16Data, u32Address,
+                                         u16Count, EEPROM_enVARIABLE_HALFWORD);
+    return (enErrorReg);
 }
 
-EEPROM_nSTATUS EEPROM__enReadMultiByte (uint8_t *pu8Data,
-                                        uint32_t u32Address,
-                                        uint16_t u16Count)
+EEPROM_nERROR EEPROM__enReadMultiByte(EEPROM_nMODULE enModuleArg, uint8_t *pu8Data,
+                                      uint32_t u32Address,
+                                      uint16_t u16Count)
 {
-    EEPROM_nSTATUS enStatusReg = EEPROM_enOK;
-    enStatusReg = EEPROM__enReadMultiAlt ( (void*) pu8Data, u32Address,
-                                           u16Count, EEPROM_enVARIABLE_BYTE);
-    return (enStatusReg);
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enReadMultiAlt(enModuleArg, (void*) pu8Data, u32Address,
+                                         u16Count, EEPROM_enVARIABLE_BYTE);
+    return (enErrorReg);
 }

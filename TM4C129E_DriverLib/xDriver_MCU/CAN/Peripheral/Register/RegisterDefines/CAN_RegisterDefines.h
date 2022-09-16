@@ -45,10 +45,10 @@
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_IFnMSK1.h>
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_IFnMSK2.h>
 
-#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG1_INT.h>
-#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG1_VAL.h>
-#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG2_INT.h>
-#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG2_VAL.h>
+#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG1INT.h>
+#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG1VAL.h>
+#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG2INT.h>
+#include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_MSG2VAL.h>
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_NWDA1.h>
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_NWDA2.h>
 #include <xDriver_MCU/CAN/Peripheral/Register/RegisterDefines/xHeader/CAN_RegisterDefines_TXRQ1.h>

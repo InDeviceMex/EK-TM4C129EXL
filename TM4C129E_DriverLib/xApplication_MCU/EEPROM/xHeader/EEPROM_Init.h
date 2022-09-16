@@ -33,7 +33,7 @@
  * @details This function reset, disable and then enable the EEPROM Peripheral.
  * Also it Obtains the max number of blocks and Worlds
  * @return Return Function Status
- * @retval EEPROM_enOK All operations are OK
+ * @retval EEPROM_enERROR_OK All operations are OK
  * @retval EEPROM_enERROR An operations inside the function had an error
  *
  * @code{.c}
@@ -46,7 +46,7 @@
  * @remark This function must be call before any other EEPROM Driver function
  * @note This function can be call anytime the EEPROM peripheral needs to be re-initialize
  */
-EEPROM_nSTATUS EEPROM__enInit(void);
+EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg);
 
 /**
  * @brief EEPROM De-Initialization Function

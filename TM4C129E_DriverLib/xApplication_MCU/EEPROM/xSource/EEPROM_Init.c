@@ -30,13 +30,13 @@
  *
  * @section Global Functions
  */
-EEPROM_nSTATUS EEPROM__enInit (void)
+EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg)
 {
     /*
      * Process Status
      */
-    EEPROM_nSTATUS enReturn = EEPROM_enERROR;
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    EEPROM_nERROR enErrorReg;
+    void (*pfIrqVectorHandler) (void);
 
     pfIrqVectorHandler = EEPROM__pvfGetIRQVectorHandler();
 
@@ -52,19 +52,13 @@ EEPROM_nSTATUS EEPROM__enInit (void)
     /*
      * To wait until EEPROM peripheral is ready
      */
-    enReturn = EEPROM__enWait();
+    enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
 
-
-    /*
-     * To obtain the EEPROM Max Block and Max World allowed
-     */
-    EEPROM__vInitWorldCount();
-    EEPROM__vInitBlockCount();
     /*
      * To return the final Function status,
      * if EEPROM__enWait ends correctly all the process is OK
      */
-    return (enReturn);
+    return (enErrorReg);
 
 }
 

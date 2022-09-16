@@ -23,32 +23,47 @@
  */
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Source.h>
 
-static void EEPROM_vIRQSourceHandler_Dummy(void);
+static void EEPROM_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
 
-static void (*EEPROM__vIRQSourceHandler[(uint32_t) EEPROM_enINTERRUPT_MAX]) (void)=
+static EEPROM_pvfIRQSourceHandler_t EEPROM_vIRQSourceHandler[(uint32_t)EEPROM_enMODULE_MAX]
+                                                            [(uint32_t) EEPROM_enINTERRUPT_MAX]=
 {
+ {
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy,
     &EEPROM_vIRQSourceHandler_Dummy
+ },
 };
 
-static void EEPROM_vIRQSourceHandler_Dummy(void)
+static void EEPROM_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
 {
+    (void) uptrModuleArg;
+    (void) pvArgument;
 
+    while(1UL){}
 }
 
-void (*EEPROM__pvfGetIRQSourceHandler(EEPROM_nINTERRUPT enInterruptSourceArg))(void)
+
+EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQSourceHandler(EEPROM_nMODULE enModuleArg,
+                                                            EEPROM_nINTERRUPT enIntSourceArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    EEPROM_pvfIRQSourceHandler_t pvfFunctionReg;
+
+    pvfFunctionReg = EEPROM_vIRQSourceHandler[(uint32_t) enModuleArg]
+                                              [(uint32_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nINTERRUPT enInterruptSourceArg))(void)
+
+EEPROM_pvfIRQSourceHandler_t* EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nMODULE enModuleArg,
+                                                                    EEPROM_nINTERRUPT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &EEPROM__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    EEPROM_pvfIRQSourceHandler_t* pvfFunctionReg;
+
+    pvfFunctionReg = &EEPROM_vIRQSourceHandler[(uint32_t) enModuleArg]
+                                               [(uint32_t) enIntSourceArg];
+
     return (pvfFunctionReg);
 }

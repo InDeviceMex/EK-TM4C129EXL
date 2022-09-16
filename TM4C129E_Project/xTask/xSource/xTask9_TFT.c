@@ -41,8 +41,6 @@ void xTask9_TFT(void* pvParams)
 {
     /*Period Handling*/
     uint32_t u32LastWakeTime;
-    uint32_t u32NewTime;
-    uint32_t u32DiffPeriod;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
 
     uint32_t u32JostickValue[2UL];
@@ -62,7 +60,6 @@ void xTask9_TFT(void* pvParams)
     char pcConvert2[50UL];
     char pcConvert3[50UL];
     const uint16_t* pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
-    OS_Queue_Handle_t QueueHandle = (OS_Queue_Handle_t) 0UL;
     OS_Boolean_t boResult;
 
     GPIO__vSetReady(GPIO_enPORT_F);

@@ -31,99 +31,101 @@
 #define EEPROM    ((EEPROM_t*) (EEPPROM_BASE))
 
 /******************************************************************************************
-************************************ 1 EESIZE *********************************************
+************************************ 1 SIZE *********************************************
 ******************************************************************************************/
-#define EEPROM_EESIZE    ((EESIZE_t*) (EEPROM_BASE + EEPROM_EESIZE_OFFSET))
-#define EEPROM_EESIZE_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_EESIZE_OFFSET)))
+#define EEPROM_SIZE    ((EEPROM_SIZE_t*) (EEPROM_BASE + EEPROM_SIZE_OFFSET))
+#define EEPROM_SIZE_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_SIZE_OFFSET)))
 
 /******************************************************************************************
-************************************ 2 EEBLOCK *********************************************
+************************************ 2 BLOCK *********************************************
 ******************************************************************************************/
-#define EEPROM_EEBLOCK    ((EEBLOCK_t*) (EEPROM_BASE + EEPROM_EEBLOCK_OFFSET))
-#define EEPROM_EEBLOCK_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEBLOCK_OFFSET)))
+#define EEPROM_BLOCK    ((EEPROM_BLOCK_t*) (EEPROM_BASE + EEPROM_BLOCK_OFFSET))
+#define EEPROM_BLOCK_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_BLOCK_OFFSET)))
 
 /******************************************************************************************
-************************************ 3 EEOFFSET *********************************************
+************************************ 3 OFFSET *********************************************
 ******************************************************************************************/
-#define EEPROM_EEOFFSET    ((EEOFFSET_t*) (EEPROM_BASE + EEPROM_EEOFFSET_OFFSET))
-#define EEPROM_EEOFFSET_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEOFFSET_OFFSET)))
+#define EEPROM_OFFSET_    ((EEPROM_OFFSET_t*) (EEPROM_BASE + EEPROM_OFFSET_OFFSET))
+#define EEPROM_OFFSET_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_OFFSET_OFFSET)))
 
 /******************************************************************************************
-************************************ 4 EERDWR *********************************************
+************************************ 4 RDWR *********************************************
 ******************************************************************************************/
-#define EEPROM_EERDWR    ((EERDWR_t*) (EEPROM_BASE + EEPROM_EERDWR_OFFSET))
-#define EEPROM_EERDWR_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EERDWR_OFFSET)))
+#define EEPROM_RDWR    ((EEPROM_RDWR_t*) (EEPROM_BASE + EEPROM_RDWR_OFFSET))
+#define EEPROM_RDWR_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_RDWR_OFFSET)))
 
 /******************************************************************************************
-************************************ 5 EERDWRINC *********************************************
+************************************ 5 RDWRINC *********************************************
 ******************************************************************************************/
-#define EEPROM_EERDWRINC    ((EERDWRINC_t*) (EEPROM_BASE + EEPROM_EERDWRINC_OFFSET))
-#define EEPROM_EERDWRINC_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EERDWRINC_OFFSET)))
+#define EEPROM_RDWRINC    ((EEPROM_RDWRINC_t*) (EEPROM_BASE + EEPROM_RDWRINC_OFFSET))
+#define EEPROM_RDWRINC_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_RDWRINC_OFFSET)))
 
 /******************************************************************************************
-************************************ 6 EEDONE *********************************************
+************************************ 6 DONE *********************************************
 ******************************************************************************************/
-#define EEPROM_EEDONE    ((EEDONE_t*) (EEPROM_BASE + EEPROM_EEDONE_OFFSET))
-#define EEPROM_EEDONE_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_EEDONE_OFFSET)))
+#define EEPROM_DONE    ((EEPROM_DONE_t*) (EEPROM_BASE + EEPROM_DONE_OFFSET))
+#define EEPROM_DONE_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_DONE_OFFSET)))
 
 /******************************************************************************************
-************************************7 EESUPP *********************************************
+************************************7 SUPP *********************************************
 ******************************************************************************************/
-#define EEPROM_EESUPP    ((EESUPP_t*) (EEPROM_BASE + EEPROM_EESUPP_OFFSET))
-#define EEPROM_EESUPP_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EESUPP_OFFSET)))
+#define EEPROM_SUPP    ((EEPROM_SUPP_t*) (EEPROM_BASE + EEPROM_SUPP_OFFSET))
+#define EEPROM_SUPP_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_SUPP_OFFSET)))
 
 /******************************************************************************************
-************************************8 EEUNLOCK *********************************************
+************************************8 UNLOCK *********************************************
 ******************************************************************************************/
-#define EEPROM_EEUNLOCK    ((EEUNLOCK_t*) (EEPROM_BASE + EEPROM_EEUNLOCK_OFFSET))
-#define EEPROM_EEUNLOCK_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEUNLOCK_OFFSET)))
+#define EEPROM_UNLOCK    ((EEPROM_UNLOCK_t*) (EEPROM_BASE + EEPROM_UNLOCK_OFFSET))
+#define EEPROM_UNLOCK_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_UNLOCK_OFFSET)))
 
 /******************************************************************************************
-************************************ 9 EEPROT *********************************************
+************************************ 9 PROT *********************************************
 ******************************************************************************************/
-#define EEPROM_EEPROT    ((EEPROT_t*) (EEPROM_BASE + EEPROM_EEPROT_OFFSET))
-#define EEPROM_EEPROT_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEPROT_OFFSET)))
+#define EEPROM_PROT    ((EEPROM_PROT_t*) (EEPROM_BASE + EEPROM_PROT_OFFSET))
+#define EEPROM_PROT_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_PROT_OFFSET)))
 
 /******************************************************************************************
-************************************ 10 EEPASS0 *********************************************
+************************************ 10 PASS0 *********************************************
 ******************************************************************************************/
-#define EEPROM_EEPASS0    ((EEPASS_t*) (EEPROM_BASE + EEPROM_EEPASS0_OFFSET))
-#define EEPROM_EEPASS0_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEPASS0_OFFSET)))
+#define EEPROM_PASS0    ((EEPROM_PASS_t*) (EEPROM_BASE + EEPROM_PASS0_OFFSET))
+#define EEPROM_PASS0_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_PASS0_OFFSET)))
 
 /******************************************************************************************
-************************************11 EEPASS1 *********************************************
+************************************11 PASS1 *********************************************
 ******************************************************************************************/
-#define EEPROM_EEPASS1    ((EEPASS_t*) (EEPROM_BASE + EEPROM_EEPASS1_OFFSET))
-#define EEPROM_EEPASS1_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEPASS1_OFFSET)))
+#define EEPROM_PASS1    ((EEPROM_PASS_t*) (EEPROM_BASE + EEPROM_PASS1_OFFSET))
+#define EEPROM_PASS1_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_PASS1_OFFSET)))
 
 /******************************************************************************************
-************************************12 EEPASS2 *********************************************
+************************************12 PASS2 *********************************************
 ******************************************************************************************/
-#define EEPROM_EEPASS2    ((EEPASS_t*) (EEPROM_BASE + EEPROM_EEPASS2_OFFSET))
-#define EEPROM_EEPASS2_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEPASS2_OFFSET)))
+#define EEPROM_PASS2    ((EEPROM_PASS_t*) (EEPROM_BASE + EEPROM_PASS2_OFFSET))
+#define EEPROM_PASS2_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_PASS2_OFFSET)))
 
 /******************************************************************************************
-************************************13 EEINT *********************************************
+************************************13 INT *********************************************
 ******************************************************************************************/
-#define EEPROM_EEINT    ((EEINT_t*) (EEPROM_BASE + EEPROM_EEINT_OFFSET))
-#define EEPROM_EEINT_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEINT_OFFSET)))
+#define EEPROM_INT    ((EEPROM_INT_t*) (EEPROM_BASE + EEPROM_INT_OFFSET))
+#define EEPROM_INT_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_INT_OFFSET)))
 
 /******************************************************************************************
-************************************14 EEHIDE *********************************************
+************************************14 HIDE *********************************************
 ******************************************************************************************/
-#define EEPROM_EEHIDE    ((EEHIDE_t*) (EEPROM_BASE + EEPROM_EEHIDE_OFFSET))
-#define EEPROM_EEHIDE_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEHIDE_OFFSET)))
+#define EEPROM_HIDE    ((EEPROM_HIDE_t*) (EEPROM_BASE + EEPROM_HIDE_OFFSET))
+#define EEPROM_HIDE_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_HIDE_OFFSET)))
 
 /******************************************************************************************
-************************************15 EEDBGME *********************************************
+************************************15 DBGME *********************************************
 ******************************************************************************************/
-#define EEPROM_EEDBGME    ((EEDBGME_t*) (EEPROM_BASE + EEPROM_EEDBGME_OFFSET))
-#define EEPROM_EEDBGME_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_EEDBGME_OFFSET)))
+#define EEPROM_DBGME    ((EEPROM_DBGME_t*) (EEPROM_BASE + EEPROM_DBGME_OFFSET))
+#define EEPROM_DBGME_R    (*((volatile uint32_t*) (EEPROM_BASE + EEPROM_DBGME_OFFSET)))
 
 /******************************************************************************************
-************************************16 EEPROMPP *********************************************
+************************************16 PP *********************************************
 ******************************************************************************************/
-#define EEPROM_EEPROMPP    ((EEPROMPP_t*) (EEPROM_BASE + EEPROM_EEPROMPP_OFFSET))
-#define EEPROM_EEPROMPP_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_EEPROMPP_OFFSET)))
+#define EEPROM_PP    ((EEPROM_PP_t*) (EEPROM_BASE + EEPROM_PP_OFFSET))
+#define EEPROM_PP_R    (*((volatile const uint32_t*) (EEPROM_BASE + EEPROM_PP_OFFSET)))
+
+uintptr_t EEPROM__uptrBlockBaseAddress(EEPROM_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_REGISTER_EEPROM_REGISTERPERIPHERAL_H_ */

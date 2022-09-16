@@ -309,7 +309,7 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
       {
             for(u16Column = 0U; u16Column < sFontType->u32Width; u16Column++)
             {
-                u16ValueReg = character[u16Column];
+                u16ValueReg = (uint16_t) character[u16Column];
                 u16ValueReg >>= u16Row;
                 if(1U & u16ValueReg)
                 {
@@ -331,7 +331,7 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
       {
             for(u16Column = 0U; u16Column < sFontType->u32Height; u16Column++)
             {
-                u16ValueReg = character[u16Column];
+                u16ValueReg = (uint16_t) (character[u16Column]);
                 u16ValueReg >>= u16Row;
                 if(1U & u16ValueReg)
                 {
@@ -351,7 +351,7 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
         if(sFontType->u32Height == 24U)
             for(u16Column = 0U; u16Column < sFontType->u32Width;u16Column++)
             {
-                u16ValueReg = character[u16Row];
+                u16ValueReg = (uint16_t) (character[(uint32_t) u16Row]);
                 u16ValueReg >>= u16Column;
                 if(1U & u16ValueReg)
                 {
@@ -363,9 +363,9 @@ void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32
                 u32AddressX++;
             }
         else
-            for(u16Column = sFontType->u32Bits; u16Column > (sFontType->u32Bits - sFontType->u32Width); u16Column--)
+            for(u16Column = (uint16_t) (sFontType->u32Bits); u16Column >(uint16_t) ((uint32_t) sFontType->u32Bits - (uint32_t) sFontType->u32Width); u16Column--)
             {
-                u16ValueReg = character[u16Row];
+                u16ValueReg = (uint16_t) (character[(uint32_t) u16Row]);
                 u16ValueReg >>= (u16Column - 1U);
                 if(1U & u16ValueReg)
                 {

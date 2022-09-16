@@ -24,6 +24,9 @@ void NMISW(void)
     MCU__vNoOperation();
 }
 
+
+char MessageReceived[1500UL];
+
 uint32_t main(void)
 {
     SYSCTL_CONFIG_t stClockConfig =
@@ -101,7 +104,7 @@ uint32_t main(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI3);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN1);
-    EEPROM__enInit();
+    EEPROM__enInit(EEPROM_enMODULE_0);
     DMA__enInit(DMA_enMODULE_0);
     GPIO__vInit();
     TIMER__vInit();
@@ -125,8 +128,6 @@ uint32_t main(void)
     GraphTerm__vClearScreen(UART_enMODULE_0);
     GraphTerm__vHideCursor(UART_enMODULE_0);
     GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
-
-
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);

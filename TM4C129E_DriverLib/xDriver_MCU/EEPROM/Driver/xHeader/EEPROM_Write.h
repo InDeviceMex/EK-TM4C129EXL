@@ -10,10 +10,13 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-EEPROM_nSTATUS EEPROM__enWriteWorld(uint32_t u32Data, uint32_t u32Address);
-EEPROM_nSTATUS EEPROM__enWriteHalfWorld(uint16_t u16Data, uint32_t u32Address);
-EEPROM_nSTATUS EEPROM__enWriteByte(uint8_t u8Data, uint32_t u32Address);
+EEPROM_nERROR EEPROM__enWriteAuxiliar(EEPROM_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg,
+                                      EEPROM_nVARIABLE enVariableTypeArg);
 
-EEPROM_nSTATUS EEPROM__enWriteWorldBlock(const uint32_t* pu32Data, uint32_t u32Address);
+EEPROM_nERROR EEPROM__enWriteHalfWord(EEPROM_nMODULE enModuleArg, uint16_t u16DataArg, uint32_t u32AddressArg);
+EEPROM_nERROR EEPROM__enWriteWord(EEPROM_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg);
+EEPROM_nERROR EEPROM__enWriteByte(EEPROM_nMODULE enModuleArg, uint8_t u8DataArg, uint32_t u32AddressArg);
+
+EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const uint32_t* pu32DataArg, uint32_t u32AddressArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_WRITE_H_ */

@@ -32,7 +32,7 @@ MEMORY
 
 /* Section allocation in memory */
 --stack_size=0x00000200
---heap_size=0x0002C800
+--heap_size=0x0002DE00
 SECTIONS
 {
     .intvecs:   > 0x00000000

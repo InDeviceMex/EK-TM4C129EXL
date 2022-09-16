@@ -31,131 +31,131 @@
 #define EEPROM_BITBANDING    (((EEPROM_BITBANDING_t*) (EEPROM_BITBANDING_BASE + (EEPROM_OFFSET * 32UL))))
 
 /******************************************************************************************
-*********************************** * 1 EESIZE *********************************************
+*********************************** * 1 SIZE *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EESIZE    ((BITBANDING_EESIZE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESIZE_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_SIZE    ((EEPROM_BITBANDING_SIZE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SIZE_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 2 EEBLOCK *********************************************
+*********************************** * 2 BLOCK *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEBLOCK    ((BITBANDING_EEBLOCK_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEBLOCK_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_BLOCK    ((EEPROM_BITBANDING_BLOCK_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_BLOCK_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 3 EEOFFSET *********************************************
+*********************************** * 3 OFFSET *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEOFFSET    ((BITBANDING_EEOFFSET_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEOFFSET_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_OFFSET    ((EEPROM_BITBANDING_OFFSET_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_OFFSET_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 4 EERDWR *********************************************
+*********************************** * 4 RDWR *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EERDWR    ((BITBANDING_EERDWR_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EERDWR_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_RDWR    ((EEPROM_BITBANDING_RDWR_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_RDWR_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 5 EERDWRINC *********************************************
+*********************************** * 5 RDWRINC *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EERDWRINC    ((BITBANDING_EERDWRINC_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EERDWRINC_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_RDWRINC    ((EEPROM_BITBANDING_RDWRINC_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_RDWRINC_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 6 EEDONE *********************************************
+*********************************** * 6 DONE *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEDONE    ((BITBANDING_EEDONE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_DONE    ((EEPROM_BITBANDING_DONE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EEDONE_WORKING    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL) + (EEPROM_EEDONE_R_WORKING_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEDONE_WKERASE    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL) + (EEPROM_EEDONE_R_WKERASE_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEDONE_WKCOPY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL) + (EEPROM_EEDONE_R_WKCOPY_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEDONE_NOPERM    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL) + (EEPROM_EEDONE_R_NOPERM_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEDONE_WRBUSY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDONE_OFFSET) * 32UL) + (EEPROM_EEDONE_R_WRBUSY_BIT * 4UL))))
+#define EEPROM_BITBANDING_DONE_WORKING    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL) + (EEPROM_DONE_R_WORKING_BIT * 4UL))))
+#define EEPROM_BITBANDING_DONE_WKERASE    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL) + (EEPROM_DONE_R_WKERASE_BIT * 4UL))))
+#define EEPROM_BITBANDING_DONE_WKCOPY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL) + (EEPROM_DONE_R_WKCOPY_BIT * 4UL))))
+#define EEPROM_BITBANDING_DONE_NOPERM    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL) + (EEPROM_DONE_R_NOPERM_BIT * 4UL))))
+#define EEPROM_BITBANDING_DONE_WRBUSY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DONE_OFFSET) * 32UL) + (EEPROM_DONE_R_WRBUSY_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 7 EESUPP *********************************************
+*********************************** * 7 SUPP *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EESUPP    ((BITBANDING_EESUPP_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESUPP_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_SUPP    ((EEPROM_BITBANDING_SUPP_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SUPP_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EESUPP_START    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESUPP_OFFSET) * 32UL) + (EEPROM_EESUPP_R_START_BIT * 4UL))))
-#define EEPROM_BITBANDING_EESUPP_EREQ    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESUPP_OFFSET) * 32UL) + (EEPROM_EESUPP_R_EREQ_BIT * 4UL))))
-#define EEPROM_BITBANDING_EESUPP_ERETRY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESUPP_OFFSET) * 32UL) + (EEPROM_EESUPP_R_ERETRY_BIT * 4UL))))
-#define EEPROM_BITBANDING_EESUPP_PRETRY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EESUPP_OFFSET) * 32UL) + (EEPROM_EESUPP_R_PRETRY_BIT * 4UL))))
+#define EEPROM_BITBANDING_SUPP_START    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SUPP_OFFSET) * 32UL) + (EEPROM_SUPP_R_START_BIT * 4UL))))
+#define EEPROM_BITBANDING_SUPP_EREQ    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SUPP_OFFSET) * 32UL) + (EEPROM_SUPP_R_EREQ_BIT * 4UL))))
+#define EEPROM_BITBANDING_SUPP_ERETRY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SUPP_OFFSET) * 32UL) + (EEPROM_SUPP_R_ERETRY_BIT * 4UL))))
+#define EEPROM_BITBANDING_SUPP_PRETRY    (*((volatile const uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_SUPP_OFFSET) * 32UL) + (EEPROM_SUPP_R_PRETRY_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 8 EEUNLOCK *********************************************
+*********************************** * 8 UNLOCK *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEUNLOCK    ((BITBANDING_EEUNLOCK_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEUNLOCK_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_UNLOCK    ((EEPROM_BITBANDING_UNLOCK_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_UNLOCK_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 9 EEPROT *********************************************
+*********************************** * 9 PROT *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEPROT    ((BITBANDING_EEPROT_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPROT_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_PROT    ((EEPROM_BITBANDING_PROT_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PROT_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EEPROT_ACC    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPROT_OFFSET) * 32UL) + (EEPROM_EEPROT_R_ACC_BIT * 4UL))))
+#define EEPROM_BITBANDING_PROT_ACC    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PROT_OFFSET) * 32UL) + (EEPROM_PROT_R_ACC_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 10 EEPASS0 *********************************************
+*********************************** * 10 PASS0 *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEPASS0    ((BITBANDING_EEPASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPASS0_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_PASS0    ((EEPROM_BITBANDING_PASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PASS0_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 11 EEPASS1 *********************************************
+*********************************** * 11 PASS1 *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEPASS1    ((BITBANDING_EEPASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPASS1_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_PASS1    ((EEPROM_BITBANDING_PASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PASS1_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 12 EEPASS2 *********************************************
+*********************************** * 12 PASS2 *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEPASS2    ((BITBANDING_EEPASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPASS2_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_PASS2    ((EEPROM_BITBANDING_PASS_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PASS2_OFFSET) * 32UL)))
 
 /******************************************************************************************
-*********************************** * 13 EEINT *********************************************
+*********************************** * 13 INT *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEINT    ((BITBANDING_EEINT_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEINT_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_INT    ((EEPROM_BITBANDING_INT_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_INT_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EEINT_INT    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEINT_OFFSET) * 32UL) + (EEPROM_EEINT_R_INT_BIT * 4UL))))
+#define EEPROM_BITBANDING_INT_INT    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_INT_OFFSET) * 32UL) + (EEPROM_INT_R_INT_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 14 EEHIDE *********************************************
+*********************************** * 14 HIDE *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEHIDE    ((BITBANDING_EEHIDE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_HIDE    ((EEPROM_BITBANDING_HIDE_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EEHIDE_H1    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H1_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H2    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H2_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H3    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H3_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H4    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H4_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H5    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H5_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H6    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H6_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H7    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H7_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H8    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H8_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H9    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H9_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H10    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H10_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H11    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H11_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H12    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H12_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H13    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H13_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H14    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H14_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H15    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H15_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H16    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H16_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H17    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H17_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H18    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H18_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H19    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H19_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H20    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H20_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H21    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H21_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H22    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H22_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H23    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H23_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H24    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H24_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H25    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H25_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H26    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H26_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H27    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H27_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H28    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H28_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H29    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H29_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H30    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H30_BIT * 4UL))))
-#define EEPROM_BITBANDING_EEHIDE_H31    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEHIDE_OFFSET) * 32UL) + (EEPROM_EEHIDE_R_H31_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H1    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H1_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H2    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H2_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H3    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H3_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H4    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H4_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H5    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H5_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H6    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H6_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H7    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H7_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H8    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H8_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H9    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H9_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H10    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H10_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H11    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H11_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H12    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H12_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H13    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H13_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H14    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H14_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H15    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H15_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H16    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H16_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H17    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H17_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H18    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H18_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H19    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H19_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H20    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H20_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H21    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H21_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H22    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H22_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H23    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H23_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H24    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H24_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H25    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H25_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H26    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H26_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H27    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H27_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H28    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H28_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H29    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H29_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H30    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H30_BIT * 4UL))))
+#define EEPROM_BITBANDING_HIDE_H31    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_HIDE_OFFSET) * 32UL) + (EEPROM_HIDE_R_H31_BIT * 4UL))))
 
 /******************************************************************************************
-*********************************** * 15 EEDBGME *********************************************
+*********************************** * 15 DBGME *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEDBGME    ((BITBANDING_EEDBGME_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDBGME_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_DBGME    ((EEPROM_BITBANDING_DBGME_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DBGME_OFFSET) * 32UL)))
 
-#define EEPROM_BITBANDING_EEDBGME_ME    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEDBGME_OFFSET) * 32UL) + (EEPROM_EEDBGME_R_ME_BIT * 4UL))))
+#define EEPROM_BITBANDING_DBGME_ME    (*((volatile uint32_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_DBGME_OFFSET) * 32UL) + (EEPROM_DBGME_R_ME_BIT * 4UL))))
 /******************************************************************************************
-*********************************** * 16 EEPROMPP *********************************************
+*********************************** * 16 PP *********************************************
 ******************************************************************************************/
-#define EEPROM_BITBANDING_EEPROMPP    ((BITBANDING_EEPROMPP_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_EEPROMPP_OFFSET) * 32UL)))
+#define EEPROM_BITBANDING_PP    ((EEPROM_BITBANDING_PP_t*) (EEPROM_BITBANDING_BASE + ((EEPROM_OFFSET + EEPROM_PP_OFFSET) * 32UL)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_REGISTER_EEPROM_REGISTERPERIPHERAL_BITBANDING_H_ */

@@ -29,6 +29,6 @@
 
 void EEPROM__vSetReady(void);
 void EEPROM__vClearReady(void);
-EEPROM_nREADY EEPROM__enIsReady(void);
+EEPROM_nSTATUS EEPROM__enIsReady(void);
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTRINSICS_XHEADER_EEPROM_READY_H_ */

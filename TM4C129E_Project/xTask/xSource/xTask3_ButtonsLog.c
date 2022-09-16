@@ -40,7 +40,6 @@ void xTask3_ButtonsLog(void* pvParams)
 
     /*Buttons and Led handling*/
     char* pcState[2UL] = {"OFF", "ON "};
-    char* pcStateButtonOld[3UL];
     char* pcStateButton[3UL];
     EDUMKII_nBUTTON enButtonSelect;
     EDUMKII_nJOYSTICK enSelect;
@@ -55,13 +54,12 @@ void xTask3_ButtonsLog(void* pvParams)
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
-    pcStateButtonOld[0U] = 0UL;
-    pcStateButtonOld[1U] = 0UL;
     enButtonSelectOld = EDUMKII_enBUTTON_NO;
     enSelectOld = EDUMKII_enJOYSTICK_NOPRESS;
     pcStateButton[0UL] = pcState[0UL];
     pcStateButton[1UL] = pcState[0UL];
     pcStateButton[2UL] = pcState[0UL];
+    OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
     while(1UL)
     {
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);

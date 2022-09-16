@@ -25,36 +25,36 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_STRUCT_EEPROM_STRUCTREGISTER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_STRUCT_EEPROM_STRUCTREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
 typedef volatile struct
 {
     volatile const uint32_t WORDCNT :16;
     volatile const uint32_t BLKCNT :11;
     const uint32_t reserved :5;
-}EESIZE_t;
+}EEPROM_SIZE_t;
 
 typedef volatile struct
 {
     volatile uint32_t BLOCK :16;
     const uint32_t reserved :16;
-}EEBLOCK_t;
+}EEPROM_BLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t OFFSET :4;
     const uint32_t reserved :28;
-}EEOFFSET_t;
+}EEPROM_OFFSET_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE :32;
-}EERDWR_t;
+}EEPROM_RDWR_t;
 
 typedef volatile struct
 {
     volatile uint32_t VALUE :32;
-}EERDWRINC_t;
+}EEPROM_RDWRINC_t;
 
 typedef volatile struct
 {
@@ -65,7 +65,7 @@ typedef volatile struct
     volatile const uint32_t NOPERM :1;
     volatile const uint32_t WRBUSY :1;
     const uint32_t reserved1 :26;
-}EEDONE_t;
+}EEPROM_DONE_t;
 
 typedef volatile struct
 {
@@ -74,30 +74,30 @@ typedef volatile struct
     volatile const uint32_t ERETRY :1;
     volatile const uint32_t PRETRY :1;
     const uint32_t reserved :28;
-}EESUPP_t;
+}EEPROM_SUPP_t;
 
 typedef volatile struct
 {
     volatile uint32_t UNLOCK :32;
-}EEUNLOCK_t;
+}EEPROM_UNLOCK_t;
 
 typedef volatile struct
 {
     volatile uint32_t PROT :3;
     volatile uint32_t ACC :1;
     const uint32_t reserved :28;
-}EEPROT_t;
+}EEPROM_PROT_t;
 
 typedef volatile struct
 {
     volatile uint32_t PASS :32;
-}EEPASS_t;
+}EEPROM_PASS_t;
 
 typedef volatile struct
 {
     volatile uint32_t INT :1;
     const uint32_t reserved :31;
-}EEINT_t;
+}EEPROM_INT_t;
 
 typedef volatile struct
 {
@@ -134,19 +134,19 @@ typedef volatile struct
     volatile uint32_t H30 :1;
     volatile uint32_t H31 :1;
     volatile uint32_t H32 :1;
-}EEHIDE_t;
+}EEPROM_HIDE_t;
 
 typedef volatile struct
 {
     volatile uint32_t ME :1;
     const uint32_t reserved :15;
     volatile uint32_t KEY :16;
-}EEDBGME_t;
+}EEPROM_DBGME_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SIZE :5;
     const uint32_t reserved :27;
-}EEPROMPP_t;
+}EEPROM_PP_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_EEPROM_EEPROM_PERIPHERAL_EEPROM_STRUCT_EEPROM_STRUCTREGISTER_H_ */
