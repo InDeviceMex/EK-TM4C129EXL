@@ -1,5 +1,3 @@
-
-
 /**
  * main.c
  */
@@ -18,14 +16,10 @@ uint32_t main(void);
 
 void NMISW(void);
 
-
 void NMISW(void)
 {
     MCU__vNoOperation();
 }
-
-
-char MessageReceived[1500UL];
 
 uint32_t main(void)
 {

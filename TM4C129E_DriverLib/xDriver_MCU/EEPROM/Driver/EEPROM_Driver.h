@@ -27,9 +27,12 @@
 
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_BlockCount.h>
+#include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_ConvertData.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_CurrentAddress.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_CurrentBlock.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_CurrentOffset.h>
+
+#include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_Erase.h>
 
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_WorldCount.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_Wait.h>

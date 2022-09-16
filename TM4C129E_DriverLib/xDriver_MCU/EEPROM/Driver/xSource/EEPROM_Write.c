@@ -57,25 +57,42 @@ EEPROM_nERROR EEPROM__enWriteByte(EEPROM_nMODULE enModuleArg, uint8_t u8DataArg,
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const uint32_t* pu32DataArg, uint32_t u32AddressArg)
+EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const uint32_t* pu32DataArg, uint32_t u32StartAddressArg, uint32_t* pu32Count)
 {
     EEPROM_nERROR enErrorReg;
-    uint32_t u32OffsetReg; /*First 16 worlds*/
+    uint32_t u32OffsetReg;
+    uint32_t u32CurrentCountReg;
+    uint32_t u32MaxCountReg;
 
-    if(0UL != (uintptr_t) pu32DataArg)
+    if((0UL != (uintptr_t) pu32DataArg) && (0UL != (uintptr_t) pu32Count))
     {
-        enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32AddressArg);
-        if(EEPROM_enERROR_OK == enErrorReg)
+        if(0UL != *pu32Count)
         {
-            do
+            enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32StartAddressArg);
+            if(EEPROM_enERROR_OK == enErrorReg)
             {
-                enErrorReg = EEPROM__enWriteData(enModuleArg, *pu32DataArg);
+                u32CurrentCountReg = 0U;
+                u32MaxCountReg = *pu32Count;
+                do
+                {
+                    enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *pu32DataArg);
+                    if(EEPROM_enERROR_OK == enErrorReg)
+                    {
+                        u32CurrentCountReg += 1UL;
+                        pu32DataArg += 1U;
+                        enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
+                    }
+                }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != u32OffsetReg) && (u32MaxCountReg > u32CurrentCountReg));
+
                 if(EEPROM_enERROR_OK == enErrorReg)
                 {
-                    pu32DataArg += 1U;
-                    enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
+                    *pu32Count = (uint32_t) u32CurrentCountReg;
                 }
-            }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != u32OffsetReg));
+            }
+        }
+        else
+        {
+            enErrorReg = EEPROM_enERROR_VALUE;
         }
     }
     else

@@ -30,4 +30,7 @@
 EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, uint32_t u32WordArg);
 EEPROM_nERROR EEPROM__enReadData(EEPROM_nMODULE enModuleArg, uint32_t* pu32WordArg);
 
+EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, uint32_t u32WordArg);
+EEPROM_nERROR EEPROM__enReadDataWithIncrement(EEPROM_nMODULE enModuleArg, uint32_t* pu32WordArg);
+
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_READWRITE_H_ */
