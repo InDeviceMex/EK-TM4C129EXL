@@ -29,6 +29,6 @@
 
 void GPIO__vSetReady(GPIO_nPORT enPort);
 void GPIO__vClearReady(GPIO_nPORT enPort);
-GPIO_nREADY GPIO__enIsReady(GPIO_nPORT enPort);
+GPIO_nSTATUS GPIO__enIsReady(GPIO_nPORT enPort);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTRINSICS_XHEADER_GPIO_READY_H_ */

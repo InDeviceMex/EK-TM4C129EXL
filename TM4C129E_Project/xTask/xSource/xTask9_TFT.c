@@ -63,9 +63,9 @@ void xTask9_TFT(void* pvParams)
     OS_Boolean_t boResult;
 
     GPIO__vSetReady(GPIO_enPORT_F);
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_2, 0UL);
     ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enPIN_2);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_2, GPIO_enPINMASK_2);
     OS_Semaphore__boGive(MainSemaphoreHandle);
 
     u32LastWakeTime = OS_Task__uxGetTickCount ();

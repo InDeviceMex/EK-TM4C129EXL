@@ -26,12 +26,12 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntSense(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nSENSE enSense)
+void GPIO__vSetIntSense(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSENSE enSense)
 {
     GPIO__vSetGeneric(enPort, GPIO_IS_OFFSET, enPin, (uint32_t) enSense);
 }
 
-GPIO_nSENSE GPIO__enGetIntSense(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSENSE GPIO__enGetIntSense(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nSENSE enSenseReg = GPIO_enSENSE_EDGE;
     enSenseReg = (GPIO_nSENSE) GPIO__u32GetGeneric(enPort, GPIO_IS_OFFSET, enPin);

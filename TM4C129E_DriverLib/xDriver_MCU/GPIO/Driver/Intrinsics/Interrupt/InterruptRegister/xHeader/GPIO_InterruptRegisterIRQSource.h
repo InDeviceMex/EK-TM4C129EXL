@@ -28,10 +28,10 @@
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
 void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                     GPIO_nPORT enPort, GPIO_nPIN enPin);
+                                     GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 void GPIO_DMA__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), GPIO_nPORT enPort);
 void GPIO_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), GPIO_nPORT enPort);
 void GPIO_SW__vRegisterIRQSourceHandler_PQ(void (*pfIrqSourceHandler) (void),
-                                           GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber);
+                                           GPIO_nPORT enPort, GPIO_nPIN enPinNumber);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_INTERRUPT_GPIO_INTERRUPTREGISTER_GPIO_INTERRUPTREGISTERIRQSOURCE_H_ */

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetData(GPIO_nPORT enPort, GPIO_nPIN enPin, uint32_t u32Data);
-uint32_t GPIO__u32GetData(GPIO_nPORT enPort, GPIO_nPIN enPin);
+void GPIO__vSetData(GPIO_nPORT enPort, GPIO_nPINMASK enPin, uint32_t u32Data);
+uint32_t GPIO__u32GetData(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DATA_H_ */

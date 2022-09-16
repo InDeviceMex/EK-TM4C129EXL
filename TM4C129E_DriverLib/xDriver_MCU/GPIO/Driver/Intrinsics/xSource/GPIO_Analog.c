@@ -26,24 +26,24 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vEnAnalog(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vEnGeneric(enPort, GPIO_AMSEL_OFFSET, enPin);
 }
 
-void GPIO__vDisAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vDisAnalog(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vDisGeneric(enPort, GPIO_AMSEL_OFFSET, enPin);
 }
 
-void GPIO__vSetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nANALOG_MODE enFeature)
+void GPIO__vSetAnalog(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature)
 {
     GPIO__vSetGeneric(enPort, GPIO_AMSEL_OFFSET, enPin, (uint32_t) enFeature);
 }
 
-GPIO_nANALOG_MODE GPIO__enGetAnalog(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSTATE GPIO__enGetAnalog(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nANALOG_MODE enAnalogReg = GPIO_enANALOG_MODE_DIS;
-    enAnalogReg = (GPIO_nANALOG_MODE) GPIO__u32GetGeneric(enPort, GPIO_AMSEL_OFFSET, enPin);
+    GPIO_nSTATE enAnalogReg = GPIO_enSTATE_DIS;
+    enAnalogReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_AMSEL_OFFSET, enPin);
     return (enAnalogReg);
 }

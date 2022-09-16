@@ -55,10 +55,10 @@ void GPIO__vSetDigitalFunction(GPIO_nDIGITAL_FUNCTION enFunction)
         u32FunctionBit = u32PinNumber;
         u32FunctionBit *= 4UL;
 
-        GPIO__vDisAnalog((GPIO_nPORT) u32Port, (GPIO_nPIN) u32Pin);
-        GPIO__vEnDigital((GPIO_nPORT) u32Port, (GPIO_nPIN) u32Pin);
-        GPIO__vSetAltFunction((GPIO_nPORT) u32Port, (GPIO_nPIN) u32Pin,
-                              (GPIO_nALT_FUNCTION) u32FunctionValue);
+        GPIO__vDisAnalog((GPIO_nPORT) u32Port, (GPIO_nPINMASK) u32Pin);
+        GPIO__vEnDigital((GPIO_nPORT) u32Port, (GPIO_nPINMASK) u32Pin);
+        GPIO__vSetAltFunction((GPIO_nPORT) u32Port, (GPIO_nPINMASK) u32Pin,
+                              (GPIO_nFUNCTION) u32FunctionValue);
 
         GPIO__vWriteRegister( (GPIO_nPORT) u32Port, GPIO_PCTL_OFFSET,
                               u32FunctionValue, 0xFUL, u32FunctionBit);

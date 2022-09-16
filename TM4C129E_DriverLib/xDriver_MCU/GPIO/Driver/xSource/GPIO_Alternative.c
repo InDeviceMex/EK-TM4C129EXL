@@ -27,26 +27,26 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnAltFunction(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vEnAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
+    GPIO__vSetCommit(enPort, enPin, GPIO_enSTATE_ENA);
     GPIO__vEnGeneric(enPort, GPIO_AFSEL_OFFSET, enPin);
 }
 
-void GPIO__vDisAltFunction(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vDisAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
+    GPIO__vSetCommit(enPort, enPin, GPIO_enSTATE_ENA);
     GPIO__vDisGeneric(enPort, GPIO_AFSEL_OFFSET, enPin);
 }
 
-void GPIO__vSetAltFunction(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nALT_FUNCTION enFeature)
+void GPIO__vSetAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nFUNCTION enFeature)
 {
     GPIO__vSetGeneric(enPort, GPIO_AFSEL_OFFSET, enPin, (uint32_t) enFeature);
 }
 
-GPIO_nALT_FUNCTION GPIO__enGetAltFunction(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nFUNCTION GPIO__enGetAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nALT_FUNCTION enFeature = GPIO_enALT_FUNCTION_GPIO;
-    enFeature = (GPIO_nALT_FUNCTION) GPIO__u32GetGeneric(enPort, GPIO_AFSEL_OFFSET, enPin);
+    GPIO_nFUNCTION enFeature = GPIO_enFUNCTION_GPIO;
+    enFeature = (GPIO_nFUNCTION) GPIO__u32GetGeneric(enPort, GPIO_AFSEL_OFFSET, enPin);
     return (enFeature);
 }

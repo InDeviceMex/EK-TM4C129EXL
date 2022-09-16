@@ -27,26 +27,26 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnDigital(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vEnDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
+    GPIO__vSetCommit(enPort, enPin, GPIO_enSTATE_ENA);
     GPIO__vEnGeneric(enPort, GPIO_DEN_OFFSET, enPin);
 }
 
-void GPIO__vDisDigital(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vDisDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO__vSetCommit(enPort, enPin, GPIO_enCOMMIT_ENA);
+    GPIO__vSetCommit(enPort, enPin, GPIO_enSTATE_ENA);
     GPIO__vDisGeneric(enPort, GPIO_DEN_OFFSET, enPin);
 }
 
-void GPIO__vSetDigital(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDIGITAL enFeature)
+void GPIO__vSetDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature)
 {
     GPIO__vSetGeneric(enPort, GPIO_DEN_OFFSET, enPin, (uint32_t) enFeature);
 }
 
-GPIO_nDIGITAL GPIO__enGetDigital(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSTATE GPIO__enGetDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nDIGITAL enDigitalReg = GPIO_enDIGITAL_DIS;
-    enDigitalReg = (GPIO_nDIGITAL) GPIO__u32GetGeneric(enPort, GPIO_DEN_OFFSET, enPin);
+    GPIO_nSTATE enDigitalReg = GPIO_enSTATE_DIS;
+    enDigitalReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_DEN_OFFSET, enPin);
     return (enDigitalReg);
 }

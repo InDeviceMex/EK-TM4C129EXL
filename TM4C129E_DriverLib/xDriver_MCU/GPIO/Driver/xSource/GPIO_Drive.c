@@ -26,7 +26,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDRIVE enDriveParam)
+void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nDRIVE enDriveParam)
 {
     uint32_t u32Drive = 0UL;
     uint32_t u32Drive12mA = 0UL;
@@ -56,7 +56,7 @@ void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDRIVE enDrivePara
     if(GPIO_enEXTENDED_DRIVE_EXTENDED == enExtendedDrive)
     {
         u32PinBit = (uint32_t) enPin;
-        u32PinBit &= (uint32_t) GPIO_enPIN_ALL;
+        u32PinBit &= (uint32_t) GPIO_enPINMASK_ALL;
         while(0UL != u32PinBit)
         {
             if(u32PinBit & 0x1UL)
@@ -95,7 +95,7 @@ void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDRIVE enDrivePara
     GPIO__vSetGeneric(enPort, GPIO_SLR_OFFSET, enPin, (uint32_t) u32SlewRate);
 }
 
-GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nEXTENDED_DRIVE enExtendedDrive = GPIO_enEXTENDED_DRIVE_NORMAL;
     uint32_t u32Drive12mA = 0UL;
@@ -115,7 +115,7 @@ GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPIN enPin)
         u32Drive12mA <<= 2UL;
 
         u32PinBit = (uint32_t) enPin;
-        u32PinBit &= (uint32_t) GPIO_enPIN_ALL;
+        u32PinBit &= (uint32_t) GPIO_enPINMASK_ALL;
         while(0UL != u32PinBit)
         {
             if(u32PinBit & 0x1UL)

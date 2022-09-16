@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nADC_TRIGGER enFeature);
-void GPIO__vEnADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin);
-void GPIO__vDisADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin);
+void GPIO__vSetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature);
+void GPIO__vEnADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+void GPIO__vDisADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 
-GPIO_nADC_TRIGGER GPIO__enGetADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin);
+GPIO_nSTATE GPIO__enGetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_ADCTRIGGER_H_ */

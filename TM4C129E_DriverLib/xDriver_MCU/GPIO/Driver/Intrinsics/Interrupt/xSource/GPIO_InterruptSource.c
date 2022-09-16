@@ -26,17 +26,17 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vEnInterruptSource(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET, (uint32_t) enPin, (uint32_t) enPin, 0UL);
 }
 
-void GPIO__vDisInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vDisInterruptSource(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vWriteRegister(enPort, GPIO_IM_OFFSET, 0UL, (uint32_t) enPin, 0UL);
 }
 
-void GPIO__vClearInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vClearInterruptSource(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vWriteRegister(enPort, GPIO_ICR_OFFSET,
              (uint32_t) enPin, (uint32_t) enPin, 0UL);
@@ -60,31 +60,31 @@ void GPIO__vClearInterruptSourceDMA(GPIO_nPORT enPort)
          GPIO_ICR_DMAIC_CLEAR, GPIO_ICR_DMAIC_MASK, GPIO_ICR_R_DMAIC_BIT);
 }
 
-GPIO_nPIN GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nPINMASK GPIO__enStatusInterruptSource(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nPIN enStatus = GPIO_enPIN_NONE;
+    GPIO_nPINMASK enStatus = GPIO_enPINMASK_NONE;
     uint32_t u32Reg = 0UL;
 
     u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET, (uint32_t) enPin, 0UL);
-    enStatus = (GPIO_nPIN) u32Reg;
+    enStatus = (GPIO_nPINMASK) u32Reg;
 
     return (enStatus);
 }
 
-GPIO_nINT_STATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort)
+GPIO_nSTATUS GPIO__enStatusInterruptSourceDMA(GPIO_nPORT enPort)
 {
-    GPIO_nINT_STATUS enStatus = GPIO_enINT_STATUS_INACTIVE;
+    GPIO_nSTATUS enStatus = GPIO_enSTATUS_INACTIVE;
     uint32_t u32Reg = 0UL;
 
     u32Reg = GPIO__u32ReadRegister(enPort, GPIO_RIS_OFFSET,
                                    GPIO_RIS_DMARIS_MASK, GPIO_RIS_R_DMARIS_BIT);
     if(0UL != u32Reg)
     {
-        enStatus = GPIO_enINT_STATUS_ACTIVE;
+        enStatus = GPIO_enSTATUS_ACTIVE;
     }
     else
     {
-        enStatus = GPIO_enINT_STATUS_INACTIVE;
+        enStatus = GPIO_enSTATUS_INACTIVE;
     }
     return (enStatus);
 }

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nEDGE enEdge)
+void GPIO__vSetIntEdge(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nEDGE enEdge)
 {
     GPIO__vSetIntSense(enPort, enPin, GPIO_enSENSE_EDGE);
     if(GPIO_enEDGE_BOTH == enEdge)
@@ -42,7 +42,7 @@ void GPIO__vSetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nEDGE enEdge)
     }
 }
 
-GPIO_nEDGE GPIO__enGetIntEdge(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nEDGE GPIO__enGetIntEdge(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nSENSE enSense = GPIO_enSENSE_EDGE;
     GPIO_nEDGE enFeature = GPIO_enEDGE_FALLING;

@@ -26,18 +26,18 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin)
+void GPIO__vEnGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPINMASK enPin)
 {
     GPIO__vWriteRegister(enPort, u32RegisterOffset, (uint32_t) enPin, (uint32_t) enPin, 0UL);
 }
 
-void GPIO__vDisGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin)
+void GPIO__vDisGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPINMASK enPin)
 {
     GPIO__vWriteRegister(enPort, u32RegisterOffset, 0UL, (uint32_t) enPin, 0UL);
 }
 
 void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset,
-                       GPIO_nPIN enPin, uint32_t u32Feature)
+                       GPIO_nPINMASK enPin, uint32_t u32Feature)
 {
     if(0UL == u32Feature)
     {
@@ -50,11 +50,11 @@ void GPIO__vSetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset,
 }
 
 
-uint32_t GPIO__u32GetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPIN enPin)
+uint32_t GPIO__u32GetGeneric(GPIO_nPORT enPort, uint32_t u32RegisterOffset, GPIO_nPINMASK enPin)
 {
     uint32_t u32Feature = 0UL;
     uint32_t u32Reg = 0UL;
-    enPin &= (uint32_t) GPIO_enPIN_ALL;
+    enPin &= (uint32_t) GPIO_enPINMASK_ALL;
     u32Reg = GPIO__u32ReadRegister(enPort, GPIO_ADCCTL_OFFSET, (uint32_t) enPin, 0UL);
     if(0UL != u32Reg)
     {

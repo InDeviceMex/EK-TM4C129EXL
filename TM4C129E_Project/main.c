@@ -67,9 +67,9 @@ uint32_t main(void)
     };
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
     GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_2, 0UL);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_2, 0UL);
     GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_0, 0UL);
+    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_0, 0UL);
 
     SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);

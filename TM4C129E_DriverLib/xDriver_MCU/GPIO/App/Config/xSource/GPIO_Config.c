@@ -27,10 +27,10 @@
 #include <xDriver_MCU/GPIO/App/Config/xHeader/GPIO_ConfigStruct.h>
 #include <xDriver_MCU/GPIO/Driver/GPIO_Driver.h>
 
-GPIO_nSTATUS GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
+GPIO_nERROR GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
                                GPIO_nCONFIG enConfigParam)
 {
-    GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
+    GPIO_nERROR enReturn = GPIO_enERROR_POINTER;
     GPIO_CONFIG_t *pstConfig = GPIO__pstCreateConfigStruct(enConfigParam);
 
     if(0UL != (uint32_t) pstConfig)
@@ -40,27 +40,27 @@ GPIO_nSTATUS GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
         GPIO__vSetDirection(enPort, enPin, pstConfig->enDirection);
         GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
         GPIO__vDeleteConfigStruct(pstConfig);
-        enReturn = GPIO_enSTATUS_OK;
+        enReturn = GPIO_enERROR_OK;
     }
     return (enReturn);
 }
 
-GPIO_nSTATUS GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPIN enPin,
+GPIO_nERROR GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
                                      const GPIO_CONFIG_t *pstConfig)
 {
-    GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
+    GPIO_nERROR enReturn = GPIO_enERROR_POINTER;
     if(0UL != (uint32_t) pstConfig)
     {
         GPIO__vSetResistorMode(enPort, enPin, pstConfig->enResistorMode);
         GPIO__vSetOutputMode(enPort, enPin, pstConfig->enOutputMode);
         GPIO__vSetDirection(enPort, enPin, pstConfig->enDirection);
         GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
-        enReturn = GPIO_enSTATUS_OK;
+        enReturn = GPIO_enERROR_OK;
     }
     return (enReturn);
 }
 
-GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nCONFIG enConfig = GPIO_enCONFIG_UNDEF;
 
@@ -89,7 +89,7 @@ GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
     return (enConfig);
 }
 
-void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_t *pstConfig)
+void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_CONFIG_t *pstConfig)
 {
     if(0UL != (uint32_t) pstConfig)
     {
@@ -100,7 +100,7 @@ void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_CONFIG_t *pstConf
     }
 }
 
-GPIO_CONFIG_t* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_CONFIG_t* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_CONFIG_t *pstConfig = 0UL;
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

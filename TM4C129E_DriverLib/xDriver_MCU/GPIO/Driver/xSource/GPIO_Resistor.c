@@ -27,13 +27,13 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE enModeArg)
+void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nRESMODE enModeArg)
 {
     GPIO_nPORT enPortReg = enPort;
-    GPIO_nPIN enPinReg = enPin;
+    GPIO_nPINMASK enPinReg = enPin;
     GPIO_nRESMODE enModeReg = enModeArg;
 
-    GPIO__vSetCommit(enPortReg, enPinReg, GPIO_enCOMMIT_ENA);
+    GPIO__vSetCommit(enPortReg, enPinReg, GPIO_enSTATE_ENA);
     switch(enModeReg)
     {
         case GPIO_enRESMODE_INACTIVE:
@@ -53,7 +53,7 @@ void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nRESMODE en
     }
 }
 
-GPIO_nRESMODE GPIO__enGetResistorMode(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nRESMODE GPIO__enGetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nRESMODE enResistorType = GPIO_enRESMODE_INACTIVE;
     uint32_t u32PullUp = 0UL;

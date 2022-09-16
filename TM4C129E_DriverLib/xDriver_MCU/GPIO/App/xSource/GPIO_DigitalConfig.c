@@ -28,17 +28,17 @@
 #include <xDriver_MCU/GPIO/App/xHeader/GPIO_DigitalFunction.h>
 #include <xDriver_MCU/GPIO/Driver/GPIO_Driver.h>
 
-GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
+GPIO_nERROR GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
                                       GPIO_nCONFIG enConfigParam)
 {
-    GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
+    GPIO_nERROR enReturn = GPIO_enERROR_POINTER;
 
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Pin = 0UL;
 
     GPIO_nPORT enPort = GPIO_enPORT_A;
-    GPIO_nPIN enPin = GPIO_enPIN_0;
+    GPIO_nPINMASK enPin = GPIO_enPINMASK_0;
 
     if(GPIO_enGPIO_UNDEF != enFunction)
     {
@@ -58,7 +58,7 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
             u32Pin <<= u32PinNumber;
 
             enPort = (GPIO_nPORT) u32Port;
-            enPin = (GPIO_nPIN) u32Pin;
+            enPin = (GPIO_nPINMASK) u32Pin;
 
             GPIO__vSetDigitalFunction(enFunction);
             GPIO__vSetResistorMode(enPort, enPin, pstConfig->enResistorMode);
@@ -66,23 +66,23 @@ GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
             GPIO__vSetDirection(enPort, enPin, pstConfig->enDirection);
             GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
             GPIO__vDeleteConfigStruct(pstConfig);
-            enReturn = GPIO_enSTATUS_OK;
+            enReturn = GPIO_enERROR_OK;
         }
     }
     return (enReturn);
 }
 
-GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
+GPIO_nERROR GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
                                             const GPIO_CONFIG_t *pstConfig)
 {
-    GPIO_nSTATUS enReturn = GPIO_enSTATUS_ERROR;
+    GPIO_nERROR enReturn = GPIO_enERROR_POINTER;
 
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Pin = 0UL;
 
     GPIO_nPORT enPort = GPIO_enPORT_A;
-    GPIO_nPIN enPin = GPIO_enPIN_0;
+    GPIO_nPINMASK enPin = GPIO_enPINMASK_0;
 
     if((0UL != (uint32_t) pstConfig) && (GPIO_enGPIO_UNDEF != enFunction))
     {
@@ -98,14 +98,14 @@ GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
         u32Pin <<= u32PinNumber;
 
         enPort = (GPIO_nPORT) u32Port;
-        enPin = (GPIO_nPIN) u32Pin;
+        enPin = (GPIO_nPINMASK) u32Pin;
 
         GPIO__vSetDigitalFunction(enFunction);
         GPIO__vSetResistorMode(enPort, enPin, pstConfig->enResistorMode);
         GPIO__vSetOutputMode(enPort, enPin, pstConfig->enOutputMode);
         GPIO__vSetDirection(enPort, enPin, pstConfig->enDirection);
         GPIO__vSetDrive(enPort, enPin, pstConfig->enDrive);
-        enReturn = GPIO_enSTATUS_OK;
+        enReturn = GPIO_enERROR_OK;
     }
     return (enReturn);
 
@@ -118,7 +118,7 @@ GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
     GPIO_nDIR enDirectionVar = GPIO_enDIR_UNDEF;
     GPIO_nDRIVE enDriveVar = GPIO_enDRIVE_UNDEF;
     GPIO_nPORT enPort = GPIO_enPORT_A;
-    GPIO_nPIN enPin = GPIO_enPIN_0;
+    GPIO_nPINMASK enPin = GPIO_enPINMASK_0;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Pin = 0UL;
@@ -138,7 +138,7 @@ GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
         u32Pin <<= u32PinNumber;
 
         enPort = (GPIO_nPORT) u32Port;
-        enPin = (GPIO_nPIN) u32Pin;
+        enPin = (GPIO_nPINMASK) u32Pin;
 
         enResistorModeVar = GPIO__enGetResistorMode(enPort, enPin);
         enOutputModeVar = GPIO__enGetOutputMode(enPort, enPin);
@@ -158,7 +158,7 @@ GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
 void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_t *pstConfig)
 {
     GPIO_nPORT enPort = GPIO_enPORT_A;
-    GPIO_nPIN enPin = GPIO_enPIN_0;
+    GPIO_nPINMASK enPin = GPIO_enPINMASK_0;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Pin = 0UL;
@@ -177,7 +177,7 @@ void GPIO__vGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction, GPIO_CONFIG_t *p
         u32Pin <<= u32PinNumber;
 
         enPort = (GPIO_nPORT) u32Port;
-        enPin = (GPIO_nPIN) u32Pin;
+        enPin = (GPIO_nPINMASK) u32Pin;
 
         pstConfig->enResistorMode = GPIO__enGetResistorMode(enPort, enPin);
         pstConfig->enOutputMode = GPIO__enGetOutputMode(enPort, enPin);
@@ -191,7 +191,7 @@ GPIO_CONFIG_t* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
     GPIO_CONFIG_t *pstConfig = 0UL;
 
     GPIO_nPORT enPort = GPIO_enPORT_A;
-    GPIO_nPIN enPin = GPIO_enPIN_0;
+    GPIO_nPINMASK enPin = GPIO_enPINMASK_0;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Pin = 0UL;
@@ -219,7 +219,7 @@ GPIO_CONFIG_t* GPIO__pstGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction)
             u32Pin <<= u32PinNumber;
 
             enPort = (GPIO_nPORT) u32Port;
-            enPin = (GPIO_nPIN) u32Pin;
+            enPin = (GPIO_nPINMASK) u32Pin;
 
             pstConfig->enResistorMode = GPIO__enGetResistorMode(enPort, enPin);
             pstConfig->enOutputMode = GPIO__enGetOutputMode(enPort, enPin);

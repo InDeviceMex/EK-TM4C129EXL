@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPIN enPin,
-                          GPIO_nWAKE_ENABLE enWakeEnable);
-GPIO_nWAKE_ENABLE GPIO__enGetWakeEnable(GPIO_nPORT enPort, GPIO_nPIN enPin);
+void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
+                          GPIO_nSTATE enWakeEnable);
+GPIO_nSTATE GPIO__enGetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_WAKE_XHEADER_GPIO_WAKEENABLE_H_ */

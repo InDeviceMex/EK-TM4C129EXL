@@ -26,7 +26,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_TYPE enIntTypeArg)
+void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nINTTYPE enIntTypeArg)
 {
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
     {
@@ -34,13 +34,13 @@ void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nINT_TYPE enIntT
     }
 }
 
-GPIO_nINT_TYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nINTTYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nINT_TYPE enTypeReg = GPIO_enINT_TYPE_UNDEF;
+    GPIO_nINTTYPE enTypeReg = GPIO_enINTTYPE_UNDEF;
 
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
     {
-        enTypeReg = (GPIO_nINT_TYPE) GPIO__u32GetGeneric(enPort, GPIO_SI_OFFSET, enPin);
+        enTypeReg = (GPIO_nINTTYPE) GPIO__u32GetGeneric(enPort, GPIO_SI_OFFSET, enPin);
     }
     return (enTypeReg);
 }

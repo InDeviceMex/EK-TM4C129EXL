@@ -72,23 +72,23 @@ void xTask3_ButtonsLog(void* pvParams)
                 enButtonSelectOld = enButtonSelect;
                 if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
                 {
-                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enPIN_0);
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_0, GPIO_enPINMASK_0);
                     pcStateButton[0UL] = pcState[1UL];
                 }
                 else
                 {
-                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_0, 0UL);
                     pcStateButton[0UL] = pcState[0UL];
                 }
 
                 if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
                 {
-                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_1, GPIO_enPINMASK_1);
                     pcStateButton[1UL] = pcState[1UL];
                 }
                 else
                 {
-                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, 0UL);
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_1, 0UL);
                     pcStateButton[1UL] = pcState[0UL];
                 }
             }
@@ -98,12 +98,12 @@ void xTask3_ButtonsLog(void* pvParams)
                 enSelectOld = enSelect;
                 if(EDUMKII_enJOYSTICK_PRESS == enSelect)
                 {
-                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
+                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_4, GPIO_enPINMASK_4);
                     pcStateButton[2UL] = pcState[1UL];
                 }
                 else
                 {
-                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
+                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPINMASK_4, 0UL);
                     pcStateButton[2UL] = pcState[0UL];
                 }
             }

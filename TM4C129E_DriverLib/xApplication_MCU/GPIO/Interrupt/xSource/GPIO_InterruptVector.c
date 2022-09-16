@@ -51,7 +51,7 @@ void GPIO__vDisInterruptVector(GPIO_nPORT enPort)
     NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
 }
 
-static NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_NUMBER_MAX] =
+static NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_MAX] =
 {
   {
    NVIC_enVECTOR_GPIOP, NVIC_enVECTOR_GPIOP1, NVIC_enVECTOR_GPIOP2, NVIC_enVECTOR_GPIOP3,
@@ -63,7 +63,7 @@ static NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ_PIN [2UL][(uint32_t) GPIO_enPIN_NUMBER_
   },
 };
 
-void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber, GPIO_nPRIORITY enGPIOPriority)
+void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber, GPIO_nPRIORITY enGPIOPriority)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOP;
     uint32_t u32Port = 0UL;
@@ -71,7 +71,7 @@ void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort ))
     {
 
-        u32PinNumber = MCU__u32CheckParams( (uint32_t) enPinNumber, (uint32_t) GPIO_enPIN_NUMBER_MAX);
+        u32PinNumber = MCU__u32CheckParams( (uint32_t) enPinNumber, (uint32_t) GPIO_enPIN_MAX);
         switch(enPort)
         {
         case GPIO_enPORT_P:
@@ -90,7 +90,7 @@ void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber
     }
 }
 
-void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber)
+void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_GPIOP;
     uint32_t u32Port = 0UL;
@@ -98,7 +98,7 @@ void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumbe
     if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort ))
     {
 
-        u32PinNumber = MCU__u32CheckParams( (uint32_t) enPinNumber, (uint32_t) GPIO_enPIN_NUMBER_MAX);
+        u32PinNumber = MCU__u32CheckParams( (uint32_t) enPinNumber, (uint32_t) GPIO_enPIN_MAX);
         switch(enPort)
         {
         case GPIO_enPORT_P:

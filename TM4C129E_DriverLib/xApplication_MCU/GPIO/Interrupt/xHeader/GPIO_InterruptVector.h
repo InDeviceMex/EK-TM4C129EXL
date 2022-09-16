@@ -30,7 +30,7 @@
 void GPIO__vEnInterruptVector(GPIO_nPORT enPort, GPIO_nPRIORITY enGPIOPriority);
 void GPIO__vDisInterruptVector(GPIO_nPORT enPort);
 
-void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber);
-void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber, GPIO_nPRIORITY enGPIOPriority);
+void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber);
+void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber, GPIO_nPRIORITY enGPIOPriority);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTERRUPT_XHEADER_GPIO_INTERRUPTVECTOR_H_ */

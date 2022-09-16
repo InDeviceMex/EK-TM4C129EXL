@@ -47,13 +47,13 @@ void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPO
 
 void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
                                         GPIO_nPORT enPort,
-                                        GPIO_nPIN_NUMBER enPinNumber)
+                                        GPIO_nPIN enPinNumber)
 {
     SCB_nVECISR enVector = SCB_enVECISR_GPIOP;
     uint32_t u32Port = 0UL;
     uint32_t u32PinNumber = 0UL;
     const SCB_nVECISR SCB_enVECISR_GPIO_PQ[(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P]
-                                        [(uint32_t) GPIO_enPIN_NUMBER_MAX] =
+                                        [(uint32_t) GPIO_enPIN_MAX] =
     {
      {
          SCB_enVECISR_GPIOP, SCB_enVECISR_GPIOP1,
@@ -73,7 +73,7 @@ void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
     {
         if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
         {
-            if(GPIO_enPIN_NUMBER0 != enPinNumber)
+            if(GPIO_enPIN_0 != enPinNumber)
             {
                 enVector = SCB_enVECISR_GPIO_PQ[u32Port][u32PinNumber];
                 SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,

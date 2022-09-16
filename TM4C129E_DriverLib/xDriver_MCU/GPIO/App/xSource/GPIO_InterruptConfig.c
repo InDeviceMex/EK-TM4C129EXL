@@ -27,7 +27,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptLevel.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptSense.h>
 
-void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPIN enPin,
+void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
                                      GPIO_nINT_CONFIG enIntConfigArg)
 {
     uint32_t u32Sense = 0UL;

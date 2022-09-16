@@ -27,18 +27,18 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetCommit(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nCOMMIT enFeature)
+void GPIO__vSetCommit(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature)
 {
     GPIO_nPORT enPortReg = enPort;
-    GPIO_nPIN enPinReg = enPin;
-    GPIO_nCOMMIT enFeatureReg = enFeature;
+    GPIO_nPINMASK enPinReg = enPin;
+    GPIO_nSTATE enFeatureReg = enFeature;
     GPIO__vUnlock(enPortReg);
     GPIO__vSetGeneric(enPortReg, GPIO_CR_OFFSET, enPinReg, (uint32_t) enFeatureReg);
 }
 
-GPIO_nCOMMIT GPIO__enGetCommit(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSTATE GPIO__enGetCommit(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nCOMMIT enCommitReg = GPIO_enCOMMIT_DIS;
-    enCommitReg = (GPIO_nCOMMIT) GPIO__u32GetGeneric(enPort, GPIO_CR_OFFSET, enPin);
+    GPIO_nSTATE enCommitReg = GPIO_enSTATE_DIS;
+    enCommitReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_CR_OFFSET, enPin);
     return (enCommitReg);
 }

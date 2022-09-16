@@ -31,10 +31,10 @@ void ST7735__vInitReset(void)
 
 void ST7735__vSetReset(void)
 {
-    GPIO__vSetData(GPIO_enPORT_H, GPIO_enPIN_3, 0UL);
+    GPIO__vSetData(GPIO_enPORT_H, GPIO_enPINMASK_3, 0UL);
 }
 
 void ST7735__vClearReset(void)
 {
-    GPIO__vSetData(GPIO_enPORT_H, GPIO_enPIN_3, GPIO_enPIN_3);
+    GPIO__vSetData(GPIO_enPORT_H, GPIO_enPINMASK_3, GPIO_enPINMASK_3);
 }

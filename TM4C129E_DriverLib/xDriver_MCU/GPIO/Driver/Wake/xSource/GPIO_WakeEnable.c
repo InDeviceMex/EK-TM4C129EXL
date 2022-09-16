@@ -26,7 +26,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_ENABLE enWakeEnable)
+void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enWakeEnable)
 {
     if(GPIO_enPORT_K == enPort)
     {
@@ -34,13 +34,13 @@ void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_ENABLE 
     }
 }
 
-GPIO_nWAKE_ENABLE GPIO__enGetWakeEnable(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSTATE GPIO__enGetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nWAKE_ENABLE enWakeReg = GPIO_enWAKE_ENABLE_DIS;
+    GPIO_nSTATE enWakeReg = GPIO_enSTATE_DIS;
 
     if(GPIO_enPORT_K == enPort)
     {
-        enWakeReg = (GPIO_nWAKE_ENABLE) GPIO__u32GetGeneric(enPort, GPIO_WAKEPEN_OFFSET, enPin);
+        enWakeReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_WAKEPEN_OFFSET, enPin);
     }
     return (enWakeReg);
 }

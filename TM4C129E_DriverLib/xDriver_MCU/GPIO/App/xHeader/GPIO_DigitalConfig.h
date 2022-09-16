@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-GPIO_nSTATUS GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
+GPIO_nERROR GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction,
                                       GPIO_nCONFIG enConfigParam);
-GPIO_nSTATUS GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
+GPIO_nERROR GPIO__enSetDigitalConfigStruct(GPIO_nDIGITAL_FUNCTION enFunction,
                                             const GPIO_CONFIG_t *pstConfig);
 
 GPIO_nCONFIG GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunction);

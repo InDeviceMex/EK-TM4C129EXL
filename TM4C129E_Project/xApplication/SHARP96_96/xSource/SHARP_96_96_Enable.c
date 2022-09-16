@@ -31,12 +31,12 @@ void SHARP_96_96__vInitEnable(void)
 
 void SHARP_96_96__vEnable(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_4, GPIO_enPIN_4);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_4, GPIO_enPINMASK_4);
 }
 
 void SHARP_96_96__vDisable(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_4, 0UL);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_4, 0UL);
 }
 
 

@@ -46,8 +46,8 @@ void (*GPIO__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort))(void);
 void (**GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort))(void);
 
 void (*GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort,
-                                       GPIO_nPIN_NUMBER enPinNumber))(void);
+                                       GPIO_nPIN enPinNumber))(void);
 void (**GPIO_PQ__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort,
-                                            GPIO_nPIN_NUMBER enPinNumber))(void);
+                                            GPIO_nPIN enPinNumber))(void);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTERRUPT_INTERRUPTROUTINE_GPIO_INTERRUPTROUTINE_H_ */

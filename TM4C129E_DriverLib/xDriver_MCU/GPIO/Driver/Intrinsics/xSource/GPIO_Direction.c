@@ -26,12 +26,12 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetDirection(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nDIR enFeature)
+void GPIO__vSetDirection(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nDIR enFeature)
 {
     GPIO__vSetGeneric(enPort, GPIO_DIR_OFFSET, enPin, (uint32_t) enFeature);
 }
 
-GPIO_nDIR GPIO__enGetDirection(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nDIR GPIO__enGetDirection(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO_nDIR enDirReg = GPIO_enDIR_INPUT;
     enDirReg = (GPIO_nDIR) GPIO__u32GetGeneric(enPort, GPIO_DIR_OFFSET, enPin);

@@ -31,12 +31,12 @@ void SHARP_96_96__vInitChipSelect(void)
 
 void SHARP_96_96__vEnableChipSelect(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_5, GPIO_enPIN_5);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_5, GPIO_enPINMASK_5);
 }
 
 void SHARP_96_96__vDisableChipSelect(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_5, 0UL);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_5, 0UL);
 }
 
 

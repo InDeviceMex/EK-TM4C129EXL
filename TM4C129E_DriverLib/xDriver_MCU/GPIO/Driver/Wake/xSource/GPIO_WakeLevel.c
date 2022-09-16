@@ -26,7 +26,7 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_LEVEL enWakeLevel)
+void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nLEVEL enWakeLevel)
 {
     if(GPIO_enPORT_K == enPort)
     {
@@ -34,13 +34,13 @@ void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nWAKE_LEVEL en
     }
 }
 
-GPIO_nWAKE_LEVEL GPIO__enGetWakeLevel(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nLEVEL GPIO__enGetWakeLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nWAKE_LEVEL enWakeReg = GPIO_enWAKE_LEVEL_LOW;
+    GPIO_nLEVEL enWakeReg = GPIO_enLEVEL_LOW;
 
     if(GPIO_enPORT_K == enPort)
     {
-        enWakeReg = (GPIO_nWAKE_LEVEL) GPIO__u32GetGeneric(enPort, GPIO_WAKELVL_OFFSET, enPin);
+        enWakeReg = (GPIO_nLEVEL) GPIO__u32GetGeneric(enPort, GPIO_WAKELVL_OFFSET, enPin);
     }
     return (enWakeReg);
 }

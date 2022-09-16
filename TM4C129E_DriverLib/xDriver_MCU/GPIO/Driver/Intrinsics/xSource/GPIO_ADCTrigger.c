@@ -26,24 +26,24 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vEnADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vEnGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
 }
 
-void GPIO__vDisADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin)
+void GPIO__vDisADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     GPIO__vDisGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
 }
 
-void GPIO__vSetADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin, GPIO_nADC_TRIGGER enFeature)
+void GPIO__vSetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature)
 {
     GPIO__vSetGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin, (uint32_t) enFeature);
 }
 
-GPIO_nADC_TRIGGER GPIO__enGetADCTrigger(GPIO_nPORT enPort, GPIO_nPIN enPin)
+GPIO_nSTATE GPIO__enGetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
-    GPIO_nADC_TRIGGER enAdcTriggerReg = GPIO_enADC_TRIGGER_DIS;
-    enAdcTriggerReg = (GPIO_nADC_TRIGGER) GPIO__u32GetGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
+    GPIO_nSTATE enAdcTriggerReg = GPIO_enSTATE_DIS;
+    enAdcTriggerReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
     return (enAdcTriggerReg);
 }

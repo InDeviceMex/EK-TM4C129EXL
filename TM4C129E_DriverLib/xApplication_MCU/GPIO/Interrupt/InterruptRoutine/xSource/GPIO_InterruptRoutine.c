@@ -44,7 +44,7 @@ void (*GPIO__pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX])(void)=
 
 
 void (*GPIO_PQ__pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P]
-                                   [(uint32_t) GPIO_enPIN_NUMBER_MAX])(void) =
+                                   [(uint32_t) GPIO_enPIN_MAX])(void) =
 {
     {
         &GPIOP__vIRQVectorHandler, &GPIOP1__vIRQVectorHandler,
@@ -76,7 +76,7 @@ void (**GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort))(void)
 }
 
 void (*GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort,
-                                       GPIO_nPIN_NUMBER enPinNumber))(void)
+                                       GPIO_nPIN enPinNumber))(void)
 {
     uint32_t u32PortReg = (uint32_t) GPIO_enPORT_Q;
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
@@ -90,7 +90,7 @@ void (*GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort,
 }
 
 void (**GPIO_PQ__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort,
-                                            GPIO_nPIN_NUMBER enPinNumber))(void)
+                                            GPIO_nPIN enPinNumber))(void)
 {
     uint32_t u32PortReg = (uint32_t) GPIO_enPORT_Q;
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;

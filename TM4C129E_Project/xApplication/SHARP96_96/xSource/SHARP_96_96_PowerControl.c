@@ -31,11 +31,11 @@ void SHARP_96_96__vInitPowerControl(void)
 
 void SHARP_96_96__vPowerOn(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_2, GPIO_enPIN_2);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_2, GPIO_enPINMASK_2);
 }
 
 void SHARP_96_96__vPowerOff(void)
 {
-    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPIN_2, 0UL);
+    GPIO__vSetData(GPIO_enPORT_D, GPIO_enPINMASK_2, 0UL);
 }
 

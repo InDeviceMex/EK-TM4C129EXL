@@ -30,7 +30,7 @@
 void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPORT enPort);
 void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
                                         GPIO_nPORT enPort,
-                                        GPIO_nPIN_NUMBER enPinNumber);
+                                        GPIO_nPIN enPinNumber);
 
 void GPIO__vRegisterAll_IRQVectorHandler(void);
 

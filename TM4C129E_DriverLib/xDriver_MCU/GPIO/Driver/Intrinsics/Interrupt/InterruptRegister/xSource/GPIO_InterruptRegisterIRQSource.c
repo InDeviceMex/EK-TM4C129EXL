@@ -28,7 +28,7 @@
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
 void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                     GPIO_nPORT enPort, GPIO_nPIN enPin)
+                                     GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     uint32_t u32PinNumber = 0UL;
     uint32_t u32Port = 0UL;
@@ -39,7 +39,7 @@ void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
         u32Port = MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
 
         u32Pin = (uint32_t) enPin;
-        u32Pin &= (uint32_t) GPIO_enPIN_ALL;
+        u32Pin &= (uint32_t) GPIO_enPINMASK_ALL;
         while(0UL == (u32Pin & 0x1UL))
         {
             u32PinNumber++;
@@ -47,7 +47,7 @@ void GPIO__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
         }
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                GPIO__pvfGetIRQSourceHandlerPointer((GPIO_nPORT) u32Port,
-                                                   (GPIO_nPIN_NUMBER) u32PinNumber),
+                                                   (GPIO_nPIN) u32PinNumber),
                0UL,
                1UL);
     }
@@ -87,16 +87,16 @@ void GPIO_SW__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), GPIO_
  *
  * @param pfIrqSourceHandler
  * @param enPort Must be GPIO_enPORT_P or GPIO_enPORT_Q
- * @param enPin Must be greather than GPIO_enPIN_0
+ * @param enPin Must be greather than GPIO_enPINMASK_0
  */
 void GPIO_SW__vRegisterIRQSourceHandler_PQ(void (*pfIrqSourceHandler) (void),
-                                          GPIO_nPORT enPort, GPIO_nPIN_NUMBER enPinNumber)
+                                          GPIO_nPORT enPort, GPIO_nPIN enPinNumber)
 {
     if(0UL != (uint32_t) pfIrqSourceHandler)
     {
         if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
         {
-            if(GPIO_enPIN_NUMBER0 != enPinNumber)
+            if(GPIO_enPIN_0 != enPinNumber)
             {
                 MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                        GPIO_SW__pvfGetIRQSourceHandlerPointer_PQ(enPort, enPinNumber),

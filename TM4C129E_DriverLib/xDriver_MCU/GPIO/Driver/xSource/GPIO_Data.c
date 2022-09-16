@@ -26,12 +26,12 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-inline void GPIO__vSetData(GPIO_nPORT enPort, GPIO_nPIN enPin, uint32_t u32Data)
+inline void GPIO__vSetData(GPIO_nPORT enPort, GPIO_nPINMASK enPin, uint32_t u32Data)
 {
     GPIO__vWriteRegister(enPort, GPIO_DATA_OFFSET, u32Data, (uint32_t) enPin, 0UL);
 }
 
-inline uint32_t GPIO__u32GetData(GPIO_nPORT enPort, GPIO_nPIN enPin)
+inline uint32_t GPIO__u32GetData(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
 {
     uint32_t u32DataReg = 0UL;
     u32DataReg = GPIO__u32ReadRegister(enPort, GPIO_DATA_OFFSET, (uint32_t) enPin, 0UL);
