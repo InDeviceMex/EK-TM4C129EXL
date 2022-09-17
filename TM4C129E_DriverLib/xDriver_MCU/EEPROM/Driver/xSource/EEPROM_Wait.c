@@ -49,6 +49,10 @@ EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* pe
             *penStatusArg = (EEPROM_nSTATUS) stRegister.u32Value;
         }
     }
+    else
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
     return (enErrorReg);
 }
 

@@ -102,5 +102,9 @@ ADC_nERROR ADC_Sequencer__enGetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSE
             }
         }
     }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
     return (enErrorReg);
 }

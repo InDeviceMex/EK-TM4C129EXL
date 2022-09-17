@@ -102,5 +102,9 @@ ADC_nERROR ADC_Sequencer__enGetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_n
             }
         }
     }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
     return (enErrorReg);
 }

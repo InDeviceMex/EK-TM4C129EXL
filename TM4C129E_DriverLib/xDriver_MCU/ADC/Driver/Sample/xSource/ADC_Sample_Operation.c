@@ -40,6 +40,7 @@ ADC_nERROR ADC_Sample__enSetOperationModeByMask(ADC_nMODULE enModuleArg, ADC_nSE
     {
         u32SequencerReg = 0U;
         u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        enErrorReg = ADC_enERROR_OK;
         while(0U != u32SequencerMaskReg)
         {
             if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))

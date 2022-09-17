@@ -102,6 +102,10 @@ ADC_nERROR ADC_Sequencer__enGetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQ
             }
         }
     }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
     return (enErrorReg);
 }
 

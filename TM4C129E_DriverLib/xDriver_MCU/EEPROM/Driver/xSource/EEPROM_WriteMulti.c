@@ -80,7 +80,7 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
             break;
             case EEPROM_enVARIABLE_WORD:
                 pu32DataAux = (uint32_t*) pvDataArg;
-                u32OffsetReg += 4UL;
+                u32OffsetReg = 4UL;
                 while((u32MaxAddress > u32AddressArg) &&
                       (u16CountArg >  0U) &&
                       (EEPROM_enERROR_OK == enErrorReg))

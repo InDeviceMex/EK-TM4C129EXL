@@ -58,7 +58,7 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        if(DMA_enSTATE_DIS == enActiveControStructureArg)
+        if(DMA_enCH_CONTROL_PRIMARY == enActiveControStructureArg)
         {
             stRegister.uptrAddress = DMA_CH_ALTCLR_OFFSET;
         }

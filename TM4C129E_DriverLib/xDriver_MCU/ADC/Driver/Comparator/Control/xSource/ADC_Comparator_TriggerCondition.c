@@ -40,6 +40,7 @@ ADC_nERROR ADC_Comparator__enSetTriggerConditionsByMask(ADC_nMODULE enModuleArg,
     {
         u32ComparatorReg = 0U;
         u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        enErrorReg = ADC_enERROR_OK;
         while(0U != u32ComparatorMaskReg)
         {
             if(0UL != (ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
@@ -49,6 +50,7 @@ ADC_nERROR ADC_Comparator__enSetTriggerConditionsByMask(ADC_nMODULE enModuleArg,
 
             if(ADC_enERROR_OK != enErrorReg)
             {
+                enErrorMemoryReg = enErrorReg;
                 break;
             }
             u32ComparatorReg++;

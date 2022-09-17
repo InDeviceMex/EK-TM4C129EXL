@@ -221,6 +221,10 @@ ADC_nERROR ADC_Sequencer__enGetAllFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_
             *pu32NumberArg = (uint32_t) u32CountReg;
         }
     }
+    else
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
 
     return (enErrorReg);
 }

@@ -49,6 +49,7 @@ ADC_nERROR ADC_Sample__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
     {
         u32SequencerNumReg = 0U;
         u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        enErrorReg = ADC_enERROR_OK;
         while(0UL != u32SequencerMaskReg)
         {
             if(0UL != (((uint32_t) ADC_enSEQMASK_0) & u32SequencerMaskReg))
@@ -147,6 +148,7 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
             u32ValueReg = (uint32_t) ADC_enSEQMASK_0;
             u32SequencerNumReg = 0U;
             u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+            enErrorReg = ADC_enERROR_OK;
             while(0UL != u32SequencerMaskReg)
             {
                 if(0UL != (((uint32_t) ADC_enSEQMASK_0) & u32SequencerMaskReg))

@@ -36,6 +36,7 @@ DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMA
 
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    enErrorReg = DMA_enERROR_OK;
     while(0U != u32ChannelMaskReg)
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
@@ -167,6 +168,7 @@ DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK 
 
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    enErrorReg = DMA_enERROR_OK;
     while(0U != u32ChannelMaskReg)
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
