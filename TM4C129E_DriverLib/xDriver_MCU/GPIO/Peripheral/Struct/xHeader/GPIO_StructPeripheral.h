@@ -33,225 +33,225 @@ typedef volatile struct
         union
         {
                 volatile uint32_t DATA_MASK [255UL];
-                GPIODATA_t DATA_MASK_Bit [255UL];
+                GPIO_DATA_t DATA_MASK_Bit [255UL];
         };
         union
         {
                 volatile uint32_t DATA;
-                GPIODATA_t DATA_Bit;
+                GPIO_DATA_t DATA_Bit;
         };
         union
         {
                 volatile uint32_t DIR;
-                GPIODIR_t DIR_Bit;
+                GPIO_DIR_t DIR_Bit;
         };
         union
         {
                 volatile uint32_t IS;
-                GPIOIS_t IS_Bit;
+                GPIO_IS_t IS_Bit;
         };
         union
         {
                 volatile uint32_t IBE;
-                GPIOIBE_t IBE_Bit;
+                GPIO_IBE_t IBE_Bit;
         };
         union
         {
                 volatile uint32_t IEV;
-                GPIOIEV_t IEV_Bit;
+                GPIO_IEV_t IEV_Bit;
         };
         union
         {
                 volatile uint32_t IM;
-                GPIOIM_t IM_Bit;
+                GPIO_IM_t IM_Bit;
         };
         union
         {
                 volatile const uint32_t RIS;
-                GPIORIS_t RIS_Bit;
+                GPIO_RIS_t RIS_Bit;
         };
         union
         {
                 volatile const uint32_t MIS;
-                GPIOMIS_t MIS_Bit;
+                GPIO_MIS_t MIS_Bit;
         };
         union
         {
                 volatile uint32_t ICR;
-                GPIOICR_t ICR_Bit;
+                GPIO_ICR_t ICR_Bit;
         };
         union
         {
                 volatile uint32_t AFSEL;
-                GPIOAFSEL_t AFSEL_Bit;
+                GPIO_AFSEL_t AFSEL_Bit;
         };
         const uint32_t reserved [55UL];
         union
         {
                 volatile uint32_t DR2R;
-                GPIODR2R_t DR2R_Bit;
+                GPIO_DR2R_t DR2R_Bit;
         };
         union
         {
                 volatile uint32_t DR4R;
-                GPIODR4R_t DR4R_Bit;
+                GPIO_DR4R_t DR4R_Bit;
         };
         union
         {
                 volatile uint32_t DR8R;
-                GPIODR8R_t DR8R_Bit;
+                GPIO_DR8R_t DR8R_Bit;
         };
         union
         {
                 volatile uint32_t ODR;
-                GPIOODR_t ODR_Bit;
+                GPIO_ODR_t ODR_Bit;
         };
         union
         {
                 volatile uint32_t PUR;
-                GPIOPUR_t PUR_Bit;
+                GPI0_PUR_t PUR_Bit;
         };
         union
         {
                 volatile uint32_t PDR;
-                GPIOPDR_t PDR_Bit;
+                GPIO_PDR_t PDR_Bit;
         };
         union
         {
                 volatile uint32_t SLR;
-                GPIOSLR_t SLR_Bit;
+                GPIO_SLR_t SLR_Bit;
         };
         union
         {
                 volatile uint32_t DEN;
-                GPIODEN_t DEN_Bit;
+                GPIO_DEN_t DEN_Bit;
         };
         union
         {
                 volatile uint32_t LOCK;
-                GPIOLOCK_t LOCK_Bit;
+                GPIO_LOCK_t LOCK_Bit;
         };
         union
         {
                 volatile uint32_t CR;
-                GPIOCR_t CR_Bit;
+                GPIO_CR_t CR_Bit;
         };
         union
         {
                 volatile uint32_t AMSEL;
-                GPIOAMSEL_t AMSEL_Bit;
+                GPIO_AMSEL_t AMSEL_Bit;
         };
         union
         {
                 volatile uint32_t PCTL;
-                GPIOPCTL_t PCTL_Bit;
+                GPIO_PCTL_t PCTL_Bit;
         };
         union
         {
                 volatile uint32_t ADCCTL;
-                GPIOADCCTL_t ADCCTL_Bit;
+                GPIO_ADCCTL_t ADCCTL_Bit;
         };
         union
         {
                 volatile uint32_t DMACTL;
-                GPIODMACTL_t DMACTL_Bit;
+                GPIO_DMACTL_t DMACTL_Bit;
         };
         union
         {
                 volatile uint32_t SI;
-                GPIOSI_t SI_Bit;
+                GPIO_SI_t SI_Bit;
         };
         union
         {
                 volatile uint32_t DR12R;
-                GPIODR12R_t DR12R_Bit;
+                GPIO_DR12R_t DR12R_Bit;
         };
         union
         {
                 volatile uint32_t WAKEPEN;
-                GPIOWAKEPEN_t WAKEPEN_Bit;
+                GPIO_WAKEPEN_t WAKEPEN_Bit;
         };
         union
         {
                 volatile uint32_t WAKELVL;
-                GPIOWAKELVL_t WAKELVL_Bit;
+                GPIO_WAKELVL_t WAKELVL_Bit;
         };
         union
         {
                 volatile uint32_t WAKESTAT;
-                GPIOWAKESTAT_t WAKESTAT_Bit;
+                GPIO_WAKESTAT_t WAKESTAT_Bit;
         };
         const uint32_t reserved1 [669UL];
         union
         {
                 volatile uint32_t PP;
-                GPIOPP_t PP_Bit;
+                GPIO_PP_t PP_Bit;
         };
         union
         {
                 volatile uint32_t PC;
-                GPIOPC_t PC_Bit;
+                GPIO_PC_t PC_Bit;
         };
         const uint32_t reserved2 [2UL];
         union
         {
                 volatile uint32_t PeriphID4;
-                GPIOPeriphID4_t PeriphID4_Bit;
+                GPIO_PeriphID4_t PeriphID4_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID5;
-                GPIOPeriphID5_t PeriphID5_Bit;
+                GPIO_PeriphID5_t PeriphID5_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID6;
-                GPIOPeriphID6_t PeriphID6_Bit;
+                GPIO_PeriphID6_t PeriphID6_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID7;
-                GPIOPeriphID7_t PeriphID7_Bit;
+                GPIO_PeriphID7_t PeriphID7_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID0;
-                GPIOPeriphID0_t PeriphID0_Bit;
+                GPIO_PeriphID0_t PeriphID0_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID1;
-                GPIOPeriphID1_t PeriphID1_Bit;
+                GPIO_PeriphID1_t PeriphID1_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID2;
-                GPIOPeriphID2_t PeriphID2_Bit;
+                GPIO_PeriphID2_t PeriphID2_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID3;
-                GPIOPeriphID3_t PeriphID3_Bit;
+                GPIO_PeriphID3_t PeriphID3_Bit;
         };
         union
         {
                 volatile uint32_t PCellID0;
-                GPIOPCellID0_t PCellID0_Bit;
+                GPIO_PCellID0_t PCellID0_Bit;
         };
         union
         {
                 volatile uint32_t PCellID1;
-                GPIOPCellID1_t PCellID1_Bit;
+                GPIO_PCellID1_t PCellID1_Bit;
         };
         union
         {
                 volatile uint32_t PCellID2;
-                GPIOPCellID2_t PCellID2_Bit;
+                GPIO_PCellID2_t PCellID2_Bit;
         };
         union
         {
                 volatile uint32_t PCellID3;
-                GPIOPCellID3_t PCellID3_Bit;
+                GPIO_PCellID3_t PCellID3_Bit;
         };
 } GPIO_t;
 
@@ -260,216 +260,216 @@ typedef volatile struct
         union
         {
                 volatile uint32_t DATA_MASK [255UL];
-                GPIODATA_t DATA_MASK_Bit [255UL];
+                GPIO_DATA_t DATA_MASK_Bit [255UL];
         };
         union
         {
                 volatile uint32_t DATA;
-                GPIODATA_t DATA_Bit;
+                GPIO_DATA_t DATA_Bit;
         };
         union
         {
                 volatile uint32_t DIR;
-                GPIODIR_t DIR_Bit;
+                GPIO_DIR_t DIR_Bit;
         };
         union
         {
                 volatile uint32_t IS;
-                GPIOIS_t IS_Bit;
+                GPIO_IS_t IS_Bit;
         };
         union
         {
                 volatile uint32_t IBE;
-                GPIOIBE_t IBE_Bit;
+                GPIO_IBE_t IBE_Bit;
         };
         union
         {
                 volatile uint32_t IEV;
-                GPIOIEV_t IEV_Bit;
+                GPIO_IEV_t IEV_Bit;
         };
         union
         {
                 volatile uint32_t IM;
-                GPIOIM_t IM_Bit;
+                GPIO_IM_t IM_Bit;
         };
         union
         {
                 volatile const uint32_t RIS;
-                GPIORIS_t RIS_Bit;
+                GPIO_RIS_t RIS_Bit;
         };
         union
         {
                 volatile const uint32_t MIS;
-                GPIOMIS_t MIS_Bit;
+                GPIO_MIS_t MIS_Bit;
         };
         union
         {
                 volatile uint32_t ICR;
-                GPIOICR_t ICR_Bit;
+                GPIO_ICR_t ICR_Bit;
         };
         union
         {
                 volatile uint32_t AFSEL;
-                GPIOAFSEL_t AFSEL_Bit;
+                GPIO_AFSEL_t AFSEL_Bit;
         };
         const uint32_t reserved [55UL];
         union
         {
                 volatile uint32_t DRR [3UL];
-                GPIODRR_t DRR_Bit [3UL];
+                GPIO_DRR_t DRR_Bit [3UL];
         };
 
         union
         {
                 volatile uint32_t ODR;
-                GPIOODR_t ODR_Bit;
+                GPIO_ODR_t ODR_Bit;
         };
         union
         {
                 volatile uint32_t PUR;
-                GPIOPUR_t PUR_Bit;
+                GPI0_PUR_t PUR_Bit;
         };
         union
         {
                 volatile uint32_t PDR;
-                GPIOPDR_t PDR_Bit;
+                GPIO_PDR_t PDR_Bit;
         };
         union
         {
                 volatile uint32_t SLR;
-                GPIOSLR_t SLR_Bit;
+                GPIO_SLR_t SLR_Bit;
         };
         union
         {
                 volatile uint32_t DEN;
-                GPIODEN_t DEN_Bit;
+                GPIO_DEN_t DEN_Bit;
         };
         union
         {
                 volatile uint32_t LOCK;
-                GPIOLOCK_t LOCK_Bit;
+                GPIO_LOCK_t LOCK_Bit;
         };
         union
         {
                 volatile uint32_t CR;
-                GPIOCR_t CR_Bit;
+                GPIO_CR_t CR_Bit;
         };
         union
         {
                 volatile uint32_t AMSEL;
-                GPIOAMSEL_t AMSEL_Bit;
+                GPIO_AMSEL_t AMSEL_Bit;
         };
         union
         {
                 volatile uint32_t PCTL;
-                GPIOPCTL_t PCTL_Bit;
+                GPIO_PCTL_t PCTL_Bit;
         };
         union
         {
                 volatile uint32_t ADCCTL;
-                GPIOADCCTL_t ADCCTL_Bit;
+                GPIO_ADCCTL_t ADCCTL_Bit;
         };
         union
         {
                 volatile uint32_t DMACTL;
-                GPIODMACTL_t DMACTL_Bit;
+                GPIO_DMACTL_t DMACTL_Bit;
         };
         union
         {
                 volatile uint32_t SI;
-                GPIOSI_t SI_Bit;
+                GPIO_SI_t SI_Bit;
         };
         union
         {
                 volatile uint32_t DR12R;
-                GPIODR12R_t DR12R_Bit;
+                GPIO_DR12R_t DR12R_Bit;
         };
         union
         {
                 volatile uint32_t WAKEPEN;
-                GPIOWAKEPEN_t WAKEPEN_Bit;
+                GPIO_WAKEPEN_t WAKEPEN_Bit;
         };
         union
         {
                 volatile uint32_t WAKELVL;
-                GPIOWAKELVL_t WAKELVL_Bit;
+                GPIO_WAKELVL_t WAKELVL_Bit;
         };
         union
         {
                 volatile uint32_t WAKESTAT;
-                GPIOWAKESTAT_t WAKESTAT_Bit;
+                GPIO_WAKESTAT_t WAKESTAT_Bit;
         };
         const uint32_t reserved1 [669UL];
         union
         {
                 volatile uint32_t PP;
-                GPIOPP_t PP_Bit;
+                GPIO_PP_t PP_Bit;
         };
         union
         {
                 volatile uint32_t PC;
-                GPIOPC_t PC_Bit;
+                GPIO_PC_t PC_Bit;
         };
         const uint32_t reserved2 [2UL];
         union
         {
                 volatile uint32_t PeriphID4;
-                GPIOPeriphID4_t PeriphID4_Bit;
+                GPIO_PeriphID4_t PeriphID4_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID5;
-                GPIOPeriphID5_t PeriphID5_Bit;
+                GPIO_PeriphID5_t PeriphID5_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID6;
-                GPIOPeriphID6_t PeriphID6_Bit;
+                GPIO_PeriphID6_t PeriphID6_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID7;
-                GPIOPeriphID7_t PeriphID7_Bit;
+                GPIO_PeriphID7_t PeriphID7_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID0;
-                GPIOPeriphID0_t PeriphID0_Bit;
+                GPIO_PeriphID0_t PeriphID0_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID1;
-                GPIOPeriphID1_t PeriphID1_Bit;
+                GPIO_PeriphID1_t PeriphID1_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID2;
-                GPIOPeriphID2_t PeriphID2_Bit;
+                GPIO_PeriphID2_t PeriphID2_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID3;
-                GPIOPeriphID3_t PeriphID3_Bit;
+                GPIO_PeriphID3_t PeriphID3_Bit;
         };
         union
         {
                 volatile uint32_t PCellID0;
-                GPIOPCellID0_t PCellID0_Bit;
+                GPIO_PCellID0_t PCellID0_Bit;
         };
         union
         {
                 volatile uint32_t PCellID1;
-                GPIOPCellID1_t PCellID1_Bit;
+                GPIO_PCellID1_t PCellID1_Bit;
         };
         union
         {
                 volatile uint32_t PCellID2;
-                GPIOPCellID2_t PCellID2_Bit;
+                GPIO_PCellID2_t PCellID2_Bit;
         };
         union
         {
                 volatile uint32_t PCellID3;
-                GPIOPCellID3_t PCellID3_Bit;
+                GPIO_PCellID3_t PCellID3_Bit;
         };
 } GPIO_AUX_t;
 

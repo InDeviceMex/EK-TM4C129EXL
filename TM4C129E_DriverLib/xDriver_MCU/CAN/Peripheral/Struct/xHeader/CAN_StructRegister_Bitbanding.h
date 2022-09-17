@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_CAN_PERIPHERAL_STRUCT_XHEADER_CAN_STRUCTREGISTER_BITBANDING_H_
 #define XDRIVER_MCU_CAN_PERIPHERAL_STRUCT_XHEADER_CAN_STRUCTREGISTER_BITBANDING_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/CAN/Peripheral/xHeader/CAN_Enum.h>
 
 /**
  *  Global Struct Definitions for CAN Sequences

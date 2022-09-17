@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_FLTSRC0_H_
 #define XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_FLTSRC0_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 /******************************************************************************************
 ************************************ 25 GEN_FLTSRC0 *********************************************

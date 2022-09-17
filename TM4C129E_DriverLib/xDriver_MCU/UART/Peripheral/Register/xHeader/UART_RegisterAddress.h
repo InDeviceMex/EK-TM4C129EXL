@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_UART_PERIPHERAL_REGISTER_XHEADER_UART_REGISTERADDRESS_H_
 #define XDRIVER_MCU_UART_PERIPHERAL_REGISTER_XHEADER_UART_REGISTERADDRESS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 #define UART_BASE    ((uint32_t) 0x4000C000UL)
 #define UART0_BASE    ((uint32_t) 0x4000C000UL)
@@ -76,9 +76,9 @@
 #define UART_PeriphID1_OFFSET    ((uint32_t) 0xFE4UL)
 #define UART_PeriphID2_OFFSET    ((uint32_t) 0xFE8UL)
 #define UART_PeriphID3_OFFSET    ((uint32_t) 0xFECUL)
-#define UART_CellID0_OFFSET    ((uint32_t) 0xFF0UL)
-#define UART_CellID1_OFFSET    ((uint32_t) 0xFF4UL)
-#define UART_CellID2_OFFSET    ((uint32_t) 0xFF8UL)
-#define UART_CellID3_OFFSET    ((uint32_t) 0xFFCUL)
+#define UART_PCellID0_OFFSET    ((uint32_t) 0xFF0UL)
+#define UART_PCellID1_OFFSET    ((uint32_t) 0xFF4UL)
+#define UART_PCellID2_OFFSET    ((uint32_t) 0xFF8UL)
+#define UART_PCellID3_OFFSET    ((uint32_t) 0xFFCUL)
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_XHEADER_UART_REGISTERADDRESS_H_ */

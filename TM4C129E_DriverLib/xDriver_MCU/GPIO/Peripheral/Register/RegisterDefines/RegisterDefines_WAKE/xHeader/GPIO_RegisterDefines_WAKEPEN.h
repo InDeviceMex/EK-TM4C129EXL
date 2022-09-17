@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_WAKE_XHEADER_GPIO_REGISTERDEFINES_WAKEPEN_H_
 #define XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_WAKE_XHEADER_GPIO_REGISTERDEFINES_WAKEPEN_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
 /******************************************************************************************
  ************************************ 13 WAKEPEN *********************************************

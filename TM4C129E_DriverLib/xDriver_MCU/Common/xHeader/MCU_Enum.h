@@ -1,6 +1,6 @@
 /**
  *
- * @file MCU_enum.h
+ * @file MCU_Enum.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *

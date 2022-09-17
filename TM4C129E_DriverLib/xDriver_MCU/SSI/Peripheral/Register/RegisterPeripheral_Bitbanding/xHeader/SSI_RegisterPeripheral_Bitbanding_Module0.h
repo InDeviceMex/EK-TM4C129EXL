@@ -228,24 +228,24 @@
  *********************************** * 27 CellID0 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID0*/
-#define SSI0_BITBANDING_CellID0    ((BITBANDING_SSICellID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CellID0_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID0    ((BITBANDING_SSICellID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 28 CellID1 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID1*/
-#define SSI0_BITBANDING_CellID1    ((BITBANDING_SSICellID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CellID1_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID1    ((BITBANDING_SSICellID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 29 CellID2 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID2*/
-#define SSI0_BITBANDING_CellID2    ((BITBANDING_SSICellID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CellID2_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID2    ((BITBANDING_SSICellID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 30 CellID3 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID3*/
-#define SSI0_BITBANDING_CellID3    ((BITBANDING_SSICellID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CellID3_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID3    ((BITBANDING_SSICellID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID3_OFFSET) * 32U)))
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_XHEADER_SSI_REGISTERPERIPHERAL_BITBANDING_MODULE0_H_ */

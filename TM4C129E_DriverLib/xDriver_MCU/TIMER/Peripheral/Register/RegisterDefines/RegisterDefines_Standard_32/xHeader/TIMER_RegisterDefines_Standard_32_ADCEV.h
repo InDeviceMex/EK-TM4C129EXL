@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_TIMER_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_STANDARD_32_XHEADER_TIMER_REGISTERDEFINES_STANDARD_32_ADCEV_H_
 #define XDRIVER_MCU_TIMER_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_STANDARD_32_XHEADER_TIMER_REGISTERDEFINES_STANDARD_32_ADCEV_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 /******************************************************************************************
 ************************************ 26 ADCEV *********************************************

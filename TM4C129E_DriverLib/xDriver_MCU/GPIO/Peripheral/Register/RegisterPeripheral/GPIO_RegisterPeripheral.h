@@ -44,6 +44,6 @@
 #define GPIO    ((GPIO_PORT_t*) (GPIO_BASE))
 #define GPIO_AUX    ((GPIO_PORT_AUX_t*) (GPIO_BASE))
 
-uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg);
+uintptr_t GPIO__uptrBlockBaseAddress(GPIO_nPORT enPortArg);
 
 #endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_GPIO_REGISTERPERIPHERAL_H_ */

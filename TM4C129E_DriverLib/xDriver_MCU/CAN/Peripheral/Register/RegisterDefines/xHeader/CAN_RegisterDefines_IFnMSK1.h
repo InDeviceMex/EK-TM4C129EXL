@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_CAN_REGISTERDEFINES_IFNMSK1_H_
 #define XDRIVER_MCU_CAN_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_CAN_REGISTERDEFINES_IFNMSK1_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/CAN/Peripheral/xHeader/CAN_Enum.h>
 
 /******************************************************************************************
 ************************************ 12-13 IFn_MSK1 *********************************************

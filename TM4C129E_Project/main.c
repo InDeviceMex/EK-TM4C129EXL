@@ -147,7 +147,7 @@ uint32_t main(void)
     OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 200UL,
                                   (void*) 30UL, 2UL, &TaskHandeler[2UL]);
     OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 500UL,
-                                  (void*) 20UL, 2UL, &TaskHandeler[4UL]);
+                                  (void*) 17UL, 2UL, &TaskHandeler[4UL]);
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {

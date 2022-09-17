@@ -23,9 +23,7 @@
  */
 #include <xDriver_MCU/GPIO/Peripheral/Register/RegisterPeripheral/GPIO_RegisterPeripheral.h>
 
-#include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
-
-uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
+uintptr_t GPIO__uptrBlockBaseAddress(GPIO_nPORT enPortArg)
 {
     const uintptr_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX] =
     {
@@ -36,3 +34,5 @@ uint32_t GPIO__u32BlockBaseAddress(GPIO_nPORT enPortArg)
     };
     return (GPIO_BLOCK_BASE[(uint32_t) enPortArg]);
 }
+
+

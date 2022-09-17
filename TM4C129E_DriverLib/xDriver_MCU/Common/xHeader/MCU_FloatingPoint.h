@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_FLOATINGPOINT_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_FLOATINGPOINT_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_enum.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 
 __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControl(uint32_t u32ValueArg);

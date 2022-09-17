@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_CRC_PERIPHERAL_STRUCT_XHEADER_CRC_STRUCTREGISTER_H_
 #define XDRIVER_MCU_CRC_PERIPHERAL_STRUCT_XHEADER_CRC_STRUCTREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
 typedef volatile struct
 {

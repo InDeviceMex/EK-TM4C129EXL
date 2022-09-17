@@ -25,6 +25,8 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_MPU_ENUM_H_
 #define XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_MPU_ENUM_H_
 
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
+
 typedef enum
 {
     MPU_enOK = 0UL,

@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_CRC_PERIPHERAL_REGISTER_XHEADER_CRC_REGISTERADDRESS_H_
 #define XDRIVER_MCU_CRC_PERIPHERAL_REGISTER_XHEADER_CRC_REGISTERADDRESS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
 #define CRC_BASE    ((uint32_t) 0x44030000UL)
 

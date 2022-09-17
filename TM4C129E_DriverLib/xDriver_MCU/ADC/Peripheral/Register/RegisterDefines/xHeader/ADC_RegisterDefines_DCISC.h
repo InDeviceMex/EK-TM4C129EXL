@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_DCISC_H_
 #define XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_DCISC_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
 /******************************************************************************************
 ************************************ 13 DCISC *********************************************

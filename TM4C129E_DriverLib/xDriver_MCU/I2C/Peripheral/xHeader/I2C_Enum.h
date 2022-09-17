@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_XHEADER_I2C_ENUM_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_XHEADER_I2C_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 /**
  * Status Definitions

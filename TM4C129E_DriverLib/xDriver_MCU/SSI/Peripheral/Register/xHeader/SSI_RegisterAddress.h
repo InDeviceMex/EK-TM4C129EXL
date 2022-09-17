@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_XHEADER_SSI_REGISTERADDRESS_H_
 #define XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_XHEADER_SSI_REGISTERADDRESS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
 #define SSI_BASE    ((uint32_t) 0x40008000UL)
 #define SSI0_BASE    ((uint32_t) 0x40008000UL)

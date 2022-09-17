@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
+#include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
 typedef volatile struct
 {

@@ -23,7 +23,8 @@
  */
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MMIS_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MMIS_H_
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+
+#include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
 /******************************************************************************************
 ************************************ 7 MMIS *********************************************

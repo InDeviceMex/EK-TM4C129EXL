@@ -8,7 +8,7 @@
 #ifndef XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_LDODPCTL_H_
 #define XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_LDODPCTL_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
 /******************************************************************************************
 ************************************27 LDODPCTL *********************************************

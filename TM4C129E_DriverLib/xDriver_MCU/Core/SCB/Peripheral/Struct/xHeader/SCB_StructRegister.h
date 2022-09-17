@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_STRUCT_SCB_STRUCTREGISTER_H_
 #define XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_STRUCT_SCB_STRUCTREGISTER_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
 typedef volatile struct
 {

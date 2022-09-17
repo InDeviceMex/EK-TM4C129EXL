@@ -167,28 +167,28 @@
  ************************************ 20 CellID0 *********************************************
  ******************************************************************************************/
 /* SSI0 CID0*/
-#define SSI0_CellID0    ((SSICellID0_t*) (SSI0_BASE + SSI_CellID0_OFFSET))
-#define SSI0_CellID0_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_CellID0_OFFSET)))
+#define SSI0_PCellID0    ((SSICellID0_t*) (SSI0_BASE + SSI_PCellID0_OFFSET))
+#define SSI0_PCellID0_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_PCellID0_OFFSET)))
 
 /******************************************************************************************
  ************************************ 21 CellID1 *********************************************
  ******************************************************************************************/
 /* SSI0 CID1*/
-#define SSI0_CellID1    ((SSICellID1_t*) (SSI0_BASE + SSI_CellID1_OFFSET))
-#define SSI0_CellID1_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_CellID1_OFFSET)))
+#define SSI0_PCellID1    ((SSICellID1_t*) (SSI0_BASE + SSI_PCellID1_OFFSET))
+#define SSI0_PCellID1_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_PCellID1_OFFSET)))
 
 /******************************************************************************************
  ************************************ 22 CellID2 *********************************************
  ******************************************************************************************/
 /* SSI0 CID2*/
-#define SSI0_CellID2    ((SSICellID2_t*) (SSI0_BASE + SSI_CellID2_OFFSET))
-#define SSI0_CellID2_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_CellID2_OFFSET)))
+#define SSI0_PCellID2    ((SSICellID2_t*) (SSI0_BASE + SSI_PCellID2_OFFSET))
+#define SSI0_PCellID2_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_PCellID2_OFFSET)))
 
 /******************************************************************************************
  ************************************ 23 CellID3 *********************************************
  ******************************************************************************************/
 /* SSI0 CID3*/
-#define SSI0_CellID3    ((SSICellID3_t*) (SSI0_BASE + SSI_CellID3_OFFSET))
-#define SSI0_CellID3_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_CellID3_OFFSET)))
+#define SSI0_PCellID3    ((SSICellID3_t*) (SSI0_BASE + SSI_PCellID3_OFFSET))
+#define SSI0_PCellID3_R    (*((volatile const uint32_t*) (SSI0_BASE + SSI_PCellID3_OFFSET)))
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_XHEADER_SSI_REGISTERPERIPHERAL_MODULE0_H_ */

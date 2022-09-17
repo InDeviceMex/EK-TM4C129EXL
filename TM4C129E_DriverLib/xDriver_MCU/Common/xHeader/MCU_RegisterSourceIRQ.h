@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_REGISTERSOURCEIRQ_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_REGISTERSOURCEIRQ_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_enum.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 

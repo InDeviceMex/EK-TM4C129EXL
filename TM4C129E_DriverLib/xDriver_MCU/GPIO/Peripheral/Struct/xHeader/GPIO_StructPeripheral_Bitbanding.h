@@ -33,225 +33,225 @@ typedef volatile struct
         union
         {
                 volatile uint32_t DATA_MASK [255UL][32UL];
-                BITBANDING_GPIODATA_t DATA_MASK_Bit [255UL];
+                GPIO_BITBANDING_DATA_t DATA_MASK_Bit [255UL];
         };
         union
         {
                 volatile uint32_t DATA [32UL];
-                BITBANDING_GPIODATA_t DATA_Bit;
+                GPIO_BITBANDING_DATA_t DATA_Bit;
         };
         union
         {
                 volatile uint32_t DIR [32UL];
-                BITBANDING_GPIODIR_t DIR_Bit;
+                GPIO_BITBANDING_DIR_t DIR_Bit;
         };
         union
         {
                 volatile uint32_t IS [32UL];
-                BITBANDING_GPIOIS_t IS_Bit;
+                GPIO_BITBANDING_IS_t IS_Bit;
         };
         union
         {
                 volatile uint32_t IBE [32UL];
-                BITBANDING_GPIOIBE_t IBE_Bit;
+                GPIO_BITBANDING_IBE_t IBE_Bit;
         };
         union
         {
                 volatile uint32_t IEV [32UL];
-                BITBANDING_GPIOIEV_t IEV_Bit;
+                GPIO_BITBANDING_IEV_t IEV_Bit;
         };
         union
         {
                 volatile uint32_t IM [32UL];
-                BITBANDING_GPIOIM_t IM_Bit;
+                GPIO_BITBANDING_IM_t IM_Bit;
         };
         union
         {
                 volatile const uint32_t RIS [32UL];
-                BITBANDING_GPIORIS_t RIS_Bit;
+                GPIO_BITBANDING_RIS_t RIS_Bit;
         };
         union
         {
                 volatile const uint32_t MIS [32UL];
-                BITBANDING_GPIOMIS_t MIS_Bit;
+                GPIO_BITBANDING_MIS_t MIS_Bit;
         };
         union
         {
                 volatile uint32_t ICR [32UL];
-                BITBANDING_GPIOICR_t ICR_Bit;
+                GPIO_BITBANDING_ICR_t ICR_Bit;
         };
         union
         {
                 volatile uint32_t AFSEL [32UL];
-                BITBANDING_GPIOAFSEL_t AFSEL_Bit;
+                GPIO_BITBANDING_AFSEL_t AFSEL_Bit;
         };
         const uint32_t reserved [55UL * 32UL];
         union
         {
                 volatile uint32_t DR2R [32UL];
-                BITBANDING_GPIODR2R_t DR2R_Bit;
+                GPIO_BITBANDING_DR2R_t DR2R_Bit;
         };
         union
         {
                 volatile uint32_t DR4R [32UL];
-                BITBANDING_GPIODR4R_t DR4R_Bit;
+                GPIO_BITBANDING_DR4R_t DR4R_Bit;
         };
         union
         {
                 volatile uint32_t DR8R [32UL];
-                BITBANDING_GPIODR8R_t DR8R_Bit;
+                GPIO_BITBANDING_DR8R_t DR8R_Bit;
         };
         union
         {
                 volatile uint32_t ODR [32UL];
-                BITBANDING_GPIOODR_t ODR_Bit;
+                GPIO_BITBANDING_ODR_t ODR_Bit;
         };
         union
         {
                 volatile uint32_t PUR [32UL];
-                BITBANDING_GPIOPUR_t PUR_Bit;
+                GPIO_BITBANDING_PUR_t PUR_Bit;
         };
         union
         {
                 volatile uint32_t PDR [32UL];
-                BITBANDING_GPIOPDR_t PDR_Bit;
+                GPIO_BITBANDING_PDR_t PDR_Bit;
         };
         union
         {
                 volatile uint32_t SLR [32UL];
-                BITBANDING_GPIOSLR_t SLR_Bit;
+                GPIO_BITBANDING_SLR_t SLR_Bit;
         };
         union
         {
                 volatile uint32_t DEN [32UL];
-                BITBANDING_GPIODEN_t DEN_Bit;
+                GPIO_BITBANDING_DEN_t DEN_Bit;
         };
         union
         {
                 volatile uint32_t LOCK [32UL];
-                BITBANDING_GPIOLOCK_t LOCK_Bit;
+                GPIO_BITBANDING_LOCK_t LOCK_Bit;
         };
         union
         {
                 volatile uint32_t CR [32UL];
-                BITBANDING_GPIOCR_t CR_Bit;
+                GPIO_BITBANDING_CR_t CR_Bit;
         };
         union
         {
                 volatile uint32_t AMSEL [32UL];
-                BITBANDING_GPIOAMSEL_t AMSEL_Bit;
+                GPIO_BITBANDING_AMSEL_t AMSEL_Bit;
         };
         union
         {
                 volatile uint32_t PCTL [32UL];
-                BITBANDING_GPIOPCTL_t PCTL_Bit;
+                GPIO_BITBANDING_PCTL_t PCTL_Bit;
         };
         union
         {
                 volatile uint32_t ADCCTL [32UL];
-                BITBANDING_GPIOADCCTL_t ADCCTL_Bit;
+                GPIO_BITBANDING_ADCCTL_t ADCCTL_Bit;
         };
         union
         {
                 volatile uint32_t DMACTL [32UL];
-                BITBANDING_GPIODMACTL_t DMACTL_Bit;
+                GPIO_BITBANDING_DMACTL_t DMACTL_Bit;
         };
         union
         {
                 volatile uint32_t SI [32UL];
-                BITBANDING_GPIOSI_t SI_Bit;
+                GPIO_BITBANDING_SI_t SI_Bit;
         };
         union
         {
                 volatile uint32_t DR12R [32UL];
-                BITBANDING_GPIODR12R_t DR12R_Bit;
+                GPIO_BITBANDING_DR12R_t DR12R_Bit;
         };
         union
         {
                 volatile uint32_t WAKEPEN [32UL];
-                BITBANDING_GPIOWAKEPEN_t WAKEPEN_Bit;
+                GPIO_BITBANDING_WAKEPEN_t WAKEPEN_Bit;
         };
         union
         {
                 volatile uint32_t WAKELVL [32UL];
-                BITBANDING_GPIOWAKELVL_t WAKELVL_Bit;
+                GPIO_BITBANDING_WAKELVL_t WAKELVL_Bit;
         };
         union
         {
                 volatile uint32_t WAKESTAT [32UL];
-                BITBANDING_GPIOWAKESTAT_t WAKESTAT_Bit;
+                GPIO_BITBANDING_WAKESTAT_t WAKESTAT_Bit;
         };
         const uint32_t reserved1 [669UL * 32UL];
         union
         {
                 volatile uint32_t PP [32UL];
-                BITBANDING_GPIOPP_t PP_Bit;
+                GPIO_BITBANDING_PP_t PP_Bit;
         };
         union
         {
                 volatile uint32_t PC [32UL];
-                BITBANDING_GPIOPC_t PC_Bit;
+                GPIO_BITBANDING_PC_t PC_Bit;
         };
         const uint32_t reserved2 [2UL * 32UL];
         union
         {
                 volatile uint32_t PeriphID4 [32UL];
-                BITBANDING_GPIOPeriphID4_t PeriphID4_Bit;
+                GPIO_BITBANDING_PeriphID4_t PeriphID4_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID5 [32UL];
-                BITBANDING_GPIOPeriphID5_t PeriphID5_Bit;
+                GPIO_BITBANDING_PeriphID5_t PeriphID5_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID6 [32UL];
-                BITBANDING_GPIOPeriphID6_t PeriphID6_Bit;
+                GPIO_BITBANDING_PeriphID6_t PeriphID6_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID7 [32UL];
-                BITBANDING_GPIOPeriphID7_t PeriphID7_Bit;
+                GPIO_BITBANDING_PeriphID7_t PeriphID7_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID0 [32UL];
-                BITBANDING_GPIOPeriphID0_t PeriphID0_Bit;
+                GPIO_BITBANDING_PeriphID0_t PeriphID0_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID1 [32UL];
-                BITBANDING_GPIOPeriphID1_t PeriphID1_Bit;
+                GPIO_BITBANDING_PeriphID1_t PeriphID1_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID2 [32UL];
-                BITBANDING_GPIOPeriphID2_t PeriphID2_Bit;
+                GPIO_BITBANDING_PeriphID2_t PeriphID2_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID3 [32UL];
-                BITBANDING_GPIOPeriphID3_t PeriphID3_Bit;
+                GPIO_BITBANDING_PeriphID3_t PeriphID3_Bit;
         };
         union
         {
                 volatile uint32_t PCellID0 [32UL];
-                BITBANDING_GPIOPCellID0_t PCellID0_Bit;
+                GPIO_BITBANDING_PCellID0_t PCellID0_Bit;
         };
         union
         {
                 volatile uint32_t PCellID1 [32UL];
-                BITBANDING_GPIOPCellID1_t PCellID1_Bit;
+                GPIO_BITBANDING_PCellID1_t PCellID1_Bit;
         };
         union
         {
                 volatile uint32_t PCellID2 [32UL];
-                BITBANDING_GPIOPCellID2_t PCellID2_Bit;
+                GPIO_BITBANDING_PCellID2_t PCellID2_Bit;
         };
         union
         {
                 volatile uint32_t PCellID3 [32UL];
-                BITBANDING_GPIOPCellID3_t PCellID3_Bit;
+                GPIO_BITBANDING_PCellID3_t PCellID3_Bit;
         };
 } GPIO_BITBANDING_t;
 
@@ -260,215 +260,215 @@ typedef volatile struct
         union
         {
                 volatile uint32_t DATA_MASK [255UL][32UL];
-                BITBANDING_GPIODATA_t DATA_MASK_Bit [255UL];
+                GPIO_BITBANDING_DATA_t DATA_MASK_Bit [255UL];
         };
         union
         {
                 volatile uint32_t DATA [32UL];
-                BITBANDING_GPIODATA_t DATA_Bit;
+                GPIO_BITBANDING_DATA_t DATA_Bit;
         };
         union
         {
                 volatile uint32_t DIR [32UL];
-                BITBANDING_GPIODIR_t DIR_Bit;
+                GPIO_BITBANDING_DIR_t DIR_Bit;
         };
         union
         {
                 volatile uint32_t IS [32UL];
-                BITBANDING_GPIOIS_t IS_Bit;
+                GPIO_BITBANDING_IS_t IS_Bit;
         };
         union
         {
                 volatile uint32_t IBE [32UL];
-                BITBANDING_GPIOIBE_t IBE_Bit;
+                GPIO_BITBANDING_IBE_t IBE_Bit;
         };
         union
         {
                 volatile uint32_t IEV [32UL];
-                BITBANDING_GPIOIEV_t IEV_Bit;
+                GPIO_BITBANDING_IEV_t IEV_Bit;
         };
         union
         {
                 volatile uint32_t IM [32UL];
-                BITBANDING_GPIOIM_t IM_Bit;
+                GPIO_BITBANDING_IM_t IM_Bit;
         };
         union
         {
                 volatile const uint32_t RIS [32UL];
-                BITBANDING_GPIORIS_t RIS_Bit;
+                GPIO_BITBANDING_RIS_t RIS_Bit;
         };
         union
         {
                 volatile const uint32_t MIS [32UL];
-                BITBANDING_GPIOMIS_t MIS_Bit;
+                GPIO_BITBANDING_MIS_t MIS_Bit;
         };
         union
         {
                 volatile uint32_t ICR [32UL];
-                BITBANDING_GPIOICR_t ICR_Bit;
+                GPIO_BITBANDING_ICR_t ICR_Bit;
         };
         union
         {
                 volatile uint32_t AFSEL [32UL];
-                BITBANDING_GPIOAFSEL_t AFSEL_Bit;
+                GPIO_BITBANDING_AFSEL_t AFSEL_Bit;
         };
         const uint32_t reserved [55UL * 32UL];
         union
         {
                 volatile uint32_t DRR [32UL][3UL];
-                BITBANDING_GPIODRR_t DRR_Bit [3UL];
+                GPIO_BITBANDING_DRR_t DRR_Bit [3UL];
         };
         union
         {
                 volatile uint32_t ODR [32UL];
-                BITBANDING_GPIOODR_t ODR_Bit;
+                GPIO_BITBANDING_ODR_t ODR_Bit;
         };
         union
         {
                 volatile uint32_t PUR [32UL];
-                BITBANDING_GPIOPUR_t PUR_Bit;
+                GPIO_BITBANDING_PUR_t PUR_Bit;
         };
         union
         {
                 volatile uint32_t PDR [32UL];
-                BITBANDING_GPIOPDR_t PDR_Bit;
+                GPIO_BITBANDING_PDR_t PDR_Bit;
         };
         union
         {
                 volatile uint32_t SLR [32UL];
-                BITBANDING_GPIOSLR_t SLR_Bit;
+                GPIO_BITBANDING_SLR_t SLR_Bit;
         };
         union
         {
                 volatile uint32_t DEN [32UL];
-                BITBANDING_GPIODEN_t DEN_Bit;
+                GPIO_BITBANDING_DEN_t DEN_Bit;
         };
         union
         {
                 volatile uint32_t LOCK [32UL];
-                BITBANDING_GPIOLOCK_t LOCK_Bit;
+                GPIO_BITBANDING_LOCK_t LOCK_Bit;
         };
         union
         {
                 volatile uint32_t CR [32UL];
-                BITBANDING_GPIOCR_t CR_Bit;
+                GPIO_BITBANDING_CR_t CR_Bit;
         };
         union
         {
                 volatile uint32_t AMSEL [32UL];
-                BITBANDING_GPIOAMSEL_t AMSEL_Bit;
+                GPIO_BITBANDING_AMSEL_t AMSEL_Bit;
         };
         union
         {
                 volatile uint32_t PCTL [32UL];
-                BITBANDING_GPIOPCTL_t PCTL_Bit;
+                GPIO_BITBANDING_PCTL_t PCTL_Bit;
         };
         union
         {
                 volatile uint32_t ADCCTL [32UL];
-                BITBANDING_GPIOADCCTL_t ADCCTL_Bit;
+                GPIO_BITBANDING_ADCCTL_t ADCCTL_Bit;
         };
         union
         {
                 volatile uint32_t DMACTL [32UL];
-                BITBANDING_GPIODMACTL_t DMACTL_Bit;
+                GPIO_BITBANDING_DMACTL_t DMACTL_Bit;
         };
         union
         {
                 volatile uint32_t SI [32UL];
-                BITBANDING_GPIOSI_t SI_Bit;
+                GPIO_BITBANDING_SI_t SI_Bit;
         };
         union
         {
                 volatile uint32_t DR12R [32UL];
-                BITBANDING_GPIODR12R_t DR12R_Bit;
+                GPIO_BITBANDING_DR12R_t DR12R_Bit;
         };
         union
         {
                 volatile uint32_t WAKEPEN [32UL];
-                BITBANDING_GPIOWAKEPEN_t WAKEPEN_Bit;
+                GPIO_BITBANDING_WAKEPEN_t WAKEPEN_Bit;
         };
         union
         {
                 volatile uint32_t WAKELVL [32UL];
-                BITBANDING_GPIOWAKELVL_t WAKELVL_Bit;
+                GPIO_BITBANDING_WAKELVL_t WAKELVL_Bit;
         };
         union
         {
                 volatile uint32_t WAKESTAT [32UL];
-                BITBANDING_GPIOWAKESTAT_t WAKESTAT_Bit;
+                GPIO_BITBANDING_WAKESTAT_t WAKESTAT_Bit;
         };
         const uint32_t reserved1 [669UL * 32UL];
         union
         {
                 volatile uint32_t PP [32UL];
-                BITBANDING_GPIOPP_t PP_Bit;
+                GPIO_BITBANDING_PP_t PP_Bit;
         };
         union
         {
                 volatile uint32_t PC [32UL];
-                BITBANDING_GPIOPC_t PC_Bit;
+                GPIO_BITBANDING_PC_t PC_Bit;
         };
         const uint32_t reserved2 [2UL * 32UL];
         union
         {
                 volatile uint32_t PeriphID4 [32UL];
-                BITBANDING_GPIOPeriphID4_t PeriphID4_Bit;
+                GPIO_BITBANDING_PeriphID4_t PeriphID4_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID5 [32UL];
-                BITBANDING_GPIOPeriphID5_t PeriphID5_Bit;
+                GPIO_BITBANDING_PeriphID5_t PeriphID5_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID6 [32UL];
-                BITBANDING_GPIOPeriphID6_t PeriphID6_Bit;
+                GPIO_BITBANDING_PeriphID6_t PeriphID6_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID7 [32UL];
-                BITBANDING_GPIOPeriphID7_t PeriphID7_Bit;
+                GPIO_BITBANDING_PeriphID7_t PeriphID7_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID0 [32UL];
-                BITBANDING_GPIOPeriphID0_t PeriphID0_Bit;
+                GPIO_BITBANDING_PeriphID0_t PeriphID0_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID1 [32UL];
-                BITBANDING_GPIOPeriphID1_t PeriphID1_Bit;
+                GPIO_BITBANDING_PeriphID1_t PeriphID1_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID2 [32UL];
-                BITBANDING_GPIOPeriphID2_t PeriphID2_Bit;
+                GPIO_BITBANDING_PeriphID2_t PeriphID2_Bit;
         };
         union
         {
                 volatile uint32_t PeriphID3 [32UL];
-                BITBANDING_GPIOPeriphID3_t PeriphID3_Bit;
+                GPIO_BITBANDING_PeriphID3_t PeriphID3_Bit;
         };
         union
         {
                 volatile uint32_t PCellID0 [32UL];
-                BITBANDING_GPIOPCellID0_t PCellID0_Bit;
+                GPIO_BITBANDING_PCellID0_t PCellID0_Bit;
         };
         union
         {
                 volatile uint32_t PCellID1 [32UL];
-                BITBANDING_GPIOPCellID1_t PCellID1_Bit;
+                GPIO_BITBANDING_PCellID1_t PCellID1_Bit;
         };
         union
         {
                 volatile uint32_t PCellID2 [32UL];
-                BITBANDING_GPIOPCellID2_t PCellID2_Bit;
+                GPIO_BITBANDING_PCellID2_t PCellID2_Bit;
         };
         union
         {
                 volatile uint32_t PCellID3 [32UL];
-                BITBANDING_GPIOPCellID3_t PCellID3_Bit;
+                GPIO_BITBANDING_PCellID3_t PCellID3_Bit;
         };
 } GPIO_AUX_BITBANDING_t;
 

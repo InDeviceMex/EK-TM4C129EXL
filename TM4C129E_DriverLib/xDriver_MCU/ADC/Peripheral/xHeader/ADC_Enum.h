@@ -25,8 +25,8 @@
 #ifndef XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_ENUM_H_
 #define XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 typedef enum
 {

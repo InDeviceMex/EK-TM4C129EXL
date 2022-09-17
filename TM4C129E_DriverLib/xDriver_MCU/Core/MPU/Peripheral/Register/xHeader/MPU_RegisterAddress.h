@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_REGISTER_MPU_REGISTERADDRESS_H_
 #define XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_REGISTER_MPU_REGISTERADDRESS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Core/MPU/Peripheral/xHeader/MPU_Enum.h>
 
 #define MPU_BASE    ((uint32_t) 0xE000E000UL)
 #define MPU_OFFSET    ((uint32_t) 0x00000D90UL)

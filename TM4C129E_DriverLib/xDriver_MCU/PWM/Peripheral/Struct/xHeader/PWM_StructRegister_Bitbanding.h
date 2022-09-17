@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_PERIPHERAL_STRUCT_XHEADER_PWM_STRUCTREGISTER_BITBANDING_H_
 #define XDRIVER_MCU_PWM_PERIPHERAL_STRUCT_XHEADER_PWM_STRUCTREGISTER_BITBANDING_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 /**
  *  Global Struct Definitions for PWM Generators

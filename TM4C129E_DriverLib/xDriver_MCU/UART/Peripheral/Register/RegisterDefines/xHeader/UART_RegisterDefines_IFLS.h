@@ -24,7 +24,7 @@
 #ifndef XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_IFLS_H_
 #define XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_IFLS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 /******************************************************************************************
 ************************************ 9 IFLS *********************************************

@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
-
 typedef enum
 {
     CAN_enERROR_OK = (uint32_t) MCU_enERROR_OK,

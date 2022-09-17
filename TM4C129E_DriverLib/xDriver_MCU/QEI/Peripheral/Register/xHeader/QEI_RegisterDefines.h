@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_QEI_PERIPHERAL_REGISTER_XHEADER_QEI_REGISTERDEFINES_H_
 #define XDRIVER_MCU_QEI_PERIPHERAL_REGISTER_XHEADER_QEI_REGISTERDEFINES_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
 /******************************************************************************************
 ************************************ 1 CTL *********************************************

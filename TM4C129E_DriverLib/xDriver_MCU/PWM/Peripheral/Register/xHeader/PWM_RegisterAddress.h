@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_XHEADER_PWM_REGISTERADDRESS_H_
 #define XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_XHEADER_PWM_REGISTERADDRESS_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 #define PWM_GEN_REGISTER_NUM    ((uint32_t) 16UL)
 #define PWM_GEN_EXT_REGISTER_NUM    ((uint32_t) 32UL)

@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_PWM_PERIPHERAL_XHEADER_PWM_ENUM_H_
 #define XDRIVER_MCU_PWM_PERIPHERAL_XHEADER_PWM_ENUM_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_Variables.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 typedef enum
 {

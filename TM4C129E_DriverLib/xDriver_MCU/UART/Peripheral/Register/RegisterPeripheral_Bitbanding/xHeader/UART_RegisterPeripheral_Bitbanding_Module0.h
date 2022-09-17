@@ -304,24 +304,24 @@
  *********************************** * 27 CellID0 *********************************************
  ******************************************************************************************/
 /* UART0 CID0*/
-#define UART0_BITBANDING_CellID0    ((BITBANDING_UARTCellID0_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_CellID0_OFFSET) * 32U)))
+#define UART0_BITBANDING_PCellID0    ((BITBANDING_UARTCellID0_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_PCellID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 28 CellID1 *********************************************
  ******************************************************************************************/
 /* UART0 CID1*/
-#define UART0_BITBANDING_CellID1    ((BITBANDING_UARTCellID1_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_CellID1_OFFSET) * 32U)))
+#define UART0_BITBANDING_PCellID1    ((BITBANDING_UARTCellID1_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_PCellID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 29 CellID2 *********************************************
  ******************************************************************************************/
 /* UART0 CID2*/
-#define UART0_BITBANDING_CellID2    ((BITBANDING_UARTCellID2_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_CellID2_OFFSET) * 32U)))
+#define UART0_BITBANDING_PCellID2    ((BITBANDING_UARTCellID2_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_PCellID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 30 CellID3 *********************************************
  ******************************************************************************************/
 /* UART0 CID3*/
-#define UART0_BITBANDING_CellID3    ((BITBANDING_UARTCellID3_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_CellID3_OFFSET) * 32U)))
+#define UART0_BITBANDING_PCellID3    ((BITBANDING_UARTCellID3_t*) (UART_BITBANDING_BASE + ((UART0_OFFSET + UART_PCellID3_OFFSET) * 32U)))
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_XHEADER_UART_REGISTERPERIPHERAL_BITBANDING_MODULE0_H_ */

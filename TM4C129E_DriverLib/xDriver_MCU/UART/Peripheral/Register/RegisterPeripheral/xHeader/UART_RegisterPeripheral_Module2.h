@@ -207,28 +207,28 @@
  ************************************ 27 CellID0 *********************************************
  ******************************************************************************************/
 /* UART2 CID0*/
-#define UART2_CellID0    ((UARTCellID0_t*) (UART2_BASE + UART_CellID0_OFFSET))
-#define UART2_CellID0_R    (*((volatile const uint32_t*) (UART2_BASE + UART_CellID0_OFFSET)))
+#define UART2_PCellID0    ((UARTCellID0_t*) (UART2_BASE + UART_PCellID0_OFFSET))
+#define UART2_PCellID0_R    (*((volatile const uint32_t*) (UART2_BASE + UART_PCellID0_OFFSET)))
 
 /******************************************************************************************
  ************************************ 28 CellID1 *********************************************
  ******************************************************************************************/
 /* UART2 CID1*/
-#define UART2_CellID1    ((UARTCellID1_t*) (UART2_BASE + UART_CellID1_OFFSET))
-#define UART2_CellID1_R    (*((volatile const uint32_t*) (UART2_BASE + UART_CellID1_OFFSET)))
+#define UART2_PCellID1    ((UARTCellID1_t*) (UART2_BASE + UART_PCellID1_OFFSET))
+#define UART2_PCellID1_R    (*((volatile const uint32_t*) (UART2_BASE + UART_PCellID1_OFFSET)))
 
 /******************************************************************************************
  ************************************ 29 CellID2 *********************************************
  ******************************************************************************************/
 /* UART2 CID2*/
-#define UART2_CellID2    ((UARTCellID2_t*) (UART2_BASE + UART_CellID2_OFFSET))
-#define UART2_CellID2_R    (*((volatile const uint32_t*) (UART2_BASE + UART_CellID2_OFFSET)))
+#define UART2_PCellID2    ((UARTCellID2_t*) (UART2_BASE + UART_PCellID2_OFFSET))
+#define UART2_PCellID2_R    (*((volatile const uint32_t*) (UART2_BASE + UART_PCellID2_OFFSET)))
 
 /******************************************************************************************
  ************************************ 30 CellID3 *********************************************
  ******************************************************************************************/
 /* UART2 CID3*/
-#define UART2_CellID3    ((UARTCellID3_t*) (UART2_BASE + UART_CellID3_OFFSET))
-#define UART2_CellID3_R    (*((volatile const uint32_t*) (UART2_BASE + UART_CellID3_OFFSET)))
+#define UART2_PCellID3    ((UARTCellID3_t*) (UART2_BASE + UART_PCellID3_OFFSET))
+#define UART2_PCellID3_R    (*((volatile const uint32_t*) (UART2_BASE + UART_PCellID3_OFFSET)))
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_XHEADER_UART_REGISTERPERIPHERAL_MODULE2_H_ */

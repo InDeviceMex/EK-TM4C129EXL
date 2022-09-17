@@ -25,7 +25,7 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_CONTROLREG_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_CONTROLREG_H_
 
-#include <xDriver_MCU/Common/xHeader/MCU_enum.h>
+#include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 __attribute__((naked)) void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
 __attribute__((naked)) MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
