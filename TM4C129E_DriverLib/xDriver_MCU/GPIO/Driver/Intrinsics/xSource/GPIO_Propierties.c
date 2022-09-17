@@ -30,6 +30,6 @@ GPIO_nEXTENDED_DRIVE GPIO__enGetExtendedDrive(GPIO_nPORT enPort)
 {
     GPIO_nEXTENDED_DRIVE enDriveReg = GPIO_enEXTENDED_DRIVE_NORMAL;
     enDriveReg = (GPIO_nEXTENDED_DRIVE) GPIO__u32ReadRegister(enPort, GPIO_PP_OFFSET,
-                                     GPIO_PP_EDE_MASK, GPIO_PP_R_EDE_BIT);
+                                     GPIO_PP_PIN_MASK, GPIO_PP_R_PIN_BIT);
     return (enDriveReg);
 }

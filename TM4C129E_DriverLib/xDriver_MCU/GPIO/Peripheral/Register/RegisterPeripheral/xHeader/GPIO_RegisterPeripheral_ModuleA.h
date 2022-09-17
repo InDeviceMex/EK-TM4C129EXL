@@ -36,14 +36,14 @@
  ******************************************************************************************/
 /* GPIOA DATA*/
 #define GPIOA_DATA_MASK    ((GPIO_DATA_MASK_t*) (GPIOA_BASE + GPIO_DATA_MASK_OFFSET))
-#define GPIOA_DATA0_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA0_MASK_OFFSET )))
-#define GPIOA_DATA1_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA1_MASK_OFFSET )))
-#define GPIOA_DATA2_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA2_MASK_OFFSET )))
-#define GPIOA_DATA3_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA3_MASK_OFFSET )))
-#define GPIOA_DATA4_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA4_MASK_OFFSET )))
-#define GPIOA_DATA5_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA5_MASK_OFFSET )))
-#define GPIOA_DATA6_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA6_MASK_OFFSET )))
-#define GPIOA_DATA7_MASK_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA7_MASK_OFFSET )))
+#define GPIOA_DATA_PINMASK0_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK0_OFFSET )))
+#define GPIOA_DATA_PINMASK1_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK1_OFFSET )))
+#define GPIOA_DATA_PINMASK2_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK2_OFFSET )))
+#define GPIOA_DATA_PINMASK3_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK3_OFFSET )))
+#define GPIOA_DATA_PINMASK4_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK4_OFFSET )))
+#define GPIOA_DATA_PINMASK5_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK5_OFFSET )))
+#define GPIOA_DATA_PINMASK6_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK6_OFFSET )))
+#define GPIOA_DATA_PINMASK7_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_PINMASK7_OFFSET )))
 
 #define GPIOA_DATA    ((GPIO_DATA_t*) (GPIOA_BASE + GPIO_DATA_OFFSET))
 #define GPIOA_DATA_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_DATA_OFFSET)))

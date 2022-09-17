@@ -31,14 +31,14 @@
  ************************************ 30 PP *********************************************
  ******************************************************************************************/
 /*----------*/
-#define GPIO_PP_R_EDE_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_PP_R_EDE_BIT    (0UL)
-#define GPIO_PP_R_EDE_NORMAL    ((uint32_t) 0x00000000UL)
-#define GPIO_PP_R_EDE_EXTENDED    ((uint32_t) 0x00000001UL)
+#define GPIO_PP_R_PIN_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_PP_R_PIN_BIT    (0UL)
+#define GPIO_PP_R_PIN_NORMAL    ((uint32_t) 0x00000000UL)
+#define GPIO_PP_R_PIN_EXTENDED    ((uint32_t) 0x00000001UL)
 
-#define GPIO_PP_EDE_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_PP_EDE_NORMAL    ((uint32_t) 0x00000000UL)
-#define GPIO_PP_EDE_EXTENDED    ((uint32_t) 0x00000001UL)
+#define GPIO_PP_PIN_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_PP_PIN_NORMAL    ((uint32_t) 0x00000000UL)
+#define GPIO_PP_PIN_EXTENDED    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_DRR_XHEADER_GPIO_REGISTERDEFINES_PP_H_ */

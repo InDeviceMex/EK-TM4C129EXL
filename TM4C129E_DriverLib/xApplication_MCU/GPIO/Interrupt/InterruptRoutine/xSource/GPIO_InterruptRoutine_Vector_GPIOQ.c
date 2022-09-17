@@ -112,7 +112,7 @@ void GPIOQ__vIRQVectorHandler(void)
         else
         {
             u32DMaReq = GPIOQ_DMACTL_R;
-            if( GPIO_DMACTL_R_DMAEN0_ENA & u32DMaReq)
+            if( GPIO_DMACTL_R_PIN0_ENA & u32DMaReq)
             {
                 if(0UL == (((uint32_t) GPIO_enPINMASK_0 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
                 {
@@ -173,7 +173,7 @@ void GPIOQ1__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN1_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN1_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_1 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -235,7 +235,7 @@ void GPIOQ2__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN2_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN2_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_2 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -297,7 +297,7 @@ void GPIOQ3__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN3_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN3_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_3 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -359,7 +359,7 @@ void GPIOQ4__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN4_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN4_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_4 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -421,7 +421,7 @@ void GPIOQ5__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN5_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN5_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_5 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -483,7 +483,7 @@ void GPIOQ6__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN6_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN6_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_6 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
@@ -545,7 +545,7 @@ void GPIOQ7__vIRQVectorHandler(void)
     {
         u32Reg = GPIOQ_MIS_R;
         u32DMaReq = GPIOQ_DMACTL_R;
-        if( GPIO_DMACTL_R_DMAEN7_ENA & u32DMaReq)
+        if( GPIO_DMACTL_R_PIN7_ENA & u32DMaReq)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_7 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {

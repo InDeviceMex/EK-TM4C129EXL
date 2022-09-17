@@ -31,102 +31,102 @@
  ************************************ 6 IM *********************************************
  ******************************************************************************************/
 /*----------*/
-#define GPIO_IM_R_IME_MASK    ((uint32_t) 0x000000FFUL)
-#define GPIO_IM_R_IME_BIT    (0UL)
-#define GPIO_IM_R_IME_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME_ENA    ((uint32_t) 0x000000FFUL)
+#define GPIO_IM_R_PIN_MASK    ((uint32_t) 0x000000FFUL)
+#define GPIO_IM_R_PIN_BIT    (0UL)
+#define GPIO_IM_R_PIN_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN_ENA    ((uint32_t) 0x000000FFUL)
 
-#define GPIO_IM_IME_MASK    ((uint32_t) 0x000000FFUL)
-#define GPIO_IM_IME_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME_ENA    ((uint32_t) 0x000000FFUL)
+#define GPIO_IM_PIN_MASK    ((uint32_t) 0x000000FFUL)
+#define GPIO_IM_PIN_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN_ENA    ((uint32_t) 0x000000FFUL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME0_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_R_IME0_BIT    (0UL)
-#define GPIO_IM_R_IME0_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME0_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_R_PIN0_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_R_PIN0_BIT    (0UL)
+#define GPIO_IM_R_PIN0_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN0_ENA    ((uint32_t) 0x00000001UL)
 
-#define GPIO_IM_IME0_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME0_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME0_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN0_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN0_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN0_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME1_MASK    ((uint32_t) 0x00000002UL)
-#define GPIO_IM_R_IME1_BIT    (1UL)
-#define GPIO_IM_R_IME1_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME1_ENA    ((uint32_t) 0x00000002UL)
+#define GPIO_IM_R_PIN1_MASK    ((uint32_t) 0x00000002UL)
+#define GPIO_IM_R_PIN1_BIT    (1UL)
+#define GPIO_IM_R_PIN1_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN1_ENA    ((uint32_t) 0x00000002UL)
 
-#define GPIO_IM_IME1_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME1_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME1_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN1_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN1_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN1_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME2_MASK    ((uint32_t) 0x00000004UL)
-#define GPIO_IM_R_IME2_BIT    (2UL)
-#define GPIO_IM_R_IME2_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME2_ENA    ((uint32_t) 0x00000004UL)
+#define GPIO_IM_R_PIN2_MASK    ((uint32_t) 0x00000004UL)
+#define GPIO_IM_R_PIN2_BIT    (2UL)
+#define GPIO_IM_R_PIN2_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN2_ENA    ((uint32_t) 0x00000004UL)
 
-#define GPIO_IM_IME2_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME2_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME2_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN2_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN2_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN2_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME3_MASK    ((uint32_t) 0x00000008UL)
-#define GPIO_IM_R_IME3_BIT    (3UL)
-#define GPIO_IM_R_IME3_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME3_ENA    ((uint32_t) 0x00000008UL)
+#define GPIO_IM_R_PIN3_MASK    ((uint32_t) 0x00000008UL)
+#define GPIO_IM_R_PIN3_BIT    (3UL)
+#define GPIO_IM_R_PIN3_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN3_ENA    ((uint32_t) 0x00000008UL)
 
-#define GPIO_IM_IME3_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME3_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME3_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN3_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN3_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN3_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME4_MASK    ((uint32_t) 0x00000010UL)
-#define GPIO_IM_R_IME4_BIT    (4UL)
-#define GPIO_IM_R_IME4_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME4_ENA    ((uint32_t) 0x00000010UL)
+#define GPIO_IM_R_PIN4_MASK    ((uint32_t) 0x00000010UL)
+#define GPIO_IM_R_PIN4_BIT    (4UL)
+#define GPIO_IM_R_PIN4_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN4_ENA    ((uint32_t) 0x00000010UL)
 
-#define GPIO_IM_IME4_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME4_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME4_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN4_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN4_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN4_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME5_MASK    ((uint32_t) 0x00000020UL)
-#define GPIO_IM_R_IME5_BIT    (5UL)
-#define GPIO_IM_R_IME5_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME5_ENA    ((uint32_t) 0x00000020UL)
+#define GPIO_IM_R_PIN5_MASK    ((uint32_t) 0x00000020UL)
+#define GPIO_IM_R_PIN5_BIT    (5UL)
+#define GPIO_IM_R_PIN5_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN5_ENA    ((uint32_t) 0x00000020UL)
 
-#define GPIO_IM_IME5_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME5_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME5_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN5_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN5_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN5_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME6_MASK    ((uint32_t) 0x00000040UL)
-#define GPIO_IM_R_IME6_BIT    (6UL)
-#define GPIO_IM_R_IME6_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME6_ENA    ((uint32_t) 0x00000040UL)
+#define GPIO_IM_R_PIN6_MASK    ((uint32_t) 0x00000040UL)
+#define GPIO_IM_R_PIN6_BIT    (6UL)
+#define GPIO_IM_R_PIN6_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN6_ENA    ((uint32_t) 0x00000040UL)
 
-#define GPIO_IM_IME6_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME6_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME6_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN6_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN6_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN6_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_IM_R_IME7_MASK    ((uint32_t) 0x00000080UL)
-#define GPIO_IM_R_IME7_BIT    (7UL)
-#define GPIO_IM_R_IME7_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_R_IME7_ENA    ((uint32_t) 0x00000080UL)
+#define GPIO_IM_R_PIN7_MASK    ((uint32_t) 0x00000080UL)
+#define GPIO_IM_R_PIN7_BIT    (7UL)
+#define GPIO_IM_R_PIN7_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_R_PIN7_ENA    ((uint32_t) 0x00000080UL)
 
-#define GPIO_IM_IME7_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_IM_IME7_DIS    ((uint32_t) 0x00000000UL)
-#define GPIO_IM_IME7_ENA    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN7_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_IM_PIN7_DIS    ((uint32_t) 0x00000000UL)
+#define GPIO_IM_PIN7_ENA    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/

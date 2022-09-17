@@ -31,102 +31,102 @@
  ************************************ 9 ICR *********************************************
  ******************************************************************************************/
 /*----------*/
-#define GPIO_ICR_R_IC_MASK    ((uint32_t) 0x000000FFUL)
-#define GPIO_ICR_R_IC_BIT    (0UL)
-#define GPIO_ICR_R_IC_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC_CLEAR    ((uint32_t) 0x000000FFUL)
+#define GPIO_ICR_R_PIN_MASK    ((uint32_t) 0x000000FFUL)
+#define GPIO_ICR_R_PIN_BIT    (0UL)
+#define GPIO_ICR_R_PIN_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN_CLEAR    ((uint32_t) 0x000000FFUL)
 
-#define GPIO_ICR_IC_MASK    ((uint32_t) 0x000000FFUL)
-#define GPIO_ICR_IC_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC_CLEAR    ((uint32_t) 0x000000FFUL)
+#define GPIO_ICR_PIN_MASK    ((uint32_t) 0x000000FFUL)
+#define GPIO_ICR_PIN_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN_CLEAR    ((uint32_t) 0x000000FFUL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC0_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_R_IC0_BIT    (0UL)
-#define GPIO_ICR_R_IC0_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC0_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_R_PIN0_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_R_PIN0_BIT    (0UL)
+#define GPIO_ICR_R_PIN0_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN0_CLEAR    ((uint32_t) 0x00000001UL)
 
-#define GPIO_ICR_IC0_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC0_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC0_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN0_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN0_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN0_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC1_MASK    ((uint32_t) 0x00000002UL)
-#define GPIO_ICR_R_IC1_BIT    (1UL)
-#define GPIO_ICR_R_IC1_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC1_CLEAR    ((uint32_t) 0x00000002UL)
+#define GPIO_ICR_R_PIN1_MASK    ((uint32_t) 0x00000002UL)
+#define GPIO_ICR_R_PIN1_BIT    (1UL)
+#define GPIO_ICR_R_PIN1_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN1_CLEAR    ((uint32_t) 0x00000002UL)
 
-#define GPIO_ICR_IC1_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC1_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC1_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN1_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN1_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN1_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC2_MASK    ((uint32_t) 0x00000004UL)
-#define GPIO_ICR_R_IC2_BIT    (2UL)
-#define GPIO_ICR_R_IC2_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC2_CLEAR    ((uint32_t) 0x00000004UL)
+#define GPIO_ICR_R_PIN2_MASK    ((uint32_t) 0x00000004UL)
+#define GPIO_ICR_R_PIN2_BIT    (2UL)
+#define GPIO_ICR_R_PIN2_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN2_CLEAR    ((uint32_t) 0x00000004UL)
 
-#define GPIO_ICR_IC2_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC2_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC2_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN2_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN2_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN2_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC3_MASK             0x00000008UL)
-#define GPIO_ICR_R_IC3_BIT    (3UL)
-#define GPIO_ICR_R_IC3_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC3_CLEAR    ((uint32_t) 0x00000008UL)
+#define GPIO_ICR_R_PIN3_MASK             0x00000008UL)
+#define GPIO_ICR_R_PIN3_BIT    (3UL)
+#define GPIO_ICR_R_PIN3_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN3_CLEAR    ((uint32_t) 0x00000008UL)
 
-#define GPIO_ICR_IC3_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC3_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC3_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN3_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN3_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN3_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC4_MASK    ((uint32_t) 0x00000010UL)
-#define GPIO_ICR_R_IC4_BIT    (4UL)
-#define GPIO_ICR_R_IC4_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC4_CLEAR    ((uint32_t) 0x00000010UL)
+#define GPIO_ICR_R_PIN4_MASK    ((uint32_t) 0x00000010UL)
+#define GPIO_ICR_R_PIN4_BIT    (4UL)
+#define GPIO_ICR_R_PIN4_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN4_CLEAR    ((uint32_t) 0x00000010UL)
 
-#define GPIO_ICR_IC4_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC4_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC4_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN4_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN4_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN4_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC5_MASK    ((uint32_t) 0x00000020UL)
-#define GPIO_ICR_R_IC5_BIT    (5UL)
-#define GPIO_ICR_R_IC5_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC5_CLEAR    ((uint32_t) 0x00000020UL)
+#define GPIO_ICR_R_PIN5_MASK    ((uint32_t) 0x00000020UL)
+#define GPIO_ICR_R_PIN5_BIT    (5UL)
+#define GPIO_ICR_R_PIN5_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN5_CLEAR    ((uint32_t) 0x00000020UL)
 
-#define GPIO_ICR_IC5_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC5_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC5_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN5_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN5_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN5_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC6_MASK    ((uint32_t) 0x00000040UL)
-#define GPIO_ICR_R_IC6_BIT    (6UL)
-#define GPIO_ICR_R_IC6_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC6_CLEAR    ((uint32_t) 0x00000040UL)
+#define GPIO_ICR_R_PIN6_MASK    ((uint32_t) 0x00000040UL)
+#define GPIO_ICR_R_PIN6_BIT    (6UL)
+#define GPIO_ICR_R_PIN6_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN6_CLEAR    ((uint32_t) 0x00000040UL)
 
-#define GPIO_ICR_IC6_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC6_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC6_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN6_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN6_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN6_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPIO_ICR_R_IC7_MASK    ((uint32_t) 0x00000080UL)
-#define GPIO_ICR_R_IC7_BIT    (7UL)
-#define GPIO_ICR_R_IC7_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_R_IC7_CLEAR    ((uint32_t) 0x00000080UL)
+#define GPIO_ICR_R_PIN7_MASK    ((uint32_t) 0x00000080UL)
+#define GPIO_ICR_R_PIN7_BIT    (7UL)
+#define GPIO_ICR_R_PIN7_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_R_PIN7_CLEAR    ((uint32_t) 0x00000080UL)
 
-#define GPIO_ICR_IC7_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_ICR_IC7_NOEFFECT    ((uint32_t) 0x00000000UL)
-#define GPIO_ICR_IC7_CLEAR    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN7_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_ICR_PIN7_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define GPIO_ICR_PIN7_CLEAR    ((uint32_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
