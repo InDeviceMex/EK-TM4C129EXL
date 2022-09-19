@@ -43,18 +43,14 @@ SCB_nERROR SCB__enSetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, S
 SCB_nERROR SCB__enEnableUnprivilegedSWTrigger(SCB_nMODULE enModuleArg)
 {
     SCB_nERROR enErrorReg;
-
     enErrorReg = SCB__enSetUnprivilegedSWTriggerEnableState(enModuleArg, SCB_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SCB_nERROR SCB__enDisableUnprivilegedSWTrigger(SCB_nMODULE enModuleArg)
 {
     SCB_nERROR enErrorReg;
-
     enErrorReg = SCB__enSetUnprivilegedSWTriggerEnableState(enModuleArg, SCB_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
@@ -63,20 +59,21 @@ SCB_nERROR SCB__enGetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, S
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_CCR_R_USERSETMPEND_BIT;
         stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

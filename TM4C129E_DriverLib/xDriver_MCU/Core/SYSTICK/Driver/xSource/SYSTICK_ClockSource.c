@@ -45,21 +45,23 @@ SYSTICK_nERROR SYSTICK__enGetClockSource(SYSTICK_nMODULE enModuleArg,
                                          SYSTICK_nCLKSOURCE* penClockSrcArg)
 {
     SYSTICK_Register_t stRegister;
-
     SYSTICK_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penClockSrcArg)
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == (uintptr_t) penClockSrcArg)
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SYSTICK_CSR_R_CLKSOURCE_BIT;
         stRegister.u32Mask = SYSTICK_CSR_CLKSOURCE_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-
-        *penClockSrcArg = (SYSTICK_nCLKSOURCE) stRegister.u32Value;
     }
-    else
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SYSTICK_enERROR_POINTER;
+        *penClockSrcArg = (SYSTICK_nCLKSOURCE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

@@ -27,20 +27,20 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void (**GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort,
-                                            GPIO_nPIN enPinNumber))(void);
-void (*GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort,
-                                    GPIO_nPIN enPinNumber))(void);
+GPIO_pvfIRQSourceHandler_t GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg,
+                                                        GPIO_nPIN enPinArg);
+GPIO_pvfIRQSourceHandler_t* GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPortArg,
+                                                                GPIO_nPIN enPinArg);
 
-void (**GPIO_DMA__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort))(void);
-void (*GPIO_DMA__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort))(void);
+GPIO_pvfIRQSourceHandler_t GPIO_DMA__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg);
+GPIO_pvfIRQSourceHandler_t* GPIO_DMA__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPortArg);
 
-void (*GPIO_SW__pvfGetIRQSourceHandler(GPIO_nPORT enGPIOPort))(void);
-void (**GPIO_SW__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enGPIOPort))(void);
+GPIO_pvfIRQSourceHandler_t GPIO_SW__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg);
+GPIO_pvfIRQSourceHandler_t* GPIO_SW__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPortArg);
 
-void (*GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_nPORT enGPIOPort,
-                                         GPIO_nPIN enPinNumber))(void);
-void (**GPIO_SW__pvfGetIRQSourceHandlerPointer_PQ(GPIO_nPORT enGPIOPort,
-                                                 GPIO_nPIN enPinNumber))(void);
+GPIO_pvfIRQSourceHandler_t GPIO_PQ__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg,
+                                                           GPIO_nPIN enPinArg);
+GPIO_pvfIRQSourceHandler_t* GPIO_PQ__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPortArg,
+                                                                   GPIO_nPIN enPinArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_INTERRUPT_GPIO_INTERRUPTROUTINE_GPIO_INTERRUPTROUTINE_SOURCE_H_ */

@@ -31,7 +31,13 @@ DMA_nERROR DMA_CH__enConvertControlStructure(uint32_t u32ControlWorldArg,
 {
     DMA_nERROR enErrorReg;
     uint32_t u32ControlReg;
-    if(0UL != (uintptr_t) pstControlArg)
+
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         u32ControlReg = u32ControlWorldArg;
         u32ControlReg >>= DMA_CH_CTL_R_XFERMODE_BIT;
@@ -84,10 +90,6 @@ DMA_nERROR DMA_CH__enConvertControlStructure(uint32_t u32ControlWorldArg,
         u32ControlReg &= DMA_CH_CTL_DSTINC_MASK;
         pstControlArg->enDestinationIncrement = (DMA_nCH_INCREMENT) u32ControlReg;
     }
-    else
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     return (enErrorReg);
 }
 
@@ -96,7 +98,12 @@ DMA_nERROR DMA_CH__enConvertControlStructure_Create(uint32_t u32ControlWorldArg,
 {
     DMA_CONTROL_t* pstControlReg;
     DMA_nERROR enErrorReg;
-    if(0UL != (uintptr_t) pstControlArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
@@ -105,14 +112,10 @@ DMA_nERROR DMA_CH__enConvertControlStructure_Create(uint32_t u32ControlWorldArg,
         pstControlReg = (DMA_CONTROL_t*) malloc( (size_t) sizeof(DMA_CONTROL_t));
         #endif
         enErrorReg = DMA_CH__enConvertControlStructure(u32ControlWorldArg, pstControlReg);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *pstControlArg = pstControlReg;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *pstControlArg = pstControlReg;
     }
     return (enErrorReg);
 }

@@ -27,8 +27,13 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetWakeLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
-                         GPIO_nLEVEL enWakeLevel);
-GPIO_nLEVEL GPIO__enGetWakeLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetWakeUpLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nLEVEL enLevelArg);
+GPIO_nERROR GPIO__enSetWakeUpLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                           GPIO_nLEVEL enLevelArg);
+GPIO_nERROR GPIO__enGetWakeUpLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                         GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetWakeUpLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nLEVEL* penLevelArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_WAKE_XHEADER_GPIO_WAKELEVEL_H_ */

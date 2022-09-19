@@ -93,9 +93,9 @@ void EDUMKII_Accelerometer_vInit(void)
 
     EDUMKII_Common_vAdcInit();
 
-    GPIO__vSetAnalogFunction(EDUMKII_ACCEL_AXIS_X);
-    GPIO__vSetAnalogFunction(EDUMKII_ACCEL_AXIS_Y);
-    GPIO__vSetAnalogFunction(EDUMKII_ACCEL_AXIS_Z);
+    GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_X);
+    GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Y);
+    GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Z);
 
     ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_DIS);
     ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enTRIGGER_SOFTWARE);

@@ -31,21 +31,21 @@ FPU_nERROR FPU__enGetAutoPreservationState(FPU_nMODULE enModuleArg,
 
     FPU_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
+    enErrorReg = FPU_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+    if(FPU_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = FPU_CCR_R_ASPEN_BIT;
         stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-        if(FPU_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (FPU_nSTATE) stRegister.u32Value;
-        }
-
     }
-    else
+    if(FPU_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FPU_enERROR_POINTER;
+        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

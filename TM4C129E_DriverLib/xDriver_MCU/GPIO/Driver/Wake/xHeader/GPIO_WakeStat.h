@@ -27,8 +27,9 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetWakeStatus(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
-                          GPIO_nWAKE_STATUS enWakeStatus);
-GPIO_nWAKE_STATUS GPIO__enGetWakeStatus(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enGetWakeUpStatusByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                         GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetWakeUpStatusByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nWAKE_STATUS* penStateArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_WAKE_XHEADER_GPIO_WAKESTAT_H_ */

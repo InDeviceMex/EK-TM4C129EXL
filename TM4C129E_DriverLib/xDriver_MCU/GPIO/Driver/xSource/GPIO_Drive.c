@@ -23,123 +23,268 @@
  */
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Drive.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_SlewRate.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_NormalDrive.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_ExtendedDrive.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_DriveMode.h>
+
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetDrive(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nDRIVE enDriveParam)
+GPIO_nERROR GPIO__enSetDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg, GPIO_nDRIVE enDriveArg)
 {
-    uint32_t u32Drive = 0UL;
-    uint32_t u32Drive12mA = 0UL;
-    uint32_t u32PinBit = 0UL;
-    uint32_t u32PinBitPos = 0UL;
-    uint32_t u32SlewRate = 0UL;
-    uint32_t u32EnExtendedDriveMode = 0UL;
-    GPIO_nEXTENDED_DRIVE enExtendedDrive = GPIO_enEXTENDED_DRIVE_NORMAL;
+    uint32_t u32NormalDriveReg;
+    uint32_t u32ExtendedDriveReg;
+    uint32_t u32ExtendedModeReg;
+    uint32_t u32SlewRateReg;
 
-    u32Drive = (uint32_t) enDriveParam;
-    u32Drive &= 0x3UL;
-
-    u32EnExtendedDriveMode = (uint32_t) enDriveParam;
-    u32EnExtendedDriveMode >>= 16UL;
-    u32EnExtendedDriveMode &= 0x3UL;
-
-    u32Drive12mA = (uint32_t) enDriveParam;
-    u32Drive12mA >>= 2UL;
-    u32Drive12mA &= 0x1UL;
+    GPIO_nERROR enErrorReg;
+    GPIO_nDRIVE_CAPABILITY enExtendedCapabilityReg;
 
 
-    u32SlewRate = (uint32_t) enDriveParam;
-    u32SlewRate >>= 8UL;
-    u32SlewRate &= 0x1UL;
-
-    enExtendedDrive = GPIO__enGetExtendedDrive(enPort);
-    if(GPIO_enEXTENDED_DRIVE_EXTENDED == enExtendedDrive)
+    u32NormalDriveReg = 0UL;
+    u32ExtendedDriveReg = 0UL;
+    u32ExtendedModeReg = 0UL;
+    u32SlewRateReg = 0UL;
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinBit = (uint32_t) enPin;
-        u32PinBit &= (uint32_t) GPIO_enPINMASK_ALL;
-        while(0UL != u32PinBit)
+        u32NormalDriveReg = (uint32_t) enDriveArg;
+        u32NormalDriveReg >>= 0UL;
+        u32NormalDriveReg &= 0xFUL;
+
+        u32ExtendedDriveReg = (uint32_t) enDriveArg;
+        u32ExtendedDriveReg >>= 4UL;
+        u32ExtendedDriveReg &= 0xFUL;
+
+        u32SlewRateReg = (uint32_t) enDriveArg;
+        u32SlewRateReg >>= 8UL;
+        u32SlewRateReg &= 0xFUL;
+
+        u32ExtendedModeReg = (uint32_t) enDriveArg;
+        u32ExtendedModeReg >>= 12UL;
+        u32ExtendedModeReg &= 0xFUL;
+
+        enExtendedCapabilityReg = GPIO_enDRIVE_CAPABILITY_NORMAL;
+        enErrorReg = GPIO__enGetDriveCapability(enPortArg, &enExtendedCapabilityReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enDRIVE_CAPABILITY_EXTENDED == enExtendedCapabilityReg)
         {
-            if(u32PinBit & 0x1UL)
+            enErrorReg = GPIO__enSetDriveModeByMask(enPortArg, enPinMaskArg, (GPIO_nDRIVE_MODE) u32ExtendedModeReg);
+            if(GPIO_enERROR_OK == enErrorReg)
             {
-                GPIO__vWriteRegister(enPort, GPIO_PC_OFFSET,
-                     u32EnExtendedDriveMode, GPIO_PC_PIN0_MASK, u32PinBitPos);
+                enErrorReg = GPIO__enSetExtendedDriveByMask(enPortArg, enPinMaskArg, (GPIO_nSTATE) u32ExtendedDriveReg);
             }
-            u32PinBit >>= 1UL;
-            u32PinBitPos++;
         }
-
-        if(3UL == u32Drive)
+        else if(0UL != u32ExtendedModeReg)
         {
-            GPIO__vEnGeneric(enPort, GPIO_DR4R_OFFSET, enPin);
-            GPIO__vEnGeneric(enPort, GPIO_DR8R_OFFSET, enPin);
+            enErrorReg = GPIO_enERROR_VALUE;
         }
-
-        GPIO__vSetGeneric(enPort, GPIO_DR12R_OFFSET, enPin, (uint32_t) u32Drive12mA);
     }
 
-    switch (u32Drive)
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-    case 0UL:
-        GPIO__vEnGeneric(enPort, GPIO_DR2R_OFFSET, enPin);
-        break;
-    case 1UL:
-        GPIO__vEnGeneric(enPort, GPIO_DR4R_OFFSET, enPin);
-        break;
-    case 2UL:
-        GPIO__vEnGeneric(enPort, GPIO_DR8R_OFFSET, enPin);
-        break;
-    default:
-        break;
+        if(0UL != (1U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, GPIO_enNORMAL_DRIVE_2mA, GPIO_enSTATE_ENA);
+        }
     }
 
-    GPIO__vSetGeneric(enPort, GPIO_SLR_OFFSET, enPin, (uint32_t) u32SlewRate);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (2U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, GPIO_enNORMAL_DRIVE_4mA, GPIO_enSTATE_ENA);
+        }
+    }
+
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (4U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, GPIO_enNORMAL_DRIVE_8mA, GPIO_enSTATE_ENA);
+        }
+    }
+
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enSetSlewRateByMask(enPortArg, enPinMaskArg, (GPIO_nSTATE) u32SlewRateReg);
+    }
+    return (enErrorReg);
 }
 
-GPIO_nDRIVE GPIO__enGetDrive(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+
+GPIO_nERROR GPIO__enSetDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nDRIVE enDriveArg)
 {
-    GPIO_nEXTENDED_DRIVE enExtendedDrive = GPIO_enEXTENDED_DRIVE_NORMAL;
-    uint32_t u32Drive12mA = 0UL;
-    uint32_t u32DriveParam = 0UL;
-    uint32_t u32Drive = 0UL;
-    uint32_t u32EnExtendedDriveMode = 0UL;
-    uint32_t u32EnExtendedDriveModeAux = 0UL;
-    uint32_t u32SlewRate = 0UL;
-    uint32_t u32PinBit = 0UL;
-    uint32_t u32PinBitPos = 0UL;
+    uint32_t u32NormalDriveReg;
+    uint32_t u32ExtendedDriveReg;
+    uint32_t u32ExtendedModeReg;
+    uint32_t u32SlewRateReg;
 
-    enExtendedDrive = GPIO__enGetExtendedDrive(enPort);
-    if(GPIO_enEXTENDED_DRIVE_EXTENDED == enExtendedDrive)
+    GPIO_nERROR enErrorReg;
+    GPIO_nDRIVE_CAPABILITY enExtendedCapabilityReg;
+
+
+    u32NormalDriveReg = 0UL;
+    u32ExtendedDriveReg = 0UL;
+    u32ExtendedModeReg = 0UL;
+    u32SlewRateReg = 0UL;
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32Drive12mA = GPIO__u32GetGeneric(enPort, GPIO_DR12R_OFFSET, enPin);
-        u32Drive12mA &= 0x1UL;
-        u32Drive12mA <<= 2UL;
+        u32NormalDriveReg = (uint32_t) enDriveArg;
+        u32NormalDriveReg >>= 0UL;
+        u32NormalDriveReg &= 0xFUL;
 
-        u32PinBit = (uint32_t) enPin;
-        u32PinBit &= (uint32_t) GPIO_enPINMASK_ALL;
-        while(0UL != u32PinBit)
+        u32ExtendedDriveReg = (uint32_t) enDriveArg;
+        u32ExtendedDriveReg >>= 4UL;
+        u32ExtendedDriveReg &= 0xFUL;
+
+        u32SlewRateReg = (uint32_t) enDriveArg;
+        u32SlewRateReg >>= 8UL;
+        u32SlewRateReg &= 0xFUL;
+
+        u32ExtendedModeReg = (uint32_t) enDriveArg;
+        u32ExtendedModeReg >>= 12UL;
+        u32ExtendedModeReg &= 0xFUL;
+
+        enExtendedCapabilityReg = GPIO_enDRIVE_CAPABILITY_NORMAL;
+        enErrorReg = GPIO__enGetDriveCapability(enPortArg, &enExtendedCapabilityReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enDRIVE_CAPABILITY_EXTENDED == enExtendedCapabilityReg)
         {
-            if(u32PinBit & 0x1UL)
+            enErrorReg = GPIO__enSetDriveModeByNumber(enPortArg, enPinArg, (GPIO_nDRIVE_MODE) u32ExtendedModeReg);
+            if(GPIO_enERROR_OK == enErrorReg)
             {
-                u32EnExtendedDriveModeAux = GPIO__u32ReadRegister(enPort, GPIO_PC_OFFSET,
-                                                  GPIO_PC_PIN0_MASK, u32PinBitPos);
-                 u32EnExtendedDriveMode |= u32EnExtendedDriveModeAux;
+                enErrorReg = GPIO__enSetExtendedDriveByNumber(enPortArg, enPinArg, (GPIO_nSTATE) u32ExtendedDriveReg);
             }
-            u32PinBit >>= 1UL;
-            u32PinBitPos++;
         }
-        u32EnExtendedDriveMode &= 0x03UL;
-        u32EnExtendedDriveMode <<= 16UL;
+        else if(0UL != u32ExtendedModeReg)
+        {
+            enErrorReg = GPIO_enERROR_VALUE;
+        }
     }
 
-    u32SlewRate = GPIO__u32GetGeneric(enPort, GPIO_SLR_OFFSET, enPin);
-    u32SlewRate &= 0x1UL;
-    u32SlewRate <<= 8UL;
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (1U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_2mA, GPIO_enSTATE_ENA);
+        }
+    }
 
-    u32DriveParam = GPIO__u32GetGeneric(enPort, GPIO_DR8R_OFFSET, enPin);
-    u32Drive = u32DriveParam << 1UL;
-    u32DriveParam = GPIO__u32GetGeneric(enPort, GPIO_DR4R_OFFSET, enPin);
-    u32Drive += u32DriveParam;
-    u32Drive &= 0x3UL;
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (2U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_4mA, GPIO_enSTATE_ENA);
+        }
+    }
 
-    return ((GPIO_nDRIVE) u32Drive);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (4U & u32NormalDriveReg))
+        {
+            enErrorReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_8mA, GPIO_enSTATE_ENA);
+        }
+    }
+
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enSetSlewRateByNumber(enPortArg, enPinArg, (GPIO_nSTATE) u32SlewRateReg);
+    }
+    return (enErrorReg);
+}
+
+GPIO_nERROR GPIO__enGetDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nDRIVE* penDriveArg)
+{
+    uint32_t u32DriveReg;
+    uint32_t u32NormalDriveReg;
+    uint32_t u32NormalDrive2mAReg;
+    uint32_t u32NormalDrive4mAReg;
+    uint32_t u32NormalDrive8mAReg;
+    uint32_t u32ExtendedDriveReg;
+    uint32_t u32ExtendedModeReg;
+    uint32_t u32SlewRateReg;
+
+    GPIO_nERROR enErrorReg;
+    GPIO_nDRIVE_CAPABILITY enExtendedCapabilityReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penDriveArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enExtendedCapabilityReg = GPIO_enDRIVE_CAPABILITY_NORMAL;
+        enErrorReg = GPIO__enGetDriveCapability(enPortArg, &enExtendedCapabilityReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32ExtendedModeReg = 0UL;
+        u32ExtendedDriveReg = 0UL;
+        if(GPIO_enDRIVE_CAPABILITY_EXTENDED == enExtendedCapabilityReg)
+        {
+            enErrorReg = GPIO__enGetDriveModeByNumber(enPortArg, enPinArg, (GPIO_nDRIVE_MODE*) &u32ExtendedModeReg);
+            if(GPIO_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = GPIO__enGetExtendedDriveByNumber(enPortArg, enPinArg, (GPIO_nSTATE*) &u32ExtendedDriveReg);
+            }
+        }
+
+        u32NormalDrive2mAReg = 0UL;
+        u32NormalDrive4mAReg = 0UL;
+        u32NormalDrive8mAReg = 0UL;
+        u32SlewRateReg = 0UL;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enGetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_2mA, (GPIO_nSTATE*) &u32NormalDrive2mAReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enGetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_4mA, (GPIO_nSTATE*) &u32NormalDrive4mAReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enGetNormalDriveByNumber(enPortArg, enPinArg, GPIO_enNORMAL_DRIVE_8mA, (GPIO_nSTATE*) &u32NormalDrive8mAReg);
+    }
+
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enGetSlewRateByNumber(enPortArg, enPinArg, (GPIO_nSTATE*) &u32SlewRateReg);
+    }
+
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32NormalDrive2mAReg <<= 0U;
+        u32NormalDrive4mAReg <<= 1U;
+        u32NormalDrive8mAReg <<= 2U;
+        u32NormalDriveReg = u32NormalDrive8mAReg | u32NormalDrive4mAReg | u32NormalDrive2mAReg;
+        u32NormalDriveReg &= 0xFUL;
+        u32NormalDriveReg <<= 0UL;
+
+        u32ExtendedDriveReg &= 0xFUL;
+        u32ExtendedDriveReg <<= 4UL;
+
+        u32SlewRateReg &= 0xFUL;
+        u32SlewRateReg <<= 8UL;
+
+        u32ExtendedModeReg &= 0xFUL;
+        u32ExtendedModeReg <<= 12UL;
+
+        u32DriveReg = u32ExtendedModeReg | u32SlewRateReg | u32ExtendedDriveReg | u32NormalDriveReg;
+        *penDriveArg = (GPIO_nDRIVE) u32DriveReg;
+    }
+    return (enErrorReg);
 }

@@ -17,17 +17,16 @@ EEPROM_nERROR EEPROM__enReadAuxiliar(EEPROM_nMODULE enModuleArg, void* pvDataArg
                                      EEPROM_nVARIABLE enVariableTypeArg)
 {
     EEPROM_nERROR enErrorReg;
-
     static uint32_t u32DataAux;
 
     enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32AddressArg);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enReadData(enModuleArg, &u32DataAux);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = EEPROM__enExtractData(pvDataArg, &u32DataAux, u32AddressArg, enVariableTypeArg);
-        }
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = EEPROM__enExtractData(pvDataArg, &u32DataAux, u32AddressArg, enVariableTypeArg);
     }
     return (enErrorReg);
 }

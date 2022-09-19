@@ -32,7 +32,12 @@ MCU_nERROR MCU__enReadRegister(MCU_Register_t* pstRegisterDataArg)
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
-    if(0UL != (uintptr_t) pstRegisterDataArg)
+    enErrorReg = MCU_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
     {
         u32RegisterMask = pstRegisterDataArg->u32Mask;
         u32RegisterShift = pstRegisterDataArg->u32Shift;
@@ -46,11 +51,6 @@ MCU_nERROR MCU__enReadRegister(MCU_Register_t* pstRegisterDataArg)
             u32RegisterValue &= u32RegisterMask;
         }
         pstRegisterDataArg->u32Value = (uint32_t) u32RegisterValue;
-        enErrorReg = MCU_enERROR_OK;
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_POINTER;
     }
 
     return (enErrorReg);
@@ -66,7 +66,12 @@ MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg)
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
-    if(0UL != (uintptr_t) pstRegisterDataArg)
+    enErrorReg = MCU_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
     {
         u32RegisterMask = pstRegisterDataArg->u32Mask;
         u32RegisterShift = pstRegisterDataArg->u32Shift;
@@ -80,11 +85,6 @@ MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg)
             u32RegisterValue &= u32RegisterMask;
         }
         pstRegisterDataArg->u32Value = (uint32_t) u32RegisterValue;
-        enErrorReg = MCU_enERROR_OK;
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_POINTER;
     }
 
     return (enErrorReg);

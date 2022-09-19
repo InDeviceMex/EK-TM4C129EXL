@@ -46,20 +46,21 @@ ADC_nERROR ADC__enGetAverageSampling(ADC_nMODULE enModuleArg, ADC_nAVERAGE* penA
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penAverageArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penAverageArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_SAC_R_AVG_BIT;
         stRegister.u32Mask = ADC_SAC_AVG_MASK;
         stRegister.uptrAddress = ADC_SAC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penAverageArg = (ADC_nAVERAGE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penAverageArg = (ADC_nAVERAGE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

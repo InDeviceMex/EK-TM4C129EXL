@@ -35,7 +35,7 @@ ADC_nERROR ADC_Sample__enSetDifferentialByMask(ADC_nMODULE enModuleArg, ADC_nSEQ
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
         u32SequencerReg = 0U;
@@ -66,7 +66,6 @@ ADC_nERROR ADC_Sample__enSetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nS
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-
     stRegister.u32Shift = ADC_SS_CTL_R_D0_BIT;
     stRegister.u32Mask = ADC_SS_CTL_D0_MASK;
     stRegister.uptrAddress = ADC_SS_CTL_OFFSET;
@@ -81,20 +80,21 @@ ADC_nERROR ADC_Sample__enGetDifferentialByNumber(ADC_nMODULE enModuleArg, ADC_nS
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_SS_CTL_R_D0_BIT;
         stRegister.u32Mask = ADC_SS_CTL_D0_MASK;
         stRegister.uptrAddress = ADC_SS_CTL_OFFSET;
         enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (ADC_nSTATE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penStateArg = (ADC_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

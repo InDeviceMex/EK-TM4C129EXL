@@ -37,16 +37,11 @@ DMA_nERROR DMA_CH__enSetTransferModeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK 
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetTransferModeByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enModeArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -110,22 +105,22 @@ DMA_nERROR DMA_CH__enGetTransferModeByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penModeArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = DMA_CH_CTL_R_XFERMODE_BIT;
         stRegister.u32Mask = DMA_CH_CTL_XFERMODE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *penModeArg = (DMA_nCH_MODE) stRegister.u32Value;
-        }
-}
-    else
-    {
-        enErrorReg = DMA_enERROR_POINTER;
     }
-
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (DMA_nCH_MODE) stRegister.u32Value;
+    }
     return (enErrorReg);
 }
 

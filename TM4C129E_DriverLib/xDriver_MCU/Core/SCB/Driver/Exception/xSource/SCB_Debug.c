@@ -48,20 +48,21 @@ SCB_nERROR SCB_Debug__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPr
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) enPriorityArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) enPriorityArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_SHPR3_R_DEBUG_BIT;
         stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
         stRegister.uptrAddress = SCB_SHPR3_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
     }
     return (enErrorReg);
 }

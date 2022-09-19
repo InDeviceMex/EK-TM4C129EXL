@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Propierties.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-GPIO_nEXTENDED_DRIVE GPIO__enGetExtendedDrive(GPIO_nPORT enPort)
+GPIO_nERROR GPIO__enGetDriveCapability(GPIO_nPORT enPortArg,
+                                       GPIO_nDRIVE_CAPABILITY* penDriveArg)
 {
-    GPIO_nEXTENDED_DRIVE enDriveReg = GPIO_enEXTENDED_DRIVE_NORMAL;
-    enDriveReg = (GPIO_nEXTENDED_DRIVE) GPIO__u32ReadRegister(enPort, GPIO_PP_OFFSET,
-                                     GPIO_PP_PIN_MASK, GPIO_PP_R_PIN_BIT);
-    return (enDriveReg);
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penDriveArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = GPIO_PP_R_PIN_BIT;
+        stRegister.u32Mask = GPIO_PP_PIN_MASK;
+        stRegister.uptrAddress = GPIO_PP_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penDriveArg = (GPIO_nDRIVE_CAPABILITY) stRegister.u32Value;
+    }
+    return (enErrorReg);
 }

@@ -90,7 +90,7 @@ void EDUMKII_Microphone_vInit(void)
 
     EDUMKII_Common_vAdcInit();
 
-    GPIO__vSetAnalogFunction(EDUMKII_MICROPHONE);
+    GPIO__enSetAnalogFunction(EDUMKII_MICROPHONE);
 
     ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_DIS);
     ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enTRIGGER_SOFTWARE);

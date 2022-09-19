@@ -45,20 +45,21 @@ SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlign
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penAlignArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) penAlignArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_CCR_R_STKALIGN_BIT;
         stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
     }
     return (enErrorReg);
 }

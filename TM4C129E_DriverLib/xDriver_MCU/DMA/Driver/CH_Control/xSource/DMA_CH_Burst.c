@@ -37,16 +37,11 @@ DMA_nERROR DMA_CH__enUseLastBurstTransferByMask(DMA_nMODULE enModuleArg, DMA_nCH
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enStateArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -104,28 +99,28 @@ DMA_nERROR DMA_CH_Alternate__enUseLastBurstTransferByNumber(DMA_nMODULE enModule
 }
 
 
-    DMA_nERROR DMA_CH__enGetLastBurstTransferStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                           DMA_nCH_CONTROL enControlArg, DMA_nSTATE* penStateArg)
+DMA_nERROR DMA_CH__enGetLastBurstTransferStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+                                                       DMA_nCH_CONTROL enControlArg, DMA_nSTATE* penStateArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = DMA_CH_CTL_R_NXTUSEBURST_BIT;
         stRegister.u32Mask = DMA_CH_CTL_NXTUSEBURST_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (DMA_nSTATE) stRegister.u32Value;
-        }
-}
-    else
-    {
-        enErrorReg = DMA_enERROR_POINTER;
     }
-
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (DMA_nSTATE) stRegister.u32Value;
+    }
     return (enErrorReg);
 }
 

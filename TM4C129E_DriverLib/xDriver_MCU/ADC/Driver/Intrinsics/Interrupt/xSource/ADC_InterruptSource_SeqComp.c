@@ -36,17 +36,16 @@ ADC_nERROR ADC_Comparator__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleA
     uint32_t u32ComparatorReg;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL) + 1U);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_OK;
         stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
         stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
         stRegister.u32Value = (uint32_t) enStateArg;
 
         u32ComparatorReg = 0U;
         u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
-        while(0UL != u32ComparatorMaskReg)
+        while((0UL != u32ComparatorMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
             if(0UL != (((uint32_t) ADC_enCOMPMASK_0) & u32ComparatorMaskReg))
             {
@@ -56,12 +55,6 @@ ADC_nERROR ADC_Comparator__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleA
                 stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
                 enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             }
-
-            if(ADC_enERROR_OK != enErrorReg)
-            {
-                break;
-            }
-
             u32ComparatorMaskReg >>= 1U;
             u32ComparatorReg++;
         }
@@ -106,58 +99,50 @@ ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleA
     uint32_t u32ValueReg;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penComparatorGetArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL) + 1U);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = ADC_enERROR_OK;
-            stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
-            stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
-
-            u32ComparatorGetReg = 0U;
-            u32ValueReg = (uint32_t) ADC_enCOMPMASK_0;
-            u32ComparatorReg = 0U;
-            u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
-            while(0UL != u32ComparatorMaskReg)
-            {
-                if(0UL != (((uint32_t) ADC_enCOMPMASK_0) & u32ComparatorMaskReg))
-                {
-                    u32OffsetReg = u32ComparatorReg;
-                    u32OffsetReg <<= 2U;
-                    u32OffsetReg += ADC_DC_CTL_OFFSET;
-                    stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
-                    enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-                    if(ADC_enERROR_OK == enErrorReg)
-                    {
-                        if(0UL != stRegister.u32Value)
-                        {
-                            u32ComparatorGetReg |= u32ValueReg;
-                        }
-                    }
-                }
-
-                if(ADC_enERROR_OK != enErrorReg)
-                {
-                    break;
-                }
-                u32ValueReg <<= 1U;
-                u32ComparatorMaskReg >>= 1U;
-                u32ComparatorReg++;
-            }
-
-            if(ADC_enERROR_OK != enErrorReg)
-            {
-                *penComparatorGetArg = (ADC_nCOMPMASK) u32ComparatorGetReg;
-            }
-
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penComparatorGetArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
+        stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
 
+        u32ComparatorGetReg = 0U;
+        u32ValueReg = (uint32_t) ADC_enCOMPMASK_0;
+        u32ComparatorReg = 0U;
+        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        while((0UL != u32ComparatorMaskReg) && (ADC_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (((uint32_t) ADC_enCOMPMASK_0) & u32ComparatorMaskReg))
+            {
+                u32OffsetReg = u32ComparatorReg;
+                u32OffsetReg <<= 2U;
+                u32OffsetReg += ADC_DC_CTL_OFFSET;
+                stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+                if(ADC_enERROR_OK == enErrorReg)
+                {
+                    if(0UL != stRegister.u32Value)
+                    {
+                        u32ComparatorGetReg |= u32ValueReg;
+                    }
+                }
+            }
+            u32ValueReg <<= 1U;
+            u32ComparatorMaskReg >>= 1U;
+            u32ComparatorReg++;
+        }
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penComparatorGetArg = (ADC_nCOMPMASK) u32ComparatorGetReg;
+    }
     return (enErrorReg);
 }
 
@@ -168,29 +153,30 @@ ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByNumber(ADC_nMODULE enModul
     uint32_t u32OffsetReg;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            u32OffsetReg = (uint32_t) enComparatorArg;
-            u32OffsetReg <<= 2U;
-            u32OffsetReg += ADC_DC_CTL_OFFSET;
-
-            stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
-            stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
-            stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
-            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                *penStateArg = (ADC_nSTATE) stRegister.u32Value;
-            }
-
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32OffsetReg = (uint32_t) enComparatorArg;
+        u32OffsetReg <<= 2U;
+        u32OffsetReg += ADC_DC_CTL_OFFSET;
+
+        stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
+        stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
+        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (ADC_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -273,17 +259,25 @@ ADC_nERROR ADC_Comparator__enStatusInterruptSourceByMask(ADC_nMODULE enModuleArg
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL) + 1U);
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penComparatorGetArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
+    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = (uint32_t) enComparatorMaskArg;
         stRegister.uptrAddress = ADC_DCISC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penComparatorGetArg = (ADC_nCOMPMASK) stRegister.u32Value;
-        }
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penComparatorGetArg = (ADC_nCOMPMASK) stRegister.u32Value;
     }
 
     return (enErrorReg);
@@ -295,17 +289,25 @@ ADC_nERROR ADC_Comparator__enStatusInterruptSourceByNumber(ADC_nMODULE enModuleA
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = (uint32_t) enComparatorArg;
         stRegister.u32Mask = ADC_DCISC_DCINT_MASK;
         stRegister.uptrAddress = ADC_DCISC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (ADC_nSTATE) stRegister.u32Value;
-        }
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (ADC_nSTATE) stRegister.u32Value;
     }
 
     return (enErrorReg);

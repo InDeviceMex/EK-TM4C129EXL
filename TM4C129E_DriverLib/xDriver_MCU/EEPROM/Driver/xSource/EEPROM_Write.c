@@ -21,14 +21,14 @@ EEPROM_nERROR EEPROM__enWriteAuxiliar(EEPROM_nMODULE enModuleArg, uint32_t u32Da
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enReadData(enModuleArg, &u32DataAux);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = EEPROM__enReplaceData(&u32DataAux, u32DataArg, u32AddressArg, enVariableTypeArg);
-            if(EEPROM_enERROR_OK == enErrorReg)
-            {
-                enErrorReg = EEPROM__enWriteData(enModuleArg, u32DataAux);
-            }
-        }
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = EEPROM__enReplaceData(&u32DataAux, u32DataArg, u32AddressArg, enVariableTypeArg);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = EEPROM__enWriteData(enModuleArg, u32DataAux);
     }
     return (enErrorReg);
 }
@@ -64,40 +64,40 @@ EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const uint32_
     uint32_t u32CurrentCountReg;
     uint32_t u32MaxCountReg;
 
-    if((0UL != (uintptr_t) pu32DataArg) && (0UL != (uintptr_t) pu32Count))
+    u32CurrentCountReg = 0U;
+    enErrorReg = EEPROM_enERROR_OK;
+    if((0UL == (uintptr_t) pu32DataArg) || (0UL == (uintptr_t) pu32Count))
     {
-        if(0UL != *pu32Count)
-        {
-            enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32StartAddressArg);
-            if(EEPROM_enERROR_OK == enErrorReg)
-            {
-                u32CurrentCountReg = 0U;
-                u32MaxCountReg = *pu32Count;
-                do
-                {
-                    enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *pu32DataArg);
-                    if(EEPROM_enERROR_OK == enErrorReg)
-                    {
-                        u32CurrentCountReg += 1UL;
-                        pu32DataArg += 1U;
-                        enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
-                    }
-                }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != u32OffsetReg) && (u32MaxCountReg > u32CurrentCountReg));
-
-                if(EEPROM_enERROR_OK == enErrorReg)
-                {
-                    *pu32Count = (uint32_t) u32CurrentCountReg;
-                }
-            }
-        }
-        else
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        if(0UL == *pu32Count)
         {
             enErrorReg = EEPROM_enERROR_VALUE;
         }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32StartAddressArg);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        u32MaxCountReg = *pu32Count;
+        do
+        {
+            enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *pu32DataArg);
+            if(EEPROM_enERROR_OK == enErrorReg)
+            {
+                u32CurrentCountReg += 1UL;
+                pu32DataArg += 1U;
+                enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
+            }
+        }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != u32OffsetReg) && (u32MaxCountReg > u32CurrentCountReg));
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        *pu32Count = (uint32_t) u32CurrentCountReg;
     }
     return (enErrorReg);
 }

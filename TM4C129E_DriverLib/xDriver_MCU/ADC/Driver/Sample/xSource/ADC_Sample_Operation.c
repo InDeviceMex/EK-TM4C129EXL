@@ -35,7 +35,7 @@ ADC_nERROR ADC_Sample__enSetOperationModeByMask(ADC_nMODULE enModuleArg, ADC_nSE
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
         u32SequencerReg = 0U;
@@ -80,20 +80,21 @@ ADC_nERROR ADC_Sample__enGetOperationModeByNumber(ADC_nMODULE enModuleArg, ADC_n
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penOperationModeArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penOperationModeArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_SS_OP_R_S0DCOP_BIT;
         stRegister.u32Mask = ADC_SS_OP_S0DCOP_MASK;
         stRegister.uptrAddress = ADC_SS_OP_OFFSET;
         enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penOperationModeArg = (ADC_nSAMPLE_MODE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penOperationModeArg = (ADC_nSAMPLE_MODE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

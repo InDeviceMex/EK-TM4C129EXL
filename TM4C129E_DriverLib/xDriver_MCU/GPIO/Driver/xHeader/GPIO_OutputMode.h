@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetOutputMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nOUTMODE enModeArg);
-GPIO_nOUTMODE GPIO__enGetOutputMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetOutputModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nOUTMODE enStateArg);
+GPIO_nERROR GPIO__enSetOutputModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                          GPIO_nOUTMODE enStateArg);
+
+GPIO_nERROR GPIO__enGetOutputModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetOutputModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                          GPIO_nOUTMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_OUTPUTMODE_H_ */

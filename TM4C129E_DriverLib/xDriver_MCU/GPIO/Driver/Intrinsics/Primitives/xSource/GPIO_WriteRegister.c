@@ -26,14 +26,26 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vWriteRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister,
-                          uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                          uint32_t u32BitFeature)
+GPIO_nERROR GPIO__enWriteRegister(GPIO_nPORT enPortArg, GPIO_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32PortBase = 0UL;
-    uint32_t u32Port = 0UL;
-    u32Port = MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
-    u32PortBase = GPIO__uptrBlockBaseAddress((GPIO_nPORT) u32Port);
-    MCU__vWriteRegister(u32PortBase, u32OffsetRegister,
-                        u32FeatureValue, u32MaskFeature, u32BitFeature);
+    uintptr_t uptrModuleBase;
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPortArg, (uint32_t) GPIO_enPORT_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = GPIO__uptrBlockBaseAddress(enPortArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (GPIO_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+    }
+
+    return (enErrorReg);
 }
+

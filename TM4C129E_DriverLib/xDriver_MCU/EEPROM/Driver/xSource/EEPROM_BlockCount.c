@@ -32,20 +32,21 @@ EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, uint32_t* pu32
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32BlockCountArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pu32BlockCountArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = EEPROM_SIZE_R_BLKCNT_BIT;
         stRegister.u32Mask = EEPROM_SIZE_BLKCNT_MASK;
         stRegister.uptrAddress = EEPROM_SIZE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            *pu32BlockCountArg = stRegister.u32Value;
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        *pu32BlockCountArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

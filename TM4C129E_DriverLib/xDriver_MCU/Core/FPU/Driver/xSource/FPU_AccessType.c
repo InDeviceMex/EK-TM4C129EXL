@@ -45,32 +45,39 @@ FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessT
     uint32_t u32RegCP11;
     FPU_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penAccessTypeArg)
+    u32RegCP10 = 0UL;
+    u32RegCP11 = 0UL;
+    enErrorReg = FPU_enERROR_OK;
+    if(0UL == (uintptr_t) penAccessTypeArg)
+    {
+        enErrorReg = FPU_enERROR_POINTER;
+    }
+    if(FPU_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = FPU_CPACR_R_CP10_BIT;
         stRegister.u32Mask = FPU_CPACR_CP10_MASK;
         stRegister.uptrAddress = FPU_CPACR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(FPU_enERROR_OK == enErrorReg)
+    {
         u32RegCP10 = stRegister.u32Value;
 
         stRegister.u32Shift = FPU_CPACR_R_CP11_BIT;
         stRegister.u32Mask = FPU_CPACR_CP11_MASK;
+        stRegister.uptrAddress = FPU_CPACR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-        if(FPU_enERROR_OK == enErrorReg)
-        {
-            u32RegCP11 = stRegister.u32Value;
-
-            if(u32RegCP11 != u32RegCP10)
-            {
-                u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
-            }
-
-            *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
-        }
     }
-    else
+    if(FPU_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FPU_enERROR_POINTER;
+        u32RegCP11 = stRegister.u32Value;
+
+        if(u32RegCP11 != u32RegCP10)
+        {
+            u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
+        }
+
+        *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
     }
     return (enErrorReg);
 }

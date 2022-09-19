@@ -26,13 +26,21 @@
 #define XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_APP_GPIO_CONFIG_GPIO_CONFIG_H_
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
+#include <xDriver_MCU/GPIO/App/Config/xHeader/GPIO_ConfigStruct.h>
 
-GPIO_nERROR GPIO__enSetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nCONFIG enConfigParam);
-GPIO_nERROR GPIO__enSetConfigStruct(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
-                                     const GPIO_CONFIG_t *pstConfig);
+GPIO_nERROR GPIO__enSetConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                      GPIO_nCONFIG enConfigArg);
+GPIO_nERROR GPIO__enSetConfigByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                    GPIO_nCONFIG enConfigArg);
 
-GPIO_nCONFIG GPIO__enGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_CONFIG_t *pstConfig);
-GPIO_CONFIG_t* GPIO__pstGetConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+
+GPIO_nERROR GPIO__enSetConfigStructureByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                               const GPIO_CONFIG_t *pstConfigArg);
+GPIO_nERROR GPIO__enSetConfigStructureByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                               const GPIO_CONFIG_t *pstConfigArg);
+
+GPIO_nERROR GPIO__enGetConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nCONFIG* penConfigArg);
+GPIO_nERROR GPIO__enGetConfigStructureByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_CONFIG_t *pstConfigArg);
+GPIO_nERROR GPIO__enGetConfigByNumber_Create(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_CONFIG_t** pstConfigArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_APP_GPIO_CONFIG_GPIO_CONFIG_H_ */

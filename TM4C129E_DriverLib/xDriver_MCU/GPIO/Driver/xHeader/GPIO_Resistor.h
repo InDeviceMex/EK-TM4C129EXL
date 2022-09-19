@@ -27,7 +27,11 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nRESMODE enModeArg);
-GPIO_nRESMODE GPIO__enGetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetResistorModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                          GPIO_nRESMODE enModeArg);
+GPIO_nERROR GPIO__enSetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nRESMODE enModeArg);
+GPIO_nERROR GPIO__enGetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                            GPIO_nRESMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_RESISTOR_H_ */

@@ -27,10 +27,17 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vEnDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vDisDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vSetDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature);
-
-GPIO_nSTATE GPIO__enGetDigital(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enSetDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enEnableDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enEnableDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enDisableDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enDisableDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enGetDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_DIGITAL_H_ */

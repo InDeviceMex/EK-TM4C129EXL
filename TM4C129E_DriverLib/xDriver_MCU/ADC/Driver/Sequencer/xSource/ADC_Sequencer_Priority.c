@@ -34,21 +34,16 @@ ADC_nERROR ADC_Sequencer__enSetPriorityByMask(ADC_nMODULE enModuleArg, ADC_nSEQM
     uint32_t u32SequencerMaskReg;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
         u32SequencerReg = 0U;
         u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
-        while(0U != u32SequencerMaskReg)
+        while((0U != u32SequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
             if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
             {
                 enErrorReg = ADC_Sequencer__enSetPriorityByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enPriorityArg);
-            }
-
-            if(ADC_enERROR_OK != enErrorReg)
-            {
-                break;
             }
             u32SequencerReg++;
             u32SequencerMaskReg >>= 1U;
@@ -85,26 +80,27 @@ ADC_nERROR ADC_Sequencer__enGetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSE
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penPriorityArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            stRegister.u32Shift = (uint32_t) enSequencerArg;
-            stRegister.u32Shift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
-            stRegister.u32Shift += ADC_SSPRI_R_SS0_BIT;
-            stRegister.u32Mask = ADC_SSPRI_SS0_MASK;
-            stRegister.uptrAddress = ADC_SSPRI_OFFSET;
-            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                *penPriorityArg = (ADC_nSEQ_PRIORITY) stRegister.u32Value;
-            }
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penPriorityArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enSequencerArg;
+        stRegister.u32Shift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
+        stRegister.u32Shift += ADC_SSPRI_R_SS0_BIT;
+        stRegister.u32Mask = ADC_SSPRI_SS0_MASK;
+        stRegister.uptrAddress = ADC_SSPRI_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penPriorityArg = (ADC_nSEQ_PRIORITY) stRegister.u32Value;
     }
     return (enErrorReg);
 }

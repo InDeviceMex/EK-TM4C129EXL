@@ -43,18 +43,14 @@ SCB_nERROR SCB__enSetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE 
 SCB_nERROR SCB__enEnableUnalignTrap(SCB_nMODULE enModuleArg)
 {
     SCB_nERROR enErrorReg;
-
     enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, SCB_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SCB_nERROR SCB__enDisableUnalignTrap(SCB_nMODULE enModuleArg)
 {
     SCB_nERROR enErrorReg;
-
     enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, SCB_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
@@ -63,20 +59,21 @@ SCB_nERROR SCB__enGetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE*
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStateArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_CCR_R_UNALIGN_TRP_BIT;
         stRegister.u32Mask = SCB_CCR_UNALIGN_TRP_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *penStateArg = (SCB_nSTATE) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

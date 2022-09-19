@@ -45,20 +45,21 @@ ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penReferenceRangeArg)
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) penReferenceRangeArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ACMP_REFCTL_R_RNG_BIT;
         stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
-        }
     }
-    else
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

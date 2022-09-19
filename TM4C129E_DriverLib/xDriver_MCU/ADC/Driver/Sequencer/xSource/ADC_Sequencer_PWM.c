@@ -34,21 +34,16 @@ ADC_nERROR ADC_Sequencer__enSetPWMTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSE
     uint32_t u32SequencerMaskReg;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
         u32SequencerReg = 0U;
         u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
-        while(0U != u32SequencerMaskReg)
+        while((0U != u32SequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
             if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
             {
                 enErrorReg = ADC_Sequencer__enSetPWMTriggerByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enPWMTriggerArg);
-            }
-
-            if(ADC_enERROR_OK != enErrorReg)
-            {
-                break;
             }
             u32SequencerReg++;
             u32SequencerMaskReg >>= 1U;
@@ -85,26 +80,27 @@ ADC_nERROR ADC_Sequencer__enGetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_n
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penPWMTriggerArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            stRegister.u32Shift = (uint32_t) enSequencerArg;
-            stRegister.u32Shift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
-            stRegister.u32Shift += ADC_TSSEL_R_PS0_BIT;
-            stRegister.u32Mask = ADC_TSSEL_PS0_MASK;
-            stRegister.uptrAddress = ADC_TSSEL_OFFSET;
-            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                *penPWMTriggerArg = (ADC_nSEQ_PWM) stRegister.u32Value;
-            }
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penPWMTriggerArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enSequencerArg;
+        stRegister.u32Shift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
+        stRegister.u32Shift += ADC_TSSEL_R_PS0_BIT;
+        stRegister.u32Mask = ADC_TSSEL_PS0_MASK;
+        stRegister.uptrAddress = ADC_TSSEL_OFFSET;
+        enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        *penPWMTriggerArg = (ADC_nSEQ_PWM) stRegister.u32Value;
     }
     return (enErrorReg);
 }

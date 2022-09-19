@@ -38,11 +38,11 @@ EEPROM_nERROR EEPROM__enRegisterIRQSourceHandler(EEPROM_pvfIRQSourceHandler_t pf
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enIntSourceArg, (uint32_t) EEPROM_enINTERRUPT_MAX);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            pvfIrqHandler = EEPROM__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
-            enErrorReg = (EEPROM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
-        }
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = EEPROM__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        enErrorReg = (EEPROM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 
     return (enErrorReg);

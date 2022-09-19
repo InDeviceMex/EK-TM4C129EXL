@@ -31,7 +31,7 @@ uint32_t* EDUMKII_Joystick_vSampleArray(void);
 void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y);
 void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect);
 void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect);
-void EDUMKII_Select_vIRQSourceHandler(void);
+void EDUMKII_Select_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 
 #endif /* XAPPLICATION_EDUMKII_JOYSTICK_XHEADER_JOYSTICK_SAMPLE_H_ */

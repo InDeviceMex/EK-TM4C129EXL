@@ -31,10 +31,10 @@ void ST7735__vInitDataCommand(void)
 
 void ST7735__vSetCommand(void)
 {
-    GPIO__vSetData(GPIO_enPORT_L, GPIO_enPINMASK_3, 0UL);
+    GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_LOW);
 }
 
 void ST7735__vSetData(void)
 {
-    GPIO__vSetData(GPIO_enPORT_L, GPIO_enPINMASK_3, GPIO_enPINMASK_3);
+    GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_HIGH);
 }

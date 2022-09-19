@@ -37,16 +37,11 @@ DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMA
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, pstControlArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -79,18 +74,19 @@ DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
     volatile uint32_t *pu32ControlReg;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pstControlArg)
-    {
-    pu32ControlReg = (volatile uint32_t*) pstControlArg;
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
-    stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) *pu32ControlReg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-    }
-    else
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        pu32ControlReg = (volatile uint32_t*) pstControlArg;
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
+        stRegister.u32Value = (uint32_t) *pu32ControlReg;
+        enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
 
     return (enErrorReg);
@@ -120,21 +116,22 @@ DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
     volatile uint32_t* pu32ControlReg;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pstControlArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            pu32ControlReg = (volatile uint32_t*) pstControlArg;
-            *pu32ControlReg = stRegister.u32Value;
-        }
-}
-    else
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        pu32ControlReg = (volatile uint32_t*) pstControlArg;
+        *pu32ControlReg = stRegister.u32Value;
     }
 
     return (enErrorReg);
@@ -169,16 +166,11 @@ DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK 
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, u32ControlArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -242,20 +234,21 @@ DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32ControlArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pu32ControlArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *pu32ControlArg = stRegister.u32Value;
-        }
-}
-    else
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *pu32ControlArg = stRegister.u32Value;
     }
 
     return (enErrorReg);

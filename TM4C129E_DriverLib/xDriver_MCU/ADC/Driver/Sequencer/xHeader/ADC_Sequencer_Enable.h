@@ -34,7 +34,7 @@ ADC_nERROR ADC_Sequencer__enSetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUE
 
 ADC_nERROR ADC_Sequencer__enGetStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                            ADC_nSEQMASK* penSequencerMaskReqArg);
-ADC_nERROR ADC_Sequencer__GetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+ADC_nERROR ADC_Sequencer__enGetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                            ADC_nSTATE* penStateArg);
 
 ADC_nERROR ADC_Sequencer__enSetDMAStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
@@ -44,7 +44,7 @@ ADC_nERROR ADC_Sequencer__enSetDMAStateByNumber(ADC_nMODULE enModuleArg, ADC_nSE
 
 ADC_nERROR ADC_Sequencer__enGetDMAStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                               ADC_nSEQMASK* penSequencerMaskReqArg);
-ADC_nERROR ADC_Sequencer__GetDMAStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
+ADC_nERROR ADC_Sequencer__enGetDMAStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                               ADC_nSTATE* penDMAStateArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_SEQUENCER_XHEADER_ADC_SEQUENCER_ENABLE_H_ */

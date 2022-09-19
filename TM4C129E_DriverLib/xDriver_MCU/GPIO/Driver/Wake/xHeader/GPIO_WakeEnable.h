@@ -27,8 +27,17 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
-                          GPIO_nSTATE enWakeEnable);
-GPIO_nSTATE GPIO__enGetWakeEnable(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetWakeUpStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enSetWakeUpStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                           GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enEnableWakeUpByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enEnableWakeUpByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enDisableWakeUpByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enDisableWakeUpByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enGetWakeUpStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                         GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetWakeUpStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_WAKE_XHEADER_GPIO_WAKEENABLE_H_ */

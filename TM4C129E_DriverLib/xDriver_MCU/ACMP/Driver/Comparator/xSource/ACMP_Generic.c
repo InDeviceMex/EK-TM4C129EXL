@@ -32,21 +32,22 @@ ACMP_nERROR ACMP__enSetCompGeneric(ACMP_nMODULE enModuleArg, ACMP_nCOMP enCompar
     uint32_t u32ComparatorReg;
     ACMP_nERROR enErrorReg;
 
+    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) pstRegisterDataArg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams(enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            u32ComparatorReg = (uint32_t) enComparatorArg;
-            u32ComparatorReg *= ACMP_COMP_REGISTER_NUM; /*Add offset for COMP ComparatorArg*/
-            u32ComparatorReg *= 4UL;
-            pstRegisterDataArg->uptrAddress += u32ComparatorReg;
-            enErrorReg = ACMP__enWriteRegister(enModuleArg, pstRegisterDataArg);
-        }
-    }
-    else
-    {
         enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams(enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        u32ComparatorReg = (uint32_t) enComparatorArg;
+        u32ComparatorReg *= ACMP_COMP_REGISTER_NUM; /*Add offset for COMP ComparatorArg*/
+        u32ComparatorReg *= 4UL;
+        pstRegisterDataArg->uptrAddress += u32ComparatorReg;
+        enErrorReg = ACMP__enWriteRegister(enModuleArg, pstRegisterDataArg);
     }
     return (enErrorReg);
 }
@@ -56,21 +57,22 @@ ACMP_nERROR ACMP__enGetCompGeneric(ACMP_nMODULE enModuleArg, ACMP_nCOMP enCompar
     uint32_t u32ComparatorReg;
     ACMP_nERROR enErrorReg;
 
+    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) pstRegisterDataArg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams(enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            u32ComparatorReg = (uint32_t) enComparatorArg;
-            u32ComparatorReg *= ACMP_COMP_REGISTER_NUM; /*Add offset for COMP ComparatorArg*/
-            u32ComparatorReg *= 4UL;
-            pstRegisterDataArg->uptrAddress += u32ComparatorReg;
-            enErrorReg = ACMP__enReadRegister(enModuleArg, pstRegisterDataArg);
-        }
-    }
-    else
-    {
         enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams(enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        u32ComparatorReg = (uint32_t) enComparatorArg;
+        u32ComparatorReg *= ACMP_COMP_REGISTER_NUM; /*Add offset for COMP ComparatorArg*/
+        u32ComparatorReg *= 4UL;
+        pstRegisterDataArg->uptrAddress += u32ComparatorReg;
+        enErrorReg = ACMP__enReadRegister(enModuleArg, pstRegisterDataArg);
     }
     return (enErrorReg);
 }

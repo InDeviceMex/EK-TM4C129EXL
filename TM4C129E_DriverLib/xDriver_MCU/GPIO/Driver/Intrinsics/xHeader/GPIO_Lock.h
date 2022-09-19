@@ -27,9 +27,11 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vUnlock(GPIO_nPORT enPort);
-void GPIO__vLock(GPIO_nPORT enPort);
-
-GPIO_nLOCK GPIO__enIsLocked(GPIO_nPORT enPort);
+GPIO_nERROR GPIO__enSetLockState(GPIO_nPORT enPortArg,
+                                 GPIO_nLOCK enLockArg);
+GPIO_nERROR GPIO__enUnlock(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__enLock(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__IsLocked(GPIO_nPORT enPortArg,
+                           GPIO_nLOCK* penLockArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_LOCK_H_ */

@@ -32,20 +32,21 @@ SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* e
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) enStateArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) enStateArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_ICSR_R_ISRPENDING_BIT;
         stRegister.u32Mask = SCB_ICSR_ISRPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -55,20 +56,21 @@ SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enV
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) enVectorArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) enVectorArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_ICSR_R_VECTPENDING_BIT;
         stRegister.u32Mask = SCB_ICSR_VECTPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -78,20 +80,21 @@ SCB_nERROR SCB_ISR__enGetVectorActive(SCB_nMODULE enModuleArg, SCB_nVECISR* enVe
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) enVectorArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) enVectorArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SCB_ICSR_R_VECTACTIVE_BIT;
         stRegister.u32Mask = SCB_ICSR_VECTACTIVE_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
     }
     return (enErrorReg);
 }

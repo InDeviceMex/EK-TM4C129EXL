@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nINTTYPE enIntTypeArg);
-GPIO_nINTTYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetInterruptType(GPIO_nPORT enPortArg,
+                                     GPIO_nINTTYPE enTypeArg);
+GPIO_nERROR GPIO__enGetInterruptType(GPIO_nPORT enPortArg,
+                                     GPIO_nINTTYPE* penTypeArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_INTERRUPTTYPE_H_ */

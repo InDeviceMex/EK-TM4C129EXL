@@ -39,23 +39,23 @@ EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, uint32_t u
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         u32MaxAddressReg <<= 2UL;
-        if(u32MaxAddressReg > u32CurrentAddressArg)
-        {
-            u32BlockReg = u32CurrentAddressArg;
-            u32BlockReg >>= 6UL;
-            enErrorReg = EEPROM__enSetCurrentBlock(enModuleArg, u32BlockReg);
-            if(EEPROM_enERROR_OK == enErrorReg)
-            {
-                u32OffsetReg = u32CurrentAddressArg;
-                u32OffsetReg >>= 2UL;
-                u32OffsetReg &= 0xFUL;
-                enErrorReg = EEPROM__enSetCurrentOffset(enModuleArg, u32OffsetReg);
-            }
-        }
-        else
+        if(u32MaxAddressReg <= u32CurrentAddressArg)
         {
             enErrorReg = EEPROM_enERROR_RANGE;
         }
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        u32BlockReg = u32CurrentAddressArg;
+        u32BlockReg >>= 6UL;
+        enErrorReg = EEPROM__enSetCurrentBlock(enModuleArg, u32BlockReg);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        u32OffsetReg = u32CurrentAddressArg;
+        u32OffsetReg >>= 2UL;
+        u32OffsetReg &= 0xFUL;
+        enErrorReg = EEPROM__enSetCurrentOffset(enModuleArg, u32OffsetReg);
     }
 
     return (enErrorReg);
@@ -68,27 +68,28 @@ EEPROM_nERROR EEPROM__enGetCurrentAddress(EEPROM_nMODULE enModuleArg, uint32_t* 
     uint32_t u32BlockReg;
     uint32_t u32OffsetReg;
 
-    if(0UL != (uintptr_t) pu32CurrentAddressArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pu32CurrentAddressArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         u32BlockReg = 0UL;
         enErrorReg = EEPROM__enGetCurrentBlock(enModuleArg, &u32BlockReg);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            u32BlockReg <<= 6UL;
-            u32OffsetReg = 0UL;
-            enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
-            if(EEPROM_enERROR_OK == enErrorReg)
-            {
-                u32OffsetReg <<= 2UL;
-                u32CurrentAddressReg = (uint32_t) u32BlockReg;
-                u32CurrentAddressReg |= u32OffsetReg;
-                *pu32CurrentAddressArg = (uint32_t) u32CurrentAddressReg;
-            }
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        u32BlockReg <<= 6UL;
+        u32OffsetReg = 0UL;
+        enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        u32OffsetReg <<= 2UL;
+        u32CurrentAddressReg = (uint32_t) u32BlockReg;
+        u32CurrentAddressReg |= u32OffsetReg;
+        *pu32CurrentAddressArg = (uint32_t) u32CurrentAddressReg;
     }
     return (enErrorReg);
 }

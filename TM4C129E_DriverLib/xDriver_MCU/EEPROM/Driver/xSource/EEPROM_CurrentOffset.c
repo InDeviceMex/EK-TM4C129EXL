@@ -45,20 +45,21 @@ EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, uint32_t* p
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32CurrentOffsetArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pu32CurrentOffsetArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = EEPROM_OFFSET_R_OFFSET_BIT;
         stRegister.u32Mask = EEPROM_OFFSET_OFFSET_MASK;
         stRegister.uptrAddress = EEPROM_OFFSET_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            *pu32CurrentOffsetArg = stRegister.u32Value;
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        *pu32CurrentOffsetArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

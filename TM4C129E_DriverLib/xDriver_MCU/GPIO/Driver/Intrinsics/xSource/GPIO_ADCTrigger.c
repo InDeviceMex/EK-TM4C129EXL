@@ -1,6 +1,6 @@
 /**
  *
- * @file GPIO_ADCTrigger.c
+ * @file GPIO_GPIOTrigger.c
  * @copyright
  * @verbatim InDeviceMex 2020 @endverbatim
  *
@@ -23,27 +23,151 @@
  */
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_ADCTrigger.h>
 
-#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vEnADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enSetADCTriggerStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nSTATE enStateArg)
 {
-    GPIO__vEnGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
+    GPIO_Register_t stRegister;
+    uint32_t u32ValueReg;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enSTATE_DIS == enStateArg)
+        {
+            u32ValueReg = 0UL;
+        }
+        else
+        {
+            u32ValueReg = (uint32_t) enPinMaskArg;
+        }
+        stRegister.u32Shift = GPIO_ADCCTL_R_PIN0_BIT;
+        stRegister.u32Mask = (uint32_t) enPinMaskArg;
+        stRegister.uptrAddress = GPIO_ADCCTL_OFFSET;
+        stRegister.u32Value = u32ValueReg;
+        enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
 
-void GPIO__vDisADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enSetADCTriggerStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE enStateArg)
 {
-    GPIO__vDisGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enPinArg;
+        stRegister.u32Shift += GPIO_ADCCTL_R_PIN0_BIT;
+        stRegister.u32Mask = GPIO_ADCCTL_PIN0_MASK;
+        stRegister.uptrAddress = GPIO_ADCCTL_OFFSET;
+        stRegister.u32Value = (uint32_t) enStateArg;
+        enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
 
-void GPIO__vSetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature)
+GPIO_nERROR GPIO__enEnableADCTriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO__vSetGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin, (uint32_t) enFeature);
+    GPIO_nERROR enReturnReg;
+
+    enReturnReg = GPIO__enSetADCTriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+
+    return (enReturnReg);
 }
 
-GPIO_nSTATE GPIO__enGetADCTrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enEnableADCTriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nSTATE enAdcTriggerReg = GPIO_enSTATE_DIS;
-    enAdcTriggerReg = (GPIO_nSTATE) GPIO__u32GetGeneric(enPort, GPIO_ADCCTL_OFFSET, enPin);
-    return (enAdcTriggerReg);
+    GPIO_nERROR enReturnReg;
+
+    enReturnReg = GPIO__enSetADCTriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+
+    return (enReturnReg);
 }
+
+GPIO_nERROR GPIO__enDisableADCTriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
+{
+    GPIO_nERROR enReturnReg;
+
+    enReturnReg = GPIO__enSetADCTriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+
+    return (enReturnReg);
+}
+
+GPIO_nERROR GPIO__enDisableADCTriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
+{
+    GPIO_nERROR enReturnReg;
+
+    enReturnReg = GPIO__enSetADCTriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+
+    return (enReturnReg);
+}
+
+GPIO_nERROR GPIO__enGetADCTriggerStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nPINMASK* penPinMaskReqArg)
+{
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penPinMaskReqArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = GPIO_ADCCTL_R_PIN0_BIT;
+        stRegister.u32Mask = (uint32_t) enPinMaskArg;
+        stRegister.uptrAddress = GPIO_ADCCTL_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.u32Value;
+    }
+    return (enErrorReg);
+}
+
+GPIO_nERROR GPIO__enGetADCTriggerStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE* penStateArg)
+{
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enPinArg;
+        stRegister.u32Shift += GPIO_ADCCTL_R_PIN0_BIT;
+        stRegister.u32Mask = GPIO_ADCCTL_PIN0_MASK;
+        stRegister.uptrAddress = GPIO_ADCCTL_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (GPIO_nSTATE) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
+}
+

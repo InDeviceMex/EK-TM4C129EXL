@@ -27,10 +27,18 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vEnDMATrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vDisDMATrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vSetDMATrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature);
+GPIO_nERROR GPIO__enSetDMATriggerStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enSetDMATriggerStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enEnableDMATriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enEnableDMATriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enDisableDMATriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg);
+GPIO_nERROR GPIO__enDisableDMATriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO__enGetDMATriggerStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetDMATriggerStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nSTATE* penStateArg);
 
-GPIO_nSTATE GPIO__enGetDMATrigger(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DMATRIGGER_H_ */

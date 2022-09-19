@@ -40,25 +40,26 @@ SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg)
     return (enErrorReg);
 }
 SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
-
                                          uint32_t* u32ValueArg)
 {
     SYSTICK_Register_t stRegister;
-
     SYSTICK_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) u32ValueArg)
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == (uintptr_t) u32ValueArg)
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SYSTICK_CVR_R_CURRENT_BIT;
         stRegister.u32Mask = MCU_MASK_32;
         stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-
-        *u32ValueArg = stRegister.u32Value;
     }
-    else
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SYSTICK_enERROR_POINTER;
+        *u32ValueArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

@@ -35,7 +35,7 @@ ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK en
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
         u32SequencerReg = 0U;
@@ -80,19 +80,19 @@ ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCE
         stRegister.uptrAddress = ADC_SS_EMUX_OFFSET;
         stRegister.u32Value = (uint32_t) u32ExtendedInputReg;
         enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+    }
 
-        if(ADC_enERROR_OK == enErrorReg)
-        {
+    if(ADC_enERROR_OK == enErrorReg)
+    {
 
-            u32InputReg = (uint32_t) enInputArg;
-            u32InputReg &= ADC_SS_MUX_MUX0_MASK;
+        u32InputReg = (uint32_t) enInputArg;
+        u32InputReg &= ADC_SS_MUX_MUX0_MASK;
 
-            stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
-            stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
-            stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
-            stRegister.u32Value = (uint32_t) u32InputReg;
-            enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-        }
+        stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
+        stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
+        stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
+        stRegister.u32Value = (uint32_t) u32InputReg;
+        enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
     }
     return (enErrorReg);
 }
@@ -104,31 +104,33 @@ ADC_nERROR ADC_Sample__enGetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCE
     ADC_nERROR enErrorReg;
     uint32_t u32InputReg;
 
-    if(0UL != (uintptr_t) penInputArg)
+    u32InputReg = 0UL;
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penInputArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_SS_EMUX_R_EMUX0_BIT;
         stRegister.u32Mask = ADC_SS_EMUX_EMUX0_MASK;
         stRegister.uptrAddress = ADC_SS_EMUX_OFFSET;
         enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            u32InputReg = stRegister.u32Value;
-            u32InputReg <<= ADC_SS_MUX_R_MUX1_BIT;
-
-            stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
-            stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
-            stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
-            enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                u32InputReg |= stRegister.u32Value;
-                *penInputArg = (ADC_nINPUT) u32InputReg;
-            }
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        u32InputReg = stRegister.u32Value;
+        u32InputReg <<= ADC_SS_MUX_R_MUX1_BIT;
+
+        stRegister.u32Shift = ADC_SS_MUX_R_MUX0_BIT;
+        stRegister.u32Mask = ADC_SS_MUX_MUX0_MASK;
+        stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
+        enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32InputReg |= stRegister.u32Value;
+        *penInputArg = (ADC_nINPUT) u32InputReg;
     }
     return (enErrorReg);
 }

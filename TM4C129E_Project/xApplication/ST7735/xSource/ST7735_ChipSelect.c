@@ -31,10 +31,10 @@ void ST7735__vInitChipSelect(void)
 
 void ST7735__vEnableChipSelect(void)
 {
-    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_2, 0UL);
+    GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
 }
 
 void ST7735__vDisableChipSelect(void)
 {
-    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPINMASK_2, GPIO_enPINMASK_2);
+    GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_HIGH);
 }

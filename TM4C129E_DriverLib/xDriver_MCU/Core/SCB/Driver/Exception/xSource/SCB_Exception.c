@@ -30,10 +30,10 @@ SCB_nERROR SCB__enEnableAllExceptions(SCB_nMODULE enModuleArg)
     if(SCB_enERROR_OK == enErrorReg)
     {
         enErrorReg = SCB_BusFault__enEnable(enModuleArg);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = SCB_MemoryFault__enEnable(enModuleArg);
-        }
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB_MemoryFault__enEnable(enModuleArg);
     }
     return (enErrorReg);
 }

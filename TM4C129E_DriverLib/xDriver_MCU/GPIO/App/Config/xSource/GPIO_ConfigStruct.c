@@ -25,76 +25,76 @@
 
 #include <stdlib.h>
 
-void GPIO__vCreateConfigStructPointer(GPIO_nCONFIG enConfig, GPIO_CONFIG_t *pstConfig)
+GPIO_nERROR GPIO__enConvertConfigStructure(GPIO_nCONFIG enConfigArg,
+                                           GPIO_CONFIG_t* pstConfigArg)
 {
-    uint32_t u32Reg = 0UL;
-    uint32_t u32Config = 0UL;
-    if(0UL != (uint32_t) pstConfig)
+    GPIO_nERROR enErrorReg;
+    uint32_t u32DriveReg;
+    uint32_t u32ResistorReg;
+    uint32_t u32OutputReg;
+    uint32_t u32DirectionReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) pstConfigArg)
     {
-        u32Config = (uint32_t) enConfig;
-        u32Reg = u32Config;
-        u32Reg >>= 0UL;
-        u32Reg &= 0x3UL;
-        pstConfig->enResistorMode = (GPIO_nRESMODE) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 4UL;
-        u32Reg &= 0x1UL;
-        pstConfig->enOutputMode = (GPIO_nOUTMODE) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 8UL;
-        u32Reg &= 0x1UL;
-        pstConfig->enDirection = (GPIO_nDIR) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 16UL;
-        u32Reg &= 0x0103U;
-        pstConfig->enDrive = (GPIO_nDRIVE) u32Reg;
+        enErrorReg = GPIO_enERROR_POINTER;
     }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32ResistorReg = (uint32_t) enConfigArg;
+        u32ResistorReg >>= 0UL;
+        u32ResistorReg &= 0xFUL;
+        pstConfigArg->enResistorMode = (GPIO_nRESMODE) u32ResistorReg;
+
+        u32OutputReg = (uint32_t) enConfigArg;
+        u32OutputReg >>= 4UL;
+        u32OutputReg &= 0xFUL;
+        pstConfigArg->enOutputMode = (GPIO_nOUTMODE) u32OutputReg;
+
+        u32DirectionReg = (uint32_t) enConfigArg;
+        u32DirectionReg >>= 8UL;
+        u32DirectionReg &= 0xFFUL;
+        pstConfigArg->enDirection = (GPIO_nDIR) u32DirectionReg;
+
+        u32DriveReg = (uint32_t) enConfigArg;
+        u32DriveReg >>= 16UL;
+        u32DriveReg &= 0xFFFFU;
+        pstConfigArg->enDrive = (GPIO_nDRIVE) u32DriveReg;
+    }
+    return (enErrorReg);
 }
 
-GPIO_CONFIG_t* GPIO__pstCreateConfigStruct(GPIO_nCONFIG enConfig)
+GPIO_nERROR GPIO__enConvertConfigStructure_Create(GPIO_nCONFIG enConfigArg,
+                                                  GPIO_CONFIG_t** pstConfigArg)
 {
-    uint32_t u32Reg = 0UL;
-    uint32_t u32Config = 0UL;
-    GPIO_CONFIG_t *pstConfig = 0UL;
+    GPIO_CONFIG_t *pstConfigReg;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) pstConfigArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    pstConfig = (GPIO_CONFIG_t*) memalign( (size_t) 4,
-                                                 (size_t) (sizeof(GPIO_CONFIG_t)));
+        pstConfigReg = (GPIO_CONFIG_t*) memalign( (size_t) 4,
+                                                     (size_t) (sizeof(GPIO_CONFIG_t)));
 #elif defined (__GNUC__ )
-    pstConfig = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
-    #endif
-
-    if(0UL != (uint32_t) pstConfig)
-    {
-        u32Config = (uint32_t) enConfig;
-        u32Reg = u32Config;
-        u32Reg >>= 0UL;
-        u32Reg &= 0x3UL;
-        pstConfig->enResistorMode = (GPIO_nRESMODE) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 4UL;
-        u32Reg &= 0x1UL;
-        pstConfig->enOutputMode = (GPIO_nOUTMODE) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 8UL;
-        u32Reg &= 0x1UL;
-        pstConfig->enDirection = (GPIO_nDIR) u32Reg;
-
-        u32Reg = u32Config;
-        u32Reg >>= 16UL;
-        u32Reg &= 0x0103U;
-        pstConfig->enDrive = (GPIO_nDRIVE) u32Reg;
+        pstConfigReg = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
+#endif
+        enErrorReg = GPIO__enConvertConfigStructure(enConfigArg, pstConfigReg);
     }
-    return (pstConfig);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *pstConfigArg = pstConfigReg;
+    }
+    return (enErrorReg);
 }
 
-void GPIO__vDeleteConfigStruct(GPIO_CONFIG_t *pstConfig)
+void GPIO__vDeleteConfigStruct(GPIO_CONFIG_t *pstConfigArg)
 {
-    free(pstConfig);
-    pstConfig = (GPIO_CONFIG_t*) 0UL;
+    free(pstConfigArg);
+    pstConfigArg = (GPIO_CONFIG_t*) 0UL;
 }
 

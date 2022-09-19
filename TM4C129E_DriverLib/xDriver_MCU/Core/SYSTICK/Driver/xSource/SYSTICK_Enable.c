@@ -59,21 +59,23 @@ SYSTICK_nERROR SYSTICK__enGetState(SYSTICK_nMODULE enModuleArg,
                                    SYSTICK_nSTATE* penEnableStateArg)
 {
     SYSTICK_Register_t stRegister;
-
     SYSTICK_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penEnableStateArg)
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == (uintptr_t) penEnableStateArg)
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SYSTICK_CSR_R_ENABLE_BIT;
         stRegister.u32Mask = SYSTICK_CSR_ENABLE_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-
-        *penEnableStateArg = (SYSTICK_nSTATE) stRegister.u32Value;
     }
-    else
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SYSTICK_enERROR_POINTER;
+        *penEnableStateArg = (SYSTICK_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

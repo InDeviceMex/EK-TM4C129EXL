@@ -27,8 +27,6 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vWriteRegister(GPIO_nPORT enPort, uint32_t u32OffsetRegister,
-                          uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                          uint32_t u32BitFeature);
+GPIO_nERROR GPIO__enWriteRegister(GPIO_nPORT enPortArg, GPIO_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_GPIO_WRITEREGISTER_H_ */

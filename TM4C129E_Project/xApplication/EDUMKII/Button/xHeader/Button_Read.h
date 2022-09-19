@@ -28,6 +28,6 @@
 
 EDUMKII_nBUTTON EDUMKII_Button_enRead(EDUMKII_nBUTTON enButtonSelect);
 
-void EDUMKII_Button1_vIRQSourceHandler(void);
-void EDUMKII_Button2_vIRQSourceHandler(void);
+void EDUMKII_Button1_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
+void EDUMKII_Button2_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 #endif /* XAPPLICATION_EDUMKII_BUTTON_XHEADER_BUTTON_READ_H_ */

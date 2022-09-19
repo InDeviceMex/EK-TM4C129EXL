@@ -39,32 +39,33 @@ ADC_nERROR ADC_Sample__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nSEQUENCER  enS
     uint32_t u32SampleNumMaxReg;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            u32SampleNumMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
-            enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleNumMaxReg);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                u32BitReg = (uint32_t) enSampleArg;
-                u32BitReg <<= 2UL; /* each mux has 4 bits*/
-                pstRegisterDataArg->u32Shift += u32BitReg;
-
-                uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
-                uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-                uptrSequencerOffsetReg <<= 2UL;
-                uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-                pstRegisterDataArg->uptrAddress += uptrSequencerOffsetReg;
-
-                enErrorReg = ADC__enWriteRegister(enModuleArg, pstRegisterDataArg);
-            }
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32SampleNumMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleNumMaxReg);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32BitReg = (uint32_t) enSampleArg;
+        u32BitReg <<= 2UL; /* each mux has 4 bits*/
+        pstRegisterDataArg->u32Shift += u32BitReg;
+
+        uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
+        uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uptrSequencerOffsetReg <<= 2UL;
+        uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        pstRegisterDataArg->uptrAddress += uptrSequencerOffsetReg;
+
+        enErrorReg = ADC__enWriteRegister(enModuleArg, pstRegisterDataArg);
     }
     return (enErrorReg);
 }
@@ -77,32 +78,33 @@ ADC_nERROR ADC_Sample__enGetGeneric(ADC_nMODULE enModuleArg, ADC_nSEQUENCER  enS
     uint32_t u32SampleNumMaxReg;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            u32SampleNumMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
-            enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleNumMaxReg);
-            if(ADC_enERROR_OK == enErrorReg)
-            {
-                u32BitReg = (uint32_t) enSampleArg;
-                u32BitReg <<= 2UL; /* each mux has 4 bits*/
-                pstRegisterDataArg->u32Shift += u32BitReg;
-
-                uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
-                uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-                uptrSequencerOffsetReg <<= 2UL;
-                uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-                pstRegisterDataArg->uptrAddress += uptrSequencerOffsetReg;
-
-                enErrorReg = ADC__enReadRegister(enModuleArg, pstRegisterDataArg);
-            }
-        }
-    }
-    else
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32SampleNumMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleNumMaxReg);
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        u32BitReg = (uint32_t) enSampleArg;
+        u32BitReg <<= 2UL; /* each mux has 4 bits*/
+        pstRegisterDataArg->u32Shift += u32BitReg;
+
+        uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
+        uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uptrSequencerOffsetReg <<= 2UL;
+        uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        pstRegisterDataArg->uptrAddress += uptrSequencerOffsetReg;
+
+        enErrorReg = ADC__enReadRegister(enModuleArg, pstRegisterDataArg);
     }
     return (enErrorReg);
 }

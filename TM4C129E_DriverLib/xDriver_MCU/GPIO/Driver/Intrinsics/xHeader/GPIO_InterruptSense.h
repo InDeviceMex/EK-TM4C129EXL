@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetIntSense(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSENSE enSense);
-GPIO_nSENSE GPIO__enGetIntSense(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetInterruptSenseByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                            GPIO_nSENSE enSenseArg);
+GPIO_nERROR GPIO__enSetInterruptSenseByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nSENSE enSenseArg);
+
+GPIO_nERROR GPIO__enGetInterruptSenseByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetInterruptSenseByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nSENSE* penSenseArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_INTERRUPTSENSE_H_ */

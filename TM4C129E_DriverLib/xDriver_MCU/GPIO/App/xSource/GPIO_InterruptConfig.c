@@ -27,25 +27,54 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptLevel.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptSense.h>
 
-void GPIO__vSetInterruptSourceConfig(GPIO_nPORT enPort, GPIO_nPINMASK enPin,
-                                     GPIO_nINT_CONFIG enIntConfigArg)
+GPIO_nERROR GPIO__enSetInterruptConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                               GPIO_nINT_CONFIG enIntConfigArg)
 {
-    uint32_t u32Sense = 0UL;
-    uint32_t u32Event = 0UL;
+    uint32_t u32SenseReg;
+    uint32_t u32EventReg;
+    GPIO_nERROR enErrorReg;
 
-    u32Sense = (uint32_t) enIntConfigArg;
-    u32Sense >>= 8UL;
-    u32Sense &= 1UL;
+    u32EventReg = (uint32_t) enIntConfigArg;
+    u32EventReg &= 0xFFUL;
 
-    u32Event = (uint32_t) enIntConfigArg;
-    u32Event &= 0x3UL;
+    u32SenseReg = (uint32_t) enIntConfigArg;
+    u32SenseReg >>= 8UL;
+    u32SenseReg &= 0xFFUL;
 
-    if((uint32_t) GPIO_enSENSE_EDGE == u32Sense)
+    if((uint32_t) GPIO_enSENSE_EDGE == u32SenseReg)
     {
-        GPIO__vSetIntEdge(enPort, enPin, (GPIO_nEDGE) u32Event);
+        enErrorReg = GPIO__enSetInterruptEdgeByNumber(enPortArg, enPinArg, (GPIO_nEDGE) u32EventReg);
     }
     else
     {
-        GPIO__vSetIntLevel(enPort, enPin, (GPIO_nLEVEL) u32Event);
+        enErrorReg = GPIO__enSetInterruptLevelByNumber(enPortArg, enPinArg, (GPIO_nLEVEL) u32EventReg);
     }
+
+    return(enErrorReg);
+}
+
+GPIO_nERROR GPIO__enSetInterruptConfigByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                               GPIO_nINT_CONFIG enIntConfigArg)
+{
+    uint32_t u32SenseReg;
+    uint32_t u32EventReg;
+    GPIO_nERROR enErrorReg;
+
+    u32EventReg = (uint32_t) enIntConfigArg;
+    u32EventReg &= 0xFFUL;
+
+    u32SenseReg = (uint32_t) enIntConfigArg;
+    u32SenseReg >>= 8UL;
+    u32SenseReg &= 0xFFUL;
+
+    if((uint32_t) GPIO_enSENSE_EDGE == u32SenseReg)
+    {
+        enErrorReg = GPIO__enSetInterruptEdgeByMask(enPortArg, enPinMaskArg, (GPIO_nEDGE) u32EventReg);
+    }
+    else
+    {
+        enErrorReg = GPIO__enSetInterruptLevelByMask(enPortArg, enPinMaskArg, (GPIO_nLEVEL) u32EventReg);
+    }
+
+    return(enErrorReg);
 }

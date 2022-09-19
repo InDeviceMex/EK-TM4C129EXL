@@ -45,20 +45,21 @@ ADC_nERROR ADC__enGetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RAT
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penConversionRateArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penConversionRateArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_PC_R_MCR_BIT;
         stRegister.u32Mask = ADC_PC_MCR_MASK;
         stRegister.uptrAddress = ADC_PC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penConversionRateArg = (ADC_nCONVERSION_RATE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penConversionRateArg = (ADC_nCONVERSION_RATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

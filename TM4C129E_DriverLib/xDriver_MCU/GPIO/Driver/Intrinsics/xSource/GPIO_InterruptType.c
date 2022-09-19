@@ -23,24 +23,63 @@
  */
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptType.h>
 
-#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nINTTYPE enIntTypeArg)
+GPIO_nERROR GPIO__enSetInterruptType(GPIO_nPORT enPortArg,
+                                     GPIO_nINTTYPE enTypeArg)
 {
-    if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if((GPIO_enPORT_P != enPortArg) && (GPIO_enPORT_Q != enPortArg))
     {
-        GPIO__vSetGeneric(enPort, GPIO_SI_OFFSET, enPin, (uint32_t) enIntTypeArg);
+        enErrorReg = GPIO_enERROR_RANGE;
     }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = GPIO_SI_R_SUM_BIT;
+        stRegister.u32Mask = GPIO_SI_SUM_MASK;
+        stRegister.uptrAddress = GPIO_SI_OFFSET;
+        stRegister.u32Value = (uint32_t) enTypeArg;
+        enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
 
-GPIO_nINTTYPE GPIO__enGetIntType(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enGetInterruptType(GPIO_nPORT enPortArg,
+                                     GPIO_nINTTYPE* penTypeArg)
 {
-    GPIO_nINTTYPE enTypeReg = GPIO_enINTTYPE_UNDEF;
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
 
-    if((GPIO_enPORT_P == enPort) || (GPIO_enPORT_Q == enPort))
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penTypeArg)
     {
-        enTypeReg = (GPIO_nINTTYPE) GPIO__u32GetGeneric(enPort, GPIO_SI_OFFSET, enPin);
+        enErrorReg = GPIO_enERROR_POINTER;
     }
-    return (enTypeReg);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if((GPIO_enPORT_P != enPortArg) && (GPIO_enPORT_Q != enPortArg))
+        {
+            enErrorReg = GPIO_enERROR_RANGE;
+        }
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+            stRegister.u32Shift = GPIO_SI_R_SUM_BIT;
+            stRegister.u32Mask = GPIO_SI_SUM_MASK;
+            stRegister.uptrAddress = GPIO_SI_OFFSET;
+            enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penTypeArg = (GPIO_nINTTYPE) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }
+

@@ -89,10 +89,10 @@ void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgumen
 }
 
 
-void EDUMKII_Select_vIRQSourceHandler(void)
+void EDUMKII_Select_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     uint32_t u32ValueButton1 = 0UL;
-    u32ValueButton1= GPIO__u32GetData(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
+    GPIO__enGetDataByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, (GPIO_nPINMASK*) &u32ValueButton1);
     if(0UL == u32ValueButton1)
     {
         enSelectStatus = EDUMKII_enJOYSTICK_PRESS;

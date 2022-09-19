@@ -37,16 +37,11 @@ DMA_nERROR DMA_CH__enSetDestinationTransferIncrementByMask(DMA_nMODULE enModuleA
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetDestinationTransferIncrementByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enIncrementArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -110,20 +105,21 @@ DMA_nERROR DMA_CH__enGetDestinationTransferIncrementByNumber(DMA_nMODULE enModul
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penIncrementArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penIncrementArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = DMA_CH_CTL_R_DSTINC_BIT;
         stRegister.u32Mask = DMA_CH_CTL_DSTINC_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *penIncrementArg = (DMA_nCH_INCREMENT) stRegister.u32Value;
-        }
-}
-    else
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *penIncrementArg = (DMA_nCH_INCREMENT) stRegister.u32Value;
     }
 
     return (enErrorReg);

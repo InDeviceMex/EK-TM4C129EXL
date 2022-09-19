@@ -65,21 +65,23 @@ SYSTICK_nERROR SYSTICK__enGetReloadValue(SYSTICK_nMODULE enModuleArg,
                                          uint32_t* u32ValueArg)
 {
     SYSTICK_Register_t stRegister;
-
     SYSTICK_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) u32ValueArg)
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == (uintptr_t) u32ValueArg)
+    {
+        enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = SYSTICK_RVR_R_RELOAD_BIT;
         stRegister.u32Mask = SYSTICK_RVR_RELOAD_MASK;
         stRegister.uptrAddress = SYSTICK_RVR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-
-        *u32ValueArg = stRegister.u32Value;
     }
-    else
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SYSTICK_enERROR_POINTER;
+        *u32ValueArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

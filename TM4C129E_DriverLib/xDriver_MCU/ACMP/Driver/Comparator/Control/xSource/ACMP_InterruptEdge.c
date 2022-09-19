@@ -37,7 +37,7 @@ ACMP_nERROR ACMP__enSetComparatorInterruptTriggerEdge(ACMP_nMODULE enModuleArg,
     stRegister.u32Mask = ACMP_CTL_ISEN_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.u32Value = (uint32_t) enTriggerEdgeArg;
-    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
     return (enErrorReg);
 }
@@ -49,20 +49,21 @@ ACMP_nERROR ACMP__enGetComparatorInterruptTriggerEdge(ACMP_nMODULE enModuleArg,
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penTriggerEdgeArg)
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) penTriggerEdgeArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ACMP_CTL_R_ISEN_BIT;
         stRegister.u32Mask = ACMP_CTL_ISEN_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            *penTriggerEdgeArg = (ACMP_nEDGE) stRegister.u32Value;
-        }
     }
-    else
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        *penTriggerEdgeArg = (ACMP_nEDGE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

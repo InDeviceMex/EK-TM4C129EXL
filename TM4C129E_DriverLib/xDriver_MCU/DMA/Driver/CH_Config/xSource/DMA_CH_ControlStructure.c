@@ -83,20 +83,21 @@ DMA_nERROR DMA_CH__enGetActiveControStructureByMask(DMA_nMODULE enModuleArg, DMA
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penCHMaskReqArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penCHMaskReqArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = DMA_CH_ALTSET_R_SET0_BIT;
         stRegister.u32Mask = (uint32_t) enChannelMaskArg;
         stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *penCHMaskReqArg = (DMA_nCHMASK) stRegister.u32Value;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *penCHMaskReqArg = (DMA_nCHMASK) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -107,26 +108,26 @@ DMA_nERROR DMA_CH__enGetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penActiveControStructureArg)
-    {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            stRegister.u32Shift = (uint32_t) enChannelArg;
-            stRegister.u32Shift += DMA_CH_ALTSET_R_SET0_BIT;
-            stRegister.u32Mask = DMA_CH_ALTSET_SET0_MASK;
-            stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
-            enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-            if(DMA_enERROR_OK == enErrorReg)
-            {
-                *penActiveControStructureArg = (DMA_nCH_CONTROL) stRegister.u32Value;
-            }
-        }
-    }
-    else
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penActiveControStructureArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
     }
-
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enChannelArg;
+        stRegister.u32Shift += DMA_CH_ALTSET_R_SET0_BIT;
+        stRegister.u32Mask = DMA_CH_ALTSET_SET0_MASK;
+        stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        *penActiveControStructureArg = (DMA_nCH_CONTROL) stRegister.u32Value;
+    }
     return (enErrorReg);
 }

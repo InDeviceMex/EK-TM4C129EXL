@@ -37,7 +37,7 @@ ACMP_nERROR ACMP__enSetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
     stRegister.u32Mask = ACMP_CTL_ASRCP_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.u32Value = (uint32_t) enVmaxPinSourceArg;
-    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
     return (enErrorReg);
 }
@@ -49,21 +49,21 @@ ACMP_nERROR ACMP__enGetComparatorVmaxSource(ACMP_nMODULE enModuleArg,
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penVmaxPinSourceArg)
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) penVmaxPinSourceArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ACMP_CTL_R_ASRCP_BIT;
         stRegister.u32Mask = ACMP_CTL_ASRCP_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            *penVmaxPinSourceArg = (ACMP_nVMAX_SOURCE) stRegister.u32Value;
-        }
-
     }
-    else
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        *penVmaxPinSourceArg = (ACMP_nVMAX_SOURCE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

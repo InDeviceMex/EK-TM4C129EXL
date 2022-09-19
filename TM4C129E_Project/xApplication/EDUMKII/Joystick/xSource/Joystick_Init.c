@@ -74,13 +74,13 @@ void EDUMKII_Joystick_vInit(void)
     };
     if(0UL == u32Init)
     {
-        GPIO__vRegisterIRQSourceHandler( &EDUMKII_Select_vIRQSourceHandler, EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
+        GPIO__enRegisterIRQSourceHandlerByMask( &EDUMKII_Select_vIRQSourceHandler, EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_SELECT, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
 
         GPIO__vEnInterruptVector(EDUMKII_SELECT_PORT, (GPIO_nPRIORITY) NVIC_enVECTOR_PRI_GPIOC);
-        GPIO__vClearInterruptSource(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
-        GPIO__vSetInterruptSourceConfig(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, GPIO_enINT_CONFIG_EDGE_BOTH);
-        GPIO__vEnInterruptSource(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
+        GPIO__enClearInterruptSourceByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
+        GPIO__enSetInterruptConfigByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, GPIO_enINT_CONFIG_EDGE_BOTH);
+        GPIO__enEnableInterruptSourceByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
 
         ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Joystick_vIRQSourceHandler,
                                             ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
@@ -100,8 +100,8 @@ void EDUMKII_Joystick_vInit(void)
 
         EDUMKII_Common_vAdcInit();
 
-        GPIO__vSetAnalogFunction(EDUMKII_AXIS_X);
-        GPIO__vSetAnalogFunction(EDUMKII_AXIS_Y);
+        GPIO__enSetAnalogFunction(EDUMKII_AXIS_X);
+        GPIO__enSetAnalogFunction(EDUMKII_AXIS_Y);
 
         ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_DIS);
         ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enTRIGGER_SOFTWARE);

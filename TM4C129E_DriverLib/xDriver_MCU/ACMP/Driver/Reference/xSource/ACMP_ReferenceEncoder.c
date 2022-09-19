@@ -45,20 +45,21 @@ ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t* pu32
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32EncoderValueArg)
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) pu32EncoderValueArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ACMP_REFCTL_R_VREF_BIT;
         stRegister.u32Mask = ACMP_REFCTL_VREF_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-        if(ACMP_enERROR_OK == enErrorReg)
-        {
-            *pu32EncoderValueArg = stRegister.u32Value;
-        }
     }
-    else
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        *pu32EncoderValueArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

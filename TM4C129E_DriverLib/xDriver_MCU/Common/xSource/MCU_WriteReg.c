@@ -36,14 +36,18 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
-    if(0U != (uintptr_t) pstRegisterDataArg)
+    enErrorReg = MCU_enERROR_OK;
+    if(0U == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
     {
         u32RegisterValue = pstRegisterDataArg->u32Value;
         u32RegisterMask = pstRegisterDataArg->u32Mask;
         u32RegisterShift = pstRegisterDataArg->u32Shift;
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        enErrorReg = MCU_enERROR_OK;
         u32Reg = u32RegisterValue;
         enStatus = MCU__enDisGlobalInterrupt_RAM();
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
@@ -62,10 +66,6 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
         *pu32RegisterAddress = (uint32_t) u32Reg;
         (void) MCU__vSetGlobalInterrupt_RAM(enStatus);
     }
-    else
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
 
     return (enErrorReg);
 }
@@ -82,14 +82,18 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
-    if(0U != (uintptr_t) pstRegisterDataArg)
+    enErrorReg = MCU_enERROR_OK;
+    if(0U == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
     {
         u32RegisterValue = pstRegisterDataArg->u32Value;
         u32RegisterMask = pstRegisterDataArg->u32Mask;
         u32RegisterShift = pstRegisterDataArg->u32Shift;
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        enErrorReg = MCU_enERROR_OK;
         u32Reg = u32RegisterValue;
         enStatus = MCU__enDisGlobalInterrupt();
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
@@ -108,10 +112,6 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
         *pu32RegisterAddress = (uint32_t) u32Reg;
         (void) MCU__vSetGlobalInterrupt(enStatus);
     }
-    else
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
 
     return (enErrorReg);
 }
@@ -127,14 +127,18 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
     MCU_nERROR enErrorReg;
     uint32_t u32RegisterShift;
 
-    if(0U != (uintptr_t) pstRegisterDataArg)
+    enErrorReg = MCU_enERROR_OK;
+    if(0U == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
     {
         u32RegisterValue = pstRegisterDataArg->u32Value;
         u32RegisterMask = pstRegisterDataArg->u32Mask;
         u32RegisterShift = pstRegisterDataArg->u32Shift;
         uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        enErrorReg = MCU_enERROR_OK;
         u32Reg = u32RegisterValue;
         enStatus = MCU__enDisGlobalInterrupt();
         pu32RegisterAddress = (volatile uint32_t*) uptrRegisterAddress;
@@ -142,10 +146,6 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
         u32RegisterValue <<= u32RegisterShift;
         *pu32RegisterAddress = u32Reg;
         (void) MCU__vSetGlobalInterrupt(enStatus);
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_POINTER;
     }
 
     return (enErrorReg);

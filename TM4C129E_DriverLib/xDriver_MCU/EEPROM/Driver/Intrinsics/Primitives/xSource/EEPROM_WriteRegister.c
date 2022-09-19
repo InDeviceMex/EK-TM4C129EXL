@@ -30,20 +30,20 @@ EEPROM_nERROR EEPROM__enWriteRegister(EEPROM_nMODULE enModuleArg, EEPROM_Registe
 {
     uintptr_t uptrModuleBase;
     EEPROM_nERROR enErrorReg;
-    if(0UL != (uint32_t) pstRegisterDataArg)
-    {
-        enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            uptrModuleBase = EEPROM__uptrBlockBaseAddress(enModuleArg);
-            pstRegisterDataArg->uptrAddress += uptrModuleBase;
-            enErrorReg = (EEPROM_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
-        }
-    }
-    else
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
-
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = EEPROM__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (EEPROM_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+    }
     return (enErrorReg);
 }

@@ -32,7 +32,7 @@ ADC_nERROR ADC_Sequencer__enInitConversionByMask(ADC_nMODULE enModuleArg, ADC_nS
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, ((uint32_t) ADC_enSEQMASK_ALL + 1UL));
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_PSSI_R_SS0_BIT;

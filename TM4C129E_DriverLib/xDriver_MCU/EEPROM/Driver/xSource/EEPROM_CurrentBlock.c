@@ -45,20 +45,21 @@ EEPROM_nERROR EEPROM__enGetCurrentBlock(EEPROM_nMODULE enModuleArg, uint32_t* pu
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32CurrentBlockArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pu32CurrentBlockArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = EEPROM_BLOCK_R_BLOCK_BIT;
         stRegister.u32Mask = EEPROM_BLOCK_BLOCK_MASK;
         stRegister.uptrAddress = EEPROM_BLOCK_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            *pu32CurrentBlockArg = stRegister.u32Value;
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        *pu32CurrentBlockArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

@@ -30,19 +30,21 @@ SYSTICK_nERROR SYSTICK__enReadRegister(SYSTICK_nMODULE enModuleArg, SYSTICK_Regi
 {
     uintptr_t uptrModuleBase;
     SYSTICK_nERROR enErrorReg;
-    if(0UL != (uint32_t) pstRegisterDataArg)
-    {
-        enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SYSTICK_enMODULE_MAX);
-        if(SYSTICK_enERROR_OK == enErrorReg)
-        {
-            uptrModuleBase = SYSTICK__uptrBlockBaseAddress(enModuleArg);
-            pstRegisterDataArg->uptrAddress += uptrModuleBase;
-            enErrorReg = (SYSTICK_nERROR) MCU__enReadRegister(pstRegisterDataArg);
-        }
-    }
-    else
+
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = SYSTICK_enERROR_POINTER;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SYSTICK_enMODULE_MAX);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = SYSTICK__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (SYSTICK_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
     return (enErrorReg);
 }

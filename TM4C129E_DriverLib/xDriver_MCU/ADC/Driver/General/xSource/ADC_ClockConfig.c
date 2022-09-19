@@ -45,20 +45,21 @@ ADC_nERROR ADC__enGetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK* penClockSo
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penClockSourceArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penClockSourceArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_CC_R_CS_BIT;
         stRegister.u32Mask = ADC_CC_CS_MASK;
         stRegister.uptrAddress = ADC_CC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penClockSourceArg = (ADC_nCLOCK) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penClockSourceArg = (ADC_nCLOCK) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -83,20 +84,21 @@ ADC_nERROR ADC__enGetVCODivisor(ADC_nMODULE enModuleArg, uint32_t* pu32VCODiviso
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32VCODivisorArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) pu32VCODivisorArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_CC_R_CLKDIV_BIT;
         stRegister.u32Mask = ADC_CC_CLKDIV_MASK;
         stRegister.uptrAddress = ADC_CC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *pu32VCODivisorArg = stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *pu32VCODivisorArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

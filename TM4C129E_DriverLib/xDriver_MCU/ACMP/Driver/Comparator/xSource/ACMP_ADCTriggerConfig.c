@@ -72,36 +72,37 @@ ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
     ACMP_nEDGE enEdgeReg;
     ACMP_nLEVEL enLevelReg;
 
-    if(0UL != (uintptr_t) penIntConfigArg)
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) penIntConfigArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
     {
         enEdgeReg = ACMP_enEDGE_NONE;
         enLevelReg = ACMP_enLEVEL_LOW;
         enErrorReg = ACMP__enGetComparatorADCTriggerEdge(enModuleArg, enComparatorArg, &enEdgeReg);
-        if(ACMP_enERROR_OK == enErrorReg)
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        if(ACMP_enEDGE_NONE == enEdgeReg)
         {
-            if(ACMP_enEDGE_NONE == enEdgeReg)
+            enErrorReg = ACMP__enGetComparatorADCTriggerLevel(enModuleArg,
+                                                  enComparatorArg,
+                                                  &enLevelReg);
+            if(ACMP_enERROR_OK == enErrorReg)
             {
-                enErrorReg = ACMP__enGetComparatorADCTriggerLevel(enModuleArg,
-                                                      enComparatorArg,
-                                                      &enLevelReg);
-                if(ACMP_enERROR_OK == enErrorReg)
-                {
-                    u32Sense = (uint32_t) enLevelReg;
-                    *penIntConfigArg = (ACMP_nADC_CONFIG) u32Sense;
-                }
-            }
-            else
-            {
-                u32Sense = 1U;
-                u32Sense <<= 8UL;
-                u32Sense |= (uint32_t) enEdgeReg;
+                u32Sense = (uint32_t) enLevelReg;
                 *penIntConfigArg = (ACMP_nADC_CONFIG) u32Sense;
             }
         }
-    }
-    else
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
+        else
+        {
+            u32Sense = 1U;
+            u32Sense <<= 8UL;
+            u32Sense |= (uint32_t) enEdgeReg;
+            *penIntConfigArg = (ACMP_nADC_CONFIG) u32Sense;
+        }
     }
 
     return (enErrorReg);

@@ -30,19 +30,20 @@ SCB_nERROR SCB__enReadRegister(SCB_nMODULE enModuleArg, SCB_Register_t* pstRegis
 {
     uintptr_t uptrModuleBase;
     SCB_nERROR enErrorReg;
-    if(0UL != (uint32_t) pstRegisterDataArg)
-    {
-        enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            uptrModuleBase = SCB__uptrBlockBaseAddress(enModuleArg);
-            pstRegisterDataArg->uptrAddress += uptrModuleBase;
-            enErrorReg = (SCB_nERROR) MCU__enReadRegister(pstRegisterDataArg);
-        }
-    }
-    else
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = SCB__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (SCB_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
     return (enErrorReg);
 }

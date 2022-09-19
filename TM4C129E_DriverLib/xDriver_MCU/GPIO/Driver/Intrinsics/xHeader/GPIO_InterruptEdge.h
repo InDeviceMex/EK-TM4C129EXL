@@ -27,7 +27,12 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetIntEdge(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nEDGE enEdge);
-GPIO_nEDGE GPIO__enGetIntEdge(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetInterruptEdgeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                           GPIO_nEDGE enEdgeArg);
+GPIO_nERROR GPIO__enSetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nEDGE enEdgeArg);
+
+GPIO_nERROR GPIO__enGetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nEDGE* penEdgeArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_INTERRUPTEDGE_H_ */

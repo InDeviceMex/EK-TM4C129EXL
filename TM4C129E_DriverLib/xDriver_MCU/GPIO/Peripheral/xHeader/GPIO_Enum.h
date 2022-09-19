@@ -97,6 +97,7 @@ typedef enum
     GPIO_enPINMASK_6 = 0x40UL,
     GPIO_enPINMASK_7 = 0x80UL,
     GPIO_enPINMASK_ALL = 0xFFUL,
+    GPIO_enPINMASK_MAX = 0x100UL,
     GPIO_enPINMASK_UNDEF = 0xFFFFFFFFUL,
 } GPIO_nPINMASK;
 
@@ -158,15 +159,34 @@ typedef enum
 
 typedef enum
 {
-    GPIO_enDRIVE_2mA = 0UL,
-    GPIO_enDRIVE_4mA = 1UL,
-    GPIO_enDRIVE_8mA = 2UL,
-    GPIO_enDRIVE_6mA = (((uint32_t) 1UL << 16UL) | 2UL),
-    GPIO_enDRIVE_8mA_SLR = (((uint32_t) 1UL << 8UL) | 2UL),
-    GPIO_enDRIVE_10mA = (((uint32_t) 3UL << 16UL) | ((uint32_t) 1UL << 2UL) | 2UL),
-    GPIO_enDRIVE_10mA_SLR = (((uint32_t) 3UL << 16UL) | ((uint32_t) 1UL << 8UL) | ((uint32_t) 1UL << 2UL) | 2UL),
-    GPIO_enDRIVE_12mA = (((uint32_t) 3UL << 16UL) | ((uint32_t) 1UL << 2UL) | 2UL),
-    GPIO_enDRIVE_12mA_SLR = (((uint32_t) 3UL << 16UL) | ((uint32_t) 1UL << 8UL) | ((uint32_t) 1UL << 2UL) | 3UL),
+    GPIO_enNORMAL_DRIVE_2mA = 0UL,
+    GPIO_enNORMAL_DRIVE_4mA = 1UL,
+    GPIO_enNORMAL_DRIVE_8mA = 2UL,
+    GPIO_enNORMAL_DRIVE_MAX = 3UL,
+    GPIO_enNORMAL_DRIVE_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nNORMAL_DRIVE;
+
+typedef enum
+{
+    GPIO_enDRIVE_MODE_LOW = 0UL,
+    GPIO_enDRIVE_MODE_MID = 1UL,
+    GPIO_enDRIVE_MODE_HIGH = 2UL,
+    GPIO_enDRIVE_MODE_MAX = 3UL,
+    GPIO_enDRIVE_MODE_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nDRIVE_MODE;
+
+
+typedef enum
+{                         /*ModeDriver(2bit)            SlewRate(1bit)                  ExtendedDrive(1bit)                NormalDrive(3bits)*/
+    GPIO_enDRIVE_2mA      = (uint32_t) (((uint32_t) 0UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_DIS << 4UL) | (uint32_t) 0x1UL),
+    GPIO_enDRIVE_4mA      = (uint32_t) (((uint32_t) 0UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_DIS << 4UL) | (uint32_t) 0x2UL),
+    GPIO_enDRIVE_8mA      = (uint32_t) (((uint32_t) 0UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_DIS << 4UL) | (uint32_t) 0x4UL),
+    GPIO_enDRIVE_8mA_SLR  = (uint32_t) (((uint32_t) 0UL << 12UL) | ((uint32_t) GPIO_enSTATE_ENA << 8UL) |  ((uint32_t) GPIO_enSTATE_DIS << 4UL) | (uint32_t) 0x4UL),
+    GPIO_enDRIVE_6mA      = (uint32_t) (((uint32_t) 1UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_DIS << 4UL) | (uint32_t) 0x4UL),
+    GPIO_enDRIVE_10mA     = (uint32_t) (((uint32_t) 3UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_ENA << 4UL) | (uint32_t) 0x4UL),
+    GPIO_enDRIVE_10mA_SLR = (uint32_t) (((uint32_t) 3UL << 12UL) | ((uint32_t) GPIO_enSTATE_ENA << 8UL) |  ((uint32_t) GPIO_enSTATE_ENA << 4UL) | (uint32_t) 0x4UL),
+    GPIO_enDRIVE_12mA     = (uint32_t) (((uint32_t) 3UL << 12UL) | ((uint32_t) GPIO_enSTATE_DIS << 8UL) |  ((uint32_t) GPIO_enSTATE_ENA << 4UL) | (uint32_t) 0x6UL),
+    GPIO_enDRIVE_12mA_SLR = (uint32_t) (((uint32_t) 3UL << 12UL) | ((uint32_t) GPIO_enSTATE_ENA << 8UL) |  ((uint32_t) GPIO_enSTATE_ENA << 4UL) | (uint32_t) 0x6UL),
     GPIO_enDRIVE_UNDEF = 0xFFFFFFFFUL,
 } GPIO_nDRIVE;
 
@@ -186,10 +206,10 @@ typedef enum
 
 typedef enum
 {
-    GPIO_enEXTENDED_DRIVE_NORMAL = 0UL,
-    GPIO_enEXTENDED_DRIVE_EXTENDED = 1UL,
-    GPIO_enEXTENDED_DRIVE_UNDEF = 0xFFFFFFFFUL,
-} GPIO_nEXTENDED_DRIVE;
+    GPIO_enDRIVE_CAPABILITY_NORMAL = 0UL,
+    GPIO_enDRIVE_CAPABILITY_EXTENDED = 1UL,
+    GPIO_enDRIVE_CAPABILITY_UNDEF = 0xFFFFFFFFUL,
+} GPIO_nDRIVE_CAPABILITY;
 
 typedef enum
 {
@@ -1230,5 +1250,8 @@ typedef struct
         GPIO_nOUTMODE enOutputMode;
         GPIO_nRESMODE enResistorMode;
 } GPIO_CONFIG_t;
+
+typedef MCU_Register_t GPIO_Register_t;
+typedef MCU_pvfIRQSourceHandler_t GPIO_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_ENUM_H_ */

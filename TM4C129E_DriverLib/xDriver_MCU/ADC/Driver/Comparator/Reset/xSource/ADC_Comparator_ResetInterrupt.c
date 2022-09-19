@@ -32,7 +32,7 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModule
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_DC_RIC_R_DCINT0_BIT;
@@ -40,14 +40,13 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModule
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
         stRegister.u32Value = (uint32_t) enComparatorMaskArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
-
-        if(ADC_enERROR_OK == enErrorReg)
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        do
         {
-            do
-            {
-                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
-        }
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
     }
     return (enErrorReg);
 }
@@ -66,13 +65,13 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByNumber(ADC_nMODULE enModu
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
         stRegister.u32Value = ADC_DC_RIC_DCINT0_RESET;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
+    }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        do
         {
-            do
-            {
-                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
-        }
+            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
     }
     return (enErrorReg);
 }

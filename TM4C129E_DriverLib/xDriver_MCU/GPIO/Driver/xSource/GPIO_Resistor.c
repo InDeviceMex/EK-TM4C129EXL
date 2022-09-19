@@ -22,58 +22,115 @@
  * 30 jun. 2020     vyldram    1.0         initial Version@endverbatim
  */
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Resistor.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_PullUp.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_PullDown.h>
 
-#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Commit.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nRESMODE enModeArg)
+GPIO_nERROR GPIO__enSetResistorModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                          GPIO_nRESMODE enModeArg)
 {
-    GPIO_nPORT enPortReg = enPort;
-    GPIO_nPINMASK enPinReg = enPin;
-    GPIO_nRESMODE enModeReg = enModeArg;
+    GPIO_nERROR enErrorReg;
 
-    GPIO__vSetCommit(enPortReg, enPinReg, GPIO_enSTATE_ENA);
-    switch(enModeReg)
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-        case GPIO_enRESMODE_INACTIVE:
-            GPIO__vDisGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
-            GPIO__vDisGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
-            break;
-        case GPIO_enRESMODE_PULLUP:
-            GPIO__vEnGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
-            GPIO__vDisGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
-            break;
-        case GPIO_enRESMODE_PULLDOWN:
-            GPIO__vDisGeneric(enPortReg, GPIO_PUR_OFFSET, enPinReg);
-            GPIO__vEnGeneric(enPortReg, GPIO_PDR_OFFSET, enPinReg);
-            break;
-        default:
-            break;
+        switch(enModeArg)
+        {
+            case GPIO_enRESMODE_INACTIVE:
+                enErrorReg = GPIO__enDisablePullUpResistorByMask(enPortArg, enPinMaskArg);
+                if(GPIO_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = GPIO__enDisablePullDownResistorByMask(enPortArg, enPinMaskArg);
+                }
+                break;
+            case GPIO_enRESMODE_PULLUP:
+                enErrorReg = GPIO__enEnablePullUpResistorByMask(enPortArg, enPinMaskArg);
+                break;
+            case GPIO_enRESMODE_PULLDOWN:
+                enErrorReg = GPIO__enEnablePullDownResistorByMask(enPortArg, enPinMaskArg);
+                break;
+            default:
+                enErrorReg = GPIO_enERROR_VALUE;
+                break;
+        }
     }
+    return (enErrorReg);
 }
 
-GPIO_nRESMODE GPIO__enGetResistorMode(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enSetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nRESMODE enModeArg)
 {
-    GPIO_nRESMODE enResistorType = GPIO_enRESMODE_INACTIVE;
-    uint32_t u32PullUp = 0UL;
-    uint32_t u32PullDown = 0UL;
-    u32PullUp = GPIO__u32GetGeneric(enPort, GPIO_PUR_OFFSET, enPin);
-    u32PullDown = GPIO__u32GetGeneric(enPort, GPIO_PDR_OFFSET, enPin);
+    GPIO_nERROR enErrorReg;
 
-    if((0UL == u32PullUp) && (0UL == u32PullDown))
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-        enResistorType = GPIO_enRESMODE_INACTIVE;
+        switch(enModeArg)
+        {
+            case GPIO_enRESMODE_INACTIVE:
+                enErrorReg = GPIO__enDisablePullUpResistorByNumber(enPortArg, enPinArg);
+                if(GPIO_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = GPIO__enDisablePullDownResistorByNumber(enPortArg, enPinArg);
+                }
+                break;
+            case GPIO_enRESMODE_PULLUP:
+                enErrorReg = GPIO__enEnablePullUpResistorByNumber(enPortArg, enPinArg);
+                break;
+            case GPIO_enRESMODE_PULLDOWN:
+                enErrorReg = GPIO__enEnablePullDownResistorByNumber(enPortArg, enPinArg);
+                break;
+            default:
+                enErrorReg = GPIO_enERROR_VALUE;
+                break;
+        }
     }
-    else if(0UL != u32PullUp)
-    {
-        enResistorType = GPIO_enRESMODE_PULLUP;
-    }
-    else if(0UL != u32PullDown)
-    {
-        enResistorType = GPIO_enRESMODE_PULLDOWN;
-    }
-    else{}
+    return (enErrorReg);
+}
 
-    return (enResistorType);
+GPIO_nERROR GPIO__enGetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                            GPIO_nRESMODE* penModeArg)
+{
+    GPIO_nSTATE enStateReg;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enGetPullUpResistorByNumber(enPortArg, enPinArg, &enStateReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enSTATE_ENA == enStateReg)
+        {
+            *penModeArg = GPIO_enRESMODE_PULLUP;
+        }
+        else
+        {
+            enErrorReg = GPIO__enGetPullDownResistorByNumber(enPortArg, enPinArg, &enStateReg);
+            if(GPIO_enERROR_OK == enErrorReg)
+            {
+                if(GPIO_enSTATE_ENA == enStateReg)
+                {
+                    *penModeArg = GPIO_enRESMODE_PULLDOWN;
+                }
+                else
+                {
+                    *penModeArg = GPIO_enRESMODE_INACTIVE;
+                }
+            }
+        }
+    }
+    return (enErrorReg);
 }

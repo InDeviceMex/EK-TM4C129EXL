@@ -89,20 +89,20 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
         enAnalogInputReg = ACMP_enAnalogInput[(uint32_t) enModuleFilter]
                                               [(uint32_t) ACMP_enCOMP_0]
                                               [ACMP_CMLINE];
-        GPIO__vSetAnalogFunction(enAnalogInputReg);
+        GPIO__enSetAnalogFunction(enAnalogInputReg);
         switch(pstControlConfig->enVmaxSource)
         {
             case ACMP_enVMAX_SOURCE_CN:
                 enAnalogInputReg = ACMP_enAnalogInput[(uint32_t) enModuleFilter]
                                                      [(uint32_t) enCompFilter]
                                                      [ACMP_CPLINE];
-                GPIO__vSetAnalogFunction(enAnalogInputReg);
+                GPIO__enSetAnalogFunction(enAnalogInputReg);
                 break;
             case ACMP_enVMAX_SOURCE_C0:
                 enAnalogInputReg = ACMP_enAnalogInput[(uint32_t) enModuleFilter]
                                                      [(uint32_t) ACMP_enCOMP_0]
                                                      [ACMP_CPLINE];
-                GPIO__vSetAnalogFunction(enAnalogInputReg);
+                GPIO__enSetAnalogFunction(enAnalogInputReg);
                 break;
             case ACMP_enVMAX_SOURCE_VIREF:
                 break;

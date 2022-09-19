@@ -34,35 +34,37 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
     uint32_t u32VectorIndex;
     uint32_t u32VectorBit;
     uintptr_t uptrRegisterOffset;
-    if(0U != (uintptr_t) penPriorityArg)
-    {
-        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
-        if(NVIC_enERROR_OK == enErrorReg)
-        {
-            uptrRegisterOffset = NVIC_IPR_OFFSET;
 
-            u32VectorBit = (uint32_t) enVectorArg;
-            u32VectorBit %= 4UL;
-            u32VectorBit <<= 3U;
-
-            u32VectorIndex = (uint32_t) enVectorArg;
-            u32VectorIndex &= ~(0x00000003UL);
-
-            uptrRegisterOffset += u32VectorIndex;
-
-            stRegister.u32Shift = (uint32_t) u32VectorBit;
-            stRegister.u32Mask = NVIC_PRI_MASK;
-            stRegister.uptrAddress = (uint32_t) uptrRegisterOffset;
-            enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
-            if(NVIC_enERROR_OK == enErrorReg)
-            {
-                *penPriorityArg = (NVIC_nPRIORITY) stRegister.u32Value;
-            }
-        }
-    }
-    else
+    enErrorReg = NVIC_enERROR_OK;
+    if(0U == (uintptr_t) penPriorityArg)
     {
         enErrorReg = NVIC_enERROR_POINTER;
+    }
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+    }
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        uptrRegisterOffset = NVIC_IPR_OFFSET;
+
+        u32VectorBit = (uint32_t) enVectorArg;
+        u32VectorBit %= 4UL;
+        u32VectorBit <<= 3U;
+
+        u32VectorIndex = (uint32_t) enVectorArg;
+        u32VectorIndex &= ~(0x00000003UL);
+
+        uptrRegisterOffset += u32VectorIndex;
+
+        stRegister.u32Shift = (uint32_t) u32VectorBit;
+        stRegister.u32Mask = NVIC_PRI_MASK;
+        stRegister.uptrAddress = (uint32_t) uptrRegisterOffset;
+        enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(NVIC_enERROR_OK == enErrorReg)
+    {
+        *penPriorityArg = (NVIC_nPRIORITY) stRegister.u32Value;
     }
     return (enErrorReg);
 }

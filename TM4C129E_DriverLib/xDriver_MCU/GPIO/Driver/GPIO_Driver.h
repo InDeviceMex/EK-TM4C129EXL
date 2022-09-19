@@ -28,11 +28,19 @@
 #include <xDriver_MCU/GPIO/Driver/Wake/GPIO_Wake.h>
 
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Alternative.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Analog.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Data.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Digital.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Drive.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_DriveMode.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_ExtendedDrive.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_NormalDrive.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_OutputMode.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_PeripheralMux.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_PullUp.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_PullDown.h>
 #include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_Resistor.h>
+#include <xDriver_MCU/GPIO/Driver/xHeader/GPIO_SlewRate.h>
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DRIVER_H_ */

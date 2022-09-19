@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetIntLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nLEVEL enLevel);
-GPIO_nLEVEL GPIO__enGetIntLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetInterruptLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                            GPIO_nLEVEL enLevelArg);
+GPIO_nERROR GPIO__enSetInterruptLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nLEVEL enLevelArg);
+
+GPIO_nERROR GPIO__enGetInterruptLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                            GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetInterruptLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nLEVEL* penLevelArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_INTERRUPTLEVEL_H_ */

@@ -1,4 +1,4 @@
-/**
+ /**
  *
  * @file DMA_CH_Encoder.c
  * @copyright
@@ -37,16 +37,11 @@ DMA_nERROR DMA_CH__enSetEncoderByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enCha
     u32ChannelReg = 0U;
     u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while(0U != u32ChannelMaskReg)
+    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
         if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetEncoderByNumber(enModuleArg, (DMA_nCH) u32ChannelReg, enEncoderArg);
-        }
-
-        if(DMA_enERROR_OK != enErrorReg)
-        {
-            break;
         }
         u32ChannelReg++;
         u32ChannelMaskReg >>= 1U;
@@ -68,25 +63,25 @@ DMA_nERROR DMA_CH__enSetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChann
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enEncoderArg, (uint32_t) DMA_enCH_ENCODER_MAX);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            u32ChannelReg = (uint32_t) enChannelArg;
-            u32ChannelReg >>= 3UL; /* /8 */
-            u32ChannelReg <<= 2UL;  /* *4 */
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        u32ChannelReg = (uint32_t) enChannelArg;
+        u32ChannelReg >>= 3UL; /* /8 */
+        u32ChannelReg <<= 2UL;  /* *4 */
 
-            u32RegisterOffset = DMA_CH_MAP_OFFSET;
-            u32RegisterOffset += u32ChannelReg;
+        u32RegisterOffset = DMA_CH_MAP_OFFSET;
+        u32RegisterOffset += u32ChannelReg;
 
-            u32ChannelPos = (uint32_t) enChannelArg;
-            u32ChannelPos %= 8UL;
-            u32ChannelPos <<= 2UL;  /* *4 */
+        u32ChannelPos = (uint32_t) enChannelArg;
+        u32ChannelPos %= 8UL;
+        u32ChannelPos <<= 2UL;  /* *4 */
 
-            stRegister.u32Shift = (uint32_t) u32ChannelPos;
-            stRegister.u32Mask = 0xFUL;
-            stRegister.uptrAddress = (uintptr_t) u32RegisterOffset;
-            stRegister.u32Value = (uint32_t) enEncoderArg;
-            enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
-        }
+        stRegister.u32Shift = (uint32_t) u32ChannelPos;
+        stRegister.u32Mask = 0xFUL;
+        stRegister.uptrAddress = (uintptr_t) u32RegisterOffset;
+        stRegister.u32Value = (uint32_t) enEncoderArg;
+        enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
 
     return (enErrorReg);
@@ -101,35 +96,36 @@ DMA_nERROR DMA_CH__enGetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChann
     uint32_t u32RegisterOffset;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penEncoderArg)
-    {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            u32ChannelReg = (uint32_t) enChannelArg;
-            u32ChannelReg >>= 3UL; /* /8 */
-            u32ChannelReg <<= 2UL;  /* *4 */
-
-            u32RegisterOffset = DMA_CH_MAP_OFFSET;
-            u32RegisterOffset += u32ChannelReg;
-
-            u32ChannelPos = (uint32_t) enChannelArg;
-            u32ChannelPos %= 8UL;
-            u32ChannelPos <<= 4UL;  /* *4 */
-
-            stRegister.u32Shift = (uint32_t) u32ChannelPos;
-            stRegister.u32Mask = 0xFUL;
-            stRegister.uptrAddress = (uintptr_t) u32RegisterOffset;
-            enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-            if(DMA_enERROR_OK == enErrorReg)
-            {
-                *penEncoderArg = (DMA_nCH_ENCODER) stRegister.u32Value;
-            }
-        }
-    }
-    else
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penEncoderArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        u32ChannelReg = (uint32_t) enChannelArg;
+        u32ChannelReg >>= 3UL; /* /8 */
+        u32ChannelReg <<= 2UL;  /* *4 */
+
+        u32RegisterOffset = DMA_CH_MAP_OFFSET;
+        u32RegisterOffset += u32ChannelReg;
+
+        u32ChannelPos = (uint32_t) enChannelArg;
+        u32ChannelPos %= 8UL;
+        u32ChannelPos <<= 4UL;  /* *4 */
+
+        stRegister.u32Shift = (uint32_t) u32ChannelPos;
+        stRegister.u32Mask = 0xFUL;
+        stRegister.uptrAddress = (uintptr_t) u32RegisterOffset;
+        enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        *penEncoderArg = (DMA_nCH_ENCODER) stRegister.u32Value;
     }
 
     return (enErrorReg);
@@ -161,21 +157,22 @@ DMA_nERROR DMA_CH__enGetTrigger(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
     uint32_t u32Trigger;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penChannelTriggerArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penChannelTriggerArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         u32Encoder = 0U;
         enErrorReg = DMA_CH__enGetEncoderByNumber(enModuleArg, enChannelArg, (DMA_nCH_ENCODER*) &u32Encoder);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            u32Trigger = u32Encoder;
-            u32Trigger <<= 8UL;
-            u32Trigger |= (uint32_t) enChannelArg;
-            *penChannelTriggerArg = (DMA_nCH_TRIGGER) u32Trigger;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        u32Trigger = u32Encoder;
+        u32Trigger <<= 8UL;
+        u32Trigger |= (uint32_t) enChannelArg;
+        *penChannelTriggerArg = (DMA_nCH_TRIGGER) u32Trigger;
     }
     return (enErrorReg);
 }

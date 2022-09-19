@@ -24,26 +24,142 @@
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptLevel.h>
 
 #include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_InterruptSense.h>
-#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/GPIO/Driver/Intrinsics/Primitives/GPIO_Primitives.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetIntLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nLEVEL enLevel)
+GPIO_nERROR GPIO__enSetInterruptLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                            GPIO_nLEVEL enLevelArg)
 {
-    GPIO__vSetIntSense(enPort, enPin, GPIO_enSENSE_LEVEL);
-    GPIO__vSetGeneric(enPort, GPIO_IEV_OFFSET, enPin, (uint32_t) enLevel);
-}
+    GPIO_Register_t stRegister;
+    uint32_t u32ValueReg;
+    GPIO_nERROR enErrorReg;
 
-GPIO_nLEVEL GPIO__enGetIntLevel(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
-{
-    GPIO_nSENSE enSense = GPIO_enSENSE_EDGE;
-    GPIO_nLEVEL enFeature = GPIO_enLEVEL_LOW;
-    enSense = GPIO__enGetIntSense(enPort, enPin);
-    if(GPIO_enSENSE_LEVEL == enSense)
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
     {
-        enFeature = (GPIO_nLEVEL) GPIO__u32GetGeneric(enPort, GPIO_IEV_OFFSET, enPin);
+        enErrorReg = GPIO__enSetInterruptSenseByMask(enPortArg, enPinMaskArg, GPIO_enSENSE_LEVEL);
     }
-    return (enFeature);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enLEVEL_LOW == enLevelArg)
+        {
+            u32ValueReg = 0UL;
+        }
+        else
+        {
+            u32ValueReg = (uint32_t) enPinMaskArg;
+        }
+        stRegister.u32Shift = GPIO_IEV_R_PIN0_BIT;
+        stRegister.u32Mask = (uint32_t) enPinMaskArg;
+        stRegister.uptrAddress = GPIO_IEV_OFFSET;
+        stRegister.u32Value = u32ValueReg;
+        enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
+    }
+    return (enErrorReg);
 }
 
+GPIO_nERROR GPIO__enSetInterruptLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nLEVEL enLevelArg)
+{
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
 
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = GPIO__enSetInterruptSenseByNumber(enPortArg, enPinArg, GPIO_enSENSE_LEVEL);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enPinArg;
+        stRegister.u32Shift += GPIO_IEV_R_PIN0_BIT;
+        stRegister.u32Mask = GPIO_IEV_PIN0_MASK;
+        stRegister.uptrAddress = GPIO_IEV_OFFSET;
+        stRegister.u32Value = (uint32_t) enLevelArg;
+        enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
+    }
+
+    return (enErrorReg);
+}
+
+GPIO_nERROR GPIO__enGetInterruptLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                            GPIO_nPINMASK* penPinMaskReqArg)
+{
+    GPIO_Register_t stRegister;
+    uint32_t u32PinMaskReg;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penPinMaskReqArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32PinMaskReg = 0UL;
+        enErrorReg = GPIO__enGetInterruptSenseByMask(enPortArg, enPinMaskArg, (GPIO_nPINMASK*) &u32PinMaskReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = GPIO_IEV_R_PIN0_BIT;
+        stRegister.u32Mask = (uint32_t) enPinMaskArg;
+        stRegister.uptrAddress = GPIO_IEV_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32PinMaskReg &= stRegister.u32Value;
+        *penPinMaskReqArg = (GPIO_nPINMASK) u32PinMaskReg;
+    }
+    return (enErrorReg);
+}
+
+GPIO_nERROR GPIO__enGetInterruptLevelByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                              GPIO_nLEVEL* penLevelArg)
+{
+    GPIO_Register_t stRegister;
+    GPIO_nSENSE enSenseReg;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penLevelArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enSenseReg = GPIO_enSENSE_UNDEF;
+        enErrorReg = GPIO__enGetInterruptSenseByNumber(enPortArg, enPinArg, &enSenseReg);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enSENSE_LEVEL != enSenseReg)
+        {
+            stRegister.u32Shift = (uint32_t) enPinArg;
+            stRegister.u32Shift += GPIO_IEV_R_PIN0_BIT;
+            stRegister.u32Mask = GPIO_IEV_PIN0_MASK;
+            stRegister.uptrAddress = GPIO_IEV_OFFSET;
+            enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+            if(GPIO_enERROR_OK == enErrorReg)
+            {
+                *penLevelArg = (GPIO_nLEVEL) stRegister.u32Value;
+            }
+        }
+        else
+        {
+            *penLevelArg = GPIO_enLEVEL_UNDEF;
+        }
+    }
+
+    return (enErrorReg);
+}
 

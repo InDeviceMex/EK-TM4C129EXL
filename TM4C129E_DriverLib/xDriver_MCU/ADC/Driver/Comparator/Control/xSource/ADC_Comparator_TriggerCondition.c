@@ -35,7 +35,7 @@ ADC_nERROR ADC_Comparator__enSetTriggerConditionsByMask(ADC_nMODULE enModuleArg,
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, ((uint32_t) ADC_enCOMPMASK_ALL + 1UL));
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
         u32ComparatorReg = 0U;
@@ -82,20 +82,21 @@ ADC_nERROR ADC_Comparator__enGetTriggerConditionsByNumber(ADC_nMODULE enModuleAr
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penTriggerConditionsArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penTriggerConditionsArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_DC_CTL_R_CTC_BIT;
         stRegister.u32Mask = ADC_DC_CTL_CTC_MASK;
         stRegister.uptrAddress = ADC_DC_CTL_OFFSET;
         enErrorReg = ADC_Comparator__enGetGeneric(enModuleArg, enComparatorArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penTriggerConditionsArg = (ADC_nCOMP_CONDITION) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penTriggerConditionsArg = (ADC_nCOMP_CONDITION) stRegister.u32Value;
     }
 
     return (enErrorReg);

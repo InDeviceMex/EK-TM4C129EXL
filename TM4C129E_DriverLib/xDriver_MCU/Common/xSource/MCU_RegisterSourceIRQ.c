@@ -31,21 +31,22 @@ MCU_nERROR MCU__enRegisterIRQSourceHandler(MCU_pvfIRQSourceHandler_t pfIrqSource
 {
     uint32_t u32IrqSourceHandler;
     MCU_nERROR enErrorReg;
-    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqArrayHandler))
-    {
-        enErrorReg = MCU__enCheckParams(u32InterruptSource, u32InterruptSourceMax);
-        if(MCU_enERROR_OK == enErrorReg)
-        {
-            u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
-            u32IrqSourceHandler |= 1UL;
-
-            pfIrqArrayHandler += u32InterruptSource;
-            *pfIrqArrayHandler = (MCU_pvfIRQSourceHandler_t) u32IrqSourceHandler;
-        }
-    }
-    else
+    enErrorReg = MCU_enERROR_OK;
+    if((0UL == (uintptr_t) pfIrqSourceHandler) || (0UL == (uintptr_t) pfIrqArrayHandler))
     {
         enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = MCU__enCheckParams(u32InterruptSource, u32InterruptSourceMax);
+    }
+    if(MCU_enERROR_OK == enErrorReg)
+    {
+        u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
+        u32IrqSourceHandler |= 1UL;
+
+        pfIrqArrayHandler += u32InterruptSource;
+        *pfIrqArrayHandler = (MCU_pvfIRQSourceHandler_t) u32IrqSourceHandler;
     }
     return (enErrorReg);
 }
@@ -57,21 +58,22 @@ MCU_nERROR MCU__enRegisterIRQSourceHandler_RAM(MCU_pvfIRQSourceHandler_t pfIrqSo
 {
     uint32_t u32IrqSourceHandler;
     MCU_nERROR enErrorReg;
-    if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqArrayHandler))
-    {
-        enErrorReg = MCU__enCheckParams_RAM(u32InterruptSource, u32InterruptSourceMax);
-        if(MCU_enERROR_OK == enErrorReg)
-        {
-            u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
-            u32IrqSourceHandler |= 1UL;
-
-            pfIrqArrayHandler += u32InterruptSource;
-            *pfIrqArrayHandler = (MCU_pvfIRQSourceHandler_t) u32IrqSourceHandler;
-        }
-    }
-    else
+    enErrorReg = MCU_enERROR_OK;
+    if((0UL == (uintptr_t) pfIrqSourceHandler) || (0UL == (uintptr_t) pfIrqArrayHandler))
     {
         enErrorReg = MCU_enERROR_POINTER;
+    }
+    if(MCU_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = MCU__enCheckParams_RAM(u32InterruptSource, u32InterruptSourceMax);
+    }
+    if(MCU_enERROR_OK == enErrorReg)
+    {
+        u32IrqSourceHandler = (uint32_t) pfIrqSourceHandler;
+        u32IrqSourceHandler |= 1UL;
+
+        pfIrqArrayHandler += u32InterruptSource;
+        *pfIrqArrayHandler = (MCU_pvfIRQSourceHandler_t) u32IrqSourceHandler;
     }
     return (enErrorReg);
 }
@@ -81,8 +83,8 @@ void MCU__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                     uint32_t u32InterruptSource,
                                     uint32_t u32InterruptSourceMax)
 {
-    uint32_t u32Interrupt = 0UL;
-    uint32_t u32IrqSourceHandler = 0UL;
+    uint32_t u32Interrupt;
+    uint32_t u32IrqSourceHandler ;
     if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqVectorHandler))
     {
         u32Interrupt = MCU__u32CheckParams(u32InterruptSource, u32InterruptSourceMax);
@@ -99,8 +101,8 @@ void MCU__vRegisterIRQSourceHandler_RAM(void (*pfIrqSourceHandler) (void),
                                         uint32_t u32InterruptSource,
                                         uint32_t u32InterruptSourceMax)
 {
-    uint32_t u32Interrupt = 0UL;
-    uint32_t u32IrqSourceHandler = 0UL;
+    uint32_t u32Interrupt;
+    uint32_t u32IrqSourceHandler ;
     if((0UL != (uint32_t) pfIrqSourceHandler) && (0UL != (uint32_t) pfIrqVectorHandler))
     {
         u32Interrupt = MCU__u32CheckParams_RAM(u32InterruptSource, u32InterruptSourceMax);

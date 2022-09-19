@@ -33,73 +33,74 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
     uint32_t *pu32DataAux;
 
 
-    if(0UL != (uint32_t) pvDataArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pvDataArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         u32MaxAddress = 0UL;
         enErrorReg = EEPROM__enGetWordCount(enModuleArg, &u32MaxAddress);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            u32MaxAddress <<= 2UL;
-
-            if(EEPROM_enCONSTANT_OFF == enConstantTypeArg)
-            {
-                u32AddingReg = 1U;
-            }
-            else
-            {
-                u32AddingReg = 0U;
-            }
-
-            switch (enVariableTypeArg)
-            {
-            case EEPROM_enVARIABLE_BYTE:
-                pu8DataAux = (uint8_t*) pvDataArg;
-                u32OffsetReg = 1UL;
-                while((u32MaxAddress > u32AddressArg) &&
-                      (u16CountArg > 0U) &&
-                      (EEPROM_enERROR_OK == enErrorReg))
-                {
-                    enErrorReg = EEPROM__enWriteByte(enModuleArg, *pu8DataAux, u32AddressArg);
-                    pu8DataAux += u32AddingReg;
-                    u32AddressArg += u32OffsetReg;
-                    u16CountArg--;
-                }
-            break;
-            case EEPROM_enVARIABLE_HALFWORD:
-                pu16DataAux = (uint16_t*) pvDataArg;
-                u32OffsetReg = 2UL;
-                while((u32MaxAddress > u32AddressArg) &&
-                      (u16CountArg > 0U) &&
-                      (EEPROM_enERROR_OK == enErrorReg))
-                {
-                    enErrorReg = EEPROM__enWriteHalfWord(enModuleArg, *pu16DataAux, u32AddressArg);
-                    pu16DataAux += u32AddingReg;
-                    u32AddressArg += u32OffsetReg;
-                    u16CountArg--;
-                }
-            break;
-            case EEPROM_enVARIABLE_WORD:
-                pu32DataAux = (uint32_t*) pvDataArg;
-                u32OffsetReg = 4UL;
-                while((u32MaxAddress > u32AddressArg) &&
-                      (u16CountArg >  0U) &&
-                      (EEPROM_enERROR_OK == enErrorReg))
-                {
-                    enErrorReg = EEPROM__enWriteWord(enModuleArg, *pu32DataAux, u32AddressArg);
-                    pu32DataAux += u32AddingReg;
-                    u32AddressArg += u32OffsetReg;
-                    u16CountArg--;
-                }
-            break;
-            default:
-                enErrorReg = EEPROM_enERROR_VALUE;
-            break;
-            }
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        u32MaxAddress <<= 2UL;
+
+        if(EEPROM_enCONSTANT_OFF == enConstantTypeArg)
+        {
+            u32AddingReg = 1U;
+        }
+        else
+        {
+            u32AddingReg = 0U;
+        }
+
+        switch (enVariableTypeArg)
+        {
+        case EEPROM_enVARIABLE_BYTE:
+            pu8DataAux = (uint8_t*) pvDataArg;
+            u32OffsetReg = 1UL;
+            while((u32MaxAddress > u32AddressArg) &&
+                  (u16CountArg > 0U) &&
+                  (EEPROM_enERROR_OK == enErrorReg))
+            {
+                enErrorReg = EEPROM__enWriteByte(enModuleArg, *pu8DataAux, u32AddressArg);
+                pu8DataAux += u32AddingReg;
+                u32AddressArg += u32OffsetReg;
+                u16CountArg--;
+            }
+        break;
+        case EEPROM_enVARIABLE_HALFWORD:
+            pu16DataAux = (uint16_t*) pvDataArg;
+            u32OffsetReg = 2UL;
+            while((u32MaxAddress > u32AddressArg) &&
+                  (u16CountArg > 0U) &&
+                  (EEPROM_enERROR_OK == enErrorReg))
+            {
+                enErrorReg = EEPROM__enWriteHalfWord(enModuleArg, *pu16DataAux, u32AddressArg);
+                pu16DataAux += u32AddingReg;
+                u32AddressArg += u32OffsetReg;
+                u16CountArg--;
+            }
+        break;
+        case EEPROM_enVARIABLE_WORD:
+            pu32DataAux = (uint32_t*) pvDataArg;
+            u32OffsetReg = 4UL;
+            while((u32MaxAddress > u32AddressArg) &&
+                  (u16CountArg >  0U) &&
+                  (EEPROM_enERROR_OK == enErrorReg))
+            {
+                enErrorReg = EEPROM__enWriteWord(enModuleArg, *pu32DataAux, u32AddressArg);
+                pu32DataAux += u32AddingReg;
+                u32AddressArg += u32OffsetReg;
+                u16CountArg--;
+            }
+        break;
+        default:
+            enErrorReg = EEPROM_enERROR_VALUE;
+        break;
+        }
     }
     return (enErrorReg);
 }

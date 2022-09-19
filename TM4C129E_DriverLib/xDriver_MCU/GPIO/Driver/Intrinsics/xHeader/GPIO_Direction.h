@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetDirection(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nDIR enFeature);
-GPIO_nDIR GPIO__enGetDirection(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetDirectionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nDIR enDirectionArg);
+GPIO_nERROR GPIO__enSetDirectionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nDIR enDirectionArg);
+
+GPIO_nERROR GPIO__enGetDirectionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                             GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetDirectionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                         GPIO_nDIR* penDirectionArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_DIRECTION_H_ */

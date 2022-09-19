@@ -8,8 +8,8 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include <xDriver_MCU/GPIO/App/GPIO_App.h>
 #include <xDriver_MCU/GPIO/Driver/GPIO_Driver.h>
+#include <xDriver_MCU/GPIO/App/GPIO_App.h>
 
 #define GPIO_PIN0    ((uint32_t) 0x000000001UL)
 #define GPIO_PIN1    ((uint32_t) 0x000000002UL)

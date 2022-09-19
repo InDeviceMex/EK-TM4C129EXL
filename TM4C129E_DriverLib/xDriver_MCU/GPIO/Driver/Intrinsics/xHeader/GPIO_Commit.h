@@ -27,7 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetCommit(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nSTATE enFeature);
-GPIO_nSTATE GPIO__enGetCommit(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enSetCommitStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                        GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enSetCommitStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                           GPIO_nSTATE enStateArg);
+
+GPIO_nERROR GPIO__enGetCommitStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                         GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetCommitStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                         GPIO_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_COMMIT_H_ */

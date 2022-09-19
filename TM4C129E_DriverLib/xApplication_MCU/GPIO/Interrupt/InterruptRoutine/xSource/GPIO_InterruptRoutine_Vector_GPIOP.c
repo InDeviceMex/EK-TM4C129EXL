@@ -166,7 +166,7 @@ void GPIOP1__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_1);
         pvfCallback();
     }
@@ -178,7 +178,7 @@ void GPIOP1__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_1 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_1);
                 pvfCallback();
             }
@@ -210,7 +210,7 @@ void GPIOP1__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_1);
                 pvfCallback();
             }
@@ -228,7 +228,7 @@ void GPIOP2__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_2);
         pvfCallback();
     }
@@ -240,7 +240,7 @@ void GPIOP2__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_2 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_2);
                 pvfCallback();
             }
@@ -272,7 +272,7 @@ void GPIOP2__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_2);
                 pvfCallback();
             }
@@ -290,7 +290,7 @@ void GPIOP3__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_3);
         pvfCallback();
     }
@@ -302,7 +302,7 @@ void GPIOP3__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_3 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_3);
                 pvfCallback();
             }
@@ -334,7 +334,7 @@ void GPIOP3__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_3);
                 pvfCallback();
             }
@@ -352,7 +352,7 @@ void GPIOP4__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_4);
         pvfCallback();
     }
@@ -364,7 +364,7 @@ void GPIOP4__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_4 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_4);
                 pvfCallback();
             }
@@ -396,7 +396,7 @@ void GPIOP4__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_4);
                 pvfCallback();
             }
@@ -414,7 +414,7 @@ void GPIOP5__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_5);
         pvfCallback();
     }
@@ -426,7 +426,7 @@ void GPIOP5__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_5 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_5);
                 pvfCallback();
             }
@@ -458,7 +458,7 @@ void GPIOP5__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_5);
                 pvfCallback();
             }
@@ -476,7 +476,7 @@ void GPIOP6__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_6);
         pvfCallback();
     }
@@ -488,7 +488,7 @@ void GPIOP6__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_6 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_6);
                 pvfCallback();
             }
@@ -520,7 +520,7 @@ void GPIOP6__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_6);
                 pvfCallback();
             }
@@ -538,7 +538,7 @@ void GPIOP7__vIRQVectorHandler(void)
     u32Ready = SYSCTL_PRGPIO_R;
     if(SYSCTL_PRGPIO_R_GPIOP_NOREADY == (SYSCTL_PRGPIO_R_GPIOP_MASK & u32Ready))
     {
-        pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+        pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                         GPIO_enPIN_7);
         pvfCallback();
     }
@@ -550,7 +550,7 @@ void GPIOP7__vIRQVectorHandler(void)
         {
             if(0UL == (((uint32_t) GPIO_enPINMASK_7 | GPIO_MIS_R_DMAMIS_ACTIVE) & u32Reg))
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_7);
                 pvfCallback();
             }
@@ -582,7 +582,7 @@ void GPIOP7__vIRQVectorHandler(void)
             }
             else
             {
-                pvfCallback = GPIO_SW__pvfGetIRQSourceHandler_PQ(GPIO_enPORT_P,
+                pvfCallback = GPIO_PQ__pvfGetIRQSourceHandler(GPIO_enPORT_P,
                                                                  GPIO_enPIN_7);
                 pvfCallback();
             }

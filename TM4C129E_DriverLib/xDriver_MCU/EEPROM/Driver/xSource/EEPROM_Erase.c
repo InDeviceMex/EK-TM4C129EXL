@@ -45,20 +45,21 @@ EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nST
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penErasingArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) penErasingArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = EEPROM_DBGME_R_ME_BIT;
         stRegister.u32Mask = EEPROM_DBGME_ME_ERASE;
         stRegister.uptrAddress = EEPROM_DBGME_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-        if(EEPROM_enERROR_OK == enErrorReg)
-        {
-            *penErasingArg = (EEPROM_nSTATUS) stRegister.u32Value;
-        }
     }
-    else
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM_enERROR_POINTER;
+        *penErasingArg = (EEPROM_nSTATUS) stRegister.u32Value;
     }
     return (enErrorReg);
 }

@@ -59,20 +59,21 @@ ADC_nERROR ADC__enGetSync(ADC_nMODULE enModuleArg, ADC_nSTATE* penSyncArg)
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penSyncArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penSyncArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_PSSI_R_SYNCWAIT_BIT;
         stRegister.u32Mask = ADC_PSSI_SYNCWAIT_MASK;
         stRegister.uptrAddress = ADC_PSSI_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penSyncArg = (ADC_nSTATE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penSyncArg = (ADC_nSTATE) stRegister.u32Value;
     }
     return (enErrorReg);
 }

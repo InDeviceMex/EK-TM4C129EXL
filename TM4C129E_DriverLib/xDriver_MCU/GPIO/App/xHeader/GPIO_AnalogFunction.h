@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vSetAnalogFunction(GPIO_nANALOG_FUNCTION enFunction);
+GPIO_nERROR GPIO__enSetAnalogFunction(GPIO_nANALOG_FUNCTION enFunctionArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_APP_GPIO_ANALOGFUNCTION_H_ */

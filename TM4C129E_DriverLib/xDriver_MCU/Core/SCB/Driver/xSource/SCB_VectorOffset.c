@@ -50,20 +50,21 @@ SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, uint32_t* pu32OffsetA
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) pu32OffsetArg)
+    enErrorReg = SCB_enERROR_OK;
+    if(0UL == (uintptr_t) pu32OffsetArg)
+    {
+        enErrorReg = SCB_enERROR_POINTER;
+    }
+    if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = SCB_VTOR_R_TBLOFF_MASK;
         stRegister.uptrAddress = SCB_VTOR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-        if(SCB_enERROR_OK == enErrorReg)
-        {
-            *pu32OffsetArg = stRegister.u32Value;
-        }
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB_enERROR_POINTER;
+        *pu32OffsetArg = stRegister.u32Value;
     }
     return (enErrorReg);
 }

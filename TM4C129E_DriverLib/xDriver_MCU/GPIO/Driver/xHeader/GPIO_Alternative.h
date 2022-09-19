@@ -27,10 +27,14 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-void GPIO__vEnAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vDisAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
-void GPIO__vSetAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nFUNCTION enFeature);
+GPIO_nERROR GPIO__enSetFunctionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                      GPIO_nFUNCTION enFunctionArg);
+GPIO_nERROR GPIO__enSetFunctionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                        GPIO_nFUNCTION enFunctionArg);
 
-GPIO_nFUNCTION GPIO__enGetAltFunction(GPIO_nPORT enPort, GPIO_nPINMASK enPin);
+GPIO_nERROR GPIO__enGetFunctionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                      GPIO_nPINMASK* penPinMaskReqArg);
+GPIO_nERROR GPIO__enGetFunctionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                        GPIO_nFUNCTION* penFunctionArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_ALTERNATIVE_H_ */

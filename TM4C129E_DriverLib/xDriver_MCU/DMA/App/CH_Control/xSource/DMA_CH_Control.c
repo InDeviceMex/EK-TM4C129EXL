@@ -47,49 +47,50 @@ DMA_nERROR DMA_CH__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
                                          DMA_nCH_CONTROL enControlArg, const DMA_CONTROL_t* const pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    if(0UL != (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_CH__enSetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enTransferMode);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enUseLastBurst);
-            if(DMA_enERROR_OK == enErrorReg)
-            {
-                enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->u32TransferSize);
-                if(DMA_enERROR_OK == enErrorReg)
-                {
-                    enErrorReg = DMA_CH__enSetArbitrationSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enArbitrationSize);
-                    if(DMA_enERROR_OK == enErrorReg)
-                    {
-                        enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceDataSize);
-                        if(DMA_enERROR_OK == enErrorReg)
-                        {
-                            enErrorReg = DMA_CH__enSetSourceTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceIncrement);
-                            if(DMA_enERROR_OK == enErrorReg)
-                            {
-                                enErrorReg = DMA_CH__enSetDestinationDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationDataSize);
-                                if(DMA_enERROR_OK == enErrorReg)
-                                {
-                                    enErrorReg = DMA_CH__enSetDestinationTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationIncrement);
-                                    if(DMA_enERROR_OK == enErrorReg)
-                                    {
-                                        enErrorReg = DMA_CH__enSetSourceDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceAccess);
-                                        if(DMA_enERROR_OK == enErrorReg)
-                                        {
-                                            enErrorReg = DMA_CH__enSetDestinationDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationAccess);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enTransferMode);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enUseLastBurstTransferByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enUseLastBurst);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->u32TransferSize);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetArbitrationSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enArbitrationSize);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceDataSize);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetSourceTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceIncrement);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetDestinationDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationDataSize);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetDestinationTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationIncrement);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetSourceDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enSourceAccess);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enSetDestinationDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enDestinationAccess);
     }
     return (enErrorReg);
 }
@@ -115,49 +116,50 @@ DMA_nERROR DMA_CH__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
 {
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uint32_t) pstControlArg)
-    {
-        enErrorReg = DMA_CH__enGetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enTransferMode));
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            enErrorReg = DMA_CH__enGetLastBurstTransferStateByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enUseLastBurst));
-            if(DMA_enERROR_OK == enErrorReg)
-            {
-                enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->u32TransferSize));
-                if(DMA_enERROR_OK == enErrorReg)
-                {
-                    enErrorReg = DMA_CH__enGetArbitrationSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enArbitrationSize));
-                    if(DMA_enERROR_OK == enErrorReg)
-                    {
-                        enErrorReg = DMA_CH__enGetSourceDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceDataSize));
-                        if(DMA_enERROR_OK == enErrorReg)
-                        {
-                            enErrorReg = DMA_CH__enGetSourceTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceIncrement));
-                            if(DMA_enERROR_OK == enErrorReg)
-                            {
-                                enErrorReg = DMA_CH__enGetDestinationDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationDataSize));
-                                if(DMA_enERROR_OK == enErrorReg)
-                                {
-                                    enErrorReg = DMA_CH__enGetDestinationTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationIncrement));
-                                    if(DMA_enERROR_OK == enErrorReg)
-                                    {
-                                        enErrorReg = DMA_CH__enGetSourceDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceAccess));
-                                        if(DMA_enERROR_OK == enErrorReg)
-                                        {
-                                            enErrorReg = DMA_CH__enGetDestinationDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationAccess));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enTransferMode));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetLastBurstTransferStateByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enUseLastBurst));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->u32TransferSize));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetArbitrationSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enArbitrationSize));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetSourceDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceDataSize));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetSourceTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceIncrement));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetDestinationDataSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationDataSize));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetDestinationTransferIncrementByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationIncrement));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetSourceDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enSourceAccess));
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA_CH__enGetDestinationDataAccessByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enDestinationAccess));
     }
     return (enErrorReg);
 }
@@ -183,7 +185,12 @@ DMA_nERROR DMA_CH__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nC
 {
     DMA_CONTROL_t* pstControlReg;
     DMA_nERROR enErrorReg;
-    if(0UL != (uint32_t) pstControlArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) pstControlArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
@@ -192,14 +199,10 @@ DMA_nERROR DMA_CH__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nC
         pstControlReg = (DMA_CONTROL_t*) malloc(sizeof(DMA_CONTROL_t));
 #endif
         enErrorReg = DMA_CH__enGetControlParameters(enModuleArg, enChannelArg, enControlArg, pstControlReg);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *pstControlArg = pstControlReg;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *pstControlArg = pstControlReg;
     }
     return (enErrorReg);
 }

@@ -35,9 +35,13 @@ EEPROM_nERROR EEPROM__enExtractData(void* pvDataExtractedArg, uint32_t* pu32Init
     uint8_t* pu8DataAux;
     uint8_t* pu8Data;
 
-    if((0UL != (uintptr_t) pvDataExtractedArg) && (0UL != (uintptr_t) pu32InitialDataArg))
+    enErrorReg = EEPROM_enERROR_OK;
+    if((0UL == (uintptr_t) pvDataExtractedArg) || (0UL == (uintptr_t) pu32InitialDataArg))
     {
-        enErrorReg = EEPROM_enERROR_OK;
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
         switch(enVariableTypeArg)
         {
             case EEPROM_enVARIABLE_BYTE:
@@ -72,10 +76,6 @@ EEPROM_nERROR EEPROM__enExtractData(void* pvDataExtractedArg, uint32_t* pu32Init
             break;
         }
     }
-    else
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     return (enErrorReg);
 }
 
@@ -92,9 +92,13 @@ EEPROM_nERROR EEPROM__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplac
     uint8_t u8DataReg;
     uint8_t *pu8DataAux;
 
-    if(0UL != (uintptr_t) pvDataOutArg)
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) pvDataOutArg)
     {
-        enErrorReg = EEPROM_enERROR_OK;
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
         switch(enVariableTypeArg)
         {
         case EEPROM_enVARIABLE_BYTE:
@@ -131,10 +135,6 @@ EEPROM_nERROR EEPROM__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplac
             enErrorReg = EEPROM_enERROR_VALUE;
         break;
         }
-    }
-    else
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
     }
     return (enErrorReg);
 }

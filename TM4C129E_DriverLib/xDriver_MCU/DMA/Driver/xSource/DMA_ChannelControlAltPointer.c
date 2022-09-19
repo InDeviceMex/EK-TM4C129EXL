@@ -32,20 +32,21 @@ DMA_nERROR DMA__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, u
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) puptrControlAddressArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) puptrControlAddressArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = DMA_ALTBASE_R_ADDR_MASK;
         stRegister.uptrAddress = DMA_ALTBASE_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *puptrControlAddressArg = (uintptr_t) stRegister.u32Value;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *puptrControlAddressArg = (uintptr_t) stRegister.u32Value;
     }
     return (enErrorReg);
 }
@@ -60,12 +61,12 @@ DMA_nERROR DMA_CH__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA__enGetAlternateControlStructureAddress(enModuleArg, puptrControlAddressArg);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            uptrChannelOffset = (uintptr_t) enChannelArg;
-            uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
-            *puptrControlAddressArg += uptrChannelOffset;
-        }
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        uptrChannelOffset = (uintptr_t) enChannelArg;
+        uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
+        *puptrControlAddressArg += uptrChannelOffset;
     }
     return (enErrorReg);
 }

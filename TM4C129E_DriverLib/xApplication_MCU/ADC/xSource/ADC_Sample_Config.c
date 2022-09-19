@@ -72,7 +72,7 @@ ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSe
 
     if(0UL != (uint32_t) pstSampleConfig)
     {
-        GPIO__vSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(uint32_t) pstSampleConfig->enInput]);
+        GPIO__enSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(uint32_t) pstSampleConfig->enInput]);
         enReturn = ADC_Sample__enSetConfig(enModule, enSequencer, enMux, pstSampleConfig);
     }
     return (enReturn);

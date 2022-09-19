@@ -45,20 +45,21 @@ DMA_nERROR DMA__enGetError(DMA_nMODULE enModuleArg, DMA_nSTATUS* penStatusArg)
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penStatusArg)
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = DMA_ERRCLR_R_ERRCLR_BIT;
         stRegister.u32Mask = DMA_ERRCLR_ERRCLR_MASK;
         stRegister.uptrAddress = DMA_ERRCLR_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-        if(DMA_enERROR_OK == enErrorReg)
-        {
-            *penStatusArg = (DMA_nSTATUS) stRegister.u32Value;
-        }
     }
-    else
+    if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_enERROR_POINTER;
+        *penStatusArg = (DMA_nSTATUS) stRegister.u32Value;
     }
     return (enErrorReg);
 }

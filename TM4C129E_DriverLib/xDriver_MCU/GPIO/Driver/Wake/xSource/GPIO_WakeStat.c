@@ -23,24 +23,85 @@
  */
 #include <xDriver_MCU/GPIO/Driver/Wake/xHeader/GPIO_WakeStat.h>
 
-#include <xDriver_MCU/GPIO/Driver/Intrinsics/xHeader/GPIO_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/GPIO/Driver/Intrinsics/GPIO_Intrinsics.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
-void GPIO__vSetWakeStatus(GPIO_nPORT enPort, GPIO_nPINMASK enPin, GPIO_nWAKE_STATUS enWakeStatus)
+GPIO_nERROR GPIO__enGetWakeUpStatusByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
+                                         GPIO_nPINMASK* penPinMaskReqArg)
 {
-    if(GPIO_enPORT_K == enPort)
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penPinMaskReqArg)
     {
-        GPIO__vSetGeneric(enPort, GPIO_WAKESTAT_OFFSET, enPin, (uint32_t) enWakeStatus);
+        enErrorReg = GPIO_enERROR_POINTER;
     }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enPORT_K != enPortArg)
+        {
+            enErrorReg = GPIO_enERROR_RANGE;
+        }
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (0xF0UL & (uint32_t) enPinMaskArg))
+        {
+            enErrorReg = GPIO_enERROR_RANGE;
+        }
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = (uint32_t) enPinMaskArg;
+        stRegister.uptrAddress = GPIO_WAKESTAT_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.u32Value;
+    }
+    return (enErrorReg);
 }
 
-GPIO_nWAKE_STATUS GPIO__enGetWakeStatus(GPIO_nPORT enPort, GPIO_nPINMASK enPin)
+GPIO_nERROR GPIO__enGetWakeUpStatusByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
+                                             GPIO_nWAKE_STATUS* penStateArg)
 {
-    GPIO_nWAKE_STATUS enWakeReg = GPIO_enWAKE_STATUS_IDLE;
+    GPIO_Register_t stRegister;
+    GPIO_nERROR enErrorReg;
 
-    if(GPIO_enPORT_K == enPort)
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
     {
-        enWakeReg = (GPIO_nWAKE_STATUS) GPIO__u32GetGeneric(enPort, GPIO_WAKESTAT_OFFSET, enPin);
+        enErrorReg = GPIO_enERROR_POINTER;
     }
-    return (enWakeReg);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if(GPIO_enPORT_K != enPortArg)
+        {
+            enErrorReg = GPIO_enERROR_RANGE;
+        }
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        if((uint32_t) GPIO_enPIN_3 >= (uint32_t) enPinArg)
+        {
+            enErrorReg = GPIO_enERROR_RANGE;
+        }
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = (uint32_t) enPinArg;
+        stRegister.u32Mask = GPIO_WAKESTAT_PIN4_MASK;
+        stRegister.uptrAddress = GPIO_WAKESTAT_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (GPIO_nWAKE_STATUS) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }

@@ -30,19 +30,21 @@ FPU_nERROR FPU__enReadRegister(FPU_nMODULE enModuleArg, FPU_Register_t* pstRegis
 {
     uintptr_t uptrModuleBase;
     FPU_nERROR enErrorReg;
-    if(0UL != (uint32_t) pstRegisterDataArg)
-    {
-        enErrorReg = (FPU_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FPU_enMODULE_MAX);
-        if(FPU_enERROR_OK == enErrorReg)
-        {
-            uptrModuleBase = FPU__uptrBlockBaseAddress(enModuleArg);
-            pstRegisterDataArg->uptrAddress += uptrModuleBase;
-            enErrorReg = (FPU_nERROR) MCU__enReadRegister(pstRegisterDataArg);
-        }
-    }
-    else
+
+    enErrorReg = FPU_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
         enErrorReg = FPU_enERROR_POINTER;
+    }
+    if(FPU_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (FPU_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FPU_enMODULE_MAX);
+    }
+    if(FPU_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = FPU__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (FPU_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
     return (enErrorReg);
 }

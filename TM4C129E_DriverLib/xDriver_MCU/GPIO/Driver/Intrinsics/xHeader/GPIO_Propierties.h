@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
-GPIO_nEXTENDED_DRIVE GPIO__enGetExtendedDrive(GPIO_nPORT enPort);
+GPIO_nERROR GPIO__enGetDriveCapability(GPIO_nPORT enPortArg,
+                                       GPIO_nDRIVE_CAPABILITY* penDriveArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_INTRINSICS_XHEADER_GPIO_PROPIERTIES_H_ */

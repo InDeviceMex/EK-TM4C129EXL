@@ -45,20 +45,21 @@ ADC_nERROR ADC__enGetPhaseLag(ADC_nMODULE enModuleArg, ADC_nPHASE* penPhaseArg)
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    if(0UL != (uintptr_t) penPhaseArg)
+    enErrorReg = ADC_enERROR_OK;
+    if(0UL == (uintptr_t) penPhaseArg)
+    {
+        enErrorReg = ADC_enERROR_POINTER;
+    }
+    if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.u32Shift = ADC_SPC_R_PHASE_BIT;
         stRegister.u32Mask = ADC_SPC_PHASE_MASK;
         stRegister.uptrAddress = ADC_SPC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        if(ADC_enERROR_OK == enErrorReg)
-        {
-            *penPhaseArg = (ADC_nPHASE) stRegister.u32Value;
-        }
     }
-    else
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_enERROR_POINTER;
+        *penPhaseArg = (ADC_nPHASE) stRegister.u32Value;
     }
     return (enErrorReg);
 }
