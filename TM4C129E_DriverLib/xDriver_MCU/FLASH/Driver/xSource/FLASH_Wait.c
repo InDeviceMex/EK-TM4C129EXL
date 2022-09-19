@@ -12,11 +12,11 @@
 
 #define FLASH_TIMEOUT_MAX (9000000UL)
 
-FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask)
+FLASH_nERROR FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask)
 {
     uint32_t u32Reg = 0UL;
     uint32_t u32TimeOut = FLASH_TIMEOUT_MAX;
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
 
     do
     {
@@ -24,7 +24,7 @@ FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask)
         u32TimeOut--;
         if(0UL == u32TimeOut)
         {
-            enStatusReg = FLASH_enERROR;
+            enStatusReg = FLASH_enERROR_UNDEF;
             break;
         }
     }while((u32RegisterMask == u32Reg) && (0UL != u32TimeOut));

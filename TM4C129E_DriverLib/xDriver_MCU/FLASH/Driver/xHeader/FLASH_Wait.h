@@ -14,11 +14,11 @@
 
 #pragma  CODE_SECTION(FLASH__enWait, ".ramcode")
 
-FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask);
+FLASH_nERROR FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask);
 
 #elif defined (__GNUC__ )
 __attribute__((section(".ramcode")))
-FLASH_nSTATUS FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask) ;
+FLASH_nERROR FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask) ;
 
 #endif
 

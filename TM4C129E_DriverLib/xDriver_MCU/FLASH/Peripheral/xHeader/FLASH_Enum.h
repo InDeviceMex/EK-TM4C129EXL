@@ -12,9 +12,49 @@
 
 typedef enum
 {
-    FLASH_enOK = 0UL,
-    FLASH_enERROR = 1UL,
-}FLASH_nSTATUS;
+    FLASH_enERROR_OK = (uint32_t) MCU_enERROR_OK,
+    FLASH_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
+    FLASH_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    FLASH_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
+    FLASH_enERROR_EMPTY = (uint32_t) MCU_enERROR_EMPTY,
+    FLASH_enERROR_BUSY = (uint32_t) MCU_enERROR_BUSY,
+    FLASH_enERROR_TIMEOUT = (uint32_t) MCU_enERROR_TIMEOUT,
+    FLASH_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+}FLASH_nERROR;
+
+typedef enum
+{
+    FLASH_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
+    FLASH_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
+    FLASH_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+} FLASH_nSTATE;
+
+typedef enum
+{
+    FLASH_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
+    FLASH_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
+    FLASH_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+} FLASH_nSTATUS;
+
+typedef enum
+{
+    FLASH_enPRI0 = (uint32_t) MCU_enPRI0,
+    FLASH_enPRI1 = (uint32_t) MCU_enPRI1,
+    FLASH_enPRI2 = (uint32_t) MCU_enPRI2,
+    FLASH_enPRI3 = (uint32_t) MCU_enPRI3,
+    FLASH_enPRI4 = (uint32_t) MCU_enPRI4,
+    FLASH_enPRI5 = (uint32_t) MCU_enPRI5,
+    FLASH_enPRI6 = (uint32_t) MCU_enPRI6,
+    FLASH_enPRI7 = (uint32_t) MCU_enPRI7,
+    FLASH_enPRIMAX = (uint32_t) MCU_enPRIMAX,
+    FLASH_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+}FLASH_nPRIORITY;
+
+typedef enum
+{
+    FLASH_enMODULE_0 = 0UL,
+    FLASH_enMODULE_MAX = 1UL,
+}FLASH_nMODULE;
 
 typedef enum
 {
@@ -46,42 +86,9 @@ typedef enum
 
 typedef enum
 {
-    FLASH_enINT_STATUS_INACTIVE = 0UL,
-    FLASH_enINT_STATUS_ACTIVE = 1UL,
-    FLASH_enINT_STATUS_UNDEF = 0xFFFFFFFFUL,
-}FLASH_nINT_STATUS;
-
-typedef enum
-{
     FLASH_enPREFETCH_MODE_TWO = 0UL,
     FLASH_enPREFETCH_MODE_SINGLE = 1UL,
 }FLASH_nPREFETCH_MODE;
-
-typedef enum
-{
-    FLASH_enMIRROR_DIS = 0UL,
-    FLASH_enMIRROR_ENA = 1UL,
-}FLASH_nMIRROR;
-
-typedef enum
-{
-    FLASH_enPREFETCH_ENABLE_ON = 0UL,
-    FLASH_enPREFETCH_ENABLE_OFF = 1UL,
-}FLASH_nPREFETCH_ENABLE;
-
-typedef enum
-{
-    FLASH_enPRI0 = 0UL,
-    FLASH_enPRI1 = 1UL,
-    FLASH_enPRI2 = 2UL,
-    FLASH_enPRI3 = 3UL,
-    FLASH_enPRI4 = 4UL,
-    FLASH_enPRI5 = 5UL,
-    FLASH_enPRI6 = 6UL,
-    FLASH_enPRI7 = 7UL,
-    FLASH_enPRI_MIN = 7UL,
-    FLASH_enDEFAULT = 0xFFFFFFFFUL,
-}FLASH_nPRIORITY;
 
 typedef enum
 {
@@ -95,5 +102,8 @@ typedef enum
     FLASH_enCONSTANT_OFF = 0UL,
     FLASH_enCONSTANT_ON = 1UL,
 }FLASH_nCONSTANT;
+
+typedef MCU_Register_t FLASH_Register_t;
+typedef MCU_pvfIRQSourceHandler_t FLASH_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_ENUM_H_ */

@@ -38,20 +38,20 @@
 
 void FLASH__vSetPrefetchMode (FLASH_nPREFETCH_MODE enPrefetchMode);
 FLASH_nPREFETCH_MODE FLASH__enGetPrefetchMode (void);
-void FLASH__vSetPrefetchEnable (FLASH_nPREFETCH_ENABLE enPrefetchEnable);
+void FLASH__vSetPrefetchEnable (FLASH_nSTATE enPrefetchEnable);
 void FLASH__vClearPrefetchBuffer (void);
-void FLASH__vSetMirrorMode (FLASH_nMIRROR enMirrorEnable);
-FLASH_nMIRROR FLASH__enGetMirrorMode (void);
+void FLASH__vSetMirrorMode (FLASH_nSTATE enMirrorEnable);
+FLASH_nSTATE FLASH__enGetMirrorMode (void);
 
 #elif defined (__GNUC__ )
 
 
 void FLASH__vSetPrefetchMode (FLASH_nPREFETCH_MODE enPrefetchMode) __attribute__((section(".ramcode")));
 FLASH_nPREFETCH_MODE FLASH__enGetPrefetchMode (void) __attribute__((section(".ramcode")));
-void FLASH__vSetPrefetchEnable (FLASH_nPREFETCH_ENABLE enPrefetchEnable) __attribute__((section(".ramcode")));
+void FLASH__vSetPrefetchEnable (FLASH_nSTATE enPrefetchEnable) __attribute__((section(".ramcode")));
 void FLASH__vClearPrefetchBuffer (void) __attribute__((section(".ramcode")));
-void FLASH__vSetMirrorMode (FLASH_nMIRROR enMirrorEnable) __attribute__((section(".ramcode")));
-FLASH_nMIRROR FLASH__enGetMirrorMode (void) __attribute__((section(".ramcode")));
+void FLASH__vSetMirrorMode (FLASH_nSTATE enMirrorEnable) __attribute__((section(".ramcode")));
+FLASH_nSTATE FLASH__enGetMirrorMode (void) __attribute__((section(".ramcode")));
 
 #endif
 

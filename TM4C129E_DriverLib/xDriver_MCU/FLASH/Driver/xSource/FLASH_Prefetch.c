@@ -45,9 +45,9 @@ FLASH_nPREFETCH_MODE FLASH__enGetPrefetchMode (void)
     return (enPrefetchReg);
 }
 
-void FLASH__vSetPrefetchEnable (FLASH_nPREFETCH_ENABLE enPrefetchEnable)
+void FLASH__vSetPrefetchEnable (FLASH_nSTATE enPrefetchEnable)
 {
-    if(FLASH_enPREFETCH_ENABLE_ON == enPrefetchEnable)
+    if(FLASH_enSTATE_ENA == enPrefetchEnable)
     {
         MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
                             FLASH_FLASHCONF_FPFON_FORCE,
@@ -72,7 +72,7 @@ void FLASH__vClearPrefetchBuffer (void)
                         FLASH_FLASHCONF_R_CLRTV_BIT);
 }
 
-void FLASH__vSetMirrorMode (FLASH_nMIRROR enMirrorEnable)
+void FLASH__vSetMirrorMode (FLASH_nSTATE enMirrorEnable)
 {
     MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
                         (uint32_t) enMirrorEnable,
@@ -81,10 +81,10 @@ void FLASH__vSetMirrorMode (FLASH_nMIRROR enMirrorEnable)
     FLASH__vClearPrefetchBuffer();
 }
 
-FLASH_nMIRROR FLASH__enGetMirrorMode (void)
+FLASH_nSTATE FLASH__enGetMirrorMode (void)
 {
-    FLASH_nMIRROR enMirrorReg = FLASH_enMIRROR_DIS;
-    enMirrorReg = (FLASH_nMIRROR) MCU__u32ReadRegister(FLASH_BASE,
+    FLASH_nSTATE enMirrorReg = FLASH_enSTATE_DIS;
+    enMirrorReg = (FLASH_nSTATE) MCU__u32ReadRegister(FLASH_BASE,
                                            FLASH_FLASHCONF_OFFSET,
                                            FLASH_FLASHCONF_FMME_MASK,
                                            FLASH_FLASHCONF_R_FMME_BIT);
