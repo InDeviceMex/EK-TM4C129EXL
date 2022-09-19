@@ -26,12 +26,12 @@
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 #include <xApplication_MCU/FLASH/Interrupt/FLASH_Interrupt.h>
 
-FLASH_nSTATUS FLASH__enInit (void)
+FLASH_nERROR FLASH__enInit (void)
 {
     /*
      * Process Status
      */
-    FLASH_nSTATUS enReturn = FLASH_enOK;
+    FLASH_nERROR enReturn = FLASH_enERROR_OK;
     void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
 
     pfIrqVectorHandler = FLASH__pvfGetIRQVectorHandler();

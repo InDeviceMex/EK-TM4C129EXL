@@ -35,11 +35,11 @@
 #pragma  CODE_SECTION(FLASH_vSetData, ".ramcode")
 #pragma  CODE_SECTION(FLASH_enWriteAux, ".ramcode")
 
-static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
+static FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
                                           FLASH_nVARIABLE enVariableType);
 static void FLASH_vSetData(uint32_t* pu32DataOut, uint32_t u32Data, uint32_t u32AddressBase,
                            uint32_t u32AddressOffset, FLASH_nVARIABLE enVariableType);
-static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
+static FLASH_nERROR FLASH_enWriteAux(uint32_t u32Data,
                                       uint32_t u32Address,
                                       uint32_t u32AddressOffset,
                                       FLASH_nVARIABLE enVariableType);
@@ -47,7 +47,7 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
+static FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
                                           FLASH_nVARIABLE enVariableType);
 
 __attribute__((section(".ramcode")))
@@ -55,7 +55,7 @@ static void FLASH_vSetData(uint32_t* pu32DataOut, uint32_t u32Data, uint32_t u32
                            uint32_t u32AddressOffset, FLASH_nVARIABLE enVariableType);
 
 __attribute__((section(".ramcode")))
-static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
+static FLASH_nERROR FLASH_enWriteAux(uint32_t u32Data,
                                       uint32_t u32Address,
                                       uint32_t u32AddressOffset,
                                       FLASH_nVARIABLE enVariableType);
@@ -111,10 +111,10 @@ static void FLASH_vSetData(uint32_t* pu32DataOut, uint32_t u32Data, uint32_t u32
     }
 }
 
-static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
+static FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32AddressOffset,
                                           FLASH_nVARIABLE enVariableType)
 {
-    FLASH_nSTATUS enStatus = FLASH_enERROR;
+    FLASH_nERROR enStatus = FLASH_enERROR_UNDEF;
     uint8_t* pu8DataValue = 0UL;
     uint16_t* pu16DataValue = 0UL;
     uint32_t* pu32DataValue = 0UL;
@@ -126,7 +126,7 @@ static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32A
             pu8DataValue += u32AddressOffset;
             if((uint8_t) FLASH_ERASEBYTE == *(pu8DataValue))
             {
-                enStatus = FLASH_enOK;
+                enStatus = FLASH_enERROR_OK;
             }
         break;
         case FLASH_enVARIABLE_HALFWORD:
@@ -134,7 +134,7 @@ static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32A
             pu16DataValue += u32AddressOffset;
             if((uint16_t) FLASH_ERASEHALFWORLD == *(pu16DataValue))
             {
-                enStatus = FLASH_enOK;
+                enStatus = FLASH_enERROR_OK;
             }
         break;
         case FLASH_enVARIABLE_WORD:
@@ -142,23 +142,23 @@ static FLASH_nSTATUS FLASH_enIsDataErased(uint32_t u32AddressBase, uint32_t u32A
             pu32DataValue += u32AddressOffset;
             if((uint32_t) FLASH_ERASEWORLD == *(pu32DataValue))
             {
-                enStatus = FLASH_enOK;
+                enStatus = FLASH_enERROR_OK;
             }
         break;
         default:
-            enStatus = FLASH_enERROR;
+            enStatus = FLASH_enERROR_UNDEF;
         break;
     }
     return (enStatus);
 }
 
-static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
+static FLASH_nERROR FLASH_enWriteAux(uint32_t u32Data,
                                       uint32_t u32Address,
                                       uint32_t u32AddressOffset,
                                       FLASH_nVARIABLE enVariableType)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enERROR;
-    FLASH_nSTATUS enDataErased = FLASH_enERROR;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
+    FLASH_nERROR enDataErased = FLASH_enERROR_UNDEF;
     uint32_t *pu32PageDataInitial = 0UL;
     uint32_t *pu32PageData = 0UL;
     uint32_t *pu32AuxData = 0UL;
@@ -179,7 +179,7 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
     {
         enDataErased = FLASH_enIsDataErased(u32AddressCurrent,
                                             u32AddressOffset, enVariableType);
-        if(FLASH_enOK == enDataErased)
+        if(FLASH_enERROR_OK == enDataErased)
         {
             FLASH_vSetData( &u32DataAux, u32Data, u32AddressCurrent, u32AddressOffset,
                             enVariableType);
@@ -232,7 +232,7 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
                 for(u32Pos = 0UL; u32Pos < 8UL; u32Pos++)
                 {
                     enStatusReg = FLASH__enWriteBuf(pu32PageData, u32AddressPage, 32UL);
-                    if(FLASH_enERROR == enStatusReg)
+                    if(FLASH_enERROR_UNDEF == enStatusReg)
                     {
                         break;
                     }
@@ -247,16 +247,16 @@ static FLASH_nSTATUS FLASH_enWriteAux(uint32_t u32Data,
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteWorld (uint32_t u32Data, uint32_t u32Address)
+FLASH_nERROR FLASH__enWriteWorld (uint32_t u32Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteAux(u32Data, u32Address, 0UL, FLASH_enVARIABLE_WORD);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
+FLASH_nERROR FLASH__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     uint32_t u32AddressOffset = 0UL;
 
     u32AddressOffset = u32Address;
@@ -268,9 +268,9 @@ FLASH_nSTATUS FLASH__enWriteHalfWorld (uint16_t u16Data, uint32_t u32Address)
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteByte (uint8_t u8Data, uint32_t u32Address)
+FLASH_nERROR FLASH__enWriteByte (uint8_t u8Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     uint32_t u32AddressOffset = 0UL;
 
     u32AddressOffset = u32Address;

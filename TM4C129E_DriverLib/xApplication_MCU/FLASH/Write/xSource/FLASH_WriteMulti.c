@@ -40,7 +40,7 @@ static void FLASH_vFillBlock(uint32_t u32InitialAddress,
                              uint32_t u32Count,
                              FLASH_nVARIABLE enVariableType,
                              FLASH_nCONSTANT enConstantType);
-static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
+static FLASH_nERROR FLASH_enWriteMultiAux(uint32_t* pu32Data,
                                            uint32_t u32Address,
                                            uint32_t u32Count,
                                            FLASH_nVARIABLE enVariableType,
@@ -55,7 +55,7 @@ static void FLASH_vFillBlock(uint32_t u32InitialAddress,
                              FLASH_nVARIABLE enVariableType,
                              FLASH_nCONSTANT enConstantType);
 __attribute__((section(".ramcode")))
-static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
+static FLASH_nERROR FLASH_enWriteMultiAux(uint32_t* pu32Data,
                                            uint32_t u32Address,
                                            uint32_t u32Count,
                                            FLASH_nVARIABLE enVariableType,
@@ -151,13 +151,13 @@ static void FLASH_vFillBlock(uint32_t u32InitialAddress,
     }
 }
 
-static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
+static FLASH_nERROR FLASH_enWriteMultiAux(uint32_t* pu32Data,
                                            uint32_t u32Address,
                                            uint32_t u32Count,
                                            FLASH_nVARIABLE enVariableType,
                                            FLASH_nCONSTANT enConstantType)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enERROR;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
     uint32_t *pu32PageDataInitial = 0UL;
     uint32_t *pu32PageData = 0UL;
     uint32_t *pu32Address = 0UL;
@@ -251,7 +251,7 @@ static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
                 for(u32Pos = 0UL; u32Pos < u32TempValue; u32Pos++)
                 {
                     enStatusReg = FLASH__enWriteBuf(pu32PageData, u32AddressPage, 32UL);
-                    if(FLASH_enERROR == enStatusReg)
+                    if(FLASH_enERROR_UNDEF == enStatusReg)
                     {
                         break;
                     }
@@ -269,61 +269,61 @@ static FLASH_nSTATUS FLASH_enWriteMultiAux(uint32_t* pu32Data,
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiWorld(uint32_t* pu32Data,
+FLASH_nERROR FLASH__enWriteMultiWorld(uint32_t* pu32Data,
                                        uint32_t u32Address,
                                        uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux(pu32Data, u32Address,
                          u32Count, FLASH_enVARIABLE_WORD, FLASH_enCONSTANT_OFF);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiHalfWorld(uint16_t* pu16Data,
+FLASH_nERROR FLASH__enWriteMultiHalfWorld(uint16_t* pu16Data,
                                            uint32_t u32Address,
                                            uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux( (uint32_t*) pu16Data, u32Address,
                           u32Count, FLASH_enVARIABLE_HALFWORD, FLASH_enCONSTANT_OFF);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiByte(uint8_t* pu8Data,
+FLASH_nERROR FLASH__enWriteMultiByte(uint8_t* pu8Data,
                                       uint32_t u32Address,
                                       uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux( (uint32_t*) pu8Data, u32Address,
                           u32Count, FLASH_enVARIABLE_BYTE, FLASH_enCONSTANT_OFF);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiWorldConstant(uint32_t u32Data,
+FLASH_nERROR FLASH__enWriteMultiWorldConstant(uint32_t u32Data,
                                                uint32_t u32Address,
                                                uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux(&u32Data, u32Address,
                          u32Count, FLASH_enVARIABLE_WORD, FLASH_enCONSTANT_ON);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiHalfWorldConstant(uint16_t u16Data,
+FLASH_nERROR FLASH__enWriteMultiHalfWorldConstant(uint16_t u16Data,
                                                    uint32_t u32Address,
                                                    uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux( (uint32_t*) &u16Data, u32Address,
                           u32Count, FLASH_enVARIABLE_HALFWORD, FLASH_enCONSTANT_ON);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteMultiByteConstant(uint8_t u8Data,
+FLASH_nERROR FLASH__enWriteMultiByteConstant(uint8_t u8Data,
                                               uint32_t u32Address,
                                               uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH_enWriteMultiAux( (uint32_t*) &u8Data, u32Address,
                               u32Count, FLASH_enVARIABLE_BYTE, FLASH_enCONSTANT_ON);
     return (enStatusReg);

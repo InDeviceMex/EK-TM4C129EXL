@@ -26,9 +26,9 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_InitProcess.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nSTATUS FLASH__enPageErase (uint32_t u32Address)
+FLASH_nERROR FLASH__enPageErase (uint32_t u32Address)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enERROR;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
     uint32_t u32FlashSize = FLASH__u32GetSize();
     if(u32Address < u32FlashSize)
     {
@@ -39,18 +39,18 @@ FLASH_nSTATUS FLASH__enPageErase (uint32_t u32Address)
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enPageErasePos (uint32_t u32Page)
+FLASH_nERROR FLASH__enPageErasePos (uint32_t u32Page)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     uint32_t u32FlashSectorSize = FLASH__u32GetSectorSize();
     uint32_t u32Address = u32Page * u32FlashSectorSize;
     enStatusReg = FLASH__enPageErase(u32Address);
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enMassErase (void)
+FLASH_nERROR FLASH__enMassErase (void)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enOK;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
     enStatusReg = FLASH__enInitProcess(FLASH_FMC_OFFSET, FLASH_FMC_R_MERASE_MASK);
     return (enStatusReg);
 }

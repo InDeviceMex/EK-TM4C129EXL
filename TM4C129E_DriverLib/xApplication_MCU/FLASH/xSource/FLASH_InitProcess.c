@@ -25,9 +25,9 @@
 
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nSTATUS FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature)
+FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature)
 {
-    FLASH_nSTATUS enReturn = FLASH_enERROR;
+    FLASH_nERROR enReturn = FLASH_enERROR_UNDEF;
     uint32_t u32Key = 0UL;
 
     u32Key = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,

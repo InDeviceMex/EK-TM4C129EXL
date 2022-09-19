@@ -26,9 +26,9 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_InitProcess.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
+FLASH_nERROR FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enERROR;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
     uint32_t u32ValueReg = 0UL;
     uint32_t u32FlashSize = FLASH__u32GetSize();
 
@@ -49,9 +49,9 @@ FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
     return (enStatusReg);
 }
 
-FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count)
+FLASH_nERROR FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count)
 {
-    FLASH_nSTATUS enStatusReg = FLASH_enERROR;
+    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
     uint32_t u32ValueReg = 0UL;
     uint32_t u32CountActual = 0UL;
     uint32_t u32RegisterOffset = 0UL;

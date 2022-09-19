@@ -33,15 +33,15 @@
 #pragma  CODE_SECTION(FLASH__enPageErase, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enMassErase, ".ramcode")
 
-FLASH_nSTATUS FLASH__enPageErasePos(uint32_t u32Page);
-FLASH_nSTATUS FLASH__enPageErase(uint32_t u32Address);
-FLASH_nSTATUS FLASH__enMassErase(void);
+FLASH_nERROR FLASH__enPageErasePos(uint32_t u32Page);
+FLASH_nERROR FLASH__enPageErase(uint32_t u32Address);
+FLASH_nERROR FLASH__enMassErase(void);
 
 #elif defined (__GNUC__ )
 
-FLASH_nSTATUS FLASH__enPageErasePos(uint32_t u32Page) __attribute__((section(".ramcode")));
-FLASH_nSTATUS FLASH__enPageErase(uint32_t u32Address) __attribute__((section(".ramcode")));
-FLASH_nSTATUS FLASH__enMassErase(void) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageErasePos(uint32_t u32Page) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageErase(uint32_t u32Address) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enMassErase(void) __attribute__((section(".ramcode")));
 
 #endif
 

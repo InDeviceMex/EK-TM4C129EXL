@@ -31,11 +31,11 @@
 
 #pragma  CODE_SECTION(FLASH__enInitProcess, ".ramcode")
 
-FLASH_nSTATUS FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature);
+FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature);
 
 #elif defined (__GNUC__ )
 
-FLASH_nSTATUS FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature) __attribute__((section(".ramcode")));
 
 #endif
 

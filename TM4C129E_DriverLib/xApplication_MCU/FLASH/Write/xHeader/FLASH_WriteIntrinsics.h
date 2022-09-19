@@ -32,16 +32,16 @@
 #pragma  CODE_SECTION(FLASH__enWrite, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteBuf, ".ramcode")
 
-FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address);
-FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data,
+FLASH_nERROR FLASH__enWrite(uint32_t u32Data, uint32_t u32Address);
+FLASH_nERROR FLASH__enWriteBuf(const uint32_t* pu32Data,
                                 uint32_t u32Address, uint32_t u32Count);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-FLASH_nSTATUS FLASH__enWrite(uint32_t u32Data, uint32_t u32Address);
+FLASH_nERROR FLASH__enWrite(uint32_t u32Data, uint32_t u32Address);
 __attribute__((section(".ramcode")))
-FLASH_nSTATUS FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count);
+FLASH_nERROR FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count);
 
 #endif
 
