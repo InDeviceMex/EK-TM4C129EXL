@@ -108,7 +108,7 @@
  ************************************ 10 AFSEL *********************************************
  ******************************************************************************************/
 /* GPIOD AFSEL*/
-#define GPIOD_AFSEL    ((GPIODFSEL_t*) (GPIOD_BASE + GPIO_AFSEL_OFFSET))
+#define GPIOD_AFSEL    ((GPIO_AFSEL_t*) (GPIOD_BASE + GPIO_AFSEL_OFFSET))
 #define GPIOD_AFSEL_R    (*((volatile uint32_t *) (GPIOD_BASE + GPIO_AFSEL_OFFSET)))
 
 /******************************************************************************************
@@ -149,7 +149,7 @@
  ************************************ 15 PUR *********************************************
  ******************************************************************************************/
 /* GPIOD PUE*/
-#define GPIOD_PUR    ((GPI0_PUR_t*) (GPIOD_BASE + GPIO_PUR_OFFSET))
+#define GPIOD_PUR    ((GPIO_PUR_t*) (GPIOD_BASE + GPIO_PUR_OFFSET))
 #define GPIOD_PUR_R    (*((volatile uint32_t *) (GPIOD_BASE + GPIO_PUR_OFFSET)))
 
 /******************************************************************************************
@@ -184,14 +184,14 @@
  ************************************ 20 CR *********************************************
  ******************************************************************************************/
 /* GPIOD CR*/
-#define GPIOD_CR    ((GPIODR_t*) (GPIOD_BASE + GPIO_CR_OFFSET))
+#define GPIOD_CR    ((GPIO_CR_t*) (GPIOD_BASE + GPIO_CR_OFFSET))
 #define GPIOD_CR_R    (*((volatile uint32_t *) (GPIOD_BASE + GPIO_CR_OFFSET)))
 
 /******************************************************************************************
  ************************************ 21 AMSEL *********************************************
  ******************************************************************************************/
 /* GPIOD AMSEL*/
-#define GPIOD_AMSEL    ((GPIODMSEL_t*) (GPIOD_BASE + GPIO_AMSEL_OFFSET))
+#define GPIOD_AMSEL    ((GPIO_AMSEL_t*) (GPIOD_BASE + GPIO_AMSEL_OFFSET))
 #define GPIOD_AMSEL_R    (*((volatile uint32_t *) (GPIOD_BASE + GPIO_AMSEL_OFFSET)))
 
 /******************************************************************************************
@@ -205,7 +205,7 @@
  ************************************ 23 ADCCTL *********************************************
  ******************************************************************************************/
 /* GPIOD ADCCTL*/
-#define GPIOD_ADCCTL    ((GPIODDCCTL_t*) (GPIOD_BASE + GPIO_ADCCTL_OFFSET))
+#define GPIOD_ADCCTL    ((GPIO_ADCCTL_t*) (GPIOD_BASE + GPIO_ADCCTL_OFFSET))
 #define GPIOD_ADCCTL_R    (*((volatile uint32_t *) (GPIOD_BASE + GPIO_ADCCTL_OFFSET)))
 
 /******************************************************************************************

@@ -35,7 +35,7 @@
  ************************************ 1 DATA *********************************************
  ******************************************************************************************/
 /* GPIOG DATA*/
-#define GPIOG_DATA_MASK    ((GPIOGATA_MASK_t*) (GPIOG_BASE + GPIO_DATA_MASK_OFFSET))
+#define GPIOG_DATA_MASK    ((GPIO_DATA_MASK_t*) (GPIOG_BASE + GPIO_DATA_MASK_OFFSET))
 #define GPIOG_DATA_PINMASK0_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_PINMASK0_OFFSET )))
 #define GPIOG_DATA_PINMASK1_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_PINMASK1_OFFSET )))
 #define GPIOG_DATA_PINMASK2_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_PINMASK2_OFFSET )))
@@ -45,14 +45,14 @@
 #define GPIOG_DATA_PINMASK6_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_PINMASK6_OFFSET )))
 #define GPIOG_DATA_PINMASK7_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_PINMASK7_OFFSET )))
 
-#define GPIOG_DATA    ((GPIOGATA_t*) (GPIOG_BASE + GPIO_DATA_OFFSET))
+#define GPIOG_DATA    ((GPIO_DATA_t*) (GPIOG_BASE + GPIO_DATA_OFFSET))
 #define GPIOG_DATA_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DATA_OFFSET)))
 
 /******************************************************************************************
  ************************************ 2 DIR *********************************************
  ******************************************************************************************/
 /* GPIOG DIR*/
-#define GPIOG_DIR    ((GPIOGIR_t*) (GPIOG_BASE + GPIO_DIR_OFFSET))
+#define GPIOG_DIR    ((GPIO_DIR_t*) (GPIOG_BASE + GPIO_DIR_OFFSET))
 #define GPIOG_DIR_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DIR_OFFSET)))
 
 /******************************************************************************************
@@ -108,34 +108,34 @@
  ************************************ 10 AFSEL *********************************************
  ******************************************************************************************/
 /* GPIOG AFSEL*/
-#define GPIOG_AFSEL    ((GPIOGFSEL_t*) (GPIOG_BASE + GPIO_AFSEL_OFFSET))
+#define GPIOG_AFSEL    ((GPIO_AFSEL_t*) (GPIOG_BASE + GPIO_AFSEL_OFFSET))
 #define GPIOG_AFSEL_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_AFSEL_OFFSET)))
 
 /******************************************************************************************
  ************************************ 11 DRR ARRAY *********************************************
  ******************************************************************************************/
 /* GPIOG DRV2*/
-#define GPIOG_DRR    ((GPIOGRR_ARRAY_t*) (GPIOG_BASE + GPIO_DR2R_OFFSET))
+#define GPIOG_DRR    ((GPIO_DRR_ARRAY_t*) (GPIOG_BASE + GPIO_DR2R_OFFSET))
 
 /******************************************************************************************
  ************************************ 11 DR2R *********************************************
  ******************************************************************************************/
 /* GPIOG DRV2*/
-#define GPIOG_DR2R    ((GPIOGR2R_t*) (GPIOG_BASE + GPIO_DR2R_OFFSET))
+#define GPIOG_DR2R    ((GPIO_DR2R_t*) (GPIOG_BASE + GPIO_DR2R_OFFSET))
 #define GPIOG_DR2R_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DR2R_OFFSET)))
 
 /******************************************************************************************
  ************************************ 12 DR4R *********************************************
  ******************************************************************************************/
 /* GPIOG DRV4*/
-#define GPIOG_DR4R    ((GPIOGR4R_t*) (GPIOG_BASE + GPIO_DR4R_OFFSET))
+#define GPIOG_DR4R    ((GPIO_DR4R_t*) (GPIOG_BASE + GPIO_DR4R_OFFSET))
 #define GPIOG_DR4R_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DR4R_OFFSET)))
 
 /******************************************************************************************
  ************************************ 13 DR8R *********************************************
  ******************************************************************************************/
 /* GPIOG DRV8*/
-#define GPIOG_DR8R    ((GPIOGR8R_t*) (GPIOG_BASE + GPIO_DR8R_OFFSET))
+#define GPIOG_DR8R    ((GPIO_DR8R_t*) (GPIOG_BASE + GPIO_DR8R_OFFSET))
 #define GPIOG_DR8R_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DR8R_OFFSET)))
 
 /******************************************************************************************
@@ -149,7 +149,7 @@
  ************************************ 15 PUR *********************************************
  ******************************************************************************************/
 /* GPIOG PUE*/
-#define GPIOG_PUR    ((GPI0_PUR_t*) (GPIOG_BASE + GPIO_PUR_OFFSET))
+#define GPIOG_PUR    ((GPIO_PUR_t*) (GPIOG_BASE + GPIO_PUR_OFFSET))
 #define GPIOG_PUR_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_PUR_OFFSET)))
 
 /******************************************************************************************
@@ -170,7 +170,7 @@
  ************************************ 18 DEN *********************************************
  ******************************************************************************************/
 /* GPIOG DEN*/
-#define GPIOG_DEN    ((GPIOGEN_t*) (GPIOG_BASE + GPIO_DEN_OFFSET))
+#define GPIOG_DEN    ((GPIO_DEN_t*) (GPIOG_BASE + GPIO_DEN_OFFSET))
 #define GPIOG_DEN_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DEN_OFFSET)))
 
 /******************************************************************************************
@@ -184,14 +184,14 @@
  ************************************ 20 CR *********************************************
  ******************************************************************************************/
 /* GPIOG CR*/
-#define GPIOG_CR    ((GPIOGR_t*) (GPIOG_BASE + GPIO_CR_OFFSET))
+#define GPIOG_CR    ((GPIO_CR_t*) (GPIOG_BASE + GPIO_CR_OFFSET))
 #define GPIOG_CR_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_CR_OFFSET)))
 
 /******************************************************************************************
  ************************************ 21 AMSEL *********************************************
  ******************************************************************************************/
 /* GPIOG AMSEL*/
-#define GPIOG_AMSEL    ((GPIOGMSEL_t*) (GPIOG_BASE + GPIO_AMSEL_OFFSET))
+#define GPIOG_AMSEL    ((GPIO_AMSEL_t*) (GPIOG_BASE + GPIO_AMSEL_OFFSET))
 #define GPIOG_AMSEL_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_AMSEL_OFFSET)))
 
 /******************************************************************************************
@@ -205,14 +205,14 @@
  ************************************ 23 ADCCTL *********************************************
  ******************************************************************************************/
 /* GPIOG ADCCTL*/
-#define GPIOG_ADCCTL    ((GPIOGDCCTL_t*) (GPIOG_BASE + GPIO_ADCCTL_OFFSET))
+#define GPIOG_ADCCTL    ((GPIO_ADCCTL_t*) (GPIOG_BASE + GPIO_ADCCTL_OFFSET))
 #define GPIOG_ADCCTL_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_ADCCTL_OFFSET)))
 
 /******************************************************************************************
  ************************************ 24 DMACTL *********************************************
  ******************************************************************************************/
 /* GPIOG DMACTL*/
-#define GPIOG_DMACTL    ((GPIOGMACTL_t*) (GPIOG_BASE + GPIO_DMACTL_OFFSET))
+#define GPIOG_DMACTL    ((GPIO_DMACTL_t*) (GPIOG_BASE + GPIO_DMACTL_OFFSET))
 #define GPIOG_DMACTL_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DMACTL_OFFSET)))
 
 /******************************************************************************************
@@ -226,7 +226,7 @@
  ************************************ 26 DR12R *********************************************
  ******************************************************************************************/
 /* GPIOG DR12R*/
-#define GPIOG_DR12R    ((GPIOGR12R_t*) (GPIOG_BASE + GPIO_DR12R_OFFSET))
+#define GPIOG_DR12R    ((GPIO_DR12R_t*) (GPIOG_BASE + GPIO_DR12R_OFFSET))
 #define GPIOG_DR12R_R    (*((volatile uint32_t *) (GPIOG_BASE + GPIO_DR12R_OFFSET)))
 
 /******************************************************************************************

@@ -194,7 +194,7 @@
  *********************************** * 10 AFSEL *********************************************
  ******************************************************************************************/
 /* GPIOD AFSEL*/
-#define GPIOD_BITBANDING_AFSEL    ((BITBANDING_GPIODFSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AFSEL_OFFSET) * 32UL)))
+#define GPIOD_BITBANDING_AFSEL    ((BITBANDING_GPIO_AFSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AFSEL_OFFSET) * 32UL)))
 
 /* GPIOD AFSEL BITBANDING*/
 #define GPIOD_BITBANDING_AFSEL_PIN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AFSEL_OFFSET) * 32UL) + (GPIO_AFSEL_R_PIN0_BIT * 4UL))))
@@ -366,7 +366,7 @@
  *********************************** * 21 AMSEL *********************************************
  ******************************************************************************************/
 /* GPIOD AMSEL*/
-#define GPIOD_BITBANDING_AMSEL    ((BITBANDING_GPIODMSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AMSEL_OFFSET) * 32UL)))
+#define GPIOD_BITBANDING_AMSEL    ((BITBANDING_GPIO_AMSEL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AMSEL_OFFSET) * 32UL)))
 
 /* GPIOD AMSEL BITBANDING*/
 #define GPIOD_BITBANDING_AMSEL_PIN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_AMSEL_OFFSET) * 32UL) + (GPIO_AMSEL_R_PIN0_BIT * 4UL))))
@@ -388,7 +388,7 @@
  *********************************** * 23 ADCCTL *********************************************
  ******************************************************************************************/
 /* GPIOD ADCCTL*/
-#define GPIOD_BITBANDING_ADCCTL    ((BITBANDING_GPIODDCCTL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL)))
+#define GPIOD_BITBANDING_ADCCTL    ((BITBANDING_GPIO_ADCCTL_t*) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL)))
 
 /* GPIOD ADCCTL BITBANDING*/
 #define GPIOD_BITBANDING_ADCCTL_PIN0    (*((volatile uint32_t *) (GPIO_BITBANDING_BASE + ((GPIOD_OFFSET + GPIO_ADCCTL_OFFSET) * 32UL) + (GPIO_ADCCTL_R_PIN0_BIT * 4UL))))

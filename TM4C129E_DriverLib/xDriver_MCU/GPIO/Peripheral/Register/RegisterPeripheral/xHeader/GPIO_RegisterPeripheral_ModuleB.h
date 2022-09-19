@@ -108,7 +108,7 @@
  ************************************ 10 AFSEL *********************************************
  ******************************************************************************************/
 /* GPIOB AFSEL*/
-#define GPIOB_AFSEL    ((GPIOBFSEL_t*) (GPIOB_BASE + GPIO_AFSEL_OFFSET))
+#define GPIOB_AFSEL    ((GPIO_AFSEL_t*) (GPIOB_BASE + GPIO_AFSEL_OFFSET))
 #define GPIOB_AFSEL_R    (*((volatile uint32_t *) (GPIOB_BASE + GPIO_AFSEL_OFFSET)))
 
 /******************************************************************************************
@@ -149,7 +149,7 @@
  ************************************ 15 PUR *********************************************
  ******************************************************************************************/
 /* GPIOB PUE*/
-#define GPIOB_PUR    ((GPI0_PUR_t*) (GPIOB_BASE + GPIO_PUR_OFFSET))
+#define GPIOB_PUR    ((GPIO_PUR_t*) (GPIOB_BASE + GPIO_PUR_OFFSET))
 #define GPIOB_PUR_R    (*((volatile uint32_t *) (GPIOB_BASE + GPIO_PUR_OFFSET)))
 
 /******************************************************************************************
@@ -191,7 +191,7 @@
  ************************************ 21 AMSEL *********************************************
  ******************************************************************************************/
 /* GPIOB AMSEL*/
-#define GPIOB_AMSEL    ((GPIOBMSEL_t*) (GPIOB_BASE + GPIO_AMSEL_OFFSET))
+#define GPIOB_AMSEL    ((GPIO_AMSEL_t*) (GPIOB_BASE + GPIO_AMSEL_OFFSET))
 #define GPIOB_AMSEL_R    (*((volatile uint32_t *) (GPIOB_BASE + GPIO_AMSEL_OFFSET)))
 
 /******************************************************************************************
@@ -205,7 +205,7 @@
  ************************************ 23 ADCCTL *********************************************
  ******************************************************************************************/
 /* GPIOB ADCCTL*/
-#define GPIOB_ADCCTL    ((GPIOBDCCTL_t*) (GPIOB_BASE + GPIO_ADCCTL_OFFSET))
+#define GPIOB_ADCCTL    ((GPIO_ADCCTL_t*) (GPIOB_BASE + GPIO_ADCCTL_OFFSET))
 #define GPIOB_ADCCTL_R    (*((volatile uint32_t *) (GPIOB_BASE + GPIO_ADCCTL_OFFSET)))
 
 /******************************************************************************************

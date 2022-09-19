@@ -149,7 +149,7 @@
  ************************************ 15 PUR *********************************************
  ******************************************************************************************/
 /* GPIOA PUE*/
-#define GPIOA_PUR    ((GPI0_PUR_t*) (GPIOA_BASE + GPIO_PUR_OFFSET))
+#define GPIOA_PUR    ((GPIO_PUR_t*) (GPIOA_BASE + GPIO_PUR_OFFSET))
 #define GPIOA_PUR_R    (*((volatile uint32_t *) (GPIOA_BASE + GPIO_PUR_OFFSET)))
 
 /******************************************************************************************
