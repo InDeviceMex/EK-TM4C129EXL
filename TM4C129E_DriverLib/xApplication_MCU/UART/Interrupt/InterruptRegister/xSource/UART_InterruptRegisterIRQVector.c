@@ -41,8 +41,6 @@ void UART__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),UART_nMOD
     {
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
         enVector = SCB_enVECISR_UART[u32Module];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                                       UART__pvfGetIRQVectorHandlerPointer((UART_nMODULE) u32Module),
-                                        enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, UART__pvfGetIRQVectorHandlerPointer((UART_nMODULE) u32Module));
     }
 }

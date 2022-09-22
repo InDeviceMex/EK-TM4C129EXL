@@ -27,23 +27,23 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void (**SCB_BusFault__pvfGetIRQSourceHandlerPointer(SCB_nBUS_BIT enBusFaultBit))(void);
-void (*SCB_BusFault__pvfGetIRQSourceHandler(SCB_nBUS_BIT enBusFaultBit))(void);
+SCB_pvfIRQSourceHandler_t SCB_BusFault__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nBUS_BIT enFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_BusFault__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nBUS_BIT enFaultBit);
 
-void (**SCB_UsageFault__pvfGetIRQSourceHandlerPointer(SCB_nUSAGE_BIT enUsageFaultBit))(void);
-void (*SCB_UsageFault__pvfGetIRQSourceHandler(SCB_nUSAGE_BIT enUsageFaultBit))(void);
+SCB_pvfIRQSourceHandler_t SCB_UsageFault__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nUSAGE_BIT enFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_UsageFault__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nUSAGE_BIT enFaultBit);
 
-void (**SCB_MemoryFault__pvfGetIRQSourceHandlerPointer(SCB_nMEMORY_BIT enMemoryFaultBit))(void);
-void (*SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_nMEMORY_BIT enMemoryFaultBit))(void);
+SCB_pvfIRQSourceHandler_t SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nMEMORY_BIT enFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_MemoryFault__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nMEMORY_BIT enFaultBit);
 
-void (*SCB_HardFault__pvfGetIRQSourceHandler(SCB_nHARD_BIT enHardFaultBit))(void);
-void (**SCB_HardFault__pvfGetIRQSourceHandlerPointer(SCB_nHARD_BIT enHardFaultBit))(void);
+SCB_pvfIRQSourceHandler_t SCB_HardFault__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nHARD_BIT enFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_HardFault__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nHARD_BIT enFaultBit);
 
-void (*SCB_NMI__pvfGetIRQSourceHandler(SCB_nNMI_BIT enNMIBit))(void);
-void (**SCB_NMI__pvfGetIRQSourceHandlerPointer(SCB_nNMI_BIT enNMIBit))(void);
+SCB_pvfIRQSourceHandler_t SCB_NMI__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nNMI_BIT enFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_NMI__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nNMI_BIT enFaultBit);
 
-void SCB_SVCall__vInit(void);
-void (*SCB_SVCall__pvfGetIRQSourceHandler(uint32_t u32SVCallBit))(void);
-void (**SCB_SVCall__pvfGetIRQSourceHandlerPointer(uint32_t u32SVCallBit))(void);
+SCB_nERROR SCB_SVCall__enInit(SCB_nMODULE enModuleArg);
+SCB_pvfIRQSourceHandler_t SCB_SVCall__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, uint32_t u32FaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_SVCall__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, uint32_t u32FaultBit);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_SOURCE_H_ */

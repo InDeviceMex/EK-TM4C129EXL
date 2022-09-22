@@ -53,7 +53,7 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
         u32VectorBit <<= 3U;
 
         u32VectorIndex = (uint32_t) enVectorArg;
-        u32VectorIndex &= ~(0x00000003UL);
+        u32VectorIndex &= ~((uint32_t) 0x00000003UL);
 
         uptrRegisterOffset += u32VectorIndex;
 
@@ -88,7 +88,7 @@ NVIC_nERROR NVIC__enSetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
         u32VectorBit += NVIC_PRI_BIT_OFFSET;
 
         u32VectorIndex = (uint32_t) enVectorArg;
-        u32VectorIndex &= ~(0x00000003UL);
+        u32VectorIndex &= ~((uint32_t) 0x00000003UL);
 
         uptrRegisterOffset += u32VectorIndex;
 

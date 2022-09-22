@@ -23,21 +23,21 @@
  */
 #include <xApplication_MCU/EEPROM/Interrupt/InterruptRoutine/EEPROM_InterruptRoutine.h>
 
-static void (*EEPROM__pvIRQVectorHandler[1UL]) (void) =
+EEPROM_pvfIRQSourceHandler_t EEPROM__pvIRQVectorHandler[(uint32_t) EEPROM_enMODULE_MAX] =
 {
     &EEPROM__vIRQVectorHandler
 };
 
-void (*EEPROM__pvfGetIRQVectorHandler(void))(void)
+EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQVectorHandler(EEPROM_nMODULE enModuleArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = EEPROM__pvIRQVectorHandler[0UL];
+    EEPROM_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = EEPROM__pvIRQVectorHandler[enModuleArg];
     return (pvfFunctionReg);
 }
 
-void (**EEPROM__pvfGetIRQVectorHandlerPointer(void))(void)
+EEPROM_pvfIRQSourceHandler_t* EEPROM__pvfGetIRQVectorHandlerPointer(EEPROM_nMODULE enModuleArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &EEPROM__pvIRQVectorHandler[0UL];
+    EEPROM_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &EEPROM__pvIRQVectorHandler[enModuleArg];
     return (pvfFunctionReg);
 }

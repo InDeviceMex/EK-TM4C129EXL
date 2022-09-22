@@ -25,22 +25,120 @@
 
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
-static NVIC_nVECTOR NVIC_VECTOR_DMA[(uint32_t) DMA_enVECTOR_MAX] = { NVIC_enVECTOR_UDMASOFT, NVIC_enVECTOR_UDMAERROR};
+static DMA_nERROR DMA__enGetInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, NVIC_nVECTOR* enVectorArg);
 
-void DMA__vEnInterruptVector(DMA_nVECTOR enVector, DMA_nPRIORITY enDmaPriority)
+static DMA_nERROR DMA__enGetInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, NVIC_nVECTOR* enVectorArg)
 {
-    NVIC_nVECTOR enVectorNvic = NVIC_enVECTOR_UDMASOFT;
-    enVector = (DMA_nVECTOR) MCU__u32CheckParams( (uint32_t) enVector, (uint32_t) DMA_enVECTOR_MAX);
+    const NVIC_nVECTOR NVIC_VECTOR_DMA[(uint32_t) DMA_enMODULE_MAX][(uint32_t) DMA_enVECTOR_MAX] =
+    {
+     { NVIC_enVECTOR_UDMASOFT, NVIC_enVECTOR_UDMAERROR},
+    };
+    DMA_nERROR enErrorReg;
 
-    enVectorNvic = NVIC_VECTOR_DMA[ (uint32_t) enVector];
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVectorNvic, (NVIC_nPRIORITY) enDmaPriority);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enInterruptArg, (uint32_t) DMA_enVECTOR_MAX);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_DMA[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+    }
+    return (enErrorReg);
 }
 
-void DMA__vDisInterruptVector(DMA_nVECTOR enVector)
+DMA_nERROR DMA__enSetInterruptVectorState(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE enStateArg)
 {
-    NVIC_nVECTOR enVectorNvic = NVIC_enVECTOR_UDMASOFT;
-    enVector = (DMA_nVECTOR) MCU__u32CheckParams( (uint32_t) enVector, (uint32_t) DMA_enVECTOR_MAX);
+    NVIC_nVECTOR enVectorReg;
+    DMA_nERROR enErrorReg;
 
-    enVectorNvic = NVIC_VECTOR_DMA[ (uint32_t) enVector];
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVectorNvic);
+    enVectorReg = NVIC_enVECTOR_UDMASOFT;
+    enErrorReg = DMA__enGetInterruptVector(enModuleArg, enInterruptArg, &enVectorReg);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+    return (enErrorReg);
 }
+
+DMA_nERROR DMA__enSetInterruptVectorStateWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE enStateArg, DMA_nPRIORITY enPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    DMA_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_UDMASOFT;
+    enErrorReg = DMA__enGetInterruptVector(enModuleArg, enInterruptArg, &enVectorReg);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enGetInterruptVectorState(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE* penStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    DMA_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_UDMASOFT;
+    enErrorReg = DMA__enGetInterruptVector(enModuleArg, enInterruptArg, &enVectorReg);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enGetInterruptVectorStateWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE* penStateArg, DMA_nPRIORITY* penPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    DMA_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_UDMASOFT;
+    enErrorReg = DMA__enGetInterruptVector(enModuleArg, enInterruptArg, &enVectorReg);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enEnableInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enSetInterruptVectorState(enModuleArg, enInterruptArg, DMA_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enEnableInterruptVectorWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nPRIORITY enPriorityArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enSetInterruptVectorStateWithPriority(enModuleArg, enInterruptArg, DMA_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enDisableInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enSetInterruptVectorState(enModuleArg, enInterruptArg, DMA_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enDisableInterruptVectorWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nPRIORITY enPriorityArg)
+{
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enSetInterruptVectorStateWithPriority(enModuleArg, enInterruptArg, DMA_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
+}
+

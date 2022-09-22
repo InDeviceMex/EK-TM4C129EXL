@@ -27,7 +27,22 @@
 
 #include <xDriver_MCU/FLASH/Peripheral/xHeader/FLASH_Enum.h>
 
-void (*FLASH__pvfGetIRQSourceHandler(FLASH_nINTERRUPT enInterruptSourceArg))(void);
-void (**FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nINTERRUPT enInterruptSourceArg))(void);
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+
+#pragma  CODE_SECTION(FLASH__pvfGetIRQSourceHandler, ".ramcode")
+#pragma  CODE_SECTION(FLASH__pvfGetIRQSourceHandlerPointer, ".ramcode")
+
+FLASH_pvfIRQSourceHandler_t FLASH__pvfGetIRQSourceHandler(FLASH_nMODULE enModuleArg,
+                                                          FLASH_nINT enIntSourceArg);
+FLASH_pvfIRQSourceHandler_t* FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nMODULE enModuleArg,
+                                                                  FLASH_nINT enIntSourceArg);
+#elif defined (__GNUC__ )
+
+FLASH_pvfIRQSourceHandler_t FLASH__pvfGetIRQSourceHandler(FLASH_nMODULE enModuleArg,
+                                                          FLASH_nINT enIntSourceArg) __attribute__((section(".ramcode")));
+FLASH_pvfIRQSourceHandler_t* FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nMODULE enModuleArg,
+                                                                  FLASH_nINT enIntSourceArg) __attribute__((section(".ramcode")));
+#endif
+
 
 #endif /* XDRIVER_MCU_FLASH_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_FLASH_INTERRUPTROUTINE_SOURCE_H_ */

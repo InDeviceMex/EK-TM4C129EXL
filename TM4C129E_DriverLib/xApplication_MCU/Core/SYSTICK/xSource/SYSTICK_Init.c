@@ -38,112 +38,141 @@ void SYSTICK_Delay__vIRQVectorHandler(void)
     uint32_t u32Count = SYSTICK__u32GetFreeCount();
     u32Count++;
     SYSTICK__vSetFreeCount(u32Count);
-    /*
-    if(0U == u32Count)
-    {
-        uint32_t u32CountOv = SYSTICK__u32GetFreeCountOv();
-        u32CountOv++;
-        SYSTICK__vSetFreeCountOv(u32CountOv);
-    }
-    */
 }
 
-SYSTICK_nERROR SYSTICK__enInitTickVector(uint32_t u32Tick, SYSTICK_nPRIORITY enPriority,
-                                          SYSTICK_nCLKSOURCE enClockSource, void(*pvfVector) (void))
+SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, uint32_t u32TickArg, SYSTICK_nPRIORITY enPriorityArg,
+                                          SYSTICK_nCLKSOURCE enClockSourceArg, SYSTICK_pvfIRQVectorHandler_t pvfVectorArg)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
-    enFPUActive = MCU__enGetFPUContextActive();
-    SYSTICK_nERROR enReturn = SYSTICK_enERROR_UNDEF;
-    uint32_t u32SystemFrequencyMHz = SYSTICK_PIOSC4_MHZ;
-    float32_t f32PicoSeconds = 1000000.0f;
-    float32_t f32PicoSecondsTemp = 1000000.0f;
+    MCU_nSTATUS enFPUActive;
+    SYSTICK_nERROR enErrorReg;
 
-    SYSTICK__vDisInterruptVector();
-    SYSTICK__enDisable(SYSTICK_enMODULE_0);
-    SYSTICK__enClearCurrentValue(SYSTICK_enMODULE_0);
-    SYSTICK__enSetClockSource(SYSTICK_enMODULE_0, enClockSource);
-
-    SYSTICK_vClarAllCounter();
-
-    if(SYSTICK_enPIOSC4 != enClockSource)
+    enErrorReg = SYSTICK_enERROR_OK;
+    if((2UL > u32TickArg) || (SYSTICK_MAXVALUE < u32TickArg))
     {
-        u32SystemFrequencyMHz = SYSCTL__u32GetSystemClock();
-        u32SystemFrequencyMHz /= 1000000UL;
+        enErrorReg = SYSTICK_enERROR_VALUE;
     }
-
-    if(0UL != u32Tick)
+    enFPUActive = MCU__enGetFPUContextActive();
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        if(SYSTICK_MAXVALUE < u32Tick)
+        uint32_t u32SystemFrequencyMHz = 0U;
+        float32_t f32PicoSeconds = 1000000.0f;
+        float32_t f32PicoSecondsTemp = 1000000.0f;
+        SYSTICK_vClarAllCounter();
+        if(SYSTICK_enPIOSC4 != enClockSourceArg)
         {
-            u32Tick = SYSTICK_MAXVALUE;
+            u32SystemFrequencyMHz = SYSCTL__u32GetSystemClock();
+            u32SystemFrequencyMHz /= 1000000UL;
+        }
+        else
+        {
+            u32SystemFrequencyMHz = SYSTICK_PIOSC4_MHZ;
         }
         f32PicoSeconds /= (float32_t) u32SystemFrequencyMHz;
         f32PicoSecondsTemp = f32PicoSeconds + 0.5f;
         SYSTICK__vSetTickPs((uint32_t) f32PicoSecondsTemp);
 
-        f32PicoSeconds *=  (float32_t) u32Tick;
+        f32PicoSeconds *=  (float32_t) u32TickArg;
         f32PicoSeconds += 0.5f;
         SYSTICK__vSetPsPeriod((uint64_t) f32PicoSeconds);
-        SYSTICK__vSetTickPeriod(u32Tick);
-
-
-        SYSTICK__vRegisterIRQVectorHandler(pvfVector);
-        SYSTICK__vEnInterruptVector(enPriority);
-        SYSTICK__enSetReloadValue(SYSTICK_enMODULE_0, u32Tick - 1U);
-        SYSTICK__enClearCurrentValue(SYSTICK_enMODULE_0);
-        SYSTICK__enEnable(SYSTICK_enMODULE_0);
-        enReturn = SYSTICK_enERROR_OK;
+        SYSTICK__vSetTickPeriod(u32TickArg);
     }
     MCU__vSetFPUContextActive(enFPUActive);
-    return (enReturn);
-}
-
-SYSTICK_nERROR SYSTICK__enInitTick(uint32_t u32Tick, SYSTICK_nPRIORITY enPriority, SYSTICK_nCLKSOURCE enClockSource)
-{
-    return (SYSTICK__enInitTickVector(u32Tick, enPriority, enClockSource, &SYSTICK_Delay__vIRQVectorHandler));
-}
-
-SYSTICK_nERROR SYSTICK__enInitUsVector(uint32_t u32TimeUs, SYSTICK_nPRIORITY enPriority, void(*pvfVector) (void))
-{
-    SYSTICK_nCLKSOURCE enClockSource = SYSTICK_enSYSCLK;
-    SYSTICK_nERROR enReturn = SYSTICK_enERROR_UNDEF;
-    uint32_t u32Tick_Sysclk = 0UL;
-    uint32_t u32Tick_Piosc4 = 0UL;
-    uint32_t u32Tick = 0UL;
-    uint32_t u32SYSTICKFrequencyMHz_Sysclk = SYSCTL__u32GetSystemClock()/1000000UL;
-    uint32_t u32SYSTICKFrequencyMHz_Piosc4 = SYSTICK_PIOSC4_MHZ;
-
-    if(0UL != u32TimeUs)
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        enErrorReg = SYSTICK__enDisableInterruptVector(enModuleArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enDisable(enModuleArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enClearCurrentValue(enModuleArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enSetClockSource(enModuleArg, enClockSourceArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enRegisterIRQVectorHandler(enModuleArg, pvfVectorArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enEnableInterruptVectorWithPriority(enModuleArg, enPriorityArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enSetReloadValue(enModuleArg, u32TickArg - 1U);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enClearCurrentValue(enModuleArg);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enEnable(SYSTICK_enMODULE_0);
+    }
 
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enInitTick(SYSTICK_nMODULE enModuleArg, uint32_t u32TickArg, SYSTICK_nPRIORITY enPriorityArg, SYSTICK_nCLKSOURCE enClockSourceArg)
+{
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enInitTickVector(enModuleArg, u32TickArg, enPriorityArg, enClockSourceArg, &SYSTICK_Delay__vIRQVectorHandler);
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enInitUsVector(SYSTICK_nMODULE enModuleArg, uint32_t u32TimeUsArg, SYSTICK_nPRIORITY enPriorityArg, SYSTICK_pvfIRQVectorHandler_t pvfVectorArg)
+{
+    uint32_t u32Tick;
+    uint32_t u32Tick_Sysclk;
+    uint32_t u32Tick_Piosc4;
+    uint32_t u32SYSTICKFrequencyMHz_Sysclk;
+    uint32_t u32SYSTICKFrequencyMHz_Piosc4;
+    SYSTICK_nCLKSOURCE enClockSource;
+    SYSTICK_nERROR enErrorReg;
+
+    enClockSource = SYSTICK_enSYSCLK;
+    enErrorReg = SYSTICK_enERROR_OK;
+    if(0UL == u32TimeUsArg)
+    {
+        enErrorReg = SYSTICK_enERROR_VALUE;
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        u32SYSTICKFrequencyMHz_Piosc4 = SYSTICK_PIOSC4_MHZ;
+        u32SYSTICKFrequencyMHz_Sysclk = SYSCTL__u32GetSystemClock();
+        u32SYSTICKFrequencyMHz_Sysclk /= 1000000UL;
         SYSTICK_vClarAllCounter();
 
-        u32Tick_Sysclk = u32SYSTICKFrequencyMHz_Sysclk * u32TimeUs;
-        u32Tick_Piosc4 = u32SYSTICKFrequencyMHz_Piosc4 * u32TimeUs;
+        u32Tick_Sysclk = u32SYSTICKFrequencyMHz_Sysclk * u32TimeUsArg;
+        u32Tick_Piosc4 = u32SYSTICKFrequencyMHz_Piosc4 * u32TimeUsArg;
         u32Tick = u32Tick_Sysclk;
-        enReturn = SYSTICK_enERROR_OK;
         if(SYSTICK_MAXVALUE < u32Tick_Sysclk)
         {
             enClockSource = SYSTICK_enPIOSC4;
             u32Tick = u32Tick_Piosc4;
             if(SYSTICK_MAXVALUE < u32Tick_Piosc4)
             {
-                enReturn = SYSTICK_enERROR_VALUE;
+                enErrorReg = SYSTICK_enERROR_VALUE;
             }
         }
     }
 
-
-    if(SYSTICK_enERROR_OK == enReturn)
+    if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enReturn = SYSTICK__enInitTickVector(u32Tick, enPriority, enClockSource, pvfVector);
+        enErrorReg = SYSTICK__enInitTickVector(enModuleArg, u32Tick, enPriorityArg, enClockSource, pvfVectorArg);
     }
-    return (enReturn);
+    return (enErrorReg);
 }
 
-SYSTICK_nERROR SYSTICK__enInitUs(uint32_t u32TimeUs, SYSTICK_nPRIORITY enPriority)
+SYSTICK_nERROR SYSTICK__enInitUs(SYSTICK_nMODULE enModuleArg, uint32_t u32TimeUsArg, SYSTICK_nPRIORITY enPriorityArg)
 {
-    return (SYSTICK__enInitUsVector(u32TimeUs, enPriority, &SYSTICK_Delay__vIRQVectorHandler));
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enInitUsVector(enModuleArg, u32TimeUsArg, enPriorityArg, &SYSTICK_Delay__vIRQVectorHandler);
+    return (enErrorReg);
 }
 
 static void SYSTICK_vClarAllCounter(void)

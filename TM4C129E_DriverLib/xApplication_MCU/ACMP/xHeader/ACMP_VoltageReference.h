@@ -27,8 +27,7 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
-                                       float32_t f32VoltageReferencePorcentage);
-float32_t ACMP__f32GetVoltageReference(ACMP_nMODULE enModule);
+ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg);
+ACMP_nERROR ACMP__enGetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_XHEADER_ACMP_VOLTAGEREFERENCE_H_ */

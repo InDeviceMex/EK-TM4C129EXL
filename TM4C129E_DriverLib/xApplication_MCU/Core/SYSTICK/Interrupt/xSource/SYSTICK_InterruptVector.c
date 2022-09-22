@@ -25,28 +25,72 @@
 
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Dependencies.h>
 
-void SYSTICK__vEnInterruptVector(SYSTICK_nPRIORITY enPriority)
+SYSTICK_nERROR SYSTICK__enSetInterruptVectorState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE enStateArg)
 {
-    SCB_SYSTICK__enSetPriority(SCB_enMODULE_0, (SCB_nPRIORITY) enPriority);
-    MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, SYSTICK_CSR_TICKINT_ENA,
-                        SYSTICK_CSR_TICKINT_MASK, SYSTICK_CSR_R_TICKINT_BIT);
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, enStateArg);
+    return (enErrorReg);
 }
 
-void SYSTICK__vDisInterruptVector(void)
+SYSTICK_nERROR SYSTICK__enSetInterruptVectorStateWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE enStateArg, SYSTICK_nPRIORITY enPriorityArg)
 {
-    MCU__vWriteRegister(SYSTICK_BASE, SYSTICK_CSR_OFFSET, SYSTICK_CSR_TICKINT_DIS,
-                        SYSTICK_CSR_TICKINT_MASK, SYSTICK_CSR_R_TICKINT_BIT);
+    SYSTICK_nERROR enErrorReg;
+
+
+    enErrorReg = (SYSTICK_nERROR) SCB_SYSTICK__enSetPriority(SCB_enMODULE_0, (SCB_nPRIORITY) enPriorityArg);
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, enStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void SYSTICK__vClearInterruptVector(void)
+SYSTICK_nERROR SYSTICK__enGetInterruptVectorState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE* penStateArg, SYSTICK_nSTATUS* penStatusArg)
 {
-    SYSTICK__enClearCurrentValue(SYSTICK_enMODULE_0);
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enGetInterruptSourceState(enModuleArg, penStateArg, penStatusArg);
+    return (enErrorReg);
 }
 
-SYSTICK_nSTATUS SYSTICK__enStatusInterruptVector(void)
+SYSTICK_nERROR SYSTICK__enGetInterruptVectorStateWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE* penStateArg, SYSTICK_nSTATUS* penStatusArg, SYSTICK_nPRIORITY* penPriorityArg)
 {
-    SYSTICK_nSTATUS enReturn = SYSTICK_enSTATUS_INACTIVE;
-    enReturn = (SYSTICK_nSTATUS) MCU__u32ReadRegister(SYSTICK_BASE,
-              SYSTICK_CSR_OFFSET, SYSTICK_CSR_COUNTFLAG_MASK, SYSTICK_CSR_R_COUNTFLAG_BIT);
-    return (enReturn);
+    SYSTICK_nERROR enErrorReg;
+
+
+    enErrorReg = (SYSTICK_nERROR) SCB_SYSTICK__enGetPriority(SCB_enMODULE_0, (SCB_nPRIORITY*) penPriorityArg);
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSTICK_nERROR) SYSTICK__enGetInterruptSourceState(enModuleArg, penStateArg, penStatusArg);
+    }
+
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enEnableInterruptVector(SYSTICK_nMODULE enModuleArg)
+{
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetInterruptVectorState(enModuleArg, SYSTICK_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enEnableInterruptVectorWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nPRIORITY enPriorityArg)
+{
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetInterruptVectorStateWithPriority(enModuleArg, SYSTICK_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enDisableInterruptVector(SYSTICK_nMODULE enModuleArg)
+{
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetInterruptVectorState(enModuleArg, SYSTICK_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+SYSTICK_nERROR SYSTICK__enDisableInterruptVectorWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nPRIORITY enPriorityArg)
+{
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enSetInterruptVectorStateWithPriority(enModuleArg, SYSTICK_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
 }

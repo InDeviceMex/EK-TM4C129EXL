@@ -32,8 +32,6 @@ void WDT__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
 
     if(0UL != (uint32_t) pfIrqVectorHandler)
     {
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-               WDT__pvfGetIRQVectorHandlerPointer(),
-                enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, WDT__pvfGetIRQVectorHandlerPointer());
     }
 }

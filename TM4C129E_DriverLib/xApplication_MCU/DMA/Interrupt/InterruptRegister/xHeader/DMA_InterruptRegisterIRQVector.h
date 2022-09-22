@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
 
-void DMA__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),DMA_nVECTOR enVector);
+DMA_nERROR DMA__enRegisterIRQVectorHandler(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_DMA_INTERRUPT_INTERRUPTREGISTER_XHEADER_DMA_INTERRUPTREGISTERIRQVECTOR_H_ */

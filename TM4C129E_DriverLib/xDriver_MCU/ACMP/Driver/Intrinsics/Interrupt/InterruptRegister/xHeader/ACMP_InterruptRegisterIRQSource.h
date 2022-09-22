@@ -26,8 +26,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                         ACMP_nMODULE enModuleArg,
-                                         ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
+                                             ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_ACMP_INTERRUPTREGISTERIRQSOURCE_H_ */

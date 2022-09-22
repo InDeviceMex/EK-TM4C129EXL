@@ -36,34 +36,38 @@ EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg)
      * Process Status
      */
     EEPROM_nERROR enErrorReg;
-    void (*pfIrqVectorHandler) (void);
+    EEPROM_pvfIRQSourceHandler_t pfIrqVectorHandler;
 
-    pfIrqVectorHandler = EEPROM__pvfGetIRQVectorHandler();
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        /*
+         * To Reinitialize Peripheral Clock
+         */
+        EEPROM__vSetReady();
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandler = EEPROM__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = EEPROM__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandler);
+    }
 
-    /*
-     * To Reinitialize Peripheral Clock
-     */
-    EEPROM__vSetReady();
-    EEPROM__vRegisterIRQVectorHandler(pfIrqVectorHandler);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
+    }
 
-    /*NVIC__enEnableVector(NVIC_enVECTOR_FLASH, NVIC_enPRI7);*/
-
-
-    /*
-     * To wait until EEPROM peripheral is ready
-     */
-    enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
-
-    /*
-     * To return the final Function status,
-     * if EEPROM__enWait ends correctly all the process is OK
-     */
     return (enErrorReg);
 
 }
 
-void EEPROM__vDeInit (void)
+EEPROM_nERROR EEPROM__enDeInit (EEPROM_nMODULE enModuleArg)
 {
-    EEPROM__vClearReady();
-    EEPROM__vDisInterruptVector();
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enDisableInterruptVector(enModuleArg);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        EEPROM__vClearReady();
+    }
+    return (enErrorReg);
 }

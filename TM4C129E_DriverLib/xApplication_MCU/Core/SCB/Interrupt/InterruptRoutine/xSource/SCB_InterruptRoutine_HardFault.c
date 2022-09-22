@@ -132,10 +132,10 @@ void HardFault__vIRQVectorHandler(void)
     " pop {R4-R7}\n"
     " push {R0,LR} \n");
 
-    uint32_t u32FaultType = 0UL;
-    uint32_t u32HardFault = 0U;
-    uint32_t u32HardMemoryFault = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    uint32_t u32FaultType;
+    uint32_t u32HardFault;
+    uint32_t u32HardMemoryFault;
+    SCB_pvfIRQSourceHandler_t pvfCallback;
 
     u32FaultType = SCB_HFSR_R;
 
@@ -145,11 +145,8 @@ void HardFault__vIRQVectorHandler(void)
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartHardControl, &enUartHardLineControl, 921600UL, &enUartHardLine );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-    GraphTerm__vClearScreen(UART_enMODULE_0);
-    GraphTerm__vHideCursor(UART_enMODULE_0);
-    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
 
-    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "HardFault exception Detected\n\r"
+    UART__u32Printf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -164,45 +161,51 @@ void HardFault__vIRQVectorHandler(void)
                     SCB_HardFault_pu32Context[5UL],
                     SCB_HardFault_pu32Context[6UL]);
 
-    /*Bus, Usage or Memory fault */
-    if(SCB_HFSR_R_FORCED_MASK & u32FaultType)
+    if(0UL != u32FaultType)
     {
-        SCB_HFSR_R = SCB_HFSR_R_FORCED_MASK;
-        u32HardFault = SCB_CFSR_R;
-        if(((uint32_t)SCB_enMEMORY_ALL << 0UL) & u32HardFault)
+        /*Bus, Usage or Memory fault */
+        if(SCB_HFSR_R_FORCED_MASK & u32FaultType)
         {
-            MemoryFault__vIRQVectorHandler();
-        }
-        else if(((uint32_t)SCB_enBUS_ALL << 8UL) & u32HardFault)
-        {
-            BusFault__vIRQVectorHandler();
-        }
-        else if(((uint32_t)SCB_enUSAGE_ALL << 16UL) & u32HardFault)
-        {
-            UsageFault__vIRQVectorHandler();
-        }
-        else
-        {
-            GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Bus, Memory or Usage exception Detected\n\r");
-        }
+            SCB_HFSR_R = SCB_HFSR_R_FORCED_MASK;
+            u32HardFault = SCB_CFSR_R;
+            if(((uint32_t)SCB_enMEMORY_ALL << 0UL) & u32HardFault)
+            {
+                UART__u32Printf(UART_enMODULE_0,"Memory Fault was harcoded \n\r");
+                MemoryFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+            }
+            else if(((uint32_t)SCB_enBUS_ALL << 8UL) & u32HardFault)
+            {
+                UART__u32Printf(UART_enMODULE_0,"Bus Fault was harcoded \n\r");
+                BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+            }
+            else if(((uint32_t)SCB_enUSAGE_ALL << 16UL) & u32HardFault)
+            {
+                UART__u32Printf(UART_enMODULE_0,"Usage Fault was harcoded \n\r");
+                UsageFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+            }
+            else
+            {
+                UART__u32Printf(UART_enMODULE_0,"Undefined Bus, Memory or Usage exception Detected\n\r");
+            }
 
-    }
-    /*Hard fault*/
-    else if(SCB_HFSR_R_VECTTBL_MASK & u32FaultType)
-    {
-        SCB_HFSR_R = SCB_HFSR_R_VECTTBL_MASK;
-        u32HardMemoryFault = SCB_HardFault_pu32Context[6UL];
-        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Instruction Access Fault Address: %X\n\r",
-                        u32HardMemoryFault);
-        pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_VECT);
-        pvfCallback();
+        }
+        /*Hard fault*/
+        if(SCB_HFSR_R_VECTTBL_MASK & u32FaultType)
+        {
+            SCB_HFSR_R = SCB_HFSR_R_VECTTBL_MASK;
+            u32HardMemoryFault = SCB_HardFault_pu32Context[6UL];
+            UART__u32Printf(UART_enMODULE_0,"Vector Table Read Fault, Fault Address: %X\n\r", u32HardMemoryFault);
+            pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_VECT);
+            pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_VECT);
+        }
     }
     else
     {
-        GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "SW triggered Hard exception Detected\n\r");
-        pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enHARD_BIT_SW);
-        pvfCallback();
+        UART__u32Printf(UART_enMODULE_0, "Hard Fault Exception triggered by Software \n\r");
+        pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_SW);
+        pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_SW);
     }
+
     __asm volatile(
             " pop {R0,LR} \n"
             " BX LR \n");

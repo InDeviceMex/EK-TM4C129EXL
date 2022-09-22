@@ -26,29 +26,27 @@
 #include <xApplication_MCU/ACMP/Interrupt/InterruptRoutine/ACMP_InterruptRoutine.h>
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Dependencies.h>
 
-void ACMP__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
-                                     ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enRegisterIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_ACMP0;
-    uint32_t u32Module = 0UL;
-    uint32_t u32Comparator = 0UL;
-
-    const SCB_nVECISR SCB_enVECISR_ACMP[(uint32_t) ACMP_enMODULE_MAX]
-                                       [(uint32_t) ACMP_enCOMP_MAX]=
+    const SCB_nVECISR SCB_enVECISR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX]=
     {
-        {SCB_enVECISR_ACMP0, SCB_enVECISR_ACMP1, SCB_enVECISR_ACMP2},
+        {SCB_enVECISR_ACMP0, SCB_enVECISR_ACMP1, SCB_enVECISR_ACMP2}
     };
+    SCB_nVECISR enVectorReg;
+    ACMP_nERROR enErrorReg;
+    ACMP_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule,
-                                        (uint32_t) ACMP_enMODULE_MAX);
-        u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg,
-                                            (uint32_t) ACMP_enCOMP_MAX);
-        enVector = SCB_enVECISR_ACMP[u32Module][u32Comparator];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                ACMP__pvfGetIRQVectorHandlerPointer((ACMP_nMODULE) u32Module,
-                (ACMP_nCOMP) u32Comparator),
-                enVector);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
     }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR_ACMP[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+        pvfVectorHandlerReg = ACMP__pvfGetIRQVectorHandlerPointer(enModuleArg, enComparatorArg);
+        enErrorReg = (ACMP_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
+    }
+    return (enErrorReg);
+
 }

@@ -24,18 +24,21 @@
 #include <xApplication_MCU/Core/SYSTICK/Interrupt/InterruptRoutine/SYSTICK_InterruptRoutine.h>
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 
-void (*SYSTICK__pvIRQVectorHandler[1UL]) (void)=
+static SYSTICK_pvfIRQVectorHandler_t SYSTICK_pvIRQVectorHandler[(uint32_t) SYSTICK_enMODULE_MAX] =
 {
   &SYSTICK__vIRQVectorHandler,
 };
 
-void (*SYSTICK__pvfGetIRQVectorHandler(void))(void)
+SYSTICK_pvfIRQVectorHandler_t SYSTICK__pvfGetIRQVectorHandler(SYSTICK_nMODULE enModuleArg)
 {
-
-    return (SYSTICK__pvIRQVectorHandler[0UL]);
+    SYSTICK_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = SYSTICK_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**SYSTICK__pvfGetIRQVectorHandlerPointer(void))(void)
+SYSTICK_pvfIRQVectorHandler_t* SYSTICK__pvfGetIRQVectorHandlerPointer(SYSTICK_nMODULE enModuleArg)
 {
-    return ((void(**)(void)) &SYSTICK__pvIRQVectorHandler[0UL]);
+    SYSTICK_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &SYSTICK_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    return (pvfVectorReg);
 }

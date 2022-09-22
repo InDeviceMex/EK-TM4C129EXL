@@ -26,69 +26,62 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_InitProcess.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nERROR FLASH__enWrite(uint32_t u32Data, uint32_t u32Address)
+FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg)
 {
-    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
-    uint32_t u32ValueReg = 0UL;
-    uint32_t u32FlashSize = FLASH__u32GetSize();
+    FLASH_nERROR enErrorReg;
+    uint32_t u32FlashSize;
 
-    u32Address &= ~(uint32_t) 0x3UL;
-    if(u32Address < u32FlashSize)
+    u32FlashSize = 0UL;
+    enErrorReg = FLASH__enGetSize(enModuleArg, &u32FlashSize);
+    if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32ValueReg = *((uint32_t*) u32Address);
-        if(0xFFFFFFFFUL == u32ValueReg)
-        {
-            MCU__vWriteRegister(FLASH_BASE, FLASH_FMD_OFFSET,
-                                u32Data, FLASH_FMD_R_DATA_MASK, 0UL);
-            MCU__vWriteRegister(FLASH_BASE, FLASH_FMA_OFFSET,
-                                u32Address, FLASH_FMA_R_OFFSET_MASK, 0UL);
-            enStatusReg = FLASH__enInitProcess(FLASH_FMC_OFFSET,
-                                               FLASH_FMC_R_WRITE_WRITE);
-        }
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressArg, u32FlashSize);
     }
-    return (enStatusReg);
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FLASH__enSetData(enModuleArg, u32DataArg);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        u32AddressArg &= ~ (uint32_t) 0x3UL;
+        enErrorReg = FLASH__enSetAddress(enModuleArg, u32AddressArg);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FLASH__enInitProcessAndWait(enModuleArg, FLASH_enPROCESS_WORD_WRITE);
+    }
+    return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enWriteBuf(const uint32_t* pu32Data, uint32_t u32Address, uint32_t u32Count)
+FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const uint32_t* pu32Data, uint32_t u32AddressArg, uint32_t* pu32Count)
 {
-    FLASH_nERROR enStatusReg = FLASH_enERROR_UNDEF;
-    uint32_t u32ValueReg = 0UL;
-    uint32_t u32CountActual = 0UL;
-    uint32_t u32RegisterOffset = 0UL;
-    uint32_t u32Offset = 0UL;
-    uint32_t u32CountMax = 0UL;
-    uint32_t *pu32Address = 0UL;
-    uint32_t u32FlashSize = FLASH__u32GetSize();
+    FLASH_nERROR enErrorReg;
 
-    u32CountActual = (u32Address & 0x7FUL) >> 2UL;
-    u32CountMax = u32CountActual + u32Count;
-    u32Address &= ~(uint32_t) 0x7FUL;
+    uint32_t u32StartIndexReg;
+    uint32_t u32FlashSizeReg;
 
-    if((u32Address < u32FlashSize) &&
-       (u32CountMax <= 32UL) &&
-       (0UL != u32Count) )
+    u32StartIndexReg = 0U;
+    u32FlashSizeReg = 0UL;
+    enErrorReg = FLASH__enGetSize(enModuleArg, &u32FlashSizeReg);
+    if(FLASH_enERROR_OK == enErrorReg)
     {
-        MCU__vWriteRegister(FLASH_BASE, FLASH_FMA_OFFSET, u32Address,
-                            FLASH_FMA_R_OFFSET_MASK, 0UL);
-        u32RegisterOffset = FLASH_FWBn_OFFSET;
-        u32Offset = u32CountActual;
-        u32Offset *= 4UL;
-        u32RegisterOffset += u32Offset;
-        while(0UL != u32Count)
-        {
-            pu32Address = (uint32_t*)u32Address;
-            pu32Address += u32CountActual;
-            u32ValueReg = *pu32Address;
-            if(0xFFFFFFFFUL == u32ValueReg)
-            {
-                MCU__vWriteRegister(FLASH_BASE, u32RegisterOffset, *pu32Data, 0xFFFFFFFFU, 0UL);
-            }
-            pu32Data += 1U;
-            u32Count--;
-            u32CountActual++;
-            u32RegisterOffset += 4UL;
-        }
-        enStatusReg = FLASH__enInitProcess(FLASH_FMC2_OFFSET, FLASH_FMC2_R_WRBUF_WRITE);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressArg, u32FlashSizeReg);
     }
-    return (enStatusReg);
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        u32StartIndexReg = u32AddressArg;
+        u32StartIndexReg &= 0x7FUL;
+        u32StartIndexReg >>= 2UL;
+        enErrorReg = FLASH__enSetDataBuffer(enModuleArg, (uint32_t*) pu32Data, u32StartIndexReg, pu32Count);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        u32AddressArg = ~(uint32_t) 0x7F;
+        enErrorReg = FLASH__enSetAddress(enModuleArg, u32AddressArg);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FLASH__enInitProcessAndWait(enModuleArg, FLASH_enPROCESS_BUFFER_WRITE);
+    }
+    return (enErrorReg);
 }

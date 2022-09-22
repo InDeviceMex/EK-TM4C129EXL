@@ -25,147 +25,221 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Dependencies.h>
 
-float32_t ACMP__f32SetVoltageReference(ACMP_nMODULE enModule,
-                                   float32_t f32VoltageReferencePorcentage)
+#define ACMP_MAX_PORCENTAGE (74.82f)
+
+ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    float32_t f32VoltageProcentage1 = 0.0f;
-    float32_t f32VoltageProcentage2 = 0.0f;
-    float32_t f32VoltageProcentageDecimal1 = 0.0f;
-    float32_t f32VoltageProcentageDecimal1Temp = 0.0f;
-    float32_t f32VoltageProcentageDecimal2 = 0.0f;
-    float32_t f32VoltageProcentageDecimal2Temp = 0.0f;
-    float32_t f32VoltageCurrent = 0.0f;
-    uint32_t u32VoltageProcentageInteger1 = 0UL;
-    uint32_t u32VoltageProcentageInteger2 = 0UL;
-    uint32_t u32VoltageStep = 0UL;
-    ACMP_nREFERENCE_RANGE enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
+
+    uint32_t u32VoltageStep;
+    uint32_t u32LowRangeInteger;
+
+    float32_t f32LowRange;
+    float32_t f32LowRangeError;
+    float32_t f32TempReg;
+    float32_t f32VoltageRefReg;
+    ACMP_nERROR enErrorReg;
+    ACMP_nSTATE enStateReg;
+    ACMP_nREFERENCE_RANGE enVoltageRange;
 
 
-    if(74.82f < f32VoltageReferencePorcentage)
+    enStateReg = ACMP_enSTATE_ENA;
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) pf32VoltageRefArg)
     {
-        f32VoltageReferencePorcentage = 74.82f;
+        enErrorReg = ACMP_enERROR_POINTER;
     }
 
-    if(f32VoltageReferencePorcentage >= 23.81f)
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        /*Low range formula*/
-        f32VoltageProcentage1 = f32VoltageReferencePorcentage;
-        f32VoltageProcentage1 -= 100.0f/4.2f;
-        f32VoltageProcentage1 *= 29.4f;
-        f32VoltageProcentage1 /= 100.0f;
-
-        u32VoltageProcentageInteger1 = (uint32_t) f32VoltageProcentage1;
-        f32VoltageProcentageDecimal1 = f32VoltageProcentage1;
-        f32VoltageProcentageDecimal1 -= (float32_t) u32VoltageProcentageInteger1;
-        if(0.5f < f32VoltageProcentageDecimal1)
+        f32VoltageRefReg = *pf32VoltageRefArg;
+        if(ACMP_MAX_PORCENTAGE < f32VoltageRefReg)
         {
-            f32VoltageProcentage1 += 0.5f;
-
-            u32VoltageProcentageInteger1 = (uint32_t) f32VoltageProcentage1;
-            f32VoltageProcentageDecimal1Temp = 1.0f;
-            f32VoltageProcentageDecimal1Temp -= f32VoltageProcentageDecimal1;
-            f32VoltageProcentageDecimal1 = f32VoltageProcentageDecimal1Temp;
+            f32VoltageRefReg = ACMP_MAX_PORCENTAGE;
         }
 
-        /*High Range formula*/
-        f32VoltageProcentage2 = f32VoltageReferencePorcentage;
-        f32VoltageProcentage2 *= 22.12f;
-        f32VoltageProcentage2 /= 100.0f;
-
-        u32VoltageProcentageInteger2 = (uint32_t) f32VoltageProcentage2;
-        f32VoltageProcentageDecimal2 = f32VoltageProcentage2;
-        f32VoltageProcentageDecimal2 -= (float32_t) u32VoltageProcentageInteger2;
-        if(0.5f < f32VoltageProcentageDecimal2)
+        if(0.0f > f32VoltageRefReg)
         {
-            f32VoltageProcentage2 += 0.5f;
+            f32VoltageRefReg = 0.0f;
+        }
 
-            u32VoltageProcentageInteger2 = (uint32_t) f32VoltageProcentage2;
-            f32VoltageProcentageDecimal2Temp = 1.0f;
-            f32VoltageProcentageDecimal2Temp -= f32VoltageProcentageDecimal2;
-            f32VoltageProcentageDecimal2 = f32VoltageProcentageDecimal2Temp;
+        /*Low Range formula*/
+        f32LowRange = f32VoltageRefReg;
+        f32LowRange *= 22.12f;
+        f32LowRange /= 100.0f;
+
+        u32LowRangeInteger = (uint32_t) f32LowRange;
+        f32LowRangeError = f32LowRange;
+        f32LowRangeError -= (float32_t) u32LowRangeInteger;
+
+        if(0.5f < f32LowRangeError)
+        {
+            if(ACMP_REFCTL_VREF_MASK > u32LowRangeInteger)
+            {
+                u32LowRangeInteger += 1UL;
+                f32TempReg = 1.0f;
+                f32TempReg -= f32LowRangeError;
+                f32LowRangeError = (float32_t) f32TempReg;
+            }
+        }
+
+        u32VoltageStep = u32LowRangeInteger;
+        enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+
+        if(f32VoltageRefReg >= 23.81f)
+        {
+            float32_t f32HighRange;
+            float32_t f32HighRangeError;
+            uint32_t  u32HighRangeInteger;
+
+            /*High range formula*/
+            f32HighRange = f32VoltageRefReg;
+            f32HighRange *= 4.2f;
+            f32HighRange -= 100.0f;
+            f32HighRange /= 4.2f;
+            f32HighRange *= 29.4f;
+            f32HighRange /= 100.0f; /*13.58*/
+
+            u32HighRangeInteger = (uint32_t) f32HighRange;
+            f32HighRangeError = f32HighRange;
+            f32HighRangeError -= (float32_t) u32HighRangeInteger;
+
+            if(0.5f < f32HighRangeError)
+            {
+                if(ACMP_REFCTL_VREF_MASK > u32HighRangeInteger)
+                {
+                    u32HighRangeInteger += 1UL;
+                    f32TempReg = 1.0f;
+                    f32TempReg -= f32HighRangeError;
+                    f32HighRangeError = (float32_t) f32TempReg;
+                }
+            }
+
+            if(f32LowRangeError > f32HighRangeError)
+            {
+                if(ACMP_REFCTL_VREF_MASK < u32HighRangeInteger)
+                {
+                    u32VoltageStep = u32LowRangeInteger;
+                    enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+                }
+                else
+                {
+                    u32VoltageStep = u32HighRangeInteger;
+                    enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
+                }
+            }
+            else
+            {
+                if(ACMP_REFCTL_VREF_MASK < u32LowRangeInteger)
+                {
+                    u32VoltageStep = u32HighRangeInteger;
+                    enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
+                }
+                else
+                {
+                    u32VoltageStep = u32LowRangeInteger;
+                    enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+                }
+            }
         }
 
 
-        if(f32VoltageProcentageDecimal2 > f32VoltageProcentageDecimal1)
+        if(ACMP_REFCTL_VREF_MASK < u32VoltageStep)
         {
-            u32VoltageStep = u32VoltageProcentageInteger1;
             enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
-        }
-        else
-        {
-            u32VoltageStep = u32VoltageProcentageInteger2;
-            enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+            u32VoltageStep = 0UL;
+            enStateReg = ACMP_enSTATE_DIS;
         }
     }
-    else if(f32VoltageReferencePorcentage > 0.0f)
+
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        /*High Range formula*/
-        f32VoltageProcentage2 = f32VoltageReferencePorcentage;
-        f32VoltageProcentage2 *= 22.12f;
-        f32VoltageProcentage2 /= 100.0f;
-        f32VoltageProcentage2 += 0.5f;
-
-        u32VoltageProcentageInteger2 = (uint32_t) f32VoltageProcentage2;
-
-        u32VoltageStep = u32VoltageProcentageInteger2;
-        enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+        enErrorReg = ACMP__enSetReferenceRange(enModuleArg, enVoltageRange);
     }
-    else
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        u32VoltageStep = 0UL;
-        enVoltageRange = ACMP_enREFERENCE_RANGE_LOW;
+        enErrorReg = ACMP__enSetReferenceEncoder(enModuleArg, u32VoltageStep);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enSetReferenceState(enModuleArg, enStateReg);
     }
 
-    if(ACMP_REFCTL_VREF_MASK >=  u32VoltageStep)
+    if(ACMP_enERROR_OK == enErrorReg)
     {
-        ACMP__enSetReferenceRange(enModule, enVoltageRange);
-        ACMP__enSetReferenceEncoder(enModule, u32VoltageStep);
-        ACMP__enSetReferenceState(enModule, ACMP_enSTATE_ENA);
+        enErrorReg =  ACMP__enGetVoltageReference(enModuleArg, pf32VoltageRefArg);
     }
-    else
-    {
-        ACMP__enSetReferenceRange(enModule, ACMP_enREFERENCE_RANGE_HIGH);
-        ACMP__enSetReferenceEncoder(enModule, 0UL);
-        ACMP__enSetReferenceState(enModule, ACMP_enSTATE_DIS);
-    }
-    f32VoltageCurrent =  ACMP__f32GetVoltageReference(enModule);
+
     MCU__vSetFPUContextActive(enFPUActive);
-    return (f32VoltageCurrent);
+
+    return (enErrorReg);
 }
 
-float32_t ACMP__f32GetVoltageReference(ACMP_nMODULE enModule)
+ACMP_nERROR ACMP__enGetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    float32_t f32VoltagePorcentage = 0.0f;
-    float32_t f32VoltagePorcentageInit = 0.0f;
-    uint32_t u32EncoderValueReg = 0UL;
-    ACMP_nREFERENCE_RANGE enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
-    ACMP_nSTATE enVoltageEnable = ACMP_enSTATE_DIS;
 
-    ACMP__enGetReferenceState(enModule, &enVoltageEnable);
-    if(ACMP_enSTATE_ENA == enVoltageEnable)
+    float32_t f32VoltagePorcentage;
+    float32_t f32VoltagePorcentageInit;
+
+    uint32_t u32EncoderValueReg;
+    ACMP_nREFERENCE_RANGE enVoltageRange;
+    ACMP_nSTATE enVoltageEnable;
+    ACMP_nERROR enErrorReg;
+
+    f32VoltagePorcentage = 0.0f;
+    enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
+    u32EncoderValueReg = 0UL;
+    enVoltageEnable = ACMP_enSTATE_DIS;
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) pf32VoltageRefArg)
     {
-        ACMP__enGetReferenceEncoder(enModule, &u32EncoderValueReg);
-        ACMP__enGetReferenceRange(enModule, &enVoltageRange);
-        f32VoltagePorcentage = (float32_t) u32EncoderValueReg;
-        f32VoltagePorcentage *= 100.0f;
-        if(ACMP_enREFERENCE_RANGE_LOW == enVoltageRange)
-        {
-            f32VoltagePorcentage /= 22.12f;
-        }
-        else
-        {
-            f32VoltagePorcentageInit = 100.0f;
-            f32VoltagePorcentageInit /= 4.2f;
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
 
-            f32VoltagePorcentage /= 29.4f;
-            f32VoltagePorcentage += f32VoltagePorcentageInit;
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enGetReferenceState(enModuleArg, &enVoltageEnable);
+    }
+
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enGetReferenceEncoder(enModuleArg, &u32EncoderValueReg);
+    }
+
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enGetReferenceRange(enModuleArg, &enVoltageRange);
+    }
+
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        if(ACMP_enSTATE_ENA == enVoltageEnable)
+        {
+            f32VoltagePorcentage = (float32_t) u32EncoderValueReg;
+            f32VoltagePorcentage *= 100.0f;
+            if(ACMP_enREFERENCE_RANGE_LOW == enVoltageRange)
+            {
+                f32VoltagePorcentage /= 22.12f;
+            }
+            else
+            {
+                f32VoltagePorcentageInit = 100.0f;
+                f32VoltagePorcentageInit /= 4.2f;
+
+                f32VoltagePorcentage /= 29.4f;
+                f32VoltagePorcentage += f32VoltagePorcentageInit;
+            }
         }
     }
 
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        *pf32VoltageRefArg = (float32_t) f32VoltagePorcentage;
+    }
+
     MCU__vSetFPUContextActive(enFPUActive);
-    return (f32VoltagePorcentage);
+    return (enErrorReg);
 }

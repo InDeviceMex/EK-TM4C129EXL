@@ -28,7 +28,7 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_Erase.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-
+#if 0
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH_vFillBlock, ".ramcode")
@@ -328,4 +328,4 @@ FLASH_nERROR FLASH__enWriteMultiByteConstant(uint8_t u8Data,
                               u32Count, FLASH_enVARIABLE_BYTE, FLASH_enCONSTANT_ON);
     return (enStatusReg);
 }
-
+#endif

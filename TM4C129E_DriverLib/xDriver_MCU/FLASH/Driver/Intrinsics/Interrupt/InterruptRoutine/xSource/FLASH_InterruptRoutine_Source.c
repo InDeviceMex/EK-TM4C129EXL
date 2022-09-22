@@ -23,10 +23,11 @@
  */
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/FLASH_InterruptRoutine_Source.h>
 
-static void FLASH_vIRQSourceHandler_Dummy(void);
+static void FLASH_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
 
-void (*FLASH__vIRQSourceHandler[(uint32_t) FLASH_enINTERRUPT_MAX]) (void)=
+static FLASH_pvfIRQSourceHandler_t FLASH_vIRQSourceHandler[(uint32_t) FLASH_enMODULE_MAX][(uint32_t) FLASH_enINT_MAX] =
 {
+ {
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy,
@@ -35,23 +36,31 @@ void (*FLASH__vIRQSourceHandler[(uint32_t) FLASH_enINTERRUPT_MAX]) (void)=
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy,
     &FLASH_vIRQSourceHandler_Dummy
+ }
 };
 
-static void FLASH_vIRQSourceHandler_Dummy(void)
+static void FLASH_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
 {
+    (void) uptrModuleArg;
+    (void) pvArgument;
+
     while(1UL){}
 }
 
-void (*FLASH__pvfGetIRQSourceHandler(FLASH_nINTERRUPT enInterruptSourceArg))(void)
+FLASH_pvfIRQSourceHandler_t FLASH__pvfGetIRQSourceHandler(FLASH_nMODULE enModuleArg,
+                                                          FLASH_nINT enIntSourceArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    FLASH_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = FLASH_vIRQSourceHandler[(uint32_t) enModuleArg]
+                                              [(uint32_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nINTERRUPT enInterruptSourceArg))(void)
+FLASH_pvfIRQSourceHandler_t* FLASH__pvfGetIRQSourceHandlerPointer(FLASH_nMODULE enModuleArg,
+                                                                  FLASH_nINT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &FLASH__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    FLASH_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &FLASH_vIRQSourceHandler[(uint32_t) enModuleArg]
+                                               [(uint32_t) enIntSourceArg];
     return (pvfFunctionReg);
 }

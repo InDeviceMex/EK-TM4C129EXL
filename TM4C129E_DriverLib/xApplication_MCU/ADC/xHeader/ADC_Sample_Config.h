@@ -27,8 +27,9 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
-ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nSAMPLE enMux, const ADC_SAMPLE_CONFIG_t* pstSampleConfig);
-ADC_nERROR ADC_Sample__enSetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nSAMPLE enMux, const ADC_SAMPLE_CONFIG_t* pstSampleConfig);
-ADC_nERROR ADC_Sample__enGetConfig(ADC_nMODULE enModule, ADC_nSEQUENCER enSequencer, ADC_nSAMPLE enMux, ADC_SAMPLE_CONFIG_t* pstSampleConfig);
+ADC_nERROR ADC_Sample__enSetConfig(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSAMPLE enSampleArg, const ADC_SAMPLE_CONFIG_t* pstSampleConfigArg);
+ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSAMPLE enSampleArg, const ADC_SAMPLE_CONFIG_t* pstSampleConfigArg);
+
+ADC_nERROR ADC_Sample__enGetConfig(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSAMPLE enSampleArg, ADC_SAMPLE_CONFIG_t* pstSampleConfigArg);
 
 #endif /* XAPPLICATION_MCU_ADC_XHEADER_ADC_SAMPLE_CONFIG_H_ */

@@ -26,8 +26,15 @@
 #define XDRIVER_MCU_FLASH_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_FLASH_INTERRUPTREGISTERIRQSOURCE_H_
 
 #include <xDriver_MCU/FLASH/Peripheral/xHeader/FLASH_Enum.h>
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-void FLASH__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                      FLASH_nINTERRUPT enInterruptParam);
+#pragma  CODE_SECTION(FLASH__enRegisterIRQSourceHandler, ".ramcode")
+
+FLASH_nERROR FLASH__enRegisterIRQSourceHandler(FLASH_nMODULE enModuleArg, FLASH_nINT enIntSourceArg, FLASH_pvfIRQSourceHandler_t pfIrqSourceHandler);
+#elif defined (__GNUC__ )
+
+FLASH_nERROR FLASH__enRegisterIRQSourceHandler(FLASH_nMODULE enModuleArg, FLASH_nINT enIntSourceArg, FLASH_pvfIRQSourceHandler_t pfIrqSourceHandler) __attribute__((section(".ramcode")));
+#endif
+
 
 #endif /* XDRIVER_MCU_FLASH_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_FLASH_INTERRUPTREGISTERIRQSOURCE_H_ */

@@ -58,6 +58,7 @@ typedef enum
 }SYSTICK_nCLKSOURCE;
 
 typedef MCU_Register_t SYSTICK_Register_t;
+typedef MCU_pvfIRQVectorHandler_t SYSTICK_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t SYSTICK_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_ENUM_H_ */

@@ -27,7 +27,6 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-void ACMP__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
-                                     ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enRegisterIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_INTERRUPT_INTERRUPTREGISTER_XHEADER_ACMP_INTERRUPTREGISTERIRQVECTOR_H_ */

@@ -25,30 +25,38 @@
 
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature)
+FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg)
 {
-    FLASH_nERROR enReturn = FLASH_enERROR_UNDEF;
-    uint32_t u32Key = 0UL;
+    FLASH_nERROR enErrorReg;
+    uint32_t u32KeySelectReg;
+    uint32_t u32KeyReg;
 
-    u32Key = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,
+    u32KeySelectReg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,
                                   SYSCTL_BOOTCFG_KEY_MASK, SYSCTL_BOOTCFG_R_KEY_BIT);
-    switch(u32Key)
+    switch(u32KeySelectReg)
     {
     case SYSCTL_BOOTCFG_KEY_71D5:
-        MCU__vWriteRegister(FLASH_BASE, u32FMC,
-                            (FLASH_FMC_R_WRKEY_KEY2 | u32Feature),
-                            (FLASH_FMC_R_WRKEY_MASK | u32Feature),
-                            0UL);
-        enReturn = FLASH__enWait(u32FMC, u32Feature);
+        u32KeyReg = 0UL;
+        enErrorReg =FLASH__enGetCustomKey(enModuleArg, &u32KeyReg);
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = FLASH__enInitProcess(enModuleArg, u32KeyReg, enProcessArg);
+        }
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = FLASH__enWait(enModuleArg, enProcessArg, FLASH_TIMEOUT_MAX);
+        }
         break;
     case SYSCTL_BOOTCFG_KEY_A442:
-        MCU__vWriteRegister(FLASH_BASE, u32FMC,
-                            (FLASH_FMC_R_WRKEY_KEY1 | u32Feature),
-                            (FLASH_FMC_R_WRKEY_MASK | u32Feature), 0UL);
-        enReturn = FLASH__enWait(u32FMC, u32Feature);
+        enErrorReg = FLASH__enInitProcess(enModuleArg, FLASH_CTL_WRKEY_KEY1, enProcessArg);
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = FLASH__enWait(enModuleArg, enProcessArg, FLASH_TIMEOUT_MAX);
+        }
         break;
     default:
+        enErrorReg = FLASH_enERROR_VALUE;
         break;
     }
-    return (enReturn);
+    return (enErrorReg);
 }

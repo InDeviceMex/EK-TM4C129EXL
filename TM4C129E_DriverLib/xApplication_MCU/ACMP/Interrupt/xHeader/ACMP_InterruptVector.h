@@ -27,7 +27,16 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-void ACMP__vEnInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enACMPPriority);
-void ACMP__vDisInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enSetInterruptVectorState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enStateArg);
+ACMP_nERROR ACMP__enSetInterruptVectorStateWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enStateArg, ACMP_nPRIORITY enPriorityArg);
+
+ACMP_nERROR ACMP__enGetInterruptVectorState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penStateArg);
+ACMP_nERROR ACMP__enGetInterruptVectorStateWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penStateArg, ACMP_nPRIORITY* penPriorityArg);
+
+ACMP_nERROR ACMP__enEnableInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enEnableInterruptVectorWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enPriorityArg);
+
+ACMP_nERROR ACMP__enDisableInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg);
+ACMP_nERROR ACMP__enDisableInterruptVectorWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_INTERRUPT_XHEADER_ACMP_INTERRUPTVECTOR_H_ */

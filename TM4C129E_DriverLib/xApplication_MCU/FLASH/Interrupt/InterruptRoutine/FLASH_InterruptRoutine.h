@@ -25,9 +25,10 @@
 #ifndef XAPPLICATION_MCU_FLASH_INTERRUPT_INTERRUPTROUTINE_FLASH_INTERRUPTROUTINE_H_
 #define XAPPLICATION_MCU_FLASH_INTERRUPT_INTERRUPTROUTINE_FLASH_INTERRUPTROUTINE_H_
 
+#include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Defines.h>
 #include <xApplication_MCU/FLASH/Interrupt/InterruptRoutine/xHeader/FLASH_InterruptRoutine_Vector.h>
 
-void (*FLASH__pvfGetIRQVectorHandler(void))(void);
-void (**FLASH__pvfGetIRQVectorHandlerPointer(void))(void);
+FLASH_pvfIRQVectorHandler_t FLASH__pvfGetIRQVectorHandler(FLASH_nMODULE enModuleArg);
+FLASH_pvfIRQVectorHandler_t* FLASH__pvfGetIRQVectorHandlerPointer(FLASH_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_FLASH_INTERRUPT_INTERRUPTROUTINE_FLASH_INTERRUPTROUTINE_H_ */

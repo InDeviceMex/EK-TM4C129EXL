@@ -29,13 +29,13 @@
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-#pragma  CODE_SECTION(FLASH__enInitProcess, ".ramcode")
+#pragma  CODE_SECTION(FLASH__enInitProcessAndWait, ".ramcode")
 
-FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature);
+FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enInitProcess (uint32_t u32FMC, uint32_t u32Feature) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg) __attribute__((section(".ramcode")));
 
 #endif
 

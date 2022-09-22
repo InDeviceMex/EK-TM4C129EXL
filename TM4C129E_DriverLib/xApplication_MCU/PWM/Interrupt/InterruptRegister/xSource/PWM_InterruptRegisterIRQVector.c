@@ -44,10 +44,9 @@ void PWM_Generator__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
         u32Generator = MCU__u32CheckParams((uint32_t) enGenerator, (uint32_t) PWM_enGEN_MAX);
         enVector = SCB_enVECISR_PWM[u32Module][u32Generator];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
            PWM_Generator__pvfGetIRQVectorHandlerPointer((PWM_nMODULE) u32Module,
-                                              (PWM_nGENERATOR) u32Generator),
-            enVector);
+                                              (PWM_nGENERATOR) u32Generator));
     }
 }
 
@@ -65,9 +64,8 @@ void PWM_Fault__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), PWM
     {
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
         enVector = SCB_enVECISR_PWM[u32Module];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-           PWM_Fault__pvfGetIRQVectorHandlerPointer((PWM_nMODULE) u32Module),
-            enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
+           PWM_Fault__pvfGetIRQVectorHandlerPointer((PWM_nMODULE) u32Module));
     }
 }
 

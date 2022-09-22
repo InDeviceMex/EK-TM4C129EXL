@@ -26,26 +26,28 @@
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 #include <xApplication_MCU/FLASH/Interrupt/FLASH_Interrupt.h>
 
-FLASH_nERROR FLASH__enInit (void)
+FLASH_nERROR FLASH__enInit (FLASH_nMODULE enModuleArg)
 {
-    /*
-     * Process Status
-     */
-    FLASH_nERROR enReturn = FLASH_enERROR_OK;
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    FLASH_nERROR enErrorReg;
+    FLASH_pvfIRQVectorHandler_t pfIrqVectorHandler;
 
-    pfIrqVectorHandler = FLASH__pvfGetIRQVectorHandler();
-    FLASH__vRegisterIRQVectorHandler( pfIrqVectorHandler);
-    /*
-     * To return the final Function status,
-     * if FLASH__enWait ends correctly all the process is OK
-     */
-    return (enReturn);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandler = FLASH__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = FLASH__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandler);
+    }
+    return (enErrorReg);
 
 }
 
-void FLASH__vDeInit (void)
+FLASH_nERROR FLASH__enDeInit (FLASH_nMODULE enModuleArg)
 {
-    FLASH__vDisInterruptSource(FLASH_enINT_ALL);
-    FLASH__vDisInterruptVector();
+    FLASH_nERROR enErrorReg;
+    enErrorReg = FLASH__enDisableInterruptSourceByMask(enModuleArg, FLASH_enINTMASK_ALL);
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        FLASH__enDisableInterruptVector(enModuleArg);
+    }
+    return (enErrorReg);
 }

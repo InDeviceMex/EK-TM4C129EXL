@@ -27,6 +27,7 @@
 
 #include <xUtils/Standard/Standard.h>
 
+#define MCU_MASK_8 (0xFFU)
 #define MCU_MASK_16 (0xFFFFU)
 #define MCU_MASK_32 (0xFFFFFFFFUL)
 

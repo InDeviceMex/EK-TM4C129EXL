@@ -54,25 +54,31 @@ CRC16_Params_t pstTableCRC16[(uint32_t) CRC16_enSubType_MAX] =
 
 
 
-uint16_t CRC16__u16Calculate(const char* pcDataValues, uint32_t u32DataLength, CRC16_eSubType enCrc16Type)
+CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, uint32_t u32DataLengthArg, CRC16_eSubType enCrc16TypeArg, uint16_t* pu16ResultArg)
 {
-    uint16_t  u16Crc = 0U;
-    uint16_t u16Data = 0U;
-    uint8_t u8Data = 0U;
-    uint32_t u32CrcType = 0UL;
-    CRC16_Params_t* pstTableCRC16Reg = (CRC16_Params_t*) 0UL;
-    uint8_t  u8BytePos = 0U;
+    CRC16_Params_t* pstTableCRC16Reg;
+    CRC_nERROR enErrorReg;
+    uint16_t u16Data;
+    uint16_t u16Crc;
+    uint8_t  u8BytePos;
+    uint8_t  u8Data;
 
-    if(0UL != (uint32_t) pcDataValues)
+    enErrorReg = CRC_enERROR_OK;
+    if((0UL == (uintptr_t) pcDataValuesArg) || (0UL == (uintptr_t) pu16ResultArg))
     {
-        u32CrcType = MCU__u32CheckParams((uint32_t) enCrc16Type, (uint32_t) CRC16_enSubType_MAX);
-        pstTableCRC16Reg = &pstTableCRC16[u32CrcType];
+        enErrorReg = CRC_enERROR_POINTER;
+    }
+    if(CRC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (CRC_nERROR) MCU__enCheckParams((uint32_t) enCrc16TypeArg, (uint32_t) CRC16_enSubType_MAX);
+    }
+    if(CRC_enERROR_OK == enErrorReg)
+    {
+        pstTableCRC16Reg = &pstTableCRC16[(uint32_t) enCrc16TypeArg];
         u16Crc = pstTableCRC16Reg->u16Init;
-
-
-        while (u32DataLength > 0UL)
+        while (u32DataLengthArg > 0UL)
         {
-            u8Data = (uint8_t) *pcDataValues;
+            u8Data = (uint8_t) *pcDataValuesArg;
             if(FALSE != pstTableCRC16Reg->boRefIn)
             {
                 u8Data = MCU__u8ReverseByte(u8Data);
@@ -93,16 +99,21 @@ uint16_t CRC16__u16Calculate(const char* pcDataValues, uint32_t u32DataLength, C
                 }
                 u8BytePos--;
             }
-            pcDataValues += 1UL;
-            u32DataLength--;
-        }
+            pcDataValuesArg += 1UL;
+            u32DataLengthArg--;
+       }
         u16Crc ^= pstTableCRC16Reg->u16XorOut;
         if(FALSE != pstTableCRC16Reg->boRefOut)
         {
            u16Crc = MCU__u16ReverseHalfWorld(u16Crc);
         }
     }
-    return (u16Crc);
+    if(CRC_enERROR_OK == enErrorReg)
+    {
+        *pu16ResultArg = (uint16_t) u16Crc;
+    }
+
+    return (enErrorReg);
 }
 
 

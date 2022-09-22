@@ -25,10 +25,16 @@
 
 #include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Dependencies.h>
 
-void EEPROM__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
+EEPROM_nERROR EEPROM__enRegisterIRQVectorHandler(EEPROM_nMODULE enModuleArg, EEPROM_pvfIRQSourceHandler_t pfIrqVectorHandlerArg)
 {
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    EEPROM_nERROR enErrorReg;
+
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        FLASH__vRegisterIRQSourceHandler(pfIrqVectorHandler, FLASH_enINTERRUPT_EEPROM);
+        enErrorReg = (EEPROM_nERROR) FLASH__enRegisterIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_EEPROM, pfIrqVectorHandlerArg);
     }
+    return (enErrorReg);
+
 }
+

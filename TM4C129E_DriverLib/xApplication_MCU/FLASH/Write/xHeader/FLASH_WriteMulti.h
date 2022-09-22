@@ -26,7 +26,7 @@
 #define XAPPLICATION_MCU_FLASH_WRITE_XHEADER_FLASH_WRITEMULTI_H_
 
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Defines.h>
-
+#if 0
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
 #pragma  CODE_SECTION(FLASH__enWriteMultiWorld, ".ramcode")
@@ -86,4 +86,5 @@ FLASH_nERROR FLASH__enWriteMultiByteConstant(uint8_t u8Data,
 
 #endif
 
+#endif
 #endif /* XAPPLICATION_MCU_FLASH_WRITE_XHEADER_FLASH_WRITEMULTI_H_ */

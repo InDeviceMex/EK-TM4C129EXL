@@ -60,6 +60,6 @@ EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg);
  * @remark This function could be call after EEPROM Initialization @ref EEPROM__enInit
  * @note This function can be call any time when the EEPROM peripheral requires to be de-Initialized
  */
-void EEPROM__vDeInit(void);
+EEPROM_nERROR EEPROM__enDeInit (EEPROM_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_EEPROM_XHEADER_EEPROM_INIT_H_ */

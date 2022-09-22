@@ -61,9 +61,10 @@ void SVCall__vIRQVectorHandler(void)
         " pop {r0-r1} \n"
         " push {r0,r14} \n");
 
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
-    pvfCallback = SCB_SVCall__pvfGetIRQSourceHandler(SVCall_u32Function);
-    pvfCallback();
+    SCB_pvfIRQSourceHandler_t pvfCallback;
+    pvfCallback = SCB_SVCall__pvfGetIRQSourceHandler(SCB_enMODULE_0, SVCall_u32Function);
+    pvfCallback(SCB_BASE, (void*) SVCall_u32Function);
+
     __asm volatile(" pop {r0,r14} \n"
             "   bx r14 \n");
 }

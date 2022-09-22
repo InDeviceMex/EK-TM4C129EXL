@@ -23,21 +23,23 @@
  */
 #include <xApplication_MCU/FLASH/Interrupt/InterruptRoutine/FLASH_InterruptRoutine.h>
 
-static void (*FLASH__pvIRQVectorHandler[1UL]) (void) =
+static FLASH_pvfIRQVectorHandler_t FLASH_pvIRQVectorHandler[(uint32_t) FLASH_enMODULE_MAX]=
 {
-    &FLASH__vIRQVectorHandler
+     {
+      &FLASH__vIRQVectorHandler
+     }
 };
 
-void (*FLASH__pvfGetIRQVectorHandler(void))(void)
+FLASH_pvfIRQVectorHandler_t FLASH__pvfGetIRQVectorHandler(FLASH_nMODULE enModuleArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = FLASH__pvIRQVectorHandler[0UL];
-    return (pvfFunctionReg);
+    FLASH_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = FLASH_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**FLASH__pvfGetIRQVectorHandlerPointer(void))(void)
+FLASH_pvfIRQVectorHandler_t* FLASH__pvfGetIRQVectorHandlerPointer(FLASH_nMODULE enModuleArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &FLASH__pvIRQVectorHandler[0UL];
-    return (pvfFunctionReg);
+    FLASH_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &FLASH_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    return (pvfVectorReg);
 }

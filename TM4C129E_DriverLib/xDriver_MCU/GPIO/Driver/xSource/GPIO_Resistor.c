@@ -97,6 +97,7 @@ GPIO_nERROR GPIO__enGetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPi
     GPIO_nSTATE enStateReg;
     GPIO_nERROR enErrorReg;
 
+    enStateReg = GPIO_enSTATE_DIS;
     enErrorReg = GPIO_enERROR_OK;
     if(0UL == (uintptr_t) penModeArg)
     {

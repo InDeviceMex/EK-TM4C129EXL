@@ -27,9 +27,11 @@
 
 #include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Defines.h>
 
-void EEPROM__vEnInterruptVector(void);
-void EEPROM__vDisInterruptVector(void);
-void EEPROM__vClearInterruptVector(void);
-EEPROM_nSTATUS EEPROM__enStatusInterruptVector(void);
+EEPROM_nERROR EEPROM__enSetInterruptVectorState(EEPROM_nMODULE enModuleArg, EEPROM_nSTATE enStateArg);
+EEPROM_nERROR EEPROM__enGetInterruptVectorState(EEPROM_nMODULE enModuleArg, EEPROM_nSTATE* penStateArg);
+EEPROM_nERROR EEPROM__enEnableInterruptVector(EEPROM_nMODULE enModuleArg);
+EEPROM_nERROR EEPROM__enDisableInterruptVector(EEPROM_nMODULE enModuleArg);
+EEPROM_nERROR EEPROM__enClearInterruptVector(EEPROM_nMODULE enModuleArg);
+EEPROM_nERROR EEPROM__enStatusInterruptVector(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* enStatusArg);
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTERRUPT_XHEADER_EEPROM_INTERRUPTVECTOR_H_ */

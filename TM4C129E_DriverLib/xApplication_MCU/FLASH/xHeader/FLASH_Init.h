@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Defines.h>
 
-FLASH_nERROR FLASH__enInit(void);
-void FLASH__vDeInit(void);
+FLASH_nERROR FLASH__enInit (FLASH_nMODULE enModuleArg);
+FLASH_nERROR FLASH__enDeInit (FLASH_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_FLASH_XHEADER_FLASH_INIT_H_ */

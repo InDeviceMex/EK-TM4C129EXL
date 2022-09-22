@@ -29,19 +29,19 @@
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-#pragma  CODE_SECTION(FLASH__enPageErasePos, ".ramcode")
-#pragma  CODE_SECTION(FLASH__enPageErase, ".ramcode")
+#pragma  CODE_SECTION(FLASH__enPageEraseByAddress, ".ramcode")
+#pragma  CODE_SECTION(FLASH__enPageEraseBySector, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enMassErase, ".ramcode")
 
-FLASH_nERROR FLASH__enPageErasePos(uint32_t u32Page);
-FLASH_nERROR FLASH__enPageErase(uint32_t u32Address);
-FLASH_nERROR FLASH__enMassErase(void);
+FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg);
+FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, uint32_t u32SectorArg);
+FLASH_nERROR FLASH__enMassErase(FLASH_nMODULE enModuleArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enPageErasePos(uint32_t u32Page) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enPageErase(uint32_t u32Address) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enMassErase(void) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, uint32_t u32SectorArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enMassErase(FLASH_nMODULE enModuleArg) __attribute__((section(".ramcode")));
 
 #endif
 

@@ -26,6 +26,16 @@
 
 #include <xDriver_MCU/FLASH/Peripheral/xHeader/FLASH_Enum.h>
 
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+
+#pragma  CODE_SECTION(FLASH__enReadRegister, ".ramcode")
+
 FLASH_nERROR FLASH__enReadRegister(FLASH_nMODULE enModuleArg, FLASH_Register_t* pstRegisterDataArg);
+
+#elif defined (__GNUC__ )
+
+FLASH_nERROR FLASH__enReadRegister(FLASH_nMODULE enModuleArg, FLASH_Register_t* pstRegisterDataArg) __attribute__((section(".ramcode")));
+
+#endif
 
 #endif /* XDRIVER_MCU_FLASH_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_FLASH_READREGISTER_H_ */

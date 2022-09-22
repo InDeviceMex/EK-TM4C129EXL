@@ -25,37 +25,68 @@
 
 #include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Dependencies.h>
 
-void EEPROM__vEnInterruptVector(void)
-{
-    FLASH__vEnInterruptSource(FLASH_enINT_EEPROM);
-    MCU__vWriteRegister(EEPROM_BASE, EEPROM_INT_OFFSET, EEPROM_INT_INT_ACTIVE, EEPROM_INT_INT_MASK, EEPROM_INT_R_INT_BIT);
-}
 
-void EEPROM__vDisInterruptVector(void)
+EEPROM_nERROR EEPROM__enSetInterruptVectorState(EEPROM_nMODULE enModuleArg, EEPROM_nSTATE enStateArg)
 {
-    FLASH__vDisInterruptSource(FLASH_enINT_EEPROM);
-    MCU__vWriteRegister(EEPROM_BASE, EEPROM_INT_OFFSET, 0UL, EEPROM_INT_INT_MASK, EEPROM_INT_R_INT_BIT);
-}
-
-
-void EEPROM__vClearInterruptVector(void)
-{
-    FLASH__vClearInterruptSource(FLASH_enINT_EEPROM);
-}
-
-EEPROM_nSTATUS EEPROM__enStatusInterruptVector(void)
-{
-    EEPROM_nSTATUS enEEPROMStatus = EEPROM_enSTATUS_INACTIVE;
-    uint32_t u32FlashStatus = 0UL;
-    u32FlashStatus = (uint32_t) FLASH__enStatusInterruptSource(FLASH_enINT_EEPROM);
-    if((uint32_t) FLASH_enINT_EEPROM == (u32FlashStatus & (uint32_t) FLASH_enINT_EEPROM))
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = (EEPROM_nERROR) FLASH__enSetInterruptSourceStateByNumber(FLASH_enMODULE_0, FLASH_enINT_EEPROM, (FLASH_nSTATE) enStateArg);
+    if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enEEPROMStatus = EEPROM_enSTATUS_ACTIVE;
+        enErrorReg = EEPROM__enSetInterruptSourceState(enModuleArg, enStateArg);
     }
-    else
-    {
-        enEEPROMStatus = EEPROM_enSTATUS_INACTIVE;
-    }
+    return (enErrorReg);
+}
 
-    return (enEEPROMStatus);
+EEPROM_nERROR EEPROM__enGetInterruptVectorState(EEPROM_nMODULE enModuleArg, EEPROM_nSTATE* penStateArg)
+{
+    EEPROM_nERROR enErrorReg;
+    FLASH_nSTATE enFlashStateReg;
+    EEPROM_nSTATE enEepromStateReg;
+    enFlashStateReg = FLASH_enSTATE_DIS;
+    enEepromStateReg = EEPROM_enSTATE_DIS;
+    enErrorReg = (EEPROM_nERROR) FLASH__enGetInterruptSourceStateByNumber(FLASH_enMODULE_0, FLASH_enINT_EEPROM, &enFlashStateReg);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = EEPROM__enGetInterruptSourceState(enModuleArg, &enEepromStateReg);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        if((FLASH_enSTATE_DIS == enFlashStateReg) || (EEPROM_enSTATE_DIS == enEepromStateReg))
+        {
+            *penStateArg = EEPROM_enSTATE_DIS;
+        }
+        else
+        {
+            *penStateArg = EEPROM_enSTATE_ENA;
+        }
+    }
+    return (enErrorReg);
+}
+
+EEPROM_nERROR EEPROM__enEnableInterruptVector(EEPROM_nMODULE enModuleArg)
+{
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enSetInterruptVectorState(enModuleArg, EEPROM_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+EEPROM_nERROR EEPROM__enDisableInterruptVector(EEPROM_nMODULE enModuleArg)
+{
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = EEPROM__enSetInterruptVectorState(enModuleArg, EEPROM_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+EEPROM_nERROR EEPROM__enClearInterruptVector(EEPROM_nMODULE enModuleArg)
+{
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = (EEPROM_nERROR) FLASH__enClearInterruptSourceByNumber(FLASH_enMODULE_0, FLASH_enINT_EEPROM);
+    return (enErrorReg);
+}
+
+EEPROM_nERROR EEPROM__enStatusInterruptVector(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* enStatusArg)
+{
+    EEPROM_nERROR enErrorReg;
+    enErrorReg = (EEPROM_nERROR) FLASH__enStatusInterruptSourceByNumber(FLASH_enMODULE_0, FLASH_enINT_EEPROM, (FLASH_nSTATUS*) enStatusArg);
+    return (enErrorReg);
 }

@@ -28,34 +28,66 @@
 #include <xApplication_MCU/Core/SCB/xHeader/SCB_RegisterIRQVector.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-void SCB__vInit(void)
+SCB_nERROR SCB__enInit(SCB_nMODULE enModuleArg)
 {
-    uint32_t pfnVectors =  0UL;
-    pfnVectors = (uint32_t) SCB__pfnGetVectorTableRam();
+    SCB_nERROR enErrorReg;
+    SCB_pvfIRQVectorHandler_t* pfnVectorInRam;
 
-
-    SCB__vSetVectorTable(pfnVectors);
-
-    SCB__vRegisterIRQVectorHandler( &NMI__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_NMI);
-    SCB__vRegisterIRQVectorHandler( &PendSV__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_PENDSV);
-    SCB__vRegisterIRQVectorHandler( &UsageFault__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_USAGEFAULT);
-    SCB__vRegisterIRQVectorHandler( &BusFault__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_BUSFAULT);
-    SCB__vRegisterIRQVectorHandler( &MemoryFault__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_MEMMANAGE);
-    SCB__vRegisterIRQVectorHandler( &HardFault__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_HARDFAULT);
-    SCB__vRegisterIRQVectorHandler( &SVCall__vIRQVectorHandler, (void (**) (void)) 0UL,
-                                    SCB_enVECISR_SVCALL);
-
-    SCB__enEnableUnprivilegedSWTrigger(SCB_enMODULE_0);
-    SCB__enEnableAllTraps(SCB_enMODULE_0);
-    SCB__enEnableAllExceptions(SCB_enMODULE_0);
-    SCB__enSetPriorityGroup(SCB_enMODULE_0, SCB_enPRIGROUP_XXX);
-    SCB__enSetStackAligment(SCB_enMODULE_0, SCB_enALIGN_4BYTE);
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        pfnVectorInRam =  SCB__pfnGetVectorTableRam();
+        enErrorReg = SCB__enSetVectorTable(enModuleArg, (uint32_t) pfnVectorInRam);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_HARDFAULT, &HardFault__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_BUSFAULT, &BusFault__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_MEMMANAGE, &MemoryFault__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_USAGEFAULT, &UsageFault__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enEnableAllExceptions(enModuleArg);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enEnableAllTraps(enModuleArg);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enSetStackAligment(enModuleArg, SCB_enALIGN_4BYTE);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_NMI, &NMI__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_PENDSV, &PendSV__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enRegisterIRQVectorHandler(enModuleArg, SCB_enVECISR_SVCALL, &SVCall__vIRQVectorHandler, (SCB_pvfIRQVectorHandler_t*) 0UL);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enEnableUnprivilegedSWTrigger(enModuleArg);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enSetPriorityGroup(enModuleArg, SCB_enPRIGROUP_XXX);
+    }
+    return (enErrorReg);
 }
 
 

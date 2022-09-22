@@ -27,9 +27,8 @@
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ACMP_InterruptRoutine_Source.h>
 #include <xDriver_MCU/ACMP/Peripheral/ACMP_Peripheral.h>
 
-ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                         ACMP_nMODULE enModuleArg,
-                                         ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
+                                             ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
     ACMP_pvfIRQSourceHandler_t* pvfIrqHandler;
     ACMP_nERROR enErrorReg;

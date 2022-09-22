@@ -25,9 +25,10 @@
 #ifndef XAPPLICATION_MCU_CORE_SYSTICK_INTERRUPT_INTERRUPTROUTINE_SYSTICK_INTERRUPTROUTINE_H_
 #define XAPPLICATION_MCU_CORE_SYSTICK_INTERRUPT_INTERRUPTROUTINE_SYSTICK_INTERRUPTROUTINE_H_
 
+#include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 #include <xApplication_MCU/Core/SYSTICK/Interrupt/InterruptRoutine/xHeader/SYSTICK_InterruptRoutine_Vector.h>
 
-void (*SYSTICK__pvfGetIRQVectorHandler(void))(void);
-void (**SYSTICK__pvfGetIRQVectorHandlerPointer(void))(void);
+SYSTICK_pvfIRQVectorHandler_t SYSTICK__pvfGetIRQVectorHandler(SYSTICK_nMODULE enModuleArg);
+SYSTICK_pvfIRQVectorHandler_t* SYSTICK__pvfGetIRQVectorHandlerPointer(SYSTICK_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_INTERRUPT_INTERRUPTROUTINE_SYSTICK_INTERRUPTROUTINE_H_ */

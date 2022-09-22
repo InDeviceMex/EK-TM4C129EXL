@@ -31,194 +31,208 @@
 #define FLASH    ((FLASH_t*) (FLASH_BASE))
 
 /******************************************************************************************
-************************************ 1 FMA *********************************************
+************************************ 1 ADDRESS *********************************************
 ******************************************************************************************/
-#define FLASH_FMA    ((FMA_t*) (FLASH_BASE + FLASH_FMA_OFFSET))
-#define FLASH_FMA_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FMA_OFFSET)))
+#define FLASH_ADDRESS    ((FLASH_ADDRESS_t*) (FLASH_BASE + FLASH_ADDRESS_OFFSET))
+#define FLASH_ADDRESS_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_ADDRESS_OFFSET)))
 
 /******************************************************************************************
-************************************ 2 FMD *********************************************
+************************************ 2 DATA *********************************************
 ******************************************************************************************/
-#define FLASH_FMD    ((FMD_t*) (FLASH_BASE + FLASH_FMD_OFFSET))
-#define FLASH_FMD_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FMD_OFFSET)))
+#define FLASH_DATA    ((FLASH_DATA_t*) (FLASH_BASE + FLASH_DATA_OFFSET))
+#define FLASH_DATA_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_DATA_OFFSET)))
 
 /******************************************************************************************
-************************************ 3 FMC *********************************************
+************************************ 3 CTL *********************************************
 ******************************************************************************************/
-#define FLASH_FMC    ((FMC_t*) (FLASH_BASE + FLASH_FMC_OFFSET))
-#define FLASH_FMC_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FMC_OFFSET)))
+#define FLASH_CTL    ((FLASH_CTL_t*) (FLASH_BASE + FLASH_CTL_OFFSET))
+#define FLASH_CTL_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_CTL_OFFSET)))
 
 /******************************************************************************************
-************************************ 4 FCRIS *********************************************
+************************************ 4 RIS *********************************************
 ******************************************************************************************/
-#define FLASH_FCRIS    ((FCRIS_t*) (FLASH_BASE + FLASH_FCRIS_OFFSET))
-#define FLASH_FCRIS_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_FCRIS_OFFSET)))
+#define FLASH_RIS    ((FLASH_RIS_t*) (FLASH_BASE + FLASH_RIS_OFFSET))
+#define FLASH_RIS_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_RIS_OFFSET)))
 
 /******************************************************************************************
-************************************ 5 FCIM *********************************************
+************************************ 5 IM *********************************************
 ******************************************************************************************/
-#define FLASH_FCIM    ((FCIM_t*) (FLASH_BASE + FLASH_FCIM_OFFSET))
-#define FLASH_FCIM_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FCIM_OFFSET)))
+#define FLASH_IM    ((FLASH_IM_t*) (FLASH_BASE + FLASH_IM_OFFSET))
+#define FLASH_IM_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_IM_OFFSET)))
 
 /******************************************************************************************
-************************************ 6 FCMISC *********************************************
+************************************ 6 MISC *********************************************
 ******************************************************************************************/
-#define FLASH_FCMISC    ((FCMISC_t*) (FLASH_BASE + FLASH_FCMISC_OFFSET))
-#define FLASH_FCMISC_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FCMISC_OFFSET)))
+#define FLASH_MISC    ((FLASH_MISC_t*) (FLASH_BASE + FLASH_MISC_OFFSET))
+#define FLASH_MISC_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_MISC_OFFSET)))
 
 /******************************************************************************************
-************************************ 7 FMC2 *********************************************
+************************************ 7 CTL2 *********************************************
 ******************************************************************************************/
-#define FLASH_FMC2    ((FMC2_t*) (FLASH_BASE + FLASH_FMC2_OFFSET))
-#define FLASH_FMC2_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FMC2_OFFSET)))
+#define FLASH_CTL2    ((FLASH_CTL2_t*) (FLASH_BASE + FLASH_CTL2_OFFSET))
+#define FLASH_CTL2_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_CTL2_OFFSET)))
 
 /******************************************************************************************
-************************************ 8 FWBVAL *********************************************
+************************************ 8 WBVAL *********************************************
 ******************************************************************************************/
-#define FLASH_FWBVAL    ((FWBVAL_t*) (FLASH_BASE + FLASH_FWBVAL_OFFSET))
-#define FLASH_FWBVAL_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWBVAL_OFFSET)))
+#define FLASH_WBVAL    ((FLASH_WBVAL_t*) (FLASH_BASE + FLASH_WBVAL_OFFSET))
+#define FLASH_WBVAL_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WBVAL_OFFSET)))
 
 /******************************************************************************************
-************************************ 8 FLPEKEY *********************************************
+************************************ 8 PEKEY *********************************************
 ******************************************************************************************/
-#define FLASH_FLPEKEY    ((FLPEKEY_t*) (FLASH_BASE + FLASH_FLPEKEY_OFFSET))
-#define FLASH_FLPEKEY_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FLPEKEY_OFFSET)))
+#define FLASH_PEKEY    ((FLASH_PEKEY_t*) (FLASH_BASE + FLASH_PEKEY_OFFSET))
+#define FLASH_PEKEY_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_PEKEY_OFFSET)))
 
 /******************************************************************************************
-************************************ 9-40 FWBn *********************************************
+************************************ 9-40 WBn *********************************************
 ******************************************************************************************/
-#define FLASH_FWBn    ((FWBn_t*) (FLASH_BASE + FLASH_FWBn_OFFSET))
+#define FLASH_WBn    ((FLASH_WBn_t*) (FLASH_BASE + FLASH_WBn_OFFSET))
 
-#define FLASH_FWB0    ((FWB_t*) (FLASH_BASE + FLASH_FWB0_OFFSET))
-#define FLASH_FWB0_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB0_OFFSET)))
+#define FLASH_WB0    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB0_OFFSET))
+#define FLASH_WB0_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB0_OFFSET)))
 
-#define FLASH_FWB1    ((FWB_t*) (FLASH_BASE + FLASH_FWB1_OFFSET))
-#define FLASH_FWB1_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB1_OFFSET)))
+#define FLASH_WB1    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB1_OFFSET))
+#define FLASH_WB1_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB1_OFFSET)))
 
-#define FLASH_FWB2    ((FWB_t*) (FLASH_BASE + FLASH_FWB2_OFFSET))
-#define FLASH_FWB2_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB2_OFFSET)))
+#define FLASH_WB2    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB2_OFFSET))
+#define FLASH_WB2_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB2_OFFSET)))
 
-#define FLASH_FWB3    ((FWB_t*) (FLASH_BASE + FLASH_FWB3_OFFSET))
-#define FLASH_FWB3_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB3_OFFSET)))
+#define FLASH_WB3    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB3_OFFSET))
+#define FLASH_WB3_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB3_OFFSET)))
 
-#define FLASH_FWB4    ((FWB_t*) (FLASH_BASE + FLASH_FWB4_OFFSET))
-#define FLASH_FWB4_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB4_OFFSET)))
+#define FLASH_WB4    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB4_OFFSET))
+#define FLASH_WB4_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB4_OFFSET)))
 
-#define FLASH_FWB5    ((FWB_t*) (FLASH_BASE + FLASH_FWB5_OFFSET))
-#define FLASH_FWB5_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB5_OFFSET)))
+#define FLASH_WB5    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB5_OFFSET))
+#define FLASH_WB5_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB5_OFFSET)))
 
-#define FLASH_FWB6    ((FWB_t*) (FLASH_BASE + FLASH_FWB6_OFFSET))
-#define FLASH_FWB6_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB6_OFFSET)))
+#define FLASH_WB6    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB6_OFFSET))
+#define FLASH_WB6_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB6_OFFSET)))
 
-#define FLASH_FWB7    ((FWB_t*) (FLASH_BASE + FLASH_FWB7_OFFSET))
-#define FLASH_FWB7_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB7_OFFSET)))
+#define FLASH_WB7    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB7_OFFSET))
+#define FLASH_WB7_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB7_OFFSET)))
 
-#define FLASH_FWB8    ((FWB_t*) (FLASH_BASE + FLASH_FWB8_OFFSET))
-#define FLASH_FWB8_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB8_OFFSET)))
+#define FLASH_WB8    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB8_OFFSET))
+#define FLASH_WB8_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB8_OFFSET)))
 
-#define FLASH_FWB9    ((FWB_t*) (FLASH_BASE + FLASH_FWB9_OFFSET))
-#define FLASH_FWB9_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB9_OFFSET)))
+#define FLASH_WB9    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB9_OFFSET))
+#define FLASH_WB9_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB9_OFFSET)))
 
-#define FLASH_FWB10    ((FWB_t*) (FLASH_BASE + FLASH_FWB10_OFFSET))
-#define FLASH_FWB10_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB10_OFFSET)))
+#define FLASH_WB10    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB10_OFFSET))
+#define FLASH_WB10_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB10_OFFSET)))
 
-#define FLASH_FWB11    ((FWB_t*) (FLASH_BASE + FLASH_FWB11_OFFSET))
-#define FLASH_FWB11_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB11_OFFSET)))
+#define FLASH_WB11    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB11_OFFSET))
+#define FLASH_WB11_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB11_OFFSET)))
 
-#define FLASH_FWB12    ((FWB_t*) (FLASH_BASE + FLASH_FWB12_OFFSET))
-#define FLASH_FWB12_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB12_OFFSET)))
+#define FLASH_WB12    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB12_OFFSET))
+#define FLASH_WB12_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB12_OFFSET)))
 
-#define FLASH_FWB13    ((FWB_t*) (FLASH_BASE + FLASH_FWB13_OFFSET))
-#define FLASH_FWB13_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB13_OFFSET)))
+#define FLASH_WB13    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB13_OFFSET))
+#define FLASH_WB13_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB13_OFFSET)))
 
-#define FLASH_FWB14    ((FWB_t*) (FLASH_BASE + FLASH_FWB14_OFFSET))
-#define FLASH_FWB14_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB14_OFFSET)))
+#define FLASH_WB14    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB14_OFFSET))
+#define FLASH_WB14_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB14_OFFSET)))
 
-#define FLASH_FWB15    ((FWB_t*) (FLASH_BASE + FLASH_FWB15_OFFSET))
-#define FLASH_FWB15_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB15_OFFSET)))
+#define FLASH_WB15    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB15_OFFSET))
+#define FLASH_WB15_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB15_OFFSET)))
 
-#define FLASH_FWB16    ((FWB_t*) (FLASH_BASE + FLASH_FWB16_OFFSET))
-#define FLASH_FWB16_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB16_OFFSET)))
+#define FLASH_WB16    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB16_OFFSET))
+#define FLASH_WB16_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB16_OFFSET)))
 
-#define FLASH_FWB17    ((FWB_t*) (FLASH_BASE + FLASH_FWB17_OFFSET))
-#define FLASH_FWB17_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB17_OFFSET)))
+#define FLASH_WB17    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB17_OFFSET))
+#define FLASH_WB17_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB17_OFFSET)))
 
-#define FLASH_FWB18    ((FWB_t*) (FLASH_BASE + FLASH_FWB18_OFFSET))
-#define FLASH_FWB18_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB18_OFFSET)))
+#define FLASH_WB18    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB18_OFFSET))
+#define FLASH_WB18_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB18_OFFSET)))
 
-#define FLASH_FWB19    ((FWB_t*) (FLASH_BASE + FLASH_FWB19_OFFSET))
-#define FLASH_FWB19_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB19_OFFSET)))
+#define FLASH_WB19    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB19_OFFSET))
+#define FLASH_WB19_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB19_OFFSET)))
 
-#define FLASH_FWB20    ((FWB_t*) (FLASH_BASE + FLASH_FWB20_OFFSET))
-#define FLASH_FWB20_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB20_OFFSET)))
+#define FLASH_WB20    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB20_OFFSET))
+#define FLASH_WB20_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB20_OFFSET)))
 
-#define FLASH_FWB21    ((FWB_t*) (FLASH_BASE + FLASH_FWB21_OFFSET))
-#define FLASH_FWB21_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB21_OFFSET)))
+#define FLASH_WB21    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB21_OFFSET))
+#define FLASH_WB21_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB21_OFFSET)))
 
-#define FLASH_FWB22    ((FWB_t*) (FLASH_BASE + FLASH_FWB22_OFFSET))
-#define FLASH_FWB22_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB22_OFFSET)))
+#define FLASH_WB22    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB22_OFFSET))
+#define FLASH_WB22_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB22_OFFSET)))
 
-#define FLASH_FWB23    ((FWB_t*) (FLASH_BASE + FLASH_FWB23_OFFSET))
-#define FLASH_FWB23_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB23_OFFSET)))
+#define FLASH_WB23    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB23_OFFSET))
+#define FLASH_WB23_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB23_OFFSET)))
 
-#define FLASH_FWB24    ((FWB_t*) (FLASH_BASE + FLASH_FWB24_OFFSET))
-#define FLASH_FWB24_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB24_OFFSET)))
+#define FLASH_WB24    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB24_OFFSET))
+#define FLASH_WB24_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB24_OFFSET)))
 
-#define FLASH_FWB25    ((FWB_t*) (FLASH_BASE + FLASH_FWB25_OFFSET))
-#define FLASH_FWB25_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB25_OFFSET)))
+#define FLASH_WB25    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB25_OFFSET))
+#define FLASH_WB25_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB25_OFFSET)))
 
-#define FLASH_FWB26    ((FWB_t*) (FLASH_BASE + FLASH_FWB26_OFFSET))
-#define FLASH_FWB26_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB26_OFFSET)))
+#define FLASH_WB26    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB26_OFFSET))
+#define FLASH_WB26_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB26_OFFSET)))
 
-#define FLASH_FWB27    ((FWB_t*) (FLASH_BASE + FLASH_FWB27_OFFSET))
-#define FLASH_FWB27_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB27_OFFSET)))
+#define FLASH_WB27    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB27_OFFSET))
+#define FLASH_WB27_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB27_OFFSET)))
 
-#define FLASH_FWB28    ((FWB_t*) (FLASH_BASE + FLASH_FWB28_OFFSET))
-#define FLASH_FWB28_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB28_OFFSET)))
+#define FLASH_WB28    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB28_OFFSET))
+#define FLASH_WB28_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB28_OFFSET)))
 
-#define FLASH_FWB29    ((FWB_t*) (FLASH_BASE + FLASH_FWB29_OFFSET))
-#define FLASH_FWB29_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB29_OFFSET)))
+#define FLASH_WB29    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB29_OFFSET))
+#define FLASH_WB29_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB29_OFFSET)))
 
-#define FLASH_FWB30    ((FWB_t*) (FLASH_BASE + FLASH_FWB30_OFFSET))
-#define FLASH_FWB30_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB30_OFFSET)))
+#define FLASH_WB30    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB30_OFFSET))
+#define FLASH_WB30_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB30_OFFSET)))
 
-#define FLASH_FWB31    ((FWB_t*) (FLASH_BASE + FLASH_FWB31_OFFSET))
-#define FLASH_FWB31_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FWB31_OFFSET)))
+#define FLASH_WB31    ((FLASH_WB_t*) (FLASH_BASE + FLASH_WB31_OFFSET))
+#define FLASH_WB31_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_WB31_OFFSET)))
 
 /******************************************************************************************
-************************************ 41 FLASHPP *********************************************
+************************************ 41 PP *********************************************
 ******************************************************************************************/
-#define FLASH_FLASHPP    ((FLASHPP_t*) (FLASH_BASE + FLASH_FLASHPP_OFFSET))
-#define FLASH_FLASHPP_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_FLASHPP_OFFSET)))
+#define FLASH_PP    ((FLASH_PP_t*) (FLASH_BASE + FLASH_PP_OFFSET))
+#define FLASH_PP_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_PP_OFFSET)))
 
 /******************************************************************************************
-************************************ 42 SSIZE *********************************************
+************************************ 42 SRAM_SIZE *********************************************
 ******************************************************************************************/
-#define FLASH_SSIZE    ((SSIZE_t*) (FLASH_BASE + FLASH_SSIZE_OFFSET))
-#define FLASH_SSIZE_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_SSIZE_OFFSET)))
+#define SRAM_SIZE    ((SRAM_SIZE_t*) (FLASH_BASE + SRAM_SIZE_OFFSET))
+#define SRAM_SIZE_R    (*((volatile const uint32_t*) (FLASH_BASE + SRAM_SIZE_OFFSET)))
 
 /******************************************************************************************
-************************************ 42 FLASHCONF *********************************************
+************************************ 42 CONF *********************************************
 ******************************************************************************************/
-#define FLASH_FLASHCONF    ((FLASHCONF_t*) (FLASH_BASE + FLASH_FLASHCONF_OFFSET))
-#define FLASH_FLASHCONF_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FLASHCONF_OFFSET)))
+#define FLASH_CONF    ((FLASH_CONF_t*) (FLASH_BASE + FLASH_CONF_OFFSET))
+#define FLASH_CONF_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_CONF_OFFSET)))
 
 /******************************************************************************************
-************************************ 43 ROMSWMAP *********************************************
+************************************ 43 ROM_SWMAP *********************************************
 ******************************************************************************************/
-#define FLASH_ROMSWMAP    ((ROMSWMAP_t*) (FLASH_BASE + FLASH_ROMSWMAP_OFFSET))
-#define FLASH_ROMSWMAP_R    (*((volatile const uint32_t*) (FLASH_BASE + FLASH_ROMSWMAP_OFFSET)))
+#define ROM_SWMAP    ((ROM_SWMAP_t*) (FLASH_BASE + ROM_SWMAP_OFFSET))
+#define ROM_SWMAP_R    (*((volatile const uint32_t*) (FLASH_BASE + ROM_SWMAP_OFFSET)))
 
 /******************************************************************************************
-************************************ 43 FLASHDMASZ *********************************************
+************************************ 43 DMASZ *********************************************
 ******************************************************************************************/
-#define FLASH_FLASHDMASZ    ((FLASHDMASZ_t*) (FLASH_BASE + FLASH_FLASHDMASZ_OFFSET))
-#define FLASH_FLASHDMASZ_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FLASHDMASZ_OFFSET)))
+#define FLASH_DMASZ    ((FLASH_DMASZ_t*) (FLASH_BASE + FLASH_DMASZ_OFFSET))
+#define FLASH_DMASZ_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_DMASZ_OFFSET)))
 
 /******************************************************************************************
-************************************ 43 FLASHDMAST *********************************************
+************************************ 43 DMAST *********************************************
 ******************************************************************************************/
-#define FLASH_FLASHDMAST    ((FLASHDMAST_t*) (FLASH_BASE + FLASH_FLASHDMAST_OFFSET))
-#define FLASH_FLASHDMAST_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_FLASHDMAST_OFFSET)))
+#define FLASH_DMAST    ((FLASH_DMAST_t*) (FLASH_BASE + FLASH_DMAST_OFFSET))
+#define FLASH_DMAST_R    (*((volatile uint32_t*) (FLASH_BASE + FLASH_DMAST_OFFSET)))
+
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+
+#pragma  CODE_SECTION(FLASH__uptrBlockBaseAddress, ".ramcode")
+
+uintptr_t FLASH__uptrBlockBaseAddress(FLASH_nMODULE enModuleArg);
+
+#elif defined (__GNUC__ )
+
+
+uintptr_t FLASH__uptrBlockBaseAddress(FLASH_nMODULE enModuleArg) __attribute__((section(".ramcode")));
+
+#endif
+
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_PERIPHERAL_FLASH_REGISTER_FLASH_REGISTERPERIPHERAL_H_ */

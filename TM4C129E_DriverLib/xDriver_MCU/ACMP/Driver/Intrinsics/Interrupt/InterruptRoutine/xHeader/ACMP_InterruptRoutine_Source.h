@@ -27,13 +27,13 @@
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
 ACMP_pvfIRQSourceHandler_t ACMP_SW__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg,
-                                                           ACMP_nCOMP enACMPComparatorNum);
+                                                           ACMP_nCOMP enComparatorArg);
 ACMP_pvfIRQSourceHandler_t* ACMP_SW__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enModuleArg,
-                                                                   ACMP_nCOMP enACMPComparatorNum);
+                                                                   ACMP_nCOMP enComparatorArg);
 
 ACMP_pvfIRQSourceHandler_t ACMP__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg,
-                                                        ACMP_nCOMP enACMPComparatorNum);
+                                                        ACMP_nCOMP enComparatorArg);
 ACMP_pvfIRQSourceHandler_t*ACMP__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enModuleArg,
-                                                               ACMP_nCOMP enACMPComparatorNum);
+                                                               ACMP_nCOMP enComparatorArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_ACMP_INTERRUPTROUTINE_SOURCE_H_ */

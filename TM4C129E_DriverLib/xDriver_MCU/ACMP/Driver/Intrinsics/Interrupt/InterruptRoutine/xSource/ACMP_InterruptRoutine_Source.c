@@ -52,43 +52,43 @@ static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgume
 }
 
 ACMP_pvfIRQSourceHandler_t ACMP_SW__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg,
-                                                           ACMP_nCOMP enACMPComparatorNum)
+                                                           ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
 
     pvfFunctionReg = ACMP_SW__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                               [(uint32_t)enACMPComparatorNum];
+                                               [(uint32_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
 
 ACMP_pvfIRQSourceHandler_t* ACMP_SW__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enModuleArg,
-                                                                   ACMP_nCOMP enACMPComparatorNum)
+                                                                   ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
 
     pvfFunctionReg = &ACMP_SW__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                                [(uint32_t)enACMPComparatorNum];
+                                                [(uint32_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
 
 ACMP_pvfIRQSourceHandler_t ACMP__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg,
-                                                        ACMP_nCOMP enACMPComparatorNum)
+                                                        ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
 
     pvfFunctionReg = ACMP__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                            [(uint32_t)enACMPComparatorNum];
+                                            [(uint32_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
 
 ACMP_pvfIRQSourceHandler_t* ACMP__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enModuleArg,
-                                                               ACMP_nCOMP enACMPComparatorNum)
+                                                               ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
     pvfFunctionReg = &ACMP__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                             [(uint32_t)enACMPComparatorNum];
+                                             [(uint32_t) enComparatorArg];
     return (pvfFunctionReg);
 }

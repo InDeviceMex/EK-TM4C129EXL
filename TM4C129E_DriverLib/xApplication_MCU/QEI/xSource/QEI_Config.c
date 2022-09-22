@@ -34,10 +34,10 @@
 GPIO_nDIGITAL_FUNCTION QEI_enGpioInput[MAX_CONFIG] [(uint32_t) QEI_enMODULE_MAX][(uint32_t) 3UL] =
 {
     {
-        {GPIO_enPhA0, GPIO_enPhB0, GPIO_enIDX0},
+        {GPIO_enPhA0_L1, GPIO_enPhB0_L2, GPIO_enIDX0_L3},
     },
     {
-        {GPIO_enPhA0, GPIO_enPhB0, GPIO_enIDX0},
+        {GPIO_enPhA0_L1, GPIO_enPhB0_L2, GPIO_enIDX0_L3},
     },
  };
 

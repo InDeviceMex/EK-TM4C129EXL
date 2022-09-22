@@ -26,17 +26,21 @@
 #include <xApplication_MCU/ACMP/Interrupt/ACMP_Interrupt.h>
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Dependencies.h>
 
-void ACMP__vInit(void)
+ACMP_nERROR ACMP__vInit(ACMP_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    ACMP_nERROR enErrorReg;
+    uint32_t u32CompReg;
+    ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = ACMP__pvfGetIRQVectorHandler(ACMP_enMODULE_0, ACMP_enCOMP_0);
-    ACMP__vRegisterIRQVectorHandler( pfIrqVectorHandler, ACMP_enMODULE_0, ACMP_enCOMP_0);
+    u32CompReg = 0UL;
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+    while((u32CompReg < (uint32_t) ACMP_enCOMP_MAX) && (ACMP_enERROR_OK == enErrorReg))
+    {
+        pfIrqVectorHandlerReg = ACMP__pvfGetIRQVectorHandler(enModuleArg, (ACMP_nCOMP) u32CompReg);
+        enErrorReg = ACMP__enRegisterIRQVectorHandler(enModuleArg, (ACMP_nCOMP) u32CompReg, pfIrqVectorHandlerReg);
+        u32CompReg++;
+    }
 
-    pfIrqVectorHandler = ACMP__pvfGetIRQVectorHandler(ACMP_enMODULE_0, ACMP_enCOMP_1);
-    ACMP__vRegisterIRQVectorHandler( pfIrqVectorHandler, ACMP_enMODULE_0, ACMP_enCOMP_1);
-
-    pfIrqVectorHandler = ACMP__pvfGetIRQVectorHandler(ACMP_enMODULE_0, ACMP_enCOMP_2);
-    ACMP__vRegisterIRQVectorHandler( pfIrqVectorHandler, ACMP_enMODULE_0, ACMP_enCOMP_2);
+    return (enErrorReg);
 }
 

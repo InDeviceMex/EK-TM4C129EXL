@@ -49,15 +49,13 @@ const OS_UBase_t OS_Adapt_uxMaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_I
 
 static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod)
 {
-    SYSTICK__enInitUsVector(uxUsPeriod, SYSTICK_enPRI7, &OS_Adapt_vSysTickHandler);
+    SYSTICK__enInitUsVector(SYSTICK_enMODULE_0, uxUsPeriod, SYSTICK_enPRI7, &OS_Adapt_vSysTickHandler);
 }
 
 void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
 {
-    SCB__vRegisterIRQVectorHandler(&OS_Adapt_vPendSVHandler,
-                                   (void (**) (void)) 0UL,
-                                   SCB_enVECISR_PENDSV);
-    SCB_SVCall__vRegisterIRQSourceHandler(&OS_Adapt_vSVCHandler, 0UL);
+    SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, SCB_enVECISR_PENDSV, &OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL);
+    SCB_SVCall__enRegisterIRQSourceHandler(SCB_enMODULE_0, 0UL, &OS_Adapt_vSVCHandler);
     SCB_PendSV__enSetPriority(SCB_enMODULE_0, SCB_enPRI7);
     SCB_SYSTICK__enSetPriority(SCB_enMODULE_0, SCB_enPRI7);
 

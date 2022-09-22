@@ -26,20 +26,23 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-void SCB_HardFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                                  SCB_nHARD_BIT enInterruptParam)
+SCB_nERROR SCB_HardFault__enRegisterIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nHARD_BIT enInterrupArg,
+                                                    SCB_pvfIRQSourceHandler_t pfIrqSourceHandlerArg)
 {
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
-    {
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
-                                                  (uint32_t) SCB_enHARD_BIT_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           SCB_HardFault__pvfGetIRQSourceHandlerPointer((SCB_nHARD_BIT) u32InterruptSource),
-           0UL,
-           1UL);
-    }
-}
+    SCB_pvfIRQSourceHandler_t* pvfIrqHandler;
+    SCB_nERROR enErrorReg;
 
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enInterrupArg, (uint32_t) SCB_enHARD_BIT_MAX);
+    }
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = SCB_HardFault__pvfGetIRQSourceHandlerPointer(enModuleArg, enInterrupArg);
+        enErrorReg = (SCB_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandlerArg, pvfIrqHandler, 0UL, 1UL);
+    }
+    return (enErrorReg);
+}
 
 

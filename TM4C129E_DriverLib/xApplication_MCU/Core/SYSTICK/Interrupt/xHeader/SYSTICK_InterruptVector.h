@@ -27,9 +27,13 @@
 
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 
-void SYSTICK__vEnInterruptVector(SYSTICK_nPRIORITY enPriority);
-void SYSTICK__vDisInterruptVector(void);
-void SYSTICK__vClearInterruptVector(void);
-SYSTICK_nSTATUS SYSTICK__enStatusInterruptVector(void);
+SYSTICK_nERROR SYSTICK__enSetInterruptVectorState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE enStateArg);
+SYSTICK_nERROR SYSTICK__enSetInterruptVectorStateWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE enStateArg, SYSTICK_nPRIORITY enPriorityArg);
+SYSTICK_nERROR SYSTICK__enGetInterruptVectorState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE* penStateArg, SYSTICK_nSTATUS* penStatusArg);
+SYSTICK_nERROR SYSTICK__enGetInterruptVectorStateWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE* penStateArg, SYSTICK_nSTATUS* penStatusArg, SYSTICK_nPRIORITY* penPriorityArg);
+SYSTICK_nERROR SYSTICK__enEnableInterruptVector(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enEnableInterruptVectorWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nPRIORITY enPriorityArg);
+SYSTICK_nERROR SYSTICK__enDisableInterruptVector(SYSTICK_nMODULE enModuleArg);
+SYSTICK_nERROR SYSTICK__enDisableInterruptVectorWithPriority(SYSTICK_nMODULE enModuleArg, SYSTICK_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_INTERRUPT_XHEADER_SYSTICK_INTERRUPTVECTOR_H_ */

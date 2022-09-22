@@ -177,6 +177,7 @@ typedef struct
 
 
 typedef MCU_Register_t ACMP_Register_t;
+typedef MCU_pvfIRQVectorHandler_t ACMP_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t ACMP_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_XHEADER_ACMP_ENUM_H_ */

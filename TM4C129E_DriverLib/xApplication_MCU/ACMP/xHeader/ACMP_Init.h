@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_ACMP_XHEADER_ACMP_INIT_H_
 #define XAPPLICATION_MCU_ACMP_XHEADER_ACMP_INIT_H_
 
-void ACMP__vInit(void);
+#include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
+
+ACMP_nERROR ACMP__vInit(ACMP_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_XHEADER_ACMP_INIT_H_ */

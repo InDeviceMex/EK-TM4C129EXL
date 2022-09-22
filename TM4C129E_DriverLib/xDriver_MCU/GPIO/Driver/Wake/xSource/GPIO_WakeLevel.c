@@ -55,12 +55,12 @@ GPIO_nERROR GPIO__enSetWakeUpLevelByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enP
         else
         {
             u32ValueReg = (uint32_t) enPinMaskArg;
-            u32ValueReg &= 0xF0;
+            u32ValueReg &= 0xF0UL;
         }
         stRegister.u32Shift = 0UL;
         stRegister.u32Mask = (uint32_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_WAKELVL_OFFSET;
-        stRegister.u32Value = u32ValueReg;
+        stRegister.u32Value = (uint32_t) u32ValueReg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 

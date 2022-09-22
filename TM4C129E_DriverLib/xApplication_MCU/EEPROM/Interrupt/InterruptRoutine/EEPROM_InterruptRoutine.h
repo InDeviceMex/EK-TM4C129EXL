@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/EEPROM/Interrupt/InterruptRoutine/xHeader/EEPROM_InterruptRoutine_Vector.h>
 
-void (*EEPROM__pvfGetIRQVectorHandler(void))(void);
-void (**EEPROM__pvfGetIRQVectorHandlerPointer(void))(void);
+EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQVectorHandler(EEPROM_nMODULE enModuleArg);
+EEPROM_pvfIRQSourceHandler_t* EEPROM__pvfGetIRQVectorHandlerPointer(EEPROM_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTERRUPT_INTERRUPTROUTINE_EEPROM_INTERRUPTROUTINE_H_ */

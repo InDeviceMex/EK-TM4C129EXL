@@ -39,8 +39,7 @@ void QEI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),QEI_nMODUL
     {
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
         enVector = SCB_enVECISR_QEI[u32Module];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                           QEI__pvfGetIRQVectorHandlerPointer((QEI_nMODULE) u32Module),
-                            enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
+                           QEI__pvfGetIRQVectorHandlerPointer((QEI_nMODULE) u32Module));
     }
 }

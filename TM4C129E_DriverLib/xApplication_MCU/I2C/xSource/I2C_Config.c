@@ -34,16 +34,16 @@ void I2C__vSetConfig(I2C_nMODULE enModule, I2C_nMODE enModeArg, uint32_t u32Freq
     I2C_nMODULE enModuleFilter = I2C_enMODULE_0;
     GPIO_nDIGITAL_FUNCTION I2C_enGpioInput[(uint32_t) I2C_enMODULE_MAX][(uint32_t) 2UL] =
     {
-            {GPIO_enI2C0SCL, GPIO_enI2C0SDA},
-            {GPIO_enI2C1SCL, GPIO_enI2C1SDA},
-            {GPIO_enI2C2SCL, GPIO_enI2C2SDA},
-            {GPIO_enI2C3SCL, GPIO_enI2C3SDA},
-            {GPIO_enI2C4SCL, GPIO_enI2C4SDA},
-            {GPIO_enI2C5SCL, GPIO_enI2C5SDA},
-            {GPIO_enI2C6SCL, GPIO_enI2C6SDA},
-            {GPIO_enI2C7SCL, GPIO_enI2C7SDA},
-            {GPIO_enI2C8SCL, GPIO_enI2C8SDA},
-            {GPIO_enI2C9SCL, GPIO_enI2C9SDA},
+            {GPIO_enI2C0SCL_B2, GPIO_enI2C0SDA_B3},
+            {GPIO_enI2C1SCL_G0, GPIO_enI2C1SDA_G1},
+            {GPIO_enI2C2SCL_L1, GPIO_enI2C2SDA_L0},
+            {GPIO_enI2C3SCL_K4, GPIO_enI2C3SDA_K5},
+            {GPIO_enI2C4SCL_K6, GPIO_enI2C4SDA_K7},
+            {GPIO_enI2C5SCL_B0, GPIO_enI2C5SDA_B1},
+            {GPIO_enI2C6SCL_A6, GPIO_enI2C6SDA_A7},
+            {GPIO_enI2C7SCL_A4, GPIO_enI2C7SDA_A5},
+            {GPIO_enI2C8SCL_A2, GPIO_enI2C8SDA_A3},
+            {GPIO_enI2C9SCL_A0, GPIO_enI2C9SDA_A1},
      };
     enModuleFilter = (I2C_nMODULE) MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
     GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleFilter][SCL_LINE], GPIO_enCONFIG_INPUT_2MA_PUSHPULL);

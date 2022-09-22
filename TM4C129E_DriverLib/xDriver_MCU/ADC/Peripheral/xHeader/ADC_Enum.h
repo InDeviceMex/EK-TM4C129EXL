@@ -393,6 +393,7 @@ typedef struct
 }ADC_SAMPLE_CONFIG_t;
 
 typedef MCU_Register_t ADC_Register_t;
+typedef MCU_pvfIRQVectorHandler_t ADC_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t ADC_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_XHEADER_ADC_ENUM_H_ */

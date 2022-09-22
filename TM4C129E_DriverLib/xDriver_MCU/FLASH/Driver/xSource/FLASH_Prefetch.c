@@ -24,69 +24,243 @@
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Prefetch.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/FLASH/Driver/Intrinsics/FLASH_Intrinsics.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
-void FLASH__vSetPrefetchMode (FLASH_nPREFETCH_MODE enPrefetchMode)
+FLASH_nERROR FLASH__enClearPrefetchBuffer(FLASH_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
-                        (uint32_t) enPrefetchMode,
-                        FLASH_FLASHCONF_SPFE_MASK,
-                        FLASH_FLASHCONF_R_SPFE_BIT);
-    FLASH__vClearPrefetchBuffer();
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    stRegister.u32Shift = FLASH_CONF_R_CLRTV_BIT;
+    stRegister.u32Mask = FLASH_CONF_CLRTV_MASK;
+    stRegister.uptrAddress = FLASH_CONF_OFFSET;
+    stRegister.u32Value = FLASH_CONF_CLRTV_CLEAR;
+    enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-FLASH_nPREFETCH_MODE FLASH__enGetPrefetchMode (void)
+FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg)
 {
-    FLASH_nPREFETCH_MODE enPrefetchReg = FLASH_enPREFETCH_MODE_TWO;
-    enPrefetchReg = (FLASH_nPREFETCH_MODE) MCU__u32ReadRegister(FLASH_BASE,
-                                        FLASH_FLASHCONF_OFFSET,
-                                        FLASH_FLASHCONF_SPFE_MASK,
-                                        FLASH_FLASHCONF_R_SPFE_BIT);
-    return (enPrefetchReg);
-}
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
 
-void FLASH__vSetPrefetchEnable (FLASH_nSTATE enPrefetchEnable)
-{
-    if(FLASH_enSTATE_ENA == enPrefetchEnable)
+    enErrorReg = FLASH_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
     {
-        MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
-                            FLASH_FLASHCONF_FPFON_FORCE,
-                            FLASH_FLASHCONF_FPFON_MASK,
-                            FLASH_FLASHCONF_R_FPFON_BIT);
+        enErrorReg = FLASH_enERROR_POINTER;
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = FLASH_PP_R_PFC_BIT;
+        stRegister.u32Mask = FLASH_PP_PFC_MASK;
+        stRegister.uptrAddress = FLASH_PP_OFFSET;
+        enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (FLASH_nSTATUS) stRegister.u32Value;
+    }
+    return (enErrorReg);
+}
+
+FLASH_nERROR FLASH__enSetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE enModeArg)
+{
+    FLASH_Register_t stRegister;
+    FLASH_nSTATUS enStatusReg;
+    FLASH_nERROR enErrorReg;
+
+    enErrorReg = FLASH_enERROR_OK;
+    enStatusReg = FLASH_enSTATUS_ACTIVE;
+    if(FLASH_enPREFETCH_MODE_DUAL == enModeArg)
+    {
+        enErrorReg = FLASH__enIsPrefetchDualModeAvailable(enModuleArg, &enStatusReg);
+    }
+
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        if(FLASH_enSTATUS_ACTIVE == enStatusReg)
+        {
+            stRegister.u32Shift = FLASH_CONF_R_SPFE_BIT;
+            stRegister.u32Mask = FLASH_CONF_SPFE_MASK;
+            stRegister.uptrAddress = FLASH_CONF_OFFSET;
+            stRegister.u32Value = (uint32_t) enModeArg;
+            enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
+        }
+        else
+        {
+            enErrorReg = FLASH_enERROR_VALUE;
+        }
+    }
+
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FLASH__enClearPrefetchBuffer(enModuleArg);
+    }
+
+    return (enErrorReg);
+}
+
+FLASH_nERROR FLASH__enGetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE* penModeArg)
+{
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    enErrorReg = FLASH_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = FLASH_enERROR_POINTER;
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = FLASH_CONF_R_SPFE_BIT;
+        stRegister.u32Mask = FLASH_CONF_SPFE_MASK;
+        stRegister.uptrAddress = FLASH_CONF_OFFSET;
+        enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (FLASH_nPREFETCH_MODE) stRegister.u32Value;
+    }
+    return (enErrorReg);
+}
+
+FLASH_nERROR FLASH__enEnablePrefetch(FLASH_nMODULE enModuleArg)
+{
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    stRegister.u32Shift = FLASH_CONF_R_FPFON_BIT;
+    stRegister.u32Mask = FLASH_CONF_FPFON_MASK;
+    stRegister.uptrAddress = FLASH_CONF_OFFSET;
+    stRegister.u32Value = FLASH_CONF_FPFON_FORCE;
+    enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
+
+    if(enErrorReg == FLASH_enERROR_OK)
+    {
+        enErrorReg = FLASH__enClearPrefetchBuffer(enModuleArg);
+    }
+
+    return (enErrorReg);
+}
+
+FLASH_nERROR FLASH__enDisablePrefetch(FLASH_nMODULE enModuleArg)
+{
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    stRegister.u32Shift = FLASH_CONF_R_FPFOFF_BIT;
+    stRegister.u32Mask = FLASH_CONF_FPFOFF_MASK;
+    stRegister.uptrAddress = FLASH_CONF_OFFSET;
+    stRegister.u32Value = FLASH_CONF_FPFOFF_FORCE;
+    enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
+
+    if(enErrorReg == FLASH_enERROR_OK)
+    {
+        enErrorReg = FLASH__enClearPrefetchBuffer(enModuleArg);
+    }
+
+    return (enErrorReg);
+}
+
+FLASH_nERROR FLASH__enSetPrefetchState(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_STATE enStateArg)
+{
+    FLASH_nERROR enErrorReg;
+
+    if(FLASH_enPREFETCH_STATE_OFF == enStateArg)
+    {
+        enErrorReg = FLASH__enDisablePrefetch(enModuleArg);
     }
     else
     {
-        MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
-                            FLASH_FLASHCONF_FPFOFF_FORCE,
-                            FLASH_FLASHCONF_FPFOFF_MASK,
-                            FLASH_FLASHCONF_R_FPFOFF_BIT);
+        enErrorReg = FLASH__enEnablePrefetch(enModuleArg);
     }
-    FLASH__vClearPrefetchBuffer();
+    return (enErrorReg);
 }
 
-void FLASH__vClearPrefetchBuffer (void)
+FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg)
 {
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
-                        FLASH_FLASHCONF_CLRTV_CLEAR,
-                        FLASH_FLASHCONF_CLRTV_MASK,
-                        FLASH_FLASHCONF_R_CLRTV_BIT);
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    enErrorReg = FLASH_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = FLASH_enERROR_POINTER;
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = FLASH_PP_R_FMM_BIT;
+        stRegister.u32Mask = FLASH_PP_FMM_MASK;
+        stRegister.uptrAddress = FLASH_PP_OFFSET;
+        enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (FLASH_nSTATUS) stRegister.u32Value;
+    }
+    return (enErrorReg);
 }
 
-void FLASH__vSetMirrorMode (FLASH_nSTATE enMirrorEnable)
+
+FLASH_nERROR FLASH__enSetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(FLASH_BASE, FLASH_FLASHCONF_OFFSET,
-                        (uint32_t) enMirrorEnable,
-                        FLASH_FLASHCONF_FMME_MASK,
-                        FLASH_FLASHCONF_R_FMME_BIT);
-    FLASH__vClearPrefetchBuffer();
+    FLASH_Register_t stRegister;
+    FLASH_nSTATUS enStatusReg;
+    FLASH_nERROR enErrorReg;
+
+    enStatusReg = FLASH_enSTATUS_ACTIVE;
+    enErrorReg = FLASH_enERROR_OK;
+    if(FLASH_enSTATE_ENA == enStateArg)
+    {
+        enErrorReg = FLASH__enIsMirrorModeAvailable(enModuleArg, &enStatusReg);
+    }
+
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        if(FLASH_enSTATUS_ACTIVE != enStatusReg)
+        {
+            enErrorReg = FLASH_enERROR_VALUE;
+        }
+    }
+
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = FLASH_CONF_R_FMME_BIT;
+        stRegister.u32Mask = FLASH_CONF_FMME_MASK;
+        stRegister.uptrAddress = FLASH_CONF_OFFSET;
+        stRegister.u32Value = (uint32_t) enStateArg;
+        enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = FLASH__enClearPrefetchBuffer(enModuleArg);
+    }
+
+    return (enErrorReg);
 }
 
-FLASH_nSTATE FLASH__enGetMirrorMode (void)
+FLASH_nERROR FLASH__enGetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE* penStateArg)
 {
-    FLASH_nSTATE enMirrorReg = FLASH_enSTATE_DIS;
-    enMirrorReg = (FLASH_nSTATE) MCU__u32ReadRegister(FLASH_BASE,
-                                           FLASH_FLASHCONF_OFFSET,
-                                           FLASH_FLASHCONF_FMME_MASK,
-                                           FLASH_FLASHCONF_R_FMME_BIT);
-    return (enMirrorReg);
+    FLASH_Register_t stRegister;
+    FLASH_nERROR enErrorReg;
+
+    enErrorReg = FLASH_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = FLASH_enERROR_POINTER;
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = FLASH_CONF_R_FMME_BIT;
+        stRegister.u32Mask = FLASH_CONF_FMME_MASK;
+        stRegister.uptrAddress = FLASH_CONF_OFFSET;
+        enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (FLASH_nSTATE) stRegister.u32Value;
+    }
+    return (enErrorReg);
 }

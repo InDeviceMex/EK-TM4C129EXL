@@ -25,6 +25,7 @@
 #ifndef XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_INTERRUPT_EEPROM_INTERRUPT_H_
 #define XDRIVER_MCU_EEPROM_DRIVER_INTRINSICS_INTERRUPT_EEPROM_INTERRUPT_H_
 
+#include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/xHeader/EEPROM_InterruptSource.h>
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRegister/EEPROM_InterruptRegister.h>
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/Interrupt/InterruptRoutine/EEPROM_InterruptRoutine.h>
 

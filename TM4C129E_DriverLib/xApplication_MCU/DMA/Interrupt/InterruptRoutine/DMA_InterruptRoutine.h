@@ -29,7 +29,7 @@
 #include <xApplication_MCU/DMA/Interrupt/InterruptRoutine/xHeader/DMA_InterruptRoutine_Vector_Software.h>
 #include <xApplication_MCU/DMA/Interrupt/InterruptRoutine/xHeader/DMA_InterruptRoutine_Vector_Error.h>
 
-void (*DMA__pvfGetIRQVectorHandler(DMA_nVECTOR enDmaVector))(void);
-void (**DMA__pvfGetIRQVectorHandlerPointer(DMA_nVECTOR enDmaVector))(void);
+DMA_pvfIRQVectorHandler_t DMA__pvfGetIRQVectorHandler(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg);
+DMA_pvfIRQVectorHandler_t* DMA__pvfGetIRQVectorHandlerPointer(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg);
 
 #endif /* XAPPLICATION_MCU_DRIVER_HEADER_DMA_DMA_DRIVER_DMA_INTRINSICS_DMA_INTERRUPT_DMA_INTERRUPTROUTINE_DMA_INTERRUPTROUTINE_H_ */

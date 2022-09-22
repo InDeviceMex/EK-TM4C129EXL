@@ -32,7 +32,6 @@
 #pragma  CODE_SECTION(MCU__u32CheckParams_RAM, ".ramcode")
 
 MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
-
 uint32_t MCU__u32CheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
 
 #elif defined (__GNUC__ )

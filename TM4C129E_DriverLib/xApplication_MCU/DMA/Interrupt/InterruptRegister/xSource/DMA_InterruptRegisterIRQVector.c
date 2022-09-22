@@ -26,21 +26,27 @@
 #include <xApplication_MCU/DMA/Interrupt/InterruptRoutine/DMA_InterruptRoutine.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
-void DMA__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),DMA_nVECTOR enVector)
+DMA_nERROR DMA__enRegisterIRQVectorHandler(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enSCBVector = SCB_enVECISR_UDMASOFT;
-    uint32_t u32Vector = 0UL;
-    const SCB_nVECISR SCB_enVECISR_DMA[(uint32_t) DMA_enVECTOR_MAX] = { SCB_enVECISR_UDMASOFT, SCB_enVECISR_UDMAERROR};
-
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    const SCB_nVECISR SCB_enVECISR_DMA[(uint32_t) DMA_enMODULE_MAX][(uint32_t) DMA_enVECTOR_MAX]=
     {
-        u32Vector = MCU__u32CheckParams((uint32_t) enVector, (uint32_t) DMA_enVECTOR_MAX);
-        enSCBVector = SCB_enVECISR_DMA[u32Vector];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                       DMA__pvfGetIRQVectorHandlerPointer((DMA_nVECTOR) u32Vector),
-                       enSCBVector);
+     { SCB_enVECISR_UDMASOFT, SCB_enVECISR_UDMAERROR},
+    };
+    SCB_nVECISR enVectorReg;
+    DMA_nERROR enErrorReg;
+    DMA_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
+
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enInterruptArg, (uint32_t) DMA_enVECTOR_MAX);
     }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR_DMA[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+        pvfVectorHandlerReg = DMA__pvfGetIRQVectorHandlerPointer(enModuleArg, enInterruptArg);
+        enErrorReg = (DMA_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
+    }
+    return (enErrorReg);
+
 }
-
-
-

@@ -42,45 +42,45 @@ GPIO_nDIGITAL_FUNCTION SSI_enGpioInput[MAX_CONFIG]
 {
     {
         {
-         GPIO_enSSI0Tx, GPIO_enSSI0Rx,
-         GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3,
-         GPIO_enSSI0Clk, GPIO_enSSI0Fss
+         GPIO_enSSI0Tx_A4, GPIO_enSSI0Rx_A5,
+         GPIO_enSSI0XDAT2_A6, GPIO_enSSI0XDAT3_A7,
+         GPIO_enSSI0Clk_A2, GPIO_enSSI0Fss_A3
         },
         {
-         GPIO_enSSI1Tx, GPIO_enSSI1Rx,
-         GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3,
-         GPIO_enSSI1Clk, GPIO_enSSI1Fss
+         GPIO_enSSI1Tx_E4, GPIO_enSSI1Rx_E5,
+         GPIO_enSSI1XDAT2_D4, GPIO_enSSI1XDAT3_D5,
+         GPIO_enSSI1Clk_B5, GPIO_enSSI1Fss_B4
         },
         {
-         GPIO_enSSI2Tx, GPIO_enSSI2Rx,
-         GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3,
-         GPIO_enSSI2Clk, GPIO_enSSI2Fss
+         GPIO_enSSI2Tx_D1, GPIO_enSSI2Rx_D0,
+         GPIO_enSSI2XDAT2_D7, GPIO_enSSI2XDAT3_D6,
+         GPIO_enSSI2Clk_D3, GPIO_enSSI2Fss_D2
         },
         {
-         GPIO_enSSI3Tx, GPIO_enSSI3Rx,
-         GPIO_enSSI3XDAT2, GPIO_enSSI3XDAT3,
-         GPIO_enSSI3Clk, GPIO_enSSI3Fss
+         GPIO_enSSI3Tx_F1, GPIO_enSSI3Rx_F0,
+         GPIO_enSSI3XDAT2_F4, GPIO_enSSI3XDAT3_P1,
+         GPIO_enSSI3Clk_F3, GPIO_enSSI3Fss_F2
         },
     },
     {
         {
-         GPIO_enSSI0Tx, GPIO_enSSI0Rx,
-         GPIO_enSSI0XDAT2, GPIO_enSSI0XDAT3,
-         GPIO_enSSI0Clk, GPIO_enSSI0Fss
+         GPIO_enSSI0Tx_A4, GPIO_enSSI0Rx_A5,
+         GPIO_enSSI0XDAT2_A6, GPIO_enSSI0XDAT3_A7,
+         GPIO_enSSI0Clk_A2, GPIO_enSSI0Fss_A3
         },
         {
-         GPIO_enSSI1Tx, GPIO_enSSI1Rx,
-         GPIO_enSSI1XDAT2, GPIO_enSSI1XDAT3,
-         GPIO_enSSI1Clk, GPIO_enSSI1Fss
+         GPIO_enSSI1Tx_E4, GPIO_enSSI1Rx_E5,
+         GPIO_enSSI1XDAT2_D4, GPIO_enSSI1XDAT3_D5,
+         GPIO_enSSI1Clk_B5, GPIO_enSSI1Fss_B4
         },
         {
-         GPIO_enSSI2Tx, GPIO_enSSI2Rx,
-         GPIO_enSSI2XDAT2, GPIO_enSSI2XDAT3,
-         GPIO_enSSI2Clk, GPIO_enSSI2Fss
+         GPIO_enSSI2Tx_D1, GPIO_enSSI2Rx_D0,
+         GPIO_enSSI2XDAT2_D7, GPIO_enSSI2XDAT3_D6,
+         GPIO_enSSI2Clk_D3, GPIO_enSSI2Fss_D2
         },
         {
          GPIO_enSSI3Tx_Q2, GPIO_enSSI3Rx_Q3,
-         GPIO_enSSI3XDAT2_P0, GPIO_enSSI3XDAT3,
+         GPIO_enSSI3XDAT2_P0, GPIO_enSSI3XDAT3_P1,
          GPIO_enSSI3Clk_Q0, GPIO_enSSI3Fss_Q1
         },
     },

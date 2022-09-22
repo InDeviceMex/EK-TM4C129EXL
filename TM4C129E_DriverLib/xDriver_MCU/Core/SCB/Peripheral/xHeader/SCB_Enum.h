@@ -361,6 +361,7 @@ typedef enum
 }SCB_nVECISR;
 
 typedef MCU_Register_t SCB_Register_t;
+typedef MCU_pvfIRQVectorHandler_t SCB_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t SCB_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_PERIPHERAL_SCB_ENUM_H_ */

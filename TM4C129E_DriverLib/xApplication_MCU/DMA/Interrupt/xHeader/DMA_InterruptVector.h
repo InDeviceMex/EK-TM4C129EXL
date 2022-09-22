@@ -27,7 +27,13 @@
 
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
 
-void DMA__vEnInterruptVector(DMA_nVECTOR enVector, DMA_nPRIORITY enDmaPriority);
-void DMA__vDisInterruptVector(DMA_nVECTOR enVector);
+DMA_nERROR DMA__enSetInterruptVectorState(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE enStateArg);
+DMA_nERROR DMA__enSetInterruptVectorStateWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE enStateArg, DMA_nPRIORITY enPriorityArg);
+DMA_nERROR DMA__enGetInterruptVectorState(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE* penStateArg);
+DMA_nERROR DMA__enGetInterruptVectorStateWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nSTATE* penStateArg, DMA_nPRIORITY* penPriorityArg);
+DMA_nERROR DMA__enEnableInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg);
+DMA_nERROR DMA__enEnableInterruptVectorWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nPRIORITY enPriorityArg);
+DMA_nERROR DMA__enDisableInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg);
+DMA_nERROR DMA__enDisableInterruptVectorWithPriority(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, DMA_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_DMA_INTERRUPT_XHEADER_DMA_INTERRUPTVECTOR_H_ */

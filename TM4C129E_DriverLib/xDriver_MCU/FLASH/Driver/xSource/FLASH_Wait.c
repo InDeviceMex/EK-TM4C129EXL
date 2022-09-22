@@ -6,28 +6,40 @@
  */
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Wait.h>
 
-#include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Process.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Prefetch.h>
 
-#define FLASH_TIMEOUT_MAX (9000000UL)
-
-FLASH_nERROR FLASH__enWait (uint32_t u32FMC, uint32_t u32RegisterMask)
+FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, uint32_t u32TimeoutArg)
 {
-    uint32_t u32Reg = 0UL;
-    uint32_t u32TimeOut = FLASH_TIMEOUT_MAX;
-    FLASH_nERROR enStatusReg = FLASH_enERROR_OK;
+    FLASH_nERROR enErrorReg;
+    FLASH_nSTATUS enStatusReg;
 
-    do
+    enErrorReg = FLASH_enERROR_OK;
+    if(0UL == u32TimeoutArg)
     {
-        u32Reg = MCU__u32ReadRegister(FLASH_BASE, u32FMC, u32RegisterMask, 0UL);
-        u32TimeOut--;
-        if(0UL == u32TimeOut)
+        enErrorReg = FLASH_enERROR_VALUE;
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enStatusReg = FLASH_enSTATUS_INACTIVE;
+        do
         {
-            enStatusReg = FLASH_enERROR_UNDEF;
-            break;
+            enErrorReg = FLASH__enIsProcessOngoing(enModuleArg, enProcessArg, &enStatusReg);
+            u32TimeoutArg--;
+        }while((FLASH_enSTATUS_ACTIVE == enStatusReg) &&
+               (0UL != u32TimeoutArg) &&
+               (FLASH_enERROR_OK == enErrorReg));
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        if(0UL == u32TimeoutArg)
+        {
+            enErrorReg = FLASH_enERROR_TIMEOUT;
         }
-    }while((u32RegisterMask == u32Reg) && (0UL != u32TimeOut));
-    FLASH__vClearPrefetchBuffer();
-    return (enStatusReg);
+    }
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        FLASH__enClearPrefetchBuffer(enModuleArg);
+    }
+    return (enErrorReg);
 }

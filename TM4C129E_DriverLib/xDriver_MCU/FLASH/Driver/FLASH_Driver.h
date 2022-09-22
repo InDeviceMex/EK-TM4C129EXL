@@ -26,7 +26,12 @@
 #define XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_DRIVER_FLASH_DRIVER_H_
 
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/FLASH_Intrinsics.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Address.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_ConvertData.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Data.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Key.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Prefetch.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Process.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Size.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Wait.h>
 

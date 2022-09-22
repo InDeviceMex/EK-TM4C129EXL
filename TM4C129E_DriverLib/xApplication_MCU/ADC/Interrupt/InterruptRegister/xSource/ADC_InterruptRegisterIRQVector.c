@@ -26,29 +26,28 @@
 #include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/ADC_InterruptRoutine.h>
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
-void ADC__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),ADC_nMODULE enModule,
-                                    ADC_nSEQUENCER enSequence)
+ADC_nERROR ADC__enRegisterIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_ADC0SEQ0;
-    uint32_t u32Module = 0UL;
-    uint32_t u32Sequencer = 0UL;
-
-    const SCB_nVECISR SCB_enVECISR_ADC[(uint32_t)ADC_enMODULE_MAX][(uint32_t)ADC_enSEQ_MAX] =
+    const SCB_nVECISR SCB_enVECISR_ADC[(uint32_t) ADC_enMODULE_MAX][(uint32_t) ADC_enSEQ_MAX]=
     {
-        { SCB_enVECISR_ADC0SEQ0, SCB_enVECISR_ADC0SEQ1,
-          SCB_enVECISR_ADC0SEQ2, SCB_enVECISR_ADC0SEQ3},
-        { SCB_enVECISR_ADC1SEQ0, SCB_enVECISR_ADC1SEQ1,
-          SCB_enVECISR_ADC1SEQ2, SCB_enVECISR_ADC1SEQ3}
+     {SCB_enVECISR_ADC0SEQ0, SCB_enVECISR_ADC0SEQ1, SCB_enVECISR_ADC0SEQ2, SCB_enVECISR_ADC0SEQ3},
+     {SCB_enVECISR_ADC1SEQ0, SCB_enVECISR_ADC1SEQ1, SCB_enVECISR_ADC1SEQ2, SCB_enVECISR_ADC1SEQ3}
     };
+    SCB_nVECISR enVectorReg;
+    ADC_nERROR enErrorReg;
+    ADC_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    if(ADC_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) ADC_enMODULE_MAX);
-        u32Sequencer = MCU__u32CheckParams((uint32_t) enSequence, (uint32_t) ADC_enSEQ_MAX);
-        enVector = SCB_enVECISR_ADC[u32Module][u32Sequencer];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-           ADC__pvfGetIRQVectorHandlerPointer((ADC_nMODULE) u32Module,
-                                              (ADC_nSEQUENCER) u32Sequencer),
-            enVector);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
     }
+    if(ADC_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR_ADC[(uint32_t) enModuleArg][(uint32_t) enSequencerArg];
+        pvfVectorHandlerReg = ADC__pvfGetIRQVectorHandlerPointer(enModuleArg, enSequencerArg);
+        enErrorReg = (ADC_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
+    }
+    return (enErrorReg);
+
 }

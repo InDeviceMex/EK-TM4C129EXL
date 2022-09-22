@@ -115,7 +115,7 @@ void EDUMKII_Joystick_vInit(void)
         ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_1, &stADC0SampleConfig);
 
         ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_TYPE_DMA);
-        ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_1,
+        ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_1,
                                 (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
         ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
         ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);

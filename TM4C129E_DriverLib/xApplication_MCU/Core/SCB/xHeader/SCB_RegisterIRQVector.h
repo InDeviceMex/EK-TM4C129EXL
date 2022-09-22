@@ -27,9 +27,9 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
-                                    void (**pfIrqVectorHandlerExtern) (void),
-                                    SCB_nVECISR enVector);
-void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector);
+SCB_nERROR SCB__enRegisterIRQVectorHandler(SCB_nMODULE enModuleArg,
+                                           SCB_nVECISR enVectorArg,
+                                           SCB_pvfIRQVectorHandler_t pfIrqVectorHandlerArg,
+                                           SCB_pvfIRQVectorHandler_t* pfIrqVectorHandlerExternArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_REGISTERIRQVECTOR_H_ */

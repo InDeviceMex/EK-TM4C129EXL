@@ -31,90 +31,90 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t FMA [32UL];
-        BITBANDING_FMA_t FMA_Bit;
+        volatile uint32_t ADDRESS [32UL];
+        FLASH_BITBANDING_ADDRESS_t ADDRESS_Bit;
     };
     union
     {
-        volatile uint32_t FMD [32UL];
-        BITBANDING_FMD_t FMD_Bit;
+        volatile uint32_t DATA [32UL];
+        FLASH_BITBANDING_DATA_t DATA_Bit;
     };
     union
     {
-        volatile uint32_t FMC [32UL];
-        BITBANDING_FMC_t FMC_Bit;
+        volatile uint32_t CTL [32UL];
+        FLASH_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t FCRIS [32UL];
-        BITBANDING_FCRIS_t FCRIS_Bit;
+        volatile const uint32_t RIS [32UL];
+        FLASH_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t FCIM [32UL];
-        BITBANDING_FCIM_t FCIM_Bit;
+        volatile uint32_t IM [32UL];
+        FLASH_BITBANDING_IM_t IM_Bit;
     };
     union
     {
-        volatile uint32_t FCMISC [32UL];
-        BITBANDING_FCMISC_t FCMISC_Bit;
+        volatile uint32_t MISC [32UL];
+        FLASH_BITBANDING_MISC_t MISC_Bit;
     };
     const uint32_t reserved [2UL * 32UL];
     union
     {
-        volatile uint32_t FMC2 [32UL];
-        BITBANDING_FMC2_t FMC2_Bit;
+        volatile uint32_t CTL2 [32UL];
+        FLASH_BITBANDING_CTL2_t CTL2_Bit;
     };
     const uint32_t reserved1 [3UL * 32UL];
     union
     {
-        volatile uint32_t FWBVAL [32UL];
-        BITBANDING_FWBVAL_t FWBVAL_Bit;
+        volatile uint32_t WBVAL [32UL];
+        FLASH_BITBANDING_WBVAL_t WBVAL_Bit;
     };
     const uint32_t reserved2 [2UL * 32UL];
     union
     {
-        volatile uint32_t FLPEKEY [32UL];
-        BITBANDING_FLPEKEY_t FLPEKEY_Bit;
+        volatile uint32_t PEKEY [32UL];
+        FLASH_BITBANDING_PEKEY_t PEKEY_Bit;
     };
     const uint32_t reserved3 [48UL * 32UL];
     union
     {
-        volatile uint32_t FWBn [32UL][32UL];
-        BITBANDING_FWB_t FWBn_Bit [32UL];
+        volatile uint32_t WBn [32UL][32UL];
+        FLASH_BITBANDING_WB_t WBn_Bit [32UL];
     };
 
 
     const uint32_t reserved4 [912UL * 32UL];
     union
     {
-        volatile const uint32_t FLASHPP [32UL];
-        BITBANDING_FLASHPP_t FLASHPP_Bit;
+        volatile const uint32_t PP [32UL];
+        FLASH_BITBANDING_PP_t PP_Bit;
     };
     union
     {
-        volatile const uint32_t SSIZE [32UL];
-        BITBANDING_SSIZE_t SSIZE_Bit;
+        volatile const uint32_t SRAMSIZE [32UL];
+        SRAM_BITBANDING_SIZE_t SRAMSIZE_Bit;
     };
     union
     {
-        volatile const uint32_t FLASHCONF [32UL];
-        BITBANDING_FLASHCONF_t FLASHCONF_Bit;
+        volatile const uint32_t CONF [32UL];
+        FLASH_BITBANDING_CONF_t CONF_Bit;
     };
     union
     {
         volatile const uint32_t ROMSWMAP [32UL];
-        BITBANDING_ROMSWMAP_t ROMSWMAP_Bit;
+        ROM_BITBANDING_SWMAP_t ROMSWMAP_Bit;
     };
     union
     {
-        volatile const uint32_t FLASHDMASZ [32UL];
-        BITBANDING_FLASHDMASZ_t FLASHDMASZ_Bit;
+        volatile const uint32_t DMASZ [32UL];
+        FLASH_BITBANDING_DMASZ_t DMASZ_Bit;
     };
     union
     {
-        volatile const uint32_t FLASHDMAST [32UL];
-        BITBANDING_FLASHDMAST_t FLASHDMAST_Bit;
+        volatile const uint32_t DMAST [32UL];
+        FLASH_BITBANDING_DMAST_t DMAST_Bit;
     };
 }FLASH_BITBANDING_t;
 

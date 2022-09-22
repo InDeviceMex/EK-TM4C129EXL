@@ -44,8 +44,7 @@ void I2C__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),I2C_nMODUL
     {
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
         enVector = SCB_enVECISR_I2C[u32Module];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                           I2C__pvfGetIRQVectorHandlerPointer((I2C_nMODULE) u32Module),
-                            enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
+                           I2C__pvfGetIRQVectorHandlerPointer((I2C_nMODULE) u32Module));
     }
 }

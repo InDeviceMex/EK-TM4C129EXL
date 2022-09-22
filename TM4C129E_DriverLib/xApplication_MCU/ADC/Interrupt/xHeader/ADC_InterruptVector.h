@@ -27,7 +27,16 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
-void ADC__vEnInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence, ADC_nPRIORITY enADCPriority);
-void ADC__vDisInterruptVector(ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
+ADC_nERROR ADC__enSetInterruptVectorState(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSTATE enStateArg);
+ADC_nERROR ADC__enSetInterruptVectorStateWithPriority(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSTATE enStateArg, ADC_nPRIORITY enPriorityArg);
+
+ADC_nERROR ADC__enGetInterruptVectorState(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSTATE* penStateArg);
+ADC_nERROR ADC__enGetInterruptVectorStateWithPriority(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSTATE* penStateArg, ADC_nPRIORITY* penPriorityArg);
+
+ADC_nERROR ADC__enEnableInterruptVector(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg);
+ADC_nERROR ADC__enEnableInterruptVectorWithPriority(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nPRIORITY enPriorityArg);
+
+ADC_nERROR ADC__enDisableInterruptVector(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg);
+ADC_nERROR ADC__enDisableInterruptVectorWithPriority(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_ADC_INTERRUPT_XHEADER_ADC_INTERRUPTVECTOR_H_ */

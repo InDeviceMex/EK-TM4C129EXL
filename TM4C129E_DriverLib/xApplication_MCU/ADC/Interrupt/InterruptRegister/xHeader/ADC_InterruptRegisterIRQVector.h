@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
-void ADC__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),ADC_nMODULE enModule, ADC_nSEQUENCER enSequence);
+ADC_nERROR ADC__enRegisterIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_ADC_INTERRUPT_INTERRUPTREGISTER_XHEADER_ADC_INTERRUPTREGISTERIRQVECTOR_H_ */

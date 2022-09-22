@@ -29,21 +29,26 @@
 DMA_nERROR DMA__enInit(DMA_nMODULE enModuleArg)
 {
     DMA_nERROR enErrorReg;
-    void (*pfIrqVectorHandler) (void);
+    uint32_t u32InterruptReg;
+    DMA_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
     enErrorReg = DMA__enSetPrimaryControlStructureAddress(enModuleArg, DMA_CH_PRIMARY_BASE);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA__enSetState(enModuleArg, DMA_enSTATE_ENA);
-        if(DMA_enERROR_OK == enErrorReg)
+        u32InterruptReg = 0UL;
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        while((u32InterruptReg < (uint32_t) DMA_enVECTOR_MAX) && (DMA_enERROR_OK == enErrorReg))
         {
-            pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_SOFTWARE);
-            DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_SOFTWARE);
-
-            pfIrqVectorHandler = DMA__pvfGetIRQVectorHandler(DMA_enVECTOR_ERROR);
-            DMA__vRegisterIRQVectorHandler( pfIrqVectorHandler, DMA_enVECTOR_ERROR);
+            pfIrqVectorHandlerReg = DMA__pvfGetIRQVectorHandler(enModuleArg, (DMA_nVECTOR) u32InterruptReg);
+            enErrorReg = DMA__enRegisterIRQVectorHandler(enModuleArg, (DMA_nVECTOR) u32InterruptReg, pfIrqVectorHandlerReg);
+            u32InterruptReg++;
         }
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA__enSetState(enModuleArg, DMA_enSTATE_ENA);
     }
 
     return (enErrorReg);
 }
+

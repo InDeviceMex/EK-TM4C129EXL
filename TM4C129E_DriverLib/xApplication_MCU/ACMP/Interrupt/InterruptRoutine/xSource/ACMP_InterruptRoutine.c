@@ -24,7 +24,7 @@
 #include <xApplication_MCU/ACMP/Interrupt/InterruptRoutine/ACMP_InterruptRoutine.h>
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-void (*ACMP__pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX ]) (void)=
+ACMP_pvfIRQVectorHandler_t ACMP_pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX ]=
 {
      {
       &ACMP0_Comp0__vIRQVectorHandler,
@@ -33,12 +33,16 @@ void (*ACMP__pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_en
      }
 };
 
-void (*ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enACMPModule, ACMP_nCOMP enACMPComparator))(void)
+ACMP_pvfIRQVectorHandler_t ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
 {
-    return (ACMP__pvIRQVectorHandler[(uint32_t) enACMPModule][(uint32_t) enACMPComparator]);
+    ACMP_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = ACMP_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+    return (pvfVectorReg);
 }
 
-void (**ACMP__pvfGetIRQVectorHandlerPointer(ACMP_nMODULE enACMPModule, ACMP_nCOMP enACMPComparator))(void)
+ACMP_pvfIRQVectorHandler_t* ACMP__pvfGetIRQVectorHandlerPointer(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
 {
-    return ((void(**)(void)) &ACMP__pvIRQVectorHandler[(uint32_t) enACMPModule][(uint32_t) enACMPComparator]);
+    ACMP_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &ACMP_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+    return (pvfVectorReg);
 }

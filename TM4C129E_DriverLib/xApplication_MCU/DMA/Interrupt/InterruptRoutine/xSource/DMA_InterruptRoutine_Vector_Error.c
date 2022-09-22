@@ -26,8 +26,8 @@
 
 void DMA_ERROR__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Ready = 0U;
+    uint32_t u32Reg;
+    uint32_t u32Ready;
     DMA_pvfIRQSourceHandler_t pvfCallback;
 
     u32Ready = SYSCTL_PRDMA_R;

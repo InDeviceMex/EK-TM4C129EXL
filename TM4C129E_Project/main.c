@@ -102,7 +102,8 @@ uint32_t main(void)
     DMA__enInit(DMA_enMODULE_0);
     GPIO__vInit();
     TIMER__vInit();
-    ADC__vInit();
+    ADC__enInit(ADC_enMODULE_0);
+    ADC__enInit(ADC_enMODULE_1);
     UART__vInit();
     SSI__vInit();
     PWM__vInit();

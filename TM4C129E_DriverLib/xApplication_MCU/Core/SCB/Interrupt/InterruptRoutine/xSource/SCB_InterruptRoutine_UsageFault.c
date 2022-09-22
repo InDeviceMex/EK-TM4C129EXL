@@ -129,25 +129,14 @@ void UsageFault__vIRQVectorHandler(void)
     " pop {R4-R7}\n"
     " push {R0,LR} \n");
 
-    uint32_t u32UsageFault = 0U;
-    uint32_t u32UsageAddressFault = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
-
-    u32UsageFault = SCB_CFSR_R;
-    u32UsageFault >>= 16UL;
-    u32UsageFault &= (uint32_t) SCB_enUSAGE_ALL;
-
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     UART__vInit();
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartUsageControl, &enUartUsageLineControl, 921600UL, &enUartUsageLine );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-    GraphTerm__vClearScreen(UART_enMODULE_0);
-    GraphTerm__vHideCursor(UART_enMODULE_0);
-    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
 
-    GraphTerm__u32Printf(UART_enMODULE_0,0UL,0UL, "UsageFault exception Detected\n\r"
+    UART__u32Printf(UART_enMODULE_0, "USAGE FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -163,72 +152,82 @@ void UsageFault__vIRQVectorHandler(void)
                     SCB_UsageFault_pu32Context[6UL]);
 
 
-    if(0UL == ((uint32_t) SCB_enUSAGE_ALL & u32UsageFault))
-    {
-        pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_SW);
-        pvfCallback();
-    }
-    else
-    {
-        if((uint32_t) SCB_enUSAGE_UNDEFINSTR & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_UNDEFINSTR_CLEAR;
-            u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-            GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Undefined Instruction Fault Address: %X\n\r",
-                            u32UsageAddressFault);
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNDEFINSTR);
-            pvfCallback();
-        }
-        if((uint32_t) SCB_enUSAGE_INVSTATE & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_INVSTATE_CLEAR;
-            u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-            GraphTerm__u32Printf(UART_enMODULE_0,7UL,0UL, "Invalid Sate Instruction Fault Address: %X\n\r",
-                            u32UsageAddressFault);
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVSTATE);
-            pvfCallback();
-        }
-        if((uint32_t) SCB_enUSAGE_INVPC & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_INVPC_CLEAR;
-            u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-            UART__u32Printf(UART_enMODULE_0,
-                            "Invalid PC Load Fault Address: %X\n\r",
-                            u32UsageAddressFault);
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_INVPC);
-            pvfCallback();
-        }
-        if((uint32_t) SCB_enUSAGE_NOCP & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_NOCP_CLEAR;
-            UART__u32Printf(UART_enMODULE_0,
-                            "FPU Coprocessor has an invalid state.\n\r");
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_NOCP);
-            pvfCallback();
-        }
-        if((uint32_t) SCB_enUSAGE_UNALIGNED & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_UNALIGNED_CLEAR;
-            u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-            UART__u32Printf(UART_enMODULE_0,
-                            "Unaligned Fault Address: %X\n\r",
-                            u32UsageAddressFault);
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_UNALIGNED);
-            pvfCallback();
-        }
-        if((uint32_t) SCB_enUSAGE_DIVBYZERO & u32UsageFault)
-        {
-            SCB_CFSR_R = SCB_CFSR_R_DIVBYZERO_CLEAR;
-            u32UsageAddressFault = SCB_UsageFault_pu32Context[6UL];
-            UART__u32Printf(UART_enMODULE_0,
-                            "Div0 Fault Address: %X\n\r",
-                            u32UsageAddressFault);
-            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enUSAGE_BIT_DIVBYZERO);
-            pvfCallback();
-        }
-    }
+    UsageFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_UsageFault_pu32Context);
     __asm volatile(
             " pop {R0,LR} \n"
             " BX LR");
 }
 
+
+void UsageFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    SCB_t* pstSCBReg;
+    uint32_t u32UsageFault;
+    uint32_t u32UsageAddressFault;
+    SCB_pvfIRQSourceHandler_t pvfCallback;
+
+    uint32_t* pu32Context;
+    uint32_t* pu32ContextOffset;
+
+    pstSCBReg = (SCB_t*) uptrModuleArg;
+    pu32Context = (uint32_t*) pvArgument;
+
+    u32UsageFault = pstSCBReg->CFSR;
+    u32UsageFault >>= 16UL;
+    u32UsageFault &= (uint32_t) SCB_enUSAGE_ALL;
+    ;
+    if(0UL == ((uint32_t) SCB_enUSAGE_ALL & u32UsageFault))
+    {
+        UART__u32Printf(UART_enMODULE_0, "Usage Fault Exception triggered by Software \n\r");
+        pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_SW);
+        pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_SW);
+    }
+    else
+    {
+        pu32ContextOffset = pu32Context;
+        pu32ContextOffset += 6UL;
+        u32UsageAddressFault = *pu32ContextOffset;
+        if((uint32_t) SCB_enUSAGE_UNDEFINSTR & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_UNDEFINSTR_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "Undefined Instruction Usage Fault,  Fault Address: %X\n\r", u32UsageAddressFault);
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_UNDEFINSTR);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_UNDEFINSTR);
+        }
+        if((uint32_t) SCB_enUSAGE_INVSTATE & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_INVSTATE_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "Invalid Sate Register Usage Fault,  Fault Address: %X\n\r", u32UsageAddressFault);
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_INVSTATE);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_INVSTATE);
+        }
+        if((uint32_t) SCB_enUSAGE_INVPC & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_INVPC_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "Invalid PC Load Usage Fault, Fault Address: %X\n\r", u32UsageAddressFault);
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_INVPC);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_INVPC);
+        }
+        if((uint32_t) SCB_enUSAGE_NOCP & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_NOCP_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "FPU Coprocessor has an invalid state.\n\r");
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_NOCP);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_NOCP);
+        }
+        if((uint32_t) SCB_enUSAGE_UNALIGNED & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_UNALIGNED_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "Unaligned Access Usage Fault, Fault Address: %X\n\r", u32UsageAddressFault);
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_UNALIGNED);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_UNALIGNED);
+        }
+        if((uint32_t) SCB_enUSAGE_DIVBYZERO & u32UsageFault)
+        {
+            pstSCBReg->CFSR = SCB_CFSR_R_DIVBYZERO_CLEAR;
+            UART__u32Printf(UART_enMODULE_0, "Divide by Zero Usage Fault, Fault Address: %X\n\r", u32UsageAddressFault);
+            pvfCallback = SCB_UsageFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enUSAGE_BIT_DIVBYZERO);
+            pvfCallback(SCB_BASE, (void*) SCB_enUSAGE_BIT_DIVBYZERO);
+        }
+    }
+}

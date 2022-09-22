@@ -115,7 +115,7 @@ void EDUMKII_Accelerometer_vInit(void)
     ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_3, &stADC0SampleConfig);
 
     ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_TYPE_DMA);
-    ADC__vEnInterruptVector(ADC_enMODULE_0, ADC_enSEQ_0, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
+    ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_0, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
     ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
     ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
 }

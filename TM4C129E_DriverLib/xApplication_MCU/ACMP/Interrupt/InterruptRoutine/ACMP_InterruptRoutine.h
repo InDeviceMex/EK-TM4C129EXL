@@ -28,9 +28,7 @@
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 #include <xApplication_MCU/ACMP/Interrupt/InterruptRoutine/InterruptRoutine_Vector_Module0/ACMP_InterruptRoutine_Vector_Module0.h>
 
-void (*ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enACMPModule,
-                                    ACMP_nCOMP enACMPComparator))(void);
-void (**ACMP__pvfGetIRQVectorHandlerPointer(ACMP_nMODULE enACMPModule,
-                                            ACMP_nCOMP enACMPComparator))(void);
+ACMP_pvfIRQVectorHandler_t ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg);
+ACMP_pvfIRQVectorHandler_t* ACMP__pvfGetIRQVectorHandlerPointer(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_INTERRUPT_INTERRUPTROUTINE_ACMP_INTERRUPTROUTINE_H_ */

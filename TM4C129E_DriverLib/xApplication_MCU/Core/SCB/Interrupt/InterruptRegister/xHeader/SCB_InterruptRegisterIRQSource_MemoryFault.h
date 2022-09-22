@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void SCB_MemoryFault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                                  SCB_nMEMORY_BIT enInterruptParam);
+SCB_nERROR SCB_MemoryFault__enRegisterIRQSourceHandler(SCB_nMODULE enModuleArg, SCB_nMEMORY_BIT enInterrupArg,
+                                                       SCB_pvfIRQSourceHandler_t pfIrqSourceHandlerArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTREGISTER_XHEADER_SCB_INTERRUPTREGISTERIRQSOURCE_MEMORYFAULT_H_ */

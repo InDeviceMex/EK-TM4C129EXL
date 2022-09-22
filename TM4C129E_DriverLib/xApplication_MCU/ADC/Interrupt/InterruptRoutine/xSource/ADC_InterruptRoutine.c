@@ -24,21 +24,22 @@
 #include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/ADC_InterruptRoutine.h>
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
-void (*ADC__pvIRQVectorHandler[(uint32_t)ADC_enMODULE_MAX][(uint32_t)ADC_enSEQ_MAX]) (void)=
+static ADC_pvfIRQVectorHandler_t ADC_pvIRQVectorHandler[(uint32_t) ADC_enMODULE_MAX][(uint32_t) ADC_enSEQ_MAX ]=
 {
- {&ADC0_SS0__vIRQVectorHandler,&ADC0_SS1__vIRQVectorHandler,
-  &ADC0_SS2__vIRQVectorHandler,&ADC0_SS3__vIRQVectorHandler},
-
- {&ADC1_SS0__vIRQVectorHandler,&ADC1_SS1__vIRQVectorHandler,
-  &ADC1_SS2__vIRQVectorHandler,&ADC1_SS3__vIRQVectorHandler},
+ {&ADC0_SS0__vIRQVectorHandler,&ADC0_SS1__vIRQVectorHandler, &ADC0_SS2__vIRQVectorHandler,&ADC0_SS3__vIRQVectorHandler},
+ {&ADC1_SS0__vIRQVectorHandler,&ADC1_SS1__vIRQVectorHandler, &ADC1_SS2__vIRQVectorHandler,&ADC1_SS3__vIRQVectorHandler}
 };
 
-void (*ADC__pvfGetIRQVectorHandler(ADC_nMODULE enADCModule, ADC_nSEQUENCER enADCSequencer))(void)
+ADC_pvfIRQVectorHandler_t ADC__pvfGetIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg)
 {
-    return (ADC__pvIRQVectorHandler[(uint32_t) enADCModule][(uint32_t) enADCSequencer]);
+    ADC_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = ADC_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enSequencerArg];
+    return (pvfVectorReg);
 }
 
-void (**ADC__pvfGetIRQVectorHandlerPointer(ADC_nMODULE enADCModule, ADC_nSEQUENCER enADCSequencer))(void)
+ADC_pvfIRQVectorHandler_t* ADC__pvfGetIRQVectorHandlerPointer(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg)
 {
-    return ((void(**)(void)) &ADC__pvIRQVectorHandler[(uint32_t) enADCModule][(uint32_t) enADCSequencer]);
+    ADC_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &ADC_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enSequencerArg];
+    return (pvfVectorReg);
 }

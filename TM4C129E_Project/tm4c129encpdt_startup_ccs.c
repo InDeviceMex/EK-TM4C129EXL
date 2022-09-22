@@ -286,7 +286,7 @@ ResetISR(void)
     /**/
     pui32SrcRamCode = &__ramcode_load__;
     pui32DestRamCode = &__ramcode_start__;
-    while(pui32DestRamCode < &__ramcode_end__)
+    while(pui32DestRamCode <= &__ramcode_end__)
     {
         *pui32DestRamCode = *pui32SrcRamCode;
         pui32SrcRamCode += 1UL;
@@ -298,7 +298,7 @@ ResetISR(void)
     /**/
     pui32SrcData = (uint32_t*) &__data_load__;
     pui32DestData = (uint32_t*) &__data_start__;
-    while(pui32DestData < &__data_end__)
+    while(pui32DestData <= &__data_end__)
     {
         *pui32DestData = *pui32SrcData;
         pui32SrcData += 1UL;
@@ -310,7 +310,7 @@ ResetISR(void)
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
     pui32DestBss = (uint32_t*) &__bss_start__;
-    while(pui32DestBss < &__bss_end__)
+    while(pui32DestBss <= &__bss_end__)
     {
         *pui32DestBss = 0UL;
         pui32DestBss += 1UL;
@@ -325,8 +325,10 @@ ResetISR(void)
 
     FPU__enInit(FPU_enMODULE_0);
     NVIC__enDisableAllInterrupts(NVIC_enMODULE_0);
-    SCB__vInit();
-    FLASH__enInit();
+    SCB__enInit(SCB_enMODULE_0);
+    FLASH__enInit(FLASH_enMODULE_0);
+    FLASH__enSetPrefetchMode(FLASH_enMODULE_0, FLASH_enPREFETCH_MODE_DUAL);
+    FLASH__enEnablePrefetch(FLASH_enMODULE_0);
     /**/
     /* Call the application's entry point.*/
     /**/

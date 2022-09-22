@@ -31,12 +31,12 @@ typedef volatile struct
 {
     volatile uint32_t OFFSET [18UL];
     const uint32_t reserved [14UL];
-}BITBANDING_FMA_t;
+}FLASH_BITBANDING_ADDRESS_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA [32UL];
-}BITBANDING_FMD_t;
+}FLASH_BITBANDING_DATA_t;
 
 typedef volatile struct
 {
@@ -46,7 +46,7 @@ typedef volatile struct
     volatile uint32_t COMT;
     const uint32_t reserved [12UL];
     volatile uint32_t WRKEY [16UL];
-}BITBANDING_FMC_t;
+}FLASH_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
@@ -60,7 +60,7 @@ typedef volatile struct
     const uint32_t reserved1;
     volatile const uint32_t PROGRIS;
     const uint32_t reserved2 [18UL];
-}BITBANDING_FCRIS_t;
+}FLASH_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
@@ -74,7 +74,7 @@ typedef volatile struct
     const uint32_t reserved1;
     volatile uint32_t PROGMASK;
     const uint32_t reserved2 [18UL];
-}BITBANDING_FCIM_t;
+}FLASH_BITBANDING_IM_t;
 
 typedef volatile struct
 {
@@ -88,66 +88,66 @@ typedef volatile struct
     const uint32_t reserved1;
     volatile uint32_t PROGMISC;
     const uint32_t reserved2 [18UL];
-}BITBANDING_FCMISC_t;
+}FLASH_BITBANDING_MISC_t;
 
 typedef volatile struct
 {
     volatile uint32_t WRBUF;
     const uint32_t reserved [15UL];
     volatile uint32_t WRKEY [16UL];
-}BITBANDING_FMC2_t;
+}FLASH_BITBANDING_CTL2_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FWB0;
-    volatile uint32_t FWB1;
-    volatile uint32_t FWB2;
-    volatile uint32_t FWB3;
-    volatile uint32_t FWB4;
-    volatile uint32_t FWB5;
-    volatile uint32_t FWB6;
-    volatile uint32_t FWB7;
-    volatile uint32_t FWB8;
-    volatile uint32_t FWB9;
-    volatile uint32_t FWB10;
-    volatile uint32_t FWB11;
-    volatile uint32_t FWB12;
-    volatile uint32_t FWB13;
-    volatile uint32_t FWB14;
-    volatile uint32_t FWB15;
-    volatile uint32_t FWB16;
-    volatile uint32_t FWB17;
-    volatile uint32_t FWB18;
-    volatile uint32_t FWB19;
-    volatile uint32_t FWB20;
-    volatile uint32_t FWB21;
-    volatile uint32_t FWB22;
-    volatile uint32_t FWB23;
-    volatile uint32_t FWB24;
-    volatile uint32_t FWB25;
-    volatile uint32_t FWB26;
-    volatile uint32_t FWB27;
-    volatile uint32_t FWB28;
-    volatile uint32_t FWB29;
-    volatile uint32_t FWB30;
-    volatile uint32_t FWB31;
-}BITBANDING_FWBVAL_t;
+    volatile uint32_t WB0;
+    volatile uint32_t WB1;
+    volatile uint32_t WB2;
+    volatile uint32_t WB3;
+    volatile uint32_t WB4;
+    volatile uint32_t WB5;
+    volatile uint32_t WB6;
+    volatile uint32_t WB7;
+    volatile uint32_t WB8;
+    volatile uint32_t WB9;
+    volatile uint32_t WB10;
+    volatile uint32_t WB11;
+    volatile uint32_t WB12;
+    volatile uint32_t WB13;
+    volatile uint32_t WB14;
+    volatile uint32_t WB15;
+    volatile uint32_t WB16;
+    volatile uint32_t WB17;
+    volatile uint32_t WB18;
+    volatile uint32_t WB19;
+    volatile uint32_t WB20;
+    volatile uint32_t WB21;
+    volatile uint32_t WB22;
+    volatile uint32_t WB23;
+    volatile uint32_t WB24;
+    volatile uint32_t WB25;
+    volatile uint32_t WB26;
+    volatile uint32_t WB27;
+    volatile uint32_t WB28;
+    volatile uint32_t WB29;
+    volatile uint32_t WB30;
+    volatile uint32_t WB31;
+}FLASH_BITBANDING_WBVAL_t;
 
 typedef volatile struct
 {
     volatile const uint32_t PEKEY [16UL];
     const uint32_t reserved [16UL];
-}BITBANDING_FLPEKEY_t;
+}FLASH_BITBANDING_PEKEY_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FWB [32UL][32UL];
-}BITBANDING_FWBn_t;
+    volatile uint32_t WB [32UL][32UL];
+}FLASH_BITBANDING_WBn_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA [32UL];
-}BITBANDING_FWB_t;
+}FLASH_BITBANDING_WB_t;
 
 typedef volatile struct
 {
@@ -159,13 +159,13 @@ typedef volatile struct
     volatile const uint32_t FMM;
     volatile const uint32_t PFC;
     const uint32_t reserved1;
-}BITBANDING_FLASHPP_t;
+}FLASH_BITBANDING_PP_t;
 
 typedef volatile struct
 {
 volatile const uint32_t SIZE [16UL];
 const uint32_t reserved [16UL];
-}BITBANDING_SSIZE_t;
+}SRAM_BITBANDING_SIZE_t;
 
 typedef volatile struct
 {
@@ -178,7 +178,7 @@ typedef volatile struct
     volatile uint32_t SPFE;
     volatile uint32_t FMME;
     const uint32_t reserved3;
-}BITBANDING_FLASHCONF_t;
+}FLASH_BITBANDING_CONF_t;
 
 typedef volatile struct
 {
@@ -191,19 +191,19 @@ typedef volatile struct
     volatile const uint32_t SW6EN [2UL];
     volatile const uint32_t SW7EN [2UL];
     const uint32_t reserved [16UL];
-}BITBANDING_ROMSWMAP_t;
+}ROM_BITBANDING_SWMAP_t;
 
 typedef volatile struct
 {
     volatile uint32_t SIZE [18UL];
     const uint32_t reserved [14UL];
-}BITBANDING_FLASHDMASZ_t;
+}FLASH_BITBANDING_DMASZ_t;
 
 typedef volatile struct
 {
     const uint32_t reserved [11UL];
     volatile uint32_t ADDR [18UL];
     const uint32_t reserved1 [3UL];
-}BITBANDING_FLASHDMAST_t;
+}FLASH_BITBANDING_DMAST_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FLASH_FLASH_PERIPHERAL_FLASH_STRUCT_FLASH_STRUCTREGISTER_BITBANDING_H_ */

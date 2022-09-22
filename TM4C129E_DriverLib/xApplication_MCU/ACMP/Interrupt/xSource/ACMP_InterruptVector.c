@@ -25,39 +25,136 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Dependencies.h>
 
-static NVIC_nVECTOR ACMP__enGetInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg);
+static ACMP_nERROR ACMP__enGetInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, NVIC_nVECTOR* enVectorArg);
 
-static NVIC_nVECTOR ACMP__enGetInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
+static ACMP_nERROR ACMP__enGetInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, NVIC_nVECTOR* enVectorArg)
 {
-
-    NVIC_nVECTOR enVector;
-    uint32_t u32Module;
-    uint32_t u32Comparator;
-    NVIC_nVECTOR NVIC_VECTOR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX] =
     {
         {NVIC_enVECTOR_ACMP0, NVIC_enVECTOR_ACMP1, NVIC_enVECTOR_ACMP2}
     };
+    ACMP_nERROR enErrorReg;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule,
-                                    (uint32_t) ACMP_enMODULE_MAX);
-    u32Comparator = MCU__u32CheckParams((uint32_t) enComparatorArg,
-                                        (uint32_t) ACMP_enCOMP_MAX);
-    enVector = NVIC_VECTOR_ACMP[u32Module][u32Comparator];
-    return (enVector);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_ACMP[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+
+    }
+    return (enErrorReg);
 }
 
-void ACMP__vEnInterruptVector(ACMP_nMODULE enModule,
-                              ACMP_nCOMP enComparatorArg,
-                              ACMP_nPRIORITY enACMPPriority)
+ACMP_nERROR ACMP__enSetInterruptVectorState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enStateArg)
 {
-    NVIC_nVECTOR enVector;
-    enVector = ACMP__enGetInterruptVector(enModule, enComparatorArg);
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enACMPPriority);
+    NVIC_nVECTOR enVectorReg;
+    ACMP_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_ACMP0;
+    enErrorReg = ACMP__enGetInterruptVector(enModuleArg, enComparatorArg, &enVectorReg);
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void ACMP__vDisInterruptVector(ACMP_nMODULE enModule, ACMP_nCOMP enComparatorArg)
+ACMP_nERROR ACMP__enSetInterruptVectorStateWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE enStateArg, ACMP_nPRIORITY enPriorityArg)
 {
-    NVIC_nVECTOR enVector;
-    enVector = ACMP__enGetInterruptVector(enModule, enComparatorArg);
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
+    NVIC_nVECTOR enVectorReg;
+    ACMP_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_ACMP0;
+    enErrorReg = ACMP__enGetInterruptVector(enModuleArg, enComparatorArg, &enVectorReg);
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
 }
+
+ACMP_nERROR ACMP__enGetInterruptVectorState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    ACMP_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_ACMP0;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enGetInterruptVector(enModuleArg, enComparatorArg, &enVectorReg);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+ACMP_nERROR ACMP__enGetInterruptVectorStateWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nSTATE* penStateArg, ACMP_nPRIORITY* penPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    ACMP_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_ACMP0;
+    if((0UL == (uintptr_t) penStateArg) || (0UL == (uintptr_t) penPriorityArg))
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = ACMP__enGetInterruptVector(enModuleArg, enComparatorArg, &enVectorReg);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (ACMP_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+ACMP_nERROR ACMP__enEnableInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
+{
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetInterruptVectorState(enModuleArg, enComparatorArg, ACMP_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+ACMP_nERROR ACMP__enEnableInterruptVectorWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enPriorityArg)
+{
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetInterruptVectorStateWithPriority(enModuleArg, enComparatorArg, ACMP_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+ACMP_nERROR ACMP__enDisableInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
+{
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetInterruptVectorState(enModuleArg, enComparatorArg, ACMP_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+ACMP_nERROR ACMP__enDisableInterruptVectorWithPriority(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_nPRIORITY enPriorityArg)
+{
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetInterruptVectorStateWithPriority(enModuleArg, enComparatorArg, ACMP_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
+}
+

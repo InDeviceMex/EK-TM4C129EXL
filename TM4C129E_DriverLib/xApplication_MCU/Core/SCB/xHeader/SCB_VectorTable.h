@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-void (**SCB__pfnGetVectorTableRam(void)) (void);
-void SCB__vSetVectorTable(uint32_t u32Offset);
+SCB_pvfIRQVectorHandler_t* SCB__pfnGetVectorTableRam(void);
+SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_VECTORTABLE_H_ */

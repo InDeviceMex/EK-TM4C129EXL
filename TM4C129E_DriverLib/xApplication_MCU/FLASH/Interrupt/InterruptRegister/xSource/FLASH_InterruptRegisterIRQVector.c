@@ -26,11 +26,23 @@
 #include <xApplication_MCU/FLASH/Interrupt/InterruptRoutine/FLASH_InterruptRoutine.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-void FLASH__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
+FLASH_nERROR FLASH__enRegisterIRQVectorHandler(FLASH_nMODULE enModuleArg, FLASH_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_FLASH;
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    const SCB_nVECISR SCB_VECISR_FLASH[(uint32_t) FLASH_enMODULE_MAX]=
     {
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler, FLASH__pvfGetIRQVectorHandlerPointer(), enVector);
+        {SCB_enVECISR_FLASH}
+    };
+    SCB_nVECISR enVectorReg;
+    FLASH_nERROR enErrorReg;
+    FLASH_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
+
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+    if(FLASH_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_VECISR_FLASH[(uint32_t) enModuleArg];
+        pvfVectorHandlerReg = FLASH__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (FLASH_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

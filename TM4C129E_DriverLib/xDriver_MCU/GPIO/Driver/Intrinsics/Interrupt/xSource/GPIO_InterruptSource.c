@@ -429,5 +429,5 @@ GPIO_nERROR GPIO_DMA__enStatusMaskedInterruptSource(GPIO_nPORT enPortArg, GPIO_n
     {
         *penStatusArg = (GPIO_nSTATUS) stRegister.u32Value;
     }
-    (enErrorReg);
+    return (enErrorReg);
 }

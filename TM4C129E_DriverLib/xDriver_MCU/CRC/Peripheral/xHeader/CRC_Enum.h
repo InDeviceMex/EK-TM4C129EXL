@@ -27,4 +27,13 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
+typedef enum
+{
+    CRC_enERROR_OK = (uint32_t) MCU_enERROR_OK,
+    CRC_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
+    CRC_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
+    CRC_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
+    CRC_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+}CRC_nERROR;
+
 #endif /* XDRIVER_MCU_CRC_PERIPHERAL_XHEADER_CRC_ENUM_H_ */

@@ -27,65 +27,59 @@
 
 void FLASH__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32RegEEPROM = 0UL;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    uint32_t u32Reg;
+    FLASH_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Reg = FLASH_FCMISC_R;
+    u32Reg = FLASH_MISC_R;
 
-    if(0UL == ((uint32_t) FLASH_enINT_ALL & u32Reg))
+    if(0UL == ((uint32_t) FLASH_enINTMASK_ALL & u32Reg))
     {
-        pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_SW);
-        pvfCallback();
+        pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_SW);
+        pvfCallback(FLASH_BASE, (void*) 0UL);
     }
     else
     {
-        if((uint32_t) FLASH_enINT_ACCESS & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_ACCESS & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_ACCESS;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_ACCESS);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_ACCESS;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_ACCESS);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_ACCESS);
         }
-        if((uint32_t) FLASH_enINT_PROGRAMMING & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_PROGRAMMING & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_PROGRAMMING;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_PROGRAMMING);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_PROGRAMMING;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_PROGRAMMING);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_PROGRAMMING);
         }
-        if((uint32_t) FLASH_enINT_EEPROM & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_EEPROM & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_EEPROM;
-            u32RegEEPROM = SYSCTL_PREEPROM_R;
-            u32RegEEPROM &= SYSCTL_PREEPROM_R_EEPROM_MASK;
-            if(SYSCTL_PREEPROM_R_EEPROM_MASK == u32RegEEPROM)
-            {
-                pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_EEPROM);
-                pvfCallback();
-            }
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_EEPROM;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_EEPROM);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_EEPROM);
         }
-        if((uint32_t) FLASH_enINT_PUMP_VOL & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_PUMP_VOL & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_PUMP_VOL;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_PUMP_VOL);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_PUMP_VOL;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_PUMP_VOL);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_PUMP_VOL);
         }
-        if((uint32_t) FLASH_enINT_INVALID_DATA & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_INVALID_DATA & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_INVALID_DATA;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_INVALID_DATA);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_INVALID_DATA;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_INVALID_DATA);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_INVALID_DATA);
         }
-        if((uint32_t) FLASH_enINT_ERRASE_ERROR & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_ERRASE_ERROR & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_ERRASE_ERROR;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_ERRASE_ERROR);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_ERRASE_ERROR;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_ERRASE_ERROR);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_ERRASE_ERROR);
         }
-        if((uint32_t) FLASH_enINT_PROGRAM_ERROR & u32Reg)
+        if((uint32_t) FLASH_enINTMASK_PROGRAM_ERROR & u32Reg)
         {
-            FLASH_FCMISC_R = (uint32_t) FLASH_enINT_PROGRAM_ERROR;
-            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enINTERRUPT_PROGRAM_ERROR);
-            pvfCallback();
+            FLASH_MISC_R = (uint32_t) FLASH_enINTMASK_PROGRAM_ERROR;
+            pvfCallback = FLASH__pvfGetIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_PROGRAM_ERROR);
+            pvfCallback(FLASH_BASE, (void*) FLASH_enINT_PROGRAM_ERROR);
         }
     }
 }

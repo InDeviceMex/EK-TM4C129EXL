@@ -39,8 +39,7 @@ void SSI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),SSI_nMODUL
     {
         u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
         enVector = SCB_enVECISR_SSI[u32Module];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                                       SSI__pvfGetIRQVectorHandlerPointer((SSI_nMODULE) u32Module),
-                                        enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
+                                       SSI__pvfGetIRQVectorHandlerPointer((SSI_nMODULE) u32Module));
     }
 }

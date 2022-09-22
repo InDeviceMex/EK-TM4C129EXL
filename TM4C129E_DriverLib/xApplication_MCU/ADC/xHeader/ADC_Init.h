@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_ADC_XHEADER_ADC_INIT_H_
 #define XAPPLICATION_MCU_ADC_XHEADER_ADC_INIT_H_
 
-void ADC__vInit(void);
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
+
+ADC_nERROR ADC__enInit(ADC_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_ADC_XHEADER_ADC_INIT_H_ */

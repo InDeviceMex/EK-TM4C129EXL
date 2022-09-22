@@ -29,7 +29,7 @@
 #include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/InterruptRoutine_Vector_Module0/ADC_InterruptRoutine_Vector_Module0.h>
 #include <xApplication_MCU/ADC/Interrupt/InterruptRoutine/InterruptRoutine_Vector_Module1/ADC_InterruptRoutine_Vector_Module1.h>
 
-void (*ADC__pvfGetIRQVectorHandler(ADC_nMODULE enADCModule, ADC_nSEQUENCER enADCSequencer))(void);
-void (**ADC__pvfGetIRQVectorHandlerPointer(ADC_nMODULE enADCModule, ADC_nSEQUENCER enADCSequencer))(void);
+ADC_pvfIRQVectorHandler_t ADC__pvfGetIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg);
+ADC_pvfIRQVectorHandler_t* ADC__pvfGetIRQVectorHandlerPointer(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg);
 
 #endif /* XAPPLICATION_MCU_ADC_INTERRUPT_INTERRUPTROUTINE_ADC_INTERRUPTROUTINE_H_ */

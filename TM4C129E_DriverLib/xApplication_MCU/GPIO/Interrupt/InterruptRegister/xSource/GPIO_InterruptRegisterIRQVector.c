@@ -41,7 +41,7 @@ void GPIO__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), GPIO_nPO
     {
         u32Port = MCU__u32CheckParams( (uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
         enVector = SCB_enVECISR_GPIO[u32Port];
-        SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler, GPIO__pvfGetIRQVectorHandlerPointer((GPIO_nPORT) u32Port), enVector);
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, GPIO__pvfGetIRQVectorHandlerPointer((GPIO_nPORT) u32Port));
     }
 }
 
@@ -76,9 +76,8 @@ void GPIO_PQ__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),
             if(GPIO_enPIN_0 != enPinNumber)
             {
                 enVector = SCB_enVECISR_GPIO_PQ[u32Port][u32PinNumber];
-                SCB__vRegisterIRQVectorHandler(pfIrqVectorHandler,
-                                   GPIO__pvfGetIRQVectorHandlerPointer((GPIO_nPORT) u32Port),
-                                   enVector);
+                SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
+                                   GPIO__pvfGetIRQVectorHandlerPointer((GPIO_nPORT) u32Port));
             }
         }
     }

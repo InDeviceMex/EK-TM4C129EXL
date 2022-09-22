@@ -26,7 +26,7 @@
 static void EEPROM_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
 
 static EEPROM_pvfIRQSourceHandler_t EEPROM_vIRQSourceHandler[(uint32_t)EEPROM_enMODULE_MAX]
-                                                            [(uint32_t) EEPROM_enINTERRUPT_MAX]=
+                                                            [(uint32_t) EEPROM_enINT_MAX]=
 {
  {
     &EEPROM_vIRQSourceHandler_Dummy,
@@ -47,7 +47,7 @@ static void EEPROM_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgu
 
 
 EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQSourceHandler(EEPROM_nMODULE enModuleArg,
-                                                            EEPROM_nINTERRUPT enIntSourceArg)
+                                                            EEPROM_nINT enIntSourceArg)
 {
     EEPROM_pvfIRQSourceHandler_t pvfFunctionReg;
 
@@ -58,7 +58,7 @@ EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQSourceHandler(EEPROM_nMODULE enMod
 
 
 EEPROM_pvfIRQSourceHandler_t* EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nMODULE enModuleArg,
-                                                                    EEPROM_nINTERRUPT enIntSourceArg)
+                                                                    EEPROM_nINT enIntSourceArg)
 {
     EEPROM_pvfIRQSourceHandler_t* pvfFunctionReg;
 

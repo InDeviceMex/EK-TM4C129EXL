@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_INIT_H_
 #define XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_INIT_H_
 
-void SCB__vInit(void);
+#include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
+
+SCB_nERROR SCB__enInit(SCB_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_INIT_H_ */

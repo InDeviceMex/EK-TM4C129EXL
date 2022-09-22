@@ -30,44 +30,57 @@
 #elif defined (__GNUC__ )
 __attribute__((section(".vtable")))
 #endif
-void (*SCB__pfnVectors[SCB_VECTOR_TABLE_SIZE]) (void) = {0UL};
+SCB_pvfIRQVectorHandler_t SCB__pfnVectors[SCB_VECTOR_TABLE_SIZE] = {0UL};
 
-void (**SCB__pfnGetVectorTableRam(void)) (void)
+SCB_pvfIRQVectorHandler_t* SCB__pfnGetVectorTableRam(void)
 {
     return (SCB__pfnVectors);
 }
 
-void SCB__vSetVectorTable(uint32_t u32Offset)
+SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg)
 {
-    uint32_t* pu32Ram = 0UL;
-    const uint32_t* pu32Table = 0UL;
-    uint32_t u32TableAddress = 0UL;
-    uint32_t u32FlashSize = 0UL;
-    uint32_t u32Count = 0UL;
-    MCU_nSTATE enInterruptState = MCU_enSTATE_DIS;
+    uint32_t u32TableAddress;
+    uint32_t u32FlashSize;
+    MCU_nSTATE enInterruptState;
+    SCB_nERROR enErrorReg;
 
-    u32Offset &= ~(uint32_t) 0x3FFUL;
-    SCB__enGetVectorOffset(SCB_enMODULE_0, &u32TableAddress);
-
-    u32FlashSize = FLASH__u32GetSize();
-    if(u32FlashSize > u32Offset)
+    u32OffsetArg &= SCB_VTOR_R_TBLOFF_MASK;
+    u32TableAddress = 0UL;
+    u32FlashSize = 0UL;
+    enErrorReg = SCB__enGetVectorOffset(enModuleArg, &u32TableAddress);
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        enInterruptState = MCU__enDisGlobalInterrupt();
-        FLASH__enWriteMultiWorld( (uint32_t*) u32TableAddress, u32Offset, SCB_VECTOR_TABLE_SIZE);
-        MCU__vSetGlobalInterrupt(enInterruptState);
+        enErrorReg = (SCB_nERROR) FLASH__enGetSize(FLASH_enMODULE_0 ,&u32FlashSize);
     }
-    else
+    if(SCB_enERROR_OK == enErrorReg)
     {
-        pu32Table = (const uint32_t*) u32TableAddress;
-        pu32Ram = (uint32_t*) u32Offset;
-        for(u32Count = 0UL; u32Count < SCB_VECTOR_TABLE_SIZE; u32Count++ )
+        if(u32FlashSize > u32OffsetArg)
         {
-            *pu32Ram = *pu32Table;
-            pu32Ram += 1U;
-            pu32Table += 1U;
+            enInterruptState = MCU__enDisGlobalInterrupt();
+            /*FLASH__enWriteMultiWorld( (uint32_t*) u32TableAddress, u32OffsetArg, SCB_VECTOR_TABLE_SIZE);*/
+            MCU__vSetGlobalInterrupt(enInterruptState);
+        }
+        else
+        {
+            uint32_t u32Count;
+            uint32_t* pu32Ram;
+            const uint32_t* pu32Table;
+
+            pu32Table = (const uint32_t*) u32TableAddress;
+            pu32Ram = (uint32_t*) u32OffsetArg;
+            for(u32Count = 0UL; u32Count < SCB_VECTOR_TABLE_SIZE; u32Count++ )
+            {
+                *pu32Ram = *pu32Table;
+                pu32Ram += 1U;
+                pu32Table += 1U;
+            }
         }
     }
-    SCB__enSetVectorOffset(SCB_enMODULE_0, u32Offset);
+    if(SCB_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SCB__enSetVectorOffset(enModuleArg, u32OffsetArg);
+    }
+    return (enErrorReg);
 }
 
 

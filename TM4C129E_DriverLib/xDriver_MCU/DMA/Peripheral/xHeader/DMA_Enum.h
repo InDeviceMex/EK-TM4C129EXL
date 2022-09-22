@@ -650,6 +650,7 @@ typedef struct
 
 
 typedef MCU_Register_t DMA_Register_t;
+typedef MCU_pvfIRQVectorHandler_t DMA_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t DMA_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_ENUM_H_ */

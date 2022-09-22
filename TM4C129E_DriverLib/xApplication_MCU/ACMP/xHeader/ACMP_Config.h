@@ -27,9 +27,9 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModule,
-                               ACMP_nCOMP enCompArg ,
+ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModuleArg,
+                               ACMP_nCOMP enComparatorArg ,
                                ACMP_nLINE_OUT_SELECT enLineOutSelectArg,
-                               const ACMP_CONTROL_t* pstControlConfig);
+                               const ACMP_CONTROL_t* pstControlConfigArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_XHEADER_ACMP_CONFIG_H_ */
