@@ -31,16 +31,17 @@
 
 #define PRINF_TIMEOUT (100000UL)
 
+static char pcBufferPrint[400UL];
+static char pcBufferVsPrint[400UL];
 uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... )
 {
     uint32_t u32Lengtht = 0UL;
-    static char pcBufferReg[400UL] = {0};
     char* pcBufferRegPointer = 0UL;
     va_list vaList;
     va_start(vaList, pcFormat);
-    u32Lengtht = vsnprintf__u32User(pcBufferReg, 400UL, pcFormat,vaList);
+    u32Lengtht = vsnprintf__u32User(pcBufferPrint, 400UL, pcFormat,vaList);
     va_end(vaList);
-    pcBufferRegPointer = pcBufferReg;
+    pcBufferRegPointer = pcBufferPrint;
     UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht, PRINF_TIMEOUT);
     return  (u32Lengtht);
 }
@@ -48,10 +49,9 @@ uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... )
 uint32_t UART__u32vsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList)
 {
     uint32_t u32Lengtht = 0UL;
-    static char pcBufferReg[400UL] = {0};
     char* pcBufferRegPointer = 0UL;
-    u32Lengtht = vsnprintf__u32User(pcBufferReg, 400UL, pcFormat,vaList);
-    pcBufferRegPointer = pcBufferReg;
+    u32Lengtht = vsnprintf__u32User(pcBufferVsPrint, 400UL, pcFormat,vaList);
+    pcBufferRegPointer = pcBufferVsPrint;
     UART__u32SetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,u32Lengtht, PRINF_TIMEOUT);
     return (u32Lengtht);
 }

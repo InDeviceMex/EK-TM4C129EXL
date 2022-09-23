@@ -25,60 +25,37 @@
 #include <xTask/xHeader/xSemaphores.h>
 
 #include <xApplication/EDUMKII/EDUMKII.h>
-#include <xApplication_MCU/xApplication_MCU.h>
 
 #include <xOS/xOS.h>
 
 void xTask1_AccelerometerLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32CurrentTime = 0UL;
-    uint32_t u32NewTime = 0UL;
-    uint32_t u32DiffTime = 0UL;
-    uint32_t u32DiffPeriod = 0UL;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
-
-    /*Semaphore handling*/
-    boolean_t boSemphoreReceived = FALSE;
+    uint32_t u32LastWakeTime;
 
     /*Accelerometer handling*/
-    int32_t s32ADCValue[3UL] = {0UL};
+    int32_t s32AccelValueOld[3UL];
+    int32_t s32AccelValue[3UL];
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
+
+    s32AccelValueOld[0U] = 0;
+    s32AccelValueOld[1U] = 0;
+    s32AccelValueOld[2U] = 0;
+    s32AccelValue[0U] = 0;
+    s32AccelValue[1U] = 0;
+    s32AccelValue[2U] = 0;
+    OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
     while(1UL)
     {
-        u32CurrentTime = OS_Task__uxGetTickCount ();
-        EDUMKII_Accelerometer_vSample(&s32ADCValue[0UL], &s32ADCValue[1UL], &s32ADCValue[2UL]);
-        OS_Queue__boOverwrite(AccelerometerQueueHandle, s32ADCValue);
-        if(0UL != UartSemaphoreHandle)
+        EDUMKII_Accelerometer_vSample(&(s32AccelValue[0UL]), &(s32AccelValue[1UL]), &(s32AccelValue[2UL]));
+        if((s32AccelValueOld[0UL] != s32AccelValue[0UL]) || (s32AccelValueOld[1UL] != s32AccelValue[1UL]) || (s32AccelValueOld[2UL] != s32AccelValue[2UL]))
         {
-            u32NewTime = OS_Task__uxGetTickCount();
-            u32DiffTime = u32NewTime;
-            u32DiffTime -= u32CurrentTime;
-            u32DiffPeriod = u32PeriodTask;
-            u32DiffPeriod -= u32DiffTime;
-
-            boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, u32DiffPeriod);
-            if(FALSE != boSemphoreReceived)
-            {
-                GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 3UL,
-                                     "Accelerometer X: %d Y: %d Z: %d        ",
-                                     s32ADCValue[0UL],
-                                     s32ADCValue[1UL],
-                                     s32ADCValue[2UL]
-                                     );
-                OS_Semaphore__boGive(UartSemaphoreHandle);
-            }
+            s32AccelValueOld[0U] = s32AccelValue[0UL];
+            s32AccelValueOld[1U] = s32AccelValue[1UL];
+            s32AccelValueOld[2U] = s32AccelValue[2UL];
+            OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
         }
-
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32DiffTime = u32NewTime;
-        u32DiffTime -= u32CurrentTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32DiffTime;
-        if(u32DiffPeriod > u32PeriodTask)
-        {
-            u32DiffPeriod = u32PeriodTask;
-        }
-
-        OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
+        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
 }

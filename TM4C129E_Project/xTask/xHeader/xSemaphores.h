@@ -27,8 +27,9 @@
 
 #include <xOS/xOS.h>
 
-extern OS_Queue_Handle_t UartSemaphoreHandle;
-extern OS_Queue_Handle_t YoystickSemaphoreHandle;
+extern OS_Queue_SetHandle_t TFTQueueSetHandle;
+extern OS_Queue_Handle_t TFTSemaphoreHandle;
+extern OS_Queue_Handle_t MainSemaphoreHandle;
 extern OS_Queue_Handle_t YoystickQueueHandle;
 extern OS_Queue_Handle_t AccelerometerQueueHandle;
 extern OS_Queue_Handle_t ButtonQueueHandle;

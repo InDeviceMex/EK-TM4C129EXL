@@ -34,22 +34,19 @@
 void xTask3_ButtonsLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32CurrentTime = 0UL;
-    uint32_t u32NewTime = 0UL;
-    uint32_t u32DiffTime = 0UL;
-    uint32_t u32DiffPeriod = 0UL;
+    uint32_t u32LastWakeTime;
     uint32_t u32PeriodTask = (uint32_t) pvParams;
-
-    /*Semaphore handling*/
-    boolean_t boSemphoreReceived = FALSE;
 
 
     /*Buttons and Led handling*/
     char* pcState[2UL] = {"OFF", "ON "};
-    char* pcStateButton[3UL] = {(char*)0UL,(char*) 0UL,(char*) 0UL};
-    EDUMKII_nBUTTON enButtonSelect = EDUMKII_enBUTTON_NO;
-    EDUMKII_nJOYSTICK enSelect = EDUMKII_enJOYSTICK_NOPRESS;
+    char* pcStateButton[3UL];
+    EDUMKII_nBUTTON enButtonSelect;
+    EDUMKII_nJOYSTICK enSelect;
+    EDUMKII_nBUTTON enButtonSelectOld;
+    EDUMKII_nJOYSTICK enSelectOld;
 
+    u32LastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__vSetReady(GPIO_enPORT_N);
     GPIO__vSetReady(GPIO_enPORT_F);
 
@@ -57,75 +54,61 @@ void xTask3_ButtonsLog(void* pvParams)
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
+    enButtonSelectOld = EDUMKII_enBUTTON_NO;
+    enSelectOld = EDUMKII_enJOYSTICK_NOPRESS;
+    pcStateButton[0UL] = pcState[0UL];
+    pcStateButton[1UL] = pcState[0UL];
+    pcStateButton[2UL] = pcState[0UL];
+    OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
     while(1UL)
     {
-        u32CurrentTime = OS_Task__uxGetTickCount ();
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);
         EDUMKII_Joystick_vSampleSelect(&enSelect);
 
-        if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
+        if((enButtonSelectOld != enButtonSelect) || (enSelectOld != enSelect))
         {
-            GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enPIN_0);
-            pcStateButton[0UL] = pcState[1UL];
-        }
-        else
-        {
-            GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
-            pcStateButton[0UL] = pcState[0UL];
-        }
-
-        if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
-        {
-            GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
-            pcStateButton[1UL] = pcState[1UL];
-        }
-        else
-        {
-            GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, 0UL);
-            pcStateButton[1UL] = pcState[0UL];
-        }
-
-        if(EDUMKII_enJOYSTICK_PRESS == enSelect)
-        {
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
-            pcStateButton[2UL] = pcState[1UL];
-        }
-        else
-        {
-            GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
-            pcStateButton[2UL] = pcState[0UL];
-        }
-        OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
-
-        if(0UL != UartSemaphoreHandle)
-        {
-            u32NewTime = OS_Task__uxGetTickCount();
-            u32DiffTime = u32NewTime;
-            u32DiffTime -= u32CurrentTime;
-            u32DiffPeriod = u32PeriodTask;
-            u32DiffPeriod -= u32DiffTime;
-            boSemphoreReceived = OS_Semaphore__boTake(UartSemaphoreHandle, u32DiffPeriod);
-            if(FALSE != boSemphoreReceived)
+            if(enButtonSelectOld != enButtonSelect)
             {
-                GraphTerm__u32Printf(UART_enMODULE_0, 0UL, 1UL,
-                                     "BUTTON1: %s BUTTON2: %s SELECT: %s     ",
-                                     pcStateButton[0UL],
-                                     pcStateButton[1UL],
-                                     pcStateButton[2UL]
-                                     );
-                OS_Semaphore__boGive(UartSemaphoreHandle);
-            }
-        }
+                enButtonSelectOld = enButtonSelect;
+                if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
+                {
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enPIN_0);
+                    pcStateButton[0UL] = pcState[1UL];
+                }
+                else
+                {
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_0, 0UL);
+                    pcStateButton[0UL] = pcState[0UL];
+                }
 
-        u32NewTime = OS_Task__uxGetTickCount();
-        u32DiffTime = u32NewTime;
-        u32DiffTime -= u32CurrentTime;
-        u32DiffPeriod = u32PeriodTask;
-        u32DiffPeriod -= u32DiffTime;
-        if(u32DiffPeriod > u32PeriodTask)
-        {
-            u32DiffPeriod = u32PeriodTask;
+                if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
+                {
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enPIN_1);
+                    pcStateButton[1UL] = pcState[1UL];
+                }
+                else
+                {
+                    GPIO__vSetData(GPIO_enPORT_N, GPIO_enPIN_1, 0UL);
+                    pcStateButton[1UL] = pcState[0UL];
+                }
+            }
+
+            if(enSelectOld != enSelect)
+            {
+                enSelectOld = enSelect;
+                if(EDUMKII_enJOYSTICK_PRESS == enSelect)
+                {
+                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, GPIO_enPIN_4);
+                    pcStateButton[2UL] = pcState[1UL];
+                }
+                else
+                {
+                    GPIO__vSetData(GPIO_enPORT_F, GPIO_enPIN_4, 0UL);
+                    pcStateButton[2UL] = pcState[0UL];
+                }
+            }
+            OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
         }
-        OS_Task__vDelayUntil(&u32NewTime, u32DiffPeriod);
+        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
     }
 }

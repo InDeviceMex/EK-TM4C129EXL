@@ -24,8 +24,9 @@
 
 #include <xTask/xHeader/xSemaphores.h>
 
-OS_Queue_Handle_t UartSemaphoreHandle = (OS_Queue_Handle_t) 0UL;
-OS_Queue_Handle_t YoystickSemaphoreHandle = (OS_Queue_Handle_t) 0UL;
+OS_Queue_SetHandle_t TFTQueueSetHandle = (OS_Queue_SetHandle_t) 0UL;
+OS_Queue_Handle_t TFTSemaphoreHandle = (OS_Queue_Handle_t) 0UL;
+OS_Queue_Handle_t MainSemaphoreHandle = (OS_Queue_Handle_t) 0UL;
 OS_Queue_Handle_t YoystickQueueHandle = (OS_Queue_Handle_t) 0UL;
 OS_Queue_Handle_t AccelerometerQueueHandle = (OS_Queue_Handle_t) 0UL;
 OS_Queue_Handle_t ButtonQueueHandle = (OS_Queue_Handle_t) 0UL;
