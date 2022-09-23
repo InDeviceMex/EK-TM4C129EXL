@@ -28,10 +28,7 @@
 
 SYSTICK_nERROR SYSTICK__enRegisterIRQVectorHandler(SYSTICK_nMODULE enModuleArg, SYSTICK_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR[(uint32_t) SYSTICK_enMODULE_MAX]=
-    {
-     {SCB_enVECISR_SYSTICK}
-    };
+    const SCB_nVECISR SCB_enVECISR[(uint32_t) SYSTICK_enMODULE_MAX]= { SCB_enVECISR_SYSTICK };
     SCB_nVECISR enVectorReg;
     SYSTICK_nERROR enErrorReg;
     SYSTICK_pvfIRQVectorHandler_t* pvfVectorHandlerReg;

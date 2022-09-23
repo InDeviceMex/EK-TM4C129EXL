@@ -30,10 +30,7 @@ static FLASH_nERROR FLASH__enGetInterruptVector(FLASH_nMODULE enModuleArg, NVIC_
 
 static FLASH_nERROR FLASH__enGetInterruptVector(FLASH_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_FLASH[(uint32_t) FLASH_enMODULE_MAX] =
-    {
-        {NVIC_enVECTOR_FLASH}
-    };
+    const NVIC_nVECTOR NVIC_VECTOR_FLASH[(uint32_t) FLASH_enMODULE_MAX] = { NVIC_enVECTOR_FLASH };
     FLASH_nERROR enErrorReg;
 
     enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
@@ -85,6 +82,7 @@ FLASH_nERROR FLASH__enGetInterruptVectorState(FLASH_nMODULE enModuleArg, FLASH_n
     FLASH_nERROR enErrorReg;
 
     enVectorReg = NVIC_enVECTOR_FLASH;
+    enErrorReg = FLASH_enERROR_OK;
     if(0UL == (uintptr_t) penStateArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
@@ -107,6 +105,7 @@ FLASH_nERROR FLASH__enGetInterruptVectorStateWithPriority(FLASH_nMODULE enModule
     FLASH_nERROR enErrorReg;
 
     enVectorReg = NVIC_enVECTOR_FLASH;
+    enErrorReg = FLASH_enERROR_OK;
     if((0UL == (uintptr_t) penStateArg) || (0UL == (uintptr_t) penPriorityArg))
     {
         enErrorReg = FLASH_enERROR_POINTER;

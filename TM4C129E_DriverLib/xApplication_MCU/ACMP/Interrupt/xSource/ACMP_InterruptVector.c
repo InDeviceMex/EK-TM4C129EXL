@@ -88,6 +88,7 @@ ACMP_nERROR ACMP__enGetInterruptVectorState(ACMP_nMODULE enModuleArg, ACMP_nCOMP
     ACMP_nERROR enErrorReg;
 
     enVectorReg = NVIC_enVECTOR_ACMP0;
+    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) penStateArg)
     {
         enErrorReg = ACMP_enERROR_POINTER;
@@ -110,6 +111,7 @@ ACMP_nERROR ACMP__enGetInterruptVectorStateWithPriority(ACMP_nMODULE enModuleArg
     ACMP_nERROR enErrorReg;
 
     enVectorReg = NVIC_enVECTOR_ACMP0;
+    enErrorReg = ACMP_enERROR_OK;
     if((0UL == (uintptr_t) penStateArg) || (0UL == (uintptr_t) penPriorityArg))
     {
         enErrorReg = ACMP_enERROR_POINTER;

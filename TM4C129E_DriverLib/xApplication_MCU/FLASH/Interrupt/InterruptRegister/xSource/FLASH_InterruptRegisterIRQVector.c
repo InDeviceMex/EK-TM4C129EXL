@@ -30,7 +30,7 @@ FLASH_nERROR FLASH__enRegisterIRQVectorHandler(FLASH_nMODULE enModuleArg, FLASH_
 {
     const SCB_nVECISR SCB_VECISR_FLASH[(uint32_t) FLASH_enMODULE_MAX]=
     {
-        {SCB_enVECISR_FLASH}
+        SCB_enVECISR_FLASH
     };
     SCB_nVECISR enVectorReg;
     FLASH_nERROR enErrorReg;

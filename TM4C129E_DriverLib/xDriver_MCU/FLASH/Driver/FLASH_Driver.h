@@ -29,7 +29,7 @@
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Address.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_ConvertData.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Data.h>
-#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Key.h>
+#include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_key.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Prefetch.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Process.h>
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_Size.h>

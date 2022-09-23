@@ -25,9 +25,7 @@
 
 static FLASH_pvfIRQVectorHandler_t FLASH_pvIRQVectorHandler[(uint32_t) FLASH_enMODULE_MAX]=
 {
-     {
-      &FLASH__vIRQVectorHandler
-     }
+  &FLASH__vIRQVectorHandler
 };
 
 FLASH_pvfIRQVectorHandler_t FLASH__pvfGetIRQVectorHandler(FLASH_nMODULE enModuleArg)
