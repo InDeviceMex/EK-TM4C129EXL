@@ -27,26 +27,26 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
-__attribute__((naked)) void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
-__attribute__((naked)) MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
-__attribute__((naked)) MCU_nSTATUS MCU__enGetFPUContextActive(void);
+void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor) __attribute__((naked));
+MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor) __attribute__((naked));
+MCU_nSTATUS MCU__enGetFPUContextActive(void) __attribute__((naked));
 
 
-__attribute__((naked)) MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack);
-__attribute__((naked)) MCU_nSTACK MCU__enGetStackActive(void);
+MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack) __attribute__((naked));
+MCU_nSTACK MCU__enGetStackActive(void) __attribute__((naked));
 
 
-__attribute__((naked)) void MCU__vSetPSPValue(uint32_t u32StackValue);
-__attribute__((naked)) uint32_t MCU__u32GetPSPValue(void);
-__attribute__((naked)) void MCU__vSetMSPValue(uint32_t u32StackValue);
-__attribute__((naked)) uint32_t MCU__u32GetMSPValue(void);
+void MCU__vSetPSPValue(uint32_t u32StackValue) __attribute__((naked));
+uint32_t MCU__u32GetPSPValue(void) __attribute__((naked));
+void MCU__vSetMSPValue(uint32_t u32StackValue) __attribute__((naked));
+uint32_t MCU__u32GetMSPValue(void) __attribute__((naked));
 
 
 void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue);
-__attribute__((naked)) uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack);
+uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack) __attribute__((naked));
 
 
-__attribute__((naked)) MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel);
-__attribute__((naked)) MCU_nTHREAD_LEVEL MCU__enGetThreadLevel(void);
+MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel) __attribute__((naked));
+MCU_nTHREAD_LEVEL MCU__enGetThreadLevel(void) __attribute__((naked));
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_CONTROLREG_H_ */

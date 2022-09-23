@@ -41,7 +41,7 @@ GPIO_nERROR GPIO__enSetPeripheralMuxByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK e
         u32PinMaskReg = (uint32_t) enPinMaskArg;
         while((0U != u32PinMaskReg) && (GPIO_enERROR_OK == enErrorReg))
         {
-            if(0UL != (GPIO_enPINMASK_0 & u32PinMaskReg))
+            if(0UL != ((uint32_t) GPIO_enPINMASK_0 & u32PinMaskReg))
             {
                 enErrorReg = GPIO__enSetPeripheralMuxByNumber(enPortArg, (GPIO_nPIN) u32PinReg, u32MuxArg);
             }

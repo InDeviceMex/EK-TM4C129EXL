@@ -41,7 +41,7 @@ ADC_nERROR ADC_Sequencer__enSetTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMA
         u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
         while((0U != u32SequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
-            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            if(0UL != ((uint32_t) ADC_enSEQMASK_0 & u32SequencerMaskReg))
             {
                 enErrorReg = ADC_Sequencer__enSetTriggerByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enTriggerArg);
             }

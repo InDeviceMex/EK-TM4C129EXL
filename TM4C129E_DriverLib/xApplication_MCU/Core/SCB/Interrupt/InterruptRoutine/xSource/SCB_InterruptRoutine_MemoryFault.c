@@ -64,6 +64,32 @@ UART_LINE_t enUartMemoryLine =
  UART_enLINE_SELECT_PRIMARY,
 };
 
+void MemoryFault__vSendValues(void)
+{
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartMemoryControl, &enUartMemoryLineControl, 921600UL, &enUartMemoryLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+
+    UART__u32Printf(UART_enMODULE_0, "MEMORY FAULT exception Detected\n\r"
+                    "Core Register dump:\n\r"
+                    "R0: %X, R1: %X\n\r"
+                    "R2: %X, R3: %X\n\r"
+                    "R12: %X xPSR: %X\n\r"
+                    "LR: %X, PC: %X\n\r",
+                    SCB_MemoryFault_pu32Context[0UL],
+                    SCB_MemoryFault_pu32Context[1UL],
+                    SCB_MemoryFault_pu32Context[2UL],
+                    SCB_MemoryFault_pu32Context[3UL],
+                    SCB_MemoryFault_pu32Context[4UL],
+                    SCB_MemoryFault_pu32Context[7UL],
+                    SCB_MemoryFault_pu32Context[5UL],
+                    SCB_MemoryFault_pu32Context[6UL]);
+}
+
+
 __attribute__((naked))
 void MemoryFault__vIRQVectorHandler(void)
 {
@@ -127,35 +153,33 @@ void MemoryFault__vIRQVectorHandler(void)
 
     "ProcessMemory: \n"
     " pop {R4-R7}\n"
-    " push {R0,LR} \n");
-
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
-    UART__vInit();
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartMemoryControl, &enUartMemoryLineControl, 921600UL, &enUartMemoryLine );
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-
-    UART__u32Printf(UART_enMODULE_0, "MEMORY FAULT exception Detected\n\r"
-                    "Core Register dump:\n\r"
-                    "R0: %X, R1: %X\n\r"
-                    "R2: %X, R3: %X\n\r"
-                    "R12: %X xPSR: %X\n\r"
-                    "LR: %X, PC: %X\n\r",
-                    SCB_MemoryFault_pu32Context[0UL],
-                    SCB_MemoryFault_pu32Context[1UL],
-                    SCB_MemoryFault_pu32Context[2UL],
-                    SCB_MemoryFault_pu32Context[3UL],
-                    SCB_MemoryFault_pu32Context[4UL],
-                    SCB_MemoryFault_pu32Context[7UL],
-                    SCB_MemoryFault_pu32Context[5UL],
-                    SCB_MemoryFault_pu32Context[6UL]);
-
-
-    BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_MemoryFault_pu32Context);
-    __asm volatile(
-            " pop {R0,LR} \n"
-            " BX LR");
+    " push {R0,R1,R2,LR} \n"
+    " .global MemoryFault__vSendValues \n"
+    " .global MemoryFault__vIRQVectorHandlerCustom \n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, MemoryFault__vSendValues\n"
+    " movt R2, MemoryFault__vSendValues\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = MemoryFault__vSendValues\n"
+#endif
+    " blx R2 \n"
+    " movw R0, #0xE000\n"
+    " movt R0, #0xE000\n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R1, SCB_MemoryFault_pu32Context\n"
+    " movt R1, SCB_MemoryFault_pu32Context\n"
+#elif defined (__GNUC__ )
+    " ldr R1, = SCB_MemoryFault_pu32Context\n"
+#endif
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, MemoryFault__vIRQVectorHandlerCustom\n"
+    " movt R2, MemoryFault__vIRQVectorHandlerCustom\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = MemoryFault__vIRQVectorHandlerCustom\n"
+#endif
+    " blx R2 \n"
+    " pop {R0,R1,R2,LR} \n"
+    " BX LR \n");
 }
 
 

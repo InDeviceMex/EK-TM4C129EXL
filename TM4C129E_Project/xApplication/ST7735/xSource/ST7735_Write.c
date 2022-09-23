@@ -191,7 +191,7 @@ uint32_t ST7735__u32WriteDMA(uint32_t u32DataArg, uint32_t u32BufferCant)
         ST7735__vEnableChipSelect();
         ST7735__vSetData();
         ST7735__vSetDMATxInterupt(1UL);
-        stDMAChControlPrim.XFERMODE = DMA_enCH_MODE_BASIC;
+        stDMAChControlPrim.XFERMODE = (uint32_t) DMA_enCH_MODE_BASIC;
         if(u32BufferCant > 1024UL)
         {
             stDMAChControlPrim.XFERSIZE = 1024UL - 1UL;
@@ -236,7 +236,7 @@ uint32_t ST7735__u32WriteBuffer16bDMA(uint16_t* pu16DataArg, uint32_t u32BufferC
         ST7735__vEnableChipSelect();
         ST7735__vSetData();
         ST7735__vSetDMATxInterupt(1UL);
-        stDMAChControlBuffer.XFERMODE = DMA_enCH_MODE_BASIC;
+        stDMAChControlBuffer.XFERMODE = (uint32_t) DMA_enCH_MODE_BASIC;
         if(u32BufferCant > 1024UL)
         {
             stDMAChControlBuffer.XFERSIZE = 1024UL - 1UL;

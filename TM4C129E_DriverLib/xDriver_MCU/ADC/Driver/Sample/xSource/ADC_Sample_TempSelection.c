@@ -43,7 +43,7 @@ ADC_nERROR ADC_Sample__enSetTempSelectionByMask(ADC_nMODULE enModuleArg, ADC_nSE
         enErrorReg = ADC_enERROR_OK;
         while(0U != u32SequencerMaskReg)
         {
-            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            if(0UL != ((uint32_t) ADC_enSEQMASK_0 & u32SequencerMaskReg))
             {
                 enErrorReg = ADC_Sample__enSetTempSelectionByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enSampleArg, enStateArg);
             }

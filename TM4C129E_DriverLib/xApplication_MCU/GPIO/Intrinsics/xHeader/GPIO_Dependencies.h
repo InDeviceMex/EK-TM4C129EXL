@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_GPIO_INTRINSICS_XHEADER_GPIO_DEPENDENCIES_H_
 #define XAPPLICATION_MCU_GPIO_INTRINSICS_XHEADER_GPIO_DEPENDENCIES_H_
 
+#include <xDriver_MCU/Common/MCU_Common.h>
+
 #include <xDriver_MCU/Core/NVIC/NVIC.h>
 #include <xApplication_MCU/Core/SCB/SCB.h>
 
@@ -33,7 +35,5 @@
 
 #include <xDriver_MCU/GPIO/GPIO.h>
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
-
-#include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 
 #endif /* XAPPLICATION_MCU_GPIO_INTRINSICS_XHEADER_GPIO_DEPENDENCIES_H_ */

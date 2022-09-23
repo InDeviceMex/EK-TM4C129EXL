@@ -36,14 +36,14 @@ typedef enum
     MCU_enERROR_EMPTY = 4UL,
     MCU_enERROR_BUSY = 5UL,
     MCU_enERROR_TIMEOUT = 6UL,
-    MCU_enERROR_UNDEF = 0xFFFFFFFFUL,
+    MCU_enERROR_UNDEF = 0x7FFFFFFFUL,
 }MCU_nERROR;
 
 typedef enum
 {
     MCU_enSTATE_DIS = 0UL,
     MCU_enSTATE_ENA = 1UL,
-    MCU_enSTATE_UNDEF = 0xFFFFFFFFUL,
+    MCU_enSTATE_UNDEF = 0x7FFFFFFFUL,
 }MCU_nSTATE;
 
 typedef enum
@@ -51,7 +51,7 @@ typedef enum
     MCU_enSTATUS_INACTIVE = 0UL,
     MCU_enSTATUS_ACTIVE = 1UL,
     MCU_enSTATUS_CLEAR = 1UL,
-    MCU_enSTATUS_UNDEF = 0xFFFFFFFFUL,
+    MCU_enSTATUS_UNDEF = 0x7FFFFFFFUL,
 }MCU_nSTATUS;
 
 typedef enum
@@ -77,7 +77,7 @@ typedef enum
     MCU_enPRI6 = 6UL,
     MCU_enPRI7 = 7UL,
     MCU_enPRIMAX = 8UL,
-    MCU_enDEFAULT = 0xFFFFFFFFUL,
+    MCU_enDEFAULT = 0x7FFFFFFFUL,
 }MCU_nPRIORITY;
 
 typedef struct

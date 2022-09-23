@@ -42,7 +42,7 @@ ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMA
         enErrorReg = ADC_enERROR_OK;
         while(0U != u32ComparatorMaskReg)
         {
-            if(0UL != (ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            if(0UL != ((uint32_t) ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
             {
                 enErrorReg = ADC_Comparator__enSetRangeByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, u32RangeLowArg, u32RangeHighArg);
             }

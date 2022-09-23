@@ -64,6 +64,32 @@ UART_LINE_t enUartBusLine =
  UART_enLINE_SELECT_PRIMARY,
 };
 
+void BusFault__vSendValues(void)
+{
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartBusControl, &enUartBusLineControl, 921600UL, &enUartBusLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+
+    UART__u32Printf(UART_enMODULE_0, "BUS FAULT exception Detected\n\r"
+                    "Core Register dump:\n\r"
+                    "R0: %X, R1: %X\n\r"
+                    "R2: %X, R3: %X\n\r"
+                    "R12: %X xPSR: %X\n\r"
+                    "LR: %X, PC: %X\n\r",
+                    SCB_BusFault_pu32Context[0UL],
+                    SCB_BusFault_pu32Context[1UL],
+                    SCB_BusFault_pu32Context[2UL],
+                    SCB_BusFault_pu32Context[3UL],
+                    SCB_BusFault_pu32Context[4UL],
+                    SCB_BusFault_pu32Context[7UL],
+                    SCB_BusFault_pu32Context[5UL],
+                    SCB_BusFault_pu32Context[6UL]);
+}
+
+
 __attribute__((naked))
 void BusFault__vIRQVectorHandler(void)
 {
@@ -127,36 +153,35 @@ void BusFault__vIRQVectorHandler(void)
 
     "ProcessBus: \n"
     " pop {R4-R7}\n"
-    " push {R0,LR} \n");
-
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
-    UART__vInit();
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartBusControl, &enUartBusLineControl, 921600UL, &enUartBusLine );
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-
-    UART__u32Printf(UART_enMODULE_0, "BUS FAULT exception Detected\n\r"
-                    "Core Register dump:\n\r"
-                    "R0: %X, R1: %X\n\r"
-                    "R2: %X, R3: %X\n\r"
-                    "R12: %X xPSR: %X\n\r"
-                    "LR: %X, PC: %X\n\r",
-                    SCB_BusFault_pu32Context[0UL],
-                    SCB_BusFault_pu32Context[1UL],
-                    SCB_BusFault_pu32Context[2UL],
-                    SCB_BusFault_pu32Context[3UL],
-                    SCB_BusFault_pu32Context[4UL],
-                    SCB_BusFault_pu32Context[7UL],
-                    SCB_BusFault_pu32Context[5UL],
-                    SCB_BusFault_pu32Context[6UL]);
-
-    BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_BusFault_pu32Context);
-    __asm volatile(
-            " pop {R0,LR} \n"
-            " BX LR \n");
+    " push {R0,R1,R2,LR} \n"
+    " .global BusFault__vSendValues \n"
+    " .global BusFault__vIRQVectorHandlerCustom \n"
+    " .global BusFault__vSendValues \n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, BusFault__vSendValues\n"
+    " movt R2, BusFault__vSendValues\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = BusFault__vSendValues\n"
+#endif
+    " blx R2 \n"
+    " movw R0, #0xE000\n"
+    " movt R0, #0xE000\n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R1, SCB_BusFault_pu32Context\n"
+    " movt R1, SCB_BusFault_pu32Context\n"
+#elif defined (__GNUC__ )
+    " ldr R1, = SCB_BusFault_pu32Context\n"
+#endif
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, BusFault__vIRQVectorHandlerCustom\n"
+    " movt R2, BusFault__vIRQVectorHandlerCustom\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = BusFault__vIRQVectorHandlerCustom\n"
+#endif
+    " blx R2 \n"
+    " pop {R0,R1,R2,LR} \n"
+    " BX LR \n");
 }
-
 
 void BusFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)
 {

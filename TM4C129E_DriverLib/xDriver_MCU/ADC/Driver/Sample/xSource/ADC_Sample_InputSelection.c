@@ -43,7 +43,7 @@ ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK en
         enErrorReg = ADC_enERROR_OK;
         while(0U != u32SequencerMaskReg)
         {
-            if(0UL != (ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            if(0UL != ((uint32_t) ADC_enSEQMASK_0 & u32SequencerMaskReg))
             {
                 enErrorReg = ADC_Sample__enSetInputByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enSampleArg, enInputArg);
             }

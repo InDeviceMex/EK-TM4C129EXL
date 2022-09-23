@@ -53,7 +53,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
     else
     {
         u32Reg = PWM0_ISC_R;
-        if(0UL == (PWM_enFAULTMASK_ALL & u32Reg))
+        if(0UL == ((uint32_t) PWM_enFAULTMASK_ALL & u32Reg))
         {
             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                          PWM_enFAULT_0, PWM_enFAULT_INTERRUPT_SW);
@@ -73,7 +73,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
         }
         else
         {
-            if(PWM_enFAULTMASK_0 & u32Reg)
+            if((uint32_t) PWM_enFAULTMASK_0 & u32Reg)
             {
                 PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_0;
 
@@ -86,8 +86,8 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     volatile uint32_t u32DCompValueReg = PWM0_GEN0_EXT_FLTSTAT1_R;
                     volatile uint32_t u32InputEnableReg = PWM0_GEN0_FLTSRC0_R;
                     volatile uint32_t u32DCompEnableReg = PWM0_GEN0_FLTSRC1_R;
-                    PWM0_GEN0_EXT_FLTSTAT0_R = PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN0_EXT_FLTSTAT1_R = PWM_enFAULT_DCOMP_ALL;
+                    PWM0_GEN0_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
+                    PWM0_GEN0_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
 
 
                     u32InputEnableReg &= u32InputValueReg;
@@ -138,7 +138,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     pvfCallback();
                 }
             }
-            if(PWM_enFAULTMASK_1 & u32Reg)
+            if((uint32_t) PWM_enFAULTMASK_1 & u32Reg)
             {
                 PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_1;
 
@@ -151,8 +151,8 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN1_EXT_FLTSTAT1_R;
                     volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN1_FLTSRC0_R;
                     volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN1_FLTSRC1_R;
-                    PWM0_GEN1_EXT_FLTSTAT0_R = PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN1_EXT_FLTSTAT1_R = PWM_enFAULT_DCOMP_ALL;
+                    PWM0_GEN1_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
+                    PWM0_GEN1_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
 
 
                     u32InputEnableReg &= u32InputValueReg;
@@ -203,7 +203,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     pvfCallback();
                 }
             }
-            if(PWM_enFAULTMASK_2 & u32Reg)
+            if((uint32_t) PWM_enFAULTMASK_2 & u32Reg)
             {
                 PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_2;
 
@@ -216,8 +216,8 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN2_EXT_FLTSTAT1_R;
                     volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN2_FLTSRC0_R;
                     volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN2_FLTSRC1_R;
-                    PWM0_GEN2_EXT_FLTSTAT0_R = PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN2_EXT_FLTSTAT1_R = PWM_enFAULT_DCOMP_ALL;
+                    PWM0_GEN2_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
+                    PWM0_GEN2_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
 
 
                     u32InputEnableReg &= u32InputValueReg;
@@ -268,7 +268,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     pvfCallback();
                 }
             }
-            if(PWM_enFAULTMASK_3 & u32Reg)
+            if((uint32_t) PWM_enFAULTMASK_3 & u32Reg)
             {
                 PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_3;
 
@@ -281,8 +281,8 @@ void PWM0_Fault__vIRQVectorHandler(void)
                     volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN3_EXT_FLTSTAT1_R;
                     volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN3_FLTSRC0_R;
                     volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN3_FLTSRC1_R;
-                    PWM0_GEN3_EXT_FLTSTAT0_R = PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN3_EXT_FLTSTAT1_R = PWM_enFAULT_DCOMP_ALL;
+                    PWM0_GEN3_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
+                    PWM0_GEN3_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
 
 
                     u32InputEnableReg &= u32InputValueReg;

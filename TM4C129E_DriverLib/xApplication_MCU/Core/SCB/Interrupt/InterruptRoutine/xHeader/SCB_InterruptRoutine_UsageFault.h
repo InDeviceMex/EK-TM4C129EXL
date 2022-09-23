@@ -30,5 +30,6 @@
 __attribute__((naked))
 void UsageFault__vIRQVectorHandler(void);
 void UsageFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument);
+void UsageFault__vSendValues(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_USAGEFAULT_H_ */

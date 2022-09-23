@@ -38,7 +38,7 @@ I2C_nSTATUS I2C_Master_enReceiveGeneric(I2C_nMODULE enModule, I2C_nMULTIMASTER e
     if((0UL != (uint32_t) pu8Data) && (0UL != u32DataSize))
     {
         enControllerMode = I2C__enGetMode(enModule);
-        enControllerMode &= I2C_enMODE_MASTER;
+        enControllerMode &= (uint32_t) I2C_enMODE_MASTER;
         if(I2C_enMODE_MASTER == enControllerMode)
         {
             enStatus = I2C_enSTATUS_OK;

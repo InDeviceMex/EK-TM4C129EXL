@@ -31,7 +31,9 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControl(uint32_t u32ValueArg
           " vmsr    FPSCR, r0\n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 
@@ -46,7 +48,9 @@ __attribute__((naked)) uint32_t MCU__u32GetFPUStatusControl(void)
     __asm volatile(
           " vmrs    r0, FPSCR\n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
        return (0UL);
+#endif
 }
 
 
@@ -59,7 +63,9 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlMask(uint32_t u32BitM
           " vmsr    FPSCR, r1\n"
           " mov     r0, r2 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlMask(uint32_t u32BitMaskArg)
@@ -71,7 +77,9 @@ __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlMask(uint32_t u32Bi
           " vmsr    FPSCR, r1\n"
           " mov     r0, r2 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 
@@ -129,7 +137,9 @@ __attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlMask(uint32_t u32BitM
           " and     r1, r0\n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 
@@ -146,7 +156,9 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlBit(uint32_t u32BitBi
           " vmsr    FPSCR, r1\n"
           " mov     r0, r2 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlBit(uint32_t u32BitBitArg)
@@ -162,7 +174,9 @@ __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlBit(uint32_t u32Bit
           " vmsr    FPSCR, r1\n"
           " mov     r0, r2 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }
 
 
@@ -224,5 +238,7 @@ __attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlBit(uint32_t u32BitPo
           " lsr     r1, r0\n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return (0UL);
+#endif
 }

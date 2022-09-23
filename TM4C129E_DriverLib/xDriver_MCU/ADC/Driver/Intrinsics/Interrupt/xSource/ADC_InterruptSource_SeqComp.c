@@ -99,6 +99,7 @@ ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleA
     uint32_t u32ValueReg;
     ADC_nERROR enErrorReg;
 
+    u32ComparatorGetReg = 0U;
     enErrorReg = ADC_enERROR_OK;
     if(0UL == (uintptr_t) penComparatorGetArg)
     {
@@ -113,7 +114,6 @@ ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleA
         stRegister.u32Shift = ADC_DC_CTL_R_CIE_BIT;
         stRegister.u32Mask = ADC_DC_CTL_CIE_MASK;
 
-        u32ComparatorGetReg = 0U;
         u32ValueReg = (uint32_t) ADC_enCOMPMASK_0;
         u32ComparatorReg = 0U;
         u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;

@@ -89,7 +89,7 @@ extern uint32_t main(void);
 /* Reserve space for the system stack.*/
 /**/
 /*******************************************************************************/
-uint8_t pui32MainStack[0x000003F0UL] __attribute__((section(".stack")));
+uint8_t pui32MainStack[0x00000100UL] __attribute__((section(".stack")));
 uint8_t pui32ProcessStack[0x100UL] __attribute__((section(".stack_process")));
 /*******************************************************************************/
 /**/
@@ -315,7 +315,6 @@ ResetISR(void)
         *pui32DestBss = 0UL;
         pui32DestBss += 1UL;
     }
-
     /**/
     /* Enable the float32_ting-point unit.  This must be done here to handle the*/
     /* case where main() uses float32_ting-point and the function prologue saves*/

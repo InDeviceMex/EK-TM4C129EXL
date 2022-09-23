@@ -28,7 +28,9 @@ __attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32ValueArg
     __asm volatile(
           " clz     r0, r0\n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return (0UL);
+#endif
 }
 
 __attribute__((naked)) uint8_t MCU__u8ReverseByte(uint8_t u8Value)
@@ -37,7 +39,9 @@ __attribute__((naked)) uint8_t MCU__u8ReverseByte(uint8_t u8Value)
           " rbit     r1, r0\n"
           " lsr     r0, r1, #24\n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return (0UL);
+#endif
 }
 
 __attribute__((naked)) uint16_t MCU__u16ReverseHalfWorld(uint16_t u16Value)
@@ -46,7 +50,9 @@ __attribute__((naked)) uint16_t MCU__u16ReverseHalfWorld(uint16_t u16Value)
           " rbit     r1, r0\n"
           " lsr     r0, r1, #16\n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return (0UL);
+#endif
 }
 
 __attribute__((naked)) uint32_t MCU__u32ReverseWorld(uint32_t u32ValueArg)
@@ -54,7 +60,9 @@ __attribute__((naked)) uint32_t MCU__u32ReverseWorld(uint32_t u32ValueArg)
     __asm volatile(
           " rbit     r0, r0\n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return (0UL);
+#endif
 }
 
 

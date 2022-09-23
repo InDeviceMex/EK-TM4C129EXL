@@ -39,7 +39,7 @@ DMA_nERROR DMA_CH__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMAS
     enErrorReg = DMA_enERROR_OK;
     while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
-        if(0UL != (DMA_enCHMASK_0 & u32ChannelMaskReg))
+        if(0UL != ((uint32_t) DMA_enCHMASK_0 & u32ChannelMaskReg))
         {
             enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enDataSizeArg);
         }

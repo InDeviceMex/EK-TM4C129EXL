@@ -54,6 +54,7 @@ static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod)
 
 void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
 {
+    FPU__enInit(FPU_enMODULE_0);
     SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, SCB_enVECISR_PENDSV, &OS_Adapt_vPendSVHandler, (void (**) (void)) 0UL);
     SCB_SVCall__enRegisterIRQSourceHandler(SCB_enMODULE_0, 0UL, &OS_Adapt_vSVCHandler);
     SCB_PendSV__enSetPriority(SCB_enMODULE_0, SCB_enPRI7);
@@ -62,7 +63,7 @@ void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
     OS_Adapt_vSetupTimerInterrupt(uxUsPeriod);
     OS_Adapt__vSetCriticalNesting(0UL);
 
-    FPU__enInit(FPU_enMODULE_0);
+    MCU__vSetFPUContextActive(MCU_enSTATUS_INACTIVE);
     OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
     OS_Adapt_vStartFirstTask();
 }
@@ -148,12 +149,15 @@ static void OS_Adapt_vPendSVHandler (void)
     "   ldr r1, [r0]                        \n"
     "   msr basepri, r1                     \n"
     "   dsb                                 \n"
-    "   isb                                 \n");
-
-    OS_Task__vSwitchContext();
-
-     __asm volatile
-    (
+    "   isb                                 \n"
+    "   .global     OS_Task__vSwitchContext \n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    "   movw r0, OS_Task__vSwitchContext         \n"/* Get the location of the current TCB. */
+    "   movt r0, OS_Task__vSwitchContext         \n"
+#elif defined (__GNUC__ )
+    "   ldr r0, = OS_Task__vSwitchContext        \n"
+#endif
+    "   blx r0                              \n"
     "   mov r0, #0                          \n"
     "   msr basepri, r0                     \n"
     "   ldmia sp!, {r3}                     \n"

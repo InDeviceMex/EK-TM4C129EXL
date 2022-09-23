@@ -26,7 +26,6 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-__attribute__((naked))
 void PendSV__vIRQVectorHandler(void)
 {
     /*context switch, lower priority*/

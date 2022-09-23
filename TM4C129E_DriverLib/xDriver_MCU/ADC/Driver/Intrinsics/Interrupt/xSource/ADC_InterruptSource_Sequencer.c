@@ -148,7 +148,7 @@ ADC_nERROR ADC_Sequencer__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleAr
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         case ADC_enINT_TYPE_COMP:
-            stRegister.u32Mask = ADC_enSEQMASK_ALL;
+            stRegister.u32Mask = (uint32_t) ADC_enSEQMASK_ALL;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         default:
@@ -196,7 +196,7 @@ ADC_nERROR ADC_Sequencer__enSetInterruptSourceStateByNumber(ADC_nMODULE enModule
             u32BitComp <<= (uint32_t) enSequencerArg;
 
             stRegister.u32Shift = (uint32_t) u32BitPos;
-            stRegister.u32Mask = ADC_enSEQMASK_ALL;
+            stRegister.u32Mask = (uint32_t) ADC_enSEQMASK_ALL;
             stRegister.u32Value = (uint32_t) u32BitComp;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;

@@ -30,5 +30,6 @@
 __attribute__((naked))
 void BusFault__vIRQVectorHandler(void);
 void BusFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument);
+void BusFault__vSendValues(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_BUSFAULT_H_ */

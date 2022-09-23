@@ -44,6 +44,7 @@ ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf3
     ACMP_nREFERENCE_RANGE enVoltageRange;
 
 
+    u32VoltageStep = 0UL;
     enStateReg = ACMP_enSTATE_ENA;
     enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) pf32VoltageRefArg)

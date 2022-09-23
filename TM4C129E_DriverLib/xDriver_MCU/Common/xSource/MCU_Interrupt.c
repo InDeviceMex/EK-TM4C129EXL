@@ -31,7 +31,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enDisGlobalInterrupt(void)
            " dsb \n"
            " isb\n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalInterrupt(void)
@@ -41,7 +43,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalInterrupt(void)
            " dsb \n"
            " isb\n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -63,7 +67,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enSetGlobalInterrupt(MCU_nSTATE enStateIn
           " isb\n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -71,7 +77,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enGetGlobalInterrupt(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -82,7 +90,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void)
           " dsb \n"
           " isb\n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void)
@@ -92,7 +102,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void)
           " dsb \n"
           " isb\n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -115,7 +127,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enSta
           " isb\n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
         return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -123,7 +137,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void)
 {
     __asm volatile(" mrs     r0, PRIMASK \n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -150,7 +166,9 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt(MCU_nPRIORI
           " dsb \n"
           " isb \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return ((MCU_nPRIORITY) 0UL);
+#endif
 }
 
 
@@ -161,7 +179,9 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void)
           " lsr     r0, r1, #0x5 \n"
           " and     r0, #0x7 \n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nPRIORITY) 0UL);
+#endif
 }
 
 
@@ -188,7 +208,9 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enSetBasePriorityInterrupt_RAM(MCU_nPR
           " dsb \n"
           " isb \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return ((MCU_nPRIORITY) 0UL);
+#endif
 }
 
 
@@ -199,7 +221,9 @@ __attribute__((naked)) MCU_nPRIORITY MCU__enGetBasePriorityInterrupt_RAM(void)
           " lsr     r0, r1, #0x5 \n"
           " and     r0, #0x7 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
     return ((MCU_nPRIORITY) 0UL);
+#endif
 }
 
 __attribute__((naked)) MCU_nSTATE MCU__enDisGlobalFault(void)
@@ -209,7 +233,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enDisGlobalFault(void)
            " dsb \n"
            " isb \n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -220,7 +246,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalFault(void)
            " dsb \n"
            " isb \n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -233,7 +261,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enSetGlobalFault(MCU_nSTATE enStateInterr
           " isb \n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -241,7 +271,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enGetGlobalFault(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -253,7 +285,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enDisGlobalFault_RAM(void)
            " dsb \n"
            " isb \n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 
@@ -264,7 +298,9 @@ __attribute__((naked)) MCU_nSTATE MCU__enEnGlobalFault_RAM(void)
            " dsb \n"
            " isb \n"
            " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 __attribute__((naked)) MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt)
@@ -276,12 +312,16 @@ __attribute__((naked)) MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateIn
           " isb \n"
           " mov     r0, r1 \n"
           " bx      lr\n");
+#ifndef __TI_CLANG__
           return ((MCU_nSTATE) 0UL);
+#endif
 }
 
 __attribute__((naked)) MCU_nSTATE MCU__enGetGlobalFault_RAM(void)
 {
     __asm volatile(" mrs     r0, FAULTMASK \n"
           " bx      lr \n");
+#ifndef __TI_CLANG__
     return ((MCU_nSTATE) 0UL);
+#endif
 }

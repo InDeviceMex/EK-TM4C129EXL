@@ -76,7 +76,6 @@ SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, uint32_t u
         SYSTICK__vSetPsPeriod((uint64_t) f32PicoSeconds);
         SYSTICK__vSetTickPeriod(u32TickArg);
     }
-    MCU__vSetFPUContextActive(enFPUActive);
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSTICK__enDisableInterruptVector(enModuleArg);
@@ -113,7 +112,7 @@ SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, uint32_t u
     {
         enErrorReg = SYSTICK__enEnable(SYSTICK_enMODULE_0);
     }
-
+    MCU__vSetFPUContextActive(enFPUActive);
     return (enErrorReg);
 }
 

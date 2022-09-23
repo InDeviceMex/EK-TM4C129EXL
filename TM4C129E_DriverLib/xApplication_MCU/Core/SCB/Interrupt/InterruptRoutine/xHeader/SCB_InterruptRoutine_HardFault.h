@@ -25,7 +25,11 @@
 #ifndef XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_HARDFAULT_H_
 #define XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_HARDFAULT_H_
 
+#include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
+
 __attribute__((naked))
 void HardFault__vIRQVectorHandler(void);
+void HardFault__vSendValues(void);
+void HardFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_HARDFAULT_H_ */

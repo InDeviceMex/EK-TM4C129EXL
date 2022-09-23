@@ -22,7 +22,7 @@
  * 15 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_HardFault.h>
-#include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_BusFault.h>
+#include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_HardFault.h>
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_MemoryFault.h>
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_UsageFault.h>
 
@@ -66,6 +66,33 @@ UART_LINE_t enUartHardLine =
  UART_enLINE_SELECT_PRIMARY,
  UART_enLINE_SELECT_PRIMARY,
 };
+
+
+void HardFault__vSendValues(void)
+{
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartHardControl, &enUartHardLineControl, 921600UL, &enUartHardLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+
+    UART__u32Printf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
+                    "Core Register dump:\n\r"
+                    "R0: %X, R1: %X\n\r"
+                    "R2: %X, R3: %X\n\r"
+                    "R12: %X xPSR: %X\n\r"
+                    "LR: %X, PC: %X\n\r",
+                    SCB_HardFault_pu32Context[0UL],
+                    SCB_HardFault_pu32Context[1UL],
+                    SCB_HardFault_pu32Context[2UL],
+                    SCB_HardFault_pu32Context[3UL],
+                    SCB_HardFault_pu32Context[4UL],
+                    SCB_HardFault_pu32Context[7UL],
+                    SCB_HardFault_pu32Context[5UL],
+                    SCB_HardFault_pu32Context[6UL]);
+}
+
 
 __attribute__((naked))
 void HardFault__vIRQVectorHandler(void)
@@ -130,58 +157,72 @@ void HardFault__vIRQVectorHandler(void)
 
     "ProcessHard: \n"
     " pop {R4-R7}\n"
-    " push {R0,LR} \n");
+    " push {R0,R1,R2,LR} \n"
+    " .global HardFault__vSendValues \n"
+    " .global HardFault__vIRQVectorHandlerCustom \n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, HardFault__vSendValues\n"
+    " movt R2, HardFault__vSendValues\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = HardFault__vSendValues\n"
+#endif
+    " blx R2 \n"
+    " movw R0, #0xE000\n"
+    " movt R0, #0xE000\n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R1, SCB_HardFault_pu32Context\n"
+    " movt R1, SCB_HardFault_pu32Context\n"
+#elif defined (__GNUC__ )
+    " ldr R1, = SCB_HardFault_pu32Context\n"
+#endif
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+    " movw R2, HardFault__vIRQVectorHandlerCustom\n"
+    " movt R2, HardFault__vIRQVectorHandlerCustom\n"
+#elif defined (__GNUC__ )
+    " ldr R2, = HardFault__vIRQVectorHandlerCustom\n"
+#endif
+    " blx R2 \n"
+    " pop {R0,R1,R2,LR} \n"
+    " BX LR \n");
+}
 
-    uint32_t u32FaultType;
+
+void HardFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    SCB_t* pstSCBReg;
+    uint32_t* pu32Context;
     uint32_t u32HardFault;
-    uint32_t u32HardMemoryFault;
     SCB_pvfIRQSourceHandler_t pvfCallback;
+    uint32_t* pu32ContextOffset;
+    uint32_t u32FaultType;
+    uint32_t u32HardMemoryFault;
+
+    pstSCBReg = (SCB_t*) uptrModuleArg;
+    pu32Context = (uint32_t*) pvArgument;
 
     u32FaultType = SCB_HFSR_R;
-
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
-    UART__vInit();
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartHardControl, &enUartHardLineControl, 921600UL, &enUartHardLine );
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
-
-    UART__u32Printf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
-                    "Core Register dump:\n\r"
-                    "R0: %X, R1: %X\n\r"
-                    "R2: %X, R3: %X\n\r"
-                    "R12: %X xPSR: %X\n\r"
-                    "LR: %X, PC: %X\n\r",
-                    SCB_HardFault_pu32Context[0UL],
-                    SCB_HardFault_pu32Context[1UL],
-                    SCB_HardFault_pu32Context[2UL],
-                    SCB_HardFault_pu32Context[3UL],
-                    SCB_HardFault_pu32Context[4UL],
-                    SCB_HardFault_pu32Context[7UL],
-                    SCB_HardFault_pu32Context[5UL],
-                    SCB_HardFault_pu32Context[6UL]);
 
     if(0UL != u32FaultType)
     {
         /*Bus, Usage or Memory fault */
         if(SCB_HFSR_R_FORCED_MASK & u32FaultType)
         {
-            SCB_HFSR_R = SCB_HFSR_R_FORCED_MASK;
-            u32HardFault = SCB_CFSR_R;
+            pstSCBReg->HFSR = SCB_HFSR_R_FORCED_MASK;
+            u32HardFault = pstSCBReg->CFSR;
             if(((uint32_t)SCB_enMEMORY_ALL << 0UL) & u32HardFault)
             {
                 UART__u32Printf(UART_enMODULE_0,"Memory Fault was harcoded \n\r");
-                MemoryFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+                MemoryFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else if(((uint32_t)SCB_enBUS_ALL << 8UL) & u32HardFault)
             {
                 UART__u32Printf(UART_enMODULE_0,"Bus Fault was harcoded \n\r");
-                BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+                BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else if(((uint32_t)SCB_enUSAGE_ALL << 16UL) & u32HardFault)
             {
                 UART__u32Printf(UART_enMODULE_0,"Usage Fault was harcoded \n\r");
-                UsageFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) SCB_HardFault_pu32Context);
+                UsageFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else
             {
@@ -192,8 +233,10 @@ void HardFault__vIRQVectorHandler(void)
         /*Hard fault*/
         if(SCB_HFSR_R_VECTTBL_MASK & u32FaultType)
         {
-            SCB_HFSR_R = SCB_HFSR_R_VECTTBL_MASK;
-            u32HardMemoryFault = SCB_HardFault_pu32Context[6UL];
+            pstSCBReg->HFSR = SCB_HFSR_R_VECTTBL_MASK;
+            pu32ContextOffset = pu32Context;
+            pu32ContextOffset += 6UL;
+            u32HardMemoryFault = *pu32ContextOffset;
             UART__u32Printf(UART_enMODULE_0,"Vector Table Read Fault, Fault Address: %X\n\r", u32HardMemoryFault);
             pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_VECT);
             pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_VECT);
@@ -205,8 +248,4 @@ void HardFault__vIRQVectorHandler(void)
         pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_SW);
         pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_SW);
     }
-
-    __asm volatile(
-            " pop {R0,LR} \n"
-            " BX LR \n");
 }

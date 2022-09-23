@@ -59,14 +59,31 @@ void SVCall__vIRQVectorHandler(void)
 #endif
         " str R0, [R1, #0x0]\n"
         " pop {r0-r1} \n"
-        " push {r0,r14} \n");
-
-    SCB_pvfIRQSourceHandler_t pvfCallback;
-    pvfCallback = SCB_SVCall__pvfGetIRQSourceHandler(SCB_enMODULE_0, SVCall_u32Function);
-    pvfCallback(SCB_BASE, (void*) SVCall_u32Function);
-
-    __asm volatile(" pop {r0,r14} \n"
-            "   bx r14 \n");
+        " push {R0,R1,R2,LR} \n"
+        " .global SVCall_u32Function \n"
+        " .global SCB_SVCall__pvfGetIRQSourceHandler \n"
+        " movw R0, #0X0\n"
+        " movt R0, #0x0\n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+        " movw R2, SVCall_u32Function\n"
+        " movt R2, SVCall_u32Function\n"
+#elif defined (__GNUC__ )
+        " ldr R2, = SVCall_u32Function\n"
+#endif
+        " ldr R1, [R2]\n"
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+        " movw R2, SCB_SVCall__pvfGetIRQSourceHandler\n"
+        " movt R2, SCB_SVCall__pvfGetIRQSourceHandler\n"
+#elif defined (__GNUC__ )
+        " ldr R2, = SCB_SVCall__pvfGetIRQSourceHandler\n"
+#endif
+        " blx R2 \n"
+        " mov R2, R0 \n"
+        " movw R0, #0xE000\n"
+        " movt R0, #0xE000\n"
+        " blx R2 \n"
+        " pop {R0,R1,R2,LR} \n"
+        " BX LR \n");
 }
 
 

@@ -46,37 +46,9 @@ uint32_t MCU__u32CheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg
     #pragma CHECK_MISRA("-8.5")
 #endif
 
-inline MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
-inline uint32_t MCU__u32CheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+uint32_t MCU__u32CheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
 
-
-inline MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
-{
-    MCU_nERROR enErrorReg;
-    if(u32ModuleMaxArg <= u32ModuleArg)
-    {
-        enErrorReg = MCU_enERROR_RANGE;
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_OK;
-    }
-    return (enErrorReg);
-}
-
-
-
-inline uint32_t MCU__u32CheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
-{
-#if !defined(Opt_Check)
-    if((u32ModuleMaxArg <= u32ModuleArg) && (0UL != u32ModuleMaxArg))
-    {
-        u32ModuleMaxArg--;
-        u32ModuleArg = u32ModuleMaxArg;
-    }
-#endif
-    return (u32ModuleArg);
-}
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("8.5")
 #endif

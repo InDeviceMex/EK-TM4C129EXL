@@ -139,21 +139,38 @@ uint32_t main(void)
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    OS_Task__uxCreate(&xTask8_Debug, "UART Task", 300UL,
-                                  (void*) 250UL, 4UL, &TaskHandeler[3UL]);
-    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 200UL,
-                                  (void*) 100UL, 3UL, &TaskHandeler[1UL]);
-    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 200UL,
-                                  (void*) 100UL, 3UL, &TaskHandeler[0UL]);
-    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 200UL,
-                                  (void*) 30UL, 2UL, &TaskHandeler[2UL]);
-    OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 500UL,
-                                  (void*) 17UL, 2UL, &TaskHandeler[4UL]);
+    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 400UL, (void*) 250UL, 4UL, &TaskHandeler[3UL]))
+    {
+
+        UART__u32Printf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
+    }
+    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 100UL, (void*) 100UL, 3UL, &TaskHandeler[1UL]))
+    {
+
+    UART__u32Printf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
+    }
+    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 100UL, (void*) 100UL, 3UL, &TaskHandeler[0UL]))
+    {
+
+    UART__u32Printf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
+    }
+    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 100UL, (void*) 30UL, 2UL, &TaskHandeler[2UL]))
+    {
+
+     UART__u32Printf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
+    }
+    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 400UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
+    {
+
+     UART__u32Printf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
+    }
+
     OS_Task__vStartScheduler(1000UL);
     while(1UL)
     {
 
     }
 }
+
 
 
