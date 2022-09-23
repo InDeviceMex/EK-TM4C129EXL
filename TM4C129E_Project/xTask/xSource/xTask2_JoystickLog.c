@@ -46,7 +46,7 @@ void xTask2_JoystickLog(void* pvParams)
     OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
     while(1UL)
     {
-        EDUMKII_Joystick_vSampleXY(&u32YostickValue[0UL], &u32YostickValue[1UL]);
+        EDUMKII_Joystick_vSampleXY(u32YostickValue, (u32YostickValue + 1UL));
         if((u32YostickValueOld[0UL] != u32YostickValue[0UL]) || (u32YostickValueOld[1UL] != u32YostickValue[1UL]))
         {
             u32YostickValueOld[0U] = u32YostickValueOld[0UL];

@@ -46,7 +46,7 @@ void EDUMKII_Accelerometer_vInit(void)
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSAMPLE_MODE_SAMPLE,
-     ADC_enSH_8,
+     ADC_enSH_256,
      ADC_enCOMPARATOR_0
     };
 
@@ -97,7 +97,7 @@ void EDUMKII_Accelerometer_vInit(void)
     GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Y);
     GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Z);
 
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_DIS);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_DIS);
     ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enTRIGGER_SOFTWARE);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_X_INPUT;
@@ -109,15 +109,15 @@ void EDUMKII_Accelerometer_vInit(void)
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
     ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_2, &stADC0SampleConfig);
 
-    stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
+    stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Y_INPUT;
     stADC0SampleConfig.enInterrupt = ADC_enSTATE_ENA;
     stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
     ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_3, &stADC0SampleConfig);
 
-    ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enINT_TYPE_DMA);
+    ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_TYPE_DMA);
     ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_0, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
-    ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_ENA);
 }
 
 

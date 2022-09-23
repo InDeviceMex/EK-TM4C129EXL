@@ -37,6 +37,7 @@
 void EDUMKII_Joystick_vInit(void)
 {
     static uint32_t u32Init = 0UL;
+    uint32_t u32Number = 0UL;
     uint32_t* pu32JoystickArray = (uint32_t*) 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
      ADC_enINPUT_0,
@@ -45,7 +46,7 @@ void EDUMKII_Joystick_vInit(void)
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSAMPLE_MODE_SAMPLE,
-     ADC_enSH_8,
+     ADC_enSH_256,
      ADC_enCOMPARATOR_0
     };
 
@@ -103,7 +104,7 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__enSetAnalogFunction(EDUMKII_AXIS_X);
         GPIO__enSetAnalogFunction(EDUMKII_AXIS_Y);
 
-        ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_DIS);
+        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_DIS);
         ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enTRIGGER_SOFTWARE);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_X_INPUT;
@@ -114,11 +115,12 @@ void EDUMKII_Joystick_vInit(void)
         stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
         ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_1, &stADC0SampleConfig);
 
-        ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enINT_TYPE_DMA);
+        ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
         ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_1,
                                 (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
-        ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
-        ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
+        ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_1, pu32JoystickArray, &u32Number);
         u32Init = 1UL;
     }
 }

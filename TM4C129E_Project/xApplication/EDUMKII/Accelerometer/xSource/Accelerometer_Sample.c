@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-uint32_t u32AccelerometerFifoArray[4] = {0UL};
+uint32_t u32AccelerometerFifoArray[4U] = {0UL};
 volatile uint32_t u32AccelerometerFlag = 0UL;
 
 uint32_t* EDUMKII_Accelerometer_vSampleArray(void)

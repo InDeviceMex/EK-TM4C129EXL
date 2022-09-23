@@ -89,8 +89,7 @@ extern uint32_t main(void);
 /* Reserve space for the system stack.*/
 /**/
 /*******************************************************************************/
-uint8_t pui32MainStack[0x00000100UL] __attribute__((section(".stack")));
-uint8_t pui32ProcessStack[0x100UL] __attribute__((section(".stack_process")));
+uint8_t pui32MainStack[0x00000800UL] __attribute__((section(".stack")));
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/
