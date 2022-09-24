@@ -37,7 +37,6 @@ ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf3
 
     float32_t f32LowRange;
     float32_t f32LowRangeError;
-    float32_t f32TempReg;
     float32_t f32VoltageRefReg;
     ACMP_nERROR enErrorReg;
     ACMP_nSTATE enStateReg;
@@ -54,6 +53,7 @@ ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf3
 
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        float32_t f32TempReg;
         f32VoltageRefReg = *pf32VoltageRefArg;
         if(ACMP_MAX_PORCENTAGE < f32VoltageRefReg)
         {

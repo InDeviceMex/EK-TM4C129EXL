@@ -28,7 +28,7 @@
 #include <xDriver_MCU/DMA/DMA.h>
 
 static volatile EDUMKII_nJOYSTICK enSelectStatus = EDUMKII_enJOYSTICK_NOPRESS;
-uint32_t u32JostickFifoArray[2] = {0UL};
+uint32_t u32JostickFifoArray[4] = {0UL};
 volatile uint32_t u32JostickFlag = 0UL;
 
 uint32_t* EDUMKII_Joystick_vSampleArray(void)
@@ -39,7 +39,7 @@ uint32_t* EDUMKII_Joystick_vSampleArray(void)
 void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y)
 {
     u32JostickFlag = 0UL;
-    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];
@@ -53,7 +53,7 @@ void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect)
 void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect)
 {
     u32JostickFlag = 0UL;
-    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_1);
+    ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
     while(0UL == u32JostickFlag){}
     *u32X = (uint32_t) u32JostickFifoArray[0];
     *u32Y = (uint32_t) u32JostickFifoArray[1];
@@ -69,8 +69,8 @@ void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgumen
     static DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
-         2UL-1U,
-         DMA_enCH_ARBITRATION_SIZE_2,
+         4UL-1U,
+         DMA_enCH_ARBITRATION_SIZE_4,
          DMA_enCH_ACCESS_NON_PRIVILEGED,
          0UL,
          DMA_enCH_ACCESS_NON_PRIVILEGED,
@@ -81,10 +81,10 @@ void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgumen
          DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_15]);
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_16]);
     u32TempReg = (volatile uint32_t*) &enChControl;
     pstDmaChannel->CTL = *u32TempReg;
-    DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << (uint32_t) DMA_enCH_15;
+    DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << (uint32_t) DMA_enCH_16;
     u32JostickFlag = 1UL;
 }
 

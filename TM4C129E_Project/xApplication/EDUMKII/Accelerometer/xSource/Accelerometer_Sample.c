@@ -27,7 +27,7 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-uint32_t u32AccelerometerFifoArray[4U] = {0UL};
+uint32_t u32AccelerometerFifoArray[8U] = {0UL};
 volatile uint32_t u32AccelerometerFlag = 0UL;
 
 uint32_t* EDUMKII_Accelerometer_vSampleArray(void)
@@ -38,7 +38,7 @@ uint32_t* EDUMKII_Accelerometer_vSampleArray(void)
 void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
 {
     u32AccelerometerFlag = 0UL;
-    ADC_Sequencer__enInitConversionByMask(ADC_enMODULE_0, ADC_enSEQMASK_0);
+    ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_1);
     while(0UL == u32AccelerometerFlag){}
     *s32X = (int32_t) u32AccelerometerFifoArray[0] - 2048;
     *s32Y = (int32_t) u32AccelerometerFifoArray[1] - 2048;
@@ -64,10 +64,10 @@ void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvAr
          DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_14]);
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_15]);
     u32TempReg = (const volatile uint32_t*) &enChControl;
     pstDmaChannel->CTL = *u32TempReg;
-    DMA->CH_ENASET = (uint32_t)DMA_enSTATE_ENA << (uint32_t) DMA_enCH_14;
+    DMA->CH_ENASET = (uint32_t)DMA_enSTATE_ENA << (uint32_t) DMA_enCH_15;
     u32AccelerometerFlag = 1UL;
 }
 

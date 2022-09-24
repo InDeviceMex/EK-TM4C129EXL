@@ -94,13 +94,14 @@ uint32_t main(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART2);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enADC1);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI2);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI3);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN0);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN1);
     EEPROM__enInit(EEPROM_enMODULE_0);
     DMA__enInit(DMA_enMODULE_0);
-    GPIO__vInit();
+    GPIO__enInit();
     TIMER__vInit();
     ADC__enInit(ADC_enMODULE_0);
     ADC__enInit(ADC_enMODULE_1);
@@ -139,7 +140,7 @@ uint32_t main(void)
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 800UL, (void*) 250UL, 4UL, &TaskHandeler[3UL]))
+    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 250UL, 4UL, &TaskHandeler[3UL]))
     {
 
         UART__u32Printf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
@@ -159,7 +160,7 @@ uint32_t main(void)
 
      UART__u32Printf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 800UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
+    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
     {
 
      UART__u32Printf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");

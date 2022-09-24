@@ -60,6 +60,8 @@ void xTask3_ButtonsLog(void* pvParams)
     pcStateButton[1UL] = pcState[0UL];
     pcStateButton[2UL] = pcState[0UL];
     OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
+
+    UART__u32Printf(UART_enMODULE_0, "Task3 First Entry \n\r");
     while(1UL)
     {
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);

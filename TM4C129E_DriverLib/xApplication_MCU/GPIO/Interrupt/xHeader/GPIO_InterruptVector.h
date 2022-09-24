@@ -27,10 +27,22 @@
 
 #include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Defines.h>
 
-void GPIO__vEnInterruptVector(GPIO_nPORT enPort, GPIO_nPRIORITY enGPIOPriority);
-void GPIO__vDisInterruptVector(GPIO_nPORT enPort);
+GPIO_nERROR GPIO__enSetInterruptVectorState(GPIO_nPORT enPortArg, GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO__enSetInterruptVectorStateWithPriority(GPIO_nPORT enPortArg, GPIO_nSTATE enStateArg, GPIO_nPRIORITY enPriorityArg);
+GPIO_nERROR GPIO__enGetInterruptVectorState(GPIO_nPORT enPortArg, GPIO_nSTATE* penStateArg);
+GPIO_nERROR GPIO__enGetInterruptVectorStateWithPriority(GPIO_nPORT enPortArg, GPIO_nSTATE* penStateArg, GPIO_nPRIORITY* penPriorityArg);
+GPIO_nERROR GPIO__enEnableInterruptVector(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__enEnableInterruptVectorWithPriority(GPIO_nPORT enPortArg, GPIO_nPRIORITY enPriorityArg);
+GPIO_nERROR GPIO__enDisableInterruptVector(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__enDisableInterruptVectorWithPriority(GPIO_nPORT enPortArg, GPIO_nPRIORITY enPriorityArg);
 
-void GPIO__vDisInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber);
-void GPIO__vEnInterruptVectorPin(GPIO_nPORT enPort, GPIO_nPIN enPinNumber, GPIO_nPRIORITY enGPIOPriority);
+GPIO_nERROR GPIO_PQ__enSetInterruptVectorState(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nSTATE enStateArg);
+GPIO_nERROR GPIO_PQ__enSetInterruptVectorStateWithPriority(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nSTATE enStateArg, GPIO_nPRIORITY enPriorityArg);
+GPIO_nERROR GPIO_PQ__enGetInterruptVectorState(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nSTATE* penStateArg);
+GPIO_nERROR GPIO_PQ__enGetInterruptVectorStateWithPriority(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nSTATE* penStateArg, GPIO_nPRIORITY* penPriorityArg);
+GPIO_nERROR GPIO_PQ__enEnableInterruptVector(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO_PQ__enEnableInterruptVectorWithPriority(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nPRIORITY enPriorityArg);
+GPIO_nERROR GPIO_PQ__enDisableInterruptVector(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_nERROR GPIO_PQ__enDisableInterruptVectorWithPriority(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTERRUPT_XHEADER_GPIO_INTERRUPTVECTOR_H_ */

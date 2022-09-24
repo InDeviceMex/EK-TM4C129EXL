@@ -1252,6 +1252,7 @@ typedef struct
 } GPIO_CONFIG_t;
 
 typedef MCU_Register_t GPIO_Register_t;
+typedef MCU_pvfIRQVectorHandler_t GPIO_pvfIRQVectorHandler_t;
 typedef MCU_pvfIRQSourceHandler_t GPIO_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_ENUM_H_ */

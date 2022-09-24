@@ -25,7 +25,7 @@
 #include <xTask/xHeader/xSemaphores.h>
 
 #include <xApplication/EDUMKII/EDUMKII.h>
-
+#include <xApplication_MCU/UART/UART.h>
 #include <xOS/xOS.h>
 
 void xTask1_AccelerometerLog(void* pvParams)
@@ -46,6 +46,7 @@ void xTask1_AccelerometerLog(void* pvParams)
     s32AccelValue[1U] = 0;
     s32AccelValue[2U] = 0;
     OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
+    UART__u32Printf(UART_enMODULE_0, "Task1 First Entry \n\r");
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(s32AccelValue, (s32AccelValue + 1UL), (s32AccelValue + 2UL));

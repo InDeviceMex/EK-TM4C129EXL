@@ -57,6 +57,7 @@ SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg)
         if(u32FlashSize > u32OffsetArg)
         {
             enInterruptState = MCU__enDisGlobalInterrupt();
+            /*TODO: check this functionality*/
             /*FLASH__enWriteMultiWorld( (uint32_t*) u32TableAddress, u32OffsetArg, SCB_VECTOR_TABLE_SIZE);*/
             MCU__vSetGlobalInterrupt(enInterruptState);
         }

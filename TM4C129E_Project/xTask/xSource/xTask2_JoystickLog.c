@@ -25,6 +25,7 @@
 #include <xTask/xHeader/xSemaphores.h>
 
 #include <xApplication/EDUMKII/EDUMKII.h>
+#include <xApplication_MCU/UART/UART.h>
 
 #include <xOS/xOS.h>
 
@@ -44,6 +45,7 @@ void xTask2_JoystickLog(void* pvParams)
     u32YostickValue[0U] = 0UL;
     u32YostickValue[1U] = 0UL;
     OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
+    UART__u32Printf(UART_enMODULE_0, "Task2 First Entry \n\r");
     while(1UL)
     {
         EDUMKII_Joystick_vSampleXY(u32YostickValue, (u32YostickValue + 1UL));

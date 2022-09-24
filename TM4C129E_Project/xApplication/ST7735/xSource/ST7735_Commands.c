@@ -82,7 +82,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
     u8NumCommands = *(pu8AddressArg);
     pu8AddressArg += 1UL;
 
-    for(u8NumCommandsPos = u8NumCommands; 0U != u8NumCommandsPos; u8NumCommandsPos--)
+    for(u8NumCommandsPos = u8NumCommands; 0U < u8NumCommandsPos; u8NumCommandsPos--)
     {
         u8AddressValue = *(pu8AddressArg);
         ST7735__u32WriteCommand((uint16_t) u8AddressValue);
@@ -95,7 +95,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
         u8Reg = ~u8Reg;
         u8NumArguments &= u8Reg;                   /*   Mask out delay bit*/
 
-        for(u8NumArgumentsPos = u8NumArguments; 0U != u8NumArgumentsPos; u8NumArgumentsPos--)
+        for(u8NumArgumentsPos = u8NumArguments; 0U < u8NumArgumentsPos; u8NumArgumentsPos--)
         {
             u8AddressValue = *(pu8AddressArg);
             ST7735__u32WriteData((uint32_t) u8AddressValue);

@@ -69,6 +69,7 @@ void xTask9_TFT(void* pvParams)
     OS_Semaphore__boGive(MainSemaphoreHandle);
 
     u32LastWakeTime = OS_Task__uxGetTickCount ();
+    UART__u32Printf(UART_enMODULE_0, "Task9 First Entry \n\r");
     while(1UL)
     {
         boResult = OS_Queue__boPeek(AccelerometerQueueHandle, s32AccelValue, 0UL);

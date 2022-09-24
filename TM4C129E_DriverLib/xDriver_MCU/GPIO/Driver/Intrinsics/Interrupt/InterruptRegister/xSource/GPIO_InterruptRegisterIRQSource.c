@@ -81,8 +81,42 @@ GPIO_nERROR GPIO__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t 
     return (enErrorReg);
 }
 
-GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                                 GPIO_nPORT enPort)
+GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                   GPIO_nPORT enPort,
+                                                   GPIO_nPINMASK enPinMask)
+{
+    GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
+    uint32_t u32PinNumber;
+    uint32_t u32PinMask;
+    GPIO_nERROR enErrorReg;
+
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMask, (uint32_t) GPIO_enPINMASK_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        u32PinMask = (uint32_t) enPinMask;
+        u32PinNumber = 0UL;
+        while(0UL != u32PinMask)
+        {
+            if(0UL != (1UL & u32PinMask))
+            {
+                pvfIrqHandler = GPIO_DMA__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) u32PinNumber);
+                enErrorReg = (GPIO_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+            }
+            u32PinNumber++;
+            u32PinMask >>= 1UL;
+        }
+    }
+
+    return (enErrorReg);
+}
+
+GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                 GPIO_nPORT enPort,
+                                                 GPIO_nPIN enPin)
 {
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
     GPIO_nERROR enErrorReg;
@@ -90,7 +124,11 @@ GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIr
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = GPIO_DMA__pvfGetIRQSourceHandlerPointer(enPort);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPin, (uint32_t) GPIO_enPIN_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = GPIO_DMA__pvfGetIRQSourceHandlerPointer(enPort, enPin);
         enErrorReg = (GPIO_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 

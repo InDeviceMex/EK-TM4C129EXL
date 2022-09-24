@@ -25,7 +25,9 @@
 
 #include <xApplication_MCU/GPIO/Interrupt/GPIO_Interrupt.h>
 
-void GPIO__vInit(void)
+GPIO_nERROR GPIO__enInit(void)
 {
-    GPIO__vRegisterAll_IRQVectorHandler();
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enRegisterAll_IRQVectorHandler();
+    return (enErrorReg);
 }

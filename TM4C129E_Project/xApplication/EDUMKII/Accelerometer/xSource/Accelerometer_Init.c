@@ -39,6 +39,7 @@
 void EDUMKII_Accelerometer_vInit(void)
 {
     uint32_t* pu32AccelerometerArray = (uint32_t*) 0UL;
+    uint32_t u32Number = 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
      ADC_enINPUT_0,
      ADC_enSTATE_DIS,
@@ -46,7 +47,7 @@ void EDUMKII_Accelerometer_vInit(void)
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSAMPLE_MODE_SAMPLE,
-     ADC_enSH_256,
+     ADC_enSH_4,
      ADC_enCOMPARATOR_0
     };
 
@@ -75,21 +76,21 @@ void EDUMKII_Accelerometer_vInit(void)
          DMA_enCH_INCREMENT_WORD,
     };
     ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Accelerometer_vIRQSourceHandler,
-                                        ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_TYPE_DMA);
+                                        ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
 
     pu32AccelerometerArray = EDUMKII_Accelerometer_vSampleArray();
     pu32AccelerometerArray += 3UL;
 
-    DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) pu32AccelerometerArray);
-    DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, &stDMAChControl);
+    DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32AccelerometerArray);
+    DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
+    DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
 
-    DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) pu32AccelerometerArray);
-    DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_14, (uint32_t) (ADC0_BASE + ADC_SS0_FIFO_OFFSET));
-    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_14, &stDMAChControl);
+    DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32AccelerometerArray);
+    DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
+    DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
 
-    DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_14, &stDMAChConfig);
-    DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_14, DMA_enSTATE_ENA);
+    DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_15, &stDMAChConfig);
+    DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_15, DMA_enSTATE_ENA);
 
     EDUMKII_Common_vAdcInit();
 
@@ -97,27 +98,30 @@ void EDUMKII_Accelerometer_vInit(void)
     GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Y);
     GPIO__enSetAnalogFunction(EDUMKII_ACCEL_AXIS_Z);
 
-    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_DIS);
-    ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enTRIGGER_SOFTWARE);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_DIS);
+    ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enTRIGGER_SOFTWARE);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_X_INPUT;
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_0, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Y_INPUT;
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_1, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_1, &stADC0SampleConfig);
 
     stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_2, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_2, &stADC0SampleConfig);
 
-    stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Y_INPUT;
+    stADC0SampleConfig.enInput = EDUMKII_ACCEL_AXIS_Z_INPUT;
     stADC0SampleConfig.enInterrupt = ADC_enSTATE_ENA;
     stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
-    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSAMPLE_3, &stADC0SampleConfig);
+    ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_3, &stADC0SampleConfig);
 
-    ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enINT_TYPE_DMA);
-    ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_0, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ0);
-    ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_ENA);
-    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_0, ADC_enSTATE_ENA);
+    ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
+    ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_1, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
+    ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
+    ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_1, pu32AccelerometerArray, &u32Number);
+    ADC_Sequencer__enClearOverflowByNumber(ADC_enMODULE_0, ADC_enSEQ_1);
+    ADC_Sequencer__enClearUnderflowByNumber(ADC_enMODULE_0, ADC_enSEQ_1);
 }
 
 

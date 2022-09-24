@@ -42,12 +42,10 @@
 #include <xApplication_MCU/GPIO/Interrupt/InterruptRoutine/xHeader/GPIO_InterruptRoutine_Vector_GPIOP.h>
 #include <xApplication_MCU/GPIO/Interrupt/InterruptRoutine/xHeader/GPIO_InterruptRoutine_Vector_GPIOQ.h>
 
-void (*GPIO__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort))(void);
-void (**GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort))(void);
+GPIO_pvfIRQVectorHandler_t GPIO__pvfGetIRQVectorHandler(GPIO_nPORT enPortArg);
+GPIO_pvfIRQVectorHandler_t* GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enPortArg);
 
-void (*GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enGPIOPort,
-                                       GPIO_nPIN enPinNumber))(void);
-void (**GPIO_PQ__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enGPIOPort,
-                                            GPIO_nPIN enPinNumber))(void);
+GPIO_pvfIRQVectorHandler_t GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
+GPIO_pvfIRQVectorHandler_t* GPIO_PQ__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTERRUPT_INTERRUPTROUTINE_GPIO_INTERRUPTROUTINE_H_ */

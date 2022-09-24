@@ -34,10 +34,12 @@ GPIO_nERROR GPIO__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t 
                                                      GPIO_nPORT enPort,
                                                      GPIO_nPIN enPin);
 
-GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                                 GPIO_nPORT enPort);
-GPIO_nERROR GPIO_SW__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
-                                                 GPIO_nPORT enPort);
+GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                   GPIO_nPORT enPort,
+                                                   GPIO_nPINMASK enPinMask);
+GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                 GPIO_nPORT enPort,
+                                                 GPIO_nPIN enPin);
 
 GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
                                                       GPIO_nPORT enPort,
@@ -45,5 +47,8 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t
 GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
                                                         GPIO_nPORT enPort,
                                                         GPIO_nPIN enPin);
+
+GPIO_nERROR GPIO_SW__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                 GPIO_nPORT enPort);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_INTERRUPT_GPIO_INTERRUPTREGISTER_GPIO_INTERRUPTREGISTERIRQSOURCE_H_ */

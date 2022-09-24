@@ -38,6 +38,7 @@
 void EDUMKII_Microphone_vInit(void)
 {
     uint32_t* pu32MicrophoneArray = (uint32_t*) 0UL;
+    uint32_t u32Number = 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
         EDUMKII_MICROPHONE_INPUT,
         ADC_enSTATE_DIS,
@@ -92,14 +93,17 @@ void EDUMKII_Microphone_vInit(void)
 
     GPIO__enSetAnalogFunction(EDUMKII_MICROPHONE);
 
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_DIS);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSTATE_DIS);
     ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enTRIGGER_SOFTWARE);
     ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
-    ADC_Sequencer__enEnableInterruptSourceByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enINT_TYPE_DMA);
+    ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_DMA);
     ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_3, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ3);
-    ADC_Sequencer__enSetDMAStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_ENA);
-    ADC_Sequencer__enSetStateByMask(ADC_enMODULE_0, ADC_enSEQMASK_3, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSTATE_ENA);
+    ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSTATE_ENA);
+    ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_3, pu32MicrophoneArray, &u32Number);
+    ADC_Sequencer__enClearOverflowByNumber(ADC_enMODULE_0, ADC_enSEQ_3);
+    ADC_Sequencer__enClearUnderflowByNumber(ADC_enMODULE_0, ADC_enSEQ_3);
 }
 
 

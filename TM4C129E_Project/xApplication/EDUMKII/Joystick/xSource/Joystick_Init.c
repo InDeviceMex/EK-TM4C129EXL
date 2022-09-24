@@ -46,7 +46,7 @@ void EDUMKII_Joystick_vInit(void)
      ADC_enSTATE_DIS,
      ADC_enSTATE_DIS,
      ADC_enSAMPLE_MODE_SAMPLE,
-     ADC_enSH_256,
+     ADC_enSH_4,
      ADC_enCOMPARATOR_0
     };
 
@@ -62,8 +62,8 @@ void EDUMKII_Joystick_vInit(void)
     DMA_CH_CTL_t stDMAChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
-         2UL-1U,
-         DMA_enCH_ARBITRATION_SIZE_2,
+         4UL-1U,
+         DMA_enCH_ARBITRATION_SIZE_4,
          DMA_enCH_ACCESS_NON_PRIVILEGED,
          0,
          DMA_enCH_ACCESS_NON_PRIVILEGED,
@@ -78,49 +78,56 @@ void EDUMKII_Joystick_vInit(void)
         GPIO__enRegisterIRQSourceHandlerByMask( &EDUMKII_Select_vIRQSourceHandler, EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_SELECT, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
 
-        GPIO__vEnInterruptVector(EDUMKII_SELECT_PORT, (GPIO_nPRIORITY) NVIC_enVECTOR_PRI_GPIOC);
+        GPIO__enEnableInterruptVectorWithPriority(EDUMKII_SELECT_PORT, (GPIO_nPRIORITY) NVIC_enVECTOR_PRI_GPIOC);
         GPIO__enClearInterruptSourceByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__enSetInterruptConfigByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, GPIO_enINT_CONFIG_EDGE_BOTH);
         GPIO__enEnableInterruptSourceByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
 
         ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Joystick_vIRQSourceHandler,
-                                            ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
+                                            ADC_enMODULE_0, ADC_enSEQ_2, ADC_enINT_TYPE_DMA);
 
         pu32JoystickArray = EDUMKII_Joystick_vSampleArray();
-        pu32JoystickArray += 1UL;
-        DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32JoystickArray);
-        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
-        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
+        pu32JoystickArray += 3UL;
+        DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) pu32JoystickArray);
+        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
+        DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_16, &stDMAChControl);
 
-        DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) pu32JoystickArray);
-        DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_15, (uint32_t) (ADC0_BASE + ADC_SS1_FIFO_OFFSET));
-        DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_15, &stDMAChControl);
+        DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) pu32JoystickArray);
+        DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
+        DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_16, &stDMAChControl);
 
-        DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_15, &stDMAChConfig);
-        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_15, DMA_enSTATE_ENA);
+        DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_16, &stDMAChConfig);
+        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_16, DMA_enSTATE_ENA);
 
         EDUMKII_Common_vAdcInit();
 
         GPIO__enSetAnalogFunction(EDUMKII_AXIS_X);
         GPIO__enSetAnalogFunction(EDUMKII_AXIS_Y);
 
-        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_DIS);
-        ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enTRIGGER_SOFTWARE);
+        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSTATE_DIS);
+        ADC_Sequencer__enSetTriggerByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enTRIGGER_SOFTWARE);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_X_INPUT;
-        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_0, &stADC0SampleConfig);
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSAMPLE_0, &stADC0SampleConfig);
 
         stADC0SampleConfig.enInput = EDUMKII_AXIS_Y_INPUT;
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSAMPLE_1, &stADC0SampleConfig);
+
+        stADC0SampleConfig.enInput = EDUMKII_AXIS_Y_INPUT;
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSAMPLE_2, &stADC0SampleConfig);
+
+        stADC0SampleConfig.enInput = EDUMKII_AXIS_X_INPUT;
         stADC0SampleConfig.enInterrupt = ADC_enSTATE_ENA;
         stADC0SampleConfig.enEnded = ADC_enSTATE_ENA;
-        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSAMPLE_1, &stADC0SampleConfig);
+        ADC_Sample__enSetConfigGpio(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSAMPLE_3, &stADC0SampleConfig);
 
-        ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enINT_TYPE_DMA);
-        ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_1,
-                                (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ1);
-        ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
-        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_1, ADC_enSTATE_ENA);
-        ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_1, pu32JoystickArray, &u32Number);
+        ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enINT_TYPE_DMA);
+        ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_2, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ2);
+        ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSTATE_ENA);
+        ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSTATE_ENA);
+        ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_2, pu32JoystickArray, &u32Number);
+        ADC_Sequencer__enClearOverflowByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
+        ADC_Sequencer__enClearUnderflowByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
         u32Init = 1UL;
     }
 }

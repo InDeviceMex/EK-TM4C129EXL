@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_GPIO_XHEADER_GPIO_INIT_H_
 #define XAPPLICATION_MCU_GPIO_XHEADER_GPIO_INIT_H_
 
-void GPIO__vInit(void);
+#include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Defines.h>
+
+GPIO_nERROR GPIO__enInit(void);
 
 #endif /* XAPPLICATION_MCU_GPIO_XHEADER_GPIO_INIT_H_ */
