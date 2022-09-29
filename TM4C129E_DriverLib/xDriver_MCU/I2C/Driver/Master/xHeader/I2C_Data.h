@@ -1,5 +1,4 @@
-
-#include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_LineState.h>/**
+/**
  *
  * @file I2C_Data.h
  * @copyright
