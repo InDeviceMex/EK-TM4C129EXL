@@ -28,8 +28,8 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_Generator__vSetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg, PWM_nGENERATOR_ENABLE enEnableArg);
-PWM_nGENERATOR_ENABLE PWM_Generator__enGetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                               PWM_nEVENT enEventArg, PWM_nSTATE enEnableArg);
+PWM_nSTATE PWM_Generator__enGetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                PWM_nEVENT enEventArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_ADCTRIGGER_H_ */

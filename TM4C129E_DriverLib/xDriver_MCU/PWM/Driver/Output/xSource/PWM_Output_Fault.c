@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Output__vSetFaultCondition(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                    PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_ENABLE enEnableArg)
+                                    PWM_nOUTPUT enOutputArg, PWM_nSTATE enEnableArg)
 {
     uint32_t u32FeatureReg = 0UL;
     u32FeatureReg =  (uint32_t) enOutputArg;
@@ -52,7 +52,7 @@ PWM_nOUTPUT PWM_Output__enGetFaultCondition(PWM_nMODULE enModule, PWM_nGENERATOR
 }
 
 void PWM_Output__vSetFaultConditionByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg,
-                            PWM_nOUTPUT_ENABLE enFaultConditionArg)
+                            PWM_nSTATE enFaultConditionArg)
 {
     PWM_Output__vSetGeneric((uint32_t) enModule, PWM_FAULT_OFFSET,
                             (uint32_t) enOutputNumberArg, (uint32_t) enFaultConditionArg,

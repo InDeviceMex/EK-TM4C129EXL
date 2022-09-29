@@ -29,6 +29,6 @@
 
 void PWM__vSetReady(PWM_nMODULE enModule);
 void PWM__vClearReady(PWM_nMODULE enModule);
-PWM_nREADY PWM__enIsReady(PWM_nMODULE enModule);
+PWM_nSTATUS PWM__enIsReady(PWM_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_PWM_INTRINSICS_XHEADER_PWM_READY_H_ */

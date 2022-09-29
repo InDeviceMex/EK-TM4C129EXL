@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Driver/Intrinsics/Primitives/PWM_Primitives.h>
 
 void PWM_Output__vEnInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GeneratorReg = 0UL;
@@ -35,7 +35,7 @@ void PWM_Output__vEnInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGener
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32GeneratorReg = MCU__u32CheckParams((uint32_t) enGeneratorArg, (uint32_t) PWM_enGEN_MAX);
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
 
     u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
     u32GeneratorReg *= 4UL;
@@ -47,7 +47,7 @@ void PWM_Output__vEnInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGener
 }
 
 void PWM_Output__vEnMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                    PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GenMaskReg = 0UL;
@@ -58,7 +58,7 @@ void PWM_Output__vEnMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGen
     u32GenMaskReg = (uint32_t) enGenMaskArg;
     u32GenMaskReg &= (uint32_t) PWM_enGENMASK_MAX;
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
     while(0UL != u32GenMaskReg)
     {
         if(1UL & u32GenMaskReg)
@@ -79,7 +79,7 @@ void PWM_Output__vEnMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGen
 }
 
 void PWM_Output__vDisInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GeneratorReg = 0UL;
@@ -87,7 +87,7 @@ void PWM_Output__vDisInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGene
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32GeneratorReg = MCU__u32CheckParams((uint32_t) enGeneratorArg, (uint32_t) PWM_enGEN_MAX);
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
 
     u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
     u32GeneratorReg *= 4UL;
@@ -99,7 +99,7 @@ void PWM_Output__vDisInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGene
 }
 
 void PWM_Output__vDisMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                    PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GenMaskReg = 0UL;
@@ -110,7 +110,7 @@ void PWM_Output__vDisMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGe
     u32GenMaskReg = (uint32_t) enGenMaskArg;
     u32GenMaskReg &= (uint32_t) PWM_enGENMASK_MAX;
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
     while(0UL != u32GenMaskReg)
     {
         if(1UL & u32GenMaskReg)
@@ -131,7 +131,7 @@ void PWM_Output__vDisMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGe
 }
 
 void PWM_Output__vClearInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GeneratorReg = 0UL;
@@ -139,7 +139,7 @@ void PWM_Output__vClearInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGe
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32GeneratorReg = MCU__u32CheckParams((uint32_t) enGeneratorArg, (uint32_t) PWM_enGEN_MAX);
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
 
     u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
     u32GeneratorReg *= 4UL;
@@ -151,7 +151,7 @@ void PWM_Output__vClearInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGe
 }
 
 void PWM_Output__vClearMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg)
+                                    PWM_nGEN_INTMASK enPwnIntArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GenMaskReg = 0UL;
@@ -162,7 +162,7 @@ void PWM_Output__vClearMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK en
     u32GenMaskReg = (uint32_t) enGenMaskArg;
     u32GenMaskReg &= (uint32_t) PWM_enGENMASK_MAX;
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
     while(0UL != u32GenMaskReg)
     {
         if(1UL & u32GenMaskReg)
@@ -182,10 +182,10 @@ void PWM_Output__vClearMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK en
     }
 }
 
-PWM_nGEN_INT_SOURCE PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg)
+PWM_nGEN_INTMASK PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
+                                PWM_nGEN_INTMASK enPwnIntArg)
 {
-    PWM_nGEN_INT_SOURCE enInterruptReg = PWM_enGEN_INT_SOURCE_NONE;
+    PWM_nGEN_INTMASK enInterruptReg = PWM_enGEN_INTMASK_NONE;
     uint32_t u32Register = 0UL;
     uint32_t u32Module = 0UL;
     uint32_t u32GeneratorReg = 0UL;
@@ -193,7 +193,7 @@ PWM_nGEN_INT_SOURCE PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PW
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     u32GeneratorReg = MCU__u32CheckParams((uint32_t) enGeneratorArg, (uint32_t) PWM_enGEN_MAX);
     u32PwnIntReg = (uint32_t) enPwnIntArg;
-    u32PwnIntReg &= (uint32_t) PWM_enGEN_INT_SOURCE_ALL;
+    u32PwnIntReg &= (uint32_t) PWM_enGEN_INTMASK_ALL;
 
     u32GeneratorReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
     u32GeneratorReg *= 4UL;
@@ -202,6 +202,6 @@ PWM_nGEN_INT_SOURCE PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PW
 
     u32Register = PWM__u32ReadRegister((PWM_nMODULE) u32Module , u32GeneratorReg,
                         u32PwnIntReg, PWM_GEN_RIS_R_INTCNTZERO_BIT);
-    enInterruptReg = (PWM_nGEN_INT_SOURCE) u32Register;
+    enInterruptReg = (PWM_nGEN_INTMASK) u32Register;
     return (enInterruptReg);
 }

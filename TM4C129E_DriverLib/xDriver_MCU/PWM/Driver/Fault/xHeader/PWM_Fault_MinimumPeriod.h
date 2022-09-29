@@ -31,7 +31,7 @@ void PWM_Fault__vSetMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerat
                              uint32_t u32MinimumPeriodArg);
 uint32_t PWM_Fault__u32GetMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 void PWM_Fault__vSetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                        PWM_nFAULT_ENABLE enEnableArg);
-PWM_nFAULT_ENABLE PWM_Fault__enGetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+                                        PWM_nSTATE enEnableArg);
+PWM_nSTATE PWM_Fault__enGetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_MINIMUMPERIOD_H_ */

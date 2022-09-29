@@ -44,26 +44,26 @@ uint32_t PWM__u32GetMaxFaultNumber(PWM_nMODULE enModule)
 
 }
 
-PWM_nSTATE PWM__enIsFaultExtended(PWM_nMODULE enModule)
+PWM_nSTATUS PWM__enIsFaultExtended(PWM_nMODULE enModule)
 {
-    PWM_nSTATE enFault = PWM_enSTATE_FALSE;
-    enFault = (PWM_nSTATE) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
+    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
+    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
                                                      PWM_PP_EFAULT_MASK, PWM_PP_R_EFAULT_BIT);
     return (enFault);
 }
 
-PWM_nSTATE PWM__enIsSyncExtended(PWM_nMODULE enModule)
+PWM_nSTATUS PWM__enIsSyncExtended(PWM_nMODULE enModule)
 {
-    PWM_nSTATE enFault = PWM_enSTATE_FALSE;
-    enFault = (PWM_nSTATE) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
+    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
+    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
                                                      PWM_PP_ESYNC_MASK, PWM_PP_R_ESYNC_BIT);
     return (enFault);
 }
 
-PWM_nSTATE PWM__enIsOneShotAvailable(PWM_nMODULE enModule)
+PWM_nSTATUS PWM__enIsOneShotAvailable(PWM_nMODULE enModule)
 {
-    PWM_nSTATE enFault = PWM_enSTATE_FALSE;
-    enFault = (PWM_nSTATE) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
+    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
+    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
                                                      PWM_PP_ONE_MASK, PWM_PP_R_ONE_BIT);
     return (enFault);
 }

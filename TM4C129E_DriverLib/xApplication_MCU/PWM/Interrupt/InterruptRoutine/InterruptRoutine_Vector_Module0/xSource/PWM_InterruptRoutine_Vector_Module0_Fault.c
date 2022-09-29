@@ -35,19 +35,19 @@ void PWM0_Fault__vIRQVectorHandler(void)
     if(SYSCTL_PRPWM_R_PWM0_NOREADY == (SYSCTL_PRPWM_R_PWM0_MASK & u32Ready))
     {
         pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_0, PWM_enFAULT_INTERRUPT_SW);
+                                                     PWM_enFAULT_0, PWM_enFAULT_INT_SW);
         pvfCallback();
 
         pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_1, PWM_enFAULT_INTERRUPT_SW);
+                                                     PWM_enFAULT_1, PWM_enFAULT_INT_SW);
         pvfCallback();
 
         pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_2, PWM_enFAULT_INTERRUPT_SW);
+                                                     PWM_enFAULT_2, PWM_enFAULT_INT_SW);
         pvfCallback();
 
         pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_3, PWM_enFAULT_INTERRUPT_SW);
+                                                     PWM_enFAULT_3, PWM_enFAULT_INT_SW);
         pvfCallback();
     }
     else
@@ -56,19 +56,19 @@ void PWM0_Fault__vIRQVectorHandler(void)
         if(0UL == ((uint32_t) PWM_enFAULTMASK_ALL & u32Reg))
         {
             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_0, PWM_enFAULT_INTERRUPT_SW);
+                                                         PWM_enFAULT_0, PWM_enFAULT_INT_SW);
             pvfCallback();
 
             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_1, PWM_enFAULT_INTERRUPT_SW);
+                                                         PWM_enFAULT_1, PWM_enFAULT_INT_SW);
             pvfCallback();
 
             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_2, PWM_enFAULT_INTERRUPT_SW);
+                                                         PWM_enFAULT_2, PWM_enFAULT_INT_SW);
             pvfCallback();
 
             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_3, PWM_enFAULT_INTERRUPT_SW);
+                                                         PWM_enFAULT_3, PWM_enFAULT_INT_SW);
             pvfCallback();
         }
         else
@@ -99,11 +99,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_FAULT;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_0,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -118,11 +118,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_DCMP0;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_0,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -134,7 +134,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                 {
                     pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                      PWM_enFAULT_0,
-                                                                     PWM_enFAULT_INTERRUPT_FAULT);
+                                                                     PWM_enFAULT_INT_FAULT);
                     pvfCallback();
                 }
             }
@@ -164,11 +164,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_FAULT;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_1,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -183,11 +183,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_DCMP0;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_1,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -199,7 +199,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                 {
                     pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                      PWM_enFAULT_1,
-                                                                     PWM_enFAULT_INTERRUPT_FAULT);
+                                                                     PWM_enFAULT_INT_FAULT);
                     pvfCallback();
                 }
             }
@@ -229,11 +229,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_FAULT;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_2,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -248,11 +248,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_DCMP0;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_2,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -264,7 +264,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                 {
                     pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                      PWM_enFAULT_2,
-                                                                     PWM_enFAULT_INTERRUPT_FAULT);
+                                                                     PWM_enFAULT_INT_FAULT);
                     pvfCallback();
                 }
             }
@@ -294,11 +294,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_FAULT;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_3,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -313,11 +313,11 @@ void PWM0_Fault__vIRQVectorHandler(void)
                         u32Temp &= 0x1UL;
                         if(0UL != u32Temp)
                         {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INTERRUPT_DCMP0;
+                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
                             u32Index += u32Count;
                             pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                              PWM_enFAULT_3,
-                                                                             (PWM_nFAULT_INTERRUPT) u32Index);
+                                                                             (PWM_nFAULT_INT) u32Index);
                             pvfCallback();
 
                         }
@@ -329,7 +329,7 @@ void PWM0_Fault__vIRQVectorHandler(void)
                 {
                     pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                      PWM_enFAULT_3,
-                                                                     PWM_enFAULT_INTERRUPT_FAULT);
+                                                                     PWM_enFAULT_INT_FAULT);
                     pvfCallback();
                 }
             }

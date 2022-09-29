@@ -36,7 +36,7 @@ void PWM0_GEN3__vIRQVectorHandler(void)
     if(SYSCTL_PRPWM_R_PWM0_NOREADY == (SYSCTL_PRPWM_R_PWM0_MASK & u32Ready))
     {
         pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enGEN_3, PWM_enGEN_INTERRUPT_SW);
+                                                     PWM_enGEN_3, PWM_enGEN_INT_SW);
         pvfCallback();
     }
     else
@@ -46,57 +46,57 @@ void PWM0_GEN3__vIRQVectorHandler(void)
         if(0UL == ((uint32_t) PWM_enGENMASK_3 &u32Reg))
         {
             pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enGEN_3, PWM_enGEN_INTERRUPT_SW);
+                                                         PWM_enGEN_3, PWM_enGEN_INT_SW);
             pvfCallback();
         }
         else
         {
-            if((uint32_t) PWM_enGEN_INT_SOURCE_ZERO & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_ZERO & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_ZERO;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_ZERO;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_ZERO);
+                                                                 PWM_enGEN_INT_ZERO);
                 pvfCallback();
             }
-            if((uint32_t) PWM_enGEN_INT_SOURCE_LOAD & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_LOAD & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_LOAD;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_LOAD;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_LOAD);
+                                                                 PWM_enGEN_INT_LOAD);
                 pvfCallback();
             }
-            if((uint32_t) PWM_enGEN_INT_SOURCE_CMPA_UP & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_CMPA_UP & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_LOAD;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_LOAD;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_CMPA_UP);
+                                                                 PWM_enGEN_INT_CMPA_UP);
                 pvfCallback();
             }
-            if((uint32_t) PWM_enGEN_INT_SOURCE_CMPA_DOWN & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_CMPA_DOWN & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_LOAD;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_LOAD;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_CMPA_DOWN);
+                                                                 PWM_enGEN_INT_CMPA_DOWN);
                 pvfCallback();
             }
-            if((uint32_t) PWM_enGEN_INT_SOURCE_CMPB_UP & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_CMPB_UP & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_LOAD;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_LOAD;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_CMPB_UP);
+                                                                 PWM_enGEN_INT_CMPB_UP);
                 pvfCallback();
             }
-            if((uint32_t) PWM_enGEN_INT_SOURCE_CMPB_DOWN & u32RegSource)
+            if((uint32_t) PWM_enGEN_INTMASK_CMPB_DOWN & u32RegSource)
             {
-                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INT_SOURCE_LOAD;
+                PWM0_GEN3_ISC_R = (uint32_t) PWM_enGEN_INTMASK_LOAD;
                 pvfCallback = PWM_Generator__pvfGetIRQSourceHandler(PWM_enMODULE_0,
                                                                  PWM_enGEN_3,
-                                                                 PWM_enGEN_INTERRUPT_CMPB_DOWN);
+                                                                 PWM_enGEN_INT_CMPB_DOWN);
                 pvfCallback();
             }
         }

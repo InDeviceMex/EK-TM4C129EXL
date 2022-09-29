@@ -30,7 +30,7 @@
 void PWM_Fault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            PWM_nMODULE enModule,
                                            PWM_nFAULT enFaultArg,
-                                           PWM_nFAULT_INTERRUPT enFaultIntSourceArg)
+                                           PWM_nFAULT_INT enFaultIntSourceArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32FaultReg = 0UL;
@@ -43,11 +43,11 @@ void PWM_Fault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
         u32FaultReg = MCU__u32CheckParams( (uint32_t) enFaultArg,
                                             (uint32_t) PWM_enFAULT_MAX);
         u32FaultIntSourceReg = MCU__u32CheckParams( (uint32_t) enFaultIntSourceArg,
-                                               (uint32_t) PWM_enFAULT_INTERRUPT_MAX);
+                                               (uint32_t) PWM_enFAULT_INT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                    PWM_Fault__pvfGetIRQSourceHandlerPointer((PWM_nMODULE) u32Module,
                                                              (PWM_nFAULT) u32FaultReg,
-                                                             (PWM_nFAULT_INTERRUPT) u32FaultIntSourceReg),
+                                                             (PWM_nFAULT_INT) u32FaultIntSourceReg),
                    0UL,
                    1UL);
     }
@@ -56,7 +56,7 @@ void PWM_Fault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
 void PWM_Generator__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            PWM_nMODULE enModule,
                                            PWM_nGENERATOR enGeneratorArg,
-                                           PWM_nGEN_INTERRUPT enGeneratorIntSourceArg)
+                                           PWM_nGEN_INT enGeneratorIntSourceArg)
 {
     uint32_t u32Module = 0UL;
     uint32_t u32GeneratorReg = 0UL;
@@ -69,11 +69,11 @@ void PWM_Generator__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
         u32GeneratorReg = MCU__u32CheckParams( (uint32_t) enGeneratorArg,
                                             (uint32_t) PWM_enGEN_MAX);
         u32GeneratorIntSourceReg = MCU__u32CheckParams( (uint32_t) enGeneratorIntSourceArg,
-                                               (uint32_t) PWM_enGEN_INTERRUPT_MAX);
+                                               (uint32_t) PWM_enGEN_INT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                    PWM_Generator__pvfGetIRQSourceHandlerPointer((PWM_nMODULE) u32Module,
                                                              (PWM_nGENERATOR) u32GeneratorReg,
-                                                             (PWM_nGEN_INTERRUPT) u32GeneratorIntSourceReg),
+                                                             (PWM_nGEN_INT) u32GeneratorIntSourceReg),
                    0UL,
                    1UL);
     }

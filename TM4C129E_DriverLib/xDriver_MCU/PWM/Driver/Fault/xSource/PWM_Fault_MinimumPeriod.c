@@ -45,7 +45,7 @@ uint32_t PWM_Fault__u32GetMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enG
 }
 
 void PWM_Fault__vSetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                        PWM_nFAULT_ENABLE enEnableArg)
+                                        PWM_nSTATE enEnableArg)
 {
     PWM_Fault__vSetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_CTL_OFFSET,
                            (uint32_t) enEnableArg,
@@ -53,10 +53,10 @@ void PWM_Fault__vSetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enG
                            PWM_GEN_CTL_R_MINFLTPER_BIT);
 }
 
-PWM_nFAULT_ENABLE PWM_Fault__enGetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nSTATE PWM_Fault__enGetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
-    PWM_nFAULT_ENABLE enEnableReg = PWM_enFAULT_ENABLE_DIS;
-    enEnableReg = (PWM_nFAULT_ENABLE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
+    PWM_nSTATE enEnableReg = PWM_enSTATE_DIS;
+    enEnableReg = (PWM_nSTATE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_CTL_OFFSET,
                                        PWM_GEN_CTL_MINFLTPER_MASK,

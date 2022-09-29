@@ -34,10 +34,10 @@ void PWM_Fault__vSetInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator
 }
 
 void PWM_Fault__vEnableInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_INPUT enFaultInputSource, PWM_nFAULT_ENABLE enFaultInputEnable)
+                                PWM_nFAULT_INPUT enFaultInputSource, PWM_nSTATE enFaultInputEnable)
 {
     PWM_nFAULT_INPUT enFaultInputSourceReg = PWM_enFAULT_INPUT_NONE;
-    if(PWM_enFAULT_ENABLE_DIS != enFaultInputEnable)
+    if(PWM_enSTATE_DIS != enFaultInputEnable)
     {
         enFaultInputSourceReg = enFaultInputSource;
     }
@@ -58,10 +58,10 @@ PWM_nFAULT_INPUT PWM_Fault__enGetInputSource(PWM_nMODULE enModule, PWM_nGENERATO
 
 void PWM_Fault__vSetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                     PWM_nFAULT_INPUT enFaultInputSource,
-                                    PWM_nFAULT_INPUT_SENSE enFaultInputSense)
+                                    PWM_nLEVEL enFaultInputSense)
 {
     PWM_nFAULT_INPUT enFaultInputSourceReg = PWM_enFAULT_INPUT_NONE;
-    if(PWM_enFAULT_INPUT_SENSE_HIGH != enFaultInputSense)
+    if(PWM_enLEVEL_HIGH != enFaultInputSense)
     {
         enFaultInputSourceReg = enFaultInputSource;
     }
@@ -69,11 +69,11 @@ void PWM_Fault__vSetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGener
                            (uint32_t) enFaultInputSourceReg, (uint32_t) enFaultInputSource, PWM_GEN_EXT_FLTSEN_R_FAULT0_BIT);
 }
 
-PWM_nFAULT_INPUT_SENSE PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+PWM_nLEVEL PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                                        PWM_nFAULT_INPUT enFaultInputSource)
 {
     uint32_t u32FaultInputSenseReg = 0UL;
-    PWM_nFAULT_INPUT_SENSE enFaultInputSenseReg = PWM_enFAULT_INPUT_SENSE_HIGH;
+    PWM_nLEVEL enFaultInputSenseReg = PWM_enLEVEL_HIGH;
     u32FaultInputSenseReg = PWM_Fault__u32GetGenericExt((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_EXT_FLTSEN_OFFSET,
@@ -81,7 +81,7 @@ PWM_nFAULT_INPUT_SENSE PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM
                                        PWM_GEN_EXT_FLTSEN_R_FAULT0_BIT);
     if(0UL != u32FaultInputSenseReg)
     {
-        enFaultInputSenseReg = PWM_enFAULT_INPUT_SENSE_LOW;
+        enFaultInputSenseReg = PWM_enLEVEL_LOW;
     }
     return (enFaultInputSenseReg);
 }

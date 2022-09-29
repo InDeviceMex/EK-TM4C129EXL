@@ -34,7 +34,7 @@ void PWM__vSetReady(PWM_nMODULE enModule)
 {
 
 #if !defined(Opt_Check)
-    PWM_nREADY enReady = PWM_enNOREADY;
+    PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
     uint32_t u32Module = 0UL;
 
@@ -42,7 +42,7 @@ void PWM__vSetReady(PWM_nMODULE enModule)
 
     enPeripheral = SYSCTL_VECTOR_PWM[u32Module];
     enReady = PWM__enIsReady((PWM_nMODULE) u32Module);
-    if(PWM_enNOREADY == enReady)
+    if(PWM_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
         SYSCTL__vReset(enPeripheral);
@@ -64,17 +64,17 @@ void PWM__vClearReady(PWM_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-PWM_nREADY PWM__enIsReady(PWM_nMODULE enModule)
+PWM_nSTATUS PWM__enIsReady(PWM_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    PWM_nREADY enReady = PWM_enNOREADY;
+    PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
     uint32_t u32Module =0UL;
     u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
     enPeripheral = SYSCTL_VECTOR_PWM[u32Module];
-    enReady = (PWM_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (PWM_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    PWM_nREADY enReady = PWM_enREADY;
+    PWM_nSTATUS enReady = PWM_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

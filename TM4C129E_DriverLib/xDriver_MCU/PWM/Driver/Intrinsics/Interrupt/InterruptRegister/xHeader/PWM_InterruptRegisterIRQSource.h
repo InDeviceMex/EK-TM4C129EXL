@@ -30,10 +30,10 @@
 void PWM_Fault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            PWM_nMODULE enModule,
                                            PWM_nFAULT enFaultArg,
-                                           PWM_nFAULT_INTERRUPT enFaultIntSourceArg);
+                                           PWM_nFAULT_INT enFaultIntSourceArg);
 void PWM_Generator__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                            PWM_nMODULE enModule,
                                            PWM_nGENERATOR enGeneratorArg,
-                                           PWM_nGEN_INTERRUPT enGeneratorIntSourceArg);
+                                           PWM_nGEN_INT enGeneratorIntSourceArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_PWM_INTERRUPTREGISTERIRQSOURCE_H_ */

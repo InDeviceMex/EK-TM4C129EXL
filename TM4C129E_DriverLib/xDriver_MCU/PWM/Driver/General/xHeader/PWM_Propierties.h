@@ -29,8 +29,8 @@
 
 uint32_t PWM__u32GetMaxGeneratorNumber(PWM_nMODULE enModule);
 uint32_t PWM__u32GetMaxFaultNumber(PWM_nMODULE enModule);
-PWM_nSTATE PWM__enIsFaultExtended(PWM_nMODULE enModule);
-PWM_nSTATE PWM__enIsSyncExtended(PWM_nMODULE enModule);
-PWM_nSTATE PWM__enIsOneShotAvailable(PWM_nMODULE enModule);
+PWM_nSTATUS PWM__enIsFaultExtended(PWM_nMODULE enModule);
+PWM_nSTATUS PWM__enIsSyncExtended(PWM_nMODULE enModule);
+PWM_nSTATUS PWM__enIsOneShotAvailable(PWM_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERAL_XHEADER_PWM_PROPIERTIES_H_ */

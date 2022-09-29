@@ -29,15 +29,15 @@
 
 void (*PWM_Fault__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
                                           PWM_nFAULT enPWMFaultNum,
-                                          PWM_nFAULT_INTERRUPT enFaultIntSource))(void);
+                                          PWM_nFAULT_INT enFaultIntSource))(void);
 void (**PWM_Fault__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
                                               PWM_nFAULT enPWMFaultNum,
-                                              PWM_nFAULT_INTERRUPT enFaultIntSource))(void);
+                                              PWM_nFAULT_INT enFaultIntSource))(void);
 void (*PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
                                           PWM_nGENERATOR enPWMGeneratorNum,
-                                          PWM_nGEN_INTERRUPT enPWMIntSource))(void);
+                                          PWM_nGEN_INT enPWMIntSource))(void);
 void (**PWM_Generator__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
                                                      PWM_nGENERATOR enPWMGeneratorNum,
-                                                     PWM_nGEN_INTERRUPT enPWMIntSource))(void);
+                                                     PWM_nGEN_INT enPWMIntSource))(void);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_PWM_INTERRUPTROUTINE_SOURCE_H_ */

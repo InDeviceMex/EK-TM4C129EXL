@@ -31,13 +31,13 @@ void PWM_Fault__vSetInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator
                                 PWM_nFAULT_INPUT enFaultInputSource);
 void PWM_Fault__vEnableInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                 PWM_nFAULT_INPUT enFaultInputSource,
-                                PWM_nFAULT_ENABLE enFaultInputEnable);
+                                PWM_nSTATE enFaultInputEnable);
 PWM_nFAULT_INPUT PWM_Fault__enGetInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 void PWM_Fault__vSetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                     PWM_nFAULT_INPUT enFaultInputSource,
-                                    PWM_nFAULT_INPUT_SENSE enFaultInputSense);
-PWM_nFAULT_INPUT_SENSE PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+                                    PWM_nLEVEL enFaultInputSense);
+PWM_nLEVEL PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                                        PWM_nFAULT_INPUT enFaultInputSource);
 
 void PWM_Fault__vClearInputStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,

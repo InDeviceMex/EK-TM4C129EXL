@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Generator__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nGENERATOR_ENABLE enEnableArg)
+                               PWM_nSTATE enEnableArg)
 {
     PWM_Generator__vSetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
@@ -37,10 +37,10 @@ void PWM_Generator__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                        PWM_GEN_CTL_R_ENABLE_BIT);
 }
 
-PWM_nGENERATOR_ENABLE PWM_Generator__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nSTATE PWM_Generator__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
-    PWM_nGENERATOR_ENABLE enEnableReg = PWM_enGENERATOR_ENABLE_DIS;
-    enEnableReg = (PWM_nGENERATOR_ENABLE) PWM_Generator__u32GetGeneric((uint32_t) enModule,
+    PWM_nSTATE enEnableReg = PWM_enSTATE_DIS;
+    enEnableReg = (PWM_nSTATE) PWM_Generator__u32GetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_CTL_OFFSET,
                                        PWM_GEN_CTL_ENABLE_MASK,

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Output__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_ENABLE enEnableArg)
+                            PWM_nOUTPUT enOutputArg, PWM_nSTATE enEnableArg)
 {
     uint32_t u32FeatureReg = 0UL;
     u32FeatureReg =  (uint32_t) enOutputArg;
@@ -52,7 +52,7 @@ PWM_nOUTPUT PWM_Output__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGener
 }
 
 void PWM_Output__vSetEnableByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg,
-                            PWM_nOUTPUT_ENABLE enEnableArg)
+                            PWM_nSTATE enEnableArg)
 {
     PWM_Output__vSetGeneric((uint32_t) enModule, PWM_ENABLE_OFFSET,
                             (uint32_t) enOutputNumberArg, (uint32_t) enEnableArg,

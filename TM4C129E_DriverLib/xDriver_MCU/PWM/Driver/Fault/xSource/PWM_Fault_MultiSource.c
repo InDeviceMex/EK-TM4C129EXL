@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Fault__vSetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                        PWM_nFAULT_ENABLE enEnableArg)
+                                        PWM_nSTATE enEnableArg)
 {
     PWM_Fault__vSetGeneric((uint32_t) enModule,
                            (uint32_t) enGenerator,
@@ -37,10 +37,10 @@ void PWM_Fault__vSetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator
                            PWM_GEN_CTL_R_FLTSRC_BIT);
 }
 
-PWM_nFAULT_ENABLE PWM_Fault__enGetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nSTATE PWM_Fault__enGetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
-    PWM_nFAULT_ENABLE enEnableReg = PWM_enFAULT_ENABLE_DIS;
-    enEnableReg = (PWM_nFAULT_ENABLE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
+    PWM_nSTATE enEnableReg = PWM_enSTATE_DIS;
+    enEnableReg = (PWM_nSTATE) PWM_Fault__u32GetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_CTL_OFFSET,
                                        PWM_GEN_CTL_FLTSRC_MASK,

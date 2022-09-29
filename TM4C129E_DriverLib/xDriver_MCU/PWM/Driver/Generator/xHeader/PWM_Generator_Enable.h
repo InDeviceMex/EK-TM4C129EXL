@@ -28,7 +28,7 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_Generator__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nGENERATOR_ENABLE enEnableArg);
-PWM_nGENERATOR_ENABLE PWM_Generator__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+                               PWM_nSTATE enEnableArg);
+PWM_nSTATE PWM_Generator__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_ENABLE_H_ */

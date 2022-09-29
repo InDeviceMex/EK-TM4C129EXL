@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-PWM_nSTATUS PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                              uint32_t u32PeriodArg);
 uint32_t PWM_Generator__u32GetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 

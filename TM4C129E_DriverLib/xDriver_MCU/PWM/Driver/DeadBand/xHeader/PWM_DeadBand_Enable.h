@@ -28,7 +28,7 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_DeadBand__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nDEADBAND_ENABLE enEnableArg);
-PWM_nDEADBAND_ENABLE PWM_DeadBand__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+                               PWM_nSTATE enEnableArg);
+PWM_nSTATE PWM_DeadBand__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_DEADBAND_XHEADER_PWM_DEADBAND_ENABLE_H_ */

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_Generator__vSetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg, PWM_nGENERATOR_ENABLE enEnableArg)
+                               PWM_nEVENT enEventArg, PWM_nSTATE enEnableArg)
 {
     uint32_t u32BitOffset = 0UL;
 
@@ -37,15 +37,15 @@ void PWM_Generator__vSetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenera
                                (uint32_t) enEnableArg, PWM_GEN_INTEN_TRCNTZERO_MASK, u32BitOffset);
 }
 
-PWM_nGENERATOR_ENABLE PWM_Generator__enGetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+PWM_nSTATE PWM_Generator__enGetADCTrigger(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                PWM_nEVENT enEventArg)
 {
-    PWM_nGENERATOR_ENABLE enEnableReg = PWM_enGENERATOR_ENABLE_DIS;
+    PWM_nSTATE enEnableReg = PWM_enSTATE_DIS;
     uint32_t u32BitOffset = 0UL;
 
     u32BitOffset = PWM_GEN_INTEN_R_TRCNTZERO_BIT;
     u32BitOffset += (uint32_t) enEventArg;
-    enEnableReg = (PWM_nGENERATOR_ENABLE) PWM_Generator__u32GetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_INTEN_OFFSET,
+    enEnableReg = (PWM_nSTATE) PWM_Generator__u32GetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_INTEN_OFFSET,
                                                              PWM_GEN_INTEN_TRCNTZERO_MASK, u32BitOffset);
     return (enEnableReg);
 }

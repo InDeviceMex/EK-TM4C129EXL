@@ -28,18 +28,18 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_Output__vEnInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                PWM_nGEN_INTMASK enPwnIntArg);
 void PWM_Output__vEnMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                    PWM_nGEN_INTMASK enPwnIntArg);
 void PWM_Output__vDisInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                PWM_nGEN_INTMASK enPwnIntArg);
 void PWM_Output__vDisMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                    PWM_nGEN_INTMASK enPwnIntArg);
 void PWM_Output__vClearInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                PWM_nGEN_INTMASK enPwnIntArg);
 void PWM_Output__vClearMaskInterruptSource(PWM_nMODULE enModule, PWM_nGENMASK enGenMaskArg,
-                                    PWM_nGEN_INT_SOURCE enPwnIntArg);
-PWM_nGEN_INT_SOURCE PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
-                                PWM_nGEN_INT_SOURCE enPwnIntArg);
+                                    PWM_nGEN_INTMASK enPwnIntArg);
+PWM_nGEN_INTMASK PWM_Output__enStatusInterruptSource(PWM_nMODULE enModule, PWM_nGENERATOR enGeneratorArg,
+                                PWM_nGEN_INTMASK enPwnIntArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_INTERRUPT_XHEADER_PWM_INTERRUPTSOURCE_OUTPUT_H_ */

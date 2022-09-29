@@ -27,7 +27,7 @@
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
 void PWM_DeadBand__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nDEADBAND_ENABLE enEnableArg)
+                               PWM_nSTATE enEnableArg)
 {
     PWM_DeadBand__vSetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
@@ -37,10 +37,10 @@ void PWM_DeadBand__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                        PWM_GEN_DBCTL_R_ENABLE_BIT);
 }
 
-PWM_nDEADBAND_ENABLE PWM_DeadBand__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nSTATE PWM_DeadBand__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
 {
-    PWM_nDEADBAND_ENABLE enEnableReg = PWM_enDEADBAND_ENABLE_DIS;
-    enEnableReg = (PWM_nDEADBAND_ENABLE) PWM_DeadBand__u32GetGeneric((uint32_t) enModule,
+    PWM_nSTATE enEnableReg = PWM_enSTATE_DIS;
+    enEnableReg = (PWM_nSTATE) PWM_DeadBand__u32GetGeneric((uint32_t) enModule,
                                        (uint32_t) enGenerator,
                                        PWM_GEN_DBCTL_OFFSET,
                                        PWM_GEN_DBCTL_ENABLE_MASK,

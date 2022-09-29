@@ -28,7 +28,7 @@
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
 void PWM_Fault__vSetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                        PWM_nFAULT_ENABLE enEnableArg);
-PWM_nFAULT_ENABLE PWM_Fault__enGetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+                                        PWM_nSTATE enEnableArg);
+PWM_nSTATE PWM_Fault__enGetMultiSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_MULTISOURCE_H_ */

@@ -31,7 +31,7 @@ void PWM_Fault__vSetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR
                                 PWM_nFAULT_DCOMP enFaultDCompSource);
 void PWM_Fault__vEnableDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                                PWM_nFAULT_DCOMP enFaultDCompSource,
-                                               PWM_nFAULT_ENABLE enFaultDCompEnable);
+                                               PWM_nSTATE enFaultDCompEnable);
 PWM_nFAULT_DCOMP PWM_Fault__enGetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
 
 void PWM_Fault__vClearDigitalComparatorStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,

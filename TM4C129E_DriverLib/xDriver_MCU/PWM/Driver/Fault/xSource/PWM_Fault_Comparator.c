@@ -36,10 +36,10 @@ void PWM_Fault__vSetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR
 
 void PWM_Fault__vEnableDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                                                PWM_nFAULT_DCOMP enFaultDCompSource,
-                                               PWM_nFAULT_ENABLE enFaultDCompEnable)
+                                               PWM_nSTATE enFaultDCompEnable)
 {
     PWM_nFAULT_DCOMP enFaultDCompSourceReg = PWM_enFAULT_DCOMP_NONE;
-    if(PWM_enFAULT_ENABLE_DIS != enFaultDCompEnable)
+    if(PWM_enSTATE_DIS != enFaultDCompEnable)
     {
         enFaultDCompSourceReg = enFaultDCompSource;
     }

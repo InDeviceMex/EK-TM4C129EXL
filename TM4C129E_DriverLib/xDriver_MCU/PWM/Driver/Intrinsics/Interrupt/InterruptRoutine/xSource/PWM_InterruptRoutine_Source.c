@@ -28,7 +28,7 @@ static void WDT_vIRQSourceHandler_Dummy(void);
 
 void (*PWM_Generator__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
                                     [(uint32_t)PWM_enGEN_MAX]
-                                    [(uint32_t)PWM_enGEN_INTERRUPT_MAX])(void) =
+                                    [(uint32_t)PWM_enGEN_INT_MAX])(void) =
 {
     {
         {
@@ -56,7 +56,7 @@ void (*PWM_Generator__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
 
 void (*PWM_Fault__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
                                     [(uint32_t)PWM_enFAULT_MAX]
-                                     [(uint32_t)PWM_enFAULT_INTERRUPT_MAX])(void) =
+                                     [(uint32_t)PWM_enFAULT_INT_MAX])(void) =
 {
  {
     {
@@ -98,7 +98,7 @@ static void PWM_vIRQSourceHandler_Dummy_Blocking(void)
 
 void (*PWM_Fault__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
                                           PWM_nFAULT enPWMFaultNum,
-                                          PWM_nFAULT_INTERRUPT enFaultIntSource))(void)
+                                          PWM_nFAULT_INT enFaultIntSource))(void)
 {
     void(*pvfReg)(void) = (void(*)(void)) 0UL;
     pvfReg = PWM_Fault__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
@@ -109,7 +109,7 @@ void (*PWM_Fault__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
 
 void (**PWM_Fault__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
                                               PWM_nFAULT enPWMFaultNum,
-                                              PWM_nFAULT_INTERRUPT enFaultIntSource))(void)
+                                              PWM_nFAULT_INT enFaultIntSource))(void)
 {
     void(**pvfReg)(void) = (void(**)(void)) 0UL;
     pvfReg = (void(**)(void)) &PWM_Fault__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
@@ -120,7 +120,7 @@ void (**PWM_Fault__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
 
 void (*PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
                                           PWM_nGENERATOR enPWMGeneratorNum,
-                                          PWM_nGEN_INTERRUPT enPWMIntSource))(void)
+                                          PWM_nGEN_INT enPWMIntSource))(void)
 {
     void(*pvfReg)(void) = (void(*)(void)) 0UL;
     pvfReg = PWM_Generator__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
@@ -131,7 +131,7 @@ void (*PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
 
 void (**PWM_Generator__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
                                                      PWM_nGENERATOR enPWMGeneratorNum,
-                                                     PWM_nGEN_INTERRUPT enPWMIntSource))(void)
+                                                     PWM_nGEN_INT enPWMIntSource))(void)
 {
     void(**pvfReg)(void) = (void(**)(void)) 0UL;
     pvfReg = (void(**)(void)) &PWM_Generator__vIRQSourceHandler[(uint32_t) enPWMSubmodule]

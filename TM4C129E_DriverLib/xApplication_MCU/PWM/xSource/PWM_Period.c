@@ -25,10 +25,10 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-PWM_nSTATUS PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
+PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
                              uint32_t u32PeriodArg)
 {
-    PWM_nSTATUS enStatus = PWM_enSTATUS_ERROR;
+    PWM_nERROR enStatus = PWM_enERROR_POINTER;
     uint32_t u32SysClk = 0UL;
     uint32_t u32LoadValue = 0UL;
     uint32_t u32Divisor = 0UL;
@@ -37,7 +37,7 @@ PWM_nSTATUS PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR e
     PWM_nCLOCK enClkSource = PWM_enCLOCK_SYSCLK;
     if(0UL != u32PeriodArg)
     {
-        enStatus = PWM_enSTATUS_OK;
+        enStatus = PWM_enERROR_OK;
         enDivShift = PWM__enGetClockDivisor(enModule);
         enClkSource = PWM__enGetClockSource(enModule);
         /*First time this module will be configured*/
@@ -66,7 +66,7 @@ PWM_nSTATUS PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR e
                 }
                 else
                 {
-                    enStatus = PWM_enSTATUS_ERROR;
+                    enStatus = PWM_enERROR_POINTER;
                 }
 
             }
@@ -99,7 +99,7 @@ PWM_nSTATUS PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR e
             }
             else
             {
-                enStatus = PWM_enSTATUS_ERROR;
+                enStatus = PWM_enERROR_POINTER;
             }
 
         }
