@@ -31,6 +31,121 @@
 ************************************ 24 FIFOCTL *********************************************
 ******************************************************************************************/
 /*--------*/
+#define I2C_FIFO_CTL_R_TXTRIG_MASK    ((uint32_t) 0x00000007UL)
+#define I2C_FIFO_CTL_R_TXTRIG_BIT    ((uint32_t) 0UL)
+#define I2C_FIFO_CTL_R_TXTRIG_EMPTY    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_TXTRIG_1BYTE    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_R_TXTRIG_2BYTE    ((uint32_t) 0x00000002UL)
+#define I2C_FIFO_CTL_R_TXTRIG_3BYTE    ((uint32_t) 0x00000003UL)
+#define I2C_FIFO_CTL_R_TXTRIG_4BYTE    ((uint32_t) 0x00000004UL)
+#define I2C_FIFO_CTL_R_TXTRIG_5BYTE    ((uint32_t) 0x00000005UL)
+#define I2C_FIFO_CTL_R_TXTRIG_6BYTE    ((uint32_t) 0x00000006UL)
+#define I2C_FIFO_CTL_R_TXTRIG_7BYTE    ((uint32_t) 0x00000007UL)
+
+#define I2C_FIFO_CTL_TXTRIG_MASK    ((uint32_t) 0x00000007UL)
+#define I2C_FIFO_CTL_TXTRIG_EMPTY    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_TXTRIG_1BYTE    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_TXTRIG_2BYTE    ((uint32_t) 0x00000002UL)
+#define I2C_FIFO_CTL_TXTRIG_3BYTE    ((uint32_t) 0x00000003UL)
+#define I2C_FIFO_CTL_TXTRIG_4BYTE    ((uint32_t) 0x00000004UL)
+#define I2C_FIFO_CTL_TXTRIG_5BYTE    ((uint32_t) 0x00000005UL)
+#define I2C_FIFO_CTL_TXTRIG_6BYTE    ((uint32_t) 0x00000006UL)
+#define I2C_FIFO_CTL_TXTRIG_7BYTE    ((uint32_t) 0x00000007UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_DMATXENA_MASK    ((uint32_t) 0x00002000UL)
+#define I2C_FIFO_CTL_R_DMATXENA_BIT    ((uint32_t) 13UL)
+#define I2C_FIFO_CTL_R_DMATXENA_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_DMATXENA_ENA    ((uint32_t) 0x00002000UL)
+
+#define I2C_FIFO_CTL_DMATXENA_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_DMATXENA_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_DMATXENA_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_TXFLUSH_MASK    ((uint32_t) 0x00004000UL)
+#define I2C_FIFO_CTL_R_TXFLUSH_BIT    ((uint32_t) 14UL)
+#define I2C_FIFO_CTL_R_TXFLUSH_COMPLETE    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_TXFLUSH_FLUSH    ((uint32_t) 0x00004000UL)
+
+#define I2C_FIFO_CTL_TXFLUSH_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_TXFLUSH_COMPLETE    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_TXFLUSH_FLUSH    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_TXASGNMT_MASK    ((uint32_t) 0x00008000UL)
+#define I2C_FIFO_CTL_R_TXASGNMT_BIT    ((uint32_t) 15UL)
+#define I2C_FIFO_CTL_R_TXASGNMT_MASTER    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_TXASGNMT_SLAVE    ((uint32_t) 0x00008000UL)
+
+#define I2C_FIFO_CTL_TXASGNMT_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_TXASGNMT_MASTER    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_TXASGNMT_SLAVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_RXTRIG_MASK    ((uint32_t) 0x00070000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_BIT    ((uint32_t) 16UL)
+#define I2C_FIFO_CTL_R_RXTRIG_EMPTY    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_1BYTE    ((uint32_t) 0x00010000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_2BYTE    ((uint32_t) 0x00020000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_3BYTE    ((uint32_t) 0x00030000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_4BYTE    ((uint32_t) 0x00040000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_5BYTE    ((uint32_t) 0x00050000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_6BYTE    ((uint32_t) 0x00060000UL)
+#define I2C_FIFO_CTL_R_RXTRIG_7BYTE    ((uint32_t) 0x00070000UL)
+
+#define I2C_FIFO_CTL_RXTRIG_MASK    ((uint32_t) 0x00000007UL)
+#define I2C_FIFO_CTL_RXTRIG_EMPTY    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_RXTRIG_1BYTE    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_RXTRIG_2BYTE    ((uint32_t) 0x00000002UL)
+#define I2C_FIFO_CTL_RXTRIG_3BYTE    ((uint32_t) 0x00000003UL)
+#define I2C_FIFO_CTL_RXTRIG_4BYTE    ((uint32_t) 0x00000004UL)
+#define I2C_FIFO_CTL_RXTRIG_5BYTE    ((uint32_t) 0x00000005UL)
+#define I2C_FIFO_CTL_RXTRIG_6BYTE    ((uint32_t) 0x00000006UL)
+#define I2C_FIFO_CTL_RXTRIG_7BYTE    ((uint32_t) 0x00000007UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_DMARXENA_MASK    ((uint32_t) 0x20000000UL)
+#define I2C_FIFO_CTL_R_DMARXENA_BIT    ((uint32_t) 29UL)
+#define I2C_FIFO_CTL_R_DMARXENA_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_DMARXENA_ENA    ((uint32_t) 0x20000000UL)
+
+#define I2C_FIFO_CTL_DMARXENA_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_DMARXENA_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_DMARXENA_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_RXFLUSH_MASK    ((uint32_t) 0x40000000UL)
+#define I2C_FIFO_CTL_R_RXFLUSH_BIT    ((uint32_t) 30UL)
+#define I2C_FIFO_CTL_R_RXFLUSH_COMPLETE    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_RXFLUSH_FLUSH    ((uint32_t) 0x40000000UL)
+
+#define I2C_FIFO_CTL_RXFLUSH_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_RXFLUSH_COMPLETE    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_RXFLUSH_FLUSH    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_FIFO_CTL_R_RXASGNMT_MASK    ((uint32_t) 0x80000000UL)
+#define I2C_FIFO_CTL_R_RXASGNMT_BIT    ((uint32_t) 31UL)
+#define I2C_FIFO_CTL_R_RXASGNMT_MASTER    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_R_RXASGNMT_SLAVE    ((uint32_t) 0x80000000UL)
+
+#define I2C_FIFO_CTL_RXASGNMT_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_FIFO_CTL_RXASGNMT_MASTER    ((uint32_t) 0x00000000UL)
+#define I2C_FIFO_CTL_RXASGNMT_SLAVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/******************************************************************************************
+************************************ 24 FIFOCTL *********************************************
+******************************************************************************************/
+/*--------*/
 #define I2C_FIFOCTL_R_TXTRIG_MASK    ((uint32_t) 0x00000007UL)
 #define I2C_FIFOCTL_R_TXTRIG_BIT    ((uint32_t) 0UL)
 #define I2C_FIFOCTL_R_TXTRIG_EMPTY    ((uint32_t) 0x00000000UL)
@@ -141,5 +256,4 @@
 #define I2C_FIFOCTL_RXASGNMT_MASTER    ((uint32_t) 0x00000000UL)
 #define I2C_FIFOCTL_RXASGNMT_SLAVE    ((uint32_t) 0x00000001UL)
 /*--------*/
-
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_FIFOCTL_H_ */

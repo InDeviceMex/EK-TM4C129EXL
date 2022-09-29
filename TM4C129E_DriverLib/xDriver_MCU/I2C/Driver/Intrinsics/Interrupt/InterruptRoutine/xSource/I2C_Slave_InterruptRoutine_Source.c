@@ -23,90 +23,89 @@
  */
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/I2C_Slave_InterruptRoutine_Source.h>
 
-static void I2C_vIRQSourceHandler_Dummy(void);
+static void I2C_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
 
-void (*I2C_Slave__vIRQSourceHandler[(uint32_t) I2C_enMODULE_MAX][(uint32_t) I2C_enSLAVE_INTERRUPT_MAX]) (void) =
+static I2C_pvfIRQSourceHandler_t I2C_Slave_vIRQSourceHandler[(uint32_t) I2C_enMODULE_MAX][(uint32_t) I2C_enSLAVE_INT_MAX] =
 {
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
-    {
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
-         &I2C_vIRQSourceHandler_Dummy
-    },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
+ {
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,&I2C_vIRQSourceHandler_Dummy,
+      &I2C_vIRQSourceHandler_Dummy
+ },
 };
-static void I2C_vIRQSourceHandler_Dummy(void)
+
+static void I2C_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
 {
+    (void) uptrModuleArg;
+    (void) pvArgument;
     while(1UL){}
 }
 
-void (*I2C_Slave__pvfGetIRQSourceHandler(I2C_nMODULE enI2CPort,
-                                    I2C_nSLAVE_INTERRUPT enInterruptNumber))(void)
+I2C_pvfIRQSourceHandler_t I2C_Slave__pvfGetIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_nSLAVE_INT enIntSourceArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = I2C_Slave__vIRQSourceHandler[(uint32_t) enI2CPort][(uint32_t) enInterruptNumber];
+    I2C_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = I2C_Slave_vIRQSourceHandler[(uint32_t) enModuleArg][(uint32_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**I2C_Slave__pvfGetIRQSourceHandlerPointer(I2C_nMODULE enI2CPort,
-                                            I2C_nSLAVE_INTERRUPT enInterruptNumber))(void)
+I2C_pvfIRQSourceHandler_t* I2C_Slave__pvfGetIRQSourceHandlerPointer(I2C_nMODULE enModuleArg, I2C_nSLAVE_INT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &I2C_Slave__vIRQSourceHandler[(uint32_t) enI2CPort]
-                                                              [(uint32_t) enInterruptNumber];
+    I2C_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &I2C_Slave_vIRQSourceHandler[(uint32_t) enModuleArg][(uint32_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
-

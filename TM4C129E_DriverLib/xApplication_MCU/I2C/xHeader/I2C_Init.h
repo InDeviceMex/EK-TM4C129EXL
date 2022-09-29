@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_I2C_XHEADER_I2C_INIT_H_
 #define XAPPLICATION_MCU_I2C_XHEADER_I2C_INIT_H_
 
-void I2C__vInit(void);
+#include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
+
+I2C_nERROR I2C__enInit(void);
 
 #endif /* XAPPLICATION_MCU_I2C_XHEADER_I2C_INIT_H_ */

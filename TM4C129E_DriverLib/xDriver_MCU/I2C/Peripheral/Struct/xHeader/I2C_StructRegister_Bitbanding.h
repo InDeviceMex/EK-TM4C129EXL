@@ -33,7 +33,7 @@ typedef volatile struct
     volatile uint32_t RS;
     volatile uint32_t SA [7UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CMSA_t;
+}I2C_MASTER_BITBANDING_SA_t;
 
 typedef volatile struct
 {
@@ -48,7 +48,7 @@ typedef volatile struct
     const uint32_t reserved [22UL];
     volatile const uint32_t ACTDMATX;
     volatile const uint32_t ACTDMARX;
-}BITBANDING_I2CMCS_STATUS_t;
+}I2C_MASTER_BITBANDING_STS_t;
 
 typedef volatile struct
 {
@@ -60,13 +60,13 @@ typedef volatile struct
     volatile uint32_t QCMD;
     volatile uint32_t BURST;
     const uint32_t reserved [25UL];
-}BITBANDING_I2CMCS_CONTROL_t;
+}I2C_MASTER_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CMDR_t;
+}I2C_MASTER_BITBANDING_DATA_t;
 
 typedef volatile struct
 {
@@ -75,7 +75,7 @@ typedef volatile struct
     const uint32_t reserved [8UL];
     volatile uint32_t PULSEL [3UL];
     const uint32_t reserved1 [13UL];
-}BITBANDING_I2CMTPR_t;
+}I2C_MASTER_BITBANDING_TPR_t;
 
 typedef volatile struct
 {
@@ -92,7 +92,7 @@ typedef volatile struct
     volatile uint32_t TXFEIM;
     volatile uint32_t RXFFIM;
     const uint32_t reserved [20UL];
-}BITBANDING_I2CMIMR_t;
+}I2C_MASTER_BITBANDING_IMR_t;
 
 typedef volatile struct
 {
@@ -109,7 +109,7 @@ typedef volatile struct
     volatile const uint32_t TXFERIS;
     volatile const uint32_t RXFFRIS;
     const uint32_t reserved [20UL];
-}BITBANDING_I2CMRIS_t;
+}I2C_MASTER_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
@@ -126,7 +126,7 @@ typedef volatile struct
     volatile const uint32_t TXFEMIS;
     volatile const uint32_t RXFFMIS;
     const uint32_t reserved [20UL];
-}BITBANDING_I2CMMIS_t;
+}I2C_MASTER_BITBANDING_MIS_t;
 
 typedef volatile struct
 {
@@ -143,7 +143,7 @@ typedef volatile struct
     volatile uint32_t TXFEIC;
     volatile uint32_t RXFFIC;
     const uint32_t reserved [20UL];
-}BITBANDING_I2CMICR_t;
+}I2C_MASTER_BITBANDING_ICR_t;
 
 typedef volatile struct
 {
@@ -152,32 +152,32 @@ typedef volatile struct
     volatile uint32_t MFE;
     volatile uint32_t SFE;
     const uint32_t reserved2 [26UL];
-}BITBANDING_I2CMCR_t;
+}I2C_MASTER_BITBANDING_CR_t;
 
 typedef volatile struct
 {
     volatile uint32_t CNTL [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CMCLKOCNT_t;
+}I2C_MASTER_BITBANDING_CLKOCNT_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SCL;
     volatile const uint32_t SDA;
     const uint32_t reserved [30UL];
-}BITBANDING_I2CMBMON_t;
+}I2C_MASTER_BITBANDING_BMON_t;
 
 typedef volatile struct
 {
     volatile uint32_t CNTL [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CMBLEN_t;
+}I2C_MASTER_BITBANDING_BLEN_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CNTL [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CMBCNT_t;
+}I2C_MASTER_BITBANDING_BCNT_t;
 
 /*Slave*/
 
@@ -185,7 +185,7 @@ typedef volatile struct
 {
     volatile uint32_t OAR [7UL];
     const uint32_t reserved [25UL];
-}BITBANDING_I2CSOAR_t;
+}I2C_SLAVE_BITBANDING_OAR_t;
 
 typedef volatile struct
 {
@@ -198,7 +198,7 @@ typedef volatile struct
     const uint32_t reserved [24UL];
     volatile const uint32_t ACTDMATX;
     volatile const uint32_t ACTDMARX;
-}BITBANDING_I2CSCSR_STATUS_t;
+}I2C_SLAVE_BITBANDING_STS_t;
 
 typedef volatile struct
 {
@@ -206,13 +206,13 @@ typedef volatile struct
     volatile uint32_t TXFIFO;
     volatile uint32_t RXFIFO;
     const uint32_t reserved [29UL];
-}BITBANDING_I2CSCSR_CONTROL_t;
+}I2C_SLAVE_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CSDR_t;
+}I2C_SLAVE_BITBANDING_DATA_t;
 
 typedef volatile struct
 {
@@ -226,7 +226,7 @@ typedef volatile struct
     volatile uint32_t TXFEIM;
     volatile uint32_t RXFFIM;
     const uint32_t reserved [23UL];
-}BITBANDING_I2CSIMR_t;
+}I2C_SLAVE_BITBANDING_IMR_t;
 
 typedef volatile struct
 {
@@ -240,7 +240,7 @@ typedef volatile struct
     volatile const uint32_t TXFERIS;
     volatile const uint32_t RXFFRIS;
     const uint32_t reserved [23UL];
-}BITBANDING_I2CSRIS_t;
+}I2C_SLAVE_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
@@ -254,7 +254,7 @@ typedef volatile struct
     volatile const uint32_t TXFEMIS;
     volatile const uint32_t RXFFMIS;
     const uint32_t reserved [23UL];
-}BITBANDING_I2CSMIS_t;
+}I2C_SLAVE_BITBANDING_MIS_t;
 
 typedef volatile struct
 {
@@ -268,21 +268,21 @@ typedef volatile struct
     volatile uint32_t TXFEIC;
     volatile uint32_t RXFFIC;
     const uint32_t reserved [23UL];
-}BITBANDING_I2CSICR_t;
+}I2C_SLAVE_BITBANDING_ICR_t;
 
 typedef volatile struct
 {
     volatile uint32_t OAR2 [7UL];
     volatile uint32_t OAR2EN;
     const uint32_t reserved [24UL];
-}BITBANDING_I2CSOAR2_t;
+}I2C_SLAVE_BITBANDING_OAR2_t;
 
 typedef volatile struct
 {
     volatile uint32_t ACKOEN;
     volatile uint32_t ACKOVAL;
     const uint32_t reserved [30UL];
-}BITBANDING_I2CSACKCTL_t;
+}I2C_SLAVE_BITBANDING_ACKCTL_t;
 
 /*Status Control*/
 
@@ -290,7 +290,7 @@ typedef volatile struct
 {
     volatile const uint32_t DATA [8UL];
     const uint32_t reserved [24UL];
-}BITBANDING_I2CFIFODATA_t;
+}I2C_FIFO_BITBANDING_DATA_t;
 
 typedef volatile struct
 {
@@ -304,7 +304,7 @@ typedef volatile struct
     volatile uint32_t DMARXENA;
     volatile uint32_t RXFLUSH;
     volatile uint32_t RXASGNMT;
-}BITBANDING_I2CFIFOCTL_t;
+}I2C_FIFO_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
@@ -316,18 +316,18 @@ typedef volatile struct
     volatile const uint32_t RXFF;
     volatile const uint32_t RXABVTRIG;
     const uint32_t reserved2 [13UL];
-}BITBANDING_I2CFIFOSTATUS_t;
+}I2C_FIFO_BITBANDING_STS_t;
 
 typedef volatile struct
 {
     volatile const uint32_t HS;
     uint32_t reserved [31UL];
-}BITBANDING_I2CPP_t;
+}I2C_BITBANDING_PP_t;
 
 typedef volatile struct
 {
     volatile uint32_t HS;
     uint32_t reserved [31UL];
-}BITBANDING_I2CPC_t;
+}I2C_BITBANDING_PC_t;
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_STRUCT_XHEADER_I2C_STRUCTREGISTER_BITBANDING_H_ */

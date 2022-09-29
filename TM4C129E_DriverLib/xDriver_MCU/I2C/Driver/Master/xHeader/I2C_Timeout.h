@@ -27,9 +27,7 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Master__vSetTimeoutCount(I2C_nMODULE enModule, uint32_t u32TimeoutArg);
-uint32_t I2C_Master__u32GetTimeoutCount(I2C_nMODULE enModule);
-
-
+I2C_nERROR I2C_Master__enSetSCLTimeoutCount(I2C_nMODULE enModuleArg, uint32_t u32TimeoutArg);
+I2C_nERROR I2C_Master__enGetSCLTimeoutCount(I2C_nMODULE enModuleArg, uint32_t* pu32TimeoutArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_TIMEOUT_H_ */

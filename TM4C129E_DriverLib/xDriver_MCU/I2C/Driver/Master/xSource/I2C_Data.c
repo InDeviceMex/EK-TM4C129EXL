@@ -23,18 +23,45 @@
  */
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Data.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vSetData(I2C_nMODULE enModule, uint32_t u32Data)
+I2C_nERROR I2C_Master__enSetData(I2C_nMODULE enModuleArg, uint32_t u32DataArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MDR_OFFSET, u32Data, 0xFFFFFFFFUL, 0UL);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uptrAddress = I2C_MASTER_DATA_OFFSET;
+    stRegister.u32Value = (uint32_t) u32DataArg;
+    enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-uint32_t I2C_Master__u32GetData(I2C_nMODULE enModule)
+I2C_nERROR I2C_Master__enGetData(I2C_nMODULE enModuleArg, uint32_t* pu32DataArg)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = I2C__u32ReadRegister(enModule, I2C_MDR_OFFSET,
-                             I2C_MDR_DATA_MASK, I2C_MDR_R_DATA_BIT);
-    return (u32Reg);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) pu32DataArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = 0UL;
+        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uptrAddress = I2C_MASTER_DATA_OFFSET;
+        enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        *pu32DataArg = (uint32_t) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }
+

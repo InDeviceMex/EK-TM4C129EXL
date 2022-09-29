@@ -28,9 +28,7 @@
 #include <xDriver_MCU/I2C/Driver/Master/I2C_Master.h>
 #include <xDriver_MCU/I2C/Driver/Slave/I2C_Slave.h>
 
-#include <xDriver_MCU/I2C/Driver/xHeader/I2C_GlitchFilter.h>
 #include <xDriver_MCU/I2C/Driver/xHeader/I2C_HighSpeed.h>
-#include <xDriver_MCU/I2C/Driver/xHeader/I2C_LineState.h>
 #include <xDriver_MCU/I2C/Driver/xHeader/I2C_Mode.h>
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_I2C_DRIVER_H_ */

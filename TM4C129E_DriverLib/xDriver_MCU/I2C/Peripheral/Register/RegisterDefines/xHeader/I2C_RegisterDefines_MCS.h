@@ -30,6 +30,199 @@
 ************************************ 2 MCS *********************************************
 ******************************************************************************************/
 /*--------*/
+#define I2C_MASTER_STS_R_BUSY_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_R_BUSY_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_STS_R_BUSY_IDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_BUSY_BUSY    ((uint32_t) 0x00000001UL)
+
+#define I2C_MASTER_STS_BUSY_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_BUSY_IDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_BUSY_BUSY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_ERROR_MASK    ((uint32_t) 0x00000002UL)
+#define I2C_MASTER_STS_R_ERROR_BIT    ((uint32_t) 1UL)
+#define I2C_MASTER_STS_R_ERROR_NOERROR    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_ERROR_ERROR    ((uint32_t) 0x00000002UL)
+
+#define I2C_MASTER_STS_ERROR_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_ERROR_NOERROR    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_ERROR_ERROR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_ADRACK_MASK    ((uint32_t) 0x00000004UL)
+#define I2C_MASTER_STS_R_ADRACK_BIT    ((uint32_t) 2UL)
+#define I2C_MASTER_STS_R_ADRACK_ACK    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_ADRACK_NOACK    ((uint32_t) 0x00000004UL)
+
+#define I2C_MASTER_STS_ADRACK_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_ADRACK_ACK    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_ADRACK_NOACK    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_DATACK_MASK    ((uint32_t) 0x00000008UL)
+#define I2C_MASTER_STS_R_DATACK_BIT    ((uint32_t) 3UL)
+#define I2C_MASTER_STS_R_DATACK_ACK    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_DATACK_NOACK    ((uint32_t) 0x00000008UL)
+
+#define I2C_MASTER_STS_DATACK_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_DATACK_ACK    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_DATACK_NOACK    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_ARBLST_MASK    ((uint32_t) 0x00000010UL)
+#define I2C_MASTER_STS_R_ARBLST_BIT    ((uint32_t) 4UL)
+#define I2C_MASTER_STS_R_ARBLST_WON    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_ARBLST_LOST    ((uint32_t) 0x00000010UL)
+
+#define I2C_MASTER_STS_ARBLST_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_ARBLST_WON    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_ARBLST_LOST    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_IDLE_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_MASTER_STS_R_IDLE_BIT    ((uint32_t) 5UL)
+#define I2C_MASTER_STS_R_IDLE_NOIDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_IDLE_IDLE    ((uint32_t) 0x00000020UL)
+
+#define I2C_MASTER_STS_IDLE_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_IDLE_NOIDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_IDLE_IDLE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_BUSBSY_MASK    ((uint32_t) 0x00000040UL)
+#define I2C_MASTER_STS_R_BUSBSY_BIT    ((uint32_t) 6UL)
+#define I2C_MASTER_STS_R_BUSBSY_IDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_BUSBSY_BUSY    ((uint32_t) 0x00000040UL)
+
+#define I2C_MASTER_STS_BUSBSY_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_BUSBSY_IDLE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_BUSBSY_BUSY    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_CLKTO_MASK    ((uint32_t) 0x00000080UL)
+#define I2C_MASTER_STS_R_CLKTO_BIT    ((uint32_t) 7UL)
+#define I2C_MASTER_STS_R_CLKTO_NOERROR    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_CLKTO_ERROR    ((uint32_t) 0x00000080UL)
+
+#define I2C_MASTER_STS_CLKTO_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_CLKTO_NOERROR    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_CLKTO_ERROR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_ACTDMATX_MASK    ((uint32_t) 0x40000000UL)
+#define I2C_MASTER_STS_R_ACTDMATX_BIT    ((uint32_t) 30UL)
+#define I2C_MASTER_STS_R_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_ACTDMATX_ACTIVE    ((uint32_t) 0x40000000UL)
+
+#define I2C_MASTER_STS_ACTDMATX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_ACTDMATX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_ACTDMATX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_STS_R_ACTDMARX_MASK    ((uint32_t) 0x80000000UL)
+#define I2C_MASTER_STS_R_ACTDMARX_BIT    ((uint32_t) 31UL)
+#define I2C_MASTER_STS_R_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_R_ACTDMARX_ACTIVE    ((uint32_t) 0x80000000UL)
+
+#define I2C_MASTER_STS_ACTDMARX_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_STS_ACTDMARX_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_STS_ACTDMARX_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+
+
+/*--------*/
+#define I2C_MASTER_CTL_R_RUN_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_R_RUN_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_CTL_R_RUN_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_RUN_ENA    ((uint32_t) 0x00000001UL)
+
+#define I2C_MASTER_CTL_RUN_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_RUN_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_RUN_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_START_MASK    ((uint32_t) 0x00000002UL)
+#define I2C_MASTER_CTL_R_START_BIT    ((uint32_t) 1UL)
+#define I2C_MASTER_CTL_R_START_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_START_ENA    ((uint32_t) 0x00000002UL)
+
+#define I2C_MASTER_CTL_START_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_START_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_START_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_STOP_MASK    ((uint32_t) 0x00000004UL)
+#define I2C_MASTER_CTL_R_STOP_BIT    ((uint32_t) 2UL)
+#define I2C_MASTER_CTL_R_STOP_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_STOP_ENA    ((uint32_t) 0x00000004UL)
+
+#define I2C_MASTER_CTL_STOP_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_STOP_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_STOP_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_ACK_MASK    ((uint32_t) 0x00000008UL)
+#define I2C_MASTER_CTL_R_ACK_BIT    ((uint32_t) 3UL)
+#define I2C_MASTER_CTL_R_ACK_MANUAL    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_ACK_AUTO    ((uint32_t) 0x00000008UL)
+
+#define I2C_MASTER_CTL_ACK_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_ACK_MANUAL    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_ACK_AUTO    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_HS_MASK    ((uint32_t) 0x00000010UL)
+#define I2C_MASTER_CTL_R_HS_BIT    ((uint32_t) 4UL)
+#define I2C_MASTER_CTL_R_HS_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_HS_ENA    ((uint32_t) 0x00000010UL)
+
+#define I2C_MASTER_CTL_HS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_HS_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_HS_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_QCMD_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_MASTER_CTL_R_QCMD_BIT    ((uint32_t) 5UL)
+#define I2C_MASTER_CTL_R_QCMD_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_QCMD_ENA    ((uint32_t) 0x00000020UL)
+
+#define I2C_MASTER_CTL_QCMD_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_QCMD_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_QCMD_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_CTL_R_BURST_MASK    ((uint32_t) 0x00000040UL)
+#define I2C_MASTER_CTL_R_BURST_BIT    ((uint32_t) 6UL)
+#define I2C_MASTER_CTL_R_BURST_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_R_BURST_ENA    ((uint32_t) 0x00000040UL)
+
+#define I2C_MASTER_CTL_BURST_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CTL_BURST_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_CTL_BURST_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+
+/******************************************************************************************
+************************************ 2 MCS *********************************************
+******************************************************************************************/
+/*--------*/
 #define I2C_MCS_R_BUSY_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_MCS_R_BUSY_BIT    ((uint32_t) 0UL)
 #define I2C_MCS_R_BUSY_IDLE    ((uint32_t) 0x00000000UL)

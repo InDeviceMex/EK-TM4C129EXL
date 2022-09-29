@@ -26,25 +26,24 @@
 #include <xApplication_MCU/I2C/Interrupt/InterruptRoutine/I2C_InterruptRoutine.h>
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-void I2C__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),I2C_nMODULE enModule)
+I2C_nERROR I2C__enRegisterIRQVectorHandler(I2C_nMODULE enModuleArg, I2C_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_I2C0;
-    uint32_t u32Module = 0UL;
-    const SCB_nVECISR SCB_enVECISR_I2C[(uint32_t) I2C_enMODULE_MAX]=
+    const SCB_nVECISR SCB_enVECISR_I2C[(uint32_t) I2C_enMODULE_MAX] =
     {
-        SCB_enVECISR_I2C0, SCB_enVECISR_I2C1,
-        SCB_enVECISR_I2C2, SCB_enVECISR_I2C3,
-        SCB_enVECISR_I2C4, SCB_enVECISR_I2C5,
-        SCB_enVECISR_I2C6, SCB_enVECISR_I2C7,
-        SCB_enVECISR_I2C8, SCB_enVECISR_I2C9
+     SCB_enVECISR_I2C0, SCB_enVECISR_I2C1, SCB_enVECISR_I2C2, SCB_enVECISR_I2C3, SCB_enVECISR_I2C4,
+     SCB_enVECISR_I2C5, SCB_enVECISR_I2C6, SCB_enVECISR_I2C7, SCB_enVECISR_I2C8, SCB_enVECISR_I2C9
     };
+    SCB_nVECISR enVectorReg;
+    I2C_nERROR enErrorReg;
+    I2C_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
-        enVector = SCB_enVECISR_I2C[u32Module];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-                           I2C__pvfGetIRQVectorHandlerPointer((I2C_nMODULE) u32Module));
+        enVectorReg = SCB_enVECISR_I2C[(uint32_t) enModuleArg];
+        pvfVectorHandlerReg = I2C__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (I2C_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

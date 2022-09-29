@@ -32,144 +32,146 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t MSA [32UL];
-        BITBANDING_I2CMSA_t MSA_Bit;
+        volatile uint32_t MASTER_SA [32UL];
+        I2C_MASTER_BITBANDING_SA_t MASTER_SA_Bit;
     };
     union
     {
-        volatile uint32_t MCS [32UL];
-        BITBANDING_I2CMCS_STATUS_t MCS_STATUS_Bit;
-        BITBANDING_I2CMCS_CONTROL_t MCS_CONTROL_Bit;
+        volatile uint32_t MASTER_STS [32UL];
+        volatile uint32_t MASTER_CTS [32UL];
+        I2C_MASTER_BITBANDING_STS_t MASTER_STS_Bit;
+        I2C_MASTER_BITBANDING_CTL_t MASTER_CTS_Bit;
     };
     union
     {
-        volatile const uint32_t MDR [32UL];
-        BITBANDING_I2CMDR_t MDR_Bit;
+        volatile const uint32_t MASTER_DATA [32UL];
+        I2C_MASTER_BITBANDING_DATA_t MASTER_DATA_Bit;
     };
     union
     {
-        volatile const uint32_t MTPR [32UL];
-        BITBANDING_I2CMTPR_t MTPR_Bit;
+        volatile const uint32_t MASTER_TPR [32UL];
+        I2C_MASTER_BITBANDING_TPR_t MASTER_TPR_Bit;
     };
     union
     {
-        volatile uint32_t MIMR [32UL];
-        BITBANDING_I2CMIMR_t MIMR_Bit;
+        volatile uint32_t MASTER_IMR [32UL];
+        I2C_MASTER_BITBANDING_IMR_t MASTER_IMR_Bit;
     };
     union
     {
-        volatile const uint32_t MRIS [32UL];
-        BITBANDING_I2CMRIS_t MRIS_Bit;
+        volatile const uint32_t MASTER_RIS [32UL];
+        I2C_MASTER_BITBANDING_RIS_t MASTER_RIS_Bit;
     };
     union
     {
-        volatile const uint32_t MMIS [32UL];
-        BITBANDING_I2CMMIS_t MMIS_Bit;
+        volatile const uint32_t MASTER_MIS [32UL];
+        I2C_MASTER_BITBANDING_MIS_t MASTER_MIS_Bit;
     };
     union
     {
-        volatile uint32_t MICR [32UL];
-        BITBANDING_I2CMICR_t MICR_Bit;
+        volatile uint32_t MASTER_ICR [32UL];
+        I2C_MASTER_BITBANDING_ICR_t MASTER_ICR_Bit;
     };
     union
     {
-        volatile uint32_t MCR [32UL];
-        BITBANDING_I2CMCR_t MCR_Bit;
+        volatile uint32_t MASTER_CR [32UL];
+        I2C_MASTER_BITBANDING_CR_t MASTER_CR_Bit;
     };
     union
     {
-        volatile uint32_t MCLKOCNT [32UL];
-        BITBANDING_I2CMCLKOCNT_t MCLKOCNT_Bit;
+        volatile uint32_t MASTER_CLKOCNT [32UL];
+        I2C_MASTER_BITBANDING_CLKOCNT_t MASTER_CLKOCNT_Bit;
     };
     const uint32_t reserved [1UL * 32UL];
     union
     {
-        volatile uint32_t MBMON [32UL];
-        BITBANDING_I2CMBMON_t MBMON_Bit;
+        volatile uint32_t MASTER_BMON [32UL];
+        I2C_MASTER_BITBANDING_BMON_t MASTER_BMON_Bit;
     };
     union
     {
-        volatile uint32_t MBLEN [32UL];
-        BITBANDING_I2CMBLEN_t MBLEN_Bit;
+        volatile uint32_t MASTER_BLEN [32UL];
+        I2C_MASTER_BITBANDING_BLEN_t MASTER_BLEN_Bit;
     };
     union
     {
-        volatile uint32_t MBCNT [32UL];
-        BITBANDING_I2CMBCNT_t MBCNT_Bit;
+        volatile uint32_t MASTER_BCNT [32UL];
+        I2C_MASTER_BITBANDING_BCNT_t MASTER_BCNT_Bit;
     };
     const uint32_t reserved3 [498UL * 32UL];
     union
     {
-        volatile uint32_t SOAR [32UL];
-        BITBANDING_I2CSOAR_t SOAR_Bit;
+        volatile uint32_t SLAVE_OAR [32UL];
+        I2C_SLAVE_BITBANDING_OAR_t SLAVE_OAR_Bit;
     };
     union
     {
-        volatile uint32_t SCSR [32UL];
-        BITBANDING_I2CSCSR_STATUS_t SCSR_STATUS_Bit;
-        BITBANDING_I2CSCSR_CONTROL_t SCSR_CONTROL_Bit;
+        volatile uint32_t SLAVE_STS [32UL];
+        volatile uint32_t SLAVE_CTL [32UL];
+        I2C_SLAVE_BITBANDING_STS_t SLAVE_STS_Bit;
+        I2C_SLAVE_BITBANDING_CTL_t SLAVE_CTL_Bit;
     };
     union
     {
-        volatile uint32_t SDR [32UL];
-        BITBANDING_I2CSDR_t SDR_Bit;
+        volatile uint32_t SLAVE_DATA [32UL];
+        I2C_SLAVE_BITBANDING_DATA_t SLAVE_DATA_Bit;
     };
     union
     {
-        volatile uint32_t SIMR [32UL];
-        BITBANDING_I2CSIMR_t SIMR_Bit;
+        volatile uint32_t SLAVE_IMR [32UL];
+        I2C_SLAVE_BITBANDING_IMR_t SLAVE_IMR_Bit;
     };
     union
     {
-        volatile uint32_t SRIS [32UL];
-        BITBANDING_I2CSRIS_t SRIS_Bit;
+        volatile uint32_t SLAVE_RIS [32UL];
+        I2C_SLAVE_BITBANDING_RIS_t SLAVE_RIS_Bit;
     };
     union
     {
-        volatile uint32_t SMIS [32UL];
-        BITBANDING_I2CSMIS_t SMIS_Bit;
+        volatile uint32_t SLAVE_MIS [32UL];
+        I2C_SLAVE_BITBANDING_MIS_t SLAVE_MIS_Bit;
     };
     union
     {
-        volatile uint32_t SICR [32UL];
-        BITBANDING_I2CSICR_t SICR_Bit;
+        volatile uint32_t SLAVE_ICR [32UL];
+        I2C_SLAVE_BITBANDING_ICR_t SLAVE_ICR_Bit;
     };
     union
     {
-        volatile uint32_t SOAR2 [32UL];
-        BITBANDING_I2CSOAR2_t SOAR2_Bit;
+        volatile uint32_t SLAVE_OAR2 [32UL];
+        I2C_SLAVE_BITBANDING_OAR2_t SLAVE_OAR2_Bit;
     };
     union
     {
-        volatile uint32_t SACKCTL [32UL];
-        BITBANDING_I2CSACKCTL_t SACKCTL_Bit;
+        volatile uint32_t SLAVE_ACKCTL [32UL];
+        I2C_SLAVE_BITBANDING_ACKCTL_t SLAVE_ACKCTL_Bit;
     };
     const uint32_t reserved4 [439UL * 32UL];
     union
     {
-        volatile const uint32_t FIFODATA [32UL];
-        BITBANDING_I2CFIFODATA_t FIFODATA_Bit;
+        volatile const uint32_t FIFO_DATA [32UL];
+        I2C_FIFO_BITBANDING_DATA_t FIFO_DATA_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOCTL [32UL];
-        BITBANDING_I2CFIFOCTL_t FIFOCTL_Bit;
+        volatile const uint32_t FIFO_CTL [32UL];
+        I2C_FIFO_BITBANDING_CTL_t FIFO_CTL_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOSTATUS [32UL];
-        BITBANDING_I2CFIFOSTATUS_t FIFOSTATUS_Bit;
+        volatile const uint32_t FIFO_STS [32UL];
+        I2C_FIFO_BITBANDING_STS_t FIFO_STS_Bit;
     };
     const uint32_t reserved5 [45UL * 32UL];
     union
     {
         volatile const uint32_t PP [32UL];
-        BITBANDING_I2CPP_t PP_Bit;
+        I2C_BITBANDING_PP_t PP_Bit;
     };
     union
     {
         volatile const uint32_t PC [32UL];
-        BITBANDING_I2CPC_t PC_Bit;
+        I2C_BITBANDING_PC_t PC_Bit;
     };
     const uint32_t reserved6 [14UL * 32UL];
 } I2C_BITBANDING_t;
@@ -179,70 +181,71 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t MSA [32UL];
-        BITBANDING_I2CMSA_t MSA_Bit;
+        volatile uint32_t SA [32UL];
+        I2C_MASTER_BITBANDING_SA_t SA_Bit;
     };
     union
     {
-        volatile uint32_t MCS [32UL];
-        BITBANDING_I2CMCS_STATUS_t MCS_STATUS_Bit;
-        BITBANDING_I2CMCS_CONTROL_t MCS_CONTROL_Bit;
+        volatile uint32_t STS [32UL];
+        volatile uint32_t CTS [32UL];
+        I2C_MASTER_BITBANDING_STS_t STS_Bit;
+        I2C_MASTER_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t MDR [32UL];
-        BITBANDING_I2CMDR_t MDR_Bit;
+        volatile const uint32_t DATA [32UL];
+        I2C_MASTER_BITBANDING_DATA_t DATA_Bit;
     };
     union
     {
-        volatile const uint32_t MTPR [32UL];
-        BITBANDING_I2CMTPR_t MTPR_Bit;
+        volatile const uint32_t TPR [32UL];
+        I2C_MASTER_BITBANDING_TPR_t TPR_Bit;
     };
     union
     {
-        volatile uint32_t MIMR [32UL];
-        BITBANDING_I2CMIMR_t MIMR_Bit;
+        volatile uint32_t IMR [32UL];
+        I2C_MASTER_BITBANDING_IMR_t IMR_Bit;
     };
     union
     {
-        volatile const uint32_t MRIS [32UL];
-        BITBANDING_I2CMRIS_t MRIS_Bit;
+        volatile const uint32_t RIS [32UL];
+        I2C_MASTER_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
-        volatile const uint32_t MMIS [32UL];
-        BITBANDING_I2CMMIS_t MMIS_Bit;
+        volatile const uint32_t MIS [32UL];
+        I2C_MASTER_BITBANDING_MIS_t MIS_Bit;
     };
     union
     {
-        volatile uint32_t MICR [32UL];
-        BITBANDING_I2CMICR_t MICR_Bit;
+        volatile uint32_t ICR [32UL];
+        I2C_MASTER_BITBANDING_ICR_t ICR_Bit;
     };
     union
     {
-        volatile uint32_t MCR [32UL];
-        BITBANDING_I2CMCR_t MCR_Bit;
+        volatile uint32_t CR [32UL];
+        I2C_MASTER_BITBANDING_CR_t CR_Bit;
     };
     union
     {
-        volatile uint32_t MCLKOCNT [32UL];
-        BITBANDING_I2CMCLKOCNT_t MCLKOCNT_Bit;
+        volatile uint32_t CLKOCNT [32UL];
+        I2C_MASTER_BITBANDING_CLKOCNT_t CLKOCNT_Bit;
     };
     const uint32_t reserved [1UL * 32UL];
     union
     {
-        volatile uint32_t MBMON [32UL];
-        BITBANDING_I2CMBMON_t MBMON_Bit;
+        volatile uint32_t BMON [32UL];
+        I2C_MASTER_BITBANDING_BMON_t BMON_Bit;
     };
     union
     {
-        volatile uint32_t MBLEN [32UL];
-        BITBANDING_I2CMBLEN_t MBLEN_Bit;
+        volatile uint32_t BLEN [32UL];
+        I2C_MASTER_BITBANDING_BLEN_t BLEN_Bit;
     };
     union
     {
-        volatile uint32_t MBCNT [32UL];
-        BITBANDING_I2CMBCNT_t MBCNT_Bit;
+        volatile uint32_t BCNT [32UL];
+        I2C_MASTER_BITBANDING_BCNT_t BCNT_Bit;
     };
     const uint32_t reserved3 [498UL * 32UL];
 } I2C_MASTER_BITBANDING_t;
@@ -252,49 +255,50 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t SOAR [32UL];
-        BITBANDING_I2CSOAR_t SOAR_Bit;
+        volatile uint32_t OAR [32UL];
+        I2C_SLAVE_BITBANDING_OAR_t OAR_Bit;
     };
     union
     {
-        volatile uint32_t SCSR [32UL];
-        BITBANDING_I2CSCSR_STATUS_t SCSR_STATUS_Bit;
-        BITBANDING_I2CSCSR_CONTROL_t SCSR_CONTROL_Bit;
+        volatile uint32_t STS [32UL];
+        volatile uint32_t CTL [32UL];
+        I2C_SLAVE_BITBANDING_STS_t STS_Bit;
+        I2C_SLAVE_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t SDR [32UL];
-        BITBANDING_I2CSDR_t SDR_Bit;
+        volatile uint32_t DATA [32UL];
+        I2C_SLAVE_BITBANDING_DATA_t DATA_Bit;
     };
     union
     {
-        volatile uint32_t SIMR [32UL];
-        BITBANDING_I2CSIMR_t SIMR_Bit;
+        volatile uint32_t IMR [32UL];
+        I2C_SLAVE_BITBANDING_IMR_t IMR_Bit;
     };
     union
     {
-        volatile uint32_t SRIS [32UL];
-        BITBANDING_I2CSRIS_t SRIS_Bit;
+        volatile uint32_t RIS [32UL];
+        I2C_SLAVE_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t SMIS [32UL];
-        BITBANDING_I2CSMIS_t SMIS_Bit;
+        volatile uint32_t MIS [32UL];
+        I2C_SLAVE_BITBANDING_MIS_t MIS_Bit;
     };
     union
     {
-        volatile uint32_t SICR [32UL];
-        BITBANDING_I2CSICR_t SICR_Bit;
+        volatile uint32_t ICR [32UL];
+        I2C_SLAVE_BITBANDING_ICR_t ICR_Bit;
     };
     union
     {
-        volatile uint32_t SOAR2 [32UL];
-        BITBANDING_I2CSOAR2_t SOAR2_Bit;
+        volatile uint32_t OAR2 [32UL];
+        I2C_SLAVE_BITBANDING_OAR2_t OAR2_Bit;
     };
     union
     {
-        volatile uint32_t SACKCTL [32UL];
-        BITBANDING_I2CSACKCTL_t SACKCTL_Bit;
+        volatile uint32_t ACKCTL [32UL];
+        I2C_SLAVE_BITBANDING_ACKCTL_t ACKCTL_Bit;
     };
     const uint32_t reserved4 [439UL * 32UL];
 } I2C_SLAVE_BITBANDING_t;
@@ -304,29 +308,33 @@ typedef volatile struct
 {
     union
     {
-        volatile const uint32_t FIFODATA [32UL];
-        BITBANDING_I2CFIFODATA_t FIFODATA_Bit;
+        volatile const uint32_t DATA [32UL];
+        I2C_FIFO_BITBANDING_DATA_t DATA_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOCTL [32UL];
-        BITBANDING_I2CFIFOCTL_t FIFOCTL_Bit;
+        volatile const uint32_t CTL [32UL];
+        I2C_FIFO_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOSTATUS [32UL];
-        BITBANDING_I2CFIFOSTATUS_t FIFOSTATUS_Bit;
+        volatile const uint32_t STS [32UL];
+        I2C_FIFO_BITBANDING_STS_t STS_Bit;
     };
     const uint32_t reserved5 [45UL * 32UL];
+}I2C_FIFO_BITBANDING_t;
+
+typedef volatile struct
+{
     union
     {
         volatile const uint32_t PP [32UL];
-        BITBANDING_I2CPP_t PP_Bit;
+        I2C_BITBANDING_PP_t PP_Bit;
     };
     union
     {
         volatile const uint32_t PC [32UL];
-        BITBANDING_I2CPC_t PC_Bit;
+        I2C_BITBANDING_PC_t PC_Bit;
     };
     const uint32_t reserved6 [14UL * 32UL];
 } I2C_CONTROL_BITBANDING_t;
@@ -335,7 +343,8 @@ typedef volatile struct
 {
     I2C_MASTER_BITBANDING_t MASTER;
     I2C_SLAVE_BITBANDING_t SLAVE;
-    I2C_CONTROL_BITBANDING_t STATUS_CONTROL;
+    I2C_FIFO_BITBANDING_t FIFO;
+    I2C_CONTROL_BITBANDING_t CONTROL;
 } I2CS_UNION_BITBANDING_t;
 
 typedef volatile struct

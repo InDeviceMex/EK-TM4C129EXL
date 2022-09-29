@@ -31,6 +31,21 @@
 ******************************************************************************************/
 
 /*--------*/
+#define I2C_CONTROL_PC_R_HS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_CONTROL_PC_R_HS_BIT    ((uint32_t) 0UL)
+#define I2C_CONTROL_PC_R_HS_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_CONTROL_PC_R_HS_ENA    ((uint32_t) 0x00000001UL)
+
+#define I2C_CONTROL_PC_HS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_CONTROL_PC_HS_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_CONTROL_PC_HS_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/******************************************************************************************
+************************************ 23 PC *********************************************
+******************************************************************************************/
+
+/*--------*/
 #define I2C_PC_R_HS_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_PC_R_HS_BIT    ((uint32_t) 0UL)
 #define I2C_PC_R_HS_DIS    ((uint32_t) 0x00000000UL)

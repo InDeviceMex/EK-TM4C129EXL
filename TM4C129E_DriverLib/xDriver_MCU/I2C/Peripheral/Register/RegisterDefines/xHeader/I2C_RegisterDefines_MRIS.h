@@ -31,6 +31,142 @@
 ******************************************************************************************/
 
 /*--------*/
+#define I2C_MASTER_RIS_R_RIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_R_RIS_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_RIS_R_RIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_RIS_ACTIVE    ((uint32_t) 0x00000001UL)
+
+#define I2C_MASTER_RIS_RIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_RIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_RIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_CLKRIS_MASK    ((uint32_t) 0x00000002UL)
+#define I2C_MASTER_RIS_R_CLKRIS_BIT    ((uint32_t) 1UL)
+#define I2C_MASTER_RIS_R_CLKRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_CLKRIS_ACTIVE    ((uint32_t) 0x00000002UL)
+
+#define I2C_MASTER_RIS_CLKRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_CLKRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_CLKRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_DMARXRIS_MASK    ((uint32_t) 0x00000004UL)
+#define I2C_MASTER_RIS_R_DMARXRIS_BIT    ((uint32_t) 2UL)
+#define I2C_MASTER_RIS_R_DMARXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_DMARXRIS_ACTIVE    ((uint32_t) 0x00000004UL)
+
+#define I2C_MASTER_RIS_DMARXRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_DMARXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_DMARXRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_DMATXRIS_MASK    ((uint32_t) 0x00000008UL)
+#define I2C_MASTER_RIS_R_DMATXRIS_BIT    ((uint32_t) 3UL)
+#define I2C_MASTER_RIS_R_DMATXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_DMATXRIS_ACTIVE    ((uint32_t) 0x00000008UL)
+
+#define I2C_MASTER_RIS_DMATXRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_DMATXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_DMATXRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_NACKRIS_MASK    ((uint32_t) 0x00000010UL)
+#define I2C_MASTER_RIS_R_NACKRIS_BIT    ((uint32_t) 4UL)
+#define I2C_MASTER_RIS_R_NACKRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_NACKRIS_ACTIVE    ((uint32_t) 0x00000010UL)
+
+#define I2C_MASTER_RIS_NACKRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_NACKRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_NACKRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_STARTRIS_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_MASTER_RIS_R_STARTRIS_BIT    ((uint32_t) 5UL)
+#define I2C_MASTER_RIS_R_STARTRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_STARTRIS_ACTIVE    ((uint32_t) 0x00000020UL)
+
+#define I2C_MASTER_RIS_STARTRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_STARTRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_STARTRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_STOPRIS_MASK    ((uint32_t) 0x00000040UL)
+#define I2C_MASTER_RIS_R_STOPRIS_BIT    ((uint32_t) 6UL)
+#define I2C_MASTER_RIS_R_STOPRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_STOPRIS_ACTIVE    ((uint32_t) 0x00000040UL)
+
+#define I2C_MASTER_RIS_STOPRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_STOPRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_STOPRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_ARBLOSTRIS_MASK    ((uint32_t) 0x00000080UL)
+#define I2C_MASTER_RIS_R_ARBLOSTRIS_BIT    ((uint32_t) 7UL)
+#define I2C_MASTER_RIS_R_ARBLOSTRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_ARBLOSTRIS_ACTIVE    ((uint32_t) 0x00000080UL)
+
+#define I2C_MASTER_RIS_ARBLOSTRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_ARBLOSTRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_ARBLOSTRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_TXRIS_MASK    ((uint32_t) 0x00000100UL)
+#define I2C_MASTER_RIS_R_TXRIS_BIT    ((uint32_t) 8UL)
+#define I2C_MASTER_RIS_R_TXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_TXRIS_ACTIVE    ((uint32_t) 0x00000100UL)
+
+#define I2C_MASTER_RIS_TXRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_TXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_TXRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_RXRIS_MASK    ((uint32_t) 0x00000200UL)
+#define I2C_MASTER_RIS_R_RXRIS_BIT    ((uint32_t) 9UL)
+#define I2C_MASTER_RIS_R_RXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_RXRIS_ACTIVE    ((uint32_t) 0x00000200UL)
+
+#define I2C_MASTER_RIS_RXRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_RXRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_RXRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_TXFERIS_MASK    ((uint32_t) 0x00000400UL)
+#define I2C_MASTER_RIS_R_TXFERIS_BIT    ((uint32_t) 10UL)
+#define I2C_MASTER_RIS_R_TXFERIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_TXFERIS_ACTIVE    ((uint32_t) 0x00000400UL)
+
+#define I2C_MASTER_RIS_TXFERIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_TXFERIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_TXFERIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_RIS_R_RXFFRIS_MASK    ((uint32_t) 0x00000800UL)
+#define I2C_MASTER_RIS_R_RXFFRIS_BIT    ((uint32_t) 11UL)
+#define I2C_MASTER_RIS_R_RXFFRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_R_RXFFRIS_ACTIVE    ((uint32_t) 0x00000800UL)
+
+#define I2C_MASTER_RIS_RXFFRIS_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_RIS_RXFFRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_RIS_RXFFRIS_ACTIVE    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/******************************************************************************************
+************************************ 6 MRIS *********************************************
+******************************************************************************************/
+
+/*--------*/
 #define I2C_MRIS_R_RIS_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_MRIS_R_RIS_BIT    ((uint32_t) 0UL)
 #define I2C_MRIS_R_RIS_NOACTIVE    ((uint32_t) 0x00000000UL)
@@ -161,5 +297,4 @@
 #define I2C_MRIS_RXFFRIS_NOACTIVE    ((uint32_t) 0x00000000UL)
 #define I2C_MRIS_RXFFRIS_ACTIVE    ((uint32_t) 0x00000001UL)
 /*--------*/
-
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MRIS_H_ */

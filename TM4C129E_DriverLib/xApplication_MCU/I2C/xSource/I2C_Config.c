@@ -29,9 +29,25 @@
 #define SCL_LINE (0UL)
 #define SDA_LINE (1UL)
 
-void I2C__vSetConfig(I2C_nMODULE enModule, I2C_nMODE enModeArg, uint32_t u32FreqArg)
+I2C_nERROR I2C__enSetConfig(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg)
 {
-    I2C_nMODULE enModuleFilter = I2C_enMODULE_0;
+    I2C_nERROR enErrorReg;
+    enErrorReg = (I2C_nERROR) MCU__u32CheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = I2C__enSetMode(enModuleArg, enModeArg);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = I2C_Master__enSetFrequency(enModuleArg, u32FreqArg);
+    }
+    return (enErrorReg);
+}
+
+
+I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg)
+{
+    I2C_nERROR enErrorReg;
     GPIO_nDIGITAL_FUNCTION I2C_enGpioInput[(uint32_t) I2C_enMODULE_MAX][(uint32_t) 2UL] =
     {
             {GPIO_enI2C0SCL_B2, GPIO_enI2C0SDA_B3},
@@ -45,10 +61,19 @@ void I2C__vSetConfig(I2C_nMODULE enModule, I2C_nMODE enModeArg, uint32_t u32Freq
             {GPIO_enI2C8SCL_A2, GPIO_enI2C8SDA_A3},
             {GPIO_enI2C9SCL_A0, GPIO_enI2C9SDA_A1},
      };
-    enModuleFilter = (I2C_nMODULE) MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
-    GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleFilter][SCL_LINE], GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
-    GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleFilter][SDA_LINE], GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+    enErrorReg = (I2C_nERROR) MCU__u32CheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleArg][SCL_LINE], GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleArg][SDA_LINE], GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = I2C__enSetConfig(enModuleArg, enModeArg, u32FreqArg);
+    }
+    return (enErrorReg);
 
-    I2C__vSetMode(enModuleFilter, enModeArg);
-    I2C_Master__enSetFrequency(enModuleFilter, u32FreqArg);
 }

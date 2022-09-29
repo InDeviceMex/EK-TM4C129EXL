@@ -25,33 +25,118 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-static NVIC_nVECTOR I2C__enGetInterruptVector(I2C_nMODULE enModule);
+static I2C_nERROR I2C__enGetInterruptVector(I2C_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg);
 
-static NVIC_nVECTOR I2C__enGetInterruptVector(I2C_nMODULE enModule)
+static I2C_nERROR I2C__enGetInterruptVector(I2C_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
-    uint32_t u32Module = 0UL;
-    NVIC_nVECTOR NVIC_VECTOR_I2C[(uint32_t) I2C_enMODULE_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_I2C[(uint32_t) I2C_enMODULE_MAX]=
     {
-        NVIC_enVECTOR_I2C0, NVIC_enVECTOR_I2C1, NVIC_enVECTOR_I2C2, NVIC_enVECTOR_I2C3, NVIC_enVECTOR_I2C4,
-        NVIC_enVECTOR_I2C5, NVIC_enVECTOR_I2C6, NVIC_enVECTOR_I2C7, NVIC_enVECTOR_I2C8, NVIC_enVECTOR_I2C9
+     NVIC_enVECTOR_I2C0, NVIC_enVECTOR_I2C1, NVIC_enVECTOR_I2C2, NVIC_enVECTOR_I2C3, NVIC_enVECTOR_I2C4,
+     NVIC_enVECTOR_I2C5, NVIC_enVECTOR_I2C6, NVIC_enVECTOR_I2C7, NVIC_enVECTOR_I2C8, NVIC_enVECTOR_I2C9
     };
+    I2C_nERROR enErrorReg;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) I2C_enMODULE_MAX);
-    enVector = NVIC_VECTOR_I2C[u32Module];
-    return (enVector);
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_I2C[(uint32_t) enModuleArg];
+
+    }
+    return (enErrorReg);
 }
 
-void I2C__vEnInterruptVector(I2C_nMODULE enModule, I2C_nPRIORITY enI2CPriority)
+I2C_nERROR I2C__enSetInterruptVectorState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
-    enVector = I2C__enGetInterruptVector(enModule);
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enI2CPriority);
+    NVIC_nVECTOR enVectorReg;
+    I2C_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_I2C0;
+    enErrorReg = I2C__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void I2C__vDisInterruptVector(I2C_nMODULE enModule)
+I2C_nERROR I2C__enSetInterruptVectorStateWithPriority(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg, I2C_nPRIORITY enPriorityArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_I2C0;
-    enVector = I2C__enGetInterruptVector(enModule);
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
+    NVIC_nVECTOR enVectorReg;
+    I2C_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_I2C0;
+    enErrorReg = I2C__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enGetInterruptVectorState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    I2C_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_I2C0;
+    enErrorReg = I2C__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enGetInterruptVectorStateWithPriority(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg, I2C_nPRIORITY* penPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    I2C_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_I2C0;
+    enErrorReg = I2C__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enEnableInterruptVector(I2C_nMODULE enModuleArg)
+{
+    I2C_nERROR enErrorReg;
+    enErrorReg = I2C__enSetInterruptVectorState(enModuleArg, I2C_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enEnableInterruptVectorWithPriority(I2C_nMODULE enModuleArg, I2C_nPRIORITY enPriorityArg)
+{
+    I2C_nERROR enErrorReg;
+    enErrorReg = I2C__enSetInterruptVectorStateWithPriority(enModuleArg, I2C_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enDisableInterruptVector(I2C_nMODULE enModuleArg)
+{
+    I2C_nERROR enErrorReg;
+    enErrorReg = I2C__enSetInterruptVectorState(enModuleArg, I2C_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C__enDisableInterruptVectorWithPriority(I2C_nMODULE enModuleArg, I2C_nPRIORITY enPriorityArg)
+{
+    I2C_nERROR enErrorReg;
+    enErrorReg = I2C__enSetInterruptVectorStateWithPriority(enModuleArg, I2C_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
 }

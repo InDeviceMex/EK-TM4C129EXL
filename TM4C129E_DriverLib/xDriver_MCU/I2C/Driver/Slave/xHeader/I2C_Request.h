@@ -27,12 +27,17 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-I2C_nSLAVE_REQUEST I2C_Slave__enGetRequestStatus(I2C_nMODULE enModule);
+I2C_nERROR I2C_Slave__enGetDMATxStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+I2C_nERROR I2C_Slave__enGetDMARxStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
 
-I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsAltAddressReceived(I2C_nMODULE enModule);
-I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsFirstByteReceived(I2C_nMODULE enModule);
-I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsTransmitRequestReceived(I2C_nMODULE enModule);
-I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsReceiveRequestReceived(I2C_nMODULE enModule);
-I2C_nSLAVE_REQUEST_STATUS I2C_Slave__enIsQuickCommandReceived(I2C_nMODULE enModule);
+I2C_nERROR I2C_Slave__enGetReceiveRequestStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+I2C_nERROR I2C_Slave__enGetFirstByteReceivedStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+
+I2C_nERROR I2C_Slave__enGetTransmitRequestStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternateMatchStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+
+I2C_nERROR I2C_Slave__enGetQuickCommandStatus(I2C_nMODULE enModuleArg, I2C_nSTATUS* enStatusArg);
+I2C_nERROR I2C_Slave__enGetQuickCommandType(I2C_nMODULE enModuleArg, I2C_nOPERATION* enTypeArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_REQUEST_H_ */

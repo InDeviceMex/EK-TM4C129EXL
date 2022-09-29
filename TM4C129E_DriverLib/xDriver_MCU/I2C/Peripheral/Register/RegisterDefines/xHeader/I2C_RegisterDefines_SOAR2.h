@@ -30,6 +30,27 @@
 ************************************ 20 SOAR2 *********************************************
 ******************************************************************************************/
 /*--------*/
+#define I2C_SLAVE_OAR2_R_OAR2_MASK    ((uint32_t) 0x0000007FUL)
+#define I2C_SLAVE_OAR2_R_OAR2_BIT    ((uint32_t) 0UL)
+
+#define I2C_SLAVE_OAR2_OAR2_MASK    ((uint32_t) 0x0000007FUL)
+/*--------*/
+
+/*--------*/
+#define I2C_SLAVE_OAR2_R_OAR2EN_MASK    ((uint32_t) 0x00000080UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_BIT    ((uint32_t) 7UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_ENA    ((uint32_t) 0x00000080UL)
+
+#define I2C_SLAVE_OAR2_OAR2EN_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_SLAVE_OAR2_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
+#define I2C_SLAVE_OAR2_OAR2EN_ENA    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/******************************************************************************************
+************************************ 20 SOAR2 *********************************************
+******************************************************************************************/
+/*--------*/
 #define I2C_SOAR2_R_OAR2_MASK    ((uint32_t) 0x0000007FUL)
 #define I2C_SOAR2_R_OAR2_BIT    ((uint32_t) 0UL)
 

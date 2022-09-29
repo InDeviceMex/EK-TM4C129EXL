@@ -27,22 +27,22 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/I2C_Slave_InterruptRoutine_Source.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Slave__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                          I2C_nMODULE enModule,
-                                          I2C_nSLAVE_INTERRUPT enInterruptSource)
+I2C_nERROR I2C_Slave__enRegisterIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_nSLAVE_INT enIntSourceArg, I2C_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
-    {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,  (uint32_t) I2C_enMODULE_MAX);
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,  (uint32_t) I2C_enSLAVE_INTERRUPT_MAX);
+    I2C_pvfIRQSourceHandler_t* pvfIrqHandler;
+    I2C_nERROR enErrorReg;
 
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           I2C_Slave__pvfGetIRQSourceHandlerPointer((I2C_nMODULE) u32Module,
-                                               (I2C_nSLAVE_INTERRUPT)u32InterruptSource),
-           0UL,
-           1UL);
-   }
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enIntSourceArg, (uint32_t) I2C_enSLAVE_INT_MAX);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = I2C_Slave__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        enErrorReg = (I2C_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+    }
+
+    return (enErrorReg);
 }
 

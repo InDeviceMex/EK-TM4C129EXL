@@ -31,13 +31,22 @@
 ************************************ 12 MBCNT *********************************************
 ******************************************************************************************/
 /*--------*/
+#define I2C_MASTER_BCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_MASTER_BCNT_R_CNTL_BIT    ((uint32_t) 0UL)
+
+#define I2C_MASTER_BCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+/*--------*/
+
+
+/******************************************************************************************
+************************************ 12 MBCNT *********************************************
+******************************************************************************************/
+/*--------*/
 #define I2C_MBCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
 #define I2C_MBCNT_R_CNTL_BIT    ((uint32_t) 0UL)
 
 #define I2C_MBCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
 /*--------*/
-
-
 
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MBCNT_H_ */

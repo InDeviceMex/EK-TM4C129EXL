@@ -32,217 +32,220 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t MSA;
-        I2CMSA_t MSA_Bit;
+        volatile uint32_t MASTER_SA;
+        I2C_MASTER_SA_t MASTER_SA_Bit;
     };
     union
     {
-        volatile uint32_t MCS;
-        I2CMCS_STATUS_t MCS_STATUS_Bit;
-        I2CMCS_CONTROL_t MCS_CONTROL_Bit;
+        volatile uint32_t MASTER_STS;
+        volatile uint32_t MASTER_CTL;
+        I2C_MASTER_STS_t MASTER_STS_Bit;
+        I2C_MASTER_CTL_t MASTER_CTS_Bit;
     };
     union
     {
-        volatile const uint32_t MDR;
-        I2CMDR_t MDR_Bit;
+        volatile const uint32_t MASTER_DATA;
+        I2C_MASTER_DATA_t MASTER_DATA_Bit;
     };
     union
     {
-        volatile const uint32_t MTPR;
-        I2CMTPR_t MTPR_Bit;
+        volatile const uint32_t MASTER_TPR;
+        I2C_MASTER_TPR_t MASTER_TPR_Bit;
     };
     union
     {
-        volatile uint32_t MIMR;
-        I2CMIMR_t MIMR_Bit;
+        volatile uint32_t MASTER_IMR;
+        I2C_MASTER_IMR_t MASTER_IMR_Bit;
     };
     union
     {
-        volatile const uint32_t MRIS;
-        I2CMRIS_t MRIS_Bit;
+        volatile const uint32_t MASTER_RIS;
+        I2C_MASTER_RIS_t MASTER_RIS_Bit;
     };
     union
     {
-        volatile const uint32_t MMIS;
-        I2CMMIS_t MMIS_Bit;
+        volatile const uint32_t MASTER_MIS;
+        I2C_MASTER_MIS_t MASTER_MIS_Bit;
     };
     union
     {
-        volatile uint32_t MICR;
-        I2CMICR_t MICR_Bit;
+        volatile uint32_t MASTER_ICR;
+        I2C_MASTER_ICR_t MASTER_ICR_Bit;
     };
     union
     {
-        volatile uint32_t MCR;
-        I2CMCR_t MCR_Bit;
+        volatile uint32_t MASTER_CR;
+        I2C_MASTER_CR_t MASTER_CR_Bit;
     };
     union
     {
-        volatile uint32_t MCLKOCNT;
-        I2CMCLKOCNT_t MCLKOCNT_Bit;
+        volatile uint32_t MASTER_CLKOCNT;
+        I2C_MASTER_CLKOCNT_t MASTER_CLKOCNT_Bit;
     };
     const uint32_t reserved [1UL];
     union
     {
-        volatile uint32_t MBMON;
-        I2CMBMON_t MBMON_Bit;
+        volatile uint32_t MASTER_BMON;
+        I2C_MASTER_BMON_t MASTER_BMON_Bit;
     };
     union
     {
-        volatile uint32_t MBLEN;
-        I2CMBLEN_t MBLEN_Bit;
+        volatile uint32_t MASTER_BLEN;
+        I2C_MASTER_BLEN_t MASTER_BLEN_Bit;
     };
     union
     {
-        volatile uint32_t MBCNT;
-        I2CMBCNT_t MBCNT_Bit;
+        volatile uint32_t MASTER_BCNT;
+        I2C_MASTER_BCNT_t MASTER_BCNT_Bit;
     };
     const uint32_t reserved3 [498UL];
     union
     {
-        volatile uint32_t SOAR;
-        I2CSOAR_t SOAR_Bit;
+        volatile uint32_t SLAVE_OAR;
+        I2C_SLAVE_OAR_t SLAVE_OAR_Bit;
     };
     union
     {
-        volatile uint32_t SCSR;
-        I2CSCSR_STATUS_t SCSR_STATUS_Bit;
-        I2CSCSR_CONTROL_t SCSR_CONTROL_Bit;
+        volatile uint32_t SLAVE_STS;
+        volatile uint32_t SLAVE_CTL;
+        I2C_SLAVE_STS_t SLAVE_STS_Bit;
+        I2C_SLAVE_CTL_t SLAVE_CTL_Bit;
     };
     union
     {
-        volatile uint32_t SDR;
-        I2CSDR_t SDR_Bit;
+        volatile uint32_t SLAVE_DATA;
+        I2C_SLAVE_DATA_t SLAVE_DATA_Bit;
     };
     union
     {
-        volatile uint32_t SIMR;
-        I2CSIMR_t SIMR_Bit;
+        volatile uint32_t SLAVE_IMR;
+        I2C_SLAVE_IMR_t SLAVE_IMR_Bit;
     };
     union
     {
-        volatile uint32_t SRIS;
-        I2CSRIS_t SRIS_Bit;
+        volatile uint32_t SLAVE_RIS;
+        I2C_SLAVE_RIS_t SLAVE_RIS_Bit;
     };
     union
     {
-        volatile uint32_t SMIS;
-        I2CSMIS_t SMIS_Bit;
+        volatile uint32_t SLAVE_MIS;
+        I2C_SLAVE_MIS_t SLAVE_MIS_Bit;
     };
     union
     {
-        volatile uint32_t SICR;
-        I2CSICR_t SICR_Bit;
+        volatile uint32_t SLAVE_ICR;
+        I2C_SLAVE_ICR_t SLAVE_ICR_Bit;
     };
     union
     {
-        volatile uint32_t SOAR2;
-        I2CSOAR2_t SOAR2_Bit;
+        volatile uint32_t SLAVE_OAR2;
+        I2C_SLAVE_OAR2_t SLAVE_OAR2_Bit;
     };
     union
     {
-        volatile uint32_t SACKCTL;
-        I2CSACKCTL_t SACKCTL_Bit;
+        volatile uint32_t SLAVE_ACKCTL;
+        I2C_SLAVE_ACKCTL_t SLAVE_ACKCTL_Bit;
     };
     const uint32_t reserved4 [439UL];
     union
     {
-        volatile const uint32_t FIFODATA;
-        I2CFIFODATA_t FIFODATA_Bit;
+        volatile const uint32_t FIFO_DATA;
+        I2C_FIFO_DATA_t FIFO_DATA_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOCTL;
-        I2CFIFOCTL_t FIFOCTL_Bit;
+        volatile const uint32_t FIFO_CTL;
+        I2C_FIFO_CTL_t FIFO_CTL_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOSTATUS;
-        I2CFIFOSTATUS_t FIFOSTATUS_Bit;
+        volatile const uint32_t FIFO_STS;
+        I2C_FIFO_STS_t FIFO_STS_Bit;
     };
     const uint32_t reserved5 [45UL];
     union
     {
         volatile const uint32_t PP;
-        I2CPP_t PP_Bit;
+        I2C_PP_t PP_Bit;
     };
     union
     {
         volatile const uint32_t PC;
-        I2CPC_t PC_Bit;
+        I2C_PC_t PC_Bit;
     };
     const uint32_t reserved6 [14UL];
-} I2C_t;
+}I2C_t;
 
 /*Master*/
 typedef volatile struct
 {
     union
     {
-        volatile uint32_t MSA;
-        I2CMSA_t MSA_Bit;
+        volatile uint32_t SA;
+        I2C_MASTER_SA_t SA_Bit;
     };
     union
     {
-        volatile uint32_t MCS;
-        I2CMCS_STATUS_t MCS_STATUS_Bit;
-        I2CMCS_CONTROL_t MCS_CONTROL_Bit;
+        volatile uint32_t STS;
+        volatile uint32_t CTL;
+        I2C_MASTER_STS_t STS_Bit;
+        I2C_MASTER_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t MDR;
-        I2CMDR_t MDR_Bit;
+        volatile const uint32_t DATA;
+        I2C_MASTER_DATA_t DATA_Bit;
     };
     union
     {
-        volatile const uint32_t MTPR;
-        I2CMTPR_t MTPR_Bit;
+        volatile const uint32_t TPR;
+        I2C_MASTER_TPR_t TPR_Bit;
     };
     union
     {
-        volatile uint32_t MIMR;
-        I2CMIMR_t MIMR_Bit;
+        volatile uint32_t IMR;
+        I2C_MASTER_IMR_t IMR_Bit;
     };
     union
     {
-        volatile const uint32_t MRIS;
-        I2CMRIS_t MRIS_Bit;
+        volatile const uint32_t RIS;
+        I2C_MASTER_RIS_t RIS_Bit;
     };
     union
     {
-        volatile const uint32_t MMIS;
-        I2CMMIS_t MMIS_Bit;
+        volatile const uint32_t MIS;
+        I2C_MASTER_MIS_t MIS_Bit;
     };
     union
     {
-        volatile uint32_t MICR;
-        I2CMICR_t MICR_Bit;
+        volatile uint32_t ICR;
+        I2C_MASTER_ICR_t ICR_Bit;
     };
     union
     {
-        volatile uint32_t MCR;
-        I2CMCR_t MCR_Bit;
+        volatile uint32_t CR;
+        I2C_MASTER_CR_t CR_Bit;
     };
     union
     {
-        volatile uint32_t MCLKOCNT;
-        I2CMCLKOCNT_t MCLKOCNT_Bit;
+        volatile uint32_t CLKOCNT;
+        I2C_MASTER_CLKOCNT_t CLKOCNT_Bit;
     };
     const uint32_t reserved [1UL];
     union
     {
-        volatile uint32_t MBMON;
-        I2CMBMON_t MBMON_Bit;
+        volatile uint32_t BMON;
+        I2C_MASTER_BMON_t BMON_Bit;
     };
     union
     {
-        volatile uint32_t MBLEN;
-        I2CMBLEN_t MBLEN_Bit;
+        volatile uint32_t BLEN;
+        I2C_MASTER_BLEN_t BLEN_Bit;
     };
     union
     {
-        volatile uint32_t MBCNT;
-        I2CMBCNT_t MBCNT_Bit;
+        volatile uint32_t BCNT;
+        I2C_MASTER_BCNT_t BCNT_Bit;
     };
     const uint32_t reserved3 [498UL];
 } I2C_MASTER_t;
@@ -252,49 +255,50 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t SOAR;
-        I2CSOAR_t SOAR_Bit;
+        volatile uint32_t OAR;
+        I2C_SLAVE_OAR_t OAR_Bit;
     };
     union
     {
-        volatile uint32_t SCSR;
-        I2CSCSR_STATUS_t SCSR_STATUS_Bit;
-        I2CSCSR_CONTROL_t SCSR_CONTROL_Bit;
+        volatile uint32_t STS;
+        volatile uint32_t CTL;
+        I2C_SLAVE_STS_t STS_Bit;
+        I2C_SLAVE_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t SDR;
-        I2CSDR_t SDR_Bit;
+        volatile uint32_t DATA;
+        I2C_SLAVE_DATA_t DATA_Bit;
     };
     union
     {
-        volatile uint32_t SIMR;
-        I2CSIMR_t SIMR_Bit;
+        volatile uint32_t IMR;
+        I2C_SLAVE_IMR_t IMR_Bit;
     };
     union
     {
-        volatile uint32_t SRIS;
-        I2CSRIS_t SRIS_Bit;
+        volatile uint32_t RIS;
+        I2C_SLAVE_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t SMIS;
-        I2CSMIS_t SMIS_Bit;
+        volatile uint32_t MIS;
+        I2C_SLAVE_MIS_t MIS_Bit;
     };
     union
     {
-        volatile uint32_t SICR;
-        I2CSICR_t SICR_Bit;
+        volatile uint32_t ICR;
+        I2C_SLAVE_ICR_t ICR_Bit;
     };
     union
     {
-        volatile uint32_t SOAR2;
-        I2CSOAR2_t SOAR2_Bit;
+        volatile uint32_t OAR2;
+        I2C_SLAVE_OAR2_t OAR2_Bit;
     };
     union
     {
-        volatile uint32_t SACKCTL;
-        I2CSACKCTL_t SACKCTL_Bit;
+        volatile uint32_t ACKCTL;
+        I2C_SLAVE_ACKCTL_t ACKCTL_Bit;
     };
     const uint32_t reserved4 [439UL];
 } I2C_SLAVE_t;
@@ -304,29 +308,33 @@ typedef volatile struct
 {
     union
     {
-        volatile const uint32_t FIFODATA;
-        I2CFIFODATA_t FIFODATA_Bit;
+        volatile const uint32_t DATA;
+        I2C_FIFO_DATA_t DATA_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOCTL;
-        I2CFIFOCTL_t FIFOCTL_Bit;
+        volatile const uint32_t CTL;
+        I2C_FIFO_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t FIFOSTATUS;
-        I2CFIFOSTATUS_t FIFOSTATUS_Bit;
+        volatile const uint32_t STS;
+        I2C_FIFO_STS_t STS_Bit;
     };
     const uint32_t reserved5 [45UL];
+} I2C_FIFO_t;
+
+typedef volatile struct
+{
     union
     {
         volatile const uint32_t PP;
-        I2CPP_t PP_Bit;
+        I2C_PP_t PP_Bit;
     };
     union
     {
         volatile const uint32_t PC;
-        I2CPC_t PC_Bit;
+        I2C_PC_t PC_Bit;
     };
     const uint32_t reserved6 [14UL];
 } I2C_CONTROL_t;
@@ -335,7 +343,8 @@ typedef volatile struct
 {
     I2C_MASTER_t MASTER;
     I2C_SLAVE_t SLAVE;
-    I2C_CONTROL_t STATUS_CONTROL;
+    I2C_FIFO_t FIFO;
+    I2C_CONTROL_t CONTROL;
 } I2CS_UNION_t;
 
 typedef volatile struct

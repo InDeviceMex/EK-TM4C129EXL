@@ -27,15 +27,15 @@
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/Primitives/FLASH_Primitives.h>
 
-uint32_t FLASH_u32InterruptBit[(uint32_t) FLASH_enMODULE_MAX][(uint32_t) FLASH_enINT_MAX] =
-{
- {FLASH_RIS_R_ARIS_BIT, FLASH_RIS_R_ARIS_BIT   , FLASH_RIS_R_PRIS_BIT , FLASH_RIS_R_ERIS_BIT   , FLASH_RIS_R_VOLTRIS_BIT,
- FLASH_RIS_R_INVDRIS_BIT, FLASH_RIS_R_ERRIS_BIT, FLASH_RIS_R_PROGRIS_BIT},
-};
 
 
 FLASH_nERROR FLASH__enGetInterruptSourceShift(FLASH_nMODULE enModuleArg, FLASH_nINT enInterruptArg, uint32_t* pu32ShiftArg)
 {
+    const uint32_t FLASH_u32InterruptBit[(uint32_t) FLASH_enINT_SW] =
+    {
+     FLASH_RIS_R_ARIS_BIT   , FLASH_RIS_R_PRIS_BIT , FLASH_RIS_R_ERIS_BIT   , FLASH_RIS_R_VOLTRIS_BIT,
+     FLASH_RIS_R_INVDRIS_BIT, FLASH_RIS_R_ERRIS_BIT, FLASH_RIS_R_PROGRIS_BIT
+    };
     FLASH_nERROR enErrorReg;
     enErrorReg = FLASH_enERROR_OK;
     if(0UL == (uintptr_t) pu32ShiftArg)
@@ -48,11 +48,11 @@ FLASH_nERROR FLASH__enGetInterruptSourceShift(FLASH_nMODULE enModuleArg, FLASH_n
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32ShiftArg = FLASH_u32InterruptBit[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+        *pu32ShiftArg = FLASH_u32InterruptBit[(uint32_t) enInterruptArg];
     }
     return (enErrorReg);
 }
@@ -92,7 +92,7 @@ FLASH_nERROR FLASH__enSetInterruptSourceStateByNumber(FLASH_nMODULE enModuleArg,
     FLASH_nERROR enErrorReg;
 
     u32ShiftReg = 0UL;
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     if(FLASH_enERROR_OK == enErrorReg)
     {
         enErrorReg = FLASH__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &u32ShiftReg);
@@ -151,7 +151,7 @@ FLASH_nERROR FLASH__enGetInterruptSourceStateByNumber(FLASH_nMODULE enModuleArg,
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
@@ -233,7 +233,7 @@ FLASH_nERROR FLASH__enClearInterruptSourceByNumber(FLASH_nMODULE enModuleArg, FL
     FLASH_nERROR enErrorReg;
 
     u32ShiftReg = 0UL;
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     if(FLASH_enERROR_OK == enErrorReg)
     {
         enErrorReg = FLASH__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &u32ShiftReg);
@@ -294,7 +294,7 @@ FLASH_nERROR FLASH__enStatusInterruptSourceByNumber(FLASH_nMODULE enModuleArg, F
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
@@ -356,7 +356,7 @@ FLASH_nERROR FLASH__enStatusMaskedInterruptSourceByNumber(FLASH_nMODULE enModule
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_MAX);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enInterruptArg, (uint32_t) FLASH_enINT_SW);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {

@@ -37,7 +37,7 @@
 #include <xApplication_MCU/I2C/Interrupt/InterruptRoutine/xHeader/I2C_InterruptRoutine_Vector_Module8.h>
 #include <xApplication_MCU/I2C/Interrupt/InterruptRoutine/xHeader/I2C_InterruptRoutine_Vector_Module9.h>
 
-void (*I2C__pvfGetIRQVectorHandler(I2C_nMODULE enI2CModule))(void);
-void (**I2C__pvfGetIRQVectorHandlerPointer(I2C_nMODULE enI2CModule))(void);
+I2C_pvfIRQVectorHandler_t I2C__pvfGetIRQVectorHandler(I2C_nMODULE enModuleArg);
+I2C_pvfIRQVectorHandler_t* I2C__pvfGetIRQVectorHandlerPointer(I2C_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_I2C_INTERRUPT_INTERRUPTROUTINE_I2C_INTERRUPTROUTINE_H_ */

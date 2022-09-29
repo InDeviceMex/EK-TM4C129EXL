@@ -27,8 +27,6 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Slave__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                          I2C_nMODULE enModule,
-                                          I2C_nSLAVE_INTERRUPT enInterruptSource);
+I2C_nERROR I2C_Slave__enRegisterIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_nSLAVE_INT enIntSourceArg, I2C_pvfIRQSourceHandler_t pfIrqSourceHandler);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_I2C_SLAVE_INTERRUPTREGISTERIRQSOURCE_H_ */

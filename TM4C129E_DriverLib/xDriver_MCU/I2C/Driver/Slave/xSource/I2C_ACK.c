@@ -23,41 +23,84 @@
  */
 #include <xDriver_MCU/I2C/Driver/Slave/xHeader/I2C_ACK.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Slave__vSetACKEnable(I2C_nMODULE enModule, I2C_nACK_ENABLE enACKEnableArg)
+I2C_nERROR I2C_Slave__enSetACKOverrideState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
-    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKEnableArg,
-                        I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    stRegister.u32Shift = I2C_SLAVE_ACKCTL_R_ACKOEN_BIT;
+    stRegister.u32Mask = I2C_SLAVE_ACKCTL_ACKOEN_MASK;
+    stRegister.uptrAddress = I2C_SLAVE_ACKCTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enStateArg;
+    enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-I2C_nACK_ENABLE I2C_Slave__enGetACKEnable(I2C_nMODULE enModule)
+I2C_nERROR I2C_Slave__enGetACKOverrideState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
-    I2C_nACK_ENABLE enACKEnableReg = I2C_enACK_ENABLE_DIS;
-    enACKEnableReg = (I2C_nACK_ENABLE) I2C__u32ReadRegister(enModule, I2C_SACKCTL_OFFSET,
-                                        I2C_SACKCTL_ACKOEN_MASK, I2C_SACKCTL_R_ACKOEN_BIT);
-    return (enACKEnableReg);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_SLAVE_ACKCTL_R_ACKOEN_BIT;
+        stRegister.u32Mask = I2C_SLAVE_ACKCTL_ACKOEN_MASK;
+        stRegister.uptrAddress = I2C_SLAVE_ACKCTL_OFFSET;
+        enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (I2C_nSTATE) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }
 
-void I2C_Slave__vSetACKValue(I2C_nMODULE enModule, I2C_nACK enACKArg)
+
+I2C_nERROR I2C_Slave__enSetACKOverrideValue(I2C_nMODULE enModuleArg, I2C_nACK enValueArg)
 {
-    I2C__vWriteRegister(enModule, I2C_SACKCTL_OFFSET, (uint32_t) enACKArg,
-                        I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    stRegister.u32Shift = I2C_SLAVE_ACKCTL_R_ACKOVAL_BIT;
+    stRegister.u32Mask = I2C_SLAVE_ACKCTL_ACKOVAL_MASK;
+    stRegister.uptrAddress = I2C_SLAVE_ACKCTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enValueArg;
+    enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-I2C_nACK I2C_Slave__enGetACKValue(I2C_nMODULE enModule)
+I2C_nERROR I2C_Slave__enGetACKOverrideValue(I2C_nMODULE enModuleArg, I2C_nACK* penValueArg)
 {
-    I2C_nACK enACKValueReg = I2C_enACK_ACK;
-    enACKValueReg = (I2C_nACK) I2C__u32ReadRegister(enModule, I2C_SACKCTL_OFFSET,
-                                   I2C_SACKCTL_ACKOVAL_MASK, I2C_SACKCTL_R_ACKOVAL_BIT);
-    return (enACKValueReg);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) penValueArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_SLAVE_ACKCTL_R_ACKOVAL_BIT;
+        stRegister.u32Mask = I2C_SLAVE_ACKCTL_ACKOVAL_MASK;
+        stRegister.uptrAddress = I2C_SLAVE_ACKCTL_OFFSET;
+        enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        *penValueArg = (I2C_nACK) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }
 
-void I2C_Slave__vSetACK(I2C_nMODULE enModule,
-                        I2C_nACK_ENABLE enACKEnableArg,
-                        I2C_nACK enACKValueArg)
-{
-    I2C_Slave__vSetACKValue(enModule, enACKValueArg);
-    I2C_Slave__vSetACKEnable(enModule, enACKEnableArg);
-}

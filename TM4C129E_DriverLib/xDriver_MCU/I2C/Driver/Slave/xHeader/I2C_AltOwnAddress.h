@@ -27,10 +27,13 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Slave__vSetEnableAltOwnAddress(I2C_nMODULE enModule, I2C_nALT_ADDRESS enAlternateAddressArg);
-I2C_nALT_ADDRESS I2C_Slave__enGetEnableAltOwnAddress(I2C_nMODULE enModule);
-void I2C_Slave__vSetAltOwnAddress(I2C_nMODULE enModule, I2C_nALT_ADDRESS enAlternateAddressArg, uint32_t u32OwnAddressArg);
-uint32_t I2C_Slave__u32GetAltOwnAddress(I2C_nMODULE enModule);
+I2C_nERROR I2C_Slave__enSetOwnAddressAlternateState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternateState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
 
+I2C_nERROR I2C_Slave__enSetOwnAddressAlternate(I2C_nMODULE enModuleArg, uint32_t u32OwnAddressArg);
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternate(I2C_nMODULE enModuleArg, uint32_t* pu32OwnAddressArg);
+
+I2C_nERROR I2C_Slave__enSetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, uint32_t u32OwnAddressArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, uint32_t* pu32OwnAddressArg, I2C_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_ALTOWNADDRESS_H_ */

@@ -31,6 +31,142 @@
 ******************************************************************************************/
 
 /*--------*/
+#define I2C_MASTER_ICR_R_IC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_R_IC_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_ICR_R_IC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_IC_CLEAR    ((uint32_t) 0x00000001UL)
+
+#define I2C_MASTER_ICR_IC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_IC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_IC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_CLKIC_MASK    ((uint32_t) 0x00000002UL)
+#define I2C_MASTER_ICR_R_CLKIC_BIT    ((uint32_t) 1UL)
+#define I2C_MASTER_ICR_R_CLKIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_CLKIC_CLEAR    ((uint32_t) 0x00000002UL)
+
+#define I2C_MASTER_ICR_CLKIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_CLKIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_CLKIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_DMARXIC_MASK    ((uint32_t) 0x00000004UL)
+#define I2C_MASTER_ICR_R_DMARXIC_BIT    ((uint32_t) 2UL)
+#define I2C_MASTER_ICR_R_DMARXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_DMARXIC_CLEAR    ((uint32_t) 0x00000004UL)
+
+#define I2C_MASTER_ICR_DMARXIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_DMARXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_DMARXIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_DMATXIC_MASK    ((uint32_t) 0x00000008UL)
+#define I2C_MASTER_ICR_R_DMATXIC_BIT    ((uint32_t) 3UL)
+#define I2C_MASTER_ICR_R_DMATXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_DMATXIC_CLEAR    ((uint32_t) 0x00000008UL)
+
+#define I2C_MASTER_ICR_DMATXIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_DMATXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_DMATXIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_NACKIC_MASK    ((uint32_t) 0x00000010UL)
+#define I2C_MASTER_ICR_R_NACKIC_BIT    ((uint32_t) 4UL)
+#define I2C_MASTER_ICR_R_NACKIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_NACKIC_CLEAR    ((uint32_t) 0x00000010UL)
+
+#define I2C_MASTER_ICR_NACKIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_NACKIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_NACKIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_STARTIC_MASK    ((uint32_t) 0x00000020UL)
+#define I2C_MASTER_ICR_R_STARTIC_BIT    ((uint32_t) 5UL)
+#define I2C_MASTER_ICR_R_STARTIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_STARTIC_CLEAR    ((uint32_t) 0x00000020UL)
+
+#define I2C_MASTER_ICR_STARTIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_STARTIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_STARTIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_STOPIC_MASK    ((uint32_t) 0x00000040UL)
+#define I2C_MASTER_ICR_R_STOPIC_BIT    ((uint32_t) 6UL)
+#define I2C_MASTER_ICR_R_STOPIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_STOPIC_CLEAR    ((uint32_t) 0x00000040UL)
+
+#define I2C_MASTER_ICR_STOPIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_STOPIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_STOPIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_ARBLOSTIC_MASK    ((uint32_t) 0x00000080UL)
+#define I2C_MASTER_ICR_R_ARBLOSTIC_BIT    ((uint32_t) 7UL)
+#define I2C_MASTER_ICR_R_ARBLOSTIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_ARBLOSTIC_CLEAR    ((uint32_t) 0x00000080UL)
+
+#define I2C_MASTER_ICR_ARBLOSTIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_ARBLOSTIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_ARBLOSTIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_TXIC_MASK    ((uint32_t) 0x00000100UL)
+#define I2C_MASTER_ICR_R_TXIC_BIT    ((uint32_t) 8UL)
+#define I2C_MASTER_ICR_R_TXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_TXIC_CLEAR    ((uint32_t) 0x00000100UL)
+
+#define I2C_MASTER_ICR_TXIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_TXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_TXIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_RXIC_MASK    ((uint32_t) 0x00000200UL)
+#define I2C_MASTER_ICR_R_RXIC_BIT    ((uint32_t) 9UL)
+#define I2C_MASTER_ICR_R_RXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_RXIC_CLEAR    ((uint32_t) 0x00000200UL)
+
+#define I2C_MASTER_ICR_RXIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_RXIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_RXIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_TXFEIC_MASK    ((uint32_t) 0x00000400UL)
+#define I2C_MASTER_ICR_R_TXFEIC_BIT    ((uint32_t) 10UL)
+#define I2C_MASTER_ICR_R_TXFEIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_TXFEIC_CLEAR    ((uint32_t) 0x00000400UL)
+
+#define I2C_MASTER_ICR_TXFEIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_TXFEIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_TXFEIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/*--------*/
+#define I2C_MASTER_ICR_R_RXFFIC_MASK    ((uint32_t) 0x00000800UL)
+#define I2C_MASTER_ICR_R_RXFFIC_BIT    ((uint32_t) 11UL)
+#define I2C_MASTER_ICR_R_RXFFIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_R_RXFFIC_CLEAR    ((uint32_t) 0x00000800UL)
+
+#define I2C_MASTER_ICR_RXFFIC_MASK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_ICR_RXFFIC_NOEFFECT    ((uint32_t) 0x00000000UL)
+#define I2C_MASTER_ICR_RXFFIC_CLEAR    ((uint32_t) 0x00000001UL)
+/*--------*/
+
+/******************************************************************************************
+************************************ 8 MICR *********************************************
+******************************************************************************************/
+
+/*--------*/
 #define I2C_MICR_R_IC_MASK    ((uint32_t) 0x00000001UL)
 #define I2C_MICR_R_IC_BIT    ((uint32_t) 0UL)
 #define I2C_MICR_R_IC_NOEFFECT    ((uint32_t) 0x00000000UL)

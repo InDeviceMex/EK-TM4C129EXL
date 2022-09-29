@@ -26,35 +26,63 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vSetTimerPeriod(I2C_nMODULE enModule, uint32_t u32TimerPeriodArg)
+I2C_nERROR I2C_Master__enSetTimerPeriod(I2C_nMODULE enModuleArg, uint32_t u32TimerPeriodArg)
 {
-    if(0UL != u32TimerPeriodArg)
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) u32TimerPeriodArg)
     {
-        I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, u32TimerPeriodArg,
-                            I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
+        enErrorReg = I2C_enERROR_VALUE;
     }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_MASTER_TPR_R_TPR_BIT;
+        stRegister.u32Mask = I2C_MASTER_TPR_TPR_MASK;
+        stRegister.uptrAddress = I2C_MASTER_TPR_OFFSET;
+        stRegister.u32Value = (uint32_t) u32TimerPeriodArg;
+        enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
 }
 
-uint32_t I2C_Master__u32GetTimerPeriod(I2C_nMODULE enModule)
+I2C_nERROR I2C_Master__enGetTimerPeriod(I2C_nMODULE enModuleArg, uint32_t* pu32TimerPeriodArg)
 {
-    uint32_t u32TimerPeriodReg = 0UL;
-    u32TimerPeriodReg = I2C__u32ReadRegister(enModule, I2C_MTPR_OFFSET,
-                                     I2C_MTPR_TPR_MASK, I2C_MTPR_R_TPR_BIT);
-    return (u32TimerPeriodReg);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) pu32TimerPeriodArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_MASTER_TPR_R_TPR_BIT;
+        stRegister.u32Mask = I2C_MASTER_TPR_TPR_MASK;
+        stRegister.uptrAddress = I2C_MASTER_TPR_OFFSET;
+        enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        *pu32TimerPeriodArg = (uint32_t) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
 }
 
-void I2C_Master__vSetHighSpeedPeriod(I2C_nMODULE enModule, I2C_nMASTER_HIGHSPEED enHighSpeedArg)
+
+I2C_nERROR I2C_Master__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enHighSpeedArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MTPR_OFFSET, (uint32_t) enHighSpeedArg,
-                        I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    stRegister.u32Shift = I2C_MASTER_TPR_R_HS_BIT;
+    stRegister.u32Mask = I2C_MASTER_TPR_HS_MASK;
+    stRegister.uptrAddress = I2C_MASTER_TPR_OFFSET;
+    stRegister.u32Value = (uint32_t) enHighSpeedArg;
+    enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
-
-I2C_nMASTER_HIGHSPEED I2C_Master__enGetHighSpeedPeriod(I2C_nMODULE enModule)
-{
-    I2C_nMASTER_HIGHSPEED enHighSpeedReg = I2C_enMASTER_HIGHSPEED_UNDEF;
-    enHighSpeedReg = (I2C_nMASTER_HIGHSPEED) I2C__u32ReadRegister(enModule, I2C_MTPR_OFFSET,
-                                                      I2C_MTPR_HS_MASK, I2C_MTPR_R_HS_BIT);
-    return (enHighSpeedReg);
-}
-
-

@@ -27,7 +27,16 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
 
-void I2C__vEnInterruptVector(I2C_nMODULE enModule, I2C_nPRIORITY enI2CPriority);
-void I2C__vDisInterruptVector(I2C_nMODULE enModule);
+I2C_nERROR I2C__enSetInterruptVectorState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C__enSetInterruptVectorStateWithPriority(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg, I2C_nPRIORITY enPriorityArg);
+
+I2C_nERROR I2C__enGetInterruptVectorState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+I2C_nERROR I2C__enGetInterruptVectorStateWithPriority(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg, I2C_nPRIORITY* penPriorityArg);
+
+I2C_nERROR I2C__enEnableInterruptVector(I2C_nMODULE enModuleArg);
+I2C_nERROR I2C__enEnableInterruptVectorWithPriority(I2C_nMODULE enModuleArg, I2C_nPRIORITY enPriorityArg);
+
+I2C_nERROR I2C__enDisableInterruptVector(I2C_nMODULE enModuleArg);
+I2C_nERROR I2C__enDisableInterruptVectorWithPriority(I2C_nMODULE enModuleArg, I2C_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_I2C_INTERRUPT_XHEADER_I2C_INTERRUPTVECTOR_H_ */

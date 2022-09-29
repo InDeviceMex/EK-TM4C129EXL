@@ -24,6 +24,7 @@
 #ifndef XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_I2C_REGISTERPERIPHERAL_H_
 #define XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_I2C_REGISTERPERIPHERAL_H_
 
+#include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module0.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module1.h>
 #include <xDriver_MCU/I2C/Peripheral/Register/RegisterPeripheral/xHeader/I2C_RegisterPeripheral_Module2.h>
@@ -37,6 +38,6 @@
 
 #define I2C    ((I2CS_t*) (I2C_BASE))
 
-uint32_t I2C__u32BlockBaseAddress(I2C_nMODULE enModuleArg);
+uintptr_t I2C__uptrBlockBaseAddress(I2C_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_I2C_REGISTERPERIPHERAL_H_ */

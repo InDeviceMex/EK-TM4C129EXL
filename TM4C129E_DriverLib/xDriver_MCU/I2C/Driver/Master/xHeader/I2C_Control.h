@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Master__vSetControl(I2C_nMODULE enModule, I2C_nMASTER_CONTROL enControlArg);
+I2C_nERROR I2C_Master__enSetControlState(I2C_nMODULE enModuleArg, I2C_nMASTER_CONTROL enControlArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_CONTROL_H_ */

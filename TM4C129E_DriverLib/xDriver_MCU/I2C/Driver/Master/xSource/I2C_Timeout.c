@@ -23,20 +23,54 @@
  */
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Timeout.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vSetTimeoutCount(I2C_nMODULE enModule, uint32_t u32TimeoutArg)
+I2C_nERROR I2C_Master__enSetSCLTimeoutCount(I2C_nMODULE enModuleArg, uint32_t u32TimeoutArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MCLKOCNT_OFFSET, u32TimeoutArg,
-                        I2C_MCLKOCNT_CNTL_MASK, I2C_MCLKOCNT_R_CNTL_BIT);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    u32TimeoutArg >>= 4UL;
+    if(2UL > u32TimeoutArg)
+    {
+        enErrorReg = I2C_enERROR_VALUE;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_MASTER_CLKOCNT_R_CNTL_BIT;
+        stRegister.u32Mask = I2C_MASTER_CLKOCNT_CNTL_MASK;
+        stRegister.uptrAddress = I2C_MASTER_CLKOCNT_OFFSET;
+        stRegister.u32Value = (uint32_t) u32TimeoutArg;
+        enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
 }
 
-uint32_t I2C_Master__u32GetTimeoutCount(I2C_nMODULE enModule)
+I2C_nERROR I2C_Master__enGetSCLTimeoutCount(I2C_nMODULE enModuleArg, uint32_t* pu32TimeoutArg)
 {
-    uint32_t u32TimeoutReg = 0UL;
-    u32TimeoutReg = I2C__u32ReadRegister(enModule, I2C_MCLKOCNT_OFFSET,
-                         I2C_MCLKOCNT_CNTL_MASK, I2C_MCLKOCNT_R_CNTL_BIT);
-    return (u32TimeoutReg);
-}
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
 
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) pu32TimeoutArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Shift = I2C_MASTER_CLKOCNT_R_CNTL_BIT;
+        stRegister.u32Mask = I2C_MASTER_CLKOCNT_CNTL_MASK;
+        stRegister.uptrAddress = I2C_MASTER_CLKOCNT_OFFSET;
+        enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        stRegister.u32Value <<= 4UL;
+        *pu32TimeoutArg = (uint32_t) stRegister.u32Value;
+    }
+
+    return (enErrorReg);
+}

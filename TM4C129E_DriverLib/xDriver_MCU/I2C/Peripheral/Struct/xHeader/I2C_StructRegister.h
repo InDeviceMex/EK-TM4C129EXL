@@ -33,7 +33,7 @@ typedef volatile struct
     volatile uint32_t RS :1;
     volatile uint32_t SA :7;
     const uint32_t reserved :24;
-} I2CMSA_t;
+}I2C_MASTER_SA_t;
 
 typedef volatile struct
 {
@@ -48,7 +48,7 @@ typedef volatile struct
     const uint32_t reserved :22;
     volatile const uint32_t ACTDMATX :1;
     volatile const uint32_t ACTDMARX :1;
-} I2CMCS_STATUS_t;
+}I2C_MASTER_STS_t;
 
 typedef volatile struct
 {
@@ -60,13 +60,13 @@ typedef volatile struct
     volatile uint32_t QCMD :1;
     volatile uint32_t BURST :1;
     const uint32_t reserved :25;
-} I2CMCS_CONTROL_t;
+}I2C_MASTER_CTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA :8;
     const uint32_t reserved :24;
-} I2CMDR_t;
+}I2C_MASTER_DATA_t;
 
 typedef volatile struct
 {
@@ -75,7 +75,7 @@ typedef volatile struct
     const uint32_t reserved :8;
     volatile uint32_t PULSEL :3;
     const uint32_t reserved1 :13;
-} I2CMTPR_t;
+}I2C_MASTER_TPR_t;
 
 typedef volatile struct
 {
@@ -92,7 +92,7 @@ typedef volatile struct
     volatile uint32_t TXFEIM :1;
     volatile uint32_t RXFFIM :1;
     const uint32_t reserved :20;
-} I2CMIMR_t;
+}I2C_MASTER_IMR_t;
 
 typedef volatile struct
 {
@@ -109,7 +109,7 @@ typedef volatile struct
     volatile const uint32_t TXFERIS :1;
     volatile const uint32_t RXFFRIS :1;
     const uint32_t reserved :20;
-} I2CMRIS_t;
+}I2C_MASTER_RIS_t;
 
 typedef volatile struct
 {
@@ -126,7 +126,7 @@ typedef volatile struct
     volatile const uint32_t TXFEMIS :1;
     volatile const uint32_t RXFFMIS :1;
     const uint32_t reserved :20;
-} I2CMMIS_t;
+}I2C_MASTER_MIS_t;
 
 typedef volatile struct
 {
@@ -143,7 +143,7 @@ typedef volatile struct
     volatile uint32_t TXFEIC :1;
     volatile uint32_t RXFFIC :1;
     const uint32_t reserved :20;
-} I2CMICR_t;
+}I2C_MASTER_ICR_t;
 
 typedef volatile struct
 {
@@ -152,32 +152,32 @@ typedef volatile struct
     volatile uint32_t MFE :1;
     volatile uint32_t SFE :1;
     const uint32_t reserved2 :26;
-} I2CMCR_t;
+}I2C_MASTER_CR_t;
 
 typedef volatile struct
 {
     volatile uint32_t CNTL :8;
     const uint32_t reserved :24;
-} I2CMCLKOCNT_t;
+}I2C_MASTER_CLKOCNT_t;
 
 typedef volatile struct
 {
     volatile const uint32_t SCL :1;
     volatile const uint32_t SDA :1;
     const uint32_t reserved : 30;
-} I2CMBMON_t;
+}I2C_MASTER_BMON_t;
 
 typedef volatile struct
 {
     volatile uint32_t CNTL :8;
     const uint32_t reserved : 24;
-} I2CMBLEN_t;
+}I2C_MASTER_BLEN_t;
 
 typedef volatile struct
 {
     volatile const uint32_t CNTL :8;
     const uint32_t reserved : 24;
-} I2CMBCNT_t;
+}I2C_MASTER_BCNT_t;
 
 /*Slave*/
 
@@ -185,7 +185,7 @@ typedef volatile struct
 {
     volatile uint32_t OAR :7;
     const uint32_t reserved :25;
-} I2CSOAR_t;
+}I2C_SLAVE_OAR_t;
 
 typedef volatile struct
 {
@@ -198,7 +198,7 @@ typedef volatile struct
     const uint32_t reserved :24;
     volatile const uint32_t ACTDMATX :1;
     volatile const uint32_t ACTDMARX :1;
-} I2CSCSR_STATUS_t;
+}I2C_SLAVE_STS_t;
 
 typedef volatile struct
 {
@@ -206,13 +206,13 @@ typedef volatile struct
     volatile uint32_t TXFIFO :1;
     volatile uint32_t RXFIFO :1;
     const uint32_t reserved :29;
-} I2CSCSR_CONTROL_t;
+}I2C_SLAVE_CTL_t;
 
 typedef volatile struct
 {
     volatile uint32_t DATA :8;
     const uint32_t reserved :24;
-} I2CSDR_t;
+}I2C_SLAVE_DATA_t;
 
 typedef volatile struct
 {
@@ -226,7 +226,7 @@ typedef volatile struct
     volatile uint32_t TXFEIM :1;
     volatile uint32_t RXFFIM :1;
     const uint32_t reserved :23;
-} I2CSIMR_t;
+}I2C_SLAVE_IMR_t;
 
 typedef volatile struct
 {
@@ -240,7 +240,7 @@ typedef volatile struct
     volatile const uint32_t TXFERIS :1;
     volatile const uint32_t RXFFRIS :1;
     const uint32_t reserved :23;
-} I2CSRIS_t;
+}I2C_SLAVE_RIS_t;
 
 typedef volatile struct
 {
@@ -254,7 +254,7 @@ typedef volatile struct
     volatile const uint32_t TXFEMIS :1;
     volatile const uint32_t RXFFMIS :1;
     const uint32_t reserved :23;
-} I2CSMIS_t;
+}I2C_SLAVE_MIS_t;
 
 typedef volatile struct
 {
@@ -268,21 +268,21 @@ typedef volatile struct
     volatile uint32_t TXFEIC :1;
     volatile uint32_t RXFFIC :1;
     const uint32_t reserved :23;
-} I2CSICR_t;
+}I2C_SLAVE_ICR_t;
 
 typedef volatile struct
 {
     volatile uint32_t OAR2 :7;
     volatile uint32_t OAR2EN :1;
     const uint32_t reserved :24;
-} I2CSOAR2_t;
+}I2C_SLAVE_OAR2_t;
 
 typedef volatile struct
 {
     volatile uint32_t ACKOEN :1;
     volatile uint32_t ACKOVAL :1;
     const uint32_t reserved :30;
-} I2CSACKCTL_t;
+}I2C_SLAVE_ACKCTL_t;
 
 /*Status Control*/
 
@@ -290,7 +290,7 @@ typedef volatile struct
 {
     volatile const uint32_t DATA :8;
     const uint32_t reserved : 24;
-} I2CFIFODATA_t;
+}I2C_FIFO_DATA_t;
 
 typedef volatile struct
 {
@@ -304,7 +304,7 @@ typedef volatile struct
     volatile uint32_t DMARXENA :1;
     volatile uint32_t RXFLUSH :1;
     volatile uint32_t RXASGNMT :1;
-} I2CFIFOCTL_t;
+}I2C_FIFO_CTL_t;
 
 typedef volatile struct
 {
@@ -316,18 +316,18 @@ typedef volatile struct
     volatile const uint32_t RXFF :1;
     volatile const uint32_t RXABVTRIG :1;
     const uint32_t reserved2 : 13;
-} I2CFIFOSTATUS_t;
+}I2C_FIFO_STS_t;
 
 typedef volatile struct
 {
     volatile const uint32_t HS :1;
     const uint32_t reserved : 31;
-} I2CPP_t;
+}I2C_PP_t;
 
 typedef volatile struct
 {
     volatile uint32_t HS :1;
     const uint32_t reserved : 31;
-} I2CPC_t;
+}I2C_PC_t;
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_STRUCT_XHEADER_I2C_STRUCTREGISTER_H_ */

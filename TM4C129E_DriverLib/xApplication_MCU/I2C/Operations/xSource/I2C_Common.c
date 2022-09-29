@@ -25,50 +25,73 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-I2C_nSTATUS I2C_Master__enWaitMultiMaster(I2C_nMODULE enModule)
+I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, uint32_t u32TimeoutArg)
 {
-    I2C_nSTATUS enStatus = I2C_enSTATUS_OK;
-    I2C_nMASTER_BUSY enBusBusy = I2C_enMASTER_BUSY_IDLE;
-    uint32_t u32Timeout = I2C_TIMEOUT;
-    u32Timeout = I2C_TIMEOUT;
+    I2C_nERROR enErrorReg;
+    I2C_nSTATUS enBusBusy;
+    uint32_t u32Timeout;
+
+    u32Timeout = u32TimeoutArg;
+    enErrorReg = I2C_enERROR_OK;
+    enBusBusy = I2C_enSTATUS_INACTIVE;
     do
     {
-        enBusBusy = I2C_Master__enIsBusBusy(enModule);
+        enErrorReg = I2C_Master__enGetBusStatus(enModuleArg, &enBusBusy);
         u32Timeout--;
+    }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+
+    if(I2C_enERROR_OK == enErrorReg)
+    {
         if(0UL == u32Timeout)
         {
-            enStatus = I2C_enSTATUS_ERROR;
-        }
-    }while((I2C_enMASTER_BUSY_IDLE != enBusBusy) && (0UL != u32Timeout));
-
-    return (enStatus);
-}
-
-I2C_nSTATUS I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule)
-{
-    I2C_nSTATUS enStatus = I2C_enSTATUS_OK;
-    uint32_t u32Timeout = I2C_TIMEOUT;
-    I2C_nMASTER_BUSY enControllerBusy = I2C_enMASTER_BUSY_IDLE;
-    I2C_Master__vSetControl(enModule, I2C_enMASTER_CONTROL_RUN_STOP);
-
-    u32Timeout = I2C_TIMEOUT;
-    do
-    {
-        enControllerBusy = I2C_Master__enIsControllerBusy(enModule);
-        u32Timeout--;
-        if(0UL == u32Timeout)
-        {
-            enStatus = I2C_enSTATUS_ERROR;
-        }
-    }while((I2C_enMASTER_BUSY_IDLE != enControllerBusy) && (0UL != u32Timeout));
-
-    if(I2C_enSTATUS_ERROR != enStatus)
-    {
-        enStatus = I2C_Master__enIsLastOperationError(enModule);
-        if(I2C_enSTATUS_ERROR == enStatus)
-        {
-            /*Error Handling*/
+            enErrorReg = I2C_enERROR_TIMEOUT;
         }
     }
-    return (enStatus);
+    return (enErrorReg);
+}
+
+I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, uint32_t u32TimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg)
+{
+    I2C_nERROR enErrorReg;
+    uint32_t u32Timeout;
+    I2C_nSTATUS enControllerBusy;
+    I2C_nOPERATION_ERROR enErrorOperationReg;
+
+    enErrorOperationReg = I2C_enOPERATION_ERROR_NONE;
+    u32Timeout = u32TimeoutArg;
+    enControllerBusy = I2C_enSTATUS_INACTIVE;
+    enErrorReg = I2C_Master__enSetControlState(enModule, I2C_enMASTER_CONTROL_RUN_STOP);
+
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
+            u32Timeout--;
+        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        if(0UL == u32Timeout)
+        {
+            enErrorReg = I2C_enERROR_TIMEOUT;
+        }
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = I2C_Master__enGetLastOperationErrorStatus(enModule, &enErrorOperationReg);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        if(I2C_enOPERATION_ERROR_NONE != enErrorOperationReg)
+        {
+            /*Error Handling*/
+            if(0UL != (uintptr_t) pvfErrorHandleArg)
+            {
+                pvfErrorHandleArg((uintptr_t) enModule, (void*) enErrorOperationReg);
+            }
+        }
+    }
+    return (enErrorReg);
 }

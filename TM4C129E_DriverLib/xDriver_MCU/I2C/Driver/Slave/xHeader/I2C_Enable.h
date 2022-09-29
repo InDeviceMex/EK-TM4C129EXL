@@ -26,6 +26,13 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Slave__vSetEnable(I2C_nMODULE enModule, I2C_nSLAVE_ENABLE enEnableArg);
+I2C_nERROR I2C_Slave__enSetState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C_Slave__enSetFIFOTxState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetFIFOTxState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C_Slave__enSetFIFORxState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetFIFORxState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_ENABLE_H_ */

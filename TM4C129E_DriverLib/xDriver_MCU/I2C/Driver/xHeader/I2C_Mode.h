@@ -27,7 +27,16 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C__vSetMode(I2C_nMODULE enModule, I2C_nMODE enModeArg);
-I2C_nMODE I2C__enGetMode(I2C_nMODULE enModule);
+I2C_nERROR I2C__enSetMasterState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C__enGetMasterState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C__enSetSlaveState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C__enGetSlaveState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C__enSetLoopbackState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C__enGetLoopbackState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C__enSetMode(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg);
+I2C_nERROR I2C__enGetMode(I2C_nMODULE enModuleArg, I2C_nMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_XHEADER_I2C_MODE_H_ */

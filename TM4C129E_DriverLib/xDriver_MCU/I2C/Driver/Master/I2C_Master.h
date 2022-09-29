@@ -27,6 +27,8 @@
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Address.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Control.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Data.h>
+#include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_GlitchFilter.h>
+#include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_LineState.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Status.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Timeout.h>
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_TimerPeriod.h>

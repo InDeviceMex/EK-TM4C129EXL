@@ -23,16 +23,19 @@
  */
 #include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_Control.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-void I2C_Master__vSetControl(I2C_nMODULE enModule,
-                             I2C_nMASTER_CONTROL enControlArg)
+I2C_nERROR I2C_Master__enSetControlState(I2C_nMODULE enModuleArg, I2C_nMASTER_CONTROL enControlArg)
 {
-    I2C__vWriteRegister(enModule, I2C_MCS_OFFSET, (uint32_t) enControlArg,
-                        I2C_MCS_R_BURST_MASK | I2C_MCS_R_QCMD_MASK |
-                        I2C_MCS_R_HS_MASK | I2C_MCS_R_ACK_MASK |
-                        I2C_MCS_R_STOP_MASK | I2C_MCS_R_START_MASK |
-                        I2C_MCS_R_RUN_MASK,
-                        0UL);
+    I2C_Register_t stRegister;
+    I2C_nERROR enErrorReg;
+
+    stRegister.u32Shift = 0UL;
+    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uptrAddress = I2C_MASTER_CTL_OFFSET;
+    stRegister.u32Value = (uint32_t) enControlArg;
+    enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }

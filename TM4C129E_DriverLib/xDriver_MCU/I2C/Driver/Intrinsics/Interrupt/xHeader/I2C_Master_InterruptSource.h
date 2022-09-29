@@ -27,9 +27,25 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Master__vEnInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
-void I2C_Master__vDisInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
-void I2C_Master__vClearInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
-I2C_nMASTER_INT_SOURCE I2C_Master__enStatusInterruptSource(I2C_nMODULE enModule, I2C_nMASTER_INT_SOURCE enSourceInt);
+I2C_nERROR I2C_Master__enSetInterruptSourceStateByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Master__enSetInterruptSourceStateByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg, I2C_nSTATE enStateArg);
+
+I2C_nERROR I2C_Master__enGetInterruptSourceStateByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg, I2C_nMASTER_INTMASK* penInterruptGetArg);
+I2C_nERROR I2C_Master__enGetInterruptSourceStateByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg, I2C_nSTATE* penStateArg);
+
+I2C_nERROR I2C_Master__enEnableInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg);
+I2C_nERROR I2C_Master__enEnableInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg);
+
+I2C_nERROR I2C_Master__enDisableInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg);
+I2C_nERROR I2C_Master__enDisableInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg);
+
+I2C_nERROR I2C_Master__enClearInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg);
+I2C_nERROR I2C_Master__enClearInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg);
+
+I2C_nERROR I2C_Master__enStatusInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg, I2C_nMASTER_INTMASK* penInterruptStatusArg);
+I2C_nERROR I2C_Master__enStatusInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg, I2C_nSTATUS* penStatusArg);
+
+I2C_nERROR I2C_Master__enStatusMaskedInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg, I2C_nMASTER_INTMASK* penInterruptStatusArg);
+I2C_nERROR I2C_Master__enStatusMaskedInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg, I2C_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_INTRINSICS_INTERRUPT_XHEADER_I2C_MASTER_INTERRUPTSOURCE_H_ */

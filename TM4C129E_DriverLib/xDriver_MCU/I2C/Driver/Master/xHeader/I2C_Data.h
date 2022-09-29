@@ -1,4 +1,5 @@
-/**
+
+#include <xDriver_MCU/I2C/Driver/Master/xHeader/I2C_LineState.h>/**
  *
  * @file I2C_Data.h
  * @copyright
@@ -27,7 +28,7 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-void I2C_Master__vSetData(I2C_nMODULE enModule, uint32_t u32Data);
-uint32_t I2C_Master__u32GetData(I2C_nMODULE enModule);
+I2C_nERROR I2C_Master__enSetData(I2C_nMODULE enModuleArg, uint32_t u32DataArg);
+I2C_nERROR I2C_Master__enGetData(I2C_nMODULE enModuleArg, uint32_t* pu32DataArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_DATA_H_ */
