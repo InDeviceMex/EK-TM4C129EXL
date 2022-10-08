@@ -26,7 +26,7 @@
 CDLinkedListItem_t* CDLinkedList__pstGetLastItemRead(const CDLinkedList_t*  const pstList)
 {
     CDLinkedListItem_t* pstLastItemReadReg = (CDLinkedListItem_t*) 0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstLastItemReadReg = pstList->pstLastItemRead;
     }
@@ -35,7 +35,7 @@ CDLinkedListItem_t* CDLinkedList__pstGetLastItemRead(const CDLinkedList_t*  cons
 
 void CDLinkedList__vSetLastItemRead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstLastItemReadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstLastItemRead = pstLastItemReadArg;
     }
@@ -46,7 +46,7 @@ CDLinkedList_nSTATUS CDLinkedList__enIsLastItemRead(const CDLinkedList_t* const 
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstListLastItemRead = (CDLinkedListItem_t*)0UL;
     pstListLastItemRead= CDLinkedList__pstGetLastItemRead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListLastItemRead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

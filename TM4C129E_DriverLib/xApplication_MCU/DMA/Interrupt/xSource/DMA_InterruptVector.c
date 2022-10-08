@@ -29,20 +29,20 @@ static DMA_nERROR DMA__enGetInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR
 
 static DMA_nERROR DMA__enGetInterruptVector(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_DMA[(uint32_t) DMA_enMODULE_MAX][(uint32_t) DMA_enVECTOR_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_DMA[(UBase_t) DMA_enMODULE_MAX][(UBase_t) DMA_enVECTOR_MAX] =
     {
      { NVIC_enVECTOR_UDMASOFT, NVIC_enVECTOR_UDMAERROR},
     };
     DMA_nERROR enErrorReg;
 
-    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enInterruptArg, (uint32_t) DMA_enVECTOR_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) DMA_enVECTOR_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_VECTOR_DMA[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+        *enVectorArg = NVIC_VECTOR_DMA[(UBase_t) enModuleArg][(UBase_t) enInterruptArg];
     }
     return (enErrorReg);
 }

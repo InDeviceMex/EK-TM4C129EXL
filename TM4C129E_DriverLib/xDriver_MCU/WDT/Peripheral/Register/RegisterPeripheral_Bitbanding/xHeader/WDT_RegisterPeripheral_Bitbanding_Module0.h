@@ -47,10 +47,10 @@
 ******************************************************************************************/
 #define WDT0_BITBANDING_CTL     ((BITBANDING_WDTCTL_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL)))
 
-#define WDT0_BITBANDING_CTL_INTEN    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_INTEN_BIT * 4UL))))
-#define WDT0_BITBANDING_CTL_RESEN    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_RESEN_BIT * 4UL))))
-#define WDT0_BITBANDING_CTL_INTTYPE    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_INTTYPE_BIT * 4UL))))
-#define WDT0_BITBANDING_CTL_WRC    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_WRC_BIT * 4UL))))
+#define WDT0_BITBANDING_CTL_INTEN    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_INTEN_BIT * 4UL))))
+#define WDT0_BITBANDING_CTL_RESEN    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_RESEN_BIT * 4UL))))
+#define WDT0_BITBANDING_CTL_INTTYPE    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_INTTYPE_BIT * 4UL))))
+#define WDT0_BITBANDING_CTL_WRC    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_CTL_OFFSET) * 32UL) + (WDT_CTL_R_WRC_BIT * 4UL))))
 
 /******************************************************************************************
 ************************************ 4 ICR *********************************************
@@ -62,21 +62,21 @@
 ******************************************************************************************/
 #define WDT0_BITBANDING_RIS     ((BITBANDING_WDTRIS_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_RIS_OFFSET) * 32UL)))
 
-#define WDT0_BITBANDING_RIS_RIS    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_RIS_OFFSET) * 32UL) + (WDT_RIS_R_RIS_BIT * 4UL))))
+#define WDT0_BITBANDING_RIS_RIS    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_RIS_OFFSET) * 32UL) + (WDT_RIS_R_RIS_BIT * 4UL))))
 
 /******************************************************************************************
 ************************************ 6 MIS *********************************************
 ******************************************************************************************/
 #define WDT0_BITBANDING_MIS     ((BITBANDING_WDTMIS_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_MIS_OFFSET) * 32UL)))
 
-#define WDT0_BITBANDING_MIS_MIS    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_MIS_OFFSET) * 32UL) + (WDT_MIS_R_MIS_BIT * 4UL))))
+#define WDT0_BITBANDING_MIS_MIS    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_MIS_OFFSET) * 32UL) + (WDT_MIS_R_MIS_BIT * 4UL))))
 
 /******************************************************************************************
 ************************************ 7 TEST *********************************************
 ******************************************************************************************/
 #define WDT0_BITBANDING_TEST     ((BITBANDING_WDTTEST_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_TEST_OFFSET) * 32UL)))
 
-#define WDT0_BITBANDING_STALL_TEST    (*((volatile uint32_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_TEST_OFFSET) * 32UL) + (WDT_TEST_R_STALL_BIT * 4UL))))
+#define WDT0_BITBANDING_STALL_TEST    (*((volatile UBase_t*) (WDT_BITBANDING_BASE + ((WDT0_OFFSET + WDT_TEST_OFFSET) * 32UL) + (WDT_TEST_R_STALL_BIT * 4UL))))
 
 /******************************************************************************************
 ************************************ 8 LOCK *********************************************

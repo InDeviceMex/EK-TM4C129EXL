@@ -26,7 +26,7 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-uint32_t SVCall_u32Function = 0UL;
+UBase_t SVCall_uxFunction = 0UL;
 
 __attribute__((naked))
 void SVCall__vIRQVectorHandler(void)
@@ -52,23 +52,23 @@ void SVCall__vIRQVectorHandler(void)
         " ldrb    r0, [r1] \n"
         " and    r0, #0xFF \n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        " movw R1, SVCall_u32Function\n"
-        " movt R1, SVCall_u32Function\n"
+        " movw R1, SVCall_uxFunction\n"
+        " movt R1, SVCall_uxFunction\n"
 #elif defined (__GNUC__ )
-        " ldr R1, = SVCall_u32Function\n"
+        " ldr R1, = SVCall_uxFunction\n"
 #endif
         " str R0, [R1, #0x0]\n"
         " pop {r0-r1} \n"
         " push {R0,R1,R2,LR} \n"
-        " .global SVCall_u32Function \n"
+        " .global SVCall_uxFunction \n"
         " .global SCB_SVCall__pvfGetIRQSourceHandler \n"
         " movw R0, #0X0\n"
         " movt R0, #0x0\n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        " movw R2, SVCall_u32Function\n"
-        " movt R2, SVCall_u32Function\n"
+        " movw R2, SVCall_uxFunction\n"
+        " movt R2, SVCall_uxFunction\n"
 #elif defined (__GNUC__ )
-        " ldr R2, = SVCall_u32Function\n"
+        " ldr R2, = SVCall_uxFunction\n"
 #endif
         " ldr R1, [R2]\n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

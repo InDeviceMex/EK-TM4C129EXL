@@ -29,7 +29,7 @@ static GPIO_nERROR GPIO__enGetInterruptVector(GPIO_nPORT enPortArg, NVIC_nVECTOR
 
 static GPIO_nERROR GPIO__enGetInterruptVector(GPIO_nPORT enPortArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_enVECTOR_GPIO[ (uint32_t) GPIO_enPORT_MAX] =
+    const NVIC_nVECTOR NVIC_enVECTOR_GPIO[ (UBase_t) GPIO_enPORT_MAX] =
     {
       NVIC_enVECTOR_GPIOA, NVIC_enVECTOR_GPIOB, NVIC_enVECTOR_GPIOC, NVIC_enVECTOR_GPIOD, NVIC_enVECTOR_GPIOE,
       NVIC_enVECTOR_GPIOF, NVIC_enVECTOR_GPIOG, NVIC_enVECTOR_GPIOH, NVIC_enVECTOR_GPIOJ, NVIC_enVECTOR_GPIOK,
@@ -37,10 +37,10 @@ static GPIO_nERROR GPIO__enGetInterruptVector(GPIO_nPORT enPortArg, NVIC_nVECTOR
     };
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPortArg, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_enVECTOR_GPIO[(uint32_t) enPortArg];
+        *enVectorArg = NVIC_enVECTOR_GPIO[(UBase_t) enPortArg];
     }
     return (enErrorReg);
 }
@@ -158,7 +158,7 @@ static GPIO_nERROR GPIO_PQ__enGetInterruptVector(GPIO_nPORT enPortArg, GPIO_nPIN
 
 static GPIO_nERROR GPIO_PQ__enGetInterruptVector(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ [(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P][(uint32_t) GPIO_enPIN_MAX] =
+    const NVIC_nVECTOR NVIC_enVECTOR_GPIOPQ [(UBase_t) GPIO_enPORT_MAX - (UBase_t) GPIO_enPORT_P][(UBase_t) GPIO_enPIN_MAX] =
     {
       {
        NVIC_enVECTOR_GPIOP, NVIC_enVECTOR_GPIOP1, NVIC_enVECTOR_GPIOP2, NVIC_enVECTOR_GPIOP3,
@@ -178,17 +178,17 @@ static GPIO_nERROR GPIO_PQ__enGetInterruptVector(GPIO_nPORT enPortArg, GPIO_nPIN
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         if(GPIO_enPORT_P == enPortArg)
         {
-            *enVectorArg = NVIC_enVECTOR_GPIOPQ[0UL][(uint32_t) enPinArg];
+            *enVectorArg = NVIC_enVECTOR_GPIOPQ[0UL][(UBase_t) enPinArg];
         }
         else if(GPIO_enPORT_Q == enPortArg)
         {
-            *enVectorArg = NVIC_enVECTOR_GPIOPQ[1UL][(uint32_t) enPinArg];
+            *enVectorArg = NVIC_enVECTOR_GPIOPQ[1UL][(UBase_t) enPinArg];
         }
 
     }

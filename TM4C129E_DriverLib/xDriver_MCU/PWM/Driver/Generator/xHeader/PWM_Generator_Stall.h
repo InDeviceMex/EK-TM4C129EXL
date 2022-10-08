@@ -27,8 +27,10 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetStall(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nSTALL enStallArg);
-PWM_nSTALL PWM_Generator__enGetStall(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetStallModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTALL enStallArg);
+PWM_nERROR PWM_Generator__enSetStallModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nSTALL enStallArg);
+
+PWM_nERROR PWM_Generator__enGetStallModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTALL* penStallArg);
+PWM_nERROR PWM_Generator__enGetStallModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penStallArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_STALL_H_ */

@@ -21,38 +21,45 @@
  * Date           Author     Version     Description
  * 9 ene. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
+
 #include <xApplication_MCU/PWM/Interrupt/InterruptRoutine/PWM_InterruptRoutine.h>
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-void (*PWM_Generator__pvIRQVectorHandler[(uint32_t)PWM_enMODULE_MAX][(uint32_t)PWM_enGEN_MAX]) (void) =
+static PWM_pvfIRQVectorHandler_t PWM_Generator_pvIRQVectorHandler[(UBase_t) PWM_enMODULE_MAX][(UBase_t) PWM_enGEN_MAX]=
 {
- {&PWM0_GEN0__vIRQVectorHandler,&PWM0_GEN1__vIRQVectorHandler,
-  &PWM0_GEN2__vIRQVectorHandler,&PWM0_GEN3__vIRQVectorHandler},
+ {&PWM0_GEN0__vIRQVectorHandler,&PWM0_GEN1__vIRQVectorHandler, &PWM0_GEN2__vIRQVectorHandler,&PWM0_GEN3__vIRQVectorHandler},
 };
 
-void (*PWM_Fault__pvIRQVectorHandler[(uint32_t)PWM_enMODULE_MAX]) (void) =
+
+static PWM_pvfIRQVectorHandler_t PWM_Fault_pvIRQVectorHandler[(UBase_t) PWM_enMODULE_MAX]=
 {
  &PWM0_Fault__vIRQVectorHandler
 };
 
-
-void (*PWM_Generator__pvfGetIRQVectorHandler(PWM_nMODULE enPWMModule, PWM_nGENERATOR enPWMGenerator))(void)
+PWM_pvfIRQVectorHandler_t PWM_Generator__pvfGetIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
 {
-    return (PWM_Generator__pvIRQVectorHandler[(uint32_t) enPWMModule][(uint32_t) enPWMGenerator]);
+    PWM_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = PWM_Generator_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enGeneratorArg];
+    return (pvfVectorReg);
 }
 
-void (**PWM_Generator__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enPWMModule, PWM_nGENERATOR enPWMGenerator))(void)
+PWM_pvfIRQVectorHandler_t* PWM_Generator__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
 {
-    return ((void(**)(void)) &PWM_Generator__pvIRQVectorHandler[(uint32_t) enPWMModule][(uint32_t) enPWMGenerator]);
+    PWM_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &PWM_Generator_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enGeneratorArg];
+    return (pvfVectorReg);
 }
 
-
-void (*PWM_Fault__pvfGetIRQVectorHandler(PWM_nMODULE enPWMModule))(void)
+PWM_pvfIRQVectorHandler_t PWM_Fault__pvfGetIRQVectorHandler(PWM_nMODULE enModuleArg)
 {
-    return (PWM_Fault__pvIRQVectorHandler[(uint32_t) enPWMModule]);
+    PWM_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = PWM_Fault_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**PWM_Fault__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enPWMModule))(void)
+PWM_pvfIRQVectorHandler_t* PWM_Fault__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enModuleArg)
 {
-    return ((void(**)(void)) &PWM_Fault__pvIRQVectorHandler[(uint32_t) enPWMModule]);
+    PWM_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &PWM_Fault_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }

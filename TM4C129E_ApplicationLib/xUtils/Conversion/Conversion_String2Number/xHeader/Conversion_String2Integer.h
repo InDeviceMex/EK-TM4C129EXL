@@ -24,8 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_STRING2NUMBER_CONVERSION_STRING2INTEGER_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_STRING2NUMBER_CONVERSION_STRING2INTEGER_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-int32_t Conv__s32String2Integer(const char* pcString, int64_t* s64NumSigned );
+CONV_nERROR Conv__enString2Integer(const char** pcString, int64_t* s64NumSigned, UBase_t* puxLength);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_STRING2NUMBER_CONVERSION_STRING2INTEGER_H_ */

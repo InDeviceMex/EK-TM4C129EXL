@@ -10,9 +10,9 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
+SYSCTL_nSTATUS SYSCTL__enSetSystemClock(UBase_t uxSystemClock,
                                         SYSCTL_CONFIG_t stClockConfig);
-uint32_t SYSCTL__u32GetSystemClock(void);
-SYSCTL_nSTATUS SYSCTL__enGetVCOClock(uint32_t *pu32VCOFrequency);
+UBase_t SYSCTL__uxGetSystemClock(void);
+SYSCTL_nSTATUS SYSCTL__enGetVCOClock(UBase_t *puxVCOFrequency);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_SYSTEMCLOCK_H_ */

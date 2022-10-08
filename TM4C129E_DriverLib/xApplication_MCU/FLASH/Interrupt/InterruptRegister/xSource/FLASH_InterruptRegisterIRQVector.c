@@ -28,7 +28,7 @@
 
 FLASH_nERROR FLASH__enRegisterIRQVectorHandler(FLASH_nMODULE enModuleArg, FLASH_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_VECISR_FLASH[(uint32_t) FLASH_enMODULE_MAX]=
+    const SCB_nVECISR SCB_VECISR_FLASH[(UBase_t) FLASH_enMODULE_MAX]=
     {
         SCB_enVECISR_FLASH
     };
@@ -36,10 +36,10 @@ FLASH_nERROR FLASH__enRegisterIRQVectorHandler(FLASH_nMODULE enModuleArg, FLASH_
     FLASH_nERROR enErrorReg;
     FLASH_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) FLASH_enMODULE_MAX);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enVectorReg = SCB_VECISR_FLASH[(uint32_t) enModuleArg];
+        enVectorReg = SCB_VECISR_FLASH[(UBase_t) enModuleArg];
         pvfVectorHandlerReg = FLASH__pvfGetIRQVectorHandlerPointer(enModuleArg);
         enErrorReg = (FLASH_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }

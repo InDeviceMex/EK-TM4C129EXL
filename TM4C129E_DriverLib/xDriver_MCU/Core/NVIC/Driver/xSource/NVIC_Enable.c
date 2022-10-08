@@ -31,7 +31,7 @@
 NVIC_nERROR NVIC__enGetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nSTATE* penStateArg)
 {
     NVIC_nERROR enErrorReg;
-    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (uint32_t*) penStateArg);
+    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (UBase_t*) penStateArg);
     return (enErrorReg);
 }
 
@@ -40,11 +40,11 @@ NVIC_nERROR NVIC__enSetVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVect
     NVIC_nERROR enErrorReg;
     if(NVIC_enSTATE_DIS == enStateArg)
     {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICER_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
     }
     else
     {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISER_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
     }
     return (enErrorReg);
 

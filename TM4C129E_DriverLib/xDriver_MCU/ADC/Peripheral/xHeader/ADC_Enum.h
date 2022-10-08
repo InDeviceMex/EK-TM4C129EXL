@@ -30,40 +30,40 @@
 
 typedef enum
 {
-    ADC_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    ADC_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    ADC_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    ADC_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    ADC_enERROR_EMPTY = (uint32_t) MCU_enERROR_EMPTY,
-    ADC_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    ADC_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    ADC_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    ADC_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    ADC_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    ADC_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    ADC_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }ADC_nERROR;
 
 typedef enum
 {
-    ADC_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    ADC_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    ADC_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    ADC_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    ADC_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    ADC_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 } ADC_nSTATE;
 
 typedef enum
 {
-    ADC_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    ADC_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    ADC_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    ADC_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    ADC_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    ADC_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } ADC_nSTATUS;
 
 typedef enum
 {
-    ADC_enPRI0 = (uint32_t) MCU_enPRI0,
-    ADC_enPRI1 = (uint32_t) MCU_enPRI1,
-    ADC_enPRI2 = (uint32_t) MCU_enPRI2,
-    ADC_enPRI3 = (uint32_t) MCU_enPRI3,
-    ADC_enPRI4 = (uint32_t) MCU_enPRI4,
-    ADC_enPRI5 = (uint32_t) MCU_enPRI5,
-    ADC_enPRI6 = (uint32_t) MCU_enPRI6,
-    ADC_enPRI7 = (uint32_t) MCU_enPRI7,
-    ADC_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    ADC_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    ADC_enPRI0 = (UBase_t) MCU_enPRI0,
+    ADC_enPRI1 = (UBase_t) MCU_enPRI1,
+    ADC_enPRI2 = (UBase_t) MCU_enPRI2,
+    ADC_enPRI3 = (UBase_t) MCU_enPRI3,
+    ADC_enPRI4 = (UBase_t) MCU_enPRI4,
+    ADC_enPRI5 = (UBase_t) MCU_enPRI5,
+    ADC_enPRI6 = (UBase_t) MCU_enPRI6,
+    ADC_enPRI7 = (UBase_t) MCU_enPRI7,
+    ADC_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    ADC_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }ADC_nPRIORITY;
 
 typedef enum
@@ -80,7 +80,7 @@ typedef enum
     ADC_enSEQ_2 = 2UL,
     ADC_enSEQ_3 = 3UL,
     ADC_enSEQ_MAX = 4UL,
-    ADC_enSEQ_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSEQ_UNDEF = UNDEF_VALUE,
 }ADC_nSEQUENCER;
 
 typedef enum
@@ -92,7 +92,7 @@ typedef enum
     ADC_enSEQMASK_3 = 0x8UL,
     ADC_enSEQMASK_ALL = 0xFUL,
     ADC_enSEQMASK_MAX = 0x10UL,
-    ADC_enSEQMASK_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSEQMASK_UNDEF = UNDEF_VALUE,
 }ADC_nSEQMASK;
 
 typedef enum
@@ -101,7 +101,7 @@ typedef enum
     ADC_enINT_TYPE_DMA = 0x1UL,
     ADC_enINT_TYPE_COMP = 0x2UL,
     ADC_enINT_TYPE_MAX = 0x3UL,
-    ADC_enINT_TYPE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enINT_TYPE_UNDEF = UNDEF_VALUE,
 }ADC_nINT_TYPE;
 
 typedef enum
@@ -118,13 +118,13 @@ typedef enum
     ADC_enTRIGGER_PWM3 = 9UL,
     ADC_enTRIGGER_NEVER = 14UL,
     ADC_enTRIGGER_CONTINUE = 15UL,
-    ADC_enTRIGGER_UNDEF = 0x7FFFFFFFUL,
+    ADC_enTRIGGER_UNDEF = UNDEF_VALUE,
 }ADC_nTRIGGER;
 
 typedef enum
 {
     ADC_enSEQ_PWM_MODULE0 = 0UL,
-    ADC_enSEQ_PWM_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSEQ_PWM_UNDEF = UNDEF_VALUE,
 }ADC_nSEQ_PWM;
 
 typedef enum
@@ -133,14 +133,14 @@ typedef enum
     ADC_enSEQ_PRIORITY_MEDIUM = 1UL,
     ADC_enSEQ_PRIORITY_LOW = 2UL,
     ADC_enSEQ_PRIORITY_VERY_LOW = 3UL,
-    ADC_enSEQ_PRIORITY_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSEQ_PRIORITY_UNDEF = UNDEF_VALUE,
 }ADC_nSEQ_PRIORITY;
 
 typedef enum
 {
     ADC_enGLOBAL_SYNC_NOEFFECT = 0UL,
     ADC_enGLOBAL_SYNC_INIT = 1UL,
-    ADC_enGLOBAL_SYNC_UNDEF = 0x7FFFFFFFUL,
+    ADC_enGLOBAL_SYNC_UNDEF = UNDEF_VALUE,
 }ADC_nGLOBAL_SYNC;
 
 typedef enum
@@ -161,7 +161,7 @@ typedef enum
     ADC_enPHASE_292_5 = 13UL,
     ADC_enPHASE_315 = 14UL,
     ADC_enPHASE_337_5 = 15UL,
-    ADC_enPHASE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enPHASE_UNDEF = UNDEF_VALUE,
 }ADC_nPHASE;
 
 typedef enum
@@ -173,7 +173,7 @@ typedef enum
     ADC_enAVERAGE_16 = 4UL,
     ADC_enAVERAGE_32 = 5UL,
     ADC_enAVERAGE_64 = 6UL,
-    ADC_enAVERAGE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enAVERAGE_UNDEF = UNDEF_VALUE,
 }ADC_nAVERAGE;
 
 typedef enum
@@ -182,7 +182,7 @@ typedef enum
     ADC_enCONVERSION_RATE_48 = 3UL,
     ADC_enCONVERSION_RATE_16 = 5UL,
     ADC_enCONVERSION_RATE_1 = 7UL,
-    ADC_enCONVERSION_RATE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCONVERSION_RATE_UNDEF = UNDEF_VALUE,
 }ADC_nCONVERSION_RATE;
 
 typedef enum
@@ -190,7 +190,7 @@ typedef enum
     ADC_enCLOCK_PLL_VCO = 0UL,
     ADC_enCLOCK_ALTCLK = 1UL,
     ADC_enCLOCK_MOSC = 2UL,
-    ADC_enCLOCK_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCLOCK_UNDEF = UNDEF_VALUE,
 }ADC_nCLOCK;
 
 typedef enum
@@ -204,7 +204,7 @@ typedef enum
     ADC_enCOMPARATOR_6 = 6UL,
     ADC_enCOMPARATOR_7 = 7UL,
     ADC_enCOMPARATOR_MAX = 8UL,
-    ADC_enCOMPARATOR_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCOMPARATOR_UNDEF = UNDEF_VALUE,
 }ADC_nCOMPARATOR;
 
 typedef enum
@@ -219,7 +219,7 @@ typedef enum
     ADC_enCOMPMASK_7 = 0x80UL,
     ADC_enCOMPMASK_ALL = 0xFFUL,
     ADC_enCOMPMASK_MAX = 0x100UL,
-    ADC_enCOMPMASK_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCOMPMASK_UNDEF = UNDEF_VALUE,
 }ADC_nCOMPMASK;
 
 
@@ -227,7 +227,7 @@ typedef enum
 {
     ADC_enVREF_VDDA = 0UL,
     ADC_enVREF_VREFA = 1UL,
-    ADC_enVREF_UNDEF = 0x7FFFFFFFUL,
+    ADC_enVREF_UNDEF = UNDEF_VALUE,
 }ADC_nVREF;
 
 typedef enum
@@ -241,7 +241,7 @@ typedef enum
     ADC_enSAMPLE_6 = 6UL,
     ADC_enSAMPLE_7 = 7UL,
     ADC_enSAMPLE_MAX = 8UL,
-    ADC_enSAMPLE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSAMPLE_UNDEF = UNDEF_VALUE,
 }ADC_nSAMPLE;
 
 typedef enum
@@ -256,7 +256,7 @@ typedef enum
     ADC_enSAMPLEMASK_6 = 0x0040UL,
     ADC_enSAMPLEMASK_7 = 0x0080UL,
     ADC_enSAMPLEMASK_ALL = 0x00FFUL,
-    ADC_enSAMPLEMASK_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSAMPLEMASK_UNDEF = UNDEF_VALUE,
 }ADC_nSAMPLEMASK;
 
 typedef enum
@@ -268,7 +268,7 @@ typedef enum
     ADC_enSH_64 = 8UL,
     ADC_enSH_128 = 10UL,
     ADC_enSH_256 = 12UL,
-    ADC_enSH_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSH_UNDEF = UNDEF_VALUE,
 }ADC_nSH;
 
 typedef enum
@@ -294,64 +294,64 @@ typedef enum
     ADC_enINPUT_18 = 18UL,
     ADC_enINPUT_19 = 19UL,
     ADC_enINPUT_MAX = 20UL,
-    ADC_enINPUT_UNDEF = 0x7FFFFFFFUL,
+    ADC_enINPUT_UNDEF = UNDEF_VALUE,
 }ADC_nINPUT;
 
 typedef enum
 {
     ADC_enSAMPLE_MODE_SAMPLE = 0UL,
     ADC_enSAMPLE_MODE_COMP = 1UL,
-    ADC_enSAMPLE_MODE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enSAMPLE_MODE_UNDEF = UNDEF_VALUE,
 }ADC_nSAMPLE_MODE;
 
 typedef enum
 {
-    ADC_enINPUT_GPIO_PE3 = (uint32_t) GPIO_enAIN0,
-    ADC_enINPUT_GPIO_PE2 = (uint32_t) GPIO_enAIN1,
-    ADC_enINPUT_GPIO_PE1 = (uint32_t) GPIO_enAIN2,
-    ADC_enINPUT_GPIO_PE0 = (uint32_t) GPIO_enAIN3,
-    ADC_enINPUT_GPIO_PD7 = (uint32_t) GPIO_enAIN4,
-    ADC_enINPUT_GPIO_PD6 = (uint32_t) GPIO_enAIN5,
-    ADC_enINPUT_GPIO_PD5 = (uint32_t) GPIO_enAIN6,
-    ADC_enINPUT_GPIO_PD4 = (uint32_t) GPIO_enAIN7,
-    ADC_enINPUT_GPIO_PE5 = (uint32_t) GPIO_enAIN8,
-    ADC_enINPUT_GPIO_PE4 = (uint32_t) GPIO_enAIN9,
-    ADC_enINPUT_GPIO_PB4 = (uint32_t) GPIO_enAIN10,
-    ADC_enINPUT_GPIO_PB5 = (uint32_t) GPIO_enAIN11,
-    ADC_enINPUT_GPIO_PD3 = (uint32_t) GPIO_enAIN12,
-    ADC_enINPUT_GPIO_PD2 = (uint32_t) GPIO_enAIN13,
-    ADC_enINPUT_GPIO_PD1 = (uint32_t) GPIO_enAIN14,
-    ADC_enINPUT_GPIO_PD0 = (uint32_t) GPIO_enAIN15,
-    ADC_enINPUT_GPIO_PK0 = (uint32_t) GPIO_enAIN16,
-    ADC_enINPUT_GPIO_PK1 = (uint32_t) GPIO_enAIN17,
-    ADC_enINPUT_GPIO_PK2 = (uint32_t) GPIO_enAIN18,
-    ADC_enINPUT_GPIO_PK3 = (uint32_t) GPIO_enAIN19,
-    ADC_enINPUT_GPIO_EXP_UNDEF = 0x7FFFFFFFUL,
+    ADC_enINPUT_GPIO_PE3 = (UBase_t) GPIO_enAIN0,
+    ADC_enINPUT_GPIO_PE2 = (UBase_t) GPIO_enAIN1,
+    ADC_enINPUT_GPIO_PE1 = (UBase_t) GPIO_enAIN2,
+    ADC_enINPUT_GPIO_PE0 = (UBase_t) GPIO_enAIN3,
+    ADC_enINPUT_GPIO_PD7 = (UBase_t) GPIO_enAIN4,
+    ADC_enINPUT_GPIO_PD6 = (UBase_t) GPIO_enAIN5,
+    ADC_enINPUT_GPIO_PD5 = (UBase_t) GPIO_enAIN6,
+    ADC_enINPUT_GPIO_PD4 = (UBase_t) GPIO_enAIN7,
+    ADC_enINPUT_GPIO_PE5 = (UBase_t) GPIO_enAIN8,
+    ADC_enINPUT_GPIO_PE4 = (UBase_t) GPIO_enAIN9,
+    ADC_enINPUT_GPIO_PB4 = (UBase_t) GPIO_enAIN10,
+    ADC_enINPUT_GPIO_PB5 = (UBase_t) GPIO_enAIN11,
+    ADC_enINPUT_GPIO_PD3 = (UBase_t) GPIO_enAIN12,
+    ADC_enINPUT_GPIO_PD2 = (UBase_t) GPIO_enAIN13,
+    ADC_enINPUT_GPIO_PD1 = (UBase_t) GPIO_enAIN14,
+    ADC_enINPUT_GPIO_PD0 = (UBase_t) GPIO_enAIN15,
+    ADC_enINPUT_GPIO_PK0 = (UBase_t) GPIO_enAIN16,
+    ADC_enINPUT_GPIO_PK1 = (UBase_t) GPIO_enAIN17,
+    ADC_enINPUT_GPIO_PK2 = (UBase_t) GPIO_enAIN18,
+    ADC_enINPUT_GPIO_PK3 = (UBase_t) GPIO_enAIN19,
+    ADC_enINPUT_GPIO_EXP_UNDEF = UNDEF_VALUE,
 }ADC_nINPUT_GPIO_EXP;
 
 typedef enum
 {
-    ADC_enINPUT_GPIO_0 = (uint32_t) ADC_enINPUT_GPIO_PE3,
-    ADC_enINPUT_GPIO_1 = (uint32_t) ADC_enINPUT_GPIO_PE2,
-    ADC_enINPUT_GPIO_2 = (uint32_t) ADC_enINPUT_GPIO_PE1,
-    ADC_enINPUT_GPIO_3 = (uint32_t) ADC_enINPUT_GPIO_PE0,
-    ADC_enINPUT_GPIO_4 = (uint32_t) ADC_enINPUT_GPIO_PD7,
-    ADC_enINPUT_GPIO_5 = (uint32_t) ADC_enINPUT_GPIO_PD6,
-    ADC_enINPUT_GPIO_6 = (uint32_t) ADC_enINPUT_GPIO_PD5,
-    ADC_enINPUT_GPIO_7 = (uint32_t) ADC_enINPUT_GPIO_PD4,
-    ADC_enINPUT_GPIO_8 = (uint32_t) ADC_enINPUT_GPIO_PE5,
-    ADC_enINPUT_GPIO_9 = (uint32_t) ADC_enINPUT_GPIO_PE4,
-    ADC_enINPUT_GPIO_10 = (uint32_t) ADC_enINPUT_GPIO_PB4,
-    ADC_enINPUT_GPIO_11 = (uint32_t) ADC_enINPUT_GPIO_PB5,
-    ADC_enINPUT_GPIO_12 = (uint32_t) ADC_enINPUT_GPIO_PD3,
-    ADC_enINPUT_GPIO_13 = (uint32_t) ADC_enINPUT_GPIO_PD2,
-    ADC_enINPUT_GPIO_14 = (uint32_t) ADC_enINPUT_GPIO_PD1,
-    ADC_enINPUT_GPIO_15 = (uint32_t) ADC_enINPUT_GPIO_PD0,
-    ADC_enINPUT_GPIO_16 = (uint32_t) ADC_enINPUT_GPIO_PK0,
-    ADC_enINPUT_GPIO_17 = (uint32_t) ADC_enINPUT_GPIO_PK1,
-    ADC_enINPUT_GPIO_18 = (uint32_t) ADC_enINPUT_GPIO_PK2,
-    ADC_enINPUT_GPIO_19 = (uint32_t) ADC_enINPUT_GPIO_PK3,
-    ADC_enINPUT_GPIO_UNDEF = 0x7FFFFFFFUL,
+    ADC_enINPUT_GPIO_0 = (UBase_t) ADC_enINPUT_GPIO_PE3,
+    ADC_enINPUT_GPIO_1 = (UBase_t) ADC_enINPUT_GPIO_PE2,
+    ADC_enINPUT_GPIO_2 = (UBase_t) ADC_enINPUT_GPIO_PE1,
+    ADC_enINPUT_GPIO_3 = (UBase_t) ADC_enINPUT_GPIO_PE0,
+    ADC_enINPUT_GPIO_4 = (UBase_t) ADC_enINPUT_GPIO_PD7,
+    ADC_enINPUT_GPIO_5 = (UBase_t) ADC_enINPUT_GPIO_PD6,
+    ADC_enINPUT_GPIO_6 = (UBase_t) ADC_enINPUT_GPIO_PD5,
+    ADC_enINPUT_GPIO_7 = (UBase_t) ADC_enINPUT_GPIO_PD4,
+    ADC_enINPUT_GPIO_8 = (UBase_t) ADC_enINPUT_GPIO_PE5,
+    ADC_enINPUT_GPIO_9 = (UBase_t) ADC_enINPUT_GPIO_PE4,
+    ADC_enINPUT_GPIO_10 = (UBase_t) ADC_enINPUT_GPIO_PB4,
+    ADC_enINPUT_GPIO_11 = (UBase_t) ADC_enINPUT_GPIO_PB5,
+    ADC_enINPUT_GPIO_12 = (UBase_t) ADC_enINPUT_GPIO_PD3,
+    ADC_enINPUT_GPIO_13 = (UBase_t) ADC_enINPUT_GPIO_PD2,
+    ADC_enINPUT_GPIO_14 = (UBase_t) ADC_enINPUT_GPIO_PD1,
+    ADC_enINPUT_GPIO_15 = (UBase_t) ADC_enINPUT_GPIO_PD0,
+    ADC_enINPUT_GPIO_16 = (UBase_t) ADC_enINPUT_GPIO_PK0,
+    ADC_enINPUT_GPIO_17 = (UBase_t) ADC_enINPUT_GPIO_PK1,
+    ADC_enINPUT_GPIO_18 = (UBase_t) ADC_enINPUT_GPIO_PK2,
+    ADC_enINPUT_GPIO_19 = (UBase_t) ADC_enINPUT_GPIO_PK3,
+    ADC_enINPUT_GPIO_UNDEF = UNDEF_VALUE,
 }ADC_nINPUT_GPIO;
 
 
@@ -360,7 +360,7 @@ typedef enum
     ADC_enFIFO_EMPTY = 0UL,
     ADC_enFIFO_FULL = 1UL,
     ADC_enFIFO_VALUES = 2UL,
-    ADC_enFIFO_INT_UNDEF = 0x7FFFFFFFUL,
+    ADC_enFIFO_INT_UNDEF = UNDEF_VALUE,
 }ADC_nFIFO;
 
 typedef enum
@@ -368,7 +368,7 @@ typedef enum
     ADC_enCOMP_CONDITION_LOW = 0UL,
     ADC_enCOMP_CONDITION_MID = 1UL,
     ADC_enCOMP_CONDITION_HIGH = 3UL,
-    ADC_enCOMP_CONDITION_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCOMP_CONDITION_UNDEF = UNDEF_VALUE,
 }ADC_nCOMP_CONDITION;
 
 typedef enum
@@ -377,7 +377,7 @@ typedef enum
     ADC_enCOMP_MODE_ONCE = 1UL,
     ADC_enCOMP_MODE_HYST_ONCE = 2UL,
     ADC_enCOMP_MODE_HYST_ALWAYS = 3UL,
-    ADC_enCOMP_MODE_UNDEF = 0x7FFFFFFFUL,
+    ADC_enCOMP_MODE_UNDEF = UNDEF_VALUE,
 }ADC_nCOMP_MODE;
 
 typedef struct

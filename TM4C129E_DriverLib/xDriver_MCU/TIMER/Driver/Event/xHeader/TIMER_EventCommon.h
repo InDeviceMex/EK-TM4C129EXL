@@ -28,8 +28,8 @@
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
 void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam,
-                      uint32_t u32OffsetReg);
+                      UBase_t uxOffsetReg);
 TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam,
-                               uint32_t u32OffsetReg);
+                               UBase_t uxOffsetReg);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_EVENT_XHEADER_TIMER_EVENTCOMMON_H_ */

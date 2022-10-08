@@ -26,54 +26,54 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertNext_WithData(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertNext_WithData(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstItem,
                                             CSLinkedListItem_t* pstNewItem,
                                             void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertNext(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertNext(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstItem,
                                             CSLinkedListItem_t* pstNewItem);
 CSLinkedListItem_t* CSLinkedList__pstInsertNext_WithData(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem, void* pvData);
 CSLinkedListItem_t* CSLinkedList__pstInsertNext(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem);
 
 
-CSLinkedList_nSTATUS  CSLinkedList__enInsertNextLastItemRead_WithData(CSLinkedList_t* pstList,
+CSLinkedList_nERROR  CSLinkedList__enInsertNextLastItemRead_WithData(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem,
                                            void* pvData);
-CSLinkedList_nSTATUS  CSLinkedList__enInsertNextLastItemRead(CSLinkedList_t* pstList,
+CSLinkedList_nERROR  CSLinkedList__enInsertNextLastItemRead(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem);
 CSLinkedListItem_t*  CSLinkedList__pstInsertNextLastItemRead_WithData(CSLinkedList_t* pstList, void* pvData);
 CSLinkedListItem_t*  CSLinkedList__pstInsertNextLastItemRead(CSLinkedList_t* pstList);
 
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertAtTail_WithData(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertAtTail_WithData(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem,
                                             void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertAtTail(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertAtTail(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem);
 CSLinkedListItem_t*  CSLinkedList__pstInsertAtTail_WithData(CSLinkedList_t* pstList, void* pvData);
 CSLinkedListItem_t*  CSLinkedList__pstInsertAtTail(CSLinkedList_t* pstList);
 
 
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertAtHead_WithData(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertAtHead_WithData(CSLinkedList_t* pstList,
                                                 CSLinkedListItem_t* pstNewItem,
                                                 void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertAtHead(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertAtHead(CSLinkedList_t* pstList,
                                                 CSLinkedListItem_t* pstNewItem);
 CSLinkedListItem_t*  CSLinkedList__pstInsertAtHead_WithData(CSLinkedList_t* pstList, void* pvData);
 CSLinkedListItem_t*  CSLinkedList__pstInsertAtHead(CSLinkedList_t* pstList);
 
 
 
-CSLinkedList_nSTATUS CSLinkedList__enInsertPos_WithData(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertPos_WithData(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position,
+                                            UBase_t uxPosition,
                                             void* pvData);
-CSLinkedList_nSTATUS CSLinkedList__enInsertPos(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInsertPos(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position);
-CSLinkedListItem_t*  CSLinkedList__pstInsertPos_WithData(CSLinkedList_t* pstList, uint32_t u32Position, void* pvData);
-CSLinkedListItem_t*  CSLinkedList__pstInsertPos(CSLinkedList_t* pstList, uint32_t u32Position);
+                                            UBase_t uxPosition);
+CSLinkedListItem_t*  CSLinkedList__pstInsertPos_WithData(CSLinkedList_t* pstList, UBase_t uxPosition, void* pvData);
+CSLinkedListItem_t*  CSLinkedList__pstInsertPos(CSLinkedList_t* pstList, UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_INSERT_H_ */

@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-uint32_t PWM_Generator__u32GetCount(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enGetCounterValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_COUNT_H_ */

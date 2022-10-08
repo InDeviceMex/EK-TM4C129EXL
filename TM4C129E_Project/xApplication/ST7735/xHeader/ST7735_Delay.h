@@ -26,6 +26,6 @@
 
 #include <xUtils/Standard/Standard.h>
 
-void ST7735__vDelay1ms(uint32_t u32DelayArg);
+void ST7735__vDelay1ms(UBase_t uxDelayArg);
 
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_DELAY_H_ */

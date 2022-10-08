@@ -27,81 +27,81 @@
 
 void ADC0_SS3__vIRQVectorHandler(void)
 {
-    uint32_t u32Reg;
-    uint32_t u32Ready;
-    uint32_t u32RegCompInterrupt;
-    uint32_t u32RegCompSelect;
-    uint32_t u32RegCompMux;
-    uint32_t u32RegCompEnable;
-    uint32_t u32RegCompMuxBit;
-    uint32_t u32OffsetReg;
-    uint32_t u32Pos;
-    uint32_t u32ShiftReg;
-    uint32_t u32TempReg;
+    UBase_t uxReg;
+    UBase_t uxReady;
+    UBase_t uxRegCompInterrupt;
+    UBase_t uxRegCompSelect;
+    UBase_t uxRegCompMux;
+    UBase_t uxRegCompEnable;
+    UBase_t uxRegCompMuxBit;
+    UBase_t uxOffsetReg;
+    UBase_t uxPos;
+    UBase_t uxShiftReg;
+    UBase_t uxTempReg;
     ADC_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PRADC_R;
-    if(SYSCTL_PRADC_R_ADC0_NOREADY == (SYSCTL_PRADC_R_ADC0_MASK & u32Ready))
+    uxReady = SYSCTL_PRADC_R;
+    if(SYSCTL_PRADC_R_ADC0_NOREADY == (SYSCTL_PRADC_R_ADC0_MASK & uxReady))
     {
         pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3);
         pvfCallback(ADC0_BASE, (void*) ADC_enSEQ_3);
     }
     else
     {
-        u32Reg = ADC0_ISC_R;
-        if(0UL == ((ADC_ISC_R_DMAIN3_MASK | ADC_ISC_R_IN3_MASK | ADC_ISC_R_DCINSS3_MASK ) &u32Reg))
+        uxReg = ADC0_ISC_R;
+        if(0UL == ((ADC_ISC_R_DMAIN3_MASK | ADC_ISC_R_IN3_MASK | ADC_ISC_R_DCINSS3_MASK ) &uxReg))
         {
             pvfCallback = ADC_SW__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3);
             pvfCallback(ADC0_BASE, (void*) ADC_enSEQ_3);
         }
         else
         {
-            if(u32Reg & ADC_ISC_R_DMAIN3_MASK)
+            if(uxReg & ADC_ISC_R_DMAIN3_MASK)
             {
                 ADC0_ISC_R =  ADC_ISC_R_DMAIN3_CLEAR;
                 pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_DMA);
                 pvfCallback(ADC0_BASE, (void*) ADC_enSEQ_3);
             }
-            if(u32Reg & ADC_ISC_R_IN3_MASK)
+            if(uxReg & ADC_ISC_R_IN3_MASK)
             {
                 ADC0_ISC_R =  ADC_ISC_R_IN3_MASK;
                 pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_SAMPLE);
                 pvfCallback(ADC0_BASE, (void*) ADC_enSEQ_3);
             }
-            if(u32Reg & ADC_ISC_R_DCINSS3_MASK)
+            if(uxReg & ADC_ISC_R_DCINSS3_MASK)
             {
                 ADC0_ISC_R = ADC_ISC_R_DCINSS3_CLEAR;
                 pvfCallback = ADC_Sequencer__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_COMP);
                 pvfCallback(ADC0_BASE, (void*) ADC_enSEQ_3);
 
-                u32RegCompInterrupt = ADC0_DCISC_R;
-                u32OffsetReg = ADC_DC_CTL_OFFSET;
-                u32RegCompMux = ADC0_SS3_DC_R;
-                u32RegCompSelect = ADC0_SS3_OP_R;
-                u32ShiftReg = 0x1UL;
-                for(u32Pos = (uint32_t) ADC_enSAMPLE_0; u32Pos < (uint32_t) ADC_enSAMPLE_1; u32Pos++)
+                uxRegCompInterrupt = ADC0_DCISC_R;
+                uxOffsetReg = ADC_DC_CTL_OFFSET;
+                uxRegCompMux = ADC0_SS3_DC_R;
+                uxRegCompSelect = ADC0_SS3_OP_R;
+                uxShiftReg = 0x1UL;
+                for(uxPos = (UBase_t) ADC_enSAMPLE_0; uxPos < (UBase_t) ADC_enSAMPLE_1; uxPos++)
                 {
-                    if(u32RegCompSelect & u32ShiftReg)
+                    if(uxRegCompSelect & uxShiftReg)
                     {
-                        u32TempReg = u32RegCompMux;
-                        u32TempReg &= 0xFUL;
-                        u32RegCompMuxBit = 1UL;
-                        u32RegCompMuxBit <<= u32TempReg;
-                        if(u32RegCompInterrupt & u32RegCompMuxBit)
+                        uxTempReg = uxRegCompMux;
+                        uxTempReg &= 0xFUL;
+                        uxRegCompMuxBit = 1UL;
+                        uxRegCompMuxBit <<= uxTempReg;
+                        if(uxRegCompInterrupt & uxRegCompMuxBit)
                         {
-                            u32RegCompEnable = *((uint32_t*) u32OffsetReg);
+                            uxRegCompEnable = *((UBase_t*) uxOffsetReg);
 
-                            if(u32RegCompEnable & ADC_DC_CTL_R_CIE_MASK)
+                            if(uxRegCompEnable & ADC_DC_CTL_R_CIE_MASK)
                             {
-                                ADC0_DCISC_R = (uint32_t) u32RegCompMuxBit;
-                                pvfCallback = ADC_Comparator__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3, (ADC_nCOMPARATOR) u32TempReg);
-                                pvfCallback(ADC0_BASE, (void*) u32TempReg);
+                                ADC0_DCISC_R = (UBase_t) uxRegCompMuxBit;
+                                pvfCallback = ADC_Comparator__pvfGetIRQSourceHandler(ADC_enMODULE_0, ADC_enSEQ_3, (ADC_nCOMPARATOR) uxTempReg);
+                                pvfCallback(ADC0_BASE, (void*) uxTempReg);
                             }
                         }
                     }
-                    u32OffsetReg += 4UL;
-                    u32RegCompMux >>= 2UL;
-                    u32ShiftReg <<= 4UL;
+                    uxOffsetReg += 4UL;
+                    uxRegCompMux >>= 2UL;
+                    uxShiftReg <<= 4UL;
                 }
             }
         }

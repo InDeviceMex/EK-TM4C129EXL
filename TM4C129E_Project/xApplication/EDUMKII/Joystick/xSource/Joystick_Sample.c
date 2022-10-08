@@ -28,21 +28,21 @@
 #include <xDriver_MCU/DMA/DMA.h>
 
 static volatile EDUMKII_nJOYSTICK enSelectStatus = EDUMKII_enJOYSTICK_NOPRESS;
-uint32_t u32JostickFifoArray[4] = {0UL};
-volatile uint32_t u32JostickFlag = 0UL;
+UBase_t uxJostickFifoArray[4] = {0UL};
+volatile UBase_t uxJostickFlag = 0UL;
 
-uint32_t* EDUMKII_Joystick_vSampleArray(void)
+UBase_t* EDUMKII_Joystick_vSampleArray(void)
 {
-    return ((uint32_t*) u32JostickFifoArray);
+    return ((UBase_t*) uxJostickFifoArray);
 }
 
-void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y)
+void EDUMKII_Joystick_vSampleXY(UBase_t *uxX, UBase_t *uxY)
 {
-    u32JostickFlag = 0UL;
+    uxJostickFlag = 0UL;
     ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
-    while(0UL == u32JostickFlag){}
-    *u32X = (uint32_t) u32JostickFifoArray[0];
-    *u32Y = (uint32_t) u32JostickFifoArray[1];
+    while(0UL == uxJostickFlag){}
+    *uxX = (UBase_t) uxJostickFifoArray[0];
+    *uxY = (UBase_t) uxJostickFifoArray[1];
 
 }
 void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect)
@@ -50,13 +50,13 @@ void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect)
     *enSelect = (EDUMKII_nJOYSTICK)enSelectStatus;
 
 }
-void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect)
+void EDUMKII_Joystick_vSample(UBase_t *uxX, UBase_t *uxY, EDUMKII_nJOYSTICK *enSelect)
 {
-    u32JostickFlag = 0UL;
+    uxJostickFlag = 0UL;
     ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
-    while(0UL == u32JostickFlag){}
-    *u32X = (uint32_t) u32JostickFifoArray[0];
-    *u32Y = (uint32_t) u32JostickFifoArray[1];
+    while(0UL == uxJostickFlag){}
+    *uxX = (UBase_t) uxJostickFifoArray[0];
+    *uxY = (UBase_t) uxJostickFifoArray[1];
 
     *enSelect = (EDUMKII_nJOYSTICK)enSelectStatus;
 
@@ -65,7 +65,7 @@ void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK 
 void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     DMA_CHANNEL_t* pstDmaChannel = (DMA_CHANNEL_t*) 0UL;
-    volatile uint32_t* u32TempReg = (uint32_t*) 0UL;
+    volatile UBase_t* uxTempReg = (UBase_t*) 0UL;
     static DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
@@ -81,19 +81,19 @@ void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgumen
          DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_16]);
-    u32TempReg = (volatile uint32_t*) &enChControl;
-    pstDmaChannel->CTL = *u32TempReg;
-    DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << (uint32_t) DMA_enCH_16;
-    u32JostickFlag = 1UL;
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(UBase_t) DMA_enCH_16]);
+    uxTempReg = (volatile UBase_t*) &enChControl;
+    pstDmaChannel->CTL = *uxTempReg;
+    DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << (UBase_t) DMA_enCH_16;
+    uxJostickFlag = 1UL;
 }
 
 
 void EDUMKII_Select_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    uint32_t u32ValueButton1 = 0UL;
-    GPIO__enGetDataByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, (GPIO_nPINMASK*) &u32ValueButton1);
-    if(0UL == u32ValueButton1)
+    UBase_t uxValueButton1 = 0UL;
+    GPIO__enGetDataByMask(EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN, (GPIO_nPINMASK*) &uxValueButton1);
+    if(0UL == uxValueButton1)
     {
         enSelectStatus = EDUMKII_enJOYSTICK_PRESS;
     }

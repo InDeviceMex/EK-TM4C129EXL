@@ -32,10 +32,10 @@ UART_nSTATUS UART__enSetBaudRateAndLineControl(UART_nMODULE enModule,
                                                UART_nPARITY enParityState,
                                                UART_nPARITY_TYPE enParityTypeArg,
                                                UART_nPARITY_STICK enParityStickArg,
-                                               uint32_t u32BaudRateArg)
+                                               UBase_t uxBaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_ERROR;
-    enStatus = UART__enSetBaudRate(enModule, u32BaudRateArg);
+    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
     if(UART_enSTATUS_OK == enStatus)
     {
         UART__vSetLineControl(enModule, enLengthDataArg, enFifoEnable,
@@ -46,10 +46,10 @@ UART_nSTATUS UART__enSetBaudRateAndLineControl(UART_nMODULE enModule,
 
 UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule,
                                              const UART_LINE_CONTROL_t stLineControl,
-                                             uint32_t u32BaudRateArg)
+                                             UBase_t uxBaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_ERROR;
-    enStatus = UART__enSetBaudRate(enModule, u32BaudRateArg);
+    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
     if(UART_enSTATUS_OK == enStatus)
     {
         UART__vSetLineControlStruct(enModule, stLineControl);
@@ -59,10 +59,10 @@ UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule,
 
 UART_nSTATUS UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule,
                                                 const UART_LINE_CONTROL_t* pstLineControl,
-                                                uint32_t u32BaudRateArg)
+                                                UBase_t uxBaudRateArg)
 {
     UART_nSTATUS enStatus = UART_enSTATUS_ERROR;
-    enStatus = UART__enSetBaudRate(enModule, u32BaudRateArg);
+    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
     if(UART_enSTATUS_OK == enStatus)
     {
         UART__vSetLineControlStructPointer(enModule, pstLineControl);

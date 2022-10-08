@@ -31,10 +31,10 @@
 ************************************ 18 GEN_CMPA *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_GEN_CMPA_R_COMPA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define PWM_GEN_CMPA_R_COMPA_BIT    ((uint32_t) 0UL)
+#define PWM_GEN_OUTA_CMP_R_COMP_MASK    ((UBase_t) 0x0000FFFFUL)
+#define PWM_GEN_OUTA_CMP_R_COMP_BIT    ((UBase_t) 0UL)
 
-#define PWM_GEN_CMPA_COMPA_MASK    ((uint32_t) 0x0000FFFFUL)
+#define PWM_GEN_OUTA_CMP_COMP_MASK    ((UBase_t) 0x0000FFFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_CMPA_H_ */

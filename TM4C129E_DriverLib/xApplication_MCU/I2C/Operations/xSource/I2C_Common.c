@@ -25,24 +25,24 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, uint32_t u32TimeoutArg)
+I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, UBase_t uxTimeoutArg)
 {
     I2C_nERROR enErrorReg;
     I2C_nSTATUS enBusBusy;
-    uint32_t u32Timeout;
+    UBase_t uxTimeout;
 
-    u32Timeout = u32TimeoutArg;
+    uxTimeout = uxTimeoutArg;
     enErrorReg = I2C_enERROR_OK;
     enBusBusy = I2C_enSTATUS_INACTIVE;
     do
     {
         enErrorReg = I2C_Master__enGetBusStatus(enModuleArg, &enBusBusy);
-        u32Timeout--;
-    }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+        uxTimeout--;
+    }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
 
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32Timeout)
+        if(0UL == uxTimeout)
         {
             enErrorReg = I2C_enERROR_TIMEOUT;
         }
@@ -50,15 +50,15 @@ I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, uint32_t u32Ti
     return (enErrorReg);
 }
 
-I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, uint32_t u32TimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg)
+I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, UBase_t uxTimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg)
 {
     I2C_nERROR enErrorReg;
-    uint32_t u32Timeout;
+    UBase_t uxTimeout;
     I2C_nSTATUS enControllerBusy;
     I2C_nOPERATION_ERROR enErrorOperationReg;
 
     enErrorOperationReg = I2C_enOPERATION_ERROR_NONE;
-    u32Timeout = u32TimeoutArg;
+    uxTimeout = uxTimeoutArg;
     enControllerBusy = I2C_enSTATUS_INACTIVE;
     enErrorReg = I2C_Master__enSetControlState(enModule, I2C_enMASTER_CONTROL_RUN_STOP);
 
@@ -67,13 +67,13 @@ I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, uint32_t u3
         do
         {
             enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
-            u32Timeout--;
-        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+            uxTimeout--;
+        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
 
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32Timeout)
+        if(0UL == uxTimeout)
         {
             enErrorReg = I2C_enERROR_TIMEOUT;
         }

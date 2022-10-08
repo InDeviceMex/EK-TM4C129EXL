@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vSetMatch(TIMER_nMODULE enModule, uint32_t u32Match);
-uint32_t TIMER__u32GetMatch(TIMER_nMODULE enModule);
+void TIMER__vSetMatch(TIMER_nMODULE enModule, UBase_t uxMatch);
+UBase_t TIMER__uxGetMatch(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_DRIVER_TIMER_MATCH_H_ */

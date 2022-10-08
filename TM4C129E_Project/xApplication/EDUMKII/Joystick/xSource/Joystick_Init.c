@@ -36,9 +36,9 @@
 
 void EDUMKII_Joystick_vInit(void)
 {
-    static uint32_t u32Init = 0UL;
-    uint32_t u32Number = 0UL;
-    uint32_t* pu32JoystickArray = (uint32_t*) 0UL;
+    static UBase_t uxInit = 0UL;
+    UBase_t uxNumber = 0UL;
+    UBase_t* puxJoystickArray = (UBase_t*) 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
      ADC_enINPUT_0,
      ADC_enSTATE_DIS,
@@ -73,7 +73,7 @@ void EDUMKII_Joystick_vInit(void)
          DMA_enCH_DATA_SIZE_WORD,
          DMA_enCH_INCREMENT_WORD,
     };
-    if(0UL == u32Init)
+    if(0UL == uxInit)
     {
         GPIO__enRegisterIRQSourceHandlerByMask( &EDUMKII_Select_vIRQSourceHandler, EDUMKII_SELECT_PORT, EDUMKII_SELECT_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_SELECT, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
@@ -86,14 +86,14 @@ void EDUMKII_Joystick_vInit(void)
         ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Joystick_vIRQSourceHandler,
                                             ADC_enMODULE_0, ADC_enSEQ_2, ADC_enINT_TYPE_DMA);
 
-        pu32JoystickArray = EDUMKII_Joystick_vSampleArray();
-        pu32JoystickArray += 3UL;
-        DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) pu32JoystickArray);
-        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
+        puxJoystickArray = EDUMKII_Joystick_vSampleArray();
+        puxJoystickArray += 3UL;
+        DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (UBase_t) puxJoystickArray);
+        DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (UBase_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
         DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_16, &stDMAChControl);
 
-        DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) pu32JoystickArray);
-        DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (uint32_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
+        DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (UBase_t) puxJoystickArray);
+        DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_16, (UBase_t) (ADC0_BASE + ADC_SS2_FIFO_OFFSET));
         DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_16, &stDMAChControl);
 
         DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_16, &stDMAChConfig);
@@ -125,10 +125,10 @@ void EDUMKII_Joystick_vInit(void)
         ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_2, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ2);
         ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSTATE_ENA);
         ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_2, ADC_enSTATE_ENA);
-        ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_2, pu32JoystickArray, &u32Number);
+        ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_2, puxJoystickArray, &uxNumber);
         ADC_Sequencer__enClearOverflowByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
         ADC_Sequencer__enClearUnderflowByNumber(ADC_enMODULE_0, ADC_enSEQ_2);
-        u32Init = 1UL;
+        uxInit = 1UL;
     }
 }
 

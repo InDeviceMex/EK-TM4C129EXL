@@ -27,10 +27,11 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-uint32_t PWM__u32GetMaxGeneratorNumber(PWM_nMODULE enModule);
-uint32_t PWM__u32GetMaxFaultNumber(PWM_nMODULE enModule);
-PWM_nSTATUS PWM__enIsFaultExtended(PWM_nMODULE enModule);
-PWM_nSTATUS PWM__enIsSyncExtended(PWM_nMODULE enModule);
-PWM_nSTATUS PWM__enIsOneShotAvailable(PWM_nMODULE enModule);
+PWM_nERROR PWM__enGeneratorNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg);
+PWM_nERROR PWM__enFaultInputNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg);
+
+PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
+PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
+PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERAL_XHEADER_PWM_PROPIERTIES_H_ */

@@ -32,12 +32,12 @@
 #pragma  CODE_SECTION(FLASH__enInitProcess, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enIsProcessOngoing, ".ramcode")
 
-FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, uint32_t u32KeyArg, FLASH_nPROCESS enProcessArg);
+FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, FLASH_nPROCESS enProcessArg);
 FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, FLASH_nSTATUS* penStatusArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, uint32_t u32KeyArg, FLASH_nPROCESS enProcessArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, FLASH_nPROCESS enProcessArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, FLASH_nSTATUS* penStatusArg) __attribute__((section(".ramcode")));
 
 #endif

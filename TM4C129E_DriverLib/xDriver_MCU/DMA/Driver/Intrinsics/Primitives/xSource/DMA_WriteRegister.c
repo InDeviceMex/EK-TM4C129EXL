@@ -37,7 +37,7 @@ DMA_nERROR DMA__enWriteRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegi
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -60,7 +60,7 @@ DMA_nERROR DMA__enWriteRegister_Direct(DMA_nMODULE enModuleArg, DMA_Register_t* 
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {

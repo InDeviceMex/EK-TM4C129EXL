@@ -27,13 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Output__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg, PWM_nSTATE enEnableArg);
-PWM_nOUTPUT PWM_Output__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                    PWM_nOUTPUT enOutputArg);
+PWM_nERROR PWM_Output__enSetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                          PWM_nOUTPUT enOutputArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Output__enSetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
+                                        PWM_nOUTPUT enOutputArg, PWM_nSTATE enStateArg);
 
-void PWM_Output__vSetEnableByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg,
-                            PWM_nSTATE enEnableArg);
-PWM_nOUTPUT_NUMBER PWM_Output__enGetEnableByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg);
+PWM_nERROR PWM_Output__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                          PWM_nOUTPUT enOutputArg, PWM_nOUTPUT* penStateArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_OUTPUT_XHEADER_PWM_OUTPUT_ENABLE_H_ */

@@ -23,8 +23,8 @@
  */
 #include <xApplication_MCU/TIMER/Interrupt/InterruptRoutine/TIMER_InterruptRoutine.h>
 
-void (*TIMER__pvIRQVectorHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL]
-                                 [(uint32_t) TIMER_enMODULE_NUM_MAX]) (void) =
+void (*TIMER__pvIRQVectorHandler [(UBase_t) TIMER_enSUBMODULE_MAX - 1UL]
+                                 [(UBase_t) TIMER_enMODULE_NUM_MAX]) (void) =
 {
     {
       &GPTM0A__vIRQVectorHandler, &GPTM1A__vIRQVectorHandler,
@@ -45,8 +45,8 @@ void (*TIMER__pvfGetIRQVectorHandler(TIMER_nSUBMODULE enTIMERSubmodule,
                                      TIMER_nMODULE_NUM enTIMERModuleNumber))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = TIMER__pvIRQVectorHandler[(uint32_t) enTIMERSubmodule]
-                                              [(uint32_t) enTIMERModuleNumber];
+    pvfFunctionReg = TIMER__pvIRQVectorHandler[(UBase_t) enTIMERSubmodule]
+                                              [(UBase_t) enTIMERModuleNumber];
     return (pvfFunctionReg);
 }
 
@@ -54,7 +54,7 @@ void (**TIMER__pvfGetIRQVectorHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule,
                                              TIMER_nMODULE_NUM enTIMERModuleNumber))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &TIMER__pvIRQVectorHandler[(uint32_t) enTIMERSubmodule]
-                                                                [(uint32_t) enTIMERModuleNumber];
+    pvfFunctionReg = (void(**)(void)) &TIMER__pvIRQVectorHandler[(UBase_t) enTIMERSubmodule]
+                                                                [(UBase_t) enTIMERModuleNumber];
     return (pvfFunctionReg);
 }

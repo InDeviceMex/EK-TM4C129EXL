@@ -29,7 +29,7 @@ void DMA__vSetReady(DMA_nMODULE enModule)
 {
 #if !defined(Opt_Check)
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__u32CheckParams( (uint32_t) enModule, (uint32_t) DMA_enMODULE_MAX);
+    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
     enPeripheral |= enModule;
     SYSCTL__vSetReady(enPeripheral);
 #endif
@@ -37,14 +37,14 @@ void DMA__vSetReady(DMA_nMODULE enModule)
 void DMA__vReset(DMA_nMODULE enModule)
 {
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__u32CheckParams( (uint32_t) enModule, (uint32_t) DMA_enMODULE_MAX);
+    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
     enPeripheral |= enModule;
     SYSCTL__vReset(enPeripheral);
 }
 void DMA__vClearReady(DMA_nMODULE enModule)
 {
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__u32CheckParams( (uint32_t) enModule, (uint32_t) DMA_enMODULE_MAX);
+    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
     enPeripheral |= enModule;
     SYSCTL__vClearReady(enPeripheral);
 }
@@ -53,7 +53,7 @@ DMA_nSTATUS DMA__enIsReady(DMA_nMODULE enModule)
 #if !defined(Opt_Check)
     DMA_nSTATUS enReady = DMA_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__u32CheckParams( (uint32_t) enModule, (uint32_t) DMA_enMODULE_MAX);
+    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
     enPeripheral |= enModule;
     enReady = (DMA_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else

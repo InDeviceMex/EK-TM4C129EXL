@@ -32,12 +32,12 @@
 ******************************************************************************************/
 
 /*--------*/
-#define SSI_CPSR_R_CPSDVSR_MASK    ((uint32_t) 0x000000FFUL)
-#define SSI_CPSR_R_CPSDVSR_BIT    ((uint32_t) 0UL)
-#define SSI_CPSR_R_CPSDVSR_CLEAR    ((uint32_t) 0x000000FFUL)
+#define SSI_CPSR_R_CPSDVSR_MASK    ((UBase_t) 0x000000FFUL)
+#define SSI_CPSR_R_CPSDVSR_BIT    ((UBase_t) 0UL)
+#define SSI_CPSR_R_CPSDVSR_CLEAR    ((UBase_t) 0x000000FFUL)
 
-#define SSI_CPSR_CPSDVSR_MASK    ((uint32_t) 0x000000FFUL)
-#define SSI_CPSR_CPSDVSR_CLEAR    ((uint32_t) 0x000000FFUL)
+#define SSI_CPSR_CPSDVSR_MASK    ((UBase_t) 0x000000FFUL)
+#define SSI_CPSR_CPSDVSR_CLEAR    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SSI_REGISTERDEFINES_CPSR_H_ */

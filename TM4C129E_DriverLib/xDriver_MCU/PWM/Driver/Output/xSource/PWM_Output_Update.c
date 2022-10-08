@@ -24,74 +24,130 @@
 #include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Update.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
-#include <xDriver_MCU/PWM/Driver/Output/xHeader/PWM_Output_Generic.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/PWM_Intrinsics.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-void PWM_Output__vSetEnableUpdate(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_UPDATE enOutputUpdateArg)
+PWM_nERROR PWM_Output__enSetUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                               PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg)
 {
-    uint32_t enOutputUpdateReg = 0UL;
-    switch(enOutputArg)
+    PWM_Register_t stRegister;
+    UBase_t uxShiftReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            PWM_Output__vSetGenericBit((uint32_t) enModule, PWM_ENUPD_OFFSET, (uint32_t) enGenerator,
-                                     (uint32_t) enOutputUpdateArg, PWM_ENUPD_R_ENUPD0_MASK,
-                                     (PWM_ENUPD_R_ENUPD2_BIT - PWM_ENUPD_R_ENUPD0_BIT),
-                                     PWM_ENUPD_R_ENUPD0_BIT);
-            break;
-        case PWM_enOUTPUT_B:
-            PWM_Output__vSetGenericBit((uint32_t) enModule, PWM_ENUPD_OFFSET, (uint32_t) enGenerator,
-                                     (uint32_t) enOutputUpdateArg, PWM_ENUPD_R_ENUPD0_MASK,
-                                     (PWM_ENUPD_R_ENUPD2_BIT - PWM_ENUPD_R_ENUPD0_BIT),
-                                     PWM_ENUPD_R_ENUPD1_BIT);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            enOutputUpdateReg = (uint32_t) enOutputUpdateArg;
-            enOutputUpdateReg <<= PWM_ENUPD_R_ENUPD1_BIT;
-            enOutputUpdateReg |= (uint32_t) enOutputUpdateArg;
-            PWM_Output__vSetGenericBit((uint32_t) enModule, PWM_ENUPD_OFFSET, (uint32_t) enGenerator,
-                                     (uint32_t) enOutputUpdateReg, PWM_ENUPD_R_ENUPD1_MASK | PWM_ENUPD_R_ENUPD0_MASK,
-                                     (PWM_ENUPD_R_ENUPD2_BIT - PWM_ENUPD_R_ENUPD0_BIT),
-                                     PWM_ENUPD_R_ENUPD0_BIT);
-            break;
-        default:
-            break;
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_MAX);
     }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxShiftReg = PWM_OUTPUT_ENUPD_R_GEN1_OUTA_BIT - PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
+            uxShiftReg *= (UBase_t) enGeneratorArg;
+            uxShiftReg += PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
+
+            stRegister.uxShift = (UBase_t) uxShiftReg;
+            stRegister.uxMask = PWM_OUTPUT_ENUPD_GEN0_OUTA_MASK;
+            stRegister.uptrAddress = PWM_OUTPUT_ENUPD_OFFSET;
+            stRegister.uxValue = (UBase_t) enModeArg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxShiftReg = PWM_OUTPUT_ENUPD_R_GEN1_OUTA_BIT - PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
+            uxShiftReg *= (UBase_t) enGeneratorArg;
+            uxShiftReg += PWM_OUTPUT_ENUPD_R_GEN0_OUTB_BIT;
+
+            stRegister.uxShift = (UBase_t) uxShiftReg;
+            stRegister.uxMask = PWM_OUTPUT_ENUPD_GEN0_OUTA_MASK;
+            stRegister.uptrAddress = PWM_OUTPUT_ENUPD_OFFSET;
+            stRegister.uxValue = (UBase_t) enModeArg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+
+    return (enErrorReg);
 }
 
-PWM_nOUTPUT_UPDATE PWM_Output__enGetEnableUpdate(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                           PWM_nOUTPUT enOutputArg)
+PWM_nERROR PWM_Output__enSetUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
+                                             PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg)
 {
-    PWM_nOUTPUT_UPDATE enOutputReg = PWM_enOUTPUT_UPDATE_IMMEDIATE;
+    UBase_t uxGeneratorReg;
+    UBase_t uxGenMaskReg;
+    PWM_nERROR enErrorReg;
 
-    switch(enOutputArg)
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGenMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            enOutputReg = (PWM_nOUTPUT_UPDATE) PWM_Output__u32GetGenericBit((uint32_t) enModule,
-                         PWM_ENUPD_OFFSET, (uint32_t) enGenerator,
-                         (uint32_t) enOutputArg,
-                         (PWM_ENUPD_R_ENUPD2_BIT - PWM_ENUPD_R_ENUPD0_BIT),
-                         PWM_ENUPD_R_ENUPD0_BIT);
-            break;
-        case PWM_enOUTPUT_B:
-            enOutputReg = (PWM_nOUTPUT_UPDATE) PWM_Output__u32GetGenericBit((uint32_t) enModule,
-                         PWM_ENUPD_OFFSET, (uint32_t) enGenerator,
-                         (uint32_t) enOutputArg,
-                         (PWM_ENUPD_R_ENUPD2_BIT - PWM_ENUPD_R_ENUPD0_BIT),
-                         PWM_ENUPD_R_ENUPD1_BIT);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            break;
-        default:
-            break;
+        uxGeneratorReg = 0U;
+        uxGenMaskReg = (UBase_t) enGenMaskArg;
+        while((0U != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != ((UBase_t) PWM_enGENMASK_0 & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Output__enSetUpdateModeByNumber(enModuleArg, (PWM_nGENERATOR) uxGeneratorReg, enOutputArg, enModeArg);
+            }
+            uxGeneratorReg++;
+            uxGenMaskReg >>= 1U;
+        }
     }
-    return (enOutputReg);
+    return (enErrorReg);
 }
 
 
+PWM_nERROR PWM_Output__enGetUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                               PWM_nOUTPUT enOutputArg, PWM_nUPDATE* penModeArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxShiftReg;
+    PWM_nERROR enErrorReg;
 
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_BOTH);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxShiftReg = PWM_OUTPUT_ENUPD_R_GEN1_OUTA_BIT - PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
+            uxShiftReg *= (UBase_t) enGeneratorArg;
+            uxShiftReg += PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
 
+            stRegister.uxShift = (UBase_t) uxShiftReg;
+            stRegister.uxMask = PWM_OUTPUT_ENUPD_GEN0_OUTA_MASK;
+            stRegister.uptrAddress = PWM_OUTPUT_ENUPD_OFFSET;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+        else if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxShiftReg = PWM_OUTPUT_ENUPD_R_GEN1_OUTA_BIT - PWM_OUTPUT_ENUPD_R_GEN0_OUTA_BIT;
+            uxShiftReg *= (UBase_t) enGeneratorArg;
+            uxShiftReg += PWM_OUTPUT_ENUPD_R_GEN0_OUTB_BIT;
+
+            stRegister.uxShift = (UBase_t) uxShiftReg;
+            stRegister.uxMask = PWM_OUTPUT_ENUPD_GEN0_OUTA_MASK;
+            stRegister.uptrAddress = PWM_OUTPUT_ENUPD_OFFSET;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (PWM_nUPDATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}

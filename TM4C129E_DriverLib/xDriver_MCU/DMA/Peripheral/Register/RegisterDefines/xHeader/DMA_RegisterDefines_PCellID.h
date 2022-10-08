@@ -32,12 +32,12 @@
 ****************************************************************************************/
 
 /*--------*/
-#define DMA_PCellID0_R_CID0_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID0_R_CID0_BIT    ((uint32_t) 0UL)
-#define DMA_PCellID0_R_CID0_RESET    ((uint32_t) 0x0000000DUL)
+#define DMA_PCellID0_R_CID0_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID0_R_CID0_BIT    ((UBase_t) 0UL)
+#define DMA_PCellID0_R_CID0_RESET    ((UBase_t) 0x0000000DUL)
 
-#define DMA_PCellID0_CID0_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID0_CID0_RESET    ((uint32_t) 0x0000000DUL)
+#define DMA_PCellID0_CID0_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID0_CID0_RESET    ((UBase_t) 0x0000000DUL)
 /*--------*/
 
 /**************************************************************************************
@@ -45,12 +45,12 @@
 ****************************************************************************************/
 
 /*--------*/
-#define DMA_PCellID1_R_CID1_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID1_R_CID1_BIT    ((uint32_t) 0UL)
-#define DMA_PCellID1_R_CID1_RESET    ((uint32_t) 0x000000F0UL)
+#define DMA_PCellID1_R_CID1_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID1_R_CID1_BIT    ((UBase_t) 0UL)
+#define DMA_PCellID1_R_CID1_RESET    ((UBase_t) 0x000000F0UL)
 
-#define DMA_PCellID1_CID1_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID1_CID1_RESET    ((uint32_t) 0x000000F0UL)
+#define DMA_PCellID1_CID1_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID1_CID1_RESET    ((UBase_t) 0x000000F0UL)
 /*--------*/
 
 /**************************************************************************************
@@ -58,12 +58,12 @@
 ****************************************************************************************/
 
 /*--------*/
-#define DMA_PCellID2_R_CID2_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID2_R_CID2_BIT    ((uint32_t) 0UL)
-#define DMA_PCellID2_R_CID2_RESET    ((uint32_t) 0x00000005UL)
+#define DMA_PCellID2_R_CID2_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID2_R_CID2_BIT    ((UBase_t) 0UL)
+#define DMA_PCellID2_R_CID2_RESET    ((UBase_t) 0x00000005UL)
 
-#define DMA_PCellID2_CID2_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID2_CID2_RESET    ((uint32_t) 0x00000005UL)
+#define DMA_PCellID2_CID2_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID2_CID2_RESET    ((UBase_t) 0x00000005UL)
 /*--------*/
 
 /**************************************************************************************
@@ -71,12 +71,12 @@
 ****************************************************************************************/
 
 /*--------*/
-#define DMA_PCellID3_R_CID3_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID3_R_CID3_BIT    ((uint32_t) 0UL)
-#define DMA_PCellID3_R_CID3_RESET    ((uint32_t) 0x000000B1UL)
+#define DMA_PCellID3_R_CID3_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID3_R_CID3_BIT    ((UBase_t) 0UL)
+#define DMA_PCellID3_R_CID3_RESET    ((UBase_t) 0x000000B1UL)
 
-#define DMA_PCellID3_CID3_MASK    ((uint32_t) 0x000000FFUL)
-#define DMA_PCellID3_CID3_RESET    ((uint32_t) 0x000000B1UL)
+#define DMA_PCellID3_CID3_MASK    ((UBase_t) 0x000000FFUL)
+#define DMA_PCellID3_CID3_RESET    ((UBase_t) 0x000000B1UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_REGISTER_DMA_REGISTERDEFINES_DMA_REGISTERDEFINES_PCELLID_H_ */

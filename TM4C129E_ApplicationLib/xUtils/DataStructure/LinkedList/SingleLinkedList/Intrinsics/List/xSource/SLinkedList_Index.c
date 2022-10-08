@@ -26,7 +26,7 @@
 SLinkedListItem_t* SLinkedList__pstGetLastItemRead(const SLinkedList_t*  const pstList)
 {
     SLinkedListItem_t* pstLastItemReadReg = (SLinkedListItem_t*) 0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstLastItemReadReg = pstList->pstLastItemRead;
     }
@@ -35,20 +35,20 @@ SLinkedListItem_t* SLinkedList__pstGetLastItemRead(const SLinkedList_t*  const p
 
 void SLinkedList__vSetLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstLastItemReadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstLastItemRead = pstLastItemReadArg;
     }
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
     SLinkedListItem_t* pstListLastItemRead = (SLinkedListItem_t*)0UL;
     pstListLastItemRead= SLinkedList__pstGetLastItemRead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListLastItemRead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
     {
-        enStatus = SLinkedList_enSTATUS_OK;
+        enStatus = SLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

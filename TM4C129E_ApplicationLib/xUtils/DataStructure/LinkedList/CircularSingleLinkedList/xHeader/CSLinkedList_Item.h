@@ -26,12 +26,12 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-CSLinkedListItem_t*  CSLinkedList__pstGetItemPos(const CSLinkedList_t* pstList, uint32_t u32Position);
+CSLinkedListItem_t*  CSLinkedList__pstGetItemPos(const CSLinkedList_t* pstList, UBase_t uxPosition);
 
-uint32_t CSLinkedList__u32GetAllItem(const CSLinkedList_t* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t CSLinkedList__u32GetAllItem_Value(const CSLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
+UBase_t CSLinkedList__uxGetAllItem(const CSLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
+UBase_t CSLinkedList__uxGetAllItem_Value(const CSLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
 
-uint32_t CSLinkedList__u32GetNItem(const CSLinkedList_t* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t CSLinkedList__u32GetNItem_Value(const CSLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
+UBase_t CSLinkedList__uxGetNItem(const CSLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
+UBase_t CSLinkedList__uxGetNItem_Value(const CSLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_XHEADER_CIRCULARSLINKEDLIST_ITEM_H_ */

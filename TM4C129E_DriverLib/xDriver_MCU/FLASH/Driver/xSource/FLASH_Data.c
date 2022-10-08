@@ -27,36 +27,36 @@
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/FLASH_Intrinsics.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
-FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, uint32_t u32DataArg)
+FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, UBase_t uxDataArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_DATA_R_DATA_BIT;
-    stRegister.u32Mask = FLASH_DATA_DATA_MASK;
+    stRegister.uxShift = FLASH_DATA_R_DATA_BIT;
+    stRegister.uxMask = FLASH_DATA_DATA_MASK;
     stRegister.uptrAddress = FLASH_DATA_OFFSET;
-    stRegister.u32Value = u32DataArg;
+    stRegister.uxValue = uxDataArg;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32IndexArg)
+FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxIndexArg)
 {
     FLASH_Register_t stRegister;
-    uint32_t u32OffsetReg;
+    UBase_t uxOffsetReg;
     FLASH_nERROR enErrorReg;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32IndexArg, 32UL);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxIndexArg, 32UL);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32OffsetReg = u32IndexArg;
-        u32OffsetReg <<= 2UL;
-        u32OffsetReg += FLASH_WBn_OFFSET;
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
-        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
-        stRegister.u32Value = u32DataArg;
+        uxOffsetReg = uxIndexArg;
+        uxOffsetReg <<= 2UL;
+        uxOffsetReg += FLASH_WBn_OFFSET;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
+        stRegister.uptrAddress = (uintptr_t) uxOffsetReg;
+        stRegister.uxValue = uxDataArg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -64,44 +64,44 @@ FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, uint32_t u32Dat
 }
 
 
-FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, uint32_t* pu32DataArg, uint32_t u32StartIndexArg, uint32_t* pu32CountArg)
+FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t uxStartIndexArg, UBase_t* puxCountArg)
 {
     FLASH_Register_t stRegister;
-    uint32_t u32MaxCountReg;
-    uint32_t u32CurrentIndexReg;
+    UBase_t uxMaxCountReg;
+    UBase_t uxCurrentIndexReg;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if((0UL == (uintptr_t) pu32DataArg) || (0UL == (uintptr_t) pu32CountArg))
+    if((0UL == (uintptr_t) puxDataArg) || (0UL == (uintptr_t) puxCountArg))
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32MaxCountReg =  u32StartIndexArg + *pu32CountArg;
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32MaxCountReg, (32UL + 1UL));
+        uxMaxCountReg =  uxStartIndexArg + *puxCountArg;
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxMaxCountReg, (32UL + 1UL));
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32CurrentIndexReg = u32StartIndexArg;
-        u32CurrentIndexReg <<= 2UL;
-        u32CurrentIndexReg += FLASH_WBn_OFFSET;
-        while((0UL != *pu32CountArg) && (FLASH_enERROR_OK == enErrorReg))
+        uxCurrentIndexReg = uxStartIndexArg;
+        uxCurrentIndexReg <<= 2UL;
+        uxCurrentIndexReg += FLASH_WBn_OFFSET;
+        while((0UL != *puxCountArg) && (FLASH_enERROR_OK == enErrorReg))
         {
-            stRegister.u32Shift = 0UL;
-            stRegister.u32Mask = MCU_MASK_32;
-            stRegister.uptrAddress = (uintptr_t) u32CurrentIndexReg;
-            stRegister.u32Value = *pu32DataArg;
+            stRegister.uxShift = 0UL;
+            stRegister.uxMask = MCU_MASK_BASE;
+            stRegister.uptrAddress = (uintptr_t) uxCurrentIndexReg;
+            stRegister.uxValue = *puxDataArg;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
             if(FLASH_enERROR_OK == enErrorReg)
             {
-                u32CurrentIndexReg += 4UL;
-                pu32DataArg += 1UL;
-                (*pu32CountArg)--;
-                if(FLASH_WB31_OFFSET < u32CurrentIndexReg)
+                uxCurrentIndexReg += 4UL;
+                puxDataArg += 1UL;
+                (*puxCountArg)--;
+                if(FLASH_WB31_OFFSET < uxCurrentIndexReg)
                 {
-                    u32CurrentIndexReg = FLASH_WBn_OFFSET;
+                    uxCurrentIndexReg = FLASH_WBn_OFFSET;
                 }
             }
         }
@@ -110,71 +110,71 @@ FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, uint32_t* pu32Dat
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg)
+FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32IndexArg, 32UL);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxIndexArg, 32UL);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = u32IndexArg;
-        stRegister.u32Mask = FLASH_WBVAL_WB0_MASK;
+        stRegister.uxShift = uxIndexArg;
+        stRegister.uxMask = FLASH_WBVAL_WB0_MASK;
         stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
-        stRegister.u32Value = FLASH_WBVAL_WB0_NEWDATA;
+        stRegister.uxValue = FLASH_WBVAL_WB0_NEWDATA;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     }
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg)
+FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32IndexArg, 32UL);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxIndexArg, 32UL);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = u32IndexArg;
-        stRegister.u32Mask = FLASH_WBVAL_WB0_MASK;
+        stRegister.uxShift = uxIndexArg;
+        stRegister.uxMask = FLASH_WBVAL_WB0_MASK;
         stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
-        stRegister.u32Value = FLASH_WBVAL_WB0_NODATA;
+        stRegister.uxValue = FLASH_WBVAL_WB0_NODATA;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     }
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg)
+FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_WBVAL_R_WB0_BIT;
-    stRegister.u32Mask = u32IndexMaskArg;
+    stRegister.uxShift = FLASH_WBVAL_R_WB0_BIT;
+    stRegister.uxMask = uxIndexMaskArg;
     stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
-    stRegister.u32Value = u32IndexMaskArg;
+    stRegister.uxValue = uxIndexMaskArg;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg)
+FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_WBVAL_R_WB0_BIT;
-    stRegister.u32Mask = u32IndexMaskArg;
+    stRegister.uxShift = FLASH_WBVAL_R_WB0_BIT;
+    stRegister.uxMask = uxIndexMaskArg;
     stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
-    stRegister.u32Value = 0UL;
+    stRegister.uxValue = 0UL;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg, FLASH_nSTATUS* penValidArg)
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
@@ -186,43 +186,43 @@ FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint3
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32IndexArg, 32UL);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxIndexArg, 32UL);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = u32IndexArg;
-        stRegister.u32Mask = FLASH_WBVAL_WB0_MASK;
+        stRegister.uxShift = uxIndexArg;
+        stRegister.uxMask = FLASH_WBVAL_WB0_MASK;
         stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penValidArg = (FLASH_nSTATUS) stRegister.u32Value;
+        *penValidArg = (FLASH_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
 
-FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg, uint32_t* pu32ValidArg)
+FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg, UBase_t* puxValidArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32ValidArg)
+    if(0UL == (uintptr_t) puxValidArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_WBVAL_R_WB0_BIT;
-        stRegister.u32Mask = u32IndexMaskArg;
+        stRegister.uxShift = FLASH_WBVAL_R_WB0_BIT;
+        stRegister.uxMask = uxIndexMaskArg;
         stRegister.uptrAddress = FLASH_WBVAL_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32ValidArg = stRegister.u32Value;
+        *puxValidArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

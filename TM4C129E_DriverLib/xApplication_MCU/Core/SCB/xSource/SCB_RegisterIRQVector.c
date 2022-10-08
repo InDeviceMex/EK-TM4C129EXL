@@ -30,19 +30,19 @@ SCB_nERROR SCB__enRegisterIRQVectorHandler(SCB_nMODULE enModuleArg,
                                            SCB_pvfIRQVectorHandler_t pfIrqVectorHandlerArg,
                                            SCB_pvfIRQVectorHandler_t* pfIrqVectorHandlerExternArg)
 {
-    uint32_t* pu32BaseVectorReg;
-    uint32_t u32FlashSizeInBytesReg;
-    uint32_t u32VectorReg;
-    uint32_t u32BaseVectorReg;
+    UBase_t* puxBaseVectorReg;
+    UBase_t uxFlashSizeInBytesReg;
+    UBase_t uxVectorReg;
+    UBase_t uxBaseVectorReg;
     uintptr_t uptrIrqVectorHandlerReg;
     SCB_nERROR enErrorReg;
     MCU_nSTATE enInterruptStateReg;
 
-    u32FlashSizeInBytesReg = 0UL;
-    u32VectorReg = 0UL;
-    u32BaseVectorReg = 0UL;
+    uxFlashSizeInBytesReg = 0UL;
+    uxVectorReg = 0UL;
+    uxBaseVectorReg = 0UL;
     uptrIrqVectorHandlerReg = 0UL;
-    enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) SCB_enVECISR_MAX);
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) SCB_enVECISR_MAX);
     if(SCB_enERROR_OK == enErrorReg)
     {
         if(0UL != (uintptr_t) pfIrqVectorHandlerArg)
@@ -53,32 +53,32 @@ SCB_nERROR SCB__enRegisterIRQVectorHandler(SCB_nMODULE enModuleArg,
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB__enGetVectorOffset(enModuleArg, &u32BaseVectorReg);
+        enErrorReg = SCB__enGetVectorOffset(enModuleArg, &uxBaseVectorReg);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SCB_nERROR) FLASH__enGetSizeInBytes(FLASH_enMODULE_0, &u32FlashSizeInBytesReg);
+        enErrorReg = (SCB_nERROR) FLASH__enGetSizeInBytes(FLASH_enMODULE_0, &uxFlashSizeInBytesReg);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        u32VectorReg = (uint32_t) enVectorArg;
-        u32VectorReg <<= 2UL;
-        u32BaseVectorReg += u32VectorReg;
-        if(u32FlashSizeInBytesReg > u32BaseVectorReg)
+        uxVectorReg = (UBase_t) enVectorArg;
+        uxVectorReg <<= 2UL;
+        uxBaseVectorReg += uxVectorReg;
+        if(uxFlashSizeInBytesReg > uxBaseVectorReg)
         {
             enInterruptStateReg = MCU__enDisGlobalInterrupt();
-            enErrorReg = (SCB_nERROR) FLASH__enWriteWorld(FLASH_enMODULE_0, uptrIrqVectorHandlerReg, u32BaseVectorReg);
+            enErrorReg = (SCB_nERROR) FLASH__enWriteWorld(FLASH_enMODULE_0, uptrIrqVectorHandlerReg, uxBaseVectorReg);
             MCU__vSetGlobalInterrupt(enInterruptStateReg);
         }
         else
         {
-            pu32BaseVectorReg = (uint32_t*) u32BaseVectorReg;
-            *pu32BaseVectorReg = (uint32_t) uptrIrqVectorHandlerReg;
+            puxBaseVectorReg = (UBase_t*) uxBaseVectorReg;
+            *puxBaseVectorReg = (UBase_t) uptrIrqVectorHandlerReg;
         }
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        if(0UL != (uint32_t) pfIrqVectorHandlerExternArg)
+        if(0UL != (UBase_t) pfIrqVectorHandlerExternArg)
         {
             *pfIrqVectorHandlerExternArg = (SCB_pvfIRQVectorHandler_t) uptrIrqVectorHandlerReg;
         }
@@ -89,17 +89,17 @@ SCB_nERROR SCB__enRegisterIRQVectorHandler(SCB_nMODULE enModuleArg,
 /*
 void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector)
 {
-    uint32_t u32BaseVectorReg = SCB_VTOR_R;
+    UBase_t uxBaseVectorReg = SCB_VTOR_R;
 
-    if(u32BaseVectorReg <= 0x00010000U)
+    if(uxBaseVectorReg <= 0x00010000U)
     {
         MCU__enDisGlobalInterrupt();
-        FLASH__enWrite((uint32_t) IntDefaultHandler | 1, u32BaseVectorReg+((uint32_t) enVector*4U));
+        FLASH__enWrite((UBase_t) IntDefaultHandler | 1, uxBaseVectorReg+((UBase_t) enVector*4U));
         MCU__vEnGlobalInterrupt();
     }
-    else if((u32BaseVectorReg >= 0x20000000U) && (u32BaseVectorReg <= 0x20000400U) )
+    else if((uxBaseVectorReg >= 0x20000000U) && (uxBaseVectorReg <= 0x20000400U) )
     {
-        *((uint32_t*)u32BaseVectorReg+(uint32_t) enVector)=(uint32_t) IntDefaultHandler | 1;
+        *((UBase_t*)uxBaseVectorReg+(UBase_t) enVector)=(UBase_t) IntDefaultHandler | 1;
     }
 }
 */

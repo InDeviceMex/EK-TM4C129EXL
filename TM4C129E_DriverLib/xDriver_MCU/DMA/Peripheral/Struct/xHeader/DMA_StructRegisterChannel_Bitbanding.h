@@ -29,28 +29,28 @@
 
 typedef volatile struct
 {
-    volatile uint32_t ADDR [32UL];
+    volatile UBase_t ADDR [32UL];
 }DMA_CH_BITBANDING_SRCENDP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t ADDR [32UL];
+    volatile UBase_t ADDR [32UL];
 }DMA_CH_BITBANDING_DSTENDP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t XFERMODE [3UL];
-    volatile uint32_t NXTUSEBURST;
-    volatile uint32_t XFERSIZE [10UL];
-    volatile uint32_t ARBSIZE [4UL];
-    volatile uint32_t SRCPROT0;
-    const uint32_t reserved [2UL];
-    volatile uint32_t DSTPROT0;
-    const uint32_t reserved1 [2UL];
-    volatile uint32_t SRCSIZE [2UL];
-    volatile uint32_t SRCINC [2UL];
-    volatile uint32_t DSTSIZE [2UL];
-    volatile uint32_t DSTINC [2UL];
+    volatile UBase_t XFERMODE [3UL];
+    volatile UBase_t NXTUSEBURST;
+    volatile UBase_t XFERSIZE [10UL];
+    volatile UBase_t ARBSIZE [4UL];
+    volatile UBase_t SRCPROT0;
+    const UBase_t reserved [2UL];
+    volatile UBase_t DSTPROT0;
+    const UBase_t reserved1 [2UL];
+    volatile UBase_t SRCSIZE [2UL];
+    volatile UBase_t SRCINC [2UL];
+    volatile UBase_t DSTSIZE [2UL];
+    volatile UBase_t DSTINC [2UL];
 }DMA_CH_BITBANDING_CTL_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_STRUCT_DMA_STRUCTREGISTERCHANNEL_BITBANDING_H_ */

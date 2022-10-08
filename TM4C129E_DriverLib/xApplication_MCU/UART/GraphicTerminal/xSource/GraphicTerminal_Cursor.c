@@ -35,32 +35,32 @@
 
 void GraphTerm__vCursorToHome(UART_nMODULE enModule)
 {
-    UART__u32Printf(enModule,"\x1B[H" );
+    UART__uxPrintf(enModule,"\x1B[H" );
 }
 
 void GraphTerm__vHideCursor(UART_nMODULE enModule)
 {
-    UART__u32Printf(enModule,"\x1B[?25l" );
+    UART__uxPrintf(enModule,"\x1B[?25l" );
 }
 
-void GraphTerm__vSetCursorXY(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row)
+void GraphTerm__vSetCursorXY(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow)
 {
-    GraphTerm__vSetCursorXYSecure(enModule, u32Column, u32Row, COLUMN_MAX, ROW_MAX);
+    GraphTerm__vSetCursorXYSecure(enModule, uxColumn, uxRow, COLUMN_MAX, ROW_MAX);
 }
 
-void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row, uint32_t u32ColumnMax, uint32_t u32RowMax)
+void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow, UBase_t uxColumnMax, UBase_t uxRowMax)
 {
-    u32Column += 1UL;
-    u32Row += 1UL;
-    if(u32Column >= u32ColumnMax)
+    uxColumn += 1UL;
+    uxRow += 1UL;
+    if(uxColumn >= uxColumnMax)
     {
-        u32Column = u32ColumnMax;
+        uxColumn = uxColumnMax;
     }
-    if(u32Row >= u32RowMax)
+    if(uxRow >= uxRowMax)
     {
-        u32Row = u32RowMax;
+        uxRow = uxRowMax;
     }
-    UART__u32Printf(enModule,"\x1B[%u;%uH",u32Row, u32Column);
+    UART__uxPrintf(enModule,"\x1B[%u;%uH",uxRow, uxColumn);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

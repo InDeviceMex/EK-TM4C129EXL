@@ -27,21 +27,21 @@
 
 #include <xDriver_MCU/Core/MPU/Peripheral/xHeader/MPU_Enum.h>
 
-#define MPU_BASE    ((uint32_t) 0xE000E000UL)
-#define MPU_OFFSET    ((uint32_t) 0x00000D90UL)
+#define MPU_BASE    ((UBase_t) 0xE000E000UL)
+#define MPU_OFFSET    ((UBase_t) 0x00000D90UL)
 
 #define MPU_REGION_NUMBER    (8UL)
 
-#define MPU_TYPER_OFFSET    ((uint32_t) 0x0D90UL)
-#define MPU_CTRL_OFFSET    ((uint32_t) 0x0D94UL)
-#define MPU_RNR_OFFSET    ((uint32_t) 0x0D98UL)
-#define MPU_RBAR_OFFSET    ((uint32_t) 0x0D9CUL)
-#define MPU_RASR_OFFSET    ((uint32_t) 0x0DA0UL)
-#define MPU_RBAR1_OFFSET    ((uint32_t) 0x0DA4UL)
-#define MPU_RASR1_OFFSET    ((uint32_t) 0x0DA8UL)
-#define MPU_RBAR2_OFFSET    ((uint32_t) 0x0DACUL)
-#define MPU_RASR2_OFFSET    ((uint32_t) 0x0DB0UL)
-#define MPU_RBAR3_OFFSET    ((uint32_t) 0x0DB4UL)
-#define MPU_RASR3_OFFSET    ((uint32_t) 0x0DB8UL)
+#define MPU_TYPER_OFFSET    ((UBase_t) 0x0D90UL)
+#define MPU_CTRL_OFFSET    ((UBase_t) 0x0D94UL)
+#define MPU_RNR_OFFSET    ((UBase_t) 0x0D98UL)
+#define MPU_RBAR_OFFSET    ((UBase_t) 0x0D9CUL)
+#define MPU_RASR_OFFSET    ((UBase_t) 0x0DA0UL)
+#define MPU_RBAR1_OFFSET    ((UBase_t) 0x0DA4UL)
+#define MPU_RASR1_OFFSET    ((UBase_t) 0x0DA8UL)
+#define MPU_RBAR2_OFFSET    ((UBase_t) 0x0DACUL)
+#define MPU_RASR2_OFFSET    ((UBase_t) 0x0DB0UL)
+#define MPU_RBAR3_OFFSET    ((UBase_t) 0x0DB4UL)
+#define MPU_RASR3_OFFSET    ((UBase_t) 0x0DB8UL)
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_REGISTER_MPU_REGISTERADDRESS_H_ */

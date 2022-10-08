@@ -26,18 +26,18 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-uint32_t SSI__u32SetData(SSI_nMODULE enModule, uint32_t u32Data);
-uint32_t SSI__u32GetData(SSI_nMODULE enModule);
-uint32_t SSI__u32GetDataWithStatus(SSI_nMODULE enModule);
+UBase_t SSI__uxSetData(SSI_nMODULE enModule, UBase_t uxData);
+UBase_t SSI__uxGetData(SSI_nMODULE enModule);
+UBase_t SSI__uxGetDataWithStatus(SSI_nMODULE enModule);
 
-uint32_t SSI__u32GetFifoData(SSI_nMODULE enModule, uint32_t* pu32FifoArray);
-uint32_t SSI__u32SetFifoDataConst(SSI_nMODULE enModule,
-                                  const uint32_t u32FifoValue, uint32_t u32SizeBuffer);
-uint32_t SSI__u32GetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray);
+UBase_t SSI__uxGetFifoData(SSI_nMODULE enModule, UBase_t* puxFifoArray);
+UBase_t SSI__uxSetFifoDataConst(SSI_nMODULE enModule,
+                                  const UBase_t uxFifoValue, UBase_t uxSizeBuffer);
+UBase_t SSI__uxGetFifoDataByte(SSI_nMODULE enModule, uint8_t* pu8FifoArray);
 
-uint32_t SSI__u32SetFifoData(SSI_nMODULE enModule,
-                             const uint32_t* pu32FifoArray, uint32_t u32SizeBuffer);
-uint32_t SSI__u32SetFifoDataByte(SSI_nMODULE enModule,
-                                 const uint8_t* pu8FifoArray, uint32_t u32SizeBuffer);
+UBase_t SSI__uxSetFifoData(SSI_nMODULE enModule,
+                             const UBase_t* puxFifoArray, UBase_t uxSizeBuffer);
+UBase_t SSI__uxSetFifoDataByte(SSI_nMODULE enModule,
+                                 const uint8_t* pu8FifoArray, UBase_t uxSizeBuffer);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_XHEADER_SSI_DATA_H_ */

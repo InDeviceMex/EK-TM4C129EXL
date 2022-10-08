@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-uint32_t CSLinkedList_Item__u32GetValue(const CSLinkedListItem_t* const pstItem);
-void CSLinkedList_Item__vSetValue(CSLinkedListItem_t* pstItem, uint32_t u32ValueItemArg);
+UBase_t CSLinkedList_Item__uxGetValue(const CSLinkedListItem_t* const pstItem);
+void CSLinkedList_Item__vSetValue(CSLinkedListItem_t* pstItem, UBase_t uxValueItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARSINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CSLINKEDLIST_ITEMVALUE_H_ */

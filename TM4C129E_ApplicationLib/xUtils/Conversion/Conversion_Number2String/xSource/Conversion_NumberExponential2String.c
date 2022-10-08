@@ -21,283 +21,325 @@
  * Date           Author     Version     Description
  * 10 dic. 2020     vyldram    1.0         initial Version@endverbatim
  */
-
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberExponential2String.h>
+
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberFloat2String.h>
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberLong2String.h>
-#include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberFormat.h>
 
-
-
-CONV_nSTATUS Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec)
+CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value,
+                                               UBase_t uxIndex, UBase_t uxMaxLenght, UBase_t* puxBufOutLenght,
+                                               UBase_t uxWidth, UBase_t uxflags, UBase_t uxPrec)
 {
+    int64_t  s64ExponentialValue;
+    UBase_t uxflagsTemp;
+    UBase_t uxNegative;
+    UBase_t  uxMinWidth;
+    size_t szStartIndex;
+    boolean_t boTerminate;
+    CONV_nERROR enErrorReg;
 
-    CONV_nSTATUS enConvStatus = CONV_enSTATUS_ERROR;
-    char cCharTemp = 0;
-    uint32_t u32Negative = 0U;
-    uint32_t u32flagsTemp = 0U;
-    uint64_t u64TempLong = 0U;
-    int64_t s64Temp = 0U;
-
-    uint64_t u64Temp = 0U;
-    uint64_t u64Temp2 = 0U;
-    uint64_t u64TempShift = 0U;
-    uint64_t u64TempShift2 = 0U;
-
-    float64_t f64Temp = 0U;
-    float64_t f64Temp2 = 0U;
-
-    float64_t f64DoubleZ = 0;
-    float64_t f64DoubleZ2 = 0;
-
-    float64_t f64ValueTemp = 0;
-
-    float64_t f64DoubleDiv0 = 0;
-    float64_t f64DoubleDiv1 = 0;
-    float64_t f64DoubleDiv2 = 0;
-    float64_t f64DoubleDiv3 = 0;
-
-    uint32_t  u32MinWidth = 0U;
-    uint32_t u32FloatWidth = 0U;
-    CONV_FLOAT_UNION_t uFloatConversion = {0UL};
-    int64_t  s64Exponential2 = 0;
-    int64_t  s64Exponential2Temp = 0;
-    int64_t  s64ExponentialValue = 0;
-
-    size_t szStartIndex = 0U;
-
-    if(((uint32_t) 0U != (uint32_t) pvfOut) && ((uint32_t) 0U != (uint32_t) pcBufferOut) && ((uint32_t) 0U != (uint32_t) pu32BufOutLenght))
+    szStartIndex = 0U;
+    s64ExponentialValue = 0;
+    uxMinWidth = 0UL;
+    uxNegative = 0UL;
+    boTerminate = FALSE;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pvfOut) || (0UL == (uintptr_t) pcBufferOut) || (0UL == (uintptr_t) puxBufOutLenght))
+    {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
     {
         /* check for NaN and special f64Values*/
-        if (((float64_t) DBL_MAX < (float64_t) f64Value ) || ((float64_t) -DBL_MAX > (float64_t) f64Value))
+        if (f64Value < -DBL_MAX)
         {
-            enConvStatus = Conv__enNumber2String_Float(pvfOut, pcBufferOut, f64Value, u32Index, u32MaxLenght, pu32BufOutLenght, u32Width, u32flags, u32Prec);
+            enErrorReg = Conv__enNumber2String_Float(pvfOut, pcBufferOut, f64Value, uxIndex, uxMaxLenght, puxBufOutLenght, uxWidth, uxflags, uxPrec);
+            boTerminate = TRUE;
+        }
+        else if(f64Value > DBL_MAX)
+        {
+            enErrorReg = Conv__enNumber2String_Float(pvfOut, pcBufferOut, f64Value, uxIndex, uxMaxLenght, puxBufOutLenght, uxWidth, uxflags, uxPrec);
+            boTerminate = TRUE;
+        }
+    }
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        CONV_FLOAT_UNION_t uFloatConversion;
+        float64_t f64ValueTemp;
+        float64_t f64Temp;
+        float64_t f64Temp2;
+        float64_t f64DoubleZ;
+        float64_t f64DoubleZ2;
+        float64_t f64DoubleDiv0;
+        float64_t f64DoubleDiv1;
+        float64_t f64DoubleDiv2;
+        float64_t f64DoubleDiv3;
+        uint64_t u64TempLong;
+        uint64_t u64Temp;
+        uint64_t u64Temp2;
+        uint64_t u64TempShift;
+        uint64_t u64TempShift2;
+        int64_t  s64Exponential2;
+        int64_t  s64Exponential2Temp;
+        UBase_t uxFloatWidth;
+
+        /* determine the sign*/
+        if(0.0 > f64Value)
+        {
+            uxNegative = 1U;
+            f64ValueTemp = 0.0;
+            f64ValueTemp -= f64Value;
+            f64Value = f64ValueTemp;
         }
         else
         {
-            /* determine the sign*/
-            if(f64Value < 0.0)
+            uxNegative = 0U;
+        }
+
+        /* default precision*/
+        if (0UL == (uxflags & (UBase_t) CONV_enFLAGS_PRECISION))
+        {
+            uxPrec = CONV_DEFAULT_FLOAT_PRECISION;
+        }
+
+        uFloatConversion.FLOAT = (float64_t) f64Value;
+        u64TempLong = uFloatConversion.UNSIGNED;
+        u64TempLong >>= 52ULL;
+        u64TempLong &= 0x07FFULL;
+        s64Exponential2 = (int64_t) u64TempLong;
+        s64Exponential2 -= 1023;           /* effectively log2*/
+
+        u64Temp = uFloatConversion.UNSIGNED;
+        u64TempShift = 1ULL;
+        u64TempShift <<= 52ULL;
+        u64TempShift -= 1ULL;
+        u64Temp &= u64TempShift;
+
+        u64TempShift2 = 1023ULL ;
+        u64TempShift2 <<= 52ULL;
+
+        u64Temp2 = u64Temp;
+        u64Temp2 |= u64TempShift2;
+        uFloatConversion.UNSIGNED = (uint64_t) u64Temp2;  /* drop the exponent so uFloatConversion.FLOAT is now in [1, 2)*/
+
+        /* now approximate log10 from the log2 integer part and an expansion of ln around 1.5*/
+        f64Temp = uFloatConversion.FLOAT;
+        f64Temp -= 1.5;
+        f64Temp *= 0.289529654602168;
+
+        f64Temp2 = (float64_t) s64Exponential2;
+        f64Temp2 *= 0.301029995663981;
+        f64Temp2 += 0.1760912590558 ;
+        f64Temp2 += f64Temp;
+        s64ExponentialValue = (int64_t) (f64Temp2);
+
+        /* now we want to compute 10^s64ExponentialValue but we want to be sure it won't overflow*/
+        f64Temp = f64Temp2;
+        f64Temp *= 3.321928094887362;
+        f64Temp += 0.5;
+
+        s64Exponential2Temp = (int64_t) (f64Temp);
+        s64Exponential2Temp += 1023;
+        uFloatConversion.UNSIGNED = (uint64_t) s64Exponential2Temp;
+        uFloatConversion.UNSIGNED <<= 52ULL;
+
+        f64Temp2 = f64Temp2;
+        f64Temp2 *= 2.302585092994046;
+        f64Temp = f64Temp;
+        f64Temp *= 0.6931471805599453;
+
+        f64DoubleZ = f64Temp2 - f64Temp;
+        f64DoubleZ2 = f64DoubleZ * f64DoubleZ;
+
+        /* compute exp(z) using continued fractions, see https://en.wikipedia.org/wiki/Exponential_function#Continued_fractions_for_ex*/
+        f64DoubleDiv0 = f64DoubleZ2;
+        f64DoubleDiv0 /= 14.0;
+        f64DoubleDiv0 += 10.0;
+
+        f64DoubleDiv1 = f64DoubleZ2;
+        f64DoubleDiv1 /= f64DoubleDiv0;
+        f64DoubleDiv1 += 6.0;
+
+        f64DoubleDiv2 = f64DoubleZ2;
+        f64DoubleDiv2 /= f64DoubleDiv1;
+        f64DoubleDiv2 += 2.0;
+        f64DoubleDiv2 -= f64DoubleZ;
+
+        f64DoubleDiv3 = f64DoubleZ;
+        f64DoubleDiv3 *= 2.0;
+        f64DoubleDiv3 /= f64DoubleDiv2;
+        f64DoubleDiv3 += 1.0;
+
+        uFloatConversion.FLOAT *= f64DoubleDiv3;
+
+        /* correct for rounding errors*/
+        if (f64Value < uFloatConversion.FLOAT)
+        {
+          s64ExponentialValue--;
+          uFloatConversion.FLOAT /= 10.0;
+        }
+
+        /* the exponent format is "%+03d" and largest f64Value is "307", so set aside 4-5 characters*/
+        if((100 > s64ExponentialValue) && (-100 < s64ExponentialValue))
+        {
+            uxMinWidth = 4U;
+        }
+        else
+        {
+            uxMinWidth = 5U;
+        }
+
+        /* in "%g" mode, "uxPrec" is the number of *significant figures* not decimals*/
+        if (0UL != (uxflags & (UBase_t) CONV_enFLAGS_ADAPT_EXP))
+        {
+            /* do we want to fall-back to "%f" mode?*/
+            if (1e-4 > f64Value)
             {
-                u32Negative = 1U;
-                f64ValueTemp = 0.0;
-                f64ValueTemp -= f64Value;
-                f64Value = f64ValueTemp;
-            }
-            else
-            {
-                u32Negative = 0U;
-            }
-
-            /* default precision*/
-            if ( (uint32_t) 0U == (u32flags & (uint32_t) CONV_enFLAGS_PRECISION))
-            {
-                u32Prec = CONV_DEFAULT_FLOAT_PRECISION;
-            }
-
-            uFloatConversion.FLOAT = (float64_t) f64Value;
-            u64Temp = (uint64_t) uFloatConversion.UNSIGNED >> (uint64_t) 52ULL;
-            u64Temp &= (uint64_t) 0x07FFULL;
-            u64TempLong = u64Temp;
-            s64Exponential2 = (int64_t) u64TempLong;
-            s64Exponential2 -= 1023;           /* effectively log2*/
-
-            u64Temp = (uint64_t) uFloatConversion.UNSIGNED;
-            u64TempShift = 1ULL;
-            u64TempShift <<= 52ULL;
-            u64TempShift -= 1ULL;
-            u64Temp &= u64TempShift;
-
-            u64TempShift2 = 1023ULL ;
-            u64TempShift2 <<= 52ULL;
-
-            u64Temp2 = u64Temp | u64TempShift2;
-            uFloatConversion.UNSIGNED = u64Temp2;  /* drop the exponent so uFloatConversion.FLOAT is now in [1, 2)*/
-
-            /* now approximate log10 from the log2 integer part and an expansion of ln around 1.5*/
-            f64Temp = uFloatConversion.FLOAT;
-            f64Temp -= 1.5;
-            f64Temp *= 0.289529654602168;
-
-            f64Temp2 = (float64_t) s64Exponential2;
-            f64Temp2 *= 0.301029995663981;
-            f64Temp2 += 0.1760912590558 ;
-            f64Temp2 += f64Temp;
-            s64ExponentialValue = (int64_t) (f64Temp2);
-
-            /* now we want to compute 10^s64ExponentialValue but we want to be sure it won't overflow*/
-            f64Temp = (float64_t) s64ExponentialValue;
-            f64Temp *= 3.321928094887362;
-            f64Temp += 0.5;
-            s64Exponential2 = (int64_t) (f64Temp);
-
-            f64Temp2 = (float64_t) s64ExponentialValue;
-            f64Temp2 *= 2.302585092994046;
-            f64Temp = (float64_t) s64Exponential2;
-            f64Temp *= 0.6931471805599453;
-
-            f64DoubleZ = f64Temp2 - f64Temp;
-            f64DoubleZ2 = f64DoubleZ * f64DoubleZ;
-
-            s64Exponential2Temp = s64Exponential2;
-            s64Exponential2Temp += 1023;
-            u64TempLong = (uint64_t) s64Exponential2Temp;
-            u64Temp = (uint64_t) u64TempLong;
-            u64Temp <<= 52ULL;
-            uFloatConversion.UNSIGNED = u64Temp;
-
-            /* compute exp(z) using continued fractions, see https://en.wikipedia.org/wiki/Exponential_function#Continued_fractions_for_ex*/
-            f64DoubleDiv0 = f64DoubleZ2;
-            f64DoubleDiv0 /= 14.0;
-            f64DoubleDiv0 += 10.0;
-
-            f64DoubleDiv1 = f64DoubleZ2;
-            f64DoubleDiv1 /= f64DoubleDiv0;
-            f64DoubleDiv1 += 6.0;
-
-            f64DoubleDiv2 = f64DoubleZ2;
-            f64DoubleDiv2 /= f64DoubleDiv1;
-            f64DoubleDiv2 += 2.0;
-            f64DoubleDiv2 -= f64DoubleZ;
-
-            f64DoubleDiv3 = f64DoubleZ;
-            f64DoubleDiv3 *= 2.0;
-            f64DoubleDiv3 /= f64DoubleDiv2;
-            f64DoubleDiv3 += 1.0;
-
-            uFloatConversion.FLOAT *= f64DoubleDiv3;
-
-            /* correct for rounding errors*/
-            if (f64Value < uFloatConversion.FLOAT) {
-              s64ExponentialValue--;
-              uFloatConversion.FLOAT /= 10.0;
-            }
-
-            /* the exponent format is "%+03d" and largest f64Value is "307", so set aside 4-5 characters*/
-            if((s64ExponentialValue < 100) && (s64ExponentialValue > -100))
-            {
-                u32MinWidth = 4U;
-            }
-            else
-            {
-                u32MinWidth = 5U;
-            }
-
-            /* in "%g" mode, "u32Prec" is the number of *significant figures* not decimals*/
-            if ((uint32_t) 0U != (u32flags & (uint32_t) CONV_enFLAGS_ADAPT_EXP))
-            {
-              /* do we want to fall-back to "%f" mode?*/
-              if (((float64_t) 1e-4 <= f64Value) && ((float64_t) 1e6 > f64Value))
-              {
-                if ((int64_t) u32Prec > s64ExponentialValue)
+                /* we use one sigfig for the whole part*/
+                if ((0U < uxPrec) && (0UL != (uxflags & (UBase_t) CONV_enFLAGS_PRECISION)))
                 {
-                    s64Temp = (int64_t) u32Prec;
-                    s64Temp -= s64ExponentialValue;
-                    s64Temp -= 1;
-                    u32Prec = (uint32_t) s64Temp;
+                    uxPrec -= 1U;
+                }
+            }
+            else if(1e6 <= f64Value)
+            {
+                /* we use one sigfig for the whole part*/
+                if ((0U < uxPrec) && (0UL != (uxflags & (UBase_t) CONV_enFLAGS_PRECISION)))
+                {
+                    uxPrec -= 1U;
+                }
+            }
+            else
+            {
+                if ((int64_t) uxPrec > s64ExponentialValue)
+                {
+                    uxPrec -= (UBase_t) s64ExponentialValue;
+                    uxPrec -= 1UL;
                 }
                 else
                 {
-                  u32Prec = 0U;
+                    uxPrec = 0U;
                 }
-                u32flags |= (uint32_t) CONV_enFLAGS_PRECISION;   /* make sure _ftoa respects precision*/
+                uxflags |= (UBase_t) CONV_enFLAGS_PRECISION;   /* make sure _ftoa respects precision*/
                 /* no characters in exponent*/
-                u32MinWidth = 0U;
+                uxMinWidth = 0U;
                 s64ExponentialValue = 0;
-              }
-              else
-              {
-                /* we use one sigfig for the whole part*/
-                if ((u32Prec > 0U) && ((uint32_t) 0U != (u32flags & (uint32_t) CONV_enFLAGS_PRECISION))) {
-                  u32Prec -= 1U;
-                }
-              }
             }
+        }
 
-            /* will everything fit?*/
-            u32FloatWidth = u32Width;
-            if (u32Width > u32MinWidth)
-            {
-              /* we didn't fall-back so subtract the characters required for the exponent*/
-              u32FloatWidth -= u32MinWidth;
-            } else
-            {
-              /* not enough characters, so go back to default sizing*/
-              u32FloatWidth = 0U;
-            }
-            if (((uint32_t) 0U != (u32flags & (uint32_t) CONV_enFLAGS_LEFT)) && (0U != u32MinWidth))
-            {
-              /* if we're padding on the right, DON'T pad the floating part*/
-              u32FloatWidth = 0U;
-            }
+        /* will everything fit?*/
+        uxFloatWidth = uxWidth;
+        if (uxWidth > uxMinWidth)
+        {
+            /* we didn't fall-back so subtract the characters required for the exponent*/
+            uxFloatWidth -= uxMinWidth;
+        }
+        else
+        {
+            /* not enough characters, so go back to default sizing*/
+            uxFloatWidth = 0U;
+        }
+        if ((0UL != (uxflags & (UBase_t) CONV_enFLAGS_LEFT)) && (0U != uxMinWidth))
+        {
+            /* if we're padding on the right, DON'T pad the floating part*/
+            uxFloatWidth = 0U;
+        }
 
-            /* rescale the float f64Value*/
-            if ((int64_t) 0LL != s64ExponentialValue)
+        /* rescale the float f64Value*/
+        if (0LL != s64ExponentialValue)
+        {
+            if(0.0f < uFloatConversion.FLOAT)
             {
-              if((0.0f < uFloatConversion.FLOAT) || ( 0.0f > uFloatConversion.FLOAT))
-              {
-                  f64Value /= uFloatConversion.FLOAT;
-              }
+                f64Value /= uFloatConversion.FLOAT;
             }
+            else if(0.0f > uFloatConversion.FLOAT)
+            {
+                f64Value /= uFloatConversion.FLOAT;
+            }
+        }
 
-            /* output the floating part*/
-            szStartIndex = (size_t) u32Index;
-            if((uint32_t) 0U != u32Negative)
-            {
-                f64ValueTemp = -f64Value;
-            }
-            else
-            {
-                f64ValueTemp = f64Value;
-            }
-            u32flagsTemp = u32flags & ~((uint32_t) CONV_enFLAGS_ADAPT_EXP);
+        /* output the floating part*/
+        szStartIndex = (size_t) uxIndex;
+        if(0UL != uxNegative)
+        {
+            f64ValueTemp = 0.0f;
+            f64ValueTemp -= f64Value;
+        }
+        else
+        {
+            f64ValueTemp = f64Value;
+        }
+        uxflagsTemp = uxflags & ~((UBase_t) CONV_enFLAGS_ADAPT_EXP);
 
-            enConvStatus = Conv__enNumber2String_Float(pvfOut, pcBufferOut, f64ValueTemp, u32Index, u32MaxLenght, pu32BufOutLenght, u32FloatWidth, u32flagsTemp, u32Prec);
-            if(CONV_enSTATUS_OK == enConvStatus)
+        enErrorReg = Conv__enNumber2String_Float(pvfOut, pcBufferOut, f64ValueTemp, uxIndex, uxMaxLenght, puxBufOutLenght, uxFloatWidth, uxflagsTemp, uxPrec);
+    }
+
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        uxIndex = *puxBufOutLenght;
+        /* output the exponent part*/
+        if (0U == uxMinWidth)
+        {
+            boTerminate = TRUE;
+        }
+    }
+
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        /* output the exponential symbol*/
+        char cCharTemp;
+        uxflagsTemp = uxflags & (UBase_t) CONV_enFLAGS_UPPERCASE;
+        if(0UL != uxflagsTemp)
+        {
+            cCharTemp = 'E';
+        }
+        else
+        {
+            cCharTemp = 'e';
+        }
+        enErrorReg = pvfOut(cCharTemp, pcBufferOut, uxIndex, uxMaxLenght);
+    }
+
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        int64_t s64Temp;
+        uxIndex++;
+        /* output the exponent f64Value*/
+        if(0 > s64ExponentialValue)
+        {
+          s64Temp = 0;
+          s64Temp -= s64ExponentialValue;
+          uxNegative = (UBase_t) 1U;
+        }
+        else
+        {
+          s64Temp = s64ExponentialValue;
+          uxNegative = (UBase_t) 0U;
+        }
+        uxflagsTemp = (UBase_t) CONV_enFLAGS_ZEROPAD | (UBase_t) CONV_enFLAGS_PLUS;
+        enErrorReg = Conv__enNumber2String_Long(pvfOut, pcBufferOut, (UBase_t) s64Temp, uxIndex, uxMaxLenght, puxBufOutLenght,
+                                                uxMinWidth-1U, uxflagsTemp, uxNegative, (UBase_t) 10U, (UBase_t) 0U);
+    }
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        uxIndex = (UBase_t) *puxBufOutLenght;
+        /* might need to right-pad spaces*/
+        if (0UL != (uxflags & (UBase_t) CONV_enFLAGS_LEFT))
+        {
+            while (((uxIndex - szStartIndex) < uxWidth) && (CONV_enERROR_OK == enErrorReg))
             {
-                u32Index = *pu32BufOutLenght;
-                /* output the exponent part*/
-                if (0U != u32MinWidth)
+                enErrorReg = pvfOut(' ', pcBufferOut, uxIndex, uxMaxLenght);
+                if(CONV_enERROR_OK == enErrorReg)
                 {
-                  /* output the exponential symbol*/
-                    u32flagsTemp = u32flags & (uint32_t) CONV_enFLAGS_UPPERCASE;
-                    if((uint32_t) 0U != u32flagsTemp)
-                    {
-                        cCharTemp = 'E';
-                    }
-                    else
-                    {
-                        cCharTemp = 'e';
-                    }
-                    pvfOut(cCharTemp, pcBufferOut, u32Index, u32MaxLenght);
-                    u32Index++;
-                  /* output the exponent f64Value*/
-                  if(s64ExponentialValue < 0)
-                  {
-                      s64Temp = -s64ExponentialValue;
-                      u32Negative = (uint32_t) 1U;
-                  }
-                  else
-                  {
-                      s64Temp = s64ExponentialValue;
-                      u32Negative = (uint32_t) 0U;
-                  }
-                  u32flagsTemp = (uint32_t) CONV_enFLAGS_ZEROPAD | (uint32_t) CONV_enFLAGS_PLUS;
-                   enConvStatus = Conv__enNumber2String_Long(pvfOut, pcBufferOut, (uint32_t) s64Temp, u32Index, u32MaxLenght, pu32BufOutLenght, u32MinWidth-1U, u32flagsTemp, u32Negative, (uint32_t) 10U, (uint32_t) 0U);
-                   u32Index = *pu32BufOutLenght;
-                 /* might need to right-pad spaces*/
-                  if ((uint32_t) 0U != (u32flags & (uint32_t) CONV_enFLAGS_LEFT))
-                  {
-                    while ((u32Index - szStartIndex) < u32Width)
-                    {
-                        pvfOut(' ', pcBufferOut, u32Index, u32MaxLenght);
-                        u32Index++;
-                    }
-                  }
+                    uxIndex++;
                 }
-                *pu32BufOutLenght = u32Index;
             }
         }
     }
-    return (enConvStatus);
+    if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        *puxBufOutLenght = (UBase_t) uxIndex;
+    }
+
+    return (enErrorReg);
 }

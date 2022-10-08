@@ -38,7 +38,7 @@ ACMP_nERROR ACMP__enReadRegister(ACMP_nMODULE enModuleArg, ACMP_Register_t* pstR
 
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
     }
 
     if(ACMP_enERROR_OK == enErrorReg)

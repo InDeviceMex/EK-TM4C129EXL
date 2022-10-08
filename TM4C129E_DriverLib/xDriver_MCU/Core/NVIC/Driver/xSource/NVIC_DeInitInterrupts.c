@@ -29,11 +29,11 @@ NVIC_nERROR NVIC__enDisableAllInterrupts(NVIC_nMODULE enModuleArg)
 {
 
     NVIC_nERROR enErrorReg;
-    uint32_t u32VectorNum;
+    UBase_t uxVectorNum;
 
-    for(u32VectorNum = 0U; u32VectorNum < (uint32_t) NVIC_enVECTOR_MAX; u32VectorNum++)
+    for(uxVectorNum = 0U; uxVectorNum < (UBase_t) NVIC_enVECTOR_MAX; uxVectorNum++)
     {
-        enErrorReg = NVIC__enDisableVector(enModuleArg, (NVIC_nVECTOR) u32VectorNum);
+        enErrorReg = NVIC__enDisableVector(enModuleArg, (NVIC_nVECTOR) uxVectorNum);
         if(NVIC_enERROR_OK != enErrorReg)
         {
             break;

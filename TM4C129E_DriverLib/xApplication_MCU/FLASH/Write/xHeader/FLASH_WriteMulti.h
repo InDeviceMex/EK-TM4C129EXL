@@ -36,53 +36,53 @@
 #pragma  CODE_SECTION(FLASH__enWriteMultiHalfWorldConstant, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteMultiByteConstant, ".ramcode")
 
-FLASH_nERROR FLASH__enWriteMultiWorld(uint32_t* pu32Data,
-                                       uint32_t u32Address,
-                                       uint32_t u32Count);
+FLASH_nERROR FLASH__enWriteMultiWorld(UBase_t* puxData,
+                                       UBase_t uxAddress,
+                                       UBase_t uxCount);
 FLASH_nERROR FLASH__enWriteMultiHalfWorld(uint16_t* pu16Data,
-                                           uint32_t u32Address,
-                                           uint32_t u32Count);
+                                           UBase_t uxAddress,
+                                           UBase_t uxCount);
 FLASH_nERROR FLASH__enWriteMultiByte(uint8_t* pu8Data,
-                                      uint32_t u32Address,
-                                      uint32_t u32Count);
+                                      UBase_t uxAddress,
+                                      UBase_t uxCount);
 
-FLASH_nERROR FLASH__enWriteMultiWorldConstant(uint32_t u32Data,
-                                               uint32_t u32Address,
-                                               uint32_t u32Count);
+FLASH_nERROR FLASH__enWriteMultiWorldConstant(UBase_t uxData,
+                                               UBase_t uxAddress,
+                                               UBase_t uxCount);
 FLASH_nERROR FLASH__enWriteMultiHalfWorldConstant(uint16_t u16Data,
-                                                   uint32_t u32Address,
-                                                   uint32_t u32Count);
+                                                   UBase_t uxAddress,
+                                                   UBase_t uxCount);
 FLASH_nERROR FLASH__enWriteMultiByteConstant(uint8_t u8Data,
-                                              uint32_t u32Address,
-                                              uint32_t u32Count);
+                                              UBase_t uxAddress,
+                                              UBase_t uxCount);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-FLASH_nERROR FLASH__enWriteMultiWorld(uint32_t* pu32Data,
-                                       uint32_t u32Address,
-                                       uint32_t u32Count) ;
+FLASH_nERROR FLASH__enWriteMultiWorld(UBase_t* puxData,
+                                       UBase_t uxAddress,
+                                       UBase_t uxCount) ;
 __attribute__((section(".ramcode")))
 FLASH_nERROR FLASH__enWriteMultiHalfWorld(uint16_t* pu16Data,
-                                           uint32_t u32Address,
-                                           uint32_t u32Count);
+                                           UBase_t uxAddress,
+                                           UBase_t uxCount);
 __attribute__((section(".ramcode")))
 FLASH_nERROR FLASH__enWriteMultiByte(uint8_t* pu8Data,
-                                      uint32_t u32Address,
-                                      uint32_t u32Count);
+                                      UBase_t uxAddress,
+                                      UBase_t uxCount);
 
 __attribute__((section(".ramcode")))
-FLASH_nERROR FLASH__enWriteMultiWorldConstant(uint32_t u32Data,
-                                               uint32_t u32Address,
-                                               uint32_t u32Count);
+FLASH_nERROR FLASH__enWriteMultiWorldConstant(UBase_t uxData,
+                                               UBase_t uxAddress,
+                                               UBase_t uxCount);
 __attribute__((section(".ramcode")))
 FLASH_nERROR FLASH__enWriteMultiHalfWorldConstant(uint16_t u16Data,
-                                                   uint32_t u32Address,
-                                                   uint32_t u32Count);
+                                                   UBase_t uxAddress,
+                                                   UBase_t uxCount);
 __attribute__((section(".ramcode")))
 FLASH_nERROR FLASH__enWriteMultiByteConstant(uint8_t u8Data,
-                                              uint32_t u32Address,
-                                              uint32_t u32Count);
+                                              UBase_t uxAddress,
+                                              UBase_t uxCount);
 
 #endif
 

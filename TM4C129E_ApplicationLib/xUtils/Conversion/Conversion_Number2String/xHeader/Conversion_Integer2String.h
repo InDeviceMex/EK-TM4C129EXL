@@ -24,10 +24,10 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_INTEGER2STRING_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_INTEGER2STRING_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-uint8_t Conv__u8Int2String(int64_t s64Number, char* pcConv);
-uint8_t Conv__u8DInt2String(int64_t s64Number, uint8_t u8Positive, uint8_t u8Padding0, uint8_t u8Deci, char* pcConv);
-uint8_t Conv__u8Int2StringZeros(int64_t s64Number, int8_t s8CerosLeft, char* pcConv);
+CONV_nERROR Conv__enDInt2String(int64_t s64Number, uint8_t u8Positive, uint8_t u8Padding0, uint8_t u8Deci, char* pcConv, uint8_t* pu8StringLength);
+CONV_nERROR Conv__enInt2String(int64_t s64Number, char* pcConv, uint8_t* pu8StringLength);
+CONV_nERROR Conv__enInt2StringZeros(int64_t s64Number, int8_t s8CerosLeft, char* pcConv, uint8_t* pu8StringLength);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_INTEGER2STRING_H_ */

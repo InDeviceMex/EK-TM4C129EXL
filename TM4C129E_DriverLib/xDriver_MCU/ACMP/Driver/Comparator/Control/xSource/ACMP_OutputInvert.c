@@ -31,10 +31,10 @@ ACMP_nERROR ACMP__enSetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCO
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u32Shift = ACMP_CTL_R_CINV_BIT;
-    stRegister.u32Mask = ACMP_CTL_CINV_MASK;
+    stRegister.uxShift = ACMP_CTL_R_CINV_BIT;
+    stRegister.uxMask = ACMP_CTL_CINV_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enOutputInvertArg;
+    stRegister.uxValue = (UBase_t) enOutputInvertArg;
     enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ ACMP_nERROR ACMP__enGetComparatorOutputInvert(ACMP_nMODULE enModuleArg, ACMP_nCO
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ACMP_CTL_R_CINV_BIT;
-        stRegister.u32Mask = ACMP_CTL_CINV_MASK;
+        stRegister.uxShift = ACMP_CTL_R_CINV_BIT;
+        stRegister.uxMask = ACMP_CTL_CINV_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penOutputInvertArg = (ACMP_nSTATE) stRegister.u32Value;
+        *penOutputInvertArg = (ACMP_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

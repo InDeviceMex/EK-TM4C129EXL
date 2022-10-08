@@ -28,34 +28,34 @@
 
 void SYSCTL__vEnInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) SYSCTL_enINT_SOURCE_ALL;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_IMC_OFFSET, u32SourceInt, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) SYSCTL_enINT_SOURCE_ALL;
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_IMC_OFFSET, uxSourceInt, uxSourceInt, 0UL);
 }
 
 void SYSCTL__vDisInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) SYSCTL_enINT_SOURCE_ALL;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_IMC_OFFSET, 0UL, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) SYSCTL_enINT_SOURCE_ALL;
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_IMC_OFFSET, 0UL, uxSourceInt, 0UL);
 }
 
 void SYSCTL__vClearInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) SYSCTL_enINT_SOURCE_ALL;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MISC_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
+    UBase_t uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) SYSCTL_enINT_SOURCE_ALL;
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MISC_OFFSET, uxSourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
 SYSCTL_nINT_SOURCE SYSCTL__enStatusInterruptSource(SYSCTL_nINT_SOURCE enSourceInt)
 {
     SYSCTL_nINT_SOURCE enInterruptReg = SYSCTL_enINT_SOURCE_NONE;
-    uint32_t u32SourceInt = (uint32_t) enSourceInt ;
-    uint32_t u32Register= 0UL;
+    UBase_t uxSourceInt = (UBase_t) enSourceInt ;
+    UBase_t uxRegister= 0UL;
 
-    u32SourceInt &= (uint32_t) SYSCTL_enINT_SOURCE_ALL;
-    u32Register = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET, u32SourceInt, 0UL);
-    enInterruptReg = (SYSCTL_nINT_SOURCE) u32Register;
+    uxSourceInt &= (UBase_t) SYSCTL_enINT_SOURCE_ALL;
+    uxRegister = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET, uxSourceInt, 0UL);
+    enInterruptReg = (SYSCTL_nINT_SOURCE) uxRegister;
 
     return (enInterruptReg);
 }

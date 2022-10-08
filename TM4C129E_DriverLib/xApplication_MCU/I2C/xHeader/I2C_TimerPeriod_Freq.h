@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
 
-I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32FrequencyArg);
-I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, uint32_t* pu32FrequencyArg);
+I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, UBase_t uxFrequencyArg);
+I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, UBase_t* puxFrequencyArg);
 
 #endif /* XAPPLICATION_MCU_I2C_XHEADER_I2C_TIMERPERIOD_FREQ_H_ */

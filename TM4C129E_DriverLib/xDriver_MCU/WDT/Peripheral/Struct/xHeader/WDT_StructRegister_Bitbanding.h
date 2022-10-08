@@ -29,128 +29,128 @@
 
 typedef volatile struct
 {
-    volatile uint32_t LOAD [32UL];
+    volatile UBase_t LOAD [32UL];
 }BITBANDING_WDTLOAD_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t VALUE [32UL];
+    volatile const UBase_t VALUE [32UL];
 }BITBANDING_WDTVALUE_t;
 
 typedef volatile struct
 {
-    volatile uint32_t INTEN;
-    volatile uint32_t RESEN;
-    volatile uint32_t INTTYPE;
-    const uint32_t reserved [28UL];
-    volatile const uint32_t WRC;
+    volatile UBase_t INTEN;
+    volatile UBase_t RESEN;
+    volatile UBase_t INTTYPE;
+    const UBase_t reserved [28UL];
+    volatile const UBase_t WRC;
 }BITBANDING_WDTCTL_t;
 
 
 typedef volatile struct
 {
-    volatile uint32_t INTCLR [32UL];
+    volatile UBase_t INTCLR [32UL];
 }BITBANDING_WDTICR_t;
 
 
 
 typedef volatile struct
 {
-    volatile const uint32_t RIS;
-    const uint32_t reserved [31UL];
+    volatile const UBase_t RIS;
+    const UBase_t reserved [31UL];
 }BITBANDING_WDTRIS_t;
 
 
 
 typedef volatile struct
 {
-    volatile const uint32_t MIS;
-    const uint32_t reserved [31UL];
+    volatile const UBase_t MIS;
+    const UBase_t reserved [31UL];
 }BITBANDING_WDTMIS_t;
 
 typedef volatile struct
 {
-    const uint32_t reserved [8UL];
-    volatile uint32_t STALL;
-    const uint32_t reserved1 [23UL];
+    const UBase_t reserved [8UL];
+    volatile UBase_t STALL;
+    const UBase_t reserved1 [23UL];
 }BITBANDING_WDTTEST_t;
 
 typedef volatile struct
 {
-    volatile uint32_t LOCK [32UL];
+    volatile UBase_t LOCK [32UL];
 }BITBANDING_WDTLOCK_t;
 
 
 typedef volatile struct
 {
-    volatile const uint32_t PID4 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID4 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID4_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID5 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID5 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID5_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID6 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID6 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID6_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID7 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID7 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID7_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID0 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID0 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID0_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID1 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID1 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID1_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID2 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID2 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID2_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t PID3 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t PID3 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPeriphID3_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t CID0 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t CID0 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPCellID0_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t CID1 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t CID1 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPCellID1_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t CID2 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t CID2 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPCellID2_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t CID3 [8UL];
-    const uint32_t reserved [24UL];
+    volatile const UBase_t CID3 [8UL];
+    const UBase_t reserved [24UL];
 }BITBANDING_WDTPCellID3_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_STRUCT_WDT_STRUCTREGISTER_BITBANDING_H_ */

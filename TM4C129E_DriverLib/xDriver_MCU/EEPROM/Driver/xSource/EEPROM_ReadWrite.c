@@ -29,7 +29,7 @@
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
-EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, uint32_t u32WordArg)
+EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, UBase_t uxWordArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
@@ -37,10 +37,10 @@ EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, uint32_t u32WordAr
     enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_RDWR_R_VALUE_BIT;
-        stRegister.u32Mask = EEPROM_RDWR_VALUE_MASK;
+        stRegister.uxShift = EEPROM_RDWR_R_VALUE_BIT;
+        stRegister.uxMask = EEPROM_RDWR_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWR_OFFSET;
-        stRegister.u32Value = u32WordArg;
+        stRegister.uxValue = uxWordArg;
         enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
@@ -50,13 +50,13 @@ EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, uint32_t u32WordAr
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enReadData(EEPROM_nMODULE enModuleArg, uint32_t* pu32WordArg)
+EEPROM_nERROR EEPROM__enReadData(EEPROM_nMODULE enModuleArg, UBase_t* puxWordArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
     enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) pu32WordArg)
+    if(0UL == (uintptr_t) puxWordArg)
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
@@ -66,21 +66,21 @@ EEPROM_nERROR EEPROM__enReadData(EEPROM_nMODULE enModuleArg, uint32_t* pu32WordA
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_RDWR_R_VALUE_BIT;
-        stRegister.u32Mask = EEPROM_RDWR_VALUE_MASK;
+        stRegister.uxShift = EEPROM_RDWR_R_VALUE_BIT;
+        stRegister.uxMask = EEPROM_RDWR_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWR_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *pu32WordArg = stRegister.u32Value;
+        *puxWordArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
 
 
-EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, uint32_t u32WordArg)
+EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase_t uxWordArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
@@ -88,10 +88,10 @@ EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, uint3
     enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_RDWRINC_R_VALUE_BIT;
-        stRegister.u32Mask = EEPROM_RDWRINC_VALUE_MASK;
+        stRegister.uxShift = EEPROM_RDWRINC_R_VALUE_BIT;
+        stRegister.uxMask = EEPROM_RDWRINC_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWRINC_OFFSET;
-        stRegister.u32Value = u32WordArg;
+        stRegister.uxValue = uxWordArg;
         enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
@@ -101,13 +101,13 @@ EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, uint3
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enReadDataWithIncrement(EEPROM_nMODULE enModuleArg, uint32_t* pu32WordArg)
+EEPROM_nERROR EEPROM__enReadDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase_t* puxWordArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
     enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) pu32WordArg)
+    if(0UL == (uintptr_t) puxWordArg)
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
@@ -117,14 +117,14 @@ EEPROM_nERROR EEPROM__enReadDataWithIncrement(EEPROM_nMODULE enModuleArg, uint32
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_RDWRINC_R_VALUE_BIT;
-        stRegister.u32Mask = EEPROM_RDWRINC_VALUE_MASK;
+        stRegister.uxShift = EEPROM_RDWRINC_R_VALUE_BIT;
+        stRegister.uxMask = EEPROM_RDWRINC_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWRINC_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *pu32WordArg = stRegister.u32Value;
+        *puxWordArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

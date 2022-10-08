@@ -27,11 +27,14 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Fault__vSetMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32MinimumPeriodArg);
-uint32_t PWM_Fault__u32GetMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-void PWM_Fault__vSetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                        PWM_nSTATE enEnableArg);
-PWM_nSTATE PWM_Fault__enGetEnableMinimumPeriod(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetMinPeriodValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enSetMinPeriodValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enGetMinPeriodValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg);
+PWM_nERROR PWM_Generator__enGetMinPeriodValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, UBase_t* puxValueArg);
+
+PWM_nERROR PWM_Fault__enSetMinPeriodStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Fault__enSetMinPeriodStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Fault__enGetMinPeriodStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_Fault__enGetMinPeriodStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penStateArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_MINIMUMPERIOD_H_ */

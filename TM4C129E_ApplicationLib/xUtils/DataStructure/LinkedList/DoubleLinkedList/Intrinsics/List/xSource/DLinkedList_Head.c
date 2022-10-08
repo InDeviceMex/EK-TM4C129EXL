@@ -26,7 +26,7 @@
 DLinkedListItem_t* DLinkedList__pstGetHead(const DLinkedList_t*  const pstList)
 {
     DLinkedListItem_t* pstHeadReg = (DLinkedListItem_t*) 0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstHeadReg = pstList->pstHead;
     }
@@ -35,7 +35,7 @@ DLinkedListItem_t* DLinkedList__pstGetHead(const DLinkedList_t*  const pstList)
 
 void DLinkedList__vSetHead(DLinkedList_t* pstList, DLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstHead = pstHeadArg;
     }
@@ -46,7 +46,7 @@ DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_t* const pstList, co
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstListHead = (DLinkedListItem_t*)0UL;
     pstListHead = DLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

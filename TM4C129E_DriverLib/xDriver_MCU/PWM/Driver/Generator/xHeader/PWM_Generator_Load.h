@@ -27,8 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetLoad(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32LoadArg);
-uint32_t PWM_Generator__u32GetLoad(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetLoadValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enSetLoadValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enGetLoadValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg);
+
+PWM_nERROR PWM_Generator__enSetLoadUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enSetLoadUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enGetLoadUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE* penModeArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_LOAD_H_ */

@@ -30,20 +30,20 @@
 ************************************ 10 MCLKOCNT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MASTER_CLKOCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_MASTER_CLKOCNT_R_CNTL_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_CLKOCNT_R_CNTL_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_MASTER_CLKOCNT_R_CNTL_BIT    ((UBase_t) 0UL)
 
-#define I2C_MASTER_CLKOCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_MASTER_CLKOCNT_CNTL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************ 10 MCLKOCNT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MCLKOCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_MCLKOCNT_R_CNTL_BIT    ((uint32_t) 0UL)
+#define I2C_MCLKOCNT_R_CNTL_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_MCLKOCNT_R_CNTL_BIT    ((UBase_t) 0UL)
 
-#define I2C_MCLKOCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_MCLKOCNT_CNTL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCLKOCNT_H_ */

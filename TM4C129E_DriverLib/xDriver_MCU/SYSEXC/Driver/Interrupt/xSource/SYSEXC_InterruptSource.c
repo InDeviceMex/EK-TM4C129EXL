@@ -28,37 +28,37 @@
 
 void SYSEXC__vEnInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
 {
-    uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
-    u32InterruptParam &= (uint32_t) SYSEXC_enINT_SOURCE_ALL;
+    UBase_t uxInterruptParam = (UBase_t) enInterruptParam;
+    uxInterruptParam &= (UBase_t) SYSEXC_enINT_SOURCE_ALL;
     MCU__vWriteRegister(SYSEXC_BASE, SYSEXC_IM_OFFSET,
-                        u32InterruptParam, u32InterruptParam, 0UL);
+                        uxInterruptParam, uxInterruptParam, 0UL);
 }
 
 void SYSEXC__vDisInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
 {
-    uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
-    u32InterruptParam &= (uint32_t) SYSEXC_enINT_SOURCE_ALL;
+    UBase_t uxInterruptParam = (UBase_t) enInterruptParam;
+    uxInterruptParam &= (UBase_t) SYSEXC_enINT_SOURCE_ALL;
     MCU__vWriteRegister(SYSEXC_BASE, SYSEXC_IM_OFFSET,
-                        0UL, u32InterruptParam, 0UL);
+                        0UL, uxInterruptParam, 0UL);
 }
 
 void SYSEXC__vClearInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
 {
-    uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
-    u32InterruptParam &= (uint32_t) SYSEXC_enINT_SOURCE_ALL;
+    UBase_t uxInterruptParam = (UBase_t) enInterruptParam;
+    uxInterruptParam &= (UBase_t) SYSEXC_enINT_SOURCE_ALL;
     MCU__vWriteRegister(SYSEXC_BASE, SYSEXC_IC_OFFSET,
-                        u32InterruptParam, u32InterruptParam, 0UL);
+                        uxInterruptParam, uxInterruptParam, 0UL);
 }
 
 SYSEXC_nINT_SOURCE SYSEXC__enStatusInterruptSource(SYSEXC_nINT_SOURCE enInterruptParam)
 {
     SYSEXC_nINT_SOURCE enStatus = SYSEXC_enINT_SOURCE_NONE;
-    uint32_t u32InterruptParam = (uint32_t) enInterruptParam;
-    uint32_t u32Reg = 0UL;
+    UBase_t uxInterruptParam = (UBase_t) enInterruptParam;
+    UBase_t uxReg = 0UL;
 
-    u32InterruptParam &= (uint32_t) SYSEXC_enINT_SOURCE_ALL;
-    u32Reg = MCU__u32ReadRegister(SYSEXC_BASE, SYSEXC_RIS_OFFSET, u32InterruptParam, 0UL);
-    enStatus = (SYSEXC_nINT_SOURCE) u32Reg;
+    uxInterruptParam &= (UBase_t) SYSEXC_enINT_SOURCE_ALL;
+    uxReg = MCU__uxReadRegister(SYSEXC_BASE, SYSEXC_RIS_OFFSET, uxInterruptParam, 0UL);
+    enStatus = (SYSEXC_nINT_SOURCE) uxReg;
 
     return (enStatus);
 }

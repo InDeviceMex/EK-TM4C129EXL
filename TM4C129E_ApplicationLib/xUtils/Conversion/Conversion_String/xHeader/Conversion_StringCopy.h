@@ -24,9 +24,9 @@
 #ifndef XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOPY_H_
 #define XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOPY_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t u32MaxSize);
-void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength);
+CONV_nERROR CONV_enStringCopy(char* pcStringDest, const char* pcStringSource, UBase_t uxMaxSize);
+CONV_nERROR CONV_enMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOPY_H_ */

@@ -29,14 +29,14 @@
 
 GPIO_nERROR GPIO__enSetDigitalFunction(GPIO_nDIGITAL_FUNCTION enFunctionArg)
 {
-    uint32_t u32PortReg;
-    uint32_t u32PinReg;
-    uint32_t u32MuxReg;
+    UBase_t uxPortReg;
+    UBase_t uxPinReg;
+    UBase_t uxMuxReg;
     GPIO_nERROR enErrorReg;
 
-    u32PinReg = 0UL;
-    u32PortReg = 0UL;
-    u32MuxReg = 0UL;
+    uxPinReg = 0UL;
+    uxPortReg = 0UL;
+    uxMuxReg = 0UL;
     enErrorReg = GPIO_enERROR_OK;
     if(GPIO_enGPIO_UNDEF == enFunctionArg)
     {
@@ -44,48 +44,48 @@ GPIO_nERROR GPIO__enSetDigitalFunction(GPIO_nDIGITAL_FUNCTION enFunctionArg)
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PortReg = (uint32_t) enFunctionArg;
-        u32PortReg >>= 16UL;
-        u32PortReg &= 0xFFUL;
+        uxPortReg = (UBase_t) enFunctionArg;
+        uxPortReg >>= 16UL;
+        uxPortReg &= 0xFFUL;
 
-        u32PinReg = (uint32_t) enFunctionArg;
-        u32PinReg >>= 8UL;
-        u32PinReg &= 0xFFUL;
+        uxPinReg = (UBase_t) enFunctionArg;
+        uxPinReg >>= 8UL;
+        uxPinReg &= 0xFFUL;
 
-        u32MuxReg = (uint32_t) enFunctionArg;
-        u32MuxReg >>= 0UL;
-        u32MuxReg &= 0xFFUL;
+        uxMuxReg = (UBase_t) enFunctionArg;
+        uxMuxReg >>= 0UL;
+        uxMuxReg &= 0xFFUL;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enSetCommitStateByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg, GPIO_enSTATE_ENA);
+        enErrorReg = GPIO__enSetCommitStateByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, GPIO_enSTATE_ENA);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enDisableAnalogModeByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg);
+        enErrorReg = GPIO__enDisableAnalogModeByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enEnableDigitalModeByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg);
+        enErrorReg = GPIO__enEnableDigitalModeByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32MuxReg)
+        if(0UL == uxMuxReg)
         {
-            enErrorReg = GPIO__enSetFunctionByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg, GPIO_enFUNCTION_GPIO);
+            enErrorReg = GPIO__enSetFunctionByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, GPIO_enFUNCTION_GPIO);
         }
         else
         {
-            enErrorReg = GPIO__enSetFunctionByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg, GPIO_enFUNCTION_PERIPHERAL);
+            enErrorReg = GPIO__enSetFunctionByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, GPIO_enFUNCTION_PERIPHERAL);
         }
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enSetPeripheralMuxByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg, u32MuxReg);
+        enErrorReg = GPIO__enSetPeripheralMuxByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, uxMuxReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enSetCommitStateByNumber((GPIO_nPORT) u32PortReg, (GPIO_nPIN) u32PinReg, GPIO_enSTATE_DIS);
+        enErrorReg = GPIO__enSetCommitStateByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, GPIO_enSTATE_DIS);
     }
 
     return (enErrorReg);

@@ -26,7 +26,7 @@
 void* CSLinkedList_Item__pvGetData(const CSLinkedListItem_t* const pstItem)
 {
     void* pvDataReg = (void*) 0UL;
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pvDataReg = pstItem->pvDataContainer;
     }
@@ -35,7 +35,7 @@ void* CSLinkedList_Item__pvGetData(const CSLinkedListItem_t* const pstItem)
 
 void CSLinkedList_Item__vSetData(CSLinkedListItem_t* pstItem, void* pvDataArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pvDataContainer = pvDataArg;
     }

@@ -29,16 +29,16 @@
 I2C_nERROR I2C__enInit(void)
 {
     I2C_nERROR enErrorReg;
-    uint32_t u32ModuleReg;
+    UBase_t uxModuleReg;
     I2C_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    u32ModuleReg = 0UL;
+    uxModuleReg = 0UL;
     enErrorReg = I2C_enERROR_OK;
-    while((u32ModuleReg < (uint32_t) I2C_enMODULE_MAX) && (I2C_enERROR_OK == enErrorReg))
+    while((uxModuleReg < (UBase_t) I2C_enMODULE_MAX) && (I2C_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = I2C__pvfGetIRQVectorHandler((I2C_nMODULE) u32ModuleReg);
-        enErrorReg = I2C__enRegisterIRQVectorHandler((I2C_nMODULE) u32ModuleReg, pfIrqVectorHandlerReg);
-        u32ModuleReg++;
+        pfIrqVectorHandlerReg = I2C__pvfGetIRQVectorHandler((I2C_nMODULE) uxModuleReg);
+        enErrorReg = I2C__enRegisterIRQVectorHandler((I2C_nMODULE) uxModuleReg, pfIrqVectorHandlerReg);
+        uxModuleReg++;
     }
     return (enErrorReg);
 }

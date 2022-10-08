@@ -32,10 +32,10 @@ EEPROM_nERROR EEPROM__enSetInterruptSourceState(EEPROM_nMODULE enModuleArg, EEPR
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    stRegister.u32Shift = EEPROM_INT_R_INT_BIT;
-    stRegister.u32Mask = EEPROM_INT_INT_MASK;
+    stRegister.uxShift = EEPROM_INT_R_INT_BIT;
+    stRegister.uxMask = EEPROM_INT_INT_MASK;
     stRegister.uptrAddress = EEPROM_INT_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -54,14 +54,14 @@ EEPROM_nERROR EEPROM__enGetInterruptSourceState(EEPROM_nMODULE enModuleArg, EEPR
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_INT_R_INT_BIT;
-        stRegister.u32Mask = EEPROM_INT_INT_MASK;
+        stRegister.uxShift = EEPROM_INT_R_INT_BIT;
+        stRegister.uxMask = EEPROM_INT_INT_MASK;
         stRegister.uptrAddress = EEPROM_INT_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (EEPROM_nSTATE) stRegister.u32Value;
+        *penStateArg = (EEPROM_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

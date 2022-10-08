@@ -12,7 +12,7 @@
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
-uint32_t main(void);
+UBase_t main(void);
 
 void NMISW(void);
 
@@ -21,7 +21,7 @@ void NMISW(void)
     MCU__vNoOperation();
 }
 
-uint32_t main(void)
+UBase_t main(void)
 {
     SYSCTL_CONFIG_t stClockConfig =
     {
@@ -107,7 +107,7 @@ uint32_t main(void)
     ADC__enInit(ADC_enMODULE_1);
     UART__vInit();
     SSI__vInit();
-    PWM__vInit();
+    PWM__enInit(PWM_enMODULE_0);
 
     EDUMKII_Button_vInit(EDUMKII_enBUTTON_ALL);
     EDUMKII_Accelerometer_vInit();
@@ -129,8 +129,8 @@ uint32_t main(void)
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);
     SHARP_96_96__vInitDisplay();
 
-    YoystickQueueHandle = OS_Queue__pvCreate(1UL, 2UL * sizeof(uint32_t));
-    AccelerometerQueueHandle = OS_Queue__pvCreate(1UL, 3UL * sizeof(uint32_t));
+    YoystickQueueHandle = OS_Queue__pvCreate(1UL, 2UL * sizeof(UBase_t));
+    AccelerometerQueueHandle = OS_Queue__pvCreate(1UL, 3UL * sizeof(UBase_t));
     ButtonQueueHandle = OS_Queue__pvCreate(1UL, 3UL * sizeof(char*));
     TFTQueueSetHandle = OS_Queue__pvCreateSet(3UL);
     OS_Queue__boAddToSet(YoystickQueueHandle, TFTQueueSetHandle);
@@ -143,27 +143,27 @@ uint32_t main(void)
     if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 250UL, 4UL, &TaskHandeler[3UL]))
     {
 
-        UART__u32Printf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 300UL, (void*) 100UL, 3UL, &TaskHandeler[1UL]))
     {
 
-    UART__u32Printf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
+    UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 300UL, (void*) 100UL, 3UL, &TaskHandeler[0UL]))
     {
 
-    UART__u32Printf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
+    UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 300UL, (void*) 30UL, 2UL, &TaskHandeler[2UL]))
     {
 
-     UART__u32Printf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
+     UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
     {
 
-     UART__u32Printf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
+     UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
     }
 
     OS_Task__vStartScheduler(1000UL);

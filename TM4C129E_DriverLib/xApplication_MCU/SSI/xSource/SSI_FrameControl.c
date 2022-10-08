@@ -26,20 +26,20 @@
 #include <xApplication_MCU/SSI/xHeader/SSI_Clock.h>
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nCLOCK_PHASE enClockPhaseArg, SSI_nCLOCK_POLARITY enClockPolarityArg, uint32_t u32ClockArg)
+void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nCLOCK_PHASE enClockPhaseArg, SSI_nCLOCK_POLARITY enClockPolarityArg, UBase_t uxClockArg)
 {
-    SSI__vSetClock(enModule, u32ClockArg);
+    SSI__vSetClock(enModule, uxClockArg);
     SSI__vSetFormatControl(enModule, enFormatArg, enLengthDataArg, enClockPhaseArg, enClockPolarityArg);
 }
 
-void SSI__vSetClockAndFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t stFormatControl, uint32_t u32ClockArg)
+void SSI__vSetClockAndFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t stFormatControl, UBase_t uxClockArg)
 {
-    SSI__vSetClock(enModule, u32ClockArg);
+    SSI__vSetClock(enModule, uxClockArg);
     SSI__vSetFormatControlStruct(enModule, stFormatControl);
 }
 
-void SSI__vSetClockAndFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t* pstFormatControl, uint32_t u32ClockArg)
+void SSI__vSetClockAndFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t* pstFormatControl, UBase_t uxClockArg)
 {
-    SSI__vSetClock(enModule, u32ClockArg);
+    SSI__vSetClock(enModule, uxClockArg);
     SSI__vSetFormatControlStructPointer(enModule, pstFormatControl);
 }

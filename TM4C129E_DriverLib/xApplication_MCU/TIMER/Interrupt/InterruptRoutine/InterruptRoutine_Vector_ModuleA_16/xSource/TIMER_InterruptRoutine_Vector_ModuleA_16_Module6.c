@@ -27,12 +27,12 @@
 
 void GPTM6A__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Ready = 0U;
+    volatile UBase_t uxReg = 0UL;
+    volatile UBase_t uxReady = 0U;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Ready = SYSCTL_PRTIMER_R;
-    if(SYSCTL_PRTIMER_R_TIMER6_NOREADY == (SYSCTL_PRTIMER_R_TIMER6_MASK & u32Ready))
+    uxReady = SYSCTL_PRTIMER_R;
+    if(SYSCTL_PRTIMER_R_TIMER6_NOREADY == (SYSCTL_PRTIMER_R_TIMER6_MASK & uxReady))
     {
         pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                     TIMER_enMODULE_NUM_6,
@@ -41,9 +41,9 @@ void GPTM6A__vIRQVectorHandler(void)
     }
     else
     {
-        u32Reg = (uint32_t) GPTM6_TA_TnMIS_R;
+        uxReg = (UBase_t) GPTM6_TA_TnMIS_R;
 
-        if(0UL == ((uint32_t) TIMER_enINT_TA_ALL & u32Reg))
+        if(0UL == ((UBase_t) TIMER_enINT_TA_ALL & uxReg))
         {
             pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                         TIMER_enMODULE_NUM_6,
@@ -52,49 +52,49 @@ void GPTM6A__vIRQVectorHandler(void)
         }
         else
         {
-            if((uint32_t) TIMER_enINT_TA_TIMEOUT & u32Reg)
+            if((UBase_t) TIMER_enINT_TA_TIMEOUT & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TA_TIMEOUT;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TA_TIMEOUT;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_TIMEOUT);
                 pvfCallback();
             }
-            if((uint32_t) TIMER_enINT_TA_CAPTURE_MATCH & u32Reg)
+            if((UBase_t) TIMER_enINT_TA_CAPTURE_MATCH & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TA_CAPTURE_MATCH;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TA_CAPTURE_MATCH;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_CAPTURE_MATCH);
                 pvfCallback();
             }
-            if((uint32_t) TIMER_enINT_TA_CAPTURE_EVENT & u32Reg)
+            if((UBase_t) TIMER_enINT_TA_CAPTURE_EVENT & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TA_CAPTURE_EVENT;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TA_CAPTURE_EVENT;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_CAPTURE_EVENT);
                 pvfCallback();
             }
-            if((uint32_t) TIMER_enINT_TW_RTC & u32Reg)
+            if((UBase_t) TIMER_enINT_TW_RTC & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TW_RTC;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TW_RTC;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_RTC);
                 pvfCallback();
             }
-            if((uint32_t) TIMER_enINT_TA_MATCH & u32Reg)
+            if((UBase_t) TIMER_enINT_TA_MATCH & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TA_MATCH;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TA_MATCH;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_MATCH);
                 pvfCallback();
             }
-            if((uint32_t) TIMER_enINT_TA_DMA & u32Reg)
+            if((UBase_t) TIMER_enINT_TA_DMA & uxReg)
             {
-                GPTM6_TA_TnICR_R = (uint32_t) TIMER_enINT_TA_DMA;
+                GPTM6_TA_TnICR_R = (UBase_t) TIMER_enINT_TA_DMA;
                 pvfCallback = TIMER__pvfGetIRQSourceHandler(TIMER_enSUBMODULE_A,
                                                             TIMER_enMODULE_NUM_6,
                                                             TIMER_enINTERRUPT_DMA);

@@ -28,24 +28,24 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 
 ADC_nERROR ADC_Comparator__enSetRangeLowByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
-                                            uint32_t u32RangeLowArg)
+                                            UBase_t uxRangeLowArg)
 {
-    uint32_t u32ComparatorReg;
-    uint32_t u32ComparatorMaskReg;
+    UBase_t uxComparatorReg;
+    UBase_t uxComparatorMaskReg;
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        u32ComparatorReg = 0U;
-        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        uxComparatorReg = 0U;
+        uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
         enErrorReg = ADC_enERROR_OK;
-        while(0U != u32ComparatorMaskReg)
+        while(0U != uxComparatorMaskReg)
         {
-            if(0UL != ((uint32_t) ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            if(0UL != ((UBase_t) ADC_enCOMPMASK_0 & uxComparatorMaskReg))
             {
-                enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, u32RangeLowArg);
+                enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, (ADC_nCOMPARATOR) uxComparatorReg, uxRangeLowArg);
             }
 
             if(ADC_enERROR_OK != enErrorReg)
@@ -53,8 +53,8 @@ ADC_nERROR ADC_Comparator__enSetRangeLowByMask(ADC_nMODULE enModuleArg, ADC_nCOM
                 enErrorMemoryReg = enErrorReg;
                 break;
             }
-            u32ComparatorReg++;
-            u32ComparatorMaskReg >>= 1U;
+            uxComparatorReg++;
+            uxComparatorMaskReg >>= 1U;
         }
     }
 
@@ -63,41 +63,41 @@ ADC_nERROR ADC_Comparator__enSetRangeLowByMask(ADC_nMODULE enModuleArg, ADC_nCOM
 
 
 ADC_nERROR ADC_Comparator__enSetRangeLowByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                                  uint32_t u32RangeLowArg)
+                                                  UBase_t uxRangeLowArg)
 {
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    stRegister.u32Shift = ADC_DC_CMP_R_COMP0_BIT;
-    stRegister.u32Mask = ADC_DC_CMP_COMP0_MASK;
+    stRegister.uxShift = ADC_DC_CMP_R_COMP0_BIT;
+    stRegister.uxMask = ADC_DC_CMP_COMP0_MASK;
     stRegister.uptrAddress = ADC_DC_CMP_OFFSET;
-    stRegister.u32Value = u32RangeLowArg;
+    stRegister.uxValue = uxRangeLowArg;
     enErrorReg = ADC_Comparator__enSetGeneric(enModuleArg, enComparatorArg, &stRegister);
 
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enGetRangeLowByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                                  uint32_t* pu32RangeLowArg)
+                                                  UBase_t* puxRangeLowArg)
 {
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32RangeLowArg)
+    if(0UL == (uintptr_t) puxRangeLowArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_DC_CMP_R_COMP0_BIT;
-        stRegister.u32Mask = ADC_DC_CMP_COMP0_MASK;
+        stRegister.uxShift = ADC_DC_CMP_R_COMP0_BIT;
+        stRegister.uxMask = ADC_DC_CMP_COMP0_MASK;
         stRegister.uptrAddress = ADC_DC_CMP_OFFSET;
         enErrorReg = ADC_Comparator__enGetGeneric(enModuleArg, enComparatorArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32RangeLowArg = stRegister.u32Value;
+        *puxRangeLowArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

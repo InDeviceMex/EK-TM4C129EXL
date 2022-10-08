@@ -27,17 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetCompareA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetCompareA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetCompareValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enSetCompareValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, UBase_t uxValueArg);
+PWM_nERROR PWM_Generator__enGetCompareValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t* puxValueArg);
 
-void PWM_Generator__vSetCompareB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetCompareB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-
-void PWM_Generator__vSetCompare(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nOUTPUT enOutputArg, uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetCompare(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                      PWM_nOUTPUT enOutputArg);
+PWM_nERROR PWM_Generator__enSetCompareUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enSetCompareUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enGetCompareUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE* penModeArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_COMPARE_H_ */

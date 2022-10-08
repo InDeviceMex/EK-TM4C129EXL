@@ -30,24 +30,24 @@
 GPIO_nERROR GPIO__enSetInterruptConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                                GPIO_nINT_CONFIG enIntConfigArg)
 {
-    uint32_t u32SenseReg;
-    uint32_t u32EventReg;
+    UBase_t uxSenseReg;
+    UBase_t uxEventReg;
     GPIO_nERROR enErrorReg;
 
-    u32EventReg = (uint32_t) enIntConfigArg;
-    u32EventReg &= 0xFFUL;
+    uxEventReg = (UBase_t) enIntConfigArg;
+    uxEventReg &= 0xFFUL;
 
-    u32SenseReg = (uint32_t) enIntConfigArg;
-    u32SenseReg >>= 8UL;
-    u32SenseReg &= 0xFFUL;
+    uxSenseReg = (UBase_t) enIntConfigArg;
+    uxSenseReg >>= 8UL;
+    uxSenseReg &= 0xFFUL;
 
-    if((uint32_t) GPIO_enSENSE_EDGE == u32SenseReg)
+    if((UBase_t) GPIO_enSENSE_EDGE == uxSenseReg)
     {
-        enErrorReg = GPIO__enSetInterruptEdgeByNumber(enPortArg, enPinArg, (GPIO_nEDGE) u32EventReg);
+        enErrorReg = GPIO__enSetInterruptEdgeByNumber(enPortArg, enPinArg, (GPIO_nEDGE) uxEventReg);
     }
     else
     {
-        enErrorReg = GPIO__enSetInterruptLevelByNumber(enPortArg, enPinArg, (GPIO_nLEVEL) u32EventReg);
+        enErrorReg = GPIO__enSetInterruptLevelByNumber(enPortArg, enPinArg, (GPIO_nLEVEL) uxEventReg);
     }
 
     return(enErrorReg);
@@ -56,24 +56,24 @@ GPIO_nERROR GPIO__enSetInterruptConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN e
 GPIO_nERROR GPIO__enSetInterruptConfigByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                                GPIO_nINT_CONFIG enIntConfigArg)
 {
-    uint32_t u32SenseReg;
-    uint32_t u32EventReg;
+    UBase_t uxSenseReg;
+    UBase_t uxEventReg;
     GPIO_nERROR enErrorReg;
 
-    u32EventReg = (uint32_t) enIntConfigArg;
-    u32EventReg &= 0xFFUL;
+    uxEventReg = (UBase_t) enIntConfigArg;
+    uxEventReg &= 0xFFUL;
 
-    u32SenseReg = (uint32_t) enIntConfigArg;
-    u32SenseReg >>= 8UL;
-    u32SenseReg &= 0xFFUL;
+    uxSenseReg = (UBase_t) enIntConfigArg;
+    uxSenseReg >>= 8UL;
+    uxSenseReg &= 0xFFUL;
 
-    if((uint32_t) GPIO_enSENSE_EDGE == u32SenseReg)
+    if((UBase_t) GPIO_enSENSE_EDGE == uxSenseReg)
     {
-        enErrorReg = GPIO__enSetInterruptEdgeByMask(enPortArg, enPinMaskArg, (GPIO_nEDGE) u32EventReg);
+        enErrorReg = GPIO__enSetInterruptEdgeByMask(enPortArg, enPinMaskArg, (GPIO_nEDGE) uxEventReg);
     }
     else
     {
-        enErrorReg = GPIO__enSetInterruptLevelByMask(enPortArg, enPinMaskArg, (GPIO_nLEVEL) u32EventReg);
+        enErrorReg = GPIO__enSetInterruptLevelByMask(enPortArg, enPinMaskArg, (GPIO_nLEVEL) uxEventReg);
     }
 
     return(enErrorReg);

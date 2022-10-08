@@ -42,6 +42,6 @@ EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* pe
  * @remark This function must be call after any action requested to EEPROM peripheral in order to wait until the action in process is done
  * @todo To Create same functionality  with non-blocking fashion (interrupts)
  */
-EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, uint32_t u32RetriesArg);
+EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_WAIT_H_ */

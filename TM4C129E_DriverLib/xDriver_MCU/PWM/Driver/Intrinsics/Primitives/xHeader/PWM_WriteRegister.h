@@ -27,8 +27,6 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM__vWriteRegister(PWM_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature);
+PWM_nERROR PWM__enWriteRegister(PWM_nMODULE enModuleArg, PWM_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_PWM_WRITEREGISTER_H_ */

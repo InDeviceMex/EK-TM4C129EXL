@@ -27,20 +27,20 @@
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Dependencies.h>
 
 
-WDT_nSTATUS WDT__enSetMode_Load(WDT_nMODULE enModule, WDT_nMODE enModeArg, uint32_t u32Load)
+WDT_nSTATUS WDT__enSetMode_Load(WDT_nMODULE enModule, WDT_nMODE enModeArg, UBase_t uxLoad)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
-    WDT__vSetLoad(enModule, u32Load);
+    WDT__vSetLoad(enModule, uxLoad);
     enReturn = WDT__enSetMode(enModule, enModeArg);
     return (enReturn);
 }
 
 WDT_nSTATUS WDT__enSetModeStruct_Load(WDT_nMODULE enModule,
                                       const WDT_MODE_t* pstMode,
-                                      uint32_t u32Load)
+                                      UBase_t uxLoad)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
-    WDT__vSetLoad(enModule, u32Load);
+    WDT__vSetLoad(enModule, uxLoad);
     enReturn = WDT__enSetModeStruct(enModule, pstMode);
     return (enReturn);
 }

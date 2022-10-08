@@ -28,28 +28,35 @@
 
 #define INT2STRINGMAX    (21U)
 
-const char CONV_pc8Decimal[10] = {'0','1','2','3','4','5','6','7','8','9'};
 
-uint8_t Conv__u8UInt2String(uint64_t u64Number, char* pcConv)
+CONV_nERROR Conv__enUInt2String(uint64_t u64Number, char* pcConv, uint8_t* pu8StringLength)
 {
-    char       pcConvTemp[INT2STRINGMAX] = {0UL};/*longitud maxima de long 12 digitos con signo*/
-    uint8_t u8Length = 0U;
-    CONV_nSTATUS enStatus = CONV_enSTATUS_ERROR;
-    char *pcPointerActual = &pcConvTemp[INT2STRINGMAX - 1U];/*empezamos llenando desde la ultima posicion*/
+    const char CONV_pc8Decimal[10] = {'0','1','2','3','4','5','6','7','8','9'};
+    char  pcConvTemp[INT2STRINGMAX] = {0UL};/*longitud maxima de long 16 digitos*/
+    char  *pcPointerActual= &pcConvTemp[INT2STRINGMAX - 1U];
+    CONV_nERROR enErrorReg;
+    uint8_t u8Length;
 
-    enStatus = Conv__enConversion(pcPointerActual, u64Number, &u8Length, 10U, CONV_pc8Decimal);
-    if(CONV_enSTATUS_OK == enStatus)
+    u8Length = 0U;
+    pcPointerActual= (char*) 0UL;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcConv) || (0UL == (uintptr_t) pu8StringLength))
+    {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = Conv__enConversion(pcPointerActual, u64Number, &u8Length, 10U, CONV_pc8Decimal);
+    }
+    if(CONV_enERROR_OK == enErrorReg)
     {
         pcPointerActual -= u8Length;
-        enStatus = Conv__enInversion(pcPointerActual, pcConv, u8Length);
-        if(CONV_enSTATUS_ERROR == enStatus)
-        {
-            u8Length = 0U;
-        }
+        enErrorReg = Conv__enInversion(pcPointerActual, pcConv, u8Length);
     }
-    return (u8Length);
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        *pu8StringLength = u8Length;
+    }
+    return (enErrorReg);
 }
-
-
-
 

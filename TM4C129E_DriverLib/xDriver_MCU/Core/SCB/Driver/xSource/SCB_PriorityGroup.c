@@ -30,20 +30,20 @@
 SCB_nERROR SCB__enSetPriorityGroup(SCB_nMODULE enModuleArg, SCB_nPRIGROUP enGroupArg)
 {
     SCB_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     SCB_nERROR enErrorReg;
 
-    enErrorReg = (SCB_nERROR) MCU__enCheckParams( (uint32_t) enGroupArg, (uint32_t) SCB_enPRIGROUP_MAX);
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams( (UBase_t) enGroupArg, (UBase_t) SCB_enPRIGROUP_MAX);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        u32ValueReg = (uint32_t) enGroupArg;
-        u32ValueReg <<= SCB_AIRCR_R_PRIGROUP_BIT;
-        u32ValueReg |= SCB_AIRCR_R_VECTKEY_WRITE;
+        uxValueReg = (UBase_t) enGroupArg;
+        uxValueReg <<= SCB_AIRCR_R_PRIGROUP_BIT;
+        uxValueReg |= SCB_AIRCR_R_VECTKEY_WRITE;
 
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_PRIGROUP_MASK;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_PRIGROUP_MASK;
         stRegister.uptrAddress = SCB_AIRCR_OFFSET;
-        stRegister.u32Value = 0U;
+        stRegister.uxValue = 0U;
         MCU__vDataSyncBarrier();
         enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
         MCU__vDataSyncBarrier();
@@ -64,14 +64,14 @@ SCB_nERROR SCB__enGetPriorityGroup(SCB_nMODULE enModuleArg, SCB_nPRIGROUP* penGr
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_AIRCR_R_PRIGROUP_BIT;
-        stRegister.u32Mask = SCB_AIRCR_PRIGROUP_MASK;
+        stRegister.uxShift = SCB_AIRCR_R_PRIGROUP_BIT;
+        stRegister.uxMask = SCB_AIRCR_PRIGROUP_MASK;
         stRegister.uptrAddress = SCB_AIRCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *penGroupArg = (SCB_nPRIGROUP) stRegister.u32Value;
+        *penGroupArg = (SCB_nPRIGROUP) stRegister.uxValue;
     }
     return (enErrorReg);
 }

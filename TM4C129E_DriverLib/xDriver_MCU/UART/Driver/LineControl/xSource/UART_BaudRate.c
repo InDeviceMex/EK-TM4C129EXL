@@ -26,32 +26,32 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetBaudRateInteger(UART_nMODULE enModule, uint32_t u32Integer)
+void UART__vSetBaudRateInteger(UART_nMODULE enModule, UBase_t uxInteger)
 {
-    UART__vWriteRegister(enModule, UART_IBRD_OFFSET, u32Integer,
+    UART__vWriteRegister(enModule, UART_IBRD_OFFSET, uxInteger,
                          UART_IBRD_DIVINT_MASK, UART_IBRD_R_DIVINT_BIT);
 }
 
-uint32_t UART__u32GetBaudRateInteger(UART_nMODULE enModule)
+UBase_t UART__uxGetBaudRateInteger(UART_nMODULE enModule)
 {
-    uint32_t u32BaudIntegerReg = 0UL;
-    u32BaudIntegerReg = UART__u32ReadRegister(enModule, UART_IBRD_OFFSET,
+    UBase_t uxBaudIntegerReg = 0UL;
+    uxBaudIntegerReg = UART__uxReadRegister(enModule, UART_IBRD_OFFSET,
                                   UART_IBRD_DIVINT_MASK, UART_IBRD_R_DIVINT_BIT);
-    return (u32BaudIntegerReg);
+    return (uxBaudIntegerReg);
 }
 
-void UART__vSetBaudRateFractional(UART_nMODULE enModule, uint32_t u32Fractional)
+void UART__vSetBaudRateFractional(UART_nMODULE enModule, UBase_t uxFractional)
 {
-    UART__vWriteRegister(enModule, UART_FBRD_OFFSET, u32Fractional,
+    UART__vWriteRegister(enModule, UART_FBRD_OFFSET, uxFractional,
                          UART_FBRD_DIVFRAC_MASK, UART_FBRD_R_DIVFRAC_BIT);
 }
 
-uint32_t UART__u32GetBaudRateFractional(UART_nMODULE enModule)
+UBase_t UART__uxGetBaudRateFractional(UART_nMODULE enModule)
 {
-    uint32_t u32BaudFracReg = 0UL;
-    u32BaudFracReg = UART__u32ReadRegister(enModule, UART_FBRD_OFFSET,
+    UBase_t uxBaudFracReg = 0UL;
+    uxBaudFracReg = UART__uxReadRegister(enModule, UART_FBRD_OFFSET,
                          UART_FBRD_DIVFRAC_MASK, UART_FBRD_R_DIVFRAC_BIT);
-    return (u32BaudFracReg);
+    return (uxBaudFracReg);
 }
 
 

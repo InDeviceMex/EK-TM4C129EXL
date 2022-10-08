@@ -27,28 +27,28 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-uint32_t u32AccelerometerFifoArray[8U] = {0UL};
-volatile uint32_t u32AccelerometerFlag = 0UL;
+UBase_t uxAccelerometerFifoArray[8U] = {0UL};
+volatile UBase_t uxAccelerometerFlag = 0UL;
 
-uint32_t* EDUMKII_Accelerometer_vSampleArray(void)
+UBase_t* EDUMKII_Accelerometer_vSampleArray(void)
 {
-    return ((uint32_t*) u32AccelerometerFifoArray);
+    return ((UBase_t*) uxAccelerometerFifoArray);
 }
 
-void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z )
+void EDUMKII_Accelerometer_vSample(Base_t *sxX, Base_t *sxY, Base_t *sxZ )
 {
-    u32AccelerometerFlag = 0UL;
+    uxAccelerometerFlag = 0UL;
     ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_1);
-    while(0UL == u32AccelerometerFlag){}
-    *s32X = (int32_t) u32AccelerometerFifoArray[0] - 2048;
-    *s32Y = (int32_t) u32AccelerometerFifoArray[1] - 2048;
-    *s32Z = (int32_t) u32AccelerometerFifoArray[2] - 2048;
+    while(0UL == uxAccelerometerFlag){}
+    *sxX = (Base_t) uxAccelerometerFifoArray[0] - 2048;
+    *sxY = (Base_t) uxAccelerometerFifoArray[1] - 2048;
+    *sxZ = (Base_t) uxAccelerometerFifoArray[2] - 2048;
 }
 
 void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     DMA_CHANNEL_t* pstDmaChannel;
-    const volatile uint32_t* u32TempReg;
+    const volatile UBase_t* uxTempReg;
     static const DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
@@ -64,10 +64,10 @@ void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvAr
          DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_15]);
-    u32TempReg = (const volatile uint32_t*) &enChControl;
-    pstDmaChannel->CTL = *u32TempReg;
-    DMA->CH_ENASET = (uint32_t)DMA_enSTATE_ENA << (uint32_t) DMA_enCH_15;
-    u32AccelerometerFlag = 1UL;
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(UBase_t) DMA_enCH_15]);
+    uxTempReg = (const volatile UBase_t*) &enChControl;
+    pstDmaChannel->CTL = *uxTempReg;
+    DMA->CH_ENASET = (UBase_t)DMA_enSTATE_ENA << (UBase_t) DMA_enCH_15;
+    uxAccelerometerFlag = 1UL;
 }
 

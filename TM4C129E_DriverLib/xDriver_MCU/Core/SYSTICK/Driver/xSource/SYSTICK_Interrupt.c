@@ -31,10 +31,10 @@ SYSTICK_nERROR SYSTICK__enSetInterruptSourceState(SYSTICK_nMODULE enModuleArg, S
     SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
 
-    stRegister.u32Shift = SYSTICK_CSR_R_TICKINT_BIT;
-    stRegister.u32Mask = SYSTICK_CSR_TICKINT_MASK;
+    stRegister.uxShift = SYSTICK_CSR_R_TICKINT_BIT;
+    stRegister.uxMask = SYSTICK_CSR_TICKINT_MASK;
     stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ SYSTICK_nERROR SYSTICK__enGetInterruptSourceState(SYSTICK_nMODULE enModuleArg, S
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        if(0UL != (SYSTICK_CSR_R_TICKINT_MASK & stRegister.u32Value))
+        if(0UL != (SYSTICK_CSR_R_TICKINT_MASK & stRegister.uxValue))
         {
             *penStateArg = SYSTICK_enSTATE_ENA;
         }
@@ -68,7 +68,7 @@ SYSTICK_nERROR SYSTICK__enGetInterruptSourceState(SYSTICK_nMODULE enModuleArg, S
             *penStateArg = SYSTICK_enSTATE_DIS;
         }
 
-        if(0UL != (SYSTICK_CSR_R_COUNTFLAG_MASK & stRegister.u32Value))
+        if(0UL != (SYSTICK_CSR_R_COUNTFLAG_MASK & stRegister.uxValue))
         {
             *penStatusArg = SYSTICK_enSTATUS_ACTIVE;
         }
@@ -110,14 +110,14 @@ SYSTICK_nERROR SYSTICK__enStatusInterruptSource(SYSTICK_nMODULE enModuleArg, SYS
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SYSTICK_CSR_R_COUNTFLAG_BIT;
-        stRegister.u32Mask = SYSTICK_CSR_COUNTFLAG_MASK;
+        stRegister.uxShift = SYSTICK_CSR_R_COUNTFLAG_BIT;
+        stRegister.uxMask = SYSTICK_CSR_COUNTFLAG_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (SYSTICK_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (SYSTICK_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -134,14 +134,14 @@ SYSTICK_nERROR SYSTICK__enStatusMaskedInterruptSource(SYSTICK_nMODULE enModuleAr
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        if((SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK) == stRegister.u32Value)
+        if((SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK) == stRegister.uxValue)
         {
             *penStatusArg = SYSTICK_enSTATUS_ACTIVE;
         }

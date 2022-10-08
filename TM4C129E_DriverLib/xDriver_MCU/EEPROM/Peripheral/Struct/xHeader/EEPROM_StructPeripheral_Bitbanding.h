@@ -31,87 +31,87 @@ typedef volatile struct
 {
     union
     {
-        volatile const uint32_t SIZE [32UL];
+        volatile const UBase_t SIZE [32UL];
         EEPROM_BITBANDING_SIZE_t SIZE_Bit;
     };
     union
     {
-        volatile uint32_t BLOCK [32UL];
+        volatile UBase_t BLOCK [32UL];
         EEPROM_BITBANDING_BLOCK_t BLOCK_Bit;
     };
     union
     {
-        volatile uint32_t OFFSET [32UL];
+        volatile UBase_t OFFSET [32UL];
         EEPROM_BITBANDING_OFFSET_t OFFSET_Bit;
     };
-    const uint32_t reserved [1UL * 32UL];
+    const UBase_t reserved [1UL * 32UL];
     union
     {
-        volatile uint32_t RDWR [32UL];
+        volatile UBase_t RDWR [32UL];
         EEPROM_BITBANDING_RDWR_t RDWR_Bit;
     };
     union
     {
-        volatile uint32_t RDWRINC [32UL];
+        volatile UBase_t RDWRINC [32UL];
         EEPROM_BITBANDING_RDWRINC_t RDWRINC_Bit;
     };
     union
     {
-        volatile const uint32_t DONE [32UL];
+        volatile const UBase_t DONE [32UL];
         EEPROM_BITBANDING_DONE_t DONE_Bit;
     };
     union
     {
-        volatile uint32_t SUPP [32UL];
+        volatile UBase_t SUPP [32UL];
         EEPROM_BITBANDING_SUPP_t SUPP_Bit;
     };
     union
     {
-        volatile uint32_t UNLOCK [32UL];
+        volatile UBase_t UNLOCK [32UL];
         EEPROM_BITBANDING_UNLOCK_t UNLOCK_Bit;
     };
-    const uint32_t reserved1 [3UL * 32UL];
+    const UBase_t reserved1 [3UL * 32UL];
     union
     {
-        volatile uint32_t PROT [32UL];
+        volatile UBase_t PROT [32UL];
         EEPROM_BITBANDING_PROT_t PROT_Bit;
     };
     union
     {
-        volatile uint32_t PASS0 [32UL];
+        volatile UBase_t PASS0 [32UL];
         EEPROM_BITBANDING_PASS_t PASS0_Bit;
     };
     union
     {
-        volatile uint32_t PASS1 [32UL];
+        volatile UBase_t PASS1 [32UL];
         EEPROM_BITBANDING_PASS_t PASS1_Bit;
     };
     union
     {
-        volatile uint32_t PASS2 [32UL];
+        volatile UBase_t PASS2 [32UL];
         EEPROM_BITBANDING_PASS_t PASS2_Bit;
     };
     union
     {
-        volatile uint32_t INT [32UL];
+        volatile UBase_t INT [32UL];
         EEPROM_BITBANDING_INT_t INT_Bit;
     };
-    const uint32_t reserved2 [3UL * 32UL];
+    const UBase_t reserved2 [3UL * 32UL];
     union
     {
-        volatile uint32_t HIDE [32UL];
+        volatile UBase_t HIDE [32UL];
         EEPROM_BITBANDING_HIDE_t HIDE_Bit;
     };
-    const uint32_t reserved3 [11UL * 32UL];
+    const UBase_t reserved3 [11UL * 32UL];
     union
     {
-        volatile uint32_t DBGME [32UL];
+        volatile UBase_t DBGME [32UL];
         EEPROM_BITBANDING_DBGME_t DBGME_Bit;
     };
-    const uint32_t reserved4 [975UL * 32UL];
+    const UBase_t reserved4 [975UL * 32UL];
     union
     {
-        volatile const uint32_t PP [32UL];
+        volatile const UBase_t PP [32UL];
         EEPROM_BITBANDING_PP_t PP_Bit;
     };
 }EEPROM_BITBANDING_t;

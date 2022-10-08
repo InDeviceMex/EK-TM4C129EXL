@@ -26,7 +26,7 @@
 SLinkedListItem_t* SLinkedList__pstGetHead(const SLinkedList_t*  const pstList)
 {
     SLinkedListItem_t* pstHeadReg = (SLinkedListItem_t*)0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstHeadReg = pstList->pstHead;
     }
@@ -35,20 +35,20 @@ SLinkedListItem_t* SLinkedList__pstGetHead(const SLinkedList_t*  const pstList)
 
 void SLinkedList__vSetHead(SLinkedList_t* pstList, SLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstHead = pstHeadArg;
     }
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsHead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsHead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
     SLinkedListItem_t* pstListHead = (SLinkedListItem_t*)0UL;
     pstListHead = SLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
     {
-        enStatus = SLinkedList_enSTATUS_OK;
+        enStatus = SLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

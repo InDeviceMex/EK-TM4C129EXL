@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, uint32_t u32Match);
-TIMER_nSTATUS TIMER__enSetMode_Match(TIMER_nMODULE enModule, TIMER_nMODE enModeArg, uint32_t u32Match);
+TIMER_nSTATUS TIMER__enSetModeStruct_Match(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, UBase_t uxMatch);
+TIMER_nSTATUS TIMER__enSetMode_Match(TIMER_nMODULE enModule, TIMER_nMODE enModeArg, UBase_t uxMatch);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_APP_TIMER_MODEMATCH_TIMER_MODEMATCH_H_ */

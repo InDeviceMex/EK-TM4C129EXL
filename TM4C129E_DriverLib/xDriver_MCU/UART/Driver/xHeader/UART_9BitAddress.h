@@ -29,13 +29,13 @@
 void UART__vSet9BitMode(UART_nMODULE enModule, UART_n9BIT en9BitArg);
 UART_n9BIT UART__enGet9BitMode(UART_nMODULE enModule);
 
-void UART__vSetSelfAddress(UART_nMODULE enModule, uint32_t  u32AddressArg);
-uint32_t UART__u32GetSelfAddress(UART_nMODULE enModule);
+void UART__vSetSelfAddress(UART_nMODULE enModule, UBase_t  uxAddressArg);
+UBase_t UART__uxGetSelfAddress(UART_nMODULE enModule);
 
-void UART__vSetSelfAddressMask(UART_nMODULE enModule, uint32_t  u32AddressMaskArg);
-uint32_t UART__u32GetSelfAddressMask(UART_nMODULE enModule);
+void UART__vSetSelfAddressMask(UART_nMODULE enModule, UBase_t  uxAddressMaskArg);
+UBase_t UART__uxGetSelfAddressMask(UART_nMODULE enModule);
 
-void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, uint32_t  u32AddressArg,
-                                   uint32_t  u32AddressMaskArg);
+void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, UBase_t  uxAddressArg,
+                                   UBase_t  uxAddressMaskArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_9BITADDRESS_H_ */

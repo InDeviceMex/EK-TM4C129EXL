@@ -25,9 +25,9 @@
 
 uintptr_t EEPROM__uptrBlockBaseAddress(EEPROM_nMODULE enModuleArg)
 {
-    const uintptr_t EEPROM_BLOCK_BASE[(uint32_t) EEPROM_enMODULE_MAX] =
+    const uintptr_t EEPROM_BLOCK_BASE[(UBase_t) EEPROM_enMODULE_MAX] =
     {
      EEPROM_BASE
     };
-    return (EEPROM_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (EEPROM_BLOCK_BASE[(UBase_t) enModuleArg]);
 }

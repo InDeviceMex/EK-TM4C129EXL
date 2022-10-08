@@ -34,90 +34,90 @@
 ************************************ 3 TBMR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnMR    ((TB_GPTMMR_t*) (GPTM2_BASE + GPTM_TB_TnMR_OFFSET))
-#define GPTM2_TB_TnMR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnMR_OFFSET)))
+#define GPTM2_TB_TnMR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 CTL *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnCTL    ((TB_GPTMCTL_t*) (GPTM2_BASE + GPTM_TB_TnCTL_OFFSET))
-#define GPTM2_TB_TnCTL_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnCTL_OFFSET)))
+#define GPTM2_TB_TnCTL_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 IMR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnIMR    ((TB_GPTMIMR_t*) (GPTM2_BASE + GPTM_TB_TnIMR_OFFSET))
-#define GPTM2_TB_TnIMR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnIMR_OFFSET)))
+#define GPTM2_TB_TnIMR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnIMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 RIS *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnRIS    ((TB_GPTMRIS_t*) (GPTM2_BASE + GPTM_TB_TnRIS_OFFSET))
-#define GPTM2_TB_TnRIS_R    (*((volatile const uint32_t*) (GPTM2_BASE + GPTM_TB_TnRIS_OFFSET)))
+#define GPTM2_TB_TnRIS_R    (*((volatile const UBase_t*) (GPTM2_BASE + GPTM_TB_TnRIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 8 MIS *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnMIS    ((TB_GPTMMIS_t*) (GPTM2_BASE + GPTM_TB_TnMIS_OFFSET))
-#define GPTM2_TB_TnMIS_R    (*((volatile const uint32_t*) (GPTM2_BASE + GPTM_TB_TnMIS_OFFSET)))
+#define GPTM2_TB_TnMIS_R    (*((volatile const UBase_t*) (GPTM2_BASE + GPTM_TB_TnMIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 9 ICR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnICR    ((TB_GPTMICR_t*) (GPTM2_BASE + GPTM_TB_TnICR_OFFSET))
-#define GPTM2_TB_TnICR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnICR_OFFSET)))
+#define GPTM2_TB_TnICR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnICR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 11 TBILR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnILR    ((TB_GPTMILR_t*) (GPTM2_BASE + GPTM_TB_TnILR_OFFSET))
-#define GPTM2_TB_TnILR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnILR_OFFSET)))
+#define GPTM2_TB_TnILR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnILR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 13 TBMATCHR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnMATCHR    ((TB_GPTMMATCHR_t*) (GPTM2_BASE + GPTM_TB_TnMATCHR_OFFSET))
-#define GPTM2_TB_TnMATCHR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnMATCHR_OFFSET)))
+#define GPTM2_TB_TnMATCHR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnMATCHR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 15 TBPR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnPR    ((TB_GPTMPR_t*) (GPTM2_BASE + GPTM_TB_TnPR_OFFSET))
-#define GPTM2_TB_TnPR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnPR_OFFSET)))
+#define GPTM2_TB_TnPR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnPR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 17 TBPMR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnPMR    ((TB_GPTMPMR_t*) (GPTM2_BASE + GPTM_TB_TnPMR_OFFSET))
-#define GPTM2_TB_TnPMR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnPMR_OFFSET)))
+#define GPTM2_TB_TnPMR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnPMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 19 TBR *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnR    ((TB_GPTMR_t*) (GPTM2_BASE + GPTM_TB_TnR_OFFSET))
-#define GPTM2_TB_TnR_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnR_OFFSET)))
+#define GPTM2_TB_TnR_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 21 TBV *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnV    ((TB_GPTMV_t*) (GPTM2_BASE + GPTM_TB_TnV_OFFSET))
-#define GPTM2_TB_TnV_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnV_OFFSET)))
+#define GPTM2_TB_TnV_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 24 TBPS *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnPS    ((TB_GPTMPS_t*) (GPTM2_BASE + GPTM_TB_TnPS_OFFSET))
-#define GPTM2_TB_TnPS_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnPS_OFFSET)))
+#define GPTM2_TB_TnPS_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnPS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 25 DMAEV *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnDMAEV    ((TB_GPTMDMAEV_t*) (GPTM2_BASE + GPTM_TB_TnDMAEV_OFFSET))
-#define GPTM2_TB_TnDMAEV_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnDMAEV_OFFSET)))
+#define GPTM2_TB_TnDMAEV_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnDMAEV_OFFSET)))
 
 /******************************************************************************************
 ************************************ 26 ADCEV *********************************************
 ******************************************************************************************/
 #define GPTM2_TB_TnADCEV    ((TB_GPTMADCEV_t*) (GPTM2_BASE + GPTM_TB_TnADCEV_OFFSET))
-#define GPTM2_TB_TnADCEV_R    (*((volatile uint32_t*) (GPTM2_BASE + GPTM_TB_TnADCEV_OFFSET)))
+#define GPTM2_TB_TnADCEV_R    (*((volatile UBase_t*) (GPTM2_BASE + GPTM_TB_TnADCEV_OFFSET)))
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERPERIPHERAL_TIMER_REGISTERPERIPHERAL_MODULEB_16_TIMER_REGISTERPERIPHERAL_MODULEB_16_MODULE2_H_ */

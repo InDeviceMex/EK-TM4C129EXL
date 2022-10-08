@@ -28,14 +28,14 @@
 
 void TIMER__vSetUpdateMatchMode(TIMER_nMODULE enModule, TIMER_nUPDATE_MATCH enUpdateMatchMode)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enUpdateMatchMode,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enUpdateMatchMode,
                            GPTM_TA_TnMR_TnMRSU_MASK, GPTM_TA_TnMR_R_TnMRSU_BIT);
 }
 
 TIMER_nUPDATE_MATCH TIMER__enGetUpdateMatchMode(TIMER_nMODULE enModule)
 {
     TIMER_nUPDATE_MATCH enUpdateReg = TIMER_enUPDATE_MATCH_CYCLE;
-    enUpdateReg = (TIMER_nUPDATE_MATCH) TIMER__u32GetModeGeneric(enModule,
+    enUpdateReg = (TIMER_nUPDATE_MATCH) TIMER__uxGetModeGeneric(enModule,
                       GPTM_TA_TnMR_TnMRSU_MASK, GPTM_TA_TnMR_R_TnMRSU_BIT);
     return (enUpdateReg);
 }

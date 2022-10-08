@@ -24,34 +24,34 @@
 
 #include <xUtils/Graphics/xHeader/Graphics_ClearSection.h>
 
-void Graphics__vClearSection (void (*pvfCallback)(Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color), Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, uint32_t  u32Color)
+void Graphics__vClearSection (void (*pvfCallback)(Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, UBase_t  uxColor), Graphics_Layer_t* restrict pstLayerArg, Graphics_DIMENSIONS_t stDimensionsArg, UBase_t  uxColor)
 {
     Graphics_nSTATUS enStatus = Graphics_enSTATUS_OK;
-    uint32_t u32StatusWidth = 0UL;
-    uint32_t u32StatusHeight = 0UL;
-    uint32_t u32HeightReg = 0UL;
-    uint32_t u32WidthReg = 0UL;
-    uint32_t u32HeightTotalReg = 0UL;
-    uint32_t u32WidthTotalReg = 0UL;
-    uint32_t u32CoordXReg= 0UL;
-    uint32_t u32CoordYReg = 0UL;
-    if(0UL != (uint32_t) pstLayerArg)
+    UBase_t uxStatusWidth = 0UL;
+    UBase_t uxStatusHeight = 0UL;
+    UBase_t uxHeightReg = 0UL;
+    UBase_t uxWidthReg = 0UL;
+    UBase_t uxHeightTotalReg = 0UL;
+    UBase_t uxWidthTotalReg = 0UL;
+    UBase_t uxCoordXReg= 0UL;
+    UBase_t uxCoordYReg = 0UL;
+    if(0UL != (UBase_t) pstLayerArg)
     {
-        u32HeightReg = stDimensionsArg.u32Height;
-        u32WidthReg = stDimensionsArg.u32Width;
-        u32HeightTotalReg = pstLayerArg->u32HeightTotal;
-        u32WidthTotalReg = pstLayerArg->u32WidthTotal;
-        u32CoordXReg = stDimensionsArg.u32CoordX_Initial;
-        u32CoordYReg = stDimensionsArg.u32CoordY_Initial;
-        u32StatusHeight = (uint32_t) Graphics__enCheckParams(u32HeightReg,  u32CoordYReg, u32HeightTotalReg);
-        u32StatusWidth = (uint32_t) Graphics__enCheckParams(u32WidthReg,  u32CoordXReg, u32WidthTotalReg);
+        uxHeightReg = stDimensionsArg.uxHeight;
+        uxWidthReg = stDimensionsArg.uxWidth;
+        uxHeightTotalReg = pstLayerArg->uxHeightTotal;
+        uxWidthTotalReg = pstLayerArg->uxWidthTotal;
+        uxCoordXReg = stDimensionsArg.uxCoordX_Initial;
+        uxCoordYReg = stDimensionsArg.uxCoordY_Initial;
+        uxStatusHeight = (UBase_t) Graphics__enCheckParams(uxHeightReg,  uxCoordYReg, uxHeightTotalReg);
+        uxStatusWidth = (UBase_t) Graphics__enCheckParams(uxWidthReg,  uxCoordXReg, uxWidthTotalReg);
 
-        u32StatusHeight |= u32StatusWidth;
-        enStatus = (Graphics_nSTATUS) u32StatusHeight;
+        uxStatusHeight |= uxStatusWidth;
+        enStatus = (Graphics_nSTATUS) uxStatusHeight;
 
         if(Graphics_enSTATUS_OK == enStatus)
         {
-            pvfCallback(pstLayerArg, stDimensionsArg, u32Color);
+            pvfCallback(pstLayerArg, stDimensionsArg, uxColor);
         }
     }
 }

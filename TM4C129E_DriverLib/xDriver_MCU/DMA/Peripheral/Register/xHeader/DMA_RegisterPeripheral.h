@@ -34,115 +34,115 @@
 ************************************** 4 STAT **********************************************
 ********************************************************************************************/
 #define DMA_STAT    ((DMA_STAT_t*) (DMA_BASE + DMA_STAT_OFFSET ))
-#define DMA_STAT_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_STAT_OFFSET)))
+#define DMA_STAT_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_STAT_OFFSET)))
 
 /********************************************************************************************
 ************************************** 5 CFG **********************************************
 ********************************************************************************************/
 #define DMA_CFG    ((DMA_CFG_t*) (DMA_BASE + DMA_CFG_OFFSET ))
-#define DMA_CFG_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CFG_OFFSET)))
+#define DMA_CFG_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CFG_OFFSET)))
 
 /********************************************************************************************
 ************************************** 6 CTLBASE **********************************************
 ********************************************************************************************/
 #define DMA_CTLBASE    ((DMA_CTLBASE_t*) (DMA_BASE + DMA_CTLBASE_OFFSET ))
-#define DMA_CTLBASE_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CTLBASE_OFFSET)))
+#define DMA_CTLBASE_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CTLBASE_OFFSET)))
 
 /********************************************************************************************
 ************************************** 7 ALTBASE **********************************************
 ********************************************************************************************/
 #define DMA_ALTBASE    ((DMA_ALTBASE_t*) (DMA_BASE + DMA_ALTBASE_OFFSET ))
-#define DMA_ALTBASE_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_ALTBASE_OFFSET)))
+#define DMA_ALTBASE_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_ALTBASE_OFFSET)))
 
 /********************************************************************************************
 ************************************** 8 WAITSTAT **********************************************
 ********************************************************************************************/
 #define DMA_CH_WAITSTAT    ((DMA_CH_WAITSTAT_t*) (DMA_BASE + DMA_CH_WAITSTAT_OFFSET ))
-#define DMA_CH_WAITSTAT_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_WAITSTAT_OFFSET)))
+#define DMA_CH_WAITSTAT_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_WAITSTAT_OFFSET)))
 
 /********************************************************************************************
 ************************************** 9 SWREQ **********************************************
 ********************************************************************************************/
 #define DMA_CH_SWREQ    ((DMA_CH_SWREQ_t*) (DMA_BASE + DMA_CH_SWREQ_OFFSET ))
-#define DMA_CH_SWREQ_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_SWREQ_OFFSET)))
+#define DMA_CH_SWREQ_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_SWREQ_OFFSET)))
 
 /********************************************************************************************
 ************************************** 10 USEBURSTSET **********************************************
 ********************************************************************************************/
 #define DMA_CH_USEBURSTSET    ((DMA_CH_SET_t*) (DMA_BASE + DMA_CH_USEBURSTSET_OFFSET ))
-#define DMA_CH_USEBURSTSET_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_USEBURSTSET_OFFSET)))
+#define DMA_CH_USEBURSTSET_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_USEBURSTSET_OFFSET)))
 
 /********************************************************************************************
 ************************************** 11 USEBURSTCLR **********************************************
 ********************************************************************************************/
 #define DMA_CH_USEBURSTCLR    ((DMA_CH_CLR_t*) (DMA_BASE + DMA_CH_USEBURSTCLR_OFFSET ))
-#define DMA_CH_USEBURSTCLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_USEBURSTCLR_OFFSET)))
+#define DMA_CH_USEBURSTCLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_USEBURSTCLR_OFFSET)))
 
 /********************************************************************************************
 ************************************** 12 REQMASKSET **********************************************
 ********************************************************************************************/
 #define DMA_CH_REQMASKSET    ((DMA_CH_SET_t*) (DMA_BASE + DMA_CH_REQMASKSET_OFFSET ))
-#define DMA_CH_REQMASKSET_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_REQMASKSET_OFFSET)))
+#define DMA_CH_REQMASKSET_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_REQMASKSET_OFFSET)))
 
 /********************************************************************************************
 ************************************** 13 REQMASKCLR **********************************************
 ********************************************************************************************/
 #define DMA_CH_REQMASKCLR    ((DMA_CH_CLR_t*) (DMA_BASE + DMA_CH_REQMASKCLR_OFFSET ))
-#define DMA_CH_REQMASKCLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_REQMASKCLR_OFFSET)))
+#define DMA_CH_REQMASKCLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_REQMASKCLR_OFFSET)))
 
 /********************************************************************************************
 ************************************** 14 ENASET **********************************************
 ********************************************************************************************/
 #define DMA_CH_ENASET    ((DMA_CH_SET_t*) (DMA_BASE + DMA_CH_ENASET_OFFSET ))
-#define DMA_CH_ENASET_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_ENASET_OFFSET)))
+#define DMA_CH_ENASET_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_ENASET_OFFSET)))
 
 /********************************************************************************************
 ************************************** 15 ENACLR **********************************************
 ********************************************************************************************/
 #define DMA_CH_ENACLR    ((DMA_CH_CLR_t*) (DMA_BASE + DMA_CH_ENACLR_OFFSET ))
-#define DMA_CH_ENACLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_ENACLR_OFFSET)))
+#define DMA_CH_ENACLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_ENACLR_OFFSET)))
 
 /********************************************************************************************
 ************************************** 16 ALTSET **********************************************
 ********************************************************************************************/
 #define DMA_CH_ALTSET    ((DMA_CH_SET_t*) (DMA_BASE + DMA_CH_ALTSET_OFFSET ))
-#define DMA_CH_ALTSET_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_ALTSET_OFFSET)))
+#define DMA_CH_ALTSET_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_ALTSET_OFFSET)))
 
 /********************************************************************************************
 ************************************** 17 ALTCLR **********************************************
 ********************************************************************************************/
 #define DMA_CH_ALTCLR    ((DMA_CH_CLR_t*) (DMA_BASE + DMA_CH_ALTCLR_OFFSET ))
-#define DMA_CH_ALTCLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_ALTCLR_OFFSET)))
+#define DMA_CH_ALTCLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_ALTCLR_OFFSET)))
 
 /********************************************************************************************
 ************************************* 18 PRIOSET **********************************************
 ********************************************************************************************/
 #define DMA_CH_PRIOSET    ((DMA_CH_SET_t*) (DMA_BASE + DMA_CH_PRIOSET_OFFSET ))
-#define DMA_CH_PRIOSET_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_PRIOSET_OFFSET)))
+#define DMA_CH_PRIOSET_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_PRIOSET_OFFSET)))
 
 /********************************************************************************************
 ************************************** 19 PRIOCLR **********************************************
 ********************************************************************************************/
 #define DMA_CH_PRIOCLR    ((DMA_CH_CLR_t*) (DMA_BASE + DMA_CH_PRIOCLR_OFFSET ))
-#define DMA_CH_PRIOCLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_PRIOCLR_OFFSET)))
+#define DMA_CH_PRIOCLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_PRIOCLR_OFFSET)))
 
 /********************************************************************************************
 ************************************** 20 ERRCLR **********************************************
 ********************************************************************************************/
 #define DMA_ERRCLR    ((DMA_ERRCLR_t*) (DMA_BASE + DMA_ERRCLR_OFFSET ))
-#define DMA_ERRCLR_R    (*((volatile uint32_t*) (DMA_BASE + DMA_ERRCLR_OFFSET)))
+#define DMA_ERRCLR_R    (*((volatile UBase_t*) (DMA_BASE + DMA_ERRCLR_OFFSET)))
 
 /********************************************************************************************
 ************************************** 21 CHASGN **********************************************
 ********************************************************************************************/
 #define DMA_CH_ASGN    ((DMA_CH_ASGN_t*) (DMA_BASE + DMA_CH_ASGN_OFFSET ))
-#define DMA_CH_ASGN_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_ASGN_OFFSET)))
+#define DMA_CH_ASGN_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_ASGN_OFFSET)))
 
 /********************************************************************************************
 ************************************** 22 CHIS **********************************************
 ********************************************************************************************/
 #define DMA_CH_IS    ((DMA_CH_IS_t*) (DMA_BASE + DMA_CH_IS_OFFSET ))
-#define DMA_CH_IS_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_IS_OFFSET)))
+#define DMA_CH_IS_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_IS_OFFSET)))
 
 /********************************************************************************************
 ************************************** 23 CHMAP **********************************************
@@ -153,79 +153,79 @@
 ************************************** 23 CHMAP0 **********************************************
 ********************************************************************************************/
 #define DMA_CH_MAP0    ((DMA_CH_MAP0_t*) (DMA_BASE + DMA_CH_MAP0_OFFSET ))
-#define DMA_CH_MAP0_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_MAP0_OFFSET)))
+#define DMA_CH_MAP0_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_MAP0_OFFSET)))
 
 /********************************************************************************************
 ************************************** 24 CHMAP1 **********************************************
 ********************************************************************************************/
 #define DMA_CH_MAP1    ((DMA_CH_MAP1_t*) (DMA_BASE + DMA_CH_MAP1_OFFSET ))
-#define DMA_CH_MAP1_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_MAP1_OFFSET)))
+#define DMA_CH_MAP1_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_MAP1_OFFSET)))
 
 /********************************************************************************************
 ************************************** 25 CHMAP2 **********************************************
 ********************************************************************************************/
 #define DMA_CH_MAP2    ((DMA_CH_MAP2_t*) (DMA_BASE + DMA_CH_MAP2_OFFSET ))
-#define DMA_CH_MAP2_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_MAP2_OFFSET)))
+#define DMA_CH_MAP2_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_MAP2_OFFSET)))
 
 /********************************************************************************************
 ************************************** 26 CHMAP3 *********************************************
 ********************************************************************************************/
 #define DMA_CH_MAP3    ((DMA_CH_MAP3_t*) (DMA_BASE + DMA_CH_MAP3_OFFSET ))
-#define DMA_CH_MAP3_R    (*((volatile uint32_t*) (DMA_BASE + DMA_CH_MAP3_OFFSET)))
+#define DMA_CH_MAP3_R    (*((volatile UBase_t*) (DMA_BASE + DMA_CH_MAP3_OFFSET)))
 
 /********************************************************************************************
 ************************************** 27 PeriphID0 **********************************************
 ********************************************************************************************/
 #define DMA_PeriphID0    ((DMA_PeriphID0_t*) (DMA_BASE + DMA_PeriphID0_OFFSET ))
-#define DMA_PeriphID0_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PeriphID0_OFFSET)))
+#define DMA_PeriphID0_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PeriphID0_OFFSET)))
 
 /********************************************************************************************
 ************************************** 28 PeriphID1 **********************************************
 ********************************************************************************************/
 #define DMA_PeriphID1    ((DMA_PeriphID1_t*) (DMA_BASE + DMA_PeriphID1_OFFSET ))
-#define DMA_PeriphID1_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PeriphID1_OFFSET)))
+#define DMA_PeriphID1_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PeriphID1_OFFSET)))
 
 /********************************************************************************************
 ************************************** 29 PeriphID2 **********************************************
 ********************************************************************************************/
 #define DMA_PeriphID2    ((DMA_PeriphID2_t*) (DMA_BASE + DMA_PeriphID2_OFFSET ))
-#define DMA_PeriphID2_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PeriphID2_OFFSET)))
+#define DMA_PeriphID2_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PeriphID2_OFFSET)))
 
 /********************************************************************************************
 ************************************** 30 PeriphID3 **********************************************
 ********************************************************************************************/
 #define DMA_PeriphID3    ((DMA_PeriphID3_t*) (DMA_BASE + DMA_PeriphID3_OFFSET ))
-#define DMA_PeriphID3_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PeriphID3_OFFSET)))
+#define DMA_PeriphID3_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PeriphID3_OFFSET)))
 
 /********************************************************************************************
 ************************************** 31 PeriphID4 **********************************************
 ********************************************************************************************/
 #define DMA_PeriphID4    ((DMA_PeriphID4_t*) (DMA_BASE + DMA_PeriphID4_OFFSET ))
-#define DMA_PeriphID4_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PeriphID4_OFFSET)))
+#define DMA_PeriphID4_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PeriphID4_OFFSET)))
 
 /********************************************************************************************
 ************************************** 32 PCellID0 **********************************************
 ********************************************************************************************/
 #define DMA_PCellID0    ((DMA_PCellID0_t*) (DMA_BASE + DMA_PCellID0_OFFSET ))
-#define DMA_PCellID0_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PCellID0_OFFSET)))
+#define DMA_PCellID0_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PCellID0_OFFSET)))
 
 /********************************************************************************************
 ************************************** 33 PCellID1 **********************************************
 ********************************************************************************************/
 #define DMA_PCellID1    ((DMA_PCellID1_t*) (DMA_BASE + DMA_PCellID1_OFFSET ))
-#define DMA_PCellID1_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PCellID1_OFFSET)))
+#define DMA_PCellID1_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PCellID1_OFFSET)))
 
 /********************************************************************************************
 ************************************** 34 PCellID2 **********************************************
 ********************************************************************************************/
 #define DMA_PCellID2    ((DMA_PCellID2_t*) (DMA_BASE + DMA_PCellID2_OFFSET ))
-#define DMA_PCellID2_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PCellID2_OFFSET)))
+#define DMA_PCellID2_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PCellID2_OFFSET)))
 
 /********************************************************************************************
 ************************************** 35 PCellID3 **********************************************
 ********************************************************************************************/
 #define DMA_PCellID3    ((DMA_PCellID3_t*) (DMA_BASE + DMA_PCellID3_OFFSET ))
-#define DMA_PCellID3_R    (*((volatile const uint32_t*) (DMA_BASE + DMA_PCellID3_OFFSET)))
+#define DMA_PCellID3_R    (*((volatile const UBase_t*) (DMA_BASE + DMA_PCellID3_OFFSET)))
 
 
 uintptr_t DMA__uptrBlockBaseAddress(DMA_nMODULE enModuleArg);

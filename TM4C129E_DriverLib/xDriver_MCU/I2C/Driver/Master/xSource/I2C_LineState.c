@@ -39,14 +39,14 @@ I2C_nERROR I2C_Master__enGetLineLevel(I2C_nMODULE enModuleArg, I2C_nLINE enLineA
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enLineArg;
-        stRegister.u32Mask = 0x1UL;
+        stRegister.uxShift = (UBase_t) enLineArg;
+        stRegister.uxMask = 0x1UL;
         stRegister.uptrAddress = I2C_MASTER_BMON_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *enLevelArg = (I2C_nLEVEL) stRegister.u32Value;
+        *enLevelArg = (I2C_nLEVEL) stRegister.uxValue;
     }
 
     return (enErrorReg);

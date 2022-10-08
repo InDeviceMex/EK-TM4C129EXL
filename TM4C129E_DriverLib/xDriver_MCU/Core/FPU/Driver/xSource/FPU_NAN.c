@@ -12,13 +12,13 @@
 
 void FPU__vSetNAN(FPU_nMODULE enModuleArg, FPU_nNAN enNANArg)
 {
-    MCU__vFPUStatusControlMask(FPU_DSCR_R_DN_MASK, (uint32_t) enNANArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_DN_MASK, (UBase_t) enNANArg);
 }
 
 FPU_nNAN FPU__enGetNAN(FPU_nMODULE enModuleArg)
 {
     FPU_nNAN enNANReg;
-    enNANReg = (FPU_nNAN) MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_DN_BIT);
+    enNANReg = (FPU_nNAN) MCU__uxGetFPUStatusControlBit(FPU_DSCR_R_DN_BIT);
     return (enNANReg);
 }
 
@@ -34,14 +34,14 @@ FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg)
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_DSCR_R_DN_BIT;
-        stRegister.u32Mask = FPU_DSCR_DN_MASK;
+        stRegister.uxShift = FPU_DSCR_R_DN_BIT;
+        stRegister.uxMask = FPU_DSCR_DN_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penNANArg = (FPU_nNAN) stRegister.u32Value;
+        *penNANArg = (FPU_nNAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

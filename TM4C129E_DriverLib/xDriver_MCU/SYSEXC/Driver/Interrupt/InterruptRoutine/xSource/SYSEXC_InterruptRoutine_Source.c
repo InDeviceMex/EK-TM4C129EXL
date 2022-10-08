@@ -25,7 +25,7 @@
 
 static void SYSEXC_vIRQSourceHandler_Dummy(void);
 
-static void (*SYSEXC__vIRQSourceHandler[(uint32_t) SYSEXC_enINTERRUPT_MAX]) (void) =
+static void (*SYSEXC__vIRQSourceHandler[(UBase_t) SYSEXC_enINTERRUPT_MAX]) (void) =
 {
    &SYSEXC_vIRQSourceHandler_Dummy,&SYSEXC_vIRQSourceHandler_Dummy,
    &SYSEXC_vIRQSourceHandler_Dummy,&SYSEXC_vIRQSourceHandler_Dummy,
@@ -41,13 +41,13 @@ static void SYSEXC_vIRQSourceHandler_Dummy(void)
 void (*SYSEXC__pvfGetIRQSourceHandler(SYSEXC_nINTERRUPT enInterruptSourceArg))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    pvfFunctionReg = SYSEXC__vIRQSourceHandler[(UBase_t) enInterruptSourceArg];
     return (pvfFunctionReg);
 }
 
 void (**SYSEXC__pvfGetIRQSourceHandlerPointer(SYSEXC_nINTERRUPT enInterruptSourceArg))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &SYSEXC__vIRQSourceHandler[(uint32_t) enInterruptSourceArg];
+    pvfFunctionReg = (void(**)(void)) &SYSEXC__vIRQSourceHandler[(UBase_t) enInterruptSourceArg];
     return (pvfFunctionReg);
 }

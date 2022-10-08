@@ -14,42 +14,42 @@
 
 typedef enum
 {
-    FLASH_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    FLASH_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    FLASH_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    FLASH_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    FLASH_enERROR_EMPTY = (uint32_t) MCU_enERROR_EMPTY,
-    FLASH_enERROR_BUSY = (uint32_t) MCU_enERROR_BUSY,
-    FLASH_enERROR_TIMEOUT = (uint32_t) MCU_enERROR_TIMEOUT,
-    FLASH_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    FLASH_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    FLASH_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    FLASH_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    FLASH_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    FLASH_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    FLASH_enERROR_BUSY = (UBase_t) MCU_enERROR_BUSY,
+    FLASH_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
+    FLASH_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }FLASH_nERROR;
 
 typedef enum
 {
-    FLASH_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    FLASH_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    FLASH_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    FLASH_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    FLASH_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    FLASH_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 } FLASH_nSTATE;
 
 typedef enum
 {
-    FLASH_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    FLASH_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    FLASH_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    FLASH_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    FLASH_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    FLASH_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } FLASH_nSTATUS;
 
 typedef enum
 {
-    FLASH_enPRI0 = (uint32_t) MCU_enPRI0,
-    FLASH_enPRI1 = (uint32_t) MCU_enPRI1,
-    FLASH_enPRI2 = (uint32_t) MCU_enPRI2,
-    FLASH_enPRI3 = (uint32_t) MCU_enPRI3,
-    FLASH_enPRI4 = (uint32_t) MCU_enPRI4,
-    FLASH_enPRI5 = (uint32_t) MCU_enPRI5,
-    FLASH_enPRI6 = (uint32_t) MCU_enPRI6,
-    FLASH_enPRI7 = (uint32_t) MCU_enPRI7,
-    FLASH_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    FLASH_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    FLASH_enPRI0 = (UBase_t) MCU_enPRI0,
+    FLASH_enPRI1 = (UBase_t) MCU_enPRI1,
+    FLASH_enPRI2 = (UBase_t) MCU_enPRI2,
+    FLASH_enPRI3 = (UBase_t) MCU_enPRI3,
+    FLASH_enPRI4 = (UBase_t) MCU_enPRI4,
+    FLASH_enPRI5 = (UBase_t) MCU_enPRI5,
+    FLASH_enPRI6 = (UBase_t) MCU_enPRI6,
+    FLASH_enPRI7 = (UBase_t) MCU_enPRI7,
+    FLASH_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    FLASH_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }FLASH_nPRIORITY;
 
 typedef enum

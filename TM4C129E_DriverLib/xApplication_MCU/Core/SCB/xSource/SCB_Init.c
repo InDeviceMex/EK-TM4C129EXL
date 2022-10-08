@@ -33,11 +33,11 @@ SCB_nERROR SCB__enInit(SCB_nMODULE enModuleArg)
     SCB_nERROR enErrorReg;
     SCB_pvfIRQVectorHandler_t* pfnVectorInRam;
 
-    enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SCB_enMODULE_MAX);
     if(SCB_enERROR_OK == enErrorReg)
     {
         pfnVectorInRam =  SCB__pfnGetVectorTableRam();
-        enErrorReg = SCB__enSetVectorTable(enModuleArg, (uint32_t) pfnVectorInRam);
+        enErrorReg = SCB__enSetVectorTable(enModuleArg, (UBase_t) pfnVectorInRam);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {

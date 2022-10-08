@@ -26,7 +26,7 @@
 DLinkedListItem_t* DLinkedList_Item__pstGetNextItem(const DLinkedListItem_t* const pstItem)
 {
     DLinkedListItem_t* pstNextItemReg = (DLinkedListItem_t*)0UL;
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstNextItemReg = pstItem->pstNextItem;
     }
@@ -35,7 +35,7 @@ DLinkedListItem_t* DLinkedList_Item__pstGetNextItem(const DLinkedListItem_t* con
 
 void DLinkedList_Item__vSetNextItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstNextItemArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pstNextItem = pstNextItemArg;
     }

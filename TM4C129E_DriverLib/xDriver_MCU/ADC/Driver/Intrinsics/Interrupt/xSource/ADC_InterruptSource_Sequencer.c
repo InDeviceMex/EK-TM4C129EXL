@@ -31,14 +31,14 @@ static ADC_nERROR ADC_Sequencer__enGetStateByMask(ADC_nMODULE enModuleArg, ADC_n
                                                   ADC_nINT_TYPE enInterruptTypeArg, ADC_nSEQMASK* penSequencerGetArg);
 
 static ADC_nERROR ADC_Sequencer__enGetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, uintptr_t uptrOffsetArg,
-                                                    ADC_nINT_TYPE enInterruptTypeArg, uint32_t* pu32StateArg);
+                                                    ADC_nINT_TYPE enInterruptTypeArg, UBase_t* puxStateArg);
 
 
 static ADC_nERROR ADC_Sequencer__enGetStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg, uintptr_t uptrOffsetArg,
                                                   ADC_nINT_TYPE enInterruptTypeArg, ADC_nSEQMASK* penSequencerGetArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32BitPos;
+    UBase_t uxBitPos;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
@@ -48,65 +48,65 @@ static ADC_nERROR ADC_Sequencer__enGetStateByMask(ADC_nMODULE enModuleArg, ADC_n
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
 
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
 
-        stRegister.u32Shift = (uint32_t) u32BitPos;
-        stRegister.u32Mask = enSequencerMaskArg;
+        stRegister.uxShift = (UBase_t) uxBitPos;
+        stRegister.uxMask = enSequencerMaskArg;
         stRegister.uptrAddress = uptrOffsetArg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penSequencerGetArg = (ADC_nSEQMASK) stRegister.u32Value;
+        *penSequencerGetArg = (ADC_nSEQMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
 static ADC_nERROR ADC_Sequencer__enGetStateByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, uintptr_t uptrOffsetArg,
-                                             ADC_nINT_TYPE enInterruptTypeArg, uint32_t* pu32StateArg)
+                                             ADC_nINT_TYPE enInterruptTypeArg, UBase_t* puxStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32BitPos;
+    UBase_t uxBitPos;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32StateArg)
+    if(0UL == (uintptr_t) puxStateArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
 
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
-        u32BitPos += (uint32_t) enSequencerArg;
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
+        uxBitPos += (UBase_t) enSequencerArg;
 
-        stRegister.u32Shift = (uint32_t) u32BitPos;
-        stRegister.u32Mask = 0x1UL;
+        stRegister.uxShift = (UBase_t) uxBitPos;
+        stRegister.uxMask = 0x1UL;
         stRegister.uptrAddress = uptrOffsetArg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32StateArg = stRegister.u32Value;
+        *puxStateArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -115,40 +115,40 @@ ADC_nERROR ADC_Sequencer__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleAr
                                                           ADC_nINT_TYPE enInterruptTypeArg, ADC_nSTATE enStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32ValueReg;
-    uint32_t u32BitPos;
+    UBase_t uxValueReg;
+    UBase_t uxBitPos;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
         if(ADC_enSTATE_DIS == enStateArg)
         {
-            u32ValueReg = 0U;
+            uxValueReg = 0U;
         }
         else
         {
-            u32ValueReg = (uint32_t) enSequencerMaskArg;
+            uxValueReg = (UBase_t) enSequencerMaskArg;
         }
-        stRegister.u32Shift = (uint32_t) u32BitPos;
+        stRegister.uxShift = (UBase_t) uxBitPos;
         stRegister.uptrAddress = ADC_IM_OFFSET;
-        stRegister.u32Value = u32ValueReg;
+        stRegister.uxValue = uxValueReg;
 
         switch(enInterruptTypeArg)
         {
         case ADC_enINT_TYPE_SAMPLE:
         case ADC_enINT_TYPE_DMA:
-            stRegister.u32Mask = enSequencerMaskArg;
+            stRegister.uxMask = enSequencerMaskArg;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         case ADC_enINT_TYPE_COMP:
-            stRegister.u32Mask = (uint32_t) ADC_enSEQMASK_ALL;
+            stRegister.uxMask = (UBase_t) ADC_enSEQMASK_ALL;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         default:
@@ -164,19 +164,19 @@ ADC_nERROR ADC_Sequencer__enSetInterruptSourceStateByNumber(ADC_nMODULE enModule
                                                             ADC_nINT_TYPE enInterruptTypeArg, ADC_nSTATE enStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32BitPos;
-    uint32_t u32BitComp;
+    UBase_t uxBitPos;
+    UBase_t uxBitComp;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
 
         stRegister.uptrAddress = ADC_IM_OFFSET;
 
@@ -184,20 +184,20 @@ ADC_nERROR ADC_Sequencer__enSetInterruptSourceStateByNumber(ADC_nMODULE enModule
         {
         case ADC_enINT_TYPE_SAMPLE:
         case ADC_enINT_TYPE_DMA:
-            u32BitPos += (uint32_t) enSequencerArg;
+            uxBitPos += (UBase_t) enSequencerArg;
 
-            stRegister.u32Shift = (uint32_t) u32BitPos;
-            stRegister.u32Mask = ADC_IM_MASK0_MASK;
-            stRegister.u32Value = (uint32_t) enStateArg;
+            stRegister.uxShift = (UBase_t) uxBitPos;
+            stRegister.uxMask = ADC_IM_MASK0_MASK;
+            stRegister.uxValue = (UBase_t) enStateArg;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         case ADC_enINT_TYPE_COMP:
-            u32BitComp = (uint32_t) enStateArg;
-            u32BitComp <<= (uint32_t) enSequencerArg;
+            uxBitComp = (UBase_t) enStateArg;
+            uxBitComp <<= (UBase_t) enSequencerArg;
 
-            stRegister.u32Shift = (uint32_t) u32BitPos;
-            stRegister.u32Mask = (uint32_t) ADC_enSEQMASK_ALL;
-            stRegister.u32Value = (uint32_t) u32BitComp;
+            stRegister.uxShift = (UBase_t) uxBitPos;
+            stRegister.uxMask = (UBase_t) ADC_enSEQMASK_ALL;
+            stRegister.uxValue = (UBase_t) uxBitComp;
             enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
             break;
         default:
@@ -221,7 +221,7 @@ ADC_nERROR ADC_Sequencer__enGetInterruptSourceStateByNumber(ADC_nMODULE enModule
                                                             ADC_nINT_TYPE enInterruptTypeArg, ADC_nSTATE* penStateArg)
 {
     ADC_nERROR enErrorReg;
-    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_IM_OFFSET, enInterruptTypeArg, (uint32_t*) penStateArg);
+    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_IM_OFFSET, enInterruptTypeArg, (UBase_t*) penStateArg);
     return (enErrorReg);
 }
 
@@ -261,26 +261,26 @@ ADC_nERROR ADC_Sequencer__enClearInterruptSourceByMask(ADC_nMODULE enModuleArg, 
                                                        ADC_nINT_TYPE enInterruptTypeArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32ValueReg;
-    uint32_t u32BitPos;
+    UBase_t uxValueReg;
+    UBase_t uxBitPos;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
 
-        u32ValueReg = (uint32_t) enSequencerMaskArg;
-        u32ValueReg <<= u32BitPos;
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
+        uxValueReg = (UBase_t) enSequencerMaskArg;
+        uxValueReg <<= uxBitPos;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ADC_ISC_OFFSET;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -292,27 +292,27 @@ ADC_nERROR ADC_Sequencer__enClearInterruptSourceByNumber(ADC_nMODULE enModuleArg
 {
 
     ADC_Register_t stRegister;
-    uint32_t u32ValueReg;
-    uint32_t u32BitPos;
+    UBase_t uxValueReg;
+    UBase_t uxBitPos;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enInterruptTypeArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInterruptTypeArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32BitPos = (uint32_t) enInterruptTypeArg;
-        u32BitPos <<= 3U; /* *= 8U */
-        u32BitPos += (uint32_t) enSequencerArg;
+        uxBitPos = (UBase_t) enInterruptTypeArg;
+        uxBitPos <<= 3U; /* *= 8U */
+        uxBitPos += (UBase_t) enSequencerArg;
 
-        u32ValueReg = 1U;
-        u32ValueReg <<= u32BitPos;
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
+        uxValueReg = 1U;
+        uxValueReg <<= uxBitPos;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ADC_ISC_OFFSET;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);
@@ -330,7 +330,7 @@ ADC_nERROR ADC_Sequencer__enStatusInterruptSourceByNumber(ADC_nMODULE enModuleAr
                                                           ADC_nINT_TYPE enInterruptTypeArg, ADC_nSTATUS* penStatusArg)
 {
     ADC_nERROR enErrorReg;
-    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_RIS_OFFSET, enInterruptTypeArg, (uint32_t*) penStatusArg);
+    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_RIS_OFFSET, enInterruptTypeArg, (UBase_t*) penStatusArg);
     return (enErrorReg);
 }
 
@@ -346,7 +346,7 @@ ADC_nERROR ADC_Sequencer__enStatusMaskedInterruptSourceByNumber(ADC_nMODULE enMo
                                                                 ADC_nINT_TYPE enInterruptTypeArg, ADC_nSTATUS* penStatusArg)
 {
     ADC_nERROR enErrorReg;
-    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_ISC_OFFSET, enInterruptTypeArg, (uint32_t*) penStatusArg);
+    enErrorReg = ADC_Sequencer__enGetStateByNumber(enModuleArg, enSequencerArg, ADC_ISC_OFFSET, enInterruptTypeArg, (UBase_t*) penStatusArg);
     return (enErrorReg);
 }
 

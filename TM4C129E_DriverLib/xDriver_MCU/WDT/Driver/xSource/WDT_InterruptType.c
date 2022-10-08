@@ -28,7 +28,7 @@
 
 void WDT__vSetInterruptSourceType(WDT_nMODULE enModule, WDT_nINT_TYPE enType)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (uint32_t) enType,
+    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (UBase_t) enType,
                         WDT_CTL_INTTYPE_MASK, WDT_CTL_R_INTTYPE_BIT);
 }
 
@@ -36,7 +36,7 @@ WDT_nINT_TYPE WDT__enGetInterruptSourceType(WDT_nMODULE enModule)
 {
     WDT_nINT_TYPE enIntTypeReg = WDT_enINT_TYPE_STANDARD;
 
-    enIntTypeReg = (WDT_nINT_TYPE) WDT__u32ReadRegister(enModule, WDT_CTL_OFFSET,
+    enIntTypeReg = (WDT_nINT_TYPE) WDT__uxReadRegister(enModule, WDT_CTL_OFFSET,
                                     WDT_CTL_INTTYPE_MASK, WDT_CTL_R_INTTYPE_BIT);
 
     return (enIntTypeReg);

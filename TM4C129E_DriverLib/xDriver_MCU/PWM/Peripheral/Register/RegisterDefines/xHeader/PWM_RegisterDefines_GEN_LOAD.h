@@ -31,10 +31,10 @@
 ************************************ 16 GEN_LOAD *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_GEN_LOAD_R_LOAD_MASK    ((uint32_t) 0x0000FFFFUL)
-#define PWM_GEN_LOAD_R_LOAD_BIT    ((uint32_t) 0UL)
+#define PWM_GEN_LOAD_R_LOAD_MASK    ((UBase_t) 0x0000FFFFUL)
+#define PWM_GEN_LOAD_R_LOAD_BIT    ((UBase_t) 0UL)
 
-#define PWM_GEN_LOAD_LOAD_MASK    ((uint32_t) 0x0000FFFFUL)
+#define PWM_GEN_LOAD_LOAD_MASK    ((UBase_t) 0x0000FFFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_LOAD_H_ */

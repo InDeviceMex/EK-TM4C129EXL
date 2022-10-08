@@ -29,7 +29,7 @@
 UART_nFIFO_EMPTY UART__enIsFifoReceiveEmpty(UART_nMODULE enModule)
 {
     UART_nFIFO_EMPTY enFifoReg = UART_enFIFO_NO_EMPTY;
-    enFifoReg = (UART_nFIFO_EMPTY) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
+    enFifoReg = (UART_nFIFO_EMPTY) UART__uxReadRegister(enModule, UART_FR_OFFSET,
                                          UART_FR_RXFE_MASK, UART_FR_R_RXFE_BIT);
     return (enFifoReg);
 }
@@ -37,7 +37,7 @@ UART_nFIFO_EMPTY UART__enIsFifoReceiveEmpty(UART_nMODULE enModule)
 UART_nFIFO_FULL UART__enIsFifoReceiveFull(UART_nMODULE enModule)
 {
     UART_nFIFO_FULL enFifoReg = UART_enFIFO_NO_FULL;
-    enFifoReg = (UART_nFIFO_FULL) UART__u32ReadRegister(enModule, UART_FR_OFFSET,
+    enFifoReg = (UART_nFIFO_FULL) UART__uxReadRegister(enModule, UART_FR_OFFSET,
                                         UART_FR_RXFF_MASK, UART_FR_R_RXFF_BIT);
     return (enFifoReg);
 }

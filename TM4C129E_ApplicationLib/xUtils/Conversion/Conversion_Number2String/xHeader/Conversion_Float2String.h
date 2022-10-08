@@ -24,8 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_FLOAT2STRING_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_FLOAT2STRING_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-uint8_t Conv__u8Float2String(float64_t f64Number, uint8_t u8Positive, uint8_t u8Padding0, int32_t s32Enteros, int32_t s32Decimals, char* pcConv);
+CONV_nERROR Conv__enFloat2String(float64_t f64Number, uint8_t u8Positive, uint8_t u8Padding0, Base_t sxEnteros, Base_t sxDecimals, char* pcConv, uint8_t* pu8StringLength);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_FLOAT2STRING_H_ */

@@ -29,7 +29,7 @@
 void SYSCTL__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
 {
     SCB_nVECISR enVector = SCB_enVECISR_SYSCTL;
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    if(0UL != (UBase_t) pfIrqVectorHandler)
     {
         SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, SYSCTL__pvfGetIRQVectorHandlerPointer());
     }

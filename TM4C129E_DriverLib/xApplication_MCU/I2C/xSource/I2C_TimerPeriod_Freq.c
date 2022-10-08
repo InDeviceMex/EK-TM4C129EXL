@@ -31,16 +31,16 @@
 #define SCL_LP_HS (2UL)
 #define SCL_HP_HS (1UL)
 
-I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32FrequencyArg)
+I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, UBase_t uxFrequencyArg)
 {
     MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
     I2C_nERROR enErrorReg;
-    uint32_t u32SysFrec;
+    UBase_t uxSysFrec;
 
-    u32SysFrec = 0UL;
+    uxSysFrec = 0UL;
     enErrorReg = I2C_enERROR_OK;
-    if((0UL == u32FrequencyArg) || (3333333UL < u32FrequencyArg))
+    if((0UL == uxFrequencyArg) || (3333333UL < uxFrequencyArg))
     {
         enErrorReg = I2C_enERROR_VALUE;
     }
@@ -48,11 +48,11 @@ I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32Frequenc
     {
         float32_t f32SysFrec;
 
-        u32SysFrec = SYSCTL__u32GetSystemClock();
-        f32SysFrec = (float32_t) u32SysFrec;
+        uxSysFrec = SYSCTL__uxGetSystemClock();
+        f32SysFrec = (float32_t) uxSysFrec;
         f32SysFrec /= 2.0f;
         /*High Speed*/
-        if(1000000UL < u32FrequencyArg)
+        if(1000000UL < uxFrequencyArg)
         {
             f32SysFrec /= (float32_t) (SCL_LP_HS + SCL_HP_HS);
         }
@@ -62,21 +62,21 @@ I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32Frequenc
             f32SysFrec /= (float32_t) (SCL_LP + SCL_HP);
 
         }
-        f32SysFrec /= (float32_t) u32FrequencyArg;
+        f32SysFrec /= (float32_t) uxFrequencyArg;
         f32SysFrec += 0.5f;
-        u32SysFrec = (uint32_t) f32SysFrec;
-        if((0UL == u32SysFrec) || ( (I2C_MASTER_TPR_TPR_MASK + 1UL) < u32SysFrec))
+        uxSysFrec = (UBase_t) f32SysFrec;
+        if((0UL == uxSysFrec) || ( (I2C_MASTER_TPR_TPR_MASK + 1UL) < uxSysFrec))
         {
             enErrorReg = I2C_enERROR_VALUE;
         }
         else
         {
-            u32SysFrec -= 1UL;
+            uxSysFrec -= 1UL;
         }
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(1000000UL < u32FrequencyArg)
+        if(1000000UL < uxFrequencyArg)
         {
             enErrorReg = I2C__enSetHighSpeedState(enModule, I2C_enSTATE_ENA);
         }
@@ -87,14 +87,14 @@ I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, uint32_t u32Frequenc
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = I2C_Master__enSetTimerPeriod(enModule, u32SysFrec);
+        enErrorReg = I2C_Master__enSetTimerPeriod(enModule, uxSysFrec);
     }
 
     MCU__vSetFPUContextActive(enFPUActive);
     return (enErrorReg);
 }
 
-I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, uint32_t* pu32FrequencyArg)
+I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, UBase_t* puxFrequencyArg)
 {
     MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
@@ -102,24 +102,24 @@ I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, uint32_t* pu32Freque
 
     I2C_nERROR enErrorReg;
     I2C_nSTATE enHighSpeed;
-    uint32_t u32SysFrec;
-    uint32_t u32Period;
+    UBase_t uxSysFrec;
+    UBase_t uxPeriod;
 
     enHighSpeed = I2C_enSTATE_DIS;
-    u32Period = 0UL;
-    u32SysFrec = 0UL;
+    uxPeriod = 0UL;
+    uxSysFrec = 0UL;
     enErrorReg = I2C__enGetHighSpeedState(enModule, &enHighSpeed);
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = I2C_Master__enGetTimerPeriod(enModule, &u32Period);
+        enErrorReg = I2C_Master__enGetTimerPeriod(enModule, &uxPeriod);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
         float32_t f32SysFrec;
 
-        u32Period += 1UL;
-        u32SysFrec = SYSCTL__u32GetSystemClock();
-        f32SysFrec = (float32_t) u32SysFrec;
+        uxPeriod += 1UL;
+        uxSysFrec = SYSCTL__uxGetSystemClock();
+        f32SysFrec = (float32_t) uxSysFrec;
         f32SysFrec /= 2.0f;
         if(I2C_enSTATE_DIS != enHighSpeed)
         {
@@ -129,12 +129,12 @@ I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, uint32_t* pu32Freque
         {
             f32SysFrec /= (float32_t) (SCL_LP + SCL_HP);
         }
-        f32SysFrec /= (float32_t) u32Period;
-        u32SysFrec = (uint32_t) f32SysFrec;
+        f32SysFrec /= (float32_t) uxPeriod;
+        uxSysFrec = (UBase_t) f32SysFrec;
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *pu32FrequencyArg = u32SysFrec;
+        *puxFrequencyArg = uxSysFrec;
     }
 
     MCU__vSetFPUContextActive(enFPUActive);

@@ -14,17 +14,17 @@
 ************************************26 LDOSPCAL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_LDOSPCAL_R_NOPLL_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDOSPCAL_R_NOPLL_MASK    ((UBase_t) 0x000000FFUL)
 #define SYSCTL_LDOSPCAL_R_NOPLL_BIT    (0UL)
 
-#define SYSCTL_LDOSPCAL_NOPLL_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDOSPCAL_NOPLL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_LDOSPCAL_R_WITHPLL_MASK    ((uint32_t) 0x0000FF00UL)
+#define SYSCTL_LDOSPCAL_R_WITHPLL_MASK    ((UBase_t) 0x0000FF00UL)
 #define SYSCTL_LDOSPCAL_R_WITHPLL_BIT    (8UL)
 
-#define SYSCTL_LDOSPCAL_WITHPLL_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDOSPCAL_WITHPLL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 

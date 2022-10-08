@@ -34,16 +34,16 @@
 #pragma  CODE_SECTION(FLASH__enStartAddressToErase, ".ramcode")
 
 
-FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg);
-FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, uint32_t* pu32AddressArg);
+FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg);
+FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, UBase_t* puxAddressArg);
 
-FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg);
+FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg);
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, uint32_t* pu32AddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, UBase_t* puxAddressArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg) __attribute__((section(".ramcode")));
 
 #endif
 

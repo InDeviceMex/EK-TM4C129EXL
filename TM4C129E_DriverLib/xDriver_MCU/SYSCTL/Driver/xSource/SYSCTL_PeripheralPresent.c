@@ -29,7 +29,7 @@
 SYSCTL_nPERIPHERAL_PRESENT SYSCTL__enIsPeripheralPresent(SYSCTL_nPERIPHERAL enPeripheral)
 {
     SYSCTL_nPERIPHERAL_PRESENT enPresentReg = SYSCTL_enNOPRESENT;
-    enPresentReg = (SYSCTL_nPERIPHERAL_PRESENT) SYSCTL__u32ReadPeripheral(enPeripheral,
+    enPresentReg = (SYSCTL_nPERIPHERAL_PRESENT) SYSCTL__uxReadPeripheral(enPeripheral,
                                                                       SYSCTL_PP_OFFSET);
     return (enPresentReg);
 }

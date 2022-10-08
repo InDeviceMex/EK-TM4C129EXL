@@ -24,11 +24,10 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_INVERSION_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_INVERSION_H_
 
-#include <xUtils/Standard/Standard.h>
-#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number2String/Conversion_Primitives/xHeader/Conversion_Wrapper.h>
 
+CONV_nERROR Conv__enInversion(const char* const pcPointerIn, char* const pcPointerOut, uint8_t u8Length);
+CONV_nERROR Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const char* pvBufferIn, UBase_t uxIndex, UBase_t uxMaxLenght,
+                                 UBase_t uxBufInLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags);
 
-CONV_nSTATUS Conv__enInversion(const char* const pcPointerIn, char* const pcPointerOut, uint8_t u8Length);
-CONV_nSTATUS Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const char* pvBufferIn, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t u32BufInLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags);
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_INVERSION_H_ */

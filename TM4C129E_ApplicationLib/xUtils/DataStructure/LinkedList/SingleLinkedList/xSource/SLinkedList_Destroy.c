@@ -30,36 +30,36 @@
 
 void SLinkedList__vDestroy(SLinkedList_t* pstList)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
     void * pvDataItem = (void*)0UL;
-    uint32_t u32SizeReg = 0UL;
+    UBase_t uxSizeReg = 0UL;
     void (*pvfListDestroy) (void* List) = (void (*) (void* List) )0UL;
 
     if((SLinkedList_t*)0 != pstList)
     {
-        enStatus = SLinkedList_enSTATUS_OK;
-        u32SizeReg = SLinkedList__u32GetSize(pstList);
+        enStatus = SLinkedList_enERROR_OK;
+        uxSizeReg = SLinkedList__uxGetSize(pstList);
         pvfListDestroy = pstList->pvfDestroy;
-        while (u32SizeReg > 0UL)
+        while (uxSizeReg > 0UL)
         {
             enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListItem_t*)0, (void **) & pvDataItem);
-            if((SLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pvfDestroyItemData))
+            if((SLinkedList_enERROR_OK == enStatus ) && ( (UBase_t) 0 != (UBase_t) pstList->pvfDestroyItemData))
             {
                 pstList->pvfDestroyItemData(pvDataItem);
             }
-            u32SizeReg = SLinkedList__u32GetSize(pstList);
+            uxSizeReg = SLinkedList__uxGetSize(pstList);
         }
 
-        pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
+        pstList->pfuxMatch = (UBase_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
         pstList->pvfDestroy = (void (*) (void* List)) 0UL;
         pstList->pvfDestroyItemData = (void (*) (void* DataContainer)) 0UL;
         pstList->pvfDestroyItem = (void (*) (void* Item)) 0UL;
         pstList->pstHead = (SLinkedListItem_t *) 0UL;
         pstList->pstTail = (SLinkedListItem_t *) 0UL;
         pstList->pstLastItemRead = (SLinkedListItem_t*)  0UL;
-        pstList->u32Size = 0UL;
+        pstList->uxSize = 0UL;
 
-        if((SLinkedList_enSTATUS_OK == enStatus ) && (0UL != (uint32_t) pvfListDestroy))
+        if((SLinkedList_enERROR_OK == enStatus ) && (0UL != (UBase_t) pvfListDestroy))
         {
             pvfListDestroy(pstList);
             pstList = (SLinkedList_t*) 0UL;

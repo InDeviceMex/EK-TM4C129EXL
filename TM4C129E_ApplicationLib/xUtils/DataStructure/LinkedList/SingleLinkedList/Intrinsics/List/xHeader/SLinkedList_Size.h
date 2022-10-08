@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-uint32_t SLinkedList__u32GetSize(const SLinkedList_t* const pstList);
-void SLinkedList__vSetSize(SLinkedList_t*  pstList, uint32_t u32SizeArg);
-SLinkedList_nSTATUS SLinkedList__enIsEmpty(const SLinkedList_t*  pstList);
+UBase_t SLinkedList__uxGetSize(const SLinkedList_t* const pstList);
+void SLinkedList__vSetSize(SLinkedList_t*  pstList, UBase_t uxSizeArg);
+SLinkedList_nERROR SLinkedList__enIsEmpty(const SLinkedList_t*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_SLINKEDLIST_SIZE_H_ */

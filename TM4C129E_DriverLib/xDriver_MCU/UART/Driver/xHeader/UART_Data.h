@@ -27,18 +27,18 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetData(UART_nMODULE enModule, uint32_t u32Data);
-uint32_t UART__u32GetData(UART_nMODULE enModule);
-uint32_t UART__u32GetDataWithStatus(UART_nMODULE enModule);
+void UART__vSetData(UART_nMODULE enModule, UBase_t uxData);
+UBase_t UART__uxGetData(UART_nMODULE enModule);
+UBase_t UART__uxGetDataWithStatus(UART_nMODULE enModule);
 
-uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray,
-                              uint32_t u32SizeBuffer, uint32_t u32Timeout);
-uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
-                                  uint32_t u32SizeBuffer, uint32_t u32Timeout);
+UBase_t UART__uxGetFifoData(UART_nMODULE enModule, UBase_t* puxFifoArray,
+                              UBase_t uxSizeBuffer, UBase_t uxTimeout);
+UBase_t UART__uxGetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
+                                  UBase_t uxSizeBuffer, UBase_t uxTimeout);
 
-uint32_t UART__u32SetFifoData(UART_nMODULE enModule, const uint32_t* pu32FifoArray,
-                              uint32_t u32SizeBuffer, uint32_t u32Timeout);
-uint32_t UART__u32SetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
-                                  uint32_t u32SizeBuffer, uint32_t u32Timeout);
+UBase_t UART__uxSetFifoData(UART_nMODULE enModule, const UBase_t* puxFifoArray,
+                              UBase_t uxSizeBuffer, UBase_t uxTimeout);
+UBase_t UART__uxSetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
+                                  UBase_t uxSizeBuffer, UBase_t uxTimeout);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_DATA_H_ */

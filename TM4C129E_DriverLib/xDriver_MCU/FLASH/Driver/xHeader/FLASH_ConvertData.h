@@ -33,15 +33,15 @@
 #pragma  CODE_SECTION(FLASH__enReplaceData, ".ramcode")
 #pragma  CODE_SECTION(FLASH_enIsDataErased, ".ramcode")
 
-FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, uint32_t* pu32InitialDataArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg);
-FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg);
-FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg);
+FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, UBase_t* puxInitialDataArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg);
+FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, UBase_t uxDataToReplaceArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg);
+FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, uint32_t* pu32InitialDataArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, UBase_t* puxInitialDataArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, UBase_t uxDataToReplaceArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg) __attribute__((section(".ramcode")));
 
 #endif
 

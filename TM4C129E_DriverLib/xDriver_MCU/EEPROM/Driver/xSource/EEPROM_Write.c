@@ -11,93 +11,93 @@
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_ConvertData.h>
 #include <xDriver_MCU/EEPROM/Driver/xHeader/EEPROM_ReadWrite.h>
 
-EEPROM_nERROR EEPROM__enWriteAuxiliar(EEPROM_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg,
+EEPROM_nERROR EEPROM__enWriteAuxiliar(EEPROM_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxAddressArg,
                                           EEPROM_nVARIABLE enVariableTypeArg)
 {
     EEPROM_nERROR enErrorReg;
-    static uint32_t u32DataAux;
+    static UBase_t uxDataAux;
 
-    enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32AddressArg);
+    enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxAddressArg);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM__enReadData(enModuleArg, &u32DataAux);
+        enErrorReg = EEPROM__enReadData(enModuleArg, &uxDataAux);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM__enReplaceData(&u32DataAux, u32DataArg, u32AddressArg, enVariableTypeArg);
+        enErrorReg = EEPROM__enReplaceData(&uxDataAux, uxDataArg, uxAddressArg, enVariableTypeArg);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM__enWriteData(enModuleArg, u32DataAux);
+        enErrorReg = EEPROM__enWriteData(enModuleArg, uxDataAux);
     }
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWriteHalfWord(EEPROM_nMODULE enModuleArg, uint16_t u16DataArg, uint32_t u32AddressArg)
+EEPROM_nERROR EEPROM__enWriteHalfWord(EEPROM_nMODULE enModuleArg, uint16_t u16DataArg, UBase_t uxAddressArg)
 {
     EEPROM_nERROR enErrorReg;
-    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (uint32_t) u16DataArg, u32AddressArg,
+    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (UBase_t) u16DataArg, uxAddressArg,
                                        EEPROM_enVARIABLE_HALFWORD);
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWriteWord(EEPROM_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg)
+EEPROM_nERROR EEPROM__enWriteWord(EEPROM_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxAddressArg)
 {
     EEPROM_nERROR enErrorReg;
-    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (uint32_t) u32DataArg, u32AddressArg,
+    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (UBase_t) uxDataArg, uxAddressArg,
                                        EEPROM_enVARIABLE_WORD);
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWriteByte(EEPROM_nMODULE enModuleArg, uint8_t u8DataArg, uint32_t u32AddressArg)
+EEPROM_nERROR EEPROM__enWriteByte(EEPROM_nMODULE enModuleArg, uint8_t u8DataArg, UBase_t uxAddressArg)
 {
     EEPROM_nERROR enErrorReg ;
-    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (uint32_t) u8DataArg, u32AddressArg,
+    enErrorReg = EEPROM__enWriteAuxiliar(enModuleArg, (UBase_t) u8DataArg, uxAddressArg,
                                        EEPROM_enVARIABLE_BYTE);
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const uint32_t* pu32DataArg, uint32_t u32StartAddressArg, uint32_t* pu32Count)
+EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t uxStartAddressArg, UBase_t* puxCount)
 {
     EEPROM_nERROR enErrorReg;
-    uint32_t u32OffsetReg;
-    uint32_t u32CurrentCountReg;
-    uint32_t u32MaxCountReg;
+    UBase_t uxOffsetReg;
+    UBase_t uxCurrentCountReg;
+    UBase_t uxMaxCountReg;
 
-    u32CurrentCountReg = 0U;
+    uxCurrentCountReg = 0U;
     enErrorReg = EEPROM_enERROR_OK;
-    if((0UL == (uintptr_t) pu32DataArg) || (0UL == (uintptr_t) pu32Count))
+    if((0UL == (uintptr_t) puxDataArg) || (0UL == (uintptr_t) puxCount))
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        if(0UL == *pu32Count)
+        if(0UL == *puxCount)
         {
             enErrorReg = EEPROM_enERROR_VALUE;
         }
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, u32StartAddressArg);
+        enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxStartAddressArg);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        u32MaxCountReg = *pu32Count;
+        uxMaxCountReg = *puxCount;
         do
         {
-            enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *pu32DataArg);
+            enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *puxDataArg);
             if(EEPROM_enERROR_OK == enErrorReg)
             {
-                u32CurrentCountReg += 1UL;
-                pu32DataArg += 1U;
-                enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &u32OffsetReg);
+                uxCurrentCountReg += 1UL;
+                puxDataArg += 1U;
+                enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &uxOffsetReg);
             }
-        }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != u32OffsetReg) && (u32MaxCountReg > u32CurrentCountReg));
+        }while((EEPROM_enERROR_OK == enErrorReg) && (0UL != uxOffsetReg) && (uxMaxCountReg > uxCurrentCountReg));
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *pu32Count = (uint32_t) u32CurrentCountReg;
+        *puxCount = (UBase_t) uxCurrentCountReg;
     }
     return (enErrorReg);
 }

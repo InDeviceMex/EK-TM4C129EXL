@@ -29,17 +29,17 @@
 void SSI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),SSI_nMODULE enModule)
 {
     SCB_nVECISR enVector = SCB_enVECISR_SSI0;
-    uint32_t u32Module = 0UL;
-    const SCB_nVECISR SCB_enVECISR_SSI[(uint32_t) SSI_enMODULE_MAX]=
+    UBase_t uxModule = 0UL;
+    const SCB_nVECISR SCB_enVECISR_SSI[(UBase_t) SSI_enMODULE_MAX]=
     {
         SCB_enVECISR_SSI0, SCB_enVECISR_SSI1, SCB_enVECISR_SSI2, SCB_enVECISR_SSI3,
     };
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    if(0UL != (UBase_t) pfIrqVectorHandler)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-        enVector = SCB_enVECISR_SSI[u32Module];
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+        enVector = SCB_enVECISR_SSI[uxModule];
         SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-                                       SSI__pvfGetIRQVectorHandlerPointer((SSI_nMODULE) u32Module));
+                                       SSI__pvfGetIRQVectorHandlerPointer((SSI_nMODULE) uxModule));
     }
 }

@@ -26,18 +26,18 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-uint32_t DLinkedList__u32GetAllItem(const DLinkedList_t* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllItem_Value(const DLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
+UBase_t DLinkedList__uxGetAllItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
+UBase_t DLinkedList__uxGetAllItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
 
-uint32_t DLinkedList__u32GetAllItemBackward(const DLinkedList_t* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetAllItemBackward_Value(const DLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
+UBase_t DLinkedList__uxGetAllItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
+UBase_t DLinkedList__uxGetAllItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
 
-uint32_t DLinkedList__u32GetNItem(const DLinkedList_t* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNItem_Value(const DLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
+UBase_t DLinkedList__uxGetNItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
+UBase_t DLinkedList__uxGetNItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
 
-uint32_t DLinkedList__u32GetNItemBackward(const DLinkedList_t* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t DLinkedList__u32GetNItemBackward_Value(const DLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
+UBase_t DLinkedList__uxGetNItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
+UBase_t DLinkedList__uxGetNItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
 
-DLinkedListItem_t*  DLinkedList__pstGetItemPos(const DLinkedList_t* pstList, uint32_t u32Position);
+DLinkedListItem_t*  DLinkedList__pstGetItemPos(const DLinkedList_t* pstList, UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_ITEM_H_ */

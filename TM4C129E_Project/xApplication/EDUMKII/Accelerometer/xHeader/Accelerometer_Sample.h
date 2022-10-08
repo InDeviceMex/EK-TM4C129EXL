@@ -27,8 +27,8 @@
 #include <xUtils/Standard/Standard.h>
 #include <xApplication/EDUMKII/Accelerometer/xHeader/Accelerometer_Enum.h>
 
-uint32_t* EDUMKII_Accelerometer_vSampleArray(void);
-void EDUMKII_Accelerometer_vSample(int32_t *s32X, int32_t *s32Y, int32_t *s32Z );
+UBase_t* EDUMKII_Accelerometer_vSampleArray(void);
+void EDUMKII_Accelerometer_vSample(Base_t *sxX, Base_t *sxY, Base_t *sxZ );
 void EDUMKII_Accelerometer_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 
 

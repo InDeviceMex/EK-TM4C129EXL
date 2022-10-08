@@ -47,7 +47,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enRemoveTail(CDLinkedList_t* pstList);
 CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead_GetData(CDLinkedList_t* pstList, void** pvData);
 CDLinkedList_nSTATUS  CDLinkedList__enRemoveHead(CDLinkedList_t* pstList);
 
-CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_t* pstList, uint32_t u32Position, void** pvData);
-CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_t* pstList, uint32_t u32Position);
+CDLinkedList_nSTATUS  CDLinkedList__enRemovePos_GetData(CDLinkedList_t* pstList, UBase_t uxPosition, void** pvData);
+CDLinkedList_nSTATUS  CDLinkedList__enRemovePos(CDLinkedList_t* pstList, UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_REMOVE_H_ */

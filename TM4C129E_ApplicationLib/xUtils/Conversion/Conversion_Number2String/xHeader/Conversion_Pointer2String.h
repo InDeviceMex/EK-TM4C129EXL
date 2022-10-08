@@ -24,8 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_POINTER2STRING_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_POINTER2STRING_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-uint8_t Conv__u8Pointer2String(void* vNumber, char* pcConv);
+CONV_nERROR Conv__enPointer2String(void* vNumber, char* pcConv, uint8_t* pu8StringLength);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_POINTER2STRING_H_ */

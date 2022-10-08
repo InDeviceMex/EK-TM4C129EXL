@@ -23,13 +23,13 @@
  */
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral/SSI_RegisterPeripheral.h>
 
-uint32_t SSI__u32BlockBaseAddress(SSI_nMODULE enModuleArg)
+UBase_t SSI__uxBlockBaseAddress(SSI_nMODULE enModuleArg)
 {
-    const uintptr_t SSI_BLOCK_BASE[(uint32_t) SSI_enMODULE_MAX] =
+    const uintptr_t SSI_BLOCK_BASE[(UBase_t) SSI_enMODULE_MAX] =
     {
      SSI0_BASE, SSI1_BASE, SSI2_BASE, SSI3_BASE,
     };
-    return (SSI_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (SSI_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

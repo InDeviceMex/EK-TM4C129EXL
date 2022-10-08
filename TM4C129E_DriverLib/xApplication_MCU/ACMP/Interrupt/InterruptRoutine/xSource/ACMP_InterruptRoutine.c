@@ -24,7 +24,7 @@
 #include <xApplication_MCU/ACMP/Interrupt/InterruptRoutine/ACMP_InterruptRoutine.h>
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-ACMP_pvfIRQVectorHandler_t ACMP_pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX ]=
+ACMP_pvfIRQVectorHandler_t ACMP_pvIRQVectorHandler[(UBase_t) ACMP_enMODULE_MAX][(UBase_t) ACMP_enCOMP_MAX ]=
 {
      {
       &ACMP0_Comp0__vIRQVectorHandler,
@@ -36,13 +36,13 @@ ACMP_pvfIRQVectorHandler_t ACMP_pvIRQVectorHandler[(uint32_t) ACMP_enMODULE_MAX]
 ACMP_pvfIRQVectorHandler_t ACMP__pvfGetIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = ACMP_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+    pvfVectorReg = ACMP_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
     return (pvfVectorReg);
 }
 
 ACMP_pvfIRQVectorHandler_t* ACMP__pvfGetIRQVectorHandlerPointer(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &ACMP_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+    pvfVectorReg = &ACMP_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
     return (pvfVectorReg);
 }

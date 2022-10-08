@@ -49,7 +49,7 @@ void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
 void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
                                          const SSI_FRAME_CONTROL_t* pstFormatControl)
 {
-    if(0UL != (uint32_t) pstFormatControl)
+    if(0UL != (UBase_t) pstFormatControl)
     {
         SSI__vSetDataLength(enModule, pstFormatControl->enLengthData);
         SSI__vSetFormat(enModule, pstFormatControl->enFormat);

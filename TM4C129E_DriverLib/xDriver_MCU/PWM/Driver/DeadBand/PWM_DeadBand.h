@@ -28,6 +28,5 @@
 #include <xDriver_MCU/PWM/Driver/DeadBand/xHeader/PWM_DeadBand_Enable.h>
 #include <xDriver_MCU/PWM/Driver/DeadBand/xHeader/PWM_DeadBand_FallingDelay.h>
 #include <xDriver_MCU/PWM/Driver/DeadBand/xHeader/PWM_DeadBand_RisingDelay.h>
-#include <xDriver_MCU/PWM/Driver/DeadBand/xHeader/PWM_DeadBand_Update.h>
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_DEADBAND_PWM_DEADBAND_H_ */

@@ -25,8 +25,8 @@
 
 void UART_vIRQSourceHandler_Dummy(void);
 
-void (*UART__vIRQSourceHandler[(uint32_t) UART_enMODULE_MAX]
-                              [(uint32_t) UART_enINTERRUPT_MAX]) (void) =
+void (*UART__vIRQSourceHandler[(UBase_t) UART_enMODULE_MAX]
+                              [(UBase_t) UART_enINTERRUPT_MAX]) (void) =
 {
     {
          &UART_vIRQSourceHandler_Dummy,&UART_vIRQSourceHandler_Dummy,
@@ -119,8 +119,8 @@ void (*UART__pvfGetIRQSourceHandler(UART_nMODULE enUARTSubmodule,
                                     UART_nINTERRUPT enUARTInterruptNum))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule]
-                                            [(uint32_t)enUARTInterruptNum];
+    pvfFunctionReg = UART__vIRQSourceHandler[(UBase_t) enUARTSubmodule]
+                                            [(UBase_t)enUARTInterruptNum];
     return (pvfFunctionReg);
 }
 
@@ -128,7 +128,7 @@ void (**UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enUARTSubmodule,
                                             UART_nINTERRUPT enUARTInterruptNum))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &UART__vIRQSourceHandler[(uint32_t) enUARTSubmodule]
-                                                              [(uint32_t)enUARTInterruptNum];
+    pvfFunctionReg = (void(**)(void)) &UART__vIRQSourceHandler[(UBase_t) enUARTSubmodule]
+                                                              [(UBase_t)enUARTInterruptNum];
     return (pvfFunctionReg);
 }

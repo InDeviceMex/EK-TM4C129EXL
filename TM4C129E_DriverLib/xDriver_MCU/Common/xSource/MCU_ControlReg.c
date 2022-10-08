@@ -89,7 +89,7 @@ __attribute__((naked)) MCU_nSTACK MCU__enGetStackActive(void)
 #endif
 }
 
-__attribute__((naked)) void MCU__vSetPSPValue(uint32_t u32StackValue)
+__attribute__((naked)) void MCU__vSetPSPValue(UBase_t uxStackValue)
 {
     __asm volatile(
           " msr PSP, r0\n"
@@ -98,16 +98,16 @@ __attribute__((naked)) void MCU__vSetPSPValue(uint32_t u32StackValue)
           " bx      lr\n");
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetPSPValue(void)
+__attribute__((naked)) UBase_t MCU__uxGetPSPValue(void)
 {
     __asm volatile(" mrs     r0, PSP\n"
           " bx      lr\n");
 #ifndef __TI_CLANG__
-    return ((uint32_t) 0UL);
+    return ((UBase_t) 0UL);
 #endif
 }
 
-__attribute__((naked)) void MCU__vSetMSPValue(uint32_t u32StackValue)
+__attribute__((naked)) void MCU__vSetMSPValue(UBase_t uxStackValue)
 {
     __asm volatile(
           " msr     MSP, r0\n"
@@ -116,28 +116,28 @@ __attribute__((naked)) void MCU__vSetMSPValue(uint32_t u32StackValue)
           " bx      lr\n");
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetMSPValue(void)
+__attribute__((naked)) UBase_t MCU__uxGetMSPValue(void)
 {
     __asm volatile(" mrs     r0, MSP\n"
           " bx      lr\n");
 #ifndef __TI_CLANG__
-    return ((uint32_t) 0UL);
+    return ((UBase_t) 0UL);
 #endif
 }
 
-void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue)
+void MCU__vSetStackValue(MCU_nSTACK enStack, UBase_t uxStackValue)
 {
     if(MCU_enSTACK_MSP == enStack)
     {
-        MCU__vSetMSPValue(u32StackValue);
+        MCU__vSetMSPValue(uxStackValue);
     }
     else
     {
-        MCU__vSetPSPValue(u32StackValue);
+        MCU__vSetPSPValue(uxStackValue);
     }
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack)
+__attribute__((naked)) UBase_t MCU__uxGetStackValue(MCU_nSTACK enStack)
 {
     __asm volatile(" cmp     r0, #0\n"
             " ite  eq\n"

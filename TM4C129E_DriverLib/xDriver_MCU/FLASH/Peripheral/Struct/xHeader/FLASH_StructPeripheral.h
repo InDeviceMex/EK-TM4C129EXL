@@ -31,89 +31,89 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t ADDRESS;
+        volatile UBase_t ADDRESS;
         FLASH_ADDRESS_t ADDRESS_Bit;
     };
     union
     {
-        volatile uint32_t DATA;
+        volatile UBase_t DATA;
         FLASH_DATA_t DATA_Bit;
     };
     union
     {
-        volatile uint32_t CTL;
+        volatile UBase_t CTL;
         FLASH_CTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
+        volatile const UBase_t RIS;
         FLASH_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t IM;
+        volatile UBase_t IM;
         FLASH_IM_t IM_Bit;
     };
     union
     {
-        volatile uint32_t MISC;
+        volatile UBase_t MISC;
         FLASH_MISC_t MISC_Bit;
     };
-    const uint32_t reserved [2UL];
+    const UBase_t reserved [2UL];
     union
     {
-        volatile uint32_t CTL2;
+        volatile UBase_t CTL2;
         FLASH_CTL2_t CTL2_Bit;
     };
-    const uint32_t reserved1 [3UL];
+    const UBase_t reserved1 [3UL];
     union
     {
-        volatile uint32_t WBVAL;
+        volatile UBase_t WBVAL;
         FLASH_WBVAL_t WBVAL_Bit;
     };
-    const uint32_t reserved2 [2UL];
+    const UBase_t reserved2 [2UL];
     union
     {
-        volatile uint32_t PEKEY;
+        volatile UBase_t PEKEY;
         FLASH_PEKEY_t PEKEY_Bit;
     };
-    const uint32_t reserved3 [48UL];
+    const UBase_t reserved3 [48UL];
     union
     {
-        volatile uint32_t WBn [32UL];
+        volatile UBase_t WBn [32UL];
         FLASH_WB_t WBn_Bit [32UL];
     };
 
 
-    const uint32_t reserved4 [912UL];
+    const UBase_t reserved4 [912UL];
     union
     {
-        volatile const uint32_t PP;
+        volatile const UBase_t PP;
         FLASH_PP_t PP_Bit;
     };
     union
     {
-        volatile const uint32_t SRAMSIZE;
+        volatile const UBase_t SRAMSIZE;
         SRAM_SIZE_t SRAMSIZE_Bit;
     };
     union
     {
-        volatile const uint32_t CONF;
+        volatile const UBase_t CONF;
         FLASH_CONF_t CONF_Bit;
     };
     union
     {
-        volatile const uint32_t ROMSWMAP;
+        volatile const UBase_t ROMSWMAP;
         ROM_SWMAP_t ROMSWMAP_Bit;
     };
     union
     {
-        volatile const uint32_t DMASZ;
+        volatile const UBase_t DMASZ;
         FLASH_DMASZ_t DMASZ_Bit;
     };
     union
     {
-        volatile const uint32_t DMAST;
+        volatile const UBase_t DMAST;
         FLASH_DMAST_t DMAST_Bit;
     };
 }FLASH_t;

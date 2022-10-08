@@ -28,14 +28,14 @@
 
 void TIMER__vSetSnapShot(TIMER_nMODULE enModule, TIMER_nSNAPSHOT enSnapShotParam)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enSnapShotParam,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enSnapShotParam,
                    GPTM_TA_TnMR_TnSNAPS_MASK, GPTM_TA_TnMR_R_TnSNAPS_BIT);
 }
 
 TIMER_nSNAPSHOT TIMER__enGetSnapShot(TIMER_nMODULE enModule)
 {
     TIMER_nSNAPSHOT enSnapshotReg = TIMER_enSNAPSHOT_DIS;
-    enSnapshotReg = (TIMER_nSNAPSHOT) TIMER__u32GetModeGeneric(enModule,
+    enSnapshotReg = (TIMER_nSNAPSHOT) TIMER__uxGetModeGeneric(enModule,
                           GPTM_TA_TnMR_TnSNAPS_MASK, GPTM_TA_TnMR_R_TnSNAPS_BIT);
     return (enSnapshotReg);
 }

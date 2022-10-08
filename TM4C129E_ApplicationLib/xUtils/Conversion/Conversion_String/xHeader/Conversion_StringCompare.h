@@ -24,8 +24,8 @@
 #ifndef XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOMPARE_H_
 #define XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOMPARE_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-int32_t CONV_s32StringCompare(const char*  pcString1, const char* pcString2, uint32_t u32MaxSize);
+CONV_nERROR CONV_enStringCompare(const char*  pcString1, const char* pcString2, Base_t* psxResultArg, UBase_t uxMaxSize);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCOMPARE_H_ */

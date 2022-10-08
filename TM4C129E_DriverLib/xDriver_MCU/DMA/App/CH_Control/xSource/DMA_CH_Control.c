@@ -62,7 +62,7 @@ DMA_nERROR DMA_CH__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->u32TransferSize);
+        enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->uxTransferSize);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -131,7 +131,7 @@ DMA_nERROR DMA_CH__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->u32TransferSize));
+        enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->uxTransferSize));
     }
     if(DMA_enERROR_OK == enErrorReg)
     {

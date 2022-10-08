@@ -27,39 +27,39 @@
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
-EEPROM_nERROR EEPROM__enSetCurrentOffset(EEPROM_nMODULE enModuleArg, uint32_t u32CurrentOffsetArg)
+EEPROM_nERROR EEPROM__enSetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentOffsetArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    stRegister.u32Shift = EEPROM_OFFSET_R_OFFSET_BIT;
-    stRegister.u32Mask = EEPROM_OFFSET_OFFSET_MASK;
+    stRegister.uxShift = EEPROM_OFFSET_R_OFFSET_BIT;
+    stRegister.uxMask = EEPROM_OFFSET_OFFSET_MASK;
     stRegister.uptrAddress = EEPROM_OFFSET_OFFSET;
-    stRegister.u32Value = u32CurrentOffsetArg;
+    stRegister.uxValue = uxCurrentOffsetArg;
     enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, uint32_t* pu32CurrentOffsetArg)
+EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentOffsetArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
     enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) pu32CurrentOffsetArg)
+    if(0UL == (uintptr_t) puxCurrentOffsetArg)
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_OFFSET_R_OFFSET_BIT;
-        stRegister.u32Mask = EEPROM_OFFSET_OFFSET_MASK;
+        stRegister.uxShift = EEPROM_OFFSET_R_OFFSET_BIT;
+        stRegister.uxMask = EEPROM_OFFSET_OFFSET_MASK;
         stRegister.uptrAddress = EEPROM_OFFSET_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *pu32CurrentOffsetArg = stRegister.u32Value;
+        *puxCurrentOffsetArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

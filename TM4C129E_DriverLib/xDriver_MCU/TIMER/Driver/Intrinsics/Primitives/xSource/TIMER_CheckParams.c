@@ -26,17 +26,17 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vCheckParams(uint32_t u32SubModule, uint32_t u32ModuleNumber,
-                         uint32_t* pu32SubModule, uint32_t* pu32ModuleNumber)
+void TIMER__vCheckParams(UBase_t uxSubModule, UBase_t uxModuleNumber,
+                         UBase_t* puxSubModule, UBase_t* puxModuleNumber)
 {
-    if(0UL != (uint32_t) pu32SubModule)
+    if(0UL != (UBase_t) puxSubModule)
     {
-        *pu32SubModule = MCU__u32CheckParams(u32SubModule,
-                                             (uint32_t) TIMER_enSUBMODULE_MAX);
+        *puxSubModule = MCU__uxCheckParams(uxSubModule,
+                                             (UBase_t) TIMER_enSUBMODULE_MAX);
     }
-    if(0UL != (uint32_t) pu32ModuleNumber)
+    if(0UL != (UBase_t) puxModuleNumber)
     {
-        *pu32ModuleNumber = MCU__u32CheckParams(u32ModuleNumber,
-                                                (uint32_t) TIMER_enMODULE_NUM_MAX);
+        *puxModuleNumber = MCU__uxCheckParams(uxModuleNumber,
+                                                (UBase_t) TIMER_enMODULE_NUM_MAX);
     }
 }

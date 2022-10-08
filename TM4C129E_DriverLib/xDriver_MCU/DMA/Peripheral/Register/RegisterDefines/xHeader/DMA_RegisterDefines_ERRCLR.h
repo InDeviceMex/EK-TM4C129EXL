@@ -32,16 +32,16 @@
 ****************************************************************************************/
 
 /*--------*/
-#define DMA_ERRCLR_R_ERRCLR_MASK    ((uint32_t) 0x00000001UL)
-#define DMA_ERRCLR_R_ERRCLR_BIT    ((uint32_t) 0UL)
-#define DMA_ERRCLR_R_ERRCLR_NOERROR    ((uint32_t) 0x00000000UL)
-#define DMA_ERRCLR_R_ERRCLR_ERROR    ((uint32_t) 0x00000001UL)
-#define DMA_ERRCLR_R_ERRCLR_CLEAR    ((uint32_t) 0x00000001UL)
+#define DMA_ERRCLR_R_ERRCLR_MASK    ((UBase_t) 0x00000001UL)
+#define DMA_ERRCLR_R_ERRCLR_BIT    ((UBase_t) 0UL)
+#define DMA_ERRCLR_R_ERRCLR_NOERROR    ((UBase_t) 0x00000000UL)
+#define DMA_ERRCLR_R_ERRCLR_ERROR    ((UBase_t) 0x00000001UL)
+#define DMA_ERRCLR_R_ERRCLR_CLEAR    ((UBase_t) 0x00000001UL)
 
-#define DMA_ERRCLR_ERRCLR_MASK    ((uint32_t) 0x00000001UL)
-#define DMA_ERRCLR_ERRCLR_NOERROR    ((uint32_t) 0x00000000UL)
-#define DMA_ERRCLR_ERRCLR_ERROR    ((uint32_t) 0x00000001UL)
-#define DMA_ERRCLR_ERRCLR_CLEAR    ((uint32_t) 0x00000001UL)
+#define DMA_ERRCLR_ERRCLR_MASK    ((UBase_t) 0x00000001UL)
+#define DMA_ERRCLR_ERRCLR_NOERROR    ((UBase_t) 0x00000000UL)
+#define DMA_ERRCLR_ERRCLR_ERROR    ((UBase_t) 0x00000001UL)
+#define DMA_ERRCLR_ERRCLR_CLEAR    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_DMA_DMA_PERIPHERAL_DMA_REGISTER_DMA_REGISTERDEFINES_DMA_REGISTERDEFINES_ERRCLR_H_ */

@@ -36,15 +36,15 @@ typedef struct DLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32ValueItem;
+        UBase_t uxValueItem;
         struct DLinkedListItem *pstPreviousItem;
         struct DLinkedListItem *pstNextItem;
 }DLinkedListItem_t;
 
 typedef struct DLinkedList
 {
-        uint32_t u32Size;
-        uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
+        UBase_t uxSize;
+        UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
         void (*pvfDestroyItemData) (void *DataContainer);
         void (*pvfDestroyItem) (void *Item);
         void (*pvfDestroy) (void* List);

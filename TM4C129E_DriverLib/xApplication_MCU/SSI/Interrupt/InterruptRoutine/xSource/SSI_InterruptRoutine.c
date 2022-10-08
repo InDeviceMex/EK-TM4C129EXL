@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/SSI/Interrupt/InterruptRoutine/SSI_InterruptRoutine.h>
 
-void (*SSI__pvIRQVectorHandler[(uint32_t) SSI_enMODULE_MAX]) (void)=
+void (*SSI__pvIRQVectorHandler[(UBase_t) SSI_enMODULE_MAX]) (void)=
 {
     &SSI0__vIRQVectorHandler,&SSI1__vIRQVectorHandler,
     &SSI2__vIRQVectorHandler,&SSI3__vIRQVectorHandler,
@@ -32,13 +32,13 @@ void (*SSI__pvIRQVectorHandler[(uint32_t) SSI_enMODULE_MAX]) (void)=
 void (*SSI__pvfGetIRQVectorHandler(SSI_nMODULE enSSIModule))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = SSI__pvIRQVectorHandler[(uint32_t) enSSIModule];
+    pvfFunctionReg = SSI__pvIRQVectorHandler[(UBase_t) enSSIModule];
     return (pvfFunctionReg);
 }
 
 void (**SSI__pvfGetIRQVectorHandlerPointer(SSI_nMODULE enSSIModule))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &SSI__pvIRQVectorHandler[(uint32_t) enSSIModule];
+    pvfFunctionReg = (void(**)(void)) &SSI__pvIRQVectorHandler[(UBase_t) enSSIModule];
     return (pvfFunctionReg);
 }

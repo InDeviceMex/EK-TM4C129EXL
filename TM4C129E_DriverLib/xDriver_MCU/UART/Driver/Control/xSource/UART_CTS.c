@@ -28,14 +28,14 @@
 
 void UART__vSetCTSMode(UART_nMODULE enModule, UART_nCTS_MODE enCTSModeArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (uint32_t) enCTSModeArg,
+    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enCTSModeArg,
                          UART_CTL_CTSEN_MASK, UART_CTL_R_CTSEN_BIT);
 }
 
 UART_nCTS_MODE UART__enGetCTSMode(UART_nMODULE enModule)
 {
     UART_nCTS_MODE enCTSModeReg = UART_enCTS_MODE_SOFT;
-    enCTSModeReg = (UART_nCTS_MODE) UART__u32ReadRegister(enModule, UART_CTL_OFFSET,
+    enCTSModeReg = (UART_nCTS_MODE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
                                      UART_CTL_CTSEN_MASK, UART_CTL_R_CTSEN_BIT);
     return (enCTSModeReg);
 }

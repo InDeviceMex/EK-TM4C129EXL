@@ -46,7 +46,7 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
         {
             /* Data was posted while the queue was locked.  Are any tasks
             blocked waiting for data to become available? */
-            if(0UL != (uint32_t) pstQueue->pstQueueSetContainer)
+            if(0UL != (UBase_t) pstQueue->pstQueueSetContainer)
             {
                 boNotifySet = OS_Queue__boNotifyQueueSetContainer(pstQueue,
                                               OS_Queue_enPos_SEND_TO_BACK);

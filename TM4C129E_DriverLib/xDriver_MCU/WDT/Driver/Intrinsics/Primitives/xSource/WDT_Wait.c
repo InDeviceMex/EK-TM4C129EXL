@@ -30,16 +30,16 @@
 
 void WDT__vWaitWrite(WDT_nMODULE enModule)
 {
-    uint32_t u32Timeout = WDT_TIMEOUT;
-    uint32_t u32RegWrite1 = 0UL;
+    UBase_t uxTimeout = WDT_TIMEOUT;
+    UBase_t uxRegWrite1 = 0UL;
     if(WDT_enMODULE_1 == enModule)
     {
         do
         {
-            u32RegWrite1 = MCU__u32ReadRegister(WDT1_BASE, WDT_CTL_OFFSET, WDT_CTL_WRC_MASK,
+            uxRegWrite1 = MCU__uxReadRegister(WDT1_BASE, WDT_CTL_OFFSET, WDT_CTL_WRC_MASK,
                                                 WDT_CTL_R_WRC_BIT);
-            u32Timeout--;
-        }while((WDT_CTL_WRC_PROGRESS == u32RegWrite1) &&
-               (0U != u32Timeout));
+            uxTimeout--;
+        }while((WDT_CTL_WRC_PROGRESS == uxRegWrite1) &&
+               (0U != uxTimeout));
     }
 }

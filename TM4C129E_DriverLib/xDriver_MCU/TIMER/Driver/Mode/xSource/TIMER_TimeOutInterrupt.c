@@ -29,14 +29,14 @@
 void TIMER__vSetTimeOutIntFunctionality(TIMER_nMODULE enModule,
                                         TIMER_nTIMEOUT_INT enTimeoutFuncionArg)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enTimeoutFuncionArg,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enTimeoutFuncionArg,
                            GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
 }
 
 TIMER_nTIMEOUT_INT TIMER__enGetTimeOutIntFunctionality(TIMER_nMODULE enModule)
 {
     TIMER_nTIMEOUT_INT enTimeoutIntReg = TIMER_enTIMEOUT_INT_NORMAL;
-    enTimeoutIntReg = (TIMER_nTIMEOUT_INT) TIMER__u32GetModeGeneric(enModule,
+    enTimeoutIntReg = (TIMER_nTIMEOUT_INT) TIMER__uxGetModeGeneric(enModule,
                              GPTM_TA_TnMR_TnCINTD_MASK, GPTM_TA_TnMR_R_TnCINTD_BIT);
     return (enTimeoutIntReg);
 }

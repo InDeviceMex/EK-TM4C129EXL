@@ -29,47 +29,47 @@
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
 
-FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, uint32_t u32KeyArg, FLASH_nPROCESS enProcessArg)
+FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, FLASH_nPROCESS enProcessArg)
 {
     FLASH_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
-    u32ValueReg = u32KeyArg;
-    u32ValueReg &= MCU_MASK_16;
-    u32ValueReg <<= 16UL;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_BASE;
+    uxValueReg = uxKeyArg;
+    uxValueReg &= MCU_MASK_16;
+    uxValueReg <<= 16UL;
     switch(enProcessArg)
     {
     case FLASH_enPROCESS_WORD_WRITE:
         stRegister.uptrAddress = FLASH_CTL_OFFSET;
-        u32ValueReg |= FLASH_CTL_R_WRITE_MASK;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        uxValueReg |= FLASH_CTL_R_WRITE_MASK;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         break;
     case FLASH_enPROCESS_PAGE_ERASE:
         stRegister.uptrAddress = FLASH_CTL_OFFSET;
-        u32ValueReg |= FLASH_CTL_R_ERASE_MASK;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        uxValueReg |= FLASH_CTL_R_ERASE_MASK;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         break;
     case FLASH_enPROCESS_MASS_ERASE:
         stRegister.uptrAddress = FLASH_CTL_OFFSET;
-        u32ValueReg |= FLASH_CTL_R_MERASE_MASK;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        uxValueReg |= FLASH_CTL_R_MERASE_MASK;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         break;
     case FLASH_enPROCESS_REGISTER_WRITE:
         stRegister.uptrAddress = FLASH_CTL_OFFSET;
-        u32ValueReg |= FLASH_CTL_R_COMT_MASK;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        uxValueReg |= FLASH_CTL_R_COMT_MASK;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         break;
     case FLASH_enPROCESS_BUFFER_WRITE:
         stRegister.uptrAddress = FLASH_CTL2_OFFSET;
-        u32ValueReg |= FLASH_CTL2_R_WRBUF_MASK;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        uxValueReg |= FLASH_CTL2_R_WRBUF_MASK;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         break;
     default:
@@ -95,32 +95,32 @@ FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS
         switch(enProcessArg)
         {
         case FLASH_enPROCESS_WORD_WRITE:
-            stRegister.u32Shift = FLASH_CTL_R_WRITE_BIT;
-            stRegister.u32Mask = FLASH_CTL_WRITE_MASK;
+            stRegister.uxShift = FLASH_CTL_R_WRITE_BIT;
+            stRegister.uxMask = FLASH_CTL_WRITE_MASK;
             stRegister.uptrAddress = FLASH_CTL_OFFSET;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
             break;
         case FLASH_enPROCESS_PAGE_ERASE:
-            stRegister.u32Shift = FLASH_CTL_R_ERASE_BIT;
-            stRegister.u32Mask = FLASH_CTL_ERASE_MASK;
+            stRegister.uxShift = FLASH_CTL_R_ERASE_BIT;
+            stRegister.uxMask = FLASH_CTL_ERASE_MASK;
             stRegister.uptrAddress = FLASH_CTL_OFFSET;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
             break;
         case FLASH_enPROCESS_MASS_ERASE:
-            stRegister.u32Shift = FLASH_CTL_R_MERASE_BIT;
-            stRegister.u32Mask = FLASH_CTL_MERASE_MASK;
+            stRegister.uxShift = FLASH_CTL_R_MERASE_BIT;
+            stRegister.uxMask = FLASH_CTL_MERASE_MASK;
             stRegister.uptrAddress = FLASH_CTL_OFFSET;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
             break;
         case FLASH_enPROCESS_REGISTER_WRITE:
-            stRegister.u32Shift = FLASH_CTL_R_COMT_BIT;
-            stRegister.u32Mask = FLASH_CTL_COMT_MASK;
+            stRegister.uxShift = FLASH_CTL_R_COMT_BIT;
+            stRegister.uxMask = FLASH_CTL_COMT_MASK;
             stRegister.uptrAddress = FLASH_CTL_OFFSET;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
             break;
         case FLASH_enPROCESS_BUFFER_WRITE:
-            stRegister.u32Shift = FLASH_CTL2_R_WRBUF_BIT;
-            stRegister.u32Mask = FLASH_CTL2_WRBUF_MASK;
+            stRegister.uxShift = FLASH_CTL2_R_WRBUF_BIT;
+            stRegister.uxMask = FLASH_CTL2_WRBUF_MASK;
             stRegister.uptrAddress = FLASH_CTL2_OFFSET;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
             break;
@@ -131,7 +131,7 @@ FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (FLASH_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (FLASH_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -30,24 +30,24 @@
 GPIO_nERROR GPIO__enSetInterruptSourceStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg, GPIO_nSTATE enStateArg)
 {
     GPIO_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
         if(GPIO_enSTATE_DIS == enStateArg)
         {
-            u32ValueReg = 0U;
+            uxValueReg = 0U;
         }
         else
         {
-            u32ValueReg = (uint32_t) enPinMaskArg;
+            uxValueReg = (UBase_t) enPinMaskArg;
         }
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enPinMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enPinMaskArg;
         stRegister.uptrAddress = GPIO_IM_OFFSET;
-        stRegister.u32Value = u32ValueReg;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -59,13 +59,13 @@ GPIO_nERROR GPIO__enSetInterruptSourceStateByNumber(GPIO_nPORT enPortArg, GPIO_n
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Mask = GPIO_IM_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxMask = GPIO_IM_PIN0_MASK;
         stRegister.uptrAddress = GPIO_IM_OFFSET;
-        stRegister.u32Value = (uint32_t) enStateArg;
+        stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -84,18 +84,18 @@ GPIO_nERROR GPIO__enGetInterruptSourceStateByMask(GPIO_nPORT enPortArg, GPIO_nPI
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enPinMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enPinMaskArg;
         stRegister.uptrAddress = GPIO_IM_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penPinGetArg = (GPIO_nPINMASK) stRegister.u32Value;
+        *penPinGetArg = (GPIO_nPINMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -112,18 +112,18 @@ GPIO_nERROR GPIO__enGetInterruptSourceStateByNumber(GPIO_nPORT enPortArg, GPIO_n
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Mask = GPIO_IM_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxMask = GPIO_IM_PIN0_MASK;
         stRegister.uptrAddress = GPIO_IM_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (GPIO_nSTATE) stRegister.u32Value;
+        *penStateArg = (GPIO_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -169,13 +169,13 @@ GPIO_nERROR GPIO__enClearInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINMA
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = GPIO_ICR_OFFSET;
-        stRegister.u32Value = enPinMaskArg;
+        stRegister.uxValue = enPinMaskArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -185,18 +185,18 @@ GPIO_nERROR GPIO__enClearInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINMA
 GPIO_nERROR GPIO__enClearInterruptSourceByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
     GPIO_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32ValueReg = 1UL;
-        u32ValueReg <<= (uint32_t) enPinArg;
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = MCU_MASK_32;
+        uxValueReg = 1UL;
+        uxValueReg <<= (UBase_t) enPinArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = GPIO_ICR_OFFSET;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -215,18 +215,18 @@ GPIO_nERROR GPIO__enStatusInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINM
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enPinMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enPinMaskArg;
         stRegister.uptrAddress = GPIO_RIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penPinStatusArg = (GPIO_nPINMASK) stRegister.u32Value;
+        *penPinStatusArg = (GPIO_nPINMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -243,18 +243,18 @@ GPIO_nERROR GPIO__enStatusInterruptSourceByNumber(GPIO_nPORT enPortArg, GPIO_nPI
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Mask = GPIO_RIS_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxMask = GPIO_RIS_PIN0_MASK;
         stRegister.uptrAddress = GPIO_RIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (GPIO_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (GPIO_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -271,18 +271,18 @@ GPIO_nERROR GPIO__enStatusMaskedInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enPinMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enPinMaskArg;
         stRegister.uptrAddress = GPIO_MIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penPinStatusArg = (GPIO_nPINMASK) stRegister.u32Value;
+        *penPinStatusArg = (GPIO_nPINMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -299,18 +299,18 @@ GPIO_nERROR GPIO__enStatusMaskedInterruptSourceByNumber(GPIO_nPORT enPortArg, GP
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Mask = GPIO_MIS_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxMask = GPIO_MIS_PIN0_MASK;
         stRegister.uptrAddress = GPIO_MIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (GPIO_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (GPIO_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -320,10 +320,10 @@ GPIO_nERROR GPIO_DMA__enSetInterruptSourceState(GPIO_nPORT enPortArg, GPIO_nSTAT
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    stRegister.u32Shift = GPIO_IM_R_DMAIME_BIT;
-    stRegister.u32Mask = GPIO_IM_DMAIME_MASK;
+    stRegister.uxShift = GPIO_IM_R_DMAIME_BIT;
+    stRegister.uxMask = GPIO_IM_DMAIME_MASK;
     stRegister.uptrAddress = GPIO_IM_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
 
     return (enErrorReg);
@@ -341,14 +341,14 @@ GPIO_nERROR GPIO_DMA__enGetInterruptSourceState(GPIO_nPORT enPortArg, GPIO_nSTAT
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_IM_R_DMAIME_BIT;
-        stRegister.u32Mask = GPIO_IM_DMAIME_MASK;
+        stRegister.uxShift = GPIO_IM_R_DMAIME_BIT;
+        stRegister.uxMask = GPIO_IM_DMAIME_MASK;
         stRegister.uptrAddress = GPIO_IM_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (GPIO_nSTATE) stRegister.u32Value;
+        *penStateArg = (GPIO_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -376,10 +376,10 @@ GPIO_nERROR GPIO_DMA__enClearInterruptSource(GPIO_nPORT enPortArg)
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0U;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = 0U;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = GPIO_ICR_OFFSET;
-    stRegister.u32Value = GPIO_ICR_R_DMAIC_CLEAR;
+    stRegister.uxValue = GPIO_ICR_R_DMAIC_CLEAR;
     enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     return (enErrorReg);
 }
@@ -396,14 +396,14 @@ GPIO_nERROR GPIO_DMA__enStatusInterruptSource(GPIO_nPORT enPortArg, GPIO_nSTATUS
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_RIS_R_DMARIS_BIT;
-        stRegister.u32Mask = GPIO_RIS_DMARIS_MASK;
+        stRegister.uxShift = GPIO_RIS_R_DMARIS_BIT;
+        stRegister.uxMask = GPIO_RIS_DMARIS_MASK;
         stRegister.uptrAddress = GPIO_RIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (GPIO_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (GPIO_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -420,14 +420,14 @@ GPIO_nERROR GPIO_DMA__enStatusMaskedInterruptSource(GPIO_nPORT enPortArg, GPIO_n
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_MIS_R_DMAMIS_BIT;
-        stRegister.u32Mask = GPIO_MIS_DMAMIS_MASK;
+        stRegister.uxShift = GPIO_MIS_R_DMAMIS_BIT;
+        stRegister.uxMask = GPIO_MIS_DMAMIS_MASK;
         stRegister.uptrAddress = GPIO_MIS_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (GPIO_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (GPIO_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -29,47 +29,47 @@
 
 typedef volatile struct
 {
-    volatile const uint32_t FPIDCRIS :1;
-    volatile const uint32_t FPDZCRIS :1;
-    volatile const uint32_t FPIOCRIS :1;
-    volatile const uint32_t FPUFCRIS :1;
-    volatile const uint32_t FPOFCRIS :1;
-    volatile const uint32_t FPIXCRIS :1;
-    const uint32_t reserved :26;
+    volatile const UBase_t FPIDCRIS :1;
+    volatile const UBase_t FPDZCRIS :1;
+    volatile const UBase_t FPIOCRIS :1;
+    volatile const UBase_t FPUFCRIS :1;
+    volatile const UBase_t FPOFCRIS :1;
+    volatile const UBase_t FPIXCRIS :1;
+    const UBase_t reserved :26;
 }SYSEXCRIS_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FPIDCIM :1;
-    volatile uint32_t FPDZCIM :1;
-    volatile uint32_t FPIOCIM :1;
-    volatile uint32_t FPUFCIM :1;
-    volatile uint32_t FPOFCIM :1;
-    volatile uint32_t FPIXCIM :1;
-    const uint32_t reserved :26;
+    volatile UBase_t FPIDCIM :1;
+    volatile UBase_t FPDZCIM :1;
+    volatile UBase_t FPIOCIM :1;
+    volatile UBase_t FPUFCIM :1;
+    volatile UBase_t FPOFCIM :1;
+    volatile UBase_t FPIXCIM :1;
+    const UBase_t reserved :26;
 }SYSEXCIM_t;
 
 
 typedef volatile struct
 {
-    volatile const uint32_t FPIDCMIS :1;
-    volatile const uint32_t FPDZCMIS :1;
-    volatile const uint32_t FPIOCMIS :1;
-    volatile const uint32_t FPUFCMIS :1;
-    volatile const uint32_t FPOFCMIS :1;
-    volatile const uint32_t FPIXCMIS :1;
-    const uint32_t reserved :26;
+    volatile const UBase_t FPIDCMIS :1;
+    volatile const UBase_t FPDZCMIS :1;
+    volatile const UBase_t FPIOCMIS :1;
+    volatile const UBase_t FPUFCMIS :1;
+    volatile const UBase_t FPOFCMIS :1;
+    volatile const UBase_t FPIXCMIS :1;
+    const UBase_t reserved :26;
 }SYSEXCMIS_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FPIDCCIC :1;
-    volatile uint32_t FPDZCCIC :1;
-    volatile uint32_t FPIOCCIC :1;
-    volatile uint32_t FPUFCCIC :1;
-    volatile uint32_t FPOFCCIC :1;
-    volatile uint32_t FPIXCCIC :1;
-    const uint32_t reserved :26;
+    volatile UBase_t FPIDCCIC :1;
+    volatile UBase_t FPDZCCIC :1;
+    volatile UBase_t FPIOCCIC :1;
+    volatile UBase_t FPUFCCIC :1;
+    volatile UBase_t FPOFCCIC :1;
+    volatile UBase_t FPIXCCIC :1;
+    const UBase_t reserved :26;
 }SYSEXCIC_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSEXC_SYSEXC_PERIPHERAL_SYSEXC_STRUCT_SYSEXC_STRUCTREGISTER_H_ */

@@ -104,13 +104,13 @@ DLinkedListItem_t* DLinkedList__pstInsertAtHead(DLinkedList_t* pstList);
 
 DLinkedList_nSTATUS  DLinkedList__enInsertPos_WithData(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstNewItem,
-                                             uint32_t u32Position,
+                                             UBase_t uxPosition,
                                              void* pvData);
 DLinkedList_nSTATUS  DLinkedList__enInsertPos(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstNewItem,
-                                             uint32_t u32Position);
+                                             UBase_t uxPosition);
 DLinkedListItem_t*  DLinkedList__pstInsertPos_WithData(DLinkedList_t* pstList,
-                                                     uint32_t u32Position, void* pvData);
+                                                     UBase_t uxPosition, void* pvData);
 DLinkedListItem_t*  DLinkedList__pstInsertPos(DLinkedList_t* pstList,
-                                                     uint32_t u32Position);
+                                                     UBase_t uxPosition);
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INSERT_H_ */

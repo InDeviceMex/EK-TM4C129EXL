@@ -26,7 +26,7 @@
 CDLinkedListItem_t* CDLinkedList_Item__pstGetNextItem(const CDLinkedListItem_t* const pstItem)
 {
     CDLinkedListItem_t* pstNextItemReg = (CDLinkedListItem_t*)0UL;
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstNextItemReg = pstItem->pstNextItem;
     }
@@ -35,7 +35,7 @@ CDLinkedListItem_t* CDLinkedList_Item__pstGetNextItem(const CDLinkedListItem_t* 
 
 void CDLinkedList_Item__vSetNextItem(CDLinkedListItem_t* pstItem, CDLinkedListItem_t* pstNextItemArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pstNextItem = pstNextItemArg;
     }

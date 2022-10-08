@@ -30,10 +30,10 @@
 I2C_nERROR I2C_Slave__enSetOwnAddressAlternateState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg);
 I2C_nERROR I2C_Slave__enGetOwnAddressAlternateState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg);
 
-I2C_nERROR I2C_Slave__enSetOwnAddressAlternate(I2C_nMODULE enModuleArg, uint32_t u32OwnAddressArg);
-I2C_nERROR I2C_Slave__enGetOwnAddressAlternate(I2C_nMODULE enModuleArg, uint32_t* pu32OwnAddressArg);
+I2C_nERROR I2C_Slave__enSetOwnAddressAlternate(I2C_nMODULE enModuleArg, UBase_t uxOwnAddressArg);
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternate(I2C_nMODULE enModuleArg, UBase_t* puxOwnAddressArg);
 
-I2C_nERROR I2C_Slave__enSetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, uint32_t u32OwnAddressArg, I2C_nSTATE enStateArg);
-I2C_nERROR I2C_Slave__enGetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, uint32_t* pu32OwnAddressArg, I2C_nSTATE* penStateArg);
+I2C_nERROR I2C_Slave__enSetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, UBase_t uxOwnAddressArg, I2C_nSTATE enStateArg);
+I2C_nERROR I2C_Slave__enGetOwnAddressAlternateWithState(I2C_nMODULE enModuleArg, UBase_t* puxOwnAddressArg, I2C_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_ALTOWNADDRESS_H_ */

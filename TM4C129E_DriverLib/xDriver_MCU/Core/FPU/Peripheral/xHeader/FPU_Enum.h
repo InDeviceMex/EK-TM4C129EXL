@@ -12,25 +12,25 @@
 
 typedef enum
 {
-    FPU_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    FPU_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    FPU_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    FPU_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    FPU_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    FPU_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    FPU_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    FPU_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    FPU_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    FPU_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }FPU_nERROR;
 
 typedef enum
 {
-    FPU_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    FPU_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    FPU_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    FPU_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    FPU_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    FPU_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 } FPU_nSTATE;
 
 typedef enum
 {
-    FPU_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    FPU_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    FPU_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    FPU_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    FPU_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    FPU_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } FPU_nSTATUS;
 
 typedef enum

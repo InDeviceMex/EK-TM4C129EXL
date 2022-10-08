@@ -28,10 +28,10 @@
 #include <xDriver_MCU/GPIO/Peripheral/xHeader/GPIO_Enum.h>
 
 GPIO_nERROR GPIO__enSetPeripheralMuxByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
-                                           uint32_t u32MuxArg);
+                                           UBase_t uxMuxArg);
 GPIO_nERROR GPIO__enSetPeripheralMuxByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
-                                         uint32_t u32MuxArg);
+                                         UBase_t uxMuxArg);
 GPIO_nERROR GPIO__enGetPeripheralMuxByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
-                                         uint32_t* pu32MuxArg);
+                                         UBase_t* puxMuxArg);
 
 #endif /* XDRIVER_MCU_GPIO_DRIVER_XHEADER_GPIO_PERIPHERALMUX_H_ */

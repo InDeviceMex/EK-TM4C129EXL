@@ -41,28 +41,28 @@
 #pragma  CODE_SECTION(FLASH__enIsDataBufferValidByNumber, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enIsDataBufferValidByMask, ".ramcode")
 
-FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, uint32_t u32DataArg);
-FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32IndexArg);
-FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, uint32_t* pu32DataArg, uint32_t u32StartIndexArg, uint32_t* pu32CountArg);
+FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, UBase_t uxDataArg);
+FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxIndexArg);
+FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t uxStartIndexArg, UBase_t* puxCountArg);
 
-FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg);
-FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg);
-FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg);
-FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg);
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg, FLASH_nSTATUS* penValidArg);
-FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg, uint32_t* pu32ValidArg);
+FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg);
+FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg);
+FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg);
+FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg);
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg);
+FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg, UBase_t* puxValidArg);
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, uint32_t enDataArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32IndexArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, uint32_t* pu32DataArg, uint32_t u32StartIndexArg, uint32_t* pu32CountArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetData(FLASH_nMODULE enModuleArg, UBase_t enDataArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataOnBuffer(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxIndexArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t uxStartIndexArg, UBase_t* puxCountArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, uint32_t u32IndexArg, FLASH_nSTATUS* penValidArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, uint32_t u32IndexMaskArg, uint32_t* pu32ValidArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg, UBase_t* puxValidArg) __attribute__((section(".ramcode")));
 
 #endif
 

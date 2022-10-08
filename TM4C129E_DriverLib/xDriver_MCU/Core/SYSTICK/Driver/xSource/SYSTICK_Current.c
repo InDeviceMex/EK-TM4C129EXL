@@ -31,35 +31,35 @@ SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg)
     SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
 
-    stRegister.u32Shift = SYSTICK_CVR_R_CURRENT_BIT;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = SYSTICK_CVR_R_CURRENT_BIT;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
-    stRegister.u32Value = 0U;
+    stRegister.uxValue = 0U;
     enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
 }
 SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
-                                         uint32_t* u32ValueArg)
+                                         UBase_t* uxValueArg)
 {
     SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
 
     enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) u32ValueArg)
+    if(0UL == (uintptr_t) uxValueArg)
     {
         enErrorReg = SYSTICK_enERROR_POINTER;
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SYSTICK_CVR_R_CURRENT_BIT;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = SYSTICK_CVR_R_CURRENT_BIT;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        *u32ValueArg = stRegister.u32Value;
+        *uxValueArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

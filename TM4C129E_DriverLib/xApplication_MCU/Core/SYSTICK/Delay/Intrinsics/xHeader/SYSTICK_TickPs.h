@@ -28,7 +28,7 @@
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 
 void SYSTICK__vClearTickPs(void);
-void SYSTICK__vSetTickPs(uint32_t u32Tick);
-uint32_t SYSTICK__u32GetTickPs(void);
+void SYSTICK__vSetTickPs(UBase_t uxTick);
+UBase_t SYSTICK__uxGetTickPs(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_DELAY_INTRINSICS_XHEADER_SYSTICK_TICKPS_H_ */

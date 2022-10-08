@@ -45,25 +45,25 @@ EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* pe
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_DONE_R_WORKING_BIT;
-        stRegister.u32Mask = EEPROM_DONE_WORKING_MASK;
+        stRegister.uxShift = EEPROM_DONE_R_WORKING_BIT;
+        stRegister.uxMask = EEPROM_DONE_WORKING_MASK;
         stRegister.uptrAddress = EEPROM_DONE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (EEPROM_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (EEPROM_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, uint32_t u32RetriesArg)
+EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg)
 {
     EEPROM_nERROR enErrorReg;
     EEPROM_nSTATUS enStatusReg;
 
     enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == u32RetriesArg)
+    if(0UL == uxRetriesArg)
     {
         enErrorReg = EEPROM_enERROR_VALUE;
     }
@@ -72,12 +72,12 @@ EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, uint32_t u32RetriesArg)
         do
         {
             enErrorReg = EEPROM__enIsWorking(enModuleArg, &enStatusReg);
-            u32RetriesArg--;
+            uxRetriesArg--;
         }while((EEPROM_enSTATUS_ACTIVE == enStatusReg) &&
-               (0UL != u32RetriesArg) &&
+               (0UL != uxRetriesArg) &&
                (EEPROM_enERROR_OK == enErrorReg));
 
-        if((0UL == u32RetriesArg) &&
+        if((0UL == uxRetriesArg) &&
            (EEPROM_enERROR_OK == enErrorReg) &&
            (EEPROM_enSTATUS_ACTIVE == enStatusReg))
         {

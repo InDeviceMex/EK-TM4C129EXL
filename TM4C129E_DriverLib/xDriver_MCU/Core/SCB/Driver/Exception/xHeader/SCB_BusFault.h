@@ -39,6 +39,6 @@ SCB_nERROR SCB_BusFault__enEnable(SCB_nMODULE enModuleArg);
 SCB_nERROR SCB_BusFault__enDisable(SCB_nMODULE enModuleArg);
 SCB_nERROR SCB_BusFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg);
 
-SCB_nERROR SCB_BusFault_enGetFaultAddress(SCB_nMODULE enModuleArg, uint32_t* pu32FaultAddressArg);
+SCB_nERROR SCB_BusFault_enGetFaultAddress(SCB_nMODULE enModuleArg, UBase_t* puxFaultAddressArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_BUSFAULT_H_ */

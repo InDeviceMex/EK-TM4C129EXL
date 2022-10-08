@@ -32,18 +32,18 @@ SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg)
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_AIRCR_R_VECTKEY_BIT;
-    stRegister.u32Mask = SCB_AIRCR_VECTKEY_MASK ;
+    stRegister.uxShift = SCB_AIRCR_R_VECTKEY_BIT;
+    stRegister.uxMask = SCB_AIRCR_VECTKEY_MASK ;
     stRegister.uptrAddress = SCB_AIRCR_OFFSET;
     enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        if(SCB_AIRCR_VECTKEY_READ == stRegister.u32Value)
+        if(SCB_AIRCR_VECTKEY_READ == stRegister.uxValue)
         {
-            stRegister.u32Shift = 0UL;
-            stRegister.u32Mask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_SYSRESETREQ_RESET;
+            stRegister.uxShift = 0UL;
+            stRegister.uxMask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_SYSRESETREQ_RESET;
             stRegister.uptrAddress = SCB_AIRCR_OFFSET;
-            stRegister.u32Value = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_SYSRESETREQ_MASK;
+            stRegister.uxValue = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_SYSRESETREQ_MASK;
             MCU__vDataSyncBarrier();
             enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
             MCU__vDataSyncBarrier();
@@ -67,18 +67,18 @@ SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg)
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_AIRCR_R_VECTKEY_BIT;
-    stRegister.u32Mask = SCB_AIRCR_VECTKEY_MASK;
+    stRegister.uxShift = SCB_AIRCR_R_VECTKEY_BIT;
+    stRegister.uxMask = SCB_AIRCR_VECTKEY_MASK;
     stRegister.uptrAddress = SCB_AIRCR_OFFSET;
     enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        if(SCB_AIRCR_VECTKEY_READ == stRegister.u32Value)
+        if(SCB_AIRCR_VECTKEY_READ == stRegister.uxValue)
         {
-            stRegister.u32Shift = 0UL;
-            stRegister.u32Mask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_VECTRESET_NOUSE;
+            stRegister.uxShift = 0UL;
+            stRegister.uxMask = SCB_AIRCR_R_VECTKEY_WRITE | SCB_AIRCR_R_VECTRESET_NOUSE;
             stRegister.uptrAddress = SCB_AIRCR_OFFSET;
-            stRegister.u32Value = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_VECTRESET_NOEFFECT;
+            stRegister.uxValue = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_VECTRESET_NOEFFECT;
             MCU__vDataSyncBarrier();
             enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
             MCU__vDataSyncBarrier();

@@ -31,14 +31,14 @@
 ************************************ 22 GEN_DBCTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_GEN_DBCTL_R_ENABLE_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_GEN_DBCTL_R_ENABLE_BIT    ((uint32_t) 0UL)
-#define PWM_GEN_DBCTL_R_ENABLE_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_GEN_DBCTL_R_ENABLE_ENA   ((uint32_t) 0x00000001UL)
+#define PWM_GEN_DB_CTL_R_ENABLE_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_GEN_DB_CTL_R_ENABLE_BIT    ((UBase_t) 0UL)
+#define PWM_GEN_DB_CTL_R_ENABLE_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_GEN_DB_CTL_R_ENABLE_ENA   ((UBase_t) 0x00000001UL)
 
-#define PWM_GEN_DBCTL_ENABLE_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_GEN_DBCTL_ENABLE_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_GEN_DBCTL_ENABLE_ENA   ((uint32_t) 0x00000001UL)
+#define PWM_GEN_DB_CTL_ENABLE_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_GEN_DB_CTL_ENABLE_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_GEN_DB_CTL_ENABLE_ENA   ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_DBCTL_H_ */

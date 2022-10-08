@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_SpecialIntructions.h>
 
-__attribute__((naked)) uint32_t MCU__u32GetCounLeadingZeros(uint32_t u32ValueArg)
+__attribute__((naked)) UBase_t MCU__uxGetCounLeadingZeros(UBase_t uxValueArg)
 {
     __asm volatile(
           " clz     r0, r0\n"
@@ -55,7 +55,7 @@ __attribute__((naked)) uint16_t MCU__u16ReverseHalfWorld(uint16_t u16Value)
 #endif
 }
 
-__attribute__((naked)) uint32_t MCU__u32ReverseWorld(uint32_t u32ValueArg)
+__attribute__((naked)) UBase_t MCU__uxReverseWorld(UBase_t uxValueArg)
 {
     __asm volatile(
           " rbit     r0, r0\n"

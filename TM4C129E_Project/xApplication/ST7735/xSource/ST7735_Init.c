@@ -39,17 +39,17 @@
 #include <xUtils/Colors/Colors.h>
 #include <xUtils/Font/Font.h>
 
-uint32_t u32StX=0UL;
-uint32_t u32StY=0UL;
+UBase_t uxStX=0UL;
+UBase_t uxStY=0UL;
 uint16_t u16StTextColor = (uint16_t) COLORS_enYELLOW;
 
 static uint8_t ST7735_u8ColStart = 0U;
 static uint8_t ST7735_u8RowStart = 0U;
-static uint32_t ST7735_u32WidthArg = ST7735_WIDTH;
-static uint32_t ST7735_u32HeightArg = ST7735_HEIGHT;
+static UBase_t ST7735_uxWidthArg = ST7735_WIDTH;
+static UBase_t ST7735_uxHeightArg = ST7735_HEIGHT;
 
-void ST7735__vSetCursor(uint32_t u32NewX, uint32_t u32NewY);
-void ST7735__vSetAddrWindow(uint32_t u32CoordX0, uint32_t u32CoordY0, uint32_t u32CoordX1, uint32_t u32CoordY1);
+void ST7735__vSetCursor(UBase_t uxNewX, UBase_t uxNewY);
+void ST7735__vSetAddrWindow(UBase_t uxCoordX0, UBase_t uxCoordY0, UBase_t uxCoordX1, UBase_t uxCoordY1);
 
 void ST7735__vInit(const uint8_t *pu8CommandList)
 {
@@ -110,7 +110,7 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
     ST7735__vDelay1ms(5UL);
     ST7735__vDisableChipSelect();
 
-  if(0UL != (uint32_t) pu8CommandList)
+  if(0UL != (UBase_t) pu8CommandList)
   {
       ST7735__vCommandList(pu8CommandList);
   }
@@ -132,65 +132,65 @@ void ST7735__vInitRModel(ST7735_nINITFLAGS enOptionArg) {
 
     if (ST7735_enINITFLAGS_BLACK == enOptionArg)
     {
-        ST7735__u32WriteCommand(ST7735_enCOMMAND_MADCTL);
-        ST7735__u32WriteData(0xC0UL);
+        ST7735__uxWriteCommand(ST7735_enCOMMAND_MADCTL);
+        ST7735__uxWriteData(0xC0UL);
     }
     ST7735__vSetCursor(0UL,0UL);
     u16StTextColor = (uint16_t) COLORS_enYELLOW;
-    ST7735__vFillRect(0UL, 0UL, ST7735_u32WidthArg, ST7735_u32HeightArg, COLORS_enBLACK);
+    ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enBLACK);
 }
 
-void ST7735__vSetCursor(uint32_t u32NewX, uint32_t u32NewY)
+void ST7735__vSetCursor(UBase_t uxNewX, UBase_t uxNewY)
 {
-  if((u32NewX <= 20UL) && (u32NewY <= 12UL))
+  if((uxNewX <= 20UL) && (uxNewY <= 12UL))
   {
-      u32StX = u32NewX;
-      u32StY = u32NewY;
+      uxStX = uxNewX;
+      uxStY = uxNewY;
   }
 }
 
-void ST7735__vDrawBuffer(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint16_t* u16Buffer)
+void ST7735__vDrawBuffer(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, UBase_t uxHeightArg, uint16_t* u16Buffer)
 {
-    uint32_t u32XCoordEnd = 0UL;
-    uint32_t u32YCoordEnd = 0UL;
-    uint32_t u32TotalDim = 0UL;
+    UBase_t uxXCoordEnd = 0UL;
+    UBase_t uxYCoordEnd = 0UL;
+    UBase_t uxTotalDim = 0UL;
     /* rudimentary clipping (drawChar w/big text requires this)*/
-    if((u32XCoord < ST7735_u32WidthArg) && (u32YCoord < ST7735_u32HeightArg))
+    if((uxXCoord < ST7735_uxWidthArg) && (uxYCoord < ST7735_uxHeightArg))
     {
-        if((0UL != u32WidthArg) && (0UL != u32HeightArg))
+        if((0UL != uxWidthArg) && (0UL != uxHeightArg))
         {
-            u32XCoordEnd = u32XCoord;
-            u32XCoordEnd += u32WidthArg;
-            u32XCoordEnd -= 1UL;
-            if(u32XCoordEnd >= ST7735_u32WidthArg)
+            uxXCoordEnd = uxXCoord;
+            uxXCoordEnd += uxWidthArg;
+            uxXCoordEnd -= 1UL;
+            if(uxXCoordEnd >= ST7735_uxWidthArg)
             {
-                u32WidthArg = ST7735_u32WidthArg;
-                u32WidthArg -= u32XCoord;
-                u32XCoordEnd = u32XCoord;
-                u32XCoordEnd += u32WidthArg;
-                u32XCoordEnd -= 1UL;
+                uxWidthArg = ST7735_uxWidthArg;
+                uxWidthArg -= uxXCoord;
+                uxXCoordEnd = uxXCoord;
+                uxXCoordEnd += uxWidthArg;
+                uxXCoordEnd -= 1UL;
             }
 
-            u32YCoordEnd = u32YCoord;
-            u32YCoordEnd += u32HeightArg;
-            u32YCoordEnd -= 1UL;
-            if(u32YCoordEnd >= ST7735_u32HeightArg)
+            uxYCoordEnd = uxYCoord;
+            uxYCoordEnd += uxHeightArg;
+            uxYCoordEnd -= 1UL;
+            if(uxYCoordEnd >= ST7735_uxHeightArg)
             {
-                u32HeightArg = ST7735_u32HeightArg;
-                u32HeightArg -= u32YCoord;
-                u32YCoordEnd = u32YCoord;
-                u32YCoordEnd += u32HeightArg;
-                u32YCoordEnd -= 1UL;
+                uxHeightArg = ST7735_uxHeightArg;
+                uxHeightArg -= uxYCoord;
+                uxYCoordEnd = uxYCoord;
+                uxYCoordEnd += uxHeightArg;
+                uxYCoordEnd -= 1UL;
             }
-            ST7735__vSetAddrWindow(u32XCoord, u32YCoord, u32XCoordEnd, u32YCoordEnd);
+            ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
 
-            u32TotalDim = u32HeightArg;
-            u32TotalDim *= u32WidthArg;
-            ST7735__u32WriteBuffer16bDMA(u16Buffer, u32TotalDim);
+            uxTotalDim = uxHeightArg;
+            uxTotalDim *= uxWidthArg;
+            ST7735__uxWriteBuffer16bDMA(u16Buffer, uxTotalDim);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
@@ -199,48 +199,48 @@ void ST7735__vDrawBuffer(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32Wid
     }
 }
 
-void ST7735__vFillRect(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32WidthArg, uint32_t u32HeightArg, uint32_t u32Color)
+void ST7735__vFillRect(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, UBase_t uxHeightArg, UBase_t uxColor)
 {
-    uint32_t u32XCoordEnd = 0UL;
-    uint32_t u32YCoordEnd = 0UL;
-    uint32_t u32TotalDim = 0UL;
+    UBase_t uxXCoordEnd = 0UL;
+    UBase_t uxYCoordEnd = 0UL;
+    UBase_t uxTotalDim = 0UL;
     /* rudimentary clipping (drawChar w/big text requires this)*/
-    if((u32XCoord < ST7735_u32WidthArg) && (u32YCoord < ST7735_u32HeightArg))
+    if((uxXCoord < ST7735_uxWidthArg) && (uxYCoord < ST7735_uxHeightArg))
     {
-        if((0UL != u32WidthArg) && (0UL != u32HeightArg))
+        if((0UL != uxWidthArg) && (0UL != uxHeightArg))
         {
-            u32XCoordEnd = u32XCoord;
-            u32XCoordEnd += u32WidthArg;
-            u32XCoordEnd -= 1UL;
-            if(u32XCoordEnd >= ST7735_u32WidthArg)
+            uxXCoordEnd = uxXCoord;
+            uxXCoordEnd += uxWidthArg;
+            uxXCoordEnd -= 1UL;
+            if(uxXCoordEnd >= ST7735_uxWidthArg)
             {
-                u32WidthArg = ST7735_u32WidthArg;
-                u32WidthArg -= u32XCoord;
-                u32XCoordEnd = u32XCoord;
-                u32XCoordEnd += u32WidthArg;
-                u32XCoordEnd -= 1UL;
+                uxWidthArg = ST7735_uxWidthArg;
+                uxWidthArg -= uxXCoord;
+                uxXCoordEnd = uxXCoord;
+                uxXCoordEnd += uxWidthArg;
+                uxXCoordEnd -= 1UL;
             }
 
-            u32YCoordEnd = u32YCoord;
-            u32YCoordEnd += u32HeightArg;
-            u32YCoordEnd -= 1UL;
-            if(u32YCoordEnd >= ST7735_u32HeightArg)
+            uxYCoordEnd = uxYCoord;
+            uxYCoordEnd += uxHeightArg;
+            uxYCoordEnd -= 1UL;
+            if(uxYCoordEnd >= ST7735_uxHeightArg)
             {
-                u32HeightArg = ST7735_u32HeightArg;
-                u32HeightArg -= u32YCoord;
-                u32YCoordEnd = u32YCoord;
-                u32YCoordEnd += u32HeightArg;
-                u32YCoordEnd -= 1UL;
+                uxHeightArg = ST7735_uxHeightArg;
+                uxHeightArg -= uxYCoord;
+                uxYCoordEnd = uxYCoord;
+                uxYCoordEnd += uxHeightArg;
+                uxYCoordEnd -= 1UL;
             }
-            ST7735__vSetAddrWindow(u32XCoord, u32YCoord, u32XCoordEnd, u32YCoordEnd);
+            ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
 
-            u32TotalDim = u32HeightArg;
-            u32TotalDim *= u32WidthArg;
-            ST7735__u32WriteDMA(u32Color, u32TotalDim);
+            uxTotalDim = uxHeightArg;
+            uxTotalDim *= uxWidthArg;
+            ST7735__uxWriteDMA(uxColor, uxTotalDim);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
@@ -249,163 +249,163 @@ void ST7735__vFillRect(uint32_t u32XCoord, uint32_t u32YCoord, uint32_t u32Width
     }
 }
 
-void ST7735__vSetAddrWindow(uint32_t u32CoordX0, uint32_t u32CoordY0, uint32_t u32CoordX1, uint32_t u32CoordY1)
+void ST7735__vSetAddrWindow(UBase_t uxCoordX0, UBase_t uxCoordY0, UBase_t uxCoordX1, UBase_t uxCoordY1)
 {
-    uint32_t u32CoordX0Offset = u32CoordX0;
-    uint32_t u32CoordX1Offset = u32CoordX1;
-    uint32_t u32CoordY0Offset = u32CoordY0;
-    uint32_t u32CoordY1Offset = u32CoordY1;
-    u32CoordX0Offset += ST7735_u8ColStart;
-    u32CoordX1Offset += ST7735_u8ColStart;
-    u32CoordY0Offset += ST7735_u8RowStart;
-    u32CoordY1Offset += ST7735_u8RowStart;
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_CASET);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32CoordX0Offset);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32CoordX1Offset);
+    UBase_t uxCoordX0Offset = uxCoordX0;
+    UBase_t uxCoordX1Offset = uxCoordX1;
+    UBase_t uxCoordY0Offset = uxCoordY0;
+    UBase_t uxCoordY1Offset = uxCoordY1;
+    uxCoordX0Offset += ST7735_u8ColStart;
+    uxCoordX1Offset += ST7735_u8ColStart;
+    uxCoordY0Offset += ST7735_u8RowStart;
+    uxCoordY1Offset += ST7735_u8RowStart;
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_CASET);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxCoordX0Offset);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxCoordX1Offset);
 
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_RASET);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32CoordY0Offset);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32CoordY1Offset);
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_RASET);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxCoordY0Offset);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxCoordY1Offset);
 
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_RAMWR);
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_RAMWR);
 }
 
 
-void ST7735__vBufferChar(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32CoordY0, char cASCII, uint16_t u16Color, FONT_t* sFontType)
+void ST7735__vBufferChar(uint16_t* pu16Buffer, UBase_t uxCoordX0, UBase_t uxCoordY0, char cASCII, uint16_t u16Color, FONT_t* sFontType)
 {
   uint16_t u16Row = 0, u16Column = 0, u16ValueReg;
-  uint32_t u32IndexReg;
-  uint32_t  u32AddressX = u32CoordX0, u32PosY =0;
+  UBase_t uxIndexReg;
+  UBase_t  uxAddressX = uxCoordX0, uxPosY =0;
 
   const uint16_t* restrict character;
 
-  if((u32CoordY0+sFontType->u32Height)>ST7735_u32HeightArg)
+  if((uxCoordY0+sFontType->uxHeight)>ST7735_uxHeightArg)
       return;
 
-  if((u32CoordX0+sFontType->u32Width)>ST7735_u32WidthArg)
+  if((uxCoordX0+sFontType->uxWidth)>ST7735_uxWidthArg)
       return;
 
-  u32IndexReg = (uint32_t) cASCII;
-  u32IndexReg -= (uint32_t) ' ';
-  u32IndexReg *= sFontType->u32Height;
-  character=(const uint16_t*)(&(sFontType->pu16Ascii[u32IndexReg]));
+  uxIndexReg = (UBase_t) cASCII;
+  uxIndexReg -= (UBase_t) ' ';
+  uxIndexReg *= sFontType->uxHeight;
+  character=(const uint16_t*)(&(sFontType->pu16Ascii[uxIndexReg]));
 
-  u32PosY = u32CoordY0;
-  u32PosY *= ST7735_u32WidthArg;
-  u32PosY *= 2UL;
+  uxPosY = uxCoordY0;
+  uxPosY *= ST7735_uxWidthArg;
+  uxPosY *= 2UL;
 
-  if(sFontType->u32Width == 11UL)
+  if(sFontType->uxWidth == 11UL)
   {
-      u32IndexReg = (uint32_t) cASCII;
-      u32IndexReg -= (uint32_t) 0x20UL;
-      u32IndexReg *= sFontType->u32Width;
-      character=(const uint16_t*)(&(sFontType->pu16Ascii[u32IndexReg]));
-      u32PosY = u32CoordY0;
-      for(u16Row = 0U; u16Row < sFontType->u32Height; u16Row++)
+      uxIndexReg = (UBase_t) cASCII;
+      uxIndexReg -= (UBase_t) 0x20UL;
+      uxIndexReg *= sFontType->uxWidth;
+      character=(const uint16_t*)(&(sFontType->pu16Ascii[uxIndexReg]));
+      uxPosY = uxCoordY0;
+      for(u16Row = 0U; u16Row < sFontType->uxHeight; u16Row++)
       {
-            for(u16Column = 0U; u16Column < sFontType->u32Width; u16Column++)
+            for(u16Column = 0U; u16Column < sFontType->uxWidth; u16Column++)
             {
                 u16ValueReg = (uint16_t) character[u16Column];
                 u16ValueReg >>= u16Row;
                 if(1U & u16ValueReg)
                 {
-                    u32IndexReg = u32PosY;
-                    u32IndexReg *= ST7735_u32WidthArg;
-                    u32IndexReg += u32AddressX;
-                    u32IndexReg *= 2UL;
-                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                    uxIndexReg = uxPosY;
+                    uxIndexReg *= ST7735_uxWidthArg;
+                    uxIndexReg += uxAddressX;
+                    uxIndexReg *= 2UL;
+                    *(uint16_t*) ((UBase_t) pu16Buffer + uxIndexReg) = u16Color;
                 }
-                u32AddressX++;
+                uxAddressX++;
             }
-        u32AddressX =  u32CoordX0;
-        u32PosY++;
+        uxAddressX =  uxCoordX0;
+        uxPosY++;
       }
   }
-  else if (sFontType->u32Width == 7U)
+  else if (sFontType->uxWidth == 7U)
   {
-      for(u16Row = 0U; u16Row < sFontType->u32Width; u16Row++)
+      for(u16Row = 0U; u16Row < sFontType->uxWidth; u16Row++)
       {
-            for(u16Column = 0U; u16Column < sFontType->u32Height; u16Column++)
+            for(u16Column = 0U; u16Column < sFontType->uxHeight; u16Column++)
             {
                 u16ValueReg = (uint16_t) (character[u16Column]);
                 u16ValueReg >>= u16Row;
                 if(1U & u16ValueReg)
                 {
-                    u32IndexReg = u32AddressX;
-                    u32IndexReg *= 2U;
-                    u32IndexReg += u32PosY;
-                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg ) = u16Color;
+                    uxIndexReg = uxAddressX;
+                    uxIndexReg *= 2U;
+                    uxIndexReg += uxPosY;
+                    *(uint16_t*) ((UBase_t) pu16Buffer + uxIndexReg ) = u16Color;
                 }
-                u32AddressX++;
+                uxAddressX++;
             }
-        u32AddressX += (ST7735_u32WidthArg - sFontType->u32Height);
+        uxAddressX += (ST7735_uxWidthArg - sFontType->uxHeight);
       }
   }
   else
-    for(u16Row = 0U; u16Row < sFontType->u32Height; u16Row++)
+    for(u16Row = 0U; u16Row < sFontType->uxHeight; u16Row++)
     {
-        if(sFontType->u32Height == 24U)
-            for(u16Column = 0U; u16Column < sFontType->u32Width;u16Column++)
+        if(sFontType->uxHeight == 24U)
+            for(u16Column = 0U; u16Column < sFontType->uxWidth;u16Column++)
             {
-                u16ValueReg = (uint16_t) (character[(uint32_t) u16Row]);
+                u16ValueReg = (uint16_t) (character[(UBase_t) u16Row]);
                 u16ValueReg >>= u16Column;
                 if(1U & u16ValueReg)
                 {
-                    u32IndexReg = u32AddressX;
-                    u32IndexReg *= 2U;
-                    u32IndexReg += u32PosY;
-                    *( uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                    uxIndexReg = uxAddressX;
+                    uxIndexReg *= 2U;
+                    uxIndexReg += uxPosY;
+                    *( uint16_t*) ((UBase_t) pu16Buffer + uxIndexReg) = u16Color;
                 }
-                u32AddressX++;
+                uxAddressX++;
             }
         else
-            for(u16Column = (uint16_t) (sFontType->u32Bits); u16Column >(uint16_t) ((uint32_t) sFontType->u32Bits - (uint32_t) sFontType->u32Width); u16Column--)
+            for(u16Column = (uint16_t) (sFontType->uxBits); u16Column >(uint16_t) ((UBase_t) sFontType->uxBits - (UBase_t) sFontType->uxWidth); u16Column--)
             {
-                u16ValueReg = (uint16_t) (character[(uint32_t) u16Row]);
+                u16ValueReg = (uint16_t) (character[(UBase_t) u16Row]);
                 u16ValueReg >>= (u16Column - 1U);
                 if(1U & u16ValueReg)
                 {
-                    u32IndexReg = u32AddressX;
-                    u32IndexReg *= 2U;
-                    u32IndexReg += u32PosY;
-                    *(uint16_t*) ((uint32_t) pu16Buffer + u32IndexReg) = u16Color;
+                    uxIndexReg = uxAddressX;
+                    uxIndexReg *= 2U;
+                    uxIndexReg += uxPosY;
+                    *(uint16_t*) ((UBase_t) pu16Buffer + uxIndexReg) = u16Color;
                 }
-                u32AddressX++;
+                uxAddressX++;
             }
-        u32AddressX += (ST7735_u32WidthArg - sFontType->u32Width);
+        uxAddressX += (ST7735_uxWidthArg - sFontType->uxWidth);
     }
 }
 
 
-void ST7735__vBufferString(uint16_t* pu16Buffer, uint32_t u32CoordX0, uint32_t u32CoordY0, char* cASCII, uint16_t u16Color, FONT_t* sFontType)
+void ST7735__vBufferString(uint16_t* pu16Buffer, UBase_t uxCoordX0, UBase_t uxCoordY0, char* cASCII, uint16_t u16Color, FONT_t* sFontType)
 {
-    uint32_t u32CoordX = u32CoordX0;
-    uint32_t u32CoordY = u32CoordY0;
-    while(0UL != (uint32_t) (*cASCII))
+    UBase_t uxCoordX = uxCoordX0;
+    UBase_t uxCoordY = uxCoordY0;
+    while(0UL != (UBase_t) (*cASCII))
     {
-        if((uint32_t) '\n' == (uint32_t) (*cASCII))
+        if((UBase_t) '\n' == (UBase_t) (*cASCII))
         {
-            u32CoordY += sFontType->u32Height;
-            u32CoordY += 2UL;
+            uxCoordY += sFontType->uxHeight;
+            uxCoordY += 2UL;
         }
-        else if((uint32_t) '\r' == (uint32_t) (*cASCII))
+        else if((UBase_t) '\r' == (UBase_t) (*cASCII))
         {
-            u32CoordX = u32CoordX0;
+            uxCoordX = uxCoordX0;
         }
         else
         {
-            if((u32CoordX + sFontType->u32Width) > ST7735_u32WidthArg)
+            if((uxCoordX + sFontType->uxWidth) > ST7735_uxWidthArg)
             {
-                u32CoordY += sFontType->u32Height;
-                u32CoordY += 2UL;
-                u32CoordX = u32CoordX0;
+                uxCoordY += sFontType->uxHeight;
+                uxCoordY += 2UL;
+                uxCoordX = uxCoordX0;
             }
-            ST7735__vBufferChar(pu16Buffer, u32CoordX, u32CoordY, *cASCII, u16Color, sFontType);
-            u32CoordX += sFontType->u32Width;
+            ST7735__vBufferChar(pu16Buffer, uxCoordX, uxCoordY, *cASCII, u16Color, sFontType);
+            uxCoordX += sFontType->uxWidth;
         }
         cASCII += 1U;
     }

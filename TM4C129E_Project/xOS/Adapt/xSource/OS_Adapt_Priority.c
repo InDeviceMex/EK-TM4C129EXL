@@ -49,7 +49,7 @@ OS_UBase_t OS_Adapt__uxGetHighestPriority(volatile OS_UBase_t uxReadyPriorities)
     OS_UBase_t uxCLZReg = 0UL;
     OS_UBase_t puxTopPriorityReg = 31UL;
 
-    uxCLZReg = MCU__u32GetCounLeadingZeros(uxReadyPriorities);
+    uxCLZReg = MCU__uxGetCounLeadingZeros(uxReadyPriorities);
     puxTopPriorityReg -= uxCLZReg;
     return(puxTopPriorityReg);
 }

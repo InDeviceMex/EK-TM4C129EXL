@@ -25,7 +25,7 @@
 
 #include <xUtils/Colors/xHeader/Colors_Defines.h>
 
-uint16_t COLORS__u16GetValues(uint32_t u32IndexArg)
+uint16_t COLORS__u16GetValues(UBase_t uxIndexArg)
 {
     const uint16_t COLORS_u16Values[COLORS_MAX] = {
         COLORS_enBLACK,
@@ -169,9 +169,13 @@ uint16_t COLORS__u16GetValues(uint32_t u32IndexArg)
         COLORS_enYELLOW,
         COLORS_enYELLOWGREEN
     }; /*140*/
-    uint16_t u16ValueReg = 0UL;
-    u32IndexArg %= COLORS_MAX;
-    u16ValueReg = COLORS_u16Values[u32IndexArg];
+    uint16_t u16ValueReg;
+
+    if(COLORS_MAX <= uxIndexArg)
+    {
+        uxIndexArg = COLORS_MAX - 1UL;
+    }
+    u16ValueReg = COLORS_u16Values[uxIndexArg];
     return (u16ValueReg);
 }
 

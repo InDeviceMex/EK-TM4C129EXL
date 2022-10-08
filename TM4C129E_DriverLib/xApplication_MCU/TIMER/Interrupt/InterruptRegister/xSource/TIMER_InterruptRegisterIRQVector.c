@@ -29,10 +29,10 @@
 void TIMER__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),TIMER_nMODULE enModule)
 {
     SCB_nVECISR enVector = SCB_enVECISR_TIMER0A;
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32SubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxSubModule = 0UL;
 
-    const SCB_nVECISR SCB_enVECISR_TIMER[(uint32_t) TIMER_enSUBMODULE_MAX - 1UL][(uint32_t) TIMER_enMODULE_NUM_MAX] =
+    const SCB_nVECISR SCB_enVECISR_TIMER[(UBase_t) TIMER_enSUBMODULE_MAX - 1UL][(UBase_t) TIMER_enMODULE_NUM_MAX] =
     {
         { SCB_enVECISR_TIMER0A, SCB_enVECISR_TIMER1A, SCB_enVECISR_TIMER2A, SCB_enVECISR_TIMER3A,
           SCB_enVECISR_TIMER4A, SCB_enVECISR_TIMER5A, SCB_enVECISR_TIMER6A, SCB_enVECISR_TIMER7A},
@@ -40,13 +40,13 @@ void TIMER__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),TIMER_nM
           SCB_enVECISR_TIMER4B, SCB_enVECISR_TIMER5B, SCB_enVECISR_TIMER6B, SCB_enVECISR_TIMER7B}
     };
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    if(0UL != (UBase_t) pfIrqVectorHandler)
     {
-        TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-        u32SubModule &= 0x1UL;
-        enVector = SCB_enVECISR_TIMER[u32SubModule][u32ModuleNumber];
+        TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+        uxSubModule &= 0x1UL;
+        enVector = SCB_enVECISR_TIMER[uxSubModule][uxModuleNumber];
         SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-                                       TIMER__pvfGetIRQVectorHandlerPointer((TIMER_nSUBMODULE) u32SubModule,
-                                                                            (TIMER_nMODULE_NUM) u32ModuleNumber));
+                                       TIMER__pvfGetIRQVectorHandlerPointer((TIMER_nSUBMODULE) uxSubModule,
+                                                                            (TIMER_nMODULE_NUM) uxModuleNumber));
     }
 }

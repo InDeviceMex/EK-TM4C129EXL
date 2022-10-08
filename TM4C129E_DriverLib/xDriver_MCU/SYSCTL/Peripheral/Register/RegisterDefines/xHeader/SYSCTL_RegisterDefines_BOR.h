@@ -31,25 +31,25 @@
 ************************************ 3 PTBOCTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_PTBOCTL_R_BOR1_MASK    ((uint32_t) 0x00000002UL)
+#define SYSCTL_PTBOCTL_R_BOR1_MASK    ((UBase_t) 0x00000002UL)
 #define SYSCTL_PTBOCTL_R_BOR1_BIT    (1UL)
-#define SYSCTL_PTBOCTL_R_BOR1_INT    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PTBOCTL_R_BOR1_RESET ((uint32_t) 0x00000002UL)
+#define SYSCTL_PTBOCTL_R_BOR1_INT    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PTBOCTL_R_BOR1_RESET ((UBase_t) 0x00000002UL)
 
-#define SYSCTL_PTBOCTL_BOR1_MASK    ((uint32_t) 0x00000001UL)
-#define SYSCTL_PTBOCTL_BOR1_INT    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PTBOCTL_BOR1_RESET    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PTBOCTL_BOR1_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_PTBOCTL_BOR1_INT    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PTBOCTL_BOR1_RESET    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_PTBOCTL_R_BOR0_MASK    ((uint32_t) 0x00000004UL)
+#define SYSCTL_PTBOCTL_R_BOR0_MASK    ((UBase_t) 0x00000004UL)
 #define SYSCTL_PTBOCTL_R_BOR0_BIT    (2UL)
-#define SYSCTL_PTBOCTL_R_BOR0_INT    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PTBOCTL_R_BOR0_RESET ((uint32_t) 0x00000004UL)
+#define SYSCTL_PTBOCTL_R_BOR0_INT    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PTBOCTL_R_BOR0_RESET ((UBase_t) 0x00000004UL)
 
-#define SYSCTL_PTBOCTL_BOR0_MASK    ((uint32_t) 0x00000001UL)
-#define SYSCTL_PTBOCTL_BOR0_INT    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PTBOCTL_BOR0_RESET    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PTBOCTL_BOR0_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_PTBOCTL_BOR0_INT    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PTBOCTL_BOR0_RESET    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_REGISTER_SYSCTL_REGISTERDEFINES_SYSCTL_REGISTERDEFINES_BOR_H_ */

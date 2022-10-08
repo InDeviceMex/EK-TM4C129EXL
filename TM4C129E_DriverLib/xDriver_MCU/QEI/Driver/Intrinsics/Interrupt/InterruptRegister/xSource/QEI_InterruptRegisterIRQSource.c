@@ -29,18 +29,18 @@
 
 void QEI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),QEI_nMODULE enModule, QEI_nINTERRUPT enInterruptSource)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    UBase_t uxModule = 0UL;
+    UBase_t uxInterruptSource = 0UL;
+    if(0UL != (UBase_t) pfIrqSourceHandler)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) QEI_enMODULE_MAX);
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,
-                                                  (uint32_t) QEI_enINTERRUPT_MAX);
+        uxModule = MCU__uxCheckParams( (UBase_t) enModule,
+                                         (UBase_t) QEI_enMODULE_MAX);
+        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
+                                                  (UBase_t) QEI_enINTERRUPT_MAX);
 
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       QEI__pvfGetIRQSourceHandlerPointer((QEI_nMODULE) u32Module,
-                                                          (QEI_nINTERRUPT)u32InterruptSource),
+                       QEI__pvfGetIRQSourceHandlerPointer((QEI_nMODULE) uxModule,
+                                                          (QEI_nINTERRUPT)uxInterruptSource),
                        0UL,
                        1UL);
     }

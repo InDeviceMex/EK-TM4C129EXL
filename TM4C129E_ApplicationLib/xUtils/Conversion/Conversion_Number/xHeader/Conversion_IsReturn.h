@@ -26,6 +26,6 @@
 
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nRETURN Conv__enIsReturn(char cCharacter);
+CONV_nERROR Conv__enIsReturn(char cCharacter);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER_CONVERSION_ISRETURN_H_ */

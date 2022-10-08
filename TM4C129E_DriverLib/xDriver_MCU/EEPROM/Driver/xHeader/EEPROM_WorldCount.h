@@ -36,6 +36,6 @@
  *
  * @remark This function must be call after the call of @ref  EEPROM__vInitWorldCount to proper initialize the value.
  */
-EEPROM_nERROR EEPROM__enGetWordCount(EEPROM_nMODULE enModuleArg, uint32_t* pu32WorldCountArg);
+EEPROM_nERROR EEPROM__enGetWordCount(EEPROM_nMODULE enModuleArg, UBase_t* puxWorldCountArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_WORLDCOUNT_H_ */

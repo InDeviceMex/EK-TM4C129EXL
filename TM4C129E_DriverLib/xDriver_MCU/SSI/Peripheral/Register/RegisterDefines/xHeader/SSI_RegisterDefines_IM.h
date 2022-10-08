@@ -32,80 +32,80 @@
 ******************************************************************************************/
 
 /*--------*/
-#define SSI_IM_R_RORIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_R_RORIM_BIT    ((uint32_t) 0UL)
-#define SSI_IM_R_RORIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_RORIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_R_RORIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_R_RORIM_BIT    ((UBase_t) 0UL)
+#define SSI_IM_R_RORIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_RORIM_ENA    ((UBase_t) 0x00000001UL)
 
-#define SSI_IM_RORIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_RORIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_RORIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_RORIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_RORIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_RORIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_RTIM_MASK    ((uint32_t) 0x00000002UL)
-#define SSI_IM_R_RTIM_BIT    ((uint32_t) 1UL)
-#define SSI_IM_R_RTIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_RTIM_ENA    ((uint32_t) 0x00000002UL)
+#define SSI_IM_R_RTIM_MASK    ((UBase_t) 0x00000002UL)
+#define SSI_IM_R_RTIM_BIT    ((UBase_t) 1UL)
+#define SSI_IM_R_RTIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_RTIM_ENA    ((UBase_t) 0x00000002UL)
 
-#define SSI_IM_RTIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_RTIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_RTIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_RTIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_RTIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_RTIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_RXIM_MASK    ((uint32_t) 0x00000004UL)
-#define SSI_IM_R_RXIM_BIT    ((uint32_t) 2UL)
-#define SSI_IM_R_RXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_RXIM_ENA    ((uint32_t) 0x00000004UL)
+#define SSI_IM_R_RXIM_MASK    ((UBase_t) 0x00000004UL)
+#define SSI_IM_R_RXIM_BIT    ((UBase_t) 2UL)
+#define SSI_IM_R_RXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_RXIM_ENA    ((UBase_t) 0x00000004UL)
 
-#define SSI_IM_RXIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_RXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_RXIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_RXIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_RXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_RXIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_TXIM_MASK    ((uint32_t) 0x00000008UL)
-#define SSI_IM_R_TXIM_BIT    ((uint32_t) 3UL)
-#define SSI_IM_R_TXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_TXIM_ENA    ((uint32_t) 0x00000008UL)
+#define SSI_IM_R_TXIM_MASK    ((UBase_t) 0x00000008UL)
+#define SSI_IM_R_TXIM_BIT    ((UBase_t) 3UL)
+#define SSI_IM_R_TXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_TXIM_ENA    ((UBase_t) 0x00000008UL)
 
-#define SSI_IM_TXIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_TXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_TXIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_TXIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_TXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_TXIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_DMARXIM_MASK    ((uint32_t) 0x00000010UL)
-#define SSI_IM_R_DMARXIM_BIT    ((uint32_t) 4UL)
-#define SSI_IM_R_DMARXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_DMARXIM_ENA    ((uint32_t) 0x00000010UL)
+#define SSI_IM_R_DMARXIM_MASK    ((UBase_t) 0x00000010UL)
+#define SSI_IM_R_DMARXIM_BIT    ((UBase_t) 4UL)
+#define SSI_IM_R_DMARXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_DMARXIM_ENA    ((UBase_t) 0x00000010UL)
 
-#define SSI_IM_DMARXIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_DMARXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_DMARXIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_DMARXIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_DMARXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_DMARXIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_DMATXIM_MASK    ((uint32_t) 0x00000020UL)
-#define SSI_IM_R_DMATXIM_BIT    ((uint32_t) 5UL)
-#define SSI_IM_R_DMATXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_DMATXIM_ENA    ((uint32_t) 0x00000020UL)
+#define SSI_IM_R_DMATXIM_MASK    ((UBase_t) 0x00000020UL)
+#define SSI_IM_R_DMATXIM_BIT    ((UBase_t) 5UL)
+#define SSI_IM_R_DMATXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_DMATXIM_ENA    ((UBase_t) 0x00000020UL)
 
-#define SSI_IM_DMATXIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_DMATXIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_DMATXIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_DMATXIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_DMATXIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_DMATXIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_IM_R_EOTIM_MASK    ((uint32_t) 0x00000040UL)
-#define SSI_IM_R_EOTIM_BIT    ((uint32_t) 6UL)
-#define SSI_IM_R_EOTIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_R_EOTIM_ENA    ((uint32_t) 0x00000040UL)
+#define SSI_IM_R_EOTIM_MASK    ((UBase_t) 0x00000040UL)
+#define SSI_IM_R_EOTIM_BIT    ((UBase_t) 6UL)
+#define SSI_IM_R_EOTIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_R_EOTIM_ENA    ((UBase_t) 0x00000040UL)
 
-#define SSI_IM_EOTIM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_IM_EOTIM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_IM_EOTIM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_IM_EOTIM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_IM_EOTIM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_IM_EOTIM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SSI_REGISTERDEFINES_IM_H_ */

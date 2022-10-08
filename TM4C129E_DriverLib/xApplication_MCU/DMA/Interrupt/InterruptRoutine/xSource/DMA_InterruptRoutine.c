@@ -24,7 +24,7 @@
 #include <xApplication_MCU/DMA/Interrupt/InterruptRoutine/DMA_InterruptRoutine.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Defines.h>
 
-static DMA_pvfIRQVectorHandler_t DMA_pvIRQVectorHandler[(uint32_t) DMA_enMODULE_MAX][(uint32_t) DMA_enVECTOR_MAX]=
+static DMA_pvfIRQVectorHandler_t DMA_pvIRQVectorHandler[(UBase_t) DMA_enMODULE_MAX][(UBase_t) DMA_enVECTOR_MAX]=
 {
  {
   &DMA_SW__vIRQVectorHandler, &DMA_ERROR__vIRQVectorHandler,
@@ -34,13 +34,13 @@ static DMA_pvfIRQVectorHandler_t DMA_pvIRQVectorHandler[(uint32_t) DMA_enMODULE_
 DMA_pvfIRQVectorHandler_t DMA__pvfGetIRQVectorHandler(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg)
 {
     DMA_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = DMA_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+    pvfVectorReg = DMA_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enInterruptArg];
     return (pvfVectorReg);
 }
 
 DMA_pvfIRQVectorHandler_t* DMA__pvfGetIRQVectorHandlerPointer(DMA_nMODULE enModuleArg, DMA_nVECTOR enInterruptArg)
 {
     DMA_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &DMA_pvIRQVectorHandler[(uint32_t) enModuleArg][(uint32_t) enInterruptArg];
+    pvfVectorReg = &DMA_pvIRQVectorHandler[(UBase_t) enModuleArg][(UBase_t) enInterruptArg];
     return (pvfVectorReg);
 }

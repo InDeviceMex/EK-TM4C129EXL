@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-void GraphTerm__vClearLine(UART_nMODULE enModule, uint32_t u32Line);
+void GraphTerm__vClearLine(UART_nMODULE enModule, UBase_t uxLine);
 
 #endif /* XDRIVER_MCU_UART_APP_GRAPHICTERMINAL_XHEADER_GRAPHICTERMINAL_CLEARLINE_H_ */

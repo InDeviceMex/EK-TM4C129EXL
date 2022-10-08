@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-EEPROM_nERROR EEPROM__enSetCurrentBlock(EEPROM_nMODULE enModuleArg, uint32_t u32CurrentBlockArg);
-EEPROM_nERROR EEPROM__enGetCurrentBlock(EEPROM_nMODULE enModuleArg, uint32_t* pu32CurrentBlockArg);
+EEPROM_nERROR EEPROM__enSetCurrentBlock(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentBlockArg);
+EEPROM_nERROR EEPROM__enGetCurrentBlock(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentBlockArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_CURRENTBLOCK_H_ */

@@ -30,21 +30,21 @@
 DMA_nERROR DMA_CH__enSetControlRegisterByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
                                               DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
-    uint32_t u32ChannelReg;
-    uint32_t u32ChannelMaskReg;
+    UBase_t uxChannelReg;
+    UBase_t uxChannelMaskReg;
     DMA_nERROR enErrorReg;
 
-    u32ChannelReg = 0U;
-    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    uxChannelReg = 0U;
+    uxChannelMaskReg = (UBase_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
+    while((0U != uxChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
-        if(0UL != ((uint32_t) DMA_enCHMASK_0 & u32ChannelMaskReg))
+        if(0UL != ((UBase_t) DMA_enCHMASK_0 & uxChannelMaskReg))
         {
-            enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, pstControlArg);
+            enErrorReg = DMA_CH__enSetControlRegisterByNumber(enModuleArg,  (DMA_nCH) uxChannelReg, enControlArg, pstControlArg);
         }
-        u32ChannelReg++;
-        u32ChannelMaskReg >>= 1U;
+        uxChannelReg++;
+        uxChannelMaskReg >>= 1U;
     }
 
     return (enErrorReg);
@@ -71,7 +71,7 @@ DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
                                                 DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
     DMA_Register_t stRegister;
-    volatile uint32_t *pu32ControlReg;
+    volatile UBase_t *puxControlReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
@@ -81,11 +81,11 @@ DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        pu32ControlReg = (volatile uint32_t*) pstControlArg;
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
+        puxControlReg = (volatile UBase_t*) pstControlArg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
-        stRegister.u32Value = (uint32_t) *pu32ControlReg;
+        stRegister.uxValue = (UBase_t) *puxControlReg;
         enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
 
@@ -113,7 +113,7 @@ DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
                                                 DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
     DMA_Register_t stRegister;
-    volatile uint32_t* pu32ControlReg;
+    volatile UBase_t* puxControlReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
@@ -123,15 +123,15 @@ DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        pu32ControlReg = (volatile uint32_t*) pstControlArg;
-        *pu32ControlReg = stRegister.u32Value;
+        puxControlReg = (volatile UBase_t*) pstControlArg;
+        *puxControlReg = stRegister.uxValue;
     }
 
     return (enErrorReg);
@@ -157,115 +157,115 @@ DMA_nERROR DMA_CH_Alternate__enGetControlRegisterByNumber(DMA_nMODULE enModuleAr
 
 
 DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg)
+                                              DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg)
 {
-    uint32_t u32ChannelReg;
-    uint32_t u32ChannelMaskReg;
+    UBase_t uxChannelReg;
+    UBase_t uxChannelMaskReg;
     DMA_nERROR enErrorReg;
 
-    u32ChannelReg = 0U;
-    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    uxChannelReg = 0U;
+    uxChannelMaskReg = (UBase_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
+    while((0U != uxChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
-        if(0UL != ((uint32_t) DMA_enCHMASK_0 & u32ChannelMaskReg))
+        if(0UL != ((UBase_t) DMA_enCHMASK_0 & uxChannelMaskReg))
         {
-            enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, u32ControlArg);
+            enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg,  (DMA_nCH) uxChannelReg, enControlArg, uxControlArg);
         }
-        u32ChannelReg++;
-        u32ChannelMaskReg >>= 1U;
+        uxChannelReg++;
+        uxChannelMaskReg >>= 1U;
     }
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                      uint32_t u32ControlArg)
+                                                      UBase_t uxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, u32ControlArg);
+    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, uxControlArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                                 uint32_t u32ControlArg)
+                                                                 UBase_t uxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, u32ControlArg);
+    enErrorReg = DMA_CH__enSetControlValueByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, uxControlArg);
     return (enErrorReg);
 }
 
 
 DMA_nERROR DMA_CH__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg)
+                                                DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
-    stRegister.u32Value = u32ControlArg;
+    stRegister.uxValue = uxControlArg;
     enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t u32ControlArg)
+                                                        UBase_t uxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, u32ControlArg);
+    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, uxControlArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          uint32_t u32ControlArg)
+                                                          UBase_t uxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, u32ControlArg);
+    enErrorReg = DMA_CH__enSetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, uxControlArg);
     return (enErrorReg);
 }
 
 
 DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32ControlArg)
+                                             DMA_nCH_CONTROL enControlArg, UBase_t* puxControlArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pu32ControlArg)
+    if(0UL == (uintptr_t) puxControlArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *pu32ControlArg = stRegister.u32Value;
+        *puxControlArg = stRegister.uxValue;
     }
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                     uint32_t* pu32ControlArg)
+                                                     UBase_t* puxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pu32ControlArg);
+    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, puxControlArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          uint32_t* pu32ControlArg)
+                                                          UBase_t* puxControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pu32ControlArg);
+    enErrorReg = DMA_CH__enGetControlValueByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, puxControlArg);
     return (enErrorReg);
 }

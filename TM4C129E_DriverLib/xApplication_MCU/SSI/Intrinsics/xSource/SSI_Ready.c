@@ -26,7 +26,7 @@
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
 #if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(uint32_t) SSI_enMODULE_MAX] =
+static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
 {SYSCTL_enSSI0, SYSCTL_enSSI1, SYSCTL_enSSI2, SYSCTL_enSSI3};
 #endif
 
@@ -35,12 +35,12 @@ void SSI__vSetReady(SSI_nMODULE enModule)
 #if !defined(Opt_Check)
     SSI_nREADY enReady = SSI_enNOREADY;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    uint32_t u32Module = 0UL;
+    UBase_t uxModule = 0UL;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
 
-    enPeripheral = SYSCTL_VECTOR_SSI[u32Module];
-    enReady = SSI__enIsReady((SSI_nMODULE) u32Module);
+    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
+    enReady = SSI__enIsReady((SSI_nMODULE) uxModule);
     if(SSI_enNOREADY == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
@@ -53,13 +53,13 @@ void SSI__vSetReady(SSI_nMODULE enModule)
 void SSI__vClearReady(SSI_nMODULE enModule)
 {
 #if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(uint32_t) SSI_enMODULE_MAX] =
+    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
     {SYSCTL_enSSI0, SYSCTL_enSSI1, SYSCTL_enSSI2, SYSCTL_enSSI3};
 #endif
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_SSI[u32Module];
+    UBase_t uxModule = 0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
     SYSCTL__vClearReady(enPeripheral);
 }
 
@@ -68,9 +68,9 @@ SSI_nREADY SSI__enIsReady(SSI_nMODULE enModule)
 #if !defined(Opt_Check)
     SSI_nREADY enReady = SSI_enNOREADY;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    uint32_t u32Module =0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_SSI[u32Module];
+    UBase_t uxModule =0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
     enReady = (SSI_nREADY) SYSCTL__enIsReady(enPeripheral);
 #else
     SSI_nREADY enReady = SSI_enREADY;

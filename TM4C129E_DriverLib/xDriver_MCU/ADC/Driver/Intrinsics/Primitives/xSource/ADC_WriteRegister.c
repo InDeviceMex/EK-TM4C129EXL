@@ -37,7 +37,7 @@ ADC_nERROR ADC__enWriteRegister(ADC_nMODULE enModuleArg, ADC_Register_t* pstRegi
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {

@@ -28,26 +28,26 @@
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-#pragma  CODE_SECTION(MCU__u32ReadRegister_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__uxReadRegister_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enReadRegister_RAM, ".ramcode")
 
 MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg);
-uint32_t MCU__u32ReadRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
-                                  uint32_t u32MaskFeature, uint32_t u32BitFeature);
+UBase_t MCU__uxReadRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
+                                  UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
 MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg) ;
 __attribute__((section(".ramcode")))
-uint32_t MCU__u32ReadRegister_RAM(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
-                                  uint32_t u32MaskFeature, uint32_t u32BitFeature);
+UBase_t MCU__uxReadRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
+                                  UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #endif
 
 MCU_nERROR MCU__enReadRegister(MCU_Register_t* pstRegisterDataArg);
 
-uint32_t MCU__u32ReadRegister(uint32_t u32PeripheralBase, uint32_t u32OffsetRegister,
-                              uint32_t u32MaskFeature, uint32_t u32BitFeature);
+UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
+                              UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_READREG_H_ */

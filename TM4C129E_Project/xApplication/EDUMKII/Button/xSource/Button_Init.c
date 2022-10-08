@@ -30,7 +30,7 @@
 
 void EDUMKII_Button_vInit(EDUMKII_nBUTTON enButtonSelect)
 {
-    if((uint32_t) EDUMKII_enBUTTON_1 == ((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1))
+    if((UBase_t) EDUMKII_enBUTTON_1 == ((UBase_t) enButtonSelect & (UBase_t) EDUMKII_enBUTTON_1))
     {
         GPIO__enRegisterIRQSourceHandlerByMask( &EDUMKII_Button1_vIRQSourceHandler, EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_BUTTON_1, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
@@ -41,7 +41,7 @@ void EDUMKII_Button_vInit(EDUMKII_nBUTTON enButtonSelect)
         GPIO__enEnableInterruptSourceByMask(EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN);
     }
 
-    if((uint32_t) EDUMKII_enBUTTON_2 == ((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2))
+    if((UBase_t) EDUMKII_enBUTTON_2 == ((UBase_t) enButtonSelect & (UBase_t) EDUMKII_enBUTTON_2))
     {
         GPIO__enRegisterIRQSourceHandlerByMask( &EDUMKII_Button2_vIRQSourceHandler, EDUMKII_BUTTON_2_PORT, EDUMKII_BUTTON_2_PIN);
         GPIO__enSetDigitalConfig(EDUMKII_BUTTON_2, GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);

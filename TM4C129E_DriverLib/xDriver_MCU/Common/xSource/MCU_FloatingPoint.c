@@ -24,7 +24,7 @@
 #include <xDriver_MCU/Common/xHeader/MCU_FloatingPoint.h>
 
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControl(uint32_t u32ValueArg)
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControl(UBase_t uxValueArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -37,13 +37,13 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControl(uint32_t u32ValueArg
 }
 
 
-__attribute__((naked)) void MCU__vSetFPUStatusControl(uint32_t u32ValueArg)
+__attribute__((naked)) void MCU__vSetFPUStatusControl(UBase_t uxValueArg)
 {
     __asm volatile(
           " vmsr    FPSCR, r0\n");
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControl(void)
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControl(void)
 {
     __asm volatile(
           " vmrs    r0, FPSCR\n"
@@ -54,7 +54,7 @@ __attribute__((naked)) uint32_t MCU__u32GetFPUStatusControl(void)
 }
 
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlMask(uint32_t u32BitMaskArg)
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControlMask(UBase_t uxBitMaskArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -68,7 +68,7 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlMask(uint32_t u32BitM
 #endif
 }
 
-__attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlMask(uint32_t u32BitMaskArg)
+__attribute__((naked)) UBase_t MCU__uxClearFPUStatusControlMask(UBase_t uxBitMaskArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -83,23 +83,23 @@ __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlMask(uint32_t u32Bi
 }
 
 
-uint32_t MCU__u32FPUStatusControlMask(uint32_t u32BitMaskArg, uint32_t u32ValueArg)
+UBase_t MCU__uxFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg)
 {
-    uint32_t u32ValueReg;
-    if(0U == u32ValueArg)
+    UBase_t uxValueReg;
+    if(0U == uxValueArg)
     {
-        u32ValueReg = MCU__u32ClearFPUStatusControlMask(u32BitMaskArg);
+        uxValueReg = MCU__uxClearFPUStatusControlMask(uxBitMaskArg);
     }
     else
     {
-        u32ValueReg = MCU__u32SetFPUStatusControlMask(u32BitMaskArg);
+        uxValueReg = MCU__uxSetFPUStatusControlMask(uxBitMaskArg);
     }
 
-    return (u32ValueReg);
+    return (uxValueReg);
 }
 
 
-__attribute__((naked)) void MCU__vSetFPUStatusControlMask(uint32_t u32BitMaskArg)
+__attribute__((naked)) void MCU__vSetFPUStatusControlMask(UBase_t uxBitMaskArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -108,7 +108,7 @@ __attribute__((naked)) void MCU__vSetFPUStatusControlMask(uint32_t u32BitMaskArg
           " bx      lr\n");
 }
 
-__attribute__((naked)) void MCU__vClearFPUStatusControlMask(uint32_t u32BitMaskArg)
+__attribute__((naked)) void MCU__vClearFPUStatusControlMask(UBase_t uxBitMaskArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -118,19 +118,19 @@ __attribute__((naked)) void MCU__vClearFPUStatusControlMask(uint32_t u32BitMaskA
 }
 
 
-void MCU__vFPUStatusControlMask(uint32_t u32BitMaskArg, uint32_t u32ValueArg)
+void MCU__vFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg)
 {
-    if(0U == u32ValueArg)
+    if(0U == uxValueArg)
     {
-        MCU__u32ClearFPUStatusControlMask(u32BitMaskArg);
+        MCU__uxClearFPUStatusControlMask(uxBitMaskArg);
     }
     else
     {
-        MCU__u32SetFPUStatusControlMask(u32BitMaskArg);
+        MCU__uxSetFPUStatusControlMask(uxBitMaskArg);
     }
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlMask(uint32_t u32BitMaskArg)
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControlMask(UBase_t uxBitMaskArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -143,7 +143,7 @@ __attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlMask(uint32_t u32BitM
 }
 
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlBit(uint32_t u32BitBitArg)
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControlBit(UBase_t uxBitBitArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -161,7 +161,7 @@ __attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlBit(uint32_t u32BitBi
 #endif
 }
 
-__attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlBit(uint32_t u32BitBitArg)
+__attribute__((naked)) UBase_t MCU__uxClearFPUStatusControlBit(UBase_t uxBitBitArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -180,23 +180,23 @@ __attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlBit(uint32_t u32Bit
 }
 
 
-uint32_t MCU__u32FPUStatusControlBit(uint32_t u32BitBitArg, uint32_t u32ValueArg)
+UBase_t MCU__uxFPUStatusControlBit(UBase_t uxBitBitArg, UBase_t uxValueArg)
 {
-    uint32_t u32ValueReg;
-    if(0U == u32ValueArg)
+    UBase_t uxValueReg;
+    if(0U == uxValueArg)
     {
-        u32ValueReg = MCU__u32SetFPUStatusControlBit(u32BitBitArg);
+        uxValueReg = MCU__uxSetFPUStatusControlBit(uxBitBitArg);
     }
     else
     {
-        u32ValueReg = MCU__u32ClearFPUStatusControlBit(u32BitBitArg);
+        uxValueReg = MCU__uxClearFPUStatusControlBit(uxBitBitArg);
     }
 
-    return (u32ValueReg);
+    return (uxValueReg);
 }
 
 
-__attribute__((naked)) void MCU__vSetFPUStatusControlBit(uint32_t u32BitBitArg)
+__attribute__((naked)) void MCU__vSetFPUStatusControlBit(UBase_t uxBitBitArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -207,7 +207,7 @@ __attribute__((naked)) void MCU__vSetFPUStatusControlBit(uint32_t u32BitBitArg)
           " bx      lr\n");
 }
 
-__attribute__((naked)) void MCU__vClearFPUStatusControlBit(uint32_t u32BitBitArg)
+__attribute__((naked)) void MCU__vClearFPUStatusControlBit(UBase_t uxBitBitArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"
@@ -219,19 +219,19 @@ __attribute__((naked)) void MCU__vClearFPUStatusControlBit(uint32_t u32BitBitArg
 }
 
 
-void MCU__vFPUStatusControlBit(uint32_t u32BitBitArg, uint32_t u32ValueArg)
+void MCU__vFPUStatusControlBit(UBase_t uxBitBitArg, UBase_t uxValueArg)
 {
-    if(0U == u32ValueArg)
+    if(0U == uxValueArg)
     {
-        MCU__u32SetFPUStatusControlBit(u32BitBitArg);
+        MCU__uxSetFPUStatusControlBit(uxBitBitArg);
     }
     else
     {
-        MCU__u32ClearFPUStatusControlBit(u32BitBitArg);
+        MCU__uxClearFPUStatusControlBit(uxBitBitArg);
     }
 }
 
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlBit(uint32_t u32BitPosArg)
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControlBit(UBase_t uxBitPosArg)
 {
     __asm volatile(
           " vmrs    r1, FPSCR\n"

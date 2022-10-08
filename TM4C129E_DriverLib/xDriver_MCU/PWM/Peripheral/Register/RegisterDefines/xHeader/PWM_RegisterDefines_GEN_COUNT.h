@@ -31,10 +31,10 @@
 ************************************ 17 GEN_COUNT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_GEN_COUNT_R_COUNT_MASK    ((uint32_t) 0x0000FFFFUL)
-#define PWM_GEN_COUNT_R_COUNT_BIT    ((uint32_t) 0UL)
+#define PWM_GEN_COUNT_R_COUNT_MASK    ((UBase_t) 0x0000FFFFUL)
+#define PWM_GEN_COUNT_R_COUNT_BIT    ((UBase_t) 0UL)
 
-#define PWM_GEN_COUNT_COUNT_MASK    ((uint32_t) 0x0000FFFFUL)
+#define PWM_GEN_COUNT_COUNT_MASK    ((UBase_t) 0x0000FFFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_COUNT_H_ */

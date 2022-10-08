@@ -38,7 +38,7 @@ NVIC_nERROR NVIC__enWriteRegister(NVIC_nMODULE enModuleArg, NVIC_Register_t* pst
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) NVIC_enMODULE_MAX);
+        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) NVIC_enMODULE_MAX);
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {

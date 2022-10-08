@@ -23,13 +23,13 @@
  */
 #include <xUtils/Graphics/Common/xHeader/Graphics_CheckParams.h>
 
-Graphics_nSTATUS Graphics__enCheckParams(uint32_t u32PosStart, uint32_t u32PosOffset, uint32_t u32ValueMax)
+Graphics_nSTATUS Graphics__enCheckParams(UBase_t uxPosStart, UBase_t uxPosOffset, UBase_t uxValueMax)
 {
     Graphics_nSTATUS enStatus = Graphics_enSTATUS_OK;
-    uint32_t u32PosReg = 0UL;
-    u32PosReg = u32PosStart;
-    u32PosReg += u32PosOffset;
-    if(u32PosReg > u32ValueMax)
+    UBase_t uxPosReg = 0UL;
+    uxPosReg = uxPosStart;
+    uxPosReg += uxPosOffset;
+    if(uxPosReg > uxValueMax)
     {
         enStatus = Graphics_enSTATUS_ERROR;
     }

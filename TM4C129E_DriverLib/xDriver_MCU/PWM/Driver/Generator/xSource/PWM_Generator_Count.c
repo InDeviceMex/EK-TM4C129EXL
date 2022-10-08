@@ -23,16 +23,41 @@
  */
 #include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Count.h>
 
-#include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/PWM_Intrinsics.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-uint32_t PWM_Generator__u32GetCount(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nERROR PWM_Generator__enGetCounterValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg)
 {
-    uint32_t u32CountReg = 0UL;
-    u32CountReg = PWM_Generator__u32GetGeneric((uint32_t) enModule,
-                                       (uint32_t) enGenerator,
-                                       PWM_GEN_COUNT_OFFSET,
-                                       PWM_GEN_COUNT_COUNT_MASK,
-                                       PWM_GEN_COUNT_R_COUNT_BIT);
-    return (u32CountReg);
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxValueArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxOffsetReg = (UBase_t) enGeneratorArg;
+        uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg *= 4UL;
+        uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+        uxOffsetReg += PWM_GEN_COUNT_OFFSET;
+
+        stRegister.uxShift = PWM_GEN_COUNT_R_COUNT_BIT;
+        stRegister.uxMask = PWM_GEN_COUNT_COUNT_MASK;
+        stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *puxValueArg = (UBase_t) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }

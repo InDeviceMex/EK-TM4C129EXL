@@ -13,13 +13,13 @@
 void FPU__vSetHalfPrecision(FPU_nMODULE enModuleArg,
                                    FPU_nHALF_PRECISION enHalfPrecisionArg)
 {
-    MCU__vFPUStatusControlMask(FPU_DSCR_R_AHP_MASK, (uint32_t) enHalfPrecisionArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_AHP_MASK, (UBase_t) enHalfPrecisionArg);
 }
 
 FPU_nHALF_PRECISION FPU__enGetHalfPrecision(FPU_nMODULE enModuleArg)
 {
     FPU_nHALF_PRECISION enHalfPrecisionReg;
-    enHalfPrecisionReg = (FPU_nHALF_PRECISION) MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_AHP_BIT);
+    enHalfPrecisionReg = (FPU_nHALF_PRECISION) MCU__uxGetFPUStatusControlBit(FPU_DSCR_R_AHP_BIT);
     return (enHalfPrecisionReg);
 }
 
@@ -37,14 +37,14 @@ FPU_nERROR FPU__enGetHalfPrecisionDefault(FPU_nMODULE enModuleArg,
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_DSCR_R_AHP_BIT;
-        stRegister.u32Mask = FPU_DSCR_AHP_MASK;
+        stRegister.uxShift = FPU_DSCR_R_AHP_BIT;
+        stRegister.uxMask = FPU_DSCR_AHP_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penHalfPrecisionArg = (FPU_nHALF_PRECISION) stRegister.u32Value;
+        *penHalfPrecisionArg = (FPU_nHALF_PRECISION) stRegister.uxValue;
     }
     return (enErrorReg);
 }

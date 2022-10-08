@@ -32,10 +32,10 @@ EEPROM_nERROR EEPROM__enMassErase(EEPROM_nMODULE enModuleArg)
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = EEPROM_DBGME_OFFSET;
-    stRegister.u32Value = EEPROM_DBGME_R_KEY_ERASE | EEPROM_DBGME_R_ME_ERASE;
+    stRegister.uxValue = EEPROM_DBGME_R_KEY_ERASE | EEPROM_DBGME_R_ME_ERASE;
     enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -52,14 +52,14 @@ EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nST
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_DBGME_R_ME_BIT;
-        stRegister.u32Mask = EEPROM_DBGME_ME_ERASE;
+        stRegister.uxShift = EEPROM_DBGME_R_ME_BIT;
+        stRegister.uxMask = EEPROM_DBGME_ME_ERASE;
         stRegister.uptrAddress = EEPROM_DBGME_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *penErasingArg = (EEPROM_nSTATUS) stRegister.u32Value;
+        *penErasingArg = (EEPROM_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

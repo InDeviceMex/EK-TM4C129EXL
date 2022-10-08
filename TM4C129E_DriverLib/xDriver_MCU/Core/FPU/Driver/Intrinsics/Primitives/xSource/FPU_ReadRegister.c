@@ -38,7 +38,7 @@ FPU_nERROR FPU__enReadRegister(FPU_nMODULE enModuleArg, FPU_Register_t* pstRegis
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FPU_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FPU_enMODULE_MAX);
+        enErrorReg = (FPU_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) FPU_enMODULE_MAX);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {

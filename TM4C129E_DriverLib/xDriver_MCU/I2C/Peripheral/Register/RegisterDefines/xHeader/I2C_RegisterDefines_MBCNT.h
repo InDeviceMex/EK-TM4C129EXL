@@ -31,10 +31,10 @@
 ************************************ 12 MBCNT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MASTER_BCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_MASTER_BCNT_R_CNTL_BIT    ((uint32_t) 0UL)
+#define I2C_MASTER_BCNT_R_CNTL_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_MASTER_BCNT_R_CNTL_BIT    ((UBase_t) 0UL)
 
-#define I2C_MASTER_BCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_MASTER_BCNT_CNTL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 
@@ -42,10 +42,10 @@
 ************************************ 12 MBCNT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MBCNT_R_CNTL_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_MBCNT_R_CNTL_BIT    ((uint32_t) 0UL)
+#define I2C_MBCNT_R_CNTL_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_MBCNT_R_CNTL_BIT    ((UBase_t) 0UL)
 
-#define I2C_MBCNT_CNTL_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_MBCNT_CNTL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 

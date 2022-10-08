@@ -29,7 +29,7 @@
 
 #define I2C_TIMEOUT (0xFFFFUL)
 
-I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, uint32_t u32TimeoutArg);
-I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, uint32_t u32TimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg);
+I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, UBase_t uxTimeoutArg);
+I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, UBase_t uxTimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg);
 
 #endif /* XAPPLICATION_MCU_I2C_OPERATIONS_XHEADER_I2C_COMMON_H_ */

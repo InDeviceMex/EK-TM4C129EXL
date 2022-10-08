@@ -31,10 +31,10 @@ ADC_nERROR ADC__enSetPhaseLag(ADC_nMODULE enModuleArg, ADC_nPHASE enPhaseArg)
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    stRegister.u32Shift = ADC_SPC_R_PHASE_BIT;
-    stRegister.u32Mask = ADC_SPC_PHASE_MASK;
+    stRegister.uxShift = ADC_SPC_R_PHASE_BIT;
+    stRegister.uxMask = ADC_SPC_PHASE_MASK;
     stRegister.uptrAddress = ADC_SPC_OFFSET;
-    stRegister.u32Value = (uint32_t) enPhaseArg;
+    stRegister.uxValue = (UBase_t) enPhaseArg;
     enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ ADC_nERROR ADC__enGetPhaseLag(ADC_nMODULE enModuleArg, ADC_nPHASE* penPhaseArg)
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_SPC_R_PHASE_BIT;
-        stRegister.u32Mask = ADC_SPC_PHASE_MASK;
+        stRegister.uxShift = ADC_SPC_R_PHASE_BIT;
+        stRegister.uxMask = ADC_SPC_PHASE_MASK;
         stRegister.uptrAddress = ADC_SPC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penPhaseArg = (ADC_nPHASE) stRegister.u32Value;
+        *penPhaseArg = (ADC_nPHASE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

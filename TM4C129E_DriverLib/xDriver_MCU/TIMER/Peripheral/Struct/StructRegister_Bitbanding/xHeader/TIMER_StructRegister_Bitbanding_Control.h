@@ -33,36 +33,36 @@
 
 typedef volatile struct
 {
-    volatile uint32_t CFG [3UL];
-    const uint32_t reserved [29UL];
+    volatile UBase_t CFG [3UL];
+    const UBase_t reserved [29UL];
 }BITBANDING_GPTMCFG_t;
 
 typedef volatile struct
 {
-    volatile uint32_t SYNCT0 [2UL];
-    volatile uint32_t SYNCT1 [2UL];
-    volatile uint32_t SYNCT2 [2UL];
-    volatile uint32_t SYNCT3 [2UL];
-    volatile uint32_t SYNCT4 [2UL];
-    volatile uint32_t SYNCT5 [2UL];
-    volatile uint32_t SYNCT6 [2UL];
-    volatile uint32_t SYNCT7 [2UL];
-    const uint32_t reserved [16UL];
+    volatile UBase_t SYNCT0 [2UL];
+    volatile UBase_t SYNCT1 [2UL];
+    volatile UBase_t SYNCT2 [2UL];
+    volatile UBase_t SYNCT3 [2UL];
+    volatile UBase_t SYNCT4 [2UL];
+    volatile UBase_t SYNCT5 [2UL];
+    volatile UBase_t SYNCT6 [2UL];
+    volatile UBase_t SYNCT7 [2UL];
+    const UBase_t reserved [16UL];
 }BITBANDING_GPTMSYNC_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t SIZE [4UL];
-    volatile const uint32_t CHAIN;
-    volatile const uint32_t SYNCCNT;
-    volatile const uint32_t ALTCLK;
-    const uint32_t reserved [25UL];
+    volatile const UBase_t SIZE [4UL];
+    volatile const UBase_t CHAIN;
+    volatile const UBase_t SYNCCNT;
+    volatile const UBase_t ALTCLK;
+    const UBase_t reserved [25UL];
 }BITBANDING_GPTMPP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t ALTCLK;
-    const uint32_t reserved [31UL];
+    volatile UBase_t ALTCLK;
+    const UBase_t reserved [31UL];
 }BITBANDING_GPTMCC_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTREGISTER_BITBANDING_TIMER_STRUCTREGISTER_BITBANDING_CONTROL_H_ */

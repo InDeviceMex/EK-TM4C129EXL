@@ -27,22 +27,22 @@
 
 void ACMP0_Comp1__vIRQVectorHandler(void)
 {
-    uint32_t u32Reg;
-    uint32_t u32Ready;
+    UBase_t uxReg;
+    UBase_t uxReady;
     ACMP_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PRACMP_R;
-    if(SYSCTL_PRACMP_R_ACMP_NOREADY == (SYSCTL_PRACMP_R_ACMP_MASK & u32Ready))
+    uxReady = SYSCTL_PRACMP_R;
+    if(SYSCTL_PRACMP_R_ACMP_NOREADY == (SYSCTL_PRACMP_R_ACMP_MASK & uxReady))
     {
         pvfCallback = ACMP_SW__pvfGetIRQSourceHandler(ACMP_enMODULE_0, ACMP_enCOMP_1);
         pvfCallback(ACMP0_BASE, (void*) ACMP_enCOMP_1);
     }
     else
     {
-        u32Reg = ACMP0_MIS_R;
-        if((uint32_t) ACMP_enCOMPMASK_1 & u32Reg)
+        uxReg = ACMP0_MIS_R;
+        if((UBase_t) ACMP_enCOMPMASK_1 & uxReg)
         {
-            ACMP0_MIS_R = (uint32_t) ACMP_enCOMPMASK_1;
+            ACMP0_MIS_R = (UBase_t) ACMP_enCOMPMASK_1;
             pvfCallback = ACMP__pvfGetIRQSourceHandler(ACMP_enMODULE_0, ACMP_enCOMP_1);
             pvfCallback(ACMP0_BASE, (void*) ACMP_enCOMP_1);
         }

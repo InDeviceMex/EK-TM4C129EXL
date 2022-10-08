@@ -27,12 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Output__vSetInvert(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg, PWM_nSTATE enInvertArg);
-PWM_nOUTPUT PWM_Output__enGetInvert(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                                                                         PWM_nOUTPUT enOutputArg);
-void PWM_Output__vSetInvertByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg,
-                            PWM_nSTATE enInvertArg);
-PWM_nOUTPUT_NUMBER PWM_Output__enGetInvertByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg);
+PWM_nERROR PWM_Output__enSetInversionStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nOUTPUT enOutputArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Output__enSetInversionStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
+                                                 PWM_nOUTPUT enOutputArg, PWM_nSTATE enStateArg);
+
+PWM_nERROR PWM_Output__enGetInversionStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nOUTPUT enOutputArg, PWM_nOUTPUT* penStateArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_OUTPUT_XHEADER_PWM_OUTPUT_INVERT_H_ */

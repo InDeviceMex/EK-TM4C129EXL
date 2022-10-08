@@ -31,17 +31,17 @@
 ************************************ 23 DC_CMP *********************************************
 ******************************************************************************************/
 /*--------*/
-#define ADC_DC_CMP_R_COMP0_MASK    ((uint32_t) 0x00000FFFUL)
-#define ADC_DC_CMP_R_COMP0_BIT    ((uint32_t) 0UL)
+#define ADC_DC_CMP_R_COMP0_MASK    ((UBase_t) 0x00000FFFUL)
+#define ADC_DC_CMP_R_COMP0_BIT    ((UBase_t) 0UL)
 
-#define ADC_DC_CMP_COMP0_MASK    ((uint32_t) 0x00000FFFUL)
+#define ADC_DC_CMP_COMP0_MASK    ((UBase_t) 0x00000FFFUL)
 /*--------*/
 
 /*--------*/
-#define ADC_DC_CMP_R_COMP1_MASK    ((uint32_t) 0x0FFF0000UL)
-#define ADC_DC_CMP_R_COMP1_BIT    ((uint32_t) 16UL)
+#define ADC_DC_CMP_R_COMP1_MASK    ((UBase_t) 0x0FFF0000UL)
+#define ADC_DC_CMP_R_COMP1_BIT    ((UBase_t) 16UL)
 
-#define ADC_DC_CMP_COMP1_MASK    ((uint32_t) 0x00000FFFUL)
+#define ADC_DC_CMP_COMP1_MASK    ((UBase_t) 0x00000FFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_DCCMP_H_ */

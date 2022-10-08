@@ -23,13 +23,13 @@
  */
 #include <xDriver_MCU/PWM/Peripheral/Register/RegisterPeripheral/PWM_RegisterPeripheral.h>
 
-uint32_t PWM__u32BlockBaseAddress(PWM_nMODULE enModuleArg)
+uintptr_t PWM__uptrBlockBaseAddress(PWM_nMODULE enModuleArg)
 {
-    const uintptr_t PWM_BLOCK_BASE[(uint32_t) PWM_enMODULE_MAX] =
+    const uintptr_t PWM_BLOCK_BASE[(UBase_t) PWM_enMODULE_MAX] =
     {
      PWM0_BASE
     };
-    return (PWM_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (PWM_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

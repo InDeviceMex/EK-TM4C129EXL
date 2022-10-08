@@ -30,6 +30,6 @@
 #include <xApplication_MCU/Core/SYSTICK/Delay/Miscellaneous/SYSTICK_Miscellaneous.h>
 #include <xApplication_MCU/Core/SYSTICK/Delay/Intrinsics/SYSTICK_Intrinsics.h>
 
-void SYSTICK__vDelayUs(uint32_t u32TimeUs);
+void SYSTICK__vDelayUs(UBase_t uxTimeUs);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_DELAY_SYSTICK_DELAY_H_ */

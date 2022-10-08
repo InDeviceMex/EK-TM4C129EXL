@@ -40,7 +40,7 @@ void WDT__vDisResetOutput(WDT_nMODULE enModule)
 
 void WDT__vSetResetOutput(WDT_nMODULE enModule, WDT_nRESET enResetOutputValue)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (uint32_t) enResetOutputValue,
+    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (UBase_t) enResetOutputValue,
                         WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
 }
 
@@ -48,7 +48,7 @@ WDT_nRESET WDT__enGetResetOutput(WDT_nMODULE enModule)
 {
     WDT_nRESET enResetArg = WDT_enRESET_DISABLE;
 
-    enResetArg = (WDT_nRESET) WDT__u32ReadRegister(enModule, WDT_CTL_OFFSET,
+    enResetArg = (WDT_nRESET) WDT__uxReadRegister(enModule, WDT_CTL_OFFSET,
                                    WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
 
     return (enResetArg);

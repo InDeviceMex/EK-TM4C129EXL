@@ -30,13 +30,13 @@
 ADC_nERROR ADC_Sequencer__enGetFifoStatusByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                   ADC_nFIFO* penFifoStatusArg);
 ADC_nERROR ADC_Sequencer__enGetFifoHeadByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoHeadArg);
+                                                UBase_t* puxFifoHeadArg);
 ADC_nERROR ADC_Sequencer__enGetFifoTailByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoTailArg);
+                                                UBase_t* puxFifoTailArg);
 ADC_nERROR ADC_Sequencer__enGetFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoDataArg);
+                                                UBase_t* puxFifoDataArg);
 ADC_nERROR ADC_Sequencer__enGetAllFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                   uint32_t* pu32FifoDataArg, uint32_t* pu32NumberArg);
+                                                   UBase_t* puxFifoDataArg, UBase_t* puxNumberArg);
 
 
 

@@ -30,71 +30,71 @@
 ************************************ 9 MCR *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MASTER_CR_R_LPBK_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MASTER_CR_R_LPBK_BIT    ((uint32_t) 0UL)
-#define I2C_MASTER_CR_R_LPBK_NORMAL    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_R_LPBK_LOOPBACK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CR_R_LPBK_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MASTER_CR_R_LPBK_BIT    ((UBase_t) 0UL)
+#define I2C_MASTER_CR_R_LPBK_NORMAL    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_R_LPBK_LOOPBACK    ((UBase_t) 0x00000001UL)
 
-#define I2C_MASTER_CR_LPBK_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MASTER_CR_LPBK_NORMAL    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_LPBK_LOOPBACK    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CR_LPBK_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MASTER_CR_LPBK_NORMAL    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_LPBK_LOOPBACK    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_MASTER_CR_R_MFE_MASK    ((uint32_t) 0x00000010UL)
-#define I2C_MASTER_CR_R_MFE_BIT    ((uint32_t) 4UL)
-#define I2C_MASTER_CR_R_MFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_R_MFE_ENA    ((uint32_t) 0x00000010UL)
+#define I2C_MASTER_CR_R_MFE_MASK    ((UBase_t) 0x00000010UL)
+#define I2C_MASTER_CR_R_MFE_BIT    ((UBase_t) 4UL)
+#define I2C_MASTER_CR_R_MFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_R_MFE_ENA    ((UBase_t) 0x00000010UL)
 
-#define I2C_MASTER_CR_MFE_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MASTER_CR_MFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_MFE_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CR_MFE_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MASTER_CR_MFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_MFE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_MASTER_CR_R_SFE_MASK    ((uint32_t) 0x00000020UL)
-#define I2C_MASTER_CR_R_SFE_BIT    ((uint32_t) 5UL)
-#define I2C_MASTER_CR_R_SFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_R_SFE_ENA    ((uint32_t) 0x00000020UL)
+#define I2C_MASTER_CR_R_SFE_MASK    ((UBase_t) 0x00000020UL)
+#define I2C_MASTER_CR_R_SFE_BIT    ((UBase_t) 5UL)
+#define I2C_MASTER_CR_R_SFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_R_SFE_ENA    ((UBase_t) 0x00000020UL)
 
-#define I2C_MASTER_CR_SFE_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MASTER_CR_SFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MASTER_CR_SFE_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_MASTER_CR_SFE_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MASTER_CR_SFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MASTER_CR_SFE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /******************************************************************************************
 ************************************ 9 MCR *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_MCR_R_LPBK_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MCR_R_LPBK_BIT    ((uint32_t) 0UL)
-#define I2C_MCR_R_LPBK_NORMAL    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_R_LPBK_LOOPBACK    ((uint32_t) 0x00000001UL)
+#define I2C_MCR_R_LPBK_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MCR_R_LPBK_BIT    ((UBase_t) 0UL)
+#define I2C_MCR_R_LPBK_NORMAL    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_R_LPBK_LOOPBACK    ((UBase_t) 0x00000001UL)
 
-#define I2C_MCR_LPBK_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MCR_LPBK_NORMAL    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_LPBK_LOOPBACK    ((uint32_t) 0x00000001UL)
+#define I2C_MCR_LPBK_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MCR_LPBK_NORMAL    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_LPBK_LOOPBACK    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_MCR_R_MFE_MASK    ((uint32_t) 0x00000010UL)
-#define I2C_MCR_R_MFE_BIT    ((uint32_t) 4UL)
-#define I2C_MCR_R_MFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_R_MFE_ENA    ((uint32_t) 0x00000010UL)
+#define I2C_MCR_R_MFE_MASK    ((UBase_t) 0x00000010UL)
+#define I2C_MCR_R_MFE_BIT    ((UBase_t) 4UL)
+#define I2C_MCR_R_MFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_R_MFE_ENA    ((UBase_t) 0x00000010UL)
 
-#define I2C_MCR_MFE_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MCR_MFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_MFE_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_MCR_MFE_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MCR_MFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_MFE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_MCR_R_SFE_MASK    ((uint32_t) 0x00000020UL)
-#define I2C_MCR_R_SFE_BIT    ((uint32_t) 5UL)
-#define I2C_MCR_R_SFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_R_SFE_ENA    ((uint32_t) 0x00000020UL)
+#define I2C_MCR_R_SFE_MASK    ((UBase_t) 0x00000020UL)
+#define I2C_MCR_R_SFE_BIT    ((UBase_t) 5UL)
+#define I2C_MCR_R_SFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_R_SFE_ENA    ((UBase_t) 0x00000020UL)
 
-#define I2C_MCR_SFE_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_MCR_SFE_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_MCR_SFE_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_MCR_SFE_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_MCR_SFE_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_MCR_SFE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_MCR_H_ */

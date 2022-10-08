@@ -21,47 +21,63 @@
  * Date           Author     Version     Description
  * 5 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCompare.h>
 
-int32_t CONV_s32StringCompare(const char*  pcString1, const char* pcString2, uint32_t u32MaxSize)
+CONV_nERROR CONV_enStringCompare(const char*  pcString1, const char* pcString2, Base_t* psxResultArg, UBase_t uxMaxSize)
 {
-    int32_t s32Result = 0;
-    if(((uint32_t) 0U != (uint32_t) pcString2) && ((uint32_t) 0U != (uint32_t) pcString1))
+    CONV_nERROR enErrorReg;
+    Base_t sxResultReg;
+
+    sxResultReg = 0;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcString2) || (0UL == (uintptr_t) pcString1) || (0UL == (uintptr_t) psxResultArg))
     {
-        while(((char)0 != (char) *pcString1) && ((char)0 != (char) *pcString2) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        while((0U != (uint8_t) *pcString1) && (0U != (uint8_t) *pcString2) && (0U < uxMaxSize))
         {
-            if ( (uint8_t) *pcString1 > (uint8_t) *pcString2)
+            if ((uint8_t) *pcString1 > (uint8_t) *pcString2)
             {
-                s32Result = 1;
+                sxResultReg = 1;
                 break;
             }
             else if ( (uint8_t) *pcString1 < (uint8_t) *pcString2)
             {
-                s32Result = -1;
+                sxResultReg = -1;
                 break;
             }
-            else {}
-
             pcString2 += 1U;
             pcString1 += 1U;
-            u32MaxSize--;
+            uxMaxSize--;
         }
-        if((0 == s32Result) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
+
+        if(0UL == uxMaxSize)
         {
-            if((char)0 != (char)*pcString2 )
+            enErrorReg = CONV_enERROR_OUT_OF_RANGE;
+        }
+        else
+        {
+            if(0 == sxResultReg)
             {
-                s32Result = -1;
+                if(0U != (uint8_t) *pcString2)
+                {
+                    sxResultReg = -1;
+                }
+                else if(0U != (uint8_t) *pcString1 )
+                {
+                    sxResultReg = 1;
+                }
             }
-            else if((char)0 != (char)*pcString1 )
-            {
-                s32Result = 1;
-            }
-            else{}
         }
     }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        *psxResultArg = (Base_t) sxResultReg;
+    }
 
-    return (s32Result);
+    return (enErrorReg);
 }
 
 

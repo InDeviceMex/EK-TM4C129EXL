@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetMaxPosition(QEI_nMODULE enModule, uint32_t u32MaxPositionArg);
-uint32_t QEI__u32GetMaxPosition(QEI_nMODULE enModule);
+void QEI__vSetMaxPosition(QEI_nMODULE enModule, UBase_t uxMaxPositionArg);
+UBase_t QEI__uxGetMaxPosition(QEI_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_MAXPOSITION_H_ */

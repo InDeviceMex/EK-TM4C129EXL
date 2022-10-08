@@ -30,17 +30,17 @@
 I2C_nERROR I2C_Master_enReceiveGeneric(I2C_nMODULE enModule,
                                         I2C_nSTATE enMultiMasterArg,
                                         I2C_nSTATE enStopConditionArg,
-                                        uint32_t u32SlaveAddressArg,
+                                        UBase_t uxSlaveAddressArg,
                                         uint8_t *pu8Data,
-                                        uint32_t u32DataSize);
+                                        UBase_t uxDataSize);
 
 I2C_nERROR I2C_Master_enReceiveMultiByte(I2C_nMODULE enModule,
-                                          uint32_t u32SlaveAddressArg,
+                                          UBase_t uxSlaveAddressArg,
                                           uint8_t *pu8Data,
-                                          uint32_t u32DataSize);
+                                          UBase_t uxDataSize);
 
 I2C_nERROR I2C_Master_enReceiveByte(I2C_nMODULE enModule,
-                                     uint32_t u32SlaveAddressArg,
+                                     UBase_t uxSlaveAddressArg,
                                      uint8_t u8Data);
 
 #endif /* XAPPLICATION_MCU_I2C_OPERATIONS_XHEADER_I2C_MASTERRECEIVE_H_ */

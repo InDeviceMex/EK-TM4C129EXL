@@ -28,7 +28,7 @@
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 #include <stdarg.h>
 
-uint32_t GraphTerm__u32Printf(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row, const char* pcFormat, ... );
+UBase_t GraphTerm__uxPrintf(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow, const char* pcFormat, ... );
 
-void GraphTerm__vSetFontColor(UART_nMODULE enModule, uint32_t u32RedColor,uint32_t u32GreenColor,uint32_t u32BlueColor);
+void GraphTerm__vSetFontColor(UART_nMODULE enModule, UBase_t uxRedColor,UBase_t uxGreenColor,UBase_t uxBlueColor);
 #endif /* XDRIVER_MCU_UART_APP_GRAPHICTERMINAL_XHEADER_GRAPHICTERMINAL_PRINT_H_ */

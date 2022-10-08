@@ -29,31 +29,31 @@
 
 typedef volatile struct
 {
-    volatile uint32_t TYPE :4;
-    volatile uint32_t ENDIAN :2;
-    const uint32_t reserved :1;
-    volatile uint32_t BR :1;
-    volatile uint32_t OBR :1;
-    volatile uint32_t RESINV :1;
-    const uint32_t reserved1 :2;
-    volatile uint32_t SIZE :1;
-    volatile uint32_t INIT :2;
-    const uint32_t reserved2 :17;
+    volatile UBase_t TYPE :4;
+    volatile UBase_t ENDIAN :2;
+    const UBase_t reserved :1;
+    volatile UBase_t BR :1;
+    volatile UBase_t OBR :1;
+    volatile UBase_t RESINV :1;
+    const UBase_t reserved1 :2;
+    volatile UBase_t SIZE :1;
+    volatile UBase_t INIT :2;
+    const UBase_t reserved2 :17;
 }CRC_CTRL_t;
 
 typedef volatile struct
 {
-    volatile uint32_t SEED :32;
+    volatile UBase_t SEED :32;
 }CRC_SEED_t;
 
 typedef volatile struct
 {
-    volatile uint32_t DATAIN :32;
+    volatile UBase_t DATAIN :32;
 }CRC_DIN_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t RSLTPP :32;
+    volatile const UBase_t RSLTPP :32;
 }CRC_RSLTPP_t;
 
 #endif /* XDRIVER_MCU_CRC_PERIPHERAL_STRUCT_XHEADER_CRC_STRUCTREGISTER_H_ */

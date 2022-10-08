@@ -29,6 +29,6 @@
 
 SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg);
 SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
-                                         uint32_t* u32ValueArg);
+                                         UBase_t* uxValueArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_CURRENT_H_ */

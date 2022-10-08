@@ -23,86 +23,302 @@
  */
 #include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Compare.h>
 
-#include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/PWM_Intrinsics.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-void PWM_Generator__vSetCompareA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg)
+PWM_nERROR PWM_Generator__enSetCompareValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t uxValueArg)
 {
-    PWM_Generator__vSetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_CMPA_OFFSET,
-                               u32CompareArg, PWM_GEN_CMPA_COMPA_MASK, PWM_GEN_CMPA_R_COMPA_BIT);
-}
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    UBase_t uxGeneratorReg;
+    PWM_nERROR enErrorReg;
 
-uint32_t PWM_Generator__u32GetCompareA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
-{
-    uint32_t u32CompareReg = 0UL;
-    u32CompareReg = PWM_Generator__u32GetGeneric((uint32_t) enModule,
-                                       (uint32_t) enGenerator,
-                                       PWM_GEN_CMPA_OFFSET,
-                                       PWM_GEN_CMPA_COMPA_MASK,
-                                       PWM_GEN_CMPA_R_COMPA_BIT);
-    return (u32CompareReg);
-}
-
-void PWM_Generator__vSetCompareB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg)
-{
-    PWM_Generator__vSetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_CMPB_OFFSET,
-                               u32CompareArg, PWM_GEN_CMPB_COMPB_MASK, PWM_GEN_CMPB_R_COMPB_BIT);
-}
-
-uint32_t PWM_Generator__u32GetCompareB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
-{
-    uint32_t u32CompareReg = 0UL;
-    u32CompareReg = PWM_Generator__u32GetGeneric((uint32_t) enModule,
-                                       (uint32_t) enGenerator,
-                                       PWM_GEN_CMPB_OFFSET,
-                                       PWM_GEN_CMPB_COMPB_MASK,
-                                       PWM_GEN_CMPB_R_COMPB_BIT);
-    return (u32CompareReg);
-}
-
-
-void PWM_Generator__vSetCompare(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nOUTPUT enOutputArg, uint32_t u32CompareArg)
-{
-    switch(enOutputArg)
+    uxGeneratorReg = 0UL;
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            PWM_Generator__vSetCompareA(enModule, enGenerator, u32CompareArg);
-            break;
-        case PWM_enOUTPUT_B:
-            PWM_Generator__vSetCompareB(enModule, enGenerator, u32CompareArg);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            PWM_Generator__vSetCompareA(enModule, enGenerator, u32CompareArg);
-            PWM_Generator__vSetCompareB(enModule, enGenerator, u32CompareArg);
-            break;
-        default:
-            break;
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_MAX);
     }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGeneratorReg = (UBase_t) enGeneratorArg;
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_OUTA_CMP_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_OUTA_CMP_R_COMP_BIT;
+            stRegister.uxMask = MCU_MASK_BASE;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            stRegister.uxValue = (UBase_t) uxValueArg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_OUTB_CMP_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_OUTB_CMP_R_COMP_BIT;
+            stRegister.uxMask = MCU_MASK_BASE;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            stRegister.uxValue = (UBase_t) uxValueArg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+
+    return (enErrorReg);
 }
 
-uint32_t PWM_Generator__u32GetCompare(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                      PWM_nOUTPUT enOutputArg)
+PWM_nERROR PWM_Generator__enSetCompareValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, UBase_t uxValueArg)
 {
-    uint32_t u32CompareReg = 0UL;
-    switch(enOutputArg)
+    UBase_t uxGenMaskReg;
+    UBase_t uxGenerator;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            u32CompareReg = PWM_Generator__u32GetCompareA(enModule, enGenerator);
-            break;
-        case PWM_enOUTPUT_B:
-            u32CompareReg = PWM_Generator__u32GetCompareB(enModule, enGenerator);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            break;
-        default:
-            break;
+        uxGenerator = 0UL;
+        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (1UL & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Generator__enSetCompareValueByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, enOutputArg, uxValueArg);
+            }
+            uxGenMaskReg >>= 1UL;
+            uxGenerator++;
+        }
     }
-    return (u32CompareReg);
+    return (enErrorReg);
+}
+
+
+PWM_nERROR PWM_Generator__enGetCompareValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t* puxValueArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    UBase_t uxGeneratorReg;
+    PWM_nERROR enErrorReg;
+
+    uxGeneratorReg = 0UL;
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxValueArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGeneratorReg = (UBase_t) enGeneratorArg;
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_OUTA_CMP_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_OUTA_CMP_R_COMP_BIT;
+            stRegister.uxMask = PWM_GEN_OUTA_CMP_COMP_MASK;
+            stRegister.uptrAddress = (UBase_t)uxOffsetReg;
+            enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+            if(PWM_enERROR_OK == enErrorReg)
+            {
+                *puxValueArg = (UBase_t) stRegister.uxValue;
+                puxValueArg += 1UL;
+            }
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_OUTB_CMP_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_OUTB_CMP_R_COMP_BIT;
+            stRegister.uxMask = PWM_GEN_OUTB_CMP_COMP_MASK;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+            if(PWM_enERROR_OK == enErrorReg)
+            {
+                *puxValueArg = (UBase_t) stRegister.uxValue;
+            }
+        }
+    }
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetCompareUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    UBase_t uxGeneratorReg;
+    UBase_t uxModeReg;
+    UBase_t uxUpdateReg;
+    PWM_nERROR enErrorReg;
+
+    uxGeneratorReg = 0UL;
+    uxModeReg = 0UL;
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModeArg, (UBase_t) PWM_enUPDATE_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGeneratorReg = (UBase_t) enGeneratorArg;
+        uxModeReg = (UBase_t) enModeArg;
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxUpdateReg = uxModeReg;
+            uxUpdateReg &= 1UL;
+
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_CTL_R_OUTA_CMP_UPD_BIT;
+            stRegister.uxMask = PWM_GEN_CTL_OUTA_CMP_UPD_MASK;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            stRegister.uxValue = (UBase_t) uxUpdateReg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxUpdateReg = uxModeReg;
+            uxUpdateReg &= 1UL;
+
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_CTL_R_OUTB_CMP_UPD_BIT;
+            stRegister.uxMask = PWM_GEN_CTL_OUTB_CMP_UPD_MASK;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            stRegister.uxValue = (UBase_t) uxUpdateReg;
+            enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+        }
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetCompareUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg)
+{
+    UBase_t uxGenMaskReg;
+    UBase_t uxGenerator;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGenerator = 0UL;
+        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (1UL & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Generator__enSetCompareUpdateModeByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, enOutputArg, enModeArg);
+            }
+            uxGenMaskReg >>= 1UL;
+            uxGenerator++;
+        }
+    }
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enGetCompareUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE* penModeArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    UBase_t uxGeneratorReg;
+    PWM_nERROR enErrorReg;
+
+    uxGeneratorReg = 0UL;
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGeneratorReg = (UBase_t) enGeneratorArg;
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_CTL_R_OUTA_CMP_UPD_BIT;
+            stRegister.uxMask = PWM_GEN_CTL_OUTA_CMP_UPD_MASK;
+            stRegister.uptrAddress = (UBase_t)uxOffsetReg;
+            enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+            if(PWM_enERROR_OK == enErrorReg)
+            {
+                *penModeArg = (PWM_nUPDATE) stRegister.uxValue;
+                penModeArg += 1UL;
+            }
+        }
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxOffsetReg = uxGeneratorReg;
+            uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+            uxOffsetReg *= 4UL;
+            uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+            uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+            stRegister.uxShift = PWM_GEN_CTL_R_OUTB_CMP_UPD_BIT;
+            stRegister.uxMask = PWM_GEN_CTL_OUTB_CMP_UPD_MASK;
+            stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+            enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+            if(PWM_enERROR_OK == enErrorReg)
+            {
+                *penModeArg = (PWM_nUPDATE) stRegister.uxValue;
+                penModeArg += 1UL;
+            }
+        }
+    }
+    return (enErrorReg);
 }

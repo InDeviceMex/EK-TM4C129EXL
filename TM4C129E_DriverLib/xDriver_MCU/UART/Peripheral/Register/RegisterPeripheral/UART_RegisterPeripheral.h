@@ -36,6 +36,6 @@
 
 #define UART    ((UARTS_t*) (UART_BASE))
 
-uint32_t UART__u32BlockBaseAddress(UART_nMODULE enModuleArg);
+UBase_t UART__uxBlockBaseAddress(UART_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_UART_REGISTERPERIPHERAL_H_ */

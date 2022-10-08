@@ -26,7 +26,7 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-uint32_t SCB_BusFault_pu32Context[8UL] = {0UL};
+UBase_t SCB_BusFault_puxContext[8UL] = {0UL};
 
 UART_CONTROL_t enUartBusControl =
 {
@@ -73,20 +73,20 @@ void BusFault__vSendValues(void)
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartBusControl, &enUartBusLineControl, 921600UL, &enUartBusLine );
     UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
 
-    UART__u32Printf(UART_enMODULE_0, "BUS FAULT exception Detected\n\r"
+    UART__uxPrintf(UART_enMODULE_0, "BUS FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
                     "R12: %X xPSR: %X\n\r"
                     "LR: %X, PC: %X\n\r",
-                    SCB_BusFault_pu32Context[0UL],
-                    SCB_BusFault_pu32Context[1UL],
-                    SCB_BusFault_pu32Context[2UL],
-                    SCB_BusFault_pu32Context[3UL],
-                    SCB_BusFault_pu32Context[4UL],
-                    SCB_BusFault_pu32Context[7UL],
-                    SCB_BusFault_pu32Context[5UL],
-                    SCB_BusFault_pu32Context[6UL]);
+                    SCB_BusFault_puxContext[0UL],
+                    SCB_BusFault_puxContext[1UL],
+                    SCB_BusFault_puxContext[2UL],
+                    SCB_BusFault_puxContext[3UL],
+                    SCB_BusFault_puxContext[4UL],
+                    SCB_BusFault_puxContext[7UL],
+                    SCB_BusFault_puxContext[5UL],
+                    SCB_BusFault_puxContext[6UL]);
 }
 
 
@@ -103,53 +103,53 @@ void BusFault__vIRQVectorHandler(void)
     "MainStackBus: \n"
     " mrs    R4, MSP \n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R6, SCB_BusFault_pu32Context\n"
-    " movt R6, SCB_BusFault_pu32Context\n"
+    " movw R6, SCB_BusFault_puxContext\n"
+    " movt R6, SCB_BusFault_puxContext\n"
 #elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_pu32Context\n"
+    " ldr R6, = SCB_BusFault_puxContext\n"
 #endif
     " ldr R5, [R4, #0X10]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+    " str R5, [R6, #0x0]\n"/*SCB_BusFault_puxContext[0] R4*/
     " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
+    " str R5, [R6, #0x4]\n"/*SCB_BusFault_puxContext[1] R5*/
     " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
+    " str R5, [R6, #0x8]\n"/*SCB_BusFault_puxContext[2] R6*/
     " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
+    " str R5, [R6, #0xC]\n"/*SCB_BusFault_puxContext[3] R3*/
     " ldr R5, [R4, #0x20]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
+    " str R5, [R6, #0x10]\n"/*SCB_BusFault_puxContext[4] R52*/
     " ldr R5, [R4, #0x24]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
+    " str R5, [R6, #0x14]\n"/*SCB_BusFault_puxContext[5] LR*/
     " ldr R5, [R4, #0x28]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
+    " str R5, [R6, #0x18]\n"/*SCB_BusFault_puxContext[6] PC*/
     " ldr R5, [R4, #0x2C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_puxContext[7] PSR*/
     " b    ProcessBus \n"
 
     "ProcessStackBus: \n"
     " mrs    R4, PSP \n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R6, SCB_BusFault_pu32Context\n"
-    " movt R6, SCB_BusFault_pu32Context\n"
+    " movw R6, SCB_BusFault_puxContext\n"
+    " movt R6, SCB_BusFault_puxContext\n"
 #elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_pu32Context\n"
+    " ldr R6, = SCB_BusFault_puxContext\n"
 #endif
     " ldr R5, [R4, #0X0]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_pu32Context[0] R4*/
+    " str R5, [R6, #0x0]\n"/*SCB_BusFault_puxContext[0] R4*/
     " ldr R5, [R4, #0x4]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_pu32Context[1] R5*/
+    " str R5, [R6, #0x4]\n"/*SCB_BusFault_puxContext[1] R5*/
     " ldr R5, [R4, #0x8]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_pu32Context[2] R6*/
+    " str R5, [R6, #0x8]\n"/*SCB_BusFault_puxContext[2] R6*/
     " ldr R5, [R4, #0xC]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_pu32Context[3] R3*/
+    " str R5, [R6, #0xC]\n"/*SCB_BusFault_puxContext[3] R3*/
     " ldr R5, [R4, #0x10]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_pu32Context[4] R52*/
+    " str R5, [R6, #0x10]\n"/*SCB_BusFault_puxContext[4] R52*/
     " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_pu32Context[5] LR*/
+    " str R5, [R6, #0x14]\n"/*SCB_BusFault_puxContext[5] LR*/
     " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_pu32Context[6] PC*/
+    " str R5, [R6, #0x18]\n"/*SCB_BusFault_puxContext[6] PC*/
     " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_pu32Context[7] PSR*/
+    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_puxContext[7] PSR*/
 
     "ProcessBus: \n"
     " pop {R4-R7}\n"
@@ -167,10 +167,10 @@ void BusFault__vIRQVectorHandler(void)
     " movw R0, #0xE000\n"
     " movt R0, #0xE000\n"
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R1, SCB_BusFault_pu32Context\n"
-    " movt R1, SCB_BusFault_pu32Context\n"
+    " movw R1, SCB_BusFault_puxContext\n"
+    " movt R1, SCB_BusFault_puxContext\n"
 #elif defined (__GNUC__ )
-    " ldr R1, = SCB_BusFault_pu32Context\n"
+    " ldr R1, = SCB_BusFault_puxContext\n"
 #endif
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     " movw R2, BusFault__vIRQVectorHandlerCustom\n"
@@ -186,93 +186,93 @@ void BusFault__vIRQVectorHandler(void)
 void BusFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)
 {
     SCB_t* pstSCBReg;
-    uint32_t u32BusFault;
+    UBase_t uxBusFault;
     SCB_pvfIRQSourceHandler_t pvfCallback;
-    uint32_t u32BusAddressValid;
-    uint32_t u32BusAddressFault;
-    uint32_t* pu32Context;
-    uint32_t* pu32ContextOffset;
+    UBase_t uxBusAddressValid;
+    UBase_t uxBusAddressFault;
+    UBase_t* puxContext;
+    UBase_t* puxContextOffset;
 
     pstSCBReg = (SCB_t*) uptrModuleArg;
-    pu32Context = (uint32_t*) pvArgument;
+    puxContext = (UBase_t*) pvArgument;
 
-    u32BusAddressValid = 0UL;
-    u32BusFault = pstSCBReg->CFSR;
-    u32BusFault >>= 8UL;
-    u32BusFault &= (uint32_t) SCB_enBUS_ALL;
-    if(0UL == ((uint32_t) SCB_enBUS_ALL & u32BusFault))
+    uxBusAddressValid = 0UL;
+    uxBusFault = pstSCBReg->CFSR;
+    uxBusFault >>= 8UL;
+    uxBusFault &= (UBase_t) SCB_enBUS_ALL;
+    if(0UL == ((UBase_t) SCB_enBUS_ALL & uxBusFault))
     {
-        UART__u32Printf(UART_enMODULE_0, "Bus Fault Exception triggered by Software \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Bus Fault Exception triggered by Software \n\r");
         pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_SW);
         pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_SW);
     }
     else
     {
-        if((uint32_t) SCB_enBUS_LSPERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_LSPERR & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_LSPERR_CLEAR;
-            UART__u32Printf(UART_enMODULE_0, "Bus Fault on FPU Lazy State Preservation \n\r");
+            UART__uxPrintf(UART_enMODULE_0, "Bus Fault on FPU Lazy State Preservation \n\r");
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_LSPERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_LSPERR);
         }
-        if((uint32_t) SCB_enBUS_STKERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_STKERR & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_STKERR_CLEAR;
-            UART__u32Printf(UART_enMODULE_0,"Stacking Bus Fault, it occurred on an Exception/IRQ entry\n\r"
+            UART__uxPrintf(UART_enMODULE_0,"Stacking Bus Fault, it occurred on an Exception/IRQ entry\n\r"
                                             "Context Values cannot be valid\n\r");
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_STKERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_STKERR);
         }
-        if((uint32_t) SCB_enBUS_UNSTKERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_UNSTKERR & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_UNSTKERR_CLEAR;
-            UART__u32Printf(UART_enMODULE_0,"Un-stacking Bus Fault, it occurred on an Exception/IRQ exit\n\r"
+            UART__uxPrintf(UART_enMODULE_0,"Un-stacking Bus Fault, it occurred on an Exception/IRQ exit\n\r"
                                             "Context Values are related to the previous context\n\r");
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_UNSTKERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_UNSTKERR);
         }
-        if((uint32_t) SCB_enBUS_IMPRECISERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_IMPRECISERR & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_IMPRECISERR_CLEAR;
-            pu32ContextOffset = pu32Context;
-            pu32ContextOffset += 6UL;
-            u32BusAddressFault = *pu32ContextOffset;
-            UART__u32Printf(UART_enMODULE_0, "Imprecise Data Bus Fault\n\r"
-                            "Fault Address (Possible or near): %X\n\r", u32BusAddressFault);
+            puxContextOffset = puxContext;
+            puxContextOffset += 6UL;
+            uxBusAddressFault = *puxContextOffset;
+            UART__uxPrintf(UART_enMODULE_0, "Imprecise Data Bus Fault\n\r"
+                            "Fault Address (Possible or near): %X\n\r", uxBusAddressFault);
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_IMPRECISERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_IMPRECISERR);
         }
-        if((uint32_t) SCB_enBUS_BFARVALID & u32BusFault)
+        if((UBase_t) SCB_enBUS_BFARVALID & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_BFARVALID_CLEAR;
-            u32BusAddressValid = 1UL;
+            uxBusAddressValid = 1UL;
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_BFARVALID);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_BFARVALID);
         }
-        if((uint32_t) SCB_enBUS_PRECISERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_PRECISERR & uxBusFault)
         {
 
             pstSCBReg->CFSR = SCB_CFSR_R_PRECISERR_CLEAR;
-            UART__u32Printf(UART_enMODULE_0, "Precise Data Bus Fault\n\r");
-            if(1UL == u32BusAddressValid)
+            UART__uxPrintf(UART_enMODULE_0, "Precise Data Bus Fault\n\r");
+            if(1UL == uxBusAddressValid)
             {
-                u32BusAddressFault = pstSCBReg->BFAR;
-                UART__u32Printf(UART_enMODULE_0, "Fault Address (Exact): %X\n\r", u32BusAddressFault);
+                uxBusAddressFault = pstSCBReg->BFAR;
+                UART__uxPrintf(UART_enMODULE_0, "Fault Address (Exact): %X\n\r", uxBusAddressFault);
             }
-            pu32ContextOffset = pu32Context;
-            pu32ContextOffset += 6UL;
-            u32BusAddressFault = *pu32ContextOffset;
-            UART__u32Printf(UART_enMODULE_0, "Fault Address (Possible): %X\n\r", u32BusAddressFault);
+            puxContextOffset = puxContext;
+            puxContextOffset += 6UL;
+            uxBusAddressFault = *puxContextOffset;
+            UART__uxPrintf(UART_enMODULE_0, "Fault Address (Possible): %X\n\r", uxBusAddressFault);
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_PRECISERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_PRECISERR);
         }
-        if((uint32_t) SCB_enBUS_IBUSERR & u32BusFault)
+        if((UBase_t) SCB_enBUS_IBUSERR & uxBusFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_IBUSERR_CLEAR;
-            pu32ContextOffset = pu32Context;
-            pu32ContextOffset += 6UL;
-            u32BusAddressFault = *pu32ContextOffset;
-            UART__u32Printf(UART_enMODULE_0, "Instruction Bus Access Fault Address: %X\n\r", u32BusAddressFault);
+            puxContextOffset = puxContext;
+            puxContextOffset += 6UL;
+            uxBusAddressFault = *puxContextOffset;
+            UART__uxPrintf(UART_enMODULE_0, "Instruction Bus Access Fault Address: %X\n\r", uxBusAddressFault);
             pvfCallback = SCB_BusFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enBUS_BIT_IBUSERR);
             pvfCallback(SCB_BASE, (void*) SCB_enBUS_BIT_IBUSERR);
         }

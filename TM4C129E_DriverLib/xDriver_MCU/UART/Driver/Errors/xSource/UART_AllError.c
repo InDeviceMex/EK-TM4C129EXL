@@ -26,12 +26,12 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-uint32_t UART__u32GetErrorState(UART_nMODULE enModule)
+UBase_t UART__uxGetErrorState(UART_nMODULE enModule)
 {
-    uint32_t u32ErrorReg = 0UL;
-    u32ErrorReg = UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
+    UBase_t uxErrorReg = 0UL;
+    uxErrorReg = UART__uxReadRegister(enModule, UART_RSR_OFFSET,
     (UART_RSR_R_BE_MASK | UART_RSR_R_FE_MASK | UART_RSR_R_OE_MASK | UART_RSR_R_PE_MASK), 0UL);
-    return (u32ErrorReg);
+    return (uxErrorReg);
 }
 
 void UART__vClearErrorState(UART_nMODULE enModule)

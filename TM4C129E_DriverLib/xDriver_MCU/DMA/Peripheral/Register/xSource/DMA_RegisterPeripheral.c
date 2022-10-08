@@ -25,11 +25,11 @@
 
 uintptr_t DMA__uptrBlockBaseAddress(DMA_nMODULE enModuleArg)
 {
-    const uintptr_t DMA_BLOCK_BASE[(uint32_t) DMA_enMODULE_MAX] =
+    const uintptr_t DMA_BLOCK_BASE[(UBase_t) DMA_enMODULE_MAX] =
     {
      DMA_BASE,
     };
-    return (DMA_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (DMA_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

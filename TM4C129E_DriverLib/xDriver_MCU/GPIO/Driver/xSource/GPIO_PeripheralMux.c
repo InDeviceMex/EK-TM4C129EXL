@@ -28,25 +28,25 @@
 #include <xDriver_MCU/GPIO/Peripheral/GPIO_Peripheral.h>
 
 GPIO_nERROR GPIO__enSetPeripheralMuxByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
-                                           uint32_t u32MuxArg)
+                                           UBase_t uxMuxArg)
 {
-    uint32_t u32PinReg;
-    uint32_t u32PinMaskReg;
+    UBase_t uxPinReg;
+    UBase_t uxPinMaskReg;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinReg = 0U;
-        u32PinMaskReg = (uint32_t) enPinMaskArg;
-        while((0U != u32PinMaskReg) && (GPIO_enERROR_OK == enErrorReg))
+        uxPinReg = 0U;
+        uxPinMaskReg = (UBase_t) enPinMaskArg;
+        while((0U != uxPinMaskReg) && (GPIO_enERROR_OK == enErrorReg))
         {
-            if(0UL != ((uint32_t) GPIO_enPINMASK_0 & u32PinMaskReg))
+            if(0UL != ((UBase_t) GPIO_enPINMASK_0 & uxPinMaskReg))
             {
-                enErrorReg = GPIO__enSetPeripheralMuxByNumber(enPortArg, (GPIO_nPIN) u32PinReg, u32MuxArg);
+                enErrorReg = GPIO__enSetPeripheralMuxByNumber(enPortArg, (GPIO_nPIN) uxPinReg, uxMuxArg);
             }
-            u32PinReg++;
-            u32PinMaskReg >>= 1U;
+            uxPinReg++;
+            uxPinMaskReg >>= 1U;
         }
     }
 
@@ -54,20 +54,20 @@ GPIO_nERROR GPIO__enSetPeripheralMuxByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK e
 }
 
 GPIO_nERROR GPIO__enSetPeripheralMuxByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
-                                         uint32_t u32MuxArg)
+                                         UBase_t uxMuxArg)
 {
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Shift *= (GPIO_PCTL_R_PIN1_BIT - GPIO_PCTL_R_PIN0_BIT);
-        stRegister.u32Shift += GPIO_PCTL_R_PIN0_BIT;
-        stRegister.u32Mask = GPIO_PCTL_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxShift *= (GPIO_PCTL_R_PIN1_BIT - GPIO_PCTL_R_PIN0_BIT);
+        stRegister.uxShift += GPIO_PCTL_R_PIN0_BIT;
+        stRegister.uxMask = GPIO_PCTL_PIN0_MASK;
         stRegister.uptrAddress = GPIO_PCTL_OFFSET;
-        stRegister.u32Value = (uint32_t) u32MuxArg;
+        stRegister.uxValue = (UBase_t) uxMuxArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -75,32 +75,32 @@ GPIO_nERROR GPIO__enSetPeripheralMuxByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enP
 }
 
 GPIO_nERROR GPIO__enGetPeripheralMuxByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
-                                         uint32_t* pu32MuxArg)
+                                         UBase_t* puxMuxArg)
 {
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
     enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pu32MuxArg)
+    if(0UL == (uintptr_t) puxMuxArg)
     {
         enErrorReg = GPIO_enERROR_POINTER;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Shift *= (GPIO_PCTL_R_PIN1_BIT - GPIO_PCTL_R_PIN0_BIT);
-        stRegister.u32Shift += GPIO_PCTL_R_PIN0_BIT;
-        stRegister.u32Mask = GPIO_PCTL_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxShift *= (GPIO_PCTL_R_PIN1_BIT - GPIO_PCTL_R_PIN0_BIT);
+        stRegister.uxShift += GPIO_PCTL_R_PIN0_BIT;
+        stRegister.uxMask = GPIO_PCTL_PIN0_MASK;
         stRegister.uptrAddress = GPIO_PCTL_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *pu32MuxArg = (uint32_t) stRegister.u32Value;
+        *puxMuxArg = (UBase_t) stRegister.uxValue;
     }
     return (enErrorReg);
 }

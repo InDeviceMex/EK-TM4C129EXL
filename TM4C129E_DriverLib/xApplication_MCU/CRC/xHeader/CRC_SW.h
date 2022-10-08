@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/CRC/xHeader/CRC_Table.h>
 
-CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, uint32_t u32DataLengthArg, CRC16_eSubType enCrc16TypeArg, uint16_t* pu16ResultArg);
+CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, UBase_t uxDataLengthArg, CRC16_eSubType enCrc16TypeArg, uint16_t* pu16ResultArg);
 
 #endif /* XAPPLICATION_MCU_CRC_XHEADER_CRC_SW_H_ */

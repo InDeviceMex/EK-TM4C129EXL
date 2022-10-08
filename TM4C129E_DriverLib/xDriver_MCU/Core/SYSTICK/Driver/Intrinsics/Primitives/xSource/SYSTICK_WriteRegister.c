@@ -38,7 +38,7 @@ SYSTICK_nERROR SYSTICK__enWriteRegister(SYSTICK_nMODULE enModuleArg, SYSTICK_Reg
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SYSTICK_enMODULE_MAX);
+        enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSTICK_enMODULE_MAX);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {

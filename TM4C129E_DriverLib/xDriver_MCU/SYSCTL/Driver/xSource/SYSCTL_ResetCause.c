@@ -28,15 +28,15 @@
 
 SYSCTL_nRESET SYSCTL__enGetResetCause(void)
 {
-    uint32_t u32Reg = 0UL;
-    u32Reg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, 0xFFFFFFFFUL, 0UL);
-    u32Reg &= (uint32_t) SYSCTL_enRESET_ALL;
-    return ((SYSCTL_nRESET) u32Reg);
+    UBase_t uxReg = 0UL;
+    uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, 0xFFFFFFFFUL, 0UL);
+    uxReg &= (UBase_t) SYSCTL_enRESET_ALL;
+    return ((SYSCTL_nRESET) uxReg);
 }
 
 void SYSCTL__vClearResetCause(SYSCTL_nRESET enReset)
 {
-    uint32_t u32Reg = (uint32_t) SYSCTL_enRESET_ALL;
-    u32Reg &= ~(uint32_t) enReset;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, u32Reg, 0xFFFFFFFFUL, 0UL);
+    UBase_t uxReg = (UBase_t) SYSCTL_enRESET_ALL;
+    uxReg &= ~(UBase_t) enReset;
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, uxReg, 0xFFFFFFFFUL, 0UL);
 }

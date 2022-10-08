@@ -28,14 +28,14 @@
 
 void TIMER__vSetEnable(TIMER_nMODULE enModule, TIMER_nENABLE enEnable)
 {
-    TIMER__vSetControlGeneric(enModule, (uint32_t) enEnable,
+    TIMER__vSetControlGeneric(enModule, (UBase_t) enEnable,
                               GPTM_TA_TnCTL_TnEN_MASK, GPTM_TA_TnCTL_R_TnEN_BIT);
 }
 
 TIMER_nENABLE TIMER__enGetEnable(TIMER_nMODULE enModule)
 {
     TIMER_nENABLE enEnableReg = TIMER_enENABLE_STOP;
-    enEnableReg = (TIMER_nENABLE) TIMER__u32GetControlGeneric(enModule,
+    enEnableReg = (TIMER_nENABLE) TIMER__uxGetControlGeneric(enModule,
                        GPTM_TA_TnCTL_TnEN_MASK, GPTM_TA_TnCTL_R_TnEN_BIT);
     return (enEnableReg);
 }

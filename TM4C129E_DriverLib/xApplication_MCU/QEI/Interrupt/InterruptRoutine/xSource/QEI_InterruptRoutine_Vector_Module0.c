@@ -27,12 +27,12 @@
 
 void QEI0__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Ready = 0U;
+    volatile UBase_t uxReg = 0UL;
+    volatile UBase_t uxReady = 0U;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Ready = SYSCTL_PRQEI_R;
-    if(SYSCTL_PRQEI_R_QEI0_NOREADY == (SYSCTL_PRQEI_R_QEI0_MASK & u32Ready))
+    uxReady = SYSCTL_PRQEI_R;
+    if(SYSCTL_PRQEI_R_QEI0_NOREADY == (SYSCTL_PRQEI_R_QEI0_MASK & uxReady))
     {
         pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                   QEI_enINTERRUPT_SW);
@@ -40,9 +40,9 @@ void QEI0__vIRQVectorHandler(void)
     }
     else
     {
-        u32Reg = (uint32_t) QEI0_ISC_R;
+        uxReg = (UBase_t) QEI0_ISC_R;
 
-        if(0UL == ((uint32_t) QEI_enINT_SOURCE_ALL & u32Reg))
+        if(0UL == ((UBase_t) QEI_enINT_SOURCE_ALL & uxReg))
         {
             pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                       QEI_enINTERRUPT_SW);
@@ -50,30 +50,30 @@ void QEI0__vIRQVectorHandler(void)
         }
         else
         {
-            if((uint32_t) QEI_enINT_SOURCE_INDEX & u32Reg)
+            if((UBase_t) QEI_enINT_SOURCE_INDEX & uxReg)
             {
-                QEI0_ISC_R = (uint32_t) QEI_enINT_SOURCE_INDEX;
+                QEI0_ISC_R = (UBase_t) QEI_enINT_SOURCE_INDEX;
                 pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                           QEI_enINTERRUPT_INDEX);
                 pvfCallback();
             }
-            if((uint32_t) QEI_enINT_SOURCE_TIMER & u32Reg)
+            if((UBase_t) QEI_enINT_SOURCE_TIMER & uxReg)
             {
-                QEI0_ISC_R = (uint32_t) QEI_enINT_SOURCE_TIMER;
+                QEI0_ISC_R = (UBase_t) QEI_enINT_SOURCE_TIMER;
                 pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                           QEI_enINTERRUPT_TIMER);
                 pvfCallback();
             }
-            if((uint32_t) QEI_enINT_SOURCE_DIRECTION & u32Reg)
+            if((UBase_t) QEI_enINT_SOURCE_DIRECTION & uxReg)
             {
-                QEI0_ISC_R = (uint32_t) QEI_enINT_SOURCE_DIRECTION;
+                QEI0_ISC_R = (UBase_t) QEI_enINT_SOURCE_DIRECTION;
                 pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                           QEI_enINTERRUPT_DIRECTION);
                 pvfCallback();
             }
-            if((uint32_t) QEI_enINT_SOURCE_ERROR & u32Reg)
+            if((UBase_t) QEI_enINT_SOURCE_ERROR & uxReg)
             {
-                QEI0_ISC_R = (uint32_t) QEI_enINT_SOURCE_ERROR;
+                QEI0_ISC_R = (UBase_t) QEI_enINT_SOURCE_ERROR;
                 pvfCallback = QEI__pvfGetIRQSourceHandler(QEI_enMODULE_0,
                                                           QEI_enINTERRUPT_ERROR);
                 pvfCallback();

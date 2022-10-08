@@ -37,15 +37,15 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModuleArg,
                                const ACMP_CONTROL_t* pstControlConfigArg)
 {
     const GPIO_nDIGITAL_FUNCTION ACMP_enGpioOutputReg[MAX_CONFIG]
-                                            [(uint32_t) ACMP_enMODULE_MAX]
-                                            [(uint32_t) ACMP_enCOMP_MAX] =
+                                            [(UBase_t) ACMP_enMODULE_MAX]
+                                            [(UBase_t) ACMP_enCOMP_MAX] =
     { { { GPIO_enC0O_D0, GPIO_enC1O_D1, GPIO_enC2O_D2 } },
       { { GPIO_enC0O_L2, GPIO_enC1O_L3, GPIO_enC2O_D2 } }
     };
 
-    const GPIO_nANALOG_FUNCTION ACMP_enAnalogInputReg[(uint32_t) ACMP_enMODULE_MAX]
-                                            [(uint32_t) ACMP_enCOMP_MAX]
-                                            [(uint32_t) ACMP_LINE_MAX] =
+    const GPIO_nANALOG_FUNCTION ACMP_enAnalogInputReg[(UBase_t) ACMP_enMODULE_MAX]
+                                            [(UBase_t) ACMP_enCOMP_MAX]
+                                            [(UBase_t) ACMP_LINE_MAX] =
     {
         {
             {GPIO_enC0P, GPIO_enC0M},
@@ -60,25 +60,25 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModuleArg,
     GPIO_nANALOG_FUNCTION enAnalogInputReg;
 
     enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uint32_t) pstControlConfigArg)
+    if(0UL == (UBase_t) pstControlConfigArg)
     {
         enErrorReg = ACMP_enERROR_POINTER;
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enLineOutSelectArg, (uint32_t) ACMP_enLINE_OUT_SELECT_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enLineOutSelectArg, (UBase_t) ACMP_enLINE_OUT_SELECT_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enAnalogInputReg = ACMP_enAnalogInputReg[(uint32_t) enModuleArg] [(uint32_t) ACMP_enCOMP_0] [ACMP_CMLINE];
+        enAnalogInputReg = ACMP_enAnalogInputReg[(UBase_t) enModuleArg] [(UBase_t) ACMP_enCOMP_0] [ACMP_CMLINE];
         enErrorReg = (ACMP_nERROR) GPIO__enSetAnalogFunction(enAnalogInputReg);
     }
     if(ACMP_enERROR_OK == enErrorReg)
@@ -86,11 +86,11 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModuleArg,
         switch(pstControlConfigArg->enVmaxSource)
         {
             case ACMP_enVMAX_SOURCE_CN:
-                enAnalogInputReg = ACMP_enAnalogInputReg[(uint32_t) enModuleArg] [(uint32_t) enComparatorArg] [ACMP_CPLINE];
+                enAnalogInputReg = ACMP_enAnalogInputReg[(UBase_t) enModuleArg] [(UBase_t) enComparatorArg] [ACMP_CPLINE];
                 enErrorReg = (ACMP_nERROR) GPIO__enSetAnalogFunction(enAnalogInputReg);
                 break;
             case ACMP_enVMAX_SOURCE_C0:
-                enAnalogInputReg = ACMP_enAnalogInputReg[(uint32_t) enModuleArg] [(uint32_t) ACMP_enCOMP_0] [ACMP_CPLINE];
+                enAnalogInputReg = ACMP_enAnalogInputReg[(UBase_t) enModuleArg] [(UBase_t) ACMP_enCOMP_0] [ACMP_CPLINE];
                 enErrorReg = (ACMP_nERROR) GPIO__enSetAnalogFunction(enAnalogInputReg);
                 break;
             case ACMP_enVMAX_SOURCE_VIREF:
@@ -104,9 +104,9 @@ ACMP_nERROR ACMP__enSetConfig(ACMP_nMODULE enModuleArg,
     {
         if(ACMP_enSTATE_ENA == pstControlConfigArg->enOutputEnable)
         {
-            enDigitalOutputReg = ACMP_enGpioOutputReg[(uint32_t)enLineOutSelectArg]
-                                                     [(uint32_t) enModuleArg]
-                                                     [(uint32_t) enComparatorArg];
+            enDigitalOutputReg = ACMP_enGpioOutputReg[(UBase_t)enLineOutSelectArg]
+                                                     [(UBase_t) enModuleArg]
+                                                     [(UBase_t) enComparatorArg];
 
             enErrorReg = (ACMP_nERROR) GPIO__enSetDigitalConfig(enDigitalOutputReg, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
         }

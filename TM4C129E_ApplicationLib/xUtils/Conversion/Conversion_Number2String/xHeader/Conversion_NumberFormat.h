@@ -24,13 +24,10 @@
 #ifndef XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFORMAT_H_
 #define XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFORMAT_H_
 
-#include <xUtils/Standard/Standard.h>
-#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number2String/Conversion_Primitives/xHeader/Conversion_Wrapper.h>
 
-CONV_nSTATUS Conv__enNumber2String_Format(CONV_OUT_t pvfOut, char* pcBufferOut, char* pcBufferIn, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t u32BufInLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Negative, uint32_t u32Base, uint32_t u32Prec);
-
-
-
+CONV_nERROR Conv__enNumber2String_Format(CONV_OUT_t pvfOut, char* pcBufferOut, char* pcBufferIn,
+                                         UBase_t uxIndex, UBase_t uxMaxLenght, UBase_t uxBufInLenght, UBase_t* puxBufOutLenght,
+                                         UBase_t uxWidth, UBase_t uxflags, UBase_t uxNegative, UBase_t uxBase, UBase_t uxPrec);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFORMAT_H_ */

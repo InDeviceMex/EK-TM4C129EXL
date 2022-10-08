@@ -30,14 +30,14 @@ static NVIC_nVECTOR SSI__enGetInterruptVector(SSI_nMODULE enModule);
 static NVIC_nVECTOR SSI__enGetInterruptVector(SSI_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_SSI0;
-    uint32_t u32Module = 0UL;
-    NVIC_nVECTOR NVIC_VECTOR_SSI[(uint32_t) SSI_enMODULE_MAX] =
+    UBase_t uxModule = 0UL;
+    NVIC_nVECTOR NVIC_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
     {
         NVIC_enVECTOR_SSI0, NVIC_enVECTOR_SSI1, NVIC_enVECTOR_SSI2, NVIC_enVECTOR_SSI3,
     };
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) SSI_enMODULE_MAX);
-    enVector = NVIC_VECTOR_SSI[u32Module];
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+    enVector = NVIC_VECTOR_SSI[uxModule];
     return (enVector);
 }
 

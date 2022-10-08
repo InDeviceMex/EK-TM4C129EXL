@@ -29,46 +29,46 @@
 
 typedef enum
 {
-    NVIC_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    NVIC_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    NVIC_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    NVIC_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    NVIC_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    NVIC_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    NVIC_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    NVIC_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    NVIC_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    NVIC_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }NVIC_nERROR;
 
 typedef enum
 {
-    NVIC_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    NVIC_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    NVIC_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    NVIC_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    NVIC_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    NVIC_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 }NVIC_nSTATE;
 
 typedef enum
 {
     NVIC_enNOPENDING = 0UL,
     NVIC_enPENDING = 1UL,
-    NVIC_enPENDSTATE_UNDEF = 0x7FFFFFFFUL,
+    NVIC_enPENDSTATE_UNDEF = UNDEF_VALUE,
 }NVIC_nPENDSTATE;
 
 typedef enum
 {
-    NVIC_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    NVIC_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    NVIC_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    NVIC_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    NVIC_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    NVIC_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 }NVIC_nSTATUS;
 
 typedef enum
 {
-    NVIC_enPRI0 = (uint32_t) MCU_enPRI0,
-    NVIC_enPRI1 = (uint32_t) MCU_enPRI1,
-    NVIC_enPRI2 = (uint32_t) MCU_enPRI2,
-    NVIC_enPRI3 = (uint32_t) MCU_enPRI3,
-    NVIC_enPRI4 = (uint32_t) MCU_enPRI4,
-    NVIC_enPRI5 = (uint32_t) MCU_enPRI5,
-    NVIC_enPRI6 = (uint32_t) MCU_enPRI6,
-    NVIC_enPRI7 = (uint32_t) MCU_enPRI7,
-    NVIC_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    NVIC_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    NVIC_enPRI0 = (UBase_t) MCU_enPRI0,
+    NVIC_enPRI1 = (UBase_t) MCU_enPRI1,
+    NVIC_enPRI2 = (UBase_t) MCU_enPRI2,
+    NVIC_enPRI3 = (UBase_t) MCU_enPRI3,
+    NVIC_enPRI4 = (UBase_t) MCU_enPRI4,
+    NVIC_enPRI5 = (UBase_t) MCU_enPRI5,
+    NVIC_enPRI6 = (UBase_t) MCU_enPRI6,
+    NVIC_enPRI7 = (UBase_t) MCU_enPRI7,
+    NVIC_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    NVIC_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }NVIC_nPRIORITY;
 
 typedef enum

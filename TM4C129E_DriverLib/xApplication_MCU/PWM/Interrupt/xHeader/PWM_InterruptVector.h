@@ -27,10 +27,22 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-void PWM_Generator__vEnInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nPRIORITY enPWMPriority);
-void PWM_Generator__vDisInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-void PWM_Fault__vEnInterruptVector(PWM_nMODULE enModule, PWM_nPRIORITY enPWMPriority);
-void PWM_Fault__vDisInterruptVector(PWM_nMODULE enModule);
+PWM_nERROR PWM_Generator__enSetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Generator__enSetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg, PWM_nPRIORITY enPriorityArg);
+PWM_nERROR PWM_Generator__enGetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_Generator__enGetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg, PWM_nPRIORITY* penPriorityArg);
+PWM_nERROR PWM_Generator__enEnableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
+PWM_nERROR PWM_Generator__enEnableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nPRIORITY enPriorityArg);
+PWM_nERROR PWM_Generator__enDisableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
+PWM_nERROR PWM_Generator__enDisableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nPRIORITY enPriorityArg);
+
+PWM_nERROR PWM_Fault__enSetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Fault__enSetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nSTATE enStateArg, PWM_nPRIORITY enPriorityArg);
+PWM_nERROR PWM_Fault__enGetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_Fault__enGetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nSTATE* penStateArg, PWM_nPRIORITY* penPriorityArg);
+PWM_nERROR PWM_Fault__enEnableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
+PWM_nERROR PWM_Fault__enEnableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nPRIORITY enPriorityArg);
+PWM_nERROR PWM_Fault__enDisableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
+PWM_nERROR PWM_Fault__enDisableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_PWM_INTERRUPT_XHEADER_PWM_INTERRUPTVECTOR_H_ */

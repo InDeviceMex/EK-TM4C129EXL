@@ -28,23 +28,23 @@
 
 typedef enum
 {
-    CSLinkedList_enSTATUS_OK,
-    CSLinkedList_enSTATUS_ERROR
-}CSLinkedList_nSTATUS;
+    CSLinkedList_enERROR_OK,
+    CSLinkedList_enSTATUS_UNDEF
+}CSLinkedList_nERROR;
 
 
 typedef struct CSLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32ValueItem;
+        UBase_t uxValueItem;
         struct CSLinkedListItem *pstNextItem;
 }CSLinkedListItem_t;
 
 typedef struct CSLinkedList
 {
-        uint32_t u32Size;
-        uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
+        UBase_t uxSize;
+        UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
         void (*pvfDestroyItemData) (void *DataContainer);
         void (*pvfDestroyItem) (void *Item);
         void (*pvfDestroy) (void* List);

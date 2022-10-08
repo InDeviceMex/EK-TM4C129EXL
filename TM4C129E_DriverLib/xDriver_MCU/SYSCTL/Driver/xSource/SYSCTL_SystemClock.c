@@ -10,10 +10,10 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_MemoryTiming.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-#define SYSCTL_VCO_INDEXMAX ((uint32_t) 2UL)
-#define SYSCTL_XTAL_MAX ((uint32_t) 25000000UL)
-#define SYSCTL_FREQXTAL_INDEXMAX ((uint32_t) 27UL)
-#define SYSCTL_TIMEOUT ((uint32_t) 1000000UL)
+#define SYSCTL_VCO_INDEXMAX ((UBase_t) 2UL)
+#define SYSCTL_XTAL_MAX ((UBase_t) 25000000UL)
+#define SYSCTL_FREQXTAL_INDEXMAX ((UBase_t) 27UL)
+#define SYSCTL_TIMEOUT ((UBase_t) 1000000UL)
 
 #define SYSCTL_MINT_INDEX (0UL)
 #define SYSCTL_MFRAC_INDEX (1UL)
@@ -21,21 +21,21 @@
 #define SYSCTL_Q_INDEX (3UL)
 #define SYSCTL_DIV_INDEXMAX (4UL)
 
-static uint32_t SYSCTL_u32OscSourceFreq = 16000000UL;
-static uint32_t SYSCTL_u32SystemClock = 16000000UL;
+static UBase_t SYSCTL_uxOscSourceFreq = 16000000UL;
+static UBase_t SYSCTL_uxSystemClock = 16000000UL;
 
-static uint32_t SYSCTL_u32GetFreqXtal(uint32_t u32Index);
-static uint32_t SYSCTL_u32GetFreqVCO(uint32_t u32Index);
-static uint32_t SYSCTL_u32GetXTALtoVCO(uint32_t u32IndexVco,
-                                       uint32_t u32IndexXtal,
-                                       uint32_t u32IndexDiv);
-static uint32_t SYSCTL_u32GetPLLClock(uint32_t u32OscSourceFreq);
+static UBase_t SYSCTL_uxGetFreqXtal(UBase_t uxIndex);
+static UBase_t SYSCTL_uxGetFreqVCO(UBase_t uxIndex);
+static UBase_t SYSCTL_uxGetXTALtoVCO(UBase_t uxIndexVco,
+                                       UBase_t uxIndexXtal,
+                                       UBase_t uxIndexDiv);
+static UBase_t SYSCTL_uxGetPLLClock(UBase_t uxOscSourceFreq);
 
-static uint32_t SYSCTL_u32GetXTALtoVCO(uint32_t u32IndexVco,
-                                       uint32_t u32IndexXtal,
-                                       uint32_t u32IndexDiv)
+static UBase_t SYSCTL_uxGetXTALtoVCO(UBase_t uxIndexVco,
+                                       UBase_t uxIndexXtal,
+                                       UBase_t uxIndexDiv)
 {
-    const uint32_t u32XTALtoVCO[SYSCTL_VCO_INDEXMAX]
+    const UBase_t uxXTALtoVCO[SYSCTL_VCO_INDEXMAX]
                                [SYSCTL_FREQXTAL_INDEXMAX]
                                 [SYSCTL_DIV_INDEXMAX] =
     {
@@ -98,19 +98,19 @@ static uint32_t SYSCTL_u32GetXTALtoVCO(uint32_t u32IndexVco,
             { 96UL, 0UL, (5UL - 1UL), (2UL - 1UL) },     /* 25 MHz */
         },
     };
-    uint32_t u32Return = 0UL;
-    if ((SYSCTL_FREQXTAL_INDEXMAX > u32IndexXtal) &&
-        (SYSCTL_VCO_INDEXMAX > u32IndexVco) &&
-        (SYSCTL_DIV_INDEXMAX > u32IndexDiv))
+    UBase_t uxReturn = 0UL;
+    if ((SYSCTL_FREQXTAL_INDEXMAX > uxIndexXtal) &&
+        (SYSCTL_VCO_INDEXMAX > uxIndexVco) &&
+        (SYSCTL_DIV_INDEXMAX > uxIndexDiv))
     {
-        u32Return = u32XTALtoVCO[u32IndexVco][u32IndexXtal][u32IndexDiv];
+        uxReturn = uxXTALtoVCO[uxIndexVco][uxIndexXtal][uxIndexDiv];
     }
-    return (u32Return);
+    return (uxReturn);
 }
 
-static uint32_t SYSCTL_u32GetFreqXtal(uint32_t u32Index)
+static UBase_t SYSCTL_uxGetFreqXtal(UBase_t uxIndex)
 {
-    const uint32_t u32FreqXtal [SYSCTL_FREQXTAL_INDEXMAX]=
+    const UBase_t uxFreqXtal [SYSCTL_FREQXTAL_INDEXMAX]=
     {
       1000000UL, 1843200UL, 2000000UL, 2457600UL, 3579545UL, 3686400UL,
       4000000UL ,4096000UL ,4915200UL ,5000000UL ,5120000UL ,6000000UL,
@@ -118,126 +118,126 @@ static uint32_t SYSCTL_u32GetFreqXtal(uint32_t u32Index)
       12288000UL,13560000UL,14318180UL,16000000UL,16384000UL,18000000UL,
       20000000UL,24000000UL,25000000UL
     };
-    uint32_t u32Return = 0UL;
-    if (SYSCTL_FREQXTAL_INDEXMAX > u32Index)
+    UBase_t uxReturn = 0UL;
+    if (SYSCTL_FREQXTAL_INDEXMAX > uxIndex)
     {
-        u32Return = u32FreqXtal[u32Index];
+        uxReturn = uxFreqXtal[uxIndex];
     }
-    return (u32Return);
+    return (uxReturn);
 }
 
-static uint32_t SYSCTL_u32GetFreqVCO(uint32_t u32Index)
+static UBase_t SYSCTL_uxGetFreqVCO(UBase_t uxIndex)
 {
-    const uint32_t u32FreqVCO[SYSCTL_VCO_INDEXMAX] =
+    const UBase_t uxFreqVCO[SYSCTL_VCO_INDEXMAX] =
     {
         160000000,                              /* VCO 320*/
         240000000,                              /* VCO 480 */
     };
-    uint32_t u32Return = 0UL;
-    if (SYSCTL_VCO_INDEXMAX > u32Index)
+    UBase_t uxReturn = 0UL;
+    if (SYSCTL_VCO_INDEXMAX > uxIndex)
     {
-        u32Return = u32FreqVCO[u32Index];
+        uxReturn = uxFreqVCO[uxIndex];
     }
-    return (u32Return);
+    return (uxReturn);
 }
 
-SYSCTL_nSTATUS SYSCTL__enGetVCOClock(uint32_t *pu32VCOFrequency)
+SYSCTL_nSTATUS SYSCTL__enGetVCOClock(UBase_t *puxVCOFrequency)
 {
     SYSCTL_nSTATUS enStatus = SYSCTL_enERROR;
-    uint32_t u32OscBypass = SYSCTL_RSCLKCFG_USEPLL_OSC;
-    uint32_t u32PInt = 0UL;
-    uint32_t u32PIntMult = 0UL;
-    uint32_t u32PFract = 0UL;
-    uint32_t u32PFractMult = 0UL;
-    uint32_t u32N = 0UL;
-    uint32_t u32Q = 0UL;
-    uint32_t u32NQ = 0UL;
-    uint32_t u32TempVCO;
+    UBase_t uxOscBypass = SYSCTL_RSCLKCFG_USEPLL_OSC;
+    UBase_t uxPInt = 0UL;
+    UBase_t uxPIntMult = 0UL;
+    UBase_t uxPFract = 0UL;
+    UBase_t uxPFractMult = 0UL;
+    UBase_t uxN = 0UL;
+    UBase_t uxQ = 0UL;
+    UBase_t uxNQ = 0UL;
+    UBase_t uxTempVCO;
 
-    u32OscBypass = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
+    uxOscBypass = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
                                    SYSCTL_RSCLKCFG_USEPLL_MASK, SYSCTL_RSCLKCFG_R_USEPLL_BIT);
-    if(0UL != (uint32_t) pu32VCOFrequency)
+    if(0UL != (UBase_t) puxVCOFrequency)
     {
 
-        *pu32VCOFrequency = 0UL;
-        if(SYSCTL_RSCLKCFG_USEPLL_PLL == u32OscBypass)
+        *puxVCOFrequency = 0UL;
+        if(SYSCTL_RSCLKCFG_USEPLL_PLL == uxOscBypass)
         {
-            u32N = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
+            uxN = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
                                         SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
-            u32N += 1UL;
-            u32Q = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
+            uxN += 1UL;
+            uxQ = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
                                         SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
-            u32Q += 1UL;
+            uxQ += 1UL;
 
-            u32PInt = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
+            uxPInt = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
                                    SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
-            u32PFract = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
+            uxPFract = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
                                  SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
 
-            u32PIntMult = SYSCTL_u32OscSourceFreq * u32PInt;
-            u32PFractMult = SYSCTL_u32OscSourceFreq * u32PFract;
-            u32PFractMult /= 1024UL;
-            u32NQ = u32N * u32Q;
+            uxPIntMult = SYSCTL_uxOscSourceFreq * uxPInt;
+            uxPFractMult = SYSCTL_uxOscSourceFreq * uxPFract;
+            uxPFractMult /= 1024UL;
+            uxNQ = uxN * uxQ;
 
-            u32TempVCO = u32PIntMult;
-            u32TempVCO += u32PFractMult;
-            u32TempVCO /= u32NQ;
+            uxTempVCO = uxPIntMult;
+            uxTempVCO += uxPFractMult;
+            uxTempVCO /= uxNQ;
 
-            *pu32VCOFrequency =  (uint32_t) u32TempVCO;
+            *puxVCOFrequency =  (UBase_t) uxTempVCO;
             enStatus = SYSCTL_enOK;
         }
     }
     return (enStatus);
 }
 
-static uint32_t SYSCTL_u32GetPLLClock(uint32_t u32OscSourceFreq)
+static UBase_t SYSCTL_uxGetPLLClock(UBase_t uxOscSourceFreq)
 {
-    uint32_t u32Result = 0UL;
-    uint32_t u32F1 = 0UL;
-    uint32_t u32F2 = 0UL;
-    uint32_t u32PInt = 0UL;
-    uint32_t u32PFract = 0UL;
-    uint32_t u32Q = 0UL;
-    uint32_t u32N = 0UL;
-    uint32_t u32Aux = 0UL;
+    UBase_t uxResult = 0UL;
+    UBase_t uxF1 = 0UL;
+    UBase_t uxF2 = 0UL;
+    UBase_t uxPInt = 0UL;
+    UBase_t uxPFract = 0UL;
+    UBase_t uxQ = 0UL;
+    UBase_t uxN = 0UL;
+    UBase_t uxAux = 0UL;
 
-    u32N = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
+    uxN = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
                                 SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
-    u32N += 1UL;
-    u32Q = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
+    uxN += 1UL;
+    uxQ = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
                                 SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
-    u32Q += 1UL;
+    uxQ += 1UL;
 
-    u32PInt = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
+    uxPInt = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
                                    SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
-    u32PFract = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
+    uxPFract = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
                                      SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
 
-    SYSCTL_u32OscSourceFreq /= u32N;
-    u32F1 = u32PFract / 32UL;
-    u32F2 = u32PFract - (u32F1 * 32UL);
+    SYSCTL_uxOscSourceFreq /= uxN;
+    uxF1 = uxPFract / 32UL;
+    uxF2 = uxPFract - (uxF1 * 32UL);
 
-    u32Result = SYSCTL_u32OscSourceFreq * u32PInt;
-    u32Aux = SYSCTL_u32OscSourceFreq * u32F1;
-    u32Aux /= 32UL;
-    u32Result += u32Aux;
+    uxResult = SYSCTL_uxOscSourceFreq * uxPInt;
+    uxAux = SYSCTL_uxOscSourceFreq * uxF1;
+    uxAux /= 32UL;
+    uxResult += uxAux;
 
-    u32Aux = SYSCTL_u32OscSourceFreq;
-    u32Aux *= (uint32_t) u32F2;
-    u32Aux /= 1024UL;
-    u32Result += u32Aux;
+    uxAux = SYSCTL_uxOscSourceFreq;
+    uxAux *= (UBase_t) uxF2;
+    uxAux /= 1024UL;
+    uxResult += uxAux;
 
-    u32Result /= u32Q;
+    uxResult /= uxQ;
 
-    return (u32Result);
+    return (uxResult);
 }
 
-uint32_t SYSCTL__u32GetSystemClock(void)
+UBase_t SYSCTL__uxGetSystemClock(void)
 {
-    return (SYSCTL_u32SystemClock);
+    return (SYSCTL_uxSystemClock);
 }
 
-SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
+SYSCTL_nSTATUS SYSCTL__enSetSystemClock(UBase_t uxSystemClock,
                                         SYSCTL_CONFIG_t stClockConfig)
 {
     SYSCTL_nSTATUS enStatus = SYSCTL_enOK;
@@ -245,64 +245,64 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
     SYSCTL_nOSC enOscSourceReg = SYSCTL_enOSC_MOSC;
     SYSCTL_nBYPASS enOscBypassReg = SYSCTL_enPLL;
     SYSCTL_nVCO enVcoRangeReg = SYSCTL_enVCO_320MHZ;
-    uint32_t u32RunModeConfigReg = 0UL;
-    uint32_t u32MainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_LOW;
-    uint32_t u32Timeout = SYSCTL_TIMEOUT;
-    uint32_t u32MainOscStatusReg = SYSCTL_RIS_MOSCPUPRIS_NOACTIVE;
-    uint32_t u32SysDiv = 0UL;
-    uint32_t u32SysMINT = 0UL;
-    uint32_t u32SysMFRAC = 0UL;
-    uint32_t u32SysN = 0UL;
-    uint32_t u32PllState = SYSCTL_PLLFREQ0_PLLPWR_OFF;
+    UBase_t uxRunModeConfigReg = 0UL;
+    UBase_t uxMainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_LOW;
+    UBase_t uxTimeout = SYSCTL_TIMEOUT;
+    UBase_t uxMainOscStatusReg = SYSCTL_RIS_MOSCPUPRIS_NOACTIVE;
+    UBase_t uxSysDiv = 0UL;
+    UBase_t uxSysMINT = 0UL;
+    UBase_t uxSysMFRAC = 0UL;
+    UBase_t uxSysN = 0UL;
+    UBase_t uxPllState = SYSCTL_PLLFREQ0_PLLPWR_OFF;
 
     enOscSourceReg = stClockConfig.enOscSource;
     switch(enOscSourceReg)
     {
     case SYSCTL_enOSC_PIOSC:
         enExtenalCrystal = SYSCTL_enXTAL_16MHZ;
-        SYSCTL_u32OscSourceFreq = 16000000UL;
+        SYSCTL_uxOscSourceFreq = 16000000UL;
 
-        u32RunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_PIOSC |
+        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_PIOSC |
                               SYSCTL_RSCLKCFG_R_PLLSRC_PIOSC;
         break;
     case SYSCTL_enOSC_30KHZ:
-        SYSCTL_u32OscSourceFreq = 30000UL;
-        u32RunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_LFIOSC;
+        SYSCTL_uxOscSourceFreq = 30000UL;
+        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_LFIOSC;
         break;
     case SYSCTL_enOSC_EXT_32KHZ:
-        SYSCTL_u32OscSourceFreq = 32768UL;
-        u32RunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_RTCOSC;
+        SYSCTL_uxOscSourceFreq = 32768UL;
+        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_RTCOSC;
         break;
     case SYSCTL_enOSC_MOSC:
         enExtenalCrystal = stClockConfig.enExternalCrystal;
 
         enStatus = SYSCTL_enERROR;
-        if(((uint32_t) SYSCTL_enXTAL_5MHZ <= (uint32_t) enExtenalCrystal) &&
-           ((uint32_t) SYSCTL_enXTAL_25MHZ >= (uint32_t) enExtenalCrystal))
+        if(((UBase_t) SYSCTL_enXTAL_5MHZ <= (UBase_t) enExtenalCrystal) &&
+           ((UBase_t) SYSCTL_enXTAL_25MHZ >= (UBase_t) enExtenalCrystal))
         {
-            SYSCTL_u32OscSourceFreq = SYSCTL_u32GetFreqXtal((uint32_t) enExtenalCrystal);
-            u32RunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_MOSC |
+            SYSCTL_uxOscSourceFreq = SYSCTL_uxGetFreqXtal((UBase_t) enExtenalCrystal);
+            uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_MOSC |
                                   SYSCTL_RSCLKCFG_R_PLLSRC_MOSC;
 
-            if((uint32_t) SYSCTL_enXTAL_10MHZ <= (uint32_t) enExtenalCrystal)
+            if((UBase_t) SYSCTL_enXTAL_10MHZ <= (UBase_t) enExtenalCrystal)
             {
-                u32MainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_HIGH;
+                uxMainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_HIGH;
             }
 
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, u32MainOscRangeReg,
+            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, uxMainOscRangeReg,
                                 SYSCTL_MOSCCTL_R_OSCRNG_MASK | SYSCTL_MOSCCTL_R_PWRDN_MASK |
                                 SYSCTL_MOSCCTL_R_NOXTAL_MASK,
                                 0UL);
             do
             {
-                u32Timeout--;
-                u32MainOscStatusReg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET,
+                uxTimeout--;
+                uxMainOscStatusReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET,
                                                            SYSCTL_RIS_MOSCPUPRIS_MASK,
                                                            SYSCTL_RIS_R_MOSCPUPRIS_BIT);
-            }while((SYSCTL_RIS_MOSCPUPRIS_NOACTIVE == u32MainOscStatusReg) &&
-                   (0UL != u32Timeout));
+            }while((SYSCTL_RIS_MOSCPUPRIS_NOACTIVE == uxMainOscStatusReg) &&
+                   (0UL != uxTimeout));
 
-            if(0UL != u32Timeout){ enStatus = SYSCTL_enOK; }
+            if(0UL != uxTimeout){ enStatus = SYSCTL_enOK; }
         }
         break;
     default:
@@ -310,7 +310,7 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
         break;
     }
 
-    if((SYSCTL_enOK == enStatus) && (0UL != u32SystemClock))
+    if((SYSCTL_enOK == enStatus) && (0UL != uxSystemClock))
     {
         enOscBypassReg = stClockConfig.enOscBypass;
         if(SYSCTL_enPLL == enOscBypassReg)
@@ -328,41 +328,41 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
                                     SYSCTL_RSCLKCFG_R_OSCSRC_MASK  |
                                     SYSCTL_RSCLKCFG_R_PLLSRC_MASK  |
                                     SYSCTL_RSCLKCFG_R_USEPLL_MASK, 0UL);
-                u32SysDiv = SYSCTL_u32GetFreqVCO((uint32_t) enVcoRangeReg);
-                u32SysDiv += u32SystemClock;
-                u32SysDiv -= 1UL;
-                u32SysDiv /= u32SystemClock;
+                uxSysDiv = SYSCTL_uxGetFreqVCO((UBase_t) enVcoRangeReg);
+                uxSysDiv += uxSystemClock;
+                uxSysDiv -= 1UL;
+                uxSysDiv /= uxSystemClock;
 
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, u32RunModeConfigReg,
+                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxRunModeConfigReg,
                     SYSCTL_RSCLKCFG_R_OSCSRC_MASK | SYSCTL_RSCLKCFG_R_PLLSRC_MASK, 0UL);
-                u32SysMINT = SYSCTL_u32GetXTALtoVCO((uint32_t) enVcoRangeReg,
-                                                    (uint32_t) enExtenalCrystal,
+                uxSysMINT = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
+                                                    (UBase_t) enExtenalCrystal,
                                                     SYSCTL_MINT_INDEX );
-                u32SysMFRAC = SYSCTL_u32GetXTALtoVCO((uint32_t) enVcoRangeReg,
-                                                     (uint32_t) enExtenalCrystal,
+                uxSysMFRAC = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
+                                                     (UBase_t) enExtenalCrystal,
                                                      SYSCTL_MFRAC_INDEX );
-                u32SysN = SYSCTL_u32GetXTALtoVCO((uint32_t) enVcoRangeReg,
-                                                 (uint32_t) enExtenalCrystal,
+                uxSysN = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
+                                                 (UBase_t) enExtenalCrystal,
                                                  SYSCTL_N_INDEX );
 
 
                 MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                            u32SysN, SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
+                            uxSysN, SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
                 MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                        (u32SysDiv - 1UL), SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
+                        (uxSysDiv - 1UL), SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
 
                 MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                        u32SysMINT, SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
+                        uxSysMINT, SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
                 MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                    u32SysMFRAC, SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
+                    uxSysMFRAC, SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
 
-                u32SystemClock = SYSCTL_u32GetPLLClock(SYSCTL_u32OscSourceFreq);
-                u32SystemClock /= 2UL;
-                SYSCTL__vSetMemoryTiming(u32SystemClock);
+                uxSystemClock = SYSCTL_uxGetPLLClock(SYSCTL_uxOscSourceFreq);
+                uxSystemClock /= 2UL;
+                SYSCTL__vSetMemoryTiming(uxSystemClock);
 
-                u32PllState = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
+                uxPllState = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
                                SYSCTL_PLLFREQ0_PLLPWR_MASK, SYSCTL_PLLFREQ0_R_PLLPWR_BIT);
-                if(SYSCTL_PLLFREQ0_PLLPWR_ON == u32PllState)
+                if(SYSCTL_PLLFREQ0_PLLPWR_ON == uxPllState)
                 {
                     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
                     SYSCTL_RSCLKCFG_NEWFREQ_UPDATE,
@@ -376,22 +376,22 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
                     SYSCTL_PLLFREQ0_PLLPWR_MASK,
                     SYSCTL_PLLFREQ0_R_PLLPWR_BIT);
                 }
-                u32Timeout = SYSCTL_TIMEOUT;
+                uxTimeout = SYSCTL_TIMEOUT;
                 do
                 {
-                    u32Timeout--;
-                    u32PllState = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_PLLSTAT_OFFSET,
+                    uxTimeout--;
+                    uxPllState = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLSTAT_OFFSET,
                                        SYSCTL_PLLSTAT_LOCK_MASK, SYSCTL_PLLSTAT_R_LOCK_BIT);
-                }while((SYSCTL_PLLSTAT_LOCK_NOLOCK == u32PllState) && (0UL != u32Timeout));
+                }while((SYSCTL_PLLSTAT_LOCK_NOLOCK == uxPllState) && (0UL != uxTimeout));
 
-                if(0UL != u32Timeout)
+                if(0UL != uxTimeout)
                 {
                     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, 1UL,
                                         SYSCTL_RSCLKCFG_PSYSDIV_MASK,
                                         SYSCTL_RSCLKCFG_R_PSYSDIV_BIT);
 
                     MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                            u32RunModeConfigReg,
+                            uxRunModeConfigReg,
                             SYSCTL_RSCLKCFG_R_PLLSRC_MASK | SYSCTL_RSCLKCFG_R_OSCSRC_MASK,
                             0UL);
 
@@ -405,7 +405,7 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
                             SYSCTL_RSCLKCFG_USEPLL_MASK,
                             SYSCTL_RSCLKCFG_R_USEPLL_BIT);
 
-                    SYSCTL_u32SystemClock = u32SystemClock;
+                    SYSCTL_uxSystemClock = uxSystemClock;
                     enStatus = SYSCTL_enOK;
                 }
             }
@@ -422,25 +422,25 @@ SYSCTL_nSTATUS SYSCTL__enSetSystemClock(uint32_t u32SystemClock,
                                 SYSCTL_RSCLKCFG_R_MEMTIMU_MASK | SYSCTL_RSCLKCFG_R_OSYSDIV_MASK |
                                 SYSCTL_RSCLKCFG_R_OSCSRC_MASK  | SYSCTL_RSCLKCFG_R_USEPLL_MASK ,
                                 0UL);
-            u32SysDiv = SYSCTL_u32OscSourceFreq;
-            u32SysDiv /= u32SystemClock;
-            if(0UL != u32SysDiv)
+            uxSysDiv = SYSCTL_uxOscSourceFreq;
+            uxSysDiv /= uxSystemClock;
+            if(0UL != uxSysDiv)
             {
-                u32SysDiv -= 1UL;
+                uxSysDiv -= 1UL;
             }
-            u32SystemClock = SYSCTL_u32OscSourceFreq;
-            u32SystemClock /= (u32SysDiv + 1UL);
+            uxSystemClock = SYSCTL_uxOscSourceFreq;
+            uxSystemClock /= (uxSysDiv + 1UL);
 
-            SYSCTL__vSetMemoryTiming(u32SystemClock);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, u32SysDiv,
+            SYSCTL__vSetMemoryTiming(uxSystemClock);
+            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxSysDiv,
                         SYSCTL_RSCLKCFG_OSYSDIV_MASK, SYSCTL_RSCLKCFG_R_OSYSDIV_BIT);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, u32RunModeConfigReg,
+            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxRunModeConfigReg,
                         SYSCTL_RSCLKCFG_R_OSCSRC_MASK | SYSCTL_RSCLKCFG_R_PLLSRC_MASK, 0UL);
             MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
                         SYSCTL_RSCLKCFG_MEMTIMU_UPDATE,
                         SYSCTL_RSCLKCFG_MEMTIMU_MASK,
                         SYSCTL_RSCLKCFG_R_MEMTIMU_BIT);
-            SYSCTL_u32SystemClock = u32SystemClock;
+            SYSCTL_uxSystemClock = uxSystemClock;
         }
     }
 

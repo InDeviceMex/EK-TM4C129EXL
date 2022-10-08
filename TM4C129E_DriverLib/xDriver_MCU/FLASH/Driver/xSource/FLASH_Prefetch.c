@@ -32,10 +32,10 @@ FLASH_nERROR FLASH__enClearPrefetchBuffer(FLASH_nMODULE enModuleArg)
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_CONF_R_CLRTV_BIT;
-    stRegister.u32Mask = FLASH_CONF_CLRTV_MASK;
+    stRegister.uxShift = FLASH_CONF_R_CLRTV_BIT;
+    stRegister.uxMask = FLASH_CONF_CLRTV_MASK;
     stRegister.uptrAddress = FLASH_CONF_OFFSET;
-    stRegister.u32Value = FLASH_CONF_CLRTV_CLEAR;
+    stRegister.uxValue = FLASH_CONF_CLRTV_CLEAR;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -52,14 +52,14 @@ FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLA
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_PP_R_PFC_BIT;
-        stRegister.u32Mask = FLASH_PP_PFC_MASK;
+        stRegister.uxShift = FLASH_PP_R_PFC_BIT;
+        stRegister.uxMask = FLASH_PP_PFC_MASK;
         stRegister.uptrAddress = FLASH_PP_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (FLASH_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (FLASH_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -81,10 +81,10 @@ FLASH_nERROR FLASH__enSetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH
     {
         if(FLASH_enSTATUS_ACTIVE == enStatusReg)
         {
-            stRegister.u32Shift = FLASH_CONF_R_SPFE_BIT;
-            stRegister.u32Mask = FLASH_CONF_SPFE_MASK;
+            stRegister.uxShift = FLASH_CONF_R_SPFE_BIT;
+            stRegister.uxMask = FLASH_CONF_SPFE_MASK;
             stRegister.uptrAddress = FLASH_CONF_OFFSET;
-            stRegister.u32Value = (uint32_t) enModeArg;
+            stRegister.uxValue = (UBase_t) enModeArg;
             enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
         }
         else
@@ -113,14 +113,14 @@ FLASH_nERROR FLASH__enGetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_CONF_R_SPFE_BIT;
-        stRegister.u32Mask = FLASH_CONF_SPFE_MASK;
+        stRegister.uxShift = FLASH_CONF_R_SPFE_BIT;
+        stRegister.uxMask = FLASH_CONF_SPFE_MASK;
         stRegister.uptrAddress = FLASH_CONF_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penModeArg = (FLASH_nPREFETCH_MODE) stRegister.u32Value;
+        *penModeArg = (FLASH_nPREFETCH_MODE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -130,10 +130,10 @@ FLASH_nERROR FLASH__enEnablePrefetch(FLASH_nMODULE enModuleArg)
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_CONF_R_FPFON_BIT;
-    stRegister.u32Mask = FLASH_CONF_FPFON_MASK;
+    stRegister.uxShift = FLASH_CONF_R_FPFON_BIT;
+    stRegister.uxMask = FLASH_CONF_FPFON_MASK;
     stRegister.uptrAddress = FLASH_CONF_OFFSET;
-    stRegister.u32Value = FLASH_CONF_FPFON_FORCE;
+    stRegister.uxValue = FLASH_CONF_FPFON_FORCE;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     if(enErrorReg == FLASH_enERROR_OK)
@@ -149,10 +149,10 @@ FLASH_nERROR FLASH__enDisablePrefetch(FLASH_nMODULE enModuleArg)
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_CONF_R_FPFOFF_BIT;
-    stRegister.u32Mask = FLASH_CONF_FPFOFF_MASK;
+    stRegister.uxShift = FLASH_CONF_R_FPFOFF_BIT;
+    stRegister.uxMask = FLASH_CONF_FPFOFF_MASK;
     stRegister.uptrAddress = FLASH_CONF_OFFSET;
-    stRegister.u32Value = FLASH_CONF_FPFOFF_FORCE;
+    stRegister.uxValue = FLASH_CONF_FPFOFF_FORCE;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     if(enErrorReg == FLASH_enERROR_OK)
@@ -190,14 +190,14 @@ FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nST
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_PP_R_FMM_BIT;
-        stRegister.u32Mask = FLASH_PP_FMM_MASK;
+        stRegister.uxShift = FLASH_PP_R_FMM_BIT;
+        stRegister.uxMask = FLASH_PP_FMM_MASK;
         stRegister.uptrAddress = FLASH_PP_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (FLASH_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (FLASH_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -226,10 +226,10 @@ FLASH_nERROR FLASH__enSetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE enSt
 
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_CONF_R_FMME_BIT;
-        stRegister.u32Mask = FLASH_CONF_FMME_MASK;
+        stRegister.uxShift = FLASH_CONF_R_FMME_BIT;
+        stRegister.uxMask = FLASH_CONF_FMME_MASK;
         stRegister.uptrAddress = FLASH_CONF_OFFSET;
-        stRegister.u32Value = (uint32_t) enStateArg;
+        stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -253,14 +253,14 @@ FLASH_nERROR FLASH__enGetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE* pen
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_CONF_R_FMME_BIT;
-        stRegister.u32Mask = FLASH_CONF_FMME_MASK;
+        stRegister.uxShift = FLASH_CONF_R_FMME_BIT;
+        stRegister.uxMask = FLASH_CONF_FMME_MASK;
         stRegister.uptrAddress = FLASH_CONF_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (FLASH_nSTATE) stRegister.u32Value;
+        *penStateArg = (FLASH_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

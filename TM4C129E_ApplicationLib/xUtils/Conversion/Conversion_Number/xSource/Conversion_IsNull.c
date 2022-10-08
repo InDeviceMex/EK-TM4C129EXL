@@ -24,12 +24,16 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsNull.h>
 
-CONV_nNULL Conv__enIsNull(char cCharacter)
+CONV_nERROR Conv__enIsNull(char cCharacter)
 {
-    CONV_nNULL enStatus = CONV_enNULL_NO;
-    if(cCharacter == '\0')
+    CONV_nERROR enStatus;
+    if('\0' == cCharacter)
     {
-        enStatus = CONV_enNULL_OK;
+        enStatus = CONV_enERROR_OK;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_VALUE;
     }
     return (enStatus);
 }

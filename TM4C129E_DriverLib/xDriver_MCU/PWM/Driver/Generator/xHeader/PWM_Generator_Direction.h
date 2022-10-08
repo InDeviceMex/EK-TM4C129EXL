@@ -27,8 +27,10 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetDirection(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nDIRECTION enDirectionArg);
-PWM_nDIRECTION PWM_Generator__enGetDirection(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetDirectionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nDIRECTION enDirectionArg);
+PWM_nERROR PWM_Generator__enSetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nDIRECTION enDirectionArg);
+
+PWM_nERROR PWM_Generator__enGetDirectionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nDIRECTION* penDirectionArg);
+PWM_nERROR PWM_Generator__enGetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penDirectionArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_DIRECTION_H_ */

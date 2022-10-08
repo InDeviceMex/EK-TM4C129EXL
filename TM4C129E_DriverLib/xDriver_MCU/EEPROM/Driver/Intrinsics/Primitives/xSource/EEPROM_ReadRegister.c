@@ -37,7 +37,7 @@ EEPROM_nERROR EEPROM__enReadRegister(EEPROM_nMODULE enModuleArg, EEPROM_Register
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+        enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {

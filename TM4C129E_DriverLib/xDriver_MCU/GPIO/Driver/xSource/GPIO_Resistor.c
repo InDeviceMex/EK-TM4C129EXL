@@ -34,7 +34,7 @@ GPIO_nERROR GPIO__enSetResistorModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK en
 {
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
         switch(enModeArg)
@@ -65,7 +65,7 @@ GPIO_nERROR GPIO__enSetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPi
 {
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
         switch(enModeArg)
@@ -105,7 +105,7 @@ GPIO_nERROR GPIO__enGetResistorModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPi
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {

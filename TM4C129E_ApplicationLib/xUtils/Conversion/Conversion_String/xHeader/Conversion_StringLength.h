@@ -24,8 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_STRING_CONVERSION_STRINGLENGTH_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_STRING_CONVERSION_STRINGLENGTH_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-uint32_t CONV_u32StringLength(const char* pcString, uint32_t u32MaxSize);
+CONV_nERROR CONV_enStringLength(const char* pcString, UBase_t* puxLengthArg, UBase_t uxMaxSize);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_STRING_CONVERSION_STRINGLENGTH_H_ */

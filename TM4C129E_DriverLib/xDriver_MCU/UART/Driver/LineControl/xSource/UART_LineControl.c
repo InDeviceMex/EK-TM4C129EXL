@@ -51,7 +51,7 @@ void UART__vSetLineControlStruct(UART_nMODULE enModule,
 void UART__vSetLineControlStructPointer(UART_nMODULE enModule,
                                         const UART_LINE_CONTROL_t* pstLineControl)
 {
-    if((uint32_t) 0UL != (uint32_t) pstLineControl)
+    if((UBase_t) 0UL != (UBase_t) pstLineControl)
     {
         UART__vSetDataLength(enModule, pstLineControl->enLength);
         UART__vSetFifoEnable(enModule, pstLineControl->enFifo);

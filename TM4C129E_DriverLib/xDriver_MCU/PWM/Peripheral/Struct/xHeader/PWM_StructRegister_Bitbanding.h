@@ -33,137 +33,30 @@
 
 typedef volatile struct
 {
-    volatile uint32_t GLOBALSYNC0;
-    volatile uint32_t GLOBALSYNC1;
-    volatile uint32_t GLOBALSYNC2;
-    volatile uint32_t GLOBALSYNC3;
-    const uint32_t reserved [28UL];
-}BITBANDING_PWMCTL_t;
+    volatile UBase_t GEN0_GLOBALSYNC;
+    volatile UBase_t GEN1_GLOBALSYNC;
+    volatile UBase_t GEN2_GLOBALSYNC;
+    volatile UBase_t GEN3_GLOBALSYNC;
+    const UBase_t reserved [28UL];
+}PWM_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
-    volatile uint32_t SYNC0;
-    volatile uint32_t SYNC1;
-    volatile uint32_t SYNC2;
-    volatile uint32_t SYNC3;
-    const uint32_t reserved [28UL];
-}BITBANDING_PWMSYNC_t;
+    volatile UBase_t GEN0_SYNC;
+    volatile UBase_t GEN1_SYNC;
+    volatile UBase_t GEN2_SYNC;
+    volatile UBase_t GEN3_SYNC;
+    const UBase_t reserved [28UL];
+}PWM_BITBANDING_SYNC_t;
 
 typedef volatile struct
 {
-    volatile uint32_t PWM0EN;
-    volatile uint32_t PWM1EN;
-    volatile uint32_t PWM2EN;
-    volatile uint32_t PWM3EN;
-    volatile uint32_t PWM4EN;
-    volatile uint32_t PWM5EN;
-    volatile uint32_t PWM6EN;
-    volatile uint32_t PWM7EN;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMENABLE_t;
-
-typedef volatile struct
-{
-    volatile uint32_t PWM0INV;
-    volatile uint32_t PWM1INV;
-    volatile uint32_t PWM2INV;
-    volatile uint32_t PWM3INV;
-    volatile uint32_t PWM4INV;
-    volatile uint32_t PWM5INV;
-    volatile uint32_t PWM6INV;
-    volatile uint32_t PWM7INV;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMINVERT_t;
-
-typedef volatile struct
-{
-    volatile uint32_t FAULT0;
-    volatile uint32_t FAULT1;
-    volatile uint32_t FAULT2;
-    volatile uint32_t FAULT3;
-    volatile uint32_t FAULT4;
-    volatile uint32_t FAULT5;
-    volatile uint32_t FAULT6;
-    volatile uint32_t FAULT7;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMFAULT_t;
-
-typedef volatile struct
-{
-    volatile uint32_t INTPWM0;
-    volatile uint32_t INTPWM1;
-    volatile uint32_t INTPWM2;
-    volatile uint32_t INTPWM3;
-    const uint32_t reserved [12UL];
-    volatile uint32_t INTFAULT0;
-    volatile uint32_t INTFAULT1;
-    volatile uint32_t INTFAULT2;
-    volatile uint32_t INTFAULT3;
-    const uint32_t reserved1 [12UL];
-}BITBANDING_PWMINTEN_t;
-
-typedef volatile struct
-{
-    volatile const uint32_t INTPWM0;
-    volatile const uint32_t INTPWM1;
-    volatile const uint32_t INTPWM2;
-    volatile const uint32_t INTPWM3;
-    const uint32_t reserved [12UL];
-    volatile const uint32_t INTFAULT0;
-    volatile const uint32_t INTFAULT1;
-    volatile const uint32_t INTFAULT2;
-    volatile const uint32_t INTFAULT3;
-    const uint32_t reserved1 [12UL];
-}BITBANDING_PWMRIS_t;
-
-typedef volatile struct
-{
-    volatile const uint32_t INTPWM0;
-    volatile const uint32_t INTPWM1;
-    volatile const uint32_t INTPWM2;
-    volatile const uint32_t INTPWM3;
-    const uint32_t reserved [12UL];
-    volatile uint32_t INTFAULT0;
-    volatile uint32_t INTFAULT1;
-    volatile uint32_t INTFAULT2;
-    volatile uint32_t INTFAULT3;
-    const uint32_t reserved1 [12UL];
-}BITBANDING_PWMISC_t;
-
-typedef volatile struct
-{
-    volatile const uint32_t FAULT0;
-    volatile const uint32_t FAULT1;
-    volatile const uint32_t FAULT2;
-    volatile const uint32_t FAULT3;
-    const uint32_t reserved1 [28UL];
-}BITBANDING_PWMSTATUS_t;
-
-typedef volatile struct
-{
-    volatile uint32_t PWM0_;
-    volatile uint32_t PWM1_;
-    volatile uint32_t PWM2_;
-    volatile uint32_t PWM3_;
-    volatile uint32_t PWM4_;
-    volatile uint32_t PWM5_;
-    volatile uint32_t PWM6_;
-    volatile uint32_t PWM7_;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMFAULTVAL_t;
-
-typedef volatile struct
-{
-    volatile uint32_t ENUPD0 [2UL];
-    volatile uint32_t ENUPD1 [2UL];
-    volatile uint32_t ENUPD2 [2UL];
-    volatile uint32_t ENUPD3 [2UL];
-    volatile uint32_t ENUPD4 [2UL];
-    volatile uint32_t ENUPD5 [2UL];
-    volatile uint32_t ENUPD6 [2UL];
-    volatile uint32_t ENUPD7 [2UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMENUPD_t;
+    volatile const UBase_t FAULT0;
+    volatile const UBase_t FAULT1;
+    volatile const UBase_t FAULT2;
+    volatile const UBase_t FAULT3;
+    const UBase_t reserved1 [28UL];
+}PWM_BITBANDING_STATUS_t;
 
 /**
  *  Global Struct Definitions for PWM Properties
@@ -171,22 +64,128 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile const uint32_t GCNT [4UL];
-    volatile const uint32_t FCNT [4UL];
-    volatile const uint32_t ESYNC;
-    volatile const uint32_t EFAULT;
-    volatile const uint32_t ONE;
-    const uint32_t reserved [21UL];
-}BITBANDING_PWMPP_t;
+    volatile const UBase_t GCNT [4UL];
+    volatile const UBase_t FCNT [4UL];
+    volatile const UBase_t ESYNC;
+    volatile const UBase_t EFAULT;
+    volatile const UBase_t ONE;
+    const UBase_t reserved [21UL];
+}PWM_BITBANDING_PP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t PWMDIV [3UL];
-    const uint32_t reserved [5UL];
-    volatile uint32_t USEPWM;
-    const uint32_t reserved1 [23UL];
-}BITBANDING_PWMCC_t;
+    volatile UBase_t PWMDIV [3UL];
+    const UBase_t reserved [5UL];
+    volatile UBase_t USEPWM;
+    const UBase_t reserved1 [23UL];
+}PWM_BITBANDING_CC_t;
 
+typedef volatile struct
+{
+    volatile UBase_t GEN0_OUTA;
+    volatile UBase_t GEN0_OUTB;
+    volatile UBase_t GEN1_OUTA;
+    volatile UBase_t GEN1_OUTB;
+    volatile UBase_t GEN2_OUTA;
+    volatile UBase_t GEN2_OUTB;
+    volatile UBase_t GEN3_OUTA;
+    volatile UBase_t GEN3_OUTB;
+    const UBase_t reserved [24UL];
+}PWM_OUTPUT_BITBANDING_ENABLE_t;
+
+typedef volatile struct
+{
+    volatile UBase_t GEN0_OUTA;
+    volatile UBase_t GEN0_OUTB;
+    volatile UBase_t GEN1_OUTA;
+    volatile UBase_t GEN1_OUTB;
+    volatile UBase_t GEN2_OUTA;
+    volatile UBase_t GEN2_OUTB;
+    volatile UBase_t GEN3_OUTA;
+    volatile UBase_t GEN3_OUTB;
+    const UBase_t reserved [24UL];
+}PWM_OUTPUT_BITBANDING_INVERT_t;
+
+typedef volatile struct
+{
+    volatile UBase_t GEN0_OUTA;
+    volatile UBase_t GEN0_OUTB;
+    volatile UBase_t GEN1_OUTA;
+    volatile UBase_t GEN1_OUTB;
+    volatile UBase_t GEN2_OUTA;
+    volatile UBase_t GEN2_OUTB;
+    volatile UBase_t GEN3_OUTA;
+    volatile UBase_t GEN3_OUTB;
+    const UBase_t reserved [24UL];
+}PWM_OUTPUT_BITBANDING_FAULTVAL_t;
+
+typedef volatile struct
+{
+    volatile UBase_t GEN0_OUTA [2UL];
+    volatile UBase_t GEN0_OUTB [2UL];
+    volatile UBase_t GEN1_OUTA [2UL];
+    volatile UBase_t GEN1_OUTB [2UL];
+    volatile UBase_t GEN2_OUTA [2UL];
+    volatile UBase_t GEN2_OUTB [2UL];
+    volatile UBase_t GEN3_OUTA [2UL];
+    volatile UBase_t GEN3_OUTB [2UL];
+    const UBase_t reserved [16UL];
+}PWM_OUTPUT_BITBANDING_ENUPD_t;
+
+typedef volatile struct
+{
+    volatile UBase_t GEN0_OUTA;
+    volatile UBase_t GEN0_OUTB;
+    volatile UBase_t GEN1_OUTA;
+    volatile UBase_t GEN1_OUTB;
+    volatile UBase_t GEN2_OUTA;
+    volatile UBase_t GEN2_OUTB;
+    volatile UBase_t GEN3_OUTA;
+    volatile UBase_t GEN3_OUTB;
+    const UBase_t reserved [24UL];
+}PWM_OUTPUT_BITBANDING_FAULT_t;
+
+typedef volatile struct
+{
+    volatile UBase_t GEN0;
+    volatile UBase_t GEN1;
+    volatile UBase_t GEN2;
+    volatile UBase_t GEN3;
+    const UBase_t reserved [12UL];
+    volatile UBase_t GEN0_FAULT;
+    volatile UBase_t GEN1_FAULT;
+    volatile UBase_t GEN2_FAULT;
+    volatile UBase_t GEN3_FAULT;
+    const UBase_t reserved1 [12UL];
+}PWM_BITBANDING_INTEN_t;
+
+typedef volatile struct
+{
+    volatile const UBase_t GEN0;
+    volatile const UBase_t GEN1;
+    volatile const UBase_t GEN2;
+    volatile const UBase_t GEN3;
+    const UBase_t reserved [12UL];
+    volatile const UBase_t GEN0_FAULT;
+    volatile const UBase_t GEN1_FAULT;
+    volatile const UBase_t GEN2_FAULT;
+    volatile const UBase_t GEN3_FAULT;
+    const UBase_t reserved1 [12UL];
+}PWM_BITBANDING_RIS_t;
+
+typedef volatile struct
+{
+    volatile const UBase_t GEN0;
+    volatile const UBase_t GEN1;
+    volatile const UBase_t GEN2;
+    volatile const UBase_t GEN3;
+    const UBase_t reserved [12UL];
+    volatile UBase_t GEN0_FAULT;
+    volatile UBase_t GEN1_FAULT;
+    volatile UBase_t GEN2_FAULT;
+    volatile UBase_t GEN3_FAULT;
+    const UBase_t reserved1 [12UL];
+}PWM_BITBANDING_ISC_t;
 
 /**
  * PWM Generators configurations
@@ -194,184 +193,184 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile uint32_t ENABLE;
-    volatile uint32_t MODE;
-    volatile uint32_t DEBUG;
-    volatile uint32_t LOADUPD;
-    volatile uint32_t CMPAUPD;
-    volatile uint32_t CMPBUPD;
-    volatile uint32_t GENAUPD [2UL];
-    volatile uint32_t GENBUPD [2UL];
-    volatile uint32_t DBCTLUPD [2UL];
-    volatile uint32_t DBRISEUPD [2UL];
-    volatile uint32_t DBFALLUPD [2UL];
-    volatile uint32_t FLTSRC;
-    volatile uint32_t MINFLTPER;
-    volatile uint32_t LATCH;
-    const uint32_t reserved [13UL];
-}BITBANDING_PWMnCTL_t;
+    volatile UBase_t ENABLE;
+    volatile UBase_t MODE;
+    volatile UBase_t DEBUG;
+    volatile UBase_t LOAD_UPD;
+    volatile UBase_t OUTA_CMP_UPD;
+    volatile UBase_t OUTB_CMP_UPD;
+    volatile UBase_t OUTA_ACTION_UPD [2UL];
+    volatile UBase_t OUTB_ACTION_UPD [2UL];
+    volatile UBase_t DB_CTL_UPD [2UL];
+    volatile UBase_t DB_RISE_UPD [2UL];
+    volatile UBase_t DB_FALL_UPD [2UL];
+    volatile UBase_t FAULT_SRC;
+    volatile UBase_t FAULT_MIN_PERIOD;
+    volatile UBase_t FAULT_LATCH;
+    const UBase_t reserved [13UL];
+}PWM_GEN_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
-    volatile uint32_t INTCNTZERO;
-    volatile uint32_t INTCNTLOAD;
-    volatile uint32_t INTCMPAU;
-    volatile uint32_t INTCMPAD;
-    volatile uint32_t INTCMPBU;
-    volatile uint32_t INTCMPBD;
-    const uint32_t reserved [2UL];
-    volatile uint32_t TRCNTZERO;
-    volatile uint32_t TRCNTLOAD;
-    volatile uint32_t TRCMPAU;
-    volatile uint32_t TRCMPAD;
-    volatile uint32_t TRCMPBU;
-    volatile uint32_t TRCMPBD;
-    const uint32_t reserved1 [18UL];
-}BITBANDING_PWMnINTEN_t;
+    volatile UBase_t CNT_ZERO_INT;
+    volatile UBase_t CNT_LOAD_INT;
+    volatile UBase_t OUTA_CMP_UP_INT;
+    volatile UBase_t OUTA_CMP_DOWN_INT;
+    volatile UBase_t OUTB_CMP_UP_INT;
+    volatile UBase_t OUTB_CMP_DOWN_INT;
+    const UBase_t reserved [2UL];
+    volatile UBase_t CNT_ZERO_TRG;
+    volatile UBase_t CNT_LOAD_TRG;
+    volatile UBase_t OUTA_CMP_UP_TRG;
+    volatile UBase_t OUTA_CMP_DOWN_TRG;
+    volatile UBase_t OUTB_CMP_UP_TRG;
+    volatile UBase_t OUTB_CMP_DOWN_TRG;
+    const UBase_t reserved1 [18UL];
+}PWM_GEN_BITBANDING_INTEN_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t INTCNTZERO;
-    volatile const uint32_t INTCNTLOAD;
-    volatile const uint32_t INTCMPAU;
-    volatile const uint32_t INTCMPAD;
-    volatile const uint32_t INTCMPBU;
-    volatile const uint32_t INTCMPBD;
-    const uint32_t reserved [26UL];
-}BITBANDING_PWMnRIS_t;
+    volatile const UBase_t CNT_ZERO_INT;
+    volatile const UBase_t CNT_LOAD_INT;
+    volatile const UBase_t OUTA_CMP_UP_INT;
+    volatile const UBase_t OUTA_CMP_DOWN_INT;
+    volatile const UBase_t OUTB_CMP_UP_INT;
+    volatile const UBase_t OUTB_CMP_DOWN_INT;
+    const UBase_t reserved [26UL];
+}PWM_GEN_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
-    volatile uint32_t INTCNTZERO;
-    volatile uint32_t INTCNTLOAD;
-    volatile uint32_t INTCMPAU;
-    volatile uint32_t INTCMPAD;
-    volatile uint32_t INTCMPBU;
-    volatile uint32_t INTCMPBD;
-    const uint32_t reserved [26UL];
-}BITBANDING_PWMnISC_t;
+    volatile UBase_t CNT_ZERO_INT;
+    volatile UBase_t CNT_LOAD_INT;
+    volatile UBase_t OUTA_CMP_UP_INT;
+    volatile UBase_t OUTA_CMP_DOWN_INT;
+    volatile UBase_t OUTB_CMP_UP_INT;
+    volatile UBase_t OUTB_CMP_DOWN_INT;
+    const UBase_t reserved [26UL];
+}PWM_GEN_BITBANDING_ISC_t;
 
 typedef volatile struct
 {
-    volatile uint32_t LOAD [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMnLOAD_t;
+    volatile UBase_t LOAD [16UL];
+    const UBase_t reserved [16UL];
+}PWM_GEN_BITBANDING_LOAD_t;
 
 typedef volatile struct
 {
-    volatile const uint32_t COUNT [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMnCOUNT_t;
+    volatile const UBase_t COUNT [16UL];
+    const UBase_t reserved [16UL];
+}PWM_GEN_BITBANDING_COUNT_t;
 
 typedef volatile struct
 {
-    volatile uint32_t COMPA [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMnCMPA_t;
+    volatile UBase_t COMP [16UL];
+    const UBase_t reserved [16UL];
+}PWM_GEN_BITBANDING_OUTA_CMP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t COMPB [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMnCMPB_t;
+    volatile UBase_t COMP [16UL];
+    const UBase_t reserved [16UL];
+}PWM_GEN_BITBANDING_OUTB_CMP_t;
 
 typedef volatile struct
 {
-    volatile uint32_t ACTZERO [2UL];
-    volatile uint32_t ACTLOAD [2UL];
-    volatile uint32_t ACTCMPAU [2UL];
-    volatile uint32_t ACTCMPAD [2UL];
-    volatile uint32_t ACTCMPBU [2UL];
-    volatile uint32_t ACTCMPBD [2UL];
-    const uint32_t reserved [20UL];
-}BITBANDING_PWMnGENA_t;
+    volatile UBase_t ZERO [2UL];
+    volatile UBase_t LOAD [2UL];
+    volatile UBase_t OUTA_CMP_UP [2UL];
+    volatile UBase_t OUTA_CMP_DOWN [2UL];
+    volatile UBase_t OUTB_CMP_UP [2UL];
+    volatile UBase_t OUTB_CMP_DOWN [2UL];
+    const UBase_t reserved [20UL];
+}PWM_GEN_BITBANDING_OUTA_ACTION_t;
 
 typedef volatile struct
 {
-    volatile uint32_t ACTZERO [2UL];
-    volatile uint32_t ACTLOAD [2UL];
-    volatile uint32_t ACTCMPAU [2UL];
-    volatile uint32_t ACTCMPAD [2UL];
-    volatile uint32_t ACTCMPBU [2UL];
-    volatile uint32_t ACTCMPBD [2UL];
-    const uint32_t reserved [20UL];
-}BITBANDING_PWMnGENB_t;
+    volatile UBase_t ZERO [2UL];
+    volatile UBase_t LOAD [2UL];
+    volatile UBase_t OUTA_CMP_UP [2UL];
+    volatile UBase_t OUTA_CMP_DOWN [2UL];
+    volatile UBase_t OUTB_CMP_UP [2UL];
+    volatile UBase_t OUTB_CMP_DOWN [2UL];
+    const UBase_t reserved [20UL];
+}PWM_GEN_BITBANDING_OUTB_ACTION_t;
 
 typedef volatile struct
 {
-    volatile uint32_t ENABLE;
-    const uint32_t reserved [31UL];
-}BITBANDING_PWMnDBCTL_t;
+    volatile UBase_t ENABLE;
+    const UBase_t reserved [31UL];
+}PWM_GEN_BITBANDING_DB_CTL_t;
 
 typedef volatile struct
 {
-    volatile uint32_t RISEDELAY [12UL];
-    const uint32_t reserved [20UL];
-}BITBANDING_PWMnDBRISE_t;
+    volatile UBase_t DELAY [12UL];
+    const UBase_t reserved [20UL];
+}PWM_GEN_BITBANDING_DB_RISE_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FALLDELAY [12UL];
-    const uint32_t reserved [20UL];
-}BITBANDING_PWMnDBFALL_t;
+    volatile UBase_t DELAY [12UL];
+    const UBase_t reserved [20UL];
+}PWM_GEN_BITBANDING_DB_FALL_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FAULT0;
-    volatile uint32_t FAULT1;
-    volatile uint32_t FAULT2;
-    volatile uint32_t FAULT3;
-    const uint32_t reserved [28UL];
-}BITBANDING_PWMnFLTSRC0_t;
+    volatile UBase_t PIN0;
+    volatile UBase_t PIN1;
+    volatile UBase_t PIN2;
+    volatile UBase_t PIN3;
+    const UBase_t reserved [28UL];
+}PWM_GEN_BITBANDING_FAULT_PIN_ENABLE_t;
 
 typedef volatile struct
 {
-    volatile uint32_t DCMP0;
-    volatile uint32_t DCMP1;
-    volatile uint32_t DCMP2;
-    volatile uint32_t DCMP3;
-    volatile uint32_t DCMP4;
-    volatile uint32_t DCMP5;
-    volatile uint32_t DCMP6;
-    volatile uint32_t DCMP7;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMnFLTSRC1_t;
+    volatile UBase_t DCMP0;
+    volatile UBase_t DCMP1;
+    volatile UBase_t DCMP2;
+    volatile UBase_t DCMP3;
+    volatile UBase_t DCMP4;
+    volatile UBase_t DCMP5;
+    volatile UBase_t DCMP6;
+    volatile UBase_t DCMP7;
+    const UBase_t reserved [24UL];
+}PWM_GEN_BITBANDING_FAULT_DCMP_ENABLE_t;
 
 typedef volatile struct
 {
-    volatile uint32_t MFP [16UL];
-    const uint32_t reserved [16UL];
-}BITBANDING_PWMnMINFLTPER_t;
+    volatile UBase_t MFP [16UL];
+    const UBase_t reserved [16UL];
+}PWM_GEN_BITBANDING_FAULT_MIN_PERIOD_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FAULT0;
-    volatile uint32_t FAULT1;
-    volatile uint32_t FAULT2;
-    volatile uint32_t FAULT3;
-    const uint32_t reserved [28UL];
-}BITBANDING_PWMnFLTSEN_t;
+    volatile UBase_t PIN0;
+    volatile UBase_t PIN1;
+    volatile UBase_t PIN2;
+    volatile UBase_t PIN3;
+    const UBase_t reserved [28UL];
+}PWM_GEN_BITBANDING_FAULT_PIN_SENSE_t;
 
 typedef volatile struct
 {
-    volatile uint32_t FAULT0;
-    volatile uint32_t FAULT1;
-    volatile uint32_t FAULT2;
-    volatile uint32_t FAULT3;
-    const uint32_t reserved [28UL];
-}BITBANDING_PWMnFLTSTAT0_t;
+    volatile UBase_t PIN0;
+    volatile UBase_t PIN1;
+    volatile UBase_t PIN2;
+    volatile UBase_t PIN3;
+    const UBase_t reserved [28UL];
+}PWM_GEN_BITBANDING_FAULT_PIN_STAT_t;
 
 typedef volatile struct
 {
-    volatile uint32_t DCMP0;
-    volatile uint32_t DCMP1;
-    volatile uint32_t DCMP2;
-    volatile uint32_t DCMP3;
-    volatile uint32_t DCMP4;
-    volatile uint32_t DCMP5;
-    volatile uint32_t DCMP6;
-    volatile uint32_t DCMP7;
-    const uint32_t reserved [24UL];
-}BITBANDING_PWMnFLTSTAT1_t;
+    volatile UBase_t DCMP0;
+    volatile UBase_t DCMP1;
+    volatile UBase_t DCMP2;
+    volatile UBase_t DCMP3;
+    volatile UBase_t DCMP4;
+    volatile UBase_t DCMP5;
+    volatile UBase_t DCMP6;
+    volatile UBase_t DCMP7;
+    const UBase_t reserved [24UL];
+}PWM_GEN_BITBANDING_FAULT_DCMP_STAT_t;
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_STRUCT_XHEADER_PWM_STRUCTREGISTER_BITBANDING_H_ */

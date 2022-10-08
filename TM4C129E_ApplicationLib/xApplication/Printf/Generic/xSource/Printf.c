@@ -16,31 +16,31 @@
     #pragma CHECK_MISRA("-6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 /* internal vsnprintf*/
-uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint32_t u32MaxLength, const char* pcFormat, va_list vaList)
+UBase_t vsnprintf__uxUserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const UBase_t uxMaxLength, const char* pcFormat, va_list vaList)
 {
-  uint32_t u32Flags = 0U;
-  uint32_t u32Width = 0U;
-  uint32_t u32Negative = 0U;
-  uint32_t u32LengthOut = 0U;
+  UBase_t uxFlags = 0U;
+  UBase_t uxWidth = 0U;
+  UBase_t uxNegative = 0U;
+  UBase_t uxLengthOut = 0U;
   uint64_t u64ValueTemp = 0ULL;
-  uint32_t u32Precision = 0U;
-  uint32_t u32PrecisionTemp = 0U;
-  uint32_t n = 0U;
-  uint32_t u32Index = 0U;
-  uint32_t  u32Base = 0U;
+  UBase_t uxPrecision = 0U;
+  UBase_t uxPrecisionTemp = 0U;
+  UBase_t n = 0U;
+  UBase_t uxIndex = 0U;
+  UBase_t  uxBase = 0U;
 
-  uint32_t u32ValueTemp = 0UL;
+  UBase_t uxValueTemp = 0UL;
 
-  uint32_t u32lteration = 0U;
+  UBase_t uxlteration = 0U;
 
   float64_t  f64DoubleArgument = 0;
   uintptr_t pvPointerArgument = 0U;
-  int32_t  s32WidthArgument = 0;
-  int32_t  s32WidthArgumentTemp = 0;
-  int32_t  s32PrecisionArgument = 0;
-  int32_t  s32ValueArgument = 0L;
-  int32_t  s32ValueArgumentTemp = 0L;
-  uint32_t  u32ValueArgument = 0UL;
+  Base_t  sxWidthArgument = 0;
+  Base_t  sxWidthArgumentTemp = 0;
+  Base_t  sxPrecisionArgument = 0;
+  Base_t  sxValueArgument = 0L;
+  Base_t  sxValueArgumentTemp = 0L;
+  UBase_t  uxValueArgument = 0UL;
   char*  pcValueArgument = 0U;
   int64_t  s64ValueArgument = 0LL;
   int64_t  s64ValueArgumentTemp = 0LL;
@@ -50,19 +50,21 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
   uint8_t  u8ValueArgument = 0U;
   int8_t  s8ValueArgument = 0;
   char  cValueArgument = '\0';
-  if ((uint32_t) 0U == (uint32_t) pcBuffer) {
+
+  UBase_t uxLengthReg = 0U;
+  if ((UBase_t) 0U == (UBase_t) pcBuffer) {
     /*use null output function*/
-    pvfOut = &Conv__vOutNull;
+    pvfOut = &Conv__enOutNull;
   }
 
   while ('\0' != *pcFormat)
   {
-    /* pcFormat specifier?  %[u32Flags][u32Width][.u32Precision][length]*/
+    /* pcFormat specifier?  %[uxFlags][uxWidth][.uxPrecision][length]*/
     if ('%' != *pcFormat )
     {
       /* no*/
-      pvfOut(*pcFormat, pcBuffer, u32Index, u32MaxLength);
-      u32Index++;
+      pvfOut(*pcFormat, pcBuffer, uxIndex, uxMaxLength);
+      uxIndex++;
       pcFormat += 1U;
       continue;
     }
@@ -72,34 +74,34 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       pcFormat += 1U;
     }
 
-    /* evaluate u32Flags*/
-    u32Flags = 0U;
+    /* evaluate uxFlags*/
+    uxFlags = 0U;
     do
     {
       switch (*pcFormat)
       {
         case '0':
-            u32Flags |= (uint32_t) CONV_enFLAGS_ZEROPAD;
+            uxFlags |= (UBase_t) CONV_enFLAGS_ZEROPAD;
             pcFormat += 1U;
             n = 1U;
             break;
         case '-':
-            u32Flags |= (uint32_t) CONV_enFLAGS_LEFT;
+            uxFlags |= (UBase_t) CONV_enFLAGS_LEFT;
             pcFormat += 1U;
             n = 1U;
             break;
         case '+':
-            u32Flags |= (uint32_t) CONV_enFLAGS_PLUS;
+            uxFlags |= (UBase_t) CONV_enFLAGS_PLUS;
             pcFormat += 1U;
             n = 1U;
             break;
         case ' ':
-            u32Flags |= (uint32_t) CONV_enFLAGS_SPACE;
+            uxFlags |= (UBase_t) CONV_enFLAGS_SPACE;
             pcFormat += 1U;
             n = 1U;
             break;
         case '#':
-            u32Flags |= (uint32_t) CONV_enFLAGS_HASH;
+            uxFlags |= (UBase_t) CONV_enFLAGS_HASH;
             pcFormat += 1U;
             n = 1U;
             break;
@@ -109,52 +111,52 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       }
     } while (n);
 
-    /* evaluate u32Width field*/
-    u32Width = 0U;
-    if (CONV_enDIGIT_OK == Conv__enIsDigit(*pcFormat))
+    /* evaluate uxWidth field*/
+    uxWidth = 0U;
+    if (CONV_enERROR_OK == Conv__enIsDigit(*pcFormat))
     {
-       Conv__s32String2UInteger( &pcFormat, &u64ValueTemp);
-       u32Width = (uint32_t) u64ValueTemp;
+       Conv__enString2UInteger( &pcFormat, &u64ValueTemp, &uxLengthReg);
+       uxWidth = (UBase_t) u64ValueTemp;
     }
     else if ('*' == *pcFormat)
     {
-        s32WidthArgument = (int32_t) va_arg(vaList, int32_t);
-        if (s32WidthArgument < 0)
+        sxWidthArgument = (Base_t) va_arg(vaList, Base_t);
+        if (sxWidthArgument < 0)
         {
-            u32Flags |= (uint32_t) CONV_enFLAGS_LEFT;    /* reverse padding*/
-            s32WidthArgumentTemp = 0;
-            s32WidthArgumentTemp -= s32WidthArgument;
-            u32Width = (uint32_t) (s32WidthArgumentTemp);
+            uxFlags |= (UBase_t) CONV_enFLAGS_LEFT;    /* reverse padding*/
+            sxWidthArgumentTemp = 0;
+            sxWidthArgumentTemp -= sxWidthArgument;
+            uxWidth = (UBase_t) (sxWidthArgumentTemp);
         }
         else
         {
-            u32Width = (uint32_t) s32WidthArgument;
+            uxWidth = (UBase_t) sxWidthArgument;
         }
         pcFormat += 1U;
     }
     else{}
 
-    /* evaluate u32Precision field */
-    u32Precision = 0U;
+    /* evaluate uxPrecision field */
+    uxPrecision = 0U;
     if ( '.' == *pcFormat )
     {
-      u32Flags |= (uint32_t) CONV_enFLAGS_PRECISION;
+      uxFlags |= (UBase_t) CONV_enFLAGS_PRECISION;
       pcFormat += 1U;
-      if(CONV_enDIGIT_OK == Conv__enIsDigit(*pcFormat) )
+      if(CONV_enERROR_OK == Conv__enIsDigit(*pcFormat) )
       {
-          Conv__s32String2UInteger( &pcFormat, &u64ValueTemp);
-          u32Precision = (uint32_t) u64ValueTemp;
+          Conv__enString2UInteger( &pcFormat, &u64ValueTemp, &uxLengthReg);
+          uxPrecision = (UBase_t) u64ValueTemp;
       }
       else if ('*' == *pcFormat)
       {
-          s32PrecisionArgument = (int32_t) va_arg(vaList, int32_t);
-          if(s32PrecisionArgument >= 0)
+          sxPrecisionArgument = (Base_t) va_arg(vaList, Base_t);
+          if(sxPrecisionArgument >= 0)
           {
-              u32Precision = (uint32_t) s32PrecisionArgument;
+              uxPrecision = (UBase_t) sxPrecisionArgument;
           }
           else
           {
-              u32Precision = 0U;
+              uxPrecision = 0U;
           }
         pcFormat += 1U;
       }
@@ -165,34 +167,34 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
     switch (*pcFormat)
     {
       case 'l' :
-        u32Flags |= (uint32_t) CONV_enFLAGS_LONG;
+        uxFlags |= (UBase_t) CONV_enFLAGS_LONG;
         pcFormat += 1U;
         if ( 'l' == *pcFormat)
         {
-          u32Flags |= (uint32_t) CONV_enFLAGS_LONG_LONG;
+          uxFlags |= (UBase_t) CONV_enFLAGS_LONG_LONG;
           pcFormat += 1U;
         }
         break;
       case 'h' :
-        u32Flags |= (uint32_t) CONV_enFLAGS_SHORT;
+        uxFlags |= (UBase_t) CONV_enFLAGS_SHORT;
         pcFormat += 1U;
         if ('h' == *pcFormat)
         {
-          u32Flags |= (uint32_t) CONV_enFLAGS_CHAR;
+          uxFlags |= (UBase_t) CONV_enFLAGS_CHAR;
           pcFormat += 1U;
         }
         break;
       case 't' :
-          u32Flags |= (uint32_t) CONV_enFLAGS_LONG;
+          uxFlags |= (UBase_t) CONV_enFLAGS_LONG;
           pcFormat += 1U;
           break;
       case'j' :
-          u32Flags |= (uint32_t) CONV_enFLAGS_LONG_LONG;
+          uxFlags |= (UBase_t) CONV_enFLAGS_LONG_LONG;
           pcFormat += 1U;
           break;
       case  'z' :
 
-          u32Flags |= (uint32_t) CONV_enFLAGS_LONG;
+          uxFlags |= (UBase_t) CONV_enFLAGS_LONG;
           pcFormat += 1U;
           break;
       default :
@@ -210,160 +212,160 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       case 'o' :
       case  'b' :
       {
-        /* set the u32Base*/
-          u32Base = 0U;
+        /* set the uxBase*/
+          uxBase = 0U;
         if ( ('x' == *pcFormat) || ('X' == *pcFormat) )
         {
-          u32Base = 16U;
+          uxBase = 16U;
         }
         else if ('o' == *pcFormat )
         {
-          u32Base = 8U;
+          uxBase = 8U;
         }
         else if ('b' == *pcFormat )
         {
-          u32Base = 2U;
+          uxBase = 2U;
         }
         else
         {
-          u32Base = 10U;
-          u32Flags &= ~(uint32_t) CONV_enFLAGS_HASH;   /* no hash for dec pcFormat*/
+          uxBase = 10U;
+          uxFlags &= ~(UBase_t) CONV_enFLAGS_HASH;   /* no hash for dec pcFormat*/
         }
 
         /* uppercase*/
         if ('X' == *pcFormat) {
-          u32Flags |= (uint32_t) CONV_enFLAGS_UPPERCASE;
+          uxFlags |= (UBase_t) CONV_enFLAGS_UPPERCASE;
         }
 
         /* no plus or space flag for U, x, X, o, b*/
         if (('i' != *pcFormat ) && ('d' != *pcFormat))
         {
-          u32Flags &= ~((uint32_t) CONV_enFLAGS_PLUS | (uint32_t) CONV_enFLAGS_SPACE);
+          uxFlags &= ~((UBase_t) CONV_enFLAGS_PLUS | (UBase_t) CONV_enFLAGS_SPACE);
         }
 
-        /* ignore '0' flag when u32Precision is given*/
-        if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_PRECISION))
+        /* ignore '0' flag when uxPrecision is given*/
+        if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_PRECISION))
         {
-          u32Flags &= ~(uint32_t) CONV_enFLAGS_ZEROPAD;
+          uxFlags &= ~(UBase_t) CONV_enFLAGS_ZEROPAD;
         }
 
         /* convert the integer*/
         if (('i' == *pcFormat) || ('d' == *pcFormat))
         {
           /* signed*/
-          if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_LONG_LONG))
+          if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_LONG_LONG))
           {
                 s64ValueArgument = (int64_t) va_arg(vaList, int64_t);
                 if(s64ValueArgument >= 0)
                 {
                     u64ValueTemp = (uint64_t) s64ValueArgument;
-                    u32Negative = 0U;
+                    uxNegative = 0U;
                 }
                 else
                 {
                     s64ValueArgumentTemp = 0;
                     s64ValueArgumentTemp -= s64ValueArgument;
                     u64ValueTemp = (uint64_t) s64ValueArgumentTemp;
-                    u32Negative = 1U;
+                    uxNegative = 1U;
                 }
 
-                Conv__enNumber2String_LongLong(pvfOut, pcBuffer, u64ValueTemp, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, (uint64_t) u32Base, u32Precision);
-                u32Index = u32LengthOut;
+                Conv__enNumber2String_LongLong(pvfOut, pcBuffer, u64ValueTemp, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, (uint64_t) uxBase, uxPrecision);
+                uxIndex = uxLengthOut;
           }
-          else if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_LONG))
+          else if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_LONG))
           {
-              s32ValueArgument = (int32_t) va_arg(vaList, int32_t);
-              if(s32ValueArgument >= 0)
+              sxValueArgument = (Base_t) va_arg(vaList, Base_t);
+              if(sxValueArgument >= 0)
               {
-                  u32ValueTemp = (uint32_t) s32ValueArgument;
-                  u32Negative = 0U;
+                  uxValueTemp = (UBase_t) sxValueArgument;
+                  uxNegative = 0U;
               }
               else
               {
-                  s32ValueArgumentTemp = 0;
-                  s32ValueArgumentTemp -= s32ValueArgument;
-                  u32ValueTemp = (uint32_t) s32ValueArgumentTemp;
-                  u32Negative = 1U;
+                  sxValueArgumentTemp = 0;
+                  sxValueArgumentTemp -= sxValueArgument;
+                  uxValueTemp = (UBase_t) sxValueArgumentTemp;
+                  uxNegative = 1U;
               }
 
-              Conv__enNumber2String_Long(pvfOut, pcBuffer, u32ValueTemp, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, u32Base, u32Precision);
-              u32Index = u32LengthOut;
+              Conv__enNumber2String_Long(pvfOut, pcBuffer, uxValueTemp, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, uxBase, uxPrecision);
+              uxIndex = uxLengthOut;
 
           }
           else
           {
-              if(0U != (u32Flags & (uint32_t) CONV_enFLAGS_CHAR))
+              if(0U != (uxFlags & (UBase_t) CONV_enFLAGS_CHAR))
               {
-                  s8ValueArgument = (int8_t) va_arg(vaList, int32_t);
-                  s32ValueArgument = (int32_t) s8ValueArgument;
+                  s8ValueArgument = (int8_t) va_arg(vaList, Base_t);
+                  sxValueArgument = (Base_t) s8ValueArgument;
               }
-              else  if(0U != (u32Flags & (uint32_t) CONV_enFLAGS_SHORT))
+              else  if(0U != (uxFlags & (UBase_t) CONV_enFLAGS_SHORT))
               {
-                  s16ValueArgument = (int16_t) va_arg(vaList, int32_t);
-                  s32ValueArgument = (int32_t) s16ValueArgument;
-              }
-              else
-              {
-                  s32ValueArgument = (int32_t) va_arg(vaList, int32_t);
-              }
-
-              if(s32ValueArgument >= 0)
-              {
-                  u32ValueTemp = (uint32_t) s32ValueArgument;
-                  u32Negative = 0U;
+                  s16ValueArgument = (int16_t) va_arg(vaList, Base_t);
+                  sxValueArgument = (Base_t) s16ValueArgument;
               }
               else
               {
-                  s32ValueArgumentTemp = 0;
-                  s32ValueArgumentTemp -= s32ValueArgument;
-                  u32ValueTemp = (uint32_t) s32ValueArgumentTemp;
-                  u32Negative = 1U;
+                  sxValueArgument = (Base_t) va_arg(vaList, Base_t);
               }
 
-              Conv__enNumber2String_Long(pvfOut, pcBuffer, u32ValueTemp, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, u32Base, u32Precision);
-              u32Index = u32LengthOut;
+              if(sxValueArgument >= 0)
+              {
+                  uxValueTemp = (UBase_t) sxValueArgument;
+                  uxNegative = 0U;
+              }
+              else
+              {
+                  sxValueArgumentTemp = 0;
+                  sxValueArgumentTemp -= sxValueArgument;
+                  uxValueTemp = (UBase_t) sxValueArgumentTemp;
+                  uxNegative = 1U;
+              }
+
+              Conv__enNumber2String_Long(pvfOut, pcBuffer, uxValueTemp, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, uxBase, uxPrecision);
+              uxIndex = uxLengthOut;
           }
         }
         else
         {
           /* unsigned*/
-          if (u32Flags & (uint32_t) CONV_enFLAGS_LONG_LONG)
+          if (uxFlags & (UBase_t) CONV_enFLAGS_LONG_LONG)
           {
               u64ValueArgument = (uint64_t) va_arg(vaList, uint64_t);
-              u32Negative = 0U;
+              uxNegative = 0U;
 
-              Conv__enNumber2String_LongLong(pvfOut, pcBuffer, u64ValueArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, (uint64_t) u32Base, u32Precision);
-              u32Index = u32LengthOut;
+              Conv__enNumber2String_LongLong(pvfOut, pcBuffer, u64ValueArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, (uint64_t) uxBase, uxPrecision);
+              uxIndex = uxLengthOut;
           }
-          else if (u32Flags & (uint32_t) CONV_enFLAGS_LONG)
+          else if (uxFlags & (UBase_t) CONV_enFLAGS_LONG)
           {
-              u32ValueArgument = (uint32_t) va_arg(vaList, uint32_t);
-              u32Negative = 0U;
+              uxValueArgument = (UBase_t) va_arg(vaList, UBase_t);
+              uxNegative = 0U;
 
-              Conv__enNumber2String_Long(pvfOut, pcBuffer, u32ValueArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, u32Base, u32Precision);
-              u32Index = u32LengthOut;
+              Conv__enNumber2String_Long(pvfOut, pcBuffer, uxValueArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, uxBase, uxPrecision);
+              uxIndex = uxLengthOut;
           }
           else
           {
 
-              if(0U != (u32Flags & (uint32_t) CONV_enFLAGS_CHAR))
+              if(0U != (uxFlags & (UBase_t) CONV_enFLAGS_CHAR))
               {
-                  u8ValueArgument = (uint8_t) va_arg(vaList, int32_t);
-                  u32ValueArgument = (uint32_t) u8ValueArgument;
+                  u8ValueArgument = (uint8_t) va_arg(vaList, Base_t);
+                  uxValueArgument = (UBase_t) u8ValueArgument;
               }
-              else  if(0U != (u32Flags & (uint32_t) CONV_enFLAGS_SHORT))
+              else  if(0U != (uxFlags & (UBase_t) CONV_enFLAGS_SHORT))
               {
-                  u16ValueArgument = (uint16_t) va_arg(vaList, uint32_t);
-                  u32ValueArgument = (uint32_t) u16ValueArgument;
+                  u16ValueArgument = (uint16_t) va_arg(vaList, UBase_t);
+                  uxValueArgument = (UBase_t) u16ValueArgument;
               }
               else
               {
-                  u32ValueArgument = (uint32_t) va_arg(vaList, uint32_t);
+                  uxValueArgument = (UBase_t) va_arg(vaList, UBase_t);
               }
-              u32Negative = 0U;
+              uxNegative = 0U;
 
-              Conv__enNumber2String_Long(pvfOut, pcBuffer, u32ValueArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, u32Base, u32Precision);
-              u32Index = u32LengthOut;
+              Conv__enNumber2String_Long(pvfOut, pcBuffer, uxValueArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, uxBase, uxPrecision);
+              uxIndex = uxLengthOut;
           }
         }
         pcFormat += 1U;
@@ -373,11 +375,11 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       case 'F' :
         if ('F' == *pcFormat)
         {
-            u32Flags |= (uint32_t) CONV_enFLAGS_UPPERCASE;
+            uxFlags |= (UBase_t) CONV_enFLAGS_UPPERCASE;
         }
         f64DoubleArgument = (float64_t) va_arg(vaList, float64_t);
-        Conv__enNumber2String_Float(pvfOut, pcBuffer, f64DoubleArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Precision);
-        u32Index = u32LengthOut;
+        Conv__enNumber2String_Float(pvfOut, pcBuffer, f64DoubleArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxPrecision);
+        uxIndex = uxLengthOut;
 
         pcFormat += 1U;
         break;
@@ -387,44 +389,44 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       case 'G':
         if (( 'g' == *pcFormat) || ('G' == *pcFormat))
         {
-            u32Flags |= (uint32_t) CONV_enFLAGS_ADAPT_EXP;
+            uxFlags |= (UBase_t) CONV_enFLAGS_ADAPT_EXP;
         }
         if (('E' == *pcFormat ) || ('G' == *pcFormat))
         {
-            u32Flags |= (uint32_t) CONV_enFLAGS_UPPERCASE;
+            uxFlags |= (UBase_t) CONV_enFLAGS_UPPERCASE;
         }
 
         f64DoubleArgument = (float64_t) va_arg(vaList, float64_t);
-        Conv__enNumber2String_Exponential(pvfOut, pcBuffer, f64DoubleArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Precision);
-        u32Index = u32LengthOut;
+        Conv__enNumber2String_Exponential(pvfOut, pcBuffer, f64DoubleArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxPrecision);
+        uxIndex = uxLengthOut;
         pcFormat += 1U;
         break;
 
       case 'c' :
       {
-          cValueArgument = (char)va_arg(vaList, int32_t);
-          u32lteration = 1U;
+          cValueArgument = (char)va_arg(vaList, Base_t);
+          uxlteration = 1U;
         /* pre padding*/
-        if (0U == (u32Flags & (uint32_t) CONV_enFLAGS_LEFT))
+        if (0U == (uxFlags & (UBase_t) CONV_enFLAGS_LEFT))
         {
-            while (u32lteration < u32Width)
+            while (uxlteration < uxWidth)
             {
-                u32lteration++;
-                pvfOut(' ', pcBuffer, u32Index, u32MaxLength);
-                u32Index++;
+                uxlteration++;
+                pvfOut(' ', pcBuffer, uxIndex, uxMaxLength);
+                uxIndex++;
             }
         }
         /* char output*/
-        pvfOut(cValueArgument, pcBuffer, u32Index, u32MaxLength);
-        u32Index++;
+        pvfOut(cValueArgument, pcBuffer, uxIndex, uxMaxLength);
+        uxIndex++;
         /* post padding*/
-        if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_LEFT))
+        if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_LEFT))
         {
-            while (u32lteration < u32Width)
+            while (uxlteration < uxWidth)
             {
-                u32lteration++;
-                pvfOut(' ', pcBuffer, u32Index, u32MaxLength);
-                u32Index++;
+                uxlteration++;
+                pvfOut(' ', pcBuffer, uxIndex, uxMaxLength);
+                uxIndex++;
             }
         }
         pcFormat += 1U;
@@ -434,48 +436,48 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       case 's' :
       {
         pcValueArgument = (char*) va_arg(vaList, char*);
-        if(0U == u32Precision)
+        if(0U == uxPrecision)
         {
-            u32PrecisionTemp = (uint32_t) -1;
+            uxPrecisionTemp = (UBase_t) -1;
         }
         else
         {
-            u32PrecisionTemp = u32Precision;
+            uxPrecisionTemp = uxPrecision;
         }
-        u32lteration = CONV_u32StringLength(pcValueArgument, u32PrecisionTemp);
+        CONV_enStringLength(pcValueArgument, &uxlteration, uxPrecisionTemp);
         /* pre padding*/
-        if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_PRECISION))
+        if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_PRECISION))
         {
-            if(u32lteration> u32Precision)
+            if(uxlteration> uxPrecision)
             {
-                u32lteration = u32Precision;
+                uxlteration = uxPrecision;
             }
         }
-        if (0U == (u32Flags & (uint32_t) CONV_enFLAGS_LEFT))
+        if (0U == (uxFlags & (UBase_t) CONV_enFLAGS_LEFT))
         {
-          while (u32lteration < u32Width)
+          while (uxlteration < uxWidth)
           {
-            u32lteration++;
-            pvfOut(' ', pcBuffer, u32Index, u32MaxLength);
-            u32Index++;
+            uxlteration++;
+            pvfOut(' ', pcBuffer, uxIndex, uxMaxLength);
+            uxIndex++;
           }
         }
         /* string output*/
-        while (('\0' != *pcValueArgument) && ((0U == (u32Flags & (uint32_t) CONV_enFLAGS_PRECISION)) || (0U != u32Precision)))
+        while (('\0' != *pcValueArgument) && ((0U == (uxFlags & (UBase_t) CONV_enFLAGS_PRECISION)) || (0U != uxPrecision)))
         {
-            u32Precision--;
-          pvfOut(*pcValueArgument, pcBuffer, u32Index, u32MaxLength);
-          u32Index++;
+            uxPrecision--;
+          pvfOut(*pcValueArgument, pcBuffer, uxIndex, uxMaxLength);
+          uxIndex++;
           pcValueArgument += 1U;
         }
         /* post padding*/
-        if (0U != (u32Flags & (uint32_t) CONV_enFLAGS_LEFT))
+        if (0U != (uxFlags & (UBase_t) CONV_enFLAGS_LEFT))
         {
-          while (u32lteration < u32Width)
+          while (uxlteration < uxWidth)
           {
-              u32lteration++;
-            pvfOut(' ', pcBuffer, u32Index, u32MaxLength);
-            u32Index++;
+              uxlteration++;
+            pvfOut(' ', pcBuffer, uxIndex, uxMaxLength);
+            uxIndex++;
           }
         }
         pcFormat += 1U;
@@ -484,15 +486,15 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
 
       case 'p' :
       {
-        u32Width = sizeof(void*) * 2U;
-        u32Flags |= (uint32_t) CONV_enFLAGS_ZEROPAD | (uint32_t) CONV_enFLAGS_UPPERCASE;
+        uxWidth = sizeof(void*) * 2U;
+        uxFlags |= (UBase_t) CONV_enFLAGS_ZEROPAD | (UBase_t) CONV_enFLAGS_UPPERCASE;
 
         pvPointerArgument = (uintptr_t) va_arg(vaList, void*);
-        u32ValueArgument = (uint32_t) pvPointerArgument;
-        u32Negative = 0U;
+        uxValueArgument = (UBase_t) pvPointerArgument;
+        uxNegative = 0U;
 
-        Conv__enNumber2String_Long(pvfOut, pcBuffer, u32ValueArgument, u32Index, u32MaxLength, &u32LengthOut, u32Width, u32Flags, u32Negative, 16U, u32Precision);
-        u32Index = u32LengthOut;
+        Conv__enNumber2String_Long(pvfOut, pcBuffer, uxValueArgument, uxIndex, uxMaxLength, &uxLengthOut, uxWidth, uxFlags, uxNegative, 16U, uxPrecision);
+        uxIndex = uxLengthOut;
 
 
         pcFormat += 1U;
@@ -500,87 +502,87 @@ uint32_t vsnprintf__u32UserGeneric(CONV_OUT_t pvfOut, char* pcBuffer, const uint
       }
 
       case '%' :
-        pvfOut('%', pcBuffer, u32Index, u32MaxLength);
-        u32Index++;
+        pvfOut('%', pcBuffer, uxIndex, uxMaxLength);
+        uxIndex++;
         pcFormat += 1U;
         break;
 
       default :
-        pvfOut(*pcFormat, pcBuffer, u32Index, u32MaxLength);
-        u32Index++;
+        pvfOut(*pcFormat, pcBuffer, uxIndex, uxMaxLength);
+        uxIndex++;
         pcFormat += 1U;
         break;
     }
   }
 
   /* termination*/
-  if(u32Index > u32MaxLength)
+  if(uxIndex > uxMaxLength)
   {
-      u32Index = u32MaxLength;
-      u32Index -= 1U;
+      uxIndex = uxMaxLength;
+      uxIndex -= 1U;
   }
-  pvfOut((char)0, pcBuffer, u32Index, u32MaxLength);
+  pvfOut((char)0, pcBuffer, uxIndex, uxMaxLength);
 
   /* return written chars without terminating \0*/
-  return (u32Index);
+  return (uxIndex);
 }
 
 
-uint32_t printf__u32User(const char* pcFormat, ...)
+UBase_t printf__uxUser(const char* pcFormat, ...)
 {
   va_list vaList;
   va_start(vaList, pcFormat);
   char pcBuffer[1] = {'\0'};
-  const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutChar, pcBuffer, (size_t) -1, pcFormat, vaList);
+  const UBase_t uxLength = vsnprintf__uxUserGeneric( &Conv__enOutChar, pcBuffer, (size_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return (u32Length);
+  return (uxLength);
 }
 
 
-uint32_t sprintf__u32User(char* pcBuffer, const char* pcFormat, ...)
+UBase_t sprintf__uxUser(char* pcBuffer, const char* pcFormat, ...)
 {
   va_list vaList;
   va_start(vaList, pcFormat);
-  const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, (size_t) -1, pcFormat, vaList);
+  const UBase_t uxLength = vsnprintf__uxUserGeneric( &Conv__enOutBuffer, pcBuffer, (size_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return (u32Length);
+  return (uxLength);
 }
 
 
-uint32_t  snprintf__u32User(char* pcBuffer, uint32_t u32Count, const char* pcFormat, ...)
+UBase_t  snprintf__uxUser(char* pcBuffer, UBase_t uxCount, const char* pcFormat, ...)
 {
   va_list vaList;
   va_start(vaList, pcFormat);
-  const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, u32Count, pcFormat, vaList);
+  const UBase_t uxLength = vsnprintf__uxUserGeneric( &Conv__enOutBuffer, pcBuffer, uxCount, pcFormat, vaList);
   va_end(vaList);
-  return (u32Length);
+  return (uxLength);
 }
 
 
-uint32_t fctprintf__u32User(void (*pvfFunctionOut) (char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...)
+UBase_t fctprintf__uxUser(CONV_nERROR (*pvfFunctionOut) (char cCharacter, void* pvPrintArguments), void* pvPrintArguments, const char* pcFormat, ...)
 {
   va_list vaList;
   va_start(vaList, pcFormat);
   CONV_OUT_WRAPPER_t out_fct_wrap = { pvfFunctionOut, pvPrintArguments };
-  const uint32_t u32Length = vsnprintf__u32UserGeneric( &Conv__vOutFunction, (char*) & out_fct_wrap, (uint32_t) -1, pcFormat, vaList);
+  const UBase_t uxLength = vsnprintf__uxUserGeneric( &Conv__enOutFunction, (char*) & out_fct_wrap, (UBase_t) -1, pcFormat, vaList);
   va_end(vaList);
-  return (u32Length);
+  return (uxLength);
 }
 
-uint32_t vprintf__u32User(const char* pcFormat, va_list vaList)
+UBase_t vprintf__uxUser(const char* pcFormat, va_list vaList)
 {
   char pcBuffer[1] = {'\0'};
-  return vsnprintf__u32UserGeneric( &Conv__vOutChar, pcBuffer, (uint32_t) -1, pcFormat, vaList);
+  return vsnprintf__uxUserGeneric( &Conv__enOutChar, pcBuffer, (UBase_t) -1, pcFormat, vaList);
 }
 
-uint32_t vsprintf__u32User(char* pcBuffer, const char* pcFormat, va_list vaList)
+UBase_t vsprintf__uxUser(char* pcBuffer, const char* pcFormat, va_list vaList)
 {
-  return vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, (uint32_t) -1, pcFormat, vaList);
+  return vsnprintf__uxUserGeneric( &Conv__enOutBuffer, pcBuffer, (UBase_t) -1, pcFormat, vaList);
 }
 
-uint32_t vsnprintf__u32User(char* pcBuffer, const uint32_t u32Count, const char* pcFormat, va_list vaList)
+UBase_t vsnprintf__uxUser(char* pcBuffer, const UBase_t uxCount, const char* pcFormat, va_list vaList)
 {
-  return vsnprintf__u32UserGeneric( &Conv__vOutBuffer, pcBuffer, u32Count, pcFormat, vaList);
+  return vsnprintf__uxUserGeneric( &Conv__enOutBuffer, pcBuffer, uxCount, pcFormat, vaList);
 }
 
 

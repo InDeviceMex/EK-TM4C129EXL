@@ -31,7 +31,7 @@ SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule,
                              SSI_nMS enMasterSlaveArg,
                              const SSI_CONTROL_t* const pstControlConfig,
                              SSI_FRAME_CONTROL_t* const pstFrameControlConfig,
-                             uint32_t u32ClockArg,
+                             UBase_t uxClockArg,
                              const SSI_LINE_t* pstLineConfig);
 
 #endif /* XAPPLICATION_MCU_SSI_XHEADER_SSI_CONFIG_H_ */

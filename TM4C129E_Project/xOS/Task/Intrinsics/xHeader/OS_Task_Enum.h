@@ -25,6 +25,8 @@
 #ifndef XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
 #define XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_
 
+#include <xUtils/Standard/Standard.h>
+
 typedef enum
 {
     OS_Task_enStatus_Ok = 0UL,
@@ -49,7 +51,7 @@ typedef enum
     OS_Task_enNotifyAction_Increment = 2UL,                 /* Increment the task's notification value. */
     OS_Task_enNotifyAction_SetValueWithOverwrite = 3UL,     /* Set the task's notification value to a specific value even if the previous value has not yet been read by the task. */
     OS_Task_enNotifyAction_SetValueWithoutOverwrite = 4UL,   /* Set the task's notification value if the previous value has been read by the task. */
-    OS_Task_enNotifyAction_Undef = 0x7FFFFFFFUL,   /* Set the task's notification value if the previous value has been read by the task. */
+    OS_Task_enNotifyAction_Undef = UNDEF_VALUE,   /* Set the task's notification value if the previous value has been read by the task. */
 } OS_Task_eNotifyAction;
 
 typedef enum
@@ -57,7 +59,7 @@ typedef enum
     OS_Task_enNotifyState_NotWaitingNotification = 0UL,
     OS_Task_enNotifyState_WaitingNotification = 1UL,
     OS_Task_enNotifyState_Notified = 2UL,
-    OS_Task_enNotifyState_Undef = 0x7FFFFFFFUL,
+    OS_Task_enNotifyState_Undef = UNDEF_VALUE,
 } OS_Task_eNotifyState;
 
 typedef enum

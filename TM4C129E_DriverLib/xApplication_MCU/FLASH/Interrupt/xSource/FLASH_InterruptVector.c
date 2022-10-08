@@ -30,13 +30,13 @@ static FLASH_nERROR FLASH__enGetInterruptVector(FLASH_nMODULE enModuleArg, NVIC_
 
 static FLASH_nERROR FLASH__enGetInterruptVector(FLASH_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_FLASH[(uint32_t) FLASH_enMODULE_MAX] = { NVIC_enVECTOR_FLASH };
+    const NVIC_nVECTOR NVIC_VECTOR_FLASH[(UBase_t) FLASH_enMODULE_MAX] = { NVIC_enVECTOR_FLASH };
     FLASH_nERROR enErrorReg;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) FLASH_enMODULE_MAX);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_VECTOR_FLASH[(uint32_t) enModuleArg];
+        *enVectorArg = NVIC_VECTOR_FLASH[(UBase_t) enModuleArg];
 
     }
     return (enErrorReg);

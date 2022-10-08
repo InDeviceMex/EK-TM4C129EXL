@@ -36,14 +36,14 @@ MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack) __attribute__((naked));
 MCU_nSTACK MCU__enGetStackActive(void) __attribute__((naked));
 
 
-void MCU__vSetPSPValue(uint32_t u32StackValue) __attribute__((naked));
-uint32_t MCU__u32GetPSPValue(void) __attribute__((naked));
-void MCU__vSetMSPValue(uint32_t u32StackValue) __attribute__((naked));
-uint32_t MCU__u32GetMSPValue(void) __attribute__((naked));
+void MCU__vSetPSPValue(UBase_t uxStackValue) __attribute__((naked));
+UBase_t MCU__uxGetPSPValue(void) __attribute__((naked));
+void MCU__vSetMSPValue(UBase_t uxStackValue) __attribute__((naked));
+UBase_t MCU__uxGetMSPValue(void) __attribute__((naked));
 
 
-void MCU__vSetStackValue(MCU_nSTACK enStack, uint32_t u32StackValue);
-uint32_t MCU__u32GetStackValue(MCU_nSTACK enStack) __attribute__((naked));
+void MCU__vSetStackValue(MCU_nSTACK enStack, UBase_t uxStackValue);
+UBase_t MCU__uxGetStackValue(MCU_nSTACK enStack) __attribute__((naked));
 
 
 MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel) __attribute__((naked));

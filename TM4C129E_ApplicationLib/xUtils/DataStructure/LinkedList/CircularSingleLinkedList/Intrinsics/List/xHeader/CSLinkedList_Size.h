@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-uint32_t CSLinkedList__u32GetSize(const CSLinkedList_t* const pstList);
-void CSLinkedList__vSetSize(CSLinkedList_t*  pstList, uint32_t u32SizeArg);
-CSLinkedList_nSTATUS CSLinkedList__enIsEmpty(const CSLinkedList_t*  pstList);
+UBase_t CSLinkedList__uxGetSize(const CSLinkedList_t* const pstList);
+void CSLinkedList__vSetSize(CSLinkedList_t*  pstList, UBase_t uxSizeArg);
+CSLinkedList_nERROR CSLinkedList__enIsEmpty(const CSLinkedList_t*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARSLINKEDLIST_SIZE_H_ */

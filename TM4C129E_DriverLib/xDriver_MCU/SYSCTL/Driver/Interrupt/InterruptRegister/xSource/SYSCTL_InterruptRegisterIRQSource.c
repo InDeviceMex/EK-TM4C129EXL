@@ -30,13 +30,13 @@
 void SYSCTL__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                        SYSCTL_nINTERRUPT enInterruptSource)
 {
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    UBase_t uxInterruptSource = 0UL;
+    if(0UL != (UBase_t) pfIrqSourceHandler)
     {
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,
-                                                  (uint32_t) SYSCTL_enINTERRUPT_MAX);
+        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
+                                                  (UBase_t) SYSCTL_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           SYSCTL__pvfGetIRQSourceHandlerPointer((SYSCTL_nINTERRUPT) u32InterruptSource),
+           SYSCTL__pvfGetIRQSourceHandlerPointer((SYSCTL_nINTERRUPT) uxInterruptSource),
            0UL,
            1UL);
     }

@@ -40,7 +40,7 @@ ADC_nERROR ADC_Comparator__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
@@ -66,7 +66,7 @@ ADC_nERROR ADC_Comparator__enGetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {

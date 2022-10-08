@@ -26,25 +26,26 @@
 #include <xApplication_MCU/PWM/Interrupt/PWM_Interrupt.h>
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-void PWM__vInit(void)
+PWM_nERROR PWM__enInit(PWM_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    PWM_nERROR enErrorReg;
+    UBase_t uxGeneratorReg;
+    PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = PWM_Generator__pvfGetIRQVectorHandler(PWM_enMODULE_0, PWM_enGEN_0);
-    PWM_Generator__vRegisterIRQVectorHandler( pfIrqVectorHandler, PWM_enMODULE_0, PWM_enGEN_0);
+    uxGeneratorReg = 0UL;
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    while((uxGeneratorReg < (UBase_t) PWM_enGEN_MAX) && (PWM_enERROR_OK == enErrorReg))
+    {
+        pfIrqVectorHandlerReg = PWM_Generator__pvfGetIRQVectorHandler(enModuleArg, (PWM_nGENERATOR) uxGeneratorReg);
+        enErrorReg = PWM_Generator__enRegisterIRQVectorHandler(enModuleArg, (PWM_nGENERATOR) uxGeneratorReg, pfIrqVectorHandlerReg);
+        uxGeneratorReg++;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = PWM_Fault__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = PWM_Fault__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
 
-    pfIrqVectorHandler = PWM_Generator__pvfGetIRQVectorHandler(PWM_enMODULE_0, PWM_enGEN_1);
-    PWM_Generator__vRegisterIRQVectorHandler( pfIrqVectorHandler, PWM_enMODULE_0, PWM_enGEN_1);
-
-    pfIrqVectorHandler = PWM_Generator__pvfGetIRQVectorHandler(PWM_enMODULE_0, PWM_enGEN_2);
-    PWM_Generator__vRegisterIRQVectorHandler( pfIrqVectorHandler, PWM_enMODULE_0, PWM_enGEN_2);
-
-    pfIrqVectorHandler = PWM_Generator__pvfGetIRQVectorHandler(PWM_enMODULE_0, PWM_enGEN_3);
-    PWM_Generator__vRegisterIRQVectorHandler( pfIrqVectorHandler, PWM_enMODULE_0, PWM_enGEN_3);
-
-    pfIrqVectorHandler = PWM_Fault__pvfGetIRQVectorHandler(PWM_enMODULE_0);
-    PWM_Fault__vRegisterIRQVectorHandler( pfIrqVectorHandler, PWM_enMODULE_0);
+    return (enErrorReg);
 }
-
-
 

@@ -25,11 +25,11 @@
 
 uintptr_t SCB__uptrBlockBaseAddress(SCB_nMODULE enModuleArg)
 {
-    uintptr_t SCB_BLOCK_BASE[(uint32_t) SCB_enMODULE_MAX] =
+    uintptr_t SCB_BLOCK_BASE[(UBase_t) SCB_enMODULE_MAX] =
     {
      SCB_BASE
     };
-    return (SCB_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (SCB_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

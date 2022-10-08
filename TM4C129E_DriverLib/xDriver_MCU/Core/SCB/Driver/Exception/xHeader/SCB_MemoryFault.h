@@ -39,7 +39,7 @@ SCB_nERROR SCB_MemoryFault__enEnable(SCB_nMODULE enModuleArg);
 SCB_nERROR SCB_MemoryFault__enDisable(SCB_nMODULE enModuleArg);
 SCB_nERROR SCB_MemoryFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg);
 
-SCB_nERROR SCB_MemoryFault_enGetFaultAddress(SCB_nMODULE enModuleArg, uint32_t* pu32FaultAddressArg);
+SCB_nERROR SCB_MemoryFault_enGetFaultAddress(SCB_nMODULE enModuleArg, UBase_t* puxFaultAddressArg);
 
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_MEMORYFAULT_H_ */

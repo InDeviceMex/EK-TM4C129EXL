@@ -26,6 +26,6 @@
 
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nDIGIT Conv__enIsDigit(char cCharacter);
+CONV_nERROR Conv__enIsDigit(char cCharacter);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER_CONVERSION_ISDIGIT_H_ */

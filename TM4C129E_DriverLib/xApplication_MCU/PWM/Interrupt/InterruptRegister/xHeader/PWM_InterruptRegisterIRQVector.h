@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-void PWM_Generator__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-void PWM_Fault__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), PWM_nMODULE enModule);
+PWM_nERROR PWM_Generator__enRegisterIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
+PWM_nERROR PWM_Fault__enRegisterIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_PWM_INTERRUPT_INTERRUPTREGISTER_XHEADER_PWM_INTERRUPTREGISTERIRQVECTOR_H_ */

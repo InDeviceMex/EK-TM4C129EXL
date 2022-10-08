@@ -26,25 +26,25 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_InitProcess.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg)
+FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxAddressArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32FlashSize;
+    UBase_t uxFlashSize;
 
-    u32FlashSize = 0UL;
-    enErrorReg = FLASH__enGetSize(enModuleArg, &u32FlashSize);
+    uxFlashSize = 0UL;
+    enErrorReg = FLASH__enGetSize(enModuleArg, &uxFlashSize);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressArg, u32FlashSize);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxAddressArg, uxFlashSize);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enSetData(enModuleArg, u32DataArg);
+        enErrorReg = FLASH__enSetData(enModuleArg, uxDataArg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32AddressArg &= ~ (uint32_t) 0x3UL;
-        enErrorReg = FLASH__enSetAddress(enModuleArg, u32AddressArg);
+        uxAddressArg &= ~ (UBase_t) 0x3UL;
+        enErrorReg = FLASH__enSetAddress(enModuleArg, uxAddressArg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
@@ -53,31 +53,31 @@ FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const uint32_t* pu32Data, uint32_t u32AddressArg, uint32_t* pu32Count)
+FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxData, UBase_t uxAddressArg, UBase_t* puxCount)
 {
     FLASH_nERROR enErrorReg;
 
-    uint32_t u32StartIndexReg;
-    uint32_t u32FlashSizeReg;
+    UBase_t uxStartIndexReg;
+    UBase_t uxFlashSizeReg;
 
-    u32StartIndexReg = 0U;
-    u32FlashSizeReg = 0UL;
-    enErrorReg = FLASH__enGetSize(enModuleArg, &u32FlashSizeReg);
+    uxStartIndexReg = 0U;
+    uxFlashSizeReg = 0UL;
+    enErrorReg = FLASH__enGetSize(enModuleArg, &uxFlashSizeReg);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressArg, u32FlashSizeReg);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxAddressArg, uxFlashSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32StartIndexReg = u32AddressArg;
-        u32StartIndexReg &= 0x7FUL;
-        u32StartIndexReg >>= 2UL;
-        enErrorReg = FLASH__enSetDataBuffer(enModuleArg, (uint32_t*) pu32Data, u32StartIndexReg, pu32Count);
+        uxStartIndexReg = uxAddressArg;
+        uxStartIndexReg &= 0x7FUL;
+        uxStartIndexReg >>= 2UL;
+        enErrorReg = FLASH__enSetDataBuffer(enModuleArg, puxData, uxStartIndexReg, puxCount);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32AddressArg = ~(uint32_t) 0x7F;
-        enErrorReg = FLASH__enSetAddress(enModuleArg, u32AddressArg);
+        uxAddressArg = ~(UBase_t) 0x7F;
+        enErrorReg = FLASH__enSetAddress(enModuleArg, uxAddressArg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {

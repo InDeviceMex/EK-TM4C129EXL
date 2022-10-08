@@ -31,10 +31,10 @@ I2C_nERROR I2C_Master__enSetGlitchFilter(I2C_nMODULE enModuleArg, I2C_nGLITCH_CL
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = I2C_MASTER_TPR_R_PULSEL_BIT;
-    stRegister.u32Mask = I2C_MASTER_TPR_PULSEL_MASK;
+    stRegister.uxShift = I2C_MASTER_TPR_R_PULSEL_BIT;
+    stRegister.uxMask = I2C_MASTER_TPR_PULSEL_MASK;
     stRegister.uptrAddress = I2C_MASTER_TPR_OFFSET;
-    stRegister.u32Value = (uint32_t) enGlitchFilterArg;
+    stRegister.uxValue = (UBase_t) enGlitchFilterArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -51,14 +51,14 @@ I2C_nERROR I2C_Master__enGetGlitchFilter(I2C_nMODULE enModuleArg, I2C_nGLITCH_CL
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_MASTER_TPR_R_PULSEL_BIT;
-        stRegister.u32Mask = I2C_MASTER_TPR_PULSEL_MASK;
+        stRegister.uxShift = I2C_MASTER_TPR_R_PULSEL_BIT;
+        stRegister.uxMask = I2C_MASTER_TPR_PULSEL_MASK;
         stRegister.uptrAddress = I2C_MASTER_TPR_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penGlitchFilterArg = (I2C_nGLITCH_CLOCK) stRegister.u32Value;
+        *penGlitchFilterArg = (I2C_nGLITCH_CLOCK) stRegister.uxValue;
     }
 
     return (enErrorReg);

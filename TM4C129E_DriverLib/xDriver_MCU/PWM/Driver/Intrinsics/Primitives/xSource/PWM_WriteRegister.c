@@ -26,18 +26,25 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-void PWM__vWriteRegister(PWM_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature)
+PWM_nERROR PWM__enWriteRegister(PWM_nMODULE enModuleArg, PWM_Register_t* pstRegisterDataArg)
 {
-    uint32_t u32AdcBase = 0UL;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
+    uintptr_t uptrModuleBase;
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = PWM__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (PWM_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+    }
 
-    u32AdcBase = PWM__u32BlockBaseAddress((PWM_nMODULE) u32Module);
-    MCU__vWriteRegister(u32AdcBase, u32OffsetRegister, u32FeatureValue,
-                        u32MaskFeature, u32BitFeature);
+    return (enErrorReg);
 }
-
-
-

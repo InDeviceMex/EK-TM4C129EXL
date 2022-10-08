@@ -30,7 +30,7 @@
 TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EXTRAMODE_t* pstExtraMode)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
-    if(0UL != (uint32_t) pstExtraMode)
+    if(0UL != (UBase_t) pstExtraMode)
     {
         TIMER__vSetWaitTrigger(enModule, pstExtraMode->enWaitTrigger);
         TIMER__vSetUpdateIntervalMode(enModule, pstExtraMode->enUpdateInterval);
@@ -54,7 +54,7 @@ TIMER_nSTATUS TIMER__enSetExtraModeStruct(TIMER_nMODULE enModule, const TIMER_EX
 
 void TIMER__vGetExtraMode(TIMER_nMODULE enModule, TIMER_EXTRAMODE_t* pstExtraMode)
 {
-    if(0UL != (uint32_t) pstExtraMode)
+    if(0UL != (UBase_t) pstExtraMode)
     {
         pstExtraMode->enWaitTrigger = TIMER__enGetWaitTrigger(enModule);
         pstExtraMode->enUpdateInterval = TIMER__enGetUpdateIntervalMode(enModule);
@@ -80,7 +80,7 @@ TIMER_EXTRAMODE_t* TIMER__pstGetExtraMode(TIMER_nMODULE enModule)
     pstExtraMode = (TIMER_EXTRAMODE_t*) malloc((size_t) sizeof(TIMER_EXTRAMODE_t));
     #endif
 
-    if(0UL != (uint32_t) pstExtraMode)
+    if(0UL != (UBase_t) pstExtraMode)
     {
         pstExtraMode->enWaitTrigger = TIMER__enGetWaitTrigger(enModule);
         pstExtraMode->enUpdateInterval = TIMER__enGetUpdateIntervalMode(enModule);

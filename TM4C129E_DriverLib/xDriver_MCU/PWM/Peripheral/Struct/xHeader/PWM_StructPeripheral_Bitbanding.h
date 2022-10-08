@@ -32,190 +32,190 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL [32UL];
-        BITBANDING_PWMnCTL_t CTL_Bit;
+        volatile UBase_t CTL [32UL];
+        PWM_GEN_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t INTEN [32UL];
-        BITBANDING_PWMnINTEN_t INTEN_Bit;
+        volatile UBase_t INTEN [32UL];
+        PWM_GEN_BITBANDING_INTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS [32UL];
-        BITBANDING_PWMnRIS_t RIS_Bit;
+        volatile const UBase_t RIS [32UL];
+        PWM_GEN_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t ISC [32UL];
-        BITBANDING_PWMnISC_t ISC_Bit;
+        volatile UBase_t ISC [32UL];
+        PWM_GEN_BITBANDING_ISC_t ISC_Bit;
     };
     union
     {
-        volatile uint32_t LOAD [32UL];
-        BITBANDING_PWMnLOAD_t LOAD_Bit;
+        volatile UBase_t LOAD [32UL];
+        PWM_GEN_BITBANDING_LOAD_t LOAD_Bit;
     };
     union
     {
-        volatile const uint32_t COUNT [32UL];
-        BITBANDING_PWMnCOUNT_t COUNT_Bit;
+        volatile const UBase_t COUNT [32UL];
+        PWM_GEN_BITBANDING_COUNT_t COUNT_Bit;
     };
     union
     {
-        volatile uint32_t CMPA [32UL];
-        BITBANDING_PWMnCMPA_t CMPA_Bit;
+        volatile UBase_t OUTA_CMP [32UL];
+        PWM_GEN_BITBANDING_OUTA_CMP_t OUTA_CMP_Bit;
     };
     union
     {
-        volatile uint32_t CMPB [32UL];
-        BITBANDING_PWMnCMPB_t CMPB_Bit;
+        volatile UBase_t OUTB_CMP [32UL];
+        PWM_GEN_BITBANDING_OUTB_CMP_t OUTB_CMP_Bit;
     };
     union
     {
-        volatile uint32_t GENA [32UL];
-        BITBANDING_PWMnGENA_t GENA_Bit;
+        volatile UBase_t OUTA_ACTION [32UL];
+        PWM_GEN_BITBANDING_OUTA_ACTION_t OUTA_ACTION_Bit;
     };
     union
     {
-        volatile uint32_t GENB [32UL];
-        BITBANDING_PWMnGENB_t GENB_Bit;
+        volatile UBase_t OUTB_ACTION [32UL];
+        PWM_GEN_BITBANDING_OUTB_ACTION_t OUTB_ACTION_Bit;
     };
     union
     {
-        volatile uint32_t DBCTL [32UL];
-        BITBANDING_PWMnDBCTL_t DBCTL_Bit;
+        volatile UBase_t DB_CTL [32UL];
+        PWM_GEN_BITBANDING_DB_CTL_t DB_CTL_Bit;
     };
     union
     {
-        volatile uint32_t DBRISE [32UL];
-        BITBANDING_PWMnDBRISE_t DBRISE_Bit;
+        volatile UBase_t DB_RISE [32UL];
+        PWM_GEN_BITBANDING_DB_RISE_t DB_RISE_Bit;
     };
     union
     {
-        volatile uint32_t DBFALL [32UL];
-        BITBANDING_PWMnDBFALL_t DBFALL_Bit;
+        volatile UBase_t DB_FALL [32UL];
+        PWM_GEN_BITBANDING_DB_FALL_t DB_FALL_Bit;
     };
     union
     {
-        volatile uint32_t FLTSRC0 [32UL];
-        BITBANDING_PWMnFLTSRC0_t FLTSRC0_Bit;
+        volatile UBase_t FAULT_PIN_ENABLE [32UL];
+        PWM_GEN_BITBANDING_FAULT_PIN_ENABLE_t FAULT_PIN_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t FLTSRC1 [32UL];
-        BITBANDING_PWMnFLTSRC1_t FLTSRC1_Bit;
+        volatile UBase_t FAULT_DCMP_ENABLE [32UL];
+        PWM_GEN_BITBANDING_FAULT_DCMP_ENABLE_t FAULT_DCMP_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t MINFLTPER [32UL];
-        BITBANDING_PWMnMINFLTPER_t MINFLTPER_Bit;
+        volatile UBase_t FAULT_MIN_PERIOD [32UL];
+        PWM_GEN_BITBANDING_FAULT_MIN_PERIOD_t FAULT_MIN_PERIOD_Bit;
     };
-}BITBANDING_PWMGENERATOR_t;
+}PWM_GEN_BITBANDING_t;
 
 typedef volatile struct
 {
     union
     {
-        volatile uint32_t FLTSEN [32UL];
-        BITBANDING_PWMnFLTSEN_t FLTSEN_Bit;
+        volatile UBase_t FAULT_PIN_SENSE [32UL];
+        PWM_GEN_BITBANDING_FAULT_PIN_SENSE_t FAULT_PIN_SENSE_Bit;
     };
     union
     {
-        volatile uint32_t FLTSTAT0 [32UL];
-        BITBANDING_PWMnFLTSTAT0_t FLTSTAT0_Bit;
+        volatile UBase_t FAULT_PIN_STAT [32UL];
+        PWM_GEN_BITBANDING_FAULT_PIN_STAT_t FAULT_PIN_STAT_Bit;
     };
     union
     {
-        volatile uint32_t FLTSTAT1 [32UL];
-        BITBANDING_PWMnFLTSTAT1_t FLTSTAT1_Bit;
+        volatile UBase_t FAULT_DCMP_STAT [32UL];
+        PWM_GEN_BITBANDING_FAULT_DCMP_STAT_t FAULT_DCMP_STAT_Bit;
     };
-    const uint32_t reserved [29UL * 32UL];
-}BITBANDING_PWMGENERATOR_EXT_t;
+    const UBase_t reserved [29UL * 32UL];
+}PWM_GEN_BITBANDING_EXT_t;
 
 typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL [32UL];
-        BITBANDING_PWMCTL_t CTL_Bit;
+        volatile UBase_t CTL [32UL];
+        PWM_BITBANDING_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t SYNC [32UL];
-        BITBANDING_PWMSYNC_t SYNC_Bit;
+        volatile UBase_t SYNC [32UL];
+        PWM_BITBANDING_SYNC_t SYNC_Bit;
     };
     union
     {
-        volatile uint32_t ENABLE [32UL];
-        BITBANDING_PWMENABLE_t ENABLE_Bit;
+        volatile UBase_t OUTPUT_ENABLE [32UL];
+        PWM_OUTPUT_BITBANDING_ENABLE_t OUTPUT_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t INVERT [32UL];
-        BITBANDING_PWMINVERT_t INVERT_Bit;
+        volatile UBase_t OUTPUT_INVERT [32UL];
+        PWM_OUTPUT_BITBANDING_INVERT_t OUTPUT_INVERT_Bit;
     };
     union
     {
-        volatile uint32_t FAULT [32UL];
-        BITBANDING_PWMFAULT_t FAULT_Bit;
+        volatile UBase_t OUTPUT_FAULT [32UL];
+        PWM_OUTPUT_BITBANDING_FAULT_t OUTPUT_FAULT_Bit;
     };
     union
     {
-        volatile uint32_t INTEN [32UL];
-        BITBANDING_PWMINTEN_t INTEN_Bit;
+        volatile UBase_t INTEN [32UL];
+        PWM_BITBANDING_INTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS [32UL];
-        BITBANDING_PWMRIS_t RIS_Bit;
+        volatile const UBase_t RIS [32UL];
+        PWM_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t ISC [32UL];
-        BITBANDING_PWMISC_t ISC_Bit;
+        volatile UBase_t ISC [32UL];
+        PWM_BITBANDING_ISC_t ISC_Bit;
     };
     union
     {
-        volatile const uint32_t STATUS [32UL];
-        BITBANDING_PWMSTATUS_t STATUS_Bit;
+        volatile const UBase_t STATUS [32UL];
+        PWM_BITBANDING_STATUS_t STATUS_Bit;
     };
     union
     {
-        volatile uint32_t FAULTVAL [32UL];
-        BITBANDING_PWMFAULTVAL_t FAULTVAL_Bit;
+        volatile UBase_t OUTPUT_FAULTVAL [32UL];
+        PWM_OUTPUT_BITBANDING_FAULTVAL_t OUTPUT_FAULTVAL_Bit;
     };
     union
     {
-        volatile uint32_t ENUPD [32UL];
-        BITBANDING_PWMENUPD_t ENUPD_Bit;
+        volatile UBase_t OUTPUT_ENUPD [32UL];
+        PWM_OUTPUT_BITBANDING_ENUPD_t OUTPUT_ENUPD_Bit;
     };
-    const uint32_t reserved [5UL * 32UL];
+    const UBase_t reserved [5UL * 32UL];
 
-    BITBANDING_PWMGENERATOR_t GENERATOR [4UL];
+    PWM_GEN_BITBANDING_t GENERATOR [4UL];
 
-    const uint32_t reserved1 [432UL * 32UL];
+    const UBase_t reserved1 [432UL * 32UL];
 
-    BITBANDING_PWMGENERATOR_EXT_t GENERATOR_EXT [4UL];
+    PWM_GEN_BITBANDING_EXT_t GENERATOR_EXT [4UL];
 
-    const uint32_t reserved2 [368UL * 32UL];
+    const UBase_t reserved2 [368UL * 32UL];
     union
     {
-        volatile const uint32_t PP [32UL];
-        BITBANDING_PWMPP_t PP_Bit;
+        volatile const UBase_t PP [32UL];
+        PWM_BITBANDING_PP_t PP_Bit;
     };
-    const uint32_t reserved3 [1UL * 32UL];
+    const UBase_t reserved3 [1UL * 32UL];
     union
     {
-        volatile uint32_t CC [32UL];
-        BITBANDING_PWMCC_t CC_Bit;
+        volatile UBase_t CC [32UL];
+        PWM_BITBANDING_CC_t CC_Bit;
     };
 
-    const uint32_t reserved4 [13UL * 32UL];
+    const UBase_t reserved4 [13UL * 32UL];
 }PWM_BITBANDING_t;
 
 typedef volatile struct
 {
-    PWM_BITBANDING_t MODULE [(uint32_t) PWM_enMODULE_MAX];
+    PWM_BITBANDING_t MODULE [(UBase_t) PWM_enMODULE_MAX];
 }PWMS_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_STRUCT_XHEADER_PWM_STRUCTPERIPHERAL_BITBANDING_H_ */

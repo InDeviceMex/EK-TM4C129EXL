@@ -27,266 +27,266 @@
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/FLASH_Intrinsics.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
-FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg)
+FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeArg)
+    if(0UL == (uintptr_t) puxSizeArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_PP_R_SIZE_BIT;
-        stRegister.u32Mask = FLASH_PP_SIZE_MASK;
+        stRegister.uxShift = FLASH_PP_R_SIZE_BIT;
+        stRegister.uxMask = FLASH_PP_SIZE_MASK;
         stRegister.uptrAddress = FLASH_PP_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32SizeArg = (uint32_t)  stRegister.u32Value;
+        *puxSizeArg = (UBase_t)  stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg)
+FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInKBytesArg)
+    if(0UL == (uintptr_t) puxSizeInKBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSize(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetSize(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg++;
-        u32SizeReg *= 2UL;
-        *pu32SizeInKBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg++;
+        uxSizeReg *= 2UL;
+        *puxSizeInKBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg)
+FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInBytesArg)
+    if(0UL == (uintptr_t) puxSizeInBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSizeInKBytes(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetSizeInKBytes(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg *= 1024UL;
-        *pu32SizeInBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg *= 1024UL;
+        *puxSizeInBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg)
+FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SectorSizeArg)
+    if(0UL == (uintptr_t) puxSectorSizeArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_PP_R_MAINSS_BIT;
-        stRegister.u32Mask = FLASH_PP_MAINSS_MASK;
+        stRegister.uxShift = FLASH_PP_R_MAINSS_BIT;
+        stRegister.uxMask = FLASH_PP_MAINSS_MASK;
         stRegister.uptrAddress = FLASH_PP_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32SectorSizeArg = (uint32_t)  stRegister.u32Value;
+        *puxSectorSizeArg = (UBase_t)  stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg)
+FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInKBytesArg)
+    if(0UL == (uintptr_t) puxSizeInKBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSectorSize(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetSectorSize(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg = 1UL;
-        u32SizeReg <<= u32SizeReg;
-        *pu32SizeInKBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg = 1UL;
+        uxSizeReg <<= uxSizeReg;
+        *puxSizeInKBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg)
+FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInBytesArg)
+    if(0UL == (uintptr_t) puxSizeInBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSectorSizeInKBytes(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetSectorSizeInKBytes(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg *= 1024UL;
-        *pu32SizeInBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg *= 1024UL;
+        *puxSizeInBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
 
-FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg)
+FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SectorSizeArg)
+    if(0UL == (uintptr_t) puxSectorSizeArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_PP_R_EESS_BIT;
-        stRegister.u32Mask = FLASH_PP_EESS_MASK;
+        stRegister.uxShift = FLASH_PP_R_EESS_BIT;
+        stRegister.uxMask = FLASH_PP_EESS_MASK;
         stRegister.uptrAddress = FLASH_PP_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32SectorSizeArg = (uint32_t) stRegister.u32Value;
+        *puxSectorSizeArg = (UBase_t) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg)
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInKBytesArg)
+    if(0UL == (uintptr_t) puxSizeInKBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetEEPROMSectorSize(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetEEPROMSectorSize(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg = 1UL;
-        u32SizeReg <<= u32SizeReg;
-        *pu32SizeInKBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg = 1UL;
+        uxSizeReg <<= uxSizeReg;
+        *puxSizeInKBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg)
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInBytesArg)
+    if(0UL == (uintptr_t) puxSizeInBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetEEPROMSectorSizeInKBytes(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetEEPROMSectorSizeInKBytes(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg *= 1024UL;
-        *pu32SizeInBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg *= 1024UL;
+        *puxSizeInBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }
 
 
 
-FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg)
+FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeArg)
+    if(0UL == (uintptr_t) puxSizeArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SRAM_SIZE_R_SIZE_BIT;
-        stRegister.u32Mask = SRAM_SIZE_SIZE_MASK;
+        stRegister.uxShift = SRAM_SIZE_R_SIZE_BIT;
+        stRegister.uxMask = SRAM_SIZE_SIZE_MASK;
         stRegister.uptrAddress = SRAM_SIZE_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32SizeArg = (uint32_t) stRegister.u32Value;
+        *puxSizeArg = (UBase_t) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg)
+FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg)
 {
-    uint32_t u32SizeReg;
+    UBase_t uxSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SizeReg = 0UL;
+    uxSizeReg = 0UL;
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32SizeInBytesArg)
+    if(0UL == (uintptr_t) puxSizeInBytesArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSRAMSize(enModuleArg, &u32SizeReg);
+        enErrorReg = FLASH__enGetSRAMSize(enModuleArg, &uxSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SizeReg++;
-        u32SizeReg *= 256UL;
-        *pu32SizeInBytesArg = (uint32_t) u32SizeReg;
+        uxSizeReg++;
+        uxSizeReg *= 256UL;
+        *puxSizeInBytesArg = (UBase_t) uxSizeReg;
     }
     return (enErrorReg);
 }

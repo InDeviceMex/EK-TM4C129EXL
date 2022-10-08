@@ -30,17 +30,17 @@ void WDT__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                     WDT_nMODULE enModule,
                                     WDT_nINTERRUPT enInterruptParam)
 {
-    uint32_t u32InterruptSource = 0UL;
-    uint32_t u32Module = 0UL;
-    if(0U != (uint32_t) pfIrqSourceHandler )
+    UBase_t uxInterruptSource = 0UL;
+    UBase_t uxModule = 0UL;
+    if(0U != (UBase_t) pfIrqSourceHandler )
     {
-        u32InterruptSource = MCU__u32CheckParams((uint32_t) enInterruptParam,
-                                              (uint32_t) WDT_enINTERRUPT_MAX);
-        u32Module = MCU__u32CheckParams((uint32_t) enModule,
-                                        (uint32_t) WDT_enMODULE_MAX);
+        uxInterruptSource = MCU__uxCheckParams((UBase_t) enInterruptParam,
+                                              (UBase_t) WDT_enINTERRUPT_MAX);
+        uxModule = MCU__uxCheckParams((UBase_t) enModule,
+                                        (UBase_t) WDT_enMODULE_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           WDT__pvfGetIRQSourceHandlerPointer((WDT_nMODULE) u32Module,
-                                               (WDT_nINTERRUPT) u32InterruptSource),
+           WDT__pvfGetIRQSourceHandlerPointer((WDT_nMODULE) uxModule,
+                                               (WDT_nINTERRUPT) uxInterruptSource),
            0UL,
            1UL);
     }

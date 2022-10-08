@@ -31,22 +31,22 @@
 ************************************ 26 CC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define ADC_CC_R_CS_MASK    ((uint32_t) 0x0000000FUL)
-#define ADC_CC_R_CS_BIT    ((uint32_t) 0UL)
-#define ADC_CC_R_CS_PLL_VCO    ((uint32_t) 0x00000000UL)
-#define ADC_CC_R_CS_ALTCLK    ((uint32_t) 0x00000001UL)
-#define ADC_CC_R_CS_MOSC    ((uint32_t) 0x00000002UL)
+#define ADC_CC_R_CS_MASK    ((UBase_t) 0x0000000FUL)
+#define ADC_CC_R_CS_BIT    ((UBase_t) 0UL)
+#define ADC_CC_R_CS_PLL_VCO    ((UBase_t) 0x00000000UL)
+#define ADC_CC_R_CS_ALTCLK    ((UBase_t) 0x00000001UL)
+#define ADC_CC_R_CS_MOSC    ((UBase_t) 0x00000002UL)
 
-#define ADC_CC_CS_MASK    ((uint32_t) 0x0000000FUL)
-#define ADC_CC_CS_PLL_VCO    ((uint32_t) 0x00000000UL)
-#define ADC_CC_CS_ALTCLK    ((uint32_t) 0x00000001UL)
-#define ADC_CC_CS_MOSC    ((uint32_t) 0x00000002UL)
+#define ADC_CC_CS_MASK    ((UBase_t) 0x0000000FUL)
+#define ADC_CC_CS_PLL_VCO    ((UBase_t) 0x00000000UL)
+#define ADC_CC_CS_ALTCLK    ((UBase_t) 0x00000001UL)
+#define ADC_CC_CS_MOSC    ((UBase_t) 0x00000002UL)
 /*--------*/
 /*--------*/
-#define ADC_CC_R_CLKDIV_MASK    ((uint32_t) 0x000003F0UL)
-#define ADC_CC_R_CLKDIV_BIT    ((uint32_t) 4UL)
+#define ADC_CC_R_CLKDIV_MASK    ((UBase_t) 0x000003F0UL)
+#define ADC_CC_R_CLKDIV_BIT    ((UBase_t) 4UL)
 
-#define ADC_CC_CLKDIV_MASK    ((uint32_t) 0x0000003FUL)
+#define ADC_CC_CLKDIV_MASK    ((UBase_t) 0x0000003FUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_CC_H_ */

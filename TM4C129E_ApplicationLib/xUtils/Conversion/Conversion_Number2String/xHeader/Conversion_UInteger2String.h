@@ -24,13 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_UINTEGER2STRING_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_UINTEGER2STRING_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-uint8_t Conv__u8UInt2String(uint64_t u64Number, char* pcConv);
-
-
-
-
-
+CONV_nERROR Conv__enUInt2String(uint64_t u64Number, char* pcConv, uint8_t* pu8StringLength);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_UINTEGER2STRING_H_ */

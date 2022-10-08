@@ -41,7 +41,7 @@ void WDT__vDisStall(WDT_nMODULE enModule)
 
 void WDT__vSetStall(WDT_nMODULE enModule, WDT_nSTALL enStallValue)
 {
-    WDT__vWriteRegister(enModule, WDT_TEST_OFFSET, (uint32_t) enStallValue,
+    WDT__vWriteRegister(enModule, WDT_TEST_OFFSET, (UBase_t) enStallValue,
                         WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
 }
 
@@ -49,7 +49,7 @@ WDT_nSTALL WDT__enGetStall(WDT_nMODULE enModule)
 {
     WDT_nSTALL enStallReg = WDT_enSTALL_CONTINUE;
 
-    enStallReg = (WDT_nSTALL) WDT__u32ReadRegister(enModule, WDT_TEST_OFFSET,
+    enStallReg = (WDT_nSTALL) WDT__uxReadRegister(enModule, WDT_TEST_OFFSET,
                                   WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
 
     return (enStallReg);

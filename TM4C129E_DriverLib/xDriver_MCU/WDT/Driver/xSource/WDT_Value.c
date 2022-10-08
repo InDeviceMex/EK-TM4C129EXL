@@ -26,12 +26,12 @@
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-uint32_t WDT__enGetValue(WDT_nMODULE enModule)
+UBase_t WDT__enGetValue(WDT_nMODULE enModule)
 {
-    uint32_t u32ValueArg = 0UL;
+    UBase_t uxValueArg = 0UL;
 
-    u32ValueArg = WDT__u32ReadRegister(enModule, WDT_VALUE_OFFSET,
+    uxValueArg = WDT__uxReadRegister(enModule, WDT_VALUE_OFFSET,
                        WDT_VALUE_VALUE_MASK, WDT_VALUE_R_VALUE_BIT);
 
-    return (u32ValueArg);
+    return (uxValueArg);
 }

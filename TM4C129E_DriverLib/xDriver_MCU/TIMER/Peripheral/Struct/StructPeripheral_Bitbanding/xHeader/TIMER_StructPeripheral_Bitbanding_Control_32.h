@@ -31,28 +31,28 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CFG [32UL];
+        volatile UBase_t CFG [32UL];
         BITBANDING_GPTMCFG_t CFG_Bit;
     };
-    const uint32_t reserved [3UL * 32UL];
+    const UBase_t reserved [3UL * 32UL];
     union
     {
-        volatile uint32_t SYNC [32UL];
+        volatile UBase_t SYNC [32UL];
         BITBANDING_GPTMSYNC_t SYNC_Bit;
     };
-    const uint32_t reserved1 [1003UL * 32UL];
+    const UBase_t reserved1 [1003UL * 32UL];
     union
     {
-        volatile uint32_t PP [32UL];
+        volatile UBase_t PP [32UL];
         BITBANDING_GPTMPP_t PP_Bit;
     };
-    const uint32_t reserved2 [1UL * 32UL];
+    const UBase_t reserved2 [1UL * 32UL];
     union
     {
-        volatile uint32_t CC [32UL];
+        volatile UBase_t CC [32UL];
         BITBANDING_GPTMCC_t CC_Bit;
     };
-    const uint32_t reserved3 [13UL * 32UL];
+    const UBase_t reserved3 [13UL * 32UL];
 }GPTM_CTL_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_STRUCT_TIMER_STRUCTPERIPHERAL_BITBANDING_TIMER_STRUCTPERIPHERAL_BITBANDING_CONTROL_32_H_ */

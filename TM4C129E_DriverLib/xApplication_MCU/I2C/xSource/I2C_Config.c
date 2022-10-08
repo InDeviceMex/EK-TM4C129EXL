@@ -29,26 +29,26 @@
 #define SCL_LINE (0UL)
 #define SDA_LINE (1UL)
 
-I2C_nERROR I2C__enSetConfig(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg)
+I2C_nERROR I2C__enSetConfig(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, UBase_t uxFreqArg)
 {
     I2C_nERROR enErrorReg;
-    enErrorReg = (I2C_nERROR) MCU__u32CheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    enErrorReg = (I2C_nERROR) MCU__uxCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     if(I2C_enERROR_OK == enErrorReg)
     {
         enErrorReg = I2C__enSetMode(enModuleArg, enModeArg);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = I2C_Master__enSetFrequency(enModuleArg, u32FreqArg);
+        enErrorReg = I2C_Master__enSetFrequency(enModuleArg, uxFreqArg);
     }
     return (enErrorReg);
 }
 
 
-I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg)
+I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, UBase_t uxFreqArg)
 {
     I2C_nERROR enErrorReg;
-    GPIO_nDIGITAL_FUNCTION I2C_enGpioInput[(uint32_t) I2C_enMODULE_MAX][(uint32_t) 2UL] =
+    GPIO_nDIGITAL_FUNCTION I2C_enGpioInput[(UBase_t) I2C_enMODULE_MAX][(UBase_t) 2UL] =
     {
             {GPIO_enI2C0SCL_B2, GPIO_enI2C0SDA_B3},
             {GPIO_enI2C1SCL_G0, GPIO_enI2C1SDA_G1},
@@ -61,18 +61,18 @@ I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, ui
             {GPIO_enI2C8SCL_A2, GPIO_enI2C8SDA_A3},
             {GPIO_enI2C9SCL_A0, GPIO_enI2C9SDA_A1},
      };
-    enErrorReg = (I2C_nERROR) MCU__u32CheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    enErrorReg = (I2C_nERROR) MCU__uxCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleArg][SCL_LINE], GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
+        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(UBase_t) enModuleArg][SCL_LINE], GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(uint32_t) enModuleArg][SDA_LINE], GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+        enErrorReg = (I2C_nERROR) GPIO__enSetDigitalConfig(I2C_enGpioInput[(UBase_t) enModuleArg][SDA_LINE], GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = I2C__enSetConfig(enModuleArg, enModeArg, u32FreqArg);
+        enErrorReg = I2C__enSetConfig(enModuleArg, enModeArg, uxFreqArg);
     }
     return (enErrorReg);
 

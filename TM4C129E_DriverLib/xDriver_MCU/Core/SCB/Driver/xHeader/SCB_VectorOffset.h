@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/Core/SCB/Peripheral/xHeader/SCB_Enum.h>
 
-SCB_nERROR SCB__enSetVectorOffset(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg);
-SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, uint32_t* pu32OffsetArg);
+SCB_nERROR SCB__enSetVectorOffset(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg);
+SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, UBase_t* puxOffsetArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SCB_SCB_DRIVER_SCB_VECTOROFFSET_H_ */

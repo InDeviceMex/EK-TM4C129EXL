@@ -43,7 +43,7 @@ typedef enum
     SYSCTL_enPRI5 = 5UL,
     SYSCTL_enPRI6 = 6UL,
     SYSCTL_enPRI7 = 7UL,
-    SYSCTL_enDEFAULT = 0x7FFFFFFFUL,
+    SYSCTL_enDEFAULT = UNDEF_VALUE,
 }SYSCTL_nPRIORITY;
 
 typedef enum
@@ -70,7 +70,7 @@ typedef enum
 {
     SYSCTL_enINT_STATUS_INACTIVE = 0UL,
     SYSCTL_enINT_STATUS_ACTIVE = 1UL,
-    SYSCTL_enINT_STATUS_UNDEF = 0x7FFFFFFFUL,
+    SYSCTL_enINT_STATUS_UNDEF = UNDEF_VALUE,
 } SYSCTL_nINT_STATUS;
 
 typedef enum
@@ -282,104 +282,104 @@ typedef enum
 
 typedef enum
 {
-    SYSCTL_enWDT0 = (uint32_t) (((uint32_t) 0UL << 8UL) | (0UL)),
-    SYSCTL_enWDT1 = (uint32_t) (((uint32_t) 0UL << 8UL) | (1UL)),
+    SYSCTL_enWDT0 = (UBase_t) (((UBase_t) 0UL << 8UL) | (0UL)),
+    SYSCTL_enWDT1 = (UBase_t) (((UBase_t) 0UL << 8UL) | (1UL)),
 
-    SYSCTL_enTIMER0 = (uint32_t) (((uint32_t) 1UL << 8UL) | (0UL)),
-    SYSCTL_enTIMER1 = (uint32_t) (((uint32_t) 1UL << 8UL) | (1UL)),
-    SYSCTL_enTIMER2 = (uint32_t) (((uint32_t) 1UL << 8UL) | (2UL)),
-    SYSCTL_enTIMER3 = (uint32_t) (((uint32_t) 1UL << 8UL) | (3UL)),
-    SYSCTL_enTIMER4 = (uint32_t) (((uint32_t) 1UL << 8UL) | (4UL)),
-    SYSCTL_enTIMER5 = (uint32_t) (((uint32_t) 1UL << 8UL) | (5UL)),
-    SYSCTL_enTIMER6 = (uint32_t) (((uint32_t) 1UL << 8UL) | (6UL)),
-    SYSCTL_enTIMER7 = (uint32_t) (((uint32_t) 1UL << 8UL) | (7UL)),
+    SYSCTL_enTIMER0 = (UBase_t) (((UBase_t) 1UL << 8UL) | (0UL)),
+    SYSCTL_enTIMER1 = (UBase_t) (((UBase_t) 1UL << 8UL) | (1UL)),
+    SYSCTL_enTIMER2 = (UBase_t) (((UBase_t) 1UL << 8UL) | (2UL)),
+    SYSCTL_enTIMER3 = (UBase_t) (((UBase_t) 1UL << 8UL) | (3UL)),
+    SYSCTL_enTIMER4 = (UBase_t) (((UBase_t) 1UL << 8UL) | (4UL)),
+    SYSCTL_enTIMER5 = (UBase_t) (((UBase_t) 1UL << 8UL) | (5UL)),
+    SYSCTL_enTIMER6 = (UBase_t) (((UBase_t) 1UL << 8UL) | (6UL)),
+    SYSCTL_enTIMER7 = (UBase_t) (((UBase_t) 1UL << 8UL) | (7UL)),
 
-    SYSCTL_enGPIOA = (uint32_t) (((uint32_t) 2UL << 8UL) | (0UL)),
-    SYSCTL_enGPIOB = (uint32_t) (((uint32_t) 2UL << 8UL) | (1UL)),
-    SYSCTL_enGPIOC = (uint32_t) (((uint32_t) 2UL << 8UL) | (2UL)),
-    SYSCTL_enGPIOD = (uint32_t) (((uint32_t) 2UL << 8UL) | (3UL)),
-    SYSCTL_enGPIOE = (uint32_t) (((uint32_t) 2UL << 8UL) | (4UL)),
-    SYSCTL_enGPIOF = (uint32_t) (((uint32_t) 2UL << 8UL) | (5UL)),
-    SYSCTL_enGPIOG = (uint32_t) (((uint32_t) 2UL << 8UL) | (6UL)),
-    SYSCTL_enGPIOH = (uint32_t) (((uint32_t) 2UL << 8UL) | (7UL)),
-    SYSCTL_enGPIOJ = (uint32_t) (((uint32_t) 2UL << 8UL) | (8UL)),
-    SYSCTL_enGPIOK = (uint32_t) (((uint32_t) 2UL << 8UL) | (9UL)),
-    SYSCTL_enGPIOL = (uint32_t) (((uint32_t) 2UL << 8UL) | (10UL)),
-    SYSCTL_enGPIOM = (uint32_t) (((uint32_t) 2UL << 8UL) | (11UL)),
-    SYSCTL_enGPION = (uint32_t) (((uint32_t) 2UL << 8UL) | (12UL)),
-    SYSCTL_enGPIOP = (uint32_t) (((uint32_t) 2UL << 8UL) | (13UL)),
-    SYSCTL_enGPIOQ = (uint32_t) (((uint32_t) 2UL << 8UL) | (14UL)),
+    SYSCTL_enGPIOA = (UBase_t) (((UBase_t) 2UL << 8UL) | (0UL)),
+    SYSCTL_enGPIOB = (UBase_t) (((UBase_t) 2UL << 8UL) | (1UL)),
+    SYSCTL_enGPIOC = (UBase_t) (((UBase_t) 2UL << 8UL) | (2UL)),
+    SYSCTL_enGPIOD = (UBase_t) (((UBase_t) 2UL << 8UL) | (3UL)),
+    SYSCTL_enGPIOE = (UBase_t) (((UBase_t) 2UL << 8UL) | (4UL)),
+    SYSCTL_enGPIOF = (UBase_t) (((UBase_t) 2UL << 8UL) | (5UL)),
+    SYSCTL_enGPIOG = (UBase_t) (((UBase_t) 2UL << 8UL) | (6UL)),
+    SYSCTL_enGPIOH = (UBase_t) (((UBase_t) 2UL << 8UL) | (7UL)),
+    SYSCTL_enGPIOJ = (UBase_t) (((UBase_t) 2UL << 8UL) | (8UL)),
+    SYSCTL_enGPIOK = (UBase_t) (((UBase_t) 2UL << 8UL) | (9UL)),
+    SYSCTL_enGPIOL = (UBase_t) (((UBase_t) 2UL << 8UL) | (10UL)),
+    SYSCTL_enGPIOM = (UBase_t) (((UBase_t) 2UL << 8UL) | (11UL)),
+    SYSCTL_enGPION = (UBase_t) (((UBase_t) 2UL << 8UL) | (12UL)),
+    SYSCTL_enGPIOP = (UBase_t) (((UBase_t) 2UL << 8UL) | (13UL)),
+    SYSCTL_enGPIOQ = (UBase_t) (((UBase_t) 2UL << 8UL) | (14UL)),
 
-    SYSCTL_enUDMA = (uint32_t) (((uint32_t) 3UL << 8UL) | (0UL)),
+    SYSCTL_enUDMA = (UBase_t) (((UBase_t) 3UL << 8UL) | (0UL)),
 
-    SYSCTL_enEPI = (uint32_t) (((uint32_t) 4UL << 8UL) | (0UL)),
+    SYSCTL_enEPI = (UBase_t) (((UBase_t) 4UL << 8UL) | (0UL)),
 
-    SYSCTL_enHIB = (uint32_t) (((uint32_t) 5UL << 8UL) | (0UL)),
+    SYSCTL_enHIB = (UBase_t) (((UBase_t) 5UL << 8UL) | (0UL)),
 
-    SYSCTL_enUART0 = (uint32_t) (((uint32_t) 6UL << 8UL) | (0UL)),
-    SYSCTL_enUART1 = (uint32_t) (((uint32_t) 6UL << 8UL) | (1UL)),
-    SYSCTL_enUART2 = (uint32_t) (((uint32_t) 6UL << 8UL) | (2UL)),
-    SYSCTL_enUART3 = (uint32_t) (((uint32_t) 6UL << 8UL) | (3UL)),
-    SYSCTL_enUART4 = (uint32_t) (((uint32_t) 6UL << 8UL) | (4UL)),
-    SYSCTL_enUART5 = (uint32_t) (((uint32_t) 6UL << 8UL) | (5UL)),
-    SYSCTL_enUART6 = (uint32_t) (((uint32_t) 6UL << 8UL) | (6UL)),
-    SYSCTL_enUART7 = (uint32_t) (((uint32_t) 6UL << 8UL) | (7UL)),
+    SYSCTL_enUART0 = (UBase_t) (((UBase_t) 6UL << 8UL) | (0UL)),
+    SYSCTL_enUART1 = (UBase_t) (((UBase_t) 6UL << 8UL) | (1UL)),
+    SYSCTL_enUART2 = (UBase_t) (((UBase_t) 6UL << 8UL) | (2UL)),
+    SYSCTL_enUART3 = (UBase_t) (((UBase_t) 6UL << 8UL) | (3UL)),
+    SYSCTL_enUART4 = (UBase_t) (((UBase_t) 6UL << 8UL) | (4UL)),
+    SYSCTL_enUART5 = (UBase_t) (((UBase_t) 6UL << 8UL) | (5UL)),
+    SYSCTL_enUART6 = (UBase_t) (((UBase_t) 6UL << 8UL) | (6UL)),
+    SYSCTL_enUART7 = (UBase_t) (((UBase_t) 6UL << 8UL) | (7UL)),
 
-    SYSCTL_enSSI0 = (uint32_t) (((uint32_t) 7UL << 8UL) | (0UL)),
-    SYSCTL_enSSI1 = (uint32_t) (((uint32_t) 7UL << 8UL) | (1UL)),
-    SYSCTL_enSSI2 = (uint32_t) (((uint32_t) 7UL << 8UL) | (2UL)),
-    SYSCTL_enSSI3 = (uint32_t) (((uint32_t) 7UL << 8UL) | (3UL)),
+    SYSCTL_enSSI0 = (UBase_t) (((UBase_t) 7UL << 8UL) | (0UL)),
+    SYSCTL_enSSI1 = (UBase_t) (((UBase_t) 7UL << 8UL) | (1UL)),
+    SYSCTL_enSSI2 = (UBase_t) (((UBase_t) 7UL << 8UL) | (2UL)),
+    SYSCTL_enSSI3 = (UBase_t) (((UBase_t) 7UL << 8UL) | (3UL)),
 
-    SYSCTL_enI2C0 = (uint32_t) (((uint32_t) 8UL << 8UL) | (0UL)),
-    SYSCTL_enI2C1 = (uint32_t) (((uint32_t) 8UL << 8UL) | (1UL)),
-    SYSCTL_enI2C2 = (uint32_t) (((uint32_t) 8UL << 8UL) | (2UL)),
-    SYSCTL_enI2C3 = (uint32_t) (((uint32_t) 8UL << 8UL) | (3UL)),
-    SYSCTL_enI2C4 = (uint32_t) (((uint32_t) 8UL << 8UL) | (4UL)),
-    SYSCTL_enI2C5 = (uint32_t) (((uint32_t) 8UL << 8UL) | (5UL)),
-    SYSCTL_enI2C6 = (uint32_t) (((uint32_t) 8UL << 8UL) | (6UL)),
-    SYSCTL_enI2C7 = (uint32_t) (((uint32_t) 8UL << 8UL) | (7UL)),
-    SYSCTL_enI2C8 = (uint32_t) (((uint32_t) 8UL << 8UL) | (8UL)),
-    SYSCTL_enI2C9 = (uint32_t) (((uint32_t) 8UL << 8UL) | (9UL)),
+    SYSCTL_enI2C0 = (UBase_t) (((UBase_t) 8UL << 8UL) | (0UL)),
+    SYSCTL_enI2C1 = (UBase_t) (((UBase_t) 8UL << 8UL) | (1UL)),
+    SYSCTL_enI2C2 = (UBase_t) (((UBase_t) 8UL << 8UL) | (2UL)),
+    SYSCTL_enI2C3 = (UBase_t) (((UBase_t) 8UL << 8UL) | (3UL)),
+    SYSCTL_enI2C4 = (UBase_t) (((UBase_t) 8UL << 8UL) | (4UL)),
+    SYSCTL_enI2C5 = (UBase_t) (((UBase_t) 8UL << 8UL) | (5UL)),
+    SYSCTL_enI2C6 = (UBase_t) (((UBase_t) 8UL << 8UL) | (6UL)),
+    SYSCTL_enI2C7 = (UBase_t) (((UBase_t) 8UL << 8UL) | (7UL)),
+    SYSCTL_enI2C8 = (UBase_t) (((UBase_t) 8UL << 8UL) | (8UL)),
+    SYSCTL_enI2C9 = (UBase_t) (((UBase_t) 8UL << 8UL) | (9UL)),
 
-    SYSCTL_enUSB = (uint32_t) (((uint32_t) 10UL << 8UL) | (0UL)),
+    SYSCTL_enUSB = (UBase_t) (((UBase_t) 10UL << 8UL) | (0UL)),
 
-    SYSCTL_enEPHY = (uint32_t) (((uint32_t) 12UL << 8UL) | (0UL)),
+    SYSCTL_enEPHY = (UBase_t) (((UBase_t) 12UL << 8UL) | (0UL)),
 
-    SYSCTL_enCAN0 = (uint32_t) (((uint32_t) 13UL << 8UL) | (0UL)),
-    SYSCTL_enCAN1 = (uint32_t) (((uint32_t) 13UL << 8UL) | (1UL)),
+    SYSCTL_enCAN0 = (UBase_t) (((UBase_t) 13UL << 8UL) | (0UL)),
+    SYSCTL_enCAN1 = (UBase_t) (((UBase_t) 13UL << 8UL) | (1UL)),
 
-    SYSCTL_enADC0 = (uint32_t) (((uint32_t) 14UL << 8UL) | (0UL)),
-    SYSCTL_enADC1 = (uint32_t) (((uint32_t) 14UL << 8UL) | (1UL)),
+    SYSCTL_enADC0 = (UBase_t) (((UBase_t) 14UL << 8UL) | (0UL)),
+    SYSCTL_enADC1 = (UBase_t) (((UBase_t) 14UL << 8UL) | (1UL)),
 
-    SYSCTL_enACMP = (uint32_t) (((uint32_t) 15UL << 8UL) | (0UL)),
+    SYSCTL_enACMP = (UBase_t) (((UBase_t) 15UL << 8UL) | (0UL)),
 
-    SYSCTL_enPWM0 = (uint32_t) (((uint32_t) 16UL << 8UL) | (0UL)),
+    SYSCTL_enPWM0 = (UBase_t) (((UBase_t) 16UL << 8UL) | (0UL)),
 
-    SYSCTL_enQEI0 = (uint32_t) (((uint32_t) 17UL << 8UL) | (0UL)),
+    SYSCTL_enQEI0 = (UBase_t) (((UBase_t) 17UL << 8UL) | (0UL)),
 
-    SYSCTL_enLPC = (uint32_t) (((uint32_t) 18UL << 8UL) | (0UL)),
+    SYSCTL_enLPC = (UBase_t) (((UBase_t) 18UL << 8UL) | (0UL)),
 
-    SYSCTL_enPECI = (uint32_t) (((uint32_t) 20UL << 8UL) | (0UL)),
+    SYSCTL_enPECI = (UBase_t) (((UBase_t) 20UL << 8UL) | (0UL)),
 
-    SYSCTL_enFAN = (uint32_t) (((uint32_t) 21UL << 8UL) | (0UL)),
+    SYSCTL_enFAN = (UBase_t) (((UBase_t) 21UL << 8UL) | (0UL)),
 
-    SYSCTL_enEEPROM = (uint32_t) (((uint32_t) 22UL << 8UL) | (0UL)),
+    SYSCTL_enEEPROM = (UBase_t) (((UBase_t) 22UL << 8UL) | (0UL)),
 
-    SYSCTL_enWTIMER0 = (uint32_t) (((uint32_t) 23UL << 8UL) | (0UL)),
+    SYSCTL_enWTIMER0 = (UBase_t) (((UBase_t) 23UL << 8UL) | (0UL)),
 
-    SYSCTL_enRTS = (uint32_t) (((uint32_t) 28UL << 8UL) | (0UL)),
+    SYSCTL_enRTS = (UBase_t) (((UBase_t) 28UL << 8UL) | (0UL)),
 
-    SYSCTL_enCCM = (uint32_t) (((uint32_t) 29UL << 8UL) | (0UL)),
+    SYSCTL_enCCM = (UBase_t) (((UBase_t) 29UL << 8UL) | (0UL)),
 
-    SYSCTL_enLCD = (uint32_t) (((uint32_t) 36UL << 8UL) | (0UL)),
+    SYSCTL_enLCD = (UBase_t) (((UBase_t) 36UL << 8UL) | (0UL)),
 
-    SYSCTL_enOWIRE = (uint32_t) (((uint32_t) 38UL << 8UL) | (0UL)),
+    SYSCTL_enOWIRE = (UBase_t) (((UBase_t) 38UL << 8UL) | (0UL)),
 
-    SYSCTL_enEMAC = (uint32_t) (((uint32_t) 39UL << 8UL) | (0UL)),
+    SYSCTL_enEMAC = (UBase_t) (((UBase_t) 39UL << 8UL) | (0UL)),
 
-    SYSCTL_enPRB = (uint32_t) (((uint32_t) 40UL << 8UL) | (0UL)),
+    SYSCTL_enPRB = (UBase_t) (((UBase_t) 40UL << 8UL) | (0UL)),
 
-    SYSCTL_enHIM = (uint32_t) (((uint32_t) 41UL << 8UL) | (0UL)),
+    SYSCTL_enHIM = (UBase_t) (((UBase_t) 41UL << 8UL) | (0UL)),
 }SYSCTL_nPERIPHERAL;
 
 

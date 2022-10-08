@@ -40,14 +40,14 @@ GPIO_nERROR GPIO__enGetDriveCapability(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_PP_R_PIN_BIT;
-        stRegister.u32Mask = GPIO_PP_PIN_MASK;
+        stRegister.uxShift = GPIO_PP_R_PIN_BIT;
+        stRegister.uxMask = GPIO_PP_PIN_MASK;
         stRegister.uptrAddress = GPIO_PP_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penDriveArg = (GPIO_nDRIVE_CAPABILITY) stRegister.u32Value;
+        *penDriveArg = (GPIO_nDRIVE_CAPABILITY) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -30,20 +30,20 @@
 ************************************ 15 SDR *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SLAVE_DATA_R_DATA_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_SLAVE_DATA_R_DATA_BIT    ((uint32_t) 0UL)
+#define I2C_SLAVE_DATA_R_DATA_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_SLAVE_DATA_R_DATA_BIT    ((UBase_t) 0UL)
 
-#define I2C_SLAVE_DATA_DATA_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_SLAVE_DATA_DATA_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************ 15 SDR *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SDR_R_DATA_MASK    ((uint32_t) 0x000000FFUL)
-#define I2C_SDR_R_DATA_BIT    ((uint32_t) 0UL)
+#define I2C_SDR_R_DATA_MASK    ((UBase_t) 0x000000FFUL)
+#define I2C_SDR_R_DATA_BIT    ((UBase_t) 0UL)
 
-#define I2C_SDR_DATA_MASK    ((uint32_t) 0x000000FFUL)
+#define I2C_SDR_DATA_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SDR_H_ */

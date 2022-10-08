@@ -30,7 +30,7 @@
 WDT_nSTATUS WDT__enSetModeStruct(WDT_nMODULE enModule, const WDT_MODE_t* pstMode)
 {
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
-    if((uint32_t) 0U != (uint32_t) pstMode )
+    if((UBase_t) 0U != (UBase_t) pstMode )
     {
         if(WDT_enINTERRUPT_ENABLE_DISABLE == pstMode->enInterrupt )
         {
@@ -54,7 +54,7 @@ WDT_nSTATUS WDT__enSetMode(WDT_nMODULE enModule, WDT_nMODE enModeArg)
     WDT_nSTATUS enReturn = WDT_enSTATUS_ERROR;
     WDT_MODE_t* pstMode = WDT__pstCreateModeStruct(enModeArg);
 
-    if(0UL != (uint32_t) pstMode )
+    if(0UL != (UBase_t) pstMode )
     {
         enReturn = WDT__enSetModeStruct(enModule, pstMode);
         WDT__vDeleteModeStruct(pstMode);
@@ -71,25 +71,25 @@ WDT_nMODE WDT__enGetMode(WDT_nMODULE enModule)
     WDT_nINTERRUPT_ENABLE enInterruptVar = WDT_enINTERRUPT_ENABLE_UNDEF;
     WDT_nSTALL enStallVar = WDT_enSTALL_UNDEF;
 
-    uint32_t u32Reg = 0UL;
+    UBase_t uxReg = 0UL;
 
     enInterruptVar = WDT__enGetInterruptSourceEnable(enModule);
     enStallVar = WDT__enGetStall(enModule);
     enIntTypeVar = WDT__enGetInterruptSourceType(enModule);
     enResetOutputVar = WDT__enGetResetOutput(enModule);
 
-    u32Reg = ((uint32_t) enInterruptVar << 0UL);
-    u32Reg |= ((uint32_t) enStallVar << 8UL);
-    u32Reg |= ((uint32_t) enIntTypeVar << 16UL);
-    u32Reg |= ((uint32_t) enResetOutputVar << 24UL);
+    uxReg = ((UBase_t) enInterruptVar << 0UL);
+    uxReg |= ((UBase_t) enStallVar << 8UL);
+    uxReg |= ((UBase_t) enIntTypeVar << 16UL);
+    uxReg |= ((UBase_t) enResetOutputVar << 24UL);
 
-    enModeReg = (WDT_nMODE) u32Reg;
+    enModeReg = (WDT_nMODE) uxReg;
     return (enModeReg);
 }
 
 void WDT__vGetMode(WDT_nMODULE enModule, WDT_MODE_t* pstMode)
 {
-    if(0UL != (uint32_t) pstMode )
+    if(0UL != (UBase_t) pstMode )
     {
         pstMode->enInterrupt = WDT__enGetInterruptSourceEnable(enModule);
         pstMode->enStall = WDT__enGetStall(enModule);
@@ -106,7 +106,7 @@ WDT_MODE_t* WDT__pstGetMode(WDT_nMODULE enModule)
     #elif defined (__GNUC__ )
     pstMode = (WDT_MODE_t*) malloc(sizeof(WDT_MODE_t));
     #endif
-    if(0UL != (uint32_t) pstMode )
+    if(0UL != (UBase_t) pstMode )
     {
         WDT__vGetMode(enModule, pstMode);
     }

@@ -29,7 +29,7 @@ EEPROM_nERROR EEPROM__enRegisterIRQVectorHandler(EEPROM_nMODULE enModuleArg, EEP
 {
     EEPROM_nERROR enErrorReg;
 
-    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (EEPROM_nERROR) FLASH__enRegisterIRQSourceHandler(FLASH_enMODULE_0, FLASH_enINT_EEPROM, pfIrqVectorHandlerArg);

@@ -25,14 +25,14 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 
-SLinkedList_nSTATUS SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, const SLinkedListItem_t* const pstItem)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
     SLinkedList_t* pstOwnerListItem = (SLinkedList_t*) 0UL;
     pstOwnerListItem = (SLinkedList_t*) SLinkedList_Item__pvGetOwnerList(pstItem);
-    if((uint32_t) pstOwnerListItem == (uint32_t) pstList )
+    if((UBase_t) pstOwnerListItem == (UBase_t) pstList )
     {
-        enStatus = SLinkedList_enSTATUS_OK;
+        enStatus = SLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

@@ -25,11 +25,11 @@
 
 uintptr_t FPU__uptrBlockBaseAddress(FPU_nMODULE enModuleArg)
 {
-    uintptr_t FPU_BLOCK_BASE[(uint32_t) FPU_enMODULE_MAX] =
+    uintptr_t FPU_BLOCK_BASE[(UBase_t) FPU_enMODULE_MAX] =
     {
      FPU_BASE
     };
-    return (FPU_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (FPU_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

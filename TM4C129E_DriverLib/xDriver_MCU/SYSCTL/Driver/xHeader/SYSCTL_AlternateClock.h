@@ -12,6 +12,6 @@
 
 void SYSCTL__vSetAlternateClock(SYSCTL_nALTCLK enAlternateClock);
 SYSCTL_nALTCLK SYSCTL__enGetAlternateClock(void);
-uint32_t SYSCTL__u32GetAlternateClock(void);
+UBase_t SYSCTL__uxGetAlternateClock(void);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_ALTERNATECLOCK_H_ */

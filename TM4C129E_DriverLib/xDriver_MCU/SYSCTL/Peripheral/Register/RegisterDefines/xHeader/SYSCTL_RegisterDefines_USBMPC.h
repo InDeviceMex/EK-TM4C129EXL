@@ -14,16 +14,16 @@
 ************************************ 33 USBMPC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_USBMPC_R_PWRCTL_MASK    ((uint32_t) 0x00000003UL)
+#define SYSCTL_USBMPC_R_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
 #define SYSCTL_USBMPC_R_PWRCTL_BIT    (0UL)
-#define SYSCTL_USBMPC_R_PWRCTL_OFF    ((uint32_t) 0x00000000UL)
-#define SYSCTL_USBMPC_R_PWRCTL_RET    ((uint32_t) 0x00000001UL)
-#define SYSCTL_USBMPC_R_PWRCTL_ON    ((uint32_t) 0x00000003UL)
+#define SYSCTL_USBMPC_R_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
+#define SYSCTL_USBMPC_R_PWRCTL_RET    ((UBase_t) 0x00000001UL)
+#define SYSCTL_USBMPC_R_PWRCTL_ON    ((UBase_t) 0x00000003UL)
 
-#define SYSCTL_USBMPC_PWRCTL_MASK    ((uint32_t) 0x00000003UL)
-#define SYSCTL_USBMPC_PWRCTL_OFF    ((uint32_t) 0x00000000UL)
-#define SYSCTL_USBMPC_PWRCTL_RET    ((uint32_t) 0x00000001UL)
-#define SYSCTL_USBMPC_PWRCTL_ON    ((uint32_t) 0x00000003UL)
+#define SYSCTL_USBMPC_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
+#define SYSCTL_USBMPC_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
+#define SYSCTL_USBMPC_PWRCTL_RET    ((UBase_t) 0x00000001UL)
+#define SYSCTL_USBMPC_PWRCTL_ON    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 

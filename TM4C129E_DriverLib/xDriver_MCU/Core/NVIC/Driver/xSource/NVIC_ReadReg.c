@@ -27,43 +27,43 @@
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 #include <xDriver_MCU/Core/NVIC/Driver/Intrinsics/Primitives/NVIC_Primitives.h>
 
-NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, uint32_t* pu32ValueArg)
+NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, UBase_t* puxValueArg)
 {
     NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    uint32_t u32VectorBit;
-    uint32_t u32VectorIndex;
+    UBase_t uxVectorBit;
+    UBase_t uxVectorIndex;
 
     enErrorReg = NVIC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32ValueArg)
+    if(0UL == (uintptr_t) puxValueArg)
     {
         enErrorReg = NVIC_enERROR_POINTER;
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+        enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        u32VectorBit = (uint32_t) enVectorArg;
-        u32VectorBit %= 32UL;
+        uxVectorBit = (UBase_t) enVectorArg;
+        uxVectorBit %= 32UL;
 
-        u32VectorIndex = (uint32_t) enVectorArg;
+        uxVectorIndex = (UBase_t) enVectorArg;
         /* Optimized
-         * u32VectorIndex /= 32UL;
-         * u32VectorIndex *= 4UL;
+         * uxVectorIndex /= 32UL;
+         * uxVectorIndex *= 4UL;
         */
-        u32VectorIndex >>= 3U;
+        uxVectorIndex >>= 3U;
 
-        uptrRegisterOffsetArg += u32VectorIndex;
-        stRegister.u32Shift = (uint32_t) u32VectorBit;
-        stRegister.u32Mask = 0x1UL;
-        stRegister.uptrAddress = (uint32_t) uptrRegisterOffsetArg;
+        uptrRegisterOffsetArg += uxVectorIndex;
+        stRegister.uxShift = (UBase_t) uxVectorBit;
+        stRegister.uxMask = 0x1UL;
+        stRegister.uptrAddress = (UBase_t) uptrRegisterOffsetArg;
         enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        *pu32ValueArg = stRegister.u32Value;
+        *puxValueArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

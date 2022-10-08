@@ -29,16 +29,16 @@
 
 typedef volatile struct
 {
-    uint32_t u32CoordX_Initial;
-    uint32_t u32CoordY_Initial;
-    uint32_t u32CoordX [4U];
-    uint32_t u32CoordY [4U];
-    uint32_t u32Radius [3U];
-    uint32_t u32Radius_Initial;
-    uint32_t u32Width;
-    uint32_t u32Height;
-    uint32_t u32WidthTotal;
-    uint32_t u32HeightTotal;
+    UBase_t uxCoordX_Initial;
+    UBase_t uxCoordY_Initial;
+    UBase_t uxCoordX [4U];
+    UBase_t uxCoordY [4U];
+    UBase_t uxRadius [3U];
+    UBase_t uxRadius_Initial;
+    UBase_t uxWidth;
+    UBase_t uxHeight;
+    UBase_t uxWidthTotal;
+    UBase_t uxHeightTotal;
 }Graphics_DIMENSIONS_t;
 
 typedef struct GraphicsLayer_t Graphics_Layer_t;
@@ -47,10 +47,10 @@ struct GraphicsLayer_t
     FONT_t* pstFontType;
     char* pcString;
 
-    uint32_t u32WidthTotal;
-    uint32_t u32HeightTotal;
-    uint32_t u32Width;
-    uint32_t u32Height;
+    UBase_t uxWidthTotal;
+    UBase_t uxHeightTotal;
+    UBase_t uxWidth;
+    UBase_t uxHeight;
     /*
      * ToDo: This typedef will be increase in parameters when the system can create buffers for layers
      * */

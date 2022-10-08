@@ -28,26 +28,26 @@
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-#pragma  CODE_SECTION(MCU__u32CheckParams_RAM, ".ramcode")
-#pragma  CODE_SECTION(MCU__u32CheckParams_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__uxCheckParams_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__uxCheckParams_RAM, ".ramcode")
 
-MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
+UBase_t MCU__uxCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
 
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
-MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
 __attribute__((section(".ramcode")))
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+UBase_t MCU__uxCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
 #endif
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma CHECK_MISRA("-8.5")
 #endif
 
-MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
-uint32_t MCU__u32CheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg);
+MCU_nERROR MCU__enCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
+UBase_t MCU__uxCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg);
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("8.5")

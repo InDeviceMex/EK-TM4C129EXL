@@ -29,32 +29,32 @@
 
 typedef volatile struct
 {
-    volatile uint32_t ENABLE :1;
-    volatile uint32_t TICKINT :1;
-    volatile uint32_t CLKSOURCE :1;
-    const uint32_t reserved :13;
-    const volatile uint32_t COUNTFLAG :1;
-    const uint32_t reserved1 :15;
+    volatile UBase_t ENABLE :1;
+    volatile UBase_t TICKINT :1;
+    volatile UBase_t CLKSOURCE :1;
+    const UBase_t reserved :13;
+    const volatile UBase_t COUNTFLAG :1;
+    const UBase_t reserved1 :15;
 }SYSTICK_CSR_t;
 
 typedef volatile struct
 {
-    volatile uint32_t RELOAD :24;
-    const uint32_t reserved :8;
+    volatile UBase_t RELOAD :24;
+    const UBase_t reserved :8;
 }SYSTICK_RVR_t;
 
 typedef volatile struct
 {
-    volatile uint32_t CURRENT :24;
-    const uint32_t reserved :8;
+    volatile UBase_t CURRENT :24;
+    const UBase_t reserved :8;
 }SYSTICK_CVR_t;
 
 typedef volatile struct
 {
-    volatile uint32_t TENMS :24;
-    uint32_t reserved :6;
-    volatile const uint32_t SKEW :1;
-    volatile const uint32_t NOREF :1;
+    volatile UBase_t TENMS :24;
+    UBase_t reserved :6;
+    volatile const UBase_t SKEW :1;
+    volatile const UBase_t NOREF :1;
 }SYSTICK_CR_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSTICK_SYSTICK_PERIPHERAL_SYSTICK_STRUCT_SYSTICK_STRUCTREGISTER_H_ */

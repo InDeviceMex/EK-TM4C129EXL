@@ -32,13 +32,13 @@ NVIC_nERROR NVIC__enTriggerVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVecto
     NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
 
-    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = NVIC_STIR_R_INTID_BIT;
-        stRegister.u32Mask = NVIC_STIR_R_INTID_MASK;
+        stRegister.uxShift = NVIC_STIR_R_INTID_BIT;
+        stRegister.uxMask = NVIC_STIR_R_INTID_MASK;
         stRegister.uptrAddress = NVIC_STIR_OFFSET;
-        stRegister.u32Value = (uint32_t) enVectorArg;
+        stRegister.uxValue = (UBase_t) enVectorArg;
         enErrorReg = NVIC__enWriteRegister(enModuleArg, &stRegister);
     }
 

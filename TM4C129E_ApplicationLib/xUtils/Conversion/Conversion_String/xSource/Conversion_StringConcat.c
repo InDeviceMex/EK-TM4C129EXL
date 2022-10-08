@@ -21,30 +21,41 @@
  * Date           Author     Version     Description
  * 5 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringConcat.h>
 
-char* CONV_pcStringConcat(char*  pcStringInitial, const char* pcStringConcat, uint32_t u32MaxSize)
+CONV_nERROR CONV_enStringConcat(char* pcStringInitial, const char* pcStringConcat, UBase_t uxMaxSize)
 {
-    char* pcStringReg = pcStringInitial;
-    if(((uint32_t) 0U != (uint32_t) pcStringConcat) && ((uint32_t) 0U != (uint32_t) pcStringInitial))
+    CONV_nERROR enErrorReg;
+    char* pcStringReg;
+
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcStringInitial) || (0UL == (uintptr_t) pcStringConcat))
     {
-        while(((char)0 != (char) *pcStringReg) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        pcStringReg = pcStringInitial;
+        while((0U != (uint8_t) *pcStringReg) && (0UL < (UBase_t) uxMaxSize))
         {
             pcStringReg += 1U;
-            u32MaxSize--;
+            uxMaxSize--;
         }
-        while(((char)0 != (char) *pcStringConcat) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
+        while((0U != (uint8_t) *pcStringConcat) && (0UL < (UBase_t) uxMaxSize))
         {
             *pcStringReg = *pcStringConcat;
             pcStringConcat += 1U;
             pcStringReg += 1U;
-            u32MaxSize--;
+            uxMaxSize--;
         }
-        if((uint32_t) 0 != (uint32_t) u32MaxSize)
+        if(0UL == uxMaxSize)
+        {
+            enErrorReg = CONV_enERROR_OUT_OF_RANGE;
+        }
+        else
         {
             *pcStringReg = '\0';
         }
     }
-    return (pcStringInitial);
+    return (enErrorReg);
 }

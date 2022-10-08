@@ -14,11 +14,11 @@
 
 #pragma  CODE_SECTION(FLASH__enWait, ".ramcode")
 
-FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, uint32_t u32TimeoutArg);
+FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, UBase_t uxTimeoutArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, uint32_t u32TimeoutArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, UBase_t uxTimeoutArg) __attribute__((section(".ramcode")));
 
 #endif
 

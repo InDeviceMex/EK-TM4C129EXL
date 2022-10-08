@@ -24,18 +24,18 @@
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Size.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Size.h>
 
-uint32_t Queue__u32GetSize(const Queue_t* const pstQueue)
+UBase_t Queue__uxGetSize(const Queue_t* const pstQueue)
 {
-    return SLinkedList__u32GetSize((const SLinkedList_t*) pstQueue);
+    return SLinkedList__uxGetSize((const SLinkedList_t*) pstQueue);
 }
 
 Queue_nSTATUS Queue__enIsEmpty(const Queue_t* const pstQueue)
 {
     Queue_nSTATUS enStatus = Queue_enSTATUS_ERROR;
-    uint32_t u32SizeReg = 0UL;
-    u32SizeReg = SLinkedList__u32GetSize((const SLinkedList_t*) pstQueue);
+    UBase_t uxSizeReg = 0UL;
+    uxSizeReg = SLinkedList__uxGetSize((const SLinkedList_t*) pstQueue);
 
-    if(u32SizeReg == 0UL)
+    if(uxSizeReg == 0UL)
     {
         enStatus = Queue_enSTATUS_OK;
     }

@@ -27,8 +27,8 @@
 static void WDT_vIRQSourceHandler_Dummy(void);
 static void WDT_vIRQSourceHandler_Dummy_Blocking(void);
 
-void (*WDT__vIRQSourceHandler[(uint32_t) WDT_enMODULE_MAX]
-                             [(uint32_t) WDT_enINTERRUPT_MAX]) (void) =
+void (*WDT__vIRQSourceHandler[(UBase_t) WDT_enMODULE_MAX]
+                             [(UBase_t) WDT_enINTERRUPT_MAX]) (void) =
 {
     { &WDT_vIRQSourceHandler_Dummy, &WDT_vIRQSourceHandler_Dummy_Blocking},
     { &WDT_vIRQSourceHandler_Dummy, &WDT_vIRQSourceHandler_Dummy_Blocking}
@@ -48,8 +48,8 @@ void (*WDT__pvfGetIRQSourceHandler(WDT_nMODULE enWDTSubmodule,
                                     WDT_nINTERRUPT enWDTInterruptNum))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = WDT__vIRQSourceHandler[(uint32_t) enWDTSubmodule]
-                                            [(uint32_t)enWDTInterruptNum];
+    pvfFunctionReg = WDT__vIRQSourceHandler[(UBase_t) enWDTSubmodule]
+                                            [(UBase_t)enWDTInterruptNum];
     return (pvfFunctionReg);
 }
 
@@ -57,8 +57,8 @@ void (**WDT__pvfGetIRQSourceHandlerPointer(WDT_nMODULE enWDTSubmodule,
                                             WDT_nINTERRUPT enWDTInterruptNum))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &WDT__vIRQSourceHandler[(uint32_t) enWDTSubmodule]
-                                                              [(uint32_t)enWDTInterruptNum];
+    pvfFunctionReg = (void(**)(void)) &WDT__vIRQSourceHandler[(UBase_t) enWDTSubmodule]
+                                                              [(UBase_t)enWDTInterruptNum];
     return (pvfFunctionReg);
 }
 

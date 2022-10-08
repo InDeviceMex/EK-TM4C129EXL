@@ -31,80 +31,80 @@
 ************************************ 11 PSSI *********************************************
 ******************************************************************************************/
 /*--------*/
-#define ADC_PSSI_R_SS_MASK    ((uint32_t) 0x0000000FUL)
-#define ADC_PSSI_R_SS_BIT    ((uint32_t) 0UL)
-#define ADC_PSSI_R_SS_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SS_INIT    ((uint32_t) 0x0000000FUL)
+#define ADC_PSSI_R_SS_MASK    ((UBase_t) 0x0000000FUL)
+#define ADC_PSSI_R_SS_BIT    ((UBase_t) 0UL)
+#define ADC_PSSI_R_SS_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SS_INIT    ((UBase_t) 0x0000000FUL)
 
-#define ADC_PSSI_SS_MASK    ((uint32_t) 0x0000000FUL)
-#define ADC_PSSI_SS_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SS_INIT    ((uint32_t) 0x0000000FUL)
+#define ADC_PSSI_SS_MASK    ((UBase_t) 0x0000000FUL)
+#define ADC_PSSI_SS_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SS_INIT    ((UBase_t) 0x0000000FUL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_SS0_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_R_SS0_BIT    ((uint32_t) 0UL)
-#define ADC_PSSI_R_SS0_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SS0_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_R_SS0_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_R_SS0_BIT    ((UBase_t) 0UL)
+#define ADC_PSSI_R_SS0_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SS0_INIT    ((UBase_t) 0x00000001UL)
 
-#define ADC_PSSI_SS0_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_SS0_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SS0_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_SS0_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_SS0_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SS0_INIT    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_SS1_MASK    ((uint32_t) 0x00000002UL)
-#define ADC_PSSI_R_SS1_BIT    ((uint32_t) 1UL)
-#define ADC_PSSI_R_SS1_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SS1_INIT    ((uint32_t) 0x00000002UL)
+#define ADC_PSSI_R_SS1_MASK    ((UBase_t) 0x00000002UL)
+#define ADC_PSSI_R_SS1_BIT    ((UBase_t) 1UL)
+#define ADC_PSSI_R_SS1_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SS1_INIT    ((UBase_t) 0x00000002UL)
 
-#define ADC_PSSI_SS1_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_SS1_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SS1_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_SS1_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_SS1_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SS1_INIT    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_SS2_MASK    ((uint32_t) 0x00000004UL)
-#define ADC_PSSI_R_SS2_BIT    ((uint32_t) 2UL)
-#define ADC_PSSI_R_SS2_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SS2_INIT    ((uint32_t) 0x00000004UL)
+#define ADC_PSSI_R_SS2_MASK    ((UBase_t) 0x00000004UL)
+#define ADC_PSSI_R_SS2_BIT    ((UBase_t) 2UL)
+#define ADC_PSSI_R_SS2_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SS2_INIT    ((UBase_t) 0x00000004UL)
 
-#define ADC_PSSI_SS2_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_SS2_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SS2_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_SS2_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_SS2_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SS2_INIT    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_SS3_MASK    ((uint32_t) 0x00000008UL)
-#define ADC_PSSI_R_SS3_BIT    ((uint32_t) 3UL)
-#define ADC_PSSI_R_SS3_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SS3_INIT    ((uint32_t) 0x00000008UL)
+#define ADC_PSSI_R_SS3_MASK    ((UBase_t) 0x00000008UL)
+#define ADC_PSSI_R_SS3_BIT    ((UBase_t) 3UL)
+#define ADC_PSSI_R_SS3_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SS3_INIT    ((UBase_t) 0x00000008UL)
 
-#define ADC_PSSI_SS3_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_SS3_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SS3_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_SS3_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_SS3_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SS3_INIT    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_SYNCWAIT_MASK    ((uint32_t) 0x08000000UL)
-#define ADC_PSSI_R_SYNCWAIT_BIT    ((uint32_t) 27UL)
-#define ADC_PSSI_R_SYNCWAIT_DIS    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_SYNCWAIT_ENA    ((uint32_t) 0x08000000UL)
+#define ADC_PSSI_R_SYNCWAIT_MASK    ((UBase_t) 0x08000000UL)
+#define ADC_PSSI_R_SYNCWAIT_BIT    ((UBase_t) 27UL)
+#define ADC_PSSI_R_SYNCWAIT_DIS    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_SYNCWAIT_ENA    ((UBase_t) 0x08000000UL)
 
-#define ADC_PSSI_SYNCWAIT_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_SYNCWAIT_DIS    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_SYNCWAIT_ENA    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_SYNCWAIT_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_SYNCWAIT_DIS    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_SYNCWAIT_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define ADC_PSSI_R_GSYNC_MASK    ((uint32_t) 0x80000000UL)
-#define ADC_PSSI_R_GSYNC_BIT    ((uint32_t) 31UL)
-#define ADC_PSSI_R_GSYNC_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_R_GSYNC_INIT    ((uint32_t) 0x80000000UL)
+#define ADC_PSSI_R_GSYNC_MASK    ((UBase_t) 0x80000000UL)
+#define ADC_PSSI_R_GSYNC_BIT    ((UBase_t) 31UL)
+#define ADC_PSSI_R_GSYNC_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_R_GSYNC_INIT    ((UBase_t) 0x80000000UL)
 
-#define ADC_PSSI_GSYNC_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_PSSI_GSYNC_NA    ((uint32_t) 0x00000000UL)
-#define ADC_PSSI_GSYNC_INIT    ((uint32_t) 0x00000001UL)
+#define ADC_PSSI_GSYNC_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_PSSI_GSYNC_NA    ((UBase_t) 0x00000000UL)
+#define ADC_PSSI_GSYNC_INIT    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_PSSI_H_ */

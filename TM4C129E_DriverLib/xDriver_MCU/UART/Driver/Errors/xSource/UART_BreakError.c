@@ -29,7 +29,7 @@
 UART_nERROR UART__enGetBreakErrorState(UART_nMODULE enModule)
 {
     UART_nERROR enErrorReg = UART_enERROR_INACTIVE;
-    enErrorReg = (UART_nERROR) UART__u32ReadRegister(enModule, UART_RSR_OFFSET,
+    enErrorReg = (UART_nERROR) UART__uxReadRegister(enModule, UART_RSR_OFFSET,
                                          UART_RSR_BE_MASK, UART_RSR_R_BE_BIT);
     return (enErrorReg);
 }

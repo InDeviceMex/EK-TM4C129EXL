@@ -25,11 +25,11 @@
 
 uintptr_t SYSTICK__uptrBlockBaseAddress(SYSTICK_nMODULE enModuleArg)
 {
-    uintptr_t SYSTICK_BLOCK_BASE[(uint32_t) SYSTICK_enMODULE_MAX] =
+    uintptr_t SYSTICK_BLOCK_BASE[(UBase_t) SYSTICK_enMODULE_MAX] =
     {
      SYSTICK_BASE
     };
-    return (SYSTICK_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (SYSTICK_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

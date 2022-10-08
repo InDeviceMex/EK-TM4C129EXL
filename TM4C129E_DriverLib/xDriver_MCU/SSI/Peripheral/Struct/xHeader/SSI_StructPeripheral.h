@@ -32,132 +32,132 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CR0;
+        volatile UBase_t CR0;
         SSICR0_t CR0_Bit;
     };
     union
     {
-        volatile uint32_t CR1;
+        volatile UBase_t CR1;
         SSICR1_t CR1_Bit;
     };
     union
     {
-        volatile const uint32_t DR;
+        volatile const UBase_t DR;
         SSIDR_t DR_Bit;
     };
     union
     {
-        volatile const uint32_t SR;
+        volatile const UBase_t SR;
         SSISR_t SR_Bit;
     };
     union
     {
-        volatile uint32_t CPSR;
+        volatile UBase_t CPSR;
         SSICPSR_t CPSR_Bit;
     };
     union
     {
-        volatile uint32_t IM;
+        volatile UBase_t IM;
         SSIIM_t IM_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
+        volatile const UBase_t RIS;
         SSIRIS_t RIS_Bit;
     };
     union
     {
-        volatile const uint32_t MIS;
+        volatile const UBase_t MIS;
         SSIMIS_t MIS_Bit;
     };
     union
     {
-        volatile uint32_t ICR;
+        volatile UBase_t ICR;
         SSIICR_t ICR_Bit;
     };
     union
     {
-        volatile uint32_t DMACTL;
+        volatile UBase_t DMACTL;
         SSIDMACTL_t DMACTL_Bit;
     };
-    const uint32_t reserved [998UL];
+    const UBase_t reserved [998UL];
     union
     {
-        volatile const uint32_t PP;
+        volatile const UBase_t PP;
         SSIPP_t PP_Bit;
     };
-    const uint32_t reserved1 [1UL];
+    const UBase_t reserved1 [1UL];
     union
     {
-        volatile uint32_t CC;
+        volatile UBase_t CC;
         SSICC_t CC_Bit;
     };
-    const uint32_t reserved5 [1UL];
+    const UBase_t reserved5 [1UL];
     union
     {
-        volatile const uint32_t PeriphID4;
+        volatile const UBase_t PeriphID4;
         SSIPeriphID4_t PeriphID4_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID5;
+        volatile const UBase_t PeriphID5;
         SSIPeriphID5_t PeriphID5_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID6;
+        volatile const UBase_t PeriphID6;
         SSIPeriphID6_t PeriphID6_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID7;
+        volatile const UBase_t PeriphID7;
         SSIPeriphID7_t PeriphID7_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID0;
+        volatile const UBase_t PeriphID0;
         SSIPeriphID0_t PeriphID0_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID1;
+        volatile const UBase_t PeriphID1;
         SSIPeriphID1_t PeriphID1_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID2;
+        volatile const UBase_t PeriphID2;
         SSIPeriphID2_t PeriphID2_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID3;
+        volatile const UBase_t PeriphID3;
         SSIPeriphID3_t PeriphID3_Bit;
     };
     union
     {
-        volatile const uint32_t CellID0;
+        volatile const UBase_t CellID0;
         SSICellID0_t CellID0_Bit;
     };
     union
     {
-        volatile const uint32_t CellID1;
+        volatile const UBase_t CellID1;
         SSICellID1_t CellID1_Bit;
     };
     union
     {
-        volatile const uint32_t CellID2;
+        volatile const UBase_t CellID2;
         SSICellID2_t CellID2_Bit;
     };
     union
     {
-        volatile const uint32_t CellID3;
+        volatile const UBase_t CellID3;
         SSICellID3_t CellID3_Bit;
     };
 } SSI_t;
 
 typedef volatile struct
 {
-    SSI_t MODULE [(uint32_t) SSI_enMODULE_MAX];
+    SSI_t MODULE [(UBase_t) SSI_enMODULE_MAX];
 } SSIS_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_STRUCT_XHEADER_SSI_STRUCTPERIPHERAL_H_ */

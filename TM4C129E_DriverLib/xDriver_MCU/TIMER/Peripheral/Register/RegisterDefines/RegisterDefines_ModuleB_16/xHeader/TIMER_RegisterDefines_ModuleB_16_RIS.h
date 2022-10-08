@@ -32,58 +32,58 @@
 ******************************************************************************************/
 
 /*----------*/
-#define GPTM_TB_TnRIS_R_TnTORIS_MASK    ((uint32_t) 0x00000100UL)
+#define GPTM_TB_TnRIS_R_TnTORIS_MASK    ((UBase_t) 0x00000100UL)
 #define GPTM_TB_TnRIS_R_TnTORIS_BIT    (8UL)
-#define GPTM_TB_TnRIS_R_TnTORIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_R_TnTORIS_ENA    ((uint32_t) 0x00000100UL)
+#define GPTM_TB_TnRIS_R_TnTORIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_R_TnTORIS_ENA    ((UBase_t) 0x00000100UL)
 
-#define GPTM_TB_TnRIS_TnTORIS_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TB_TnRIS_TnTORIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_TnTORIS_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_TnTORIS_MASK    ((UBase_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_TnTORIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_TnTORIS_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPTM_TB_TnRIS_R_CnMRIS_MASK    ((uint32_t) 0x00000200UL)
+#define GPTM_TB_TnRIS_R_CnMRIS_MASK    ((UBase_t) 0x00000200UL)
 #define GPTM_TB_TnRIS_R_CnMRIS_BIT    (9UL)
-#define GPTM_TB_TnRIS_R_CnMRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_R_CnMRIS_ENA    ((uint32_t) 0x00000200UL)
+#define GPTM_TB_TnRIS_R_CnMRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_R_CnMRIS_ENA    ((UBase_t) 0x00000200UL)
 
-#define GPTM_TB_TnRIS_CnMRIS_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TB_TnRIS_CnMRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_CnMRIS_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_CnMRIS_MASK    ((UBase_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_CnMRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_CnMRIS_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPTM_TB_TnRIS_R_CnERIS_MASK    ((uint32_t) 0x00000400UL)
+#define GPTM_TB_TnRIS_R_CnERIS_MASK    ((UBase_t) 0x00000400UL)
 #define GPTM_TB_TnRIS_R_CnERIS_BIT    (10UL)
-#define GPTM_TB_TnRIS_R_CnERIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_R_CnERIS_ENA    ((uint32_t) 0x00000400UL)
+#define GPTM_TB_TnRIS_R_CnERIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_R_CnERIS_ENA    ((UBase_t) 0x00000400UL)
 
-#define GPTM_TB_TnRIS_CnERIS_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TB_TnRIS_CnERIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_CnERIS_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_CnERIS_MASK    ((UBase_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_CnERIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_CnERIS_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPTM_TB_TnRIS_R_TnMRIS_MASK    ((uint32_t) 0x00000800UL)
+#define GPTM_TB_TnRIS_R_TnMRIS_MASK    ((UBase_t) 0x00000800UL)
 #define GPTM_TB_TnRIS_R_TnMRIS_BIT    (11UL)
-#define GPTM_TB_TnRIS_R_TnMRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_R_TnMRIS_ENA    ((uint32_t) 0x00000800UL)
+#define GPTM_TB_TnRIS_R_TnMRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_R_TnMRIS_ENA    ((UBase_t) 0x00000800UL)
 
-#define GPTM_TB_TnRIS_TnMRIS_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TB_TnRIS_TnMRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_TnMRIS_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_TnMRIS_MASK    ((UBase_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_TnMRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_TnMRIS_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define GPTM_TB_TnRIS_R_DMAnRIS_MASK    ((uint32_t) 0x00002000UL)
+#define GPTM_TB_TnRIS_R_DMAnRIS_MASK    ((UBase_t) 0x00002000UL)
 #define GPTM_TB_TnRIS_R_DMAnRIS_BIT    (13UL)
-#define GPTM_TB_TnRIS_R_DMAnRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_R_DMAnRIS_ENA    ((uint32_t) 0x00002000UL)
+#define GPTM_TB_TnRIS_R_DMAnRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_R_DMAnRIS_ENA    ((UBase_t) 0x00002000UL)
 
-#define GPTM_TB_TnRIS_DMAnRIS_MASK    ((uint32_t) 0x00000001UL)
-#define GPTM_TB_TnRIS_DMAnRIS_DIS    ((uint32_t) 0x00000000UL)
-#define GPTM_TB_TnRIS_DMAnRIS_ENA    ((uint32_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_DMAnRIS_MASK    ((UBase_t) 0x00000001UL)
+#define GPTM_TB_TnRIS_DMAnRIS_DIS    ((UBase_t) 0x00000000UL)
+#define GPTM_TB_TnRIS_DMAnRIS_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERDEFINES_TIMER_REGISTERDEFINES_MODULEB_16_TIMER_REGISTERDEFINES_MODULEB_16_RIS_H_ */

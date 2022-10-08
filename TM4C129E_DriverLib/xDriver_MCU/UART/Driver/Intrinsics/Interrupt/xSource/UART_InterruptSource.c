@@ -29,38 +29,38 @@
 
 void UART__vEnInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) UART_enINT_SOURCE_ALL;
-    UART__vWriteRegister(enModule , UART_IM_OFFSET, u32SourceInt, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) UART_enINT_SOURCE_ALL;
+    UART__vWriteRegister(enModule , UART_IM_OFFSET, uxSourceInt, uxSourceInt, 0UL);
 }
 
 void UART__vDisInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) UART_enINT_SOURCE_ALL;
-    UART__vWriteRegister(enModule , UART_IM_OFFSET, 0UL, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) UART_enINT_SOURCE_ALL;
+    UART__vWriteRegister(enModule , UART_IM_OFFSET, 0UL, uxSourceInt, 0UL);
 }
 
 void UART__vClearInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) UART_enINT_SOURCE_ALL;
-    UART__vWriteRegister(enModule , UART_ICR_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) UART_enINT_SOURCE_ALL;
+    UART__vWriteRegister(enModule , UART_ICR_OFFSET, uxSourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
 UART_nINT_SOURCE UART__enStatusInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt)
 {
     UART_nINT_SOURCE enInterruptReg = UART_enINT_SOURCE_NONE;
-    uint32_t u32SourceInt = 0UL;
-    uint32_t u32Register= 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) UART_enINT_SOURCE_ALL;
-    u32Register = UART__u32ReadRegister(enModule , UART_RIS_OFFSET,
-                                   (uint32_t) u32SourceInt, 0UL);
-    enInterruptReg = (UART_nINT_SOURCE) u32Register;
+    UBase_t uxSourceInt = 0UL;
+    UBase_t uxRegister= 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) UART_enINT_SOURCE_ALL;
+    uxRegister = UART__uxReadRegister(enModule , UART_RIS_OFFSET,
+                                   (UBase_t) uxSourceInt, 0UL);
+    enInterruptReg = (UART_nINT_SOURCE) uxRegister;
 
     return (enInterruptReg);
 }

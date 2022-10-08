@@ -23,68 +23,79 @@
  */
 #include <xUtils/Conversion/Conversion_Number2String/Conversion_Primitives/xHeader/Conversion_Inversion.h>
 
-CONV_nSTATUS Conv__enInversion(const char* const pcPointerIn, char* const pcPointerOut, uint8_t u8Length)
+CONV_nERROR Conv__enInversion(const char* const pcPointerIn, char* const pcPointerOut, uint8_t u8Length)
 {
-    CONV_nSTATUS enStatus = CONV_enSTATUS_ERROR;
-    uint8_t u8I = 0;
-    const char* pcPointerInAux = 0U;
-    char* pcPointerOutAux = 0U;
-    if(((uint32_t) 0 != (uint32_t) pcPointerIn) && ((uint32_t) 0 != (uint32_t) pcPointerOut))
+    CONV_nERROR enErrorReg;
+    uint8_t u8Iter;
+    const char* pcPointerInAux;
+    char* pcPointerOutAux;
+
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcPointerIn) || (0UL == (uintptr_t) pcPointerOut))
     {
-        enStatus = CONV_enSTATUS_OK;
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
         pcPointerOutAux = pcPointerOut;
         pcPointerInAux = pcPointerIn;
-        for (u8I = 0U; u8I <= u8Length; u8I++) /*hace un ciclo burbuja optimizado*/
+        for (u8Iter = 0U; u8Iter <= u8Length; u8Iter++) /*hace un ciclo burbuja optimizado*/
         {
             *pcPointerOutAux= *pcPointerInAux;
             pcPointerOutAux += 1U;
             pcPointerInAux += 1U;
         }
     }
-    return (enStatus);
+    return (enErrorReg);
 }
 
-CONV_nSTATUS Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const char* pvBufferIn, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t u32BufInLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags)
+CONV_nERROR Conv__enOutInversion(CONV_OUT_t pvfOut, char* pvBufferOut, const char* pvBufferIn, UBase_t uxIndex, UBase_t uxMaxLenght, UBase_t uxBufInLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags)
 {
-    CONV_nSTATUS enStatus = CONV_enSTATUS_ERROR;
-    uint32_t u32Pos = 0;
-    const char* pcBufferTemp = 0;
-    const uint32_t u32StartIndex = u32Index;
+    CONV_nERROR enErrorReg;
+    UBase_t uxPos;
+    const char* pcBufferTemp;
+    UBase_t uxStartIndex;
 
-
-    if(((uint32_t) 0U != (uint32_t) pvBufferOut) && ((uint32_t) 0U != (uint32_t) pvBufferIn) && ((uint32_t) 0U != (uint32_t) pvfOut))
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pvBufferOut) || (0UL == (uintptr_t) pvBufferIn) || (0UL == (uintptr_t) pvfOut))
     {
-        enStatus = CONV_enSTATUS_OK;
-        if ((0U == (u32flags & (uint32_t) CONV_enFLAGS_LEFT)) && (0U == (u32flags & (uint32_t) CONV_enFLAGS_ZEROPAD)))
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        uxStartIndex = uxIndex;
+        if ((0U == (uxflags & (UBase_t) CONV_enFLAGS_LEFT)) && (0U == (uxflags & (UBase_t) CONV_enFLAGS_ZEROPAD)))
         {
-            for (u32Pos = u32BufInLenght; u32Pos<u32Width; u32Pos++) /*hace un ciclo burbuja optimizado*/
+            for (uxPos = uxBufInLenght; uxPos < uxWidth; uxPos++) /*hace un ciclo burbuja optimizado*/
             {
-                pvfOut(' ',pvBufferOut, u32Index, u32MaxLenght);
-                u32Index++;
+                pvfOut(' ',pvBufferOut, uxIndex, uxMaxLenght);
+                uxIndex++;
             }
         }
         pcBufferTemp = pvBufferIn;
-        pcBufferTemp += u32BufInLenght;
-        while(0U != u32BufInLenght)
+        pcBufferTemp += uxBufInLenght;
+        while(0U != uxBufInLenght)
         {
-            u32BufInLenght--;
+            uxBufInLenght--;
             pcBufferTemp -= 1U;
-            pvfOut(*pcBufferTemp, pvBufferOut, u32Index, u32MaxLenght);
-            u32Index++;
+            pvfOut(*pcBufferTemp, pvBufferOut, uxIndex, uxMaxLenght);
+            uxIndex++;
         }
 
-        if ( (uint32_t) CONV_enFLAGS_LEFT == (u32flags & (uint32_t) CONV_enFLAGS_LEFT))
+        if (0UL != (uxflags & (UBase_t) CONV_enFLAGS_LEFT))
         {
-            while ((u32Index - u32StartIndex) < u32Width)
+            while ((uxIndex - uxStartIndex) < uxWidth)
             {
-                pvfOut(' ',pvBufferOut, u32Index, u32MaxLenght);
-                u32Index++;
+                pvfOut(' ',pvBufferOut, uxIndex, uxMaxLenght);
+                uxIndex++;
             }
         }
-
     }
-    *pu32BufOutLenght = (uint32_t) u32Index;
-    return (enStatus);
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        *puxBufOutLenght = (UBase_t) uxIndex;
+    }
+    return (enErrorReg);
 }
 
 

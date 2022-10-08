@@ -26,14 +26,14 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-void*  CSLinkedList__pvGetDataItemPos(const CSLinkedList_t* pstList, uint32_t u32Position);
-uint32_t CSLinkedList__u32GetValueItemPos(const CSLinkedList_t* pstList, uint32_t u32Position);
+void*  CSLinkedList__pvGetDataItemPos(const CSLinkedList_t* pstList, UBase_t uxPosition);
+UBase_t CSLinkedList__uxGetValueItemPos(const CSLinkedList_t* pstList, UBase_t uxPosition);
 
 void*  CSLinkedList__pvGetDataTail(const CSLinkedList_t* pstList);
-uint32_t CSLinkedList__u32GetValueTail(const CSLinkedList_t* pstList);
+UBase_t CSLinkedList__uxGetValueTail(const CSLinkedList_t* pstList);
 
 void*  CSLinkedList__pvGetDataHead(const CSLinkedList_t* pstList);
-uint32_t CSLinkedList__u32GetValueHead(const CSLinkedList_t* pstList);
+UBase_t CSLinkedList__uxGetValueHead(const CSLinkedList_t* pstList);
 
 void* CSLinkedList__pvGetDataNextItem(CSLinkedList_t* pstList);
 

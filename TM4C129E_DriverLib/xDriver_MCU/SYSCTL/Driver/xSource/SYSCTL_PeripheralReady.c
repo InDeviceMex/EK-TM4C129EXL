@@ -29,7 +29,7 @@
 SYSCTL_nPERIPHERAL_READY SYSCTL__enIsPeripheralReady(SYSCTL_nPERIPHERAL enPeripheral)
 {
     SYSCTL_nPERIPHERAL_READY enReadyReg = SYSCTL_enNOREADY;
-    enReadyReg = (SYSCTL_nPERIPHERAL_READY) SYSCTL__u32ReadPeripheral(enPeripheral,
+    enReadyReg = (SYSCTL_nPERIPHERAL_READY) SYSCTL__uxReadPeripheral(enPeripheral,
                                                                     SYSCTL_PR_OFFSET);
     return (enReadyReg);
 }

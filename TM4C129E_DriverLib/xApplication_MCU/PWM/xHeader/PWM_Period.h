@@ -27,9 +27,9 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32PeriodArg);
-uint32_t PWM_Generator__u32GetPeriod_us(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                             UBase_t uxPeriodArg);
+PWM_nERROR PWM_Generator__enGetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxPeriodArg);
 
 
 #endif /* XAPPLICATION_MCU_PWM_XHEADER_PWM_PERIOD_H_ */

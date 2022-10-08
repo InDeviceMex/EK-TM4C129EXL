@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vWriteRegister(QEI_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature);
+void QEI__vWriteRegister(QEI_nMODULE enModule, UBase_t uxOffsetRegister,
+                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
+                         UBase_t uxBitFeature);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_QEI_WRITEREGISTER_H_ */

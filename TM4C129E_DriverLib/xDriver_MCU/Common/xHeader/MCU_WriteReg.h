@@ -33,20 +33,20 @@
 #pragma  CODE_SECTION(MCU__enWriteRegister_RAM, ".ramcode")
 
 MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataArg);
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase,
-                             uint32_t u32OffsetRegister,
-                             uint32_t u32FeatureValue,
-                             uint32_t u32MaskFeature,
-                             uint32_t u32BitFeature);
+void MCU__vWriteRegister_RAM(UBase_t uxPeripheralBase,
+                             UBase_t uxOffsetRegister,
+                             UBase_t uxFeatureValue,
+                             UBase_t uxMaskFeature,
+                             UBase_t uxBitFeature);
 #elif defined (__GNUC__ )
 
 __attribute__((section(".ramcode")))
 MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataArg);
-void MCU__vWriteRegister_RAM(uint32_t u32PeripheralBase,
-                             uint32_t u32OffsetRegister,
-                             uint32_t u32FeatureValue,
-                             uint32_t u32MaskFeature,
-                             uint32_t u32BitFeature) ;
+void MCU__vWriteRegister_RAM(UBase_t uxPeripheralBase,
+                             UBase_t uxOffsetRegister,
+                             UBase_t uxFeatureValue,
+                             UBase_t uxMaskFeature,
+                             UBase_t uxBitFeature) ;
 #endif
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
@@ -59,16 +59,16 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
 void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataArg);
 void MCU__vWriteRegister_DirectNew(const MCU_Register_t* const pstRegisterDataArg);
 
-void MCU__vWriteRegister(uint32_t u32PeripheralBase,
-                                uint32_t u32OffsetRegister,
-                                uint32_t u32FeatureValue,
-                                uint32_t u32MaskFeature,
-                                uint32_t u32BitFeature);
-void MCU__vWriteRegister_Direct(uint32_t u32PeripheralBase,
-                                       uint32_t u32OffsetRegister,
-                                       uint32_t u32FeatureValue,
-                                       uint32_t u32MaskFeature,
-                                       uint32_t u32BitFeature);
+void MCU__vWriteRegister(UBase_t uxPeripheralBase,
+                                UBase_t uxOffsetRegister,
+                                UBase_t uxFeatureValue,
+                                UBase_t uxMaskFeature,
+                                UBase_t uxBitFeature);
+void MCU__vWriteRegister_Direct(UBase_t uxPeripheralBase,
+                                       UBase_t uxOffsetRegister,
+                                       UBase_t uxFeatureValue,
+                                       UBase_t uxMaskFeature,
+                                       UBase_t uxBitFeature);
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     #pragma RESET_MISRA("8.5")

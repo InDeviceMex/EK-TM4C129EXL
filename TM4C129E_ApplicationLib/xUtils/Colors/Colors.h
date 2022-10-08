@@ -27,6 +27,6 @@
 #include <xUtils/Standard/Standard.h>
 #include <xUtils/Colors/xHeader/Colors_Enum.h>
 
-uint16_t COLORS__u16GetValues(uint32_t u32IndexArg);
+uint16_t COLORS__u16GetValues(UBase_t uxIndexArg);
 
 #endif /* XUTILS_COLORS_COLORS_H_ */

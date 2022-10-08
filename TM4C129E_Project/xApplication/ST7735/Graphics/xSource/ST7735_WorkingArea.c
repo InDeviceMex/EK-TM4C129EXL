@@ -31,39 +31,39 @@
 
 #include <xDriver_MCU/SSI/SSI.h>
 
-void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color);
+void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor);
 
 uint8_t ST7735_u8ColStart = 2U;
 uint8_t ST7735_u8RowStart = 3U;
 
-void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color)
+void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor)
 {
-    uint32_t u32PosY = stDimesionsArg.u32CoordY[0];
-    uint32_t u32PosX = stDimesionsArg.u32CoordX[0];
-    uint32_t u32PosYTotal = stDimesionsArg.u32CoordY[0];
-    uint32_t u32PosXTotal = stDimesionsArg.u32CoordX[0];
-    (void) u32Color;
-    u32PosYTotal += stDimesionsArg.u32Height;
-    u32PosXTotal += stDimesionsArg.u32Width;
-    u32PosX += ST7735_u8ColStart;
-    u32PosY += ST7735_u8RowStart;
-    u32PosXTotal += ST7735_u8ColStart;
-    u32PosXTotal -= 1UL;
-    u32PosYTotal += ST7735_u8RowStart;
-    u32PosYTotal -= 1UL;
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_CASET);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32PosX);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32PosXTotal);
+    UBase_t uxPosY = stDimesionsArg.uxCoordY[0];
+    UBase_t uxPosX = stDimesionsArg.uxCoordX[0];
+    UBase_t uxPosYTotal = stDimesionsArg.uxCoordY[0];
+    UBase_t uxPosXTotal = stDimesionsArg.uxCoordX[0];
+    (void) uxColor;
+    uxPosYTotal += stDimesionsArg.uxHeight;
+    uxPosXTotal += stDimesionsArg.uxWidth;
+    uxPosX += ST7735_u8ColStart;
+    uxPosY += ST7735_u8RowStart;
+    uxPosXTotal += ST7735_u8ColStart;
+    uxPosXTotal -= 1UL;
+    uxPosYTotal += ST7735_u8RowStart;
+    uxPosYTotal -= 1UL;
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_CASET);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxPosX);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxPosXTotal);
 
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_RASET);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32PosY);
-    ST7735__u32WriteData(0x00UL);
-    ST7735__u32WriteData(u32PosYTotal);
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_RASET);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxPosY);
+    ST7735__uxWriteData(0x00UL);
+    ST7735__uxWriteData(uxPosYTotal);
 
-    ST7735__u32WriteCommand(ST7735_enCOMMAND_RAMWR);
+    ST7735__uxWriteCommand(ST7735_enCOMMAND_RAMWR);
 }
 
 void ST7735__vSetWorkingArea(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg)

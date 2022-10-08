@@ -31,22 +31,22 @@ GPIO_nERROR GPIO__enSetLockState(GPIO_nPORT enPortArg,
                                  GPIO_nLOCK enLockArg)
 {
     GPIO_Register_t stRegister;
-    uint32_t u32LockValueReg;
+    UBase_t uxLockValueReg;
     GPIO_nERROR enErrorReg;
 
     if(GPIO_enLOCK_UNLOCKED == enLockArg)
     {
-        u32LockValueReg = GPIO_LOCK_R_PIN_KEY;
+        uxLockValueReg = GPIO_LOCK_R_PIN_KEY;
     }
     else
     {
-        u32LockValueReg = 0UL;
+        uxLockValueReg = 0UL;
     }
 
-    stRegister.u32Shift = GPIO_LOCK_R_PIN_BIT;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = GPIO_LOCK_R_PIN_BIT;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = GPIO_LOCK_OFFSET;
-    stRegister.u32Value = u32LockValueReg;
+    stRegister.uxValue = uxLockValueReg;
     enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     return (enErrorReg);
 }
@@ -79,14 +79,14 @@ GPIO_nERROR GPIO__IsLocked(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_LOCK_R_PIN_BIT;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = GPIO_LOCK_R_PIN_BIT;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = GPIO_LOCK_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penLockArg = (GPIO_nLOCK) stRegister.u32Value;
+        *penLockArg = (GPIO_nLOCK) stRegister.uxValue;
     }
     return (enErrorReg);
 }

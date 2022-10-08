@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-I2C_nERROR I2C_Master__enSetTimerPeriod(I2C_nMODULE enModuleArg, uint32_t u32TimerPeriodArg);
-I2C_nERROR I2C_Master__enGetTimerPeriod(I2C_nMODULE enModuleArg, uint32_t* pu32TimerPeriodArg);
+I2C_nERROR I2C_Master__enSetTimerPeriod(I2C_nMODULE enModuleArg, UBase_t uxTimerPeriodArg);
+I2C_nERROR I2C_Master__enGetTimerPeriod(I2C_nMODULE enModuleArg, UBase_t* puxTimerPeriodArg);
 
 I2C_nERROR I2C_Master__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enHighSpeedArg);
 

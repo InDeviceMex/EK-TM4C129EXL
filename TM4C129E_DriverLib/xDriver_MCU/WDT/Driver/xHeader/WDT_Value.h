@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-uint32_t WDT__enGetValue(WDT_nMODULE enModule);
+UBase_t WDT__enGetValue(WDT_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_VALUE_H_ */

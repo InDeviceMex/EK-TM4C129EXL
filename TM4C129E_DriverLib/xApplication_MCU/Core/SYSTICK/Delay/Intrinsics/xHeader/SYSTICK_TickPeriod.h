@@ -28,7 +28,7 @@
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 
 void SYSTICK__vClearTickPeriod(void);
-void SYSTICK__vSetTickPeriod(uint32_t u32TickPeriod);
-uint32_t SYSTICK__u32GetTickPeriod(void);
+void SYSTICK__vSetTickPeriod(UBase_t uxTickPeriod);
+UBase_t SYSTICK__uxGetTickPeriod(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_DELAY_INTRINSICS_XHEADER_SYSTICK_TICKPERIOD_H_ */

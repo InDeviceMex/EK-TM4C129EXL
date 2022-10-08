@@ -26,7 +26,7 @@
 void* CSLinkedList_Item__pvGetOwnerList(const CSLinkedListItem_t* const pstItem)
 {
     void* pvOwnerListReg = (void*) 0UL;
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pvOwnerListReg = pstItem->pvOwnerList;
     }
@@ -35,7 +35,7 @@ void* CSLinkedList_Item__pvGetOwnerList(const CSLinkedListItem_t* const pstItem)
 
 void CSLinkedList_Item__vSetOwnerList(CSLinkedListItem_t* pstItem, void* pvOwnerListArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pvOwnerList = pvOwnerListArg;
     }

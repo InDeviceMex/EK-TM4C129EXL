@@ -27,11 +27,11 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-#define CRC_BASE    ((uint32_t) 0x44030000UL)
+#define CRC_BASE    ((UBase_t) 0x44030000UL)
 
-#define CRC_CTRL_OFFSET    ((uint32_t) 0x0400UL)
-#define CRC_SEED_OFFSET    ((uint32_t) 0x0410UL)
-#define CRC_DIN_OFFSET    ((uint32_t) 0x0414UL)
-#define CRC_RSLTPP_OFFSET    ((uint32_t) 0x0418UL)
+#define CRC_CTRL_OFFSET    ((UBase_t) 0x0400UL)
+#define CRC_SEED_OFFSET    ((UBase_t) 0x0410UL)
+#define CRC_DIN_OFFSET    ((UBase_t) 0x0414UL)
+#define CRC_RSLTPP_OFFSET    ((UBase_t) 0x0418UL)
 
 #endif /* XDRIVER_MCU_CRC_PERIPHERAL_REGISTER_XHEADER_CRC_REGISTERADDRESS_H_ */

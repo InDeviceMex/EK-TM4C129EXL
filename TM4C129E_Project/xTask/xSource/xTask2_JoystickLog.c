@@ -33,28 +33,28 @@
 void xTask2_JoystickLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32LastWakeTime;
-    uint32_t u32PeriodTask = (uint32_t) pvParams;
-    uint32_t u32YostickValueOld[2UL];
-    uint32_t u32YostickValue[2UL];
+    UBase_t uxLastWakeTime;
+    UBase_t uxPeriodTask = (UBase_t) pvParams;
+    UBase_t uxYostickValueOld[2UL];
+    UBase_t uxYostickValue[2UL];
 
-    u32LastWakeTime = OS_Task__uxGetTickCount ();
+    uxLastWakeTime = OS_Task__uxGetTickCount ();
 
-    u32YostickValueOld[0U] = 0UL;
-    u32YostickValueOld[1U] = 0UL;
-    u32YostickValue[0U] = 0UL;
-    u32YostickValue[1U] = 0UL;
-    OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
-    UART__u32Printf(UART_enMODULE_0, "Task2 First Entry \n\r");
+    uxYostickValueOld[0U] = 0UL;
+    uxYostickValueOld[1U] = 0UL;
+    uxYostickValue[0U] = 0UL;
+    uxYostickValue[1U] = 0UL;
+    OS_Queue__boOverwrite(YoystickQueueHandle, uxYostickValue);
+    UART__uxPrintf(UART_enMODULE_0, "Task2 First Entry \n\r");
     while(1UL)
     {
-        EDUMKII_Joystick_vSampleXY(u32YostickValue, (u32YostickValue + 1UL));
-        if((u32YostickValueOld[0UL] != u32YostickValue[0UL]) || (u32YostickValueOld[1UL] != u32YostickValue[1UL]))
+        EDUMKII_Joystick_vSampleXY(uxYostickValue, (uxYostickValue + 1UL));
+        if((uxYostickValueOld[0UL] != uxYostickValue[0UL]) || (uxYostickValueOld[1UL] != uxYostickValue[1UL]))
         {
-            u32YostickValueOld[0U] = u32YostickValueOld[0UL];
-            u32YostickValueOld[1U] = u32YostickValueOld[1UL];
-            OS_Queue__boOverwrite(YoystickQueueHandle, u32YostickValue);
+            uxYostickValueOld[0U] = uxYostickValueOld[0UL];
+            uxYostickValueOld[1U] = uxYostickValueOld[1UL];
+            OS_Queue__boOverwrite(YoystickQueueHandle, uxYostickValue);
         }
-        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
+        OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
     }
 }

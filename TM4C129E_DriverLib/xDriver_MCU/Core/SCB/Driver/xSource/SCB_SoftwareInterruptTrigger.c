@@ -31,10 +31,10 @@ SCB_nERROR SCB__enSetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, S
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_CCR_R_USERSETMPEND_BIT;
-    stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
+    stRegister.uxShift = SCB_CCR_R_USERSETMPEND_BIT;
+    stRegister.uxMask = SCB_CCR_USERSETMPEND_MASK;
     stRegister.uptrAddress = SCB_CCR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -66,14 +66,14 @@ SCB_nERROR SCB__enGetUnprivilegedSWTriggerEnableState(SCB_nMODULE enModuleArg, S
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_CCR_R_USERSETMPEND_BIT;
-        stRegister.u32Mask = SCB_CCR_USERSETMPEND_MASK;
+        stRegister.uxShift = SCB_CCR_R_USERSETMPEND_BIT;
+        stRegister.uxMask = SCB_CCR_USERSETMPEND_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (SCB_nSTATE) stRegister.u32Value;
+        *penStateArg = (SCB_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

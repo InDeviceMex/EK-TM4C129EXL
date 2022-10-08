@@ -39,8 +39,8 @@
 
 #define MAX_CONFIG (3UL)
 
-GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(uint32_t) UART_enMODULE_MAX]
-                                                     [(uint32_t) MAX_LINE] =
+GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(UBase_t) UART_enMODULE_MAX]
+                                                     [(UBase_t) MAX_LINE] =
 {
     {
         {GPIO_enU0Rx_A0, GPIO_enU0Tx_A1, GPIO_enU0CTS_B4, GPIO_enU0RTS_B5,
@@ -122,7 +122,7 @@ GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(uint32_t) UART_enMODULE_MA
 UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
                                const UART_CONTROL_t* pstControlConfig,
                                const UART_LINE_CONTROL_t* pstLineControlConfig,
-                               uint32_t u32BaudRateArg,
+                               UBase_t uxBaudRateArg,
                                const UART_LINE_t* pstLineConfig)
 {
     UART_nSTATUS enReturn = UART_enSTATUS_ERROR;
@@ -130,14 +130,14 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
     UART_nMODULE enModuleFilter = UART_enMODULE_0;
     UART_nBUSY enBusyModule = UART_enBUSY_UNDEF;
     UART_LINE_CONTROL_t stLineControlConfig;
-    uint32_t u32Line[MAX_LINE] = {0UL};
+    UBase_t uxLine[MAX_LINE] = {0UL};
 
-    if((0UL != (uint32_t) pstControlConfig) &&
-       (0UL != (uint32_t) pstLineControlConfig)  &&
-       (0UL != (uint32_t) pstLineConfig))
+    if((0UL != (UBase_t) pstControlConfig) &&
+       (0UL != (UBase_t) pstLineControlConfig)  &&
+       (0UL != (UBase_t) pstLineConfig))
     {
-        enModuleFilter = (UART_nMODULE) MCU__u32CheckParams((uint32_t) enModule,
-                                                            (uint32_t) UART_enMODULE_MAX);
+        enModuleFilter = (UART_nMODULE) MCU__uxCheckParams((UBase_t) enModule,
+                                                            (UBase_t) UART_enMODULE_MAX);
         enEnableModule = UART__enGetEnable(enModuleFilter);
         if(UART_enENABLE_START == enEnableModule)
         {
@@ -148,14 +148,14 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
             }while (UART_enBUSY_IDLE != enBusyModule);
             UART__vSetFifoEnable(enModuleFilter, UART_enFIFO_DIS);
         }
-        u32Line[RX_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enRx, MAX_CONFIG);
-        u32Line[TX_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enTx, MAX_CONFIG);
-        u32Line[CTS_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enCTS, MAX_CONFIG);
-        u32Line[RTS_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enRTS, MAX_CONFIG);
-        u32Line[DCD_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enDCD, MAX_CONFIG);
-        u32Line[DSR_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enDSR, MAX_CONFIG);
-        u32Line[DTR_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enDTR, MAX_CONFIG);
-        u32Line[RI_LINE] = MCU__u32CheckParams((uint32_t) pstLineConfig->enRI, MAX_CONFIG);
+        uxLine[RX_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRx, MAX_CONFIG);
+        uxLine[TX_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enTx, MAX_CONFIG);
+        uxLine[CTS_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enCTS, MAX_CONFIG);
+        uxLine[RTS_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRTS, MAX_CONFIG);
+        uxLine[DCD_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDCD, MAX_CONFIG);
+        uxLine[DSR_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDSR, MAX_CONFIG);
+        uxLine[DTR_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDTR, MAX_CONFIG);
+        uxLine[RI_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRI, MAX_CONFIG);
 
         UART__vSetRxEnable(enModuleFilter, pstControlConfig->enRxLine);
         UART__vSetTxEnable(enModuleFilter, pstControlConfig->enTxLine);
@@ -163,15 +163,15 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
         UART__vSetEndTransmission(enModuleFilter, pstControlConfig->enEndOfTransmission);
         if(UART_enLINE_ENA == pstControlConfig->enRxLine)
         {
-            GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RX_LINE]]
-                                                     [(uint32_t) enModuleFilter]
+            GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RX_LINE]]
+                                                     [(UBase_t) enModuleFilter]
                                                       [RX_LINE],
                                    GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
         }
         if(UART_enLINE_ENA == pstControlConfig->enTxLine)
         {
-            GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[TX_LINE]]
-                                                     [(uint32_t) enModuleFilter]
+            GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[TX_LINE]]
+                                                     [(UBase_t) enModuleFilter]
                                                      [TX_LINE],
                                      GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
         }
@@ -196,53 +196,53 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
         case UART_enMODE_NORMAL:
             stLineControlConfig.enParityStick = UART_enPARITY_STICK_DIS;
             UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    u32BaudRateArg);
+                                                    uxBaudRateArg);
             break;
 
         case UART_enMODE_MODEM:
             stLineControlConfig.enParityStick = UART_enPARITY_STICK_DIS;
             UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    u32BaudRateArg);
+                                                    uxBaudRateArg);
 
             if(UART_enCTS_MODE_HARD == pstControlConfig->enCTSMode)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[CTS_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[CTS_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [CTS_LINE],
                                           GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enRTS_MODE_HARD == pstControlConfig->enRTSMode)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RTS_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RTS_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [RTS_LINE],
                                            GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDCDLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DCD_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DCD_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DCD_LINE],
                                            GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDSRLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DSR_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DSR_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DSR_LINE],
                                            GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enRILine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RI_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RI_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [RI_LINE],
                                              GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDTRLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DTR_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DTR_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DTR_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
@@ -272,7 +272,7 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
             stLineControlConfig.enParity = UART_enPARITY_ENA;
             stLineControlConfig.enParityStick = UART_enPARITY_STICK_ENA;
             UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    u32BaudRateArg);
+                                                    uxBaudRateArg);
 
             UART__vSet9BitMode(enModuleFilter, UART_en9BIT_ENA);
             break;
@@ -304,47 +304,47 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
             stLineControlConfig.enParity = UART_enPARITY_ENA;
             stLineControlConfig.enParityStick = UART_enPARITY_STICK_ENA;
             UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    u32BaudRateArg);
+                                                    uxBaudRateArg);
 
             if(UART_enCTS_MODE_HARD == pstControlConfig->enCTSMode)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[CTS_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[CTS_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [CTS_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enRTS_MODE_HARD == pstControlConfig->enRTSMode)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RTS_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RTS_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [RTS_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDCDLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DCD_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DCD_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DCD_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDSRLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DSR_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DSR_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DSR_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enRILine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[RI_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RI_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [RI_LINE],
                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
             }
             if(UART_enLINE_ENA == pstControlConfig->enDTRLine)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[u32Line[DTR_LINE]]
-                                                         [(uint32_t) enModuleFilter]
+                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DTR_LINE]]
+                                                         [(UBase_t) enModuleFilter]
                                                          [DTR_LINE],
                                          GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
             }
@@ -362,7 +362,7 @@ UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
             stLineControlConfig.enParityStick = UART_enPARITY_STICK_DIS;
             UART__vSetSMART(enModuleFilter, UART_enSMART_ENA);
             UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    u32BaudRateArg);
+                                                    uxBaudRateArg);
             break;
         default:
             break;

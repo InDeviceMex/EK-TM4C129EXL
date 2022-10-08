@@ -26,11 +26,11 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedList_nSTATUS SLinkedList__enInsertNext_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertNext_WithData(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstPreviousItemArg,
                                             SLinkedListItem_t* pstNewItem,
                                             void* pvData);
-SLinkedList_nSTATUS SLinkedList__enInsertNext(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertNext(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstPreviousItemArg,
                                             SLinkedListItem_t* pstNewItem);
 SLinkedListItem_t* SLinkedList__pstInsertNext_WithData(SLinkedList_t* pstList,
@@ -40,19 +40,19 @@ SLinkedListItem_t* SLinkedList__pstInsertNext(SLinkedList_t* pstList,
                                                     SLinkedListItem_t* pstPreviousItemArg);
 
 
-SLinkedList_nSTATUS  SLinkedList__enInsertNextLastItemRead_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR  SLinkedList__enInsertNextLastItemRead_WithData(SLinkedList_t* pstList,
                                            SLinkedListItem_t* pstNewItem,
                                            void* pvData);
-SLinkedList_nSTATUS  SLinkedList__enInsertNextLastItemRead(SLinkedList_t* pstList,
+SLinkedList_nERROR  SLinkedList__enInsertNextLastItemRead(SLinkedList_t* pstList,
                                            SLinkedListItem_t* pstNewItem);
 SLinkedListItem_t*  SLinkedList__pstInsertNextLastItemRead_WithData(SLinkedList_t* pstList, void* pvData);
 SLinkedListItem_t*  SLinkedList__pstInsertNextLastItemRead(SLinkedList_t* pstList);
 
 
-SLinkedList_nSTATUS SLinkedList__enInsertAtTail_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertAtTail_WithData(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstNewItem,
                                             void* pvData);
-SLinkedList_nSTATUS  SLinkedList__enInsertAtTail(SLinkedList_t* pstList,
+SLinkedList_nERROR  SLinkedList__enInsertAtTail(SLinkedList_t* pstList,
                                            SLinkedListItem_t* pstNewItem);
 SLinkedListItem_t* SLinkedList__pstInsertAtTail_WithData(SLinkedList_t* pstList,
                                                    void* pvData);
@@ -60,10 +60,10 @@ SLinkedListItem_t* SLinkedList__pstInsertAtTail(SLinkedList_t* pstList);
 
 
 
-SLinkedList_nSTATUS SLinkedList__enInsertAtHead_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertAtHead_WithData(SLinkedList_t* pstList,
                                                 SLinkedListItem_t* pstNewItem,
                                                 void* pvData);
-SLinkedList_nSTATUS SLinkedList__enInsertAtHead(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertAtHead(SLinkedList_t* pstList,
                                                 SLinkedListItem_t* pstNewItem);
 SLinkedListItem_t*  SLinkedList__pstInsertAtHead_WithData(SLinkedList_t* pstList,
                                                       void* pvData);
@@ -71,17 +71,17 @@ SLinkedListItem_t*  SLinkedList__pstInsertAtHead(SLinkedList_t* pstList);
 
 
 
-SLinkedList_nSTATUS SLinkedList__enInsertPos_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertPos_WithData(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position,
+                                            UBase_t uxPosition,
                                             void* pvData);
-SLinkedList_nSTATUS SLinkedList__enInsertPos(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertPos(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position);
+                                            UBase_t uxPosition);
 SLinkedListItem_t*  SLinkedList__pstInsertPos_WithData(SLinkedList_t* pstList,
-                                                    uint32_t u32Position,
+                                                    UBase_t uxPosition,
                                                     void* pvData);
 SLinkedListItem_t*  SLinkedList__pstInsertPos(SLinkedList_t* pstList,
-                                                    uint32_t u32Position);
+                                                    UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_INSERT_H_ */

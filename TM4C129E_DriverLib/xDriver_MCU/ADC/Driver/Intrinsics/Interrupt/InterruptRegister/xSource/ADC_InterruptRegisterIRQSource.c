@@ -34,10 +34,10 @@ ADC_nERROR ADC_SW__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t pfIrqSou
     ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
@@ -56,14 +56,14 @@ ADC_nERROR ADC_Sequencer__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t p
     ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enIntSourceArg, (uint32_t) ADC_enINT_TYPE_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enIntSourceArg, (UBase_t) ADC_enINT_TYPE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
@@ -82,14 +82,14 @@ ADC_nERROR ADC_Comparator__enRegisterIRQSourceHandler(ADC_pvfIRQSourceHandler_t 
     ADC_pvfIRQSourceHandler_t* pvfIrqHandler;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {

@@ -32,70 +32,70 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t MIS;
+        volatile UBase_t MIS;
         ACMP_MIS_t MIS_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
+        volatile const UBase_t RIS;
         ACMP_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t INTEN;
+        volatile UBase_t INTEN;
         ACMP_INTEN_t INTEN_Bit;
     };
-    const uint32_t reserved;
+    const UBase_t reserved;
     union
     {
-        volatile uint32_t REFCTL;
+        volatile UBase_t REFCTL;
         ACMP_REFCTL_t REFCTL_Bit;
     };
-    const uint32_t reserved1 [3UL];
+    const UBase_t reserved1 [3UL];
     union
     {
-        volatile uint32_t STAT0;
+        volatile UBase_t STAT0;
         ACMP_STAT_t STAT0_Bit;
     };
     union
     {
-        volatile uint32_t CTL0;
+        volatile UBase_t CTL0;
         ACMP_CTL_t CTL0_Bit;
     };
-    const uint32_t reserved2 [6UL];
+    const UBase_t reserved2 [6UL];
     union
     {
-        volatile uint32_t STAT1;
+        volatile UBase_t STAT1;
         ACMP_STAT_t STAT1_Bit;
     };
     union
     {
-        volatile uint32_t CTL1;
+        volatile UBase_t CTL1;
         ACMP_CTL_t CTL1_Bit;
     };
-    const uint32_t reserved3 [6UL];
+    const UBase_t reserved3 [6UL];
     union
     {
-        volatile uint32_t STAT2;
+        volatile UBase_t STAT2;
         ACMP_STAT_t STAT2_Bit;
     };
     union
     {
-        volatile uint32_t CTL2;
+        volatile UBase_t CTL2;
         ACMP_CTL_t CTL2_Bit;
     };
-    const uint32_t reserved4 [982UL];
+    const UBase_t reserved4 [982UL];
     union
     {
-        volatile uint32_t PP;
+        volatile UBase_t PP;
         ACMP_PP_t  PP_Bit;
     };
-    const uint32_t reserved5 [15UL];
+    const UBase_t reserved5 [15UL];
 }ACMP_t;
 
 typedef volatile struct
 {
-    ACMP_t MODULE [(uint32_t) ACMP_enMODULE_MAX];
+    ACMP_t MODULE [(UBase_t) ACMP_enMODULE_MAX];
 }ACMPS_t;
 
 #endif /* XDRIVER_MCU_ACMP_PERIPHERAL_STRUCT_XHEADER_ACMP_STRUCTPERIPHERAL_H_ */

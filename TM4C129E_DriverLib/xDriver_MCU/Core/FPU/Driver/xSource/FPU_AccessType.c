@@ -13,25 +13,25 @@
 FPU_nERROR FPU__enSetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS enAccessTypeArg)
 {
     FPU_Register_t stRegister;
-    uint32_t u32Access;
-    uint32_t u32Access1;
-    uint32_t u32AccessMask;
+    UBase_t uxAccess;
+    UBase_t uxAccess1;
+    UBase_t uxAccessMask;
     FPU_nERROR enErrorReg;
 
-    u32AccessMask = FPU_CPACR_CP11_MASK;
-    u32AccessMask <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
-    u32AccessMask |= FPU_CPACR_CP10_MASK;
+    uxAccessMask = FPU_CPACR_CP11_MASK;
+    uxAccessMask <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
+    uxAccessMask |= FPU_CPACR_CP10_MASK;
 
-    u32Access = (uint32_t) enAccessTypeArg;
-    u32Access &= FPU_CPACR_CP11_MASK;
-    u32Access1 = u32Access;
-    u32Access <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
-    u32Access |= u32Access1;
+    uxAccess = (UBase_t) enAccessTypeArg;
+    uxAccess &= FPU_CPACR_CP11_MASK;
+    uxAccess1 = uxAccess;
+    uxAccess <<= FPU_CPACR_R_CP11_BIT - FPU_CPACR_R_CP10_BIT;
+    uxAccess |= uxAccess1;
 
-    stRegister.u32Shift = FPU_CPACR_R_CP10_BIT;
-    stRegister.u32Mask = (uint32_t) u32AccessMask;
+    stRegister.uxShift = FPU_CPACR_R_CP10_BIT;
+    stRegister.uxMask = (UBase_t) uxAccessMask;
     stRegister.uptrAddress = FPU_CPACR_OFFSET;
-    stRegister.u32Value = (uint32_t) u32Access;
+    stRegister.uxValue = (UBase_t) uxAccess;
     enErrorReg = FPU__enWriteRegister(enModuleArg, &stRegister);
     MCU__vBlocking();
 
@@ -41,12 +41,12 @@ FPU_nERROR FPU__enSetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS enAccessTyp
 FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessTypeArg)
 {
     FPU_Register_t stRegister;
-    uint32_t u32RegCP10;
-    uint32_t u32RegCP11;
+    UBase_t uxRegCP10;
+    UBase_t uxRegCP11;
     FPU_nERROR enErrorReg;
 
-    u32RegCP10 = 0UL;
-    u32RegCP11 = 0UL;
+    uxRegCP10 = 0UL;
+    uxRegCP11 = 0UL;
     enErrorReg = FPU_enERROR_OK;
     if(0UL == (uintptr_t) penAccessTypeArg)
     {
@@ -54,30 +54,30 @@ FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessT
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_CPACR_R_CP10_BIT;
-        stRegister.u32Mask = FPU_CPACR_CP10_MASK;
+        stRegister.uxShift = FPU_CPACR_R_CP10_BIT;
+        stRegister.uxMask = FPU_CPACR_CP10_MASK;
         stRegister.uptrAddress = FPU_CPACR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        u32RegCP10 = stRegister.u32Value;
+        uxRegCP10 = stRegister.uxValue;
 
-        stRegister.u32Shift = FPU_CPACR_R_CP11_BIT;
-        stRegister.u32Mask = FPU_CPACR_CP11_MASK;
+        stRegister.uxShift = FPU_CPACR_R_CP11_BIT;
+        stRegister.uxMask = FPU_CPACR_CP11_MASK;
         stRegister.uptrAddress = FPU_CPACR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        u32RegCP11 = stRegister.u32Value;
+        uxRegCP11 = stRegister.uxValue;
 
-        if(u32RegCP11 != u32RegCP10)
+        if(uxRegCP11 != uxRegCP10)
         {
-            u32RegCP11 = (uint32_t) FPU_enACCESS_DENIED;
+            uxRegCP11 = (UBase_t) FPU_enACCESS_DENIED;
         }
 
-        *penAccessTypeArg = (FPU_nACCESS) u32RegCP11;
+        *penAccessTypeArg = (FPU_nACCESS) uxRegCP11;
     }
     return (enErrorReg);
 }

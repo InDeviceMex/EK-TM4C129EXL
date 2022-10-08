@@ -28,28 +28,39 @@
 
 #define OCT2STRINGMAX    (24U)
 
-const char CONV_pc8Octal[8] = {'0','1','2','3','4','5','6','7'};
 
-uint8_t Conv__u8Oct2String(uint64_t u64Number, char* pcConv)
+CONV_nERROR Conv__enOct2String(uint64_t u64Number, char* pcConv, uint8_t* pu8StringLength)
 {
-    CONV_nSTATUS enStatus = CONV_enSTATUS_ERROR;
+    const char CONV_pc8Octal[8] = {'0','1','2','3','4','5','6','7'};
     char  pcConvTemp[OCT2STRINGMAX] = {0UL};/*longitud maxima de long 16 digitos*/
     char  *pcPointerActual= &pcConvTemp[OCT2STRINGMAX - 1U];
-    uint8_t u8Length = 0U;
+    CONV_nERROR enErrorReg;
+    uint8_t u8Length;
 
-    enStatus = Conv__enConversion(pcPointerActual, u64Number, &u8Length, 8U, CONV_pc8Octal);
-    if(CONV_enSTATUS_OK == enStatus)
+    u8Length = 0U;
+    pcPointerActual= (char*) 0UL;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcConv) || (0UL == (uintptr_t) pu8StringLength))
+    {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+
+        enErrorReg = Conv__enConversion(pcPointerActual, u64Number, &u8Length, 8U, CONV_pc8Octal);
+    }
+    if(CONV_enERROR_OK == enErrorReg)
     {
         u8Length++;
         pcPointerActual -= u8Length;
         *pcPointerActual = '0';
-        enStatus = Conv__enInversion(pcPointerActual, pcConv, u8Length);
-        if(CONV_enSTATUS_ERROR == enStatus)
-        {
-            u8Length = 0U;
-        }
+        enErrorReg = Conv__enInversion(pcPointerActual, pcConv, u8Length);
     }
-    return (u8Length);
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        *pu8StringLength = (uint8_t) u8Length;
+    }
+    return (enErrorReg);
 }
 
 

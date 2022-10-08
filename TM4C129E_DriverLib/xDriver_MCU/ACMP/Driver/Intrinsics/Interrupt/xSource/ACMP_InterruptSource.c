@@ -30,24 +30,24 @@
 ACMP_nERROR ACMP__enSetInterruptSourceStateByMask(ACMP_nMODULE enModuleArg, ACMP_nCOMPMASK enCompMaskArg, ACMP_nSTATE enStateArg)
 {
     ACMP_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompMaskArg, (UBase_t) ACMP_enCOMPMASK_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
         if(ACMP_enSTATE_DIS == enStateArg)
         {
-            u32ValueReg = 0U;
+            uxValueReg = 0U;
         }
         else
         {
-            u32ValueReg = (uint32_t) enCompMaskArg;
+            uxValueReg = (UBase_t) enCompMaskArg;
         }
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enCompMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enCompMaskArg;
         stRegister.uptrAddress = ACMP_INTEN_OFFSET;
-        stRegister.u32Value = u32ValueReg;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -59,13 +59,13 @@ ACMP_nERROR ACMP__enSetInterruptSourceStateByNumber(ACMP_nMODULE enModuleArg, AC
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompArg, (uint32_t) ACMP_enCOMP_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompArg, (UBase_t) ACMP_enCOMP_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enCompArg;
-        stRegister.u32Mask = ACMP_INTEN_IN0_MASK;
+        stRegister.uxShift = (UBase_t) enCompArg;
+        stRegister.uxMask = ACMP_INTEN_IN0_MASK;
         stRegister.uptrAddress = ACMP_INTEN_OFFSET;
-        stRegister.u32Value = (uint32_t) enStateArg;
+        stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -85,18 +85,18 @@ ACMP_nERROR ACMP__enGetInterruptSourceStateByMask(ACMP_nMODULE enModuleArg, ACMP
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompMaskArg, (UBase_t) ACMP_enCOMPMASK_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enCompMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enCompMaskArg;
         stRegister.uptrAddress = ACMP_INTEN_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penCompGetArg = (ACMP_nCOMPMASK) stRegister.u32Value;
+        *penCompGetArg = (ACMP_nCOMPMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -115,18 +115,18 @@ ACMP_nERROR ACMP__enGetInterruptSourceStateByNumber(ACMP_nMODULE enModuleArg, AC
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enCompArg;
-        stRegister.u32Mask = ACMP_INTEN_IN0_MASK;
+        stRegister.uxShift = (UBase_t) enCompArg;
+        stRegister.uxMask = ACMP_INTEN_IN0_MASK;
         stRegister.uptrAddress = ACMP_INTEN_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (ACMP_nSTATE) stRegister.u32Value;
+        *penStateArg = (ACMP_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -172,13 +172,13 @@ ACMP_nERROR ACMP__enClearInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nC
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompMaskArg, (UBase_t) ACMP_enCOMPMASK_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ACMP_MIS_OFFSET;
-        stRegister.u32Value = enCompMaskArg;
+        stRegister.uxValue = enCompMaskArg;
         enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -188,18 +188,18 @@ ACMP_nERROR ACMP__enClearInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nC
 ACMP_nERROR ACMP__enClearInterruptSourceByNumber(ACMP_nMODULE enModuleArg, ACMP_nCOMP enCompArg)
 {
     ACMP_Register_t stRegister;
-    uint32_t u32ValueReg;
+    UBase_t uxValueReg;
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompArg, (uint32_t) ACMP_enCOMP_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompArg, (UBase_t) ACMP_enCOMP_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        u32ValueReg = 1UL;
-        u32ValueReg <<= (uint32_t) enCompArg;
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = MCU_MASK_32;
+        uxValueReg = 1UL;
+        uxValueReg <<= (UBase_t) enCompArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ACMP_MIS_OFFSET;
-        stRegister.u32Value = (uint32_t) u32ValueReg;
+        stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -219,18 +219,18 @@ ACMP_nERROR ACMP__enStatusInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_n
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompMaskArg, (UBase_t) ACMP_enCOMPMASK_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enCompMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enCompMaskArg;
         stRegister.uptrAddress = ACMP_RIS_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penCompStatusArg = (ACMP_nCOMPMASK) stRegister.u32Value;
+        *penCompStatusArg = (ACMP_nCOMPMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -249,18 +249,18 @@ ACMP_nERROR ACMP__enStatusInterruptSourceByNumber(ACMP_nMODULE enModuleArg, ACMP
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enCompArg;
-        stRegister.u32Mask = ACMP_RIS_IN0_MASK;
+        stRegister.uxShift = (UBase_t) enCompArg;
+        stRegister.uxMask = ACMP_RIS_IN0_MASK;
         stRegister.uptrAddress = ACMP_RIS_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (ACMP_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (ACMP_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -279,18 +279,18 @@ ACMP_nERROR ACMP__enStatusMaskedInterruptSourceByMask(ACMP_nMODULE enModuleArg, 
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompMaskArg, (uint32_t) ACMP_enCOMPMASK_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompMaskArg, (UBase_t) ACMP_enCOMPMASK_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0U;
-        stRegister.u32Mask = enCompMaskArg;
+        stRegister.uxShift = 0U;
+        stRegister.uxMask = enCompMaskArg;
         stRegister.uptrAddress = ACMP_MIS_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penCompStatusArg = (ACMP_nCOMPMASK) stRegister.u32Value;
+        *penCompStatusArg = (ACMP_nCOMPMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -308,18 +308,18 @@ ACMP_nERROR ACMP__enStatusMaskedInterruptSourceByNumber(ACMP_nMODULE enModuleArg
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enCompArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enCompArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enCompArg;
-        stRegister.u32Mask = ACMP_MIS_IN0_MASK;
+        stRegister.uxShift = (UBase_t) enCompArg;
+        stRegister.uxMask = ACMP_MIS_IN0_MASK;
         stRegister.uptrAddress = ACMP_MIS_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (ACMP_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (ACMP_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -32,10 +32,10 @@
 ******************************************************************************************/
 
 /*----------*/
-#define GPTM_TAMATCHR_R_TAMR_MASK    ((uint32_t) 0xFFFFFFFFUL)
+#define GPTM_TAMATCHR_R_TAMR_MASK    ((UBase_t) 0xFFFFFFFFUL)
 #define GPTM_TAMATCHR_R_TAMR_BIT    (0UL)
 
-#define GPTM_TAMATCHR_TAMR_MASK    ((uint32_t) 0xFFFFFFFFUL)
+#define GPTM_TAMATCHR_TAMR_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERDEFINES_TIMER_REGISTERDEFINES_STANDARD_32_TIMER_REGISTERDEFINES_STANDARD_32_TAMATCHR_H_ */

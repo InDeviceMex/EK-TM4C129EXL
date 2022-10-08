@@ -31,7 +31,7 @@ ADC_nERROR ADC_Sequencer__enGetFifoStatusByNumber(ADC_nMODULE enModuleArg, ADC_n
                                                   ADC_nFIFO* penFifoStatusArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32OffsetReg;
+    UBase_t uxOffsetReg;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
@@ -41,28 +41,28 @@ ADC_nERROR ADC_Sequencer__enGetFifoStatusByNumber(ADC_nMODULE enModuleArg, ADC_n
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32OffsetReg = (uint32_t) enSequencerArg;
-        u32OffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32OffsetReg <<= 2UL;
-        u32OffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32OffsetReg += ADC_SS_FSTAT_OFFSET;
+        uxOffsetReg = (UBase_t) enSequencerArg;
+        uxOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg <<= 2UL;
+        uxOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxOffsetReg += ADC_SS_FSTAT_OFFSET;
 
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = ADC_SS_FSTAT_R_EMPTY_MASK | ADC_SS_FSTAT_R_FULL_MASK;
-        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = ADC_SS_FSTAT_R_EMPTY_MASK | ADC_SS_FSTAT_R_FULL_MASK;
+        stRegister.uptrAddress = (uintptr_t) uxOffsetReg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        if(0U == stRegister.u32Value)
+        if(0U == stRegister.uxValue)
         {
             *penFifoStatusArg = ADC_enFIFO_VALUES;
         }
-        else if (ADC_SS_FSTAT_R_FULL_MASK == stRegister.u32Value)
+        else if (ADC_SS_FSTAT_R_FULL_MASK == stRegister.uxValue)
         {
             *penFifoStatusArg = ADC_enFIFO_FULL;
         }
@@ -75,37 +75,37 @@ ADC_nERROR ADC_Sequencer__enGetFifoStatusByNumber(ADC_nMODULE enModuleArg, ADC_n
 }
 
 ADC_nERROR ADC_Sequencer__enGetFifoHeadByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoHeadArg)
+                                                UBase_t* puxFifoHeadArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32OffsetReg;
+    UBase_t uxOffsetReg;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32FifoHeadArg)
+    if(0UL == (uintptr_t) puxFifoHeadArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32OffsetReg = (uint32_t) enSequencerArg;
-        u32OffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32OffsetReg <<= 2UL;
-        u32OffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32OffsetReg += ADC_SS_FSTAT_OFFSET;
+        uxOffsetReg = (UBase_t) enSequencerArg;
+        uxOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg <<= 2UL;
+        uxOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxOffsetReg += ADC_SS_FSTAT_OFFSET;
 
-        stRegister.u32Shift = ADC_SS_FSTAT_R_HPTR_BIT;
-        stRegister.u32Mask = ADC_SS_FSTAT_HPTR_MASK;
-        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+        stRegister.uxShift = ADC_SS_FSTAT_R_HPTR_BIT;
+        stRegister.uxMask = ADC_SS_FSTAT_HPTR_MASK;
+        stRegister.uptrAddress = (uintptr_t) uxOffsetReg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32FifoHeadArg = stRegister.u32Value;
+        *puxFifoHeadArg = stRegister.uxValue;
     }
 
     return (enErrorReg);
@@ -113,58 +113,58 @@ ADC_nERROR ADC_Sequencer__enGetFifoHeadByNumber(ADC_nMODULE enModuleArg, ADC_nSE
 
 
 ADC_nERROR ADC_Sequencer__enGetFifoTailByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoTailArg)
+                                                UBase_t* puxFifoTailArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32OffsetReg;
+    UBase_t uxOffsetReg;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32FifoTailArg)
+    if(0UL == (uintptr_t) puxFifoTailArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32OffsetReg = (uint32_t) enSequencerArg;
-        u32OffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32OffsetReg <<= 2UL;
-        u32OffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32OffsetReg += ADC_SS_FSTAT_OFFSET;
+        uxOffsetReg = (UBase_t) enSequencerArg;
+        uxOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg <<= 2UL;
+        uxOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxOffsetReg += ADC_SS_FSTAT_OFFSET;
 
-        stRegister.u32Shift = ADC_SS_FSTAT_R_TPTR_BIT;
-        stRegister.u32Mask = ADC_SS_FSTAT_TPTR_MASK;
-        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+        stRegister.uxShift = ADC_SS_FSTAT_R_TPTR_BIT;
+        stRegister.uxMask = ADC_SS_FSTAT_TPTR_MASK;
+        stRegister.uptrAddress = (uintptr_t) uxOffsetReg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32FifoTailArg = stRegister.u32Value;
+        *puxFifoTailArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
 
 ADC_nERROR ADC_Sequencer__enGetFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                uint32_t* pu32FifoDataArg)
+                                                UBase_t* puxFifoDataArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32OffsetReg;
+    UBase_t uxOffsetReg;
     ADC_nERROR enErrorReg;
     ADC_nFIFO enFifoStatusReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32FifoDataArg)
+    if(0UL == (uintptr_t) puxFifoDataArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
@@ -180,52 +180,52 @@ ADC_nERROR ADC_Sequencer__enGetFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_nSE
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32OffsetReg = (uint32_t) enSequencerArg;
-        u32OffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32OffsetReg <<= 2UL;
-        u32OffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32OffsetReg += ADC_SS_FIFO_OFFSET;
+        uxOffsetReg = (UBase_t) enSequencerArg;
+        uxOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg <<= 2UL;
+        uxOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxOffsetReg += ADC_SS_FIFO_OFFSET;
 
-        stRegister.u32Shift = ADC_SS_FIFO_R_DATA_BIT;
-        stRegister.u32Mask = MCU_MASK_32;
-        stRegister.uptrAddress = (uintptr_t) u32OffsetReg;
+        stRegister.uxShift = ADC_SS_FIFO_R_DATA_BIT;
+        stRegister.uxMask = MCU_MASK_BASE;
+        stRegister.uptrAddress = (uintptr_t) uxOffsetReg;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32FifoDataArg = stRegister.u32Value;
+        *puxFifoDataArg = stRegister.uxValue;
     }
 
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enGetAllFifoDataByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
-                                                   uint32_t* pu32FifoDataArg, uint32_t* pu32NumberArg)
+                                                   UBase_t* puxFifoDataArg, UBase_t* puxNumberArg)
 {
-    uint32_t u32CountReg;
+    UBase_t uxCountReg;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pu32NumberArg)
+    if(0UL == (uintptr_t) puxNumberArg)
     {
         enErrorReg = ADC_enERROR_POINTER;
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32CountReg = 0U;
+        uxCountReg = 0U;
         do
         {
-            enErrorReg = ADC_Sequencer__enGetFifoDataByNumber(enModuleArg, enSequencerArg, pu32FifoDataArg);
+            enErrorReg = ADC_Sequencer__enGetFifoDataByNumber(enModuleArg, enSequencerArg, puxFifoDataArg);
             if(ADC_enERROR_OK == enErrorReg)
             {
-                pu32FifoDataArg += 1U;
-                u32CountReg++;
+                puxFifoDataArg += 1U;
+                uxCountReg++;
             }
         }while(ADC_enERROR_OK == enErrorReg);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *pu32NumberArg = (uint32_t) u32CountReg;
+        *puxNumberArg = (UBase_t) uxCountReg;
     }
     return (enErrorReg);
 }

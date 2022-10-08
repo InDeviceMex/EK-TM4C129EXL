@@ -29,25 +29,25 @@
 
 typedef volatile struct
 {
-    uint32_t reserved[4];
+    UBase_t reserved[4];
     union
     {
-        volatile uint32_t CSR;
+        volatile UBase_t CSR;
         SYSTICK_CSR_t CSR_Bit;
     };
     union
     {
-        volatile uint32_t RVR;
+        volatile UBase_t RVR;
         SYSTICK_RVR_t RVR_Bit;
     };
     union
     {
-        volatile uint32_t CVR;
+        volatile UBase_t CVR;
         SYSTICK_CVR_t CVR_Bit;
     };
     union
     {
-        const uint32_t CR;
+        const UBase_t CR;
         SYSTICK_CR_t CR_Bit;
     };
 }SYSTICK_t;

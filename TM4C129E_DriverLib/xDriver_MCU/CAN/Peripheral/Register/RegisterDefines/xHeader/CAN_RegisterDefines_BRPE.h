@@ -31,10 +31,10 @@
 ************************************ 7 BRPE *********************************************
 ******************************************************************************************/
 /*--------*/
-#define CAN_BRPE_R_BRPE_MASK    ((uint32_t) 0x0000000FUL)
-#define CAN_BRPE_R_BRPE_BIT    ((uint32_t) 0UL)
+#define CAN_BRPE_R_BRPE_MASK    ((UBase_t) 0x0000000FUL)
+#define CAN_BRPE_R_BRPE_BIT    ((UBase_t) 0UL)
 
-#define CAN_BRPE_BRPE_MASK    ((uint32_t) 0x0000000FUL)
+#define CAN_BRPE_BRPE_MASK    ((UBase_t) 0x0000000FUL)
 /*--------*/
 
 

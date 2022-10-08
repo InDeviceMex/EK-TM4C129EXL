@@ -26,46 +26,49 @@
 #include <xApplication_MCU/PWM/Interrupt/InterruptRoutine/PWM_InterruptRoutine.h>
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-void PWM_Generator__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), PWM_nMODULE enModule,
-                                    PWM_nGENERATOR enGenerator)
+PWM_nERROR PWM_Generator__enRegisterIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_PWM0GEN0;
-    uint32_t u32Module = 0UL;
-    uint32_t u32Generator = 0UL;
-
-    const SCB_nVECISR SCB_enVECISR_PWM[(uint32_t)PWM_enMODULE_MAX][(uint32_t)PWM_enGEN_MAX] =
+    const SCB_nVECISR SCB_enVECISR_PWM[(UBase_t) PWM_enMODULE_MAX][(UBase_t) PWM_enGEN_MAX]=
     {
-        { SCB_enVECISR_PWM0GEN0, SCB_enVECISR_PWM0GEN1,
-          SCB_enVECISR_PWM0GEN2, SCB_enVECISR_PWM0GEN3},
+     {SCB_enVECISR_PWM0GEN0, SCB_enVECISR_PWM0GEN1, SCB_enVECISR_PWM0GEN2, SCB_enVECISR_PWM0GEN3},
     };
+    SCB_nVECISR enVectorReg;
+    PWM_nERROR enErrorReg;
+    PWM_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-        u32Generator = MCU__u32CheckParams((uint32_t) enGenerator, (uint32_t) PWM_enGEN_MAX);
-        enVector = SCB_enVECISR_PWM[u32Module][u32Generator];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-           PWM_Generator__pvfGetIRQVectorHandlerPointer((PWM_nMODULE) u32Module,
-                                              (PWM_nGENERATOR) u32Generator));
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR_PWM[(UBase_t) enModuleArg][(UBase_t) enGeneratorArg];
+        pvfVectorHandlerReg = PWM_Generator__pvfGetIRQVectorHandlerPointer(enModuleArg, enGeneratorArg);
+        enErrorReg = (PWM_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
+    }
+    return (enErrorReg);
+
 }
 
-void PWM_Fault__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), PWM_nMODULE enModule)
+PWM_nERROR PWM_Fault__enRegisterIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_PWM0FAULT;
-    uint32_t u32Module = 0UL;
-
-    const SCB_nVECISR SCB_enVECISR_PWM[(uint32_t)PWM_enMODULE_MAX] =
+    const SCB_nVECISR SCB_enVECISR_PWM[(UBase_t) PWM_enMODULE_MAX]=
     {
-        SCB_enVECISR_PWM0FAULT
+     SCB_enVECISR_PWM0FAULT
     };
+    SCB_nVECISR enVectorReg;
+    PWM_nERROR enErrorReg;
+    PWM_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-        enVector = SCB_enVECISR_PWM[u32Module];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-           PWM_Fault__pvfGetIRQVectorHandlerPointer((PWM_nMODULE) u32Module));
+        enVectorReg = SCB_enVECISR_PWM[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = PWM_Fault__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (PWM_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }
 

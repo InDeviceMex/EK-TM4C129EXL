@@ -26,35 +26,35 @@
 #include <xApplication_MCU/FLASH/xHeader/FLASH_InitProcess.h>
 #include <xApplication_MCU/FLASH/Intrinsics/xHeader/FLASH_Dependencies.h>
 
-FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg)
+FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32FlashSizeReg;
-    uint32_t u32SectorSizeReg;
+    UBase_t uxFlashSizeReg;
+    UBase_t uxSectorSizeReg;
 
-    u32FlashSizeReg = 0UL;
-    u32SectorSizeReg = 0UL;
-    enErrorReg = FLASH__enGetSizeInBytes(enModuleArg, &u32FlashSizeReg);
+    uxFlashSizeReg = 0UL;
+    uxSectorSizeReg = 0UL;
+    enErrorReg = FLASH__enGetSizeInBytes(enModuleArg, &uxFlashSizeReg);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressArg, u32FlashSizeReg);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxAddressArg, uxFlashSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &u32SectorSizeReg);
+        enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &uxSectorSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32SectorSizeReg)
+        if(0UL == uxSectorSizeReg)
         {
             enErrorReg = FLASH_enERROR_VALUE;
         }
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SectorSizeReg--;
-        u32AddressArg &= u32SectorSizeReg;
-        enErrorReg = FLASH__enStartAddressToErase(enModuleArg, u32AddressArg);
+        uxSectorSizeReg--;
+        uxAddressArg &= uxSectorSizeReg;
+        enErrorReg = FLASH__enStartAddressToErase(enModuleArg, uxAddressArg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
@@ -63,37 +63,37 @@ FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, uint32_t u32SectorArg)
+FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, UBase_t uxSectorArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32FlashSizeReg;
-    uint32_t u32AddressReg;
-    uint32_t u32SectorSizeReg;
+    UBase_t uxFlashSizeReg;
+    UBase_t uxAddressReg;
+    UBase_t uxSectorSizeReg;
 
-    u32FlashSizeReg = 0UL;
-    u32SectorSizeReg = 0UL;
-    u32AddressReg = 0UL;
-    enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &u32SectorSizeReg);
+    uxFlashSizeReg = 0UL;
+    uxSectorSizeReg = 0UL;
+    uxAddressReg = 0UL;
+    enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &uxSectorSizeReg);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32SectorSizeReg)
+        if(0UL == uxSectorSizeReg)
         {
             enErrorReg = FLASH_enERROR_VALUE;
         }
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enGetSizeInBytes(enModuleArg, &u32FlashSizeReg);
+        enErrorReg = FLASH__enGetSizeInBytes(enModuleArg, &uxFlashSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32AddressReg = u32SectorArg;
-        u32AddressReg *= u32SectorSizeReg;
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(u32AddressReg, u32FlashSizeReg);
+        uxAddressReg = uxSectorArg;
+        uxAddressReg *= uxSectorSizeReg;
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM(uxAddressReg, uxFlashSizeReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FLASH__enStartAddressToErase(enModuleArg, u32AddressReg);
+        enErrorReg = FLASH__enStartAddressToErase(enModuleArg, uxAddressReg);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {

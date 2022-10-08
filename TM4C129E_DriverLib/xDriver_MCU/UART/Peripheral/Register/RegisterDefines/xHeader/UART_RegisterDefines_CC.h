@@ -30,14 +30,14 @@
 ************************************ 18 CC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define UART_CC_R_CS_MASK    ((uint32_t) 0x0000000FUL)
-#define UART_CC_R_CS_BIT    ((uint32_t) 0UL)
-#define UART_CC_R_CS_SYSCLK    ((uint32_t) 0x00000000UL)
-#define UART_CC_R_CS_ALTCLK    ((uint32_t) 0x00000005UL)
+#define UART_CC_R_CS_MASK    ((UBase_t) 0x0000000FUL)
+#define UART_CC_R_CS_BIT    ((UBase_t) 0UL)
+#define UART_CC_R_CS_SYSCLK    ((UBase_t) 0x00000000UL)
+#define UART_CC_R_CS_ALTCLK    ((UBase_t) 0x00000005UL)
 
-#define UART_CC_CS_MASK    ((uint32_t) 0x0000000FUL)
-#define UART_CC_CS_SYSCLK    ((uint32_t) 0x00000000UL)
-#define UART_CC_CS_ALTCLK    ((uint32_t) 0x00000005UL)
+#define UART_CC_CS_MASK    ((UBase_t) 0x0000000FUL)
+#define UART_CC_CS_SYSCLK    ((UBase_t) 0x00000000UL)
+#define UART_CC_CS_ALTCLK    ((UBase_t) 0x00000005UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_CC_H_ */

@@ -38,14 +38,14 @@ ADC_nERROR ADC__enGetStatus(ADC_nMODULE enModuleArg, ADC_nSTATUS* penStatusArg)
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_ACTSS_R_BUSY_BIT;
-        stRegister.u32Mask = ADC_ACTSS_BUSY_MASK;
+        stRegister.uxShift = ADC_ACTSS_R_BUSY_BIT;
+        stRegister.uxMask = ADC_ACTSS_BUSY_MASK;
         stRegister.uptrAddress = ADC_ACTSS_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (ADC_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -23,31 +23,31 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/List/xHeader/CSLinkedList_Size.h>
 
-uint32_t CSLinkedList__u32GetSize(const CSLinkedList_t* const pstList)
+UBase_t CSLinkedList__uxGetSize(const CSLinkedList_t* const pstList)
 {
-    uint32_t u32SizeReg = 0UL;
-    if(0UL != (uint32_t) pstList)
+    UBase_t uxSizeReg = 0UL;
+    if(0UL != (UBase_t) pstList)
     {
-        u32SizeReg = pstList->u32Size;
+        uxSizeReg = pstList->uxSize;
     }
-    return (u32SizeReg);
+    return (uxSizeReg);
 
 }
 
-void CSLinkedList__vSetSize(CSLinkedList_t*  pstList, uint32_t u32SizeArg)
+void CSLinkedList__vSetSize(CSLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = u32SizeArg;
+        pstList->uxSize = uxSizeArg;
     }
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enIsEmpty(const CSLinkedList_t*  pstList)
+CSLinkedList_nERROR CSLinkedList__enIsEmpty(const CSLinkedList_t*  pstList)
 {
-    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
-    if(0UL  == pstList->u32Size)
+    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    if(0UL  == pstList->uxSize)
     {
-        enStatus = CSLinkedList_enSTATUS_OK;
+        enStatus = CSLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

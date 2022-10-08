@@ -32,10 +32,10 @@ SCB_nERROR SCB_NMI__enSetPending(SCB_nMODULE enModuleArg)
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_ICSR_R_NMIPENDSET_BIT;
-    stRegister.u32Mask = SCB_ICSR_NMIPENDSET_MASK;
+    stRegister.uxShift = SCB_ICSR_R_NMIPENDSET_BIT;
+    stRegister.uxMask = SCB_ICSR_NMIPENDSET_MASK;
     stRegister.uptrAddress = SCB_ICSR_OFFSET;
-    stRegister.u32Value = SCB_ICSR_NMIPENDSET_SET;
+    stRegister.uxValue = SCB_ICSR_NMIPENDSET_SET;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);

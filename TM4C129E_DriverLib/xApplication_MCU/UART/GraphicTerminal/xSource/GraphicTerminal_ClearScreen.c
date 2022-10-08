@@ -32,7 +32,7 @@
 
 void GraphTerm__vClearScreen(UART_nMODULE enModule)
 {
-    UART__u32Printf(enModule,"\x1B[2J" );
+    UART__uxPrintf(enModule,"\x1B[2J" );
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

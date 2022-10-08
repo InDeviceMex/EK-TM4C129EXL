@@ -27,16 +27,16 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-I2C_nERROR I2C_Master__enSetSlaveAddress(I2C_nMODULE enModuleArg, uint32_t u32AddressArg);
-I2C_nERROR I2C_Master__enGetSlaveAddress(I2C_nMODULE enModuleArg, uint32_t* pu32AddressArg);
+I2C_nERROR I2C_Master__enSetSlaveAddress(I2C_nMODULE enModuleArg, UBase_t uxAddressArg);
+I2C_nERROR I2C_Master__enGetSlaveAddress(I2C_nMODULE enModuleArg, UBase_t* puxAddressArg);
 
 I2C_nERROR I2C_Master__enSetOperation(I2C_nMODULE enModuleArg, I2C_nOPERATION enOperationArg);
 I2C_nERROR I2C_Master__enGetOperation(I2C_nMODULE enModuleArg, I2C_nOPERATION* penOperationArg);
 
-I2C_nERROR I2C_Master__enSetSlaveAddressOperation(I2C_nMODULE enModuleArg, uint32_t u32AddressArg, I2C_nOPERATION enOperationArg);
-I2C_nERROR I2C_Master__enGetSlaveAddressOperation(I2C_nMODULE enModuleArg, uint32_t* pu32AddressArg, I2C_nOPERATION* penOperationArg);
+I2C_nERROR I2C_Master__enSetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase_t uxAddressArg, I2C_nOPERATION enOperationArg);
+I2C_nERROR I2C_Master__enGetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase_t* puxAddressArg, I2C_nOPERATION* penOperationArg);
 
-I2C_nERROR I2C_Master__enSetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, uint32_t u32ValueArg);
-I2C_nERROR I2C_Master__enGetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, uint32_t* pu32ValueArg);
+I2C_nERROR I2C_Master__enSetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, UBase_t uxValueArg);
+I2C_nERROR I2C_Master__enGetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, UBase_t* puxValueArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_MASTER_XHEADER_I2C_ADDRESS_H_ */

@@ -23,20 +23,20 @@
  */
 #include <xApplication_MCU/Core/SYSTICK/Delay/Intrinsics/xHeader/SYSTICK_TickPeriod.h>
 
-static volatile uint32_t SYSTICK_u32TickPeriod = 0UL;
+static volatile UBase_t SYSTICK_uxTickPeriod = 0UL;
 
 void SYSTICK__vClearTickPeriod(void)
 {
-    SYSTICK_u32TickPeriod = 0UL;
+    SYSTICK_uxTickPeriod = 0UL;
 }
 
-void SYSTICK__vSetTickPeriod(uint32_t u32TickPeriod)
+void SYSTICK__vSetTickPeriod(UBase_t uxTickPeriod)
 {
-    SYSTICK_u32TickPeriod = u32TickPeriod;
+    SYSTICK_uxTickPeriod = uxTickPeriod;
 }
 
-uint32_t SYSTICK__u32GetTickPeriod(void)
+UBase_t SYSTICK__uxGetTickPeriod(void)
 {
-    return (SYSTICK_u32TickPeriod);
+    return (SYSTICK_uxTickPeriod);
 }
 

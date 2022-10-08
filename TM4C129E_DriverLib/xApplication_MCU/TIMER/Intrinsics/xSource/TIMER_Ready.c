@@ -26,7 +26,7 @@
 #include <xApplication_MCU/TIMER/Intrinsics/xHeader/TIMER_Dependencies.h>
 
 #if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(uint32_t) TIMER_enMODULE_NUM_MAX] =
+static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(UBase_t) TIMER_enMODULE_NUM_MAX] =
 {
  SYSCTL_enTIMER0, SYSCTL_enTIMER1, SYSCTL_enTIMER2, SYSCTL_enTIMER3, SYSCTL_enTIMER4, SYSCTL_enTIMER5, SYSCTL_enTIMER6, SYSCTL_enTIMER7
 };
@@ -36,11 +36,11 @@ void TIMER__vSetReady(TIMER_nMODULE_NUM enModuleNumber)
 {
 #if !defined(Opt_Check)
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    uint32_t u32ModuleNumber = 0UL;
+    UBase_t uxModuleNumber = 0UL;
 
-     TIMER__vCheckParams( 0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
+     TIMER__vCheckParams( 0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
 
-    enPeripheral = SYSCTL_VECTOR_TIMER [u32ModuleNumber];
+    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
     SYSCTL__vSetReady(enPeripheral);
 #endif
 }
@@ -48,17 +48,17 @@ void TIMER__vSetReady(TIMER_nMODULE_NUM enModuleNumber)
 void TIMER__vClearReady(TIMER_nMODULE_NUM enModuleNumber)
 {
 #if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(uint32_t) TIMER_enMODULE_NUM_MAX] =
+    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(UBase_t) TIMER_enMODULE_NUM_MAX] =
     {
      SYSCTL_enTIMER0, SYSCTL_enTIMER1, SYSCTL_enTIMER2, SYSCTL_enTIMER3, SYSCTL_enTIMER4, SYSCTL_enTIMER5, SYSCTL_enTIMER6, SYSCTL_enTIMER7
     };
 #endif
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    uint32_t u32ModuleNumber = 0UL;
+    UBase_t uxModuleNumber = 0UL;
 
-    TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
+    TIMER__vCheckParams(0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
 
-    enPeripheral = SYSCTL_VECTOR_TIMER [u32ModuleNumber];
+    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
     SYSCTL__vClearReady(enPeripheral);
 }
 
@@ -67,11 +67,11 @@ TIMER_nREADY TIMER__enIsReady(TIMER_nMODULE_NUM enModuleNumber)
 #if !defined(Opt_Check)
     TIMER_nREADY enReady = TIMER_enNOREADY;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    uint32_t u32ModuleNumber = 0UL;
+    UBase_t uxModuleNumber = 0UL;
 
-     TIMER__vCheckParams( 0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
+     TIMER__vCheckParams( 0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
 
-    enPeripheral = SYSCTL_VECTOR_TIMER [u32ModuleNumber];
+    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
     enReady = (TIMER_nREADY) SYSCTL__enIsReady(enPeripheral);
 #else
     TIMER_nREADY enReady = TIMER_enREADY;

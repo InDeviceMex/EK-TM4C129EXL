@@ -21,38 +21,48 @@
  * Date           Author     Version     Description
  * 7 dic. 2020     vyldram    1.0         initial Version@endverbatim
  */
-
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberLongLong2String.h>
+
 #include <xUtils/Conversion/Conversion_Number2String/xHeader/Conversion_NumberFormat.h>
 
-CONV_nSTATUS Conv__enNumber2String_LongLong(CONV_OUT_t pvfOut, char* pcBufferOut, uint64_t u64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Negative, uint64_t u64Base, uint32_t u32Prec)
+CONV_nERROR Conv__enNumber2String_LongLong(CONV_OUT_t pvfOut, char* pcBufferOut, uint64_t u64Value, UBase_t uxIndex,
+                                           UBase_t uxMaxLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags,
+                                           UBase_t uxNegative, uint64_t u64Base, UBase_t uxPrec)
 {
     uint8_t pu8Buffer[CONV_enBUFFER_SIZE_NUMBER];
-    char cDigit = 0;
-    uint8_t u8DigitTemp = 0;
-    uint32_t  u32Length = 0U;
-    CONV_nSTATUS enConvStatus = CONV_enSTATUS_ERROR;
-    if(((uint32_t) 0U != (uint32_t) pvfOut) && ((uint32_t) 0U != (uint32_t) pcBufferOut) )
+    uint64_t u64TempReg;
+    char cDigit;
+    uint8_t u8DigitTemp;
+    UBase_t  uxLength;
+    CONV_nERROR enErrorReg;
+
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pvfOut) || (0UL == (uintptr_t) pcBufferOut ))
     {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        uxLength = 0U;
         /* no hash for 0 values*/
-        if ((uint64_t) 0U == u64Value) {
-            u32flags &= ~(uint32_t) CONV_enFLAGS_HASH;
-        }
+        if (0ULL == u64Value) { uxflags &= ~(UBase_t) CONV_enFLAGS_HASH; }
 
         /* write if precision != 0 and value is != 0*/
-        if ((0U == (u32flags & (uint32_t) CONV_enFLAGS_PRECISION)) || ((uint64_t) 0U != u64Value))
+        if ((0U == (uxflags & (UBase_t) CONV_enFLAGS_PRECISION)) || (0ULL != u64Value))
         {
+            u8DigitTemp = 0U;
             do
             {
-                cDigit = (char) (u64Value % u64Base);
-                if((uint8_t) cDigit < (uint8_t) 10)
+                u64TempReg = u64Value;
+                u64TempReg %= u64Base;
+                cDigit = (char) (u64TempReg);
+                if(10U > (uint8_t) cDigit)
                 {
                     u8DigitTemp = (uint8_t) '0';
                 }
                 else
                 {
-                    if(u32flags & (uint32_t) CONV_enFLAGS_UPPERCASE )
+                    if(0U != (uxflags & (UBase_t) CONV_enFLAGS_UPPERCASE))
                     {
                         u8DigitTemp = (uint8_t) 'A';
                     }
@@ -63,14 +73,14 @@ CONV_nSTATUS Conv__enNumber2String_LongLong(CONV_OUT_t pvfOut, char* pcBufferOut
                     u8DigitTemp -= (uint8_t) 10;
                 }
 
-                pu8Buffer[u32Length] = u8DigitTemp + (uint8_t) cDigit ;
-                u32Length++;
+                pu8Buffer[uxLength] = u8DigitTemp + (uint8_t) cDigit ;
+                uxLength++;
                 u64Value /= u64Base;
-            } while (((uint64_t) 0U != u64Value) && (u32Length < (uint32_t) CONV_enBUFFER_SIZE_NUMBER));
+            } while ((0UL != u64Value) && ((UBase_t) CONV_enBUFFER_SIZE_NUMBER > uxLength));
         }
 
-        enConvStatus = Conv__enNumber2String_Format(pvfOut, pcBufferOut, (char*)pu8Buffer, u32Index, u32MaxLenght, u32Length, pu32BufOutLenght, u32Width, u32flags, u32Negative, (uint32_t) u64Base, u32Prec);
+        enErrorReg = Conv__enNumber2String_Format(pvfOut, pcBufferOut, (char*)pu8Buffer, uxIndex, uxMaxLenght, uxLength, puxBufOutLenght, uxWidth, uxflags, uxNegative, (UBase_t) u64Base, uxPrec);
     }
-    return (enConvStatus);
-  }
+    return (enErrorReg);
+}
 

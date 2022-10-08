@@ -26,14 +26,14 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Item.h>
 
-void* CDLinkedList__pvGetDataItemPos(const CDLinkedList_t* pstList, uint32_t u32Position)
+void* CDLinkedList__pvGetDataItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     void* pvItemData = (void*) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetItemPos(pstList, u32Position);
-        if((uint32_t) 0UL != (uint32_t) pstItem)
+        pstItem = CDLinkedList__pstGetItemPos(pstList, uxPosition);
+        if((UBase_t) 0UL != (UBase_t) pstItem)
         {
             pvItemData = CDLinkedList_Item__pvGetData(pstItem);
         }
@@ -41,29 +41,29 @@ void* CDLinkedList__pvGetDataItemPos(const CDLinkedList_t* pstList, uint32_t u32
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetValueItemPos(const CDLinkedList_t* pstList, uint32_t u32Position)
+UBase_t CDLinkedList__uxGetValueItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32ItemData = 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    UBase_t uxItemData = 0UL;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        pstItem = CDLinkedList__pstGetItemPos(pstList, u32Position);
-        if((uint32_t) 0UL != (uint32_t) pstItem)
+        pstItem = CDLinkedList__pstGetItemPos(pstList, uxPosition);
+        if((UBase_t) 0UL != (UBase_t) pstItem)
         {
-            u32ItemData = CDLinkedList_Item__u32GetValue(pstItem);
+            uxItemData = CDLinkedList_Item__uxGetValue(pstItem);
         }
     }
-    return (u32ItemData);
+    return (uxItemData);
 }
 
 void* CDLinkedList__pvGetDataTail(const CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     void* pvItemData = (void*) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstItem = CDLinkedList__pstGetTail(pstList);
-        if((uint32_t) pstItem != (uint32_t) 0UL)
+        if((UBase_t) pstItem != (UBase_t) 0UL)
         {
             pvItemData = CDLinkedList_Item__pvGetData(pstItem);
         }
@@ -71,29 +71,29 @@ void* CDLinkedList__pvGetDataTail(const CDLinkedList_t* pstList)
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetValueTail(const CDLinkedList_t* pstList)
+UBase_t CDLinkedList__uxGetValueTail(const CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32ItemValue = (uint32_t) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    UBase_t uxItemValue = (UBase_t) 0UL;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstItem = CDLinkedList__pstGetTail(pstList);
-        if((uint32_t) pstItem != (uint32_t) 0UL)
+        if((UBase_t) pstItem != (UBase_t) 0UL)
         {
-            u32ItemValue = CDLinkedList_Item__u32GetValue(pstItem);
+            uxItemValue = CDLinkedList_Item__uxGetValue(pstItem);
         }
     }
-    return (u32ItemValue);
+    return (uxItemValue);
 }
 
 void* CDLinkedList__pvGetDataHead(const CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     void* pvItemData = (void*) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstItem = CDLinkedList__pstGetHead(pstList);
-        if((uint32_t) pstItem != (uint32_t) 0UL)
+        if((UBase_t) pstItem != (UBase_t) 0UL)
         {
             pvItemData = CDLinkedList_Item__pvGetData(pstItem);
         }
@@ -101,19 +101,19 @@ void* CDLinkedList__pvGetDataHead(const CDLinkedList_t* pstList)
     return (pvItemData);
 }
 
-uint32_t CDLinkedList__u32GetValueHead(const CDLinkedList_t* pstList)
+UBase_t CDLinkedList__uxGetValueHead(const CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32ItemValue = (uint32_t) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    UBase_t uxItemValue = (UBase_t) 0UL;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstItem = CDLinkedList__pstGetHead(pstList);
-        if((uint32_t) pstItem != (uint32_t) 0UL)
+        if((UBase_t) pstItem != (UBase_t) 0UL)
         {
-            u32ItemValue = CDLinkedList_Item__u32GetValue(pstItem);
+            uxItemValue = CDLinkedList_Item__uxGetValue(pstItem);
         }
     }
-    return (u32ItemValue);
+    return (uxItemValue);
 }
 
 void* CDLinkedList__pvGetDataNextItem(CDLinkedList_t* const pstList)
@@ -121,10 +121,10 @@ void* CDLinkedList__pvGetDataNextItem(CDLinkedList_t* const pstList)
     CDLinkedListItem_t* pstLastItemReg = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstNextItemReg = (CDLinkedListItem_t*) 0UL;
     void* pvItemData = (void*) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstLastItemReg = CDLinkedList__pstGetLastItemRead(pstList);
-        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        if((UBase_t) pstLastItemReg != (UBase_t) 0UL)
         {
             pstNextItemReg = CDLinkedList_Item__pstGetNextItem(pstLastItemReg);
         }
@@ -143,10 +143,10 @@ void* CDLinkedList__pvGetDataPreviousItem(CDLinkedList_t* pstList)
     CDLinkedListItem_t* pstLastItemReg = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstPreviousItemReg = (CDLinkedListItem_t*) 0UL;
     void* pvItemData = (void*) 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         pstLastItemReg = CDLinkedList__pstGetLastItemRead(pstList);
-        if((uint32_t) pstLastItemReg != (uint32_t) 0UL)
+        if((UBase_t) pstLastItemReg != (UBase_t) 0UL)
         {
             pstPreviousItemReg = CDLinkedList_Item__pstGetPreviousItem(pstLastItemReg);
         }

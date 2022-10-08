@@ -32,7 +32,7 @@ void* DLinkedList_Item__pvGetOwnerList(const DLinkedListItem_t* const pstItem)
 
 void DLinkedList_Item__vSetOwnerList(DLinkedListItem_t* pstItem, void* pvOwnerListArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pvOwnerList = pvOwnerListArg;
     }

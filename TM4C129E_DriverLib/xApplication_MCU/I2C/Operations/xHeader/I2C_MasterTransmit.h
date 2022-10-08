@@ -30,21 +30,21 @@
 I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
                                          I2C_nSTATE enMultiMasterArg,
                                          I2C_nSTATE enStopConditionArg,
-                                         uint32_t u32SlaveAddressArg,
+                                         UBase_t uxSlaveAddressArg,
                                          const uint8_t *pu8Data,
-                                         uint32_t u32DataSize);
+                                         UBase_t uxDataSize);
 
 I2C_nERROR I2C_Master_enTransmit(I2C_nMODULE enModule,
-                                  uint32_t u32SlaveAddressArg,
+                                  UBase_t uxSlaveAddressArg,
                                   const uint8_t *pu8Data,
-                                  uint32_t u32DataSize);
+                                  UBase_t uxDataSize);
 
 I2C_nERROR I2C_Master_enTransmitByte(I2C_nMODULE enModule,
-                                      uint32_t u32SlaveAddressArg,
+                                      UBase_t uxSlaveAddressArg,
                                       const uint8_t u8Data);
 
 I2C_nERROR I2C_Master_enTransmitMultiByte(I2C_nMODULE enModule,
-                                           uint32_t u32SlaveAddressArg,
-                                           const uint8_t *pu8Data, uint32_t u32DataSize);
+                                           UBase_t uxSlaveAddressArg,
+                                           const uint8_t *pu8Data, UBase_t uxDataSize);
 
 #endif /* XAPPLICATION_MCU_I2C_OPERATIONS_XHEADER_I2C_MASTERTRANSMIT_H_ */

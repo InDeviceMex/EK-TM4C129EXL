@@ -32,12 +32,12 @@
 ******************************************************************************************/
 
 /*--------*/
-#define UART_IBRD_R_DIVINT_MASK    ((uint32_t) 0x0000FFFFUL)
-#define UART_IBRD_R_DIVINT_BIT    ((uint32_t) 0UL)
-#define UART_IBRD_R_DIVINT_CLEAR    ((uint32_t) 0x0000FFFFUL)
+#define UART_IBRD_R_DIVINT_MASK    ((UBase_t) 0x0000FFFFUL)
+#define UART_IBRD_R_DIVINT_BIT    ((UBase_t) 0UL)
+#define UART_IBRD_R_DIVINT_CLEAR    ((UBase_t) 0x0000FFFFUL)
 
-#define UART_IBRD_DIVINT_MASK    ((uint32_t) 0x0000FFFFUL)
-#define UART_IBRD_DIVINT_CLEAR    ((uint32_t) 0x0000FFFFUL)
+#define UART_IBRD_DIVINT_MASK    ((UBase_t) 0x0000FFFFUL)
+#define UART_IBRD_DIVINT_CLEAR    ((UBase_t) 0x0000FFFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_IBRD_H_ */

@@ -32,10 +32,10 @@ DMA_nERROR DMA__enSetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uin
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = DMA_CTLBASE_R_ADDR_MASK;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = DMA_CTLBASE_R_ADDR_MASK;
     stRegister.uptrAddress = DMA_CTLBASE_OFFSET;
-    stRegister.u32Value = (uint32_t) uptrControlAddressArg;
+    stRegister.uxValue = (UBase_t) uptrControlAddressArg;
     enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -53,14 +53,14 @@ DMA_nERROR DMA__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, uin
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = DMA_CTLBASE_R_ADDR_MASK;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = DMA_CTLBASE_R_ADDR_MASK;
         stRegister.uptrAddress = DMA_CTLBASE_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *puptrControlAddressArg = (uintptr_t) stRegister.u32Value;
+        *puptrControlAddressArg = (uintptr_t) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -71,7 +71,7 @@ DMA_nERROR DMA_CH__enGetPrimaryControlStructureAddress(DMA_nMODULE enModuleArg, 
     uintptr_t uptrChannelOffset;
     DMA_nERROR enErrorReg;
 
-    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA__enGetPrimaryControlStructureAddress(enModuleArg, puptrControlAddressArg);

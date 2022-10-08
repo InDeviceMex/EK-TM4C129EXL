@@ -23,29 +23,29 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/xHeader/DLinkedList_Size.h>
 
-uint32_t DLinkedList__u32GetSize(const DLinkedList_t* const pstList)
+UBase_t DLinkedList__uxGetSize(const DLinkedList_t* const pstList)
 {
-    uint32_t u32SizeReg = 0UL;
-    if(0UL != (uint32_t) pstList)
+    UBase_t uxSizeReg = 0UL;
+    if(0UL != (UBase_t) pstList)
     {
-        u32SizeReg = pstList->u32Size;
+        uxSizeReg = pstList->uxSize;
     }
-    return (u32SizeReg);
+    return (uxSizeReg);
 
 }
 
-void DLinkedList__vSetSize(DLinkedList_t*  pstList, uint32_t u32SizeArg)
+void DLinkedList__vSetSize(DLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = u32SizeArg;
+        pstList->uxSize = uxSizeArg;
     }
 }
 
 DLinkedList_nSTATUS DLinkedList__enIsEmpty(const DLinkedList_t*  pstList)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    if(0UL  == pstList->u32Size)
+    if(0UL  == pstList->uxSize)
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

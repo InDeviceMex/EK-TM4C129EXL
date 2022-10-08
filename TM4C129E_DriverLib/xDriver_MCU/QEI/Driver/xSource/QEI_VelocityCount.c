@@ -26,10 +26,10 @@
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-uint32_t QEI__u32GetVelocityCount(QEI_nMODULE enModule)
+UBase_t QEI__uxGetVelocityCount(QEI_nMODULE enModule)
 {
-    uint32_t u32VelocityCountReg = 0UL;
-    u32VelocityCountReg = QEI__u32ReadRegister(enModule, QEI_COUNT_OFFSET,
+    UBase_t uxVelocityCountReg = 0UL;
+    uxVelocityCountReg = QEI__uxReadRegister(enModule, QEI_COUNT_OFFSET,
                                   QEI_COUNT_COUNT_MASK, QEI_COUNT_R_COUNT_BIT);
-    return (u32VelocityCountReg);
+    return (uxVelocityCountReg);
 }

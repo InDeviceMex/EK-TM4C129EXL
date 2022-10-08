@@ -32,10 +32,10 @@ SCB_nERROR SCB_SYSTICK__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enP
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_SHPR3_R_SYSTICK_BIT;
-    stRegister.u32Mask = SCB_SHPR3_SYSTICK_MASK;
+    stRegister.uxShift = SCB_SHPR3_R_SYSTICK_BIT;
+    stRegister.uxMask = SCB_SHPR3_SYSTICK_MASK;
     stRegister.uptrAddress = SCB_SHPR3_OFFSET;
-    stRegister.u32Value = (uint32_t) enPriorityArg;
+    stRegister.uxValue = (UBase_t) enPriorityArg;
     MCU__vDataSyncBarrier();
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
@@ -55,14 +55,14 @@ SCB_nERROR SCB_SYSTICK__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* en
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_SHPR3_R_SYSTICK_BIT;
-        stRegister.u32Mask = SCB_SHPR3_SYSTICK_MASK;
+        stRegister.uxShift = SCB_SHPR3_R_SYSTICK_BIT;
+        stRegister.uxMask = SCB_SHPR3_SYSTICK_MASK;
         stRegister.uptrAddress = SCB_SHPR3_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -72,10 +72,10 @@ SCB_nERROR SCB_SYSTICK__enSetPending(SCB_nMODULE enModuleArg)
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_ICSR_R_PENDSTSET_BIT;
-    stRegister.u32Mask = SCB_ICSR_PENDSTSET_MASK;
+    stRegister.uxShift = SCB_ICSR_R_PENDSTSET_BIT;
+    stRegister.uxMask = SCB_ICSR_PENDSTSET_MASK;
     stRegister.uptrAddress = SCB_ICSR_OFFSET;
-    stRegister.u32Value = SCB_ICSR_PENDSTSET_SET;
+    stRegister.uxValue = SCB_ICSR_PENDSTSET_SET;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -87,10 +87,10 @@ SCB_nERROR SCB_SYSTICK__enClearPending(SCB_nMODULE enModuleArg)
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_ICSR_R_PENDSTCLR_BIT;
-    stRegister.u32Mask = SCB_ICSR_PENDSTCLR_MASK;
+    stRegister.uxShift = SCB_ICSR_R_PENDSTCLR_BIT;
+    stRegister.uxMask = SCB_ICSR_PENDSTCLR_MASK;
     stRegister.uptrAddress = SCB_ICSR_OFFSET;
-    stRegister.u32Value = SCB_ICSR_PENDSTCLR_REMOVE;
+    stRegister.uxValue = SCB_ICSR_PENDSTCLR_REMOVE;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -108,14 +108,14 @@ SCB_nERROR SCB_SYSTICK__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* en
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_ICSR_R_PENDSTSET_BIT;
-        stRegister.u32Mask = SCB_ICSR_PENDSTSET_MASK;
+        stRegister.uxShift = SCB_ICSR_R_PENDSTSET_BIT;
+        stRegister.uxMask = SCB_ICSR_PENDSTSET_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        *enStateArg = (SCB_nPENDSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

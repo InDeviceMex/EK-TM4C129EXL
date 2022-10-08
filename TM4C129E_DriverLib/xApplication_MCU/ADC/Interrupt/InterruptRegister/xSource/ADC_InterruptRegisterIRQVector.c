@@ -28,7 +28,7 @@
 
 ADC_nERROR ADC__enRegisterIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR_ADC[(uint32_t) ADC_enMODULE_MAX][(uint32_t) ADC_enSEQ_MAX]=
+    const SCB_nVECISR SCB_enVECISR_ADC[(UBase_t) ADC_enMODULE_MAX][(UBase_t) ADC_enSEQ_MAX]=
     {
      {SCB_enVECISR_ADC0SEQ0, SCB_enVECISR_ADC0SEQ1, SCB_enVECISR_ADC0SEQ2, SCB_enVECISR_ADC0SEQ3},
      {SCB_enVECISR_ADC1SEQ0, SCB_enVECISR_ADC1SEQ1, SCB_enVECISR_ADC1SEQ2, SCB_enVECISR_ADC1SEQ3}
@@ -37,14 +37,14 @@ ADC_nERROR ADC__enRegisterIRQVectorHandler(ADC_nMODULE enModuleArg, ADC_nSEQUENC
     ADC_nERROR enErrorReg;
     ADC_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enVectorReg = SCB_enVECISR_ADC[(uint32_t) enModuleArg][(uint32_t) enSequencerArg];
+        enVectorReg = SCB_enVECISR_ADC[(UBase_t) enModuleArg][(UBase_t) enSequencerArg];
         pvfVectorHandlerReg = ADC__pvfGetIRQVectorHandlerPointer(enModuleArg, enSequencerArg);
         enErrorReg = (ADC_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }

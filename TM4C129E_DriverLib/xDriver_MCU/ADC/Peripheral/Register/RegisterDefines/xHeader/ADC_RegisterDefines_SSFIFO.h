@@ -31,10 +31,10 @@
 ************************************ 17 SSFIFO *********************************************
 ******************************************************************************************/
 /*--------*/
-#define ADC_SS_FIFO_R_DATA_MASK    ((uint32_t) 0x00000FFFUL)
-#define ADC_SS_FIFO_R_DATA_BIT    ((uint32_t) 0UL)
+#define ADC_SS_FIFO_R_DATA_MASK    ((UBase_t) 0x00000FFFUL)
+#define ADC_SS_FIFO_R_DATA_BIT    ((UBase_t) 0UL)
 
-#define ADC_SS_FIFO_DATA_MASK    ((uint32_t) 0x00000FFFUL)
+#define ADC_SS_FIFO_DATA_MASK    ((UBase_t) 0x00000FFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_SS_FIFO_H_ */

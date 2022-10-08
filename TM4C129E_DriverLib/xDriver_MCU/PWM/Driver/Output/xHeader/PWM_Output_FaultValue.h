@@ -27,14 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Output__vSetFaultConditionValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg,
-                            PWM_nOUTPUT_FAULT enFaultConditionValueArg);
-PWM_nOUTPUT PWM_Output__enGetFaultConditionValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                                 PWM_nOUTPUT enOutputArg);
+PWM_nERROR PWM_Output__enSetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT enConditionArg);
+PWM_nERROR PWM_Output__enSetFaultConditionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
+                                                 PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT enConditionArg);
 
-void PWM_Output__vSetFaultConditionValueByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg,
-                                                 PWM_nOUTPUT_FAULT enFaultConditionValueArg);
-PWM_nOUTPUT_NUMBER PWM_Output__enGetFaultConditionValueByNumber(PWM_nMODULE enModule, PWM_nOUTPUT_NUMBER enOutputNumberArg);
+PWM_nERROR PWM_Output__enGetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT* penConditionArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_OUTPUT_XHEADER_PWM_OUTPUT_FAULTVALUE_H_ */

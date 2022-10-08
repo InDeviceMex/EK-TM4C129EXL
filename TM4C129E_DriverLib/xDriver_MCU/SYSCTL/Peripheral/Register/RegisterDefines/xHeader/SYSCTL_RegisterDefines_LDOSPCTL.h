@@ -14,17 +14,17 @@
 ************************************25 LDOSPCTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_LDOSPCTL_R_VLDO_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDOSPCTL_R_VLDO_MASK    ((UBase_t) 0x000000FFUL)
 #define SYSCTL_LDOSPCTL_R_VLDO_BIT    (0UL)
 
-#define SYSCTL_LDOSPCTL_VLDO_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDOSPCTL_VLDO_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_LDOSPCTL_R_VADJEN_MASK    ((uint32_t) 0x80000000UL)
+#define SYSCTL_LDOSPCTL_R_VADJEN_MASK    ((UBase_t) 0x80000000UL)
 #define SYSCTL_LDOSPCTL_R_VADJEN_BIT    (31UL)
 
-#define SYSCTL_LDOSPCTL_VADJEN_MASK    ((uint32_t) 0x000000F01UL)
+#define SYSCTL_LDOSPCTL_VADJEN_MASK    ((UBase_t) 0x000000F01UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_LDOSPCTL_H_ */

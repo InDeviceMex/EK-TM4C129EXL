@@ -31,11 +31,11 @@
 
 #pragma  CODE_SECTION(FLASH__enGetCustomKey, ".ramcode")
 
-FLASH_nERROR FLASH__enGetCustomKey(FLASH_nMODULE enModuleArg, uint32_t* pu32KeyArg);
+FLASH_nERROR FLASH__enGetCustomKey(FLASH_nMODULE enModuleArg, UBase_t* puxKeyArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enGetCustomKey(FLASH_nMODULE enModuleArg, uint32_t* pu32KeyArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetCustomKey(FLASH_nMODULE enModuleArg, UBase_t* puxKeyArg) __attribute__((section(".ramcode")));
 
 #endif
 

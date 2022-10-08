@@ -31,19 +31,19 @@
 ************************************ 22,26 IFn_DA1 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define CAN_IFn_DA1_R_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DA1_R_DATA01_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DA1_R_DATA0_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFn_DA1_R_DATA1_MASK    ((uint32_t) 0x0000FF00UL)
-#define CAN_IFn_DA1_R_DATA_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DA1_R_DATA01_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DA1_R_DATA0_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DA1_R_DATA1_BIT    ((uint32_t) 8UL)
+#define CAN_IFn_DA1_R_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DA1_R_DATA01_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DA1_R_DATA0_MASK    ((UBase_t) 0x000000FFUL)
+#define CAN_IFn_DA1_R_DATA1_MASK    ((UBase_t) 0x0000FF00UL)
+#define CAN_IFn_DA1_R_DATA_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DA1_R_DATA01_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DA1_R_DATA0_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DA1_R_DATA1_BIT    ((UBase_t) 8UL)
 
-#define CAN_IFn_DA1_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DA1_DATA01_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DA1_DATA0_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFn_DA1_DATA1_MASK    ((uint32_t) 0x0000FFUL)
+#define CAN_IFn_DA1_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DA1_DATA01_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DA1_DATA0_MASK    ((UBase_t) 0x000000FFUL)
+#define CAN_IFn_DA1_DATA1_MASK    ((UBase_t) 0x0000FFUL)
 /*--------*/
 
 

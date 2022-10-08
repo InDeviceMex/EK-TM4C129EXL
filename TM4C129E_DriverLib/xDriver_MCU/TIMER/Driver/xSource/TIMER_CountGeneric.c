@@ -31,23 +31,23 @@ TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
                                          const TIMER_Count32_t* pstCount)
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
-    uint32_t u32Reg = 0UL;
-    uint32_t u32TimerBase = 0UL;
-    if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
+    UBase_t uxReg = 0UL;
+    UBase_t uxTimerBase = 0UL;
+    if((0UL != (UBase_t) pstCount->puxCountValue) && (0UL != (UBase_t) pstCount))
     {
         enStatus = TIMER_enSTATUS_OK;
-        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
+        uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
 
-        u32TimerBase += pstCount->u32CountRegister;
+        uxTimerBase += pstCount->uxCountRegister;
 
-        u32Reg = *(volatile uint32_t*) (u32TimerBase);
+        uxReg = *(volatile UBase_t*) (uxTimerBase);
 
-        if(0xFFFFFFFFUL != pstCount->u32CountMask)
+        if(0xFFFFFFFFUL != pstCount->uxCountMask)
         {
-            u32Reg >>= pstCount->u32CountShiftRight;
-            u32Reg &= pstCount->u32CountMask;
+            uxReg >>= pstCount->uxCountShiftRight;
+            uxReg &= pstCount->uxCountMask;
         }
-        *pstCount->pu32CountValue = (uint32_t) u32Reg;
+        *pstCount->puxCountValue = (UBase_t) uxReg;
     }
     return (enStatus);
 }
@@ -55,19 +55,19 @@ TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
                                const TIMER_Count32_t* pstCount)
 {
-    uint32_t u32Reg = 0UL;
-    uint32_t u32TimerBase = 0UL;
-    if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
+    UBase_t uxReg = 0UL;
+    UBase_t uxTimerBase = 0UL;
+    if((0UL != (UBase_t) pstCount->puxCountValue) && (0UL != (UBase_t) pstCount))
     {
-        u32Reg = *pstCount->pu32CountValue;
-        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
+        uxReg = *pstCount->puxCountValue;
+        uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
 
-        u32TimerBase += pstCount->u32CountRegister;
+        uxTimerBase += pstCount->uxCountRegister;
 
-        u32Reg >>= pstCount->u32CountShiftRight;
-        u32Reg &= pstCount->u32CountMask;
+        uxReg >>= pstCount->uxCountShiftRight;
+        uxReg &= pstCount->uxCountMask;
 
-        *(volatile uint32_t*) (u32TimerBase) = (uint32_t) u32Reg;
+        *(volatile UBase_t*) (uxTimerBase) = (UBase_t) uxReg;
     }
 }
 
@@ -76,40 +76,40 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
 
-    uint32_t u32RegHigh = 0UL;
-    uint32_t u32RegLow = 0UL;
+    UBase_t uxRegHigh = 0UL;
+    UBase_t uxRegLow = 0UL;
 
-    uint32_t u32TimerBase = 0UL;
-    uint32_t u32TimerRegisterHigh = 0UL;
-    uint32_t u32TimerRegisterLow = 0UL;
+    UBase_t uxTimerBase = 0UL;
+    UBase_t uxTimerRegisterHigh = 0UL;
+    UBase_t uxTimerRegisterLow = 0UL;
 
-    if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
+    if((0UL != (UBase_t) pstCount->puxCountValue) && (0UL != (UBase_t) pstCount))
     {
         enStatus = TIMER_enSTATUS_OK;
-        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
+        uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
 
-        u32TimerRegisterHigh = u32TimerBase + pstCount->u32CountHighRegister;
-        u32TimerRegisterLow = u32TimerBase + pstCount->u32CountLowRegister;
+        uxTimerRegisterHigh = uxTimerBase + pstCount->uxCountHighRegister;
+        uxTimerRegisterLow = uxTimerBase + pstCount->uxCountLowRegister;
 
-        u32RegHigh = *(volatile uint32_t*) (u32TimerRegisterHigh);
-        u32RegLow = *(volatile uint32_t*) (u32TimerRegisterLow);
+        uxRegHigh = *(volatile UBase_t*) (uxTimerRegisterHigh);
+        uxRegLow = *(volatile UBase_t*) (uxTimerRegisterLow);
 
-        if(0xFFFFFFFFUL != pstCount->u32CountHighMask)
+        if(0xFFFFFFFFUL != pstCount->uxCountHighMask)
         {
-            u32RegHigh >>= pstCount->u32CountHighShiftRight;
-            u32RegHigh &= pstCount->u32CountHighMask;
+            uxRegHigh >>= pstCount->uxCountHighShiftRight;
+            uxRegHigh &= pstCount->uxCountHighMask;
         }
-        if(0xFFFFFFFFUL != pstCount->u32CountLowMask)
+        if(0xFFFFFFFFUL != pstCount->uxCountLowMask)
         {
-            u32RegLow >>= pstCount->u32CountLowShiftRight;
-            u32RegLow &= pstCount->u32CountLowMask;
+            uxRegLow >>= pstCount->uxCountLowShiftRight;
+            uxRegLow &= pstCount->uxCountLowMask;
         }
 
-        u32RegHigh <<= pstCount->u32CountHighShiftLeft;
-        u32RegLow <<= pstCount->u32CountLowShiftLeft;
+        uxRegHigh <<= pstCount->uxCountHighShiftLeft;
+        uxRegLow <<= pstCount->uxCountLowShiftLeft;
 
-        *pstCount->pu32CountValue = (uint32_t) u32RegHigh;
-        *pstCount->pu32CountValue |= (uint32_t) u32RegLow;
+        *pstCount->puxCountValue = (UBase_t) uxRegHigh;
+        *pstCount->puxCountValue |= (UBase_t) uxRegLow;
     }
     return (enStatus);
 }
@@ -117,36 +117,36 @@ TIMER_nSTATUS TIMER_enGet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
 void TIMER_vSet2Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
                                const TIMER_Count32_Preescale_t* pstCount)
 {
-    uint32_t u32Reg = 0ULL;
+    UBase_t uxReg = 0ULL;
 
-    uint32_t u32RegHigh = 0UL;
-    uint32_t u32RegLow = 0UL;
+    UBase_t uxRegHigh = 0UL;
+    UBase_t uxRegLow = 0UL;
 
-    uint32_t u32TimerBase = 0UL;
-    uint32_t u32TimerRegisterHigh = 0UL;
-    uint32_t u32TimerRegisterLow = 0UL;
+    UBase_t uxTimerBase = 0UL;
+    UBase_t uxTimerRegisterHigh = 0UL;
+    UBase_t uxTimerRegisterLow = 0UL;
 
-    if((0UL != (uint32_t) pstCount->pu32CountValue) && (0UL != (uint32_t) pstCount))
+    if((0UL != (UBase_t) pstCount->puxCountValue) && (0UL != (UBase_t) pstCount))
     {
-        u32TimerBase = TIMER__u32BlockBaseAddress(enModuleNumber);
+        uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
 
-        u32TimerRegisterHigh = u32TimerBase + pstCount->u32CountHighRegister;
-        u32TimerRegisterLow = u32TimerBase + pstCount->u32CountLowRegister;
+        uxTimerRegisterHigh = uxTimerBase + pstCount->uxCountHighRegister;
+        uxTimerRegisterLow = uxTimerBase + pstCount->uxCountLowRegister;
 
-        u32Reg = *pstCount->pu32CountValue;
+        uxReg = *pstCount->puxCountValue;
 
-        u32RegHigh = u32Reg;
-        u32RegHigh >>= pstCount->u32CountHighShiftRight;
-        u32RegHigh &= pstCount->u32CountHighMask;
-        u32RegHigh <<= pstCount->u32CountHighShiftLeft;
+        uxRegHigh = uxReg;
+        uxRegHigh >>= pstCount->uxCountHighShiftRight;
+        uxRegHigh &= pstCount->uxCountHighMask;
+        uxRegHigh <<= pstCount->uxCountHighShiftLeft;
 
-        u32RegLow = u32Reg;
-        u32RegLow >>= pstCount->u32CountLowShiftRight;
-        u32RegLow &= pstCount->u32CountLowMask;
-        u32RegLow <<= pstCount->u32CountLowShiftLeft;
+        uxRegLow = uxReg;
+        uxRegLow >>= pstCount->uxCountLowShiftRight;
+        uxRegLow &= pstCount->uxCountLowMask;
+        uxRegLow <<= pstCount->uxCountLowShiftLeft;
 
 
-        *(volatile uint32_t*) (u32TimerRegisterHigh) = (uint32_t) u32RegHigh;
-        *(volatile uint32_t*) (u32TimerRegisterLow) = (uint32_t) u32RegLow;
+        *(volatile UBase_t*) (uxTimerRegisterHigh) = (UBase_t) uxRegHigh;
+        *(volatile UBase_t*) (uxTimerRegisterLow) = (UBase_t) uxRegLow;
     }
 }

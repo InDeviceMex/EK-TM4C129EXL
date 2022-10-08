@@ -27,12 +27,12 @@
 
 #include <xApplication_MCU/Core/SYSTICK/Intrinsics/xHeader/SYSTICK_Defines.h>
 
-void SYSTICK__vSetFreeCount(uint32_t u32Count);
-uint32_t SYSTICK__u32GetFreeCount(void);
+void SYSTICK__vSetFreeCount(UBase_t uxCount);
+UBase_t SYSTICK__uxGetFreeCount(void);
 void SYSTICK__vClearFreeCount(void);
 
-void SYSTICK__vSetFreeCountOv(uint32_t u32Count);
-uint32_t SYSTICK__u32GetFreeCountOv(void);
+void SYSTICK__vSetFreeCountOv(UBase_t uxCount);
+UBase_t SYSTICK__uxGetFreeCountOv(void);
 void SYSTICK__vClearFreeCountOv(void);
 
 #endif /* XAPPLICATION_MCU_CORE_SYSTICK_DELAY_INTRINSICS_XHEADER_SYSTICK_FREECOUNT_H_ */

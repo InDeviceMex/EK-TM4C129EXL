@@ -34,10 +34,10 @@ DMA_nERROR DMA_CH__enRegisterIRQSourceHandler_Software(DMA_pvfIRQSourceHandler_t
     DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
     DMA_nERROR enErrorReg;
 
-    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, ((uint32_t) DMA_enCH_MAX + 1UL));
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, ((UBase_t) DMA_enCH_MAX + 1UL));
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -55,10 +55,10 @@ DMA_nERROR DMA__enRegisterIRQSourceHandler_Error(DMA_pvfIRQSourceHandler_t pfIrq
     DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
     DMA_nERROR enErrorReg;
 
-    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enInterruptSourceArg, (uint32_t) DMA_enINT_ERROR_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enInterruptSourceArg, (UBase_t) DMA_enINT_ERROR_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {

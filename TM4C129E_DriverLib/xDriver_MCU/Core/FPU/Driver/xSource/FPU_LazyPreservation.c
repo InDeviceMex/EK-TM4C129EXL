@@ -15,10 +15,10 @@ FPU_nERROR FPU__enSetLazyPreservationState(FPU_nMODULE enModuleArg,
     FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
 
-    stRegister.u32Shift = FPU_CCR_R_LSPEN_BIT;
-    stRegister.u32Mask = FPU_CCR_LSPEN_MASK;
+    stRegister.uxShift = FPU_CCR_R_LSPEN_BIT;
+    stRegister.uxMask = FPU_CCR_LSPEN_MASK;
     stRegister.uptrAddress = FPU_CCR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = FPU__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -37,14 +37,14 @@ FPU_nERROR FPU__enGetLazyPreservationState(FPU_nMODULE enModuleArg,
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_CCR_R_LSPEN_BIT;
-        stRegister.u32Mask = FPU_CCR_LSPEN_MASK;
+        stRegister.uxShift = FPU_CCR_R_LSPEN_BIT;
+        stRegister.uxMask = FPU_CCR_LSPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+        *penStateArg = (FPU_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -62,14 +62,14 @@ FPU_nERROR FPU__enGetLazyPreservationStatus(FPU_nMODULE enModuleArg,
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_CCR_R_LSPACT_BIT;
-        stRegister.u32Mask = FPU_CCR_LSPACT_MASK;
+        stRegister.uxShift = FPU_CCR_R_LSPACT_BIT;
+        stRegister.uxMask = FPU_CCR_LSPACT_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (FPU_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (FPU_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

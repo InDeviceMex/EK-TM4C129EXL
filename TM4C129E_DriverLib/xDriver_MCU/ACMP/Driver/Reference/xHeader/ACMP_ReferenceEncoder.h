@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/ACMP/Peripheral/xHeader/ACMP_Enum.h>
 
-ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t u32EncoderValueArg);
-ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, uint32_t* pu32EncoderValueArg);
+ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t uxEncoderValueArg);
+ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t* puxEncoderValueArg);
 
 #endif /* XDRIVER_MCU_ACMP_DRIVER_REFERENCE_XHEADER_ACMP_REFERENCEENCODER_H_ */

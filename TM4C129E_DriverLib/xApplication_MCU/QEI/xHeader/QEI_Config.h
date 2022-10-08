@@ -30,8 +30,8 @@
 QEI_nSTATUS QEI__enSetConfig(QEI_nMODULE enModule,
                              const QEI_CONTROL_t* pstControlConfig,
                              const QEI_SIGNAL_t* pstSignalConfig,
-                             uint32_t u32InitialPosArg,
-                             uint32_t u32MaxPositionArg,
-                             uint32_t u32TimerLoad);
+                             UBase_t uxInitialPosArg,
+                             UBase_t uxMaxPositionArg,
+                             UBase_t uxTimerLoad);
 
 #endif /* XAPPLICATION_MCU_QEI_XHEADER_QEI_CONFIG_H_ */

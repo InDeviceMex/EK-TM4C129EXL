@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-uint32_t TIMER__u32GetCount(TIMER_nMODULE enModule);
+UBase_t TIMER__uxGetCount(TIMER_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_XHEADER_TIMER_COUNT_H_ */

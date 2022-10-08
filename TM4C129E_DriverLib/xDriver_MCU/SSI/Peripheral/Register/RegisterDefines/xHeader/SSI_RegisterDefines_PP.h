@@ -32,38 +32,38 @@
 ******************************************************************************************/
 
 /*--------*/
-#define SSI_PP_R_HSCLK_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_PP_R_HSCLK_BIT    ((uint32_t) 0UL)
-#define SSI_PP_R_HSCLK_NOCAPABLE    ((uint32_t) 0x00000000UL)
-#define SSI_PP_R_HSCLK_CAPABLE    ((uint32_t) 0x00000001UL)
+#define SSI_PP_R_HSCLK_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_PP_R_HSCLK_BIT    ((UBase_t) 0UL)
+#define SSI_PP_R_HSCLK_NOCAPABLE    ((UBase_t) 0x00000000UL)
+#define SSI_PP_R_HSCLK_CAPABLE    ((UBase_t) 0x00000001UL)
 
-#define SSI_PP_HSCLK_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_PP_HSCLK_NOCAPABLE    ((uint32_t) 0x00000000UL)
-#define SSI_PP_HSCLK_CAPABLE    ((uint32_t) 0x00000001UL)
+#define SSI_PP_HSCLK_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_PP_HSCLK_NOCAPABLE    ((UBase_t) 0x00000000UL)
+#define SSI_PP_HSCLK_CAPABLE    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_PP_R_MODE_MASK    ((uint32_t) 0x00000006UL)
-#define SSI_PP_R_MODE_BIT    ((uint32_t) 1UL)
-#define SSI_PP_R_MODE_LEGACY    ((uint32_t) 0x00000000UL)
-#define SSI_PP_R_MODE_BI    ((uint32_t) 0x00000002UL)
-#define SSI_PP_R_MODE_QUAD    ((uint32_t) 0x00000004UL)
+#define SSI_PP_R_MODE_MASK    ((UBase_t) 0x00000006UL)
+#define SSI_PP_R_MODE_BIT    ((UBase_t) 1UL)
+#define SSI_PP_R_MODE_LEGACY    ((UBase_t) 0x00000000UL)
+#define SSI_PP_R_MODE_BI    ((UBase_t) 0x00000002UL)
+#define SSI_PP_R_MODE_QUAD    ((UBase_t) 0x00000004UL)
 
-#define SSI_PP_MODE_MASK    ((uint32_t) 0x00000003UL)
-#define SSI_PP_MODE_LEGACY    ((uint32_t) 0x00000000UL)
-#define SSI_PP_MODE_BI    ((uint32_t) 0x00000001UL)
-#define SSI_PP_MODE_QUAD    ((uint32_t) 0x00000002UL)
+#define SSI_PP_MODE_MASK    ((UBase_t) 0x00000003UL)
+#define SSI_PP_MODE_LEGACY    ((UBase_t) 0x00000000UL)
+#define SSI_PP_MODE_BI    ((UBase_t) 0x00000001UL)
+#define SSI_PP_MODE_QUAD    ((UBase_t) 0x00000002UL)
 /*--------*/
 
 /*--------*/
-#define SSI_PP_R_FSSHLDFRM_MASK    ((uint32_t) 0x00000008UL)
-#define SSI_PP_R_FSSHLDFRM_BIT    ((uint32_t) 3UL)
-#define SSI_PP_R_FSSHLDFRM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_PP_R_FSSHLDFRM_ENA    ((uint32_t) 0x00000008UL)
+#define SSI_PP_R_FSSHLDFRM_MASK    ((UBase_t) 0x00000008UL)
+#define SSI_PP_R_FSSHLDFRM_BIT    ((UBase_t) 3UL)
+#define SSI_PP_R_FSSHLDFRM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_PP_R_FSSHLDFRM_ENA    ((UBase_t) 0x00000008UL)
 
-#define SSI_PP_FSSHLDFRM_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_PP_FSSHLDFRM_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_PP_FSSHLDFRM_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_PP_FSSHLDFRM_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_PP_FSSHLDFRM_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_PP_FSSHLDFRM_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SSI_REGISTERDEFINES_PP_H_ */

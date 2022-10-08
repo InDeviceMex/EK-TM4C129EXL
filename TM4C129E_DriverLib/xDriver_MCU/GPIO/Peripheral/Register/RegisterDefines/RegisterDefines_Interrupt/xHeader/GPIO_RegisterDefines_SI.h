@@ -31,14 +31,14 @@
  ************************************ 25 SI *********************************************
  ******************************************************************************************/
 /*----------*/
-#define GPIO_SI_R_SUM_MASK    ((uint32_t) 0x00000001UL)
+#define GPIO_SI_R_SUM_MASK    ((UBase_t) 0x00000001UL)
 #define GPIO_SI_R_SUM_BIT    (0UL)
-#define GPIO_SI_R_SUM_SINGLE    ((uint32_t) 0x00000000UL)
-#define GPIO_SI_R_SUM_SEPARATE    ((uint32_t) 0x00000001UL)
+#define GPIO_SI_R_SUM_SINGLE    ((UBase_t) 0x00000000UL)
+#define GPIO_SI_R_SUM_SEPARATE    ((UBase_t) 0x00000001UL)
 
-#define GPIO_SI_SUM_MASK    ((uint32_t) 0x00000001UL)
-#define GPIO_SI_SUM_SINGLE    ((uint32_t) 0x00000000UL)
-#define GPIO_SI_SUM_SEPARATE    ((uint32_t) 0x00000001UL)
+#define GPIO_SI_SUM_MASK    ((UBase_t) 0x00000001UL)
+#define GPIO_SI_SUM_SINGLE    ((UBase_t) 0x00000000UL)
+#define GPIO_SI_SUM_SEPARATE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_GPIO_PERIPHERAL_REGISTER_REGISTERDEFINES_REGISTERDEFINES_INTERRUPT_XHEADER_GPIO_REGISTERDEFINES_SI_H_ */

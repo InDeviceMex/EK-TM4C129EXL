@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, uint32_t u32BaudRateArg);
-uint32_t UART__u32GetBaudRate(UART_nMODULE enModule);
+UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, UBase_t uxBaudRateArg);
+UBase_t UART__uxGetBaudRate(UART_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_UART_LINECONTROL_BAUDRATE_UART_BAUDRATE_H_ */

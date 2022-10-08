@@ -27,29 +27,29 @@
 #include <xDriver_MCU/Core/NVIC/Peripheral/NVIC_Peripheral.h>
 #include <xDriver_MCU/Core/NVIC/Driver/Intrinsics/Primitives/NVIC_Primitives.h>
 
-NVIC_nERROR NVIC__enSetWriteValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, uint32_t u32ValueArg)
+NVIC_nERROR NVIC__enSetWriteValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, UBase_t uxValueArg)
 {
     NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    uint32_t u32VectorBit;
-    uint32_t u32VectorIndex;
+    UBase_t uxVectorBit;
+    UBase_t uxVectorIndex;
 
-    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((uint32_t) enVectorArg, (uint32_t) NVIC_enVECTOR_MAX);
+    enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        u32VectorBit = (uint32_t) enVectorArg;
-        u32VectorBit %= 32UL;
+        uxVectorBit = (UBase_t) enVectorArg;
+        uxVectorBit %= 32UL;
 
-        u32VectorIndex = (uint32_t) enVectorArg;
-        u32VectorIndex >>= 5UL;
-        u32VectorIndex <<= 2UL;
+        uxVectorIndex = (UBase_t) enVectorArg;
+        uxVectorIndex >>= 5UL;
+        uxVectorIndex <<= 2UL;
 
-        uptrRegisterOffsetArg += u32VectorIndex;
+        uptrRegisterOffsetArg += uxVectorIndex;
 
-        stRegister.u32Shift = (uint32_t) u32VectorBit;
-        stRegister.u32Mask = 0x1UL;
-        stRegister.uptrAddress = (uint32_t) uptrRegisterOffsetArg;
-        stRegister.u32Value = u32ValueArg;
+        stRegister.uxShift = (UBase_t) uxVectorBit;
+        stRegister.uxMask = 0x1UL;
+        stRegister.uptrAddress = (UBase_t) uptrRegisterOffsetArg;
+        stRegister.uxValue = uxValueArg;
         enErrorReg = NVIC__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);

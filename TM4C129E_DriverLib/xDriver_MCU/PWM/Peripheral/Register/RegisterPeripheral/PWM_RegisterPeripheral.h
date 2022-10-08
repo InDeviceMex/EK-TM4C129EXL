@@ -29,6 +29,6 @@
 
 #define PWM    ((PWMS_t*) (PWM_BASE))
 
-uint32_t PWM__u32BlockBaseAddress(PWM_nMODULE enModuleArg);
+uintptr_t PWM__uptrBlockBaseAddress(PWM_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_PWM_REGISTERPERIPHERAL_H_ */

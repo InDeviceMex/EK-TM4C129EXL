@@ -26,16 +26,16 @@
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetLoadTimer(QEI_nMODULE enModule, uint32_t u32LoadTimerArg)
+void QEI__vSetLoadTimer(QEI_nMODULE enModule, UBase_t uxLoadTimerArg)
 {
-    QEI__vWriteRegister(enModule, QEI_LOAD_OFFSET, u32LoadTimerArg,
+    QEI__vWriteRegister(enModule, QEI_LOAD_OFFSET, uxLoadTimerArg,
                         QEI_LOAD_LOAD_MASK, QEI_LOAD_R_LOAD_BIT);
 }
 
-uint32_t QEI__u32GetLoadTimer(QEI_nMODULE enModule)
+UBase_t QEI__uxGetLoadTimer(QEI_nMODULE enModule)
 {
-    uint32_t u32LoadTimerReg = 0UL;
-    u32LoadTimerReg = QEI__u32ReadRegister(enModule, QEI_LOAD_OFFSET,
+    UBase_t uxLoadTimerReg = 0UL;
+    uxLoadTimerReg = QEI__uxReadRegister(enModule, QEI_LOAD_OFFSET,
                                            QEI_LOAD_LOAD_MASK, QEI_LOAD_R_LOAD_BIT);
-    return (u32LoadTimerReg);
+    return (uxLoadTimerReg);
 }

@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/FLASH/Interrupt/InterruptRoutine/FLASH_InterruptRoutine.h>
 
-static FLASH_pvfIRQVectorHandler_t FLASH_pvIRQVectorHandler[(uint32_t) FLASH_enMODULE_MAX]=
+static FLASH_pvfIRQVectorHandler_t FLASH_pvIRQVectorHandler[(UBase_t) FLASH_enMODULE_MAX]=
 {
   &FLASH__vIRQVectorHandler
 };
@@ -31,13 +31,13 @@ static FLASH_pvfIRQVectorHandler_t FLASH_pvIRQVectorHandler[(uint32_t) FLASH_enM
 FLASH_pvfIRQVectorHandler_t FLASH__pvfGetIRQVectorHandler(FLASH_nMODULE enModuleArg)
 {
     FLASH_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = FLASH_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    pvfVectorReg = FLASH_pvIRQVectorHandler[(UBase_t) enModuleArg];
     return (pvfVectorReg);
 }
 
 FLASH_pvfIRQVectorHandler_t* FLASH__pvfGetIRQVectorHandlerPointer(FLASH_nMODULE enModuleArg)
 {
     FLASH_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &FLASH_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    pvfVectorReg = &FLASH_pvIRQVectorHandler[(UBase_t) enModuleArg];
     return (pvfVectorReg);
 }

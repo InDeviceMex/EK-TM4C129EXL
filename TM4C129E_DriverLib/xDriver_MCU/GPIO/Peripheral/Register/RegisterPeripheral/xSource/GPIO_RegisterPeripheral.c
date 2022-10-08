@@ -25,14 +25,14 @@
 
 uintptr_t GPIO__uptrBlockBaseAddress(GPIO_nPORT enPortArg)
 {
-    const uintptr_t GPIO_BLOCK_BASE[(uint32_t) GPIO_enPORT_MAX] =
+    const uintptr_t GPIO_BLOCK_BASE[(UBase_t) GPIO_enPORT_MAX] =
     {
      GPIOA_BASE, GPIOB_BASE, GPIOC_BASE, GPIOD_BASE,
      GPIOE_BASE, GPIOF_BASE, GPIOG_BASE, GPIOH_BASE,
      GPIOJ_BASE, GPIOK_BASE, GPIOL_BASE, GPIOM_BASE,
      GPION_BASE, GPIOP_BASE, GPIOQ_BASE
     };
-    return (GPIO_BLOCK_BASE[(uint32_t) enPortArg]);
+    return (GPIO_BLOCK_BASE[(UBase_t) enPortArg]);
 }
 
 

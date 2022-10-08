@@ -31,10 +31,10 @@ ADC_nERROR ADC__enSetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RAT
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    stRegister.u32Shift = ADC_PC_R_MCR_BIT;
-    stRegister.u32Mask = ADC_PC_MCR_MASK;
+    stRegister.uxShift = ADC_PC_R_MCR_BIT;
+    stRegister.uxMask = ADC_PC_MCR_MASK;
     stRegister.uptrAddress = ADC_PC_OFFSET;
-    stRegister.u32Value = (uint32_t) enConversionRateArg;
+    stRegister.uxValue = (UBase_t) enConversionRateArg;
     enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ ADC_nERROR ADC__enGetConversionRate(ADC_nMODULE enModuleArg, ADC_nCONVERSION_RAT
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_PC_R_MCR_BIT;
-        stRegister.u32Mask = ADC_PC_MCR_MASK;
+        stRegister.uxShift = ADC_PC_R_MCR_BIT;
+        stRegister.uxMask = ADC_PC_MCR_MASK;
         stRegister.uptrAddress = ADC_PC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penConversionRateArg = (ADC_nCONVERSION_RATE) stRegister.u32Value;
+        *penConversionRateArg = (ADC_nCONVERSION_RATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

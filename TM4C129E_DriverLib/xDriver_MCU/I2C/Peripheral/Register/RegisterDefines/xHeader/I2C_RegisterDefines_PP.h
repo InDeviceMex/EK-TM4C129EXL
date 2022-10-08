@@ -31,14 +31,14 @@
 ******************************************************************************************/
 
 /*--------*/
-#define I2C_CONTROL_PP_R_HS_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_CONTROL_PP_R_HS_BIT    ((uint32_t) 0UL)
-#define I2C_CONTROL_PP_R_HS_STD    ((uint32_t) 0x00000000UL)
-#define I2C_CONTROL_PP_R_HS_HS    ((uint32_t) 0x00000001UL)
+#define I2C_CONTROL_PP_R_HS_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_CONTROL_PP_R_HS_BIT    ((UBase_t) 0UL)
+#define I2C_CONTROL_PP_R_HS_STD    ((UBase_t) 0x00000000UL)
+#define I2C_CONTROL_PP_R_HS_HS    ((UBase_t) 0x00000001UL)
 
-#define I2C_CONTROL_PP_HS_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_CONTROL_PP_HS_STD    ((uint32_t) 0x00000000UL)
-#define I2C_CONTROL_PP_HS_HS    ((uint32_t) 0x00000001UL)
+#define I2C_CONTROL_PP_HS_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_CONTROL_PP_HS_STD    ((UBase_t) 0x00000000UL)
+#define I2C_CONTROL_PP_HS_HS    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /******************************************************************************************
@@ -46,14 +46,14 @@
 ******************************************************************************************/
 
 /*--------*/
-#define I2C_PP_R_HS_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_PP_R_HS_BIT    ((uint32_t) 0UL)
-#define I2C_PP_R_HS_STD    ((uint32_t) 0x00000000UL)
-#define I2C_PP_R_HS_HS    ((uint32_t) 0x00000001UL)
+#define I2C_PP_R_HS_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_PP_R_HS_BIT    ((UBase_t) 0UL)
+#define I2C_PP_R_HS_STD    ((UBase_t) 0x00000000UL)
+#define I2C_PP_R_HS_HS    ((UBase_t) 0x00000001UL)
 
-#define I2C_PP_HS_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_PP_HS_STD    ((uint32_t) 0x00000000UL)
-#define I2C_PP_HS_HS    ((uint32_t) 0x00000001UL)
+#define I2C_PP_HS_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_PP_HS_STD    ((UBase_t) 0x00000000UL)
+#define I2C_PP_HS_HS    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_PP_H_ */

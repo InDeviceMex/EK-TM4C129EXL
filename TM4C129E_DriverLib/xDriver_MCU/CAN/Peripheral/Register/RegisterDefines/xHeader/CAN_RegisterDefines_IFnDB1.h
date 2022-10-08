@@ -31,19 +31,19 @@
 ************************************ 24,28 IFn_DB1 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define CAN_IFn_DB1_R_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DB1_R_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DB1_R_DATA4_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFn_DB1_R_DATA5_MASK    ((uint32_t) 0x0000FF00UL)
-#define CAN_IFn_DB1_R_DATA_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DB1_R_DATA45_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DB1_R_DATA4_BIT    ((uint32_t) 0UL)
-#define CAN_IFn_DB1_R_DATA5_BIT    ((uint32_t) 8UL)
+#define CAN_IFn_DB1_R_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_R_DATA45_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_R_DATA4_MASK    ((UBase_t) 0x000000FFUL)
+#define CAN_IFn_DB1_R_DATA5_MASK    ((UBase_t) 0x0000FF00UL)
+#define CAN_IFn_DB1_R_DATA_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DB1_R_DATA45_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DB1_R_DATA4_BIT    ((UBase_t) 0UL)
+#define CAN_IFn_DB1_R_DATA5_BIT    ((UBase_t) 8UL)
 
-#define CAN_IFn_DB1_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DB1_DATA45_MASK    ((uint32_t) 0x0000FFFFUL)
-#define CAN_IFn_DB1_DATA4_MASK    ((uint32_t) 0x000000FFUL)
-#define CAN_IFn_DB1_DATA5_MASK    ((uint32_t) 0x0000FFUL)
+#define CAN_IFn_DB1_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_DATA45_MASK    ((UBase_t) 0x0000FFFFUL)
+#define CAN_IFn_DB1_DATA4_MASK    ((UBase_t) 0x000000FFUL)
+#define CAN_IFn_DB1_DATA5_MASK    ((UBase_t) 0x0000FFUL)
 /*--------*/
 
 

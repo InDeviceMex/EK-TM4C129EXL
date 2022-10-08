@@ -29,7 +29,7 @@
 SSI_nBUSY SSI__enGetBusyState(SSI_nMODULE enModule)
 {
     SSI_nBUSY enBusyReg = SSI_enBUSY_IDLE;
-    enBusyReg = (SSI_nBUSY) SSI__u32ReadRegister(enModule,
+    enBusyReg = (SSI_nBUSY) SSI__uxReadRegister(enModule,
               SSI_SR_OFFSET, SSI_SR_BSY_MASK, SSI_SR_R_BSY_BIT);
     return (enBusyReg);
 }

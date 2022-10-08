@@ -26,20 +26,20 @@
 
 void DMA_ERROR__vIRQVectorHandler(void)
 {
-    uint32_t u32Reg;
-    uint32_t u32Ready;
+    UBase_t uxReg;
+    UBase_t uxReady;
     DMA_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PRDMA_R;
-    if(SYSCTL_PRDMA_R_UDMA_NOREADY == (SYSCTL_PRDMA_R_UDMA_MASK & u32Ready))
+    uxReady = SYSCTL_PRDMA_R;
+    if(SYSCTL_PRDMA_R_UDMA_NOREADY == (SYSCTL_PRDMA_R_UDMA_MASK & uxReady))
     {
         pvfCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enMODULE_0, DMA_enINT_ERROR_SW);
         pvfCallback(DMA_BASE, (void*) DMA_enINT_ERROR_SW);
     }
     else
     {
-        u32Reg = DMA_ERRCLR_R;
-        if(DMA_ERRCLR_R_ERRCLR_MASK & u32Reg)
+        uxReg = DMA_ERRCLR_R;
+        if(DMA_ERRCLR_R_ERRCLR_MASK & uxReg)
         {
             DMA_ERRCLR_R = DMA_ERRCLR_ERRCLR_CLEAR;
             pvfCallback = DMA__pvfGetIRQSourceHandler_Error(DMA_enMODULE_0, DMA_enINT_ERROR_ERROR);

@@ -23,41 +23,31 @@
  */
 #include <xDriver_MCU/ACMP/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/ACMP_InterruptRoutine_Source.h>
 
-static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
-
-static ACMP_pvfIRQSourceHandler_t ACMP_SW__vIRQSourceHandler[(uint32_t)ACMP_enMODULE_MAX][(uint32_t)ACMP_enCOMP_MAX] =
+static ACMP_pvfIRQSourceHandler_t ACMP_SW__vIRQSourceHandler[(UBase_t)ACMP_enMODULE_MAX][(UBase_t)ACMP_enCOMP_MAX] =
 {
     {
-     &ACMP_vIRQSourceHandler_Dummy,
-     &ACMP_vIRQSourceHandler_Dummy,
-     &ACMP_vIRQSourceHandler_Dummy
+     &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy
     }
 };
 
-static ACMP_pvfIRQSourceHandler_t ACMP__vIRQSourceHandler[(uint32_t)ACMP_enMODULE_MAX][(uint32_t)ACMP_enCOMP_MAX] =
+static ACMP_pvfIRQSourceHandler_t ACMP__vIRQSourceHandler[(UBase_t)ACMP_enMODULE_MAX][(UBase_t)ACMP_enCOMP_MAX] =
 {
     {
-     &ACMP_vIRQSourceHandler_Dummy,
-     &ACMP_vIRQSourceHandler_Dummy,
-     &ACMP_vIRQSourceHandler_Dummy
+     &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy
     }
 };
-
-static void ACMP_vIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
-{
-    (void) uptrModuleArg;
-    (void) pvArgument;
-
-    while(1UL){}
-}
 
 ACMP_pvfIRQSourceHandler_t ACMP_SW__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg,
                                                            ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
 
-    pvfFunctionReg = ACMP_SW__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                               [(uint32_t) enComparatorArg];
+    pvfFunctionReg = ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg]
+                                               [(UBase_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
@@ -67,8 +57,8 @@ ACMP_pvfIRQSourceHandler_t* ACMP_SW__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE 
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
 
-    pvfFunctionReg = &ACMP_SW__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                                [(uint32_t) enComparatorArg];
+    pvfFunctionReg = &ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                [(UBase_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
@@ -78,8 +68,8 @@ ACMP_pvfIRQSourceHandler_t ACMP__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
 
-    pvfFunctionReg = ACMP__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                            [(uint32_t) enComparatorArg];
+    pvfFunctionReg = ACMP__vIRQSourceHandler[(UBase_t) enModuleArg]
+                                            [(UBase_t) enComparatorArg];
 
     return (pvfFunctionReg);
 }
@@ -88,7 +78,7 @@ ACMP_pvfIRQSourceHandler_t* ACMP__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enM
                                                                ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
-    pvfFunctionReg = &ACMP__vIRQSourceHandler[(uint32_t) enModuleArg]
-                                             [(uint32_t) enComparatorArg];
+    pvfFunctionReg = &ACMP__vIRQSourceHandler[(UBase_t) enModuleArg]
+                                             [(UBase_t) enComparatorArg];
     return (pvfFunctionReg);
 }

@@ -30,7 +30,7 @@
 ADC_nERROR ADC__enSetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK enClockSourceArg);
 ADC_nERROR ADC__enGetClockSource(ADC_nMODULE enModuleArg, ADC_nCLOCK* penClockSourceArg);
 
-ADC_nERROR ADC__enSetVCODivisor(ADC_nMODULE enModuleArg, uint32_t u32VCODivisorArg);
-ADC_nERROR ADC__enGetVCODivisor(ADC_nMODULE enModuleArg, uint32_t* pu32VCODivisorArg);
+ADC_nERROR ADC__enSetVCODivisor(ADC_nMODULE enModuleArg, UBase_t uxVCODivisorArg);
+ADC_nERROR ADC__enGetVCODivisor(ADC_nMODULE enModuleArg, UBase_t* puxVCODivisorArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_GENERAL_XHEADER_ADC_CLOCKCONFIG_H_ */

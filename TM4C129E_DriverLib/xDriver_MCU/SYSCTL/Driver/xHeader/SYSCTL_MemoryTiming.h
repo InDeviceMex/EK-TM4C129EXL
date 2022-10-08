@@ -10,7 +10,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vSetMemoryTiming(uint32_t u32SysClock);
+void SYSCTL__vSetMemoryTiming(UBase_t uxSysClock);
 void SYSCTL__vGetMemoryTiming(SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
                               SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
                               SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);

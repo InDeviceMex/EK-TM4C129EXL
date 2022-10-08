@@ -31,10 +31,10 @@
 ************************************ 24 GEN_DBFALL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_GEN_DBFALL_R_FALLDELAY_MASK    ((uint32_t) 0x00000FFFUL)
-#define PWM_GEN_DBFALL_R_FALLDELAY_BIT    ((uint32_t) 0UL)
+#define PWM_GEN_DB_FALL_R_DELAY_MASK    ((UBase_t) 0x00000FFFUL)
+#define PWM_GEN_DB_FALL_R_DELAY_BIT    ((UBase_t) 0UL)
 
-#define PWM_GEN_DBFALL_FALLDELAY_MASK    ((uint32_t) 0x00000FFFUL)
+#define PWM_GEN_DB_FALL_DELAY_MASK    ((UBase_t) 0x00000FFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_GEN_DBFALL_H_ */

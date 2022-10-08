@@ -28,10 +28,10 @@
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 #include <xApplication_MCU/PWM/Interrupt/InterruptRoutine/InterruptRoutine_Vector_Module0/PWM_InterruptRoutine_Vector_Module0.h>
 
-void (*PWM_Generator__pvfGetIRQVectorHandler(PWM_nMODULE enPWMModule, PWM_nGENERATOR enPWMGenerator))(void);
-void (**PWM_Generator__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enPWMModule, PWM_nGENERATOR enPWMGenerator))(void);
+PWM_pvfIRQVectorHandler_t PWM_Generator__pvfGetIRQVectorHandler(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
+PWM_pvfIRQVectorHandler_t* PWM_Generator__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
 
-void (*PWM_Fault__pvfGetIRQVectorHandler(PWM_nMODULE enPWMModule))(void);
-void (**PWM_Fault__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enPWMModule))(void);
+PWM_pvfIRQVectorHandler_t PWM_Fault__pvfGetIRQVectorHandler(PWM_nMODULE enModuleArg);
+PWM_pvfIRQVectorHandler_t* PWM_Fault__pvfGetIRQVectorHandlerPointer(PWM_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_PWM_INTERRUPT_INTERRUPTROUTINE_PWM_INTERRUPTROUTINE_H_ */

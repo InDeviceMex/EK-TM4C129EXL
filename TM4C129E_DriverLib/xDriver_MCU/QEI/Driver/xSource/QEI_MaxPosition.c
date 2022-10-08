@@ -26,16 +26,16 @@
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetMaxPosition(QEI_nMODULE enModule, uint32_t u32MaxPositionArg)
+void QEI__vSetMaxPosition(QEI_nMODULE enModule, UBase_t uxMaxPositionArg)
 {
-    QEI__vWriteRegister(enModule, QEI_MAXPOS_OFFSET, u32MaxPositionArg,
+    QEI__vWriteRegister(enModule, QEI_MAXPOS_OFFSET, uxMaxPositionArg,
                         QEI_MAXPOS_MAXPOS_MASK, QEI_MAXPOS_R_MAXPOS_BIT);
 }
 
-uint32_t QEI__u32GetMaxPosition(QEI_nMODULE enModule)
+UBase_t QEI__uxGetMaxPosition(QEI_nMODULE enModule)
 {
-    uint32_t u32MaxPositionReg = 0UL;
-    u32MaxPositionReg = QEI__u32ReadRegister(enModule, QEI_MAXPOS_OFFSET,
+    UBase_t uxMaxPositionReg = 0UL;
+    uxMaxPositionReg = QEI__uxReadRegister(enModule, QEI_MAXPOS_OFFSET,
                              QEI_MAXPOS_MAXPOS_MASK, QEI_MAXPOS_R_MAXPOS_BIT);
-    return (u32MaxPositionReg);
+    return (uxMaxPositionReg);
 }

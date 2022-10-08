@@ -29,16 +29,16 @@
 ACMP_nERROR ACMP__vInit(ACMP_nMODULE enModuleArg)
 {
     ACMP_nERROR enErrorReg;
-    uint32_t u32CompReg;
+    UBase_t uxCompReg;
     ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    u32CompReg = 0UL;
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
-    while((u32CompReg < (uint32_t) ACMP_enCOMP_MAX) && (ACMP_enERROR_OK == enErrorReg))
+    uxCompReg = 0UL;
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
+    while((uxCompReg < (UBase_t) ACMP_enCOMP_MAX) && (ACMP_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = ACMP__pvfGetIRQVectorHandler(enModuleArg, (ACMP_nCOMP) u32CompReg);
-        enErrorReg = ACMP__enRegisterIRQVectorHandler(enModuleArg, (ACMP_nCOMP) u32CompReg, pfIrqVectorHandlerReg);
-        u32CompReg++;
+        pfIrqVectorHandlerReg = ACMP__pvfGetIRQVectorHandler(enModuleArg, (ACMP_nCOMP) uxCompReg);
+        enErrorReg = ACMP__enRegisterIRQVectorHandler(enModuleArg, (ACMP_nCOMP) uxCompReg, pfIrqVectorHandlerReg);
+        uxCompReg++;
     }
 
     return (enErrorReg);

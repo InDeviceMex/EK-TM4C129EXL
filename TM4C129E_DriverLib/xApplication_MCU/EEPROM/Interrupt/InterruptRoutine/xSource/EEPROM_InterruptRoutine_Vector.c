@@ -27,43 +27,43 @@
 
 void EEPROM__vIRQVectorHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    uint32_t u32Reg;
-    uint32_t u32Ready;
+    UBase_t uxReg;
+    UBase_t uxReady;
     EEPROM_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PREEPROM_R;
-    if(SYSCTL_PREEPROM_R_EEPROM_NOREADY == (SYSCTL_PREEPROM_R_EEPROM_MASK & u32Ready))
+    uxReady = SYSCTL_PREEPROM_R;
+    if(SYSCTL_PREEPROM_R_EEPROM_NOREADY == (SYSCTL_PREEPROM_R_EEPROM_MASK & uxReady))
     {
         pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_SW);
         pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_SW);
     }
     else
     {
-        u32Reg = EEPROM_DONE_R;
+        uxReg = EEPROM_DONE_R;
 
-        if(0UL == ((uint32_t) EEPROM_enINTMASK_ALL & u32Reg))
+        if(0UL == ((UBase_t) EEPROM_enINTMASK_ALL & uxReg))
         {
             pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_SW);
             pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_SW);
         }
         else
         {
-            if((uint32_t) EEPROM_enINTMASK_ERASE & u32Reg)
+            if((UBase_t) EEPROM_enINTMASK_ERASE & uxReg)
             {
                 pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_ERASE);
                 pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_ERASE);
             }
-            if((uint32_t) EEPROM_enINTMASK_COPY & u32Reg)
+            if((UBase_t) EEPROM_enINTMASK_COPY & uxReg)
             {
                 pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_COPY);
                 pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_COPY);
             }
-            if((uint32_t) EEPROM_enINTMASK_NOPERMISSION & u32Reg)
+            if((UBase_t) EEPROM_enINTMASK_NOPERMISSION & uxReg)
             {
                 pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_NOPERMISSION);
                 pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_NOPERMISSION);
             }
-            if((uint32_t) EEPROM_enINTMASK_WRITE & u32Reg)
+            if((UBase_t) EEPROM_enINTMASK_WRITE & uxReg)
             {
                 pvfCallback = EEPROM__pvfGetIRQSourceHandler(EEPROM_enMODULE_0, EEPROM_enINT_WRITE);
                 pvfCallback(EEPROM_BASE, (void*) EEPROM_enINT_WRITE);

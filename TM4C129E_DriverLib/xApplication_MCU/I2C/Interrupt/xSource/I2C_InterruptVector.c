@@ -29,17 +29,17 @@ static I2C_nERROR I2C__enGetInterruptVector(I2C_nMODULE enModuleArg, NVIC_nVECTO
 
 static I2C_nERROR I2C__enGetInterruptVector(I2C_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_I2C[(uint32_t) I2C_enMODULE_MAX]=
+    const NVIC_nVECTOR NVIC_VECTOR_I2C[(UBase_t) I2C_enMODULE_MAX]=
     {
      NVIC_enVECTOR_I2C0, NVIC_enVECTOR_I2C1, NVIC_enVECTOR_I2C2, NVIC_enVECTOR_I2C3, NVIC_enVECTOR_I2C4,
      NVIC_enVECTOR_I2C5, NVIC_enVECTOR_I2C6, NVIC_enVECTOR_I2C7, NVIC_enVECTOR_I2C8, NVIC_enVECTOR_I2C9
     };
     I2C_nERROR enErrorReg;
 
-    enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_VECTOR_I2C[(uint32_t) enModuleArg];
+        *enVectorArg = NVIC_VECTOR_I2C[(UBase_t) enModuleArg];
 
     }
     return (enErrorReg);

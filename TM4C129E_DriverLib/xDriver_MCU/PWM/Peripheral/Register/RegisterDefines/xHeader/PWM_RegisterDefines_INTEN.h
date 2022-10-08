@@ -31,91 +31,91 @@
 ************************************ 6 INTEN *********************************************
 ******************************************************************************************/
 /*--------*/
-#define PWM_INTEN_R_INTPWM0_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_R_INTPWM0_BIT    ((uint32_t) 0UL)
-#define PWM_INTEN_R_INTPWM0_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTPWM0_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_R_GEN0_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_R_GEN0_BIT    ((UBase_t) 0UL)
+#define PWM_INTEN_R_GEN0_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN0_ENA    ((UBase_t) 0x00000001UL)
 
-#define PWM_INTEN_INTPWM0_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTPWM0_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTPWM0_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN0_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN0_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN0_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTPWM1_MASK    ((uint32_t) 0x00000002UL)
-#define PWM_INTEN_R_INTPWM1_BIT    ((uint32_t) 1UL)
-#define PWM_INTEN_R_INTPWM1_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTPWM1_ENA    ((uint32_t) 0x00000002UL)
+#define PWM_INTEN_R_GEN1_MASK    ((UBase_t) 0x00000002UL)
+#define PWM_INTEN_R_GEN1_BIT    ((UBase_t) 1UL)
+#define PWM_INTEN_R_GEN1_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN1_ENA    ((UBase_t) 0x00000002UL)
 
-#define PWM_INTEN_INTPWM1_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTPWM1_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTPWM1_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN1_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN1_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN1_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTPWM2_MASK    ((uint32_t) 0x00000004UL)
-#define PWM_INTEN_R_INTPWM2_BIT    ((uint32_t) 2UL)
-#define PWM_INTEN_R_INTPWM2_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTPWM2_ENA    ((uint32_t) 0x00000004UL)
+#define PWM_INTEN_R_GEN2_MASK    ((UBase_t) 0x00000004UL)
+#define PWM_INTEN_R_GEN2_BIT    ((UBase_t) 2UL)
+#define PWM_INTEN_R_GEN2_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN2_ENA    ((UBase_t) 0x00000004UL)
 
-#define PWM_INTEN_INTPWM2_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTPWM2_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTPWM2_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN2_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN2_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN2_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTPWM3_MASK    ((uint32_t) 0x00000008UL)
-#define PWM_INTEN_R_INTPWM3_BIT    ((uint32_t) 3UL)
-#define PWM_INTEN_R_INTPWM3_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTPWM3_ENA    ((uint32_t) 0x00000008UL)
+#define PWM_INTEN_R_GEN3_MASK    ((UBase_t) 0x00000008UL)
+#define PWM_INTEN_R_GEN3_BIT    ((UBase_t) 3UL)
+#define PWM_INTEN_R_GEN3_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN3_ENA    ((UBase_t) 0x00000008UL)
 
-#define PWM_INTEN_INTPWM3_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTPWM3_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTPWM3_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN3_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN3_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN3_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTFAULT0_MASK    ((uint32_t) 0x00010000UL)
-#define PWM_INTEN_R_INTFAULT0_BIT    ((uint32_t) 16UL)
-#define PWM_INTEN_R_INTFAULT0_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTFAULT0_ENA    ((uint32_t) 0x00010000UL)
+#define PWM_INTEN_R_GEN0_FAULT_MASK    ((UBase_t) 0x00010000UL)
+#define PWM_INTEN_R_GEN0_FAULT_BIT    ((UBase_t) 16UL)
+#define PWM_INTEN_R_GEN0_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN0_FAULT_ENA    ((UBase_t) 0x00010000UL)
 
-#define PWM_INTEN_INTFAULT0_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTFAULT0_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTFAULT0_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN0_FAULT_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN0_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN0_FAULT_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTFAULT1_MASK    ((uint32_t) 0x00020000UL)
-#define PWM_INTEN_R_INTFAULT1_BIT    ((uint32_t) 17UL)
-#define PWM_INTEN_R_INTFAULT1_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTFAULT1_ENA    ((uint32_t) 0x00020000UL)
+#define PWM_INTEN_R_GEN1_FAULT_MASK    ((UBase_t) 0x00020000UL)
+#define PWM_INTEN_R_GEN1_FAULT_BIT    ((UBase_t) 17UL)
+#define PWM_INTEN_R_GEN1_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN1_FAULT_ENA    ((UBase_t) 0x00020000UL)
 
-#define PWM_INTEN_INTFAULT1_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTFAULT1_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTFAULT1_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN1_FAULT_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN1_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN1_FAULT_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTFAULT2_MASK    ((uint32_t) 0x00040000UL)
-#define PWM_INTEN_R_INTFAULT2_BIT    ((uint32_t) 18UL)
-#define PWM_INTEN_R_INTFAULT2_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTFAULT2_ENA    ((uint32_t) 0x00040000UL)
+#define PWM_INTEN_R_GEN2_FAULT_MASK    ((UBase_t) 0x00040000UL)
+#define PWM_INTEN_R_GEN2_FAULT_BIT    ((UBase_t) 18UL)
+#define PWM_INTEN_R_GEN2_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN2_FAULT_ENA    ((UBase_t) 0x00040000UL)
 
-#define PWM_INTEN_INTFAULT2_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTFAULT2_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTFAULT2_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN2_FAULT_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN2_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN2_FAULT_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define PWM_INTEN_R_INTFAULT3_MASK    ((uint32_t) 0x00080000UL)
-#define PWM_INTEN_R_INTFAULT3_BIT    ((uint32_t) 19UL)
-#define PWM_INTEN_R_INTFAULT3_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_R_INTFAULT3_ENA    ((uint32_t) 0x00080000UL)
+#define PWM_INTEN_R_GEN3_FAULT_MASK    ((UBase_t) 0x00080000UL)
+#define PWM_INTEN_R_GEN3_FAULT_BIT    ((UBase_t) 19UL)
+#define PWM_INTEN_R_GEN3_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_R_GEN3_FAULT_ENA    ((UBase_t) 0x00080000UL)
 
-#define PWM_INTEN_INTFAULT3_MASK    ((uint32_t) 0x00000001UL)
-#define PWM_INTEN_INTFAULT3_DIS    ((uint32_t) 0x00000000UL)
-#define PWM_INTEN_INTFAULT3_ENA    ((uint32_t) 0x00000001UL)
+#define PWM_INTEN_GEN3_FAULT_MASK    ((UBase_t) 0x00000001UL)
+#define PWM_INTEN_GEN3_FAULT_DIS    ((UBase_t) 0x00000000UL)
+#define PWM_INTEN_GEN3_FAULT_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_PWM_REGISTERDEFINES_INTEN_H_ */

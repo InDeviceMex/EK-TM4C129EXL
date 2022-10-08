@@ -29,7 +29,7 @@
 
 GPIO_nERROR GPIO__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR_GPIO[(uint32_t) GPIO_enPORT_MAX] =
+    const SCB_nVECISR SCB_enVECISR_GPIO[(UBase_t) GPIO_enPORT_MAX] =
     {
       SCB_enVECISR_GPIOA, SCB_enVECISR_GPIOB, SCB_enVECISR_GPIOC, SCB_enVECISR_GPIOD, SCB_enVECISR_GPIOE,
       SCB_enVECISR_GPIOF, SCB_enVECISR_GPIOG, SCB_enVECISR_GPIOH, SCB_enVECISR_GPIOJ, SCB_enVECISR_GPIOK,
@@ -39,10 +39,10 @@ GPIO_nERROR GPIO__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_pvfIRQVe
     GPIO_nERROR enErrorReg;
     GPIO_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPortArg, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enVectorReg = SCB_enVECISR_GPIO[(uint32_t) enPortArg];
+        enVectorReg = SCB_enVECISR_GPIO[(UBase_t) enPortArg];
         pvfVectorHandlerReg = GPIO__pvfGetIRQVectorHandlerPointer(enPortArg);
         enErrorReg = (GPIO_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
@@ -52,7 +52,7 @@ GPIO_nERROR GPIO__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_pvfIRQVe
 
 GPIO_nERROR GPIO_PQ__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, GPIO_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR_GPIO_PQ[(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P] [(uint32_t) GPIO_enPIN_MAX] =
+    const SCB_nVECISR SCB_enVECISR_GPIO_PQ[(UBase_t) GPIO_enPORT_MAX - (UBase_t) GPIO_enPORT_P] [(UBase_t) GPIO_enPIN_MAX] =
     {
      {
          SCB_enVECISR_GPIOP, SCB_enVECISR_GPIOP1, SCB_enVECISR_GPIOP2, SCB_enVECISR_GPIOP3,
@@ -75,17 +75,17 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_nPIN 
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         if(GPIO_enPORT_P == enPortArg)
         {
-            enVectorReg = SCB_enVECISR_GPIO_PQ[0UL][(uint32_t) enPinArg];
+            enVectorReg = SCB_enVECISR_GPIO_PQ[0UL][(UBase_t) enPinArg];
         }
         else if(GPIO_enPORT_Q == enPortArg)
         {
-            enVectorReg = SCB_enVECISR_GPIO_PQ[1UL][(uint32_t) enPinArg];
+            enVectorReg = SCB_enVECISR_GPIO_PQ[1UL][(UBase_t) enPinArg];
         }
         pvfVectorHandlerReg = GPIO_PQ__pvfGetIRQVectorHandlerPointer(enPortArg, enPinArg);
         enErrorReg = (GPIO_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
@@ -97,35 +97,35 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_nPIN 
 GPIO_nERROR GPIO__enRegisterAll_IRQVectorHandler(void)
 {
     GPIO_nERROR enErrorReg;
-    uint32_t u32PortReg;
-    uint32_t u32PinReg;
+    UBase_t uxPortReg;
+    UBase_t uxPinReg;
     GPIO_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    u32PortReg = (uint32_t) GPIO_enPORT_A;
+    uxPortReg = (UBase_t) GPIO_enPORT_A;
     enErrorReg = GPIO_enERROR_OK;
-    while((u32PortReg < (uint32_t) GPIO_enPORT_MAX) && (GPIO_enERROR_OK == enErrorReg))
+    while((uxPortReg < (UBase_t) GPIO_enPORT_MAX) && (GPIO_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = GPIO__pvfGetIRQVectorHandler((GPIO_nPORT) u32PortReg);
-        enErrorReg = GPIO__enRegisterIRQVectorHandler((GPIO_nPORT) u32PortReg, pfIrqVectorHandlerReg);
-        u32PortReg++;
+        pfIrqVectorHandlerReg = GPIO__pvfGetIRQVectorHandler((GPIO_nPORT) uxPortReg);
+        enErrorReg = GPIO__enRegisterIRQVectorHandler((GPIO_nPORT) uxPortReg, pfIrqVectorHandlerReg);
+        uxPortReg++;
     }
 
-    u32PinReg = (uint32_t) GPIO_enPIN_1;
+    uxPinReg = (UBase_t) GPIO_enPIN_1;
     enErrorReg = GPIO_enERROR_OK;
-    while((u32PinReg < (uint32_t) GPIO_enPIN_MAX) && (GPIO_enERROR_OK == enErrorReg))
+    while((uxPinReg < (UBase_t) GPIO_enPIN_MAX) && (GPIO_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = GPIO_PQ__pvfGetIRQVectorHandler(GPIO_enPORT_P, (GPIO_nPIN) u32PinReg);
-        enErrorReg = GPIO_PQ__enRegisterIRQVectorHandler(GPIO_enPORT_P, (GPIO_nPIN) u32PinReg, pfIrqVectorHandlerReg);
-        u32PinReg++;
+        pfIrqVectorHandlerReg = GPIO_PQ__pvfGetIRQVectorHandler(GPIO_enPORT_P, (GPIO_nPIN) uxPinReg);
+        enErrorReg = GPIO_PQ__enRegisterIRQVectorHandler(GPIO_enPORT_P, (GPIO_nPIN) uxPinReg, pfIrqVectorHandlerReg);
+        uxPinReg++;
     }
 
-    u32PinReg = (uint32_t) GPIO_enPIN_1;
+    uxPinReg = (UBase_t) GPIO_enPIN_1;
     enErrorReg = GPIO_enERROR_OK;
-    while((u32PinReg < (uint32_t) GPIO_enPIN_MAX) && (GPIO_enERROR_OK == enErrorReg))
+    while((uxPinReg < (UBase_t) GPIO_enPIN_MAX) && (GPIO_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = GPIO_PQ__pvfGetIRQVectorHandler(GPIO_enPORT_Q, (GPIO_nPIN) u32PinReg);
-        enErrorReg = GPIO_PQ__enRegisterIRQVectorHandler(GPIO_enPORT_Q, (GPIO_nPIN) u32PinReg, pfIrqVectorHandlerReg);
-        u32PinReg++;
+        pfIrqVectorHandlerReg = GPIO_PQ__pvfGetIRQVectorHandler(GPIO_enPORT_Q, (GPIO_nPIN) uxPinReg);
+        enErrorReg = GPIO_PQ__enRegisterIRQVectorHandler(GPIO_enPORT_Q, (GPIO_nPIN) uxPinReg, pfIrqVectorHandlerReg);
+        uxPinReg++;
     }
     return (enErrorReg);
 }

@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/I2C/Interrupt/InterruptRoutine/I2C_InterruptRoutine.h>
 
-static I2C_pvfIRQVectorHandler_t I2C_pvIRQVectorHandler[(uint32_t) I2C_enMODULE_MAX] =
+static I2C_pvfIRQVectorHandler_t I2C_pvIRQVectorHandler[(UBase_t) I2C_enMODULE_MAX] =
 {
  &I2C0__vIRQVectorHandler, &I2C1__vIRQVectorHandler, &I2C2__vIRQVectorHandler, &I2C3__vIRQVectorHandler, &I2C4__vIRQVectorHandler,
  &I2C5__vIRQVectorHandler, &I2C6__vIRQVectorHandler, &I2C7__vIRQVectorHandler, &I2C8__vIRQVectorHandler, &I2C9__vIRQVectorHandler
@@ -32,14 +32,14 @@ static I2C_pvfIRQVectorHandler_t I2C_pvIRQVectorHandler[(uint32_t) I2C_enMODULE_
 I2C_pvfIRQVectorHandler_t I2C__pvfGetIRQVectorHandler(I2C_nMODULE enModuleArg)
 {
     I2C_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = I2C_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    pvfVectorReg = I2C_pvIRQVectorHandler[(UBase_t) enModuleArg];
     return (pvfVectorReg);
 }
 
 I2C_pvfIRQVectorHandler_t* I2C__pvfGetIRQVectorHandlerPointer(I2C_nMODULE enModuleArg)
 {
     I2C_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &I2C_pvIRQVectorHandler[(uint32_t) enModuleArg];
+    pvfVectorReg = &I2C_pvIRQVectorHandler[(UBase_t) enModuleArg];
     return (pvfVectorReg);
 }
 

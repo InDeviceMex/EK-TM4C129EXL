@@ -25,67 +25,239 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-static NVIC_nVECTOR PWM_Generator__enGetInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-static NVIC_nVECTOR PWM_Fault__enGetInterruptVector(PWM_nMODULE enModule);
 
-static NVIC_nVECTOR PWM_Generator__enGetInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+static PWM_nERROR PWM_Generator__enGetInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, NVIC_nVECTOR* enVectorArg);
+
+static PWM_nERROR PWM_Generator__enGetInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, NVIC_nVECTOR* enVectorArg)
 {
-
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0GEN0;
-    uint32_t u32Module = 0UL;
-    uint32_t u32Generator = 0UL;
-    NVIC_nVECTOR NVIC_VECTOR_PWM[(uint32_t) PWM_enMODULE_MAX][(uint32_t) PWM_enGEN_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX][(UBase_t) PWM_enGEN_MAX] =
     {
-        { NVIC_enVECTOR_PWM0GEN0, NVIC_enVECTOR_PWM0GEN1,
-          NVIC_enVECTOR_PWM0GEN2, NVIC_enVECTOR_PWM0GEN3},
+     { NVIC_enVECTOR_PWM0GEN0, NVIC_enVECTOR_PWM0GEN1, NVIC_enVECTOR_PWM0GEN2, NVIC_enVECTOR_PWM0GEN3},
     };
+    PWM_nERROR enErrorReg;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-    u32Generator = MCU__u32CheckParams((uint32_t) enGenerator, (uint32_t) PWM_enGEN_MAX);
-    enVector = NVIC_VECTOR_PWM[u32Module][u32Generator];
-    return (enVector);
-}
-
-static NVIC_nVECTOR PWM_Fault__enGetInterruptVector(PWM_nMODULE enModule)
-{
-
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0FAULT;
-    uint32_t u32Module = 0UL;
-    NVIC_nVECTOR NVIC_VECTOR_PWM[(uint32_t) PWM_enMODULE_MAX] =
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-         NVIC_enVECTOR_PWM0FAULT
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_PWM[(UBase_t) enModuleArg][(UBase_t) enGeneratorArg];
+
+    }
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Generator__enGetInterruptVector(enModuleArg, enGeneratorArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg, PWM_nPRIORITY enPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Generator__enGetInterruptVector(enModuleArg, enGeneratorArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enGetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Generator__enGetInterruptVector(enModuleArg, enGeneratorArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enGetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg, PWM_nPRIORITY* penPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Generator__enGetInterruptVector(enModuleArg, enGeneratorArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enEnableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Generator__enSetInterruptVectorState(enModuleArg, enGeneratorArg, PWM_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enEnableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nPRIORITY enPriorityArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Generator__enSetInterruptVectorStateWithPriority(enModuleArg, enGeneratorArg, PWM_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enDisableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Generator__enSetInterruptVectorState(enModuleArg, enGeneratorArg, PWM_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enDisableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nPRIORITY enPriorityArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Generator__enSetInterruptVectorStateWithPriority(enModuleArg, enGeneratorArg, PWM_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
+}
+
+
+
+static PWM_nERROR PWM_Fault__enGetInterruptVector(PWM_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg);
+
+static PWM_nERROR PWM_Fault__enGetInterruptVector(PWM_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
+{
+    const NVIC_nVECTOR NVIC_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX]=
+    {
+     NVIC_enVECTOR_PWM0FAULT
     };
+    PWM_nERROR enErrorReg;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-    enVector = NVIC_VECTOR_PWM[u32Module];
-    return (enVector);
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_PWM[(UBase_t) enModuleArg];
+
+    }
+    return (enErrorReg);
 }
 
-void PWM_Generator__vEnInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nPRIORITY enPWMPriority)
+PWM_nERROR PWM_Fault__enSetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nSTATE enStateArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0GEN0;
-    enVector = PWM_Generator__enGetInterruptVector(enModule, enGenerator);
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enPWMPriority);
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Fault__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void PWM_Generator__vDisInterruptVector(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nERROR PWM_Fault__enSetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nSTATE enStateArg, PWM_nPRIORITY enPriorityArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0GEN0;
-    enVector = PWM_Generator__enGetInterruptVector(enModule, enGenerator);
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Fault__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void PWM_Fault__vEnInterruptVector(PWM_nMODULE enModule, PWM_nPRIORITY enPWMPriority)
+PWM_nERROR PWM_Fault__enGetInterruptVectorState(PWM_nMODULE enModuleArg, PWM_nSTATE* penStateArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0FAULT;
-    enVector = PWM_Fault__enGetInterruptVector(enModule);
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enPWMPriority);
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Fault__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
 }
 
-void PWM_Fault__vDisInterruptVector(PWM_nMODULE enModule)
+PWM_nERROR PWM_Fault__enGetInterruptVectorStateWithPriority(PWM_nMODULE enModuleArg, PWM_nSTATE* penStateArg, PWM_nPRIORITY* penPriorityArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_PWM0FAULT;
-    enVector = PWM_Fault__enGetInterruptVector(enModule);
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
+    NVIC_nVECTOR enVectorReg;
+    PWM_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_PWM0GEN0;
+    enErrorReg = PWM_Fault__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Fault__enEnableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Fault__enSetInterruptVectorState(enModuleArg, PWM_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Fault__enEnableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nPRIORITY enPriorityArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Fault__enSetInterruptVectorStateWithPriority(enModuleArg, PWM_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Fault__enDisableInterruptVector(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Fault__enSetInterruptVectorState(enModuleArg, PWM_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Fault__enDisableInterruptVectorWithPriority(PWM_nMODULE enModuleArg, PWM_nPRIORITY enPriorityArg)
+{
+    PWM_nERROR enErrorReg;
+    enErrorReg = PWM_Fault__enSetInterruptVectorStateWithPriority(enModuleArg, PWM_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
 }

@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetBaudRateInteger(UART_nMODULE enModule, uint32_t u32Integer);
-uint32_t UART__u32GetBaudRateInteger(UART_nMODULE enModule);
+void UART__vSetBaudRateInteger(UART_nMODULE enModule, UBase_t uxInteger);
+UBase_t UART__uxGetBaudRateInteger(UART_nMODULE enModule);
 
-void UART__vSetBaudRateFractional(UART_nMODULE enModule, uint32_t u32Fractional);
-uint32_t UART__u32GetBaudRateFractional(UART_nMODULE enModule);
+void UART__vSetBaudRateFractional(UART_nMODULE enModule, UBase_t uxFractional);
+UBase_t UART__uxGetBaudRateFractional(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_BAUDRATE_H_ */

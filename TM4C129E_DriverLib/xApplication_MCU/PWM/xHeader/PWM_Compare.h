@@ -27,17 +27,9 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-void PWM_Generator__vSetCompareAPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetCompareAPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Generator__enSetComparePorcentageByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t uxPorcentageArg);
+PWM_nERROR PWM_Generator__enSetComparePorcentageByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, UBase_t uxPorcentageArg);
 
-void PWM_Generator__vSetCompareBPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetCompareBPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
-
-void PWM_Generator__vSetComparePercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nOUTPUT enOutputArg, uint32_t u32CompareArg);
-uint32_t PWM_Generator__u32GetComparePercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                      PWM_nOUTPUT enOutputArg);
+PWM_nERROR PWM_Generator__enGetComparePorcentageByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t* puxPorcentageArg);
 
 #endif /* XAPPLICATION_MCU_PWM_XHEADER_PWM_COMPARE_H_ */

@@ -23,120 +23,179 @@
  */
 #include <xDriver_MCU/PWM/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/PWM_InterruptRoutine_Source.h>
 
-static void PWM_vIRQSourceHandler_Dummy_Blocking(void);
-static void WDT_vIRQSourceHandler_Dummy(void);
-
-void (*PWM_Generator__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
-                                    [(uint32_t)PWM_enGEN_MAX]
-                                    [(uint32_t)PWM_enGEN_INT_MAX])(void) =
-{
-    {
-        {
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking
-        },
-        {
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking
-        },
-        {
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking
-        },
-        {
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-             &PWM_vIRQSourceHandler_Dummy_Blocking
-        }
-    }
-};
-
-void (*PWM_Fault__vIRQSourceHandler[(uint32_t)PWM_enMODULE_MAX]
-                                    [(uint32_t)PWM_enFAULT_MAX]
-                                     [(uint32_t)PWM_enFAULT_INT_MAX])(void) =
+static PWM_pvfIRQSourceHandler_t PWM_Generator_vIRQSourceHandler[(UBase_t)PWM_enMODULE_MAX]
+                                                                [(UBase_t)PWM_enGEN_MAX]
+                                                                [(UBase_t)PWM_enEVENT_MAX] =
 {
  {
-    {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking
-    },
-    {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking
-    },
-    {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking
-    },
-    {
-        &WDT_vIRQSourceHandler_Dummy, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking, &PWM_vIRQSourceHandler_Dummy_Blocking,
-        &PWM_vIRQSourceHandler_Dummy_Blocking
-    }
+     {
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy
+     },
+     {
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy
+     },
+     {
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy
+     },
+     {
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+          &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy
+     }
  }
 };
 
-static void WDT_vIRQSourceHandler_Dummy(void)
+static PWM_pvfIRQSourceHandler_t PWM_FaultSW_vIRQSourceHandler[(UBase_t)PWM_enMODULE_MAX]=
 {
+     &MCU_vIRQSourceHandler_Dummy,
+};
 
+
+static PWM_pvfIRQSourceHandler_t PWM_FaultInput_vIRQSourceHandler[(UBase_t)PWM_enMODULE_MAX]
+                                                                 [(UBase_t)PWM_enGEN_MAX]
+                                                                 [(UBase_t)PWM_enFAULT_INPUT_MAX] =
+{
+  {
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+  }
+};
+
+
+static PWM_pvfIRQSourceHandler_t PWM_FaultDComp_vIRQSourceHandler[(UBase_t)PWM_enMODULE_MAX]
+                                                                 [(UBase_t)PWM_enGEN_MAX]
+                                                                 [(UBase_t)PWM_enFAULT_DCOMP_MAX] =
+{
+  {
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+    {
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+     &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy, &MCU_vIRQSourceHandler_Dummy,
+    },
+  }
+};
+
+PWM_pvfIRQSourceHandler_t PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enModuleArg,
+                                                             PWM_nGENERATOR enGeneratorArg,
+                                                             PWM_nEVENT enEventArg)
+{
+    PWM_pvfIRQSourceHandler_t pvfFunctionReg;
+
+    pvfFunctionReg = PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                  [(UBase_t)enGeneratorArg]
+                                                  [(UBase_t)enEventArg];
+
+    return (pvfFunctionReg);
 }
 
-static void PWM_vIRQSourceHandler_Dummy_Blocking(void)
+
+PWM_pvfIRQSourceHandler_t* PWM_Generator__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enModuleArg,
+                                                                     PWM_nGENERATOR enGeneratorArg,
+                                                                     PWM_nEVENT enEventArg)
 {
-    while(1UL){}
+    PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
+
+    pvfFunctionReg = &PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                    [(UBase_t)enGeneratorArg]
+                                                    [(UBase_t)enEventArg];
+
+    return (pvfFunctionReg);
 }
 
-void (*PWM_Fault__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
-                                          PWM_nFAULT enPWMFaultNum,
-                                          PWM_nFAULT_INT enFaultIntSource))(void)
+PWM_pvfIRQSourceHandler_t PWM_FaultSW__pvfGetIRQSourceHandler(PWM_nMODULE enModuleArg)
 {
-    void(*pvfReg)(void) = (void(*)(void)) 0UL;
-    pvfReg = PWM_Fault__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
-                                          [(uint32_t)enPWMFaultNum]
-                                           [(uint32_t)enFaultIntSource];
-    return (pvfReg);
+    PWM_pvfIRQSourceHandler_t pvfFunctionReg;
+
+    pvfFunctionReg = PWM_FaultSW_vIRQSourceHandler[(UBase_t) enModuleArg];
+
+    return (pvfFunctionReg);
 }
 
-void (**PWM_Fault__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
-                                              PWM_nFAULT enPWMFaultNum,
-                                              PWM_nFAULT_INT enFaultIntSource))(void)
+
+PWM_pvfIRQSourceHandler_t* PWM_FaultSW__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enModuleArg)
 {
-    void(**pvfReg)(void) = (void(**)(void)) 0UL;
-    pvfReg = (void(**)(void)) &PWM_Fault__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
-                                                            [(uint32_t)enPWMFaultNum]
-                                                             [(uint32_t)enFaultIntSource];
-    return (pvfReg);
+    PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
+
+    pvfFunctionReg = &PWM_FaultSW_vIRQSourceHandler[(UBase_t) enModuleArg];
+
+    return (pvfFunctionReg);
 }
 
-void (*PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enPWMSubmodule,
-                                          PWM_nGENERATOR enPWMGeneratorNum,
-                                          PWM_nGEN_INT enPWMIntSource))(void)
+PWM_pvfIRQSourceHandler_t PWM_FaultInput__pvfGetIRQSourceHandler(PWM_nMODULE enModuleArg,
+                                                                 PWM_nGENERATOR enGeneratorArg,
+                                                                 PWM_nFAULT_INPUT enInputArg)
 {
-    void(*pvfReg)(void) = (void(*)(void)) 0UL;
-    pvfReg = PWM_Generator__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
-                                          [(uint32_t)enPWMGeneratorNum]
-                                          [(uint32_t)enPWMIntSource];
-    return (pvfReg);
+    PWM_pvfIRQSourceHandler_t pvfFunctionReg;
+
+    pvfFunctionReg = PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                  [(UBase_t)enGeneratorArg]
+                                                  [(UBase_t)enInputArg];
+
+    return (pvfFunctionReg);
 }
 
-void (**PWM_Generator__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enPWMSubmodule,
-                                                     PWM_nGENERATOR enPWMGeneratorNum,
-                                                     PWM_nGEN_INT enPWMIntSource))(void)
+
+PWM_pvfIRQSourceHandler_t* PWM_FaultInput__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enModuleArg,
+                                                                         PWM_nGENERATOR enGeneratorArg,
+                                                                         PWM_nFAULT_INPUT enInputArg)
 {
-    void(**pvfReg)(void) = (void(**)(void)) 0UL;
-    pvfReg = (void(**)(void)) &PWM_Generator__vIRQSourceHandler[(uint32_t) enPWMSubmodule]
-                                                            [(uint32_t)enPWMGeneratorNum]
-                                                            [(uint32_t)enPWMIntSource];
-    return (pvfReg);
+    PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
+
+    pvfFunctionReg = &PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                    [(UBase_t)enGeneratorArg]
+                                                    [(UBase_t)enInputArg];
+
+    return (pvfFunctionReg);
 }
 
+
+
+PWM_pvfIRQSourceHandler_t PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_nMODULE enModuleArg,
+                                                                 PWM_nGENERATOR enGeneratorArg,
+                                                                 PWM_nFAULT_DCOMP enDCompArg)
+{
+    PWM_pvfIRQSourceHandler_t pvfFunctionReg;
+
+    pvfFunctionReg = PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                  [(UBase_t)enGeneratorArg]
+                                                  [(UBase_t)enDCompArg];
+
+    return (pvfFunctionReg);
+}
+
+
+PWM_pvfIRQSourceHandler_t* PWM_FaultDComp__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enModuleArg,
+                                                                         PWM_nGENERATOR enGeneratorArg,
+                                                                         PWM_nFAULT_DCOMP enDCompArg)
+{
+    PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
+
+    pvfFunctionReg = &PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg]
+                                                    [(UBase_t)enGeneratorArg]
+                                                    [(UBase_t)enDCompArg];
+
+    return (pvfFunctionReg);
+}

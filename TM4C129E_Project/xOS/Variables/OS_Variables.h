@@ -28,8 +28,8 @@
 #include <xUtils/Standard/Standard.h>
 
 typedef void* OS_Pointer_t;
-typedef uint32_t OS_UBase_t;
-typedef int32_t OS_Base_t;
+typedef UBase_t OS_UBase_t;
+typedef Base_t OS_Base_t;
 typedef boolean_t OS_Boolean_t;
 
 #endif /* XOS_VARIABLES_OS_VARIABLES_H_ */

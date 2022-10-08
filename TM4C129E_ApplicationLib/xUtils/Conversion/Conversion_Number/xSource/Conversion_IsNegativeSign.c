@@ -25,13 +25,17 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsNegativeSign.h>
 
-CONV_nNEGATIVE_SIGN Conv__enIsNegativeSign(char cCharacter)
+CONV_nERROR Conv__enIsNegativeSign(char cCharacter)
 {
-    CONV_nNEGATIVE_SIGN enStatus = CONV_enNEGATIVE_SIGN_NO;
-    char cChar = (char)cCharacter;
-    if((char)'-' == cChar)
+    CONV_nERROR enStatus;
+
+    if('-' == cCharacter)
     {
-        enStatus = CONV_enNEGATIVE_SIGN_OK;
+        enStatus = CONV_enERROR_OK;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_VALUE;
     }
 
     return (enStatus);

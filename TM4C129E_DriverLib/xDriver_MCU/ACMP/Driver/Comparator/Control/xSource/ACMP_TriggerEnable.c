@@ -33,10 +33,10 @@ ACMP_nERROR ACMP__enSetComparatorADCTriggerState(ACMP_nMODULE enModuleArg,
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u32Shift = ACMP_CTL_R_TOEN_BIT;
-    stRegister.u32Mask = ACMP_CTL_TOEN_MASK;
+    stRegister.uxShift = ACMP_CTL_R_TOEN_BIT;
+    stRegister.uxMask = ACMP_CTL_TOEN_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enTriggerStateArg;
+    stRegister.uxValue = (UBase_t) enTriggerStateArg;
     enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
     return (enErrorReg);
@@ -55,14 +55,14 @@ ACMP_nERROR ACMP__enGetComparatorADCTriggerState(ACMP_nMODULE enModuleArg, ACMP_
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ACMP_CTL_R_TOEN_BIT;
-        stRegister.u32Mask = ACMP_CTL_TOEN_MASK;
+        stRegister.uxShift = ACMP_CTL_R_TOEN_BIT;
+        stRegister.uxMask = ACMP_CTL_TOEN_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penTriggerStateArg = (ACMP_nSTATE) stRegister.u32Value;
+        *penTriggerStateArg = (ACMP_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

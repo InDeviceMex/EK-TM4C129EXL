@@ -26,7 +26,7 @@
 DLinkedListItem_t* DLinkedList__pstGetTail(const DLinkedList_t*  const pstList)
 {
     DLinkedListItem_t* pstTailReg = (DLinkedListItem_t*)0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstTailReg = pstList->pstTail;
     }
@@ -35,7 +35,7 @@ DLinkedListItem_t* DLinkedList__pstGetTail(const DLinkedList_t*  const pstList)
 
 void DLinkedList__vSetTail(DLinkedList_t* pstList, DLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstTail = pstTailArg;
     }
@@ -44,7 +44,7 @@ void DLinkedList__vSetTail(DLinkedList_t* pstList, DLinkedListItem_t* pstTailArg
 DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListItem_t* const pstItem)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    if (0UL == (uint32_t) (pstItem->pstNextItem))
+    if (0UL == (UBase_t) (pstItem->pstNextItem))
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

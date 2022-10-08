@@ -38,7 +38,7 @@ EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg)
     EEPROM_nERROR enErrorReg;
     EEPROM_pvfIRQSourceHandler_t pfIrqVectorHandler;
 
-    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) EEPROM_enMODULE_MAX);
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         /*

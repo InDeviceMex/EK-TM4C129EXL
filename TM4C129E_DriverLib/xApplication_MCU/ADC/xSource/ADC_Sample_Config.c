@@ -71,7 +71,7 @@ ADC_nERROR ADC_Sample__enSetConfig(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSeq
 
 ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, ADC_nSAMPLE enSampleArg, const ADC_SAMPLE_CONFIG_t* pstSampleConfigArg)
 {
-    ADC_nINPUT_GPIO enAdcGpioInput [(uint32_t) ADC_enINPUT_MAX] =
+    ADC_nINPUT_GPIO enAdcGpioInput [(UBase_t) ADC_enINPUT_MAX] =
     {
         ADC_enINPUT_GPIO_0 , ADC_enINPUT_GPIO_1 , ADC_enINPUT_GPIO_2 , ADC_enINPUT_GPIO_3 , ADC_enINPUT_GPIO_4 , ADC_enINPUT_GPIO_5 , ADC_enINPUT_GPIO_6 , ADC_enINPUT_GPIO_7 ,
         ADC_enINPUT_GPIO_8 , ADC_enINPUT_GPIO_9 , ADC_enINPUT_GPIO_10, ADC_enINPUT_GPIO_11, ADC_enINPUT_GPIO_12, ADC_enINPUT_GPIO_13, ADC_enINPUT_GPIO_14, ADC_enINPUT_GPIO_15,
@@ -86,11 +86,11 @@ ADC_nERROR ADC_Sample__enSetConfigGpio(ADC_nMODULE enModuleArg, ADC_nSEQUENCER e
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) pstSampleConfigArg->enInput, (uint32_t) ADC_enINPUT_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) pstSampleConfigArg->enInput, (UBase_t) ADC_enINPUT_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) GPIO__enSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(uint32_t) pstSampleConfigArg->enInput]);
+        enErrorReg = (ADC_nERROR) GPIO__enSetAnalogFunction((GPIO_nANALOG_FUNCTION) enAdcGpioInput[(UBase_t) pstSampleConfigArg->enInput]);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {

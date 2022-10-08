@@ -27,51 +27,51 @@
 #include <xDriver_MCU/ADC/Peripheral/ADC_Peripheral.h>
 #include <xDriver_MCU/ADC/Driver/Intrinsics/Primitives/ADC_Primitives.h>
 
-static const uint32_t ADC_u32SampleMax[(uint32_t) ADC_enSEQ_MAX] =
+static const UBase_t ADC_uxSampleMax[(UBase_t) ADC_enSEQ_MAX] =
 {
-    (uint32_t) ADC_enSAMPLE_MAX, (uint32_t) ADC_enSAMPLE_4, (uint32_t) ADC_enSAMPLE_4, (uint32_t) ADC_enSAMPLE_1
+    (UBase_t) ADC_enSAMPLE_MAX, (UBase_t) ADC_enSAMPLE_4, (UBase_t) ADC_enSAMPLE_4, (UBase_t) ADC_enSAMPLE_1
 };
 
 ADC_nERROR ADC_Sample__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                        ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32SequencerMaskReg;
-    uint32_t u32SampleReg;
-    uint32_t u32SampleMaxReg;
-    uint32_t u32SequencerOffsetReg;
-    uint32_t u32SequencerNumReg;
+    UBase_t uxSequencerMaskReg;
+    UBase_t uxSampleReg;
+    UBase_t uxSampleMaxReg;
+    UBase_t uxSequencerOffsetReg;
+    UBase_t uxSequencerNumReg;
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
         enErrorReg = ADC_enERROR_OK;
-        u32SequencerNumReg = 0U;
-        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
-        while(0UL != u32SequencerMaskReg)
+        uxSequencerNumReg = 0U;
+        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        while(0UL != uxSequencerMaskReg)
         {
-            if(0UL != (((uint32_t) ADC_enSEQMASK_0) & u32SequencerMaskReg))
+            if(0UL != (((UBase_t) ADC_enSEQMASK_0) & uxSequencerMaskReg))
             {
-                u32SampleMaxReg = ADC_u32SampleMax[u32SequencerNumReg];
-                enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleMaxReg);
+                uxSampleMaxReg = ADC_uxSampleMax[uxSequencerNumReg];
+                enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleMaxReg);
                 if(ADC_enERROR_OK == enErrorReg)
                 {
-                    u32SampleReg = (uint32_t) enSampleArg;
-                    u32SampleReg <<= 2UL; /* each mux have 4 bits*/
-                    u32SampleReg += ADC_SS_CTL_R_IE0_BIT;
+                    uxSampleReg = (UBase_t) enSampleArg;
+                    uxSampleReg <<= 2UL; /* each mux have 4 bits*/
+                    uxSampleReg += ADC_SS_CTL_R_IE0_BIT;
 
-                    u32SequencerOffsetReg = u32SequencerNumReg;
-                    u32SequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-                    u32SequencerOffsetReg <<= 2UL;
-                    u32SequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-                    u32SequencerOffsetReg += ADC_SS_CTL_OFFSET;
+                    uxSequencerOffsetReg = uxSequencerNumReg;
+                    uxSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+                    uxSequencerOffsetReg <<= 2UL;
+                    uxSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+                    uxSequencerOffsetReg += ADC_SS_CTL_OFFSET;
 
-                    stRegister.u32Shift = (uint32_t) u32SampleReg;
-                    stRegister.u32Mask = ADC_SS_CTL_IE0_MASK;
-                    stRegister.u32Value = (uint32_t) enStateArg;
-                    stRegister.uptrAddress = (uintptr_t) u32SequencerOffsetReg;
+                    stRegister.uxShift = (UBase_t) uxSampleReg;
+                    stRegister.uxMask = ADC_SS_CTL_IE0_MASK;
+                    stRegister.uxValue = (UBase_t) enStateArg;
+                    stRegister.uptrAddress = (uintptr_t) uxSequencerOffsetReg;
                     enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
                 }
             }
@@ -81,8 +81,8 @@ ADC_nERROR ADC_Sample__enSetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
                 enErrorMemoryReg = enErrorReg;
             }
 
-            u32SequencerMaskReg >>= 1U;
-            u32SequencerNumReg++;
+            uxSequencerMaskReg >>= 1U;
+            uxSequencerNumReg++;
         }
     }
     return (enErrorMemoryReg);
@@ -92,33 +92,33 @@ ADC_nERROR ADC_Sample__enSetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg
                                                          ADC_nSAMPLE enSampleArg, ADC_nSTATE enStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32SampleReg;
-    uint32_t u32SampleMaxReg;
-    uint32_t u32SequencerOffsetReg;
+    UBase_t uxSampleReg;
+    UBase_t uxSampleMaxReg;
+    UBase_t uxSequencerOffsetReg;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32SampleMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleMaxReg);
+        uxSampleMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleMaxReg);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32SampleReg = (uint32_t) enSampleArg;
-        u32SampleReg <<= 2UL; /* each mux have 4 bits*/
-        u32SampleReg += ADC_SS_CTL_R_IE0_BIT;
+        uxSampleReg = (UBase_t) enSampleArg;
+        uxSampleReg <<= 2UL; /* each mux have 4 bits*/
+        uxSampleReg += ADC_SS_CTL_R_IE0_BIT;
 
-        u32SequencerOffsetReg = (uint32_t) enSequencerArg;
-        u32SequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32SequencerOffsetReg <<= 2UL;
-        u32SequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32SequencerOffsetReg += ADC_SS_CTL_OFFSET;
+        uxSequencerOffsetReg = (UBase_t) enSequencerArg;
+        uxSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxSequencerOffsetReg <<= 2UL;
+        uxSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxSequencerOffsetReg += ADC_SS_CTL_OFFSET;
 
-        stRegister.u32Shift = (uint32_t) u32SampleReg;
-        stRegister.u32Mask = ADC_SS_CTL_IE0_MASK;
-        stRegister.u32Value = (uint32_t) enStateArg;
-        stRegister.uptrAddress = (uintptr_t) u32SequencerOffsetReg;
+        stRegister.uxShift = (UBase_t) uxSampleReg;
+        stRegister.uxMask = ADC_SS_CTL_IE0_MASK;
+        stRegister.uxValue = (UBase_t) enStateArg;
+        stRegister.uptrAddress = (uintptr_t) uxSequencerOffsetReg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);
@@ -129,13 +129,13 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
                                                        ADC_nSAMPLE enSampleArg, ADC_nSEQMASK* penSequencerGetArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32SequencerMaskReg;
-    uint32_t u32SampleReg;
-    uint32_t u32SampleMaxReg;
-    uint32_t u32SequencerOffsetReg;
-    uint32_t u32SequencerNumReg;
-    uint32_t u32SequencerGetReg;
-    uint32_t u32ValueReg;
+    UBase_t uxSequencerMaskReg;
+    UBase_t uxSampleReg;
+    UBase_t uxSampleMaxReg;
+    UBase_t uxSequencerOffsetReg;
+    UBase_t uxSequencerNumReg;
+    UBase_t uxSequencerGetReg;
+    UBase_t uxValueReg;
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
@@ -146,43 +146,43 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
     }
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+        enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     }
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        u32SequencerGetReg = 0U;
-        u32ValueReg = (uint32_t) ADC_enSEQMASK_0;
-        u32SequencerNumReg = 0U;
-        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
+        uxSequencerGetReg = 0U;
+        uxValueReg = (UBase_t) ADC_enSEQMASK_0;
+        uxSequencerNumReg = 0U;
+        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
         enErrorReg = ADC_enERROR_OK;
-        while(0UL != u32SequencerMaskReg)
+        while(0UL != uxSequencerMaskReg)
         {
-            if(0UL != (((uint32_t) ADC_enSEQMASK_0) & u32SequencerMaskReg))
+            if(0UL != (((UBase_t) ADC_enSEQMASK_0) & uxSequencerMaskReg))
             {
-                u32SampleMaxReg = ADC_u32SampleMax[u32SequencerNumReg];
-                enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleMaxReg);
+                uxSampleMaxReg = ADC_uxSampleMax[uxSequencerNumReg];
+                enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleMaxReg);
                 if(ADC_enERROR_OK == enErrorReg)
                 {
-                    u32SampleReg = (uint32_t) enSampleArg;
-                    u32SampleReg <<= 2UL; /* each mux have 4 bits*/
-                    u32SampleReg += ADC_SS_CTL_R_IE0_BIT;
+                    uxSampleReg = (UBase_t) enSampleArg;
+                    uxSampleReg <<= 2UL; /* each mux have 4 bits*/
+                    uxSampleReg += ADC_SS_CTL_R_IE0_BIT;
 
-                    u32SequencerOffsetReg = u32SequencerNumReg;
-                    u32SequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-                    u32SequencerOffsetReg <<= 2UL;
-                    u32SequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-                    u32SequencerOffsetReg += ADC_SS_CTL_OFFSET;
+                    uxSequencerOffsetReg = uxSequencerNumReg;
+                    uxSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+                    uxSequencerOffsetReg <<= 2UL;
+                    uxSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+                    uxSequencerOffsetReg += ADC_SS_CTL_OFFSET;
 
-                    stRegister.u32Shift = (uint32_t) u32SampleReg;
-                    stRegister.u32Mask = ADC_SS_CTL_IE0_MASK;
-                    stRegister.uptrAddress = (uintptr_t) u32SequencerOffsetReg;
+                    stRegister.uxShift = (UBase_t) uxSampleReg;
+                    stRegister.uxMask = ADC_SS_CTL_IE0_MASK;
+                    stRegister.uptrAddress = (uintptr_t) uxSequencerOffsetReg;
                     enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
                 }
                 if(ADC_enERROR_OK == enErrorReg)
                 {
-                    if(0UL != stRegister.u32Value)
+                    if(0UL != stRegister.uxValue)
                     {
-                        u32SequencerGetReg |= u32ValueReg;
+                        uxSequencerGetReg |= uxValueReg;
                     }
                 }
             }
@@ -192,14 +192,14 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByMask(ADC_nMODULE enModuleArg, 
                 enErrorMemoryReg = enErrorReg;
             }
 
-            u32ValueReg <<= 1U;
-            u32SequencerMaskReg >>= 1U;
-            u32SequencerNumReg++;
+            uxValueReg <<= 1U;
+            uxSequencerMaskReg >>= 1U;
+            uxSequencerNumReg++;
         }
 
         if(ADC_enERROR_OK == enErrorMemoryReg)
         {
-            *penSequencerGetArg = (ADC_nSEQMASK ) u32SequencerGetReg;
+            *penSequencerGetArg = (ADC_nSEQMASK ) uxSequencerGetReg;
         }
     }
     return (enErrorMemoryReg);
@@ -209,9 +209,9 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg
                                                          ADC_nSAMPLE enSampleArg, ADC_nSTATE* penStateArg)
 {
     ADC_Register_t stRegister;
-    uint32_t u32SampleReg;
-    uint32_t u32SampleMaxReg;
-    uint32_t u32SequencerOffsetReg;
+    UBase_t uxSampleReg;
+    UBase_t uxSampleMaxReg;
+    UBase_t uxSequencerOffsetReg;
     ADC_nERROR enErrorReg;
 
     enErrorReg = ADC_enERROR_OK;
@@ -221,33 +221,33 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32SampleMaxReg = ADC_u32SampleMax[(uint32_t) enSequencerArg];
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSampleArg, u32SampleMaxReg);
+        uxSampleMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleMaxReg);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32SampleReg = (uint32_t) enSampleArg;
-        u32SampleReg <<= 2UL; /* each mux have 4 bits*/
-        u32SampleReg += ADC_SS_CTL_R_IE0_BIT;
+        uxSampleReg = (UBase_t) enSampleArg;
+        uxSampleReg <<= 2UL; /* each mux have 4 bits*/
+        uxSampleReg += ADC_SS_CTL_R_IE0_BIT;
 
-        u32SequencerOffsetReg = (uint32_t) enSequencerArg;
-        u32SequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
-        u32SequencerOffsetReg <<= 2UL;
-        u32SequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
-        u32SequencerOffsetReg += ADC_SS_CTL_OFFSET;
+        uxSequencerOffsetReg = (UBase_t) enSequencerArg;
+        uxSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxSequencerOffsetReg <<= 2UL;
+        uxSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
+        uxSequencerOffsetReg += ADC_SS_CTL_OFFSET;
 
-        stRegister.u32Shift = (uint32_t) u32SampleReg;
-        stRegister.u32Mask = ADC_SS_CTL_IE0_MASK;
-        stRegister.uptrAddress = (uintptr_t) u32SequencerOffsetReg;
+        stRegister.uxShift = (UBase_t) uxSampleReg;
+        stRegister.uxMask = ADC_SS_CTL_IE0_MASK;
+        stRegister.uptrAddress = (uintptr_t) uxSequencerOffsetReg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (ADC_nSTATE) stRegister.u32Value;
+        *penStateArg = (ADC_nSTATE) stRegister.uxValue;
     }
 
     return (enErrorReg);

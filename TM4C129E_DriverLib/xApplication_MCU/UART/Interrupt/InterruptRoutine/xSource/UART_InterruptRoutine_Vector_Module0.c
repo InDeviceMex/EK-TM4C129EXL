@@ -27,13 +27,13 @@
 
 void UART0__vIRQVectorHandler(void)
 {
-    uint32_t u32ErrorFlag = 0UL;
-    volatile uint32_t u32Reg = 0U;
-    volatile uint32_t u32Ready = 0U;
+    UBase_t uxErrorFlag = 0UL;
+    volatile UBase_t uxReg = 0U;
+    volatile UBase_t uxReady = 0U;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Ready = SYSCTL_PRUART_R;
-    if(SYSCTL_PRUART_R_UART0_NOREADY == (SYSCTL_PRUART_R_UART0_MASK & u32Ready))
+    uxReady = SYSCTL_PRUART_R;
+    if(SYSCTL_PRUART_R_UART0_NOREADY == (SYSCTL_PRUART_R_UART0_MASK & uxReady))
     {
         pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                    UART_enINTERRUPT_SW);
@@ -41,9 +41,9 @@ void UART0__vIRQVectorHandler(void)
     }
     else
     {
-        u32Reg = (uint32_t) UART0_MIS_R;
+        uxReg = (UBase_t) UART0_MIS_R;
 
-        if(0UL == ((uint32_t) UART_enINT_SOURCE_ALL & u32Reg))
+        if(0UL == ((UBase_t) UART_enINT_SOURCE_ALL & uxReg))
         {
             pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                        UART_enINTERRUPT_SW);
@@ -51,117 +51,117 @@ void UART0__vIRQVectorHandler(void)
         }
         else
         {
-            if((uint32_t) UART_enINT_SOURCE_RING_INDICATOR & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_RING_INDICATOR & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_RING_INDICATOR;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_RING_INDICATOR;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_RING_INDICATOR);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_CLEAR_TO_SEND & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_CLEAR_TO_SEND & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_CLEAR_TO_SEND;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_CLEAR_TO_SEND;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_CLEAR_TO_SEND);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_DATA_CARRIER_DETECT & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_DATA_CARRIER_DETECT & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_DATA_CARRIER_DETECT;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_DATA_CARRIER_DETECT;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_DATA_CARRIER_DETECT);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_DATA_SET_READY & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_DATA_SET_READY & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_DATA_SET_READY;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_DATA_SET_READY;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_DATA_SET_READY);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_RECEIVE & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_RECEIVE & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_RECEIVE;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_RECEIVE;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_RECEIVE);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_TRANSMIT & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_TRANSMIT & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_TRANSMIT;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_TRANSMIT;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_TRANSMIT);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_RECEIVE_TIMEOUT & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_RECEIVE_TIMEOUT & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_RECEIVE_TIMEOUT;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_RECEIVE_TIMEOUT;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_RECEIVE_TIMEOUT);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_FRAME_ERROR & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_FRAME_ERROR & uxReg)
             {
-                u32ErrorFlag = 1UL;
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_FRAME_ERROR;
+                uxErrorFlag = 1UL;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_FRAME_ERROR;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_FRAME_ERROR);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_PARITY_ERROR & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_PARITY_ERROR & uxReg)
             {
-                u32ErrorFlag = 1UL;
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_PARITY_ERROR;
+                uxErrorFlag = 1UL;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_PARITY_ERROR;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_PARITY_ERROR);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_BREAK_ERROR & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_BREAK_ERROR & uxReg)
             {
-                u32ErrorFlag = 1UL;
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_BREAK_ERROR;
+                uxErrorFlag = 1UL;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_BREAK_ERROR;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_BREAK_ERROR);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_OVERRUN_ERROR & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_OVERRUN_ERROR & uxReg)
             {
-                u32ErrorFlag = 1UL;
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_OVERRUN_ERROR;
+                uxErrorFlag = 1UL;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_OVERRUN_ERROR;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_OVERRUN_ERROR);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_END_OF_TRANSMISSION & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_END_OF_TRANSMISSION & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_END_OF_TRANSMISSION;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_END_OF_TRANSMISSION;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_END_OF_TRANSMISSION);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_BIT9_MODE & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_BIT9_MODE & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_BIT9_MODE;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_BIT9_MODE;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_BIT9_MODE);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_DMA_RECEIVE & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_DMA_RECEIVE & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_DMA_RECEIVE;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_DMA_RECEIVE;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_DMA_RECEIVE);
                 pvfCallback();
             }
-            if((uint32_t) UART_enINT_SOURCE_DMA_TRANSMIT & u32Reg)
+            if((UBase_t) UART_enINT_SOURCE_DMA_TRANSMIT & uxReg)
             {
-                UART0_ICR_R = (uint32_t) UART_enINT_SOURCE_DMA_TRANSMIT;
+                UART0_ICR_R = (UBase_t) UART_enINT_SOURCE_DMA_TRANSMIT;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_0,
                                                            UART_enINTERRUPT_DMA_TRANSMIT);
                 pvfCallback();
             }
 
-            if(1UL == u32ErrorFlag)
+            if(1UL == uxErrorFlag)
             {
                 UART0_ECR_R = 0xFFUL;
             }

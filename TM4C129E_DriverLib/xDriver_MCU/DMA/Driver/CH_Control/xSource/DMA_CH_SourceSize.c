@@ -30,21 +30,21 @@
 DMA_nERROR DMA_CH__enSetSourceDataSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
                                               DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg)
 {
-    uint32_t u32ChannelReg;
-    uint32_t u32ChannelMaskReg;
+    UBase_t uxChannelReg;
+    UBase_t uxChannelMaskReg;
     DMA_nERROR enErrorReg;
 
-    u32ChannelReg = 0U;
-    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    uxChannelReg = 0U;
+    uxChannelMaskReg = (UBase_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
+    while((0U != uxChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
-        if(0UL != ((uint32_t) DMA_enCHMASK_0 & u32ChannelMaskReg))
+        if(0UL != ((UBase_t) DMA_enCHMASK_0 & uxChannelMaskReg))
         {
-            enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, enDataSizeArg);
+            enErrorReg = DMA_CH__enSetSourceDataSizeByNumber(enModuleArg,  (DMA_nCH) uxChannelReg, enControlArg, enDataSizeArg);
         }
-        u32ChannelReg++;
-        u32ChannelMaskReg >>= 1U;
+        uxChannelReg++;
+        uxChannelMaskReg >>= 1U;
     }
 
     return (enErrorReg);
@@ -73,10 +73,10 @@ DMA_nERROR DMA_CH__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH 
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    stRegister.u32Shift = DMA_CH_CTL_R_SRCSIZE_BIT;
-    stRegister.u32Mask = DMA_CH_CTL_SRCSIZE_MASK;
+    stRegister.uxShift = DMA_CH_CTL_R_SRCSIZE_BIT;
+    stRegister.uxMask = DMA_CH_CTL_SRCSIZE_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enDataSizeArg;
+    stRegister.uxValue = (UBase_t) enDataSizeArg;
     enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
     return (enErrorReg);
@@ -112,14 +112,14 @@ DMA_nERROR DMA_CH__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH 
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = DMA_CH_CTL_R_SRCSIZE_BIT;
-        stRegister.u32Mask = DMA_CH_CTL_SRCSIZE_MASK;
+        stRegister.uxShift = DMA_CH_CTL_R_SRCSIZE_BIT;
+        stRegister.uxMask = DMA_CH_CTL_SRCSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.u32Value;
+        *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

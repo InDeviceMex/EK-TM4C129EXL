@@ -27,8 +27,14 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_DeadBand__vSetFallingDelay(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               uint32_t u32FallingDelayArg);
-uint32_t PWM_DeadBand__u32GetFallingDelay(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_DeadBand__enSetFallingDelayByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t uxDelayArg);
+PWM_nERROR PWM_DeadBand__enSetFallingDelayByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, UBase_t uxDelayArg);
+
+PWM_nERROR PWM_DeadBand__enGetFallingDelayByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxDelayArg);
+
+PWM_nERROR PWM_DeadBand__enSetFallingDelayUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_DeadBand__enSetFallingDelayUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nUPDATE enModeArg);
+
+PWM_nERROR PWM_DeadBand__enGetFallingDelayUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE* penModeArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_DEADBAND_XHEADER_PWM_DEADBAND_FALLINGDELAY_H_ */

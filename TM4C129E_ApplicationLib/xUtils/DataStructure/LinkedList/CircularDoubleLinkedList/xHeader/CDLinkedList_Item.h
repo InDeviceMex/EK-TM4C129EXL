@@ -27,18 +27,18 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-uint32_t CDLinkedList__u32GetAllItem(const CDLinkedList_t* pstList, const void** pvData, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetAllItem_Value(const CDLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
+UBase_t CDLinkedList__uxGetAllItem(const CDLinkedList_t* pstList, const void** pvData, UBase_t uxMaxLength);
+UBase_t CDLinkedList__uxGetAllItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
 
-uint32_t CDLinkedList__u32GetAllItemBackward(const CDLinkedList_t* pstList, void** pvData, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetAllItemBackward_Value(const CDLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32MaxLength);
+UBase_t CDLinkedList__uxGetAllItemBackward(const CDLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
+UBase_t CDLinkedList__uxGetAllItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
 
-uint32_t CDLinkedList__u32GetNItem(const CDLinkedList_t* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetNItem_Value(const CDLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
+UBase_t CDLinkedList__uxGetNItem(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
+UBase_t CDLinkedList__uxGetNItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
 
-uint32_t CDLinkedList__u32GetNItemBackward(const CDLinkedList_t* pstList, void** pvData, uint32_t u32Items, uint32_t u32MaxLength);
-uint32_t CDLinkedList__u32GetNItemBackward_Value(const CDLinkedList_t* pstList, uint32_t* pu32ValueItem, uint32_t u32Items, uint32_t u32MaxLength);
+UBase_t CDLinkedList__uxGetNItemBackward(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
+UBase_t CDLinkedList__uxGetNItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
 
-CDLinkedListItem_t*  CDLinkedList__pstGetItemPos(const CDLinkedList_t* pstList, uint32_t u32Position);
+CDLinkedListItem_t*  CDLinkedList__pstGetItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_ITEM_H_ */

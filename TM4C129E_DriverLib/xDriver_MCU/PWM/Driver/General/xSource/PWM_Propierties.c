@@ -23,47 +23,125 @@
  */
 #include <xDriver_MCU/PWM/Driver/General/xHeader/PWM_Propierties.h>
 
-#include <xDriver_MCU/PWM/Driver/General/xHeader/PWM_GeneralGeneric.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/PWM_Intrinsics.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-uint32_t PWM__u32GetMaxGeneratorNumber(PWM_nMODULE enModule)
+PWM_nERROR PWM__enGeneratorNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg)
 {
-    uint32_t u32Generator = 0UL;
-    u32Generator = PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
-                                                     PWM_PP_GCNT_MASK, PWM_PP_R_GCNT_BIT);
-    return (u32Generator);
+    PWM_Register_t stRegister;
+    PWM_nERROR enErrorReg;
 
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxNumberArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PWM_PP_R_GCNT_BIT;
+        stRegister.uxMask = PWM_PP_GCNT_MASK;
+        stRegister.uptrAddress = PWM_PP_OFFSET;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *puxNumberArg = (UBase_t) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }
 
-uint32_t PWM__u32GetMaxFaultNumber(PWM_nMODULE enModule)
+PWM_nERROR PWM__enFaultInputNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg)
 {
-    uint32_t u32Fault = 0UL;
-    u32Fault = PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
-                                                     PWM_PP_FCNT_MASK, PWM_PP_R_FCNT_BIT);
-    return (u32Fault);
+    PWM_Register_t stRegister;
+    PWM_nERROR enErrorReg;
 
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxNumberArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PWM_PP_R_FCNT_BIT;
+        stRegister.uxMask = PWM_PP_FCNT_MASK;
+        stRegister.uptrAddress = PWM_PP_OFFSET;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *puxNumberArg = (UBase_t) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }
 
-PWM_nSTATUS PWM__enIsFaultExtended(PWM_nMODULE enModule)
+PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
 {
-    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
-    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
-                                                     PWM_PP_EFAULT_MASK, PWM_PP_R_EFAULT_BIT);
-    return (enFault);
+    PWM_Register_t stRegister;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penAvailableArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PWM_PP_R_EFAULT_BIT;
+        stRegister.uxMask = PWM_PP_EFAULT_MASK;
+        stRegister.uptrAddress = PWM_PP_OFFSET;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }
 
-PWM_nSTATUS PWM__enIsSyncExtended(PWM_nMODULE enModule)
+PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
 {
-    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
-    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
-                                                     PWM_PP_ESYNC_MASK, PWM_PP_R_ESYNC_BIT);
-    return (enFault);
+    PWM_Register_t stRegister;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penAvailableArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PWM_PP_R_ESYNC_BIT;
+        stRegister.uxMask = PWM_PP_ESYNC_MASK;
+        stRegister.uptrAddress = PWM_PP_OFFSET;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }
 
-PWM_nSTATUS PWM__enIsOneShotAvailable(PWM_nMODULE enModule)
+PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
 {
-    PWM_nSTATUS enFault = PWM_enSTATUS_INACTIVE;
-    enFault = (PWM_nSTATUS) PWM__u32GetGeneralGeneric((uint32_t) enModule, PWM_PP_OFFSET,
-                                                     PWM_PP_ONE_MASK, PWM_PP_R_ONE_BIT);
-    return (enFault);
+    PWM_Register_t stRegister;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penAvailableArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PWM_PP_R_ONE_BIT;
+        stRegister.uxMask = PWM_PP_ONE_MASK;
+        stRegister.uptrAddress = PWM_PP_OFFSET;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+    }
+    return (enErrorReg);
 }

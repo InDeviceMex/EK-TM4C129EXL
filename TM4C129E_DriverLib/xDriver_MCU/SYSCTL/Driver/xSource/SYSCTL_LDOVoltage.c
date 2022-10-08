@@ -11,28 +11,28 @@
 
 void SYSCTL__vSetLDOSleepVoltage(SYSCTL_nLDO_VOTAGE enLDOPowerVoltage)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_LDOSPCTL_OFFSET, (uint32_t) enLDOPowerVoltage,
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_LDOSPCTL_OFFSET, (UBase_t) enLDOPowerVoltage,
                         SYSCTL_LDOSPCTL_VLDO_MASK, SYSCTL_LDOSPCTL_R_VLDO_BIT);
 }
 
 SYSCTL_nLDO_VOTAGE SYSCTL__enGetLDOSleepVoltage(void)
 {
     SYSCTL_nLDO_VOTAGE enLdoReg = SYSCTL_enLDO_VOTAGE_0_90V;
-    enLdoReg = (SYSCTL_nLDO_VOTAGE) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_LDOSPCTL_OFFSET,
+    enLdoReg = (SYSCTL_nLDO_VOTAGE) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_LDOSPCTL_OFFSET,
                                   SYSCTL_LDOSPCTL_VLDO_MASK, SYSCTL_LDOSPCTL_R_VLDO_BIT);
     return (enLdoReg);
 }
 
 void SYSCTL__vSetLDODeepSleepVoltage(SYSCTL_nLDO_VOTAGE enLDOPowerVoltage)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_LDODPCTL_OFFSET, (uint32_t) enLDOPowerVoltage,
+    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_LDODPCTL_OFFSET, (UBase_t) enLDOPowerVoltage,
                         SYSCTL_LDODPCTL_VLDO_MASK, SYSCTL_LDODPCTL_R_VLDO_BIT);
 }
 
 SYSCTL_nLDO_VOTAGE SYSCTL__enGetLDODeepSleepVoltage(void)
 {
     SYSCTL_nLDO_VOTAGE enLdoReg = SYSCTL_enLDO_VOTAGE_0_90V;
-    enLdoReg = (SYSCTL_nLDO_VOTAGE) MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_LDODPCTL_OFFSET,
+    enLdoReg = (SYSCTL_nLDO_VOTAGE) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_LDODPCTL_OFFSET,
                                      SYSCTL_LDODPCTL_VLDO_MASK, SYSCTL_LDODPCTL_R_VLDO_BIT);
     return (enLdoReg);
 }

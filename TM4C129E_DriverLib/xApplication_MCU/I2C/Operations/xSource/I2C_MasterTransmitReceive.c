@@ -25,28 +25,28 @@
 #include <xApplication_MCU/I2C/Operations/xHeader/I2C_MasterTransmit.h>
 #include <xApplication_MCU/I2C/Operations/xHeader/I2C_MasterReceive.h>
 
-I2C_nERROR I2C_Master_enTransmitReceive(I2C_nMODULE enModule, uint32_t u32SlaveAddressArg,
-                                         const uint8_t *pu8DataTransmit, uint32_t u32DataTransmitSize,
-                                         uint8_t *pu8DataReceive, uint32_t u32DataReceiveSize)
+I2C_nERROR I2C_Master_enTransmitReceive(I2C_nMODULE enModule, UBase_t uxSlaveAddressArg,
+                                         const uint8_t *pu8DataTransmit, UBase_t uxDataTransmitSize,
+                                         uint8_t *pu8DataReceive, UBase_t uxDataReceiveSize)
 {
     I2C_nERROR enStatus;
-    enStatus = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_DIS, u32SlaveAddressArg, pu8DataTransmit, u32DataTransmitSize);
+    enStatus = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_DIS, uxSlaveAddressArg, pu8DataTransmit, uxDataTransmitSize);
     if(I2C_enERROR_OK == enStatus)
     {
-        enStatus = I2C_Master_enReceiveGeneric(enModule, I2C_enSTATE_DIS, I2C_enSTATE_ENA, u32SlaveAddressArg, pu8DataReceive, u32DataReceiveSize);
+        enStatus = I2C_Master_enReceiveGeneric(enModule, I2C_enSTATE_DIS, I2C_enSTATE_ENA, uxSlaveAddressArg, pu8DataReceive, uxDataReceiveSize);
     }
     return enStatus;
 }
 
-I2C_nERROR I2C_Master_enReceiveTransmit(I2C_nMODULE enModule, uint32_t u32SlaveAddressArg,
-                                         const uint8_t *pu8DataTransmit, uint32_t u32DataTransmitSize,
-                                         uint8_t *pu8DataReceive, uint32_t u32DataReceiveSize)
+I2C_nERROR I2C_Master_enReceiveTransmit(I2C_nMODULE enModule, UBase_t uxSlaveAddressArg,
+                                         const uint8_t *pu8DataTransmit, UBase_t uxDataTransmitSize,
+                                         uint8_t *pu8DataReceive, UBase_t uxDataReceiveSize)
 {
     I2C_nERROR enStatus;
-    enStatus = I2C_Master_enReceiveGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_DIS, u32SlaveAddressArg, pu8DataReceive, u32DataReceiveSize);
+    enStatus = I2C_Master_enReceiveGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_DIS, uxSlaveAddressArg, pu8DataReceive, uxDataReceiveSize);
     if(I2C_enERROR_OK == enStatus)
     {
-        enStatus = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_DIS, I2C_enSTATE_ENA, u32SlaveAddressArg, pu8DataTransmit, u32DataTransmitSize);
+        enStatus = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_DIS, I2C_enSTATE_ENA, uxSlaveAddressArg, pu8DataTransmit, uxDataTransmitSize);
     }
     return enStatus;
 }

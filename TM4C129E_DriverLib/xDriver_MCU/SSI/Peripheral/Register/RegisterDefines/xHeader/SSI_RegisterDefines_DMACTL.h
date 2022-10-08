@@ -32,25 +32,25 @@
 ******************************************************************************************/
 
 /*--------*/
-#define SSI_DMACTL_R_RXDMAE_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_DMACTL_R_RXDMAE_BIT    ((uint32_t) 0UL)
-#define SSI_DMACTL_R_RXDMAE_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_DMACTL_R_RXDMAE_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_DMACTL_R_RXDMAE_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_DMACTL_R_RXDMAE_BIT    ((UBase_t) 0UL)
+#define SSI_DMACTL_R_RXDMAE_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_DMACTL_R_RXDMAE_ENA    ((UBase_t) 0x00000001UL)
 
-#define SSI_DMACTL_RXDMAE_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_DMACTL_RXDMAE_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_DMACTL_RXDMAE_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_DMACTL_RXDMAE_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_DMACTL_RXDMAE_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_DMACTL_RXDMAE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SSI_DMACTL_R_TXDMAE_MASK    ((uint32_t) 0x00000002UL)
-#define SSI_DMACTL_R_TXDMAE_BIT    ((uint32_t) 1UL)
-#define SSI_DMACTL_R_TXDMAE_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_DMACTL_R_TXDMAE_ENA    ((uint32_t) 0x00000002UL)
+#define SSI_DMACTL_R_TXDMAE_MASK    ((UBase_t) 0x00000002UL)
+#define SSI_DMACTL_R_TXDMAE_BIT    ((UBase_t) 1UL)
+#define SSI_DMACTL_R_TXDMAE_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_DMACTL_R_TXDMAE_ENA    ((UBase_t) 0x00000002UL)
 
-#define SSI_DMACTL_TXDMAE_MASK    ((uint32_t) 0x00000001UL)
-#define SSI_DMACTL_TXDMAE_DIS    ((uint32_t) 0x00000000UL)
-#define SSI_DMACTL_TXDMAE_ENA    ((uint32_t) 0x00000001UL)
+#define SSI_DMACTL_TXDMAE_MASK    ((UBase_t) 0x00000001UL)
+#define SSI_DMACTL_TXDMAE_DIS    ((UBase_t) 0x00000000UL)
+#define SSI_DMACTL_TXDMAE_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SSI_REGISTERDEFINES_DMACTL_H_ */

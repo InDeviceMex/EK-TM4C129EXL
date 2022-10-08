@@ -37,7 +37,7 @@ I2C_nERROR I2C__enWriteRegister(I2C_nMODULE enModuleArg, I2C_Register_t* pstRegi
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+        enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {

@@ -34,8 +34,8 @@
 void xTask3_ButtonsLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32LastWakeTime;
-    uint32_t u32PeriodTask = (uint32_t) pvParams;
+    UBase_t uxLastWakeTime;
+    UBase_t uxPeriodTask = (UBase_t) pvParams;
 
 
     /*Buttons and Led handling*/
@@ -46,7 +46,7 @@ void xTask3_ButtonsLog(void* pvParams)
     EDUMKII_nBUTTON enButtonSelectOld;
     EDUMKII_nJOYSTICK enSelectOld;
 
-    u32LastWakeTime = OS_Task__uxGetTickCount ();
+    uxLastWakeTime = OS_Task__uxGetTickCount ();
     GPIO__vSetReady(GPIO_enPORT_N);
     GPIO__vSetReady(GPIO_enPORT_F);
 
@@ -61,7 +61,7 @@ void xTask3_ButtonsLog(void* pvParams)
     pcStateButton[2UL] = pcState[0UL];
     OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
 
-    UART__u32Printf(UART_enMODULE_0, "Task3 First Entry \n\r");
+    UART__uxPrintf(UART_enMODULE_0, "Task3 First Entry \n\r");
     while(1UL)
     {
         enButtonSelect = EDUMKII_Button_enRead(EDUMKII_enBUTTON_ALL);
@@ -72,7 +72,7 @@ void xTask3_ButtonsLog(void* pvParams)
             if(enButtonSelectOld != enButtonSelect)
             {
                 enButtonSelectOld = enButtonSelect;
-                if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_1)
+                if((UBase_t) enButtonSelect & (UBase_t) EDUMKII_enBUTTON_1)
                 {
                     GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_0, GPIO_enLEVEL_HIGH);
                     pcStateButton[0UL] = pcState[1UL];
@@ -83,7 +83,7 @@ void xTask3_ButtonsLog(void* pvParams)
                     pcStateButton[0UL] = pcState[0UL];
                 }
 
-                if((uint32_t) enButtonSelect & (uint32_t) EDUMKII_enBUTTON_2)
+                if((UBase_t) enButtonSelect & (UBase_t) EDUMKII_enBUTTON_2)
                 {
                     GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_1, GPIO_enLEVEL_HIGH);
                     pcStateButton[1UL] = pcState[1UL];
@@ -111,6 +111,6 @@ void xTask3_ButtonsLog(void* pvParams)
             }
             OS_Queue__boOverwrite(ButtonQueueHandle, pcStateButton);
         }
-        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
+        OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
     }
 }

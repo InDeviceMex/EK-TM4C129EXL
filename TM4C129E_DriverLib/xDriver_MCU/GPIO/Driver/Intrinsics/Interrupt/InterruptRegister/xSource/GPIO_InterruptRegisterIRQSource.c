@@ -32,28 +32,28 @@ GPIO_nERROR GPIO__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t pf
                                                    GPIO_nPINMASK enPinMask)
 {
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
-    uint32_t u32PinNumber;
-    uint32_t u32PinMask;
+    UBase_t uxPinNumber;
+    UBase_t uxPinMask;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMask, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMask, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinMask = (uint32_t) enPinMask;
-        u32PinNumber = 0UL;
-        while(0UL != u32PinMask)
+        uxPinMask = (UBase_t) enPinMask;
+        uxPinNumber = 0UL;
+        while(0UL != uxPinMask)
         {
-            if(0UL != (1UL & u32PinMask))
+            if(0UL != (1UL & uxPinMask))
             {
-                pvfIrqHandler = GPIO__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) u32PinNumber);
+                pvfIrqHandler = GPIO__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) uxPinNumber);
                 enErrorReg = (GPIO_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
             }
-            u32PinNumber++;
-            u32PinMask >>= 1UL;
+            uxPinNumber++;
+            uxPinMask >>= 1UL;
         }
     }
 
@@ -67,10 +67,10 @@ GPIO_nERROR GPIO__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler_t 
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPin, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPin, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -86,28 +86,28 @@ GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_
                                                    GPIO_nPINMASK enPinMask)
 {
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
-    uint32_t u32PinNumber;
-    uint32_t u32PinMask;
+    UBase_t uxPinNumber;
+    UBase_t uxPinMask;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMask, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMask, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinMask = (uint32_t) enPinMask;
-        u32PinNumber = 0UL;
-        while(0UL != u32PinMask)
+        uxPinMask = (UBase_t) enPinMask;
+        uxPinNumber = 0UL;
+        while(0UL != uxPinMask)
         {
-            if(0UL != (1UL & u32PinMask))
+            if(0UL != (1UL & uxPinMask))
             {
-                pvfIrqHandler = GPIO_DMA__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) u32PinNumber);
+                pvfIrqHandler = GPIO_DMA__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) uxPinNumber);
                 enErrorReg = (GPIO_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
             }
-            u32PinNumber++;
-            u32PinMask >>= 1UL;
+            uxPinNumber++;
+            uxPinMask >>= 1UL;
         }
     }
 
@@ -121,10 +121,10 @@ GPIO_nERROR GPIO_DMA__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandle
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPin, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPin, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -141,7 +141,7 @@ GPIO_nERROR GPIO_SW__enRegisterIRQSourceHandler(GPIO_pvfIRQSourceHandler_t pfIrq
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPort, (uint32_t) GPIO_enPORT_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
         pvfIrqHandler = GPIO_SW__pvfGetIRQSourceHandlerPointer(enPort);
@@ -165,8 +165,8 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t
                                                       GPIO_nPINMASK enPinMask)
 {
     GPIO_pvfIRQSourceHandler_t* pvfIrqHandler;
-    uint32_t u32PinNumber;
-    uint32_t u32PinMask;
+    UBase_t uxPinNumber;
+    UBase_t uxPinMask;
     GPIO_nERROR enErrorReg;
 
     enErrorReg = GPIO_enERROR_OK;
@@ -176,21 +176,21 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByMask(GPIO_pvfIRQSourceHandler_t
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMask, (uint32_t) GPIO_enPINMASK_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMask, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinMask = (uint32_t) enPinMask;
-        u32PinNumber = 0UL;
-        while(0UL != u32PinMask)
+        uxPinMask = (UBase_t) enPinMask;
+        uxPinNumber = 0UL;
+        while(0UL != uxPinMask)
         {
-            if(0UL != (1UL & u32PinMask))
+            if(0UL != (1UL & uxPinMask))
             {
-                pvfIrqHandler = GPIO_PQ__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) u32PinNumber);
+                pvfIrqHandler = GPIO_PQ__pvfGetIRQSourceHandlerPointer(enPort, (GPIO_nPIN) uxPinNumber);
                 enErrorReg = (GPIO_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
             }
-            u32PinNumber++;
-            u32PinMask >>= 1UL;
+            uxPinNumber++;
+            uxPinMask >>= 1UL;
         }
     }
 
@@ -211,7 +211,7 @@ GPIO_nERROR GPIO_PQ__enRegisterIRQSourceHandlerByNumber(GPIO_pvfIRQSourceHandler
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPin, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPin, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {

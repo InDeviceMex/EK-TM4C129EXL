@@ -28,8 +28,8 @@
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/xHeader/SYSTICK_Enum.h>
 
 SYSTICK_nERROR SYSTICK__enClearReloadValue(SYSTICK_nMODULE enModuleArg);
-SYSTICK_nERROR SYSTICK__enSetReloadValue(SYSTICK_nMODULE enModuleArg, uint32_t u32ReloadValueArg);
+SYSTICK_nERROR SYSTICK__enSetReloadValue(SYSTICK_nMODULE enModuleArg, UBase_t uxReloadValueArg);
 SYSTICK_nERROR SYSTICK__enGetReloadValue(SYSTICK_nMODULE enModuleArg,
-                                         uint32_t* u32ValueArg);
+                                         UBase_t* uxValueArg);
 
 #endif /* XDRIVER_MCU_CORE_SYSTICK_DRIVER_XHEADER_SYSTICK_RELOAD_H_ */

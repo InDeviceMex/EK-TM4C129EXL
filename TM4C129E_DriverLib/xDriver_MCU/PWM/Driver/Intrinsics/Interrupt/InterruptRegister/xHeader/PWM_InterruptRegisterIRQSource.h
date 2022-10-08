@@ -27,13 +27,20 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Fault__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           PWM_nMODULE enModule,
-                                           PWM_nFAULT enFaultArg,
-                                           PWM_nFAULT_INT enFaultIntSourceArg);
-void PWM_Generator__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                           PWM_nMODULE enModule,
-                                           PWM_nGENERATOR enGeneratorArg,
-                                           PWM_nGEN_INT enGeneratorIntSourceArg);
+
+PWM_nERROR PWM_Generator__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                     PWM_nMODULE enModuleArg,
+                                                     PWM_nGENERATOR enGeneratorArg,
+                                                     PWM_nEVENT enEventArg);
+PWM_nERROR PWM_FaultSW__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t pfIrqSourceHandler, PWM_nMODULE enModuleArg);
+
+PWM_nERROR PWM_FaultInput__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                      PWM_nMODULE enModuleArg,
+                                                      PWM_nGENERATOR enGeneratorArg,
+                                                      PWM_nFAULT_INPUT enInputArg);
+PWM_nERROR PWM_FaultDComp__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t pfIrqSourceHandler,
+                                                      PWM_nMODULE enModuleArg,
+                                                      PWM_nGENERATOR enGeneratorArg,
+                                                      PWM_nFAULT_DCOMP enDCompArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_PWM_INTERRUPTREGISTERIRQSOURCE_H_ */

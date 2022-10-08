@@ -26,32 +26,32 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetClockEvenPrescalerPart(SSI_nMODULE enModule, uint32_t u32EvenPrescaler)
+void SSI__vSetClockEvenPrescalerPart(SSI_nMODULE enModule, UBase_t uxEvenPrescaler)
 {
-    uint32_t u32MaskRegister = SSI_CPSR_CPSDVSR_MASK;
-    u32MaskRegister &= ~ (uint32_t) 0x01UL;
+    UBase_t uxMaskRegister = SSI_CPSR_CPSDVSR_MASK;
+    uxMaskRegister &= ~ (UBase_t) 0x01UL;
     SSI__vWriteRegister(enModule, SSI_CPSR_OFFSET,
-    u32EvenPrescaler, u32MaskRegister, SSI_CPSR_R_CPSDVSR_BIT);
+    uxEvenPrescaler, uxMaskRegister, SSI_CPSR_R_CPSDVSR_BIT);
 }
 
-uint32_t SSI__u32GetClockEvenPrescalerPart(SSI_nMODULE enModule)
+UBase_t SSI__uxGetClockEvenPrescalerPart(SSI_nMODULE enModule)
 {
-    uint32_t u32PreescalerReg = 0UL;
-    u32PreescalerReg = SSI__u32ReadRegister(enModule,
+    UBase_t uxPreescalerReg = 0UL;
+    uxPreescalerReg = SSI__uxReadRegister(enModule,
               SSI_CPSR_OFFSET, SSI_CPSR_CPSDVSR_MASK, SSI_CPSR_R_CPSDVSR_BIT);
-    return (u32PreescalerReg);
+    return (uxPreescalerReg);
 }
 
-void SSI__vSetClockDivisorPart(SSI_nMODULE enModule, uint32_t u32Divisor)
+void SSI__vSetClockDivisorPart(SSI_nMODULE enModule, UBase_t uxDivisor)
 {
     SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
-                u32Divisor, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
+                uxDivisor, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
 }
 
-uint32_t SSI__u32GetClockDivisorPart(SSI_nMODULE enModule)
+UBase_t SSI__uxGetClockDivisorPart(SSI_nMODULE enModule)
 {
-    uint32_t u32DivisorReg = 0UL;
-    u32DivisorReg = SSI__u32ReadRegister(enModule,
+    UBase_t uxDivisorReg = 0UL;
+    uxDivisorReg = SSI__uxReadRegister(enModule,
                      SSI_CR0_OFFSET, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
-    return (u32DivisorReg);
+    return (uxDivisorReg);
 }

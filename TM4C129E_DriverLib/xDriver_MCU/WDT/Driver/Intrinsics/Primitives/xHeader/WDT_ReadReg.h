@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-uint32_t WDT__u32ReadRegister(WDT_nMODULE enModule, uint32_t u32OffsetRegister,
-                              uint32_t u32MaskFeature, uint32_t u32BitFeature);
+UBase_t WDT__uxReadRegister(WDT_nMODULE enModule, UBase_t uxOffsetRegister,
+                              UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_WDT_READREG_H_ */

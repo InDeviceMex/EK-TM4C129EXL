@@ -31,14 +31,14 @@
 ************************************ 14 CTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define ADC_CTL_R_VREF_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_CTL_R_VREF_BIT    ((uint32_t) 0UL)
-#define ADC_CTL_R_VREF_VDDA_GNDA    ((uint32_t) 0x00000000UL)
-#define ADC_CTL_R_VREF_VREFA_GNDA    ((uint32_t) 0x00000001UL)
+#define ADC_CTL_R_VREF_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_CTL_R_VREF_BIT    ((UBase_t) 0UL)
+#define ADC_CTL_R_VREF_VDDA_GNDA    ((UBase_t) 0x00000000UL)
+#define ADC_CTL_R_VREF_VREFA_GNDA    ((UBase_t) 0x00000001UL)
 
-#define ADC_CTL_VREF_MASK    ((uint32_t) 0x00000001UL)
-#define ADC_CTL_VREF_VDDA_GNDA    ((uint32_t) 0x00000000UL)
-#define ADC_CTL_VREF_VREFA_GNDA    ((uint32_t) 0x00000001UL)
+#define ADC_CTL_VREF_MASK    ((UBase_t) 0x00000001UL)
+#define ADC_CTL_VREF_VDDA_GNDA    ((UBase_t) 0x00000000UL)
+#define ADC_CTL_VREF_VREFA_GNDA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_ADC_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_ADC_REGISTERDEFINES_CTL_H_ */

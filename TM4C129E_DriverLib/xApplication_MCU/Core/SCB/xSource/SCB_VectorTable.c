@@ -37,49 +37,49 @@ SCB_pvfIRQVectorHandler_t* SCB__pfnGetVectorTableRam(void)
     return (SCB__pfnVectors);
 }
 
-SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg)
+SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg)
 {
-    uint32_t u32TableAddress;
-    uint32_t u32FlashSize;
+    UBase_t uxTableAddress;
+    UBase_t uxFlashSize;
     MCU_nSTATE enInterruptState;
     SCB_nERROR enErrorReg;
 
-    u32OffsetArg &= SCB_VTOR_R_TBLOFF_MASK;
-    u32TableAddress = 0UL;
-    u32FlashSize = 0UL;
-    enErrorReg = SCB__enGetVectorOffset(enModuleArg, &u32TableAddress);
+    uxOffsetArg &= SCB_VTOR_R_TBLOFF_MASK;
+    uxTableAddress = 0UL;
+    uxFlashSize = 0UL;
+    enErrorReg = SCB__enGetVectorOffset(enModuleArg, &uxTableAddress);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SCB_nERROR) FLASH__enGetSize(FLASH_enMODULE_0 ,&u32FlashSize);
+        enErrorReg = (SCB_nERROR) FLASH__enGetSize(FLASH_enMODULE_0 ,&uxFlashSize);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        if(u32FlashSize > u32OffsetArg)
+        if(uxFlashSize > uxOffsetArg)
         {
             enInterruptState = MCU__enDisGlobalInterrupt();
             /*TODO: check this functionality*/
-            /*FLASH__enWriteMultiWorld( (uint32_t*) u32TableAddress, u32OffsetArg, SCB_VECTOR_TABLE_SIZE);*/
+            /*FLASH__enWriteMultiWorld( (UBase_t*) uxTableAddress, uxOffsetArg, SCB_VECTOR_TABLE_SIZE);*/
             MCU__vSetGlobalInterrupt(enInterruptState);
         }
         else
         {
-            uint32_t u32Count;
-            uint32_t* pu32Ram;
-            const uint32_t* pu32Table;
+            UBase_t uxCount;
+            UBase_t* puxRam;
+            const UBase_t* puxTable;
 
-            pu32Table = (const uint32_t*) u32TableAddress;
-            pu32Ram = (uint32_t*) u32OffsetArg;
-            for(u32Count = 0UL; u32Count < SCB_VECTOR_TABLE_SIZE; u32Count++ )
+            puxTable = (const UBase_t*) uxTableAddress;
+            puxRam = (UBase_t*) uxOffsetArg;
+            for(uxCount = 0UL; uxCount < SCB_VECTOR_TABLE_SIZE; uxCount++ )
             {
-                *pu32Ram = *pu32Table;
-                pu32Ram += 1U;
-                pu32Table += 1U;
+                *puxRam = *puxTable;
+                puxRam += 1U;
+                puxTable += 1U;
             }
         }
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SCB__enSetVectorOffset(enModuleArg, u32OffsetArg);
+        enErrorReg = SCB__enSetVectorOffset(enModuleArg, uxOffsetArg);
     }
     return (enErrorReg);
 }

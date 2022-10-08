@@ -44,36 +44,36 @@
 #pragma  CODE_SECTION(FLASH__enGetSRAMSize, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enGetSRAMSizeInBytes, ".ramcode")
 
-FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg);
-FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg);
-FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg);
+FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg);
+FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg);
+FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg);
 
-FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg);
-FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg);
-FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg);
+FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg);
+FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg);
+FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg);
 
-FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg);
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg);
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg);
+FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg);
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg);
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg);
 
-FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg);
-FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg);
+FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg);
+FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg);
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SectorSizeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInKBytesArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetEEPROMSectorSize(FLASH_nMODULE enModuleArg, UBase_t* puxSectorSizeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInKBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInKBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetEEPROMSectorSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, uint32_t* pu32SizeInBytesArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSRAMSize(FLASH_nMODULE enModuleArg, UBase_t* puxSizeArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enGetSRAMSizeInBytes(FLASH_nMODULE enModuleArg, UBase_t* puxSizeInBytesArg) __attribute__((section(".ramcode")));
 
 #endif
 

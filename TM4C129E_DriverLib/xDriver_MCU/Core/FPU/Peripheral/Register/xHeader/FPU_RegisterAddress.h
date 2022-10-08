@@ -27,15 +27,15 @@
 
 #include <xDriver_MCU/Core/FPU/Peripheral/xHeader/FPU_Enum.h>
 
-#define FPU_BASE    ((uint32_t) 0xE000E000UL)
-#define FPU_OFFSET    ((uint32_t) 0x00000D88UL)
+#define FPU_BASE    ((UBase_t) 0xE000E000UL)
+#define FPU_OFFSET    ((UBase_t) 0x00000D88UL)
 
-#define FPU_CPACR_OFFSET    ((uint32_t) 0x0D88UL)
-#define FPU_CCR_OFFSET    ((uint32_t) 0x0F34UL)
-#define FPU_CAR_OFFSET    ((uint32_t) 0x0F38UL)
-#define FPU_DSCR_OFFSET    ((uint32_t) 0x0F3CUL)
-#define FPU_MVFR0_OFFSET    ((uint32_t) 0x0F40UL)
-#define FPU_MVFR1_OFFSET    ((uint32_t) 0x0F44UL)
-#define FPU_MVFR2_OFFSET    ((uint32_t) 0x0F48UL)
+#define FPU_CPACR_OFFSET    ((UBase_t) 0x0D88UL)
+#define FPU_CCR_OFFSET    ((UBase_t) 0x0F34UL)
+#define FPU_CAR_OFFSET    ((UBase_t) 0x0F38UL)
+#define FPU_DSCR_OFFSET    ((UBase_t) 0x0F3CUL)
+#define FPU_MVFR0_OFFSET    ((UBase_t) 0x0F40UL)
+#define FPU_MVFR1_OFFSET    ((UBase_t) 0x0F44UL)
+#define FPU_MVFR2_OFFSET    ((UBase_t) 0x0F48UL)
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_FPU_FPU_PERIPHERAL_FPU_REGISTER_FPU_REGISTERADDRESS_H_ */

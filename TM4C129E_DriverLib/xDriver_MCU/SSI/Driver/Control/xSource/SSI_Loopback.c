@@ -29,13 +29,13 @@
 void SSI__vSetLoopback(SSI_nMODULE enModule, SSI_nLOOPBACK enLoopbackArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (uint32_t) enLoopbackArg, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
+            (UBase_t) enLoopbackArg, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
 }
 
 SSI_nLOOPBACK SSI__enGetLoopback(SSI_nMODULE enModule)
 {
     SSI_nLOOPBACK enLoopbackReg = SSI_enLOOPBACK_DIS;
-    enLoopbackReg = (SSI_nLOOPBACK) SSI__u32ReadRegister(enModule,
+    enLoopbackReg = (SSI_nLOOPBACK) SSI__uxReadRegister(enModule,
                          SSI_CR1_OFFSET, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
     return (enLoopbackReg);
 }

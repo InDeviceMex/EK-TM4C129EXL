@@ -23,29 +23,29 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Size.h>
 
-uint32_t CDLinkedList__u32GetSize(const CDLinkedList_t* const pstList)
+UBase_t CDLinkedList__uxGetSize(const CDLinkedList_t* const pstList)
 {
-    uint32_t u32SizeReg = 0UL;
-    if(0UL != (uint32_t) pstList)
+    UBase_t uxSizeReg = 0UL;
+    if(0UL != (UBase_t) pstList)
     {
-        u32SizeReg = pstList->u32Size;
+        uxSizeReg = pstList->uxSize;
     }
-    return (u32SizeReg);
+    return (uxSizeReg);
 
 }
 
-void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, uint32_t u32SizeArg)
+void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = u32SizeArg;
+        pstList->uxSize = uxSizeArg;
     }
 }
 
 CDLinkedList_nSTATUS CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    if(0UL  == pstList->u32Size)
+    if(0UL  == pstList->uxSize)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

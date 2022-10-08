@@ -35,25 +35,25 @@
 ************************************** 1 CSR **********************************************
 *********************************************************************************************/
 #define SYSTICK_CSR    ((SYSTICK_CSR_t*) (SYSTICK_BASE + SYSTICK_CSR_OFFSET))
-#define SYSTICK_CSR_R    (*((volatile uint32_t*) (SYSTICK_BASE + SYSTICK_CSR_OFFSET)))
+#define SYSTICK_CSR_R    (*((volatile UBase_t*) (SYSTICK_BASE + SYSTICK_CSR_OFFSET)))
 
 /*********************************************************************************************
 ************************************** 2 LOAD **********************************************
 *********************************************************************************************/
 #define SYSTICK_RVR    ((SYSTICK_RVR_t*) (SYSTICK_BASE + SYSTICK_RVR_OFFSET))
-#define SYSTICK_RVR_R    (*((volatile uint32_t*) (SYSTICK_BASE + SYSTICK_RVR_OFFSET)))
+#define SYSTICK_RVR_R    (*((volatile UBase_t*) (SYSTICK_BASE + SYSTICK_RVR_OFFSET)))
 
 /*********************************************************************************************
 **************************************** 3 VAL **********************************************
 ***********************************************************************************************/
 #define SYSTICK_CVR    ((SYSTICK_CVR_t*) (SYSTICK_BASE + SYSTICK_CVR_OFFSET))
-#define SYSTICK_CVR_R    (*((volatile uint32_t*) (SYSTICK_BASE + SYSTICK_CVR_OFFSET)))
+#define SYSTICK_CVR_R    (*((volatile UBase_t*) (SYSTICK_BASE + SYSTICK_CVR_OFFSET)))
 
 /*********************************************************************************************
 **************************************** 3 CR **********************************************
 ***********************************************************************************************/
 #define SYSTICK_CR    ((SYSTICK_CR_t*) (SYSTICK_BASE + SYSTICK_CR_OFFSET))
-#define SYSTICK_CR_R    (*((volatile uint32_t*) (SYSTICK_BASE + SYSTICK_CR_OFFSET)))
+#define SYSTICK_CR_R    (*((volatile UBase_t*) (SYSTICK_BASE + SYSTICK_CR_OFFSET)))
 
 uintptr_t SYSTICK__uptrBlockBaseAddress(SYSTICK_nMODULE enModuleArg);
 

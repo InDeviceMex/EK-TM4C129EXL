@@ -46,15 +46,15 @@
 ******************************************************************************************/
 #define GPTM6_CTL_BITBANDING_PP    ((BITBANDING_GPTMPP_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL)))
 
-#define GPTM6_CTL_BITBANDING_PP_CHAIN    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_CHAIN_BIT * 4UL))))
-#define GPTM6_CTL_BITBANDING_PP_SYNCCNT    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_SYNCCNT_BIT * 4UL))))
-#define GPTM6_CTL_BITBANDING_PP_ALTCLK    (*((volatile const uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_ALTCLK_BIT * 4UL))))
+#define GPTM6_CTL_BITBANDING_PP_CHAIN    (*((volatile const UBase_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_CHAIN_BIT * 4UL))))
+#define GPTM6_CTL_BITBANDING_PP_SYNCCNT    (*((volatile const UBase_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_SYNCCNT_BIT * 4UL))))
+#define GPTM6_CTL_BITBANDING_PP_ALTCLK    (*((volatile const UBase_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_PP_OFFSET) * 32UL) + (GPTM_CTL_PP_R_ALTCLK_BIT * 4UL))))
 
 /******************************************************************************************
 *********************************** * 27 CC *********************************************
 ******************************************************************************************/
 #define GPTM6_CTL_BITBANDING_CC    ((BITBANDING_GPTMCC_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_CC_OFFSET) * 32UL)))
 
-#define GPTM6_CTL_BITBANDING_CC_ALTCLK    (*((volatile uint32_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_CC_OFFSET) * 32UL) + (GPTM_CTL_CC_R_ALTCLK_BIT * 4UL))))
+#define GPTM6_CTL_BITBANDING_CC_ALTCLK    (*((volatile UBase_t*) (GPTM_BASE_BITBANDING + ((GPTM6_OFFSET + GPTM_CTL_CC_OFFSET) * 32UL) + (GPTM_CTL_CC_R_ALTCLK_BIT * 4UL))))
 
 #endif /* XDRIVER_MCU_TIMER_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_REGISTERPERIPHERAL_BITBANDING_CONTROL_32_XHEADER_TIMER_REGISTERPERIPHERAL_BITBANDING_CONTROL_32_MODULE6_H_ */

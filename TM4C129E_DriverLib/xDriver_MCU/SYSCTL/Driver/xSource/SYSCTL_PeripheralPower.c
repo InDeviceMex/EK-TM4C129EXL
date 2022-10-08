@@ -9,28 +9,28 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-static void SYSCTL__vPowerPeripheral(SYSCTL_nPERIPHERAL enPeripheral, uint32_t value);
+static void SYSCTL__vPowerPeripheral(SYSCTL_nPERIPHERAL enPeripheral, UBase_t value);
 
-static void SYSCTL__vPowerPeripheral(SYSCTL_nPERIPHERAL enPeripheral, uint32_t value)
+static void SYSCTL__vPowerPeripheral(SYSCTL_nPERIPHERAL enPeripheral, UBase_t value)
 {
-    uint32_t u32NoRegister = 0UL;
-    uint32_t u32NoPeripheral = 0UL;
-    uint32_t u32Offset = 0UL;
+    UBase_t uxNoRegister = 0UL;
+    UBase_t uxNoPeripheral = 0UL;
+    UBase_t uxOffset = 0UL;
 
-    uint32_t u32RegisterPCOffset = SYSCTL_PC_OFFSET;
+    UBase_t uxRegisterPCOffset = SYSCTL_PC_OFFSET;
 
-    u32NoRegister = (uint32_t) enPeripheral;
-    u32NoRegister >>= 8UL;
-    u32NoRegister &= 0xFFUL;
+    uxNoRegister = (UBase_t) enPeripheral;
+    uxNoRegister >>= 8UL;
+    uxNoRegister &= 0xFFUL;
 
-    u32NoPeripheral = (uint32_t) enPeripheral;
-    u32NoPeripheral &= 0xFFUL;
+    uxNoPeripheral = (UBase_t) enPeripheral;
+    uxNoPeripheral &= 0xFFUL;
 
-    u32Offset = u32NoRegister;
-    u32Offset *= 4UL;
-    u32RegisterPCOffset += u32Offset;
+    uxOffset = uxNoRegister;
+    uxOffset *= 4UL;
+    uxRegisterPCOffset += uxOffset;
 
-    MCU__vWriteRegister(SYSCTL_BASE, u32RegisterPCOffset, value, 1UL, u32NoPeripheral);
+    MCU__vWriteRegister(SYSCTL_BASE, uxRegisterPCOffset, value, 1UL, uxNoPeripheral);
 }
 
 void SYSCTL__vPowerOffPeripheral(SYSCTL_nPERIPHERAL enPeripheral)

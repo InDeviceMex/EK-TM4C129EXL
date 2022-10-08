@@ -21,39 +21,46 @@
  * Date           Author     Version     Description
  * 5 ene. 2021     vyldram    1.0         initial Version@endverbatim
  */
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringCopy.h>
 
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    #pragma CHECK_MISRA("-6.3")
-#endif
-
 static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
-static void CONV_vCopyLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength);
+static void CONV_vCopyLoopIntIf(Base_t* pwMemoryDest, const Base_t* pwMemorySource, size_t szLength);
 static void CONV_vCopyReverseLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength);
-static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength);
+static void CONV_vCopyReverseLoopIntIf(Base_t* pwMemoryDest, const Base_t* pwMemorySource, size_t szLength);
 
-char* CONV_pcStringCopy(char* pcStringDest, const char* pcStringSource, uint32_t u32MaxSize)
+CONV_nERROR CONV_enStringCopy(char* pcStringDest, const char* pcStringSource, UBase_t uxMaxSize)
 {
-    char* pcStringReg = pcStringDest;
-    if(((uint32_t) 0U != (uint32_t) pcStringSource) && ((uint32_t) 0U != (uint32_t) pcStringDest))
+    CONV_nERROR enErrorReg;
+    char* pcStringReg;
+
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcStringDest) || (0UL == (uintptr_t) pcStringSource))
     {
-        while(((char)0 != (char) *pcStringSource) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        pcStringReg = pcStringDest;
+        while((0U != (uint8_t) *pcStringSource) && (0UL < (UBase_t) uxMaxSize))
         {
             *pcStringReg = *pcStringSource;
             pcStringSource += 1U;
             pcStringReg += 1U;
-            u32MaxSize--;
+            uxMaxSize--;
         }
-        if((uint32_t) 0 != (uint32_t) u32MaxSize)
+        if(0UL == uxMaxSize)
+        {
+            enErrorReg = CONV_enERROR_OUT_OF_RANGE;
+        }
+        else
         {
             *pcStringReg = '\0';
         }
     }
-    return (pcStringDest);
+    return (enErrorReg);
 }
 
-#define CONV_WORDSIZE   ((size_t) sizeof(int))
+#define CONV_WORDSIZE   ((size_t) sizeof(Base_t))
 #define CONV_WORDMASK   (CONV_WORDSIZE - 1UL)
 
 static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource, size_t szLength)
@@ -71,7 +78,7 @@ static void CONV_vCopyLoopCharIf(char* pcMemoryDest, const char* pcMemorySource,
 
 }
 
-static void CONV_vCopyLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength)
+static void CONV_vCopyLoopIntIf(Base_t* pwMemoryDest, const Base_t* pwMemorySource, size_t szLength)
 {
     if(0UL != szLength)
     {
@@ -99,7 +106,7 @@ static void CONV_vCopyReverseLoopCharIf(char* pcMemoryDest, const char* pcMemory
     }
 }
 
-static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySource, size_t szLength)
+static void CONV_vCopyReverseLoopIntIf(Base_t* pwMemoryDest, const Base_t* pwMemorySource, size_t szLength)
 {
     if(0UL != szLength)
     {
@@ -113,28 +120,42 @@ static void CONV_vCopyReverseLoopIntIf(int* pwMemoryDest, const int* pwMemorySou
     }
 }
 
-void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength)
+CONV_nERROR CONV_enMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t szLength)
 {
-    char* pcMemoryDestReg = (char*) pvMemoryDest;
-    const char* pcMemorySourceReg = (const char*) pvMemorySource;
-    size_t szSizeTem = 0UL;
-    if(((uint32_t) pvMemorySource != (uint32_t) pvMemoryDest) && (0UL != szLength ))
+    char* pcMemoryDestReg;
+    const char* pcMemorySourceReg;
+    size_t szSizeTem;
+    CONV_nERROR enErrorReg;
+
+    szSizeTem = 0UL;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pvMemoryDest) || (0UL == (uintptr_t) pvMemorySource))
     {
-        if((uint32_t) pcMemoryDestReg < (uint32_t) pcMemorySourceReg)
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        pcMemoryDestReg = (char*) pvMemoryDest;
+        pcMemorySourceReg = (const char*) pvMemorySource;
+        szSizeTem = (size_t) pcMemorySourceReg;
+        if((UBase_t) pcMemoryDestReg < (UBase_t) pcMemorySourceReg)
         {
-            szSizeTem = (size_t) pcMemorySourceReg;
-            size_t szTempAlign = szSizeTem;
+            size_t szTempAlign;
+
+            szTempAlign = szSizeTem;
             szTempAlign |= (size_t) pcMemoryDestReg;
             if(0UL != (szTempAlign & CONV_WORDMASK))
             {
-                szTempAlign = szSizeTem ^ (size_t) pcMemoryDestReg;
-                if((szTempAlign & CONV_WORDMASK) || (szLength < CONV_WORDSIZE))
+                szTempAlign = szSizeTem;
+                szTempAlign ^= (size_t) pcMemoryDestReg;
+                if((0UL != (szTempAlign & CONV_WORDMASK)) || (CONV_WORDSIZE > szLength))
                 {
                     szSizeTem =  szLength;
                 }
                 else
                 {
-                    szTempAlign = szSizeTem & CONV_WORDMASK;
+                    szTempAlign = szSizeTem;
+                    szTempAlign &= CONV_WORDMASK;
                     szSizeTem = CONV_WORDSIZE;
                     szSizeTem -= szTempAlign;
                 }
@@ -143,23 +164,25 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             }
             szSizeTem = szLength;
             szSizeTem /= CONV_WORDSIZE;
-            CONV_vCopyLoopIntIf((int*)pcMemoryDestReg, (const int*)pcMemorySourceReg, szSizeTem);
+            CONV_vCopyLoopIntIf((Base_t*)pcMemoryDestReg, (const Base_t*)pcMemorySourceReg, szSizeTem);
             szSizeTem = szLength;
             szSizeTem &= CONV_WORDMASK;
             CONV_vCopyLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
         }
         else
         {
+            size_t szTempAlign;
             pcMemorySourceReg += szLength;
             pcMemoryDestReg += szLength;
-            szSizeTem = (size_t) pcMemorySourceReg;
-            size_t szTempAlign = szSizeTem;
+            szSizeTem += szLength;
+
+            szTempAlign = szSizeTem;
             szTempAlign |= (size_t) pcMemoryDestReg;
             if(szTempAlign & CONV_WORDMASK)
             {
                 szTempAlign = szSizeTem;
                 szTempAlign ^= (size_t) pcMemoryDestReg;
-                if((szTempAlign & CONV_WORDMASK) || (szLength <= CONV_WORDSIZE))
+                if((0UL != (szTempAlign & CONV_WORDMASK)) || (szLength <= CONV_WORDSIZE))
                 {
                     szSizeTem =  szLength;
                 }
@@ -172,15 +195,11 @@ void* CONV_pvMemoryCopy(void* pvMemoryDest, const void* pvMemorySource, size_t s
             }
             szSizeTem = szLength;
             szSizeTem /= CONV_WORDSIZE;
-            CONV_vCopyReverseLoopIntIf((int*) pcMemoryDestReg, (const int*) pcMemorySourceReg ,szSizeTem);
+            CONV_vCopyReverseLoopIntIf((Base_t*) pcMemoryDestReg, (const Base_t*) pcMemorySourceReg ,szSizeTem);
             szSizeTem = szLength;
             szSizeTem &= CONV_WORDMASK;
             CONV_vCopyReverseLoopCharIf(pcMemoryDestReg, pcMemorySourceReg, szSizeTem);
         }
     }
-    return (pvMemoryDest);
+    return (enErrorReg);
 }
-
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    #pragma RESET_MISRA("6.3")
-#endif

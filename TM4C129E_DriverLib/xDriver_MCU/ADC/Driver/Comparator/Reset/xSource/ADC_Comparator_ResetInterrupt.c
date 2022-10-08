@@ -32,13 +32,13 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModule
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_DC_RIC_R_DCINT0_BIT;
-        stRegister.u32Mask = MCU_MASK_32;
+        stRegister.uxShift = ADC_DC_RIC_R_DCINT0_BIT;
+        stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
-        stRegister.u32Value = (uint32_t) enComparatorMaskArg;
+        stRegister.uxValue = (UBase_t) enComparatorMaskArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
@@ -46,7 +46,7 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByMask(ADC_nMODULE enModule
         do
         {
             enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
+        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
     }
     return (enErrorReg);
 }
@@ -56,14 +56,14 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByNumber(ADC_nMODULE enModu
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ADC_enCOMPARATOR_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enComparatorArg;
-        stRegister.u32Shift += ADC_DC_RIC_R_DCINT0_BIT;
-        stRegister.u32Mask = ADC_DC_RIC_DCINT0_MASK;
+        stRegister.uxShift = (UBase_t) enComparatorArg;
+        stRegister.uxShift += ADC_DC_RIC_R_DCINT0_BIT;
+        stRegister.uxMask = ADC_DC_RIC_DCINT0_MASK;
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
-        stRegister.u32Value = ADC_DC_RIC_DCINT0_RESET;
+        stRegister.uxValue = ADC_DC_RIC_DCINT0_RESET;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
@@ -71,7 +71,7 @@ ADC_nERROR ADC_Comparator__enResetInterruptConditionsByNumber(ADC_nMODULE enModu
         do
         {
             enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.u32Value));
+        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
     }
     return (enErrorReg);
 }

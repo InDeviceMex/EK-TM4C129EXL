@@ -30,80 +30,80 @@
 typedef volatile struct
 {
 
-    const uint32_t reserved;
+    const UBase_t reserved;
     union
     {
-        volatile uint32_t TnMR;
+        volatile UBase_t TnMR;
         TW_GPTMMR_t TnMR_Bit;
     };
-    const uint32_t reserved1;
+    const UBase_t reserved1;
     union
     {
-        volatile uint32_t TnCTL;
+        volatile UBase_t TnCTL;
         TW_GPTMCTL_t TnCTL_Bit;
     };
-    const uint32_t reserved3 [2UL];
+    const UBase_t reserved3 [2UL];
     union
     {
-        volatile uint32_t TnIMR;
+        volatile UBase_t TnIMR;
         TW_GPTMIMR_t TnIMR_Bit;
     };
     union
     {
-        volatile uint32_t TnRIS;
+        volatile UBase_t TnRIS;
         TW_GPTMRIS_t TnRIS_Bit;
     };
     union
     {
-        volatile uint32_t TnMIS;
+        volatile UBase_t TnMIS;
         TW_GPTMMIS_t TnMIS_Bit;
     };
     union
     {
-        volatile uint32_t TnICR;
+        volatile UBase_t TnICR;
         TW_GPTMICR_t TnICR_Bit;
     };
     union
     {
-        volatile uint32_t TnILR;
+        volatile UBase_t TnILR;
         TW_GPTMILR_t TnILR_Bit;
     };
-    const uint32_t reserved8;
+    const UBase_t reserved8;
     union
     {
-        volatile uint32_t TnMATCHR;
+        volatile UBase_t TnMATCHR;
         TW_GPTMMATCHR_t TnMATCHR_Bit;
     };
-    const uint32_t reserved9 [5UL];
+    const UBase_t reserved9 [5UL];
     union
     {
-        volatile const uint32_t TnR;
+        volatile const UBase_t TnR;
         TW_GPTMR_t TnR_Bit;
     };
-    const uint32_t reserved10;
+    const UBase_t reserved10;
     union
     {
-        volatile uint32_t TnV;
+        volatile UBase_t TnV;
         TW_GPTMV_t TnV_Bit;
     };
-    const uint32_t reserved11;
+    const UBase_t reserved11;
     union
     {
-        volatile const uint32_t RTCPD;
+        volatile const UBase_t RTCPD;
         TW_GPTMRTCPD_t RTCPD_Bit;
     };
-    const uint32_t reserved12[4UL];
+    const UBase_t reserved12[4UL];
     union
     {
-        volatile const uint32_t DMAEV;
+        volatile const UBase_t DMAEV;
         TW_GPTMDMAEV_t DMAEV_Bit;
     };
     union
     {
-        volatile const uint32_t ADCEV;
+        volatile const UBase_t ADCEV;
         TW_GPTMADCEV_t ADCEV_Bit;
     };
-    const uint32_t reserved13 [995UL];
+    const UBase_t reserved13 [995UL];
 
 }GPTM_TW_t;
 

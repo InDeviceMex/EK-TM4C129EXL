@@ -27,13 +27,13 @@
 
 void I2C8__vIRQVectorHandler(void)
 {
-    uint32_t u32Ready;
-    uint32_t u32RegMaster;
-    uint32_t u32RegSlave;
+    UBase_t uxReady;
+    UBase_t uxRegMaster;
+    UBase_t uxRegSlave;
     I2C_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PRI2C_R;
-    if(SYSCTL_PRI2C_R_I2C8_NOREADY == (SYSCTL_PRI2C_R_I2C8_MASK & u32Ready))
+    uxReady = SYSCTL_PRI2C_R;
+    if(SYSCTL_PRI2C_R_I2C8_NOREADY == (SYSCTL_PRI2C_R_I2C8_MASK & uxReady))
     {
         pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_SW);
         pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_SW);
@@ -42,12 +42,12 @@ void I2C8__vIRQVectorHandler(void)
     }
     else
     {
-        u32RegMaster = (uint32_t) I2C8_MASTER_MIS_R;
-        u32RegSlave = (uint32_t) I2C8_SLAVE_MIS_R;
-        u32RegMaster &= (uint32_t) I2C_enMASTER_INTMASK_ALL;
-        u32RegSlave &= (uint32_t) I2C_enSLAVE_INTMASK_ALL;
+        uxRegMaster = (UBase_t) I2C8_MASTER_MIS_R;
+        uxRegSlave = (UBase_t) I2C8_SLAVE_MIS_R;
+        uxRegMaster &= (UBase_t) I2C_enMASTER_INTMASK_ALL;
+        uxRegSlave &= (UBase_t) I2C_enSLAVE_INTMASK_ALL;
 
-        if(0UL == (u32RegMaster | u32RegSlave))
+        if(0UL == (uxRegMaster | uxRegSlave))
         {
             pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_SW);
             pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_SW);
@@ -56,134 +56,134 @@ void I2C8__vIRQVectorHandler(void)
         }
         else
         {
-            if(0UL != u32RegMaster)
+            if(0UL != uxRegMaster)
             {
-                if((uint32_t) I2C_enMASTER_INTMASK_MASTER & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_MASTER & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_MASTER;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_MASTER;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_MASTER);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_MASTER);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_CLOCK_TIMEOUT & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_CLOCK_TIMEOUT & uxRegMaster)
                 {
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_CLOCK_TIMEOUT);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_CLOCK_TIMEOUT);
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_CLOCK_TIMEOUT;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_CLOCK_TIMEOUT;
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_RECEIVE_DMA & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_RECEIVE_DMA & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_RECEIVE_DMA;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_RECEIVE_DMA;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_RECEIVE_DMA);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_RECEIVE_DMA);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_DMA & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_DMA & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_DMA;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_DMA;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_TRANSMIT_DMA);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_TRANSMIT_DMA);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_ADDR_DATA_NACK & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_ADDR_DATA_NACK & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_ADDR_DATA_NACK;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_ADDR_DATA_NACK;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_ADDR_DATA_NACK);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_ADDR_DATA_NACK);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_START_DETECTION & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_START_DETECTION & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_START_DETECTION;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_START_DETECTION;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_START_DETECTION);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_START_DETECTION);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_STOP_DETECTION & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_STOP_DETECTION & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_STOP_DETECTION;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_STOP_DETECTION;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_STOP_DETECTION);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_STOP_DETECTION);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_ARBITRATION_LOST & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_ARBITRATION_LOST & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_ARBITRATION_LOST;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_ARBITRATION_LOST;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_ARBITRATION_LOST);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_ARBITRATION_LOST);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_REQ & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_REQ & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_REQ;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_REQ;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_TRANSMIT_FIFO_REQ);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_TRANSMIT_FIFO_REQ);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_REQ & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_REQ & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_REQ;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_REQ;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_RECEIVE_FIFO_REQ);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_RECEIVE_FIFO_REQ);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_EMPTY & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_EMPTY & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_EMPTY;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_TRANSMIT_FIFO_EMPTY;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_TRANSMIT_FIFO_EMPTY);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_TRANSMIT_FIFO_EMPTY);
                 }
-                if((uint32_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_FULL & u32RegMaster)
+                if((UBase_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_FULL & uxRegMaster)
                 {
-                    I2C8_MASTER_ICR_R = (uint32_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_FULL;
+                    I2C8_MASTER_ICR_R = (UBase_t) I2C_enMASTER_INTMASK_RECEIVE_FIFO_FULL;
                     pvfCallback = I2C_Master__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enMASTER_INT_RECEIVE_FIFO_FULL);
                     pvfCallback(I2C8_BASE, (void*) I2C_enMASTER_INT_RECEIVE_FIFO_FULL);
                 }
             }
-            if(0UL != u32RegSlave)
+            if(0UL != uxRegSlave)
             {
-                if((uint32_t) I2C_enSLAVE_INTMASK_DATA & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_DATA & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_DATA;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_DATA;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_DATA);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_DATA);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_START_CONDITION & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_START_CONDITION & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_START_CONDITION;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_START_CONDITION;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_START_CONDITION);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_START_CONDITION);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_STOP_CONDITION & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_STOP_CONDITION & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_STOP_CONDITION;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_STOP_CONDITION;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_STOP_CONDITION);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_STOP_CONDITION);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_DMA & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_DMA & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_DMA;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_DMA;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_RECEIVE_DMA);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_RECEIVE_DMA);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_DMA & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_DMA & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_DMA;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_DMA;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_TRANSMIT_DMA);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_TRANSMIT_DMA);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_REQ & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_REQ & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_REQ;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_REQ;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_TRANSMIT_FIFO_REQ);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_TRANSMIT_FIFO_REQ);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_REQ & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_REQ & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_REQ;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_REQ;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_RECEIVE_FIFO_REQ);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_RECEIVE_FIFO_REQ);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_EMPTY & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_EMPTY & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_EMPTY;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_TRANSMIT_FIFO_EMPTY;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_TRANSMIT_FIFO_EMPTY);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_TRANSMIT_FIFO_EMPTY);
                 }
-                if((uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_FULL & u32RegSlave)
+                if((UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_FULL & uxRegSlave)
                 {
-                    I2C8_SLAVE_ICR_R = (uint32_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_FULL;
+                    I2C8_SLAVE_ICR_R = (UBase_t) I2C_enSLAVE_INTMASK_RECEIVE_FIFO_FULL;
                     pvfCallback = I2C_Slave__pvfGetIRQSourceHandler(I2C_enMODULE_8, I2C_enSLAVE_INT_RECEIVE_FIFO_FULL);
                     pvfCallback(I2C8_BASE, (void*) I2C_enSLAVE_INT_RECEIVE_FIFO_FULL);
                 }

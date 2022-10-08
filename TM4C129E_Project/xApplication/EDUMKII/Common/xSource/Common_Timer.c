@@ -31,8 +31,8 @@
 void EDUMKII_Common_vTimerInit(void)
 {
     TIMER_EXTRAMODE_t pstExtraMode;
-    static uint32_t u32Init = 0UL;
-    if(0UL == u32Init)
+    static UBase_t uxInit = 0UL;
+    if(0UL == uxInit)
     {
         pstExtraMode.enWaitTrigger = TIMER_enWAIT_NOTRIGGER;
         pstExtraMode.enPWMInterrupt = TIMER_enPWM_INT_DIS;
@@ -45,7 +45,7 @@ void EDUMKII_Common_vTimerInit(void)
         TIMER__enSetExtraModeStruct(TIMER_enT5A, &pstExtraMode);
         TIMER__enSetMode_Reload(TIMER_enT5A, TIMER_enMODE_PERIODIC_INDIVIDUAL_UP, 800000U-1U);
         TIMER__vSetEnable(TIMER_enT5A, TIMER_enENABLE_START);
-        u32Init = 1UL;
+        uxInit = 1UL;
     }
 }
 

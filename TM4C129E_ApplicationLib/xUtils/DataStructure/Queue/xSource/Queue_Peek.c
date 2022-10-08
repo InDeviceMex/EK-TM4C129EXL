@@ -30,25 +30,25 @@ void * Queue__pvPeek(const Queue_t* pstQueue)
     return SLinkedList__pvGetDataHead((const SLinkedList_t*)pstQueue);
 }
 
-uint32_t Queue__u32GetNMember(const Queue_t* pstQueue, void** pvData, uint32_t u32Members, uint32_t u32MaxSize)
+UBase_t Queue__uxGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize)
 {
-    uint32_t u32SizeReg = 0UL;
+    UBase_t uxSizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstQueue) && ((uint32_t) 0UL != (uint32_t) pvData ) && (0UL != u32Members ) && (0UL != u32MaxSize ))
+    if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMembers ) && (0UL != uxMaxSize ))
     {
-        u32SizeReg = SLinkedList__u32GetNItem((const SLinkedList_t*)pstQueue, pvData, u32Members, u32MaxSize);
+        uxSizeReg = SLinkedList__uxGetNItem((const SLinkedList_t*)pstQueue, pvData, uxMembers, uxMaxSize);
     }
-    return u32SizeReg;
+    return uxSizeReg;
 }
 
-uint32_t Queue__u32GetAllMember(const Queue_t* pstQueue, void** pvData, uint32_t u32MaxSize)
+UBase_t Queue__uxGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize)
 {
-    uint32_t u32SizeReg = 0UL;
+    UBase_t uxSizeReg = 0UL;
 
-    if(((uint32_t) 0UL != (uint32_t) pstQueue) && ((uint32_t) 0UL != (uint32_t) pvData ) && ((uint32_t) 0UL != u32MaxSize ))
+    if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && ((UBase_t) 0UL != uxMaxSize ))
     {
-        u32SizeReg = SLinkedList__u32GetAllItem((const SLinkedList_t*)pstQueue, pvData, u32MaxSize);
+        uxSizeReg = SLinkedList__uxGetAllItem((const SLinkedList_t*)pstQueue, pvData, uxMaxSize);
     }
-    return u32SizeReg;
+    return uxSizeReg;
 }
 

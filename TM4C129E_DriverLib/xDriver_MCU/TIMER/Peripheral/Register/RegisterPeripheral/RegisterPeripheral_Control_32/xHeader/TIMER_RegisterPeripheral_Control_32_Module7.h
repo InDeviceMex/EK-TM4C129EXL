@@ -34,27 +34,27 @@
 ************************************ 1 CFG *********************************************
 ******************************************************************************************/
 #define GPTM7_CTL_CFG    ((GPTMCFG_t*) (GPTM7_BASE + GPTM_CTL_CFG_OFFSET))
-#define GPTM7_CTL_CFG_R    (*((volatile uint32_t*) (GPTM7_BASE + GPTM_CTL_CFG_OFFSET)))
+#define GPTM7_CTL_CFG_R    (*((volatile UBase_t*) (GPTM7_BASE + GPTM_CTL_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************ 5 SYNC *********************************************
 ******************************************************************************************/
 
 #define GPTM7_CTL_SYNC    ((GPTMSYNC_t*) (GPTM7_BASE + GPTM_CTL_SYNC_OFFSET))
-#define GPTM7_CTL_SYNC_R    (*((volatile uint32_t*) (GPTM7_BASE + GPTM_CTL_SYNC_OFFSET)))
+#define GPTM7_CTL_SYNC_R    (*((volatile UBase_t*) (GPTM7_BASE + GPTM_CTL_SYNC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 27 PP *********************************************
 ******************************************************************************************/
 
 #define GPTM7_CTL_PP    ((GPTMPP_t*) (GPTM7_BASE + GPTM_CTL_PP_OFFSET))
-#define GPTM7_CTL_PP_R    (*((volatile uint32_t*) (GPTM7_BASE + GPTM_CTL_PP_OFFSET)))
+#define GPTM7_CTL_PP_R    (*((volatile UBase_t*) (GPTM7_BASE + GPTM_CTL_PP_OFFSET)))
 
 /******************************************************************************************
 ************************************ 28 CC *********************************************
 ******************************************************************************************/
 
 #define GPTM7_CTL_CC    ((GPTMCC_t*) (GPTM7_BASE + GPTM_CTL_CC_OFFSET))
-#define GPTM7_CTL_CC_R    (*((volatile uint32_t*) (GPTM7_BASE + GPTM_CTL_CC_OFFSET)))
+#define GPTM7_CTL_CC_R    (*((volatile UBase_t*) (GPTM7_BASE + GPTM_CTL_CC_OFFSET)))
 
 #endif /* XDRIVER_MCU_TIMER_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_REGISTERPERIPHERAL_CONTROL_32_XHEADER_TIMER_REGISTERPERIPHERAL_CONTROL_32_MODULE7_H_ */

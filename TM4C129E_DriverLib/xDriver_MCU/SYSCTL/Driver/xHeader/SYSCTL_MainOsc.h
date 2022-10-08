@@ -25,7 +25,7 @@ SYSCTL_nMOSC_FREQ SYSCTL__enGetMainOscRange(void);
 void SYSCTL__vSetMainOscPower(SYSCTL_nMOSC_POWER enPower);
 SYSCTL_nMOSC_POWER SYSCTL__enGetMainOscPower(void);
 
-void SYSCTL__vSetMainOscConfig(uint32_t u32Config);
-uint32_t SYSCTL__enGetMainOscConfig(void);
+void SYSCTL__vSetMainOscConfig(UBase_t uxConfig);
+UBase_t SYSCTL__enGetMainOscConfig(void);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_MAINOSC_H_ */

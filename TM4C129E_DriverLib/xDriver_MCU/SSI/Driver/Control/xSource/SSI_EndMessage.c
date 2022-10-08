@@ -29,13 +29,13 @@
 void SSI__vSetEndMessage(SSI_nMODULE enModule, SSI_nEOM enEndMessageArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-        (uint32_t) enEndMessageArg, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
+        (UBase_t) enEndMessageArg, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
 }
 
 SSI_nEOM SSI__enGetEndMessage(SSI_nMODULE enModule)
 {
     SSI_nEOM enEndMessageReg = SSI_enEOM_ONGOING;
-    enEndMessageReg = (SSI_nEOM) SSI__u32ReadRegister(enModule,
+    enEndMessageReg = (SSI_nEOM) SSI__uxReadRegister(enModule,
                           SSI_CR1_OFFSET, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
     return (enEndMessageReg);
 }

@@ -27,36 +27,36 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
-#define SCB_VECTOR_TABLE_SIZE ((uint32_t) 0x00000100UL)
+#define SCB_VECTOR_TABLE_SIZE ((UBase_t) 0x00000100UL)
 
 typedef enum
 {
-    SCB_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    SCB_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    SCB_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    SCB_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    SCB_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    SCB_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    SCB_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    SCB_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    SCB_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    SCB_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }SCB_nERROR;
 
 typedef enum
 {
-    SCB_enPRI0 = (uint32_t) MCU_enPRI0,
-    SCB_enPRI1 = (uint32_t) MCU_enPRI1,
-    SCB_enPRI2 = (uint32_t) MCU_enPRI2,
-    SCB_enPRI3 = (uint32_t) MCU_enPRI3,
-    SCB_enPRI4 = (uint32_t) MCU_enPRI4,
-    SCB_enPRI5 = (uint32_t) MCU_enPRI5,
-    SCB_enPRI6 = (uint32_t) MCU_enPRI6,
-    SCB_enPRI7 = (uint32_t) MCU_enPRI7,
-    SCB_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    SCB_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    SCB_enPRI0 = (UBase_t) MCU_enPRI0,
+    SCB_enPRI1 = (UBase_t) MCU_enPRI1,
+    SCB_enPRI2 = (UBase_t) MCU_enPRI2,
+    SCB_enPRI3 = (UBase_t) MCU_enPRI3,
+    SCB_enPRI4 = (UBase_t) MCU_enPRI4,
+    SCB_enPRI5 = (UBase_t) MCU_enPRI5,
+    SCB_enPRI6 = (UBase_t) MCU_enPRI6,
+    SCB_enPRI7 = (UBase_t) MCU_enPRI7,
+    SCB_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    SCB_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }SCB_nPRIORITY;
 
 
 typedef enum
 {
-    SCB_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    SCB_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
+    SCB_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    SCB_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
 }SCB_nSTATE;
 
 typedef enum
@@ -72,7 +72,7 @@ typedef enum
     SCB_enPRIGROUP_XYY = 2UL,
     SCB_enPRIGROUP_YYY = 3UL,
     SCB_enPRIGROUP_MAX = 4UL,
-    SCB_enPRIGROUP_ERROR = 0x7FFFFFFFUL,
+    SCB_enPRIGROUP_ERROR = UNDEF_VALUE,
 }SCB_nPRIGROUP;
 
 typedef enum
@@ -201,28 +201,28 @@ typedef enum
 {
     SCB_enALIGN_4BYTE = 0UL,
     SCB_enALIGN_8BYTE = 1UL,
-    SCB_enALIGN_ERROR = 0x7FFFFFFFUL,
+    SCB_enALIGN_ERROR = UNDEF_VALUE,
 }SCB_nALIGN;
 
 typedef enum
 {
     SCB_enWAKEUP_ONLY = 0UL,
     SCB_enWAKEUP_ALL = 1UL,
-    SCB_enWAKEUP_UNDEF = 0x7FFFFFFFUL,
+    SCB_enWAKEUP_UNDEF = UNDEF_VALUE,
 }SCB_nWAKEUP;
 
 typedef enum
 {
     SCB_enSLEEPONEXIT_NOSLEEP = 0UL,
     SCB_enSLEEPONEXIT_SLEEP = 1UL,
-    SCB_enSLEEPONEXIT_UNDEF = 0x7FFFFFFFUL,
+    SCB_enSLEEPONEXIT_UNDEF = UNDEF_VALUE,
 }SCB_nSLEEPONEXIT;
 
 typedef enum
 {
     SCB_enSLEEPMODE_SLEEP = 0UL,
     SCB_enSLEEPMODE_DEEPSLEEP = 1UL,
-    SCB_enSLEEPMODE_UNDEF = 0x7FFFFFFFUL,
+    SCB_enSLEEPMODE_UNDEF = UNDEF_VALUE,
 }SCB_nSLEEPMODE;
 
 typedef enum

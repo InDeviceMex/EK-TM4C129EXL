@@ -27,108 +27,108 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
-static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule,
+static UBase_t TIMER__uxGetEventValue(TIMER_nSUBMODULE enSubModule,
                                         TIMER_nEVENT enEventParam);
-static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
-                                                uint32_t u32EventParam );
+static TIMER_nEVENT TIMER__uxConvertEventValue(TIMER_nSUBMODULE enSubModule,
+                                                UBase_t uxEventParam );
 
-static uint32_t TIMER__u32GetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVENT enEventParam)
+static UBase_t TIMER__uxGetEventValue(TIMER_nSUBMODULE enSubModule, TIMER_nEVENT enEventParam)
 {
-    uint32_t TIMER_u32EventMask[ (uint32_t) TIMER_enSUBMODULE_MAX] =
-    { (uint32_t) TIMER_enEVENT_TA_ALL,
-      (uint32_t) TIMER_enEVENT_TB_ALL,
-      (uint32_t) TIMER_enEVENT_TW_ALL
+    UBase_t TIMER_uxEventMask[ (UBase_t) TIMER_enSUBMODULE_MAX] =
+    { (UBase_t) TIMER_enEVENT_TA_ALL,
+      (UBase_t) TIMER_enEVENT_TB_ALL,
+      (UBase_t) TIMER_enEVENT_TW_ALL
     };
-    uint32_t u32EventValue = 0UL;
-    uint32_t u32SubModule = 0UL;
-    u32SubModule = (uint32_t) enSubModule;
-    u32EventValue = (uint32_t) enEventParam;
-    if((uint32_t) TIMER_enSUBMODULE_B == u32SubModule)
+    UBase_t uxEventValue = 0UL;
+    UBase_t uxSubModule = 0UL;
+    uxSubModule = (UBase_t) enSubModule;
+    uxEventValue = (UBase_t) enEventParam;
+    if((UBase_t) TIMER_enSUBMODULE_B == uxSubModule)
     {
-        u32EventValue &= ~(uint32_t) TIMER_enINT_RTC;
-        if(0UL != (u32EventValue & (uint32_t) TIMER_enINT_MATCH))
+        uxEventValue &= ~(UBase_t) TIMER_enINT_RTC;
+        if(0UL != (uxEventValue & (UBase_t) TIMER_enINT_MATCH))
         {
-            u32EventValue &= ~(uint32_t) TIMER_enINT_MATCH;
-            u32EventValue |= (uint32_t) TIMER_enINT_RTC;
+            uxEventValue &= ~(UBase_t) TIMER_enINT_MATCH;
+            uxEventValue |= (UBase_t) TIMER_enINT_RTC;
         }
-        u32EventValue <<= 8UL;
+        uxEventValue <<= 8UL;
     }
-    u32EventValue &= TIMER_u32EventMask[u32SubModule];
-    return (u32EventValue);
+    uxEventValue &= TIMER_uxEventMask[uxSubModule];
+    return (uxEventValue);
 }
 
-static TIMER_nEVENT TIMER__u32ConvertEventValue(TIMER_nSUBMODULE enSubModule,
-                                                uint32_t u32EventParam )
+static TIMER_nEVENT TIMER__uxConvertEventValue(TIMER_nSUBMODULE enSubModule,
+                                                UBase_t uxEventParam )
 {
-    uint32_t u32SubModule = 0UL;
-    u32SubModule = (uint32_t) enSubModule;
-    if((uint32_t) TIMER_enSUBMODULE_B == u32SubModule)
+    UBase_t uxSubModule = 0UL;
+    uxSubModule = (UBase_t) enSubModule;
+    if((UBase_t) TIMER_enSUBMODULE_B == uxSubModule)
     {
-        u32EventParam >>= 8UL;
-        u32EventParam &= ~(uint32_t) TIMER_enINT_MATCH;
-        if(0UL != (u32EventParam & (uint32_t) TIMER_enINT_RTC))
+        uxEventParam >>= 8UL;
+        uxEventParam &= ~(UBase_t) TIMER_enINT_MATCH;
+        if(0UL != (uxEventParam & (UBase_t) TIMER_enINT_RTC))
         {
-            u32EventParam &= ~(uint32_t) TIMER_enINT_RTC;
-            u32EventParam |= (uint32_t) TIMER_enINT_MATCH;
+            uxEventParam &= ~(UBase_t) TIMER_enINT_RTC;
+            uxEventParam |= (UBase_t) TIMER_enINT_MATCH;
         }
     }
-    u32EventParam &= (uint32_t) TIMER_enEVENT_TW_ALL;
-    return ( (TIMER_nEVENT) u32EventParam);
+    uxEventParam &= (UBase_t) TIMER_enEVENT_TW_ALL;
+    return ( (TIMER_nEVENT) uxEventParam);
 }
 
-void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, uint32_t u32OffsetReg)
+void TIMER__vSetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam, UBase_t uxOffsetReg)
 {
-    uint32_t u32EventValue = 0UL;
-    uint32_t u32SubModule = 0UL;
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32EventAll = 0UL;
-    TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-    u32EventValue = TIMER__u32GetEventValue( (TIMER_nSUBMODULE) u32SubModule, enEventParam);
-    switch (u32SubModule)
+    UBase_t uxEventValue = 0UL;
+    UBase_t uxSubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxEventAll = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+    uxEventValue = TIMER__uxGetEventValue( (TIMER_nSUBMODULE) uxSubModule, enEventParam);
+    switch (uxSubModule)
     {
-    case (uint32_t) TIMER_enSUBMODULE_A:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TA_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_A:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TA_ALL;
             break;
-    case (uint32_t) TIMER_enSUBMODULE_B:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TB_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_B:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TB_ALL;
             break;
-    case (uint32_t) TIMER_enSUBMODULE_W:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TW_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_W:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TW_ALL;
             break;
     default:
         break;
     }
 
-    TIMER__vWriteRegister( (TIMER_nMODULE_NUM) u32ModuleNumber, u32OffsetReg,
-                           u32EventValue, u32EventAll, 0UL);
+    TIMER__vWriteRegister( (TIMER_nMODULE_NUM) uxModuleNumber, uxOffsetReg,
+                           uxEventValue, uxEventAll, 0UL);
 }
 
 TIMER_nEVENT TIMER__enGetEvent(TIMER_nMODULE enModule, TIMER_nEVENT enEventParam,
-                               uint32_t u32OffsetReg)
+                               UBase_t uxOffsetReg)
 {
     TIMER_nEVENT enEventReg = TIMER_enEVENT_TIMEOUT;
-    uint32_t u32EventValue = 0UL;
-    uint32_t u32SubModule = 0UL;
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32EventAll = 0UL;
-    TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-    switch (u32SubModule)
+    UBase_t uxEventValue = 0UL;
+    UBase_t uxSubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxEventAll = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+    switch (uxSubModule)
     {
-    case (uint32_t) TIMER_enSUBMODULE_A:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TA_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_A:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TA_ALL;
             break;
-    case (uint32_t) TIMER_enSUBMODULE_B:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TB_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_B:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TB_ALL;
             break;
-    case (uint32_t) TIMER_enSUBMODULE_W:
-            u32EventAll = (uint32_t) TIMER_enEVENT_TW_ALL;
+    case (UBase_t) TIMER_enSUBMODULE_W:
+            uxEventAll = (UBase_t) TIMER_enEVENT_TW_ALL;
             break;
     default:
         break;
     }
-    u32EventValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
-                                           u32OffsetReg, u32EventAll, 0UL);
-    enEventReg = (TIMER_nEVENT) TIMER__u32ConvertEventValue((TIMER_nSUBMODULE) u32SubModule,
-                                                            u32EventValue);
+    uxEventValue = TIMER__uxReadRegister((TIMER_nMODULE_NUM) uxModuleNumber,
+                                           uxOffsetReg, uxEventAll, 0UL);
+    enEventReg = (TIMER_nEVENT) TIMER__uxConvertEventValue((TIMER_nSUBMODULE) uxSubModule,
+                                                            uxEventValue);
     return (enEventReg);
 }

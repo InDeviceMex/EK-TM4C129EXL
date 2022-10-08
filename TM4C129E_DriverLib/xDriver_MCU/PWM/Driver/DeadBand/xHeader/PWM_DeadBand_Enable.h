@@ -27,8 +27,14 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_DeadBand__vSetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nSTATE enEnableArg);
-PWM_nSTATE PWM_DeadBand__enGetEnable(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_DeadBand__enSetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_DeadBand__enSetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nSTATE enStateArg);
 
+PWM_nERROR PWM_DeadBand__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_DeadBand__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penStateArg);
+
+PWM_nERROR PWM_DeadBand__enSetStateUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_DeadBand__enSetStateUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nUPDATE enModeArg);
+
+PWM_nERROR PWM_DeadBand__enGetStateUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE* penModeArg);
 #endif /* XDRIVER_MCU_PWM_DRIVER_DEADBAND_XHEADER_PWM_DEADBAND_ENABLE_H_ */

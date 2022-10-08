@@ -23,11 +23,11 @@
  */
 #include <xDriver_MCU/QEI/Peripheral/Register/RegisterPeripheral/QEI_RegisterPeripheral.h>
 
-uint32_t QEI__u32BlockBaseAddress(QEI_nMODULE enModuleArg)
+UBase_t QEI__uxBlockBaseAddress(QEI_nMODULE enModuleArg)
 {
-    const uintptr_t QEI_BLOCK_BASE[(uint32_t) QEI_enMODULE_MAX] =
+    const uintptr_t QEI_BLOCK_BASE[(UBase_t) QEI_enMODULE_MAX] =
     {
      QEI0_BASE
     };
-    return (QEI_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (QEI_BLOCK_BASE[(UBase_t) enModuleArg]);
 }

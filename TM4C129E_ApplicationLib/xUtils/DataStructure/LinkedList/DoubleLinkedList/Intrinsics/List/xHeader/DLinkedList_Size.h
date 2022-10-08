@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-uint32_t DLinkedList__u32GetSize(const DLinkedList_t* const pstList);
-void DLinkedList__vSetSize(DLinkedList_t*  pstList, uint32_t u32SizeArg);
+UBase_t DLinkedList__uxGetSize(const DLinkedList_t* const pstList);
+void DLinkedList__vSetSize(DLinkedList_t*  pstList, UBase_t uxSizeArg);
 DLinkedList_nSTATUS DLinkedList__enIsEmpty(const DLinkedList_t*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_DLINKEDLIST_SIZE_H_ */

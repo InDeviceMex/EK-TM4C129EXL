@@ -29,16 +29,16 @@
 ADC_nERROR ADC__enInit(ADC_nMODULE enModuleArg)
 {
     ADC_nERROR enErrorReg;
-    uint32_t u32SequencerReg;
+    UBase_t uxSequencerReg;
     ADC_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    u32SequencerReg = 0UL;
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
-    while((u32SequencerReg < (uint32_t) ADC_enSEQ_MAX) && (ADC_enERROR_OK == enErrorReg))
+    uxSequencerReg = 0UL;
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
+    while((uxSequencerReg < (UBase_t) ADC_enSEQ_MAX) && (ADC_enERROR_OK == enErrorReg))
     {
-        pfIrqVectorHandlerReg = ADC__pvfGetIRQVectorHandler(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg);
-        enErrorReg = ADC__enRegisterIRQVectorHandler(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, pfIrqVectorHandlerReg);
-        u32SequencerReg++;
+        pfIrqVectorHandlerReg = ADC__pvfGetIRQVectorHandler(enModuleArg, (ADC_nSEQUENCER) uxSequencerReg);
+        enErrorReg = ADC__enRegisterIRQVectorHandler(enModuleArg, (ADC_nSEQUENCER) uxSequencerReg, pfIrqVectorHandlerReg);
+        uxSequencerReg++;
     }
 
     return (enErrorReg);

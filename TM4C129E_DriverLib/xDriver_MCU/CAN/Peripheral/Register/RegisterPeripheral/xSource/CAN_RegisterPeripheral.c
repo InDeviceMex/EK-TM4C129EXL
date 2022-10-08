@@ -25,9 +25,9 @@
 
 uintptr_t CAN__uptrBlockBaseAddress(CAN_nMODULE enModuleArg)
 {
-    const uintptr_t CAN_BLOCK_BASE[(uint32_t) CAN_enMODULE_MAX] =
+    const uintptr_t CAN_BLOCK_BASE[(UBase_t) CAN_enMODULE_MAX] =
     {
      CAN0_BASE, CAN1_BASE
     };
-    return (CAN_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (CAN_BLOCK_BASE[(UBase_t) enModuleArg]);
 }

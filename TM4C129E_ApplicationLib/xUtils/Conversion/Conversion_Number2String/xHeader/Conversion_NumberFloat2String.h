@@ -24,11 +24,9 @@
 #ifndef XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFLOAT2STRING_H_
 #define XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFLOAT2STRING_H_
 
-#include <xUtils/Standard/Standard.h>
-#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number2String/Conversion_Primitives/xHeader/Conversion_Wrapper.h>
 
-CONV_nSTATUS Conv__enNumber2String_Float(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value, uint32_t u32Index, uint32_t u32MaxLenght, uint32_t* pu32BufOutLenght, uint32_t u32Width, uint32_t u32flags, uint32_t u32Prec);
+CONV_nERROR Conv__enNumber2String_Float(CONV_OUT_t pvfOut, char* pcBufferOut, float64_t f64Value, UBase_t uxIndex, UBase_t uxMaxLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags, UBase_t uxPrec);
 
 
 

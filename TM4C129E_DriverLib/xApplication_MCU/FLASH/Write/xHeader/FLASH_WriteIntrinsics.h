@@ -32,13 +32,13 @@
 #pragma  CODE_SECTION(FLASH__enWriteWord, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteBuffer, ".ramcode")
 
-FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg);
-FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const uint32_t* pu32Data, uint32_t u32AddressArg, uint32_t* pu32Count);
+FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxAddressArg);
+FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxData, UBase_t uxAddressArg, UBase_t* puxCount);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, uint32_t u32DataArg, uint32_t u32AddressArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const uint32_t* pu32Data, uint32_t u32AddressArg, uint32_t* pu32Count) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWriteWord(FLASH_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxAddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWriteBuffer(FLASH_nMODULE enModuleArg, const UBase_t* puxData, UBase_t uxAddressArg, UBase_t* puxCount) __attribute__((section(".ramcode")));
 
 #endif
 

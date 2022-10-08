@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-uint32_t SSI__u32ReadRegister(SSI_nMODULE enModule, uint32_t u32OffsetRegister,
-                              uint32_t u32MaskFeature, uint32_t u32BitFeature);
+UBase_t SSI__uxReadRegister(SSI_nMODULE enModule, UBase_t uxOffsetRegister,
+                              UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_SSI_READREGISTER_H_ */

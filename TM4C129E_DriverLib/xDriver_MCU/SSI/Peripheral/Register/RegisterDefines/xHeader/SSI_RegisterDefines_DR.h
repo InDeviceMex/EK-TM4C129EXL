@@ -30,10 +30,10 @@
 ************************************ 3 DR *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SSI_DR_R_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
-#define SSI_DR_R_DATA_BIT    ((uint32_t) 0UL)
+#define SSI_DR_R_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
+#define SSI_DR_R_DATA_BIT    ((UBase_t) 0UL)
 
-#define SSI_DR_DATA_MASK    ((uint32_t) 0x0000FFFFUL)
+#define SSI_DR_DATA_MASK    ((UBase_t) 0x0000FFFFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SSI_REGISTERDEFINES_DR_H_ */

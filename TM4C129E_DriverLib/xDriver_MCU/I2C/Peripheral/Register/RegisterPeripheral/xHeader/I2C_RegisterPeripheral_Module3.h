@@ -41,167 +41,167 @@
 ************************************ 1 MSA *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_SA    ((I2C_MASTER_SA_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET ))
-#define I2C3_MASTER_SA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET)))
+#define I2C3_MASTER_SA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 2 MCS *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_STS    ((I2C_MASTER_STS_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET ))
 #define I2C3_MASTER_CTL    ((I2C_MASTER_CTL_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET ))
-#define I2C3_MASTER_STS_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET)))
-#define I2C3_MASTER_CTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET)))
+#define I2C3_MASTER_STS_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET)))
+#define I2C3_MASTER_CTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 3 MDR *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_DATA    ((I2C_MASTER_DATA_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET ))
-#define I2C3_MASTER_DATA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET)))
+#define I2C3_MASTER_DATA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 MTPR *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_TPR    ((I2C_MASTER_TPR_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET ))
-#define I2C3_MASTER_TPR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET)))
+#define I2C3_MASTER_TPR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 5 MIMR *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_IMR    ((I2C_MASTER_IMR_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET ))
-#define I2C3_MASTER_IMR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET)))
+#define I2C3_MASTER_IMR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 MRIS *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_RIS    ((I2C_MASTER_RIS_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET ))
-#define I2C3_MASTER_RIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET)))
+#define I2C3_MASTER_RIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 MMIS *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_MIS    ((I2C_MASTER_MIS_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET ))
-#define I2C3_MASTER_MIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET)))
+#define I2C3_MASTER_MIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 8 MICR *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_ICR    ((I2C_MASTER_ICR_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET ))
-#define I2C3_MASTER_ICR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET)))
+#define I2C3_MASTER_ICR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 9 MCR *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_CR    ((I2C_MASTER_CR_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET ))
-#define I2C3_MASTER_CR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET)))
+#define I2C3_MASTER_CR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 10 MCLKOCNT *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_CLKOCNT    ((I2C_MASTER_CLKOCNT_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET ))
-#define I2C3_MASTER_CLKOCNT_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET)))
+#define I2C3_MASTER_CLKOCNT_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET)))
 
 /******************************************************************************************
 ************************************ 11 MBMON *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_BMON    ((I2C_MASTER_BMON_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET ))
-#define I2C3_MASTER_BMON_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET)))
+#define I2C3_MASTER_BMON_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET)))
 
 /******************************************************************************************
 ************************************ 12 MBLEN *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_BLEN    ((I2C_MASTER_BLEN_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET ))
-#define I2C3_MASTER_BLEN_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET)))
+#define I2C3_MASTER_BLEN_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET)))
 
 /******************************************************************************************
 ************************************ 13 MBCNT *********************************************
 ******************************************************************************************/
 #define I2C3_MASTER_BCNT    ((I2C_MASTER_BCNT_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET ))
-#define I2C3_MASTER_BCNT_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET)))
+#define I2C3_MASTER_BCNT_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET)))
 
 /******************************************************************************************
 ************************************ 14 SOAR *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_OAR    ((I2C_SLAVE_OAR_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET ))
-#define I2C3_SLAVE_OAR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET)))
+#define I2C3_SLAVE_OAR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 15 SCSR *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_STS    ((I2C_SLAVE_STS_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET ))
 #define I2C3_SLAVE_CTL    ((I2C_SLAVE_CTL_t*) (I2C3_BASE + I2C_SLAVE_CTL_OFFSET ))
-#define I2C3_SLAVE_STS_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET)))
-#define I2C3_SLAVE_CTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_CTL_OFFSET)))
+#define I2C3_SLAVE_STS_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET)))
+#define I2C3_SLAVE_CTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 16 SDR *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_DATA    ((I2C_SLAVE_DATA_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET ))
-#define I2C3_SLAVE_DATA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET)))
+#define I2C3_SLAVE_DATA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 17 SIMR *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_IMR    ((I2C_SLAVE_IMR_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET ))
-#define I2C3_SLAVE_IMR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET)))
+#define I2C3_SLAVE_IMR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 18 SRIS *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_RIS    ((I2C_SLAVE_RIS_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET ))
-#define I2C3_SLAVE_RIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET)))
+#define I2C3_SLAVE_RIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 19 SMIS *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_MIS    ((I2C_SLAVE_MIS_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET ))
-#define I2C3_SLAVE_MIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET)))
+#define I2C3_SLAVE_MIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 20 SICR *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_ICR    ((I2C_SLAVE_ICR_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET ))
-#define I2C3_SLAVE_ICR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET)))
+#define I2C3_SLAVE_ICR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 21 SOAR2 *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_OAR2    ((I2C_SLAVE_OAR2_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET ))
-#define I2C3_SLAVE_OAR2_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET)))
+#define I2C3_SLAVE_OAR2_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 22 SACKCTL *********************************************
 ******************************************************************************************/
 #define I2C3_SLAVE_ACKCTL    ((I2C_SLAVE_ACKCTL_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET ))
-#define I2C3_SLAVE_ACKCTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET)))
+#define I2C3_SLAVE_ACKCTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 23 FIFODATA *********************************************
 ******************************************************************************************/
 #define I2C3_FIFO_DATA    ((I2C_FIFO_DATA_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET ))
-#define I2C3_FIFO_DATA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET)))
+#define I2C3_FIFO_DATA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 24 FIFOCTL *********************************************
 ******************************************************************************************/
 #define I2C3_FIFO_CTL    ((I2C_FIFO_CTL_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET ))
-#define I2C3_FIFO_CTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET)))
+#define I2C3_FIFO_CTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 25 FIFOSTATUS *********************************************
 ******************************************************************************************/
 #define I2C3_FIFO_STS    ((I2C_FIFO_STS_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET ))
-#define I2C3_FIFO_STS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET)))
+#define I2C3_FIFO_STS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 26 PP *********************************************
 ******************************************************************************************/
 #define I2C3_CONTROL_PP    ((I2C_PP_t*) (I2C3_BASE + I2C_PP_OFFSET ))
-#define I2C3_CONTROL_PP_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_PP_OFFSET)))
+#define I2C3_CONTROL_PP_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_PP_OFFSET)))
 
 /******************************************************************************************
 ************************************ 27 PC *********************************************
 ******************************************************************************************/
 #define I2C3_CONTROL_PC    ((I2C_PC_t*) (I2C3_BASE + I2C_PC_OFFSET ))
-#define I2C3_CONTROL_PC_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_PC_OFFSET)))
+#define I2C3_CONTROL_PC_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_PC_OFFSET)))
 
 
 
@@ -209,167 +209,167 @@
 ************************************ 1 MSA *********************************************
 ******************************************************************************************/
 #define I2C3_MSA    ((I2C_MASTER_SA_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET ))
-#define I2C3_MSA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET)))
+#define I2C3_MSA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_SA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 2 MCS *********************************************
 ******************************************************************************************/
 #define I2C3_MCS_STATUS     ((I2C_MASTER_STS_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET ))
 #define I2C3_MCS_CONTROL    ((I2C_MASTER_CTL_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET ))
-#define I2C3_MCS_STATUS_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET)))
-#define I2C3_MCS_CONTROL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET)))
+#define I2C3_MCS_STATUS_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_STS_OFFSET)))
+#define I2C3_MCS_CONTROL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 3 MDR *********************************************
 ******************************************************************************************/
 #define I2C3_MDR    ((I2C_MASTER_DATA_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET ))
-#define I2C3_MDR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET)))
+#define I2C3_MDR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 MTPR *********************************************
 ******************************************************************************************/
 #define I2C3_MTPR    ((I2C_MASTER_TPR_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET ))
-#define I2C3_MTPR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET)))
+#define I2C3_MTPR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_TPR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 5 MIMR *********************************************
 ******************************************************************************************/
 #define I2C3_MIMR    ((I2C_MASTER_IMR_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET ))
-#define I2C3_MIMR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET)))
+#define I2C3_MIMR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_IMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 MRIS *********************************************
 ******************************************************************************************/
 #define I2C3_MRIS    ((I2C_MASTER_RIS_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET ))
-#define I2C3_MRIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET)))
+#define I2C3_MRIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 MMIS *********************************************
 ******************************************************************************************/
 #define I2C3_MMIS    ((I2C_MASTER_MIS_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET ))
-#define I2C3_MMIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET)))
+#define I2C3_MMIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 8 MICR *********************************************
 ******************************************************************************************/
 #define I2C3_MICR    ((I2C_MASTER_ICR_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET ))
-#define I2C3_MICR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET)))
+#define I2C3_MICR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_ICR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 9 MCR *********************************************
 ******************************************************************************************/
 #define I2C3_MCR    ((I2C_MASTER_CR_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET ))
-#define I2C3_MCR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET)))
+#define I2C3_MCR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 10 MCLKOCNT *********************************************
 ******************************************************************************************/
 #define I2C3_MCLKOCNT    ((I2C_MASTER_CLKOCNT_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET ))
-#define I2C3_MCLKOCNT_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET)))
+#define I2C3_MCLKOCNT_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_CLKOCNT_OFFSET)))
 
 /******************************************************************************************
 ************************************ 11 MBMON *********************************************
 ******************************************************************************************/
 #define I2C3_MBMON    ((I2C_MASTER_BMON_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET ))
-#define I2C3_MBMON_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET)))
+#define I2C3_MBMON_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_MASTER_BMON_OFFSET)))
 
 /******************************************************************************************
 ************************************ 12 MBLEN *********************************************
 ******************************************************************************************/
 #define I2C3_MBLEN    ((I2C_MASTER_BLEN_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET ))
-#define I2C3_MBLEN_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET)))
+#define I2C3_MBLEN_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_BLEN_OFFSET)))
 
 /******************************************************************************************
 ************************************ 13 MBCNT *********************************************
 ******************************************************************************************/
 #define I2C3_MBCNT    ((I2C_MASTER_BCNT_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET ))
-#define I2C3_MBCNT_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET)))
+#define I2C3_MBCNT_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_MASTER_BCNT_OFFSET)))
 
 /******************************************************************************************
 ************************************ 14 SOAR *********************************************
 ******************************************************************************************/
 #define I2C3_SOAR    ((I2C_SLAVE_OAR_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET ))
-#define I2C3_SOAR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET)))
+#define I2C3_SOAR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_OAR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 15 SCSR *********************************************
 ******************************************************************************************/
 #define I2C3_SCSR_STATUS    ((I2C_SLAVE_STS_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET ))
 #define I2C3_SCSR_CONTROL    ((I2C_SLAVE_CTL_t*) (I2C3_BASE + I2C_SLAVE_CTL_OFFSET ))
-#define I2C3_SCSR_STATUS_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET)))
-#define I2C3_SCSR_CONTROL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_CTS_OFFSET)))
-#define I2C3_SCSR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_CTS_OFFSET)))
+#define I2C3_SCSR_STATUS_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_STS_OFFSET)))
+#define I2C3_SCSR_CONTROL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_CTS_OFFSET)))
+#define I2C3_SCSR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_CTS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 16 SDR *********************************************
 ******************************************************************************************/
 #define I2C3_SDR    ((I2C_SLAVE_DATA_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET ))
-#define I2C3_SDR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET)))
+#define I2C3_SDR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 17 SIMR *********************************************
 ******************************************************************************************/
 #define I2C3_SIMR    ((I2C_SLAVE_IMR_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET ))
-#define I2C3_SIMR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET)))
+#define I2C3_SIMR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_IMR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 18 SRIS *********************************************
 ******************************************************************************************/
 #define I2C3_SRIS    ((I2C_SLAVE_RIS_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET ))
-#define I2C3_SRIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET)))
+#define I2C3_SRIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_SLAVE_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 19 SMIS *********************************************
 ******************************************************************************************/
 #define I2C3_SMIS    ((I2C_SLAVE_MIS_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET ))
-#define I2C3_SMIS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET)))
+#define I2C3_SMIS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_SLAVE_MIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 20 SICR *********************************************
 ******************************************************************************************/
 #define I2C3_SICR    ((I2C_SLAVE_ICR_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET ))
-#define I2C3_SICR_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET)))
+#define I2C3_SICR_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_ICR_OFFSET)))
 
 /******************************************************************************************
 ************************************ 21 SOAR2 *********************************************
 ******************************************************************************************/
 #define I2C3_SOAR2    ((I2C_SLAVE_OAR2_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET ))
-#define I2C3_SOAR2_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET)))
+#define I2C3_SOAR2_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_OAR2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 22 SACKCTL *********************************************
 ******************************************************************************************/
 #define I2C3_SACKCTL    ((I2C_SLAVE_ACKCTL_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET ))
-#define I2C3_SACKCTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET)))
+#define I2C3_SACKCTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_SLAVE_ACKCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 23 FIFODATA *********************************************
 ******************************************************************************************/
 #define I2C3_FIFODATA    ((I2C_FIFO_DATA_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET ))
-#define I2C3_FIFODATA_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET)))
+#define I2C3_FIFODATA_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_FIFO_DATA_OFFSET)))
 
 /******************************************************************************************
 ************************************ 24 FIFOCTL *********************************************
 ******************************************************************************************/
 #define I2C3_FIFOCTL    ((I2C_FIFO_CTL_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET ))
-#define I2C3_FIFOCTL_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET)))
+#define I2C3_FIFOCTL_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_FIFO_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 25 FIFOSTATUS *********************************************
 ******************************************************************************************/
 #define I2C3_FIFOSTS    ((I2C_FIFO_STS_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET ))
-#define I2C3_FIFOSTS_R    (*((volatile const uint32_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET)))
+#define I2C3_FIFOSTS_R    (*((volatile const UBase_t*) (I2C3_BASE + I2C_FIFO_STS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 26 PP *********************************************
 ******************************************************************************************/
 #define I2C3_PP    ((I2C_PP_t*) (I2C3_BASE + I2C_PP_OFFSET ))
-#define I2C3_PP_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_PP_OFFSET)))
+#define I2C3_PP_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_PP_OFFSET)))
 
 /******************************************************************************************
 ************************************ 27 PC *********************************************
 ******************************************************************************************/
 #define I2C3_PC    ((I2C_PC_t*) (I2C3_BASE + I2C_PC_OFFSET ))
-#define I2C3_PC_R    (*((volatile uint32_t*) (I2C3_BASE + I2C_PC_OFFSET)))
+#define I2C3_PC_R    (*((volatile UBase_t*) (I2C3_BASE + I2C_PC_OFFSET)))
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_XHEADER_I2C_REGISTERPERIPHERAL_MODULE3_H_ */

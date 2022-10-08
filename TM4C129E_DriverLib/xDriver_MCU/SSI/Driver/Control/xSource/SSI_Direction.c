@@ -29,13 +29,13 @@
 void SSI__vSetDirection(SSI_nMODULE enModule, SSI_nDIRECTION enDirectionArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (uint32_t) enDirectionArg, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
+            (UBase_t) enDirectionArg, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
 }
 
 SSI_nDIRECTION SSI__enGetDirection(SSI_nMODULE enModule)
 {
     SSI_nDIRECTION enDirectionReg = SSI_enDIRECTION_TX;
-    enDirectionReg = (SSI_nDIRECTION) SSI__u32ReadRegister(enModule,
+    enDirectionReg = (SSI_nDIRECTION) SSI__uxReadRegister(enModule,
                            SSI_CR1_OFFSET, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
     return (enDirectionReg);
 }

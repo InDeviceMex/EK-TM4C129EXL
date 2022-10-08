@@ -23,9 +23,9 @@
  */
 #include <xDriver_MCU/TIMER/Peripheral/Register/RegisterPeripheral/TIMER_RegisterPeripheral.h>
 
-uint32_t TIMER__u32BlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg)
+UBase_t TIMER__uxBlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg)
 {
-    const uintptr_t TIMER_BLOCK_BASE[(uint32_t) TIMER_enMODULE_NUM_MAX] =
+    const uintptr_t TIMER_BLOCK_BASE[(UBase_t) TIMER_enMODULE_NUM_MAX] =
     {
      GPTM0_BASE,
      GPTM1_BASE,
@@ -36,5 +36,5 @@ uint32_t TIMER__u32BlockBaseAddress(TIMER_nMODULE_NUM enModuleNumArg)
      GPTM6_BASE,
      GPTM7_BASE
     };
-    return (TIMER_BLOCK_BASE[(uint32_t) enModuleNumArg]);
+    return (TIMER_BLOCK_BASE[(UBase_t) enModuleNumArg]);
 }

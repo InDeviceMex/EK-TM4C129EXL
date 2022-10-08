@@ -43,15 +43,15 @@ typedef struct CDLinkedListItem
 {
         void* pvDataContainer;
         void* pvOwnerList;
-        uint32_t u32ValueItem;
+        UBase_t uxValueItem;
         struct CDLinkedListItem *pstPreviousItem;
         struct CDLinkedListItem *pstNextItem;
 }CDLinkedListItem_t;
 
 typedef struct CDLinkedList
 {
-        uint32_t u32Size;
-        uint32_t (*pfu32Match) (const void *pcvKey1, const void *pcvKey2);
+        UBase_t uxSize;
+        UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
         void (*pvfDestroyItemData) (void *DataContainer);
         void (*pvfDestroyItem) (void *Item);
         void (*pvfDestroy) (void* List);

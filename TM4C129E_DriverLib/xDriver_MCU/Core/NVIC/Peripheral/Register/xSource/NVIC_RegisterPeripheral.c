@@ -25,11 +25,11 @@
 
 uintptr_t NVIC__uptrBlockBaseAddress(NVIC_nMODULE enModuleArg)
 {
-    uintptr_t NVIC_BLOCK_BASE[(uint32_t) NVIC_enMODULE_MAX] =
+    uintptr_t NVIC_BLOCK_BASE[(UBase_t) NVIC_enMODULE_MAX] =
     {
      NVIC_BASE
     };
-    return (NVIC_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (NVIC_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 

@@ -153,7 +153,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
                 pstQueueReg->ps8ReadFrom = pstQueueReg->ps8Head;
             }
             --( pstQueueReg->uxMessagesWaiting );
-            (void) CONV_pvMemoryCopy((void*) pvBuffer, (void*) (pstQueueReg->ps8ReadFrom), (size_t) pstQueueReg->uxItemSize);
+            (void) CONV_enMemoryCopy((void*) pvBuffer, (void*) (pstQueueReg->ps8ReadFrom), (size_t) pstQueueReg->uxItemSize);
 
             uxReturn = (OS_UBase_t) TRUE;
 
@@ -236,7 +236,7 @@ OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
             pstQueueReg->ps8ReadFrom = pstQueueReg->ps8Head;
         }
         --(pstQueueReg->uxMessagesWaiting);
-        ( void ) CONV_pvMemoryCopy((void*) pvBuffer, (void*) pstQueueReg->ps8ReadFrom, (size_t) pstQueueReg->uxItemSize);
+        ( void ) CONV_enMemoryCopy((void*) pvBuffer, (void*) pstQueueReg->ps8ReadFrom, (size_t) pstQueueReg->uxItemSize);
 
         if(FALSE == (*pboCoRoutineWoken))
         {

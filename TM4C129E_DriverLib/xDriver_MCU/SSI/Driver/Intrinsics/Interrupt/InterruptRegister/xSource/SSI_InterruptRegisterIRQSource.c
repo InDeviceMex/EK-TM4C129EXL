@@ -30,17 +30,17 @@
 void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                     SSI_nMODULE enModule, SSI_nINTERRUPT enInterruptSource)
 {
-    uint32_t u32Module = 0UL;
-    uint32_t u32InterruptSource = 0UL;
-    if(0UL != (uint32_t) pfIrqSourceHandler)
+    UBase_t uxModule = 0UL;
+    UBase_t uxInterruptSource = 0UL;
+    if(0UL != (UBase_t) pfIrqSourceHandler)
     {
-        u32Module = MCU__u32CheckParams( (uint32_t) enModule,
-                                         (uint32_t) SSI_enMODULE_MAX);
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptSource,
-                                                  (uint32_t) SSI_enINTERRUPT_MAX);
+        uxModule = MCU__uxCheckParams( (UBase_t) enModule,
+                                         (UBase_t) SSI_enMODULE_MAX);
+        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
+                                                  (UBase_t) SSI_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) u32Module,
-                                                          (SSI_nINTERRUPT)u32InterruptSource),
+                       SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) uxModule,
+                                                          (SSI_nINTERRUPT)uxInterruptSource),
                        0UL,
                        1UL);
     }

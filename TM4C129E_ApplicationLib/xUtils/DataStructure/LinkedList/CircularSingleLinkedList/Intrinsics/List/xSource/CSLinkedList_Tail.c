@@ -26,7 +26,7 @@
 CSLinkedListItem_t* CSLinkedList__pstGetTail(const CSLinkedList_t*  const pstList)
 {
     CSLinkedListItem_t* pstTailReg = (CSLinkedListItem_t*)0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstTailReg = pstList->pstTail;
     }
@@ -35,20 +35,20 @@ CSLinkedListItem_t* CSLinkedList__pstGetTail(const CSLinkedList_t*  const pstLis
 
 void CSLinkedList__vSetTail(CSLinkedList_t* pstList, CSLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstTail = pstTailArg;
     }
 }
 
-CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_t*  const pstList, const CSLinkedListItem_t* const pstItem)
+CSLinkedList_nERROR CSLinkedList__enIsTail(const CSLinkedList_t*  const pstList, const CSLinkedListItem_t* const pstItem)
 {
-    CSLinkedList_nSTATUS enStatus = CSLinkedList_enSTATUS_ERROR;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
     CSLinkedListItem_t* pstListTail = (CSLinkedListItem_t*) 0UL;
     pstListTail = CSLinkedList__pstGetTail(pstList);
-    if ((uint32_t) pstListTail == (uint32_t) pstItem)
+    if ((UBase_t) pstListTail == (UBase_t) pstItem)
     {
-        enStatus = CSLinkedList_enSTATUS_OK;
+        enStatus = CSLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

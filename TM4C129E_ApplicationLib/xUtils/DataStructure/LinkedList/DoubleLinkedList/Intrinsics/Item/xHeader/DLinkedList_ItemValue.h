@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-uint32_t DLinkedList_Item__u32GetValue(const DLinkedListItem_t* const pstItem);
-void DLinkedList_Item__vSetValue(DLinkedListItem_t* pstItem, uint32_t u32ValueItemArg);
+UBase_t DLinkedList_Item__uxGetValue(const DLinkedListItem_t* const pstItem);
+void DLinkedList_Item__vSetValue(DLinkedListItem_t* pstItem, UBase_t uxValueItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMVALUE_H_ */

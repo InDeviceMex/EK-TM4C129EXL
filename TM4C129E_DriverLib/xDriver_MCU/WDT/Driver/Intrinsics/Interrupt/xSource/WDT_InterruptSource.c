@@ -30,20 +30,20 @@
 WDT_nINTERRUPT_ENABLE WDT__enGetInterruptSourceEnable(WDT_nMODULE enModule)
 {
     WDT_nINTERRUPT_ENABLE enIntEnableReg = WDT_enINTERRUPT_ENABLE_DISABLE;
-    enIntEnableReg = (WDT_nINTERRUPT_ENABLE) WDT__u32ReadRegister(enModule, WDT_CTL_OFFSET,
+    enIntEnableReg = (WDT_nINTERRUPT_ENABLE) WDT__uxReadRegister(enModule, WDT_CTL_OFFSET,
                                              WDT_CTL_INTEN_MASK, WDT_CTL_R_INTEN_BIT);
     return (enIntEnableReg);
 }
 
 void WDT__vEnInterruptSource(WDT_nMODULE enModule)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (uint32_t) WDT_enINTERRUPT_ENABLE_ENABLE,
+    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (UBase_t) WDT_enINTERRUPT_ENABLE_ENABLE,
                         WDT_CTL_INTEN_MASK, WDT_CTL_R_INTEN_BIT);
 }
 
 void WDT__vClearInterruptSource(WDT_nMODULE enModule)
 {
-    WDT__vWriteRegister(enModule, WDT_ICR_OFFSET, (uint32_t) 0UL,
+    WDT__vWriteRegister(enModule, WDT_ICR_OFFSET, (UBase_t) 0UL,
                         WDT_ICR_INTCLR_MASK, WDT_ICR_R_INTCLR_BIT);
 }
 
@@ -51,7 +51,7 @@ WDT_nINT_STATUS WDT__enStatusInterruptSource(WDT_nMODULE enModule)
 {
     WDT_nINT_STATUS enIntStatusReg = WDT_enINT_STATUS_INACTIVE;
 
-    enIntStatusReg = (WDT_nINT_STATUS) WDT__u32ReadRegister(enModule, WDT_RIS_OFFSET,
+    enIntStatusReg = (WDT_nINT_STATUS) WDT__uxReadRegister(enModule, WDT_RIS_OFFSET,
                                                WDT_RIS_RIS_MASK, WDT_RIS_R_RIS_BIT);
     return (enIntStatusReg);
 }

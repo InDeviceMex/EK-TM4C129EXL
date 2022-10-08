@@ -31,11 +31,11 @@
  * @brief EEPROM Init Block Count Max Function
  * @details This function Initialize the static global Max number of Block Worlds variable with the Data of the register.
  *
- * @see  EEPROM__u32GetBlockCount
+ * @see  EEPROM__uxGetBlockCount
  *
- * @remark This function must be call before any call to @ref  EEPROM__u32GetBlockCount.
+ * @remark This function must be call before any call to @ref  EEPROM__uxGetBlockCount.
  */
-EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, uint32_t* pu32BlockCountArg);
+EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, UBase_t* puxBlockCountArg);
 
 
 

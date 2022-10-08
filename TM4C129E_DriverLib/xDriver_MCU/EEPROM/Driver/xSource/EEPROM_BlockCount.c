@@ -27,26 +27,26 @@
 #include <xDriver_MCU/EEPROM/Driver/Intrinsics/EEPROM_Intrinsics.h>
 #include <xDriver_MCU/EEPROM/Peripheral/EEPROM_Peripheral.h>
 
-EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, uint32_t* pu32BlockCountArg)
+EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, UBase_t* puxBlockCountArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
 
     enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) pu32BlockCountArg)
+    if(0UL == (uintptr_t) puxBlockCountArg)
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = EEPROM_SIZE_R_BLKCNT_BIT;
-        stRegister.u32Mask = EEPROM_SIZE_BLKCNT_MASK;
+        stRegister.uxShift = EEPROM_SIZE_R_BLKCNT_BIT;
+        stRegister.uxMask = EEPROM_SIZE_BLKCNT_MASK;
         stRegister.uptrAddress = EEPROM_SIZE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *pu32BlockCountArg = stRegister.u32Value;
+        *puxBlockCountArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

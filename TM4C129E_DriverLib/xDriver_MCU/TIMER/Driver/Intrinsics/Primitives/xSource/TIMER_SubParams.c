@@ -26,28 +26,28 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-void TIMER__vGetSubParams(TIMER_nMODULE enModule, uint32_t* pu32SubModule,
-                          uint32_t* pu32ModuleNumber)
+void TIMER__vGetSubParams(TIMER_nMODULE enModule, UBase_t* puxSubModule,
+                          UBase_t* puxModuleNumber)
 {
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32SubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxSubModule = 0UL;
 
-    if(0UL != (uint32_t) pu32SubModule)
+    if(0UL != (UBase_t) puxSubModule)
     {
-        u32SubModule = (uint32_t) enModule;
-        u32SubModule >>= 8UL;
-        u32SubModule &= 0x3UL;
-        *pu32SubModule = MCU__u32CheckParams(u32SubModule,
-                                             (uint32_t) TIMER_enSUBMODULE_MAX);
+        uxSubModule = (UBase_t) enModule;
+        uxSubModule >>= 8UL;
+        uxSubModule &= 0x3UL;
+        *puxSubModule = MCU__uxCheckParams(uxSubModule,
+                                             (UBase_t) TIMER_enSUBMODULE_MAX);
     }
 
-    if(0UL != (uint32_t) pu32ModuleNumber)
+    if(0UL != (UBase_t) puxModuleNumber)
     {
-        u32ModuleNumber = (uint32_t) enModule;
-        u32ModuleNumber >>= 0UL;
-        u32ModuleNumber &= 0x7UL;
-        *pu32ModuleNumber = MCU__u32CheckParams(u32ModuleNumber,
-                                                (uint32_t) TIMER_enMODULE_NUM_MAX);
+        uxModuleNumber = (UBase_t) enModule;
+        uxModuleNumber >>= 0UL;
+        uxModuleNumber &= 0x7UL;
+        *puxModuleNumber = MCU__uxCheckParams(uxModuleNumber,
+                                                (UBase_t) TIMER_enMODULE_NUM_MAX);
     }
 }
 

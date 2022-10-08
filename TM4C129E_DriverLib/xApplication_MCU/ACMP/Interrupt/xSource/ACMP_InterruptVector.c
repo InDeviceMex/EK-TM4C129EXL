@@ -29,20 +29,20 @@ static ACMP_nERROR ACMP__enGetInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCO
 
 static ACMP_nERROR ACMP__enGetInterruptVector(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_ACMP[(UBase_t) ACMP_enMODULE_MAX][(UBase_t) ACMP_enCOMP_MAX] =
     {
         {NVIC_enVECTOR_ACMP0, NVIC_enVECTOR_ACMP1, NVIC_enVECTOR_ACMP2}
     };
     ACMP_nERROR enErrorReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_VECTOR_ACMP[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+        *enVectorArg = NVIC_VECTOR_ACMP[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
 
     }
     return (enErrorReg);

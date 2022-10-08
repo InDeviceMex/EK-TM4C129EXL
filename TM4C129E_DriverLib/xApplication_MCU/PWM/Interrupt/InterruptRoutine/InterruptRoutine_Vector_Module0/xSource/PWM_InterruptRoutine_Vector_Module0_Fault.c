@@ -27,311 +27,229 @@
 
 void PWM0_Fault__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
-    volatile uint32_t u32Ready = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    UBase_t uxReg;
+    UBase_t uxReady;
+    UBase_t uxDCompValueReg;
+    UBase_t uxInputValueReg;
+    PWM_pvfIRQSourceHandler_t pvfCallback;
 
-    u32Ready = SYSCTL_PRPWM_R;
-    if(SYSCTL_PRPWM_R_PWM0_NOREADY == (SYSCTL_PRPWM_R_PWM0_MASK & u32Ready))
+    uxReady = SYSCTL_PRPWM_R;
+    if(SYSCTL_PRPWM_R_PWM0_NOREADY == (SYSCTL_PRPWM_R_PWM0_MASK & uxReady))
     {
-        pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_0, PWM_enFAULT_INT_SW);
-        pvfCallback();
-
-        pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_1, PWM_enFAULT_INT_SW);
-        pvfCallback();
-
-        pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_2, PWM_enFAULT_INT_SW);
-        pvfCallback();
-
-        pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                     PWM_enFAULT_3, PWM_enFAULT_INT_SW);
-        pvfCallback();
+        pvfCallback = PWM_FaultSW__pvfGetIRQSourceHandler(PWM_enMODULE_0);
+        pvfCallback(PWM0_OFFSET, (void*) 0UL);
     }
     else
     {
-        u32Reg = PWM0_ISC_R;
-        if(0UL == ((uint32_t) PWM_enFAULTMASK_ALL & u32Reg))
+        uxInputValueReg = PWM0_GEN0_EXT_FAULT_PIN_STAT_R;
+        uxDCompValueReg = PWM0_GEN0_EXT_FAULT_DCMP_STAT_R;
+        uxReg = PWM0_ISC_R;
+        if(0UL == ((UBase_t)((UBase_t) PWM_enGENMASK_ALL << PWM_ISC_R_GEN0_FAULT_BIT) & uxReg))
         {
-            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_0, PWM_enFAULT_INT_SW);
-            pvfCallback();
-
-            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_1, PWM_enFAULT_INT_SW);
-            pvfCallback();
-
-            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_2, PWM_enFAULT_INT_SW);
-            pvfCallback();
-
-            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                         PWM_enFAULT_3, PWM_enFAULT_INT_SW);
-            pvfCallback();
+            pvfCallback = PWM_FaultSW__pvfGetIRQSourceHandler(PWM_enMODULE_0);
+            pvfCallback(PWM0_OFFSET, (void*) 0UL);
         }
         else
         {
-            if((uint32_t) PWM_enFAULTMASK_0 & u32Reg)
+            if(PWM_ISC_R_GEN0_FAULT_MASK & uxReg)
             {
-                PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_0;
-
-                volatile uint32_t u32SourceReg = PWM0_GEN0_CTL_R;
-                u32SourceReg &= (PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK);
-                if(((PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK) == u32SourceReg))
+                UBase_t uxSourceReg = PWM0_GEN0_CTL_R;
+                if(PWM_GEN_CTL_R_FAULT_SRC_INPUT == (PWM_GEN_CTL_R_FAULT_SRC_MASK & uxSourceReg))
                 {
-                    uint32_t u32Count = 0UL;
-                    volatile uint32_t u32InputValueReg = PWM0_GEN0_EXT_FLTSTAT0_R;
-                    volatile uint32_t u32DCompValueReg = PWM0_GEN0_EXT_FLTSTAT1_R;
-                    volatile uint32_t u32InputEnableReg = PWM0_GEN0_FLTSRC0_R;
-                    volatile uint32_t u32DCompEnableReg = PWM0_GEN0_FLTSRC1_R;
-                    PWM0_GEN0_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN0_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
-
-
-                    u32InputEnableReg &= u32InputValueReg;
-                    u32DCompEnableReg &= u32DCompValueReg;
-
-                    while(0UL != u32InputEnableReg)
-                    {
-                        uint32_t u32Temp = u32InputEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_0,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32InputEnableReg >>= 1UL;
-                        u32Count++;
-                    }
-
-                    u32Count = 0UL;
-                    while(0UL != u32DCompEnableReg)
-                    {
-                        uint32_t u32Temp = u32DCompEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_0,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32DCompEnableReg >>= 1UL;
-                        u32Count++;
-                    }
+                    PWM0_GEN0_EXT_FAULT_PIN_STAT_R = PWM_GEN_EXT_FAULT_PIN_STAT_R_PIN0_CLEAR;
+                    pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_0, PWM_enFAULT_INPUT_0);
+                    pvfCallback(PWM_GEN0_CTL_OFFSET, (void*) PWM_enFAULT_INPUT_0);
                 }
                 else
                 {
-                    pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                     PWM_enFAULT_0,
-                                                                     PWM_enFAULT_INT_FAULT);
-                    pvfCallback();
+                    UBase_t uxCount;
+                    UBase_t uxInputEnableReg = PWM0_GEN0_FAULT_PIN_ENABLE_R;
+                    UBase_t uxDCompEnableReg = PWM0_GEN0_FAULT_DCMP_ENABLE_R;
+
+
+                    uxInputEnableReg &= uxInputValueReg;
+                    uxDCompEnableReg &= uxDCompValueReg;
+                    uxCount = 0UL;
+
+                    while(0UL != uxInputEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxInputEnableReg))
+                        {
+                            pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_0, (PWM_nFAULT_INPUT) uxCount);
+                            pvfCallback(PWM_GEN0_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxInputEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN0_EXT_FAULT_PIN_STAT_R = (UBase_t) PWM_enFAULT_INPUTMASK_ALL;
+
+                    uxCount = 0UL;
+                    while(0UL != uxDCompEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxDCompEnableReg))
+                        {
+                            pvfCallback = PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_0, (PWM_nFAULT_DCOMP) uxCount);
+                            pvfCallback(PWM_GEN0_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxDCompEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN0_EXT_FAULT_DCMP_STAT_R = (UBase_t) PWM_enFAULT_DCOMPMASK_ALL;
                 }
+
+                PWM0_ISC_R = PWM_ISC_R_GEN0_FAULT_MASK;
             }
-            if((uint32_t) PWM_enFAULTMASK_1 & u32Reg)
+            if(PWM_ISC_R_GEN1_FAULT_MASK & uxReg)
             {
-                PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_1;
-
-                volatile uint32_t u32SourceReg = (uint32_t) PWM0_GEN1_CTL_R;
-                u32SourceReg &= (PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK);
-                if(((PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK) == u32SourceReg))
+                UBase_t uxSourceReg = PWM0_GEN1_CTL_R;
+                if(PWM_GEN_CTL_R_FAULT_SRC_INPUT == (PWM_GEN_CTL_R_FAULT_SRC_MASK & uxSourceReg))
                 {
-                    uint32_t u32Count = 0UL;
-                    volatile uint32_t u32InputValueReg = (uint32_t) PWM0_GEN1_EXT_FLTSTAT0_R;
-                    volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN1_EXT_FLTSTAT1_R;
-                    volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN1_FLTSRC0_R;
-                    volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN1_FLTSRC1_R;
-                    PWM0_GEN1_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN1_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
-
-
-                    u32InputEnableReg &= u32InputValueReg;
-                    u32DCompEnableReg &= u32DCompValueReg;
-
-                    while(0UL != u32InputEnableReg)
-                    {
-                        uint32_t u32Temp = u32InputEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_1,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32InputEnableReg >>= 1UL;
-                        u32Count++;
-                    }
-
-                    u32Count = 0UL;
-                    while(0UL != u32DCompEnableReg)
-                    {
-                        uint32_t u32Temp = u32DCompEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_1,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32DCompEnableReg >>= 1UL;
-                        u32Count++;
-                    }
+                    PWM0_GEN1_EXT_FAULT_PIN_STAT_R = PWM_GEN_EXT_FAULT_PIN_STAT_R_PIN0_CLEAR;
+                    pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_1, PWM_enFAULT_INPUT_0);
+                    pvfCallback(PWM_GEN1_CTL_OFFSET, (void*) PWM_enFAULT_INPUT_0);
                 }
                 else
                 {
-                    pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                     PWM_enFAULT_1,
-                                                                     PWM_enFAULT_INT_FAULT);
-                    pvfCallback();
+                    UBase_t uxCount;
+                    UBase_t uxInputEnableReg = PWM0_GEN1_FAULT_PIN_ENABLE_R;
+                    UBase_t uxDCompEnableReg = PWM0_GEN1_FAULT_DCMP_ENABLE_R;
+
+
+                    uxInputEnableReg &= uxInputValueReg;
+                    uxDCompEnableReg &= uxDCompValueReg;
+                    uxCount = 0UL;
+
+                    while(0UL != uxInputEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxInputEnableReg))
+                        {
+                            pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_1, (PWM_nFAULT_INPUT) uxCount);
+                            pvfCallback(PWM_GEN1_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxInputEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN1_EXT_FAULT_PIN_STAT_R = (UBase_t) PWM_enFAULT_INPUTMASK_ALL;
+
+                    uxCount = 0UL;
+                    while(0UL != uxDCompEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxDCompEnableReg))
+                        {
+                            pvfCallback = PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_1, (PWM_nFAULT_DCOMP) uxCount);
+                            pvfCallback(PWM_GEN1_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxDCompEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN1_EXT_FAULT_DCMP_STAT_R = (UBase_t) PWM_enFAULT_DCOMPMASK_ALL;
                 }
+
+                PWM0_ISC_R = PWM_ISC_R_GEN1_FAULT_MASK;
             }
-            if((uint32_t) PWM_enFAULTMASK_2 & u32Reg)
+            if(PWM_ISC_R_GEN2_FAULT_MASK & uxReg)
             {
-                PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_2;
-
-                volatile uint32_t u32SourceReg = (uint32_t) PWM0_GEN2_CTL_R;
-                u32SourceReg &= (PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK);
-                if(((PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK) == u32SourceReg))
+                UBase_t uxSourceReg = PWM0_GEN2_CTL_R;
+                if(PWM_GEN_CTL_R_FAULT_SRC_INPUT == (PWM_GEN_CTL_R_FAULT_SRC_MASK & uxSourceReg))
                 {
-                    uint32_t u32Count = 0UL;
-                    volatile uint32_t u32InputValueReg = (uint32_t) PWM0_GEN2_EXT_FLTSTAT0_R;
-                    volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN2_EXT_FLTSTAT1_R;
-                    volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN2_FLTSRC0_R;
-                    volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN2_FLTSRC1_R;
-                    PWM0_GEN2_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN2_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
-
-
-                    u32InputEnableReg &= u32InputValueReg;
-                    u32DCompEnableReg &= u32DCompValueReg;
-
-                    while(0UL != u32InputEnableReg)
-                    {
-                        uint32_t u32Temp = u32InputEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_2,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32InputEnableReg >>= 1UL;
-                        u32Count++;
-                    }
-
-                    u32Count = 0UL;
-                    while(0UL != u32DCompEnableReg)
-                    {
-                        uint32_t u32Temp = u32DCompEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_2,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32DCompEnableReg >>= 1UL;
-                        u32Count++;
-                    }
+                    PWM0_GEN2_EXT_FAULT_PIN_STAT_R = PWM_GEN_EXT_FAULT_PIN_STAT_R_PIN0_CLEAR;
+                    pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_2, PWM_enFAULT_INPUT_0);
+                    pvfCallback(PWM_GEN2_CTL_OFFSET, (void*) PWM_enFAULT_INPUT_0);
                 }
                 else
                 {
-                    pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                     PWM_enFAULT_2,
-                                                                     PWM_enFAULT_INT_FAULT);
-                    pvfCallback();
+                    UBase_t uxCount;
+                    UBase_t uxInputEnableReg = PWM0_GEN2_FAULT_PIN_ENABLE_R;
+                    UBase_t uxDCompEnableReg = PWM0_GEN2_FAULT_DCMP_ENABLE_R;
+
+
+                    uxInputEnableReg &= uxInputValueReg;
+                    uxDCompEnableReg &= uxDCompValueReg;
+                    uxCount = 0UL;
+
+                    while(0UL != uxInputEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxInputEnableReg))
+                        {
+                            pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_2, (PWM_nFAULT_INPUT) uxCount);
+                            pvfCallback(PWM_GEN2_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxInputEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN2_EXT_FAULT_PIN_STAT_R = (UBase_t) PWM_enFAULT_INPUTMASK_ALL;
+
+                    uxCount = 0UL;
+                    while(0UL != uxDCompEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxDCompEnableReg))
+                        {
+                            pvfCallback = PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_2, (PWM_nFAULT_DCOMP) uxCount);
+                            pvfCallback(PWM_GEN2_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxDCompEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN2_EXT_FAULT_DCMP_STAT_R = (UBase_t) PWM_enFAULT_DCOMPMASK_ALL;
                 }
+
+                PWM0_ISC_R = PWM_ISC_R_GEN2_FAULT_MASK;
             }
-            if((uint32_t) PWM_enFAULTMASK_3 & u32Reg)
+            if(PWM_ISC_R_GEN3_FAULT_MASK & uxReg)
             {
-                PWM0_ISC_R = (uint32_t) PWM_enFAULTMASK_3;
-
-                volatile uint32_t u32SourceReg = (uint32_t) PWM0_GEN3_CTL_R;
-                u32SourceReg &= (PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK);
-                if(((PWM_GEN_CTL_R_FLTSRC_MASK | PWM_GEN_CTL_R_LATCH_MASK) == u32SourceReg))
+                UBase_t uxSourceReg = PWM0_GEN3_CTL_R;
+                if(PWM_GEN_CTL_R_FAULT_SRC_INPUT == (PWM_GEN_CTL_R_FAULT_SRC_MASK & uxSourceReg))
                 {
-                    uint32_t u32Count = 0UL;
-                    volatile uint32_t u32InputValueReg = (uint32_t) PWM0_GEN3_EXT_FLTSTAT0_R;
-                    volatile uint32_t u32DCompValueReg = (uint32_t) PWM0_GEN3_EXT_FLTSTAT1_R;
-                    volatile uint32_t u32InputEnableReg = (uint32_t) PWM0_GEN3_FLTSRC0_R;
-                    volatile uint32_t u32DCompEnableReg = (uint32_t) PWM0_GEN3_FLTSRC1_R;
-                    PWM0_GEN3_EXT_FLTSTAT0_R = (uint32_t) PWM_enFAULT_INPUT_ALL;
-                    PWM0_GEN3_EXT_FLTSTAT1_R = (uint32_t) PWM_enFAULT_DCOMP_ALL;
-
-
-                    u32InputEnableReg &= u32InputValueReg;
-                    u32DCompEnableReg &= u32DCompValueReg;
-
-                    while(0UL != u32InputEnableReg)
-                    {
-                        uint32_t u32Temp = u32InputEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_FAULT;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_3,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32InputEnableReg >>= 1UL;
-                        u32Count++;
-                    }
-
-                    u32Count = 0UL;
-                    while(0UL != u32DCompEnableReg)
-                    {
-                        uint32_t u32Temp = u32DCompEnableReg;
-                        u32Temp &= 0x1UL;
-                        if(0UL != u32Temp)
-                        {
-                            uint32_t u32Index = (uint32_t) PWM_enFAULT_INT_DCMP0;
-                            u32Index += u32Count;
-                            pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                             PWM_enFAULT_3,
-                                                                             (PWM_nFAULT_INT) u32Index);
-                            pvfCallback();
-
-                        }
-                        u32DCompEnableReg >>= 1UL;
-                        u32Count++;
-                    }
+                    PWM0_GEN3_EXT_FAULT_PIN_STAT_R = PWM_GEN_EXT_FAULT_PIN_STAT_R_PIN0_CLEAR;
+                    pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_3, PWM_enFAULT_INPUT_0);
+                    pvfCallback(PWM_GEN3_CTL_OFFSET, (void*) PWM_enFAULT_INPUT_0);
                 }
                 else
                 {
-                    pvfCallback = PWM_Fault__pvfGetIRQSourceHandler(PWM_enMODULE_0,
-                                                                     PWM_enFAULT_3,
-                                                                     PWM_enFAULT_INT_FAULT);
-                    pvfCallback();
+                    UBase_t uxCount;
+                    UBase_t uxInputEnableReg = PWM0_GEN3_FAULT_PIN_ENABLE_R;
+                    UBase_t uxDCompEnableReg = PWM0_GEN3_FAULT_DCMP_ENABLE_R;
+
+
+                    uxInputEnableReg &= uxInputValueReg;
+                    uxDCompEnableReg &= uxDCompValueReg;
+                    uxCount = 0UL;
+
+                    while(0UL != uxInputEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxInputEnableReg))
+                        {
+                            pvfCallback = PWM_FaultInput__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_3, (PWM_nFAULT_INPUT) uxCount);
+                            pvfCallback(PWM_GEN3_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxInputEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN3_EXT_FAULT_PIN_STAT_R = (UBase_t) PWM_enFAULT_INPUTMASK_ALL;
+
+                    uxCount = 0UL;
+                    while(0UL != uxDCompEnableReg)
+                    {
+                        if(0UL != (0x1UL & uxDCompEnableReg))
+                        {
+                            pvfCallback = PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_enMODULE_0, PWM_enGEN_3, (PWM_nFAULT_DCOMP) uxCount);
+                            pvfCallback(PWM_GEN3_CTL_OFFSET, (void*) uxCount);
+
+                        }
+                        uxDCompEnableReg >>= 1UL;
+                        uxCount++;
+                    }
+                    PWM0_GEN3_EXT_FAULT_DCMP_STAT_R = (UBase_t) PWM_enFAULT_DCOMPMASK_ALL;
                 }
+
+                PWM0_ISC_R = PWM_ISC_R_GEN3_FAULT_MASK;
             }
         }
     }

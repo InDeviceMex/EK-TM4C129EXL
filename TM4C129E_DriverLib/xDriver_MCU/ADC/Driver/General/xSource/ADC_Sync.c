@@ -31,10 +31,10 @@ ADC_nERROR ADC__enSetSync(ADC_nMODULE enModuleArg, ADC_nSTATE enSyncArg)
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    stRegister.u32Shift = ADC_PSSI_R_SYNCWAIT_BIT;
-    stRegister.u32Mask = ADC_PSSI_SYNCWAIT_MASK;
+    stRegister.uxShift = ADC_PSSI_R_SYNCWAIT_BIT;
+    stRegister.uxMask = ADC_PSSI_SYNCWAIT_MASK;
     stRegister.uptrAddress = ADC_PSSI_OFFSET;
-    stRegister.u32Value = (uint32_t) enSyncArg;
+    stRegister.uxValue = (UBase_t) enSyncArg;
     enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -66,14 +66,14 @@ ADC_nERROR ADC__enGetSync(ADC_nMODULE enModuleArg, ADC_nSTATE* penSyncArg)
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_PSSI_R_SYNCWAIT_BIT;
-        stRegister.u32Mask = ADC_PSSI_SYNCWAIT_MASK;
+        stRegister.uxShift = ADC_PSSI_R_SYNCWAIT_BIT;
+        stRegister.uxMask = ADC_PSSI_SYNCWAIT_MASK;
         stRegister.uptrAddress = ADC_PSSI_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penSyncArg = (ADC_nSTATE) stRegister.u32Value;
+        *penSyncArg = (ADC_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

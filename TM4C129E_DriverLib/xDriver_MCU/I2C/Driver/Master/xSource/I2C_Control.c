@@ -32,10 +32,10 @@ I2C_nERROR I2C_Master__enSetControlState(I2C_nMODULE enModuleArg, I2C_nMASTER_CO
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = I2C_MASTER_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enControlArg;
+    stRegister.uxValue = (UBase_t) enControlArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }

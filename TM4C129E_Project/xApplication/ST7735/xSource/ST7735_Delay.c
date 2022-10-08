@@ -24,9 +24,9 @@
 #include <xApplication/ST7735/xHeader/ST7735_Delay.h>
 #include <xOS/xOS.h>
 
-void ST7735__vDelay1ms(uint32_t u32DelayArg)
+void ST7735__vDelay1ms(UBase_t uxDelayArg)
 {
-    OS_Task__vDelay(u32DelayArg);
+    OS_Task__vDelay(uxDelayArg);
 }
 
 

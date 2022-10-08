@@ -25,7 +25,7 @@
 
 #include <xApplication_MCU/CRC/Intrinsics/xHeader/CRC_Dependencies.h>
 
-CRC16_Params_t pstTableCRC16[(uint32_t) CRC16_enSubType_MAX] =
+CRC16_Params_t pstTableCRC16[(UBase_t) CRC16_enSubType_MAX] =
 {
  {0x1021U, 0xFFFFU, 0x0000U, FALSE, FALSE},
  {0x8005U, 0x0000U, 0x0000U, TRUE , TRUE },
@@ -54,7 +54,7 @@ CRC16_Params_t pstTableCRC16[(uint32_t) CRC16_enSubType_MAX] =
 
 
 
-CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, uint32_t u32DataLengthArg, CRC16_eSubType enCrc16TypeArg, uint16_t* pu16ResultArg)
+CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, UBase_t uxDataLengthArg, CRC16_eSubType enCrc16TypeArg, uint16_t* pu16ResultArg)
 {
     CRC16_Params_t* pstTableCRC16Reg;
     CRC_nERROR enErrorReg;
@@ -70,13 +70,13 @@ CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, uint32_t u32DataLengt
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (CRC_nERROR) MCU__enCheckParams((uint32_t) enCrc16TypeArg, (uint32_t) CRC16_enSubType_MAX);
+        enErrorReg = (CRC_nERROR) MCU__enCheckParams((UBase_t) enCrc16TypeArg, (UBase_t) CRC16_enSubType_MAX);
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        pstTableCRC16Reg = &pstTableCRC16[(uint32_t) enCrc16TypeArg];
+        pstTableCRC16Reg = &pstTableCRC16[(UBase_t) enCrc16TypeArg];
         u16Crc = pstTableCRC16Reg->u16Init;
-        while (u32DataLengthArg > 0UL)
+        while (uxDataLengthArg > 0UL)
         {
             u8Data = (uint8_t) *pcDataValuesArg;
             if(FALSE != pstTableCRC16Reg->boRefIn)
@@ -100,7 +100,7 @@ CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, uint32_t u32DataLengt
                 u8BytePos--;
             }
             pcDataValuesArg += 1UL;
-            u32DataLengthArg--;
+            uxDataLengthArg--;
        }
         u16Crc ^= pstTableCRC16Reg->u16XorOut;
         if(FALSE != pstTableCRC16Reg->boRefOut)

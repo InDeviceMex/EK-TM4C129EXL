@@ -28,7 +28,7 @@
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
 void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule);
-uint32_t UART__u32GetIrDALowPowerFrequency(UART_nMODULE enModule);
+UBase_t UART__uxGetIrDALowPowerFrequency(UART_nMODULE enModule);
 
 
 #endif /* XAPPLICATION_MCU_UART_XHEADER_UART_IRDA_H_ */

@@ -26,6 +26,6 @@
 
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nNULL Conv__enIsNull(char cCharacter);
+CONV_nERROR Conv__enIsNull(char cCharacter);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER_CONVERSION_ISNULL_H_ */

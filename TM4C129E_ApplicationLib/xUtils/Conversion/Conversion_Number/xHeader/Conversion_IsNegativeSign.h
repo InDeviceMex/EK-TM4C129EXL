@@ -26,7 +26,7 @@
 
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nNEGATIVE_SIGN Conv__enIsNegativeSign(char cCharacter);
+CONV_nERROR Conv__enIsNegativeSign(char cCharacter);
 
 
 

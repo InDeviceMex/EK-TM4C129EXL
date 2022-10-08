@@ -30,23 +30,23 @@
 GPIO_nERROR GPIO__enSetDriveModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                        GPIO_nDRIVE_MODE enModeArg)
 {
-    uint32_t u32PinReg;
-    uint32_t u32PinMaskReg;
+    UBase_t uxPinReg;
+    UBase_t uxPinMaskReg;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinMaskArg, (uint32_t) GPIO_enPINMASK_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32PinReg = 0U;
-        u32PinMaskReg = (uint32_t) enPinMaskArg;
-        while((0U != u32PinMaskReg) && (GPIO_enERROR_OK == enErrorReg))
+        uxPinReg = 0U;
+        uxPinMaskReg = (UBase_t) enPinMaskArg;
+        while((0U != uxPinMaskReg) && (GPIO_enERROR_OK == enErrorReg))
         {
-            if(0UL != ((uint32_t) GPIO_enPINMASK_0 & u32PinMaskReg))
+            if(0UL != ((UBase_t) GPIO_enPINMASK_0 & uxPinMaskReg))
             {
-                enErrorReg = GPIO__enSetDriveModeByNumber(enPortArg, (GPIO_nPIN) u32PinReg, enModeArg);
+                enErrorReg = GPIO__enSetDriveModeByNumber(enPortArg, (GPIO_nPIN) uxPinReg, enModeArg);
             }
-            u32PinReg++;
-            u32PinMaskReg >>= 1U;
+            uxPinReg++;
+            uxPinMaskReg >>= 1U;
         }
     }
 
@@ -59,15 +59,15 @@ GPIO_nERROR GPIO__enSetDriveModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinAr
     GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
 
-    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Shift *= (GPIO_PC_R_PIN1_BIT - GPIO_PC_R_PIN0_BIT);
-        stRegister.u32Shift += GPIO_PC_R_PIN0_BIT;
-        stRegister.u32Mask = GPIO_PC_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxShift *= (GPIO_PC_R_PIN1_BIT - GPIO_PC_R_PIN0_BIT);
+        stRegister.uxShift += GPIO_PC_R_PIN0_BIT;
+        stRegister.uxMask = GPIO_PC_PIN0_MASK;
         stRegister.uptrAddress = GPIO_PC_OFFSET;
-        stRegister.u32Value = (uint32_t) enModeArg;
+        stRegister.uxValue = (UBase_t) enModeArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -87,20 +87,20 @@ GPIO_nERROR GPIO__enGetDriveModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinAr
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPinArg, (uint32_t) GPIO_enPIN_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enPinArg;
-        stRegister.u32Shift *= (GPIO_PC_R_PIN1_BIT - GPIO_PC_R_PIN0_BIT);
-        stRegister.u32Shift += GPIO_PC_R_PIN0_BIT;
-        stRegister.u32Mask = GPIO_PC_PIN0_MASK;
+        stRegister.uxShift = (UBase_t) enPinArg;
+        stRegister.uxShift *= (GPIO_PC_R_PIN1_BIT - GPIO_PC_R_PIN0_BIT);
+        stRegister.uxShift += GPIO_PC_R_PIN0_BIT;
+        stRegister.uxMask = GPIO_PC_PIN0_MASK;
         stRegister.uptrAddress = GPIO_PC_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penModeArg = (GPIO_nDRIVE_MODE) stRegister.u32Value;
+        *penModeArg = (GPIO_nDRIVE_MODE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

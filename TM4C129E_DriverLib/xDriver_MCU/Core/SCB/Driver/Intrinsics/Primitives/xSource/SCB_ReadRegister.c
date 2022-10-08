@@ -37,7 +37,7 @@ SCB_nERROR SCB__enReadRegister(SCB_nMODULE enModuleArg, SCB_Register_t* pstRegis
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+        enErrorReg = (SCB_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SCB_enMODULE_MAX);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {

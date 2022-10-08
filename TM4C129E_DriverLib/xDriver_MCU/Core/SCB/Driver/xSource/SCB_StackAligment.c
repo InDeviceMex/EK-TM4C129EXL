@@ -31,10 +31,10 @@ SCB_nERROR SCB__enSetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN enAlignAr
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_CCR_R_STKALIGN_BIT;
-    stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
+    stRegister.uxShift = SCB_CCR_R_STKALIGN_BIT;
+    stRegister.uxMask = SCB_CCR_STKALIGN_MASK;
     stRegister.uptrAddress = SCB_CCR_OFFSET;
-    stRegister.u32Value = (uint32_t) enAlignArg;
+    stRegister.uxValue = (UBase_t) enAlignArg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlign
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_CCR_R_STKALIGN_BIT;
-        stRegister.u32Mask = SCB_CCR_STKALIGN_MASK;
+        stRegister.uxShift = SCB_CCR_R_STKALIGN_BIT;
+        stRegister.uxMask = SCB_CCR_STKALIGN_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *penAlignArg = (SCB_nALIGN) stRegister.u32Value;
+        *penAlignArg = (SCB_nALIGN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

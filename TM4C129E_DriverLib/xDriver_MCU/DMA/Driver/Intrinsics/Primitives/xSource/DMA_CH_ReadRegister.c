@@ -39,11 +39,11 @@ DMA_nERROR DMA_CH__enReadRegister(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {

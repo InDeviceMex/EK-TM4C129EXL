@@ -24,12 +24,16 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsScape.h>
 
-CONV_nSCAPE Conv__enIsScape(char cCharacter)
+CONV_nERROR Conv__enIsScape(char cCharacter)
 {
-    CONV_nSCAPE enStatus = CONV_enSCAPE_NO;
-    if(cCharacter == (char) 0x1BU)
+    CONV_nERROR enStatus;
+    if(0x1BU == (uint8_t) cCharacter)
     {
-        enStatus = CONV_enSCAPE_OK;
+        enStatus = CONV_enERROR_OK;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_VALUE;
     }
     return (enStatus);
 }

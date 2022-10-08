@@ -28,17 +28,17 @@
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
 
 I2C_nERROR I2C_Master_enTransmitReceive(I2C_nMODULE enModule,
-                                         uint32_t u32SlaveAddressArg,
+                                         UBase_t uxSlaveAddressArg,
                                          const uint8_t *pu8DataTransmit,
-                                         uint32_t u32DataTransmitSize,
+                                         UBase_t uxDataTransmitSize,
                                          uint8_t *pu8DataReceive,
-                                         uint32_t u32DataReceiveSize);
+                                         UBase_t uxDataReceiveSize);
 
 I2C_nERROR I2C_Master_enReceiveTransmit(I2C_nMODULE enModule,
-                                         uint32_t u32SlaveAddressArg,
+                                         UBase_t uxSlaveAddressArg,
                                          const uint8_t *pu8DataTransmit,
-                                         uint32_t u32DataTransmitSize,
+                                         UBase_t uxDataTransmitSize,
                                          uint8_t *pu8DataReceive,
-                                         uint32_t u32DataReceiveSize);
+                                         UBase_t uxDataReceiveSize);
 
 #endif /* XAPPLICATION_MCU_I2C_OPERATIONS_XHEADER_I2C_MASTERTRANSMITRECEIVE_H_ */

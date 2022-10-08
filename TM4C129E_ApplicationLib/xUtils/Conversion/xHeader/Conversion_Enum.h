@@ -24,71 +24,46 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_ENUM_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_ENUM_H_
 
+#include <xUtils/Standard/Standard.h>
+
 typedef enum
 {
-    CONV_enSTATUS_OK = 0U,
-    CONV_enSTATUS_ERROR = 1U,
-    CONV_enNAN = 0xFFFFFFFFU,
-}CONV_nSTATUS;
+    CONV_enERROR_OK = (UBase_t) ERROR_OK,
+    CONV_enERROR_POINTER = (UBase_t) ERROR_POINTER,
+    CONV_enERROR_VALUE = (UBase_t) ERROR_VALUE,
+    CONV_enERROR_RANGE = (UBase_t) ERROR_RANGE,
+    CONV_enERROR_OUT_OF_RANGE = (UBase_t) ERROR_OUT_OF_RANGE,
+    CONV_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,
+}CONV_nERROR;
+
+typedef enum
+{
+    CONV_enBUFFER_SIZE_NUMBER = 32U,
+    CONV_enBUFFER_SIZE_FLOAT = 32U,
+}CONV_nBUFFER_SIZE;
+
+typedef enum
+{
+
+    CONV_enFLAGS_ZEROPAD = ( (UBase_t) 1U << (UBase_t) 0U),
+    CONV_enFLAGS_LEFT = ( (UBase_t) 1U << (UBase_t) 1U),
+    CONV_enFLAGS_PLUS = ( (UBase_t) 1U << (UBase_t) 2U),
+    CONV_enFLAGS_SPACE = ( (UBase_t) 1U << (UBase_t) 3U),
+    CONV_enFLAGS_HASH = ( (UBase_t) 1U << (UBase_t) 4U),
+    CONV_enFLAGS_UPPERCASE = ( (UBase_t) 1U << (UBase_t) 5U),
+    CONV_enFLAGS_CHAR = ( (UBase_t) 1U << (UBase_t) 6U),
+    CONV_enFLAGS_SHORT = ( (UBase_t) 1U << (UBase_t) 7U),
+    CONV_enFLAGS_LONG = ( (UBase_t) 1U << (UBase_t) 8U),
+    CONV_enFLAGS_LONG_LONG = ( (UBase_t) 1U << (UBase_t) 9U),
+    CONV_enFLAGS_PRECISION = ( (UBase_t) 1U << (UBase_t) 10U),
+    CONV_enFLAGS_ADAPT_EXP = ( (UBase_t) 1U << (UBase_t) 11U),
+
+}CONV_nFLAGS;
 
 typedef enum
 {
     CONV_enSIGNED_POSITIVE = 0U,
     CONV_enSIGNED_NEGATIVE = 1U,
 }CONV_nSIGNED;
-
-typedef enum
-{
-    CONV_enBACKSPACE_OK = 0U,
-    CONV_enBACKSPACE_NO = 1U,
-}CONV_nBACKSPACE;
-
-typedef enum
-{
-    CONV_enDIGIT_OK = 0U,
-    CONV_enDIGIT_NO = 1U,
-}CONV_nDIGIT;
-
-typedef enum
-{
-    CONV_enNEGATIVE_SIGN_OK = 0U,
-    CONV_enNEGATIVE_SIGN_NO = 1U,
-}CONV_nNEGATIVE_SIGN;
-
-typedef enum
-{
-    CONV_enPOSITIVE_SIGN_OK = 0U,
-    CONV_enPOSITIVE_SIGN_NO = 1U,
-}CONV_nPOSITIVE_SIGN;
-
-typedef enum
-{
-    CONV_enNEWLINE_OK = 0U,
-    CONV_enNEWLINE_NO = 1U,
-}CONV_nNEWLINE;
-
-typedef enum
-{
-    CONV_enNEWLINERETURN_OK = 0U,
-    CONV_enNEWLINERETURN_NO = 1U,
-}CONV_nNEWLINERETURN;
-
-typedef enum
-{
-    CONV_enNULL_OK = 0U,
-    CONV_enNULL_NO = 1U,
-}CONV_nNULL;
-
-typedef enum
-{
-    CONV_enRETURN_OK = 0U,
-    CONV_enRETURN_NO = 1U,
-}CONV_nRETURN;
-
-typedef enum
-{
-    CONV_enSCAPE_OK = 0U,
-    CONV_enSCAPE_NO = 1U,
-}CONV_nSCAPE;
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_ENUM_H_ */

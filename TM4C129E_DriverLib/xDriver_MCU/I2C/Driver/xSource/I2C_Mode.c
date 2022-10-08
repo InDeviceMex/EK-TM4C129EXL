@@ -32,10 +32,10 @@ I2C_nERROR I2C__enSetMasterState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = I2C_MASTER_CR_R_MFE_BIT;
-    stRegister.u32Mask = I2C_MASTER_CR_MFE_MASK;
+    stRegister.uxShift = I2C_MASTER_CR_R_MFE_BIT;
+    stRegister.uxMask = I2C_MASTER_CR_MFE_MASK;
     stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -52,14 +52,14 @@ I2C_nERROR I2C__enGetMasterState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateAr
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_MASTER_CR_R_MFE_BIT;
-        stRegister.u32Mask = I2C_MASTER_CR_MFE_MASK;
+        stRegister.uxShift = I2C_MASTER_CR_R_MFE_BIT;
+        stRegister.uxMask = I2C_MASTER_CR_MFE_MASK;
         stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (I2C_nSTATE) stRegister.u32Value;
+        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
     }
 
     return (enErrorReg);
@@ -70,10 +70,10 @@ I2C_nERROR I2C__enSetSlaveState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = I2C_MASTER_CR_R_SFE_BIT;
-    stRegister.u32Mask = I2C_MASTER_CR_SFE_MASK;
+    stRegister.uxShift = I2C_MASTER_CR_R_SFE_BIT;
+    stRegister.uxMask = I2C_MASTER_CR_SFE_MASK;
     stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -90,14 +90,14 @@ I2C_nERROR I2C__enGetSlaveState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_MASTER_CR_R_SFE_BIT;
-        stRegister.u32Mask = I2C_MASTER_CR_SFE_MASK;
+        stRegister.uxShift = I2C_MASTER_CR_R_SFE_BIT;
+        stRegister.uxMask = I2C_MASTER_CR_SFE_MASK;
         stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (I2C_nSTATE) stRegister.u32Value;
+        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
     }
 
     return (enErrorReg);
@@ -108,10 +108,10 @@ I2C_nERROR I2C__enSetLoopbackState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateAr
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = I2C_MASTER_CR_R_LPBK_BIT;
-    stRegister.u32Mask = I2C_MASTER_CR_LPBK_MASK;
+    stRegister.uxShift = I2C_MASTER_CR_R_LPBK_BIT;
+    stRegister.uxMask = I2C_MASTER_CR_LPBK_MASK;
     stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -128,14 +128,14 @@ I2C_nERROR I2C__enGetLoopbackState(I2C_nMODULE enModuleArg, I2C_nSTATE* penState
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_MASTER_CR_R_LPBK_BIT;
-        stRegister.u32Mask = I2C_MASTER_CR_LPBK_MASK;
+        stRegister.uxShift = I2C_MASTER_CR_R_LPBK_BIT;
+        stRegister.uxMask = I2C_MASTER_CR_LPBK_MASK;
         stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (I2C_nSTATE) stRegister.u32Value;
+        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
     }
 
     return (enErrorReg);
@@ -146,10 +146,10 @@ I2C_nERROR I2C__enSetMode(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg)
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
 
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = I2C_MASTER_CR_R_LPBK_MASK | I2C_MASTER_CR_R_MFE_MASK | I2C_MASTER_CR_R_SFE_MASK;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = I2C_MASTER_CR_R_LPBK_MASK | I2C_MASTER_CR_R_MFE_MASK | I2C_MASTER_CR_R_SFE_MASK;
     stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
-    stRegister.u32Value = (uint32_t) enModeArg;
+    stRegister.uxValue = (UBase_t) enModeArg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -166,14 +166,14 @@ I2C_nERROR I2C__enGetMode(I2C_nMODULE enModuleArg, I2C_nMODE* penModeArg)
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = 0UL;
-        stRegister.u32Mask = I2C_MASTER_CR_R_LPBK_MASK | I2C_MASTER_CR_R_MFE_MASK | I2C_MASTER_CR_R_SFE_MASK;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = I2C_MASTER_CR_R_LPBK_MASK | I2C_MASTER_CR_R_MFE_MASK | I2C_MASTER_CR_R_SFE_MASK;
         stRegister.uptrAddress = I2C_MASTER_CR_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penModeArg = (I2C_nMODE) stRegister.u32Value;
+        *penModeArg = (I2C_nMODE) stRegister.uxValue;
     }
 
     return (enErrorReg);

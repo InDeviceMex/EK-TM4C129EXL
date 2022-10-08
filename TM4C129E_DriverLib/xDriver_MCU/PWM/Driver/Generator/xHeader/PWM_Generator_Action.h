@@ -27,19 +27,15 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Generator__vSetOutputActionA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg, PWM_nACTION enActionArg);
-PWM_nACTION PWM_Generator__enGetOutputActionA(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg);
+PWM_nERROR PWM_Generator__enSetActionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg,
+                                              PWM_nEVENT enEventArg, PWM_nACTION enActionArg);
+PWM_nERROR PWM_Generator__enSetActionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg,
+                                            PWM_nEVENT enEventArg, PWM_nACTION enActionArg);
+PWM_nERROR PWM_Generator__enGetActionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg,
+                                              PWM_nEVENT enEventArg, PWM_nACTION* penActionArg);
 
-void PWM_Generator__vSetOutputActionB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg, PWM_nACTION enActionArg);
-PWM_nACTION PWM_Generator__enGetOutputActionB(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nEVENT enEventArg);
-
-void PWM_Generator__vSetOutputAction(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nOUTPUT enOutputArg, PWM_nEVENT enEventArg, PWM_nACTION enActionArg);
-PWM_nACTION PWM_Generator__enGetOutputAction(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                      PWM_nOUTPUT enOutputArg, PWM_nEVENT enActionArg);
+PWM_nERROR PWM_Generator__enSetActionUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enSetActionUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Generator__enGetActionUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, PWM_nUPDATE* penModeArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_ACTION_H_ */

@@ -28,41 +28,41 @@
 
 typedef enum
 {
-    I2C_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    I2C_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    I2C_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    I2C_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    I2C_enERROR_EMPTY = (uint32_t) MCU_enERROR_EMPTY,
-    I2C_enERROR_TIMEOUT = (uint32_t) MCU_enERROR_TIMEOUT,
-    I2C_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    I2C_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    I2C_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    I2C_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    I2C_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    I2C_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    I2C_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
+    I2C_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }I2C_nERROR;
 
 typedef enum
 {
-    I2C_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    I2C_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    I2C_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    I2C_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    I2C_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    I2C_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 } I2C_nSTATE;
 
 typedef enum
 {
-    I2C_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    I2C_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    I2C_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    I2C_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    I2C_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    I2C_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } I2C_nSTATUS;
 
 typedef enum
 {
-    I2C_enPRI0 = (uint32_t) MCU_enPRI0,
-    I2C_enPRI1 = (uint32_t) MCU_enPRI1,
-    I2C_enPRI2 = (uint32_t) MCU_enPRI2,
-    I2C_enPRI3 = (uint32_t) MCU_enPRI3,
-    I2C_enPRI4 = (uint32_t) MCU_enPRI4,
-    I2C_enPRI5 = (uint32_t) MCU_enPRI5,
-    I2C_enPRI6 = (uint32_t) MCU_enPRI6,
-    I2C_enPRI7 = (uint32_t) MCU_enPRI7,
-    I2C_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    I2C_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    I2C_enPRI0 = (UBase_t) MCU_enPRI0,
+    I2C_enPRI1 = (UBase_t) MCU_enPRI1,
+    I2C_enPRI2 = (UBase_t) MCU_enPRI2,
+    I2C_enPRI3 = (UBase_t) MCU_enPRI3,
+    I2C_enPRI4 = (UBase_t) MCU_enPRI4,
+    I2C_enPRI5 = (UBase_t) MCU_enPRI5,
+    I2C_enPRI6 = (UBase_t) MCU_enPRI6,
+    I2C_enPRI7 = (UBase_t) MCU_enPRI7,
+    I2C_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    I2C_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }I2C_nPRIORITY;
 
 /**
@@ -165,7 +165,7 @@ typedef enum
 {
     I2C_enARBITRATION_WON = 0UL,
     I2C_enARBITRATION_LOST = 1UL,
-    I2C_enARBITRATION_UNDEF = 0x7FFFFFFFUL,
+    I2C_enARBITRATION_UNDEF = UNDEF_VALUE,
 }I2C_nARBITRATION;
 
 typedef enum
@@ -240,7 +240,7 @@ typedef enum
     /* I2C_enMASTER_CONTROL_START_STOP_ACK_HS = 0x1EUL, */
     I2C_enMASTER_CONTROL_BURST_START_STOP_ACK_HS = 0x5EUL,
 
-    I2C_enMASTER_CONTROL_UNDEF = 0x7FFFFFFFUL,
+    I2C_enMASTER_CONTROL_UNDEF = UNDEF_VALUE,
 } I2C_nMASTER_CONTROL;
 
 typedef enum
@@ -253,7 +253,7 @@ typedef enum
     I2C_enGLITCH_CLOCK_8 = 5UL,
     I2C_enGLITCH_CLOCK_16 = 6UL,
     I2C_enGLITCH_CLOCK_31 = 7UL,
-    I2C_enGLITCH_CLOCK_UNDEF = 0x7FFFFFFFUL,
+    I2C_enGLITCH_CLOCK_UNDEF = UNDEF_VALUE,
 } I2C_nGLITCH_CLOCK;
 
 /**
@@ -269,28 +269,28 @@ typedef enum
     I2C_enMODE_LOOPBACK_SLAVE = 0x21UL,       /*!< I2C_enMODE_LOOPBACK_SLAVE */
     I2C_enMODE_MASTER_SLAVE = 0x30UL,         /*!< I2C_enMODE_MASTER_SLAVE */
     I2C_enMODE_LOOPBACK_MASTER_SLAVE = 0x31UL,/*!< I2C_enMODE_LOOPBACK_MASTER_SLAVE */
-    I2C_enMODE_UNDEF = 0x7FFFFFFFUL,          /*!< I2C_enMODE_UNDEF */
+    I2C_enMODE_UNDEF = UNDEF_VALUE,          /*!< I2C_enMODE_UNDEF */
 } I2C_nMODE;
 
 typedef enum
 {
     I2C_enLINE_SCL= 0UL,
     I2C_enLINE_SDA = 1UL,
-    I2C_enLINE_UNDEF = 0x7FFFFFFFUL,
+    I2C_enLINE_UNDEF = UNDEF_VALUE,
 } I2C_nLINE;
 
 typedef enum
 {
     I2C_enLEVEL_LOW = 0UL,
     I2C_enLEVEL_HIGH = 1UL,
-    I2C_enLEVEL_UNDEF = 0x7FFFFFFFUL,
+    I2C_enLEVEL_UNDEF = UNDEF_VALUE,
 } I2C_nLEVEL;
 
 typedef enum
 {
     I2C_enOPERATION_TRANSMIT = 0UL,
     I2C_enOPERATION_RECEIVE = 1UL,
-    I2C_enOPERATION_UNDEF = 0x7FFFFFFFUL,
+    I2C_enOPERATION_UNDEF = UNDEF_VALUE,
 } I2C_nOPERATION;
 
 typedef enum
@@ -298,7 +298,7 @@ typedef enum
     I2C_enOPERATION_ERROR_NONE = 0UL,
     I2C_enOPERATION_ERROR_ADDRESS = 1UL,
     I2C_enOPERATION_ERROR_DATA = 2UL,
-    I2C_enOPERATION_ERROR_UNDEF = 0x7FFFFFFFUL,
+    I2C_enOPERATION_ERROR_UNDEF = UNDEF_VALUE,
 } I2C_nOPERATION_ERROR;
 
 
@@ -306,7 +306,7 @@ typedef enum
 {
     I2C_enACK_ACK = 0UL,
     I2C_enACK_NACK = 1UL,
-    I2C_enACK_UNDEF = 0x7FFFFFFFUL,
+    I2C_enACK_UNDEF = UNDEF_VALUE,
 } I2C_nACK;
 
 typedef MCU_Register_t I2C_Register_t;

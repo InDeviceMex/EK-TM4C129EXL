@@ -32,14 +32,14 @@
 ******************************************************************************************/
 
 /*----------*/
-#define GPTM_CTL_CC_R_ALTCLK_MASK    ((uint32_t) 0x00000001UL)
+#define GPTM_CTL_CC_R_ALTCLK_MASK    ((UBase_t) 0x00000001UL)
 #define GPTM_CTL_CC_R_ALTCLK_BIT    (0UL)
-#define GPTM_CTL_CC_R_ALTCLK_SYSCTK    ((uint32_t) 0x00000000UL)
-#define GPTM_CTL_CC_R_ALTCLK_ALTCLK    ((uint32_t) 0x00000001UL)
+#define GPTM_CTL_CC_R_ALTCLK_SYSCTK    ((UBase_t) 0x00000000UL)
+#define GPTM_CTL_CC_R_ALTCLK_ALTCLK    ((UBase_t) 0x00000001UL)
 
-#define GPTM_CTL_CC_ALTCLK_MASK    ((uint32_t) 0x0000000FUL)
-#define GPTM_CTL_CC_ALTCLK_SYSCTK    ((uint32_t) 0x00000000UL)
-#define GPTM_CTL_CC_ALTCLK_ALTCLK    ((uint32_t) 0x00000001UL)
+#define GPTM_CTL_CC_ALTCLK_MASK    ((UBase_t) 0x0000000FUL)
+#define GPTM_CTL_CC_ALTCLK_SYSCTK    ((UBase_t) 0x00000000UL)
+#define GPTM_CTL_CC_ALTCLK_ALTCLK    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 

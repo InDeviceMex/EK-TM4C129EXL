@@ -32,190 +32,190 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL;
-        PWMnCTL_t CTL_Bit;
+        volatile UBase_t CTL;
+        PWM_GEN_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t INTEN;
-        PWMnINTEN_t INTEN_Bit;
+        volatile UBase_t INTEN;
+        PWM_GEN_INTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
-        PWMnRIS_t RIS_Bit;
+        volatile const UBase_t RIS;
+        PWM_GEN_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t ISC;
-        PWMnISC_t ISC_Bit;
+        volatile UBase_t ISC;
+        PWM_GEN_ISC_t ISC_Bit;
     };
     union
     {
-        volatile uint32_t LOAD;
-        PWMnLOAD_t LOAD_Bit;
+        volatile UBase_t LOAD;
+        PWM_GEN_LOAD_t LOAD_Bit;
     };
     union
     {
-        volatile const uint32_t COUNT;
-        PWMnCOUNT_t COUNT_Bit;
+        volatile const UBase_t COUNT;
+        PWM_GEN_COUNT_t COUNT_Bit;
     };
     union
     {
-        volatile uint32_t CMPA;
-        PWMnCMPA_t CMPA_Bit;
+        volatile UBase_t OUTA_CMP;
+        PWM_GEN_OUTA_CMP_t OUTA_CMP_Bit;
     };
     union
     {
-        volatile uint32_t CMPB;
-        PWMnCMPB_t CMPB_Bit;
+        volatile UBase_t OUTB_CMP;
+        PWM_GEN_OUTB_CMP_t OUTB_CMP_Bit;
     };
     union
     {
-        volatile uint32_t GENA;
-        PWMnGENA_t GENA_Bit;
+        volatile UBase_t OUTA_ACTION;
+        PWM_GEN_OUTA_ACTION_t OUTA_ACTION_Bit;
     };
     union
     {
-        volatile uint32_t GENB;
-        PWMnGENB_t GENB_Bit;
+        volatile UBase_t OUTB_ACTION;
+        PWM_GEN_OUTB_ACTION_t OUTB_ACTION_Bit;
     };
     union
     {
-        volatile uint32_t DBCTL;
-        PWMnDBCTL_t DBCTL_Bit;
+        volatile UBase_t DB_CTL;
+        PWM_GEN_DB_CTL_t DB_CTL_Bit;
     };
     union
     {
-        volatile uint32_t DBRISE;
-        PWMnDBRISE_t DBRISE_Bit;
+        volatile UBase_t DB_RISE;
+        PWM_GEN_DB_RISE_t DB_RISE_Bit;
     };
     union
     {
-        volatile uint32_t DBFALL;
-        PWMnDBFALL_t DBFALL_Bit;
+        volatile UBase_t DB_FALL;
+        PWM_GEN_DB_FALL_t DB_FALL_Bit;
     };
     union
     {
-        volatile uint32_t FLTSRC0;
-        PWMnFLTSRC0_t FLTSRC0_Bit;
+        volatile UBase_t FAULT_PIN_ENABLE;
+        PWM_GEN_FAULT_PIN_ENABLE_t FAULT_PIN_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t FLTSRC1;
-        PWMnFLTSRC1_t FLTSRC1_Bit;
+        volatile UBase_t FAULT_DCMP_ENABLE;
+        PWM_GEN_FAULT_DCMP_ENABLE_t FAULT_DCMP_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t MINFLTPER;
-        PWMnMINFLTPER_t MINFLTPER_Bit;
+        volatile UBase_t FAULT_MIN_PERIOD;
+        PWM_GEN_FAULT_MIN_PERIOD_t FAULT_MIN_PERIOD_Bit;
     };
-}PWMGENERATOR_t;
+}PWM_GEN_t;
 
 typedef volatile struct
 {
     union
     {
-        volatile uint32_t FLTSEN;
-        PWMnFLTSEN_t FLTSEN_Bit;
+        volatile UBase_t FAULT_PIN_SENSE;
+        PWM_GEN_FAULT_PIN_SENSE_t FAULT_PIN_SENSE_Bit;
     };
     union
     {
-        volatile uint32_t FLTSTAT0;
-        PWMnFLTSTAT0_t FLTSTAT0_Bit;
+        volatile UBase_t FAULT_PIN_STAT;
+        PWM_GEN_FAULT_PIN_STAT_t FAULT_PIN_STAT_Bit;
     };
     union
     {
-        volatile uint32_t FLTSTAT1;
-        PWMnFLTSTAT1_t FLTSTAT1_Bit;
+        volatile UBase_t FAULT_DCMP_STAT;
+        PWM_GEN_FAULT_DCMP_STAT_t FAULT_DCMP_STAT_Bit;
     };
-    const uint32_t reserved [29UL];
-}PWMGENERATOR_EXT_t;
+    const UBase_t reserved [29UL];
+}PWM_GEN_EXT_t;
 
 typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL;
-        PWMCTL_t CTL_Bit;
+        volatile UBase_t CTL;
+        PWM_CTL_t CTL_Bit;
     };
     union
     {
-        volatile uint32_t SYNC;
-        PWMSYNC_t SYNC_Bit;
+        volatile UBase_t SYNC;
+        PWM_SYNC_t SYNC_Bit;
     };
     union
     {
-        volatile uint32_t ENABLE;
-        PWMENABLE_t ENABLE_Bit;
+        volatile UBase_t OUTPUT_ENABLE;
+        PWM_OUTPUT_ENABLE_t OUTPUT_ENABLE_Bit;
     };
     union
     {
-        volatile uint32_t INVERT;
-        PWMINVERT_t INVERT_Bit;
+        volatile UBase_t OUTPUT_INVERT;
+        PWM_OUTPUT_INVERT_t OUTPUT_INVERT_Bit;
     };
     union
     {
-        volatile uint32_t FAULT;
-        PWMFAULT_t FAULT_Bit;
+        volatile UBase_t OUTPUT_FAULT;
+        PWM_OUTPUT_FAULT_t OUTPUT_FAULT_Bit;
     };
     union
     {
-        volatile uint32_t INTEN;
-        PWMINTEN_t INTEN_Bit;
+        volatile UBase_t INTEN;
+        PWM_INTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
-        PWMRIS_t RIS_Bit;
+        volatile const UBase_t RIS;
+        PWM_RIS_t RIS_Bit;
     };
     union
     {
-        volatile uint32_t ISC;
-        PWMISC_t ISC_Bit;
+        volatile UBase_t ISC;
+        PWM_ISC_t ISC_Bit;
     };
     union
     {
-        volatile const uint32_t STATUS;
-        PWMSTATUS_t STATUS_Bit;
+        volatile const UBase_t STATUS;
+        PWM_STATUS_t STATUS_Bit;
     };
     union
     {
-        volatile uint32_t FAULTVAL;
-        PWMFAULTVAL_t FAULTVAL_Bit;
+        volatile UBase_t OUTPUT_FAULTVAL;
+        PWM_OUTPUT_FAULTVAL_t OUTPUT_FAULTVAL_Bit;
     };
     union
     {
-        volatile uint32_t ENUPD;
-        PWMENUPD_t ENUPD_Bit;
+        volatile UBase_t OUTPUT_ENUPD;
+        PWM_OUTPUT_ENUPD_t OUTPUT_ENUPD_Bit;
     };
-    const uint32_t reserved [5UL];
+    const UBase_t reserved [5UL];
 
-    PWMGENERATOR_t GENERATOR [4UL];
+    PWM_GEN_t GENERATOR [4UL];
 
-    const uint32_t reserved1 [432UL];
+    const UBase_t reserved1 [432UL];
 
-    PWMGENERATOR_EXT_t GENERATOR_EXT [4UL];
+    PWM_GEN_EXT_t GENERATOR_EXT [4UL];
 
-    const uint32_t reserved2 [368UL];
+    const UBase_t reserved2 [368UL];
     union
     {
-        volatile const uint32_t PP;
-        PWMPP_t PP_Bit;
+        volatile const UBase_t PP;
+        PWM_PP_t PP_Bit;
     };
-    const uint32_t reserved3 [1UL];
+    const UBase_t reserved3 [1UL];
     union
     {
-        volatile uint32_t CC;
-        PWMCC_t CC_Bit;
+        volatile UBase_t CC;
+        PWM_CC_t CC_Bit;
     };
 
-    const uint32_t reserved4 [13UL];
+    const UBase_t reserved4 [13UL];
 }PWM_t;
 
 typedef volatile struct
 {
-    PWM_t MODULE [(uint32_t) PWM_enMODULE_MAX];
+    PWM_t MODULE [(UBase_t) PWM_enMODULE_MAX];
 }PWMS_t;
 
 #endif /* XDRIVER_MCU_PWM_PERIPHERAL_STRUCT_XHEADER_PWM_STRUCTPERIPHERAL_H_ */

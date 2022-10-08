@@ -27,15 +27,15 @@
 
 void WDT01__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg0 = 0U;
-    volatile uint32_t u32Reg1 = 0U;
-    volatile uint32_t u32Enable = 0U;
-    volatile uint32_t u32Ready = 0U;
-    volatile uint32_t u32RegWrite1 = 0U;
+    volatile UBase_t uxReg0 = 0U;
+    volatile UBase_t uxReg1 = 0U;
+    volatile UBase_t uxEnable = 0U;
+    volatile UBase_t uxReady = 0U;
+    volatile UBase_t uxRegWrite1 = 0U;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Ready = SYSCTL_PRWD_R;
-    if(0UL == ((SYSCTL_PRWD_R_WDT0_MASK | SYSCTL_PRWD_R_WDT1_MASK) & u32Ready))
+    uxReady = SYSCTL_PRWD_R;
+    if(0UL == ((SYSCTL_PRWD_R_WDT0_MASK | SYSCTL_PRWD_R_WDT1_MASK) & uxReady))
     {
         pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                    WDT_enINTERRUPT_SW);
@@ -47,12 +47,12 @@ void WDT01__vIRQVectorHandler(void)
     }
     else
     {
-        if(0UL != ((SYSCTL_PRWD_R_WDT0_MASK) & u32Ready))
+        if(0UL != ((SYSCTL_PRWD_R_WDT0_MASK) & uxReady))
         {
-            u32Reg0 = (uint32_t) WDT0_MIS_R;
-            if(WDT_MIS_R_MIS_MASK & u32Reg0)
+            uxReg0 = (UBase_t) WDT0_MIS_R;
+            if(WDT_MIS_R_MIS_MASK & uxReg0)
             {
-                u32Enable = 1UL;
+                uxEnable = 1UL;
                 WDT0_ICR_R = WDT_ICR_R_INTCLR_CLEAR;
                 pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                            WDT_enINTERRUPT_WDT);
@@ -60,18 +60,18 @@ void WDT01__vIRQVectorHandler(void)
             }
 
         }
-        if(0UL != ((SYSCTL_PRWD_R_WDT1_MASK) & u32Ready))
+        if(0UL != ((SYSCTL_PRWD_R_WDT1_MASK) & uxReady))
         {
-            u32Reg1 = (uint32_t) WDT1_MIS_R;
-            if(WDT_MIS_R_MIS_MASK & u32Reg1)
+            uxReg1 = (UBase_t) WDT1_MIS_R;
+            if(WDT_MIS_R_MIS_MASK & uxReg1)
             {
-                u32Enable = 1UL;
+                uxEnable = 1UL;
                 WDT1_ICR_R = WDT_ICR_R_INTCLR_CLEAR;
                 do
                 {
-                    u32RegWrite1 = WDT1_CTL_R;
-                    u32RegWrite1 &= WDT_CTL_R_WRC_MASK;
-                }while(WDT_CTL_R_WRC_PROGRESS == u32RegWrite1);
+                    uxRegWrite1 = WDT1_CTL_R;
+                    uxRegWrite1 &= WDT_CTL_R_WRC_MASK;
+                }while(WDT_CTL_R_WRC_PROGRESS == uxRegWrite1);
 
                 pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
                                                            WDT_enINTERRUPT_WDT);
@@ -79,7 +79,7 @@ void WDT01__vIRQVectorHandler(void)
             }
 
         }
-        if(0UL == u32Enable)
+        if(0UL == uxEnable)
         {
             pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
                                                        WDT_enINTERRUPT_WDT);

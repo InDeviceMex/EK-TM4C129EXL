@@ -31,174 +31,174 @@ typedef volatile struct
 {
     union
     {
-        volatile const uint32_t STAT;
+        volatile const UBase_t STAT;
         DMA_STAT_t STAT_Bit;
     };
     union
     {
-        volatile uint32_t CFG;
+        volatile UBase_t CFG;
         DMA_CFG_t CFG_Bit;
     };
     union
     {
-        volatile uint32_t CTLBASE;
+        volatile UBase_t CTLBASE;
         DMA_CTLBASE_t CTLBASE_Bit;
     };
     union
     {
-        volatile const uint32_t ALTBASE;
+        volatile const UBase_t ALTBASE;
         DMA_ALTBASE_t ALTBASE_Bit;
     };
     union
     {
-        volatile const uint32_t CH_WAITSTAT;
+        volatile const UBase_t CH_WAITSTAT;
         DMA_CH_WAITSTAT_t CH_WAITSTAT_Bit;
     };
     union
     {
-        volatile uint32_t CH_SWREQ;
+        volatile UBase_t CH_SWREQ;
         DMA_CH_SWREQ_t CH_SWREQ_Bit;
     };
     union
     {
-        volatile uint32_t CH_USEBURSTSET;
+        volatile UBase_t CH_USEBURSTSET;
         DMA_CH_SET_t CH_USEBURSTSET_Bit;
     };
     union
     {
-        volatile uint32_t CH_USEBURSTCLR;
+        volatile UBase_t CH_USEBURSTCLR;
         DMA_CH_CLR_t CH_USEBURSTCLR_Bit;
     };
     union
     {
-        volatile uint32_t CH_REQMASKSET;
+        volatile UBase_t CH_REQMASKSET;
         DMA_CH_SET_t CH_REQMASKSET_Bit;
     };
     union
     {
-        volatile uint32_t CH_REQMASKCLR;
+        volatile UBase_t CH_REQMASKCLR;
         DMA_CH_CLR_t CH_REQMASKCLR_Bit;
     };
     union
     {
-        volatile uint32_t CH_ENASET;
+        volatile UBase_t CH_ENASET;
         DMA_CH_SET_t CH_ENASET_Bit;
     };
     union
     {
-        volatile uint32_t CH_ENACLR;
+        volatile UBase_t CH_ENACLR;
         DMA_CH_CLR_t CH_ENACLR_Bit;
     };
     union
     {
-        volatile uint32_t CH_ALTSET;
+        volatile UBase_t CH_ALTSET;
         DMA_CH_SET_t CH_ALTSET_Bit;
     };
     union
     {
-        volatile uint32_t CH_ALTCLR;
+        volatile UBase_t CH_ALTCLR;
         DMA_CH_CLR_t CH_ALTCLR_Bit;
     };
     union
     {
-        volatile uint32_t CH_PRIOSET;
+        volatile UBase_t CH_PRIOSET;
         DMA_CH_SET_t CH_PRIOSET_Bit;
     };
     union
     {
-        volatile uint32_t CH_PRIOCLR;
+        volatile UBase_t CH_PRIOCLR;
         DMA_CH_CLR_t CH_PRIOCLR_Bit;
     };
-    const uint32_t reserved [3UL];
+    const UBase_t reserved [3UL];
     union
     {
-        volatile uint32_t ERRCLR;
+        volatile UBase_t ERRCLR;
         DMA_ERRCLR_t ERRCLR_Bit;
     };
-    const uint32_t reserved1 [300UL];
+    const UBase_t reserved1 [300UL];
     union
     {
-        volatile uint32_t CH_ASGN;
+        volatile UBase_t CH_ASGN;
         DMA_CH_ASGN_t CH_ASGN_Bit;
     };
     union
     {
-        volatile uint32_t CH_IS;
+        volatile UBase_t CH_IS;
         DMA_CH_IS_t CH_IS_Bit;
     };
-    const uint32_t reserved2 [2UL];
+    const UBase_t reserved2 [2UL];
 #if 0
     union
     {
-        volatile uint32_t CH_MAP0;
+        volatile UBase_t CH_MAP0;
         DMA_CH_MAP0_t CH_MAP0_Bit;
     };
     union
     {
-        volatile uint32_t CH_MAP1;
+        volatile UBase_t CH_MAP1;
         DMA_CH_MAP1_t CH_MAP1_Bit;
     };
     union
     {
-        volatile uint32_t CH_MAP2;
+        volatile UBase_t CH_MAP2;
         DMA_CH_MAP2_t CH_MAP2_Bit;
     };
     union
     {
-        volatile uint32_t CH_MAP3;
+        volatile UBase_t CH_MAP3;
         DMA_CH_MAP3_t CH_MAP3_Bit;
     };
 #endif
     union
     {
-        volatile uint32_t CH_MAP [4UL];
+        volatile UBase_t CH_MAP [4UL];
         DMA_CH_MAP0_t CH_MAP_Bit [4UL];
     };
-    const uint32_t reserved3 [688UL];
+    const UBase_t reserved3 [688UL];
     union
     {
-        volatile const uint32_t PeriphID0;
+        volatile const UBase_t PeriphID0;
         DMA_PeriphID0_t PeriphID0_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID1;
+        volatile const UBase_t PeriphID1;
         DMA_PeriphID1_t PeriphID1_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID2;
+        volatile const UBase_t PeriphID2;
         DMA_PeriphID2_t PeriphID2_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID3;
+        volatile const UBase_t PeriphID3;
         DMA_PeriphID3_t PeriphID3_Bit;
     };
     union
     {
-        volatile const uint32_t PeriphID4;
+        volatile const UBase_t PeriphID4;
         DMA_PeriphID4_t PeriphID4_Bit;
     };
-    const uint32_t reserved4 [7UL];
+    const UBase_t reserved4 [7UL];
     union
     {
-        volatile const uint32_t PCellID0;
+        volatile const UBase_t PCellID0;
         DMA_PCellID0_t PCellID0_Bit;
     };
     union
     {
-        volatile const uint32_t PCellID1;
+        volatile const UBase_t PCellID1;
         DMA_PCellID1_t PCellID1_Bit;
     };
     union
     {
-        volatile const uint32_t PCellID2;
+        volatile const UBase_t PCellID2;
         DMA_PCellID2_t PCellID2_Bit;
     };
     union
     {
-        volatile const uint32_t PCellID3;
+        volatile const UBase_t PCellID3;
         DMA_PCellID3_t PCellID3_Bit;
     };
 }DMA_t;

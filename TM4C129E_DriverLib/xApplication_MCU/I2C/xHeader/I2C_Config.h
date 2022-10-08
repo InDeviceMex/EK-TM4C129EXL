@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
 
-I2C_nERROR I2C__enSetConfig(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg);
-I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, uint32_t u32FreqArg);
+I2C_nERROR I2C__enSetConfig(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, UBase_t uxFreqArg);
+I2C_nERROR I2C__enSetConfigGpio(I2C_nMODULE enModuleArg, I2C_nMODE enModeArg, UBase_t uxFreqArg);
 
 #endif /* XAPPLICATION_MCU_I2C_XHEADER_I2C_CONFIG_H_ */

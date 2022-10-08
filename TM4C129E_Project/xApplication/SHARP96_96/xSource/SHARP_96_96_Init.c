@@ -89,41 +89,41 @@ void SHARP_96_96__vInitDisplay(void)
 
 
     SHARP_96_96__vEnableChipSelect();
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
-    SSI__u32SetData(SHARP_96_96_SSI, 0x20UL);
-    SSI__u32SetData(SHARP_96_96_SSI, 0x00UL);
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x20UL);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x00UL);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
     SHARP_96_96__vDisableChipSelect();
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
 
 
     SHARP_96_96__vEnableChipSelect();
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
-    SSI__u32SetData(SHARP_96_96_SSI, 0x80UL);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x80UL);
     for(uint8_t u8Row = 0U; u8Row< 128U ;u8Row++)
     {
         uint8_t u8AGRow = Sharp_96_96_u8Reverse((u8Row + 1U));
-        SSI__u32SetData(SHARP_96_96_SSI,(uint32_t) u8AGRow);
+        SSI__uxSetData(SHARP_96_96_SSI,(UBase_t) u8AGRow);
         for(uint8_t u8Column = 0U; u8Column< (128U/16U) ;u8Column++)
         {
-            SSI__u32SetData(SHARP_96_96_SSI, 0xFFU);
+            SSI__uxSetData(SHARP_96_96_SSI, 0xFFU);
         }
         for(uint8_t u8Column = (128U/16U); u8Column< (128U/8U) ;u8Column++)
         {
-            SSI__u32SetData(SHARP_96_96_SSI, 0x00U);
+            SSI__uxSetData(SHARP_96_96_SSI, 0x00U);
         }
-        SSI__u32SetData(SHARP_96_96_SSI, 0x00UL);
+        SSI__uxSetData(SHARP_96_96_SSI, 0x00UL);
     }
-    SSI__u32SetData(SHARP_96_96_SSI, 0x00UL);
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x00UL);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
     SHARP_96_96__vDisableChipSelect();
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
 
     SHARP_96_96__vEnableChipSelect();
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
-    SSI__u32SetData(SHARP_96_96_SSI, 0x00UL);
-    SSI__u32SetData(SHARP_96_96_SSI, 0x00UL);
-    for(uint32_t u32Cant = 0UL; u32Cant< 20000UL;u32Cant++);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x00UL);
+    SSI__uxSetData(SHARP_96_96_SSI, 0x00UL);
+    for(UBase_t uxCant = 0UL; uxCant< 20000UL;uxCant++);
     SHARP_96_96__vDisableChipSelect();
 
     SHARP_96_96__vEnable();

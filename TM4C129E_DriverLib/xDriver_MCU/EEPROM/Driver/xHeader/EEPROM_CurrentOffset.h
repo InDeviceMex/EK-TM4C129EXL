@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-EEPROM_nERROR EEPROM__enSetCurrentOffset(EEPROM_nMODULE enModuleArg, uint32_t u32CurrentOffsetArg);
-EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, uint32_t* pu32CurrentOffsetArg);
+EEPROM_nERROR EEPROM__enSetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentOffsetArg);
+EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentOffsetArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_CURRENTOFFSET_H_ */

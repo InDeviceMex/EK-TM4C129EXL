@@ -32,10 +32,10 @@
 ******************************************************************************************/
 
 /*----------*/
-#define GPTM_TBR_R_TBR_MASK    ((uint32_t) 0xFFFFFFFFUL)
+#define GPTM_TBR_R_TBR_MASK    ((UBase_t) 0xFFFFFFFFUL)
 #define GPTM_TBR_R_TBR_BIT    (0UL)
 
-#define GPTM_TBR_TBR_MASK    ((uint32_t) 0xFFFFFFFFUL)
+#define GPTM_TBR_TBR_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_TIMER_TIMER_PERIPHERAL_TIMER_REGISTER_TIMER_REGISTERDEFINES_TIMER_REGISTERDEFINES_STANDARD_32_TIMER_REGISTERDEFINES_STANDARD_32_TBR_H_ */

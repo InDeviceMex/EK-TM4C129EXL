@@ -24,12 +24,17 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsReturn.h>
 
-CONV_nRETURN Conv__enIsReturn(char cCharacter)
+CONV_nERROR Conv__enIsReturn(char cCharacter)
 {
-    CONV_nRETURN enStatus = CONV_enRETURN_NO;
-    if(cCharacter == '\r')
+    CONV_nERROR enStatus;
+
+    if('\r' == cCharacter)
     {
-        enStatus = CONV_enRETURN_OK;
+        enStatus = CONV_enERROR_OK;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_VALUE;
     }
     return (enStatus);
 }

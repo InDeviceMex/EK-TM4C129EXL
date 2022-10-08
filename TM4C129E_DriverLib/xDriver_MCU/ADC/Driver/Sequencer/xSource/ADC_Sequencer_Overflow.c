@@ -32,13 +32,13 @@ ADC_nERROR ADC_Sequencer__enClearOverflowByMask(ADC_nMODULE enModuleArg, ADC_nSE
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_OSTAT_R_OV0_BIT;
-        stRegister.u32Mask = (uint32_t) enSequencerMaskArg;
+        stRegister.uxShift = ADC_OSTAT_R_OV0_BIT;
+        stRegister.uxMask = (UBase_t) enSequencerMaskArg;
         stRegister.uptrAddress = ADC_OSTAT_OFFSET;
-        stRegister.u32Value = (uint32_t) enSequencerMaskArg;
+        stRegister.uxValue = (UBase_t) enSequencerMaskArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -50,14 +50,14 @@ ADC_nERROR ADC_Sequencer__enClearOverflowByNumber(ADC_nMODULE enModuleArg, ADC_n
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enSequencerArg;
-        stRegister.u32Shift += ADC_OSTAT_R_OV0_BIT;
-        stRegister.u32Mask = ADC_OSTAT_OV0_MASK;
+        stRegister.uxShift = (UBase_t) enSequencerArg;
+        stRegister.uxShift += ADC_OSTAT_R_OV0_BIT;
+        stRegister.uxMask = ADC_OSTAT_OV0_MASK;
         stRegister.uptrAddress = ADC_OSTAT_OFFSET;
-        stRegister.u32Value = ADC_OSTAT_OV0_MASK;
+        stRegister.uxValue = ADC_OSTAT_OV0_MASK;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);
@@ -77,18 +77,18 @@ ADC_nERROR ADC_Sequencer__enGetOverflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQM
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_OSTAT_R_OV0_BIT;
-        stRegister.u32Mask = (uint32_t) enSequencerMaskArg;
+        stRegister.uxShift = ADC_OSTAT_R_OV0_BIT;
+        stRegister.uxMask = (UBase_t) enSequencerMaskArg;
         stRegister.uptrAddress = ADC_OSTAT_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (ADC_nSEQMASK) stRegister.u32Value;
+        *penStatusArg = (ADC_nSEQMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -106,19 +106,19 @@ ADC_nERROR ADC_Sequencer__enGetOverflowByNumber(ADC_nMODULE enModuleArg, ADC_nSE
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enSequencerArg;
-        stRegister.u32Shift += ADC_OSTAT_R_OV0_BIT;
-        stRegister.u32Mask = ADC_OSTAT_OV0_MASK;
+        stRegister.uxShift = (UBase_t) enSequencerArg;
+        stRegister.uxShift += ADC_OSTAT_R_OV0_BIT;
+        stRegister.uxMask = ADC_OSTAT_OV0_MASK;
         stRegister.uptrAddress = ADC_OSTAT_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (ADC_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }

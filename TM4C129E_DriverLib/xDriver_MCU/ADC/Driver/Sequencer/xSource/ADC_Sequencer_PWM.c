@@ -30,23 +30,23 @@
 ADC_nERROR ADC_Sequencer__enSetPWMTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                               ADC_nSEQ_PWM enPWMTriggerArg)
 {
-    uint32_t u32SequencerReg;
-    uint32_t u32SequencerMaskReg;
+    UBase_t uxSequencerReg;
+    UBase_t uxSequencerMaskReg;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerMaskArg, (uint32_t) ADC_enSEQMASK_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        u32SequencerReg = 0U;
-        u32SequencerMaskReg = (uint32_t) enSequencerMaskArg;
-        while((0U != u32SequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
+        uxSequencerReg = 0U;
+        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        while((0U != uxSequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
-            if(0UL != ((uint32_t) ADC_enSEQMASK_0 & u32SequencerMaskReg))
+            if(0UL != ((UBase_t) ADC_enSEQMASK_0 & uxSequencerMaskReg))
             {
-                enErrorReg = ADC_Sequencer__enSetPWMTriggerByNumber(enModuleArg, (ADC_nSEQUENCER) u32SequencerReg, enPWMTriggerArg);
+                enErrorReg = ADC_Sequencer__enSetPWMTriggerByNumber(enModuleArg, (ADC_nSEQUENCER) uxSequencerReg, enPWMTriggerArg);
             }
-            u32SequencerReg++;
-            u32SequencerMaskReg >>= 1U;
+            uxSequencerReg++;
+            uxSequencerMaskReg >>= 1U;
         }
     }
 
@@ -59,15 +59,15 @@ ADC_nERROR ADC_Sequencer__enSetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_n
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enSequencerArg;
-        stRegister.u32Shift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
-        stRegister.u32Shift += ADC_TSSEL_R_PS0_BIT;
-        stRegister.u32Mask = ADC_TSSEL_PS0_MASK;
+        stRegister.uxShift = (UBase_t) enSequencerArg;
+        stRegister.uxShift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
+        stRegister.uxShift += ADC_TSSEL_R_PS0_BIT;
+        stRegister.uxMask = ADC_TSSEL_PS0_MASK;
         stRegister.uptrAddress = ADC_TSSEL_OFFSET;
-        stRegister.u32Value = (uint32_t) enPWMTriggerArg;
+        stRegister.uxValue = (UBase_t) enPWMTriggerArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -87,20 +87,20 @@ ADC_nERROR ADC_Sequencer__enGetPWMTriggerByNumber(ADC_nMODULE enModuleArg, ADC_n
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enSequencerArg;
-        stRegister.u32Shift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
-        stRegister.u32Shift += ADC_TSSEL_R_PS0_BIT;
-        stRegister.u32Mask = ADC_TSSEL_PS0_MASK;
+        stRegister.uxShift = (UBase_t) enSequencerArg;
+        stRegister.uxShift *= (ADC_TSSEL_R_PS1_BIT - ADC_TSSEL_R_PS0_BIT);
+        stRegister.uxShift += ADC_TSSEL_R_PS0_BIT;
+        stRegister.uxMask = ADC_TSSEL_PS0_MASK;
         stRegister.uptrAddress = ADC_TSSEL_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penPWMTriggerArg = (ADC_nSEQ_PWM) stRegister.u32Value;
+        *penPWMTriggerArg = (ADC_nSEQ_PWM) stRegister.uxValue;
     }
     return (enErrorReg);
 }

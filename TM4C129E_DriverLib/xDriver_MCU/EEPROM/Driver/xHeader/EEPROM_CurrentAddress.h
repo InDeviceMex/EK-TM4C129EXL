@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, uint32_t u32CurrentAddressArg);
-EEPROM_nERROR EEPROM__enGetCurrentAddress(EEPROM_nMODULE enModuleArg, uint32_t* pu32CurrentAddressArg);
+EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentAddressArg);
+EEPROM_nERROR EEPROM__enGetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentAddressArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_CURRENTADDRESS_H_ */

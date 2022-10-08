@@ -32,10 +32,10 @@ I2C_nERROR I2C_Master__enRegisterIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_n
     I2C_pvfIRQSourceHandler_t* pvfIrqHandler;
     I2C_nERROR enErrorReg;
 
-    enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) I2C_enMODULE_MAX);
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (I2C_nERROR) MCU__enCheckParams((uint32_t) enIntSourceArg, (uint32_t) I2C_enMASTER_INT_MAX);
+        enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enIntSourceArg, (UBase_t) I2C_enMASTER_INT_MAX);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {

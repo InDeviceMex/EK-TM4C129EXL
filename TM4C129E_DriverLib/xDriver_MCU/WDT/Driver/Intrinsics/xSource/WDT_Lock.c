@@ -30,7 +30,7 @@ WDT_nLOCK WDT__enGetLock(WDT_nMODULE enModule)
 {
     WDT_nLOCK enFeatureReg = WDT_enLOCK_UNLOCKED;
 
-    enFeatureReg = (WDT_nLOCK) WDT__u32ReadRegister(enModule, WDT_LOCK_OFFSET,
+    enFeatureReg = (WDT_nLOCK) WDT__uxReadRegister(enModule, WDT_LOCK_OFFSET,
                                         WDT_LOCK_LOCK_MASK, WDT_LOCK_R_LOCK_BIT);
 
     return (enFeatureReg);
@@ -38,12 +38,12 @@ WDT_nLOCK WDT__enGetLock(WDT_nMODULE enModule)
 
 void WDT__vUnlock(WDT_nMODULE enModule)
 {
-    WDT__vWriteRegister(enModule, WDT_LOCK_OFFSET, (uint32_t) WDT_enKEY_UNLOCK,
+    WDT__vWriteRegister(enModule, WDT_LOCK_OFFSET, (UBase_t) WDT_enKEY_UNLOCK,
                         WDT_LOCK_LOCK_MASK, WDT_LOCK_R_LOCK_BIT);
 }
 
 void WDT__vLock(WDT_nMODULE enModule)
 {
-    WDT__vWriteRegister(enModule, WDT_LOCK_OFFSET, (uint32_t) WDT_enKEY_LOCK,
+    WDT__vWriteRegister(enModule, WDT_LOCK_OFFSET, (UBase_t) WDT_enKEY_LOCK,
                         WDT_LOCK_LOCK_MASK, WDT_LOCK_R_LOCK_BIT);
 }

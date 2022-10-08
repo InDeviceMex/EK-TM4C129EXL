@@ -29,18 +29,18 @@
 void UART__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),UART_nMODULE enModule)
 {
     SCB_nVECISR enVector = SCB_enVECISR_UART0;
-    uint32_t u32Module = 0UL;
-    const SCB_nVECISR SCB_enVECISR_UART[(uint32_t) UART_enMODULE_MAX]=
+    UBase_t uxModule = 0UL;
+    const SCB_nVECISR SCB_enVECISR_UART[(UBase_t) UART_enMODULE_MAX]=
     {
         SCB_enVECISR_UART0, SCB_enVECISR_UART1, SCB_enVECISR_UART2, SCB_enVECISR_UART3,
         SCB_enVECISR_UART4, SCB_enVECISR_UART5, SCB_enVECISR_UART6, SCB_enVECISR_UART7
     };
 
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    if(0UL != (UBase_t) pfIrqVectorHandler)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-        enVector = SCB_enVECISR_UART[u32Module];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, UART__pvfGetIRQVectorHandlerPointer((UART_nMODULE) u32Module));
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
+        enVector = SCB_enVECISR_UART[uxModule];
+        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, UART__pvfGetIRQVectorHandlerPointer((UART_nMODULE) uxModule));
     }
 }

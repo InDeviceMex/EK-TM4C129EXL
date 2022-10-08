@@ -40,10 +40,10 @@ GPIO_nERROR GPIO__enSetInterruptType(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = GPIO_SI_R_SUM_BIT;
-        stRegister.u32Mask = GPIO_SI_SUM_MASK;
+        stRegister.uxShift = GPIO_SI_R_SUM_BIT;
+        stRegister.uxMask = GPIO_SI_SUM_MASK;
         stRegister.uptrAddress = GPIO_SI_OFFSET;
-        stRegister.u32Value = (uint32_t) enTypeArg;
+        stRegister.uxValue = (UBase_t) enTypeArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
 
@@ -70,14 +70,14 @@ GPIO_nERROR GPIO__enGetInterruptType(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-            stRegister.u32Shift = GPIO_SI_R_SUM_BIT;
-            stRegister.u32Mask = GPIO_SI_SUM_MASK;
+            stRegister.uxShift = GPIO_SI_R_SUM_BIT;
+            stRegister.uxMask = GPIO_SI_SUM_MASK;
             stRegister.uptrAddress = GPIO_SI_OFFSET;
             enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        *penTypeArg = (GPIO_nINTTYPE) stRegister.u32Value;
+        *penTypeArg = (GPIO_nINTTYPE) stRegister.uxValue;
     }
 
     return (enErrorReg);

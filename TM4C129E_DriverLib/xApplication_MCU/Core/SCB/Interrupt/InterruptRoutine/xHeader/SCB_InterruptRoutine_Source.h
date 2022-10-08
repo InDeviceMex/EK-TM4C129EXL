@@ -43,7 +43,7 @@ SCB_pvfIRQSourceHandler_t SCB_NMI__pvfGetIRQSourceHandler(SCB_nMODULE enModuleAr
 SCB_pvfIRQSourceHandler_t* SCB_NMI__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, SCB_nNMI_BIT enFaultBit);
 
 SCB_nERROR SCB_SVCall__enInit(SCB_nMODULE enModuleArg);
-SCB_pvfIRQSourceHandler_t SCB_SVCall__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, uint32_t u32FaultBit);
-SCB_pvfIRQSourceHandler_t* SCB_SVCall__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, uint32_t u32FaultBit);
+SCB_pvfIRQSourceHandler_t SCB_SVCall__pvfGetIRQSourceHandler(SCB_nMODULE enModuleArg, UBase_t uxFaultBit);
+SCB_pvfIRQSourceHandler_t* SCB_SVCall__pvfGetIRQSourceHandlerPointer(SCB_nMODULE enModuleArg, UBase_t uxFaultBit);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_INTERRUPT_INTERRUPTROUTINE_XHEADER_SCB_INTERRUPTROUTINE_SOURCE_H_ */

@@ -14,25 +14,25 @@
 ************************************ 8 PWRTC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_PWRTC_R_VDD_UBOR_MASK    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PWRTC_R_VDD_UBOR_MASK    ((UBase_t) 0x00000001UL)
 #define SYSCTL_PWRTC_R_VDD_UBOR_BIT    (0UL)
-#define SYSCTL_PWRTC_R_VDD_UBOR_NOTRIP    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PWRTC_R_VDD_UBOR_TRIP    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PWRTC_R_VDD_UBOR_NOTRIP    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PWRTC_R_VDD_UBOR_TRIP    ((UBase_t) 0x00000001UL)
 
-#define SYSCTL_PWRTC_VDD_UBOR_MASK    ((uint32_t) 0x00000001UL)
-#define SYSCTL_PWRTC_VDD_UBOR_NOTRIP    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PWRTC_VDD_UBOR_TRIP    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PWRTC_VDD_UBOR_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_PWRTC_VDD_UBOR_NOTRIP    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PWRTC_VDD_UBOR_TRIP    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_PWRTC_R_VDDA_UBOR_MASK    ((uint32_t) 0x00000010UL)
+#define SYSCTL_PWRTC_R_VDDA_UBOR_MASK    ((UBase_t) 0x00000010UL)
 #define SYSCTL_PWRTC_R_VDDA_UBOR_BIT    (4UL)
-#define SYSCTL_PWRTC_R_VDDA_UBOR_NOTRIP    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PWRTC_R_VDDA_UBOR_TRIP    ((uint32_t) 0x00000010UL)
+#define SYSCTL_PWRTC_R_VDDA_UBOR_NOTRIP    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PWRTC_R_VDDA_UBOR_TRIP    ((UBase_t) 0x00000010UL)
 
-#define SYSCTL_PWRTC_VDDA_UBOR_MASK    ((uint32_t) 0x00000001UL)
-#define SYSCTL_PWRTC_VDDA_UBOR_NOTRIP    ((uint32_t) 0x00000000UL)
-#define SYSCTL_PWRTC_VDDA_UBOR_TRIP    ((uint32_t) 0x00000001UL)
+#define SYSCTL_PWRTC_VDDA_UBOR_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_PWRTC_VDDA_UBOR_NOTRIP    ((UBase_t) 0x00000000UL)
+#define SYSCTL_PWRTC_VDDA_UBOR_TRIP    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 

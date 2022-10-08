@@ -26,9 +26,9 @@
 void TIMER_vIRQSourceHandler_Dummy_Blocking(void);
 void TIMER_vIRQSourceHandler_Dummy(void);
 
-void (*TIMER__vIRQSourceHandler [(uint32_t) TIMER_enSUBMODULE_MAX - 1UL]
-                                [(uint32_t) TIMER_enMODULE_NUM_MAX]
-                                 [(uint32_t) TIMER_enINTERRUPT_MAX]) (void) =
+void (*TIMER__vIRQSourceHandler [(UBase_t) TIMER_enSUBMODULE_MAX - 1UL]
+                                [(UBase_t) TIMER_enMODULE_NUM_MAX]
+                                 [(UBase_t) TIMER_enINTERRUPT_MAX]) (void) =
 {
     {
         {
@@ -149,9 +149,9 @@ void (*TIMER__pvfGetIRQSourceHandler(TIMER_nSUBMODULE enTIMERSubmodule,
                                      TIMER_nINTERRUPT enTIMERInterruptNum))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = TIMER__vIRQSourceHandler[(uint32_t) enTIMERSubmodule]
-                                              [(uint32_t) enTIMERModuleNumber]
-                                              [(uint32_t)enTIMERInterruptNum];
+    pvfFunctionReg = TIMER__vIRQSourceHandler[(UBase_t) enTIMERSubmodule]
+                                              [(UBase_t) enTIMERModuleNumber]
+                                              [(UBase_t)enTIMERInterruptNum];
     return (pvfFunctionReg);
 }
 
@@ -160,8 +160,8 @@ void (**TIMER__pvfGetIRQSourceHandlerPointer(TIMER_nSUBMODULE enTIMERSubmodule,
                                              TIMER_nINTERRUPT enTIMERInterruptNum))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &TIMER__vIRQSourceHandler[(uint32_t) enTIMERSubmodule]
-                                                               [(uint32_t) enTIMERModuleNumber]
-                                                                [(uint32_t)enTIMERInterruptNum];
+    pvfFunctionReg = (void(**)(void)) &TIMER__vIRQSourceHandler[(UBase_t) enTIMERSubmodule]
+                                                               [(UBase_t) enTIMERModuleNumber]
+                                                                [(UBase_t)enTIMERInterruptNum];
     return (pvfFunctionReg);
 }

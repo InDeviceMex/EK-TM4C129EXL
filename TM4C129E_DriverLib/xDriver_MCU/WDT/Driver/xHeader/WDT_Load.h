@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vSetLoad(WDT_nMODULE enModule, uint32_t u32LoadValue);
-uint32_t WDT__u32GetLoad(WDT_nMODULE enModule);
+void WDT__vSetLoad(WDT_nMODULE enModule, UBase_t uxLoadValue);
+UBase_t WDT__uxGetLoad(WDT_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_LOAD_H_ */

@@ -28,6 +28,6 @@
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
 DMA_nERROR DMA__enGetStateMachine(DMA_nMODULE enModuleArg, DMA_nSTATE_MACHINE* penStateArg);
-DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, uint32_t* pu32ChannelNumberArg);
+DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, UBase_t* puxChannelNumberArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_XHEADER_DMA_STATE_H_ */

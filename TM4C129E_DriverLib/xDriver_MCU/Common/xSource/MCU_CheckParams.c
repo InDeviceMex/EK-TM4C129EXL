@@ -23,10 +23,10 @@
  */
 #include <xDriver_MCU/Common/xHeader/MCU_CheckParams.h>
 
-MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
+MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
     MCU_nERROR enErrorReg;
-    if(u32ModuleMaxArg <= u32ModuleArg)
+    if(uxModuleMaxArg <= uxModuleArg)
     {
         enErrorReg = MCU_enERROR_RANGE;
     }
@@ -37,24 +37,24 @@ MCU_nERROR MCU__enCheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxAr
     return (enErrorReg);
 }
 
-uint32_t MCU__u32CheckParams_RAM(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
+UBase_t MCU__uxCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
 #if !defined(Opt_Check)
-    if((u32ModuleMaxArg <= u32ModuleArg) && (0UL != u32ModuleMaxArg))
+    if((uxModuleMaxArg <= uxModuleArg) && (0UL != uxModuleMaxArg))
     {
-        u32ModuleMaxArg--;
-        u32ModuleArg = u32ModuleMaxArg;
+        uxModuleMaxArg--;
+        uxModuleArg = uxModuleMaxArg;
     }
 #endif
-    return (u32ModuleArg);
+    return (uxModuleArg);
 }
 
 
 
-MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
+MCU_nERROR MCU__enCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
     MCU_nERROR enErrorReg;
-    if(u32ModuleMaxArg <= u32ModuleArg)
+    if(uxModuleMaxArg <= uxModuleArg)
     {
         enErrorReg = MCU_enERROR_RANGE;
     }
@@ -67,14 +67,14 @@ MCU_nERROR MCU__enCheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
 
 
 
-uint32_t MCU__u32CheckParams(uint32_t u32ModuleArg, uint32_t u32ModuleMaxArg)
+UBase_t MCU__uxCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
 #if !defined(Opt_Check)
-    if((u32ModuleMaxArg <= u32ModuleArg) && (0UL != u32ModuleMaxArg))
+    if((uxModuleMaxArg <= uxModuleArg) && (0UL != uxModuleMaxArg))
     {
-        u32ModuleMaxArg--;
-        u32ModuleArg = u32ModuleMaxArg;
+        uxModuleMaxArg--;
+        uxModuleArg = uxModuleMaxArg;
     }
 #endif
-    return (u32ModuleArg);
+    return (uxModuleArg);
 }

@@ -33,65 +33,65 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL;
+        volatile UBase_t CTL;
         QEICTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t STAT;
+        volatile const UBase_t STAT;
         QEISTAT_t STAT_Bit;
     };
     union
     {
-        volatile uint32_t POS;
+        volatile UBase_t POS;
         QEIPOS_t POS_Bit;
     };
     union
     {
-        volatile uint32_t MAXPOS;
+        volatile UBase_t MAXPOS;
         QEIMAXPOS_t MAXPOS_Bit;
     };
     union
     {
-        volatile uint32_t LOAD;
+        volatile UBase_t LOAD;
         QEILOAD_t LOAD_Bit;
     };
     union
     {
-        volatile const uint32_t TIME;
+        volatile const UBase_t TIME;
         QEITIME_t TIME_Bit;
     };
     union
     {
-        volatile const uint32_t COUNT;
+        volatile const UBase_t COUNT;
         QEICOUNT_t COUNT_Bit;
     };
     union
     {
-        volatile const uint32_t SPEED;
+        volatile const UBase_t SPEED;
         QEISPEED_t SPEED_Bit;
     };
     union
     {
-        volatile uint32_t INTEN;
+        volatile UBase_t INTEN;
         QEIINTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS;
+        volatile const UBase_t RIS;
         QEIRIS_t RIS_Bit;
     };
     union
     {
-        volatile const uint32_t ISC;
+        volatile const UBase_t ISC;
         QEIISC_t ISC_Bit;
     };
-    const uint32_t reserved [1013UL];
+    const UBase_t reserved [1013UL];
 }QEI_t;
 
 typedef volatile struct
 {
-    QEI_t MODULE [(uint32_t) QEI_enMODULE_MAX];
+    QEI_t MODULE [(UBase_t) QEI_enMODULE_MAX];
 }QEIS_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_STRUCT_XHEADER_QEI_STRUCTPERIPHERAL_H_ */

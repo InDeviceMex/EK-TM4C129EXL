@@ -25,9 +25,9 @@
 
 uintptr_t FLASH__uptrBlockBaseAddress(FLASH_nMODULE enModuleArg)
 {
-    const uintptr_t FLASH_BLOCK_BASE[(uint32_t) FLASH_enMODULE_MAX] =
+    const uintptr_t FLASH_BLOCK_BASE[(UBase_t) FLASH_enMODULE_MAX] =
     {
      FLASH_BASE
     };
-    return (FLASH_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (FLASH_BLOCK_BASE[(UBase_t) enModuleArg]);
 }

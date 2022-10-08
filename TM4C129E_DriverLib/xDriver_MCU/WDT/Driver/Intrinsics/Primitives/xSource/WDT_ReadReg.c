@@ -28,18 +28,18 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-uint32_t WDT__u32ReadRegister(WDT_nMODULE enModule, uint32_t u32OffsetRegister,
-                              uint32_t u32MaskFeature, uint32_t u32BitFeature)
+UBase_t WDT__uxReadRegister(WDT_nMODULE enModule, UBase_t uxOffsetRegister,
+                              UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
-    uint32_t u32FeatureValue = 0UL;
-    uint32_t u32WDTBase = 0UL;
-    uint32_t u32Module = 0UL;
+    UBase_t uxFeatureValue = 0UL;
+    UBase_t uxWDTBase = 0UL;
+    UBase_t uxModule = 0UL;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) WDT_enMODULE_MAX);
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
 
-    u32WDTBase = WDT__u32BlockBaseAddress((WDT_nMODULE) u32Module);
-    u32FeatureValue = MCU__u32ReadRegister(u32WDTBase, u32OffsetRegister,
-                                           u32MaskFeature, u32BitFeature);
+    uxWDTBase = WDT__uxBlockBaseAddress((WDT_nMODULE) uxModule);
+    uxFeatureValue = MCU__uxReadRegister(uxWDTBase, uxOffsetRegister,
+                                           uxMaskFeature, uxBitFeature);
 
-    return (u32FeatureValue);
+    return (uxFeatureValue);
 }

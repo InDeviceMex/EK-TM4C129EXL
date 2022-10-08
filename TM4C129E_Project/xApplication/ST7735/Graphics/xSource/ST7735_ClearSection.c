@@ -32,25 +32,25 @@
 
 #include <xDriver_MCU/SSI/SSI.h>
 
-void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color);
+void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor);
 
-void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color)
+void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor)
 {
-    uint32_t u32TotalDim = 0UL;
-    if(0UL != (uint32_t) enLayerArg)
+    UBase_t uxTotalDim = 0UL;
+    if(0UL != (UBase_t) enLayerArg)
     {
-        u32TotalDim = stDimesionsArg.u32Height;
-        u32TotalDim *= stDimesionsArg.u32Width;
+        uxTotalDim = stDimesionsArg.uxHeight;
+        uxTotalDim *= stDimesionsArg.uxWidth;
         ST7735__vSetWorkingArea(enLayerArg, stDimesionsArg);
 
         SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
-        ST7735__u32WriteDMA(u32Color, u32TotalDim);
+        ST7735__uxWriteDMA(uxColor, uxTotalDim);
         SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
     }
 }
 
-void ST7735__vClearSection(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color)
+void ST7735__vClearSection(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor)
 {
-    Graphics__vClearSection(&ST7735__vClearSectionWrapper ,enLayerArg, stDimesionsArg, u32Color);
+    Graphics__vClearSection(&ST7735__vClearSectionWrapper ,enLayerArg, stDimesionsArg, uxColor);
 
 }

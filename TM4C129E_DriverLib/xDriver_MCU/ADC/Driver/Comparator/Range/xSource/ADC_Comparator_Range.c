@@ -27,24 +27,24 @@
 
 
 ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
-                                            uint32_t u32RangeLowArg, uint32_t u32RangeHighArg)
+                                            UBase_t uxRangeLowArg, UBase_t uxRangeHighArg)
 {
-    uint32_t u32ComparatorReg;
-    uint32_t u32ComparatorMaskReg;
+    UBase_t uxComparatorReg;
+    UBase_t uxComparatorMaskReg;
     ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
 
-    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enComparatorMaskArg, (uint32_t) ADC_enCOMPMASK_MAX);
+    enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        u32ComparatorReg = 0U;
-        u32ComparatorMaskReg = (uint32_t) enComparatorMaskArg;
+        uxComparatorReg = 0U;
+        uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
         enErrorReg = ADC_enERROR_OK;
-        while(0U != u32ComparatorMaskReg)
+        while(0U != uxComparatorMaskReg)
         {
-            if(0UL != ((uint32_t) ADC_enCOMPMASK_0 & u32ComparatorMaskReg))
+            if(0UL != ((UBase_t) ADC_enCOMPMASK_0 & uxComparatorMaskReg))
             {
-                enErrorReg = ADC_Comparator__enSetRangeByNumber(enModuleArg, (ADC_nCOMPARATOR) u32ComparatorReg, u32RangeLowArg, u32RangeHighArg);
+                enErrorReg = ADC_Comparator__enSetRangeByNumber(enModuleArg, (ADC_nCOMPARATOR) uxComparatorReg, uxRangeLowArg, uxRangeHighArg);
             }
 
             if(ADC_enERROR_OK != enErrorReg)
@@ -52,8 +52,8 @@ ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMA
                 enErrorMemoryReg = enErrorReg;
                 break;
             }
-            u32ComparatorReg++;
-            u32ComparatorMaskReg >>= 1U;
+            uxComparatorReg++;
+            uxComparatorMaskReg >>= 1U;
         }
     }
 
@@ -61,36 +61,36 @@ ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMA
 }
 
 ADC_nERROR ADC_Comparator__enSetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                              uint32_t u32RangeLowArg, uint32_t u32RangeHighArg)
+                                              UBase_t uxRangeLowArg, UBase_t uxRangeHighArg)
 {
-    uint32_t u32CompRangeTemp;
+    UBase_t uxCompRangeTemp;
     ADC_nERROR enErrorReg;
 
-    if(u32RangeLowArg > u32RangeHighArg)
+    if(uxRangeLowArg > uxRangeHighArg)
     {
-        u32CompRangeTemp = u32RangeLowArg;
-        u32RangeLowArg = u32RangeHighArg;
-        u32RangeHighArg = u32CompRangeTemp;
+        uxCompRangeTemp = uxRangeLowArg;
+        uxRangeLowArg = uxRangeHighArg;
+        uxRangeHighArg = uxCompRangeTemp;
     }
 
-    enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, enComparatorArg, u32RangeLowArg);
+    enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, enComparatorArg, uxRangeLowArg);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_Comparator__enSetRangeHighByNumber(enModuleArg, enComparatorArg, u32RangeHighArg);
+        enErrorReg = ADC_Comparator__enSetRangeHighByNumber(enModuleArg, enComparatorArg, uxRangeHighArg);
     }
 
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enGetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                              uint32_t* pu32RangeLowArg, uint32_t* pu32RangeHighArg)
+                                              UBase_t* puxRangeLowArg, UBase_t* puxRangeHighArg)
 {
     ADC_nERROR enErrorReg;
 
-    enErrorReg = ADC_Comparator__enGetRangeLowByNumber(enModuleArg, enComparatorArg, pu32RangeLowArg);
+    enErrorReg = ADC_Comparator__enGetRangeLowByNumber(enModuleArg, enComparatorArg, puxRangeLowArg);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = ADC_Comparator__enGetRangeHighByNumber(enModuleArg, enComparatorArg, pu32RangeHighArg);
+        enErrorReg = ADC_Comparator__enGetRangeHighByNumber(enModuleArg, enComparatorArg, puxRangeHighArg);
     }
     return (enErrorReg);
 }

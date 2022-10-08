@@ -38,7 +38,7 @@ DMA_nERROR DMA__enReadRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegis
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) DMA_enMODULE_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {

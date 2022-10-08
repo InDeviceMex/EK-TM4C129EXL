@@ -24,20 +24,20 @@
 
 #include <xDriver_MCU/FLASH/Driver/xHeader/FLASH_ConvertData.h>
 
-FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, uint32_t* pu32InitialDataArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg)
+FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, UBase_t* puxInitialDataArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32OffsetData;
+    UBase_t uxOffsetData;
 
-    uint32_t* pu32DataAux;
-    uint32_t* pu32Data;
+    UBase_t* puxDataAux;
+    UBase_t* puxData;
     uint16_t* pu16DataAux;
     uint16_t* pu16Data;
     uint8_t* pu8DataAux;
     uint8_t* pu8Data;
 
     enErrorReg = FLASH_enERROR_OK;
-    if((0UL == (uintptr_t) pvDataExtractedArg) || (0UL == (uintptr_t) pu32InitialDataArg))
+    if((0UL == (uintptr_t) pvDataExtractedArg) || (0UL == (uintptr_t) puxInitialDataArg))
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
@@ -46,31 +46,31 @@ FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, uint32_t* pu32Initia
         switch(enVariableTypeArg)
         {
             case FLASH_enVARIABLE_BYTE:
-                u32OffsetData = u32AddressArg;
-                u32OffsetData &= 3UL;
+                uxOffsetData = uxAddressArg;
+                uxOffsetData &= 3UL;
 
                 pu8Data = (uint8_t*) pvDataExtractedArg;
-                pu8DataAux = (uint8_t*) pu32InitialDataArg;
-                pu8DataAux += u32OffsetData;
+                pu8DataAux = (uint8_t*) puxInitialDataArg;
+                pu8DataAux += uxOffsetData;
                 *pu8Data = *pu8DataAux;
             break;
             case FLASH_enVARIABLE_HALFWORD:
-                u32OffsetData = u32AddressArg;
-                u32OffsetData >>= 1UL;
-                u32OffsetData &= 1UL;
+                uxOffsetData = uxAddressArg;
+                uxOffsetData >>= 1UL;
+                uxOffsetData &= 1UL;
 
                 pu16Data = (uint16_t*) pvDataExtractedArg;
-                pu16DataAux = (uint16_t*) pu32InitialDataArg;
-                pu16DataAux += u32OffsetData;
+                pu16DataAux = (uint16_t*) puxInitialDataArg;
+                pu16DataAux += uxOffsetData;
                 *pu16Data = *pu16DataAux;
             break;
             case FLASH_enVARIABLE_WORD:
-                u32OffsetData = 0UL;
+                uxOffsetData = 0UL;
 
-                pu32Data = (uint32_t*) pvDataExtractedArg;
-                pu32DataAux = (uint32_t*) pu32InitialDataArg;
-                pu32DataAux += u32OffsetData;
-                *pu32Data = *pu32DataAux;
+                puxData = (UBase_t*) pvDataExtractedArg;
+                puxDataAux = (UBase_t*) puxInitialDataArg;
+                puxDataAux += uxOffsetData;
+                *puxData = *puxDataAux;
             break;
             default:
                 enErrorReg = FLASH_enERROR_VALUE;
@@ -81,13 +81,13 @@ FLASH_nERROR FLASH__enExtractData(void* pvDataExtractedArg, uint32_t* pu32Initia
 }
 
 
-FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceArg,uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg)
+FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, UBase_t uxDataToReplaceArg,UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32OffsetData;
+    UBase_t uxOffsetData;
 
-    uint32_t *pu32DataAux;
-    uint32_t u32DataReg;
+    UBase_t *puxDataAux;
+    UBase_t uxDataReg;
     uint16_t *pu16DataAux;
     uint16_t u16DataReg;
     uint8_t u8DataReg;
@@ -103,34 +103,34 @@ FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceA
         switch(enVariableTypeArg)
         {
         case FLASH_enVARIABLE_BYTE:
-            u32OffsetData = u32AddressArg;
-            u32OffsetData &= 3UL;
+            uxOffsetData = uxAddressArg;
+            uxOffsetData &= 3UL;
 
-            u8DataReg = (uint8_t) u32DataToReplaceArg;
+            u8DataReg = (uint8_t) uxDataToReplaceArg;
 
             pu8DataAux = (uint8_t*) pvDataOutArg;
-            pu8DataAux += u32OffsetData;
+            pu8DataAux += uxOffsetData;
             *pu8DataAux = u8DataReg;
         break;
         case FLASH_enVARIABLE_HALFWORD:
-            u32OffsetData = u32AddressArg;
-            u32OffsetData >>= 1UL;
-            u32OffsetData &= 1UL;
+            uxOffsetData = uxAddressArg;
+            uxOffsetData >>= 1UL;
+            uxOffsetData &= 1UL;
 
-            u16DataReg = (uint16_t) u32DataToReplaceArg;
+            u16DataReg = (uint16_t) uxDataToReplaceArg;
 
             pu16DataAux = (uint16_t*) pvDataOutArg;
-            pu16DataAux += u32OffsetData;
+            pu16DataAux += uxOffsetData;
             *pu16DataAux = u16DataReg;
         break;
         case FLASH_enVARIABLE_WORD:
-            u32OffsetData = 0UL;
+            uxOffsetData = 0UL;
 
-            u32DataReg = (uint32_t) u32DataToReplaceArg;
+            uxDataReg = (UBase_t) uxDataToReplaceArg;
 
-            pu32DataAux = (uint32_t*) pvDataOutArg;
-            pu32DataAux += u32OffsetData;
-            *pu32DataAux = u32DataReg;
+            puxDataAux = (UBase_t*) pvDataOutArg;
+            puxDataAux += uxOffsetData;
+            *puxDataAux = uxDataReg;
         break;
         default:
             enErrorReg = FLASH_enERROR_VALUE;
@@ -141,12 +141,12 @@ FLASH_nERROR FLASH__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceA
 }
 
 
-FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg)
+FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariableTypeArg, FLASH_nERASED* penErrasedArg)
 {
     FLASH_nERROR enErrorReg;
     uint8_t* pu8DataValue;
     uint16_t* pu16DataValue;
-    uint32_t* pu32DataValue;
+    UBase_t* puxDataValue;
 
     enErrorReg = FLASH_enERROR_OK;
     if(0UL == (uintptr_t) penErrasedArg)
@@ -159,7 +159,7 @@ FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVari
         switch(enVariableTypeArg)
         {
             case FLASH_enVARIABLE_BYTE:
-                pu8DataValue = (uint8_t*) u32AddressArg;
+                pu8DataValue = (uint8_t*) uxAddressArg;
                 if((uint8_t) MCU_MASK_8 == *(pu8DataValue))
                 {
                     *penErrasedArg = FLASH_enERASED_YES;
@@ -170,8 +170,8 @@ FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVari
                 }
             break;
             case FLASH_enVARIABLE_HALFWORD:
-                u32AddressArg &= ~ (uint32_t) 1UL;
-                pu16DataValue = (uint16_t*) u32AddressArg;
+                uxAddressArg &= ~ (UBase_t) 1UL;
+                pu16DataValue = (uint16_t*) uxAddressArg;
                 if((uint16_t) MCU_MASK_16 == *(pu16DataValue))
                 {
                     *penErrasedArg = FLASH_enERASED_YES;
@@ -182,9 +182,9 @@ FLASH_nERROR FLASH_enIsDataErased(uint32_t u32AddressArg, FLASH_nVARIABLE enVari
                 }
             break;
             case FLASH_enVARIABLE_WORD:
-                u32AddressArg &= ~ (uint32_t) 3UL;
-                pu32DataValue = (uint32_t*) u32AddressArg;
-                if((uint32_t) MCU_MASK_32 == *(pu32DataValue))
+                uxAddressArg &= ~ (UBase_t) 3UL;
+                puxDataValue = (UBase_t*) uxAddressArg;
+                if((UBase_t) MCU_MASK_BASE == *(puxDataValue))
                 {
                     *penErrasedArg = FLASH_enERASED_YES;
                 }

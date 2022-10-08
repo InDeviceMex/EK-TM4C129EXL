@@ -25,30 +25,30 @@
 
 uintptr_t DMA_CH_Primary__uptrBlockBaseAddress(DMA_nMODULE enModuleArg)
 {
-    const uintptr_t DMA_BLOCK_BASE[(uint32_t) DMA_enMODULE_MAX] =
+    const uintptr_t DMA_BLOCK_BASE[(UBase_t) DMA_enMODULE_MAX] =
     {
      DMA_CH_PRIMARY_BASE,
     };
-    return (DMA_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (DMA_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 
 uintptr_t DMA_CH_Alternate__uptrBlockBaseAddress(DMA_nMODULE enModuleArg)
 {
-    const uintptr_t DMA_BLOCK_BASE[(uint32_t) DMA_enMODULE_MAX] =
+    const uintptr_t DMA_BLOCK_BASE[(UBase_t) DMA_enMODULE_MAX] =
     {
      DMA_CH_ALTERNATE_BASE,
     };
-    return (DMA_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (DMA_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
 
 
 uintptr_t DMA_CH__uptrBlockBaseAddress(DMA_nMODULE enModuleArg, DMA_nCH_CONTROL enControlArg)
 {
-    const uintptr_t DMA_BLOCK_BASE[(uint32_t) DMA_enMODULE_MAX][2UL] =
+    const uintptr_t DMA_BLOCK_BASE[(UBase_t) DMA_enMODULE_MAX][2UL] =
     {
       {DMA_CH_PRIMARY_BASE, DMA_CH_ALTERNATE_BASE}
     };
-    return (DMA_BLOCK_BASE[(uint32_t) enModuleArg][(uint32_t) enControlArg]);
+    return (DMA_BLOCK_BASE[(UBase_t) enModuleArg][(UBase_t) enControlArg]);
 }
 

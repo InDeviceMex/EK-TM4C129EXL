@@ -62,7 +62,7 @@ GPIO_nERROR GPIO__enSetConfigStructureByNumber(GPIO_nPORT enPortArg, GPIO_nPIN e
 {
     GPIO_nERROR enErrorReg;
     enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uint32_t) pstConfigArg)
+    if(0UL == (UBase_t) pstConfigArg)
     {
         enErrorReg = GPIO_enERROR_POINTER;
     }
@@ -98,7 +98,7 @@ GPIO_nERROR GPIO__enSetConfigStructureByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK
 {
     GPIO_nERROR enErrorReg;
     enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uint32_t) pstConfigArg)
+    if(0UL == (UBase_t) pstConfigArg)
     {
         enErrorReg = GPIO_enERROR_POINTER;
     }
@@ -134,16 +134,16 @@ GPIO_nERROR GPIO__enGetConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, 
     GPIO_nERROR enErrorReg;
     GPIO_nCONFIG enConfig;
 
-    uint32_t u32ResistorModeReg;
-    uint32_t u32OutputModeReg;
-    uint32_t u32DirectionReg;
-    uint32_t u32DriveReg;
-    uint32_t u32Reg;
+    UBase_t uxResistorModeReg;
+    UBase_t uxOutputModeReg;
+    UBase_t uxDirectionReg;
+    UBase_t uxDriveReg;
+    UBase_t uxReg;
 
-    u32DriveReg = 0UL;
-    u32DirectionReg = 0UL;
-    u32OutputModeReg = 0U;
-    u32ResistorModeReg = 0U;
+    uxDriveReg = 0UL;
+    uxDirectionReg = 0UL;
+    uxOutputModeReg = 0U;
+    uxResistorModeReg = 0U;
     enErrorReg = GPIO_enERROR_OK;
     if(0UL == (uintptr_t) penConfigArg)
     {
@@ -151,31 +151,31 @@ GPIO_nERROR GPIO__enGetConfigByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg, 
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enGetResistorModeByNumber(enPortArg, enPinArg, (GPIO_nRESMODE*) &u32ResistorModeReg);
+        enErrorReg = GPIO__enGetResistorModeByNumber(enPortArg, enPinArg, (GPIO_nRESMODE*) &uxResistorModeReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enGetOutputModeByNumber(enPortArg, enPinArg, (GPIO_nOUTMODE*) &u32OutputModeReg);
+        enErrorReg = GPIO__enGetOutputModeByNumber(enPortArg, enPinArg, (GPIO_nOUTMODE*) &uxOutputModeReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enGetDirectionByNumber(enPortArg, enPinArg, (GPIO_nDIR*) &u32DirectionReg);
+        enErrorReg = GPIO__enGetDirectionByNumber(enPortArg, enPinArg, (GPIO_nDIR*) &uxDirectionReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = GPIO__enGetDriveByNumber(enPortArg, enPinArg, (GPIO_nDRIVE*) &u32DriveReg);
+        enErrorReg = GPIO__enGetDriveByNumber(enPortArg, enPinArg, (GPIO_nDRIVE*) &uxDriveReg);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32ResistorModeReg <<= 0UL;
-        u32OutputModeReg <<= 4UL;
-        u32DirectionReg <<= 8UL;
-        u32DriveReg <<= 16UL;
-        u32Reg = u32ResistorModeReg;
-        u32Reg |= u32OutputModeReg;
-        u32Reg |= u32DirectionReg;
-        u32Reg |= u32DriveReg;
-        enConfig = (GPIO_nCONFIG) u32Reg;
+        uxResistorModeReg <<= 0UL;
+        uxOutputModeReg <<= 4UL;
+        uxDirectionReg <<= 8UL;
+        uxDriveReg <<= 16UL;
+        uxReg = uxResistorModeReg;
+        uxReg |= uxOutputModeReg;
+        uxReg |= uxDirectionReg;
+        uxReg |= uxDriveReg;
+        enConfig = (GPIO_nCONFIG) uxReg;
         *penConfigArg = enConfig;
     }
     return (enErrorReg);

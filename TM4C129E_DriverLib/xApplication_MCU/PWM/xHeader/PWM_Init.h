@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_PWM_XHEADER_PWM_INIT_H_
 #define XAPPLICATION_MCU_PWM_XHEADER_PWM_INIT_H_
 
-void PWM__vInit(void);
+#include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
+
+PWM_nERROR PWM__enInit(PWM_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_PWM_XHEADER_PWM_INIT_H_ */

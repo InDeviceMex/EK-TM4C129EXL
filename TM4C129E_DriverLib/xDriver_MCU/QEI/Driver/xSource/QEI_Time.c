@@ -26,10 +26,10 @@
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-uint32_t QEI__u32GetTimer(QEI_nMODULE enModule)
+UBase_t QEI__uxGetTimer(QEI_nMODULE enModule)
 {
-    uint32_t u32TimerReg = 0UL;
-    u32TimerReg = QEI__u32ReadRegister(enModule, QEI_TIME_OFFSET,
+    UBase_t uxTimerReg = 0UL;
+    uxTimerReg = QEI__uxReadRegister(enModule, QEI_TIME_OFFSET,
                                QEI_TIME_TIME_MASK, QEI_TIME_R_TIME_BIT);
-    return (u32TimerReg);
+    return (uxTimerReg);
 }

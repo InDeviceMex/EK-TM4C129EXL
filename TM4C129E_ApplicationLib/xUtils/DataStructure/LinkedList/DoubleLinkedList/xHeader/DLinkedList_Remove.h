@@ -47,7 +47,7 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveHead(DLinkedList_t* pstList);
 DLinkedList_nSTATUS  DLinkedList__enRemoveTail_GetData(DLinkedList_t* pstList, void** pvData);
 DLinkedList_nSTATUS  DLinkedList__enRemoveTail(DLinkedList_t* pstList);
 
- DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_t* pstList, uint32_t u32Position, void** pvData);
- DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_t* pstList, uint32_t u32Position);
+ DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_t* pstList, UBase_t uxPosition, void** pvData);
+ DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_t* pstList, UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_REMOVE_H_ */

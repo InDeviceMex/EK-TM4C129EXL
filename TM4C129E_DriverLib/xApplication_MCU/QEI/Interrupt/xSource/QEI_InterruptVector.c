@@ -30,14 +30,14 @@ static NVIC_nVECTOR QEI__enGetInterruptVector(QEI_nMODULE enModule);
 static NVIC_nVECTOR QEI__enGetInterruptVector(QEI_nMODULE enModule)
 {
     NVIC_nVECTOR enVector = NVIC_enVECTOR_QEI0;
-    uint32_t u32Module = 0UL;
-    NVIC_nVECTOR NVIC_VECTOR_QEI[(uint32_t) QEI_enMODULE_MAX] =
+    UBase_t uxModule = 0UL;
+    NVIC_nVECTOR NVIC_VECTOR_QEI[(UBase_t) QEI_enMODULE_MAX] =
     {
         NVIC_enVECTOR_QEI0
     };
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
-    enVector = NVIC_VECTOR_QEI[u32Module];
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
+    enVector = NVIC_VECTOR_QEI[uxModule];
     return (enVector);
 }
 

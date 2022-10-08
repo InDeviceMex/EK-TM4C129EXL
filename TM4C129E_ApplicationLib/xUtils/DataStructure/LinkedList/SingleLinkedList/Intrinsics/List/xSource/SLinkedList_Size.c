@@ -23,31 +23,31 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Size.h>
 
-uint32_t SLinkedList__u32GetSize(const SLinkedList_t* const pstList)
+UBase_t SLinkedList__uxGetSize(const SLinkedList_t* const pstList)
 {
-    uint32_t u32SizeReg = 0UL;
-    if(0UL != (uint32_t) pstList)
+    UBase_t uxSizeReg = 0UL;
+    if(0UL != (UBase_t) pstList)
     {
-        u32SizeReg = pstList->u32Size;
+        uxSizeReg = pstList->uxSize;
     }
-    return (u32SizeReg);
+    return (uxSizeReg);
 
 }
 
-void SLinkedList__vSetSize(SLinkedList_t*  pstList, uint32_t u32SizeArg)
+void SLinkedList__vSetSize(SLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = u32SizeArg;
+        pstList->uxSize = uxSizeArg;
     }
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsEmpty(const SLinkedList_t*  pstList)
+SLinkedList_nERROR SLinkedList__enIsEmpty(const SLinkedList_t*  pstList)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    if(0UL  == pstList->u32Size)
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
+    if(0UL  == pstList->uxSize)
     {
-        enStatus = SLinkedList_enSTATUS_OK;
+        enStatus = SLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

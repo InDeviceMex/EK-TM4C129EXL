@@ -50,23 +50,23 @@ DMA_nERROR DMA_CH_Alternate__enGetControlRegisterByNumber(DMA_nMODULE enModuleAr
 
 
 DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg);
+                                              DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg);
 DMA_nERROR DMA_CH_Primary__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                   uint32_t u32ControlArg);
+                                                   UBase_t uxControlArg);
 DMA_nERROR DMA_CH_Alternate__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                     uint32_t u32ControlArg);
+                                                     UBase_t uxControlArg);
 
 DMA_nERROR DMA_CH__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t u32ControlArg);
+                                             DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg);
 DMA_nERROR DMA_CH_Primary__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                     uint32_t u32ControlArg);
+                                                     UBase_t uxControlArg);
 DMA_nERROR DMA_CH_Alternate__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                       uint32_t u32ControlArg);
+                                                       UBase_t uxControlArg);
 
 DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32ControlArg);
+                                             DMA_nCH_CONTROL enControlArg, UBase_t* puxControlArg);
 DMA_nERROR DMA_CH_Primary__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                     uint32_t* pu32ControlArg);
+                                                     UBase_t* puxControlArg);
 DMA_nERROR DMA_CH_Alternate__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          uint32_t* pu32ControlArg);
+                                                          UBase_t* puxControlArg);
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_CONTROLWORLD_H_ */

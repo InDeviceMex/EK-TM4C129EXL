@@ -31,16 +31,16 @@
  ************************************ 19 LOCK *********************************************
  ******************************************************************************************/
 /*----------*/
-#define GPIO_LOCK_R_PIN_MASK    ((uint32_t) 0xFFFFFFFFUL)
+#define GPIO_LOCK_R_PIN_MASK    ((UBase_t) 0xFFFFFFFFUL)
 #define GPIO_LOCK_R_PIN_BIT    (0UL)
-#define GPIO_LOCK_R_PIN_KEY    ((uint32_t) 0x4C4F434BUL)
-#define GPIO_LOCK_R_PIN_UNLOCK    ((uint32_t) 0x00000000UL)
-#define GPIO_LOCK_R_PIN_LOCK    ((uint32_t) 0x00000001UL)
+#define GPIO_LOCK_R_PIN_KEY    ((UBase_t) 0x4C4F434BUL)
+#define GPIO_LOCK_R_PIN_UNLOCK    ((UBase_t) 0x00000000UL)
+#define GPIO_LOCK_R_PIN_LOCK    ((UBase_t) 0x00000001UL)
 
-#define GPIO_LOCK_PIN_MASK    ((uint32_t) 0xFFFFFFFFUL)
-#define GPIO_LOCK_PIN_KEY    ((uint32_t) 0x4C4F434BUL)
-#define GPIO_LOCK_PIN_UNLOCK    ((uint32_t) 0x00000000UL)
-#define GPIO_LOCK_PIN_LOCK    ((uint32_t) 0x00000001UL)
+#define GPIO_LOCK_PIN_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define GPIO_LOCK_PIN_KEY    ((UBase_t) 0x4C4F434BUL)
+#define GPIO_LOCK_PIN_UNLOCK    ((UBase_t) 0x00000000UL)
+#define GPIO_LOCK_PIN_LOCK    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_PERIPHERAL_GPIO_REGISTER_GPIO_REGISTERDEFINES_GPIO_REGISTERDEFINES_LOCK_H_ */

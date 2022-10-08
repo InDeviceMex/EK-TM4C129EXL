@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/TIMER/Peripheral/xHeader/TIMER_Enum.h>
 
-void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister,
-                           uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                           uint32_t u32BitFeature);
+void TIMER__vWriteRegister(TIMER_nMODULE_NUM enModuleNumber, UBase_t uxOffsetRegister,
+                           UBase_t uxFeatureValue, UBase_t uxMaskFeature,
+                           UBase_t uxBitFeature);
 
 
 #endif /* XDRIVER_MCU_TIMER_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_TIMER_WRITEREGISTER_H_ */

@@ -28,125 +28,125 @@
 #include <xDriver_MCU/DMA/Peripheral/DMA_Peripheral.h>
 
 DMA_nERROR DMA_CH__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, uint32_t u32TransferSizeArg)
+                                              DMA_nCH_CONTROL enControlArg, UBase_t uxTransferSizeArg)
 {
-    uint32_t u32ChannelReg;
-    uint32_t u32ChannelMaskReg;
+    UBase_t uxChannelReg;
+    UBase_t uxChannelMaskReg;
     DMA_nERROR enErrorReg;
 
-    u32ChannelReg = 0U;
-    u32ChannelMaskReg = (uint32_t) enChannelMaskArg;
+    uxChannelReg = 0U;
+    uxChannelMaskReg = (UBase_t) enChannelMaskArg;
     enErrorReg = DMA_enERROR_OK;
-    while((0U != u32ChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
+    while((0U != uxChannelMaskReg) && (DMA_enERROR_OK == enErrorReg))
     {
-        if(0UL != ((uint32_t) DMA_enCHMASK_0 & u32ChannelMaskReg))
+        if(0UL != ((UBase_t) DMA_enCHMASK_0 & uxChannelMaskReg))
         {
-            enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg,  (DMA_nCH) u32ChannelReg, enControlArg, u32TransferSizeArg);
+            enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg,  (DMA_nCH) uxChannelReg, enControlArg, uxTransferSizeArg);
         }
-        u32ChannelReg++;
-        u32ChannelMaskReg >>= 1U;
+        uxChannelReg++;
+        uxChannelMaskReg >>= 1U;
     }
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                        uint32_t u32TransferSizeArg)
+                                                        UBase_t uxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetTransferSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, u32TransferSizeArg);
+    enErrorReg = DMA_CH__enSetTransferSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_PRIMARY, uxTransferSizeArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                        uint32_t u32TransferSizeArg)
+                                                        UBase_t uxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetTransferSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, u32TransferSizeArg);
+    enErrorReg = DMA_CH__enSetTransferSizeByMask(enModuleArg, enChannelMaskArg, DMA_enCH_CONTROL_ALTERNATE, uxTransferSizeArg);
     return (enErrorReg);
 }
 
 
 DMA_nERROR DMA_CH__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t u32TransferSizeArg)
+                                             DMA_nCH_CONTROL enControlArg, UBase_t uxTransferSizeArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
-    if(0UL == u32TransferSizeArg)
+    if(0UL == uxTransferSizeArg)
     {
         enErrorReg = DMA_enERROR_RANGE;
     }
 
     if(DMA_enERROR_OK == enErrorReg)
     {
-        u32TransferSizeArg--;
-        stRegister.u32Shift = DMA_CH_CTL_R_XFERSIZE_BIT;
-        stRegister.u32Mask = DMA_CH_CTL_XFERSIZE_MASK;
+        uxTransferSizeArg--;
+        stRegister.uxShift = DMA_CH_CTL_R_XFERSIZE_BIT;
+        stRegister.uxMask = DMA_CH_CTL_XFERSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
-        stRegister.u32Value = (uint32_t) u32TransferSizeArg;
+        stRegister.uxValue = (UBase_t) uxTransferSizeArg;
         enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t u32TransferSizeArg)
+                                                        UBase_t uxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, u32TransferSizeArg);
+    enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, uxTransferSizeArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t u32TransferSizeArg)
+                                                        UBase_t uxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, u32TransferSizeArg);
+    enErrorReg = DMA_CH__enSetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, uxTransferSizeArg);
     return (enErrorReg);
 }
 
 
 DMA_nERROR DMA_CH__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32TransferSizeArg)
+                                             DMA_nCH_CONTROL enControlArg, UBase_t* puxTransferSizeArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pu32TransferSizeArg)
+    if(0UL == (uintptr_t) puxTransferSizeArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = DMA_CH_CTL_R_XFERSIZE_BIT;
-        stRegister.u32Mask = DMA_CH_CTL_XFERSIZE_MASK;
+        stRegister.uxShift = DMA_CH_CTL_R_XFERSIZE_BIT;
+        stRegister.uxMask = DMA_CH_CTL_XFERSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        (stRegister.u32Value)++;
-        *pu32TransferSizeArg = (uint32_t) stRegister.u32Value;
+        (stRegister.uxValue)++;
+        *puxTransferSizeArg = (UBase_t) stRegister.uxValue;
     }
 
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Primary__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t* pu32TransferSizeArg)
+                                                        UBase_t* puxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, pu32TransferSizeArg);
+    enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_PRIMARY, puxTransferSizeArg);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH_Alternate__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                          uint32_t* pu32TransferSizeArg)
+                                                          UBase_t* puxTransferSizeArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pu32TransferSizeArg);
+    enErrorReg = DMA_CH__enGetTransferSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, puxTransferSizeArg);
     return (enErrorReg);
 }

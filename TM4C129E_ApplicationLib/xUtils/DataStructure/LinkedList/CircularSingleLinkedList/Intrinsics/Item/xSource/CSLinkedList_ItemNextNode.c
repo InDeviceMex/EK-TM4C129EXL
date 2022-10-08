@@ -26,7 +26,7 @@
 CSLinkedListItem_t* CSLinkedList_Item__pstGetNextItem(const CSLinkedListItem_t* const pstItem)
 {
     CSLinkedListItem_t* pstNextItemReg = (CSLinkedListItem_t*)0UL;
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstNextItemReg = pstItem->pstNextItem;
     }
@@ -35,7 +35,7 @@ CSLinkedListItem_t* CSLinkedList_Item__pstGetNextItem(const CSLinkedListItem_t* 
 
 void CSLinkedList_Item__vSetNextItem(CSLinkedListItem_t* pstItem, CSLinkedListItem_t* pstNextItemArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pstNextItem = pstNextItemArg;
     }

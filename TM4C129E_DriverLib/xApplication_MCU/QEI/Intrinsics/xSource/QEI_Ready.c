@@ -26,7 +26,7 @@
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Dependencies.h>
 
 #if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_QEI[(uint32_t) QEI_enMODULE_MAX] = {SYSCTL_enQEI0};
+static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_QEI[(UBase_t) QEI_enMODULE_MAX] = {SYSCTL_enQEI0};
 #endif
 
 void QEI__vSetReady(QEI_nMODULE enModule)
@@ -34,12 +34,12 @@ void QEI__vSetReady(QEI_nMODULE enModule)
 #if !defined(Opt_Check)
     QEI_nREADY enReady = QEI_enNOREADY;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enQEI0;
-    uint32_t u32Module = 0UL;
+    UBase_t uxModule = 0UL;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
 
-    enPeripheral = SYSCTL_VECTOR_QEI[u32Module];
-    enReady = QEI__enIsReady((QEI_nMODULE) u32Module);
+    enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
+    enReady = QEI__enIsReady((QEI_nMODULE) uxModule);
     if(QEI_enNOREADY == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
@@ -52,12 +52,12 @@ void QEI__vSetReady(QEI_nMODULE enModule)
 void QEI__vClearReady(QEI_nMODULE enModule)
 {
 #if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_QEI[(uint32_t) QEI_enMODULE_MAX] = {SYSCTL_enQEI0};
+    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_QEI[(UBase_t) QEI_enMODULE_MAX] = {SYSCTL_enQEI0};
 #endif
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enQEI0;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_QEI[u32Module];
+    UBase_t uxModule = 0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
     SYSCTL__vClearReady(enPeripheral);
 }
 
@@ -66,9 +66,9 @@ QEI_nREADY QEI__enIsReady(QEI_nMODULE enModule)
 #if !defined(Opt_Check)
     QEI_nREADY enReady = QEI_enNOREADY;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enQEI0;
-    uint32_t u32Module =0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_QEI[u32Module];
+    UBase_t uxModule =0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
     enReady = (QEI_nREADY) SYSCTL__enIsReady(enPeripheral);
 #else
     QEI_nREADY enReady = QEI_enREADY;

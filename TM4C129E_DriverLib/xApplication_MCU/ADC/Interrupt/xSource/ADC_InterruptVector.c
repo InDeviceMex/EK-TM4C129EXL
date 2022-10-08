@@ -29,21 +29,21 @@ static ADC_nERROR ADC__enGetInterruptVector(ADC_nMODULE enModuleArg, ADC_nSEQUEN
 
 static ADC_nERROR ADC__enGetInterruptVector(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg, NVIC_nVECTOR* enVectorArg)
 {
-    const NVIC_nVECTOR NVIC_VECTOR_ADC[(uint32_t) ADC_enMODULE_MAX][(uint32_t) ADC_enSEQ_MAX] =
+    const NVIC_nVECTOR NVIC_VECTOR_ADC[(UBase_t) ADC_enMODULE_MAX][(UBase_t) ADC_enSEQ_MAX] =
     {
      { NVIC_enVECTOR_ADC0SEQ0, NVIC_enVECTOR_ADC0SEQ1, NVIC_enVECTOR_ADC0SEQ2, NVIC_enVECTOR_ADC0SEQ3},
      { NVIC_enVECTOR_ADC1SEQ0, NVIC_enVECTOR_ADC1SEQ1, NVIC_enVECTOR_ADC1SEQ2, NVIC_enVECTOR_ADC1SEQ3}
     };
     ADC_nERROR enErrorReg;
 
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ADC_enMODULE_MAX);
+    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ADC_nERROR) MCU__enCheckParams((uint32_t) enSequencerArg, (uint32_t) ADC_enSEQ_MAX);
+        enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = NVIC_VECTOR_ADC[(uint32_t) enModuleArg][(uint32_t) enSequencerArg];
+        *enVectorArg = NVIC_VECTOR_ADC[(UBase_t) enModuleArg][(UBase_t) enSequencerArg];
 
     }
     return (enErrorReg);

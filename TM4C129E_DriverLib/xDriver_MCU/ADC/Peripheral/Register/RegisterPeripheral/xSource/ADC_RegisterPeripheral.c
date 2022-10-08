@@ -25,9 +25,9 @@
 
 uintptr_t ADC__uptrBlockBaseAddress(ADC_nMODULE enModuleArg)
 {
-    const uintptr_t ADC_BLOCK_BASE[(uint32_t) ADC_enMODULE_MAX] =
+    const uintptr_t ADC_BLOCK_BASE[(UBase_t) ADC_enMODULE_MAX] =
     {
      ADC0_BASE, ADC1_BASE
     };
-    return (ADC_BLOCK_BASE[(uint32_t) enModuleArg]);
+    return (ADC_BLOCK_BASE[(UBase_t) enModuleArg]);
 }

@@ -32,20 +32,20 @@ DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_t* pstList)
     DLinkedListItem_t* pstNextNextNode = (DLinkedListItem_t*) 0UL ;
     DLinkedListItem_t* pstNextPreviousNode = (DLinkedListItem_t*) 0UL ;
     DLinkedListItem_t* pstItem = (DLinkedListItem_t*) 0UL ;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstItem = DLinkedList__pstGetHead(pstList);
         DLinkedList__vSetTail(pstList, pstItem);
-        if((uint32_t) 0UL != (uint32_t) pstItem)
+        if((UBase_t) 0UL != (UBase_t) pstItem)
         {
             pstNextItemReg = DLinkedList_Item__pstGetNextItem(pstItem);
-            if((uint32_t) 0UL != (uint32_t) pstNextItemReg)
+            if((UBase_t) 0UL != (UBase_t) pstNextItemReg)
             {
                 enStatus = DLinkedList_enSTATUS_OK;
                 DLinkedList_Item__vSetNextItem(pstItem, (DLinkedListItem_t*)0UL);
                 DLinkedList_Item__vSetPreviousItem(pstItem, pstNextItemReg);
 
-                while((uint32_t) 0UL != (uint32_t) pstNextItemReg)
+                while((UBase_t) 0UL != (UBase_t) pstNextItemReg)
                 {
                     pstNextNextNode = DLinkedList_Item__pstGetNextItem(pstNextItemReg);
                     DLinkedList_Item__vSetPreviousItem(pstNextItemReg, pstNextNextNode);

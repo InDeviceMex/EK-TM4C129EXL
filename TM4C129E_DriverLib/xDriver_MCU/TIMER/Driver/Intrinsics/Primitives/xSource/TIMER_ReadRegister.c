@@ -27,15 +27,15 @@
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/xHeader/TIMER_CheckParams.h>
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 
-uint32_t TIMER__u32ReadRegister(TIMER_nMODULE_NUM enModuleNumber, uint32_t u32OffsetRegister,
-                                uint32_t u32MaskFeature, uint32_t u32BitFeature)
+UBase_t TIMER__uxReadRegister(TIMER_nMODULE_NUM enModuleNumber, UBase_t uxOffsetRegister,
+                                UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
-    uint32_t u32FeatureValue = 0UL;
-    uint32_t u32TimerBase = 0UL;
-    uint32_t u32ModuleNumber = 0UL;
-    TIMER__vCheckParams(0UL, (uint32_t) enModuleNumber, (uint32_t*)0UL, &u32ModuleNumber);
-    u32TimerBase = TIMER__u32BlockBaseAddress((TIMER_nMODULE_NUM) u32ModuleNumber);
-    u32FeatureValue = MCU__u32ReadRegister(u32TimerBase, u32OffsetRegister,
-                                           u32MaskFeature, u32BitFeature);
-    return (u32FeatureValue);
+    UBase_t uxFeatureValue = 0UL;
+    UBase_t uxTimerBase = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    TIMER__vCheckParams(0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
+    uxTimerBase = TIMER__uxBlockBaseAddress((TIMER_nMODULE_NUM) uxModuleNumber);
+    uxFeatureValue = MCU__uxReadRegister(uxTimerBase, uxOffsetRegister,
+                                           uxMaskFeature, uxBitFeature);
+    return (uxFeatureValue);
 }

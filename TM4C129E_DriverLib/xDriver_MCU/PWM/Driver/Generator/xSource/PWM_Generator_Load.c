@@ -23,24 +23,184 @@
  */
 #include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Load.h>
 
-#include <xDriver_MCU/PWM/Driver/Generator/xHeader/PWM_Generator_Generic.h>
+#include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/PWM/Driver/Intrinsics/PWM_Intrinsics.h>
 #include <xDriver_MCU/PWM/Peripheral/PWM_Peripheral.h>
 
-void PWM_Generator__vSetLoad(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32LoadArg)
+PWM_nERROR PWM_Generator__enSetLoadValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t uxValueArg)
 {
-    PWM_Generator__vSetGeneric((uint32_t) enModule, (uint32_t) enGenerator, PWM_GEN_LOAD_OFFSET,
-                               u32LoadArg, PWM_GEN_LOAD_LOAD_MASK, PWM_GEN_LOAD_R_LOAD_BIT);
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxOffsetReg = (UBase_t) enGeneratorArg;
+        uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg *= 4UL;
+        uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+        uxOffsetReg += PWM_GEN_LOAD_OFFSET;
+
+        stRegister.uxShift = PWM_GEN_LOAD_R_LOAD_BIT;
+        stRegister.uxMask = MCU_MASK_BASE;
+        stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+        stRegister.uxValue = (UBase_t) uxValueArg;
+        enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
 }
 
-uint32_t PWM_Generator__u32GetLoad(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
+PWM_nERROR PWM_Generator__enSetLoadValueByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, UBase_t uxValueArg)
 {
-    uint32_t u32LoadReg = 0UL;
-    u32LoadReg = PWM_Generator__u32GetGeneric((uint32_t) enModule,
-                                       (uint32_t) enGenerator,
-                                       PWM_GEN_LOAD_OFFSET,
-                                       PWM_GEN_LOAD_LOAD_MASK,
-                                       PWM_GEN_LOAD_R_LOAD_BIT);
-    return (u32LoadReg);
+    UBase_t uxGenMaskReg;
+    UBase_t uxGenerator;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGenerator = 0UL;
+        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (1UL & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Generator__enSetLoadValueByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, uxValueArg);
+            }
+            uxGenMaskReg >>= 1UL;
+            uxGenerator++;
+        }
+    }
+    return (enErrorReg);
 }
 
+
+PWM_nERROR PWM_Generator__enGetLoadValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxValueArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxOffsetReg = (UBase_t) enGeneratorArg;
+        uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg *= 4UL;
+        uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+        uxOffsetReg += PWM_GEN_LOAD_OFFSET;
+
+        stRegister.uxShift = PWM_GEN_LOAD_R_LOAD_BIT;
+        stRegister.uxMask = PWM_GEN_LOAD_LOAD_MASK;
+        stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *puxValueArg = (UBase_t) stRegister.uxValue;
+    }
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetLoadUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE enModeArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    UBase_t uxUpdateReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModeArg, (UBase_t) PWM_enUPDATE_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxUpdateReg = (UBase_t) enModeArg;
+        uxUpdateReg &= 1UL;
+
+        uxOffsetReg = (UBase_t) enGeneratorArg;
+        uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg *= 4UL;
+        uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+        uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+        stRegister.uxShift = PWM_GEN_CTL_R_LOAD_UPD_BIT;
+        stRegister.uxMask = PWM_GEN_CTL_LOAD_UPD_MASK;
+        stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+        stRegister.uxValue = (UBase_t) uxUpdateReg;
+        enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
+    }
+
+    return (enErrorReg);
+}
+
+PWM_nERROR PWM_Generator__enSetLoadUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nUPDATE enModeArg)
+{
+    UBase_t uxGenMaskReg;
+    UBase_t uxGenerator;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxGenerator = 0UL;
+        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (1UL & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Generator__enSetLoadUpdateModeByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, enModeArg);
+            }
+            uxGenMaskReg >>= 1UL;
+            uxGenerator++;
+        }
+    }
+    return (enErrorReg);
+}
+
+
+PWM_nERROR PWM_Generator__enGetLoadUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nUPDATE* penModeArg)
+{
+    PWM_Register_t stRegister;
+    UBase_t uxOffsetReg;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxOffsetReg = (UBase_t) enGeneratorArg;
+        uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
+        uxOffsetReg *= 4UL;
+        uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
+        uxOffsetReg += PWM_GEN_CTL_OFFSET;
+
+        stRegister.uxShift = PWM_GEN_CTL_R_LOAD_UPD_BIT;
+        stRegister.uxMask = PWM_GEN_CTL_LOAD_UPD_MASK;
+        stRegister.uptrAddress = (UBase_t) uxOffsetReg;
+        enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (PWM_nUPDATE) stRegister.uxValue;
+    }
+    return (enErrorReg);
+}

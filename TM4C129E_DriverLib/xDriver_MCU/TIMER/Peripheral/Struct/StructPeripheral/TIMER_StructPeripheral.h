@@ -33,27 +33,27 @@
 
 typedef volatile struct
 {
-    GPTM_t MODULE0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+    GPTM_t MODULE0_5 [(UBase_t) TIMER_enMODULE_NUM_MAX - 2UL];
     GPTM_t reserved [170UL];
-    GPTM_t MODULE6_7 [(uint32_t) 2UL];
+    GPTM_t MODULE6_7 [(UBase_t) 2UL];
 }GPTMS_t;
 
 typedef volatile struct
 {
     union
     {
-        GPTM_CTL_t CTL0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TA_t TA0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TB_t TB0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
-        GPTM_TW_t TW0_5 [(uint32_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_CTL_t CTL0_5 [(UBase_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TA_t TA0_5 [(UBase_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TB_t TB0_5 [(UBase_t) TIMER_enMODULE_NUM_MAX - 2UL];
+        GPTM_TW_t TW0_5 [(UBase_t) TIMER_enMODULE_NUM_MAX - 2UL];
     };
     GPTM_t reserved [170UL];
     union
     {
-        GPTM_CTL_t CTL6_7 [(uint32_t) 2UL];
-        GPTM_TA_t TA6_7 [(uint32_t) 2UL];
-        GPTM_TB_t TB6_7 [(uint32_t) 2UL];
-        GPTM_TW_t TW6_7 [(uint32_t) 2UL];
+        GPTM_CTL_t CTL6_7 [(UBase_t) 2UL];
+        GPTM_TA_t TA6_7 [(UBase_t) 2UL];
+        GPTM_TB_t TB6_7 [(UBase_t) 2UL];
+        GPTM_TW_t TW6_7 [(UBase_t) 2UL];
     };
 }GPTM_UNION_t;
 

@@ -26,7 +26,7 @@
 CDLinkedListItem_t* CDLinkedList__pstGetHead(const CDLinkedList_t*  const pstList)
 {
     CDLinkedListItem_t* pstHeadReg = (CDLinkedListItem_t*) 0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstHeadReg = pstList->pstHead;
     }
@@ -35,7 +35,7 @@ CDLinkedListItem_t* CDLinkedList__pstGetHead(const CDLinkedList_t*  const pstLis
 
 void CDLinkedList__vSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstHead = pstHeadArg;
     }
@@ -46,7 +46,7 @@ CDLinkedList_nSTATUS CDLinkedList__enIsHead(const CDLinkedList_t* const pstList,
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstListHead = (CDLinkedListItem_t*)0UL;
     pstListHead = CDLinkedList__pstGetHead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListHead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
     {
         enStatus = CDLinkedList_enSTATUS_OK;
     }

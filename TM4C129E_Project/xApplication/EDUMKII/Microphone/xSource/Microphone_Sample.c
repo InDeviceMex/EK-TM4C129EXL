@@ -27,27 +27,27 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-uint32_t u32MicrophoneFifoArray[1UL] = {0UL};
-volatile uint32_t u32MicrophoneFlag = 0UL;
+UBase_t uxMicrophoneFifoArray[1UL] = {0UL};
+volatile UBase_t uxMicrophoneFlag = 0UL;
 
 
-uint32_t* EDUMKII_Microphone_vSampleArray(void)
+UBase_t* EDUMKII_Microphone_vSampleArray(void)
 {
-    return((uint32_t*) u32MicrophoneFifoArray);
+    return((UBase_t*) uxMicrophoneFifoArray);
 }
 
-void EDUMKII_Microphone_vSample(uint32_t *u32Input)
+void EDUMKII_Microphone_vSample(UBase_t *uxInput)
 {
-    u32MicrophoneFlag = 0UL;
+    uxMicrophoneFlag = 0UL;
     ADC_Sequencer__enInitConversionByNumber(ADC_enMODULE_0, ADC_enSEQ_3);
-    while(0UL == u32MicrophoneFlag){}
-    *u32Input = u32MicrophoneFifoArray[0];
+    while(0UL == uxMicrophoneFlag){}
+    *uxInput = uxMicrophoneFifoArray[0];
 }
 
 void EDUMKII_Microphone_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     DMA_CHANNEL_t* pstDmaChannel = (DMA_CHANNEL_t*) 0UL;
-    volatile uint32_t* u32TempReg = (uint32_t*) 0UL;
+    volatile UBase_t* uxTempReg = (UBase_t*) 0UL;
     static DMA_CH_CTL_t enChControl = {
          DMA_enCH_MODE_BASIC,
          DMA_enSTATE_DIS,
@@ -63,11 +63,11 @@ void EDUMKII_Microphone_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgum
          DMA_enCH_INCREMENT_WORD,
     };
 
-    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(uint32_t) DMA_enCH_17]);
-    u32TempReg = (volatile uint32_t*) &enChControl;
-    pstDmaChannel->CTL = *u32TempReg;
-    DMA->CH_ENASET = (uint32_t)  DMA_enSTATE_ENA << (uint32_t) DMA_enCH_17;
-    u32MicrophoneFlag = 1UL;
+    pstDmaChannel = &(DMA_CH_PRIMARY->CH[(UBase_t) DMA_enCH_17]);
+    uxTempReg = (volatile UBase_t*) &enChControl;
+    pstDmaChannel->CTL = *uxTempReg;
+    DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << (UBase_t) DMA_enCH_17;
+    uxMicrophoneFlag = 1UL;
 }
 
 

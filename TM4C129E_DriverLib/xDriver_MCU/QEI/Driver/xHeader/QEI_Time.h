@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-uint32_t QEI__u32GetTimer(QEI_nMODULE enModule);
+UBase_t QEI__uxGetTimer(QEI_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_TIME_H_ */

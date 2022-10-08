@@ -22,13 +22,15 @@
  * 8 ene. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_LATCH_H_
-#define XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_LATCH_H_
+#ifndef XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_FAULT_LATCH_H_
+#define XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_FAULT_LATCH_H_
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Fault__vSetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                               PWM_nSTATE enLatchArg);
-PWM_nSTATE PWM_Fault__enGetLatch(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_Fault__enSetLatchModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_Fault__enSetLatchModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nSTATE enStateArg);
 
-#endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_LATCH_H_ */
+PWM_nERROR PWM_Fault__enGetLatchModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_Fault__enGetLatchModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penStateArg);
+
+#endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_FAULT_LATCH_H_ */

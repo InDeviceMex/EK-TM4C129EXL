@@ -13,15 +13,15 @@
 void FPU__vSetRoundingMode(FPU_nMODULE enModuleArg,
                                    FPU_nROUNDING enRoundingArg)
 {
-    MCU__vFPUStatusControlMask(FPU_DSCR_R_RMODE_MASK, (uint32_t) enRoundingArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_RMODE_MASK, (UBase_t) enRoundingArg);
 }
 
 FPU_nROUNDING FPU__enGetRoundingMode(FPU_nMODULE enModuleArg)
 {
-    uint32_t u32RoundingReg;
-    u32RoundingReg = MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_RMODE_MASK);
-    u32RoundingReg >>= FPU_DSCR_R_RMODE_BIT;
-    return ((FPU_nROUNDING) u32RoundingReg);
+    UBase_t uxRoundingReg;
+    uxRoundingReg = MCU__uxGetFPUStatusControlBit(FPU_DSCR_R_RMODE_MASK);
+    uxRoundingReg >>= FPU_DSCR_R_RMODE_BIT;
+    return ((FPU_nROUNDING) uxRoundingReg);
 }
 
 FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg,
@@ -37,14 +37,14 @@ FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg,
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_DSCR_R_RMODE_BIT;
-        stRegister.u32Mask = FPU_DSCR_RMODE_MASK;
+        stRegister.uxShift = FPU_DSCR_R_RMODE_BIT;
+        stRegister.uxMask = FPU_DSCR_RMODE_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penRoundingArg = (FPU_nROUNDING) stRegister.u32Value;
+        *penRoundingArg = (FPU_nROUNDING) stRegister.uxValue;
     }
     return (enErrorReg);
 }

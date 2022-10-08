@@ -31,10 +31,10 @@ ADC_nERROR ADC__enSetVoltageReference(ADC_nMODULE enModuleArg, ADC_nVREF enVolta
     ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
 
-    stRegister.u32Shift = ADC_CTL_R_VREF_BIT;
-    stRegister.u32Mask = ADC_CTL_VREF_MASK;
+    stRegister.uxShift = ADC_CTL_R_VREF_BIT;
+    stRegister.uxMask = ADC_CTL_VREF_MASK;
     stRegister.uptrAddress = ADC_CTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enVoltageReferenceArg;
+    stRegister.uxValue = (UBase_t) enVoltageReferenceArg;
     enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ ADC_nERROR ADC__enGetVoltageReference(ADC_nMODULE enModuleArg, ADC_nVREF* penVol
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ADC_CTL_R_VREF_BIT;
-        stRegister.u32Mask = ADC_CTL_VREF_MASK;
+        stRegister.uxShift = ADC_CTL_R_VREF_BIT;
+        stRegister.uxMask = ADC_CTL_VREF_MASK;
         stRegister.uptrAddress = ADC_CTL_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        *penVoltageReferenceArg = (ADC_nVREF) stRegister.u32Value;
+        *penVoltageReferenceArg = (ADC_nVREF) stRegister.uxValue;
     }
     return (enErrorReg);
 }

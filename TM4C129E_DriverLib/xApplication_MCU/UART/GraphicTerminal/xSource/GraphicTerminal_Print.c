@@ -31,20 +31,20 @@
     #pragma CHECK_MISRA("-4.1, -6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 
-uint32_t GraphTerm__u32Printf(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row, const char* pcFormat, ... )
+UBase_t GraphTerm__uxPrintf(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow, const char* pcFormat, ... )
 {
-    uint32_t u32Lengtht = 0UL;
+    UBase_t uxLengtht = 0UL;
     va_list vaList;
     va_start(vaList, pcFormat);
-    GraphTerm__vSetCursorXY(enModule, u32Column, u32Row);
-    u32Lengtht = UART__u32vsPrintf(enModule, pcFormat,vaList);
+    GraphTerm__vSetCursorXY(enModule, uxColumn, uxRow);
+    uxLengtht = UART__uxvsPrintf(enModule, pcFormat,vaList);
     va_end(vaList);
-    return  (u32Lengtht);
+    return  (uxLengtht);
 }
 
-void GraphTerm__vSetFontColor(UART_nMODULE enModule, uint32_t u32RedColor,uint32_t u32GreenColor,uint32_t u32BlueColor)
+void GraphTerm__vSetFontColor(UART_nMODULE enModule, UBase_t uxRedColor,UBase_t uxGreenColor,UBase_t uxBlueColor)
 {
-    UART__u32Printf(enModule,"\x1B[38;2;%u;%u;%um",u32RedColor, u32GreenColor, u32BlueColor);
+    UART__uxPrintf(enModule,"\x1B[38;2;%u;%u;%um",uxRedColor, uxGreenColor, uxBlueColor);
 }
 
 

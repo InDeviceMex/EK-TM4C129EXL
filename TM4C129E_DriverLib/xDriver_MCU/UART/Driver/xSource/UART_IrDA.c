@@ -27,16 +27,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetIrDALowPowerDivider(UART_nMODULE enModule, uint32_t u32Divider)
+void UART__vSetIrDALowPowerDivider(UART_nMODULE enModule, UBase_t uxDivider)
 {
-    UART__vWriteRegister(enModule, UART_ILPR_OFFSET, u32Divider,
+    UART__vWriteRegister(enModule, UART_ILPR_OFFSET, uxDivider,
                          UART_ILPR_ILPDVSR_MASK, UART_ILPR_R_ILPDVSR_BIT);
 }
 
-uint32_t UART__u32GetIrDALowPowerDivider(UART_nMODULE enModule)
+UBase_t UART__uxGetIrDALowPowerDivider(UART_nMODULE enModule)
 {
-    uint32_t u32IrDaReg = 0UL;
-    u32IrDaReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET,
+    UBase_t uxIrDaReg = 0UL;
+    uxIrDaReg = UART__uxReadRegister(enModule, UART_DR_OFFSET,
                        UART_ILPR_ILPDVSR_MASK, UART_ILPR_R_ILPDVSR_BIT);
-    return (u32IrDaReg);
+    return (uxIrDaReg);
 }

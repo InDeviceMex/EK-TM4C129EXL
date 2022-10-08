@@ -33,65 +33,65 @@ typedef volatile struct
 {
     union
     {
-        volatile uint32_t CTL [32UL];
+        volatile UBase_t CTL [32UL];
         BITBANDING_QEICTL_t CTL_Bit;
     };
     union
     {
-        volatile const uint32_t STAT [32UL];
+        volatile const UBase_t STAT [32UL];
         BITBANDING_QEISTAT_t STAT_Bit;
     };
     union
     {
-        volatile uint32_t POS [32UL];
+        volatile UBase_t POS [32UL];
         BITBANDING_QEIPOS_t POS_Bit;
     };
     union
     {
-        volatile uint32_t MAXPOS [32UL];
+        volatile UBase_t MAXPOS [32UL];
         BITBANDING_QEIMAXPOS_t MAXPOS_Bit;
     };
     union
     {
-        volatile uint32_t LOAD [32UL];
+        volatile UBase_t LOAD [32UL];
         BITBANDING_QEILOAD_t LOAD_Bit;
     };
     union
     {
-        volatile const uint32_t TIME [32UL];
+        volatile const UBase_t TIME [32UL];
         BITBANDING_QEITIME_t TIME_Bit;
     };
     union
     {
-        volatile const uint32_t COUNT [32UL];
+        volatile const UBase_t COUNT [32UL];
         BITBANDING_QEICOUNT_t COUNT_Bit;
     };
     union
     {
-        volatile const uint32_t SPEED [32UL];
+        volatile const UBase_t SPEED [32UL];
         BITBANDING_QEISPEED_t SPEED_Bit;
     };
     union
     {
-        volatile uint32_t INTEN [32UL];
+        volatile UBase_t INTEN [32UL];
         BITBANDING_QEIINTEN_t INTEN_Bit;
     };
     union
     {
-        volatile const uint32_t RIS [32UL];
+        volatile const UBase_t RIS [32UL];
         BITBANDING_QEIRIS_t RIS_Bit;
     };
     union
     {
-        volatile const uint32_t ISC [32UL];
+        volatile const UBase_t ISC [32UL];
         BITBANDING_QEIISC_t ISC_Bit;
     };
-    const uint32_t reserved [1013UL * 32UL];
+    const UBase_t reserved [1013UL * 32UL];
 }QEI_BITBANDING_t;
 
 typedef volatile struct
 {
-    QEI_BITBANDING_t MODULE [(uint32_t) QEI_enMODULE_MAX];
+    QEI_BITBANDING_t MODULE [(UBase_t) QEI_enMODULE_MAX];
 }QEIS_BITBANDING_t;
 
 

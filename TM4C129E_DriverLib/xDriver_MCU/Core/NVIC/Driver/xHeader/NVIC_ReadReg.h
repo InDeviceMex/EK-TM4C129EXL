@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, uint32_t* pu32ValueArg);
+NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, UBase_t* puxValueArg);
 
 #endif /* XDRIVER_MCU_CORE_NVIC_DRIVER_XHEADER_NVIC_READREG_H_ */

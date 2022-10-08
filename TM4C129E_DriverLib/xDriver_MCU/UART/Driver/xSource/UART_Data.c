@@ -31,174 +31,174 @@
 
 #define UART_TIMEOUT (100000UL)
 
-inline void UART__vSetData(UART_nMODULE enModule, uint32_t u32Data)
+inline void UART__vSetData(UART_nMODULE enModule, UBase_t uxData)
 {
-    UART__vWriteRegister(enModule, UART_DR_OFFSET, u32Data, 0xFFFFFFFFUL, 0UL);
+    UART__vWriteRegister(enModule, UART_DR_OFFSET, uxData, 0xFFFFFFFFUL, 0UL);
 }
 
-inline uint32_t UART__u32GetData(UART_nMODULE enModule)
+inline UBase_t UART__uxGetData(UART_nMODULE enModule)
 {
-    uint32_t u32DataReg = 0UL;
-    u32DataReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, UART_DR_DATA_MASK, 0UL);
-    return (u32DataReg);
+    UBase_t uxDataReg = 0UL;
+    uxDataReg = UART__uxReadRegister(enModule, UART_DR_OFFSET, UART_DR_DATA_MASK, 0UL);
+    return (uxDataReg);
 }
 
-inline uint32_t UART__u32GetDataWithStatus(UART_nMODULE enModule)
+inline UBase_t UART__uxGetDataWithStatus(UART_nMODULE enModule)
 {
-    uint32_t u32DataReg = 0UL;
-    u32DataReg = UART__u32ReadRegister(enModule, UART_DR_OFFSET, 0xFFFFFFFFUL, 0UL);
-    return (u32DataReg);
+    UBase_t uxDataReg = 0UL;
+    uxDataReg = UART__uxReadRegister(enModule, UART_DR_OFFSET, 0xFFFFFFFFUL, 0UL);
+    return (uxDataReg);
 }
 
-uint32_t UART__u32GetFifoData(UART_nMODULE enModule, uint32_t* pu32FifoArray,
-                              uint32_t u32SizeBuffer, uint32_t u32Timeout)
+UBase_t UART__uxGetFifoData(UART_nMODULE enModule, UBase_t* puxFifoArray,
+                              UBase_t uxSizeBuffer, UBase_t uxTimeout)
 {
     UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
 
-    uint32_t u32UartBase = 0UL;
-    volatile uint32_t* pu32UartData = 0UL;
+    UBase_t uxUartBase = 0UL;
+    volatile UBase_t* puxUartData = 0UL;
 
-    uint32_t u32Module = 0UL;
-    uint32_t u32Count = 0U;
+    UBase_t uxModule = 0UL;
+    UBase_t uxCount = 0U;
 
-    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
+    if((UBase_t) 0UL != (UBase_t) puxFifoArray)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
-        u32UartBase += UART_DR_OFFSET;
-        pu32UartData = (volatile uint32_t*) u32UartBase;
+        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase += UART_DR_OFFSET;
+        puxUartData = (volatile UBase_t*) uxUartBase;
 
-        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
+        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
         {
 
-            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
+            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) uxModule);
             if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
             {
-                *pu32FifoArray = *pu32UartData;
-                pu32FifoArray += 0x1U;
-                u32Count++;
-                u32Timeout = UART_TIMEOUT;
+                *puxFifoArray = *puxUartData;
+                puxFifoArray += 0x1U;
+                uxCount++;
+                uxTimeout = UART_TIMEOUT;
             }
             else
             {
-                u32Timeout--;
+                uxTimeout--;
             }
         }
     }
-    return (u32Count);
+    return (uxCount);
 }
 
-uint32_t UART__u32GetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
-                                  uint32_t u32SizeBuffer, uint32_t u32Timeout)
+UBase_t UART__uxGetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
+                                  UBase_t uxSizeBuffer, UBase_t uxTimeout)
 {
     UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
 
-    uint32_t u32UartBase = 0UL;
-    volatile uint32_t* pu32UartData = 0U;
+    UBase_t uxUartBase = 0UL;
+    volatile UBase_t* puxUartData = 0U;
 
-    uint32_t u32Module = 0UL;
-    uint32_t u32Count = 0U;
+    UBase_t uxModule = 0UL;
+    UBase_t uxCount = 0U;
 
-    if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
+    if((UBase_t) 0UL != (UBase_t) pu8FifoArray)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
-        u32UartBase += UART_DR_OFFSET;
-        pu32UartData = (volatile uint32_t*) u32UartBase;
+        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase += UART_DR_OFFSET;
+        puxUartData = (volatile UBase_t*) uxUartBase;
 
-        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
+        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
         {
-            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) u32Module);
+            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) uxModule);
             if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
             {
-                *pu8FifoArray = (uint8_t) *pu32UartData;
+                *pu8FifoArray = (uint8_t) *puxUartData;
                 pu8FifoArray += 0x1U;
-                u32Count++;
-                u32Timeout = UART_TIMEOUT;
+                uxCount++;
+                uxTimeout = UART_TIMEOUT;
             }
             else
             {
-                u32Timeout--;
+                uxTimeout--;
             }
         }
     }
-    return (u32Count);
+    return (uxCount);
 }
 
-uint32_t UART__u32SetFifoData(UART_nMODULE enModule, const uint32_t* pu32FifoArray,
-                              uint32_t u32SizeBuffer, uint32_t u32Timeout)
+UBase_t UART__uxSetFifoData(UART_nMODULE enModule, const UBase_t* puxFifoArray,
+                              UBase_t uxSizeBuffer, UBase_t uxTimeout)
 {
     UART_nFIFO_FULL enFifoFull = UART_enFIFO_NO_FULL;
 
-    uint32_t u32UartBase = 0UL;
-    volatile uint32_t* pu32UartData = 0U;
+    UBase_t uxUartBase = 0UL;
+    volatile UBase_t* puxUartData = 0U;
 
-    uint32_t u32Module = 0UL;
-    uint32_t u32Count = 0U;
+    UBase_t uxModule = 0UL;
+    UBase_t uxCount = 0U;
 
-    if((uint32_t) 0UL != (uint32_t) pu32FifoArray)
+    if((UBase_t) 0UL != (UBase_t) puxFifoArray)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
-        u32UartBase += UART_DR_OFFSET;
-        pu32UartData = (volatile uint32_t*) u32UartBase;
-        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
+        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase += UART_DR_OFFSET;
+        puxUartData = (volatile UBase_t*) uxUartBase;
+        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
         {
             enFifoFull = UART__enIsFifoTransmitFull(enModule);
             if(UART_enFIFO_NO_FULL == enFifoFull)
             {
-                *pu32UartData = *pu32FifoArray;
-                pu32FifoArray += 0x1U;
-                u32Count++;
-                u32Timeout = UART_TIMEOUT;
+                *puxUartData = *puxFifoArray;
+                puxFifoArray += 0x1U;
+                uxCount++;
+                uxTimeout = UART_TIMEOUT;
             }
             else
             {
-                u32Timeout--;
+                uxTimeout--;
             }
         }
     }
-    return (u32Count);
+    return (uxCount);
 }
 
-uint32_t UART__u32SetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
-                                  uint32_t u32SizeBuffer, uint32_t u32Timeout)
+UBase_t UART__uxSetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
+                                  UBase_t uxSizeBuffer, UBase_t uxTimeout)
 {
     UART_nFIFO_FULL enFifoFull = UART_enFIFO_NO_FULL;
 
     uint8_t u8Reg = 0U;
-    uint32_t u32UartBase = 0UL;
-    volatile uint32_t* pu32UartData = 0U;
+    UBase_t uxUartBase = 0UL;
+    volatile UBase_t* puxUartData = 0U;
 
-    uint32_t u32Module = 0UL;
-    uint32_t u32Count = 0U;
+    UBase_t uxModule = 0UL;
+    UBase_t uxCount = 0U;
 
-    if((uint32_t) 0UL != (uint32_t) pu8FifoArray)
+    if((UBase_t) 0UL != (UBase_t) pu8FifoArray)
     {
-        u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) UART_enMODULE_MAX);
-        u32UartBase = UART__u32BlockBaseAddress((UART_nMODULE) u32Module);
-        u32UartBase += UART_DR_OFFSET;
-        pu32UartData = (volatile uint32_t*) u32UartBase;
+        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
+        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase += UART_DR_OFFSET;
+        puxUartData = (volatile UBase_t*) uxUartBase;
 
-        while((u32Count != u32SizeBuffer) && (0UL != u32Timeout))
+        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
         {
             enFifoFull = UART__enIsFifoTransmitFull(enModule);
             if(UART_enFIFO_NO_FULL == enFifoFull)
             {
                 u8Reg = (uint8_t) (*pu8FifoArray);
-                *pu32UartData = (uint32_t) u8Reg;
+                *puxUartData = (UBase_t) u8Reg;
                 pu8FifoArray += 0x1U;
-                u32Count++;
-                u32Timeout = UART_TIMEOUT;
+                uxCount++;
+                uxTimeout = UART_TIMEOUT;
             }
             else
             {
-                u32Timeout--;
+                uxTimeout--;
             }
         }
     }
-    return (u32Count);
+    return (uxCount);
 }

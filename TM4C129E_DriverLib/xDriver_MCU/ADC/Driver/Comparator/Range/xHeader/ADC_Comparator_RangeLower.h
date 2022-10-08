@@ -27,10 +27,10 @@
 #include <xDriver_MCU/ADC/Peripheral/xHeader/ADC_Enum.h>
 
 ADC_nERROR ADC_Comparator__enSetRangeLowByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
-                                            uint32_t u32RangeLowArg);
+                                            UBase_t uxRangeLowArg);
 ADC_nERROR ADC_Comparator__enSetRangeLowByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                                  uint32_t u32RangeLowArg);
+                                                  UBase_t uxRangeLowArg);
 ADC_nERROR ADC_Comparator__enGetRangeLowByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
-                                                  uint32_t* pu32RangeLowArg);
+                                                  UBase_t* puxRangeLowArg);
 
 #endif /* XDRIVER_MCU_ADC_DRIVER_COMPARATOR_RANGE_XHEADER_ADC_COMPARATOR_RANGELOWER_H_ */

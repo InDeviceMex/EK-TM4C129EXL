@@ -28,29 +28,29 @@
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControl(uint32_t u32ValueArg);
-__attribute__((naked)) void MCU__vSetFPUStatusControl(uint32_t u32ValueArg);
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControl(void);
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControl(UBase_t uxValueArg);
+__attribute__((naked)) void MCU__vSetFPUStatusControl(UBase_t uxValueArg);
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControl(void);
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlMask(uint32_t u32BitMaskArg);
-__attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlMask(uint32_t u32BitMaskArg);
-uint32_t MCU__u32FPUStatusControlMask(uint32_t u32BitMaskArg, uint32_t u32ValueArg);
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControlMask(UBase_t uxBitMaskArg);
+__attribute__((naked)) UBase_t MCU__uxClearFPUStatusControlMask(UBase_t uxBitMaskArg);
+UBase_t MCU__uxFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg);
 
-__attribute__((naked)) void MCU__vSetFPUStatusControlMask(uint32_t u32BitMaskArg);
-__attribute__((naked)) void MCU__vClearFPUStatusControlMask(uint32_t u32BitMaskArg);
-void MCU__vFPUStatusControlMask(uint32_t u32BitMaskArg, uint32_t u32ValueArg);
+__attribute__((naked)) void MCU__vSetFPUStatusControlMask(UBase_t uxBitMaskArg);
+__attribute__((naked)) void MCU__vClearFPUStatusControlMask(UBase_t uxBitMaskArg);
+void MCU__vFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg);
 
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlMask(uint32_t u32BitMaskArg);
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControlMask(UBase_t uxBitMaskArg);
 
-__attribute__((naked)) uint32_t MCU__u32SetFPUStatusControlBit(uint32_t u32BitBitArg);
-__attribute__((naked)) uint32_t MCU__u32ClearFPUStatusControlBit(uint32_t u32BitBitArg);
-uint32_t MCU__u32FPUStatusControlBit(uint32_t u32BitBitArg, uint32_t u32ValueArg);
+__attribute__((naked)) UBase_t MCU__uxSetFPUStatusControlBit(UBase_t uxBitBitArg);
+__attribute__((naked)) UBase_t MCU__uxClearFPUStatusControlBit(UBase_t uxBitBitArg);
+UBase_t MCU__uxFPUStatusControlBit(UBase_t uxBitBitArg, UBase_t uxValueArg);
 
-__attribute__((naked)) void MCU__vSetFPUStatusControlBit(uint32_t u32BitBitArg);
-__attribute__((naked)) void MCU__vClearFPUStatusControlBit(uint32_t u32BitBitArg);
-void MCU__vFPUStatusControlBit(uint32_t u32BitBitArg, uint32_t u32ValueArg);
+__attribute__((naked)) void MCU__vSetFPUStatusControlBit(UBase_t uxBitBitArg);
+__attribute__((naked)) void MCU__vClearFPUStatusControlBit(UBase_t uxBitBitArg);
+void MCU__vFPUStatusControlBit(UBase_t uxBitBitArg, UBase_t uxValueArg);
 
-__attribute__((naked)) uint32_t MCU__u32GetFPUStatusControlBit(uint32_t u32BitPosArg);
+__attribute__((naked)) UBase_t MCU__uxGetFPUStatusControlBit(UBase_t uxBitPosArg);
 
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_FLOATINGPOINT_H_ */

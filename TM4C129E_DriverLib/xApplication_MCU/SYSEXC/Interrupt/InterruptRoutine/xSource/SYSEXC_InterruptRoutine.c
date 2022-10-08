@@ -31,13 +31,13 @@ static void (*SYSEXC__pvIRQVectorHandler[1UL]) (void) =
 void (*SYSEXC__pvfGetIRQVectorHandler(void))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = SYSEXC__pvIRQVectorHandler[(uint32_t) 0UL];
+    pvfFunctionReg = SYSEXC__pvIRQVectorHandler[(UBase_t) 0UL];
     return (pvfFunctionReg);
 }
 
 void (**SYSEXC__pvfGetIRQVectorHandlerPointer(void))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &SYSEXC__pvIRQVectorHandler[(uint32_t) 0UL];
+    pvfFunctionReg = (void(**)(void)) &SYSEXC__pvIRQVectorHandler[(UBase_t) 0UL];
     return (pvfFunctionReg);
 }

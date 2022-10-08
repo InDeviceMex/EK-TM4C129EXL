@@ -26,6 +26,6 @@
 
 #include <xUtils/Graphics/Common/xHeader/Graphics_Enum.h>
 
-Graphics_nSTATUS Graphics__enCheckParams(uint32_t u32PosStart, uint32_t u32PosOffset, uint32_t u32ValueMax);
+Graphics_nSTATUS Graphics__enCheckParams(UBase_t uxPosStart, UBase_t uxPosOffset, UBase_t uxValueMax);
 
 #endif /* XUTILS_GRAPHICS_XHEADER_GRAPHICS_CHECKPARAMS_H_ */

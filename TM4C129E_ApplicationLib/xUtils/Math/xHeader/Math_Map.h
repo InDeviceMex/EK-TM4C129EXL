@@ -27,7 +27,7 @@
 
 #include <xUtils/Standard/Standard.h>
 
-int32_t Math__s32Map(int32_t s32ValueInput, int32_t s32MaxValueInput, int32_t s32MinValueInput, int32_t s32MaxValueOutput, int32_t s32MinValueOutput);
-uint32_t Math__u32Map(uint32_t u32ValueInput, uint32_t u32MaxValueInput, uint32_t u32MinValueInput, uint32_t u32MaxValueOutput, uint32_t u32MinValueOutput);
+Base_t Math__sxMap(Base_t sxValueInput, Base_t sxMaxValueInput, Base_t sxMinValueInput, Base_t sxMaxValueOutput, Base_t sxMinValueOutput);
+UBase_t Math__uxMap(UBase_t uxValueInput, UBase_t uxMaxValueInput, UBase_t uxMinValueInput, UBase_t uxMaxValueOutput, UBase_t uxMinValueOutput);
 
 #endif /* XUTILS_MATH_XHEADER_MATH_MAP_H_ */

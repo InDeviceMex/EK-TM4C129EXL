@@ -29,10 +29,10 @@ GPIO_nERROR GPIO__enConvertConfigStructure(GPIO_nCONFIG enConfigArg,
                                            GPIO_CONFIG_t* pstConfigArg)
 {
     GPIO_nERROR enErrorReg;
-    uint32_t u32DriveReg;
-    uint32_t u32ResistorReg;
-    uint32_t u32OutputReg;
-    uint32_t u32DirectionReg;
+    UBase_t uxDriveReg;
+    UBase_t uxResistorReg;
+    UBase_t uxOutputReg;
+    UBase_t uxDirectionReg;
 
     enErrorReg = GPIO_enERROR_OK;
     if(0UL == (uintptr_t) pstConfigArg)
@@ -41,25 +41,25 @@ GPIO_nERROR GPIO__enConvertConfigStructure(GPIO_nCONFIG enConfigArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        u32ResistorReg = (uint32_t) enConfigArg;
-        u32ResistorReg >>= 0UL;
-        u32ResistorReg &= 0xFUL;
-        pstConfigArg->enResistorMode = (GPIO_nRESMODE) u32ResistorReg;
+        uxResistorReg = (UBase_t) enConfigArg;
+        uxResistorReg >>= 0UL;
+        uxResistorReg &= 0xFUL;
+        pstConfigArg->enResistorMode = (GPIO_nRESMODE) uxResistorReg;
 
-        u32OutputReg = (uint32_t) enConfigArg;
-        u32OutputReg >>= 4UL;
-        u32OutputReg &= 0xFUL;
-        pstConfigArg->enOutputMode = (GPIO_nOUTMODE) u32OutputReg;
+        uxOutputReg = (UBase_t) enConfigArg;
+        uxOutputReg >>= 4UL;
+        uxOutputReg &= 0xFUL;
+        pstConfigArg->enOutputMode = (GPIO_nOUTMODE) uxOutputReg;
 
-        u32DirectionReg = (uint32_t) enConfigArg;
-        u32DirectionReg >>= 8UL;
-        u32DirectionReg &= 0xFFUL;
-        pstConfigArg->enDirection = (GPIO_nDIR) u32DirectionReg;
+        uxDirectionReg = (UBase_t) enConfigArg;
+        uxDirectionReg >>= 8UL;
+        uxDirectionReg &= 0xFFUL;
+        pstConfigArg->enDirection = (GPIO_nDIR) uxDirectionReg;
 
-        u32DriveReg = (uint32_t) enConfigArg;
-        u32DriveReg >>= 16UL;
-        u32DriveReg &= 0xFFFFU;
-        pstConfigArg->enDrive = (GPIO_nDRIVE) u32DriveReg;
+        uxDriveReg = (UBase_t) enConfigArg;
+        uxDriveReg >>= 16UL;
+        uxDriveReg &= 0xFFFFU;
+        pstConfigArg->enDrive = (GPIO_nDRIVE) uxDriveReg;
     }
     return (enErrorReg);
 }

@@ -15,10 +15,10 @@ FPU_nERROR FPU__enSetAutoPreservationState(FPU_nMODULE enModuleArg,
     FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
 
-    stRegister.u32Shift = FPU_CCR_R_ASPEN_BIT;
-    stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
+    stRegister.uxShift = FPU_CCR_R_ASPEN_BIT;
+    stRegister.uxMask = FPU_CCR_ASPEN_MASK;
     stRegister.uptrAddress = FPU_CCR_OFFSET;
-    stRegister.u32Value = (uint32_t) enStateArg;
+    stRegister.uxValue = (UBase_t) enStateArg;
     enErrorReg = FPU__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -38,14 +38,14 @@ FPU_nERROR FPU__enGetAutoPreservationState(FPU_nMODULE enModuleArg,
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_CCR_R_ASPEN_BIT;
-        stRegister.u32Mask = FPU_CCR_ASPEN_MASK;
+        stRegister.uxShift = FPU_CCR_R_ASPEN_BIT;
+        stRegister.uxMask = FPU_CCR_ASPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (FPU_nSTATE) stRegister.u32Value;
+        *penStateArg = (FPU_nSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

@@ -28,14 +28,14 @@
 
 void TIMER__vSetPWMInterrupt(TIMER_nMODULE enModule, TIMER_nPWM_INT enPWMInterruptParam)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enPWMInterruptParam,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enPWMInterruptParam,
                            GPTM_TA_TnMR_TnPWMIE_MASK, GPTM_TA_TnMR_R_TnPWMIE_BIT);
 }
 
 TIMER_nPWM_INT TIMER__enGetPWMInterrupt(TIMER_nMODULE enModule)
 {
     TIMER_nPWM_INT enPwmIntReg = TIMER_enPWM_INT_DIS;
-    enPwmIntReg = (TIMER_nPWM_INT) TIMER__u32GetModeGeneric(enModule,
+    enPwmIntReg = (TIMER_nPWM_INT) TIMER__uxGetModeGeneric(enModule,
                              GPTM_TA_TnMR_TnPWMIE_MASK, GPTM_TA_TnMR_R_TnPWMIE_BIT);
     return (enPwmIntReg);
 }

@@ -28,7 +28,7 @@
 
 ACMP_nERROR ACMP__enRegisterIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg, ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR_ACMP[(uint32_t) ACMP_enMODULE_MAX][(uint32_t) ACMP_enCOMP_MAX]=
+    const SCB_nVECISR SCB_enVECISR_ACMP[(UBase_t) ACMP_enMODULE_MAX][(UBase_t) ACMP_enCOMP_MAX]=
     {
         {SCB_enVECISR_ACMP0, SCB_enVECISR_ACMP1, SCB_enVECISR_ACMP2}
     };
@@ -36,14 +36,14 @@ ACMP_nERROR ACMP__enRegisterIRQVectorHandler(ACMP_nMODULE enModuleArg, ACMP_nCOM
     ACMP_nERROR enErrorReg;
     ACMP_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) ACMP_enMODULE_MAX);
+    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((uint32_t) enComparatorArg, (uint32_t) ACMP_enCOMP_MAX);
+        enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ACMP_enCOMP_MAX);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enVectorReg = SCB_enVECISR_ACMP[(uint32_t) enModuleArg][(uint32_t) enComparatorArg];
+        enVectorReg = SCB_enVECISR_ACMP[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
         pvfVectorHandlerReg = ACMP__pvfGetIRQVectorHandlerPointer(enModuleArg, enComparatorArg);
         enErrorReg = (ACMP_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }

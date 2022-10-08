@@ -29,14 +29,14 @@
 void TIMER__vSetMatchEventInterrupt(TIMER_nMODULE enModule,
                                     TIMER_nEVENT_INT enEventInterruptParam)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enEventInterruptParam,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enEventInterruptParam,
                    GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
 }
 
 TIMER_nEVENT_INT TIMER__enGetMatchEventInterrupt(TIMER_nMODULE enModule)
 {
     TIMER_nEVENT_INT enEventIntReg = TIMER_enEVENT_INT_DIS;
-    enEventIntReg = (TIMER_nEVENT_INT) TIMER__u32GetModeGeneric(enModule,
+    enEventIntReg = (TIMER_nEVENT_INT) TIMER__uxGetModeGeneric(enModule,
                                    GPTM_TA_TnMR_TnMIE_MASK, GPTM_TA_TnMR_R_TnMIE_BIT);
     return (enEventIntReg);
 }

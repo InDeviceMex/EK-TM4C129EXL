@@ -39,14 +39,14 @@ ACMP_nERROR ACMP__enGetComparatorOutput(ACMP_nMODULE enModuleArg, ACMP_nCOMP  en
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ACMP_STAT_R_OVAL_BIT;
-        stRegister.u32Mask = ACMP_STAT_OVAL_MASK;
+        stRegister.uxShift = ACMP_STAT_R_OVAL_BIT;
+        stRegister.uxMask = ACMP_STAT_OVAL_MASK;
         stRegister.uptrAddress = ACMP_STAT_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.u32Value;
+        *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

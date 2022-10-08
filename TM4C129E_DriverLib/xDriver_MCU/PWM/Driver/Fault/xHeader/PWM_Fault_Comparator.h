@@ -27,16 +27,36 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Fault__vSetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_DCOMP enFaultDCompSource);
-void PWM_Fault__vEnableDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                               PWM_nFAULT_DCOMP enFaultDCompSource,
-                                               PWM_nSTATE enFaultDCompEnable);
-PWM_nFAULT_DCOMP PWM_Fault__enGetDigitalComparatorSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_FaultDComp__enSetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_DCOMP enDCompArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultDComp__enSetStateMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                        PWM_nFAULT_DCOMPMASK enDCompMaskArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultDComp__enSetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_DCOMP enDCompArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultDComp__enSetStateMaskByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                                      PWM_nFAULT_DCOMPMASK enDCompMaskArg, PWM_nSTATE enStateArg);
 
-void PWM_Fault__vClearDigitalComparatorStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_DCOMP enFaultDCompSource);
-PWM_nFAULT_DCOMP PWM_Fault__enGetDigitalComparatorStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                             PWM_nFAULT_DCOMP enFaultDCompSource);
+PWM_nERROR PWM_FaultDComp__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_DCOMP enDCompArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_FaultDComp__enGetStateMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                       PWM_nFAULT_DCOMPMASK enDCompMaskArg, PWM_nFAULT_DCOMPMASK* penDCompMaskGetArg);
+PWM_nERROR PWM_FaultDComp__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_DCOMP enDCompArg, PWM_nGENMASK* penGeneratorGetArg);
 
+
+PWM_nERROR PWM_FaultDComp__enClearStatusByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nFAULT_DCOMP enDCompArg);
+PWM_nERROR PWM_FaultDComp__enClearStatusMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                        PWM_nFAULT_DCOMPMASK enDCompMaskArg);
+PWM_nERROR PWM_FaultDComp__enClearStatusByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_DCOMP enDCompArg);
+PWM_nERROR PWM_FaultDComp__enClearStatusMaskByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                                      PWM_nFAULT_DCOMPMASK enDCompMaskArg);
+
+PWM_nERROR PWM_FaultDComp__enGetStatusByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_DCOMP enDCompArg, PWM_nSTATUS* penStatusArg);
+PWM_nERROR PWM_FaultDComp__enGetStatusMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                       PWM_nFAULT_DCOMPMASK enDCompMaskArg, PWM_nFAULT_DCOMPMASK* penDCompMaskGetArg);
+PWM_nERROR PWM_FaultDComp__enGetStatusByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_DCOMP enDCompArg, PWM_nGENMASK* penGeneratorGetArg);
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_COMPARATOR_H_ */

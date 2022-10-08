@@ -33,9 +33,9 @@ SLinkedList_t* SLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataCon
 #elif defined (__GNUC__ )
     pstList = (SLinkedList_t*) malloc(sizeof(SLinkedList_t));
 #endif
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = 0UL;
+        pstList->uxSize = 0UL;
         pstList->pvfDestroy = &free;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;
@@ -46,15 +46,15 @@ SLinkedList_t* SLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataCon
     return (pstList);
 }
 
-SLinkedList_nSTATUS SLinkedList__enInit(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInit(SLinkedList_t* pstList,
                                         void (*pvfDestroyItemDataArg) (void *DataContainer),
                                         void (*pvfDestroyItemArg) (void *Item))
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        enStatus = SLinkedList_enSTATUS_OK;
-        pstList->u32Size = 0UL;
+        enStatus = SLinkedList_enERROR_OK;
+        pstList->uxSize = 0UL;
         pstList->pvfDestroy = (void (*) (void* List))0UL;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;

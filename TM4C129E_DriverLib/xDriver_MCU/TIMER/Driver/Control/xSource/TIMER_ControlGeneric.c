@@ -26,45 +26,45 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
-void TIMER__vSetControlGeneric(TIMER_nMODULE enModule, uint32_t u32FeatureValue,
-                               uint32_t u32MaskFeature, uint32_t u32BitFeature)
+void TIMER__vSetControlGeneric(TIMER_nMODULE enModule, UBase_t uxFeatureValue,
+                               UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
     TIMER_nENABLE enTimerEnable = TIMER_enENABLE_STOP;
-    uint32_t u32SubModule = 0UL;
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32ShiftReg = 0UL;
-    TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-    u32SubModule &= 0x1UL;
-    u32ShiftReg = 8UL * u32SubModule;
-    enTimerEnable = (TIMER_nENABLE) TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
-                                           GPTM_CTL_OFFSET, GPTM_CTL_TAEN_MASK, u32ShiftReg);
+    UBase_t uxSubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxShiftReg = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+    uxSubModule &= 0x1UL;
+    uxShiftReg = 8UL * uxSubModule;
+    enTimerEnable = (TIMER_nENABLE) TIMER__uxReadRegister((TIMER_nMODULE_NUM) uxModuleNumber,
+                                           GPTM_CTL_OFFSET, GPTM_CTL_TAEN_MASK, uxShiftReg);
     if(TIMER_enENABLE_START == enTimerEnable)
     {
-        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET,
-                          GPTM_CTL_TAEN_DIS, GPTM_CTL_TAEN_MASK, u32ShiftReg);
+        TIMER__vWriteRegister((TIMER_nMODULE_NUM) uxModuleNumber, GPTM_CTL_OFFSET,
+                          GPTM_CTL_TAEN_DIS, GPTM_CTL_TAEN_MASK, uxShiftReg);
     }
-    u32ShiftReg += u32BitFeature;
-    TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET,
-                          u32FeatureValue, u32MaskFeature, u32ShiftReg);
+    uxShiftReg += uxBitFeature;
+    TIMER__vWriteRegister((TIMER_nMODULE_NUM) uxModuleNumber, GPTM_CTL_OFFSET,
+                          uxFeatureValue, uxMaskFeature, uxShiftReg);
     if(TIMER_enENABLE_START == enTimerEnable)
     {
-        TIMER__vWriteRegister((TIMER_nMODULE_NUM) u32ModuleNumber, GPTM_CTL_OFFSET,
-                              GPTM_CTL_TAEN_ENA, GPTM_CTL_TAEN_MASK, u32ShiftReg);
+        TIMER__vWriteRegister((TIMER_nMODULE_NUM) uxModuleNumber, GPTM_CTL_OFFSET,
+                              GPTM_CTL_TAEN_ENA, GPTM_CTL_TAEN_MASK, uxShiftReg);
     }
 }
 
-uint32_t TIMER__u32GetControlGeneric(TIMER_nMODULE enModule, uint32_t u32MaskFeature,
-                                     uint32_t u32BitFeature)
+UBase_t TIMER__uxGetControlGeneric(TIMER_nMODULE enModule, UBase_t uxMaskFeature,
+                                     UBase_t uxBitFeature)
 {
-    uint32_t u32FeatureValue = 0UL;
-    uint32_t u32SubModule = 0UL;
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32ShiftReg = 0UL;
-    TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-    u32SubModule &= 0x1UL;
-    u32ShiftReg = 8UL * u32SubModule;
-    u32ShiftReg += u32BitFeature;
-    u32FeatureValue = TIMER__u32ReadRegister((TIMER_nMODULE_NUM) u32ModuleNumber,
-                                     GPTM_CTL_OFFSET, u32MaskFeature, u32ShiftReg);
-    return (u32FeatureValue);
+    UBase_t uxFeatureValue = 0UL;
+    UBase_t uxSubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxShiftReg = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+    uxSubModule &= 0x1UL;
+    uxShiftReg = 8UL * uxSubModule;
+    uxShiftReg += uxBitFeature;
+    uxFeatureValue = TIMER__uxReadRegister((TIMER_nMODULE_NUM) uxModuleNumber,
+                                     GPTM_CTL_OFFSET, uxMaskFeature, uxShiftReg);
+    return (uxFeatureValue);
 }

@@ -32,10 +32,10 @@ SCB_nERROR SCB_Debug__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPri
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
 
-    stRegister.u32Shift = SCB_SHPR3_R_DEBUG_BIT;
-    stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
+    stRegister.uxShift = SCB_SHPR3_R_DEBUG_BIT;
+    stRegister.uxMask = SCB_SHPR3_DEBUG_MASK;
     stRegister.uptrAddress = SCB_SHPR3_OFFSET;
-    stRegister.u32Value = (uint32_t) enPriorityArg;
+    stRegister.uxValue = (UBase_t) enPriorityArg;
     MCU__vDataSyncBarrier();
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
@@ -55,14 +55,14 @@ SCB_nERROR SCB_Debug__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPr
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_SHPR3_R_DEBUG_BIT;
-        stRegister.u32Mask = SCB_SHPR3_DEBUG_MASK;
+        stRegister.uxShift = SCB_SHPR3_R_DEBUG_BIT;
+        stRegister.uxMask = SCB_SHPR3_DEBUG_MASK;
         stRegister.uptrAddress = SCB_SHPR3_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enPriorityArg = (SCB_nPRIORITY) stRegister.u32Value;
+        *enPriorityArg = (SCB_nPRIORITY) stRegister.uxValue;
     }
     return (enErrorReg);
 }

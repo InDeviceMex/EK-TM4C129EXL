@@ -30,9 +30,9 @@
     #pragma CHECK_MISRA("-4.1")
 #endif
 
-void GraphTerm__vClearLine(UART_nMODULE enModule, uint32_t u32Line)
+void GraphTerm__vClearLine(UART_nMODULE enModule, UBase_t uxLine)
 {
-    UART__u32Printf(enModule,"\x1B[%u;0H\x1B[K", u32Line);
+    UART__uxPrintf(enModule,"\x1B[%u;0H\x1B[K", uxLine);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

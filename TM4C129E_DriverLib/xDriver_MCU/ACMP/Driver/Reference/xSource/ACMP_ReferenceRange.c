@@ -31,10 +31,10 @@ ACMP_nERROR ACMP__enSetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
 
-    stRegister.u32Shift = ACMP_REFCTL_R_RNG_BIT;
-    stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
+    stRegister.uxShift = ACMP_REFCTL_R_RNG_BIT;
+    stRegister.uxMask = ACMP_REFCTL_RNG_MASK;
     stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
-    stRegister.u32Value = (uint32_t) enReferenceRangeArg;
+    stRegister.uxValue = (UBase_t) enReferenceRangeArg;
     enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -52,14 +52,14 @@ ACMP_nERROR ACMP__enGetReferenceRange(ACMP_nMODULE enModuleArg, ACMP_nREFERENCE_
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = ACMP_REFCTL_R_RNG_BIT;
-        stRegister.u32Mask = ACMP_REFCTL_RNG_MASK;
+        stRegister.uxShift = ACMP_REFCTL_R_RNG_BIT;
+        stRegister.uxMask = ACMP_REFCTL_RNG_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.u32Value;
+        *penReferenceRangeArg = (ACMP_nREFERENCE_RANGE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

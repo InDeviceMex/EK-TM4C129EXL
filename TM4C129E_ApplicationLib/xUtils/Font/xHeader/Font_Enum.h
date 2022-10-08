@@ -43,10 +43,10 @@ typedef enum
 typedef struct
 {
   const uint16_t *pu16Ascii;
-  uint32_t u32Width;
-  uint32_t u32Height;
-  uint32_t u32Bits;
-  int8_t   u32Cor;
+  UBase_t uxWidth;
+  UBase_t uxHeight;
+  UBase_t uxBits;
+  int8_t   uxCor;
 
 } FONT_t;
 

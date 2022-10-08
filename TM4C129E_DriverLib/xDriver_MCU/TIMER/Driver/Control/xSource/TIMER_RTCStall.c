@@ -29,11 +29,11 @@
 
 void TIMER__vSetRTCStall(TIMER_nMODULE enModule, TIMER_nRTC_STALL enRTCStallParam)
 {
-    uint32_t u32Submodule = 0UL;
-    TIMER__vGetSubParams(enModule, &u32Submodule, (uint32_t*) 0UL);
-    if((uint32_t) TIMER_enSUBMODULE_W == u32Submodule)
+    UBase_t uxSubmodule = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubmodule, (UBase_t*) 0UL);
+    if((UBase_t) TIMER_enSUBMODULE_W == uxSubmodule)
     {
-        TIMER__vSetControlGeneric(enModule, (uint32_t) enRTCStallParam,
+        TIMER__vSetControlGeneric(enModule, (UBase_t) enRTCStallParam,
                                   GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
     }
 }
@@ -41,11 +41,11 @@ void TIMER__vSetRTCStall(TIMER_nMODULE enModule, TIMER_nRTC_STALL enRTCStallPara
 TIMER_nRTC_STALL TIMER__enGetRTCStall(TIMER_nMODULE enModule)
 {
     TIMER_nRTC_STALL enRtcStallReg = TIMER_enRTC_STALL_FREEZE;
-    uint32_t u32Submodule = 0UL;
-    TIMER__vGetSubParams(enModule, &u32Submodule, (uint32_t*) 0UL);
-    if((uint32_t) TIMER_enSUBMODULE_W == u32Submodule)
+    UBase_t uxSubmodule = 0UL;
+    TIMER__vGetSubParams(enModule, &uxSubmodule, (UBase_t*) 0UL);
+    if((UBase_t) TIMER_enSUBMODULE_W == uxSubmodule)
     {
-        enRtcStallReg = (TIMER_nRTC_STALL) TIMER__u32GetControlGeneric(enModule,
+        enRtcStallReg = (TIMER_nRTC_STALL) TIMER__uxGetControlGeneric(enModule,
                           GPTM_TW_TnCTL_RTCEN_MASK, GPTM_TW_TnCTL_R_RTCEN_BIT);
     }
     return (enRtcStallReg);

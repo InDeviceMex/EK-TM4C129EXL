@@ -25,13 +25,17 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsDigit.h>
 
-CONV_nDIGIT Conv__enIsDigit(char cCharacter)
+CONV_nERROR Conv__enIsDigit(char cCharacter)
 {
-    CONV_nDIGIT enStatus = CONV_enDIGIT_NO;
-    uint8_t u8Char = (uint8_t) cCharacter;
-    if((u8Char >= (uint8_t) '0') && (u8Char <= (uint8_t) '9'))
+    CONV_nERROR enStatus;
+
+    if(((uint8_t) cCharacter < (uint8_t) '0') || ((uint8_t) cCharacter > (uint8_t) '9'))
     {
-        enStatus = CONV_enDIGIT_OK;
+        enStatus = CONV_enERROR_VALUE;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_OK;
     }
 
     return (enStatus);

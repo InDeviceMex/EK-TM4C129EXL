@@ -30,50 +30,50 @@
 ************************************ 21 SACKCTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SLAVE_ACKCTL_R_ACKOEN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOEN_BIT    ((uint32_t) 0UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOEN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOEN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOEN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOEN_BIT    ((UBase_t) 0UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOEN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOEN_ENA    ((UBase_t) 0x00000001UL)
 
-#define I2C_SLAVE_ACKCTL_ACKOEN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SLAVE_ACKCTL_ACKOEN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_ACKCTL_ACKOEN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_ACKOEN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_ACKOEN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_ACKCTL_ACKOEN_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_SLAVE_ACKCTL_R_ACKOVAL_MASK    ((uint32_t) 0x00000002UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOVAL_BIT    ((uint32_t) 1UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOVAL_ACK    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_ACKCTL_R_ACKOVAL_NACK    ((uint32_t) 0x00000002UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOVAL_MASK    ((UBase_t) 0x00000002UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOVAL_BIT    ((UBase_t) 1UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOVAL_ACK    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_ACKCTL_R_ACKOVAL_NACK    ((UBase_t) 0x00000002UL)
 
-#define I2C_SLAVE_ACKCTL_ACKOVAL_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SLAVE_ACKCTL_ACKOVAL_ACK    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_ACKCTL_ACKOVAL_NACK    ((uint32_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_ACKOVAL_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SLAVE_ACKCTL_ACKOVAL_ACK    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_ACKCTL_ACKOVAL_NACK    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /******************************************************************************************
 ************************************ 21 SACKCTL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SACKCTL_R_ACKOEN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SACKCTL_R_ACKOEN_BIT    ((uint32_t) 0UL)
-#define I2C_SACKCTL_R_ACKOEN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SACKCTL_R_ACKOEN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SACKCTL_R_ACKOEN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SACKCTL_R_ACKOEN_BIT    ((UBase_t) 0UL)
+#define I2C_SACKCTL_R_ACKOEN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SACKCTL_R_ACKOEN_ENA    ((UBase_t) 0x00000001UL)
 
-#define I2C_SACKCTL_ACKOEN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SACKCTL_ACKOEN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SACKCTL_ACKOEN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SACKCTL_ACKOEN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SACKCTL_ACKOEN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SACKCTL_ACKOEN_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
-#define I2C_SACKCTL_R_ACKOVAL_MASK    ((uint32_t) 0x00000002UL)
-#define I2C_SACKCTL_R_ACKOVAL_BIT    ((uint32_t) 1UL)
-#define I2C_SACKCTL_R_ACKOVAL_ACK    ((uint32_t) 0x00000000UL)
-#define I2C_SACKCTL_R_ACKOVAL_NACK    ((uint32_t) 0x00000002UL)
+#define I2C_SACKCTL_R_ACKOVAL_MASK    ((UBase_t) 0x00000002UL)
+#define I2C_SACKCTL_R_ACKOVAL_BIT    ((UBase_t) 1UL)
+#define I2C_SACKCTL_R_ACKOVAL_ACK    ((UBase_t) 0x00000000UL)
+#define I2C_SACKCTL_R_ACKOVAL_NACK    ((UBase_t) 0x00000002UL)
 
-#define I2C_SACKCTL_ACKOVAL_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SACKCTL_ACKOVAL_ACK    ((uint32_t) 0x00000000UL)
-#define I2C_SACKCTL_ACKOVAL_NACK    ((uint32_t) 0x00000001UL)
+#define I2C_SACKCTL_ACKOVAL_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SACKCTL_ACKOVAL_ACK    ((UBase_t) 0x00000000UL)
+#define I2C_SACKCTL_ACKOVAL_NACK    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SACKCTL_H_ */

@@ -32,7 +32,7 @@ OS_UBase_t OS_List__uxRemove(OS_ListItem_t* const pstItemToRemoveArg)
     {
         pstListReg = (OS_List_t*) CDLinkedList_Item__pvGetOwnerList(pstItemToRemoveArg);
         CDLinkedList__enRemove(pstItemToRemoveArg);
-        uxListSizeReg = CDLinkedList__u32GetSize(pstListReg);
+        uxListSizeReg = CDLinkedList__uxGetSize(pstListReg);
     }
     return (uxListSizeReg);
 }

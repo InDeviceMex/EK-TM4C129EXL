@@ -28,24 +28,24 @@
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
 DMA_nERROR DMA_CH__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                              DMA_nCH_CONTROL enControlArg, uint32_t u32TransferSizeArg);
+                                              DMA_nCH_CONTROL enControlArg, UBase_t uxTransferSizeArg);
 DMA_nERROR DMA_CH_Primary__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                        uint32_t u32TransferSizeArg);
+                                                        UBase_t uxTransferSizeArg);
 DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
-                                                        uint32_t u32TransferSizeArg);
+                                                        UBase_t uxTransferSizeArg);
 
 DMA_nERROR DMA_CH__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t u32TransferSizeArg);
+                                             DMA_nCH_CONTROL enControlArg, UBase_t uxTransferSizeArg);
 DMA_nERROR DMA_CH_Primary__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t u32TransferSizeArg);
+                                                        UBase_t uxTransferSizeArg);
 DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                        uint32_t u32TransferSizeArg);
+                                                        UBase_t uxTransferSizeArg);
 
 DMA_nERROR DMA_CH__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                             DMA_nCH_CONTROL enControlArg, uint32_t* pu32TransferSizeArg);
+                                             DMA_nCH_CONTROL enControlArg, UBase_t* puxTransferSizeArg);
 DMA_nERROR DMA_CH_Primary__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                    uint32_t* pu32TransferSizeArg);
+                                                    UBase_t* puxTransferSizeArg);
 DMA_nERROR DMA_CH_Alternate__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                                      uint32_t* pu32TransferSizeArg);
+                                                      UBase_t* puxTransferSizeArg);
 
 #endif /* XDRIVER_MCU_DMA_DRIVER_CH_CONTROL_XHEADER_DMA_CH_TRANSFERSIZE_H_ */

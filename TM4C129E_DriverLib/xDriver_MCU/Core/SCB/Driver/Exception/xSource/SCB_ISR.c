@@ -39,14 +39,14 @@ SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* e
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_ICSR_R_ISRPENDING_BIT;
-        stRegister.u32Mask = SCB_ICSR_ISRPENDING_MASK;
+        stRegister.uxShift = SCB_ICSR_R_ISRPENDING_BIT;
+        stRegister.uxMask = SCB_ICSR_ISRPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enStateArg = (SCB_nPENDSTATE) stRegister.u32Value;
+        *enStateArg = (SCB_nPENDSTATE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -63,14 +63,14 @@ SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enV
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_ICSR_R_VECTPENDING_BIT;
-        stRegister.u32Mask = SCB_ICSR_VECTPENDING_MASK;
+        stRegister.uxShift = SCB_ICSR_R_VECTPENDING_BIT;
+        stRegister.uxMask = SCB_ICSR_VECTPENDING_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        *enVectorArg = (SCB_nVECISR) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -87,14 +87,14 @@ SCB_nERROR SCB_ISR__enGetVectorActive(SCB_nMODULE enModuleArg, SCB_nVECISR* enVe
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SCB_ICSR_R_VECTACTIVE_BIT;
-        stRegister.u32Mask = SCB_ICSR_VECTACTIVE_MASK;
+        stRegister.uxShift = SCB_ICSR_R_VECTACTIVE_BIT;
+        stRegister.uxMask = SCB_ICSR_VECTACTIVE_MASK;
         stRegister.uptrAddress = SCB_ICSR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        *enVectorArg = (SCB_nVECISR) stRegister.u32Value;
+        *enVectorArg = (SCB_nVECISR) stRegister.uxValue;
     }
     return (enErrorReg);
 }

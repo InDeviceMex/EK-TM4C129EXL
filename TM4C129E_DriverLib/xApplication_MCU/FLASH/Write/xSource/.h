@@ -32,15 +32,15 @@
 #pragma  CODE_SECTION(FLASH__enWriteHalfWorld, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enWriteByte, ".ramcode")
 
-FLASH_nERROR FLASH__enWriteWorld(uint32_t u32Data, uint32_t u32Address);
-FLASH_nERROR FLASH__enWriteHalfWorld(uint16_t u16Data, uint32_t u32Address);
-FLASH_nERROR FLASH__enWriteByte(uint8_t u8Data, uint32_t u32Address);
+FLASH_nERROR FLASH__enWriteWorld(UBase_t uxData, UBase_t uxAddress);
+FLASH_nERROR FLASH__enWriteHalfWorld(uint16_t u16Data, UBase_t uxAddress);
+FLASH_nERROR FLASH__enWriteByte(uint8_t u8Data, UBase_t uxAddress);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enWriteWorld(uint32_t u32Data, uint32_t u32Address) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enWriteHalfWorld(uint16_t u16Data, uint32_t u32Address) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enWriteByte(uint8_t u8Data, uint32_t u32Address) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWriteWorld(UBase_t uxData, UBase_t uxAddress) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWriteHalfWorld(uint16_t u16Data, UBase_t uxAddress) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enWriteByte(uint8_t u8Data, UBase_t uxAddress) __attribute__((section(".ramcode")));
 
 #endif
 

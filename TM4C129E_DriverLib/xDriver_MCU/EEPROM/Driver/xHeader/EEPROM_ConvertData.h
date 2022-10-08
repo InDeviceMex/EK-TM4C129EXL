@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
-EEPROM_nERROR EEPROM__enExtractData(void* pvDataExtractedArg, uint32_t* pu32InitialDataArg,uint32_t u32AddressArg, EEPROM_nVARIABLE enVariableTypeArg);
-EEPROM_nERROR EEPROM__enReplaceData(void* pvDataOutArg, uint32_t u32DataToReplaceArg,uint32_t u32AddressArg, EEPROM_nVARIABLE enVariableTypeArg);
+EEPROM_nERROR EEPROM__enExtractData(void* pvDataExtractedArg, UBase_t* puxInitialDataArg,UBase_t uxAddressArg, EEPROM_nVARIABLE enVariableTypeArg);
+EEPROM_nERROR EEPROM__enReplaceData(void* pvDataOutArg, UBase_t uxDataToReplaceArg,UBase_t uxAddressArg, EEPROM_nVARIABLE enVariableTypeArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_CONVERTDATA_H_ */

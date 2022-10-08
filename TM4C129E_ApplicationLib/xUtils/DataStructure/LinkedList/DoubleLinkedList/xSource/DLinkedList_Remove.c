@@ -32,25 +32,25 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
     DLinkedListItem_t* pstHeadItem = (DLinkedListItem_t*) 0UL ;
     DLinkedListItem_t* pstItemNextNode = (DLinkedListItem_t*) 0UL ;
     DLinkedListItem_t* pstItemPreviousNode = (DLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0UL;
+    UBase_t uxSizeReg = 0UL;
 
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
-        u32SizeReg = DLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) && (0UL != u32SizeReg))
+        uxSizeReg = DLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) && (0UL != uxSizeReg))
         {
             enStatus = DLinkedList_enSTATUS_OK;
-            if(0UL != (uint32_t) pvData)
+            if(0UL != (UBase_t) pvData)
             {
                 *pvData = DLinkedList_Item__pvGetData(pstItem);
             }
             pstHeadItem = DLinkedList__pstGetHead(pstList);
-            if((uint32_t) pstItem == (uint32_t) pstHeadItem)
+            if((UBase_t) pstItem == (UBase_t) pstHeadItem)
             {
                 pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
                 DLinkedList__vSetHead(pstList, pstItemNextNode);
 
-                if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
+                if((UBase_t) 0UL == (UBase_t) pstItemNextNode)
                 {
                     DLinkedList__vSetTail(pstList, (DLinkedListItem_t*) 0UL);
                 }
@@ -60,7 +60,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
                 }
 
                 enStatusRead = DLinkedList__enIsLastItemRead(pstList,pstItem);
-                if((uint32_t) DLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                if((UBase_t) DLinkedList_enSTATUS_OK == (UBase_t) enStatusRead)
                 {
                     DLinkedList__vSetLastItemRead(pstList, pstItemNextNode);
                 }
@@ -73,7 +73,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
 
                 DLinkedList_Item__vSetNextItem(pstItemPreviousNode, pstItemNextNode);
 
-                if((uint32_t) 0UL == (uint32_t) pstItemNextNode)
+                if((UBase_t) 0UL == (UBase_t) pstItemNextNode)
                 {
                     DLinkedList__vSetTail(pstList, pstItemPreviousNode);
                 }
@@ -83,7 +83,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
                 }
 
                 enStatusRead = DLinkedList__enIsLastItemRead(pstList,pstItem);
-                if((uint32_t) DLinkedList_enSTATUS_OK == (uint32_t) enStatusRead)
+                if((UBase_t) DLinkedList_enSTATUS_OK == (UBase_t) enStatusRead)
                 {
                     DLinkedList__vSetLastItemRead(pstList, pstItemPreviousNode);
                 }
@@ -92,7 +92,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
             DLinkedList_Item__vSetOwnerList(pstItem,  (void *) 0UL);
             DLinkedList_Item__vSetNextItem(pstItem,  (DLinkedListItem_t *) 0UL);
             DLinkedList_Item__vSetPreviousItem(pstItem,  (DLinkedListItem_t *) 0UL);
-            if(0UL !=  (uint32_t)  pstList->pvfDestroyItem)
+            if(0UL !=  (UBase_t)  pstList->pvfDestroyItem)
             {
                 DLinkedList_Item__vSetValue(pstItem, 0UL);
                 DLinkedList_Item__vSetData(pstItem,  (void *) 0UL);
@@ -100,8 +100,8 @@ DLinkedList_nSTATUS DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, 
                 pstItem = (DLinkedListItem_t*) 0UL;
             }
 
-            u32SizeReg--;
-            DLinkedList__vSetSize(pstList, u32SizeReg);
+            uxSizeReg--;
+            DLinkedList__vSetSize(pstList, uxSizeReg);
         }
     }
     return (enStatus);
@@ -120,7 +120,7 @@ DLinkedList_nSTATUS DLinkedList__enRemove_GetData(DLinkedListItem_t* pstItem, vo
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_t* pstListReg = (DLinkedList_t*) 0UL;
 
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
         pstListReg = (DLinkedList_t*) DLinkedList_Item__pvGetOwnerList(pstItem);
@@ -144,7 +144,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNextInList_GetData(DLinkedList_t* pstLi
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstItemNextNode = (DLinkedListItem_t*) 0UL ;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pstItem))
+    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pstItem))
     {
         pstItemNextNode = DLinkedList_Item__pstGetNextItem(pstItem);
         enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItemNextNode, pvData);
@@ -164,7 +164,7 @@ DLinkedList_nSTATUS DLinkedList__enRemoveNext_GetData(const DLinkedListItem_t* p
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_t* pstListReg = (DLinkedList_t*) 0UL;
 
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
         pstListReg = (DLinkedList_t*) DLinkedList_Item__pvGetOwnerList(pstItem);
@@ -187,7 +187,7 @@ DLinkedList_nSTATUS DLinkedList__enRemovePreviousInList_GetData(DLinkedList_t* p
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstItemPreviousNode = (DLinkedListItem_t*) 0UL ;
 
-    if(((uint32_t) 0UL != (uint32_t) pstList) && ((uint32_t) 0UL != (uint32_t) pstItem))
+    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pstItem))
     {
         pstItemPreviousNode = DLinkedList_Item__pstGetPreviousItem(pstItem);
         enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItemPreviousNode, pvData);
@@ -207,7 +207,7 @@ DLinkedList_nSTATUS DLinkedList__enRemovePrevious_GetData(const DLinkedListItem_
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedList_t* pstListReg = (DLinkedList_t*) 0UL;
 
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         enStatus = DLinkedList_enSTATUS_OK;
         pstListReg = (DLinkedList_t*) DLinkedList_Item__pvGetOwnerList(pstItem);
@@ -229,7 +229,7 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveTail_GetData(DLinkedList_t* pstList, v
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstEndItem = (DLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstEndItem = DLinkedList__pstGetTail(pstList);
         enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstEndItem, pvData);
@@ -248,7 +248,7 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveHead_GetData(DLinkedList_t* pstList, v
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstBeginItem = (DLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstBeginItem = DLinkedList__pstGetHead(pstList);
         enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstBeginItem, pvData);
@@ -263,62 +263,62 @@ DLinkedList_nSTATUS  DLinkedList__enRemoveHead(DLinkedList_t* pstList)
     return (enStatus);
 }
 
-DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_t* pstList, uint32_t u32Position, void** pvData)
+DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_t* pstList, UBase_t uxPosition, void** pvData)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstItem = (DLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        u32SizeList = DLinkedList__u32GetSize(pstList);
-        if(u32Position < u32SizeList)
+        uxSizeList = DLinkedList__uxGetSize(pstList);
+        if(uxPosition < uxSizeList)
         {
-            if(0UL == u32Position) /*Remove Head*/
+            if(0UL == uxPosition) /*Remove Head*/
             {
                 enStatus = DLinkedList__enRemoveHead_GetData(pstList, pvData);
             }
-            else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
+            else if((UBase_t) uxPosition == (UBase_t) (uxSizeList - 1UL)) /*Remove Tail*/
             {
                 enStatus = DLinkedList__enRemoveTail_GetData(pstList, pvData);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(u32Direction == 0UL) /*Forward*/
+                if(uxDirection == 0UL) /*Forward*/
                 {
                     pstItem = DLinkedList__pstGetHead(pstList);
-                    while(0UL != u32SizeOptimum)
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
                 }
                 else /*Backward*/
                 {
                     pstItem = DLinkedList__pstGetTail(pstList);
-                    while(0UL != u32SizeOptimum)
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = DLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
                 }
@@ -328,62 +328,62 @@ DLinkedList_nSTATUS  DLinkedList__enRemovePos_GetData(DLinkedList_t* pstList, ui
     return (enStatus);
 }
 
-DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_t* pstList, uint32_t u32Position)
+DLinkedList_nSTATUS  DLinkedList__enRemovePos(DLinkedList_t* pstList, UBase_t uxPosition)
 {
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstItem = (DLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        u32SizeList = DLinkedList__u32GetSize(pstList);
-        if(u32Position < u32SizeList)
+        uxSizeList = DLinkedList__uxGetSize(pstList);
+        if(uxPosition < uxSizeList)
         {
-            if(0UL == u32Position) /*Remove Head*/
+            if(0UL == uxPosition) /*Remove Head*/
             {
                 enStatus = DLinkedList__enRemoveHead(pstList);
             }
-            else if((uint32_t) u32Position == (uint32_t) (u32SizeList - 1UL)) /*Remove Tail*/
+            else if((UBase_t) uxPosition == (UBase_t) (uxSizeList - 1UL)) /*Remove Tail*/
             {
                 enStatus = DLinkedList__enRemoveTail(pstList);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(u32Direction == 0UL) /*Forward*/
+                if(uxDirection == 0UL) /*Forward*/
                 {
                     pstItem = DLinkedList__pstGetHead(pstList);
-                    while(0UL != u32SizeOptimum)
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList(pstList, pstItem);
                 }
                 else /*Backward*/
                 {
                     pstItem = DLinkedList__pstGetTail(pstList);
-                    while(0UL != u32SizeOptimum)
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = DLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = DLinkedList__enRemoveInList(pstList, pstItem);
                 }

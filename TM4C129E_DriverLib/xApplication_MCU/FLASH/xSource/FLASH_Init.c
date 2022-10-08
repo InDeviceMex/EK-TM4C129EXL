@@ -31,7 +31,7 @@ FLASH_nERROR FLASH__enInit (FLASH_nMODULE enModuleArg)
     FLASH_nERROR enErrorReg;
     FLASH_pvfIRQVectorHandler_t pfIrqVectorHandler;
 
-    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+    enErrorReg = (FLASH_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) FLASH_enMODULE_MAX);
     if(FLASH_enERROR_OK == enErrorReg)
     {
         pfIrqVectorHandler = FLASH__pvfGetIRQVectorHandler(enModuleArg);

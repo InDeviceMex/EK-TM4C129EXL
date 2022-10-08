@@ -14,17 +14,17 @@
 ************************************28 LDODPCAL *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_LDODPCAL_R_NOPLL_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDODPCAL_R_NOPLL_MASK    ((UBase_t) 0x000000FFUL)
 #define SYSCTL_LDODPCAL_R_NOPLL_BIT    (0UL)
 
-#define SYSCTL_LDODPCAL_NOPLL_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDODPCAL_NOPLL_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_LDODPCAL_R_KHZ30_MASK    ((uint32_t) 0x0000FF00UL)
+#define SYSCTL_LDODPCAL_R_KHZ30_MASK    ((UBase_t) 0x0000FF00UL)
 #define SYSCTL_LDODPCAL_R_KHZ30_BIT    (8UL)
 
-#define SYSCTL_LDODPCAL_KHZ30_MASK    ((uint32_t) 0x000000FFUL)
+#define SYSCTL_LDODPCAL_KHZ30_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 

@@ -24,21 +24,40 @@
 #include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/Conversion_String/xHeader/Conversion_StringLength.h>
 
-uint32_t CONV_u32StringLength(const char* pcString, uint32_t u32MaxSize)
+CONV_nERROR CONV_enStringLength(const char* pcString, UBase_t* puxLengthArg, UBase_t uxMaxSize)
 {
-  const char* pcStringReg = 0;
-  uint32_t u32Count = 0;
-  if(0 != pcString)
-  {
-      pcStringReg = pcString;
-      while(((char)0 != (char) *pcStringReg) && ((uint32_t) 0 != (uint32_t) u32MaxSize))
-      {
-          pcStringReg += 1U;
-          u32MaxSize--;
-      }
-      u32Count = (uint32_t) pcStringReg;
-      u32Count -= (uint32_t) pcString;
-  }
-  return ( (uint32_t) u32Count);
+    CONV_nERROR enErrorReg;
+    UBase_t uxCount;
+    const char* pcStringReg;
+
+    uxCount = 0UL;
+    enErrorReg = CONV_enERROR_OK;
+    if((0UL == (uintptr_t) pcString) || (0UL == (uintptr_t) puxLengthArg))
+    {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        pcStringReg = pcString;
+        while((0U != (uint8_t) *pcStringReg) && (0UL < (UBase_t) uxMaxSize))
+        {
+            pcStringReg += 1U;
+            uxMaxSize--;
+        }
+        if(0UL == uxMaxSize)
+        {
+            enErrorReg = CONV_enERROR_OUT_OF_RANGE;
+        }
+        else
+        {
+            uxCount = (UBase_t) pcStringReg;
+            uxCount -= (UBase_t) pcString;
+        }
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        *puxLengthArg = (UBase_t) uxCount;
+    }
+    return (enErrorReg);
 }
 

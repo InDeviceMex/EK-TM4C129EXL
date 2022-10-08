@@ -27,13 +27,13 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM__vSetClockSource(PWM_nMODULE enModule, PWM_nCLOCK enClock);
-PWM_nCLOCK PWM__enGetClockSource(PWM_nMODULE enModule);
+PWM_nERROR PWM__enSetClockSource(PWM_nMODULE enModuleArg, PWM_nCLOCK enClockArg);
+PWM_nERROR PWM__enGetClockSource(PWM_nMODULE enModuleArg, PWM_nCLOCK* penClockArg);
 
-void PWM__vSetClockDivisor(PWM_nMODULE enModule, PWM_nCLOCK_DIV enDivisorArg);
-void PWM__vSetClockDivisorNum(PWM_nMODULE enModule, uint32_t u32DivisorArg);
+PWM_nERROR PWM__enSetClockDivisor(PWM_nMODULE enModuleArg, PWM_nCLOCK_DIV enDivisorArg);
+PWM_nERROR PWM__enGetClockDivisor(PWM_nMODULE enModuleArg, PWM_nCLOCK_DIV* penDivisorArg);
 
-PWM_nCLOCK_DIV PWM__enGetClockDivisor(PWM_nMODULE enModule);
-uint32_t PWM__u32GetClockDivisor(PWM_nMODULE enModule);
+PWM_nERROR PWM__enSetClockDivisorInteger(PWM_nMODULE enModuleArg, UBase_t uxDivisorArg);
+PWM_nERROR PWM__enGetClockDivisorInteger(PWM_nMODULE enModuleArg, UBase_t* puxDivisorArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERAL_XHEADER_PWM_CLOCK_H_ */

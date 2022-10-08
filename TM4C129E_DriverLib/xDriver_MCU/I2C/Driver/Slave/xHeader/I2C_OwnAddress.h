@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/I2C/Peripheral/xHeader/I2C_Enum.h>
 
-I2C_nERROR I2C_Slave__enSetOwnAddress(I2C_nMODULE enModuleArg, uint32_t u32OwnAddressArg);
-I2C_nERROR I2C_Slave__enGetOwnAddress(I2C_nMODULE enModuleArg, uint32_t* pu32OwnAddressArg);
+I2C_nERROR I2C_Slave__enSetOwnAddress(I2C_nMODULE enModuleArg, UBase_t uxOwnAddressArg);
+I2C_nERROR I2C_Slave__enGetOwnAddress(I2C_nMODULE enModuleArg, UBase_t* puxOwnAddressArg);
 
 #endif /* XDRIVER_MCU_I2C_DRIVER_SLAVE_XHEADER_I2C_OWNADDRESS_H_ */

@@ -26,7 +26,7 @@
 SLinkedListItem_t* SLinkedList__pstGetTail(const SLinkedList_t*  const pstList)
 {
     SLinkedListItem_t* pstTailReg = (SLinkedListItem_t*)0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstTailReg = pstList->pstTail;
     }
@@ -35,18 +35,18 @@ SLinkedListItem_t* SLinkedList__pstGetTail(const SLinkedList_t*  const pstList)
 
 void SLinkedList__vSetTail(SLinkedList_t* pstList, SLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstTail = pstTailArg;
     }
 }
 
-SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
-    if ((uint32_t) 0UL == (uint32_t) (pstItem->pstNextItem))
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
+    if ((UBase_t) 0UL == (UBase_t) (pstItem->pstNextItem))
     {
-        enStatus = SLinkedList_enSTATUS_OK;
+        enStatus = SLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

@@ -29,21 +29,21 @@
 
 typedef enum
 {
-    MCU_enERROR_OK = 0UL,
-    MCU_enERROR_POINTER = 1UL,
-    MCU_enERROR_VALUE = 2UL,
-    MCU_enERROR_RANGE = 3UL,
-    MCU_enERROR_EMPTY = 4UL,
-    MCU_enERROR_BUSY = 5UL,
-    MCU_enERROR_TIMEOUT = 6UL,
-    MCU_enERROR_UNDEF = 0x7FFFFFFFUL,
+    MCU_enERROR_OK = (UBase_t) ERROR_OK,
+    MCU_enERROR_POINTER = (UBase_t) ERROR_POINTER,
+    MCU_enERROR_VALUE = (UBase_t) ERROR_VALUE,
+    MCU_enERROR_RANGE = (UBase_t) ERROR_RANGE,
+    MCU_enERROR_EMPTY = (UBase_t) ERROR_EMPTY,
+    MCU_enERROR_BUSY = (UBase_t) ERROR_BUSY,
+    MCU_enERROR_TIMEOUT = (UBase_t) ERROR_TIMEOUT,
+    MCU_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,
 }MCU_nERROR;
 
 typedef enum
 {
     MCU_enSTATE_DIS = 0UL,
     MCU_enSTATE_ENA = 1UL,
-    MCU_enSTATE_UNDEF = 0x7FFFFFFFUL,
+    MCU_enSTATE_UNDEF = UNDEF_VALUE,
 }MCU_nSTATE;
 
 typedef enum
@@ -51,7 +51,7 @@ typedef enum
     MCU_enSTATUS_INACTIVE = 0UL,
     MCU_enSTATUS_ACTIVE = 1UL,
     MCU_enSTATUS_CLEAR = 1UL,
-    MCU_enSTATUS_UNDEF = 0x7FFFFFFFUL,
+    MCU_enSTATUS_UNDEF = UNDEF_VALUE,
 }MCU_nSTATUS;
 
 typedef enum
@@ -77,15 +77,15 @@ typedef enum
     MCU_enPRI6 = 6UL,
     MCU_enPRI7 = 7UL,
     MCU_enPRIMAX = 8UL,
-    MCU_enDEFAULT = 0x7FFFFFFFUL,
+    MCU_enDEFAULT = UNDEF_VALUE,
 }MCU_nPRIORITY;
 
 typedef struct
 {
     uintptr_t uptrAddress;
-    uint32_t u32Value;
-    uint32_t u32Mask;
-    uint32_t u32Shift;
+    UBase_t uxValue;
+    UBase_t uxMask;
+    UBase_t uxShift;
 }MCU_Register_t;
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_ENUM_H_ */

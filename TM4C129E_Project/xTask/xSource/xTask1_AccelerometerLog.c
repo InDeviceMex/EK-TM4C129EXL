@@ -31,32 +31,32 @@
 void xTask1_AccelerometerLog(void* pvParams)
 {
     /*Period Handling*/
-    uint32_t u32PeriodTask = (uint32_t) pvParams;
-    uint32_t u32LastWakeTime;
+    UBase_t uxPeriodTask = (UBase_t) pvParams;
+    UBase_t uxLastWakeTime;
 
     /*Accelerometer handling*/
-    int32_t s32AccelValueOld[3UL];
-    int32_t s32AccelValue[3UL];
-    u32LastWakeTime = OS_Task__uxGetTickCount ();
+    Base_t sxAccelValueOld[3UL];
+    Base_t sxAccelValue[3UL];
+    uxLastWakeTime = OS_Task__uxGetTickCount ();
 
-    s32AccelValueOld[0U] = 0;
-    s32AccelValueOld[1U] = 0;
-    s32AccelValueOld[2U] = 0;
-    s32AccelValue[0U] = 0;
-    s32AccelValue[1U] = 0;
-    s32AccelValue[2U] = 0;
-    OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
-    UART__u32Printf(UART_enMODULE_0, "Task1 First Entry \n\r");
+    sxAccelValueOld[0U] = 0;
+    sxAccelValueOld[1U] = 0;
+    sxAccelValueOld[2U] = 0;
+    sxAccelValue[0U] = 0;
+    sxAccelValue[1U] = 0;
+    sxAccelValue[2U] = 0;
+    OS_Queue__boOverwrite(AccelerometerQueueHandle, sxAccelValue);
+    UART__uxPrintf(UART_enMODULE_0, "Task1 First Entry \n\r");
     while(1UL)
     {
-        EDUMKII_Accelerometer_vSample(s32AccelValue, (s32AccelValue + 1UL), (s32AccelValue + 2UL));
-        if((s32AccelValueOld[0UL] != s32AccelValue[0UL]) || (s32AccelValueOld[1UL] != s32AccelValue[1UL]) || (s32AccelValueOld[2UL] != s32AccelValue[2UL]))
+        EDUMKII_Accelerometer_vSample(sxAccelValue, (sxAccelValue + 1UL), (sxAccelValue + 2UL));
+        if((sxAccelValueOld[0UL] != sxAccelValue[0UL]) || (sxAccelValueOld[1UL] != sxAccelValue[1UL]) || (sxAccelValueOld[2UL] != sxAccelValue[2UL]))
         {
-            s32AccelValueOld[0U] = s32AccelValue[0UL];
-            s32AccelValueOld[1U] = s32AccelValue[1UL];
-            s32AccelValueOld[2U] = s32AccelValue[2UL];
-            OS_Queue__boOverwrite(AccelerometerQueueHandle, s32AccelValue);
+            sxAccelValueOld[0U] = sxAccelValue[0UL];
+            sxAccelValueOld[1U] = sxAccelValue[1UL];
+            sxAccelValueOld[2U] = sxAccelValue[2UL];
+            OS_Queue__boOverwrite(AccelerometerQueueHandle, sxAccelValue);
         }
-        OS_Task__vDelayUntil(&u32LastWakeTime, u32PeriodTask);
+        OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
     }
 }

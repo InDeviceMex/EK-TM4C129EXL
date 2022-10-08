@@ -27,7 +27,7 @@
 
 void WDT__vDisInterruptSource(WDT_nMODULE enModule)
 {
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) WDT_enMODULE_MAX);
-    WDT__vReset((WDT_nMODULE) u32Module);
+    UBase_t uxModule = 0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
+    WDT__vReset((WDT_nMODULE) uxModule);
 }

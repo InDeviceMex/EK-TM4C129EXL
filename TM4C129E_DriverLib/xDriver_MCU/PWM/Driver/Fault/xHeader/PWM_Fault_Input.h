@@ -27,22 +27,55 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Fault__vSetInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_INPUT enFaultInputSource);
-void PWM_Fault__vEnableInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_INPUT enFaultInputSource,
-                                PWM_nSTATE enFaultInputEnable);
-PWM_nFAULT_INPUT PWM_Fault__enGetInputSource(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator);
+PWM_nERROR PWM_FaultInput__enSetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_INPUT enInputArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultInput__enSetStateMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                        PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultInput__enSetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg, PWM_nSTATE enStateArg);
+PWM_nERROR PWM_FaultInput__enSetStateMaskByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                                      PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nSTATE enStateArg);
 
-void PWM_Fault__vSetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                    PWM_nFAULT_INPUT enFaultInputSource,
-                                    PWM_nLEVEL enFaultInputSense);
-PWM_nLEVEL PWM_Fault__enGetInputSenseValue(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                                       PWM_nFAULT_INPUT enFaultInputSource);
+PWM_nERROR PWM_FaultInput__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_INPUT enInputArg, PWM_nSTATE* penStateArg);
+PWM_nERROR PWM_FaultInput__enGetStateMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                       PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nFAULT_INPUTMASK* penInputMaskGetArg);
+PWM_nERROR PWM_FaultInput__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg, PWM_nGENMASK* penGeneratorGetArg);
 
-void PWM_Fault__vClearInputStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                PWM_nFAULT_INPUT enFaultInputSource);
-PWM_nFAULT_INPUT PWM_Fault__enGetInputStatus(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                             PWM_nFAULT_INPUT enFaultInputSource);
+
+PWM_nERROR PWM_FaultInput__enSetSenseLevelByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nFAULT_INPUT enInputArg, PWM_nLEVEL enLevelArg);
+PWM_nERROR PWM_FaultInput__enSetSenseLevelMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                        PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nLEVEL enLevelArg);
+PWM_nERROR PWM_FaultInput__enSetSenseLevelByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg, PWM_nLEVEL enLevelArg);
+PWM_nERROR PWM_FaultInput__enSetSenseLevelMaskByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                                      PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nLEVEL enLevelArg);
+
+PWM_nERROR PWM_FaultInput__enGetSenseLevelByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_INPUT enInputArg, PWM_nLEVEL* penLevelArg);
+PWM_nERROR PWM_FaultInput__enGetSenseLevelMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                       PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nFAULT_INPUTMASK* penInputMaskGetArg);
+PWM_nERROR PWM_FaultInput__enGetSenseLevelByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg, PWM_nGENMASK* penGeneratorGetArg);
+
+
+PWM_nERROR PWM_FaultInput__enClearStatusByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                   PWM_nFAULT_INPUT enInputArg);
+PWM_nERROR PWM_FaultInput__enClearStatusMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                        PWM_nFAULT_INPUTMASK enInputMaskArg);
+PWM_nERROR PWM_FaultInput__enClearStatusByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg);
+PWM_nERROR PWM_FaultInput__enClearStatusMaskByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                                      PWM_nFAULT_INPUTMASK enInputMaskArg);
+
+PWM_nERROR PWM_FaultInput__enGetStatusByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                              PWM_nFAULT_INPUT enInputArg, PWM_nSTATUS* penStatusArg);
+PWM_nERROR PWM_FaultInput__enGetStatusMaskByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                                       PWM_nFAULT_INPUTMASK enInputMaskArg, PWM_nFAULT_INPUTMASK* penInputMaskGetArg);
+PWM_nERROR PWM_FaultInput__enGetStatusByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
+                                            PWM_nFAULT_INPUT enInputArg, PWM_nGENMASK* penGeneratorGetArg);
+
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_FAULT_XHEADER_PWM_FAULT_INPUT_H_ */

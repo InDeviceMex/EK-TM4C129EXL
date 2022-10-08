@@ -37,7 +37,7 @@ FLASH_nERROR FLASH__enReadRegister(FLASH_nMODULE enModuleArg, FLASH_Register_t* 
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((uint32_t) enModuleArg, (uint32_t) FLASH_enMODULE_MAX);
+        enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((UBase_t) enModuleArg, (UBase_t) FLASH_enMODULE_MAX);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {

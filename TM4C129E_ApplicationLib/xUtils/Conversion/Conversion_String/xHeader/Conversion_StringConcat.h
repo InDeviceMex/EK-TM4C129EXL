@@ -24,11 +24,8 @@
 #ifndef XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCONCAT_H_
 #define XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCONCAT_H_
 
+#include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-#include <xUtils/Standard/Standard.h>
-
-char* CONV_pcStringConcat(char*  pcStringInitial, const char* pcStringConcat, uint32_t u32MaxSize);
-
-
+CONV_nERROR CONV_enStringConcat(char* pcStringInitial, const char* pcStringConcat, UBase_t uxMaxSize);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_STRING_XHEADER_CONVERSION_STRINGCONCAT_H_ */

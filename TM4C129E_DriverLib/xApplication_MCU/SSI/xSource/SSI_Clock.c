@@ -28,103 +28,103 @@
 #define SSI_MASTER_MAX_CLOCK (60000000UL)
 #define SSI_SLAVE_MAX_CLOCK (10000000UL)
 
-void SSI__vSetClock(SSI_nMODULE enModule, uint32_t u32ClockArg)
+void SSI__vSetClock(SSI_nMODULE enModule, UBase_t uxClockArg)
 {
     SSI_nCLOCK enSsiClock = SSI_enCLOCK_SYSCLK;
     SSI_nMS enSsiMode = SSI_enMS_MASTER;
-    uint32_t u32CurrentClock = 0UL;
-    uint32_t u32MaxClock = 0UL;
-    uint32_t u32ClockReg = 0UL;
-    uint32_t u32EvenPrediver = 2UL;
-    uint32_t u32Divisor = 0UL;
-    uint32_t u32Clock = u32ClockArg;
+    UBase_t uxCurrentClock = 0UL;
+    UBase_t uxMaxClock = 0UL;
+    UBase_t uxClockReg = 0UL;
+    UBase_t uxEvenPrediver = 2UL;
+    UBase_t uxDivisor = 0UL;
+    UBase_t uxClock = uxClockArg;
 
     enSsiClock = SSI__enGetClockConfig(enModule);
     if(SSI_enCLOCK_SYSCLK == enSsiClock)
     {
-        u32CurrentClock = SYSCTL__u32GetSystemClock();
+        uxCurrentClock = SYSCTL__uxGetSystemClock();
     }
     else
     {
-        u32CurrentClock = SYSCTL__u32GetAlternateClock();
+        uxCurrentClock = SYSCTL__uxGetAlternateClock();
     }
 
     enSsiMode = SSI__enGetMasterSlave(enModule);
-    u32MaxClock = (uint32_t) u32CurrentClock;
+    uxMaxClock = (UBase_t) uxCurrentClock;
     if(SSI_enMS_MASTER == enSsiMode)
     {
-        u32MaxClock /= (uint32_t) 2UL;
-        if(u32Clock > u32MaxClock)
+        uxMaxClock /= (UBase_t) 2UL;
+        if(uxClock > uxMaxClock)
         {
-            u32Clock = u32MaxClock;
+            uxClock = uxMaxClock;
         }
-        if(u32Clock > SSI_MASTER_MAX_CLOCK)
+        if(uxClock > SSI_MASTER_MAX_CLOCK)
         {
-            u32Clock = SSI_MASTER_MAX_CLOCK;
+            uxClock = SSI_MASTER_MAX_CLOCK;
         }
     }
     else
     {
-        u32MaxClock /= (uint32_t) 12UL;
-        if(u32Clock > u32MaxClock)
+        uxMaxClock /= (UBase_t) 12UL;
+        if(uxClock > uxMaxClock)
         {
-            u32Clock = u32MaxClock;
+            uxClock = uxMaxClock;
         }
-        if(u32Clock > SSI_SLAVE_MAX_CLOCK)
+        if(uxClock > SSI_SLAVE_MAX_CLOCK)
         {
-            u32Clock = SSI_SLAVE_MAX_CLOCK;
+            uxClock = SSI_SLAVE_MAX_CLOCK;
         }
     }
 
     do
     {
-        if(256UL > u32Divisor)
+        if(256UL > uxDivisor)
         {
-            u32Divisor++;
+            uxDivisor++;
         }
         else
         {
-            u32EvenPrediver += 2UL;
-            u32Divisor = 1UL;
-            if(u32EvenPrediver > 254UL)
+            uxEvenPrediver += 2UL;
+            uxDivisor = 1UL;
+            if(uxEvenPrediver > 254UL)
             {
                 break;
             }
         }
-        u32ClockReg = u32CurrentClock;
-        u32ClockReg /= u32Divisor;
-        u32ClockReg /= u32EvenPrediver;
-    }while(u32ClockReg > u32Clock);
+        uxClockReg = uxCurrentClock;
+        uxClockReg /= uxDivisor;
+        uxClockReg /= uxEvenPrediver;
+    }while(uxClockReg > uxClock);
 
-    u32Divisor --;
-    SSI__vSetClockEvenPrescalerPart(enModule, u32EvenPrediver);
-    SSI__vSetClockDivisorPart(enModule, u32Divisor);
+    uxDivisor --;
+    SSI__vSetClockEvenPrescalerPart(enModule, uxEvenPrediver);
+    SSI__vSetClockDivisorPart(enModule, uxDivisor);
 }
 
-uint32_t SSI__u32GetClock(SSI_nMODULE enModule)
+UBase_t SSI__uxGetClock(SSI_nMODULE enModule)
 {
     SSI_nCLOCK enSsiClock = SSI_enCLOCK_SYSCLK;
-    uint32_t u32CurrentClock = 16000000UL;
-    uint32_t u32EvenPrediver = 0UL;
-    uint32_t u32Divisor = 1UL;
+    UBase_t uxCurrentClock = 16000000UL;
+    UBase_t uxEvenPrediver = 0UL;
+    UBase_t uxDivisor = 1UL;
 
     enSsiClock = SSI__enGetClockConfig(enModule);
     if(SSI_enCLOCK_SYSCLK == enSsiClock)
     {
-        u32CurrentClock = SYSCTL__u32GetSystemClock();
+        uxCurrentClock = SYSCTL__uxGetSystemClock();
     }
     else
     {
-        u32CurrentClock = SYSCTL__u32GetAlternateClock();
+        uxCurrentClock = SYSCTL__uxGetAlternateClock();
     }
 
-    u32EvenPrediver = SSI__u32GetClockEvenPrescalerPart(enModule);
-    u32Divisor = SSI__u32GetClockDivisorPart(enModule);
-    u32Divisor++;
-    u32CurrentClock /= u32Divisor;
-    if(0UL != u32EvenPrediver)
+    uxEvenPrediver = SSI__uxGetClockEvenPrescalerPart(enModule);
+    uxDivisor = SSI__uxGetClockDivisorPart(enModule);
+    uxDivisor++;
+    uxCurrentClock /= uxDivisor;
+    if(0UL != uxEvenPrediver)
     {
-        u32CurrentClock /= u32EvenPrediver;
+        uxCurrentClock /= uxEvenPrediver;
     }
-    return (u32CurrentClock);
+    return (uxCurrentClock);
 }

@@ -26,7 +26,7 @@
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
 #if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(uint32_t) PWM_enMODULE_MAX] =
+static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX] =
 {SYSCTL_enPWM0};
 #endif
 
@@ -36,12 +36,12 @@ void PWM__vSetReady(PWM_nMODULE enModule)
 #if !defined(Opt_Check)
     PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    uint32_t u32Module = 0UL;
+    UBase_t uxModule = 0UL;
 
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
 
-    enPeripheral = SYSCTL_VECTOR_PWM[u32Module];
-    enReady = PWM__enIsReady((PWM_nMODULE) u32Module);
+    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
+    enReady = PWM__enIsReady((PWM_nMODULE) uxModule);
     if(PWM_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
@@ -54,13 +54,13 @@ void PWM__vSetReady(PWM_nMODULE enModule)
 void PWM__vClearReady(PWM_nMODULE enModule)
 {
 #if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(uint32_t) PWM_enMODULE_MAX] =
+    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX] =
     {SYSCTL_enPWM0};
 #endif
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_PWM[u32Module];
+    UBase_t uxModule = 0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
     SYSCTL__vClearReady(enPeripheral);
 }
 
@@ -69,9 +69,9 @@ PWM_nSTATUS PWM__enIsReady(PWM_nMODULE enModule)
 #if !defined(Opt_Check)
     PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    uint32_t u32Module =0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) PWM_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_PWM[u32Module];
+    UBase_t uxModule =0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
+    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
     enReady = (PWM_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
     PWM_nSTATUS enReady = PWM_enSTATUS_ACTIVE;

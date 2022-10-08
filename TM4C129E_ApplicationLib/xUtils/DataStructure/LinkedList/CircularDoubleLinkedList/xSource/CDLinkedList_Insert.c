@@ -33,7 +33,7 @@
 #define DATA_STATIC (1UL)
 
 /** TODO:
- *  Crear functiones "insert" para poder realizar combinaciones de pvData, u32Value
+ *  Crear functiones "insert" para poder realizar combinaciones de pvData, uxValue
  *
  */
 
@@ -41,15 +41,15 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
                                                         CDLinkedListItem_t* pstItem,
                                                         CDLinkedListItem_t* pstNewItem,
                                                         void* pvData,
-                                                        uint32_t u32Insert,
-                                                        uint32_t u32DataUpdate);
+                                                        UBase_t uxInsert,
+                                                        UBase_t uxDataUpdate);
 
 static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstList,
                                                         CDLinkedListItem_t* pstItem,
                                                         CDLinkedListItem_t* pstNewItem,
                                                         void* pvData,
-                                                        uint32_t u32Insert,
-                                                        uint32_t u32DataUpdate)
+                                                        UBase_t uxInsert,
+                                                        UBase_t uxDataUpdate)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstItemTemp = (CDLinkedListItem_t*) 0UL ;
@@ -57,22 +57,22 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
     CDLinkedListItem_t* pstItemPreviousNode = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstHeadItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstTailItem = (CDLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0U;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeReg = 0U;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
+        uxSizeReg = CDLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) || (0UL == uxSizeReg))
         {
-            if((uint32_t) 0UL != (uint32_t) pstNewItem)
+            if((UBase_t) 0UL != (UBase_t) pstNewItem)
             {
                 enStatus = CDLinkedList_enSTATUS_OK;
-                if(DATA_UPDATE == u32DataUpdate)
+                if(DATA_UPDATE == uxDataUpdate)
                 {
                     CDLinkedList_Item__vSetData(pstNewItem, pvData);
                 }
                 CDLinkedList_Item__vSetOwnerList(pstNewItem, (void*) pstList);
 
-                if(0UL == u32SizeReg)
+                if(0UL == uxSizeReg)
                 {
                     CDLinkedList__vSetHead(pstList, pstNewItem);
                     pstItemTemp = pstNewItem;
@@ -83,14 +83,14 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
                 }
                 else
                 {
-                    if(INSERT_NEXT == u32Insert)
+                    if(INSERT_NEXT == uxInsert)
                     {
                         pstHeadItem = CDLinkedList__pstGetHead(pstList);
                         pstItemNextNode = CDLinkedList_Item__pstGetNextItem(pstItem);
 
                         CDLinkedList_Item__vSetNextItem(pstNewItem, pstItemNextNode );
                         CDLinkedList_Item__vSetPreviousItem(pstNewItem, pstItem);
-                        if((uint32_t) pstHeadItem == (uint32_t) pstItemNextNode)
+                        if((UBase_t) pstHeadItem == (UBase_t) pstItemNextNode)
                         {
                             CDLinkedList__vSetTail(pstList, pstNewItem);
                         }
@@ -106,7 +106,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
                         CDLinkedList_Item__vSetNextItem(pstNewItem, pstItem );
                         CDLinkedList_Item__vSetPreviousItem(pstNewItem, pstItemPreviousNode);
 
-                        if((uint32_t) pstTailItem == (uint32_t) pstItemPreviousNode)
+                        if((UBase_t) pstTailItem == (UBase_t) pstItemPreviousNode)
                         {
                             CDLinkedList__vSetHead(pstList, pstNewItem);
                         }
@@ -115,8 +115,8 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
                         CDLinkedList_Item__vSetPreviousItem(pstItem, pstNewItem);
                     }
                 }
-                u32SizeReg++;
-                CDLinkedList__vSetSize(pstList, u32SizeReg);
+                uxSizeReg++;
+                CDLinkedList__vSetSize(pstList, uxSizeReg);
             }
         }
     }
@@ -145,11 +145,11 @@ CDLinkedList_nSTATUS CDLinkedList__enInsertNext(CDLinkedList_t* pstList,
 CDLinkedListItem_t* CDLinkedList__pstInsertNext_WithData(CDLinkedList_t* pstList, CDLinkedListItem_t* pstItem, void* pvData)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0U;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeReg = 0U;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
+        uxSizeReg = CDLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) || (0UL == uxSizeReg))
         {
             #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
@@ -166,11 +166,11 @@ CDLinkedListItem_t* CDLinkedList__pstInsertNext_WithData(CDLinkedList_t* pstList
 CDLinkedListItem_t* CDLinkedList__pstInsertNext(CDLinkedList_t* pstList, CDLinkedListItem_t* pstItem)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0U;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeReg = 0U;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
+        uxSizeReg = CDLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) || (0UL == uxSizeReg))
         {
             #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
@@ -207,11 +207,11 @@ CDLinkedList_nSTATUS CDLinkedList__enInsertPrevious(CDLinkedList_t* pstList,
 CDLinkedListItem_t* CDLinkedList__pstInsertPrevious_WithData(CDLinkedList_t* pstList, CDLinkedListItem_t* pstItem, void* pvData)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0U;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeReg = 0U;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
+        uxSizeReg = CDLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) || (0UL == uxSizeReg))
         {
             #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
@@ -229,11 +229,11 @@ CDLinkedListItem_t* CDLinkedList__pstInsertPrevious_WithData(CDLinkedList_t* pst
 CDLinkedListItem_t* CDLinkedList__pstInsertPrevious(CDLinkedList_t* pstList, CDLinkedListItem_t* pstItem)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
-    uint32_t u32SizeReg = 0U;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeReg = 0U;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeReg = CDLinkedList__u32GetSize(pstList);
-        if(((uint32_t) 0UL != (uint32_t) pstItem) || (0UL == u32SizeReg))
+        uxSizeReg = CDLinkedList__uxGetSize(pstList);
+        if(((UBase_t) 0UL != (UBase_t) pstItem) || (0UL == uxSizeReg))
         {
             #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewItem = (CDLinkedListItem_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedListItem_t));
@@ -253,10 +253,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLink
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             enStatus = CDLinkedList__enInsertAtTail_WithData(pstList,pstNewItem,pvData);
         }
@@ -273,10 +273,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead(CDLinkedList_t*
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             enStatus = CDLinkedList__enInsertAtTail(pstList,pstNewItem);
         }
@@ -292,10 +292,10 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertPreviousLastItemRead_WithData(CDLink
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstInsertAtTail(pstList);
         }
@@ -311,10 +311,10 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertPreviousLastItemRead(CDLinkedList_t*
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstInsertAtTail(pstList);
         }
@@ -333,10 +333,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedLi
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -350,10 +350,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead(CDLinkedList_t* pst
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -366,10 +366,10 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertNextLastItemRead_WithData(CDLinkedLi
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -382,10 +382,10 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertNextLastItemRead(CDLinkedList_t* pst
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstLastItemItem = CDLinkedList__pstGetLastItemRead(pstList);
-        if(0UL == (uint32_t) pstLastItemItem)
+        if(0UL == (UBase_t) pstLastItemItem)
         {
             pstLastItemItem = CDLinkedList__pstGetHead(pstList);
         }
@@ -400,7 +400,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail_WithData(CDLinkedList_t* pstL
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstEndItem = CDLinkedList__pstGetTail(pstList);
         enStatus = CDLinkedList__enInsertNext_WithData(pstList, pstEndItem, pstNewItem, pvData);
@@ -413,7 +413,7 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail(CDLinkedList_t* pstList,
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstEndItem = CDLinkedList__pstGetTail(pstList);
         enStatus = CDLinkedList__enInsertNext(pstList, pstEndItem, pstNewItem);
@@ -425,7 +425,7 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtTail_WithData(CDLinkedList_t* pstL
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstEndItem = CDLinkedList__pstGetTail(pstList);
         pstNewItem = CDLinkedList__pstInsertNext_WithData(pstList, pstEndItem, pvData);
@@ -437,7 +437,7 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtTail(CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstEndItem = CDLinkedList__pstGetTail(pstList);
         pstNewItem = CDLinkedList__pstInsertNext(pstList, pstEndItem);
@@ -451,7 +451,7 @@ CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead_WithData(CDLinkedList_t* pstLi
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstBeginItem = CDLinkedList__pstGetHead(pstList);
         enStatus = CDLinkedList__enInsertPrevious_WithData(pstList, pstBeginItem, pstNewItem, pvData);
@@ -464,7 +464,7 @@ CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead(CDLinkedList_t* pstList,
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstBeginItem = CDLinkedList__pstGetHead(pstList);
         enStatus = CDLinkedList__enInsertPrevious(pstList, pstBeginItem, pstNewItem);
@@ -476,7 +476,7 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtHead_WithData(CDLinkedList_t* pstL
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstBeginItem = CDLinkedList__pstGetHead(pstList);
         pstNewItem = CDLinkedList__pstInsertPrevious_WithData(pstList, pstBeginItem, pvData);
@@ -488,7 +488,7 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtHead(CDLinkedList_t* pstList)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstBeginItem = CDLinkedList__pstGetHead(pstList);
         pstNewItem = CDLinkedList__pstInsertPrevious(pstList, pstBeginItem);
@@ -498,65 +498,65 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtHead(CDLinkedList_t* pstList)
 
 CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position,
+                                            UBase_t uxPosition,
                                             void* pvData)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(u32Position <= u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(uxPosition <= uxSizeList)
         {
-            if(0UL == u32Position) /*Insert Head*/
+            if(0UL == uxPosition) /*Insert Head*/
             {
                 enStatus = CDLinkedList__enInsertAtHead_WithData(pstList, pstNewItem, pvData);
             }
-            else if(u32Position == u32SizeList) /*Insert Tail*/
+            else if(uxPosition == uxSizeList) /*Insert Tail*/
             {
                 enStatus = CDLinkedList__enInsertAtTail_WithData(pstList, pstNewItem, pvData);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(0UL == u32Direction) /*Forward*/
+                if(0UL == uxDirection) /*Forward*/
                 {
                     pstItem = CDLinkedList__pstGetHead(pstList);
-                    u32SizeOptimum --;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum --;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = CDLinkedList__enInsertNext_WithData(pstList, pstItem, pstNewItem, pvData);
                 }
                 else /*Backward*/
                 {
                     pstItem = CDLinkedList__pstGetTail(pstList);
-                    u32SizeOptimum--;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum--;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = CDLinkedList__enInsertPrevious_WithData(pstList, pstItem, pstNewItem, pvData);
                 }
@@ -568,64 +568,64 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList
 
 CDLinkedList_nSTATUS  CDLinkedList__enInsertPos(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position)
+                                            UBase_t uxPosition)
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(u32Position <= u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(uxPosition <= uxSizeList)
         {
-            if(0UL == u32Position) /*Insert Head*/
+            if(0UL == uxPosition) /*Insert Head*/
             {
                 enStatus = CDLinkedList__enInsertAtHead(pstList, pstNewItem);
             }
-            else if(u32Position == u32SizeList) /*Insert Tail*/
+            else if(uxPosition == uxSizeList) /*Insert Tail*/
             {
                 enStatus = CDLinkedList__enInsertAtTail(pstList, pstNewItem);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(0UL == u32Direction) /*Forward*/
+                if(0UL == uxDirection) /*Forward*/
                 {
                     pstItem = CDLinkedList__pstGetHead(pstList);
-                    u32SizeOptimum --;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum --;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = CDLinkedList__enInsertNext(pstList, pstItem, pstNewItem);
                 }
                 else /*Backward*/
                 {
                     pstItem = CDLinkedList__pstGetTail(pstList);
-                    u32SizeOptimum--;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum--;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     enStatus = CDLinkedList__enInsertPrevious(pstList, pstItem, pstNewItem);
                 }
@@ -636,64 +636,64 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPos(CDLinkedList_t* pstList,
 }
 
 
-CDLinkedListItem_t*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_t* pstList, uint32_t u32Position, void* pvData)
+CDLinkedListItem_t*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_t* pstList, UBase_t uxPosition, void* pvData)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(u32Position <= u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(uxPosition <= uxSizeList)
         {
-            if(0UL == u32Position) /*Insert Head*/
+            if(0UL == uxPosition) /*Insert Head*/
             {
                 pstNewItem = CDLinkedList__pstInsertAtHead_WithData(pstList, pvData);
             }
-            else if(u32Position == u32SizeList) /*Insert Tail*/
+            else if(uxPosition == uxSizeList) /*Insert Tail*/
             {
                 pstNewItem = CDLinkedList__pstInsertAtTail_WithData(pstList, pvData);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(u32Direction == 0UL) /*Forward*/
+                if(uxDirection == 0UL) /*Forward*/
                 {
                     pstItem = CDLinkedList__pstGetHead(pstList);
-                    u32SizeOptimum --;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum --;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     pstNewItem = CDLinkedList__pstInsertNext_WithData(pstList, pstItem, pvData);
                 }
                 else /*Backward*/
                 {
                     pstItem = CDLinkedList__pstGetTail(pstList);
-                    u32SizeOptimum--;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum--;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     pstNewItem = CDLinkedList__pstInsertPrevious_WithData(pstList, pstItem, pvData);
                 }
@@ -704,64 +704,64 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_t* pstList
 }
 
 
-CDLinkedListItem_t*  CDLinkedList__pstInsertPos(CDLinkedList_t* pstList, uint32_t u32Position)
+CDLinkedListItem_t*  CDLinkedList__pstInsertPos(CDLinkedList_t* pstList, UBase_t uxPosition)
 {
     CDLinkedListItem_t* pstNewItem = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32SizeList = 0UL;
-    uint32_t u32SizeForward = 0UL;
-    uint32_t u32SizeBackward = 0UL;
-    uint32_t u32SizeOptimum = 0UL;
-    uint32_t u32Direction = 0UL;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    UBase_t uxSizeList = 0UL;
+    UBase_t uxSizeForward = 0UL;
+    UBase_t uxSizeBackward = 0UL;
+    UBase_t uxSizeOptimum = 0UL;
+    UBase_t uxDirection = 0UL;
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(u32Position <= u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(uxPosition <= uxSizeList)
         {
-            if(0UL == u32Position) /*Insert Head*/
+            if(0UL == uxPosition) /*Insert Head*/
             {
                 pstNewItem = CDLinkedList__pstInsertAtHead(pstList);
             }
-            else if(u32Position == u32SizeList) /*Insert Tail*/
+            else if(uxPosition == uxSizeList) /*Insert Tail*/
             {
                 pstNewItem = CDLinkedList__pstInsertAtTail(pstList);
             }
             else
             {
-                u32SizeBackward = u32SizeList - u32Position;
+                uxSizeBackward = uxSizeList - uxPosition;
 
-                u32SizeForward = u32Position;
+                uxSizeForward = uxPosition;
 
-                if(u32SizeForward > u32SizeBackward)
+                if(uxSizeForward > uxSizeBackward)
                 {
-                    u32SizeOptimum = u32SizeBackward;
-                    u32Direction = 1UL;
+                    uxSizeOptimum = uxSizeBackward;
+                    uxDirection = 1UL;
                 }
                 else
                 {
-                    u32SizeOptimum = u32SizeForward;
-                    u32Direction = 0UL;
+                    uxSizeOptimum = uxSizeForward;
+                    uxDirection = 0UL;
                 }
 
-                if(u32Direction == 0UL) /*Forward*/
+                if(uxDirection == 0UL) /*Forward*/
                 {
                     pstItem = CDLinkedList__pstGetHead(pstList);
-                    u32SizeOptimum --;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum --;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetNextItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     pstNewItem = CDLinkedList__pstInsertNext(pstList, pstItem);
                 }
                 else /*Backward*/
                 {
                     pstItem = CDLinkedList__pstGetTail(pstList);
-                    u32SizeOptimum--;
-                    while(0UL != u32SizeOptimum)
+                    uxSizeOptimum--;
+                    while(0UL != uxSizeOptimum)
                     {
                         pstItem = CDLinkedList_Item__pstGetPreviousItem(pstItem);
-                        u32SizeOptimum--;
+                        uxSizeOptimum--;
                     }
                     pstNewItem = CDLinkedList__pstInsertPrevious(pstList, pstItem);
                 }
@@ -781,32 +781,32 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedLis
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstItemAux = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32NewItemValueReg = 0UL;
-    uint32_t u32ItemValueReg = 0UL;
-    uint32_t u32SizeList = 0UL;
-    if(( 0UL != (uint32_t) pstList) && ( 0UL != (uint32_t) pstNewItem))
+    UBase_t uxNewItemValueReg = 0UL;
+    UBase_t uxItemValueReg = 0UL;
+    UBase_t uxSizeList = 0UL;
+    if(( 0UL != (UBase_t) pstList) && ( 0UL != (UBase_t) pstNewItem))
     {
 
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(0UL == u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(0UL == uxSizeList)
         {
             enStatus =  CDLinkedList__enInsertAtHead(pstList, pstNewItem);
         }
         else
         {
-            u32NewItemValueReg = CDLinkedList_Item__u32GetValue(pstNewItem);
+            uxNewItemValueReg = CDLinkedList_Item__uxGetValue(pstNewItem);
 
             pstItem = CDLinkedList__pstGetHead(pstList);
-            u32ItemValueReg = CDLinkedList_Item__u32GetValue(pstItem);
-            u32SizeList--;
-            while((0UL != u32SizeList) && (u32ItemValueReg > u32NewItemValueReg))
+            uxItemValueReg = CDLinkedList_Item__uxGetValue(pstItem);
+            uxSizeList--;
+            while((0UL != uxSizeList) && (uxItemValueReg > uxNewItemValueReg))
             {
                 pstItemAux = pstItem;
                 pstItem = CDLinkedList_Item__pstGetNextItem(pstItemAux);
-                u32ItemValueReg = CDLinkedList_Item__u32GetValue(pstItem);
-                u32SizeList--;
+                uxItemValueReg = CDLinkedList_Item__uxGetValue(pstItem);
+                uxSizeList--;
             }
-            if(u32ItemValueReg >= u32NewItemValueReg)
+            if(uxItemValueReg >= uxNewItemValueReg)
             {
                 enStatus = CDLinkedList__enInsertNext(pstList,pstItem, pstNewItem);
             }
@@ -826,32 +826,32 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertInAscendingOrderByValue(CDLinkedList
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstItemAux = (CDLinkedListItem_t*) 0UL;
-    uint32_t u32NewItemValueReg = 0UL;
-    uint32_t u32ItemValueReg = 0UL;
-    uint32_t u32SizeList = 0UL;
-    if(( 0UL != (uint32_t) pstList) && ( 0UL != (uint32_t) pstNewItem))
+    UBase_t uxNewItemValueReg = 0UL;
+    UBase_t uxItemValueReg = 0UL;
+    UBase_t uxSizeList = 0UL;
+    if(( 0UL != (UBase_t) pstList) && ( 0UL != (UBase_t) pstNewItem))
     {
 
-        u32SizeList = CDLinkedList__u32GetSize(pstList);
-        if(0UL == u32SizeList)
+        uxSizeList = CDLinkedList__uxGetSize(pstList);
+        if(0UL == uxSizeList)
         {
             enStatus =  CDLinkedList__enInsertAtHead(pstList, pstNewItem);
         }
         else
         {
-            u32NewItemValueReg = CDLinkedList_Item__u32GetValue(pstNewItem);
+            uxNewItemValueReg = CDLinkedList_Item__uxGetValue(pstNewItem);
 
             pstItem = CDLinkedList__pstGetHead(pstList);
-            u32ItemValueReg = CDLinkedList_Item__u32GetValue(pstItem);
-            u32SizeList--;
-            while((0UL != u32SizeList) && (u32ItemValueReg < u32NewItemValueReg))
+            uxItemValueReg = CDLinkedList_Item__uxGetValue(pstItem);
+            uxSizeList--;
+            while((0UL != uxSizeList) && (uxItemValueReg < uxNewItemValueReg))
             {
                 pstItemAux = pstItem;
                 pstItem = CDLinkedList_Item__pstGetNextItem(pstItemAux);
-                u32ItemValueReg = CDLinkedList_Item__u32GetValue(pstItem);
-                u32SizeList--;
+                uxItemValueReg = CDLinkedList_Item__uxGetValue(pstItem);
+                uxSizeList--;
             }
-            if(u32ItemValueReg <= u32NewItemValueReg)
+            if(uxItemValueReg <= uxNewItemValueReg)
             {
                 enStatus = CDLinkedList__enInsertNext(pstList,pstItem, pstNewItem);
             }

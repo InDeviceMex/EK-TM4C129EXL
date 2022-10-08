@@ -30,7 +30,7 @@
 NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE* penStateArg)
 {
     NVIC_nERROR enErrorReg;
-    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t*) penStateArg);
+    enErrorReg = NVIC__enReadValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (UBase_t*) penStateArg);
     return (enErrorReg);
 }
 
@@ -39,11 +39,11 @@ NVIC_nERROR NVIC__enSetPendingVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR
     NVIC_nERROR enErrorReg;
     if(NVIC_enNOPENDING == enStateArg)
     {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
     }
     else
     {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (uint32_t) NVIC_enSTATE_ENA);
+        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
     }
     return (enErrorReg);
 

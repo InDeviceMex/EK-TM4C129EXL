@@ -28,49 +28,49 @@
 
 void UART__vSet9BitMode(UART_nMODULE enModule, UART_n9BIT en9BitArg)
 {
-    UART__vWriteRegister(enModule, UART_9BITADDR_OFFSET, (uint32_t) en9BitArg,
+    UART__vWriteRegister(enModule, UART_9BITADDR_OFFSET, (UBase_t) en9BitArg,
                          UART_9BITADDR_BIT9EN_MASK, UART_9BITADDR_R_BIT9EN_BIT);
 }
 
 UART_n9BIT UART__enGet9BitMode(UART_nMODULE enModule)
 {
     UART_n9BIT en9BitReg = UART_en9BIT_DIS;
-    en9BitReg = (UART_n9BIT) UART__u32ReadRegister(enModule, UART_9BITADDR_OFFSET,
+    en9BitReg = (UART_n9BIT) UART__uxReadRegister(enModule, UART_9BITADDR_OFFSET,
                                UART_9BITADDR_BIT9EN_MASK, UART_9BITADDR_R_BIT9EN_BIT);
     return (en9BitReg);
 }
 
-void UART__vSetSelfAddress(UART_nMODULE enModule, uint32_t u32AddressArg)
+void UART__vSetSelfAddress(UART_nMODULE enModule, UBase_t uxAddressArg)
 {
-    UART__vWriteRegister(enModule, UART_9BITADDR_OFFSET, u32AddressArg,
+    UART__vWriteRegister(enModule, UART_9BITADDR_OFFSET, uxAddressArg,
                          UART_9BITADDR_ADDR_MASK, UART_9BITADDR_R_ADDR_BIT);
 }
 
-uint32_t UART__u32GetSelfAddress(UART_nMODULE enModule)
+UBase_t UART__uxGetSelfAddress(UART_nMODULE enModule)
 {
-    uint32_t u32AddressReg = 0UL;
-    u32AddressReg = UART__u32ReadRegister(enModule, UART_9BITADDR_OFFSET,
+    UBase_t uxAddressReg = 0UL;
+    uxAddressReg = UART__uxReadRegister(enModule, UART_9BITADDR_OFFSET,
                               UART_9BITADDR_ADDR_MASK, UART_9BITADDR_R_ADDR_BIT);
-    return (u32AddressReg);
+    return (uxAddressReg);
 }
 
-void UART__vSetSelfAddressMask(UART_nMODULE enModule, uint32_t u32AddressMaskArg)
+void UART__vSetSelfAddressMask(UART_nMODULE enModule, UBase_t uxAddressMaskArg)
 {
-    UART__vWriteRegister(enModule, UART_9BITAMASK_OFFSET, u32AddressMaskArg,
+    UART__vWriteRegister(enModule, UART_9BITAMASK_OFFSET, uxAddressMaskArg,
                          UART_9BITAMASK_MASK_MASK, UART_9BITAMASK_R_MASK_BIT);
 }
 
-uint32_t UART__u32GetSelfAddressMask(UART_nMODULE enModule)
+UBase_t UART__uxGetSelfAddressMask(UART_nMODULE enModule)
 {
-    uint32_t u32AddressMaskReg = 0UL;
-    u32AddressMaskReg = UART__u32ReadRegister(enModule, UART_9BITAMASK_OFFSET,
+    UBase_t uxAddressMaskReg = 0UL;
+    uxAddressMaskReg = UART__uxReadRegister(enModule, UART_9BITAMASK_OFFSET,
                                   UART_9BITAMASK_MASK_MASK, UART_9BITAMASK_R_MASK_BIT);
-    return (u32AddressMaskReg);
+    return (uxAddressMaskReg);
 }
 
-void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, uint32_t  u32AddressArg,
-                                   uint32_t  u32AddressMaskArg)
+void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, UBase_t  uxAddressArg,
+                                   UBase_t  uxAddressMaskArg)
 {
-    UART__vSetSelfAddress(enModule, u32AddressArg);
-    UART__vSetSelfAddressMask(enModule, u32AddressMaskArg);
+    UART__vSetSelfAddress(enModule, uxAddressArg);
+    UART__vSetSelfAddressMask(enModule, uxAddressMaskArg);
 }

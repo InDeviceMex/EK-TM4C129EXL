@@ -30,7 +30,7 @@ void WDT__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
 {
     SCB_nVECISR enVector = SCB_enVECISR_WDT01;
 
-    if(0UL != (uint32_t) pfIrqVectorHandler)
+    if(0UL != (UBase_t) pfIrqVectorHandler)
     {
         SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, WDT__pvfGetIRQVectorHandlerPointer());
     }

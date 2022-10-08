@@ -25,113 +25,108 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-void PWM_Generator__vSetCompareAPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg)
+PWM_nERROR PWM_Generator__enSetComparePorcentageByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t uxPorcentageArg)
 {
-    uint32_t u32PercentageReg = 0UL;
-    uint32_t u32LoadReg = 0UL;
-    uint32_t u32CompareReg = 0UL;
+    UBase_t uxLoadReg;
+    UBase_t uxCompareReg;
+    PWM_nERROR enErrorReg;
 
-    u32PercentageReg = MCU__u32CheckParams(u32CompareArg, 100UL + 1UL);
-    u32LoadReg = PWM_Generator__u32GetLoad(enModule, enGenerator);
-    u32LoadReg++;
-    u32CompareReg = u32PercentageReg;
-    u32CompareReg *= u32LoadReg;
-    u32CompareReg /= 100UL;
-    u32CompareReg--;
-    PWM_Generator__vSetCompareA(enModule, enGenerator, u32CompareReg);
-}
-
-uint32_t PWM_Generator__u32GetCompareAPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
-{
-    uint32_t u32PercentageReg = 0UL;
-    uint32_t u32LoadReg = 0UL;
-    uint32_t u32CompareReg = 0UL;
-
-    u32LoadReg = PWM_Generator__u32GetLoad(enModule, enGenerator);
-    u32LoadReg++;
-    u32CompareReg = PWM_Generator__u32GetCompareA(enModule, enGenerator);
-    u32CompareReg++;
-    u32PercentageReg = u32CompareReg;
-    u32PercentageReg *= 100UL;
-    u32PercentageReg /= u32LoadReg;
-    return (u32PercentageReg);
-}
-
-void PWM_Generator__vSetCompareBPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             uint32_t u32CompareArg)
-{
-    uint32_t u32PercentageReg = 0UL;
-    uint32_t u32LoadReg = 0UL;
-    uint32_t u32CompareReg = 0UL;
-
-    u32PercentageReg = MCU__u32CheckParams(u32CompareArg, 100UL + 1UL);
-    u32LoadReg = PWM_Generator__u32GetLoad(enModule, enGenerator);
-    u32LoadReg++;
-    u32CompareReg = u32PercentageReg;
-    u32CompareReg *= u32LoadReg;
-    u32CompareReg /= 100UL;
-    u32CompareReg--;
-    PWM_Generator__vSetCompareB(enModule, enGenerator, u32CompareReg);
-}
-
-uint32_t PWM_Generator__u32GetCompareBPercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator)
-{
-    uint32_t u32PercentageReg = 0UL;
-    uint32_t u32LoadReg = 0UL;
-    uint32_t u32CompareReg = 0UL;
-
-    u32LoadReg = PWM_Generator__u32GetLoad(enModule, enGenerator);
-    u32LoadReg++;
-    u32CompareReg = PWM_Generator__u32GetCompareB(enModule, enGenerator);
-    u32CompareReg++;
-    u32PercentageReg = u32CompareReg;
-    u32PercentageReg *= 100UL;
-    u32PercentageReg /= u32LoadReg;
-    return (u32PercentageReg);
-}
-
-
-void PWM_Generator__vSetComparePercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                             PWM_nOUTPUT enOutputArg, uint32_t u32CompareArg)
-{
-    switch(enOutputArg)
+    uxLoadReg = 0UL;
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) uxPorcentageArg, (100UL + 1UL));
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            PWM_Generator__vSetCompareAPercentage(enModule, enGenerator, u32CompareArg);
-            break;
-        case PWM_enOUTPUT_B:
-            PWM_Generator__vSetCompareBPercentage(enModule, enGenerator, u32CompareArg);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            PWM_Generator__vSetCompareAPercentage(enModule, enGenerator, u32CompareArg);
-            PWM_Generator__vSetCompareBPercentage(enModule, enGenerator, u32CompareArg);
-            break;
-        default:
-            break;
+        enErrorReg = PWM_Generator__enGetLoadValueByNumber(enModuleArg, enGeneratorArg, &uxLoadReg);
     }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxLoadReg++;
+        uxCompareReg = uxPorcentageArg;
+        uxCompareReg *= uxLoadReg;
+        uxCompareReg /= 100UL;
+        if(0UL != uxCompareReg)
+        {
+            uxCompareReg--;
+        }
+        enErrorReg = PWM_Generator__enSetCompareValueByNumber(enModuleArg, enGeneratorArg, enOutputArg, uxCompareReg);
+    }
+    return (enErrorReg);
 }
 
-uint32_t PWM_Generator__u32GetComparePercentage(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                      PWM_nOUTPUT enOutputArg)
+PWM_nERROR PWM_Generator__enSetComparePorcentageByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nOUTPUT enOutputArg, UBase_t uxPorcentageArg)
 {
-    uint32_t u32CompareReg = 0UL;
-    switch(enOutputArg)
+    UBase_t uxGenMaskReg;
+    UBase_t uxGenerator;
+    PWM_nERROR enErrorReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        case PWM_enOUTPUT_NONE:
-            break;
-        case PWM_enOUTPUT_A:
-            u32CompareReg = PWM_Generator__u32GetCompareAPercentage(enModule, enGenerator);
-            break;
-        case PWM_enOUTPUT_B:
-            u32CompareReg = PWM_Generator__u32GetCompareBPercentage(enModule, enGenerator);
-            break;
-        case PWM_enOUTPUT_BOTH:
-            break;
-        default:
-            break;
+        uxGenerator = 0UL;
+        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
+        {
+            if(0UL != (1UL & uxGenMaskReg))
+            {
+                enErrorReg = PWM_Generator__enSetComparePorcentageByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, enOutputArg, uxPorcentageArg);
+            }
+            uxGenMaskReg >>= 1UL;
+            uxGenerator++;
+        }
     }
-    return (u32CompareReg);
+    return (enErrorReg);
+}
+
+
+PWM_nERROR PWM_Generator__enGetComparePorcentageByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nOUTPUT enOutputArg, UBase_t* puxPorcentageArg)
+{
+    UBase_t uxLoadReg;
+    UBase_t uxPercentageReg[2UL];
+    UBase_t uxCompareReg[2UL];
+    PWM_nERROR enErrorReg;
+
+    uxLoadReg = 0UL;
+    uxCompareReg[0UL] = 0UL;
+    uxCompareReg[1UL] = 0UL;
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) puxPorcentageArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enOutputArg, (UBase_t) PWM_enOUTPUT_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = PWM_Generator__enGetLoadValueByNumber(enModuleArg, enGeneratorArg, &uxLoadReg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = PWM_Generator__enGetCompareValueByNumber(enModuleArg, enGeneratorArg, enOutputArg, uxCompareReg);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        uxLoadReg++;
+
+        if(0UL != ((UBase_t) PWM_enOUTPUT_A & (UBase_t) enOutputArg))
+        {
+            uxCompareReg[0UL] += 1UL;
+            uxPercentageReg[0UL] = uxCompareReg[0UL];
+            uxPercentageReg[0UL] *= 100UL;
+            uxPercentageReg[0UL] /= uxLoadReg;
+            *puxPorcentageArg = (UBase_t) uxPercentageReg[0UL];
+            puxPorcentageArg += 1UL;
+        }
+
+        if(0UL != ((UBase_t) PWM_enOUTPUT_B & (UBase_t) enOutputArg))
+        {
+            uxCompareReg[1UL] += 1UL;
+            uxPercentageReg[1UL] = uxCompareReg[1UL];
+            uxPercentageReg[1UL] *= 100UL;
+            uxPercentageReg[1UL] /= uxLoadReg;
+            *puxPorcentageArg = (UBase_t) uxPercentageReg[1UL];
+            puxPorcentageArg += 1UL;
+        }
+    }
+    return (enErrorReg);
 }

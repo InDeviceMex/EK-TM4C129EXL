@@ -33,14 +33,14 @@
 #pragma  CODE_SECTION(FLASH__enPageEraseBySector, ".ramcode")
 #pragma  CODE_SECTION(FLASH__enMassErase, ".ramcode")
 
-FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg);
-FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, uint32_t u32SectorArg);
+FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg);
+FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, UBase_t uxSectorArg);
 FLASH_nERROR FLASH__enMassErase(FLASH_nMODULE enModuleArg);
 
 #elif defined (__GNUC__ )
 
-FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, uint32_t u32SectorArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageEraseByAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enPageEraseBySector(FLASH_nMODULE enModuleArg, UBase_t uxSectorArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enMassErase(FLASH_nMODULE enModuleArg) __attribute__((section(".ramcode")));
 
 #endif

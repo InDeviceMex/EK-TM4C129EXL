@@ -28,14 +28,14 @@
 
 void TIMER__vSetAltMode(TIMER_nMODULE enModule, TIMER_nALT_MODE enAltModeVar)
 {
-    TIMER__vSetModeGeneric(enModule, (uint32_t) enAltModeVar,
+    TIMER__vSetModeGeneric(enModule, (UBase_t) enAltModeVar,
                            GPTM_TA_TnMR_TnAMS_MASK, GPTM_TA_TnMR_R_TnAMS_BIT);
 }
 
 TIMER_nALT_MODE TIMER__enGetAltMode(TIMER_nMODULE enModule)
 {
     TIMER_nALT_MODE enAltModeReg = TIMER_enALT_MODE_CC;
-    enAltModeReg = (TIMER_nALT_MODE) TIMER__u32GetModeGeneric(enModule, GPTM_TA_TnMR_TnAMS_MASK,
+    enAltModeReg = (TIMER_nALT_MODE) TIMER__uxGetModeGeneric(enModule, GPTM_TA_TnMR_TnAMS_MASK,
                                                           GPTM_TA_TnMR_R_TnAMS_BIT);
     return (enAltModeReg);
 }

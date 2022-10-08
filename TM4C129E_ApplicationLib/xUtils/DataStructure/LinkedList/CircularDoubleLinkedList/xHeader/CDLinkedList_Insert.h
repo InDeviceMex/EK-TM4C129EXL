@@ -91,13 +91,13 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtHead(CDLinkedList_t* pstList);
 
 CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position,
+                                            UBase_t uxPosition,
                                             void* pvData);
 CDLinkedList_nSTATUS  CDLinkedList__enInsertPos(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
-                                            uint32_t u32Position);
-CDLinkedListItem_t*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_t* pstList, uint32_t u32Position, void* pvData);
-CDLinkedListItem_t*  CDLinkedList__pstInsertPos(CDLinkedList_t* pstList, uint32_t u32Position);
+                                            UBase_t uxPosition);
+CDLinkedListItem_t*  CDLinkedList__pstInsertPos_WithData(CDLinkedList_t* pstList, UBase_t uxPosition, void* pvData);
+CDLinkedListItem_t*  CDLinkedList__pstInsertPos(CDLinkedList_t* pstList, UBase_t uxPosition);
 
 
 CDLinkedList_nSTATUS  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedList_t* pstList,

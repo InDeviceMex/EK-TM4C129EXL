@@ -28,15 +28,15 @@
 
 SYSTICK_nERROR SYSTICK__enRegisterIRQVectorHandler(SYSTICK_nMODULE enModuleArg, SYSTICK_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    const SCB_nVECISR SCB_enVECISR[(uint32_t) SYSTICK_enMODULE_MAX]= { SCB_enVECISR_SYSTICK };
+    const SCB_nVECISR SCB_enVECISR[(UBase_t) SYSTICK_enMODULE_MAX]= { SCB_enVECISR_SYSTICK };
     SCB_nVECISR enVectorReg;
     SYSTICK_nERROR enErrorReg;
     SYSTICK_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SYSTICK_enMODULE_MAX);
+    enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSTICK_enMODULE_MAX);
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        enVectorReg = SCB_enVECISR[(uint32_t) enModuleArg];
+        enVectorReg = SCB_enVECISR[(UBase_t) enModuleArg];
         pvfVectorHandlerReg = SYSTICK__pvfGetIRQVectorHandlerPointer(enModuleArg);
         enErrorReg = (SYSTICK_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }

@@ -25,17 +25,17 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 
-SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enReverse(SLinkedList_t* pstList)
 {
-    SLinkedList_nSTATUS enStatus = SLinkedList_enSTATUS_ERROR;
+    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
     SLinkedListItem_t* pstPreviousItem = (SLinkedListItem_t*) 0UL ;
     SLinkedListItem_t* pstNextItemReg = (SLinkedListItem_t*) 0UL ;
     SLinkedListItem_t* pstHeadItem = (SLinkedListItem_t*) 0UL ;
-    if(((uint32_t) 0UL != (uint32_t) pstList))
+    if(((UBase_t) 0UL != (UBase_t) pstList))
     {
         pstHeadItem = SLinkedList__pstGetHead(pstList);
         SLinkedList__vSetTail(pstList, pstHeadItem);
-        while((uint32_t) 0UL != (uint32_t) pstHeadItem)
+        while((UBase_t) 0UL != (UBase_t) pstHeadItem)
         {
             pstNextItemReg = SLinkedList_Item__pstGetNextItem(pstHeadItem);
             SLinkedList_Item__vSetNextItem(pstHeadItem, pstPreviousItem);

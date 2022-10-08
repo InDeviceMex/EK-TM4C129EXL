@@ -24,7 +24,7 @@
 #include <xApplication_MCU/GPIO/Interrupt/InterruptRoutine/GPIO_InterruptRoutine.h>
 
 
-GPIO_pvfIRQVectorHandler_t GPIO_pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX] =
+GPIO_pvfIRQVectorHandler_t GPIO_pvIRQVectorHandler[(UBase_t) GPIO_enPORT_MAX] =
 {
     &GPIOA__vIRQVectorHandler, &GPIOB__vIRQVectorHandler, &GPIOC__vIRQVectorHandler, &GPIOD__vIRQVectorHandler, &GPIOE__vIRQVectorHandler,
     &GPIOF__vIRQVectorHandler, &GPIOG__vIRQVectorHandler, &GPIOH__vIRQVectorHandler, &GPIOJ__vIRQVectorHandler, &GPIOK__vIRQVectorHandler,
@@ -32,7 +32,7 @@ GPIO_pvfIRQVectorHandler_t GPIO_pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX] =
 };
 
 
-GPIO_pvfIRQVectorHandler_t GPIO_PQ_pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX - (uint32_t) GPIO_enPORT_P] [(uint32_t) GPIO_enPIN_MAX] =
+GPIO_pvfIRQVectorHandler_t GPIO_PQ_pvIRQVectorHandler[(UBase_t) GPIO_enPORT_MAX - (UBase_t) GPIO_enPORT_P] [(UBase_t) GPIO_enPIN_MAX] =
 {
     {
         &GPIOP__vIRQVectorHandler , &GPIOP1__vIRQVectorHandler, &GPIOP2__vIRQVectorHandler, &GPIOP3__vIRQVectorHandler,
@@ -47,14 +47,14 @@ GPIO_pvfIRQVectorHandler_t GPIO_PQ_pvIRQVectorHandler[(uint32_t) GPIO_enPORT_MAX
 GPIO_pvfIRQVectorHandler_t GPIO__pvfGetIRQVectorHandler(GPIO_nPORT enPortArg)
 {
     GPIO_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = GPIO_pvIRQVectorHandler[(uint32_t) enPortArg];
+    pvfVectorReg = GPIO_pvIRQVectorHandler[(UBase_t) enPortArg];
     return (pvfVectorReg);
 }
 
 GPIO_pvfIRQVectorHandler_t* GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enPortArg)
 {
     GPIO_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &GPIO_pvIRQVectorHandler[(uint32_t) enPortArg];
+    pvfVectorReg = &GPIO_pvIRQVectorHandler[(UBase_t) enPortArg];
     return (pvfVectorReg);
 }
 
@@ -62,13 +62,13 @@ GPIO_pvfIRQVectorHandler_t* GPIO__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enPor
 GPIO_pvfIRQVectorHandler_t GPIO_PQ__pvfGetIRQVectorHandler(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQVectorHandler_t pvfVectorReg;
-    pvfVectorReg = GPIO_PQ_pvIRQVectorHandler[(uint32_t) enPortArg][(uint32_t) enPinArg];
+    pvfVectorReg = GPIO_PQ_pvIRQVectorHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfVectorReg);
 }
 
 GPIO_pvfIRQVectorHandler_t* GPIO_PQ__pvfGetIRQVectorHandlerPointer(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQVectorHandler_t* pvfVectorReg;
-    pvfVectorReg = &GPIO_PQ_pvIRQVectorHandler[(uint32_t) enPortArg][(uint32_t) enPinArg];
+    pvfVectorReg = &GPIO_PQ_pvIRQVectorHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfVectorReg);
 }

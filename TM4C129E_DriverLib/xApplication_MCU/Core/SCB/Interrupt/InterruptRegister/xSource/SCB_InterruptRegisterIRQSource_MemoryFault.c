@@ -32,10 +32,10 @@ SCB_nERROR SCB_MemoryFault__enRegisterIRQSourceHandler(SCB_nMODULE enModuleArg, 
     SCB_pvfIRQSourceHandler_t* pvfIrqHandler;
     SCB_nERROR enErrorReg;
 
-    enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enModuleArg, (uint32_t) SCB_enMODULE_MAX);
+    enErrorReg = (SCB_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SCB_enMODULE_MAX);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SCB_nERROR) MCU__enCheckParams((uint32_t) enInterrupArg, (uint32_t) SCB_enMEMORY_BIT_MAX);
+        enErrorReg = (SCB_nERROR) MCU__enCheckParams((UBase_t) enInterrupArg, (UBase_t) SCB_enMEMORY_BIT_MAX);
     }
     if(SCB_enERROR_OK == enErrorReg)
     {

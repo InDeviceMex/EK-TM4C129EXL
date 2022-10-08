@@ -32,9 +32,9 @@ CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataC
 #elif defined (__GNUC__ )
     pstList = (CDLinkedList_t*) malloc(sizeof(CDLinkedList_t));
 #endif
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        pstList->u32Size = 0UL;
+        pstList->uxSize = 0UL;
         pstList->pvfDestroy = &free;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;
@@ -51,10 +51,10 @@ CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_t* pstList,
                                           void (*pvfDestroyItemArg) (void *Item))
 {
     CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
-    if((uint32_t) 0UL != (uint32_t) pstList)
+    if((UBase_t) 0UL != (UBase_t) pstList)
     {
         enStatus = CDLinkedList_enSTATUS_OK;
-        pstList->u32Size = 0UL;
+        pstList->uxSize = 0UL;
         pstList->pvfDestroy = (void (*) (void* List))0UL;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;

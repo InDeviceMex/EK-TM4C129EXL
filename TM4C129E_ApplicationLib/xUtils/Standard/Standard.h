@@ -32,12 +32,27 @@ typedef float float32_t;
 typedef double float64_t;
 typedef long double float128_t;
 
+#define UNDEF_VALUE (0x7FFFFFFFUL)
+
 /*boolean variables*/
 typedef enum
 {
     FALSE = 0UL,
     TRUE = 1UL,
 }boolean_t;
+
+typedef enum
+{
+    ERROR_OK = 0UL,
+    ERROR_POINTER = 1UL,
+    ERROR_VALUE = 2UL,
+    ERROR_RANGE = 3UL,
+    ERROR_EMPTY = 4UL,
+    ERROR_BUSY = 5UL,
+    ERROR_TIMEOUT = 6UL,
+    ERROR_OUT_OF_RANGE = 7UL,
+    ERROR_UNDEF = UNDEF_VALUE,
+}error_t;
 
 typedef unsigned int UBase_t;
 typedef unsigned int pointer_t;

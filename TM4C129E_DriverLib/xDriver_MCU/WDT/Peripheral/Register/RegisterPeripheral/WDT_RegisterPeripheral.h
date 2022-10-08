@@ -30,6 +30,6 @@
 
 #define WDT    ((WDTS_t*) (WDT_BASE))
 
-uint32_t WDT__u32BlockBaseAddress(WDT_nMODULE enModuleArg);
+UBase_t WDT__uxBlockBaseAddress(WDT_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_REGISTER_WDT_REGISTERPERIPHERAL_WDT_REGISTERPERIPHERAL_H_ */

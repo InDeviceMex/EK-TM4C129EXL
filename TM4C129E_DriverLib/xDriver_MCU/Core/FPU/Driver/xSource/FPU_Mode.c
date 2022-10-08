@@ -29,13 +29,13 @@
 
 void FPU__vSetMode(FPU_nMODULE enModuleArg, FPU_nMODE enModeArg)
 {
-    MCU__vFPUStatusControlMask(FPU_DSCR_R_FZ_MASK, (uint32_t) enModeArg);
+    MCU__vFPUStatusControlMask(FPU_DSCR_R_FZ_MASK, (UBase_t) enModeArg);
 }
 
 FPU_nMODE FPU__enGetMode(FPU_nMODULE enModuleArg)
 {
     FPU_nMODE enModeReg;
-    enModeReg = (FPU_nMODE) MCU__u32GetFPUStatusControlBit(FPU_DSCR_R_FZ_BIT);
+    enModeReg = (FPU_nMODE) MCU__uxGetFPUStatusControlBit(FPU_DSCR_R_FZ_BIT);
     return (enModeReg);
 }
 
@@ -51,14 +51,14 @@ FPU_nERROR FPU__enGetModeDefault(FPU_nMODULE enModuleArg, FPU_nMODE* penModeArg)
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FPU_DSCR_R_FZ_BIT;
-        stRegister.u32Mask = FPU_DSCR_FZ_MASK;
+        stRegister.uxShift = FPU_DSCR_R_FZ_BIT;
+        stRegister.uxMask = FPU_DSCR_FZ_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        *penModeArg = (FPU_nMODE) stRegister.u32Value;
+        *penModeArg = (FPU_nMODE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

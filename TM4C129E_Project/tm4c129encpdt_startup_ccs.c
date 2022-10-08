@@ -46,7 +46,7 @@ extern void SYSTICKHandler(void);
 /**/
 /*******************************************************************************/
 extern void _c_int00(void);
-extern uint32_t main(void);
+extern UBase_t main(void);
 
 /*******************************************************************************/
 /**/
@@ -74,7 +74,7 @@ uint8_t pui32MainStack[0x00000200UL - 8UL];
 #pragma DATA_SECTION(g_pfnVectors, ".intvecs")
 void (* const g_pfnVectors[130UL])(void) =
 {
- (void (*)(void))((uint32_t)((uint32_t)pui32MainStack + sizeof(pui32MainStack))),
+ (void (*)(void))((UBase_t)((UBase_t)pui32MainStack + sizeof(pui32MainStack))),
 #elif defined (__GNUC__ )
 
 /*******************************************************************************/
@@ -82,7 +82,7 @@ void (* const g_pfnVectors[130UL])(void) =
 /* The entry point for the application.*/
 /**/
 /*******************************************************************************/
-extern uint32_t main(void);
+extern UBase_t main(void);
 
 /*******************************************************************************/
 /**/
@@ -107,7 +107,7 @@ uint8_t pui32MainStack[0x00000800UL] __attribute__((section(".stack")));
 __attribute__ ((section(".intvecs")))
 void (* const g_pfnVectors[130UL])(void) =
 {
-    (void (*)(void))((uint32_t)(pui32MainStack + sizeof(pui32MainStack))),
+    (void (*)(void))((UBase_t)(pui32MainStack + sizeof(pui32MainStack))),
 #endif
                                              /* The initial stack pointer*/
     &ResetISR,                               /* The reset handler*/
@@ -248,16 +248,16 @@ void (* const g_pfnVectors[130UL])(void) =
 /* for the "data" segment resides immediately following the "text" segment.*/
 /**/
 /*******************************************************************************/
-extern uint32_t __ramcode_load__;
-extern uint32_t __ramcode_start__;
-extern uint32_t __ramcode_end__;
+extern UBase_t __ramcode_load__;
+extern UBase_t __ramcode_start__;
+extern UBase_t __ramcode_end__;
 
-extern uint32_t __data_load__;
-extern uint32_t __data_start__;
-extern uint32_t __data_end__;
+extern UBase_t __data_load__;
+extern UBase_t __data_start__;
+extern UBase_t __data_end__;
 
-extern uint32_t __bss_start__;
-extern uint32_t __bss_end__;
+extern UBase_t __bss_start__;
+extern UBase_t __bss_end__;
 
 /*******************************************************************************/
 /**/
@@ -272,11 +272,11 @@ extern uint32_t __bss_end__;
 void
 ResetISR(void)
 {
-    uint32_t *pui32SrcRamCode = (uint32_t*) 0UL;
-    uint32_t *pui32DestRamCode = (uint32_t*) 0UL;
-    uint32_t *pui32SrcData = (uint32_t*) 0UL;
-    uint32_t *pui32DestData = (uint32_t*) 0UL;
-    uint32_t *pui32DestBss = (uint32_t*) 0UL;
+    UBase_t *pui32SrcRamCode = (UBase_t*) 0UL;
+    UBase_t *pui32DestRamCode = (UBase_t*) 0UL;
+    UBase_t *pui32SrcData = (UBase_t*) 0UL;
+    UBase_t *pui32DestData = (UBase_t*) 0UL;
+    UBase_t *pui32DestBss = (UBase_t*) 0UL;
 
 
     {__asm volatile(" cpsid i");}
@@ -295,8 +295,8 @@ ResetISR(void)
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32SrcData = (uint32_t*) &__data_load__;
-    pui32DestData = (uint32_t*) &__data_start__;
+    pui32SrcData = (UBase_t*) &__data_load__;
+    pui32DestData = (UBase_t*) &__data_start__;
     while(pui32DestData <= &__data_end__)
     {
         *pui32DestData = *pui32SrcData;
@@ -308,7 +308,7 @@ ResetISR(void)
     /**/
     /* Copy the ramcode segment initializers from flash to SRAM.*/
     /**/
-    pui32DestBss = (uint32_t*) &__bss_start__;
+    pui32DestBss = (UBase_t*) &__bss_start__;
     while(pui32DestBss <= &__bss_end__)
     {
         *pui32DestBss = 0UL;

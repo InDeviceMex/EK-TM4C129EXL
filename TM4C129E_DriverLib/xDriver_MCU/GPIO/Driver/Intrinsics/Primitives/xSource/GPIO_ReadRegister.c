@@ -37,7 +37,7 @@ GPIO_nERROR GPIO__enReadRegister(GPIO_nPORT enPortArg, GPIO_Register_t* pstRegis
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((uint32_t) enPortArg, (uint32_t) GPIO_enPORT_MAX);
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {

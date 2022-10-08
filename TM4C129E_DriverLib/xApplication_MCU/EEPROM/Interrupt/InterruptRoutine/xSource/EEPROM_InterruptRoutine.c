@@ -23,7 +23,7 @@
  */
 #include <xApplication_MCU/EEPROM/Interrupt/InterruptRoutine/EEPROM_InterruptRoutine.h>
 
-EEPROM_pvfIRQSourceHandler_t EEPROM__pvIRQVectorHandler[(uint32_t) EEPROM_enMODULE_MAX] =
+EEPROM_pvfIRQSourceHandler_t EEPROM__pvIRQVectorHandler[(UBase_t) EEPROM_enMODULE_MAX] =
 {
     &EEPROM__vIRQVectorHandler
 };

@@ -33,35 +33,35 @@ void DLinkedList__vDestroy(DLinkedList_t* pstList)
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstTailItem = (DLinkedListItem_t*) 0UL;
     void * pvDataItem = (void*)0UL;
-    uint32_t u32SizeReg = 0UL;
+    UBase_t uxSizeReg = 0UL;
     void (*pvfListDestroy) (void* List) = (void (*) (void* List) )0UL;
 
     if((DLinkedList_t*)0 != pstList)
     {
         enStatus = DLinkedList_enSTATUS_OK;
-        u32SizeReg = DLinkedList__u32GetSize(pstList);
+        uxSizeReg = DLinkedList__uxGetSize(pstList);
         pvfListDestroy = pstList->pvfDestroy;
-        while (u32SizeReg > 0UL)
+        while (uxSizeReg > 0UL)
         {
             pstTailItem = DLinkedList__pstGetTail(pstList);
             enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
-            if((DLinkedList_enSTATUS_OK == enStatus ) && ( (uint32_t) 0 != (uint32_t) pstList->pvfDestroyItemData))
+            if((DLinkedList_enSTATUS_OK == enStatus ) && ( (UBase_t) 0 != (UBase_t) pstList->pvfDestroyItemData))
             {
                 pstList->pvfDestroyItemData(pvDataItem);
             }
-            u32SizeReg = DLinkedList__u32GetSize(pstList);
+            uxSizeReg = DLinkedList__uxGetSize(pstList);
         }
 
-        pstList->pfu32Match = (uint32_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
+        pstList->pfuxMatch = (UBase_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
         pstList->pvfDestroy = (void (*) (void* List)) 0UL;
         pstList->pvfDestroyItemData = (void (*) (void* DataContainer)) 0UL;
         pstList->pvfDestroyItem = (void (*) (void* Item)) 0UL;
         pstList->pstHead = (DLinkedListItem_t *) 0UL;
         pstList->pstTail = (DLinkedListItem_t *) 0UL;
         pstList->pstLastItemRead = (DLinkedListItem_t*)  0UL;
-        pstList->u32Size = 0UL;
+        pstList->uxSize = 0UL;
 
-        if((DLinkedList_enSTATUS_OK == enStatus ) && (0UL != (uint32_t) pvfListDestroy))
+        if((DLinkedList_enSTATUS_OK == enStatus ) && (0UL != (UBase_t) pvfListDestroy))
         {
             pvfListDestroy(pstList);
             pstList = (DLinkedList_t*) 0UL;

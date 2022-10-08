@@ -27,10 +27,10 @@
 #include <xUtils/Standard/Standard.h>
 #include <xApplication/EDUMKII/Joystick/xHeader/Joystick_Enum.h>
 
-uint32_t* EDUMKII_Joystick_vSampleArray(void);
-void EDUMKII_Joystick_vSampleXY(uint32_t *u32X, uint32_t *u32Y);
+UBase_t* EDUMKII_Joystick_vSampleArray(void);
+void EDUMKII_Joystick_vSampleXY(UBase_t *uxX, UBase_t *uxY);
 void EDUMKII_Joystick_vSampleSelect(EDUMKII_nJOYSTICK *enSelect);
-void EDUMKII_Joystick_vSample(uint32_t *u32X, uint32_t *u32Y, EDUMKII_nJOYSTICK *enSelect);
+void EDUMKII_Joystick_vSample(UBase_t *uxX, UBase_t *uxY, EDUMKII_nJOYSTICK *enSelect);
 void EDUMKII_Select_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 void EDUMKII_Joystick_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 

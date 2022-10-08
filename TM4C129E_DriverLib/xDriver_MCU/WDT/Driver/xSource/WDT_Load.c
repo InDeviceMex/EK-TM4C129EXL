@@ -26,18 +26,18 @@
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vSetLoad(WDT_nMODULE enModule, uint32_t u32LoadValue)
+void WDT__vSetLoad(WDT_nMODULE enModule, UBase_t uxLoadValue)
 {
-    WDT__vWriteRegister(enModule, WDT_LOAD_OFFSET, u32LoadValue,
+    WDT__vWriteRegister(enModule, WDT_LOAD_OFFSET, uxLoadValue,
                         WDT_LOAD_LOAD_MASK, WDT_LOAD_R_LOAD_BIT);
 }
 
-uint32_t WDT__u32GetLoad(WDT_nMODULE enModule)
+UBase_t WDT__uxGetLoad(WDT_nMODULE enModule)
 {
-    uint32_t u32LoadValueReg = 0UL;
+    UBase_t uxLoadValueReg = 0UL;
 
-    u32LoadValueReg = WDT__u32ReadRegister(enModule, WDT_LOAD_OFFSET,
+    uxLoadValueReg = WDT__uxReadRegister(enModule, WDT_LOAD_OFFSET,
                            WDT_LOAD_LOAD_MASK, WDT_LOAD_R_LOAD_BIT);
 
-    return (u32LoadValueReg);
+    return (uxLoadValueReg);
 }

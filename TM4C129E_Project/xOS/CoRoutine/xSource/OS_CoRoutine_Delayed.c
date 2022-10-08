@@ -55,7 +55,7 @@ void OS_CoRoutine__vAddToDelayedList(OS_UBase_t uxTimeToDelay, OS_List_t* pstEve
                          &(pstCurrentCRCB->stGenericListItem));
     }
 
-    if(0UL != (uint32_t) pstEventListArg)
+    if(0UL != (UBase_t) pstEventListArg)
     {
         OS_List__vInsert(pstEventListArg,
                          &(pstCurrentCRCB->stEventListItem));

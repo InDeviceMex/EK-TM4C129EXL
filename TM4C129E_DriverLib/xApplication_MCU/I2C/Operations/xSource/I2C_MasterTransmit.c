@@ -29,17 +29,18 @@
 I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
                                      I2C_nSTATE enMultiMasterArg,
                                      I2C_nSTATE enStopConditionArg,
-                                     uint32_t u32SlaveAddressArg,
+                                     UBase_t uxSlaveAddressArg,
                                      const uint8_t *pu8Data,
-                                     uint32_t u32DataSize)
+                                     UBase_t uxDataSize)
 {
     I2C_nERROR enErrorReg;
-    uint32_t u32Timeout = I2C_TIMEOUT;
+    UBase_t uxTimeout = I2C_TIMEOUT;
     I2C_nSTATUS enControllerBusy = I2C_enSTATUS_INACTIVE;
     I2C_nARBITRATION enArbitrationState = I2C_enARBITRATION_WON;
     I2C_nMODE enControllerMode;
     I2C_nOPERATION_ERROR enOperationError;
-    uint32_t u32Reg;
+    UBase_t uxReg;
+    uint8_t u8Reg;
 
     enOperationError = I2C_enOPERATION_ERROR_NONE;
     enControllerMode = I2C_enMODE_NONE;
@@ -50,7 +51,7 @@ I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32DataSize)
+        if(0UL == uxDataSize)
         {
             enErrorReg = I2C_enERROR_VALUE;
         }
@@ -61,42 +62,43 @@ I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(0UL == ((uint32_t) I2C_enMODE_MASTER & enControllerMode))
+        if(0UL == ((UBase_t) I2C_enMODE_MASTER & enControllerMode))
         {
             enErrorReg = I2C_enERROR_VALUE;
         }
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        u32Timeout = I2C_TIMEOUT;
+        uxTimeout = I2C_TIMEOUT;
         do
         {
             enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
-            u32Timeout--;
-        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+            uxTimeout--;
+        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
 
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32Timeout)
+        if(0UL == uxTimeout)
         {
             enErrorReg = I2C_enERROR_TIMEOUT;
         }
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        enErrorReg = I2C_Master__enSetSlaveAddressOperation(enModule, u32SlaveAddressArg, I2C_enOPERATION_TRANSMIT);
+        enErrorReg = I2C_Master__enSetSlaveAddressOperation(enModule, uxSlaveAddressArg, I2C_enOPERATION_TRANSMIT);
     }
 
     if(I2C_enERROR_OK == enErrorReg)
     {
-        u32Reg = (uint32_t) (*pu8Data);
-        enErrorReg = I2C_Master__enSetData(enModule, u32Reg);
+        u8Reg = *pu8Data;
+        uxReg = (UBase_t) u8Reg;
+        enErrorReg = I2C_Master__enSetData(enModule, uxReg);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
         pu8Data += 1UL;
-        u32DataSize -= 1UL;
+        uxDataSize -= 1UL;
         if(I2C_enSTATE_DIS != enMultiMasterArg)
         {
             enErrorReg = I2C_Master__enWaitMultiMaster(enModule, I2C_TIMEOUT);
@@ -108,18 +110,18 @@ I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        while((0UL != u32DataSize) && (I2C_enERROR_OK == enErrorReg))
+        while((0UL != uxDataSize) && (I2C_enERROR_OK == enErrorReg))
         {
-            u32Timeout = I2C_TIMEOUT;
+            uxTimeout = I2C_TIMEOUT;
             do
             {
                 enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
-                u32Timeout--;
-            }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != u32Timeout) && (I2C_enERROR_OK == enErrorReg));
+                uxTimeout--;
+            }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
 
             if(I2C_enERROR_OK == enErrorReg)
             {
-                if(0UL == u32Timeout)
+                if(0UL == uxTimeout)
                 {
                     enErrorReg = I2C_enERROR_TIMEOUT;
                 }
@@ -150,14 +152,15 @@ I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
 
             if(I2C_enERROR_OK == enErrorReg)
             {
-                u32Reg = (uint32_t) (*pu8Data);
-                enErrorReg = I2C_Master__enSetData(enModule, u32Reg);
+                u8Reg = *pu8Data;
+                uxReg = (UBase_t) u8Reg;
+                enErrorReg = I2C_Master__enSetData(enModule, uxReg);
             }
             if(I2C_enERROR_OK == enErrorReg)
             {
                 pu8Data += 1UL;
-                u32DataSize -= 1UL;
-                if(0UL != u32DataSize)
+                uxDataSize -= 1UL;
+                if(0UL != uxDataSize)
                 {
                     enErrorReg = I2C_Master__enSetControlState(enModule, I2C_enMASTER_CONTROL_RUN);
                 }
@@ -180,17 +183,17 @@ I2C_nERROR I2C_Master_enTransmitGeneric(I2C_nMODULE enModule,
     return (enErrorReg);
 }
 
-I2C_nERROR I2C_Master_enTransmitMultiByte(I2C_nMODULE enModule, uint32_t u32SlaveAddressArg, const uint8_t *pu8Data, uint32_t u32DataSize)
+I2C_nERROR I2C_Master_enTransmitMultiByte(I2C_nMODULE enModule, UBase_t uxSlaveAddressArg, const uint8_t *pu8Data, UBase_t uxDataSize)
 {
     I2C_nERROR enErrorReg;
-    enErrorReg = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_ENA, u32SlaveAddressArg, pu8Data, u32DataSize);
+    enErrorReg = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_ENA, uxSlaveAddressArg, pu8Data, uxDataSize);
     return (enErrorReg);
 }
 
-I2C_nERROR I2C_Master_enTransmitByte(I2C_nMODULE enModule, uint32_t u32SlaveAddressArg, const uint8_t u8Data)
+I2C_nERROR I2C_Master_enTransmitByte(I2C_nMODULE enModule, UBase_t uxSlaveAddressArg, const uint8_t u8Data)
 {
     I2C_nERROR enErrorReg;
-    enErrorReg = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_ENA, u32SlaveAddressArg, &u8Data, 1UL);
+    enErrorReg = I2C_Master_enTransmitGeneric(enModule, I2C_enSTATE_ENA, I2C_enSTATE_ENA, uxSlaveAddressArg, &u8Data, 1UL);
     return (enErrorReg);
 }
 

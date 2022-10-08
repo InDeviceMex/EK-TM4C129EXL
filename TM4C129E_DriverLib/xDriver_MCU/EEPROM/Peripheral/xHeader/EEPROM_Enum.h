@@ -39,42 +39,42 @@
 
 typedef enum
 {
-    EEPROM_enERROR_OK = (uint32_t) MCU_enERROR_OK,
-    EEPROM_enERROR_POINTER = (uint32_t) MCU_enERROR_POINTER,
-    EEPROM_enERROR_VALUE = (uint32_t) MCU_enERROR_VALUE,
-    EEPROM_enERROR_RANGE = (uint32_t) MCU_enERROR_RANGE,
-    EEPROM_enERROR_EMPTY = (uint32_t) MCU_enERROR_EMPTY,
-    EEPROM_enERROR_BUSY = (uint32_t) MCU_enERROR_BUSY,
-    EEPROM_enERROR_TIMEOUT = (uint32_t) MCU_enERROR_TIMEOUT,
-    EEPROM_enERROR_UNDEF = (uint32_t) MCU_enERROR_UNDEF,
+    EEPROM_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    EEPROM_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    EEPROM_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    EEPROM_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    EEPROM_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    EEPROM_enERROR_BUSY = (UBase_t) MCU_enERROR_BUSY,
+    EEPROM_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
+    EEPROM_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }EEPROM_nERROR;
 
 typedef enum
 {
-    EEPROM_enSTATE_DIS = (uint32_t) MCU_enSTATE_DIS,
-    EEPROM_enSTATE_ENA = (uint32_t) MCU_enSTATE_ENA,
-    EEPROM_enSTATE_UNDEF = (uint32_t) MCU_enSTATE_UNDEF,
+    EEPROM_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    EEPROM_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    EEPROM_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 } EEPROM_nSTATE;
 
 typedef enum
 {
-    EEPROM_enSTATUS_INACTIVE = (uint32_t) MCU_enSTATUS_INACTIVE,
-    EEPROM_enSTATUS_ACTIVE = (uint32_t) MCU_enSTATUS_ACTIVE,
-    EEPROM_enSTATUS_UNDEF = (uint32_t) MCU_enSTATUS_UNDEF,
+    EEPROM_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    EEPROM_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    EEPROM_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } EEPROM_nSTATUS;
 
 typedef enum
 {
-    EEPROM_enPRI0 = (uint32_t) MCU_enPRI0,
-    EEPROM_enPRI1 = (uint32_t) MCU_enPRI1,
-    EEPROM_enPRI2 = (uint32_t) MCU_enPRI2,
-    EEPROM_enPRI3 = (uint32_t) MCU_enPRI3,
-    EEPROM_enPRI4 = (uint32_t) MCU_enPRI4,
-    EEPROM_enPRI5 = (uint32_t) MCU_enPRI5,
-    EEPROM_enPRI6 = (uint32_t) MCU_enPRI6,
-    EEPROM_enPRI7 = (uint32_t) MCU_enPRI7,
-    EEPROM_enPRIMAX = (uint32_t) MCU_enPRIMAX,
-    EEPROM_enDEFAULT = (uint32_t) MCU_enDEFAULT,
+    EEPROM_enPRI0 = (UBase_t) MCU_enPRI0,
+    EEPROM_enPRI1 = (UBase_t) MCU_enPRI1,
+    EEPROM_enPRI2 = (UBase_t) MCU_enPRI2,
+    EEPROM_enPRI3 = (UBase_t) MCU_enPRI3,
+    EEPROM_enPRI4 = (UBase_t) MCU_enPRI4,
+    EEPROM_enPRI5 = (UBase_t) MCU_enPRI5,
+    EEPROM_enPRI6 = (UBase_t) MCU_enPRI6,
+    EEPROM_enPRI7 = (UBase_t) MCU_enPRI7,
+    EEPROM_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    EEPROM_enDEFAULT = (UBase_t) MCU_enDEFAULT,
 }EEPROM_nPRIORITY;
 
 typedef enum

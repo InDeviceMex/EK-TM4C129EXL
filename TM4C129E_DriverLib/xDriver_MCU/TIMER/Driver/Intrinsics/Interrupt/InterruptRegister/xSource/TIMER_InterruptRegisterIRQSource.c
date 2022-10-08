@@ -33,21 +33,21 @@ void TIMER__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
                                       TIMER_nMODULE enModule,
                                       TIMER_nINTERRUPT enInterruptParam)
 {
-    uint32_t u32InterruptSource = (uint32_t) enInterruptParam;
+    UBase_t uxInterruptSource = (UBase_t) enInterruptParam;
 
-    uint32_t u32ModuleNumber = 0UL;
-    uint32_t u32SubModule = 0UL;
+    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxSubModule = 0UL;
 
-    if(0U != (uint32_t) pfIrqSourceHandler)
+    if(0U != (UBase_t) pfIrqSourceHandler)
     {
-        TIMER__vGetSubParams(enModule, &u32SubModule, &u32ModuleNumber);
-        u32SubModule &= 0x1UL;
-        u32InterruptSource = MCU__u32CheckParams( (uint32_t) enInterruptParam,
-                                                  (uint32_t) TIMER_enINTERRUPT_MAX);
+        TIMER__vGetSubParams(enModule, &uxSubModule, &uxModuleNumber);
+        uxSubModule &= 0x1UL;
+        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptParam,
+                                                  (UBase_t) TIMER_enINTERRUPT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-               TIMER__pvfGetIRQSourceHandlerPointer((TIMER_nSUBMODULE) u32SubModule,
-                                                    (TIMER_nMODULE_NUM) u32ModuleNumber,
-                                                    (TIMER_nINTERRUPT)u32InterruptSource),
+               TIMER__pvfGetIRQSourceHandlerPointer((TIMER_nSUBMODULE) uxSubModule,
+                                                    (TIMER_nMODULE_NUM) uxModuleNumber,
+                                                    (TIMER_nINTERRUPT)uxInterruptSource),
                0UL,
                1UL);
     }

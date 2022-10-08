@@ -28,6 +28,6 @@
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
 SCB_pvfIRQVectorHandler_t* SCB__pfnGetVectorTableRam(void);
-SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, uint32_t u32OffsetArg);
+SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg);
 
 #endif /* XAPPLICATION_MCU_CORE_SCB_XHEADER_SCB_VECTORTABLE_H_ */

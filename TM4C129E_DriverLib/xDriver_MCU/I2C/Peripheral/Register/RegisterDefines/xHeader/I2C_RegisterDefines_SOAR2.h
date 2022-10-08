@@ -30,42 +30,42 @@
 ************************************ 20 SOAR2 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SLAVE_OAR2_R_OAR2_MASK    ((uint32_t) 0x0000007FUL)
-#define I2C_SLAVE_OAR2_R_OAR2_BIT    ((uint32_t) 0UL)
+#define I2C_SLAVE_OAR2_R_OAR2_MASK    ((UBase_t) 0x0000007FUL)
+#define I2C_SLAVE_OAR2_R_OAR2_BIT    ((UBase_t) 0UL)
 
-#define I2C_SLAVE_OAR2_OAR2_MASK    ((uint32_t) 0x0000007FUL)
+#define I2C_SLAVE_OAR2_OAR2_MASK    ((UBase_t) 0x0000007FUL)
 /*--------*/
 
 /*--------*/
-#define I2C_SLAVE_OAR2_R_OAR2EN_MASK    ((uint32_t) 0x00000080UL)
-#define I2C_SLAVE_OAR2_R_OAR2EN_BIT    ((uint32_t) 7UL)
-#define I2C_SLAVE_OAR2_R_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_OAR2_R_OAR2EN_ENA    ((uint32_t) 0x00000080UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_MASK    ((UBase_t) 0x00000080UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_BIT    ((UBase_t) 7UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_OAR2_R_OAR2EN_ENA    ((UBase_t) 0x00000080UL)
 
-#define I2C_SLAVE_OAR2_OAR2EN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SLAVE_OAR2_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SLAVE_OAR2_OAR2EN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SLAVE_OAR2_OAR2EN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SLAVE_OAR2_OAR2EN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SLAVE_OAR2_OAR2EN_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /******************************************************************************************
 ************************************ 20 SOAR2 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define I2C_SOAR2_R_OAR2_MASK    ((uint32_t) 0x0000007FUL)
-#define I2C_SOAR2_R_OAR2_BIT    ((uint32_t) 0UL)
+#define I2C_SOAR2_R_OAR2_MASK    ((UBase_t) 0x0000007FUL)
+#define I2C_SOAR2_R_OAR2_BIT    ((UBase_t) 0UL)
 
-#define I2C_SOAR2_OAR2_MASK    ((uint32_t) 0x0000007FUL)
+#define I2C_SOAR2_OAR2_MASK    ((UBase_t) 0x0000007FUL)
 /*--------*/
 
 /*--------*/
-#define I2C_SOAR2_R_OAR2EN_MASK    ((uint32_t) 0x00000080UL)
-#define I2C_SOAR2_R_OAR2EN_BIT    ((uint32_t) 7UL)
-#define I2C_SOAR2_R_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SOAR2_R_OAR2EN_ENA    ((uint32_t) 0x00000080UL)
+#define I2C_SOAR2_R_OAR2EN_MASK    ((UBase_t) 0x00000080UL)
+#define I2C_SOAR2_R_OAR2EN_BIT    ((UBase_t) 7UL)
+#define I2C_SOAR2_R_OAR2EN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SOAR2_R_OAR2EN_ENA    ((UBase_t) 0x00000080UL)
 
-#define I2C_SOAR2_OAR2EN_MASK    ((uint32_t) 0x00000001UL)
-#define I2C_SOAR2_OAR2EN_DIS    ((uint32_t) 0x00000000UL)
-#define I2C_SOAR2_OAR2EN_ENA    ((uint32_t) 0x00000001UL)
+#define I2C_SOAR2_OAR2EN_MASK    ((UBase_t) 0x00000001UL)
+#define I2C_SOAR2_OAR2EN_DIS    ((UBase_t) 0x00000000UL)
+#define I2C_SOAR2_OAR2EN_ENA    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_I2C_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_I2C_REGISTERDEFINES_SOAR2_H_ */

@@ -26,6 +26,6 @@
 
 #include <xApplication/ST7735/Graphics/Common/ST7735_Common.h>
 
-void ST7735__vClearSection(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, uint32_t u32Color);
+void ST7735__vClearSection(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor);
 
 #endif /* XAPPLICATION_ST7735_GRAPHICS_XHEADER_ST7735_CLEARSECTION_H_ */

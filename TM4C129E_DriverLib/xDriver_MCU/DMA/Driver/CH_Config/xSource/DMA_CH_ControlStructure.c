@@ -41,9 +41,9 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByMask(DMA_nMODULE enModuleArg, DMA
     {
         stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
     }
-    stRegister.u32Shift = 0UL;
-    stRegister.u32Mask = MCU_MASK_32;
-    stRegister.u32Value = (uint32_t) enChannelMaskArg;
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_BASE;
+    stRegister.uxValue = (UBase_t) enChannelMaskArg;
     enErrorReg = DMA__enWriteRegister_Direct(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -55,7 +55,7 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
-    enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
         if(DMA_enCH_CONTROL_PRIMARY == enActiveControStructureArg)
@@ -67,9 +67,9 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
             stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         }
 
-        stRegister.u32Shift = (uint32_t) enChannelArg;
-        stRegister.u32Mask = 1UL;
-        stRegister.u32Value = 1UL;
+        stRegister.uxShift = (UBase_t) enChannelArg;
+        stRegister.uxMask = 1UL;
+        stRegister.uxValue = 1UL;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
 
@@ -90,14 +90,14 @@ DMA_nERROR DMA_CH__enGetActiveControStructureByMask(DMA_nMODULE enModuleArg, DMA
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = DMA_CH_ALTSET_R_SET0_BIT;
-        stRegister.u32Mask = (uint32_t) enChannelMaskArg;
+        stRegister.uxShift = DMA_CH_ALTSET_R_SET0_BIT;
+        stRegister.uxMask = (UBase_t) enChannelMaskArg;
         stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *penCHMaskReqArg = (DMA_nCHMASK) stRegister.u32Value;
+        *penCHMaskReqArg = (DMA_nCHMASK) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -115,19 +115,19 @@ DMA_nERROR DMA_CH__enGetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((uint32_t) enChannelArg, (uint32_t) DMA_enCH_MAX);
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = (uint32_t) enChannelArg;
-        stRegister.u32Shift += DMA_CH_ALTSET_R_SET0_BIT;
-        stRegister.u32Mask = DMA_CH_ALTSET_SET0_MASK;
+        stRegister.uxShift = (UBase_t) enChannelArg;
+        stRegister.uxShift += DMA_CH_ALTSET_R_SET0_BIT;
+        stRegister.uxMask = DMA_CH_ALTSET_SET0_MASK;
         stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *penActiveControStructureArg = (DMA_nCH_CONTROL) stRegister.u32Value;
+        *penActiveControStructureArg = (DMA_nCH_CONTROL) stRegister.uxValue;
     }
     return (enErrorReg);
 }

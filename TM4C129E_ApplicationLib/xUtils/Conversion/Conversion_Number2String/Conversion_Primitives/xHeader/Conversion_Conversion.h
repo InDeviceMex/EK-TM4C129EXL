@@ -24,12 +24,8 @@
 #ifndef XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_CONVERSION_H_
 #define XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_CONVERSION_H_
 
-#include <xUtils/Standard/Standard.h>
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nSTATUS Conv__enConversion(char* pcPointer, uint64_t u64Number, uint8_t* u8Length, uint8_t u8Base, const char* pcLookUpTable);
-
-
-
+CONV_nERROR Conv__enConversion(char* pcLastPosDataIn, uint64_t u64Number, uint8_t* u8Length, uint8_t u8Base, const char* pcLookUpTable);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER2STRING_CONVERSION_PRIMITIVES_CONVERSION_CONVERSION_H_ */

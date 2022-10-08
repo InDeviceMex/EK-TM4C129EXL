@@ -26,7 +26,7 @@
 DLinkedListItem_t* DLinkedList__pstGetLastItemRead(const DLinkedList_t*  const pstList)
 {
     DLinkedListItem_t* pstLastItemReadReg = (DLinkedListItem_t*) 0U;
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstLastItemReadReg = pstList->pstLastItemRead;
     }
@@ -35,7 +35,7 @@ DLinkedListItem_t* DLinkedList__pstGetLastItemRead(const DLinkedList_t*  const p
 
 void DLinkedList__vSetLastItemRead(DLinkedList_t* pstList, DLinkedListItem_t* pstLastItemReadArg)
 {
-    if(0UL != (uint32_t) pstList)
+    if(0UL != (UBase_t) pstList)
     {
         pstList->pstLastItemRead = pstLastItemReadArg;
     }
@@ -46,7 +46,7 @@ DLinkedList_nSTATUS DLinkedList__enIsLastItemRead(const DLinkedList_t* const pst
     DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
     DLinkedListItem_t* pstListLastItemRead = (DLinkedListItem_t*)0UL;
     pstListLastItemRead= DLinkedList__pstGetLastItemRead(pstList);
-    if ((uint32_t) pstItem == (uint32_t) (pstListLastItemRead))
+    if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
     {
         enStatus = DLinkedList_enSTATUS_OK;
     }

@@ -38,40 +38,40 @@ DMA_nERROR DMA__enGetStateMachine(DMA_nMODULE enModuleArg, DMA_nSTATE_MACHINE* p
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = DMA_STAT_R_STATE_BIT;
-        stRegister.u32Mask = DMA_STAT_STATE_MASK;
+        stRegister.uxShift = DMA_STAT_R_STATE_BIT;
+        stRegister.uxMask = DMA_STAT_STATE_MASK;
         stRegister.uptrAddress = DMA_STAT_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (DMA_nSTATE_MACHINE) stRegister.u32Value;
+        *penStateArg = (DMA_nSTATE_MACHINE) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
 
-DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, uint32_t* pu32ChannelNumberArg)
+DMA_nERROR DMA__enGetChannelsAvailable(DMA_nMODULE enModuleArg, UBase_t* puxChannelNumberArg)
 {
     DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pu32ChannelNumberArg)
+    if(0UL == (uintptr_t) puxChannelNumberArg)
     {
         enErrorReg = DMA_enERROR_POINTER;
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = DMA_STAT_R_CHANS_BIT;
-        stRegister.u32Mask = DMA_STAT_CHANS_MASK;
+        stRegister.uxShift = DMA_STAT_R_CHANS_BIT;
+        stRegister.uxMask = DMA_STAT_CHANS_MASK;
         stRegister.uptrAddress = DMA_STAT_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Value += 1U;
-        *pu32ChannelNumberArg = stRegister.u32Value;
+        stRegister.uxValue += 1U;
+        *puxChannelNumberArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }

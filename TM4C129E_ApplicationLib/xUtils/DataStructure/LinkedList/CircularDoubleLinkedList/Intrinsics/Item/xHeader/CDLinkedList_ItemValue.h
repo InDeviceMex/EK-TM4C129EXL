@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-uint32_t CDLinkedList_Item__u32GetValue(const CDLinkedListItem_t* const pstItem);
-void CDLinkedList_Item__vSetValue(CDLinkedListItem_t* const pstItem, uint32_t u32ValueItemArg);
+UBase_t CDLinkedList_Item__uxGetValue(const CDLinkedListItem_t* const pstItem);
+void CDLinkedList_Item__vSetValue(CDLinkedListItem_t* const pstItem, UBase_t uxValueItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CDLINKEDLIST_ITEMVALUE_H_ */

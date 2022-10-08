@@ -27,53 +27,84 @@
     #pragma CHECK_MISRA("-16.7")
 #endif
 
-void Conv__vOutBuffer(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght)
+CONV_nERROR Conv__enOutBuffer(char cCharacter, void* pvBuffer, UBase_t uxIndex, UBase_t uxMaxLenght)
 {
-    char* pcBuffer = 0;
-    if((void*)0 != pvBuffer)
+    CONV_nERROR enErrorReg;
+    char* pcBuffer;
+
+    enErrorReg = CONV_enERROR_OK;
+    if(0UL == (uintptr_t) pvBuffer)
     {
-        if (u32Index < u32MaxLenght)
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        if (uxIndex >= uxMaxLenght)
         {
-            pcBuffer = (char*)pvBuffer;
-            pcBuffer += u32Index;
-            *pcBuffer = cCharacter;
+            enErrorReg = CONV_enERROR_RANGE;
         }
     }
-}
-
-void Conv__vOutNull(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght)
-{
-    (void)cCharacter; (void)pvBuffer; (void)u32Index; (void)u32MaxLenght;
-}
-
-void Conv__vOutChar(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght)
-{
-    (void)pvBuffer; (void)u32Index; (void)u32MaxLenght;
-    if((void*)0 != pvBuffer)
+    if(CONV_enERROR_OK == enErrorReg)
     {
-        if ((char)0 != cCharacter)
+        pcBuffer = (char*) pvBuffer;
+        pcBuffer += uxIndex;
+        *pcBuffer = cCharacter;
+    }
+    return (enErrorReg);
+}
+
+CONV_nERROR Conv__enOutNull(char cCharacter, void* pvBuffer, UBase_t uxIndex, UBase_t uxMaxLenght)
+{
+    CONV_nERROR enErrorReg;
+    (void)cCharacter; (void)pvBuffer; (void)uxIndex; (void)uxMaxLenght;
+    enErrorReg = CONV_enERROR_OK;
+    return (enErrorReg);
+}
+
+CONV_nERROR Conv__enOutChar(char cCharacter, void* pvBuffer, UBase_t uxIndex, UBase_t uxMaxLenght)
+{
+    CONV_nERROR enErrorReg;
+
+    (void)pvBuffer; (void)uxIndex; (void)uxMaxLenght;
+    enErrorReg = CONV_enERROR_OK;
+    if(0UL == (uintptr_t) pvBuffer)
+    {
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+        if (0U != (uint8_t) cCharacter)
         {
-        /* _putchar(character);*/
+            /* _putchar(character);*/
         }
     }
+    return (enErrorReg);
 }
 
-void Conv__vOutFunction(char cCharacter, void* pvBuffer, uint32_t u32Index, uint32_t u32MaxLenght)
+CONV_nERROR Conv__enOutFunction(char cCharacter, void* pvBuffer, UBase_t uxIndex, UBase_t uxMaxLenght)
 {
-    (void)u32Index; (void)u32MaxLenght;
-    CONV_OUT_WRAPPER_t* pvOutWrapper = 0;
-    CONV_FUNCTION_t pvOutFunction = 0;
-    void* pvOutFunctionArguments = 0;
-    if((void*)0 != pvBuffer)
+    CONV_nERROR enErrorReg;
+    CONV_OUT_WRAPPER_t* pvOutWrapper;
+    CONV_FUNCTION_t pvOutFunction;
+    void* pvOutFunctionArguments;
+
+    (void)uxIndex; (void)uxMaxLenght;
+    enErrorReg = CONV_enERROR_OK;
+    if(0UL == (uintptr_t) pvBuffer)
     {
-      pvOutWrapper = (CONV_OUT_WRAPPER_t*)pvBuffer;
+        enErrorReg = CONV_enERROR_POINTER;
+    }
+    if(CONV_enERROR_OK == enErrorReg)
+    {
+      pvOutWrapper = (CONV_OUT_WRAPPER_t*) pvBuffer;
       pvOutFunction = (CONV_FUNCTION_t) pvOutWrapper->pvfFunction;
       pvOutFunctionArguments = pvOutWrapper->pvArguments;
-      if ((char)0 != cCharacter)
+      if (0U != (uint8_t) cCharacter)
       {
-          pvOutFunction(cCharacter, pvOutFunctionArguments);
+          enErrorReg = pvOutFunction(cCharacter, pvOutFunctionArguments);
       }
     }
+    return (enErrorReg);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

@@ -33,22 +33,22 @@ void QEI__vSetInvertSignals(QEI_nMODULE enModule,
     if(QEI_enINVERT_DIS == enInvertSignalsArg)
     {
         QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, 0UL,
-                            (uint32_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
+                            (UBase_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
     }
     else
     {
-        QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (uint32_t) enSignalsArg,
-                            (uint32_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
+        QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enSignalsArg,
+                            (UBase_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
     }
 }
 
 QEI_nINVERT QEI__enGetInvertSignals(QEI_nMODULE enModule, QEI_nSIGNAL enSignalsArg)
 {
-    uint32_t u32InvertSignalsReg = 0UL;
+    UBase_t uxInvertSignalsReg = 0UL;
     QEI_nINVERT enInvertSignalsReg = QEI_enINVERT_DIS;
-    u32InvertSignalsReg = QEI__u32ReadRegister(enModule, QEI_CTL_OFFSET,
-                              (uint32_t)enSignalsArg, QEI_CTL_R_INVA_BIT);
-    if(0UL != u32InvertSignalsReg)
+    uxInvertSignalsReg = QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
+                              (UBase_t)enSignalsArg, QEI_CTL_R_INVA_BIT);
+    if(0UL != uxInvertSignalsReg)
     {
         enInvertSignalsReg = QEI_enINVERT_ENA;
     }

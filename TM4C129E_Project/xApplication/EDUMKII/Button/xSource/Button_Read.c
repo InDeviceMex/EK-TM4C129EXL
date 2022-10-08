@@ -25,38 +25,38 @@
 #include <xUtils/Standard/Standard.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 
-static volatile uint32_t u32ButtonState = 0UL;
+static volatile UBase_t uxButtonState = 0UL;
 
 EDUMKII_nBUTTON EDUMKII_Button_enRead(EDUMKII_nBUTTON enButtonSelect)
 {
-    return ( (EDUMKII_nBUTTON) u32ButtonState);
+    return ( (EDUMKII_nBUTTON) uxButtonState);
 }
 
 
 void EDUMKII_Button1_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    uint32_t u32ValueButton1 = 0UL;
-    GPIO__enGetDataByMask(EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN, (GPIO_nPINMASK*) &u32ValueButton1);
-    if(0UL == u32ValueButton1)
+    UBase_t uxValueButton1 = 0UL;
+    GPIO__enGetDataByMask(EDUMKII_BUTTON_1_PORT, EDUMKII_BUTTON_1_PIN, (GPIO_nPINMASK*) &uxValueButton1);
+    if(0UL == uxValueButton1)
     {
-        u32ButtonState |= (uint32_t) EDUMKII_enBUTTON_1;
+        uxButtonState |= (UBase_t) EDUMKII_enBUTTON_1;
     }
     else
     {
-        u32ButtonState &= ~(uint32_t) EDUMKII_enBUTTON_1;
+        uxButtonState &= ~(UBase_t) EDUMKII_enBUTTON_1;
     }
 }
 
 void EDUMKII_Button2_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    uint32_t u32ValueButton2 = 0UL;
-    GPIO__enGetDataByMask(EDUMKII_BUTTON_2_PORT, EDUMKII_BUTTON_2_PIN, (GPIO_nPINMASK*) &u32ValueButton2);
-    if(0UL == u32ValueButton2)
+    UBase_t uxValueButton2 = 0UL;
+    GPIO__enGetDataByMask(EDUMKII_BUTTON_2_PORT, EDUMKII_BUTTON_2_PIN, (GPIO_nPINMASK*) &uxValueButton2);
+    if(0UL == uxValueButton2)
     {
-        u32ButtonState |= (uint32_t) EDUMKII_enBUTTON_2;
+        uxButtonState |= (UBase_t) EDUMKII_enBUTTON_2;
     }
     else
     {
-        u32ButtonState &= ~(uint32_t) EDUMKII_enBUTTON_2;
+        uxButtonState &= ~(UBase_t) EDUMKII_enBUTTON_2;
     }
 }

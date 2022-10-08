@@ -31,7 +31,7 @@
 
 #define MAX_CONFIG (2UL)
 
-GPIO_nDIGITAL_FUNCTION QEI_enGpioInput[MAX_CONFIG] [(uint32_t) QEI_enMODULE_MAX][(uint32_t) 3UL] =
+GPIO_nDIGITAL_FUNCTION QEI_enGpioInput[MAX_CONFIG] [(UBase_t) QEI_enMODULE_MAX][(UBase_t) 3UL] =
 {
     {
         {GPIO_enPhA0_L1, GPIO_enPhB0_L2, GPIO_enIDX0_L3},
@@ -44,38 +44,38 @@ GPIO_nDIGITAL_FUNCTION QEI_enGpioInput[MAX_CONFIG] [(uint32_t) QEI_enMODULE_MAX]
 QEI_nSTATUS QEI__enSetConfig(QEI_nMODULE enModule,
                              const QEI_CONTROL_t* pstControlConfig,
                              const QEI_SIGNAL_t* pstSignalConfig,
-                             uint32_t u32InitialPosArg,
-                             uint32_t u32MaxPositionArg,
-                             uint32_t u32TimerLoad)
+                             UBase_t uxInitialPosArg,
+                             UBase_t uxMaxPositionArg,
+                             UBase_t uxTimerLoad)
 {
     QEI_nSTATUS enReturn = QEI_enSTATUS_ERROR;
     QEI_nMODULE enModuleFilter = QEI_enMODULE_0;
-    uint32_t u32Signal[3UL] = {0UL};
+    UBase_t uxSignal[3UL] = {0UL};
 
-    if((0UL != (uint32_t) pstControlConfig) && (0UL != (uint32_t) pstSignalConfig))
+    if((0UL != (UBase_t) pstControlConfig) && (0UL != (UBase_t) pstSignalConfig))
     {
-        enModuleFilter = (QEI_nMODULE) MCU__u32CheckParams((uint32_t) enModule,
-                                                           (uint32_t) QEI_enMODULE_MAX);
-        u32Signal[PHA_SIGNAL] = MCU__u32CheckParams((uint32_t) pstSignalConfig->enPhA,
+        enModuleFilter = (QEI_nMODULE) MCU__uxCheckParams((UBase_t) enModule,
+                                                           (UBase_t) QEI_enMODULE_MAX);
+        uxSignal[PHA_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enPhA,
                                                     MAX_CONFIG);
-        u32Signal[PHB_SIGNAL] = MCU__u32CheckParams((uint32_t) pstSignalConfig->enPhB,
+        uxSignal[PHB_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enPhB,
                                                     MAX_CONFIG);
-        u32Signal[IDX_SIGNAL] = MCU__u32CheckParams((uint32_t) pstSignalConfig->enIDX,
+        uxSignal[IDX_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enIDX,
                                                     MAX_CONFIG);
 
         if(QEI_enRESET_INDEX == pstControlConfig->enResetMode)
         {
-            GPIO__enSetDigitalConfig(QEI_enGpioInput[u32Signal[IDX_SIGNAL]]
-                                                    [(uint32_t) enModuleFilter]
+            GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[IDX_SIGNAL]]
+                                                    [(UBase_t) enModuleFilter]
                                                     [IDX_SIGNAL],
                                     GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
         }
-        GPIO__enSetDigitalConfig(QEI_enGpioInput[u32Signal[PHA_SIGNAL]]
-                                                [(uint32_t) enModuleFilter]
+        GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[PHA_SIGNAL]]
+                                                [(UBase_t) enModuleFilter]
                                                 [PHA_SIGNAL],
                                 GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-        GPIO__enSetDigitalConfig(QEI_enGpioInput[u32Signal[PHB_SIGNAL]]
-                                                [(uint32_t) enModuleFilter]
+        GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[PHB_SIGNAL]]
+                                                [(UBase_t) enModuleFilter]
                                                 [PHB_SIGNAL],
                                 GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
 
@@ -125,12 +125,12 @@ QEI_nSTATUS QEI__enSetConfig(QEI_nMODULE enModule,
             QEI__vSetInputFilterCount(enModuleFilter, pstControlConfig->enInputFilterCount);
         }
 
-        QEI__vSetMaxPosition(enModuleFilter, u32MaxPositionArg);
-        QEI__vSetLoadTimer(enModuleFilter, u32TimerLoad);
+        QEI__vSetMaxPosition(enModuleFilter, uxMaxPositionArg);
+        QEI__vSetLoadTimer(enModuleFilter, uxTimerLoad);
 
         QEI__vSetEnable(enModuleFilter, pstControlConfig->enEnableModule);
 
-        QEI__vSetPosition(enModuleFilter, u32InitialPosArg);
+        QEI__vSetPosition(enModuleFilter, uxInitialPosArg);
         enReturn = QEI_enSTATUS_OK;
     }
     return (enReturn);

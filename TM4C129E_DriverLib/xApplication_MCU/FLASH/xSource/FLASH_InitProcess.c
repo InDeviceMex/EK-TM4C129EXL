@@ -28,19 +28,19 @@
 FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg)
 {
     FLASH_nERROR enErrorReg;
-    uint32_t u32KeySelectReg;
-    uint32_t u32KeyReg;
+    UBase_t uxKeySelectReg;
+    UBase_t uxKeyReg;
 
-    u32KeySelectReg = MCU__u32ReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,
+    uxKeySelectReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,
                                   SYSCTL_BOOTCFG_KEY_MASK, SYSCTL_BOOTCFG_R_KEY_BIT);
-    switch(u32KeySelectReg)
+    switch(uxKeySelectReg)
     {
     case SYSCTL_BOOTCFG_KEY_71D5:
-        u32KeyReg = 0UL;
-        enErrorReg =FLASH__enGetCustomKey(enModuleArg, &u32KeyReg);
+        uxKeyReg = 0UL;
+        enErrorReg =FLASH__enGetCustomKey(enModuleArg, &uxKeyReg);
         if(FLASH_enERROR_OK == enErrorReg)
         {
-            enErrorReg = FLASH__enInitProcess(enModuleArg, u32KeyReg, enProcessArg);
+            enErrorReg = FLASH__enInitProcess(enModuleArg, uxKeyReg, enProcessArg);
         }
         if(FLASH_enERROR_OK == enErrorReg)
         {

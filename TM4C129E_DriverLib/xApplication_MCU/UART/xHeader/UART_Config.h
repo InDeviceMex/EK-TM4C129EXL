@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  , const UART_CONTROL_t* pstControlConfig, const UART_LINE_CONTROL_t* pstLineControlConfig, uint32_t u32BaudRateArg, const UART_LINE_t* pstLineConfig);
+UART_nSTATUS UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  , const UART_CONTROL_t* pstControlConfig, const UART_LINE_CONTROL_t* pstLineControlConfig, UBase_t uxBaudRateArg, const UART_LINE_t* pstLineConfig);
 
 #endif /* XAPPLICATION_MCU_UART_XHEADER_UART_CONFIG_H_ */

@@ -26,24 +26,24 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedList_nSTATUS SLinkedList__enRemoveNextInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveNextInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem);
-SLinkedList_nSTATUS SLinkedList__enRemoveNext_GetData(SLinkedListItem_t* pstItem, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveNext(SLinkedListItem_t* pstItem);
+SLinkedList_nERROR SLinkedList__enRemoveNextInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData);
+SLinkedList_nERROR SLinkedList__enRemoveNextInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem);
+SLinkedList_nERROR SLinkedList__enRemoveNext_GetData(SLinkedListItem_t* pstItem, void** pvData);
+SLinkedList_nERROR SLinkedList__enRemoveNext(SLinkedListItem_t* pstItem);
 
-SLinkedList_nSTATUS SLinkedList__enRemoveInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemoveInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem);
-SLinkedList_nSTATUS SLinkedList__enRemove_GetData(SLinkedListItem_t* pstItem, void** pvData);
-SLinkedList_nSTATUS SLinkedList__enRemove(SLinkedListItem_t* pstItem);
+SLinkedList_nERROR SLinkedList__enRemoveInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData);
+SLinkedList_nERROR SLinkedList__enRemoveInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem);
+SLinkedList_nERROR SLinkedList__enRemove_GetData(SLinkedListItem_t* pstItem, void** pvData);
+SLinkedList_nERROR SLinkedList__enRemove(SLinkedListItem_t* pstItem);
 
-SLinkedList_nSTATUS  SLinkedList__enRemoveTail_GetData(SLinkedList_t* pstList, void** pvData);
-SLinkedList_nSTATUS  SLinkedList__enRemoveTail(SLinkedList_t* pstList);
+SLinkedList_nERROR  SLinkedList__enRemoveTail_GetData(SLinkedList_t* pstList, void** pvData);
+SLinkedList_nERROR  SLinkedList__enRemoveTail(SLinkedList_t* pstList);
 
-SLinkedList_nSTATUS  SLinkedList__enRemoveHead_GetData(SLinkedList_t* pstList, void** pvData);
-SLinkedList_nSTATUS  SLinkedList__enRemoveHead(SLinkedList_t* pstList);
+SLinkedList_nERROR  SLinkedList__enRemoveHead_GetData(SLinkedList_t* pstList, void** pvData);
+SLinkedList_nERROR  SLinkedList__enRemoveHead(SLinkedList_t* pstList);
 
-SLinkedList_nSTATUS  SLinkedList__enRemovePos_GetData(SLinkedList_t* pstList, uint32_t u32Position, void** pvData);
-SLinkedList_nSTATUS  SLinkedList__enRemovePos(SLinkedList_t* pstList, uint32_t u32Position);
+SLinkedList_nERROR  SLinkedList__enRemovePos_GetData(SLinkedList_t* pstList, UBase_t uxPosition, void** pvData);
+SLinkedList_nERROR  SLinkedList__enRemovePos(SLinkedList_t* pstList, UBase_t uxPosition);
 
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_REMOVE_H_ */

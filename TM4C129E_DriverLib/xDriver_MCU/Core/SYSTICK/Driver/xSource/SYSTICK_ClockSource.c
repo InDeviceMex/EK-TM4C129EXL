@@ -32,10 +32,10 @@ SYSTICK_nERROR SYSTICK__enSetClockSource(SYSTICK_nMODULE enModuleArg,
     SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
 
-    stRegister.u32Shift = SYSTICK_CSR_R_CLKSOURCE_BIT;
-    stRegister.u32Mask = SYSTICK_CSR_CLKSOURCE_MASK;
+    stRegister.uxShift = SYSTICK_CSR_R_CLKSOURCE_BIT;
+    stRegister.uxMask = SYSTICK_CSR_CLKSOURCE_MASK;
     stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
-    stRegister.u32Value = (uint32_t) enClockSrcArg;
+    stRegister.uxValue = (UBase_t) enClockSrcArg;
     enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -54,14 +54,14 @@ SYSTICK_nERROR SYSTICK__enGetClockSource(SYSTICK_nMODULE enModuleArg,
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = SYSTICK_CSR_R_CLKSOURCE_BIT;
-        stRegister.u32Mask = SYSTICK_CSR_CLKSOURCE_MASK;
+        stRegister.uxShift = SYSTICK_CSR_R_CLKSOURCE_BIT;
+        stRegister.uxMask = SYSTICK_CSR_CLKSOURCE_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        *penClockSrcArg = (SYSTICK_nCLKSOURCE) stRegister.u32Value;
+        *penClockSrcArg = (SYSTICK_nCLKSOURCE) stRegister.uxValue;
     }
     return (enErrorReg);
 }

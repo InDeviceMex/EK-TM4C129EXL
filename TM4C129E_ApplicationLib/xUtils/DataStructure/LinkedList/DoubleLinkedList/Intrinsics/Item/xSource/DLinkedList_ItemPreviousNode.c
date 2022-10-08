@@ -32,7 +32,7 @@ DLinkedListItem_t* DLinkedList_Item__pstGetPreviousItem(const DLinkedListItem_t*
 
 void DLinkedList_Item__vSetPreviousItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstPreviousItemArg)
 {
-    if(0UL != (uint32_t) pstItem)
+    if(0UL != (UBase_t) pstItem)
     {
         pstItem->pstPreviousItem = pstPreviousItemArg;
     }

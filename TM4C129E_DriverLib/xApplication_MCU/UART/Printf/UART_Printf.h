@@ -28,7 +28,7 @@
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 #include <stdarg.h>
 
-uint32_t UART__u32Printf(UART_nMODULE enModule,const char* pcFormat, ... );
-uint32_t UART__u32vsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList);
+UBase_t UART__uxPrintf(UART_nMODULE enModule,const char* pcFormat, ... );
+UBase_t UART__uxvsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList);
 
 #endif /* XAPPLICATION_MCU_UART_PRINTF_UART_PRINTF_H_ */

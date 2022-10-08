@@ -27,10 +27,12 @@
 
 #include <xDriver_MCU/PWM/Peripheral/xHeader/PWM_Enum.h>
 
-void PWM_Output__vSetEnableUpdate(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                            PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_UPDATE enOutputUpdateArg);
-PWM_nOUTPUT_UPDATE PWM_Output__enGetEnableUpdate(PWM_nMODULE enModule, PWM_nGENERATOR enGenerator,
-                                           PWM_nOUTPUT enOutputArg);
+PWM_nERROR PWM_Output__enSetUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                               PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
+PWM_nERROR PWM_Output__enSetUpdateModeByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
+                                             PWM_nOUTPUT enOutputArg, PWM_nUPDATE enModeArg);
 
+PWM_nERROR PWM_Output__enGetUpdateModeByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
+                                               PWM_nOUTPUT enOutputArg, PWM_nUPDATE* penModeArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_OUTPUT_XHEADER_PWM_OUTPUT_UPDATE_H_ */

@@ -188,7 +188,7 @@ OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderA
     OS_UBase_t uxPriorityReg = 0UL;
     OS_Boolean_t boReturn = FALSE;
 
-    if(0UL != (uint32_t) pvMutexHolderArg)
+    if(0UL != (UBase_t) pvMutexHolderArg)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if(pstTCB == pstCurrentTCB)

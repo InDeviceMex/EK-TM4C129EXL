@@ -39,7 +39,7 @@ OS_UBase_t OS_List__uxGetItemValueOfHeadEntry(const OS_List_t* const pstListArg)
     OS_UBase_t uxValueReg = 0UL;
     if((0UL != (OS_UBase_t) pstListArg))
     {
-        uxValueReg = CDLinkedList__u32GetValueHead(pstListArg);
+        uxValueReg = CDLinkedList__uxGetValueHead(pstListArg);
     }
     return (uxValueReg);
 }

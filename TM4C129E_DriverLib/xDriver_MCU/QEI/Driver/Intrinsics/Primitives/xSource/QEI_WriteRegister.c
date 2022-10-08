@@ -26,15 +26,15 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vWriteRegister(QEI_nMODULE enModule, uint32_t u32OffsetRegister,
-                         uint32_t u32FeatureValue, uint32_t u32MaskFeature,
-                         uint32_t u32BitFeature)
+void QEI__vWriteRegister(QEI_nMODULE enModule, UBase_t uxOffsetRegister,
+                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
+                         UBase_t uxBitFeature)
 {
-    uint32_t u32QEIBase = 0UL;
-    uint32_t u32Module = 0UL;
-    u32Module = MCU__u32CheckParams((uint32_t) enModule, (uint32_t) QEI_enMODULE_MAX);
+    UBase_t uxQEIBase = 0UL;
+    UBase_t uxModule = 0UL;
+    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
 
-    u32QEIBase = QEI__u32BlockBaseAddress((QEI_nMODULE) u32Module);
-    MCU__vWriteRegister(u32QEIBase, u32OffsetRegister, u32FeatureValue,
-                        u32MaskFeature, u32BitFeature);
+    uxQEIBase = QEI__uxBlockBaseAddress((QEI_nMODULE) uxModule);
+    MCU__vWriteRegister(uxQEIBase, uxOffsetRegister, uxFeatureValue,
+                        uxMaskFeature, uxBitFeature);
 }

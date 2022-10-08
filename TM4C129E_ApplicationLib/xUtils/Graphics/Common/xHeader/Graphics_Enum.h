@@ -30,7 +30,7 @@ typedef enum
 {
     Graphics_enSTATUS_OK = 0UL,
     Graphics_enSTATUS_ERROR = 1UL,
-    Graphics_enSTATUS_UNDEF = 0x7FFFFFFFUL,
+    Graphics_enSTATUS_UNDEF = UNDEF_VALUE,
 }Graphics_nSTATUS;
 
 #endif /* XUTILS_GRAPHICS_XHEADER_GRAPHICS_ENUM_H_ */

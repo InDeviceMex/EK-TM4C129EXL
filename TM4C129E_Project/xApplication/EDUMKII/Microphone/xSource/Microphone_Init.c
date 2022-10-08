@@ -37,8 +37,8 @@
 
 void EDUMKII_Microphone_vInit(void)
 {
-    uint32_t* pu32MicrophoneArray = (uint32_t*) 0UL;
-    uint32_t u32Number = 0UL;
+    UBase_t* puxMicrophoneArray = (UBase_t*) 0UL;
+    UBase_t uxNumber = 0UL;
     ADC_SAMPLE_CONFIG_t stADC0SampleConfig = {
         EDUMKII_MICROPHONE_INPUT,
         ADC_enSTATE_DIS,
@@ -77,13 +77,13 @@ void EDUMKII_Microphone_vInit(void)
     ADC_Sequencer__enRegisterIRQSourceHandler(&EDUMKII_Microphone_vIRQSourceHandler,
                                         ADC_enMODULE_0, ADC_enSEQ_3, ADC_enINT_TYPE_DMA);
 
-    pu32MicrophoneArray = EDUMKII_Microphone_vSampleArray();
-    DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) pu32MicrophoneArray);
-    DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
+    puxMicrophoneArray = EDUMKII_Microphone_vSampleArray();
+    DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (UBase_t) puxMicrophoneArray);
+    DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (UBase_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
     DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, &stDMAChControl);
 
-    DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) pu32MicrophoneArray);
-    DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (uint32_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
+    DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (UBase_t) puxMicrophoneArray);
+    DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_17, (UBase_t) (ADC0_BASE + ADC_SS3_FIFO_OFFSET));
     DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_17, &stDMAChControl);
 
     DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_17, &stDMAChConfig);
@@ -101,7 +101,7 @@ void EDUMKII_Microphone_vInit(void)
     ADC__enEnableInterruptVectorWithPriority(ADC_enMODULE_0, ADC_enSEQ_3, (ADC_nPRIORITY) NVIC_enVECTOR_PRI_ADC0SEQ3);
     ADC_Sequencer__enSetDMAStateByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSTATE_ENA);
     ADC_Sequencer__enSetStateByNumber(ADC_enMODULE_0, ADC_enSEQ_3, ADC_enSTATE_ENA);
-    ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_3, pu32MicrophoneArray, &u32Number);
+    ADC_Sequencer__enGetAllFifoDataByNumber(ADC_enMODULE_0, ADC_enSEQ_3, puxMicrophoneArray, &uxNumber);
     ADC_Sequencer__enClearOverflowByNumber(ADC_enMODULE_0, ADC_enSEQ_3);
     ADC_Sequencer__enClearUnderflowByNumber(ADC_enMODULE_0, ADC_enSEQ_3);
 }

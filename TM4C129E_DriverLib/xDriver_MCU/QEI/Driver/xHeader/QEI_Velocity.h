@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-uint32_t QEI__u32GetVelocity(QEI_nMODULE enModule);
+UBase_t QEI__uxGetVelocity(QEI_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_VELOCITY_H_ */

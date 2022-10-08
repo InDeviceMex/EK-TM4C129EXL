@@ -28,12 +28,12 @@
 
 void WDT__vCreateModeStructPointer(WDT_nMODE enModeArg, WDT_MODE_t* pstMode)
 {
-    if((uint32_t) 0U != (uint32_t) pstMode )
+    if((UBase_t) 0U != (UBase_t) pstMode )
     {
-        pstMode->enInterrupt = (WDT_nINTERRUPT_ENABLE) ((uint32_t) enModeArg & 1UL);
-        pstMode->enStall = (WDT_nSTALL) (( (uint32_t) enModeArg >> 8UL) & 1UL);
-        pstMode->enIntType = (WDT_nINT_TYPE) (( (uint32_t) enModeArg >> 16UL) & 1UL);
-        pstMode->enResetOutput = (WDT_nRESET) (( (uint32_t) enModeArg >> 24UL) & 1UL);
+        pstMode->enInterrupt = (WDT_nINTERRUPT_ENABLE) ((UBase_t) enModeArg & 1UL);
+        pstMode->enStall = (WDT_nSTALL) (( (UBase_t) enModeArg >> 8UL) & 1UL);
+        pstMode->enIntType = (WDT_nINT_TYPE) (( (UBase_t) enModeArg >> 16UL) & 1UL);
+        pstMode->enResetOutput = (WDT_nRESET) (( (UBase_t) enModeArg >> 24UL) & 1UL);
     }
 }
 
@@ -45,7 +45,7 @@ WDT_MODE_t* WDT__pstCreateModeStruct(WDT_nMODE enModeArg)
     #elif defined (__GNUC__ )
     pstMode = (WDT_MODE_t*) malloc((size_t) sizeof(WDT_MODE_t));
     #endif
-    if(0UL != (uint32_t) pstMode )
+    if(0UL != (UBase_t) pstMode )
     {
         WDT__vCreateModeStructPointer(enModeArg, pstMode);
     }

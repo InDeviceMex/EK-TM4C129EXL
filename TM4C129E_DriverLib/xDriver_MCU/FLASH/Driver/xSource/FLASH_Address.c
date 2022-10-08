@@ -30,73 +30,73 @@
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
 
-FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg)
+FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
-    stRegister.u32Shift = FLASH_ADDRESS_R_OFFSET_BIT;
-    stRegister.u32Mask = FLASH_ADDRESS_OFFSET_MASK;
+    stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
+    stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
     stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;
-    stRegister.u32Value = u32AddressArg;
+    stRegister.uxValue = uxAddressArg;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, uint32_t* pu32AddressArg)
+FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, UBase_t* puxAddressArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) pu32AddressArg)
+    if(0UL == (uintptr_t) puxAddressArg)
     {
         enErrorReg = FLASH_enERROR_POINTER;
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_ADDRESS_R_OFFSET_BIT;
-        stRegister.u32Mask = FLASH_ADDRESS_OFFSET_MASK;
+        stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
+        stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
         stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *pu32AddressArg = stRegister.u32Value;
+        *puxAddressArg = stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, uint32_t u32AddressArg)
+FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
     FLASH_Register_t stRegister;
-    uint32_t u32SectorSizeReg;
+    UBase_t uxSectorSizeReg;
     FLASH_nERROR enErrorReg;
 
-    u32SectorSizeReg = 0UL;
-    enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &u32SectorSizeReg);
+    uxSectorSizeReg = 0UL;
+    enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &uxSectorSizeReg);
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        if(0UL == u32SectorSizeReg)
+        if(0UL == uxSectorSizeReg)
         {
             enErrorReg = FLASH_enERROR_VALUE;
         }
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        u32SectorSizeReg--;
-        if(0UL != (u32AddressArg & u32SectorSizeReg))
+        uxSectorSizeReg--;
+        if(0UL != (uxAddressArg & uxSectorSizeReg))
         {
             enErrorReg = FLASH_enERROR_VALUE;
         }
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = FLASH_ADDRESS_R_OFFSET_BIT;
-        stRegister.u32Mask = FLASH_ADDRESS_OFFSET_MASK;
+        stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
+        stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
         stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;
-        stRegister.u32Value = (uint32_t) u32AddressArg;
+        stRegister.uxValue = (UBase_t) uxAddressArg;
         enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);

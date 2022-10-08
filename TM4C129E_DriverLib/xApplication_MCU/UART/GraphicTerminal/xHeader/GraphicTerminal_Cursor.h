@@ -29,7 +29,7 @@
 
 void GraphTerm__vCursorToHome(UART_nMODULE enModule);
 void GraphTerm__vHideCursor(UART_nMODULE enModule);
-void GraphTerm__vSetCursorXY(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row);
-void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, uint32_t u32Column, uint32_t u32Row, uint32_t u32ColumnMax, uint32_t u32RowMax);
+void GraphTerm__vSetCursorXY(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow);
+void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow, UBase_t uxColumnMax, UBase_t uxRowMax);
 
 #endif /* XDRIVER_MCU_UART_APP_GRAPHICTERMINAL_XHEADER_GRAPHICTERMINAL_CURSOR_H_ */

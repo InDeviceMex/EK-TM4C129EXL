@@ -27,39 +27,39 @@
 
 void SYSCTL__vIRQVectorHandler(void)
 {
-    volatile uint32_t u32Reg = 0UL;
+    volatile UBase_t uxReg = 0UL;
     void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
 
-    u32Reg = (uint32_t) SYSCTL_MISC_R;
+    uxReg = (UBase_t) SYSCTL_MISC_R;
 
-    if(0UL == ((uint32_t) SYSCTL_enINT_SOURCE_ALL & u32Reg))
+    if(0UL == ((UBase_t) SYSCTL_enINT_SOURCE_ALL & uxReg))
     {
         pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_SW);
         pvfCallback();
     }
     else
     {
-        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_BOR & u32Reg))
+        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_BOR & uxReg))
         {
-            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_BOR;
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_BOR;
             pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
             pvfCallback();
         }
-        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOF & u32Reg))
+        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_MOF & uxReg))
         {
-            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOF;
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_MOF;
             pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
             pvfCallback();
         }
-        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_PLLL & u32Reg))
+        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_PLLL & uxReg))
         {
-            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_PLLL;
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_PLLL;
             pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
             pvfCallback();
         }
-        if(0UL != ((uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP & u32Reg))
+        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_MOSCPUP & uxReg))
         {
-            SYSCTL_MISC_R = (uint32_t) SYSCTL_enINT_SOURCE_MOSCPUP;
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_MOSCPUP;
             pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
             pvfCallback();
         }

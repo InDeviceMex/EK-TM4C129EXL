@@ -85,7 +85,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
     for(u8NumCommandsPos = u8NumCommands; 0U < u8NumCommandsPos; u8NumCommandsPos--)
     {
         u8AddressValue = *(pu8AddressArg);
-        ST7735__u32WriteCommand((uint16_t) u8AddressValue);
+        ST7735__uxWriteCommand((uint16_t) u8AddressValue);
         pu8AddressArg += 1UL;
         u8NumArguments  = *(pu8AddressArg);
         pu8AddressArg += 1UL;
@@ -98,7 +98,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
         for(u8NumArgumentsPos = u8NumArguments; 0U < u8NumArgumentsPos; u8NumArgumentsPos--)
         {
             u8AddressValue = *(pu8AddressArg);
-            ST7735__u32WriteData((uint32_t) u8AddressValue);
+            ST7735__uxWriteData((UBase_t) u8AddressValue);
             pu8AddressArg += 1UL;
         }
 
@@ -113,7 +113,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
                 u16Delay = u8Reg;
             }
             pu8AddressArg += 1UL;
-            ST7735__vDelay1ms((uint32_t) u16Delay);
+            ST7735__vDelay1ms((UBase_t) u16Delay);
         }
     }
 }

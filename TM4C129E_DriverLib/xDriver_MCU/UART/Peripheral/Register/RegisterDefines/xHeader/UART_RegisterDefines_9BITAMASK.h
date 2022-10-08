@@ -30,10 +30,10 @@
 ************************************ 16 9BITAMASK *********************************************
 ******************************************************************************************/
 /*--------*/
-#define UART_9BITAMASK_R_MASK_MASK    ((uint32_t) 0x000000FFUL)
-#define UART_9BITAMASK_R_MASK_BIT    ((uint32_t) 0UL)
+#define UART_9BITAMASK_R_MASK_MASK    ((UBase_t) 0x000000FFUL)
+#define UART_9BITAMASK_R_MASK_BIT    ((UBase_t) 0UL)
 
-#define UART_9BITAMASK_MASK_MASK    ((uint32_t) 0x000000FFUL)
+#define UART_9BITAMASK_MASK_MASK    ((UBase_t) 0x000000FFUL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_UART_REGISTERDEFINES_9BITAMASK_H_ */

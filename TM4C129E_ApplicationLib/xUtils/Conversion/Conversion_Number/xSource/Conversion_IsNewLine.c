@@ -24,12 +24,17 @@
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 #include <xUtils/Conversion/Conversion_Number/xHeader/Conversion_IsNewLine.h>
 
-CONV_nNEWLINE Conv__enIsNewLine(char cCharacter)
+CONV_nERROR Conv__enIsNewLine(char cCharacter)
 {
-    CONV_nNEWLINE enStatus = CONV_enNEWLINE_NO;
-    if(cCharacter == '\n')
+    CONV_nERROR enStatus;
+
+    if('\n' == cCharacter)
     {
-        enStatus = CONV_enNEWLINE_OK;
+        enStatus = CONV_enERROR_OK;
+    }
+    else
+    {
+        enStatus = CONV_enERROR_VALUE;
     }
     return (enStatus);
 }

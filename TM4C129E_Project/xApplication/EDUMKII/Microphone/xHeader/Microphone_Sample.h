@@ -27,8 +27,8 @@
 #include <xUtils/Standard/Standard.h>
 #include <xApplication/EDUMKII/Microphone/xHeader/Microphone_Enum.h>
 
-uint32_t* EDUMKII_Microphone_vSampleArray(void);
-void EDUMKII_Microphone_vSample(uint32_t *u32Input);
+UBase_t* EDUMKII_Microphone_vSampleArray(void);
+void EDUMKII_Microphone_vSample(UBase_t *uxInput);
 void EDUMKII_Microphone_vIRQSourceHandler(uintptr_t uptrModuleArg, void* pvArgument);
 
 

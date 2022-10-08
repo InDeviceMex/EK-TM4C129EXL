@@ -39,14 +39,14 @@ I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nSTATUS* pen
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_PP_R_HS_BIT;
-        stRegister.u32Mask = I2C_PP_HS_MASK;
+        stRegister.uxShift = I2C_PP_R_HS_BIT;
+        stRegister.uxMask = I2C_PP_HS_MASK;
         stRegister.uptrAddress = I2C_PP_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (I2C_nSTATUS) stRegister.u32Value;
+        *penStatusArg = (I2C_nSTATUS) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -72,10 +72,10 @@ I2C_nERROR I2C__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateA
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        stRegister.u32Shift = I2C_PC_R_HS_BIT;
-        stRegister.u32Mask = I2C_PC_HS_MASK;
+        stRegister.uxShift = I2C_PC_R_HS_BIT;
+        stRegister.uxMask = I2C_PC_HS_MASK;
         stRegister.uptrAddress = I2C_PC_OFFSET;
-        stRegister.u32Value = (uint32_t) enStateArg;
+        stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     }
     return (enErrorReg);
@@ -106,13 +106,13 @@ I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStat
         }
         else
         {
-            stRegister.u32Shift = 0UL;
-            stRegister.u32Mask = MCU_MASK_32;
+            stRegister.uxShift = 0UL;
+            stRegister.uxMask = MCU_MASK_BASE;
             stRegister.uptrAddress = I2C_MASTER_DATA_OFFSET;
             enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
             if(I2C_enERROR_OK == enErrorReg)
             {
-                *penStateArg = (I2C_nSTATE) stRegister.u32Value;
+                *penStateArg = (I2C_nSTATE) stRegister.uxValue;
             }
         }
     }

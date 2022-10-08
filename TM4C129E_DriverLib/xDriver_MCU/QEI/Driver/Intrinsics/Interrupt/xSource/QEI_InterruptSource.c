@@ -29,37 +29,37 @@
 
 void QEI__vEnInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) QEI_enINT_SOURCE_ALL;
-    QEI__vWriteRegister(enModule , QEI_INTEN_OFFSET, u32SourceInt, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) QEI_enINT_SOURCE_ALL;
+    QEI__vWriteRegister(enModule , QEI_INTEN_OFFSET, uxSourceInt, uxSourceInt, 0UL);
 }
 
 void QEI__vDisInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) QEI_enINT_SOURCE_ALL;
-    QEI__vWriteRegister(enModule , QEI_INTEN_OFFSET, 0UL, u32SourceInt, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) QEI_enINT_SOURCE_ALL;
+    QEI__vWriteRegister(enModule , QEI_INTEN_OFFSET, 0UL, uxSourceInt, 0UL);
 }
 
 void QEI__vClearInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
 {
-    uint32_t u32SourceInt = 0UL;
-    u32SourceInt = (uint32_t) enSourceInt;
-    u32SourceInt &= (uint32_t) QEI_enINT_SOURCE_ALL;
-    QEI__vWriteRegister(enModule , QEI_ISC_OFFSET, u32SourceInt, 0xFFFFFFFFUL, 0UL);
+    UBase_t uxSourceInt = 0UL;
+    uxSourceInt = (UBase_t) enSourceInt;
+    uxSourceInt &= (UBase_t) QEI_enINT_SOURCE_ALL;
+    QEI__vWriteRegister(enModule , QEI_ISC_OFFSET, uxSourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
 QEI_nINT_SOURCE QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt)
 {
     QEI_nINT_SOURCE enInterruptReg = QEI_enINT_SOURCE_NONE;
-    uint32_t u32SourceInt = 0UL;
-    uint32_t u32Register= 0xFFFFFFFFUL;
-    u32SourceInt &= (uint32_t) QEI_enINT_SOURCE_ALL;
-    u32Register = QEI__u32ReadRegister(enModule , QEI_RIS_OFFSET,
-                                      (uint32_t) u32SourceInt, 0UL);
-    enInterruptReg = (QEI_nINT_SOURCE) u32Register;
+    UBase_t uxSourceInt = 0UL;
+    UBase_t uxRegister= 0xFFFFFFFFUL;
+    uxSourceInt &= (UBase_t) QEI_enINT_SOURCE_ALL;
+    uxRegister = QEI__uxReadRegister(enModule , QEI_RIS_OFFSET,
+                                      (UBase_t) uxSourceInt, 0UL);
+    enInterruptReg = (QEI_nINT_SOURCE) uxRegister;
 
     return (enInterruptReg);
 }

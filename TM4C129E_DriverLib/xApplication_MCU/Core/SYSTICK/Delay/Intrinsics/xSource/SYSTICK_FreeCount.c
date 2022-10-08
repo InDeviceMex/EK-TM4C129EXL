@@ -23,37 +23,37 @@
  */
 #include <xApplication_MCU/Core/SYSTICK/Delay/Intrinsics/xHeader/SYSTICK_FreeCount.h>
 
-static uint32_t SYSTICK_u32FreeCountOv = 0UL;
-static uint32_t SYSTICK_u32FreeCount = 0UL;
+static UBase_t SYSTICK_uxFreeCountOv = 0UL;
+static UBase_t SYSTICK_uxFreeCount = 0UL;
 
 
-uint32_t SYSTICK__u32GetFreeCount(void)
+UBase_t SYSTICK__uxGetFreeCount(void)
 {
-    return (SYSTICK_u32FreeCount);
+    return (SYSTICK_uxFreeCount);
 }
 
 void SYSTICK__vClearFreeCount(void)
 {
-    SYSTICK_u32FreeCount = 0UL;
+    SYSTICK_uxFreeCount = 0UL;
 }
 
-void SYSTICK__vSetFreeCount(uint32_t u32Count)
+void SYSTICK__vSetFreeCount(UBase_t uxCount)
 {
-    SYSTICK_u32FreeCount = u32Count;
+    SYSTICK_uxFreeCount = uxCount;
 }
 
 
-uint32_t SYSTICK__u32GetFreeCountOv(void)
+UBase_t SYSTICK__uxGetFreeCountOv(void)
 {
-    return (SYSTICK_u32FreeCountOv);
+    return (SYSTICK_uxFreeCountOv);
 }
 
 void SYSTICK__vClearFreeCountOv(void)
 {
-    SYSTICK_u32FreeCountOv = 0UL;
+    SYSTICK_uxFreeCountOv = 0UL;
 }
 
-void SYSTICK__vSetFreeCountOv(uint32_t u32Count)
+void SYSTICK__vSetFreeCountOv(UBase_t uxCount)
 {
-    SYSTICK_u32FreeCountOv = u32Count;
+    SYSTICK_uxFreeCountOv = uxCount;
 }

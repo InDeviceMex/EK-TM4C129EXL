@@ -26,6 +26,6 @@
 
 #include <xUtils/Conversion/xHeader/Conversion_Enum.h>
 
-CONV_nBACKSPACE Conv__enIsBackSpace(char cCharacter);
+CONV_nERROR Conv__enIsBackSpace(char cCharacter);
 
 #endif /* XUTILS_CONVERSION_XHEADER_CONVERSION_NUMBER_CONVERSION_ISBACKSPACE_H_ */

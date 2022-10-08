@@ -27,26 +27,26 @@
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Match.h>
 #include <xDriver_MCU/TIMER/Driver/xHeader/TIMER_Reload.h>
 
-TIMER_nSTATUS TIMER__enSetMode_ReloadMatch(TIMER_nMODULE enModule, TIMER_nMODE enModeArg, uint32_t u32Reload, uint32_t u32Match)
+TIMER_nSTATUS TIMER__enSetMode_ReloadMatch(TIMER_nMODULE enModule, TIMER_nMODE enModeArg, UBase_t uxReload, UBase_t uxMatch)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     enReturn = TIMER__enSetMode(enModule, enModeArg);
     if(TIMER_enSTATUS_OK == enReturn)
     {
-        TIMER__vSetReload(enModule, u32Reload);
-        TIMER__vSetMatch(enModule, u32Match);
+        TIMER__vSetReload(enModule, uxReload);
+        TIMER__vSetMatch(enModule, uxMatch);
     }
     return (enReturn);
 }
 
-TIMER_nSTATUS TIMER__enSetModeStruct_ReloadMatch(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, uint32_t u32Reload, uint32_t u32Match)
+TIMER_nSTATUS TIMER__enSetModeStruct_ReloadMatch(TIMER_nMODULE enModule, const TIMER_MODE_t* pstMode, UBase_t uxReload, UBase_t uxMatch)
 {
     TIMER_nSTATUS enReturn = TIMER_enSTATUS_ERROR;
     enReturn = TIMER__enSetModeStruct(enModule, pstMode);
     if(TIMER_enSTATUS_OK == enReturn)
     {
-        TIMER__vSetReload(enModule, u32Reload);
-        TIMER__vSetMatch(enModule, u32Match);
+        TIMER__vSetReload(enModule, uxReload);
+        TIMER__vSetMatch(enModule, uxMatch);
     }
     return (enReturn);
 }

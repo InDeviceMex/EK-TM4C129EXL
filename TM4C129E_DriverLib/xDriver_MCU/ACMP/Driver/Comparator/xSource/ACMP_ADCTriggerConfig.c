@@ -30,22 +30,22 @@ ACMP_nERROR ACMP__enSetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                 ACMP_nCOMP enComparatorArg,
                                 ACMP_nADC_CONFIG enIntConfigArg)
 {
-    uint32_t u32Sense;
-    uint32_t u32Event;
+    UBase_t uxSense;
+    UBase_t uxEvent;
     ACMP_nERROR enErrorReg;
 
-    u32Sense = (uint32_t) enIntConfigArg;
-    u32Sense >>= 8UL;
-    u32Sense &= 1UL;
+    uxSense = (UBase_t) enIntConfigArg;
+    uxSense >>= 8UL;
+    uxSense &= 1UL;
 
-    u32Event = (uint32_t) enIntConfigArg;
-    u32Event &= 0x3UL;
+    uxEvent = (UBase_t) enIntConfigArg;
+    uxEvent &= 0x3UL;
 
-    if((uint32_t) ACMP_enSENSE_EDGE == u32Sense)
+    if((UBase_t) ACMP_enSENSE_EDGE == uxSense)
     {
         enErrorReg = ACMP__enSetComparatorADCTriggerEdge(enModuleArg,
                                            enComparatorArg,
-                                           (ACMP_nEDGE) u32Event);
+                                           (ACMP_nEDGE) uxEvent);
     }
     else
     {
@@ -56,7 +56,7 @@ ACMP_nERROR ACMP__enSetADCTriggerConfig(ACMP_nMODULE enModuleArg,
         {
             enErrorReg = ACMP__enSetComparatorADCTriggerLevel(enModuleArg,
                                             enComparatorArg,
-                                            (ACMP_nLEVEL) u32Event);
+                                            (ACMP_nLEVEL) uxEvent);
         }
     }
 
@@ -67,7 +67,7 @@ ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                ACMP_nCOMP enComparatorArg,
                                ACMP_nADC_CONFIG* penIntConfigArg)
 {
-    uint32_t u32Sense;
+    UBase_t uxSense;
     ACMP_nERROR enErrorReg;
     ACMP_nEDGE enEdgeReg;
     ACMP_nLEVEL enLevelReg;
@@ -92,16 +92,16 @@ ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                                   &enLevelReg);
             if(ACMP_enERROR_OK == enErrorReg)
             {
-                u32Sense = (uint32_t) enLevelReg;
-                *penIntConfigArg = (ACMP_nADC_CONFIG) u32Sense;
+                uxSense = (UBase_t) enLevelReg;
+                *penIntConfigArg = (ACMP_nADC_CONFIG) uxSense;
             }
         }
         else
         {
-            u32Sense = 1U;
-            u32Sense <<= 8UL;
-            u32Sense |= (uint32_t) enEdgeReg;
-            *penIntConfigArg = (ACMP_nADC_CONFIG) u32Sense;
+            uxSense = 1U;
+            uxSense <<= 8UL;
+            uxSense |= (UBase_t) enEdgeReg;
+            *penIntConfigArg = (ACMP_nADC_CONFIG) uxSense;
         }
     }
 
