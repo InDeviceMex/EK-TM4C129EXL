@@ -26,14 +26,14 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void*  SLinkedList__pvGetDataItemPos(const SLinkedList_t* pstList, UBase_t uxPosition);
-void*  SLinkedList__pvGetDataTail(const SLinkedList_t* pstList);
-void*  SLinkedList__pvGetDataHead(const SLinkedList_t* pstList);
+SLinkedList_nERROR SLinkedList__enGetDataItemPosition(const SLinkedList_t* pstList, UBase_t uxPosition, void** pvItemDataArg);
+SLinkedList_nERROR SLinkedList__enGetDataTail(const SLinkedList_t* pstList, void** pvItemDataArg);
+SLinkedList_nERROR SLinkedList__enGetDataHead(const SLinkedList_t* pstList, void** pvItemDataArg);
 
-UBase_t  SLinkedList__uxGetValueItemPos(const SLinkedList_t* pstList, UBase_t uxPosition);
-UBase_t  SLinkedList__uxGetValueTail(const SLinkedList_t* pstList);
-UBase_t  SLinkedList__uxGetValueHead(const SLinkedList_t* pstList);
+SLinkedList_nERROR SLinkedList__enGetValueItemPosition(const SLinkedList_t* pstList, UBase_t uxPosition, UBase_t* uxItemValueArg);
+SLinkedList_nERROR SLinkedList__enGetValueTail(const SLinkedList_t* pstList, UBase_t* uxItemValueArg);
+SLinkedList_nERROR SLinkedList__enGetValueHead(const SLinkedList_t* pstList, UBase_t* uxItemValueArg);
 
-void* SLinkedList__pvGetDataNextItem(SLinkedList_t* pstList);
+SLinkedList_nERROR SLinkedList__enGetDataNextItem(SLinkedList_t* pstList, void** pvItemDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DATA_H_ */

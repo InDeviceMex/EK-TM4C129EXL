@@ -33,55 +33,55 @@ SLinkedList_nERROR SLinkedList__enInsertNext_WithData(SLinkedList_t* pstList,
 SLinkedList_nERROR SLinkedList__enInsertNext(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstPreviousItemArg,
                                             SLinkedListItem_t* pstNewItem);
-SLinkedListItem_t* SLinkedList__pstInsertNext_WithData(SLinkedList_t* pstList,
+
+SLinkedList_nERROR SLinkedList__enInsertAndCreateNext_WithData(SLinkedList_t* pstList,
                                                     SLinkedListItem_t* pstPreviousItemArg,
+                                                    SLinkedListItem_t** pstNewItemArg,
                                                     void* pvData);
-SLinkedListItem_t* SLinkedList__pstInsertNext(SLinkedList_t* pstList,
-                                                    SLinkedListItem_t* pstPreviousItemArg);
-
-
-SLinkedList_nERROR  SLinkedList__enInsertNextLastItemRead_WithData(SLinkedList_t* pstList,
-                                           SLinkedListItem_t* pstNewItem,
-                                           void* pvData);
-SLinkedList_nERROR  SLinkedList__enInsertNextLastItemRead(SLinkedList_t* pstList,
-                                           SLinkedListItem_t* pstNewItem);
-SLinkedListItem_t*  SLinkedList__pstInsertNextLastItemRead_WithData(SLinkedList_t* pstList, void* pvData);
-SLinkedListItem_t*  SLinkedList__pstInsertNextLastItemRead(SLinkedList_t* pstList);
-
-
-SLinkedList_nERROR SLinkedList__enInsertAtTail_WithData(SLinkedList_t* pstList,
-                                            SLinkedListItem_t* pstNewItem,
-                                            void* pvData);
-SLinkedList_nERROR  SLinkedList__enInsertAtTail(SLinkedList_t* pstList,
-                                           SLinkedListItem_t* pstNewItem);
-SLinkedListItem_t* SLinkedList__pstInsertAtTail_WithData(SLinkedList_t* pstList,
-                                                   void* pvData);
-SLinkedListItem_t* SLinkedList__pstInsertAtTail(SLinkedList_t* pstList);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateNext(SLinkedList_t* pstList,
+                                                       SLinkedListItem_t* pstPreviousItemArg,
+                                                       SLinkedListItem_t** pstNewItemArg);
 
 
 
-SLinkedList_nERROR SLinkedList__enInsertAtHead_WithData(SLinkedList_t* pstList,
-                                                SLinkedListItem_t* pstNewItem,
-                                                void* pvData);
-SLinkedList_nERROR SLinkedList__enInsertAtHead(SLinkedList_t* pstList,
-                                                SLinkedListItem_t* pstNewItem);
-SLinkedListItem_t*  SLinkedList__pstInsertAtHead_WithData(SLinkedList_t* pstList,
-                                                      void* pvData);
-SLinkedListItem_t*  SLinkedList__pstInsertAtHead(SLinkedList_t* pstList);
+
+SLinkedList_nERROR SLinkedList__enInsertNextOnLastItemRead_WithData(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertNextOnLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem);
+
+SLinkedList_nERROR SLinkedList__enInsertAndCreateNextOnLastItemRead_WithData(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateNextOnLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem);
 
 
 
-SLinkedList_nERROR SLinkedList__enInsertPos_WithData(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertAtTail_WithData(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAtTail(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem);
+
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtTail_WithData(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtTail(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem);
+
+
+
+SLinkedList_nERROR SLinkedList__enInsertAtHead_WithData(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAtHead(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem);
+
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtHead_WithData(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem, void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtHead(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem);
+
+
+
+SLinkedList_nERROR SLinkedList__enInsertAtPosition_WithData(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstNewItem,
                                             UBase_t uxPosition,
                                             void* pvData);
-SLinkedList_nERROR SLinkedList__enInsertPos(SLinkedList_t* pstList,
+SLinkedList_nERROR SLinkedList__enInsertAtPosition(SLinkedList_t* pstList,
                                             SLinkedListItem_t* pstNewItem,
                                             UBase_t uxPosition);
-SLinkedListItem_t*  SLinkedList__pstInsertPos_WithData(SLinkedList_t* pstList,
-                                                    UBase_t uxPosition,
-                                                    void* pvData);
-SLinkedListItem_t*  SLinkedList__pstInsertPos(SLinkedList_t* pstList,
-                                                    UBase_t uxPosition);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtPosition_WithData(SLinkedList_t* pstList,
+                                                       SLinkedListItem_t** pstNewItem,
+                                                       UBase_t uxPosition,
+                                                       void* pvData);
+SLinkedList_nERROR SLinkedList__enInsertAndCreateAtPosition(SLinkedList_t* pstList,
+                                                            SLinkedListItem_t** pstNewItem,
+                                                            UBase_t uxPosition);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_INSERT_H_ */

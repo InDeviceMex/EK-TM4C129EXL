@@ -36,4 +36,9 @@ typedef enum
 
 typedef SLinkedList_t Queue_t;
 
+typedef SLinkedList_pfuxMatch_t Queue_pfuxMatch_t;
+typedef SLinkedList_pvfDestroyItemData_t Queue_pvfDestroyItemData_t;
+typedef SLinkedList_pvfDestroyItem_t Queue_pvfDestroyItem_t;
+typedef SLinkedList_pvfDestroy_t Queue_pvfDestroy_t;
+
 #endif /* XUTILS_DATASTRUCTURE_QUEUE_XHEADER_QUEUE_STRUCT_H_ */

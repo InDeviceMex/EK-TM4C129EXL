@@ -28,7 +28,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
 CSLinkedList_t* CSLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item));
-CSLinkedList_nSTATUS CSLinkedList__enInit(CSLinkedList_t* pstList,
+CSLinkedList_nERROR CSLinkedList__enInit(CSLinkedList_t* pstList,
                                           void (*pvfDestroyItemDataArg) (void *DataContainer),
                                           void (*pvfDestroyItemArg) (void *Item));
 

@@ -30,7 +30,7 @@
 
 void CSLinkedList__vDestroy(CSLinkedList_t* pstList)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstHeadItem = (CSLinkedListItem_t*) 0UL;
     void * pvDataItem = (void*)0UL;
     UBase_t uxSizeReg = 0UL;

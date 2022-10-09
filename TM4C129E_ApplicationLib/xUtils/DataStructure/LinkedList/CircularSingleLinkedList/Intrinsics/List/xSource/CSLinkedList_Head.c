@@ -43,7 +43,7 @@ void CSLinkedList__vSetHead(CSLinkedList_t* pstList, CSLinkedListItem_t* pstHead
 
 CSLinkedList_nERROR CSLinkedList__enIsHead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstListHead = (CSLinkedListItem_t*)0UL;
     pstListHead = CSLinkedList__pstGetHead(pstList);
     if ((UBase_t) pstItem == (UBase_t) (pstListHead))

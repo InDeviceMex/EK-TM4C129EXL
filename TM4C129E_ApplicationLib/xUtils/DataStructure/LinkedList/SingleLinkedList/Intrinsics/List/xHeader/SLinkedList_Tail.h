@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedListItem_t* SLinkedList__pstGetTail(const SLinkedList_t*  const pstList);
-void SLinkedList__vSetTail(SLinkedList_t* pstList, SLinkedListItem_t* pstTailArg);
-SLinkedList_nSTATUS SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem);
+SLinkedList_nERROR SLinkedList__enGetTail(const SLinkedList_t*  const pstList, SLinkedListItem_t** pstTailArg);
+SLinkedList_nERROR SLinkedList__enSetTail(SLinkedList_t* pstList, SLinkedListItem_t* pstTailArg);
+SLinkedList_nERROR SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem, boolean_t* pboStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_SLINKEDLIST_TAIL_H_ */

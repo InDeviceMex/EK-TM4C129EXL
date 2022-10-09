@@ -29,7 +29,7 @@
 typedef enum
 {
     CSLinkedList_enERROR_OK,
-    CSLinkedList_enSTATUS_UNDEF
+    CSLinkedList_enERROR_UNDEF
 }CSLinkedList_nERROR;
 
 

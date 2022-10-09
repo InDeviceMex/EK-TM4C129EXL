@@ -23,31 +23,58 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Tail.h>
 
-SLinkedListItem_t* SLinkedList__pstGetTail(const SLinkedList_t*  const pstList)
+SLinkedList_nERROR SLinkedList__enGetTail(const SLinkedList_t*  const pstList, SLinkedListItem_t** pstTailArg)
 {
-    SLinkedListItem_t* pstTailReg = (SLinkedListItem_t*)0U;
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstTailArg))
     {
-        pstTailReg = pstList->pstTail;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pstTailReg);
+    else
+    {
+        *pstTailArg = pstList->pstTail;
+        enErrorReg = SLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void SLinkedList__vSetTail(SLinkedList_t* pstList, SLinkedListItem_t* pstTailArg)
+SLinkedList_nERROR SLinkedList__enSetTail(SLinkedList_t* pstList, SLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstTail = pstTailArg;
+        enErrorReg = SLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-SLinkedList_nERROR SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    if ((UBase_t) 0UL == (UBase_t) (pstItem->pstNextItem))
+    SLinkedList_nERROR enErrorReg;
+
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pboStatus))
     {
-        enStatus = SLinkedList_enERROR_OK;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((UBase_t) 0UL == (UBase_t) (pstItem->pstNextItem))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }
 

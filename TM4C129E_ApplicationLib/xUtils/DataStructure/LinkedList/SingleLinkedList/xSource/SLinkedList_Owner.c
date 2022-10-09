@@ -25,16 +25,34 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 
-SLinkedList_nERROR SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, const SLinkedListItem_t* const pstItem, boolean_t* boStatus)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedList_t* pstOwnerListItem = (SLinkedList_t*) 0UL;
-    pstOwnerListItem = (SLinkedList_t*) SLinkedList_Item__pvGetOwnerList(pstItem);
-    if((UBase_t) pstOwnerListItem == (UBase_t) pstList )
+    SLinkedList_t* pstOwnerListItem;
+    SLinkedList_nERROR enErrorReg;
+
+    pstOwnerListItem = (SLinkedList_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        enStatus = SLinkedList_enERROR_OK;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem, (void**) &pstOwnerListItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((UBase_t) pstOwnerListItem == (UBase_t) pstList)
+        {
+            *boStatus = TRUE;
+        }
+        else
+        {
+            *boStatus = FALSE;
+        }
+    }
+
+    return (enErrorReg);
 }
 
 

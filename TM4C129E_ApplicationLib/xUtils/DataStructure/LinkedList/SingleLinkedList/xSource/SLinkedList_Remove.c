@@ -33,267 +33,441 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
 
 static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData, UBase_t uxRemove)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedList_nERROR enStatusRead = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstItemToRemove = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstHeadNextItem = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstHeadData = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstItemNextItem = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstItemNextNextItem = (SLinkedListItem_t*) 0UL ;
-    void* pstItemNextItemData = (void*) 0UL ;
-    UBase_t uxItemNextItemValue = 0UL ;
-    void* pstItemNextItemOwner = (void*) 0UL ;
+    SLinkedListItem_t* pstHeadData;
+    SLinkedListItem_t* pstItemToRemove;
+    SLinkedListItem_t* pstHeadNextItem;
+    SLinkedListItem_t* pstItemNextItem;
+    SLinkedListItem_t* pstItemNextNextItem;
+    void* pstItemNextItemData;
+    void* pstItemNextItemOwner;
+    void* pstItemItemData;
+    void* pstItemDataTemp;
+    UBase_t uxItemNextItemValue;
+    UBase_t uxSizeReg;
+    SLinkedList_nERROR enErrorReg;
+    boolean_t boStatusRead;
+    boolean_t boTerminate;
 
-    void* pstItemItemData = (void*) 0UL ;
 
-    void* pstItemDataTemp = (void*) 0UL ;
-
-    UBase_t uxSizeReg = 0UL;
-
-    if(((UBase_t) 0UL != (UBase_t) pstList))
+    pstHeadNextItem = (SLinkedListItem_t*) 0UL;
+    pstItemToRemove = (SLinkedListItem_t*) 0UL;
+    pstItemNextItem = (SLinkedListItem_t*) 0UL;
+    pstItemNextNextItem = (SLinkedListItem_t*) 0UL;
+    pstHeadData = (SLinkedListItem_t*) 0UL;
+    pstItemNextItemData = (void*) 0UL;
+    pstItemNextItemOwner = (void*) 0UL;
+    pstItemItemData = (void*) 0UL;
+    pstItemDataTemp = (void*) 0UL;
+    uxItemNextItemValue = 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    boStatusRead = FALSE;
+    boTerminate = FALSE;
+    if(0UL == (uintptr_t) pstList)
     {
-        uxSizeReg = SLinkedList__uxGetSize(pstList);
-        if(0UL != uxSizeReg)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxSizeReg)
         {
-            if((UBase_t) 0UL == (UBase_t) pstItem)
+            enErrorReg = SLinkedList_enERROR_EMPTY;
+        }
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((UBase_t) 0UL == (UBase_t) pstItem)
+        {
+            enErrorReg = SLinkedList__enGetHead(pstList, &pstHeadData);
+            if(SLinkedList_enERROR_OK == enErrorReg)
             {
-                enStatus = SLinkedList_enERROR_OK;
-                pstHeadData = SLinkedList__pstGetHead(pstList);
-                pstItemDataTemp = SLinkedList_Item__pvGetData(pstHeadData);
+                enErrorReg = SLinkedList_Item__enGetData(pstHeadData, &pstItemDataTemp);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
                 pstItemToRemove = pstHeadData;
-                pstHeadNextItem = SLinkedList_Item__pstGetNextItem(pstItemToRemove);
-                SLinkedList__vSetHead(pstList, pstHeadNextItem);
+                enErrorReg = SLinkedList_Item__enGetNextItem(pstItemToRemove, &pstHeadNextItem);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SLinkedList__enSetHead(pstList, pstHeadNextItem);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
                 if(1UL == uxSizeReg)
                 {
-                    SLinkedList__vSetTail(pstList, (SLinkedListItem_t*)0UL);
+                    enErrorReg = SLinkedList__enSetTail(pstList, (SLinkedListItem_t*) 0UL);
                 }
-
-                enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstItemToRemove);
-                if((UBase_t) SLinkedList_enERROR_OK == (UBase_t) enStatusRead)
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SLinkedList__enIsLastItemRead(pstList, pstItemToRemove, &boStatusRead);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                if(TRUE == boStatusRead)
                 {
-                    SLinkedList__vSetLastItemRead(pstList, pstHeadNextItem);
+                    enErrorReg = SLinkedList__enSetLastItemRead(pstList, pstHeadNextItem);
+                }
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                boTerminate = TRUE;
+            }
+        }
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        enErrorReg = SLinkedList_Item__enGetNextItem(pstItem, &pstItemNextItem);
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            if((UBase_t) 0UL == (UBase_t) pstItemNextItem)
+            {
+                boTerminate = TRUE;
+            }
+        }
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        enErrorReg = SLinkedList_Item__enGetData(pstItemNextItem, &pstItemNextItemData);
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = SLinkedList_Item__enGetValue(pstItemNextItem, &uxItemNextItemValue);
+        }
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = SLinkedList_Item__enGetOwnerList(pstItemNextItem, &pstItemNextItemOwner);
+        }
+
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            if(REMOVE_CURRENT == uxRemove)
+            {
+                enErrorReg = SLinkedList_Item__enGetData(pstItem, &pstItemItemData);
+                if(SLinkedList_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = SLinkedList_Item__enSetData(pstItem, pstItemNextItemData);
+                }
+                if(SLinkedList_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = SLinkedList_Item__enSetValue(pstItem, uxItemNextItemValue);
+                }
+                if(SLinkedList_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = SLinkedList_Item__enSetOwnerList(pstItem, pstItemNextItemOwner);
+                }
+                if(SLinkedList_enERROR_OK == enErrorReg)
+                {
+                    pstItemDataTemp = pstItemItemData;
                 }
             }
             else
             {
-                pstItemNextItem = SLinkedList_Item__pstGetNextItem(pstItem);
-                if((UBase_t) 0UL != (UBase_t) pstItemNextItem)
-                {
-                    enStatus = SLinkedList_enERROR_OK;
-
-                    pstItemNextItemData = SLinkedList_Item__pvGetData(pstItemNextItem);
-                    uxItemNextItemValue = SLinkedList_Item__uxGetValue(pstItemNextItem);
-                    pstItemNextItemOwner = SLinkedList_Item__pvGetOwnerList(pstItemNextItem);
-
-                    if(REMOVE_CURRENT == uxRemove)
-                    {
-                        pstItemItemData = SLinkedList_Item__pvGetData(pstItem);
-
-                        SLinkedList_Item__vSetData(pstItem, pstItemNextItemData);
-                        SLinkedList_Item__vSetValue(pstItem, uxItemNextItemValue);
-                        SLinkedList_Item__vSetOwnerList(pstItem, pstItemNextItemOwner);
-
-                        pstItemDataTemp = pstItemItemData;
-                    }
-                    else
-                    {
-                        pstItemDataTemp = pstItemNextItemData;
-                    }
-
-                    pstItemToRemove = pstItemNextItem;
-                    pstItemNextNextItem = SLinkedList_Item__pstGetNextItem(pstItemToRemove);
-
-                    SLinkedList_Item__vSetNextItem(pstItem, pstItemNextNextItem);
-
-                    if((UBase_t) 0UL == (UBase_t) pstItemToRemove)
-                    {
-                        SLinkedList__vSetTail(pstList, (SLinkedListItem_t*)pstItem);
-                    }
-
-                    enStatusRead = SLinkedList__enIsLastItemRead(pstList,pstItemToRemove);
-                    if((UBase_t) SLinkedList_enERROR_OK == (UBase_t) enStatusRead)
-                    {
-                        SLinkedList__vSetLastItemRead(pstList, pstItem);
-                    }
-                }
+                pstItemDataTemp = pstItemNextItemData;
             }
+        }
 
-            if(SLinkedList_enERROR_OK == enStatus)
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            pstItemToRemove = pstItemNextItem;
+            enErrorReg = SLinkedList_Item__enGetNextItem(pstItemToRemove, &pstItemNextNextItem);
+        }
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = SLinkedList_Item__enSetNextItem(pstItem, pstItemNextNextItem);
+        }
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            if((UBase_t) 0UL == (UBase_t) pstItemToRemove)
             {
-                if(0UL != (UBase_t) pvData)
-                {
-                    *pvData = pstItemDataTemp;
-                }
-
-                SLinkedList_Item__vSetOwnerList(pstItemToRemove,  (void *) 0UL);
-                SLinkedList_Item__vSetNextItem(pstItemToRemove,  (SLinkedListItem_t *) 0UL);
-                if(0UL !=  (UBase_t)  pstList->pvfDestroyItem)
-                {
-                    SLinkedList_Item__vSetValue(pstItemToRemove, 0UL);
-                    SLinkedList_Item__vSetData(pstItemToRemove,  (void *) 0UL);
-                    pstList->pvfDestroyItem(pstItemToRemove);
-                    pstItemToRemove = (SLinkedListItem_t*) 0UL;
-                }
-
-                uxSizeReg--;
-                SLinkedList__vSetSize(pstList, uxSizeReg);
+                enErrorReg = SLinkedList__enSetTail(pstList, (SLinkedListItem_t*)pstItem);
+            }
+        }
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            enErrorReg = SLinkedList__enIsLastItemRead(pstList, pstItemToRemove, &boStatusRead);
+        }
+        if(SLinkedList_enERROR_OK == enErrorReg)
+        {
+            if(TRUE == boStatusRead)
+            {
+                enErrorReg = SLinkedList__enSetLastItemRead(pstList, pstItem);
             }
         }
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (UBase_t) pvData)
+        {
+            *pvData = pstItemDataTemp;
+        }
+        enErrorReg = SLinkedList_Item__enSetOwnerList(pstItemToRemove,  (void *) 0UL);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enSetNextItem(pstItemToRemove,  (SLinkedListItem_t *) 0UL);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL !=  (UBase_t)  pstList->pvfDestroyItem)
+        {
+            enErrorReg = SLinkedList_Item__enSetValue(pstItemToRemove, 0UL);
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SLinkedList_Item__enSetData(pstItemToRemove,  (void *) 0UL);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstList->pvfDestroyItem(pstItemToRemove);
+                pstItemToRemove = (SLinkedListItem_t*) 0UL;
+            }
+        }
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        uxSizeReg--;
+        enErrorReg = SLinkedList__enSetSize(pstList, uxSizeReg);
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemoveNextInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveGeneric(pstList, pstItem, pvData, REMOVE_NEXT);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveGeneric(pstList, pstItem, pvData, REMOVE_NEXT);
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemoveNextInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, pstItem, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, pstItem, (void**) 0UL);
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemoveNext_GetData(SLinkedListItem_t* pstItem, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedList_t* pstListReg = (SLinkedList_t*) 0UL;
+    SLinkedList_t* pstListReg;
+    SLinkedList_nERROR enErrorReg;
 
-    if(0UL != (UBase_t) pstItem)
+    pstListReg = (SLinkedList_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstItem)
     {
-        enStatus = SLinkedList_enERROR_OK;
-        pstListReg = (SLinkedList_t*) SLinkedList_Item__pvGetOwnerList(pstItem);
-        enStatus = SLinkedList__enRemoveNextInList_GetData(pstListReg, pstItem, pvData);
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem,  (void**) &pstListReg);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstListReg, pstItem, pvData);
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemoveNext(SLinkedListItem_t* pstItem)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveNext_GetData(pstItem, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveNext_GetData(pstItem, (void**) 0UL);
+    return (enErrorReg);
 }
 
 
 
 SLinkedList_nERROR SLinkedList__enRemoveInList_GetData(SLinkedList_t* pstList, SLinkedListItem_t* pstItem, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveGeneric(pstList, pstItem, pvData, REMOVE_CURRENT);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveGeneric(pstList, pstItem, pvData, REMOVE_CURRENT);
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemoveInList(SLinkedList_t* pstList, SLinkedListItem_t* pstItem)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveInList_GetData(pstList, pstItem, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveInList_GetData(pstList, pstItem, (void**) 0UL);
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemove_GetData(SLinkedListItem_t* pstItem, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedList_t* pstListReg = (SLinkedList_t*) 0UL;
+    SLinkedList_t* pstListReg;
+    SLinkedList_nERROR enErrorReg;
 
-    if(0UL != (UBase_t) pstItem)
+    pstListReg = (SLinkedList_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstItem)
     {
-        enStatus = SLinkedList_enERROR_OK;
-        pstListReg = (SLinkedList_t*) SLinkedList_Item__pvGetOwnerList(pstItem);
-        enStatus = SLinkedList__enRemoveInList_GetData(pstListReg, pstItem, pvData);
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem, (void**) &pstListReg);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enRemoveInList_GetData(pstListReg, pstItem, pvData);
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enRemove(SLinkedListItem_t* pstItem)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemove_GetData(pstItem, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemove_GetData(pstItem, (void**) 0UL);
+    return (enErrorReg);
 }
-
 
 SLinkedList_nERROR  SLinkedList__enRemoveTail_GetData(SLinkedList_t* pstList, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstEndItem = (SLinkedListItem_t*) 0UL;
-    UBase_t uxSizeList = 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstEndItem;
+    SLinkedListItem_t *pstEndItemTemp;
+    UBase_t uxSizeList;
+    SLinkedList_nERROR enErrorReg;
+    boolean_t boTerminate;
+
+    boTerminate = FALSE;
+    uxSizeList = 0UL;
+    pstEndItemTemp = (SLinkedListItem_t*) 0UL;
+    pstEndItem = (SLinkedListItem_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        uxSizeList = SLinkedList__uxGetSize(pstList);
-        if(1UL <  uxSizeList)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(1UL >=  uxSizeList)
         {
-            uxSizeList--;
-            pstEndItem = SLinkedList__pstGetHead(pstList);
-            uxSizeList--;
-            while(0UL != uxSizeList)
+            boTerminate = TRUE;
+        }
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        uxSizeList--;
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstEndItem);
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        uxSizeList--;
+        while((0UL != uxSizeList) && (SLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = SLinkedList_Item__enGetNextItem(pstEndItem, &pstEndItemTemp);
+            if(SLinkedList_enERROR_OK == enErrorReg)
             {
-                pstEndItem = SLinkedList_Item__pstGetNextItem(pstEndItem);
+                pstEndItem = pstEndItemTemp;
                 uxSizeList--;
             }
         }
-        enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, pstEndItem, pvData);
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, pstEndItem, pvData);
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR  SLinkedList__enRemoveTail(SLinkedList_t* pstList)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveTail_GetData(pstList, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveTail_GetData(pstList, (void**) 0UL);
+    return (enErrorReg);
 }
 
 
 SLinkedList_nERROR  SLinkedList__enRemoveHead_GetData(SLinkedList_t* pstList, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListItem_t*) 0UL, pvData);
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListItem_t*) 0UL, pvData);
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR  SLinkedList__enRemoveHead(SLinkedList_t* pstList)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemoveHead_GetData(pstList, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemoveHead_GetData(pstList, (void**) 0UL);
+    return (enErrorReg);
 }
 
-SLinkedList_nERROR  SLinkedList__enRemovePos_GetData(SLinkedList_t* pstList, UBase_t uxPosition, void** pvData)
+SLinkedList_nERROR  SLinkedList__enRemovePosition_GetData(SLinkedList_t* pstList, UBase_t uxPosition, void** pvData)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    UBase_t uxSizeList = 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    UBase_t uxSizeList;
+    SLinkedList_nERROR enErrorReg;
+    boolean_t boTerminate;
+
+    boTerminate = FALSE;
+    pstItem = (SLinkedListItem_t*) 0UL;
+    uxSizeList = 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        uxSizeList = SLinkedList__uxGetSize(pstList);
-        if(uxPosition < uxSizeList)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(uxPosition >= uxSizeList)
         {
-            if(0UL != uxPosition)
-            {
-                pstItem = SLinkedList__pstGetHead(pstList);
-                uxPosition--;
-                while(0UL != uxPosition)
-                {
-                    pstItem = SLinkedList_Item__pstGetNextItem(pstItem);
-                    uxPosition--;
-                }
-            }
-            enStatus = SLinkedList__enRemoveNextInList_GetData(pstList, pstItem, pvData);
+            enErrorReg = SLinkedList_enERROR_RANGE;
         }
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxPosition)
+        {
+            boTerminate = TRUE;
+        }
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstItem);
+    }
+    if((SLinkedList_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
+    {
+        uxPosition--;
+        while((0UL != uxPosition) && (SLinkedList_enERROR_OK == enErrorReg))
+        {
+            SLinkedListItem_t *pstItemTemp = (SLinkedListItem_t*) 0UL;
+            enErrorReg = SLinkedList_Item__enGetNextItem(pstItem, &pstItemTemp);
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstItem = pstItemTemp;
+                uxPosition--;
+            }
+        }
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, pstItem, pvData);
+    }
+    return (enErrorReg);
 }
 
-SLinkedList_nERROR  SLinkedList__enRemovePos(SLinkedList_t* pstList, UBase_t uxPosition)
+SLinkedList_nERROR  SLinkedList__enRemovePosition(SLinkedList_t* pstList, UBase_t uxPosition)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    enStatus = SLinkedList__enRemovePos_GetData(pstList, uxPosition, (void**) 0UL);
-    return (enStatus);
+    SLinkedList_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enRemovePosition_GetData(pstList, uxPosition, (void**) 0UL);
+    return (enErrorReg);
 }

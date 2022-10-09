@@ -27,23 +27,48 @@
 
 SLinkedList_nERROR SLinkedList__enReverse(SLinkedList_t* pstList)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstPreviousItem = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstNextItemReg = (SLinkedListItem_t*) 0UL ;
-    SLinkedListItem_t* pstHeadItem = (SLinkedListItem_t*) 0UL ;
-    if(((UBase_t) 0UL != (UBase_t) pstList))
+    SLinkedListItem_t* pstHeadItem;
+    SLinkedListItem_t* pstNextItemReg;
+    SLinkedListItem_t* pstPreviousItem;
+    SLinkedList_nERROR enErrorReg;
+
+
+    pstPreviousItem = (SLinkedListItem_t*) 0UL;
+    pstNextItemReg = (SLinkedListItem_t*) 0UL;
+    pstHeadItem = (SLinkedListItem_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        pstHeadItem = SLinkedList__pstGetHead(pstList);
-        SLinkedList__vSetTail(pstList, pstHeadItem);
-        while((UBase_t) 0UL != (UBase_t) pstHeadItem)
-        {
-            pstNextItemReg = SLinkedList_Item__pstGetNextItem(pstHeadItem);
-            SLinkedList_Item__vSetNextItem(pstHeadItem, pstPreviousItem);
-            pstPreviousItem = pstHeadItem;
-            pstHeadItem = pstNextItemReg;
-        }
-        pstHeadItem = pstPreviousItem;
-        SLinkedList__vSetHead(pstList, pstHeadItem);
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstHeadItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enSetTail(pstList, pstHeadItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstHeadItem) && (SLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = SLinkedList_Item__enGetNextItem(pstHeadItem, &pstNextItemReg);
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SLinkedList_Item__enSetNextItem(pstHeadItem, pstPreviousItem);
+            }
+            if(SLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstPreviousItem = pstHeadItem;
+                pstHeadItem = pstNextItemReg;
+            }
+        }
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        pstHeadItem = pstPreviousItem;
+        enErrorReg = SLinkedList__enSetHead(pstList, pstHeadItem);
+    }
+    return (enErrorReg);
 }

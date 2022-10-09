@@ -43,7 +43,7 @@ void CSLinkedList__vSetLastItemRead(CSLinkedList_t* pstList, CSLinkedListItem_t*
 
 CSLinkedList_nERROR CSLinkedList__enIsLastItemRead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstListLastItemRead = (CSLinkedListItem_t*)0UL;
     pstListLastItemRead= CSLinkedList__pstGetLastItemRead(pstList);
     if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))

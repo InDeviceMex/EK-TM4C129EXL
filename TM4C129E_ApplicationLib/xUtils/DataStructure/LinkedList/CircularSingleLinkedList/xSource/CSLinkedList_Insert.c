@@ -41,8 +41,8 @@ static CSLinkedList_nERROR CSLinkedList__enInsertNextGeneric(CSLinkedList_t* pst
                                              void* pvData,
                                              UBase_t uxDataUpdate)
 {
-    CSLinkedList_nERROR enStatusReturn = CSLinkedList_enSTATUS_UNDEF;
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatusReturn = CSLinkedList_enERROR_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstNextItemReg = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstNewItem1 = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstListHeadItem = (CSLinkedListItem_t*) 0UL ;
@@ -98,7 +98,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertNext_WithData(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstNewItem,
                                             void* pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstItem, pstNewItem, pvData, DATA_UPDATE);
     return (enStatus);
 }
@@ -107,7 +107,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertNext(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstItem,
                                             CSLinkedListItem_t* pstNewItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enInsertNextGeneric(pstList, pstItem, pstNewItem, (void*) 0UL, DATA_STATIC);
     return (enStatus);
 }
@@ -149,7 +149,7 @@ CSLinkedList_nERROR  CSLinkedList__enInsertNextLastItemRead_WithData(CSLinkedLis
                                            CSLinkedListItem_t* pstNewItem,
                                            void* pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstLastItemItem = (CSLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -162,7 +162,7 @@ CSLinkedList_nERROR  CSLinkedList__enInsertNextLastItemRead_WithData(CSLinkedLis
 CSLinkedList_nERROR  CSLinkedList__enInsertNextLastItemRead(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstLastItemItem = (CSLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -200,7 +200,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertAtTail_WithData(CSLinkedList_t* pstLis
                                            CSLinkedListItem_t* pstNewItem,
                                             void* pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstEndItem = (CSLinkedListItem_t*) 0UL;
 
     if(((UBase_t) 0UL != (UBase_t) pstList))
@@ -214,7 +214,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertAtTail_WithData(CSLinkedList_t* pstLis
 CSLinkedList_nERROR CSLinkedList__enInsertAtTail(CSLinkedList_t* pstList,
                                            CSLinkedListItem_t* pstNewItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstEndItem = (CSLinkedListItem_t*) 0UL;
 
     if(((UBase_t) 0UL != (UBase_t) pstList))
@@ -254,7 +254,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertAtHead_WithData(CSLinkedList_t* pstLis
                                                 CSLinkedListItem_t* pstNewItem,
                                                 void* pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
 
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -266,7 +266,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertAtHead_WithData(CSLinkedList_t* pstLis
 CSLinkedList_nERROR CSLinkedList__enInsertAtHead(CSLinkedList_t* pstList,
                                                 CSLinkedListItem_t* pstNewItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
 
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -300,7 +300,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertPos_WithData(CSLinkedList_t* pstList,
                                             UBase_t uxPosition,
                                             void* pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstItem = (CSLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
@@ -336,7 +336,7 @@ CSLinkedList_nERROR CSLinkedList__enInsertPos(CSLinkedList_t* pstList,
                                             CSLinkedListItem_t* pstNewItem,
                                             UBase_t uxPosition)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstItem = (CSLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))

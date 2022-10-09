@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void* SLinkedList_Item__pvGetData(const SLinkedListItem_t* const pstItem);
-void SLinkedList_Item__vSetData(SLinkedListItem_t* pstItem, void* pvDataArg);
+SLinkedList_nERROR SLinkedList_Item__enGetData(const SLinkedListItem_t* const pstItem, void** pvDataArg);
+SLinkedList_nERROR SLinkedList_Item__enSetData(SLinkedListItem_t* pstItem, void* pvDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_SLINKEDLIST_ITEMDATA_H_ */

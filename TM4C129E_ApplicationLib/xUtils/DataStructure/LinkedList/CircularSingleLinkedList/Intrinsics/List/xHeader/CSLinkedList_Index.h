@@ -29,6 +29,6 @@
 
 CSLinkedListItem_t* CSLinkedList__pstGetLastItemRead(const CSLinkedList_t*  const pstList);
 void CSLinkedList__vSetLastItemRead(CSLinkedList_t* pstList, CSLinkedListItem_t* pstLastItemReadArg);
-CSLinkedList_nSTATUS CSLinkedList__enIsLastItemRead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem);
+CSLinkedList_nERROR CSLinkedList__enIsLastItemRead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CSLINKEDLIST_INDEX_H_ */

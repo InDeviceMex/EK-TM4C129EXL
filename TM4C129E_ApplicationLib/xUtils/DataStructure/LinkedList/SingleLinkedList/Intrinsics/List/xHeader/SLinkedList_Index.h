@@ -27,8 +27,8 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-SLinkedListItem_t* SLinkedList__pstGetLastItemRead(const SLinkedList_t*  const pstList);
-void SLinkedList__vSetLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstLastItemReadArg);
-SLinkedList_nSTATUS SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem);
+SLinkedList_nERROR SLinkedList__enGetLastItemRead(const SLinkedList_t*  const pstList, SLinkedListItem_t** pstLastItemReadArg);
+SLinkedList_nERROR SLinkedList__enSetLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstLastItemReadArg);
+SLinkedList_nERROR SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem, boolean_t* pboStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_SINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_SLINKEDLIST_INDEX_H_ */

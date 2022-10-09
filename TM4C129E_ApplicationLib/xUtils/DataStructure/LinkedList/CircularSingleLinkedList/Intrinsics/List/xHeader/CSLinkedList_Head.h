@@ -28,6 +28,6 @@
 
 CSLinkedListItem_t* CSLinkedList__pstGetHead(const CSLinkedList_t*  const pstList);
 void CSLinkedList__vSetHead(CSLinkedList_t* pstList, CSLinkedListItem_t* pstHeadArg);
-CSLinkedList_nSTATUS CSLinkedList__enIsHead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem);
+CSLinkedList_nERROR CSLinkedList__enIsHead(const CSLinkedList_t* const pstList, const CSLinkedListItem_t* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARSLINKEDLIST_HEAD_H_ */

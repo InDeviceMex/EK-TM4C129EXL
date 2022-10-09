@@ -48,7 +48,7 @@ CSLinkedList_nERROR CSLinkedList__enInit(CSLinkedList_t* pstList,
                                           void (*pvfDestroyItemDataArg) (void *DataContainer),
                                           void (*pvfDestroyItemArg) (void *Item))
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     if((UBase_t) 0UL != (UBase_t) pstList)
     {
         enStatus = CSLinkedList_enERROR_OK;

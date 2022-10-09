@@ -26,9 +26,6 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
- SLinkedList_nSTATUS SLinkedList__enReverse(SLinkedList_t* pstList);
-
-
-
+SLinkedList_nERROR SLinkedList__enReverse(SLinkedList_t* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_REVERSE_H_ */

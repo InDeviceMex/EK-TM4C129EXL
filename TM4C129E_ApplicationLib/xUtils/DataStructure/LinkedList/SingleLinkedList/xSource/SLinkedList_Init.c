@@ -24,43 +24,67 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Init.h>
 #include <stdlib.h>
 
-SLinkedList_t* SLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer),
-                                          void (*pvfDestroyItemArg) (void *Item))
+SLinkedList_nERROR SLinkedList__enCreate(SLinkedList_t** pstList,
+                                    SLinkedList_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                                    SLinkedList_pvfDestroyItem_t pvfDestroyItemArg)
 {
-    SLinkedList_t *pstList = 0;
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    pstList = (SLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(SLinkedList_t));
-#elif defined (__GNUC__ )
-    pstList = (SLinkedList_t*) malloc(sizeof(SLinkedList_t));
-#endif
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedList_t *pstListReg;
+    SLinkedList_nERROR enErrorReg;
+
+    pstListReg = (SLinkedList_t*) 0U;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        pstList->uxSize = 0UL;
-        pstList->pvfDestroy = &free;
-        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
-        pstList->pvfDestroyItem = pvfDestroyItemArg;
-        pstList->pstHead = (SLinkedListItem_t*)  0UL;
-        pstList->pstTail = (SLinkedListItem_t*)  0UL;
-        pstList->pstLastItemRead = (SLinkedListItem_t*)  0UL;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pstList);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+        pstListReg = (SLinkedList_t*) memalign((size_t) 4U, (size_t) sizeof(SLinkedList_t));
+#elif defined (__GNUC__ )
+        pstListReg = (SLinkedList_t*) malloc(sizeof(SLinkedList_t));
+#endif
+        if(0UL == (uintptr_t) pstList)
+        {
+            enErrorReg = SLinkedList_enERROR_POINTER;
+        }
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        pstListReg->uxSize = 0UL;
+        pstListReg->pvfDestroy = &free;
+        pstListReg->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstListReg->pvfDestroyItem = pvfDestroyItemArg;
+        pstListReg->pstHead = (SLinkedListItem_t*)  0UL;
+        pstListReg->pstTail = (SLinkedListItem_t*)  0UL;
+        pstListReg->pstLastItemRead = (SLinkedListItem_t*)  0UL;
+
+        *pstList = pstListReg;
+    }
+    return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enInit(SLinkedList_t* pstList,
-                                        void (*pvfDestroyItemDataArg) (void *DataContainer),
-                                        void (*pvfDestroyItemArg) (void *Item))
+                                       SLinkedList_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                                       SLinkedList_pvfDestroyItem_t pvfDestroyItemArg,
+                                       SLinkedList_pvfDestroy_t pvfDestroyArg)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
     {
-        enStatus = SLinkedList_enERROR_OK;
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        enErrorReg = SLinkedList_enERROR_OK;
         pstList->uxSize = 0UL;
-        pstList->pvfDestroy = (void (*) (void* List))0UL;
+        pstList->pvfDestroy = pvfDestroyArg;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (SLinkedListItem_t*)  0UL;
         pstList->pstTail = (SLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (SLinkedListItem_t*)  0UL;
     }
-    return (enStatus);
+    return (enErrorReg);
 }

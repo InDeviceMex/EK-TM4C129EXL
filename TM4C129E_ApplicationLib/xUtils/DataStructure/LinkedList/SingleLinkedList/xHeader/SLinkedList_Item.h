@@ -26,12 +26,12 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-UBase_t SLinkedList__uxGetNItem(const SLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
-UBase_t SLinkedList__uxGetAllItem(const SLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
+SLinkedList_nERROR SLinkedList__enGetNItem(const SLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+SLinkedList_nERROR SLinkedList__enGetAllItem(const SLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-UBase_t SLinkedList__uxGetAllItem_Value(const SLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
-UBase_t SLinkedList__uxGetNItem_Value(const SLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
+SLinkedList_nERROR SLinkedList__enGetAllItem_Value(const SLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+SLinkedList_nERROR SLinkedList__enGetNItem_Value(const SLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-SLinkedListItem_t*  SLinkedList__pstGetItemPos(const SLinkedList_t* pstList, UBase_t uxPosition);
+SLinkedList_nERROR  SLinkedList__enGetItemPosition(const SLinkedList_t* pstList, UBase_t uxPosition, SLinkedListItem_t** pstItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_ITEM_H_ */

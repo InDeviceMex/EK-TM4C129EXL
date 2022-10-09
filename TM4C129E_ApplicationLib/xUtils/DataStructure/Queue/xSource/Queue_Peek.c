@@ -27,7 +27,10 @@
 
 void * Queue__pvPeek(const Queue_t* pstQueue)
 {
-    return SLinkedList__pvGetDataHead((const SLinkedList_t*)pstQueue);
+    void *pvItemDataReg;
+    pvItemDataReg = (void*) 0U;
+    SLinkedList__enGetDataHead((const SLinkedList_t*)pstQueue, &pvItemDataReg);
+    return (pvItemDataReg);
 }
 
 UBase_t Queue__uxGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize)
@@ -36,7 +39,7 @@ UBase_t Queue__uxGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMe
 
     if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMembers ) && (0UL != uxMaxSize ))
     {
-        uxSizeReg = SLinkedList__uxGetNItem((const SLinkedList_t*)pstQueue, pvData, uxMembers, uxMaxSize);
+        SLinkedList__enGetNItem((const SLinkedList_t*)pstQueue, pvData, uxMembers, uxMaxSize, &uxSizeReg);
     }
     return uxSizeReg;
 }
@@ -47,7 +50,7 @@ UBase_t Queue__uxGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t ux
 
     if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && ((UBase_t) 0UL != uxMaxSize ))
     {
-        uxSizeReg = SLinkedList__uxGetAllItem((const SLinkedList_t*)pstQueue, pvData, uxMaxSize);
+        SLinkedList__enGetAllItem((const SLinkedList_t*)pstQueue, pvData, uxMaxSize, &uxSizeReg);
     }
     return uxSizeReg;
 }

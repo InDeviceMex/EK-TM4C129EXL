@@ -23,32 +23,63 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Head.h>
 
-SLinkedListItem_t* SLinkedList__pstGetHead(const SLinkedList_t*  const pstList)
+SLinkedList_nERROR SLinkedList__enGetHead(const SLinkedList_t*  const pstList, SLinkedListItem_t** pstHeadArg)
 {
-    SLinkedListItem_t* pstHeadReg = (SLinkedListItem_t*)0U;
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstHeadArg))
     {
-        pstHeadReg = pstList->pstHead;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pstHeadReg);
+    else
+    {
+        *pstHeadArg = pstList->pstHead;
+        enErrorReg = SLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void SLinkedList__vSetHead(SLinkedList_t* pstList, SLinkedListItem_t* pstHeadArg)
+SLinkedList_nERROR SLinkedList__enSetHead(SLinkedList_t* pstList, SLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstHead = pstHeadArg;
+        enErrorReg = SLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-SLinkedList_nERROR SLinkedList__enIsHead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList__enIsHead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstListHead = (SLinkedListItem_t*)0UL;
-    pstListHead = SLinkedList__pstGetHead(pstList);
-    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
+    SLinkedList_nERROR enErrorReg;
+    SLinkedListItem_t* pstListHead;
+
+    pstListHead = (SLinkedListItem_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pboStatus)
     {
-        enStatus = SLinkedList_enERROR_OK;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstListHead);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((UBase_t) pstItem == (UBase_t) (pstListHead))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

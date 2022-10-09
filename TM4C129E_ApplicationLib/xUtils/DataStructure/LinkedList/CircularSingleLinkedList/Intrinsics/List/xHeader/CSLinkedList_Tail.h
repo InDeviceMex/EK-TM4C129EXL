@@ -28,6 +28,6 @@
 
 CSLinkedListItem_t* CSLinkedList__pstGetTail(const CSLinkedList_t*  const pstList);
 void CSLinkedList__vSetTail(CSLinkedList_t* pstList, CSLinkedListItem_t* pstTailArg);
-CSLinkedList_nSTATUS CSLinkedList__enIsTail(const CSLinkedList_t*  const pstList, const CSLinkedListItem_t* const pstItem);
+CSLinkedList_nERROR CSLinkedList__enIsTail(const CSLinkedList_t*  const pstList, const CSLinkedListItem_t* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARSINGLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARSLINKEDLIST_TAIL_H_ */

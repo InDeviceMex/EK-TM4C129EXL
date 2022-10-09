@@ -44,7 +44,7 @@ void CSLinkedList__vSetSize(CSLinkedList_t*  pstList, UBase_t uxSizeArg)
 
 CSLinkedList_nERROR CSLinkedList__enIsEmpty(const CSLinkedList_t*  pstList)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     if(0UL  == pstList->uxSize)
     {
         enStatus = CSLinkedList_enERROR_OK;

@@ -27,6 +27,6 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularSingleLinkedList/Intrinsics/xHeader/CSLinkedList_Struct.h>
 
-CSLinkedList_nSTATUS CSLinkedList__enIsItemOwnerList(const CSLinkedList_t* pstList, const CSLinkedListItem_t* const pstItem);
+CSLinkedList_nERROR CSLinkedList__enIsItemOwnerList(const CSLinkedList_t* pstList, const CSLinkedListItem_t* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARSINGLELINKEDLIST_XHEADER_CSLINKEDLIST_OWNER_H_ */

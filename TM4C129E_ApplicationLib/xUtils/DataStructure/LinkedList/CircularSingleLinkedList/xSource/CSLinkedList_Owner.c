@@ -27,7 +27,7 @@
 
 CSLinkedList_nERROR CSLinkedList__enIsItemOwnerList(const CSLinkedList_t* pstList, const CSLinkedListItem_t* const pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedList_t* pstOwnerListItem = (CSLinkedList_t*) 0UL;
     pstOwnerListItem = (CSLinkedList_t*) CSLinkedList_Item__pvGetOwnerList(pstItem);
     if((UBase_t) pstOwnerListItem == (UBase_t) pstList )

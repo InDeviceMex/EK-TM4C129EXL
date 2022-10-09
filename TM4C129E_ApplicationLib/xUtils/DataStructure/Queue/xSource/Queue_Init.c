@@ -24,19 +24,22 @@
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Init.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Init.h>
 
-Queue_t* Queue__pstInit(void (*pvfDestroyElementDataArg) (void *DataContainer),
-                              void (*pvfDestroyItemArg) (void *Item))
+Queue_nSTATUS Queue__enCreate(Queue_t** pstQueue,
+                        Queue_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                        Queue_pvfDestroyItem_t pvfDestroyItemArg)
 {
-    return (Queue_t*)SLinkedList__pstInit(pvfDestroyElementDataArg, pvfDestroyItemArg);
+    return (Queue_nSTATUS) SLinkedList__enCreate(pstQueue, pvfDestroyItemDataArg, pvfDestroyItemArg);
 }
 
 Queue_nSTATUS Queue__enInit(Queue_t* pstQueue,
-                            void (*pvfDestroyElementDataArg) (void *DataContainer),
-                            void (*pvfDestroyItemArg) (void *Item))
+                            Queue_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                            Queue_pvfDestroyItem_t pvfDestroyItemArg,
+                            Queue_pvfDestroy_t pvfDestroyArg)
 {
-    return (Queue_nSTATUS) SLinkedList__enInit( (SLinkedList_t*) pstQueue,
-                                                pvfDestroyElementDataArg,
-                                                pvfDestroyItemArg);
+    return (Queue_nSTATUS) SLinkedList__enInit( pstQueue,
+                                                pvfDestroyItemDataArg,
+                                                pvfDestroyItemArg,
+                                                pvfDestroyArg);
 }
 
 

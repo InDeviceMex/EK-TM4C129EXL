@@ -28,7 +28,7 @@ Queue_nSTATUS Queue__enEnqueue(Queue_t* pstQueue, void* pvData)
 {
     Queue_nSTATUS enStatus = Queue_enSTATUS_ERROR;
     SLinkedListItem_t* pstNewElement = (SLinkedListItem_t*) 0UL ;
-    pstNewElement = SLinkedList__pstInsertAtTail_WithData((SLinkedList_t*) pstQueue, pvData);
+    SLinkedList__enInsertAndCreateAtTail_WithData((SLinkedList_t*) pstQueue, &pstNewElement, pvData);
     if(0UL != (UBase_t) pstNewElement)
     {
         enStatus = Queue_enSTATUS_OK;

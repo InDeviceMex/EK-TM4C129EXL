@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-UBase_t SLinkedList_Item__uxGetValue(const SLinkedListItem_t* const pstItem);
-void SLinkedList_Item__vSetValue(SLinkedListItem_t* pstItem, UBase_t uxValueItemArg);
+SLinkedList_nERROR SLinkedList_Item__enGetValue(const SLinkedListItem_t* const pstItem, UBase_t* puxValueItemArg);
+SLinkedList_nERROR SLinkedList_Item__enSetValue(SLinkedListItem_t* pstItem, UBase_t uxValueItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_SINGLELINKEDLIST_INTRINSICS_ITEM_XHEADER_SLINKEDLIST_ITEMVALUE_H_ */

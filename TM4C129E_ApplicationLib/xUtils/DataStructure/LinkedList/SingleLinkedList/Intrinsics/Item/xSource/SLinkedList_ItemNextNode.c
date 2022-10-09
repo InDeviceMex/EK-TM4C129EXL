@@ -23,20 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/xHeader/SLinkedList_ItemNextNode.h>
 
-SLinkedListItem_t* SLinkedList_Item__pstGetNextItem(const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList_Item__enGetNextItem(const SLinkedListItem_t* const pstItem, SLinkedListItem_t** pstNextItemArg)
 {
-    SLinkedListItem_t* pstNextItemReg = (SLinkedListItem_t*)0UL;
-    if(0UL != (UBase_t) pstItem)
+    SLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pstNextItemArg))
     {
-        pstNextItemReg = pstItem->pstNextItem;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pstNextItemReg);
+    else
+    {
+        *pstNextItemArg = pstItem->pstNextItem;
+        enErrorReg = SLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void SLinkedList_Item__vSetNextItem(SLinkedListItem_t* pstItem, SLinkedListItem_t* pstNextItemArg)
+SLinkedList_nERROR SLinkedList_Item__enSetNextItem(SLinkedListItem_t* pstItem, SLinkedListItem_t* pstNextItemArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pstNextItem = pstNextItemArg;
+        enErrorReg = SLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }

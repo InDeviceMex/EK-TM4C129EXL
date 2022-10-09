@@ -26,7 +26,7 @@
 
 void Queue__vDestroy(Queue_t* pstQueue)
 {
-    SLinkedList__vDestroy( (SLinkedList_t*) pstQueue);
+    SLinkedList__enDestroy( (SLinkedList_t*) pstQueue);
 }
 
 

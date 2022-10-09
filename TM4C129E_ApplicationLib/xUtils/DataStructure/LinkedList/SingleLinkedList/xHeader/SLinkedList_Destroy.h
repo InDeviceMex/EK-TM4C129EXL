@@ -26,6 +26,6 @@
 
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/xHeader/SLinkedList_Struct.h>
 
-void SLinkedList__vDestroy(SLinkedList_t* pstList);
+SLinkedList_nERROR SLinkedList__enDestroy(SLinkedList_t* pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_DESTROY_H_ */

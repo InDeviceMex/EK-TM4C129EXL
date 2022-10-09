@@ -23,20 +23,35 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/Item/xHeader/SLinkedList_ItemData.h>
 
-void* SLinkedList_Item__pvGetData(const SLinkedListItem_t* const pstItem)
+SLinkedList_nERROR SLinkedList_Item__enGetData(const SLinkedListItem_t* const pstItem, void** pvDataArg)
 {
-    void* pvDataReg = (void*) 0UL;
-    if(0UL != (UBase_t) pstItem)
+    SLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pvDataArg))
     {
-        pvDataReg = pstItem->pvDataContainer;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pvDataReg);
+    else
+    {
+        *pvDataArg = pstItem->pvDataContainer;
+        enErrorReg = SLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void SLinkedList_Item__vSetData(SLinkedListItem_t* pstItem, void* pvDataArg)
+SLinkedList_nERROR SLinkedList_Item__enSetData(SLinkedListItem_t* pstItem, void* pvDataArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pvDataContainer = pvDataArg;
+        enErrorReg = SLinkedList_enERROR_OK;
     }
+
+    return(enErrorReg);
 }

@@ -42,8 +42,8 @@ SLinkedList_nERROR  SLinkedList__enRemoveTail(SLinkedList_t* pstList);
 SLinkedList_nERROR  SLinkedList__enRemoveHead_GetData(SLinkedList_t* pstList, void** pvData);
 SLinkedList_nERROR  SLinkedList__enRemoveHead(SLinkedList_t* pstList);
 
-SLinkedList_nERROR  SLinkedList__enRemovePos_GetData(SLinkedList_t* pstList, UBase_t uxPosition, void** pvData);
-SLinkedList_nERROR  SLinkedList__enRemovePos(SLinkedList_t* pstList, UBase_t uxPosition);
+SLinkedList_nERROR  SLinkedList__enRemovePosition_GetData(SLinkedList_t* pstList, UBase_t uxPosition, void** pvData);
+SLinkedList_nERROR  SLinkedList__enRemovePosition(SLinkedList_t* pstList, UBase_t uxPosition);
 
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_XHEADER_SLINKEDLIST_REMOVE_H_ */

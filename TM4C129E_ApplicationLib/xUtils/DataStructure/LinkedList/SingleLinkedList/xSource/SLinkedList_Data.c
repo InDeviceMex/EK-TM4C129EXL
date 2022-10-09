@@ -26,115 +26,260 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/SLinkedList_Intrinsics.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Item.h>
 
-void* SLinkedList__pvGetDataItemPos(const SLinkedList_t* pstList, UBase_t uxPosition)
+SLinkedList_nERROR SLinkedList__enGetDataItemPosition(const SLinkedList_t* pstList, UBase_t uxPosition, void** pvItemDataArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    void* pvItemData = (void*) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    void* pvItemData;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    pvItemData = (void*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
     {
-        pstItem = SLinkedList__pstGetItemPos(pstList, uxPosition);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetItemPosition(pstList, uxPosition, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            pvItemData = SLinkedList_Item__pvGetData(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (pvItemData);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetData(pstItem, &pvItemData);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *pvItemDataArg = pvItemData;
+    }
+    return (enErrorReg);
 }
 
-void* SLinkedList__pvGetDataTail(const SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enGetDataTail(const SLinkedList_t* pstList, void** pvItemDataArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    void* pvItemData = (void*) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    void* pvItemData;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    pvItemData = (void*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
     {
-        pstItem = SLinkedList__pstGetTail(pstList);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetTail(pstList, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            pvItemData = SLinkedList_Item__pvGetData(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (pvItemData);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetData(pstItem, &pvItemData);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *pvItemDataArg = pvItemData;
+    }
+    return (enErrorReg);
 }
 
-void* SLinkedList__pvGetDataHead(const SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enGetDataHead(const SLinkedList_t* pstList, void** pvItemDataArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    void* pvItemData = (void*) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    void* pvItemData;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    pvItemData = (void*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
     {
-        pstItem = SLinkedList__pstGetHead(pstList);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            pvItemData = SLinkedList_Item__pvGetData(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (pvItemData);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetData(pstItem, &pvItemData);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *pvItemDataArg = pvItemData;
+    }
+    return (enErrorReg);
 }
 
 
-UBase_t SLinkedList__uxGetValueItemPos(const SLinkedList_t* pstList, UBase_t uxPosition)
+SLinkedList_nERROR SLinkedList__enGetValueItemPosition(const SLinkedList_t* pstList, UBase_t uxPosition, UBase_t* uxItemValueArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    UBase_t uxItemValue = (UBase_t) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    UBase_t uxItemValue;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    uxItemValue = 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
     {
-        pstItem = SLinkedList__pstGetItemPos(pstList, uxPosition);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetItemPosition(pstList, uxPosition, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            uxItemValue = SLinkedList_Item__uxGetValue(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (uxItemValue);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetValue(pstItem, &uxItemValue);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxItemValueArg = uxItemValue;
+    }
+    return (enErrorReg);
 }
 
-UBase_t SLinkedList__uxGetValueTail(const SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enGetValueTail(const SLinkedList_t* pstList, UBase_t* uxItemValueArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    UBase_t uxItemValue = (UBase_t) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    UBase_t uxItemValue;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    uxItemValue = 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
     {
-        pstItem = SLinkedList__pstGetTail(pstList);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetTail(pstList, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            uxItemValue = SLinkedList_Item__uxGetValue(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (uxItemValue);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetValue(pstItem, &uxItemValue);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxItemValueArg = uxItemValue;
+    }
+
+    return (enErrorReg);
 }
 
-UBase_t SLinkedList__uxGetValueHead(const SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enGetValueHead(const SLinkedList_t* pstList, UBase_t* uxItemValueArg)
 {
-    SLinkedListItem_t* pstItem = (SLinkedListItem_t*) 0UL;
-    UBase_t uxItemValue = (UBase_t) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstItem;
+    UBase_t uxItemValue;
+    SLinkedList_nERROR enErrorReg;
+
+    pstItem = (SLinkedListItem_t*) 0UL;
+    uxItemValue = 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
     {
-        pstItem = SLinkedList__pstGetHead(pstList);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetHead(pstList, &pstItem);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstItem)
         {
-            uxItemValue = SLinkedList_Item__uxGetValue(pstItem);
+            enErrorReg = SLinkedList_enERROR_POINTER;
         }
     }
-    return (uxItemValue);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetValue(pstItem, &uxItemValue);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxItemValueArg = uxItemValue;
+    }
+
+    return (enErrorReg);
 }
 
-void* SLinkedList__pvGetDataNextItem(SLinkedList_t* pstList)
+SLinkedList_nERROR SLinkedList__enGetDataNextItem(SLinkedList_t* pstList, void** pvItemDataArg)
 {
-    SLinkedListItem_t* pstLastItemReg = (SLinkedListItem_t*) 0UL;
-    SLinkedListItem_t* pstNextItemReg = (SLinkedListItem_t*) 0UL;
-    void* pvItemData = (void*) 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    SLinkedListItem_t* pstLastItemReg;
+    SLinkedListItem_t* pstNextItemReg;
+    void* pvItemData;
+    SLinkedList_nERROR enErrorReg;
+
+    pstLastItemReg = (SLinkedListItem_t*) 0UL;
+    pstNextItemReg = (SLinkedListItem_t*) 0UL;
+    pvItemData = (void*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
     {
-        pstLastItemReg = SLinkedList__pstGetLastItemRead(pstList);
-        if((UBase_t) pstLastItemReg != (UBase_t) 0UL)
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemReg);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL != (uintptr_t) pstLastItemReg)
         {
-            pstNextItemReg = SLinkedList_Item__pstGetNextItem(pstLastItemReg);
+            enErrorReg = SLinkedList_Item__enGetNextItem(pstLastItemReg, &pstNextItemReg);
         }
         else
         {
-            pstNextItemReg = SLinkedList__pstGetHead(pstList);
+            enErrorReg = SLinkedList__enGetHead(pstList, &pstNextItemReg);
         }
-        SLinkedList__vSetLastItemRead(pstList, pstNextItemReg);
-        pvItemData = SLinkedList_Item__pvGetData(pstNextItemReg);
     }
-    return (pvItemData);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enSetLastItemRead(pstList, pstNextItemReg);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList_Item__enGetData(pstNextItemReg, &pvItemData);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        *pvItemDataArg = pvItemData;
+    }
+    return (enErrorReg);
 }

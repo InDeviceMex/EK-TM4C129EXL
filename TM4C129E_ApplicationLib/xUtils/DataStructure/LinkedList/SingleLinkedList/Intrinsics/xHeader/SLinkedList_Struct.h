@@ -29,8 +29,20 @@
 typedef enum
 {
     SLinkedList_enERROR_OK = (UBase_t) ERROR_OK,
-    SLinkedList_enSTATUS_UNDEF = (UBase_t) ERROR_UNDEF,
+    SLinkedList_enERROR_POINTER = (UBase_t) ERROR_POINTER,
+    SLinkedList_enERROR_VALUE = (UBase_t) ERROR_VALUE,
+    SLinkedList_enERROR_EMPTY = (UBase_t) ERROR_EMPTY,
+    SLinkedList_enERROR_RANGE = (UBase_t) ERROR_RANGE,
+    SLinkedList_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,
 }SLinkedList_nERROR;
+
+
+typedef UBase_t (*SLinkedList_pfuxMatch_t)(const void *pcvKey1, const void *pcvKey2);
+typedef void (*SLinkedList_pvfDestroyItemData_t)(void *DataContainer);
+typedef void (*SLinkedList_pvfDestroyItem_t)(void *Item);
+typedef void (*SLinkedList_pvfDestroy_t)(void* List);
+
+
 
 typedef struct SLinkedListItem
 {
@@ -43,10 +55,10 @@ typedef struct SLinkedListItem
 typedef struct SLinkedList
 {
         UBase_t uxSize;
-        UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
-        void (*pvfDestroyItemData) (void *DataContainer);
-        void (*pvfDestroyItem) (void *Item);
-        void (*pvfDestroy) (void* List);
+        SLinkedList_pfuxMatch_t pfuxMatch;
+        SLinkedList_pvfDestroyItemData_t pvfDestroyItemData;
+        SLinkedList_pvfDestroyItem_t pvfDestroyItem;
+        SLinkedList_pvfDestroy_t pvfDestroy;
         SLinkedListItem_t *pstLastItemRead;
         SLinkedListItem_t *pstHead;
         SLinkedListItem_t *pstTail;

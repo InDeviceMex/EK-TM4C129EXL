@@ -43,7 +43,7 @@ void CSLinkedList__vSetTail(CSLinkedList_t* pstList, CSLinkedListItem_t* pstTail
 
 CSLinkedList_nERROR CSLinkedList__enIsTail(const CSLinkedList_t*  const pstList, const CSLinkedListItem_t* const pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstListTail = (CSLinkedListItem_t*) 0UL;
     pstListTail = CSLinkedList__pstGetTail(pstList);
     if ((UBase_t) pstListTail == (UBase_t) pstItem)

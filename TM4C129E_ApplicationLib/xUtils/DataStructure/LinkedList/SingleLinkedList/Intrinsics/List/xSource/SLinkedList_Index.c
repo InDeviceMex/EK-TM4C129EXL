@@ -23,35 +23,65 @@
  */
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/Intrinsics/List/xHeader/SLinkedList_Index.h>
 
-SLinkedListItem_t* SLinkedList__pstGetLastItemRead(const SLinkedList_t*  const pstList)
+SLinkedList_nERROR SLinkedList__enGetLastItemRead(const SLinkedList_t*  const pstList, SLinkedListItem_t** pstLastItemReadArg)
 {
-    SLinkedListItem_t* pstLastItemReadReg = (SLinkedListItem_t*) 0U;
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstLastItemReadArg))
     {
-        pstLastItemReadReg = pstList->pstLastItemRead;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (pstLastItemReadReg);
+    else
+    {
+        *pstLastItemReadArg = pstList->pstLastItemRead;
+        enErrorReg = SLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void SLinkedList__vSetLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstLastItemReadArg)
+SLinkedList_nERROR SLinkedList__enSetLastItemRead(SLinkedList_t* pstList, SLinkedListItem_t* pstLastItemReadArg)
 {
-    if(0UL != (UBase_t) pstList)
+    SLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstLastItemRead = pstLastItemReadArg;
+        enErrorReg = SLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-SLinkedList_nERROR SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem)
+
+
+SLinkedList_nERROR SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstList, const SLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    SLinkedList_nERROR enStatus = SLinkedList_enSTATUS_UNDEF;
-    SLinkedListItem_t* pstListLastItemRead = (SLinkedListItem_t*)0UL;
-    pstListLastItemRead= SLinkedList__pstGetLastItemRead(pstList);
-    if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
+    SLinkedList_nERROR enErrorReg;
+    SLinkedListItem_t* pstListLastItemRead;
+
+    pstListLastItemRead = (SLinkedListItem_t*) 0UL;
+    enErrorReg = SLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pboStatus)
     {
-        enStatus = SLinkedList_enERROR_OK;
+        enErrorReg = SLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstListLastItemRead);
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }
-
-
-

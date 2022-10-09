@@ -27,8 +27,8 @@
 
 CSLinkedList_nERROR CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
-    CSLinkedList_nERROR enStatusRead = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
+    CSLinkedList_nERROR enStatusRead = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstItemToRemove = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstTailItem = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstHeadItem = (CSLinkedListItem_t*) 0UL ;
@@ -102,14 +102,14 @@ CSLinkedList_nERROR CSLinkedList__enRemoveNextInList_GetData(CSLinkedList_t* pst
 
 CSLinkedList_nERROR CSLinkedList__enRemoveNextInList(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemoveNextInList_GetData(pstList, pstItem, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR CSLinkedList__enRemoveNext_GetData(CSLinkedListItem_t* pstItem, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedList_t* pstListReg = (CSLinkedList_t*) 0UL;
 
     if(0UL != (UBase_t) pstItem)
@@ -123,15 +123,15 @@ CSLinkedList_nERROR CSLinkedList__enRemoveNext_GetData(CSLinkedListItem_t* pstIt
 
 CSLinkedList_nERROR CSLinkedList__enRemoveNext(CSLinkedListItem_t* pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemoveNext_GetData(pstItem, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR CSLinkedList__enRemoveInList_GetData(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
-    CSLinkedList_nERROR enStatusRead = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
+    CSLinkedList_nERROR enStatusRead = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstItemToRemove = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstHeadNextItem = (CSLinkedListItem_t*) 0UL ;
     CSLinkedListItem_t* pstHeadItem = (CSLinkedListItem_t*) 0UL ;
@@ -258,14 +258,14 @@ CSLinkedList_nERROR CSLinkedList__enRemoveInList_GetData(CSLinkedList_t* pstList
 
 CSLinkedList_nERROR CSLinkedList__enRemoveInList(CSLinkedList_t* pstList, CSLinkedListItem_t* pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemoveInList_GetData(pstList, pstItem, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR CSLinkedList__enRemove_GetData(CSLinkedListItem_t* pstItem, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedList_t* pstListReg = (CSLinkedList_t*) 0UL;
 
     if(0UL != (UBase_t) pstItem)
@@ -279,14 +279,14 @@ CSLinkedList_nERROR CSLinkedList__enRemove_GetData(CSLinkedListItem_t* pstItem, 
 
 CSLinkedList_nERROR CSLinkedList__enRemove(CSLinkedListItem_t* pstItem)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemove_GetData(pstItem, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR  CSLinkedList__enRemoveTail_GetData(CSLinkedList_t* pstList, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstEndItem = (CSLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     if((UBase_t) 0UL != (UBase_t) pstList)
@@ -310,14 +310,14 @@ CSLinkedList_nERROR  CSLinkedList__enRemoveTail_GetData(CSLinkedList_t* pstList,
 
 CSLinkedList_nERROR  CSLinkedList__enRemoveTail(CSLinkedList_t* pstList)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemoveTail_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR  CSLinkedList__enRemoveHead_GetData(CSLinkedList_t* pstList, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     if((UBase_t) 0UL != (UBase_t) pstList)
     {
         enStatus = CSLinkedList__enRemoveNextInList_GetData(pstList, (CSLinkedListItem_t*) 0UL, pvData);
@@ -327,14 +327,14 @@ CSLinkedList_nERROR  CSLinkedList__enRemoveHead_GetData(CSLinkedList_t* pstList,
 
 CSLinkedList_nERROR  CSLinkedList__enRemoveHead(CSLinkedList_t* pstList)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemoveHead_GetData(pstList, (void**) 0UL);
     return (enStatus);
 }
 
 CSLinkedList_nERROR  CSLinkedList__enRemovePos_GetData(CSLinkedList_t* pstList, UBase_t uxPosition, void** pvData)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     CSLinkedListItem_t* pstItem = (CSLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     if((UBase_t) 0UL != (UBase_t) pstList)
@@ -360,7 +360,7 @@ CSLinkedList_nERROR  CSLinkedList__enRemovePos_GetData(CSLinkedList_t* pstList, 
 
 CSLinkedList_nERROR  CSLinkedList__enRemovePos(CSLinkedList_t* pstList, UBase_t uxPosition)
 {
-    CSLinkedList_nERROR enStatus = CSLinkedList_enSTATUS_UNDEF;
+    CSLinkedList_nERROR enStatus = CSLinkedList_enERROR_UNDEF;
     enStatus = CSLinkedList__enRemovePos_GetData(pstList, uxPosition, (void**) 0UL);
     return (enStatus);
 }
