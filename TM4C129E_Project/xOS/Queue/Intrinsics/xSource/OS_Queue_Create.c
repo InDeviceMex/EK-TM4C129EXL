@@ -31,17 +31,22 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
                                              const OS_UBase_t uxItemSizeArg,
                                              const OS_Queue_nType enQueueTypeArg)
 {
-    OS_Queue_t* pstNewQueue = (OS_Queue_t*) 0UL;
-    OS_UBase_t uxQueueSizeInBytes = 0UL;
-    OS_Queue_Handle_t pvReturn = (OS_Queue_Handle_t) 0UL;
+    OS_Queue_Handle_t pvReturn;
 
+    pvReturn = (OS_Queue_Handle_t) 0UL;
     if(0U < uxQueueLength)
     {
+        OS_Queue_t* pstNewQueue;
+        OS_UBase_t uxQueueSizeInBytes
         if(0UL != uxItemSizeArg)
         {
             uxQueueSizeInBytes = (OS_UBase_t) uxQueueLength;
             uxQueueSizeInBytes *= uxItemSizeArg;
             uxQueueSizeInBytes += 1UL;
+        }
+        else
+        {
+            uxQueueSizeInBytes = 0UL;
         }
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstNewQueue = (OS_Queue_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
@@ -50,7 +55,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
             pstNewQueue = (OS_Queue_t*) malloc((size_t) uxQueueSizeInBytes + sizeof(OS_Queue_t));
         #endif
 
-        if(0UL !=  (OS_UBase_t) pstNewQueue)
+        if(0UL !=  (OS_Pointer_t) pstNewQueue)
         {
             if(0UL == uxItemSizeArg)
             {
@@ -78,7 +83,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
 OS_Queue_Handle_t OS_Queue__pvCreate(const OS_UBase_t uxQueueLength,
                                      const OS_UBase_t uxItemSizeArg)
 {
-    OS_Queue_Handle_t pvHandleReg = (OS_Queue_Handle_t) 0UL;
+    OS_Queue_Handle_t pvHandleReg;
     pvHandleReg = OS_Queue__pvGenericCreate(uxQueueLength, uxItemSizeArg, OS_Queue_enType_BASE);
     return (pvHandleReg);
 }

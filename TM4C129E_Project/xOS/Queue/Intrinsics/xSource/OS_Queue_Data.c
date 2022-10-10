@@ -30,9 +30,11 @@ OS_Boolean_t OS_Queue__boCopyDataToQueue(OS_Queue_t* const pstQueue,
                                          const void *pvItemToQueue,
                                          const OS_Queue_nPos enPosition)
 {
-    OS_Boolean_t boReturn = FALSE;
-    size_t szItemSizeReg = 0UL;
+    OS_Boolean_t boReturn;
+    size_t szItemSizeReg;
 
+    boReturn = FALSE;
+    szItemSizeReg = 0UL;
     if(0UL == pstQueue->uxItemSize)
     {
         if(OS_QUEUE_IS_MUTEX == pstQueue->uxQueueType)

@@ -28,8 +28,8 @@
 
 OS_UBase_t OS_Task__uxPriorityGet(OS_Task_Handle_t psTaskArg)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxReturn = 0UL;
+    OS_Task_TCB_t *pstTCB;
+    OS_UBase_t uxReturn;
 
     OS_Task__vEnterCritical();
     {
@@ -43,9 +43,9 @@ OS_UBase_t OS_Task__uxPriorityGet(OS_Task_Handle_t psTaskArg)
 
 OS_UBase_t OS_Task__uxPriorityGetFromISR(OS_Task_Handle_t psTaskArg)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSavedInterruptState = 0UL;
-    OS_UBase_t uxReturn = 0UL;
+    OS_Task_TCB_t *pstTCB;
+    OS_UBase_t uxSavedInterruptState;
+    OS_UBase_t uxReturn;
 
     uxSavedInterruptState = OS_Adapt__uxSetInterruptMaskFromISR();
     {
@@ -60,16 +60,9 @@ OS_UBase_t OS_Task__uxPriorityGetFromISR(OS_Task_Handle_t psTaskArg)
 
 void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority)
 {
-    OS_List_t* pstReadyList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxCurrentBasePriority = 0UL;
-    OS_UBase_t uxPriorityUsedOnEntry = 0UL;
-    OS_UBase_t uxEventValue = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boYieldRequired = FALSE;
-    OS_Boolean_t boIsListOwner = FALSE;
+    OS_Boolean_t boYieldRequired;
 
+    boYieldRequired = FALSE;
     if(OS_TASK_MAX_PRIORITIES <= uxNewPriority)
     {
         uxNewPriority = OS_TASK_MAX_PRIORITIES - 1UL;
@@ -77,11 +70,20 @@ void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority)
 
     OS_Task__vEnterCritical();
     {
+        OS_Task_TCB_t *pstTCB;
+        OS_UBase_t uxCurrentBasePriority;
+
         pstTCB = OS_Task__pstGetTCBFromHandle(psTaskArg);
 
         uxCurrentBasePriority = pstTCB->uxBasePriority;
         if(uxCurrentBasePriority != uxNewPriority)
         {
+            OS_List_t* pstReadyList;
+            OS_Task_TCB_t *pstCurrentTCB;
+            OS_Boolean_t boIsListOwner;
+            OS_UBase_t uxEventValue;
+            OS_UBase_t uxPriorityUsedOnEntry;
+
             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
             if(uxNewPriority > uxCurrentBasePriority)
             {
@@ -118,6 +120,7 @@ void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority)
                                                          &(pstTCB->stGenericListItem));
             if(FALSE != boIsListOwner)
             {
+                OS_UBase_t uxListSize;
                 uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
@@ -139,18 +142,18 @@ void OS_Task__vPrioritySet(OS_Task_Handle_t psTaskArg, OS_UBase_t uxNewPriority)
 
 void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolderArg)
 {
-    OS_List_t* pstReadyList = (OS_List_t*) 0UL;
     OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolderArg;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxEventValue = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boIsListOwner = FALSE;
 
-    if(0UL != (OS_UBase_t) pvMutexHolderArg)
+    if(0UL != (OS_Pointer_t) pvMutexHolderArg)
     {
+        OS_Task_TCB_t *pstCurrentTCB;
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB->uxPriorityTask < pstCurrentTCB->uxPriorityTask )
         {
+            OS_List_t* pstReadyList;
+            OS_Boolean_t boIsListOwner;
+            OS_UBase_t uxEventValue;
+
             uxEventValue = OS_List__uxGetItemValue(&(pstTCB->stEventListItem));
             uxEventValue &= OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE;
             if(0UL == uxEventValue)
@@ -164,6 +167,7 @@ void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolderArg)
                                                          &(pstTCB->stGenericListItem));
             if(FALSE != boIsListOwner)
             {
+                OS_UBase_t uxListSize;
                 uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
@@ -183,13 +187,12 @@ void OS_Task__vPriorityInherit(OS_Task_Handle_t const pvMutexHolderArg)
 OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderArg)
 {
     OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvMutexHolderArg;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_UBase_t uxPriorityReg = 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (UBase_t) pvMutexHolderArg)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pvMutexHolderArg)
     {
+        OS_Task_TCB_t *pstCurrentTCB;
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if(pstTCB == pstCurrentTCB)
         {
@@ -200,6 +203,9 @@ OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderA
                 {
                     if( 0UL == pstTCB->uxMutexesHeld)
                     {
+                        OS_UBase_t uxPriorityReg;
+                        OS_UBase_t uxListSize;
+
                         uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
                         if(0UL == uxListSize)
                         {
@@ -223,10 +229,10 @@ OS_Boolean_t OS_Task__boPriorityDisinherit(OS_Task_Handle_t const pvMutexHolderA
 
 void* OS_Task__pvIncrementMutexHeldCount(void)
 {
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
+    OS_Task_TCB_t *pstCurrentTCB;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-    if(0UL != (OS_UBase_t) pstCurrentTCB)
+    if(0UL != (OS_Pointer_t) pstCurrentTCB)
     {
         (pstCurrentTCB->uxMutexesHeld)++;
     }

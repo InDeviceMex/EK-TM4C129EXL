@@ -33,20 +33,22 @@
 
 void OS_Task__vDelay(const OS_UBase_t uxTicksToDelay)
 {
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boAlreadyYielded = FALSE;
+    OS_Boolean_t boAlreadyYielded;
 
+    boAlreadyYielded = FALSE;
     if(0UL < uxTicksToDelay)
     {
+        OS_UBase_t uxSchedulerSuspended;
         uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
         if(0UL == uxSchedulerSuspended)
         {
             OS_Task__vSuspendAll();
             {
+                OS_Task_TCB_t* pstCurrentTCB;
+                OS_UBase_t uxTimeToWake;
+                OS_UBase_t uxTickCount;
+                OS_UBase_t uxListSize;
+
                 uxTickCount = OS_Task__uxGetTickCount_NotSafe();
                 uxTimeToWake = uxTickCount;
                 uxTimeToWake += uxTicksToDelay;
@@ -72,27 +74,28 @@ void OS_Task__vDelay(const OS_UBase_t uxTicksToDelay)
 void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
                           const OS_UBase_t uxTimeIncrement)
 {
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boAlreadyYielded = FALSE;
-    OS_Boolean_t boShouldDelay = FALSE;
+    OS_UBase_t uxSchedulerSuspended;
 
     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
-    if((0UL != (OS_UBase_t) puxPreviousWakeTime) &&
+    if((0UL != (OS_Pointer_t) puxPreviousWakeTime) &&
        (0UL < uxTimeIncrement) &&
        (0UL == uxSchedulerSuspended))
     {
+        OS_Boolean_t boAlreadyYielded;
+
         OS_Task__vSuspendAll();
         {
+            OS_UBase_t uxTickCount;
+            OS_UBase_t uxTimeToWake;
+            OS_Boolean_t boShouldDelay;
+
             uxTickCount = OS_Task__uxGetTickCount_NotSafe();
             const OS_UBase_t uxConstTickCount = uxTickCount;
 
             uxTimeToWake = *puxPreviousWakeTime;
             uxTimeToWake += uxTimeIncrement;
 
+            boShouldDelay = FALSE;
             if( uxConstTickCount < *puxPreviousWakeTime )
             {
                 if((uxTimeToWake < *puxPreviousWakeTime) &&
@@ -113,6 +116,9 @@ void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
 
             if(FALSE != boShouldDelay)
             {
+                OS_Task_TCB_t* pstCurrentTCB;
+                OS_UBase_t uxListSize;
+
                 pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                 uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
                 if(0UL == uxListSize)
@@ -133,11 +139,8 @@ void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
 
 void OS_Task__vAddCurrentTaskToDelayedList(const OS_UBase_t uxTimeToWake)
 {
-    OS_List_t* pstOverflowDelayedTaskList = (OS_List_t*) 0UL;
-    OS_List_t* pstDelayedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxNextTaskUnblockTime = 0UL;
+    OS_Task_TCB_t* pstCurrentTCB;
+    OS_UBase_t uxTickCount;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
     OS_List__vSetItemValue(&(pstCurrentTCB->stGenericListItem), uxTimeToWake);
@@ -145,12 +148,17 @@ void OS_Task__vAddCurrentTaskToDelayedList(const OS_UBase_t uxTimeToWake)
     uxTickCount = OS_Task__uxGetTickCount();
     if( uxTimeToWake < uxTickCount )
     {
+        OS_List_t* pstOverflowDelayedTaskList;
+
         pstOverflowDelayedTaskList = OS_Task__pstGetOverflowDelayedTaskList();
         OS_List__vInsert(pstOverflowDelayedTaskList,
                          &(pstCurrentTCB->stGenericListItem));
     }
     else
     {
+        OS_List_t* pstDelayedTaskList;
+        OS_UBase_t uxNextTaskUnblockTime;
+
         pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
         OS_List__vInsert(pstDelayedTaskList,
                          &(pstCurrentTCB->stGenericListItem));

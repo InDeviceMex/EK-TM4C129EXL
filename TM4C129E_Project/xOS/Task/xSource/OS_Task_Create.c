@@ -39,25 +39,27 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                                         OS_Task_Handle_t * const pvCreatedTask,
                                         const OS_UBase_t* const puxStaticStackBuffer)
 {
-    OS_Task_TCB_t * pstNewTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t * pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t *puxTopOfStackReg = (OS_UBase_t*) 0UL;
-    OS_UBase_t uxCurrentNumberOfTask = 0UL;
-    OS_UBase_t uxReturn = 1UL;
-    OS_Boolean_t boSchedulerRunning = FALSE;
+    OS_UBase_t uxReturn;
 
-    if(0UL != (OS_UBase_t) pvfTaskCodeArg)
+    uxReturn = 1UL;
+    if(0UL != (OS_Pointer_t) pvfTaskCodeArg)
     {
         if(OS_TASK_MAX_PRIORITIES > uxPriorityArg)
         {
+            OS_Task_TCB_t * pstCurrentTCB;
+            OS_Task_TCB_t * pstNewTCB;
+            OS_Boolean_t boSchedulerRunning;
+
             uxStackDepthArg &= ~OS_ADAPT_BYTE_ALIGNMENT_MASK;
             pstNewTCB = OS_Task__pstAllocateTCBAndStack(uxStackDepthArg, puxStaticStackBuffer);
 
-            if(0UL != (OS_UBase_t) pstNewTCB)
+            if(0UL != (OS_Pointer_t) pstNewTCB)
             {
                 if(0UL ==(OS_ADAPT_BYTE_ALIGNMENT_MASK &
                          (OS_UBase_t) pstNewTCB->puxStack))
                 {
+                    OS_UBase_t *puxTopOfStackReg;
+
                     pstNewTCB->puxEndOfStack = pstNewTCB->puxStack;
                     pstNewTCB->puxEndOfStack += uxStackDepthArg;
                     pstNewTCB->puxEndOfStack -= 1UL;
@@ -72,7 +74,7 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                             (void (*)(void *pvParametersArgument)) pvfTaskCodeArg,
                             (void*) pvParametersArg);
 
-                    if(0UL != (OS_UBase_t) pvCreatedTask)
+                    if(0UL != (OS_Pointer_t) pvCreatedTask)
                     {
                         *pvCreatedTask = (OS_Task_Handle_t) pstNewTCB;
                     }
@@ -83,6 +85,8 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                         if(0UL == (OS_UBase_t) pstCurrentTCB )
                         {
+                            OS_UBase_t uxCurrentNumberOfTask;
+
                             OS_Task__vSetCurrentTCB(pstNewTCB);
                             uxCurrentNumberOfTask = OS_Task__uxGetCurrentNumberOfTasks();
                             if(1UL == uxCurrentNumberOfTask)
@@ -141,27 +145,27 @@ OS_UBase_t OS_Task__uxCreate(OS_Task_Function_t pvfTaskCodeArg,
                                         OS_UBase_t uxPriorityArg,
                                         OS_Task_Handle_t * const pvCreatedTask)
 {
-    OS_UBase_t uxReturn = 0UL;
-
+    OS_UBase_t uxReturn;
     uxReturn = OS_Task__uxGenericCreate(pvfTaskCodeArg, pcNameArg, uxStackDepthArg, pvParametersArg,
                                         uxPriorityArg, pvCreatedTask, (const OS_UBase_t*) 0UL);
-
     return (uxReturn);
 }
 
 
 OS_UBase_t OS_Task__uxCreateRestricted(OS_Task_Parameters_t* pstTaskParametersArg, OS_Task_Handle_t* const pxCreatedTask)
 {
-    OS_UBase_t uxReturn = 0UL;
-    OS_Task_Function_t pvfTaskCodeReg = pstTaskParametersArg->pvfTaskCode;
     const char * const pcNameReg = pstTaskParametersArg->pcName;
-    OS_UBase_t uxStackDepthReg = pstTaskParametersArg->uxStackDepth;
     void * const pvParametersReg = pstTaskParametersArg->pvParameters;
-    OS_UBase_t uxPriorityReg = pstTaskParametersArg->uxPriority;
     const OS_UBase_t* const puxStaticStackBuffer = pstTaskParametersArg->puxStackBuffer;
+    OS_Task_Function_t pvfTaskCodeReg;
+    OS_UBase_t uxStackDepthReg;
+    OS_UBase_t uxPriorityReg;
+    OS_UBase_t uxReturn;
 
+    pvfTaskCodeReg = pstTaskParametersArg->pvfTaskCode;
+    uxStackDepthReg = pstTaskParametersArg->uxStackDepth;
+    uxPriorityReg = pstTaskParametersArg->uxPriority;
     uxReturn = OS_Task__uxGenericCreate(pvfTaskCodeReg, pcNameReg, uxStackDepthReg, pvParametersReg, uxPriorityReg, pxCreatedTask, puxStaticStackBuffer);
-
     return (uxReturn);
 }
 

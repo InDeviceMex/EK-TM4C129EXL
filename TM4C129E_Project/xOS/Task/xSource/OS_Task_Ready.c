@@ -27,18 +27,18 @@
 
 void OS_Task__vSelectHighestPriorityTask(void)
 {
-    OS_List_t* pstReadyTask =  (OS_List_t*) 0UL;
-    OS_Task_TCB_t* pstNewTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTopPriority = 0UL;
-    OS_UBase_t uxListLenght = 0UL;
+    OS_List_t* pstReadyTask;
+    OS_UBase_t uxTopPriority;
 
     uxTopPriority = OS_Task__uxGetHighestPriority();
     pstReadyTask = OS_Task__pstGetReadyTasksLists(uxTopPriority);
-    if(0UL != (OS_UBase_t) pstReadyTask)
+    if(0UL != (OS_Pointer_t) pstReadyTask)
     {
+        OS_UBase_t uxListLenght;
         uxListLenght = OS_List__uxGetLength(pstReadyTask);
         if(0UL != uxListLenght)
         {
+            OS_Task_TCB_t* pstNewTCB;
             pstNewTCB = (OS_Task_TCB_t*) OS_List__pvGetOwnerOfNextEntry(pstReadyTask);
             OS_Task__vSetCurrentTCB(pstNewTCB);
         }
@@ -47,12 +47,12 @@ void OS_Task__vSelectHighestPriorityTask(void)
 
 void OS_Task__vResetReadyPriority(OS_UBase_t uxPrioritArg)
 {
-    OS_List_t* pstReadyTask =  (OS_List_t*) 0UL;
-    OS_UBase_t uxListLenght = 0UL;
+    OS_List_t* pstReadyTask;
 
     pstReadyTask = OS_Task__pstGetReadyTasksLists(uxPrioritArg);
-    if(0UL != (OS_UBase_t) pstReadyTask)
+    if(0UL != (OS_Pointer_t) pstReadyTask)
     {
+        OS_UBase_t uxListLenght;
         uxListLenght = OS_List__uxGetLength(pstReadyTask);
         if(0UL == uxListLenght)
         {
@@ -64,17 +64,16 @@ void OS_Task__vResetReadyPriority(OS_UBase_t uxPrioritArg)
 
 void OS_Task__vAddTaskToReadyList(OS_Task_TCB_t* pstTCBArg)
 {
-    OS_List_t* pstReadyTaskList =  (OS_List_t*) 0UL;
-    OS_ListItem_t* pstTCBTask =  (OS_ListItem_t*) 0UL;
-    OS_UBase_t uxTCBPriority = 0UL;
-
-    if(0UL != (OS_UBase_t) pstTCBArg)
+    if(0UL != (OS_Pointer_t) pstTCBArg)
     {
+        OS_List_t* pstReadyTaskList;
+        OS_UBase_t uxTCBPriority;
         uxTCBPriority = pstTCBArg->uxPriorityTask;
         OS_Task__vRecordReadyPriority(uxTCBPriority);
         pstReadyTaskList = OS_Task__pstGetReadyTasksLists(uxTCBPriority);
         if(0UL != (OS_UBase_t) pstReadyTaskList)
         {
+            OS_ListItem_t* pstTCBTask;
             pstTCBTask = &(pstTCBArg->stGenericListItem);
             OS_List__vInsertEnd(pstReadyTaskList, pstTCBTask);
         }

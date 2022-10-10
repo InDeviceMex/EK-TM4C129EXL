@@ -31,16 +31,16 @@
 
 void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
 {
-    OS_List_t* pstTasksWaitingTermination = (OS_List_t*) 0UL;
-    OS_List_t* pstTCBOwnerList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t *) 0UL;
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t *) 0UL ;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boSchedulerRunning = FALSE;
+    OS_Task_TCB_t *pstTCB;
+    OS_Boolean_t boSchedulerRunning;
 
+    pstTCB = (OS_Task_TCB_t *) 0UL ;
     OS_Task__vEnterCritical();
     {
+        OS_List_t* pstTasksWaitingTermination;
+        OS_List_t* pstTCBOwnerList;
+        OS_UBase_t uxListSize;
+
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToDelete);
         uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
         if( 0UL == uxListSize )
@@ -49,7 +49,7 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
         }
 
         pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
-        if( 0UL != (OS_UBase_t) pstTCBOwnerList)
+        if( 0UL != (OS_Pointer_t) pstTCBOwnerList)
         {
             (void) OS_List__uxRemove(&( pstTCB->stEventListItem));
         }
@@ -65,9 +65,13 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
+        OS_Task_TCB_t *pstCurrentTCB;
+
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
         {
+            OS_UBase_t uxSchedulerSuspended;
+
             uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
             if(0UL == uxSchedulerSuspended)
             {
@@ -87,10 +91,11 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
 
 void OS_Task__vCheckTasksWaitingTermination(void)
 {
-    OS_List_t* pstTasksWaitingTermination = (OS_List_t*) 0UL;
-    OS_UBase_t uxTasksDeleted = 0UL;
-    OS_Boolean_t boListIsEmpty = FALSE;
+    OS_List_t* pstTasksWaitingTermination;
+    OS_UBase_t uxTasksDeleted;
+    OS_Boolean_t boListIsEmpty;
 
+    boListIsEmpty = FALSE;
     uxTasksDeleted = OS_Task__uxGetTasksDeleted();
     while(0UL < uxTasksDeleted)
     {

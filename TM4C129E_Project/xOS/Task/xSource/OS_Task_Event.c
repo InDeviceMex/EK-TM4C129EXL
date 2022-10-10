@@ -30,16 +30,12 @@
 void OS_Task__vPlaceOnEventList(OS_List_t* const pstEventList,
                                 const OS_UBase_t uxTicksToWait)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-
-    if(0UL != (OS_UBase_t) pstEventList)
+    if(0UL != (OS_Pointer_t) pstEventList)
     {
         /* THIS FUNCTION MUST BE CALLED WITH EITHER INTERRUPTS DISABLED OR THE
         SCHEDULER SUSPENDED AND THE QUEUE BEING ACCESSED LOCKED. */
+        OS_Task_TCB_t *pstCurrentTCB;
+        OS_UBase_t uxListSize;
 
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         OS_List__vInsert(pstEventList, &(pstCurrentTCB->stEventListItem));
@@ -52,12 +48,16 @@ void OS_Task__vPlaceOnEventList(OS_List_t* const pstEventList,
 
         if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
         {
+            OS_List_t* pstSuspendedTaskList;
             pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
             OS_List__vInsertEnd(pstSuspendedTaskList,
                                 &(pstCurrentTCB->stGenericListItem));
         }
         else
         {
+            OS_UBase_t uxTimeToWake;
+            OS_UBase_t uxTickCount;
+
             uxTickCount = OS_Task__uxGetTickCount_NotSafe();
             uxTimeToWake = uxTickCount + uxTicksToWait;
             OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
@@ -69,19 +69,15 @@ void OS_Task__vPlaceOnEventListRestricted(OS_List_t* const pstEventList,
                                           const OS_UBase_t uxTicksToWait,
                                           const OS_Boolean_t boWaitIndefinitely)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-
-    if(0UL != (OS_UBase_t) pstEventList)
+    if(0UL != (OS_Pointer_t) pstEventList)
     {
 
         /* This function should not be called by application code hence the
         'Restricted' in its name.  It is not part of the public API.  It is
         designed for use by kernel code, and has special calling requirements -
         it should be called with the scheduler suspended. */
+        OS_Task_TCB_t *pstCurrentTCB;
+        OS_UBase_t uxListSize;
 
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         OS_List__vInsertEnd(pstEventList,
@@ -95,11 +91,15 @@ void OS_Task__vPlaceOnEventListRestricted(OS_List_t* const pstEventList,
 
         if(TRUE == boWaitIndefinitely)
         {
+            OS_List_t* pstSuspendedTaskList;
             pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
             OS_List__vInsertEnd(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
         }
         else
         {
+            OS_UBase_t uxTimeToWake;
+            OS_UBase_t uxTickCount;
+
             uxTickCount = OS_Task__uxGetTickCount_NotSafe();
             uxTimeToWake = uxTickCount + uxTicksToWait;
             OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
@@ -111,20 +111,18 @@ void OS_Task__vPlaceOnUnorderedEventList(OS_List_t* pstEventList,
                                          const OS_UBase_t uxItemValue,
                                          const OS_UBase_t uxTicksToWait)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
 
-    if(0UL != (OS_UBase_t) pstEventList)
+    if(0UL != (OS_Pointer_t) pstEventList)
     {
         /* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED.  It is used by
         the event groups implementation. */
+        OS_UBase_t uxSchedulerSuspended;
         uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
         if(0UL != uxSchedulerSuspended)
         {
+            OS_Task_TCB_t *pstCurrentTCB;
+            OS_UBase_t uxListSize;
+
             pstCurrentTCB = OS_Task__pstGetCurrentTCB();
             OS_List__vSetItemValue(&(pstCurrentTCB->stEventListItem),
                                    uxItemValue | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
@@ -138,11 +136,15 @@ void OS_Task__vPlaceOnUnorderedEventList(OS_List_t* pstEventList,
 
             if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
             {
+                OS_List_t* pstSuspendedTaskList;
                 pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
                 OS_List__vInsertEnd(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
             }
             else
             {
+                OS_UBase_t uxTimeToWake;
+                OS_UBase_t uxTickCount;
+
                 uxTickCount = OS_Task__uxGetTickCount_NotSafe();
                 uxTimeToWake = uxTickCount + uxTicksToWait;
                 OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
@@ -153,18 +155,18 @@ void OS_Task__vPlaceOnUnorderedEventList(OS_List_t* pstEventList,
 
 OS_Boolean_t OS_Task__boRemoveFromEventList(const OS_List_t* const pstEventList)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstUnblockedTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_Boolean_t boReturn = FALSE;
-
     /* THIS FUNCTION MUST BE CALLED FROM A CRITICAL SECTION.  It can also be
     called from a critical section within an ISR. */
+    OS_Task_TCB_t *pstUnblockedTCB;
+    OS_Boolean_t boReturn;
 
+    boReturn = FALSE;
     pstUnblockedTCB = (OS_Task_TCB_t*) OS_List__pvGetOwnerOfHeadEntry(pstEventList);
-    if(0UL != (OS_UBase_t) pstUnblockedTCB)
+    if(0UL != (OS_Pointer_t) pstUnblockedTCB)
     {
+        OS_Task_TCB_t *pstCurrentTCB;
+        OS_UBase_t uxSchedulerSuspended;
+
         (void) OS_List__uxRemove(&(pstUnblockedTCB->stEventListItem));
 
         uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
@@ -175,6 +177,7 @@ OS_Boolean_t OS_Task__boRemoveFromEventList(const OS_List_t* const pstEventList)
         }
         else
         {
+            OS_List_t* pstPendingReadyList;
             pstPendingReadyList = OS_Task__pstGetPendingReadyList();
             OS_List__vInsertEnd(pstPendingReadyList,
                                 &(pstUnblockedTCB->stEventListItem));
@@ -198,22 +201,24 @@ OS_Boolean_t OS_Task__boRemoveFromEventList(const OS_List_t* const pstEventList)
 OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_t* pstEventListItem,
                                                      const OS_UBase_t xItemValue)
 {
-    OS_Task_TCB_t *pstUnblockedTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_UBase_t uxSchedulerSuspended;
+    OS_Boolean_t boReturn;
 
     /* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED.  It is used by
     the event flags implementation. */
+    boReturn = FALSE;
     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
     if(0UL != uxSchedulerSuspended)
     {
+        OS_Task_TCB_t *pstUnblockedTCB;
         OS_List__vSetItemValue(pstEventListItem,
                    xItemValue | OS_TASK_EVENT_LIST_ITEM_VALUE_IN_USE );
 
         pstUnblockedTCB = (OS_Task_TCB_t *) OS_List__pvGetItemOwner(pstEventListItem );
-        if(0UL != (OS_UBase_t) pstUnblockedTCB)
+        if(0UL != (OS_Pointer_t) pstUnblockedTCB)
         {
+            OS_Task_TCB_t *pstCurrentTCB;
+
             (void) OS_List__uxRemove(pstEventListItem);
             (void) OS_List__uxRemove(&(pstUnblockedTCB->stGenericListItem));
             OS_Task__vAddTaskToReadyList(pstUnblockedTCB);
@@ -235,9 +240,9 @@ OS_Boolean_t OS_Task__boRemoveFromUnorderedEventList(OS_ListItem_t* pstEventList
 
 OS_UBase_t OS_Task__uxResetEventItemValue(void)
 {
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxResetValue = 0UL;
-    OS_UBase_t uxReturn = 0UL;
+    OS_Task_TCB_t *pstCurrentTCB;
+    OS_UBase_t uxResetValue;
+    OS_UBase_t uxReturn;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
     uxReturn = OS_List__uxGetItemValue(&(pstCurrentTCB->stEventListItem));

@@ -31,13 +31,11 @@
 OS_UBase_t OS_Task__uxNotifyTake(OS_Boolean_t boClearCountOnExit,
                                  OS_UBase_t uxTicksToWait)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_UBase_t uxReturn = 0UL;
+    OS_Task_TCB_t *pstCurrentTCB;
+    OS_UBase_t uxReturn;
 
+    uxReturn = 0UL;
+    pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     OS_Task__vEnterCritical();
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
@@ -46,6 +44,7 @@ OS_UBase_t OS_Task__uxNotifyTake(OS_Boolean_t boClearCountOnExit,
             pstCurrentTCB->enNotifyState = OS_Task_enNotifyState_WaitingNotification;
             if(0UL < uxTicksToWait)
             {
+                OS_UBase_t uxListSize;
                 uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
@@ -54,11 +53,15 @@ OS_UBase_t OS_Task__uxNotifyTake(OS_Boolean_t boClearCountOnExit,
 
                 if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
                 {
+                    OS_List_t* pstSuspendedTaskList;
                     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
                     OS_List__vInsertEnd(pstSuspendedTaskList, &(pstCurrentTCB->stGenericListItem));
                 }
                 else
                 {
+                    OS_UBase_t uxTimeToWake;
+                    OS_UBase_t uxTickCount;
+
                     uxTickCount = OS_Task__uxGetTickCount_NotSafe();
                     uxTimeToWake = uxTickCount + uxTicksToWait;
                     OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
@@ -95,13 +98,11 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
                                 OS_UBase_t *puxNotificationValue,
                                 OS_UBase_t uxTicksToWait)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxTimeToWake = 0UL;
-    OS_UBase_t uxTickCount = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_Task_TCB_t *pstCurrentTCB;
+    OS_Boolean_t boReturn;
 
+    pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
+    boReturn = FALSE;
     OS_Task__vEnterCritical();
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
@@ -112,6 +113,7 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
 
             if(0UL < uxTicksToWait)
             {
+                OS_UBase_t uxListSize;
                 uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
@@ -120,11 +122,15 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
 
                 if(OS_ADAPT_MAX_DELAY == uxTicksToWait)
                 {
+                    OS_List_t* pstSuspendedTaskList;
                     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
                     OS_List__vInsertEnd(pstSuspendedTaskList,  &(pstCurrentTCB->stGenericListItem));
                 }
                 else
                 {
+                    OS_UBase_t uxTimeToWake;
+                    OS_UBase_t uxTickCount;
+
                     uxTickCount = OS_Task__uxGetTickCount_NotSafe();
                     uxTimeToWake = uxTickCount + uxTicksToWait;
                     OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
@@ -137,7 +143,7 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
 
     OS_Task__vEnterCritical();
     {
-        if(0UL != (UBase_t) puxNotificationValue)
+        if(0UL != (OS_Pointer_t) puxNotificationValue)
         {
             *puxNotificationValue = pstCurrentTCB->uxNotifiedValue;
         }
@@ -163,19 +169,18 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
                              OS_Task_eNotifyAction enAction,
                              OS_UBase_t *puxPreviousNotificationValue)
 {
-    OS_List_t* pstTCBOwnerList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-    OS_Boolean_t boReturn = TRUE;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pvTaskToNotify)
+    boReturn = TRUE;
+    if(0UL != (OS_Pointer_t) pvTaskToNotify)
     {
+        OS_Task_TCB_t *pstTCB;
         pstTCB = (OS_Task_TCB_t *) pvTaskToNotify;
 
         OS_Task__vEnterCritical();
         {
-            if(0UL != (OS_UBase_t) puxPreviousNotificationValue)
+            OS_Task_eNotifyState enOriginalNotifyState;
+            if(0UL != (OS_Pointer_t) puxPreviousNotificationValue)
             {
                 *puxPreviousNotificationValue = pstTCB->uxNotifiedValue;
             }
@@ -216,12 +221,15 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
 
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
+                OS_List_t* pstTCBOwnerList;
+
                 (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
                 OS_Task__vAddTaskToReadyList(pstTCB);
 
                 pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer( &( pstTCB->stEventListItem));
-                if(0UL == (OS_UBase_t) pstTCBOwnerList)
+                if(0UL == (OS_Pointer_t) pstTCBOwnerList)
                 {
+                    OS_Task_TCB_t *pstCurrentTCB;
                     OS_Task__vResetNextTaskUnblockTime();
 
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
@@ -241,7 +249,7 @@ OS_Boolean_t OS_Task__boNotify( OS_Task_Handle_t pvTaskToNotify,
                              OS_UBase_t uxValue,
                              OS_Task_eNotifyAction enAction)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotify(pvTaskToNotify,
                                  uxValue,
                                  enAction,
@@ -254,7 +262,7 @@ OS_Boolean_t OS_Task__boNotifyAndQuery( OS_Task_Handle_t pvTaskToNotify,
                              OS_Task_eNotifyAction enAction,
                              OS_UBase_t *puxPreviousNotificationValue)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotify(pvTaskToNotify,
                                  uxValue,
                                  enAction,
@@ -268,21 +276,18 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
                                     OS_UBase_t *puxPreviousNotificationValue,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_List_t* pstTCBOwnerList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t * pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-    OS_Boolean_t boReturn = TRUE;
+    OS_Boolean_t boReturn;
 
+    boReturn = TRUE;
     if(0UL != (OS_UBase_t) pvTaskToNotify)
     {
+        OS_Task_TCB_t * pstTCB;
+        OS_UBase_t uxSavedInterruptStatus;
         pstTCB = (OS_Task_TCB_t *) pvTaskToNotify;
 
         uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
+            OS_Task_eNotifyState enOriginalNotifyState;
             if(0UL != (OS_UBase_t) puxPreviousNotificationValue)
             {
                 *puxPreviousNotificationValue = pstTCB->uxNotifiedValue;
@@ -324,9 +329,13 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
 
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
+                OS_List_t* pstTCBOwnerList;
                 pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
                 if(0UL == (OS_UBase_t) pstTCBOwnerList)
                 {
+                    OS_UBase_t uxSchedulerSuspended;
+                    OS_Task_TCB_t *pstCurrentTCB;
+
                     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
                     if(0UL == uxSchedulerSuspended)
                     {
@@ -335,6 +344,7 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
                     }
                     else
                     {
+                        OS_List_t* pstPendingReadyList;
                         pstPendingReadyList = OS_Task__pstGetPendingReadyList();
                         OS_List__vInsertEnd(pstPendingReadyList,
                                             &(pstTCB->stGenericListItem));
@@ -362,7 +372,7 @@ OS_Boolean_t OS_Task__boNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
                                     OS_Task_eNotifyAction enAction,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotifyFromISR(pvTaskToNotify,
                                         uxValue,
                                         enAction,
@@ -377,7 +387,7 @@ OS_Boolean_t OS_Task__boNotifyAndQueryFromISR(OS_Task_Handle_t pvTaskToNotify,
                                     OS_UBase_t *puxPreviousNotificationValue,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotifyFromISR(pvTaskToNotify,
                                         uxValue,
                                         enAction,
@@ -389,39 +399,37 @@ OS_Boolean_t OS_Task__boNotifyAndQueryFromISR(OS_Task_Handle_t pvTaskToNotify,
 
 OS_Boolean_t OS_Task__boNotifyGive( OS_Task_Handle_t pvTaskToNotify)
 {
-    OS_Boolean_t boReturn = FALSE;
-
-     OS_Task__boGenericNotify(pvTaskToNotify, 0UL, OS_Task_enNotifyAction_Increment, (OS_UBase_t*) 0UL);
-
-     return (boReturn);
+    OS_Boolean_t boReturn;
+    boReturn= OS_Task__boGenericNotify(pvTaskToNotify, 0UL, OS_Task_enNotifyAction_Increment, (OS_UBase_t*) 0UL);
+    return (boReturn);
 }
 
 void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_t pvTaskToNotify,
                             OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_List_t* pstTCBOwnerList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t * pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_Task_eNotifyState enOriginalNotifyState = OS_Task_enNotifyState_NotWaitingNotification;
-
-    if(0UL != (OS_UBase_t) pvTaskToNotify)
+    if(0UL != (OS_Pointer_t) pvTaskToNotify)
     {
-        pstTCB = (OS_Task_TCB_t *) pvTaskToNotify;
+        OS_Task_TCB_t * pstTCB;
+        OS_UBase_t uxSavedInterruptStatus;
 
+        pstTCB = (OS_Task_TCB_t *) pvTaskToNotify;
         uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
+            OS_Task_eNotifyState enOriginalNotifyState;
             enOriginalNotifyState = pstTCB->enNotifyState;
             pstTCB->enNotifyState = OS_Task_enNotifyState_Notified;
             (pstTCB->uxNotifiedValue)++;
 
             if(OS_Task_enNotifyState_WaitingNotification == enOriginalNotifyState)
             {
+                OS_List_t* pstTCBOwnerList;
+
                 pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
-                if( 0UL == (OS_UBase_t) pstTCBOwnerList)
+                if( 0UL == (OS_Pointer_t) pstTCBOwnerList)
                 {
+                    OS_Task_TCB_t *pstCurrentTCB;
+                    OS_UBase_t uxSchedulerSuspended;
+
                     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
                     if(0UL == uxSchedulerSuspended)
                     {
@@ -430,6 +438,7 @@ void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_t pvTaskToNotify,
                     }
                     else
                     {
+                        OS_List_t* pstPendingReadyList;
                         pstPendingReadyList = OS_Task__pstGetPendingReadyList();
                         OS_List__vInsertEnd(pstPendingReadyList,
                                             &(pstTCB->stEventListItem));
@@ -438,7 +447,7 @@ void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_t pvTaskToNotify,
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                     if( pstTCB->uxPriorityTask > pstCurrentTCB->uxPriorityTask )
                     {
-                        if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                        if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                         {
                             *pboHigherPriorityTaskWoken = TRUE;
                         }
@@ -452,12 +461,10 @@ void OS_Task__vNotifyGiveFromISR(OS_Task_Handle_t pvTaskToNotify,
 
 OS_Boolean_t OS_Task__boNotifyStateClear(OS_Task_Handle_t pvTask)
 {
-    OS_Task_TCB_t * pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_Task_TCB_t * pstTCB;
+    OS_Boolean_t boReturn;
 
-    pstTCB = (OS_Task_TCB_t*) pvTask;
-    pstTCB = OS_Task__pstGetTCBFromHandle(pstTCB);
-
+    pstTCB = OS_Task__pstGetTCBFromHandle((OS_Task_TCB_t*) pvTask);
     OS_Task__vEnterCritical();
     {
         if(OS_Task_enNotifyState_Notified == pstTCB->enNotifyState)

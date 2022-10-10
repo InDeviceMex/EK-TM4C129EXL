@@ -35,16 +35,10 @@ void OS_Task__vSuspendAll(void)
 
 OS_Boolean_t OS_Task__boResumeAll(void)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxPendedTicks = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
-    OS_Boolean_t boYieldPending = FALSE;
-    OS_Boolean_t boAlreadyYielded = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
+    OS_UBase_t uxSchedulerSuspended;
+    OS_Boolean_t boAlreadyYielded;
 
+    boAlreadyYielded = FALSE;
     uxSchedulerSuspended =  OS_Task__uxGetSchedulerSuspended();
     if(0UL != uxSchedulerSuspended )
     {
@@ -55,9 +49,17 @@ OS_Boolean_t OS_Task__boResumeAll(void)
 
             if(0UL == uxSchedulerSuspended)
             {
+                OS_UBase_t uxCurrentNumberOfTasks;
                 uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
                 if(0UL <  uxCurrentNumberOfTasks)
                 {
+                    OS_List_t* pstPendingReadyList;
+                    OS_Task_TCB_t *pstTCB;
+                    OS_Task_TCB_t *pstCurrentTCB;
+                    OS_Boolean_t boIsListEmpty;
+                    OS_Boolean_t boYieldPending;
+                    OS_UBase_t uxPendedTicks;
+
                     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
                     boIsListEmpty = OS_List__boIsEmpty(pstPendingReadyList);
                     while(FALSE == boIsListEmpty)
@@ -107,19 +109,18 @@ OS_Boolean_t OS_Task__boResumeAll(void)
 
 void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
 {
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_List_t* pstList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t * pstCurrentTCB = (OS_Task_TCB_t *) 0UL;
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t *) 0UL;
-    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_UBase_t uxListSize = 0UL;
-    OS_Boolean_t boSchedulerRunning = FALSE;
+    OS_List_t* pstSuspendedTaskList;
+    OS_Task_TCB_t * pstCurrentTCB;
+    OS_Task_TCB_t *pstTCB;
+    OS_UBase_t uxListSize;
+    OS_Boolean_t boSchedulerRunning;
 
     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
     pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
     OS_Task__vEnterCritical();
     {
+        OS_List_t* pstList;
+
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToSuspend);
         uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
         if(0UL == uxListSize)
@@ -128,7 +129,7 @@ void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
         }
 
         pstList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
-        if( 0UL != (OS_UBase_t) pstList )
+        if( 0UL != (OS_Pointer_t) pstList )
         {
             (void) OS_List__uxRemove(&(pstTCB->stEventListItem));
         }
@@ -141,6 +142,7 @@ void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
     {
         if(FALSE != boSchedulerRunning)
         {
+            OS_UBase_t uxSchedulerSuspended;
             uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
             if(0UL == uxSchedulerSuspended)
             {
@@ -149,6 +151,8 @@ void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
         }
         else
         {
+            OS_UBase_t uxCurrentNumberOfTasks;
+
             uxListSize = OS_List__uxGetLength(pstSuspendedTaskList);
             uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
             if( uxListSize == uxCurrentNumberOfTasks )
@@ -176,18 +180,20 @@ void OS_Task__vSuspend(OS_Task_Handle_t pvTaskToSuspend)
 
 void OS_Task__vResume(OS_Task_Handle_t pvTaskToResume)
 {
-    OS_Task_TCB_t * pstCurrentTCB = (OS_Task_TCB_t *) 0UL;
     OS_Task_TCB_t * const pstTCB = ( OS_Task_TCB_t * ) pvTaskToResume;
-    OS_Boolean_t boStatus = FALSE;
 
-    if(0UL != (OS_UBase_t) pvTaskToResume)
+    if(0UL != (OS_Pointer_t) pvTaskToResume)
     {
+        OS_Task_TCB_t * pstCurrentTCB;
+
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-        if((0UL != (OS_UBase_t) pstTCB) &&
-           ((OS_UBase_t) pstTCB != (OS_UBase_t) pstCurrentTCB))
+        if((0UL != (OS_Pointer_t) pstTCB) &&
+           ((OS_Pointer_t) pstTCB != (OS_Pointer_t) pstCurrentTCB))
         {
             OS_Task__vEnterCritical();
             {
+                OS_Boolean_t boStatus;
+
                 boStatus = OS_Task__boIsTaskSuspended(pstTCB);
                 if(FALSE != boStatus)
                 {
@@ -207,24 +213,24 @@ void OS_Task__vResume(OS_Task_Handle_t pvTaskToResume)
 
 OS_Boolean_t OS_Task__boResumeFromISR(OS_Task_Handle_t pvTaskToResume)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_Task_TCB_t * pstCurrentTCB = (OS_Task_TCB_t *) 0UL;
     OS_Task_TCB_t * const pstTCB = ( OS_Task_TCB_t * ) pvTaskToResume;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
-    OS_UBase_t uxSchedulerSuspended = 0UL;
-    OS_Boolean_t boYieldRequired = FALSE;
-    OS_Boolean_t boStatus = FALSE;
+    OS_Boolean_t boYieldRequired;
 
-    if(0UL != (OS_UBase_t) pvTaskToResume)
+    boYieldRequired = FALSE;
+    if(0UL != (OS_Pointer_t) pvTaskToResume)
     {
+        OS_UBase_t uxSavedInterruptStatus;
         uxSavedInterruptStatus = OS_Task__uxSetInterruptMaskFromISR();
         {
+            OS_Boolean_t boStatus;
             boStatus = OS_Task__boIsTaskSuspended(pstTCB);
             if(FALSE != boStatus)
             {
+                OS_UBase_t uxSchedulerSuspended;
                 uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
                 if(0UL == uxSchedulerSuspended)
                 {
+                    OS_Task_TCB_t * pstCurrentTCB;
                     pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                     if( pstTCB->uxPriorityTask >= pstCurrentTCB->uxPriorityTask )
                     {
@@ -236,6 +242,7 @@ OS_Boolean_t OS_Task__boResumeFromISR(OS_Task_Handle_t pvTaskToResume)
                 }
                 else
                 {
+                    OS_List_t* pstPendingReadyList;
                     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
                     OS_List__vInsertEnd(pstPendingReadyList, &(pstTCB->stEventListItem));
                 }
@@ -247,16 +254,15 @@ OS_Boolean_t OS_Task__boResumeFromISR(OS_Task_Handle_t pvTaskToResume)
     return (boYieldRequired);
 }
 
+#define OS_TASK_NONAPPLICATIONTASKS (1UL)
 OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
 {
-    OS_List_t* pstPendingReadyList = (OS_List_t*) 0UL;
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    const OS_UBase_t uxNonApplicationTasks = 1UL;
-    OS_UBase_t uxCurrentNumberOfTasks = 0UL;
-    OS_UBase_t uxListLength = 0UL;
-    OS_Task_eSleepModeStatus enReturn = OS_Task_enSleepModeStatus_StandardSleep;
-    OS_Boolean_t boYieldPending = FALSE;
+    OS_List_t* pstPendingReadyList;
+    OS_UBase_t uxListLength;
+    OS_Task_eSleepModeStatus enReturn;
+    OS_Boolean_t boYieldPending;
 
+    enReturn = OS_Task_enSleepModeStatus_StandardSleep;
     pstPendingReadyList = OS_Task__pstGetPendingReadyList();
     uxListLength = OS_List__uxGetLength(pstPendingReadyList);
     boYieldPending = OS_Task__boGetYieldPending();
@@ -270,10 +276,13 @@ OS_Task_eSleepModeStatus OS_Task__enConfirmSleepModeStatus(void)
     }
     else
     {
+        OS_List_t* pstSuspendedTaskList;
+        OS_UBase_t uxCurrentNumberOfTasks;
+
         pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
         uxListLength = OS_List__uxGetLength(pstSuspendedTaskList);
         uxCurrentNumberOfTasks = OS_Task__uxGetCurrentNumberOfTasks();
-        uxCurrentNumberOfTasks -= uxNonApplicationTasks;
+        uxCurrentNumberOfTasks -= OS_TASK_NONAPPLICATIONTASKS;
         if(uxListLength == uxCurrentNumberOfTasks)
         {
             enReturn = OS_Task_enSleepModeStatus_NoTasksWaitingTimeout;
