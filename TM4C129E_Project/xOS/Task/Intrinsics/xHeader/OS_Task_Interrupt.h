@@ -36,6 +36,6 @@ void OS_Task__vDisableInterrupts(void);
 void OS_Task__vEnableInterrupts(void);
 OS_Boolean_t OS_Task__boIsInterruptActive(void);
 OS_UBase_t OS_Task__uxSetInterruptMaskFromISR(void);
-void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMask);
+void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMaskArg);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_INTERRUPT_H_ */

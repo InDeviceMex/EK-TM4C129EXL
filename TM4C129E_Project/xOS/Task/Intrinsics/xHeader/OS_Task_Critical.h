@@ -30,6 +30,6 @@
 void OS_Task__vEnterCritical(void);
 void OS_Task__vEnterCriticalFromISR(void);
 void OS_Task__vExitCritical(void);
-void OS_Task__vExitCriticalFromISR(OS_UBase_t uxMask);
+void OS_Task__vExitCriticalFromISR(OS_UBase_t uxMaskArg);
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_CRITICAL_H_ */
