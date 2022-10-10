@@ -28,6 +28,6 @@
 
 UBase_t CDLinkedList__uxGetSize(const CDLinkedList_t* const pstList);
 void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg);
-CDLinkedList_nSTATUS CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList);
+CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARDLINKEDLIST_SIZE_H_ */

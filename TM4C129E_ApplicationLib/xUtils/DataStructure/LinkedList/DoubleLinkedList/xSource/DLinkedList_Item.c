@@ -25,260 +25,551 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
 
-DLinkedListItem_t*  DLinkedList__pstGetItemPos(const DLinkedList_t* pstList, UBase_t uxPosition)
+DLinkedList_nERROR  DLinkedList__enGetItemPosition(const DLinkedList_t* pstList, UBase_t uxPosition, DLinkedListItem_t** pstItemArg)
 {
-    DLinkedListItem_t* pstItem = (DLinkedListItem_t*) 0UL;
-    UBase_t uxSizeList = 0UL;
-    UBase_t uxSizeForward = 0UL;
-    UBase_t uxSizeBackward = 0UL;
-    UBase_t uxSizeOptimum = 0UL;
-    UBase_t uxDirection = 0UL;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    DLinkedListItem_t* pstItemTemp;
+    DLinkedListItem_t* pstItemReg;
+    UBase_t uxSizeList;
+    DLinkedList_nERROR enErrorReg;
+
+    pstItemTemp = (DLinkedListItem_t*) 0UL;
+    pstItemReg = (DLinkedListItem_t*) 0UL;
+    uxSizeList = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstItemArg)
     {
-        uxSizeList = DLinkedList__uxGetSize(pstList);
-        if(uxPosition < uxSizeList)
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetSize(pstList, &uxSizeList);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(uxPosition >= uxSizeList)
         {
-            if(0UL == uxPosition)
+            enErrorReg = DLinkedList_enERROR_RANGE;
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxPosition)
+        {
+            enErrorReg = DLinkedList__enGetHead(pstList, &pstItemReg);
+        }
+        else if(uxPosition < (uxSizeList - 1UL))
+        {
+            UBase_t uxSizeForward;
+            UBase_t uxSizeBackward;
+            UBase_t uxSizeOptimum;
+            UBase_t uxDirection;
+
+            uxSizeBackward = uxSizeList - uxPosition;
+            uxSizeForward = uxPosition;
+            if(uxSizeForward > uxSizeBackward)
             {
-                pstItem = DLinkedList__pstGetHead(pstList);
-            }
-            else if((UBase_t) uxPosition == (UBase_t) (uxSizeList - 1UL))
-            {
-                pstItem = DLinkedList__pstGetTail(pstList);
+                uxSizeOptimum = uxSizeBackward;
+                uxDirection = 1UL;
             }
             else
             {
-                uxSizeBackward = uxSizeList - uxPosition;
-                uxSizeForward = uxPosition;
-                if(uxSizeForward > uxSizeBackward)
-                {
-                    uxSizeOptimum = uxSizeBackward;
-                    uxDirection = 1UL;
-                }
-                else
-                {
-                    uxSizeOptimum = uxSizeForward;
-                    uxDirection = 0UL;
-                }
+                uxSizeOptimum = uxSizeForward;
+                uxDirection = 0UL;
+            }
 
-                if(0UL == uxDirection) /*Forward*/
+            if(0UL == uxDirection) /*Forward*/
+            {
+                enErrorReg = DLinkedList__enGetHead(pstList, &pstItemReg);
+                while((0UL != uxSizeOptimum) && (DLinkedList_enERROR_OK == enErrorReg))
                 {
-                    pstItem = DLinkedList__pstGetHead(pstList);
-                    while(0UL != uxSizeOptimum)
+                    enErrorReg = DLinkedList_Item__enGetNextItem(pstItemReg, &pstItemTemp);
+                    if(DLinkedList_enERROR_OK == enErrorReg)
                     {
-                        pstItem = DLinkedList_Item__pstGetNextItem(pstItem);
+                        pstItemReg = pstItemTemp;
                         uxSizeOptimum--;
                     }
                 }
-                else /*Backward*/
+            }
+            else /*Backward*/
+            {
+                enErrorReg = DLinkedList__enGetTail(pstList, &pstItemReg);
+                while((0UL != uxSizeOptimum) && (DLinkedList_enERROR_OK == enErrorReg))
                 {
-                    pstItem = DLinkedList__pstGetTail(pstList);
-                    while(0UL != uxSizeOptimum)
+                    enErrorReg = DLinkedList_Item__enGetPreviousItem(pstItemReg, &pstItemTemp);
+                    if(DLinkedList_enERROR_OK == enErrorReg)
                     {
-                        pstItem = DLinkedList_Item__pstGetPreviousItem(pstItem);
+                        pstItemReg = pstItemTemp;
                         uxSizeOptimum--;
                     }
                 }
             }
         }
-    }
-    return (pstItem);
-}
-
-UBase_t DLinkedList__uxGetAllItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength)
-{
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    void* pvDataMember = (void*)0UL;
-    UBase_t uxSizeReg = 0UL;
-
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMaxLength))
-    {
-        pstMember = DLinkedList__pstGetHead(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength))
+        else
         {
-            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
-            *pvData = pvDataMember;
-            uxSizeReg++;
-            pvData += 1U;
-            uxMaxLength--;
-            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList__enGetTail(pstList, &pstItemReg);
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *pstItemArg = pstItemReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetAllItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetAllItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    UBase_t puxValueItemMember = (UBase_t)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    void* pvDataMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) puxValueItem ) && (0UL != uxMaxLength))
+    pvDataMember = (void*)0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetHead(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxMaxLength)
         {
-            puxValueItemMember = DLinkedList_Item__uxGetValue(pstMember);
-            *puxValueItem = puxValueItemMember;
-            uxSizeReg++;
-            puxValueItem += 1U;
-            uxMaxLength--;
-            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetHead(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetData(pstMember, &pvDataMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *pvData = pvDataMember;
+                uxSizeReg++;
+                pvData += 1U;
+                uxMaxLength--;
+                enErrorReg = DLinkedList_Item__enGetNextItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
+}
+
+DLinkedList_nERROR DLinkedList__enGetAllItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg)
+{
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    UBase_t puxValueItemMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
+
+    puxValueItemMember = 0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxMaxLength)
+        {
+            enErrorReg = DLinkedList_enERROR_VALUE;
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetHead(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetValue(pstMember, &puxValueItemMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *puxValueItem = puxValueItemMember;
+                uxSizeReg++;
+                puxValueItem += 1U;
+                uxMaxLength--;
+                enErrorReg = DLinkedList_Item__enGetNextItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
 
-UBase_t DLinkedList__uxGetAllItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetAllItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    void* pvDataMember = (void*)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    void* pvDataMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMaxLength))
+    pvDataMember = (void*)0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetTail(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxMaxLength)
         {
-            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
-            *pvData = pvDataMember;
-            uxSizeReg++;
-            pvData += 1U;
-            uxMaxLength--;
-            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetTail(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetData(pstMember, &pvDataMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *pvData = pvDataMember;
+                uxSizeReg++;
+                pvData += 1U;
+                uxMaxLength--;
+                enErrorReg = DLinkedList_Item__enGetPreviousItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetAllItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetAllItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    UBase_t puxValueItemMember = (UBase_t)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    UBase_t puxValueItemMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) puxValueItem ) && (0UL != uxMaxLength))
+    puxValueItemMember = 0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetTail(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxMaxLength)
         {
-            puxValueItemMember = DLinkedList_Item__uxGetValue(pstMember);
-            *puxValueItem = puxValueItemMember;
-            uxSizeReg++;
-            puxValueItem += 1U;
-            uxMaxLength--;
-            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetTail(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetValue(pstMember, &puxValueItemMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *puxValueItem = puxValueItemMember;
+                uxSizeReg++;
+                puxValueItem += 1U;
+                uxMaxLength--;
+                enErrorReg = DLinkedList_Item__enGetPreviousItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetNItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetNItem(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    void* pvDataMember = (void*)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    void* pvDataMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMaxLength) && (0UL != uxItems))
+    pvDataMember = (void*)0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetHead(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength) && (0UL != uxItems))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((0UL == uxMaxLength) || (0UL != uxItems))
         {
-            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
-            *pvData = pvDataMember;
-            uxSizeReg++;
-            pvData += 1U;
-            uxMaxLength--;
-            uxItems--;
-            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetHead(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (0UL != uxItems) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetData(pstMember, &pvDataMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *pvData = pvDataMember;
+                uxSizeReg++;
+                pvData += 1U;
+                uxMaxLength--;
+                uxItems--;
+                DLinkedList_Item__enGetNextItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetNItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetNItem_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    UBase_t puxValueItemMember = (UBase_t)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    UBase_t puxValueItemMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) puxValueItem ) && (0UL != uxMaxLength) && (0UL != uxItems))
+    puxValueItemMember = 0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetHead(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength) && (0UL != uxItems))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((0UL == uxMaxLength) || (0UL != uxItems))
         {
-            puxValueItemMember = DLinkedList_Item__uxGetValue(pstMember);
-            *puxValueItem = puxValueItemMember;
-            uxSizeReg++;
-            puxValueItem += 1U;
-            uxMaxLength--;
-            uxItems--;
-            pstMemberTemp = DLinkedList_Item__pstGetNextItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetHead(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (0UL != uxItems) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetValue(pstMember, &puxValueItemMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *puxValueItem = puxValueItemMember;
+                uxSizeReg++;
+                puxValueItem += 1U;
+                uxMaxLength--;
+                uxItems--;
+                enErrorReg = DLinkedList_Item__enGetNextItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetNItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetNItemBackward(const DLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    void* pvDataMember = (void*)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    void* pvDataMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMaxLength) && (0UL != uxItems))
+    pvDataMember = (void*)0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetTail(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength) && (0UL != uxItems))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((0UL == uxMaxLength) || (0UL != uxItems))
         {
-            pvDataMember = DLinkedList_Item__pvGetData(pstMember);
-            *pvData = pvDataMember;
-            uxSizeReg++;
-            pvData += 1U;
-            uxMaxLength--;
-            uxItems--;
-            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetTail(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (0UL != uxItems) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetData(pstMember, &pvDataMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *pvData = pvDataMember;
+                uxSizeReg++;
+                pvData += 1U;
+                uxMaxLength--;
+                uxItems--;
+                DLinkedList_Item__enGetPreviousItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 
-UBase_t DLinkedList__uxGetNItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength)
+DLinkedList_nERROR DLinkedList__enGetNItemBackward_Value(const DLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg)
 {
-    DLinkedListItem_t *pstMember = (DLinkedListItem_t*) 0UL;
-    DLinkedListItem_t *pstMemberTemp = (DLinkedListItem_t*) 0UL;
-    UBase_t puxValueItemMember = (UBase_t)0UL;
-    UBase_t uxSizeReg = 0UL;
+    DLinkedListItem_t *pstMemberTemp;
+    DLinkedListItem_t *pstMember;
+    UBase_t puxValueItemMember;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if(((UBase_t) 0UL != (UBase_t) pstList) && ((UBase_t) 0UL != (UBase_t) puxValueItem ) && (0UL != uxMaxLength) && (0UL != uxItems))
+    puxValueItemMember = 0UL;
+    pstMemberTemp = (DLinkedListItem_t*) 0UL;
+    pstMember = (DLinkedListItem_t*) 0UL;
+    uxSizeReg = 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
     {
-        pstMember = DLinkedList__pstGetTail(pstList);
-        while(((UBase_t) 0UL != (UBase_t) pstMember) && (0UL != uxMaxLength) && (0UL != uxItems))
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((0UL == uxMaxLength) || (0UL != uxItems))
         {
-            puxValueItemMember = DLinkedList_Item__uxGetValue(pstMember);
-            *puxValueItem = puxValueItemMember;
-            uxSizeReg++;
-            puxValueItem += 1U;
-            uxMaxLength--;
-            uxItems--;
-            pstMemberTemp = DLinkedList_Item__pstGetPreviousItem(pstMember);
-            pstMember = pstMemberTemp;
+            enErrorReg = DLinkedList_enERROR_VALUE;
         }
     }
-    return (uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetTail(pstList, &pstMember);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        while((0UL != (uintptr_t) pstMember) &&
+              (0UL != uxMaxLength) &&
+              (0UL != uxItems) &&
+              (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = DLinkedList_Item__enGetValue(pstMember, &puxValueItemMember);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                *puxValueItem = puxValueItemMember;
+                uxSizeReg++;
+                puxValueItem += 1U;
+                uxMaxLength--;
+                uxItems--;
+                enErrorReg = DLinkedList_Item__enGetPreviousItem(pstMember, &pstMemberTemp);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstMember = pstMemberTemp;
+            }
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        *uxSizeArg = (UBase_t) uxSizeReg;
+    }
+    return (enErrorReg);
 }
 

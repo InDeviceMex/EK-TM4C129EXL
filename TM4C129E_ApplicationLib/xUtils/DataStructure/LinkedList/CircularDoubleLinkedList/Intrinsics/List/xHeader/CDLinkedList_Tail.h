@@ -28,6 +28,6 @@
 
 CDLinkedListItem_t* CDLinkedList__pstGetTail(const CDLinkedList_t*  const pstList);
 void CDLinkedList__vSetTail(CDLinkedList_t* pstList, CDLinkedListItem_t* pstTailArg);
-CDLinkedList_nSTATUS CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem);
+CDLinkedList_nERROR CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARDLINKEDLIST_TAIL_H_ */

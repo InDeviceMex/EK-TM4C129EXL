@@ -23,17 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemOwnerList.h>
 
-void* DLinkedList_Item__pvGetOwnerList(const DLinkedListItem_t* const pstItem)
+DLinkedList_nERROR DLinkedList_Item__enGetOwnerList(const DLinkedListItem_t* const pstItem, void** pvOwnerListArg)
 {
-    void* pvOwnerListReg = (void*) 0UL;
-    pvOwnerListReg = pstItem->pvOwnerList;
-    return (pvOwnerListReg);
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pvOwnerListArg))
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        *pvOwnerListArg = pstItem->pvOwnerList;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList_Item__vSetOwnerList(DLinkedListItem_t* pstItem, void* pvOwnerListArg)
+DLinkedList_nERROR DLinkedList_Item__enSetOwnerList(DLinkedListItem_t* pstItem, void* pvOwnerListArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pvOwnerList = pvOwnerListArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }

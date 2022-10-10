@@ -38,15 +38,7 @@ SLinkedList_nERROR SLinkedList__enDestroy(SLinkedList_t* pstList)
     uxSizeReg = 0UL;
     pvDataItem = (void*) 0UL;
     pvfListDestroy = (SLinkedList_pvfDestroy_t) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         pvfListDestroy = pstList->pvfDestroy;
@@ -67,7 +59,6 @@ SLinkedList_nERROR SLinkedList__enDestroy(SLinkedList_t* pstList)
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-
         pstList->pfuxMatch = (SLinkedList_pfuxMatch_t) 0UL;
         pstList->pvfDestroy = (SLinkedList_pvfDestroy_t) 0UL;
         pstList->pvfDestroyItemData = (SLinkedList_pvfDestroyItemData_t) 0UL;
@@ -77,7 +68,7 @@ SLinkedList_nERROR SLinkedList__enDestroy(SLinkedList_t* pstList)
         pstList->pstLastItemRead = (SLinkedListItem_t*)  0UL;
         pstList->uxSize = 0UL;
 
-        if(0UL != (UBase_t) pvfListDestroy)
+        if(0UL != (uintptr_t) pvfListDestroy)
         {
             pvfListDestroy(pstList);
             pstList = (SLinkedList_t*) 0UL;

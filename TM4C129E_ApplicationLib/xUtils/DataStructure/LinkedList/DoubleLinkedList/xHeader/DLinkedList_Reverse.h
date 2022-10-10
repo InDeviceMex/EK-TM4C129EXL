@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
- DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_t* pstList);
+ DLinkedList_nERROR DLinkedList__enReverse(DLinkedList_t* pstList);
 
 
 

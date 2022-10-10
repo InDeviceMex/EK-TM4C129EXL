@@ -44,7 +44,7 @@ SLinkedList_nERROR SLinkedList__enCreate(SLinkedList_t** pstList,
 #elif defined (__GNUC__ )
         pstListReg = (SLinkedList_t*) malloc(sizeof(SLinkedList_t));
 #endif
-        if(0UL == (uintptr_t) pstList)
+        if(0UL == (uintptr_t) pstListReg)
         {
             enErrorReg = SLinkedList_enERROR_POINTER;
         }

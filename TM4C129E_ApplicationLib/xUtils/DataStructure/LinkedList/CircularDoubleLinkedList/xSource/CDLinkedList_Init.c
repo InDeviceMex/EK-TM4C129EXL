@@ -46,14 +46,14 @@ CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataC
 }
 
 
-CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInit(CDLinkedList_t* pstList,
                                           void (*pvfDestroyItemDataArg) (void *DataContainer),
                                           void (*pvfDestroyItemArg) (void *Item))
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     if((UBase_t) 0UL != (UBase_t) pstList)
     {
-        enStatus = CDLinkedList_enSTATUS_OK;
+        enStatus = CDLinkedList_enERROR_OK;
         pstList->uxSize = 0UL;
         pstList->pvfDestroy = (void (*) (void* List))0UL;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;

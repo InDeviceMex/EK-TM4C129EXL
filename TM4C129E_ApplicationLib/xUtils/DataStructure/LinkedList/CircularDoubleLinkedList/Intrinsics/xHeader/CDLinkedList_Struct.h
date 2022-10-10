@@ -28,9 +28,9 @@
 
 typedef enum
 {
-    CDLinkedList_enSTATUS_OK,
-    CDLinkedList_enSTATUS_ERROR
-}CDLinkedList_nSTATUS;
+    CDLinkedList_enERROR_OK,
+    CDLinkedList_enERROR_POINTER
+}CDLinkedList_nERROR;
 
 
 typedef enum

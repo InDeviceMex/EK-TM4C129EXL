@@ -23,32 +23,63 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/xHeader/DLinkedList_Head.h>
 
-DLinkedListItem_t* DLinkedList__pstGetHead(const DLinkedList_t*  const pstList)
+DLinkedList_nERROR DLinkedList__enGetHead(const DLinkedList_t*  const pstList, DLinkedListItem_t** pstHeadArg)
 {
-    DLinkedListItem_t* pstHeadReg = (DLinkedListItem_t*) 0U;
-    if(0UL != (UBase_t) pstList)
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstHeadArg))
     {
-        pstHeadReg = pstList->pstHead;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (pstHeadReg);
+    else
+    {
+        *pstHeadArg = pstList->pstHead;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList__vSetHead(DLinkedList_t* pstList, DLinkedListItem_t* pstHeadArg)
+DLinkedList_nERROR DLinkedList__enSetHead(DLinkedList_t* pstList, DLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (UBase_t) pstList)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstHead = pstHeadArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_t* const pstList, const DLinkedListItem_t* const pstItem)
+DLinkedList_nERROR DLinkedList__enIsHead(const DLinkedList_t* const pstList, const DLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedListItem_t* pstListHead = (DLinkedListItem_t*)0UL;
-    pstListHead = DLinkedList__pstGetHead(pstList);
-    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
+    DLinkedList_nERROR enErrorReg;
+    DLinkedListItem_t* pstListHead;
+
+    pstListHead = (DLinkedListItem_t*) 0UL;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pboStatus)
     {
-        enStatus = DLinkedList_enSTATUS_OK;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enGetHead(pstList, &pstListHead);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((uintptr_t) pstItem == (uintptr_t) (pstListHead))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

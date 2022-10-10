@@ -36,15 +36,7 @@ SLinkedList_nERROR SLinkedList__enReverse(SLinkedList_t* pstList)
     pstPreviousItem = (SLinkedListItem_t*) 0UL;
     pstNextItemReg = (SLinkedListItem_t*) 0UL;
     pstHeadItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetHead(pstList, &pstHeadItem);
-    }
+    enErrorReg = SLinkedList__enGetHead(pstList, &pstHeadItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enSetTail(pstList, pstHeadItem);

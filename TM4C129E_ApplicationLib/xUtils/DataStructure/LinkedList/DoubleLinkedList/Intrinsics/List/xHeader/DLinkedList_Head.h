@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedListItem_t* DLinkedList__pstGetHead(const DLinkedList_t*  const pstList);
-void DLinkedList__vSetHead(DLinkedList_t* pstList, DLinkedListItem_t* pstHeadArg);
-DLinkedList_nSTATUS DLinkedList__enIsHead(const DLinkedList_t* const pstList, const DLinkedListItem_t* const pstItem);
+DLinkedList_nERROR DLinkedList__enGetHead(const DLinkedList_t*  const pstList, DLinkedListItem_t** pstHeadArg);
+DLinkedList_nERROR DLinkedList__enSetHead(DLinkedList_t* pstList, DLinkedListItem_t* pstHeadArg);
+DLinkedList_nERROR DLinkedList__enIsHead(const DLinkedList_t* const pstList, const DLinkedListItem_t* const pstItem, boolean_t* pboStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_DLINKEDLIST_HEAD_H_ */

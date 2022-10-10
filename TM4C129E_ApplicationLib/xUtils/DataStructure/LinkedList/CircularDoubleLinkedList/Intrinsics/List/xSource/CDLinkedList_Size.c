@@ -42,12 +42,12 @@ void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg)
     }
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList)
+CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     if(0UL  == pstList->uxSize)
     {
-        enStatus = CDLinkedList_enSTATUS_OK;
+        enStatus = CDLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

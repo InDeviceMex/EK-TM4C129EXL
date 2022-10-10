@@ -23,17 +23,35 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemPreviousNode.h>
 
-DLinkedListItem_t* DLinkedList_Item__pstGetPreviousItem(const DLinkedListItem_t* const pstItem)
+DLinkedList_nERROR DLinkedList_Item__enGetPreviousItem(const DLinkedListItem_t* const pstItem, DLinkedListItem_t** pstPreviousItemArg)
 {
-    DLinkedListItem_t* pstPreviousItemReg = (DLinkedListItem_t*) 0UL;
-    pstPreviousItemReg = pstItem->pstPreviousItem;
-    return (pstPreviousItemReg);
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pstPreviousItemArg))
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        *pstPreviousItemArg = pstItem->pstPreviousItem;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList_Item__vSetPreviousItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstPreviousItemArg)
+DLinkedList_nERROR DLinkedList_Item__enSetPreviousItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstPreviousItemArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pstPreviousItem = pstPreviousItemArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
+

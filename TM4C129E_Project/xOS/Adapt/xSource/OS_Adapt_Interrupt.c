@@ -81,7 +81,7 @@ OS_UBase_t OS_Adapt__uxSetInterruptMaskFromISR(void)
     return (uxInterrupt);
 }
 
-void OS_Adapt__vClearInterruptMaskFromISR(OS_UBase_t uxMask)
+void OS_Adapt__vClearInterruptMaskFromISR(OS_UBase_t uxMaskArg)
 {
-    MCU__vSetBasePriorityInterrupt((MCU_nPRIORITY) uxMask);
+    MCU__vSetBasePriorityInterrupt((MCU_nPRIORITY) uxMaskArg);
 }

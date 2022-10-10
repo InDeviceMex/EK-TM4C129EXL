@@ -35,7 +35,7 @@ void OS_Adapt__vEndSwitchingISR(OS_Boolean_t boSwitchRequired);
 void OS_Adapt__vDisableInterrupts(void);
 void OS_Adapt__vEnableInterrupts(void);
 OS_Boolean_t OS_Adapt__boIsInterruptActive(void);
-void OS_Adapt__vClearInterruptMaskFromISR(OS_UBase_t uxMask);
+void OS_Adapt__vClearInterruptMaskFromISR(OS_UBase_t uxMaskArg);
 OS_UBase_t OS_Adapt__uxSetInterruptMaskFromISR(void);
 
 #endif /* XOS_TASK_ADAPT_XHEADER_OS_ADAPT_INTERRUPT_H_ */

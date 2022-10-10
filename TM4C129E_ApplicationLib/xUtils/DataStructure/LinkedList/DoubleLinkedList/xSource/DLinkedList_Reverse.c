@@ -25,41 +25,83 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/DLinkedList_Intrinsics.h>
 
-DLinkedList_nSTATUS DLinkedList__enReverse(DLinkedList_t* pstList)
+DLinkedList_nERROR DLinkedList__enReverse(DLinkedList_t* pstList)
 {
-    DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedListItem_t* pstNextItemReg = (DLinkedListItem_t*) 0UL ;
-    DLinkedListItem_t* pstNextNextNode = (DLinkedListItem_t*) 0UL ;
-    DLinkedListItem_t* pstNextPreviousNode = (DLinkedListItem_t*) 0UL ;
-    DLinkedListItem_t* pstItem = (DLinkedListItem_t*) 0UL ;
-    if(((UBase_t) 0UL != (UBase_t) pstList))
+    DLinkedListItem_t* pstNextItemReg;
+    DLinkedListItem_t* pstNextNextNode;
+    DLinkedListItem_t* pstNextPreviousNode;
+    DLinkedListItem_t* pstItem;
+    DLinkedList_nERROR enErrorReg;
+    boolean_t boTerminate;
+
+    pstNextItemReg = (DLinkedListItem_t*) 0UL ;
+    pstNextNextNode = (DLinkedListItem_t*) 0UL ;
+    pstNextPreviousNode = (DLinkedListItem_t*) 0UL ;
+    pstItem = (DLinkedListItem_t*) 0UL ;
+    boTerminate = FALSE;
+    enErrorReg = DLinkedList__enGetHead(pstList, &pstItem);
+    if(DLinkedList_enERROR_OK == enErrorReg)
     {
-        pstItem = DLinkedList__pstGetHead(pstList);
-        DLinkedList__vSetTail(pstList, pstItem);
-        if((UBase_t) 0UL != (UBase_t) pstItem)
+        /*List empty*/
+        if(0UL == (uintptr_t) pstItem)
         {
-            pstNextItemReg = DLinkedList_Item__pstGetNextItem(pstItem);
-            if((UBase_t) 0UL != (UBase_t) pstNextItemReg)
+            enErrorReg = DLinkedList_enERROR_EMPTY;
+        }
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList__enSetTail(pstList, pstItem);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DLinkedList_Item__enGetNextItem(pstItem, &pstNextItemReg);
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        /*List only has one element*/
+        if(0UL == (uintptr_t) pstNextItemReg)
+        {
+            boTerminate = TRUE;
+        }
+    }
+    if((DLinkedList_enERROR_OK == enErrorReg) && (boTerminate == FALSE))
+    {
+        enErrorReg = DLinkedList_Item__enSetNextItem(pstItem, (DLinkedListItem_t*)0UL);
+    }
+
+    if((DLinkedList_enERROR_OK == enErrorReg) && (boTerminate == FALSE))
+    {
+        enErrorReg = DLinkedList_Item__enSetPreviousItem(pstItem, pstNextItemReg);
+    }
+    if((DLinkedList_enERROR_OK == enErrorReg) && (boTerminate == FALSE))
+    {
+        while((0UL == (uintptr_t) pstNextItemReg) && (DLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg  = DLinkedList_Item__enGetNextItem(pstNextItemReg, &pstNextNextNode);
+            if(DLinkedList_enERROR_OK == enErrorReg)
             {
-                enStatus = DLinkedList_enSTATUS_OK;
-                DLinkedList_Item__vSetNextItem(pstItem, (DLinkedListItem_t*)0UL);
-                DLinkedList_Item__vSetPreviousItem(pstItem, pstNextItemReg);
-
-                while((UBase_t) 0UL != (UBase_t) pstNextItemReg)
-                {
-                    pstNextNextNode = DLinkedList_Item__pstGetNextItem(pstNextItemReg);
-                    DLinkedList_Item__vSetPreviousItem(pstNextItemReg, pstNextNextNode);
-                    DLinkedList_Item__vSetNextItem(pstNextItemReg, pstItem);
-                    pstNextPreviousNode = DLinkedList_Item__pstGetPreviousItem(pstNextItemReg);
-
-                    pstItem = pstNextItemReg;
-                    pstNextItemReg = pstNextPreviousNode;
-                }
-                DLinkedList__vSetHead(pstList, pstItem);
+                enErrorReg  = DLinkedList_Item__enSetPreviousItem(pstNextItemReg, pstNextNextNode);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg  = DLinkedList_Item__enSetNextItem(pstNextItemReg, pstItem);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg  = DLinkedList_Item__enGetPreviousItem(pstNextItemReg, &pstNextPreviousNode);
+            }
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                pstItem = pstNextItemReg;
+                pstNextItemReg = pstNextPreviousNode;
             }
         }
     }
-    return (enStatus);
+    if((DLinkedList_enERROR_OK == enErrorReg) && (boTerminate == FALSE))
+    {
+        enErrorReg = DLinkedList__enSetHead(pstList, pstItem);
+    }
+    return (enErrorReg);
 }
 
 

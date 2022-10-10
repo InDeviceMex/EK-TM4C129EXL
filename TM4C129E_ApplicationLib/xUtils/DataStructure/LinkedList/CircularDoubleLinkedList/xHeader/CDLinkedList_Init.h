@@ -27,7 +27,7 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
 CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item));
-CDLinkedList_nSTATUS CDLinkedList__enInit(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInit(CDLinkedList_t* pstList,
                                           void (*pvfDestroyItemDataArg) (void *DataContainer),
                                           void (*pvfDestroyItemArg) (void *Item));
 

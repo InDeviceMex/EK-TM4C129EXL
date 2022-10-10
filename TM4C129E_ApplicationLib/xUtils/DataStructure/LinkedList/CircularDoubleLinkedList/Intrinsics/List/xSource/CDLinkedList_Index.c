@@ -41,14 +41,14 @@ void CDLinkedList__vSetLastItemRead(CDLinkedList_t* pstList, CDLinkedListItem_t*
     }
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsLastItemRead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsLastItemRead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstListLastItemRead = (CDLinkedListItem_t*)0UL;
     pstListLastItemRead= CDLinkedList__pstGetLastItemRead(pstList);
     if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
     {
-        enStatus = CDLinkedList_enSTATUS_OK;
+        enStatus = CDLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

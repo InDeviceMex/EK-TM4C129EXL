@@ -66,7 +66,7 @@ SLinkedList_nERROR SLinkedList__enIsTail(const SLinkedListItem_t* const pstItem,
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if ((UBase_t) 0UL == (UBase_t) (pstItem->pstNextItem))
+        if (0UL == (uintptr_t) (pstItem->pstNextItem))
         {
             *pboStatus = TRUE;
         }

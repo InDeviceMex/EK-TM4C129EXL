@@ -37,21 +37,21 @@
  *
  */
 
-static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstList,
+static CDLinkedList_nERROR CDLinkedList__enInsertGeneric(CDLinkedList_t* pstList,
                                                         CDLinkedListItem_t* pstItem,
                                                         CDLinkedListItem_t* pstNewItem,
                                                         void* pvData,
                                                         UBase_t uxInsert,
                                                         UBase_t uxDataUpdate);
 
-static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstList,
+static CDLinkedList_nERROR CDLinkedList__enInsertGeneric(CDLinkedList_t* pstList,
                                                         CDLinkedListItem_t* pstItem,
                                                         CDLinkedListItem_t* pstNewItem,
                                                         void* pvData,
                                                         UBase_t uxInsert,
                                                         UBase_t uxDataUpdate)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstItemTemp = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstItemNextNode = (CDLinkedListItem_t*) 0UL ;
     CDLinkedListItem_t* pstItemPreviousNode = (CDLinkedListItem_t*) 0UL ;
@@ -65,7 +65,7 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
         {
             if((UBase_t) 0UL != (UBase_t) pstNewItem)
             {
-                enStatus = CDLinkedList_enSTATUS_OK;
+                enStatus = CDLinkedList_enERROR_OK;
                 if(DATA_UPDATE == uxDataUpdate)
                 {
                     CDLinkedList_Item__vSetData(pstNewItem, pvData);
@@ -123,21 +123,21 @@ static CDLinkedList_nSTATUS CDLinkedList__enInsertGeneric(CDLinkedList_t* pstLis
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertNext_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertNext_WithData(CDLinkedList_t* pstList,
                                                       CDLinkedListItem_t* pstItem,
                                                       CDLinkedListItem_t* pstNewItem,
                                                       void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     enStatus = CDLinkedList__enInsertGeneric(pstList, pstItem, pstNewItem, pvData, INSERT_NEXT, DATA_UPDATE);
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertNext(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertNext(CDLinkedList_t* pstList,
                                                       CDLinkedListItem_t* pstItem,
                                                       CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     enStatus = CDLinkedList__enInsertGeneric(pstList, pstItem, pstNewItem, (void*) 0UL, INSERT_NEXT, DATA_STATIC);
     return (enStatus);
 }
@@ -184,21 +184,21 @@ CDLinkedListItem_t* CDLinkedList__pstInsertNext(CDLinkedList_t* pstList, CDLinke
     return (pstNewItem);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertPrevious_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertPrevious_WithData(CDLinkedList_t* pstList,
                                                       CDLinkedListItem_t* pstItem,
                                                       CDLinkedListItem_t* pstNewItem,
                                                       void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     enStatus = CDLinkedList__enInsertGeneric(pstList, pstItem, pstNewItem, pvData, INSERT_PREVIOUS, DATA_UPDATE);
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertPrevious(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertPrevious(CDLinkedList_t* pstList,
                                                       CDLinkedListItem_t* pstItem,
                                                       CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     enStatus = CDLinkedList__enInsertGeneric(pstList, pstItem, pstNewItem, (void*) 0UL, INSERT_PREVIOUS, DATA_STATIC);
     return (enStatus);
 }
@@ -247,11 +247,11 @@ CDLinkedListItem_t* CDLinkedList__pstInsertPrevious(CDLinkedList_t* pstList, CDL
     return (pstNewItem);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
                                            void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -268,10 +268,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead_WithData(CDLink
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertPreviousLastItemRead(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertPreviousLastItemRead(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -327,11 +327,11 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertPreviousLastItemRead(CDLinkedList_t*
 }
 
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
                                            void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -345,10 +345,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead_WithData(CDLinkedLi
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertNextLastItemRead(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertNextLastItemRead(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstLastItemItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -394,11 +394,11 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertNextLastItemRead(CDLinkedList_t* pst
     return (pstNewItem);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertAtTail_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
                                            void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -408,10 +408,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail_WithData(CDLinkedList_t* pstL
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertAtTail(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertAtTail(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstEndItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -445,11 +445,11 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtTail(CDLinkedList_t* pstList)
     return (pstNewItem);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertAtHead_WithData(CDLinkedList_t* pstList,
                                             CDLinkedListItem_t* pstNewItem,
                                             void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -459,10 +459,10 @@ CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead_WithData(CDLinkedList_t* pstLi
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enInsertAtHead(CDLinkedList_t* pstList,
+CDLinkedList_nERROR CDLinkedList__enInsertAtHead(CDLinkedList_t* pstList,
                                             CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstBeginItem = (CDLinkedListItem_t*) 0UL;
     if(((UBase_t) 0UL != (UBase_t) pstList))
     {
@@ -496,12 +496,12 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertAtHead(CDLinkedList_t* pstList)
     return (pstNewItem);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
                                             UBase_t uxPosition,
                                             void* pvData)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     UBase_t uxSizeForward = 0UL;
@@ -566,11 +566,11 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertPos_WithData(CDLinkedList_t* pstList
     return (enStatus);
 }
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertPos(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertPos(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem,
                                             UBase_t uxPosition)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     UBase_t uxSizeList = 0UL;
     UBase_t uxSizeForward = 0UL;
@@ -775,10 +775,10 @@ CDLinkedListItem_t*  CDLinkedList__pstInsertPos(CDLinkedList_t* pstList, UBase_t
  * en los otros tipos de linkedlist
  * */
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstItemAux = (CDLinkedListItem_t*) 0UL;
     UBase_t uxNewItemValueReg = 0UL;
@@ -820,10 +820,10 @@ CDLinkedList_nSTATUS  CDLinkedList__enInsertInDescendingOrderByValue(CDLinkedLis
 }
 
 
-CDLinkedList_nSTATUS  CDLinkedList__enInsertInAscendingOrderByValue(CDLinkedList_t* pstList,
+CDLinkedList_nERROR  CDLinkedList__enInsertInAscendingOrderByValue(CDLinkedList_t* pstList,
                                            CDLinkedListItem_t* pstNewItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstItem = (CDLinkedListItem_t*) 0UL;
     CDLinkedListItem_t* pstItemAux = (CDLinkedListItem_t*) 0UL;
     UBase_t uxNewItemValueReg = 0UL;

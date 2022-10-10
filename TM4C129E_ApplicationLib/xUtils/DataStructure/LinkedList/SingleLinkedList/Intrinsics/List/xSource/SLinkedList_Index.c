@@ -74,7 +74,7 @@ SLinkedList_nERROR SLinkedList__enIsLastItemRead(const SLinkedList_t* const pstL
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
+        if ((uintptr_t) pstItem == (uintptr_t) (pstListLastItemRead))
         {
             *pboStatus = TRUE;
         }

@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedListItem_t* DLinkedList_Item__pstGetNextItem(const DLinkedListItem_t* const pstItem);
-void DLinkedList_Item__vSetNextItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstNextItemArg);
+DLinkedList_nERROR DLinkedList_Item__enGetNextItem(const DLinkedListItem_t* const pstItem, DLinkedListItem_t** pstNextItemArg);
+DLinkedList_nERROR DLinkedList_Item__enSetNextItem(DLinkedListItem_t* pstItem, DLinkedListItem_t* pstNextItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_DLINKEDLIST_ITEMNEXTITEM_H_ */

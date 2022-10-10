@@ -36,7 +36,7 @@ SLinkedList_nERROR  SLinkedList__enGetItemPosition(const SLinkedList_t* pstList,
     pstItemReg = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstItemArg))
+    if(0UL == (uintptr_t) pstItemArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -57,11 +57,7 @@ SLinkedList_nERROR  SLinkedList__enGetItemPosition(const SLinkedList_t* pstList,
         {
             enErrorReg = SLinkedList__enGetHead(pstList, &pstItemReg);
         }
-        else if((UBase_t) (uxSizeList - 1UL) == (UBase_t) uxPosition)
-        {
-            enErrorReg = SLinkedList__enGetTail(pstList, &pstItemReg);
-        }
-        else
+        else if(uxPosition < (uxSizeList - 1UL))
         {
             enErrorReg = SLinkedList__enGetHead(pstList, &pstItemReg);
             if(SLinkedList_enERROR_OK == enErrorReg)
@@ -76,6 +72,10 @@ SLinkedList_nERROR  SLinkedList__enGetItemPosition(const SLinkedList_t* pstList,
                     }
                 }
             }
+        }
+        else
+        {
+            enErrorReg = SLinkedList__enGetTail(pstList, &pstItemReg);
         }
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
@@ -98,7 +98,7 @@ SLinkedList_nERROR SLinkedList__enGetAllItem(const SLinkedList_t* pstList, void*
     pstMember = (SLinkedListItem_t*) 0UL;
     uxSizeReg = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -152,7 +152,7 @@ SLinkedList_nERROR SLinkedList__enGetNItem(const SLinkedList_t* pstList, void** 
     pstMember = (SLinkedListItem_t*) 0UL;
     uxSizeReg = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
+    if((0UL == (uintptr_t) pvData)|| (0UL == (uintptr_t) uxSizeArg))
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -212,7 +212,7 @@ SLinkedList_nERROR SLinkedList__enGetAllItem_Value(const SLinkedList_t* pstList,
     pstMember = (SLinkedListItem_t*) 0UL;
     uxSizeReg = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -268,7 +268,7 @@ SLinkedList_nERROR SLinkedList__enGetNItem_Value(const SLinkedList_t* pstList, U
     pstMember = (SLinkedListItem_t*) 0UL;
     uxSizeReg = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
+    if((0UL == (uintptr_t) puxValueItem)|| (0UL == (uintptr_t) uxSizeArg))
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }

@@ -41,12 +41,12 @@ void CDLinkedList__vSetTail(CDLinkedList_t* pstList, CDLinkedListItem_t* pstTail
     }
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     if (0UL == (UBase_t) (pstItem->pstNextItem))
     {
-        enStatus = CDLinkedList_enSTATUS_OK;
+        enStatus = CDLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

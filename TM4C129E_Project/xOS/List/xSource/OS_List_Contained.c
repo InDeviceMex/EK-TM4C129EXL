@@ -38,12 +38,12 @@ OS_Boolean_t OS_List__boIsContainedWithin(const OS_List_t* const pstListArg ,
                                           const OS_ListItem_t* const pstListItemArg)
 {
     OS_Boolean_t boItemContained = FALSE;
-    CDLinkedList_nSTATUS enStatusList = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatusList = CDLinkedList_enERROR_POINTER;
     if((0UL != (OS_UBase_t) pstListArg) &&
        (0UL != (OS_UBase_t) pstListItemArg))
      {
         enStatusList = CDLinkedList__enIsItemOwnerList(pstListArg, pstListItemArg);
-        if(CDLinkedList_enSTATUS_OK == enStatusList)
+        if(CDLinkedList_enERROR_OK == enStatusList)
         {
             boItemContained = TRUE;
         }

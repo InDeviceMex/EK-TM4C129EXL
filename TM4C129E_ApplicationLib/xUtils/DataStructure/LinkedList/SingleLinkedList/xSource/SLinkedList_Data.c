@@ -35,7 +35,7 @@ SLinkedList_nERROR SLinkedList__enGetDataItemPosition(const SLinkedList_t* pstLi
     pstItem = (SLinkedListItem_t*) 0UL;
     pvItemData = (void*) 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
+    if(0UL == (uintptr_t) pvItemDataArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -70,7 +70,7 @@ SLinkedList_nERROR SLinkedList__enGetDataTail(const SLinkedList_t* pstList, void
     pstItem = (SLinkedListItem_t*) 0UL;
     pvItemData = (void*) 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
+    if(0UL == (uintptr_t) pvItemDataArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -105,7 +105,7 @@ SLinkedList_nERROR SLinkedList__enGetDataHead(const SLinkedList_t* pstList, void
     pstItem = (SLinkedListItem_t*) 0UL;
     pvItemData = (void*) 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
+    if(0UL == (uintptr_t) pvItemDataArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -141,7 +141,7 @@ SLinkedList_nERROR SLinkedList__enGetValueItemPosition(const SLinkedList_t* pstL
     pstItem = (SLinkedListItem_t*) 0UL;
     uxItemValue = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
+    if(0UL == (uintptr_t) uxItemValueArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -176,7 +176,7 @@ SLinkedList_nERROR SLinkedList__enGetValueTail(const SLinkedList_t* pstList, UBa
     pstItem = (SLinkedListItem_t*) 0UL;
     uxItemValue = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
+    if(0UL == (uintptr_t) uxItemValueArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -199,7 +199,6 @@ SLinkedList_nERROR SLinkedList__enGetValueTail(const SLinkedList_t* pstList, UBa
     {
         *uxItemValueArg = uxItemValue;
     }
-
     return (enErrorReg);
 }
 
@@ -212,7 +211,7 @@ SLinkedList_nERROR SLinkedList__enGetValueHead(const SLinkedList_t* pstList, UBa
     pstItem = (SLinkedListItem_t*) 0UL;
     uxItemValue = 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) uxItemValueArg))
+    if(0UL == (uintptr_t) uxItemValueArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -235,7 +234,6 @@ SLinkedList_nERROR SLinkedList__enGetValueHead(const SLinkedList_t* pstList, UBa
     {
         *uxItemValueArg = uxItemValue;
     }
-
     return (enErrorReg);
 }
 
@@ -250,7 +248,7 @@ SLinkedList_nERROR SLinkedList__enGetDataNextItem(SLinkedList_t* pstList, void**
     pstNextItemReg = (SLinkedListItem_t*) 0UL;
     pvItemData = (void*) 0UL;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pvItemDataArg))
+    if(0UL == (uintptr_t) pvItemDataArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }

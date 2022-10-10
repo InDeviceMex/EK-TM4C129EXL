@@ -23,31 +23,57 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/xHeader/DLinkedList_Size.h>
 
-UBase_t DLinkedList__uxGetSize(const DLinkedList_t* const pstList)
-{
-    UBase_t uxSizeReg = 0UL;
-    if(0UL != (UBase_t) pstList)
-    {
-        uxSizeReg = pstList->uxSize;
-    }
-    return (uxSizeReg);
 
+DLinkedList_nERROR DLinkedList__enGetSize(const DLinkedList_t* const pstList, UBase_t* puxSizeArg)
+{
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) puxSizeArg))
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        *puxSizeArg = pstList->uxSize;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList__vSetSize(DLinkedList_t*  pstList, UBase_t uxSizeArg)
+DLinkedList_nERROR DLinkedList__enSetSize(DLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (UBase_t) pstList)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->uxSize = uxSizeArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-DLinkedList_nSTATUS DLinkedList__enIsEmpty(const DLinkedList_t*  pstList)
+DLinkedList_nERROR DLinkedList__enIsEmpty(const DLinkedList_t*  pstList, boolean_t* pboStatus)
 {
-    DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    if(0UL  == pstList->uxSize)
+    DLinkedList_nERROR enErrorReg;
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pboStatus))
     {
-        enStatus = DLinkedList_enSTATUS_OK;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL  == pstList->uxSize)
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

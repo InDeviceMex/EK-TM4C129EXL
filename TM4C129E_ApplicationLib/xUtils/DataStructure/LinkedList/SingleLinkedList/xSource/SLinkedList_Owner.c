@@ -42,7 +42,7 @@ SLinkedList_nERROR SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, 
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if((UBase_t) pstOwnerListItem == (UBase_t) pstList)
+        if((uintptr_t) pstOwnerListItem == (uintptr_t) pstList)
         {
             *boStatus = TRUE;
         }
@@ -51,10 +51,5 @@ SLinkedList_nERROR SLinkedList__enIsItemOwnerList(const SLinkedList_t* pstList, 
             *boStatus = FALSE;
         }
     }
-
     return (enErrorReg);
 }
-
-
-
-

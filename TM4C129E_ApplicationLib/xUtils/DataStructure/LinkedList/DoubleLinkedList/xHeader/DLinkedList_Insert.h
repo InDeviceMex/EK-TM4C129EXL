@@ -26,91 +26,109 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedList_nSTATUS DLinkedList__enInsertNext_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertNext_WithData(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstPreviousItemArg,
                                             DLinkedListItem_t* pstNewItem,
                                             void* pvData);
-DLinkedList_nSTATUS DLinkedList__enInsertNext(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertNext(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstPreviousItemArg,
                                             DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t* DLinkedList__pstInsertNext_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNext_WithData(DLinkedList_t* pstList,
+                                                                DLinkedListItem_t* pstPreviousItemArg,
+                                                                DLinkedListItem_t** pstNewItemArg,
+                                                                void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNext(DLinkedList_t* pstList,
                                              DLinkedListItem_t* pstPreviousItemArg,
-                                             void* pvData);
-DLinkedListItem_t* DLinkedList__pstInsertNext(DLinkedList_t* pstList,
-                                             DLinkedListItem_t* pstPreviousItemArg);
+                                             DLinkedListItem_t** pstNewItemArg);
 
 
 
 
-DLinkedList_nSTATUS DLinkedList__enInsertPrevious_WithData(DLinkedList_t* pstList,
-                                                       DLinkedListItem_t* pstNextItemArg,
-                                                       DLinkedListItem_t* pstNewItem,
-                                                       void* pvData);
-DLinkedList_nSTATUS DLinkedList__enInsertPrevious(DLinkedList_t* pstList,
-                                                       DLinkedListItem_t* pstNextItemArg,
-                                                       DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t* DLinkedList__pstInsertPrevious_WithData(DLinkedList_t* pstList,
-                                                        DLinkedListItem_t* pstNextItemArg,
-                                                        void* pvData);
-DLinkedListItem_t* DLinkedList__pstInsertPrevious(DLinkedList_t* pstList,
-                                                        DLinkedListItem_t* pstNextItemArg);
+DLinkedList_nERROR DLinkedList__enInsertPrevious_WithData(DLinkedList_t* pstList,
+                                                          DLinkedListItem_t* pstNextItemArg,
+                                                          DLinkedListItem_t* pstNewItem,
+                                                          void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertPrevious(DLinkedList_t* pstList,
+                                                 DLinkedListItem_t* pstNextItemArg,
+                                                 DLinkedListItem_t* pstNewItem);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePrevious_WithData(DLinkedList_t* pstList,
+                                                                   DLinkedListItem_t* pstNextItemArg,
+                                                                   DLinkedListItem_t** pstNewItemArg,
+                                                                   void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePrevious(DLinkedList_t* pstList,
+                                                          DLinkedListItem_t* pstNextItemArg,
+                                                          DLinkedListItem_t** pstNewItemArg);
 
 
 
-DLinkedList_nSTATUS  DLinkedList__enInsertPreviousLastItemRead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead_WithData(DLinkedList_t* pstList,
+                                                                       DLinkedListItem_t* pstNewItem,
+                                                                       void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead(DLinkedList_t* pstList,
+                                                              DLinkedListItem_t* pstNewItem);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead_WithData(DLinkedList_t* pstList,
+                                                                                DLinkedListItem_t** pstNewItemArg,
+                                                                                void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead(DLinkedList_t* pstList,
+                                                                       DLinkedListItem_t** pstNewItemArg);
+
+
+
+
+DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead_WithData(DLinkedList_t* pstList,
                                            DLinkedListItem_t* pstNewItem,
                                            void* pvData);
-DLinkedList_nSTATUS  DLinkedList__enInsertPreviousLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead(DLinkedList_t* pstList,
                                            DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t*  DLinkedList__pstInsertPreviousLastItemRead_WithData(DLinkedList_t* pstList, void* pvData);
-DLinkedListItem_t*  DLinkedList__pstInsertPreviousLastItemRead(DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNextLastItemRead_WithData(DLinkedList_t* pstList,
+                                                                            DLinkedListItem_t** pstNewItemArg,
+                                                                            void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNextLastItemRead(DLinkedList_t* pstList,
+                                                                   DLinkedListItem_t** pstNewItemArg);
 
 
 
 
-DLinkedList_nSTATUS  DLinkedList__enInsertNextLastItemRead_WithData(DLinkedList_t* pstList,
+
+DLinkedList_nERROR DLinkedList__enInsertAtTail_WithData(DLinkedList_t* pstList,
                                            DLinkedListItem_t* pstNewItem,
                                            void* pvData);
-DLinkedList_nSTATUS  DLinkedList__enInsertNextLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAtTail(DLinkedList_t* pstList,
                                            DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t*  DLinkedList__pstInsertNextLastItemRead_WithData(DLinkedList_t* pstList, void* pvData);
-DLinkedListItem_t*  DLinkedList__pstInsertNextLastItemRead(DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateAtTail_WithData(DLinkedList_t* pstList,
+                                                          DLinkedListItem_t** pstNewItem,
+                                                          void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateAtTail(DLinkedList_t* pstList,
+                                                        DLinkedListItem_t** pstNewItem);
 
 
 
 
-
-DLinkedList_nSTATUS  DLinkedList__enInsertAtTail_WithData(DLinkedList_t* pstList,
-                                           DLinkedListItem_t* pstNewItem,
-                                           void* pvData);
-DLinkedList_nSTATUS  DLinkedList__enInsertAtTail(DLinkedList_t* pstList,
-                                           DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t*  DLinkedList__pstInsertAtTail_WithData(DLinkedList_t* pstList,
-                                                    void* pvData);
-DLinkedListItem_t*  DLinkedList__pstInsertAtTail(DLinkedList_t* pstList);
-
-
-
-
-DLinkedList_nSTATUS DLinkedList__enInsertAtHead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAtHead_WithData(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstNewItem,
                                             void* pvData);
-DLinkedList_nSTATUS DLinkedList__enInsertAtHead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAtHead(DLinkedList_t* pstList,
                                             DLinkedListItem_t* pstNewItem);
-DLinkedListItem_t* DLinkedList__pstInsertAtHead_WithData(DLinkedList_t* pstList, void* pvData);
-DLinkedListItem_t* DLinkedList__pstInsertAtHead(DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateAtHead_WithData(DLinkedList_t* pstList,
+                                                                 DLinkedListItem_t** pstNewItem,
+                                                                 void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreateAtHead(DLinkedList_t* pstList,
+                                                        DLinkedListItem_t** pstNewItem);
 
 
 
-DLinkedList_nSTATUS  DLinkedList__enInsertPos_WithData(DLinkedList_t* pstList,
-                                            DLinkedListItem_t* pstNewItem,
-                                             UBase_t uxPosition,
-                                             void* pvData);
-DLinkedList_nSTATUS  DLinkedList__enInsertPos(DLinkedList_t* pstList,
-                                            DLinkedListItem_t* pstNewItem,
-                                             UBase_t uxPosition);
-DLinkedListItem_t*  DLinkedList__pstInsertPos_WithData(DLinkedList_t* pstList,
-                                                     UBase_t uxPosition, void* pvData);
-DLinkedListItem_t*  DLinkedList__pstInsertPos(DLinkedList_t* pstList,
-                                                     UBase_t uxPosition);
+DLinkedList_nERROR DLinkedList__enInsertPosition_WithData(DLinkedList_t* pstList,
+                                                           DLinkedListItem_t* pstNewItem,
+                                                           UBase_t uxPosition,
+                                                           void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertPosition(DLinkedList_t* pstList,
+                                                  DLinkedListItem_t* pstNewItem,
+                                                  UBase_t uxPosition);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePosition_WithData(DLinkedList_t* pstList,
+                                                                   DLinkedListItem_t** pstNewItem,
+                                                                   UBase_t uxPosition,
+                                                                   void* pvData);
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePosition(DLinkedList_t* pstList,
+                                                          DLinkedListItem_t** pstNewItem,
+                                                          UBase_t uxPosition);
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_INSERT_H_ */

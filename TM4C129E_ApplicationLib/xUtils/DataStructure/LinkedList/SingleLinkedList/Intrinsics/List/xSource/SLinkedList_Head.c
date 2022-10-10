@@ -72,7 +72,7 @@ SLinkedList_nERROR SLinkedList__enIsHead(const SLinkedList_t* const pstList, con
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if ((UBase_t) pstItem == (UBase_t) (pstListHead))
+        if ((uintptr_t) pstItem == (uintptr_t) (pstListHead))
         {
             *pboStatus = TRUE;
         }

@@ -26,15 +26,15 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-void*  DLinkedList__pvGetDataItemPos(const DLinkedList_t* pstList, UBase_t uxPosition);
-void*  DLinkedList__pvGetDataTail(const DLinkedList_t* pstList);
-void*  DLinkedList__pvGetDataHead(const DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__enGetDataItemPosition(const DLinkedList_t* pstList, UBase_t uxPosition, void** pvItemDataArg);
+DLinkedList_nERROR DLinkedList__enGetDataTail(const DLinkedList_t* pstList, void** pvItemDataArg);
+DLinkedList_nERROR DLinkedList__enGetDataHead(const DLinkedList_t* pstList, void** pvItemDataArg);
 
-UBase_t  DLinkedList__uxGetValueItemPos(const DLinkedList_t* pstList, UBase_t uxPosition);
-UBase_t  DLinkedList__uxGetValueTail(const DLinkedList_t* pstList);
-UBase_t  DLinkedList__uxGetValueHead(const DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__uxGetValueItemPosition(const DLinkedList_t* pstList, UBase_t uxPosition, UBase_t* uxItemValueArg);
+DLinkedList_nERROR DLinkedList__enGetValueTail(const DLinkedList_t* pstList, UBase_t* uxItemValueArg);
+DLinkedList_nERROR DLinkedList__enGetValueHead(const DLinkedList_t* pstList, UBase_t* uxItemValueArg);
 
-void* DLinkedList__pvGetDataNextItem(DLinkedList_t* pstList);
-void* DLinkedList__pvGetDataPreviousItem(DLinkedList_t* pstList);
+DLinkedList_nERROR DLinkedList__enGetDataNextItem(DLinkedList_t* pstList, void** pvItemDataArg);
+DLinkedList_nERROR DLinkedList__enGetDataPreviousItem(DLinkedList_t* pstList, void** pvItemDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_DATA_H_ */

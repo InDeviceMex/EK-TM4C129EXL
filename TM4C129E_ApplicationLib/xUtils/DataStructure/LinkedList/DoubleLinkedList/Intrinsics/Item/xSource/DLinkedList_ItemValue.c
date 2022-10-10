@@ -23,20 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/Item/xHeader/DLinkedList_ItemValue.h>
 
-UBase_t DLinkedList_Item__uxGetValue(const DLinkedListItem_t* const pstItem)
+DLinkedList_nERROR DLinkedList_Item__enGetValue(const DLinkedListItem_t* const pstItem, UBase_t* puxValueItemArg)
 {
-    UBase_t uxValueItemReg = 0UL;
-    if(0UL != (UBase_t) pstItem)
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) puxValueItemArg))
     {
-        uxValueItemReg = pstItem->uxValueItem;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (uxValueItemReg);
+    else
+    {
+        *puxValueItemArg = pstItem->uxValueItem;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList_Item__vSetValue(DLinkedListItem_t* pstItem, UBase_t uxValueItemArg)
+DLinkedList_nERROR DLinkedList_Item__enSetValue(DLinkedListItem_t* pstItem, UBase_t uxValueItemArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->uxValueItem = uxValueItemArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }

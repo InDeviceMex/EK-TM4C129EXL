@@ -60,19 +60,12 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
     pstItemDataTemp = (void*) 0UL;
     uxItemNextItemValue = 0UL;
     uxSizeReg = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
     boStatusRead = FALSE;
     boTerminate = FALSE;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
+        /*List is empty*/
         if(0UL == uxSizeReg)
         {
             enErrorReg = SLinkedList_enERROR_EMPTY;
@@ -80,7 +73,7 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if((UBase_t) 0UL == (UBase_t) pstItem)
+        if(0UL == (uintptr_t) pstItem)
         {
             enErrorReg = SLinkedList__enGetHead(pstList, &pstHeadData);
             if(SLinkedList_enERROR_OK == enErrorReg)
@@ -125,7 +118,8 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
         enErrorReg = SLinkedList_Item__enGetNextItem(pstItem, &pstItemNextItem);
         if(SLinkedList_enERROR_OK == enErrorReg)
         {
-            if((UBase_t) 0UL == (UBase_t) pstItemNextItem)
+            /*List has only one element*/
+            if(0UL == (uintptr_t) pstItemNextItem)
             {
                 boTerminate = TRUE;
             }
@@ -182,7 +176,7 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
         }
         if(SLinkedList_enERROR_OK == enErrorReg)
         {
-            if((UBase_t) 0UL == (UBase_t) pstItemToRemove)
+            if(0UL == (uintptr_t) pstItemToRemove)
             {
                 enErrorReg = SLinkedList__enSetTail(pstList, (SLinkedListItem_t*)pstItem);
             }
@@ -201,7 +195,7 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if(0UL != (UBase_t) pvData)
+        if(0UL != (uintptr_t) pvData)
         {
             *pvData = pstItemDataTemp;
         }
@@ -213,7 +207,7 @@ static SLinkedList_nERROR SLinkedList__enRemoveGeneric(SLinkedList_t* pstList, S
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
-        if(0UL !=  (UBase_t)  pstList->pvfDestroyItem)
+        if(0UL !=  (uintptr_t)  pstList->pvfDestroyItem)
         {
             enErrorReg = SLinkedList_Item__enSetValue(pstItemToRemove, 0UL);
             if(SLinkedList_enERROR_OK == enErrorReg)
@@ -255,15 +249,7 @@ SLinkedList_nERROR SLinkedList__enRemoveNext_GetData(SLinkedListItem_t* pstItem,
     SLinkedList_nERROR enErrorReg;
 
     pstListReg = (SLinkedList_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstItem)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem,  (void**) &pstListReg);
-    }
+    enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem,  (void**) &pstListReg);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstListReg, pstItem, pvData);
@@ -300,15 +286,7 @@ SLinkedList_nERROR SLinkedList__enRemove_GetData(SLinkedListItem_t* pstItem, voi
     SLinkedList_nERROR enErrorReg;
 
     pstListReg = (SLinkedList_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstItem)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem, (void**) &pstListReg);
-    }
+    enErrorReg = SLinkedList_Item__enGetOwnerList(pstItem, (void**) &pstListReg);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enRemoveInList_GetData(pstListReg, pstItem, pvData);
@@ -335,15 +313,7 @@ SLinkedList_nERROR  SLinkedList__enRemoveTail_GetData(SLinkedList_t* pstList, vo
     uxSizeList = 0UL;
     pstEndItemTemp = (SLinkedListItem_t*) 0UL;
     pstEndItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(1UL >=  uxSizeList)
@@ -387,16 +357,7 @@ SLinkedList_nERROR  SLinkedList__enRemoveTail(SLinkedList_t* pstList)
 SLinkedList_nERROR  SLinkedList__enRemoveHead_GetData(SLinkedList_t* pstList, void** pvData)
 {
     SLinkedList_nERROR enErrorReg;
-
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListItem_t*) 0UL, pvData);
-    }
+    enErrorReg = SLinkedList__enRemoveNextInList_GetData(pstList, (SLinkedListItem_t*) 0UL, pvData);
     return (enErrorReg);
 }
 
@@ -417,15 +378,7 @@ SLinkedList_nERROR  SLinkedList__enRemovePosition_GetData(SLinkedList_t* pstList
     boTerminate = FALSE;
     pstItem = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if(0UL == (uintptr_t) pstList)
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(uxPosition >= uxSizeList)

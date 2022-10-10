@@ -50,9 +50,13 @@ SLinkedList_nERROR SLinkedList__enInsertNextGeneric(SLinkedList_t* pstList,
     pstItemNextNode = (SLinkedListItem_t*) 0UL ;
     uxSizeReg = 0U;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstPreviousItemArg) || (0UL == (uintptr_t) pstNewItem))
+    if(0UL == (uintptr_t) pstNewItem)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
+    }
+    if(SLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
@@ -64,10 +68,6 @@ SLinkedList_nERROR SLinkedList__enInsertNextGeneric(SLinkedList_t* pstList,
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList_Item__enSetOwnerList(pstNewItem, (void*) pstList);
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeReg);
     }
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
@@ -147,7 +147,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNext_WithData(SLinkedList_t* ps
 
     pstNewItem = (SLinkedListItem_t*) 0UL ;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstPreviousItemArg) || (0UL == (uintptr_t) pstNewItemArg))
+    if(0UL == (uintptr_t) pstNewItemArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -167,6 +167,14 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNext_WithData(SLinkedList_t* ps
     {
         enErrorReg = SLinkedList__enInsertNext_WithData(pstList, pstPreviousItemArg, pstNewItem, pvData);
     }
+    if((SLinkedList_enERROR_OK != enErrorReg) && (0UL != (uintptr_t) pstNewItem))
+    {
+        free(pstNewItem);
+    }
+    else
+    {
+        *pstNewItemArg = pstNewItem;
+    }
     return (enErrorReg);
 }
 
@@ -179,7 +187,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNext(SLinkedList_t* pstList,
 
     pstNewItem = (SLinkedListItem_t*) 0UL ;
     enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstPreviousItemArg) || (0UL == (uintptr_t) pstNewItemArg))
+    if(0UL == (uintptr_t) pstNewItemArg)
     {
         enErrorReg = SLinkedList_enERROR_POINTER;
     }
@@ -199,6 +207,14 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNext(SLinkedList_t* pstList,
     {
         enErrorReg = SLinkedList__enInsertNext(pstList, pstPreviousItemArg, pstNewItem);
     }
+    if((SLinkedList_enERROR_OK != enErrorReg) && (0UL != (uintptr_t) pstNewItem))
+    {
+        free(pstNewItem);
+    }
+    else
+    {
+        *pstNewItemArg = pstNewItem;
+    }
     return (enErrorReg);
 }
 
@@ -211,15 +227,7 @@ SLinkedList_nERROR  SLinkedList__enInsertNextOnLastItemRead_WithData(SLinkedList
     SLinkedList_nERROR enErrorReg;
 
     pstLastItemItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
-    }
+    enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertNext_WithData(pstList, pstLastItemItem, pstNewItem, pvData);
@@ -234,15 +242,7 @@ SLinkedList_nERROR  SLinkedList__enInsertNextOnLastItemRead(SLinkedList_t* pstLi
     SLinkedList_nERROR enErrorReg;
 
     pstLastItemItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
-    }
+    enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertNext(pstList, pstLastItemItem, pstNewItem);
@@ -256,15 +256,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNextOnLastItemRead_WithData(SLi
     SLinkedList_nERROR enErrorReg;
 
     pstLastItemItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
-    }
+    enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertAndCreateNext_WithData(pstList, pstLastItemItem, pstNewItem, pvData);
@@ -278,15 +270,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateNextOnLastItemRead(SLinkedList_
     SLinkedList_nERROR enErrorReg;
 
     pstLastItemItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
-    }
+    enErrorReg = SLinkedList__enGetLastItemRead(pstList, &pstLastItemItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertAndCreateNext(pstList, pstLastItemItem, pstNewItem);
@@ -303,15 +287,7 @@ SLinkedList_nERROR SLinkedList__enInsertAtTail_WithData(SLinkedList_t* pstList,
     SLinkedList_nERROR enErrorReg;
 
     pstEndItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
-    }
+    enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertNext_WithData(pstList, pstEndItem, pstNewItem, pvData);
@@ -325,15 +301,7 @@ SLinkedList_nERROR SLinkedList__enInsertAtTail(SLinkedList_t* pstList, SLinkedLi
     SLinkedList_nERROR enErrorReg;
 
     pstEndItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
-    }
+    enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertNext(pstList, pstEndItem, pstNewItem);
@@ -349,15 +317,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateAtTail_WithData(SLinkedList_t* 
     SLinkedList_nERROR enErrorReg;
 
     pstEndItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
-    }
+    enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertAndCreateNext_WithData(pstList, pstEndItem, pstNewItem, pvData);
@@ -372,15 +332,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateAtTail(SLinkedList_t* pstList,
     SLinkedList_nERROR enErrorReg;
 
     pstEndItem = (SLinkedListItem_t*) 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
-    }
+    enErrorReg = SLinkedList__enGetTail(pstList, &pstEndItem);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         enErrorReg = SLinkedList__enInsertAndCreateNext(pstList, pstEndItem, pstNewItem);
@@ -393,32 +345,14 @@ SLinkedList_nERROR SLinkedList__enInsertAtHead_WithData(SLinkedList_t* pstList,
                                                 void* pvData)
 {
     SLinkedList_nERROR enErrorReg;
-
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enInsertNext_WithData(pstList, (SLinkedListItem_t*) 0UL, pstNewItem, pvData);
-    }
+    enErrorReg = SLinkedList__enInsertNext_WithData(pstList, (SLinkedListItem_t*) 0UL, pstNewItem, pvData);
     return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enInsertAtHead(SLinkedList_t* pstList, SLinkedListItem_t* pstNewItem)
 {
     SLinkedList_nERROR enErrorReg;
-
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enInsertNext(pstList, (SLinkedListItem_t*) 0UL, pstNewItem);
-    }
+    enErrorReg = SLinkedList__enInsertNext(pstList, (SLinkedListItem_t*) 0UL, pstNewItem);
     return (enErrorReg);
 }
 
@@ -427,32 +361,14 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateAtHead_WithData(SLinkedList_t* 
                                                           void* pvData)
 {
     SLinkedList_nERROR enErrorReg;
-
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enInsertAndCreateNext_WithData(pstList, (SLinkedListItem_t*) 0UL, pstNewItem, pvData);
-    }
+    enErrorReg = SLinkedList__enInsertAndCreateNext_WithData(pstList, (SLinkedListItem_t*) 0UL, pstNewItem, pvData);
     return (enErrorReg);
 }
 
 SLinkedList_nERROR SLinkedList__enInsertAndCreateAtHead(SLinkedList_t* pstList, SLinkedListItem_t** pstNewItem)
 {
     SLinkedList_nERROR enErrorReg;
-
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enInsertAndCreateNext(pstList, (SLinkedListItem_t*) 0UL, pstNewItem);
-    }
+    enErrorReg = SLinkedList__enInsertAndCreateNext(pstList, (SLinkedListItem_t*) 0UL, pstNewItem);
     return (enErrorReg);
 }
 
@@ -469,15 +385,7 @@ SLinkedList_nERROR SLinkedList__enInsertAtPosition_WithData(SLinkedList_t* pstLi
     pstItemTemp = (SLinkedListItem_t*) 0UL;
     pstItemReg = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(uxPosition > uxSizeList)
@@ -532,15 +440,7 @@ SLinkedList_nERROR SLinkedList__enInsertAtPosition(SLinkedList_t* pstList,
     pstItemTemp = (SLinkedListItem_t*) 0UL;
     pstItemReg = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(uxPosition > uxSizeList)
@@ -596,15 +496,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateAtPosition_WithData(SLinkedList
     pstItemTemp = (SLinkedListItem_t*) 0UL;
     pstItemReg = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(uxPosition > uxSizeList)
@@ -659,15 +551,7 @@ SLinkedList_nERROR SLinkedList__enInsertAndCreateAtPosition(SLinkedList_t* pstLi
     pstItemTemp = (SLinkedListItem_t*) 0UL;
     pstItemReg = (SLinkedListItem_t*) 0UL;
     uxSizeList = 0UL;
-    enErrorReg = SLinkedList_enERROR_OK;
-    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstNewItem))
-    {
-        enErrorReg = SLinkedList_enERROR_POINTER;
-    }
-    if(SLinkedList_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
-    }
+    enErrorReg = SLinkedList__enGetSize(pstList, &uxSizeList);
     if(SLinkedList_enERROR_OK == enErrorReg)
     {
         if(uxPosition > uxSizeList)

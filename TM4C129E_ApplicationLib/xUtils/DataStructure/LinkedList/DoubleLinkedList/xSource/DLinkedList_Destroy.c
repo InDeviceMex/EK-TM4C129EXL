@@ -28,43 +28,56 @@
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Init.h>
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/xHeader/DLinkedList_Remove.h>
 
-void DLinkedList__vDestroy(DLinkedList_t* pstList)
+DLinkedList_nERROR DLinkedList__enDestroy(DLinkedList_t* pstList)
 {
-    DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    DLinkedListItem_t* pstTailItem = (DLinkedListItem_t*) 0UL;
-    void * pvDataItem = (void*)0UL;
-    UBase_t uxSizeReg = 0UL;
-    void (*pvfListDestroy) (void* List) = (void (*) (void* List) )0UL;
+    void * pvDataItem;
+    DLinkedListItem_t* pstTailItem;
+    DLinkedList_pvfDestroy_t pvfListDestroy;
+    UBase_t uxSizeReg;
+    DLinkedList_nERROR enErrorReg;
 
-    if((DLinkedList_t*)0 != pstList)
+    uxSizeReg = 0UL;
+    pvDataItem = (void*) 0UL;
+    pstTailItem = (DLinkedListItem_t*) 0UL;
+    pvfListDestroy = (DLinkedList_pvfDestroy_t) 0UL;
+    enErrorReg = DLinkedList__enGetSize(pstList, &uxSizeReg);
+    if(DLinkedList_enERROR_OK == enErrorReg)
     {
-        enStatus = DLinkedList_enSTATUS_OK;
-        uxSizeReg = DLinkedList__uxGetSize(pstList);
         pvfListDestroy = pstList->pvfDestroy;
-        while (uxSizeReg > 0UL)
+        while ((0UL < uxSizeReg) && (DLinkedList_enERROR_OK == enErrorReg))
         {
-            pstTailItem = DLinkedList__pstGetTail(pstList);
-            enStatus = DLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
-            if((DLinkedList_enSTATUS_OK == enStatus ) && ( (UBase_t) 0 != (UBase_t) pstList->pvfDestroyItemData))
+            enErrorReg = DLinkedList__enGetTail(pstList, &pstTailItem);
+            if(DLinkedList_enERROR_OK == enErrorReg)
             {
-                pstList->pvfDestroyItemData(pvDataItem);
+                enErrorReg = DLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
             }
-            uxSizeReg = DLinkedList__uxGetSize(pstList);
+            if(DLinkedList_enERROR_OK == enErrorReg)
+            {
+                /*Item is destroyed inside Remove function*/
+                if(0UL != (uintptr_t) pstList->pvfDestroyItemData)
+                {
+                    pstList->pvfDestroyItemData(pvDataItem);
+                }
+                enErrorReg = DLinkedList__enGetSize(pstList, &uxSizeReg);
+            }
         }
-
-        pstList->pfuxMatch = (UBase_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
-        pstList->pvfDestroy = (void (*) (void* List)) 0UL;
-        pstList->pvfDestroyItemData = (void (*) (void* DataContainer)) 0UL;
-        pstList->pvfDestroyItem = (void (*) (void* Item)) 0UL;
+    }
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        pstList->pfuxMatch = (DLinkedList_pfuxMatch_t) 0UL;
+        pstList->pvfDestroy = (DLinkedList_pvfDestroy_t) 0UL;
+        pstList->pvfDestroyItemData = (DLinkedList_pvfDestroyItemData_t) 0UL;
+        pstList->pvfDestroyItem = (DLinkedList_pvfDestroyItem_t) 0UL;
         pstList->pstHead = (DLinkedListItem_t *) 0UL;
         pstList->pstTail = (DLinkedListItem_t *) 0UL;
         pstList->pstLastItemRead = (DLinkedListItem_t*)  0UL;
         pstList->uxSize = 0UL;
 
-        if((DLinkedList_enSTATUS_OK == enStatus ) && (0UL != (UBase_t) pvfListDestroy))
+        if(0UL != (uintptr_t) pvfListDestroy)
         {
             pvfListDestroy(pstList);
             pstList = (DLinkedList_t*) 0UL;
         }
     }
+    return (enErrorReg);
 }

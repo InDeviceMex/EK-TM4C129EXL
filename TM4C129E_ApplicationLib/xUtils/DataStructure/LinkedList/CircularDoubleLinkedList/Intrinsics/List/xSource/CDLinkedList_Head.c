@@ -41,14 +41,14 @@ void CDLinkedList__vSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHead
     }
 }
 
-CDLinkedList_nSTATUS CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
 {
-    CDLinkedList_nSTATUS enStatus = CDLinkedList_enSTATUS_ERROR;
+    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
     CDLinkedListItem_t* pstListHead = (CDLinkedListItem_t*)0UL;
     pstListHead = CDLinkedList__pstGetHead(pstList);
     if ((UBase_t) pstItem == (UBase_t) (pstListHead))
     {
-        enStatus = CDLinkedList_enSTATUS_OK;
+        enStatus = CDLinkedList_enERROR_OK;
     }
     return (enStatus);
 }

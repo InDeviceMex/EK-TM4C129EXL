@@ -23,30 +23,57 @@
  */
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/List/xHeader/DLinkedList_Tail.h>
 
-DLinkedListItem_t* DLinkedList__pstGetTail(const DLinkedList_t*  const pstList)
+DLinkedList_nERROR DLinkedList__enGetTail(const DLinkedList_t*  const pstList, DLinkedListItem_t** pstTailArg)
 {
-    DLinkedListItem_t* pstTailReg = (DLinkedListItem_t*)0U;
-    if(0UL != (UBase_t) pstList)
+    DLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstTailArg))
     {
-        pstTailReg = pstList->pstTail;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (pstTailReg);
+    else
+    {
+        *pstTailArg = pstList->pstTail;
+        enErrorReg = DLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void DLinkedList__vSetTail(DLinkedList_t* pstList, DLinkedListItem_t* pstTailArg)
+DLinkedList_nERROR DLinkedList__enSetTail(DLinkedList_t* pstList, DLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (UBase_t) pstList)
+    DLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = DLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstTail = pstTailArg;
+        enErrorReg = DLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-DLinkedList_nSTATUS DLinkedList__enIsTail(const DLinkedListItem_t* const pstItem)
+DLinkedList_nERROR DLinkedList__enIsTail(const DLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    DLinkedList_nSTATUS enStatus = DLinkedList_enSTATUS_ERROR;
-    if (0UL == (UBase_t) (pstItem->pstNextItem))
+    DLinkedList_nERROR enErrorReg;
+
+    enErrorReg = DLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pboStatus))
     {
-        enStatus = DLinkedList_enSTATUS_OK;
+        enErrorReg = DLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(DLinkedList_enERROR_OK == enErrorReg)
+    {
+        if (0UL == (uintptr_t) (pstItem->pstNextItem))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

@@ -27,6 +27,6 @@
 
 #include <xUtils/DataStructure/LinkedList/DoubleLinkedList/Intrinsics/xHeader/DLinkedList_Struct.h>
 
-DLinkedList_nSTATUS DLinkedList__enIsItemOwnerList(const DLinkedList_t* pstList, const DLinkedListItem_t* const pstItem);
+DLinkedList_nERROR DLinkedList__enIsItemOwnerList(const DLinkedList_t* pstList, const DLinkedListItem_t* const pstItem, boolean_t* boStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_DOUBLELINKEDLIST_XHEADER_DLINKEDLIST_OWNER_H_ */
