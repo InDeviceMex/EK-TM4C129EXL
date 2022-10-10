@@ -27,14 +27,14 @@
 Queue_nERROR Queue__enGetSize(const Queue_t* const pstQueue, UBase_t* uxSizeArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enGetSize((const SLinkedList_t*) pstQueue, uxSizeArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enGetSize((const SLinkedList_t*) pstQueue, uxSizeArg);
     return (enErrorReg);
 }
 
 Queue_nERROR Queue__enIsEmpty(const Queue_t* const pstQueue, boolean_t* pboStatus)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enIsEmpty(pstQueue, pboStatus);
+    enErrorReg = (Queue_nERROR) SLinkedList__enIsEmpty(pstQueue, pboStatus);
     return (enErrorReg);
 }
 

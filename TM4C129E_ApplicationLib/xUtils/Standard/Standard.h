@@ -56,7 +56,6 @@ typedef enum
 }error_t;
 
 typedef unsigned int UBase_t;
-typedef unsigned int pointer_t;
 typedef int Base_t;
 
 #endif /* XUTILS_STANDARD_STANDARD_H_ */

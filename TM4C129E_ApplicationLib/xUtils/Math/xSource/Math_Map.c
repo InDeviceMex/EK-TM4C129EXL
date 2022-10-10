@@ -40,7 +40,7 @@ Math_nERROR Math__enMapSigned(Base_t sxValueInput, Base_t* sxValueOutput, Base_t
     {
         sxDiffValuesOutput = sxMaxValueOutput - sxMinValueOutput;
         sxDiffValuesInput = sxMaxValueInput - sxMinValueInput;
-        if(0UL == sxDiffValuesInput)
+        if(0 == sxDiffValuesInput)
         {
             enErrorReg = Math_enERROR_VALUE;
         }
@@ -53,7 +53,7 @@ Math_nERROR Math__enMapSigned(Base_t sxValueInput, Base_t* sxValueOutput, Base_t
         sxValueOutputReg /= sxDiffValuesInput;
         sxValueOutputReg += sxMinValueOutput;
 
-        *sxValueOutput = sxValueOutputReg;
+        *sxValueOutput = (Base_t) sxValueOutputReg;
     }
 
     return (enErrorReg);
@@ -90,7 +90,7 @@ Math_nERROR Math__enMapUnsigned(UBase_t uxValueInput, UBase_t* uxValueOutput, UB
         uxValueOutputReg /= uxDiffValuesInput;
         uxValueOutputReg += uxMinValueOutput;
 
-        *uxValueOutput = uxValueOutputReg;
+        *uxValueOutput = (UBase_t) uxValueOutputReg;
 
      }
 

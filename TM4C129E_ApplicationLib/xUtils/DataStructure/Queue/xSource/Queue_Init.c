@@ -29,7 +29,7 @@ Queue_nERROR Queue__enCreate(Queue_t** pstQueue,
                         Queue_pvfDestroyItem_t pvfDestroyItemArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enCreate(pstQueue, pvfDestroyItemDataArg, pvfDestroyItemArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enCreate(pstQueue, pvfDestroyItemDataArg, pvfDestroyItemArg);
     return (enErrorReg);
 }
 
@@ -39,7 +39,7 @@ Queue_nERROR Queue__enInit(Queue_t* pstQueue,
                             Queue_pvfDestroy_t pvfDestroyArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enInit( pstQueue, pvfDestroyItemDataArg, pvfDestroyItemArg, pvfDestroyArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enInit( pstQueue, pvfDestroyItemDataArg, pvfDestroyItemArg, pvfDestroyArg);
     return (enErrorReg);
 }
 

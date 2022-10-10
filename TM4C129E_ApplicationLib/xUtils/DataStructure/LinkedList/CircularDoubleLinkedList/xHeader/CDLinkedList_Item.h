@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-CDLinkedList_nERROR CDLinkedList__enGetNItem(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enGetAllItem(const CDLinkedList_t* pstList, const void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 CDLinkedList_nERROR CDLinkedList__enGetAllItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
 CDLinkedList_nERROR CDLinkedList__enGetAllItemBackward(const CDLinkedList_t* pstList, const void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg);

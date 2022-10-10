@@ -29,7 +29,7 @@ Queue_nERROR Queue__enEnqueue(Queue_t* pstQueue, void* pvData)
     SLinkedListItem_t* pstNewElement;
     Queue_nERROR enErrorReg;
     pstNewElement = (SLinkedListItem_t*) 0UL ;
-    enErrorReg = SLinkedList__enInsertAndCreateAtTail_WithData((SLinkedList_t*) pstQueue, &pstNewElement, pvData);
+    enErrorReg = (Queue_nERROR) SLinkedList__enInsertAndCreateAtTail_WithData((SLinkedList_t*) pstQueue, &pstNewElement, pvData);
     return (enErrorReg);
 }
 

@@ -27,7 +27,7 @@
 Queue_nERROR Queue__enDestroy(Queue_t* pstQueue)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enDestroy(pstQueue);
+    enErrorReg = (Queue_nERROR) SLinkedList__enDestroy(pstQueue);
     return (enErrorReg);
 }
 

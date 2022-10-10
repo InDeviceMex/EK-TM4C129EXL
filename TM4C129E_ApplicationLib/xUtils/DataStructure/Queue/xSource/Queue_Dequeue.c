@@ -27,7 +27,7 @@
 Queue_nERROR Queue__enDequeue(Queue_t* pstQueue, void** pvData)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enRemoveHead_GetData((SLinkedList_t*) pstQueue, pvData);
+    enErrorReg = (Queue_nERROR) SLinkedList__enRemoveHead_GetData((SLinkedList_t*) pstQueue, pvData);
     return (enErrorReg);
 }
 

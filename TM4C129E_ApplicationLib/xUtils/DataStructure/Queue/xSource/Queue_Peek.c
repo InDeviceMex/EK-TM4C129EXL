@@ -28,21 +28,21 @@
 Queue_nERROR Queue__enPeek(const Queue_t* pstQueue, void ** pvItemDataArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enGetDataHead(pstQueue, pvItemDataArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enGetDataHead(pstQueue, pvItemDataArg);
     return (enErrorReg);
 }
 
 Queue_nERROR Queue__enGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize, UBase_t* uxSizeArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enGetNItem(pstQueue, pvData, uxMembers, uxMaxSize, uxSizeArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enGetNItem(pstQueue, pvData, uxMembers, uxMaxSize, uxSizeArg);
     return (enErrorReg);
 }
 
 Queue_nERROR Queue__enGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize, UBase_t* uxSizeArg)
 {
     Queue_nERROR enErrorReg;
-    enErrorReg = SLinkedList__enGetAllItem(pstQueue, pvData, uxMaxSize, uxSizeArg);
+    enErrorReg = (Queue_nERROR) SLinkedList__enGetAllItem(pstQueue, pvData, uxMaxSize, uxSizeArg);
     return (enErrorReg);
 }
 
