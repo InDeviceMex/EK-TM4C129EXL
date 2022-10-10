@@ -30,17 +30,13 @@
 
 OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
 {
-    OS_List_t* pstStateList = (OS_List_t*) 0UL;
-    OS_List_t* pstStateSuspendedList = (OS_List_t*) 0UL;
-    OS_List_t* pstDelayedTaskList = (OS_List_t*) 0UL;
-    OS_List_t* pstOverflowDelayedTaskList = (OS_List_t*) 0UL;
-    OS_List_t* pstSuspendedTaskList = (OS_List_t*) 0UL;
-    OS_List_t* pstTasksWaitingTermination = (OS_List_t*) 0UL;
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
     const OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvTask;
-    OS_Task_eState enReturn = OS_Task_enState_Undef;
+    OS_Task_TCB_t* pstCurrentTCB;
+    OS_Task_eState enReturn;
 
-    if(0UL != (OS_UBase_t) pstTCB)
+
+    enReturn = OS_Task_enState_Undef;
+    if(0UL != (OS_Pointer_t) pstTCB)
     {
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
@@ -49,6 +45,13 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
         }
         else
         {
+            OS_List_t* pstStateList;
+            OS_List_t* pstDelayedTaskList;
+            OS_List_t* pstOverflowDelayedTaskList;
+            OS_List_t* pstSuspendedTaskList;
+            OS_List_t* pstTasksWaitingTermination;
+            OS_List_t* pstStateSuspendedList;
+
             OS_Task__vEnterCritical();
             {
                 pstStateList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stGenericListItem));
@@ -64,10 +67,10 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
             {
                 enReturn = OS_Task_enState_Blocked;
             }
-            else if( pstStateList == pstSuspendedTaskList )
+            else if(pstStateList == pstSuspendedTaskList)
             {
                 pstStateSuspendedList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
-                if(0UL == (OS_UBase_t) pstStateSuspendedList)
+                if(0UL == (OS_Pointer_t) pstStateSuspendedList)
                 {
                     enReturn = OS_Task_enState_Suspended;
                 }

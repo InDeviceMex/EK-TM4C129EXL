@@ -29,7 +29,7 @@ void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_t pvTaskToSet,
                                             OS_UBase_t uxIndex,
                                             void *pvValueArg)
 {
-    OS_Task_TCB_t* pstTCB = (OS_Task_TCB_t*) 0UL;
+    OS_Task_TCB_t* pstTCB;
 
     if( uxIndex < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
     {
@@ -41,8 +41,8 @@ void OS_Task__vSetThreadLocalStoragePointer(OS_Task_Handle_t pvTaskToSet,
 void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_t pvTaskToQuery,
                                               OS_UBase_t uxIndex)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    void* pvReturn = (void*) 0UL;
+    OS_Task_TCB_t *pstTCB;
+    void* pvReturn;
 
     if( uxIndex < OS_TASK_NUM_THREAD_LOCAL_STORAGE_POINTERS )
     {
@@ -51,6 +51,7 @@ void* OS_Task__pvGetThreadLocalStoragePointer(OS_Task_Handle_t pvTaskToQuery,
     }
     else
     {
+        pstTCB = (OS_Task_TCB_t*) 0UL;
         pvReturn = (void*) 0UL;
     }
 
