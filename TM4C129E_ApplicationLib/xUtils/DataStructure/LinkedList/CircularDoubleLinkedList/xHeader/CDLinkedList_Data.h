@@ -26,16 +26,16 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-void*  CDLinkedList__pvGetDataItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition);
-UBase_t CDLinkedList__uxGetValueItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition);
+CDLinkedList_nERROR CDLinkedList__enGetDataItemPosition(const CDLinkedList_t* pstList, UBase_t uxPosition, void** pvItemDataArg);
+CDLinkedList_nERROR CDLinkedList__enGetValueItemPosition(const CDLinkedList_t* pstList, UBase_t uxPosition, UBase_t* uxItemValueArg);
 
-void*  CDLinkedList__pvGetDataTail(const CDLinkedList_t* pstList);
-UBase_t CDLinkedList__uxGetValueTail(const CDLinkedList_t* pstList);
+CDLinkedList_nERROR CDLinkedList__enGetDataTail(const CDLinkedList_t* pstList, void** pvItemDataArg);
+CDLinkedList_nERROR CDLinkedList__enGetValueTail(const CDLinkedList_t* pstList, UBase_t* uxItemValueArg);
 
-void*  CDLinkedList__pvGetDataHead(const CDLinkedList_t* pstList);
-UBase_t CDLinkedList__uxGetValueHead(const CDLinkedList_t* pstList);
+CDLinkedList_nERROR CDLinkedList__enGetDataHead(const CDLinkedList_t* pstList, void** pvItemDataArg);
+CDLinkedList_nERROR CDLinkedList__enGetValueHead(const CDLinkedList_t* pstList, UBase_t* uxItemValueArg);
 
-void* CDLinkedList__pvGetDataNextItem(CDLinkedList_t* const pstList);
-void* CDLinkedList__pvGetDataPreviousItem(CDLinkedList_t* pstList);
+CDLinkedList_nERROR CDLinkedList__enGetDataNextItem(CDLinkedList_t* const pstList, void** pvItemDataArg);
+CDLinkedList_nERROR CDLinkedList__enGetDataPreviousItem(CDLinkedList_t* pstList, void** pvItemDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_DATA_H_ */

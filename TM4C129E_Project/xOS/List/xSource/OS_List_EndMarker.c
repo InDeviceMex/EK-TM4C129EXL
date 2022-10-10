@@ -25,10 +25,8 @@
 
 OS_ListItem_t* OS_List__pstEndMarker(const OS_List_t* const pstListArg)
 {
-    OS_ListItem_t* pstEndMarkerReg = (OS_ListItem_t*) 0UL;
-    if(0UL != (OS_UBase_t) pstListArg)
-    {
-        pstEndMarkerReg = CDLinkedList__pstGetTail(pstListArg);
-    }
+    OS_ListItem_t* pstEndMarkerReg;
+    pstEndMarkerReg = (OS_ListItem_t*) 0UL;
+    CDLinkedList__enGetTail(pstListArg, &pstEndMarkerReg);
     return (pstEndMarkerReg);
 }

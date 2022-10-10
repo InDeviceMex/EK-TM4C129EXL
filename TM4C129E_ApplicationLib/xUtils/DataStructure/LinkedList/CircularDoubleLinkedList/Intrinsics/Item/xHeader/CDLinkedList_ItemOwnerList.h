@@ -27,7 +27,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-void* CDLinkedList_Item__pvGetOwnerList(const CDLinkedListItem_t* const pstItem);
-void CDLinkedList_Item__vSetOwnerList(CDLinkedListItem_t* pstItem, void* pvOwnerListArg);
+CDLinkedList_nERROR CDLinkedList_Item__enGetOwnerList(const CDLinkedListItem_t* const pstItem, void** pvOwnerListArg);
+CDLinkedList_nERROR CDLinkedList_Item__enSetOwnerList(CDLinkedListItem_t* pstItem, void* pvOwnerListArg);
 
 #endif /* XUTILS_DATASTRUCTURE_LINKEDLIST_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CDLINKEDLIST_ITEMOWNERLIST_H_ */

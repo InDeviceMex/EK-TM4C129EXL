@@ -26,7 +26,7 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-CDLinkedListItem_t* CDLinkedList_Item__pstGetPreviousItem(const CDLinkedListItem_t* const pstItem);
-void CDLinkedList_Item__vSetPreviousItem(CDLinkedListItem_t* pstItem, CDLinkedListItem_t* pstPreviousItemArg);
+CDLinkedList_nERROR CDLinkedList_Item__enGetPreviousItem(const CDLinkedListItem_t* const pstItem, CDLinkedListItem_t** pstPreviousItemArg);
+CDLinkedList_nERROR CDLinkedList_Item__enSetPreviousItem(CDLinkedListItem_t* pstItem, CDLinkedListItem_t* pstPreviousItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_ITEM_XHEADER_CIRCULARDLINKEDLIST_ITEMPREVIOUSITEM_H_ */

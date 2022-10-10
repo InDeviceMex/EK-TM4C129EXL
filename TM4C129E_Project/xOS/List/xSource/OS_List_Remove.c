@@ -25,14 +25,13 @@
 
 OS_UBase_t OS_List__uxRemove(OS_ListItem_t* const pstItemToRemoveArg)
 {
-    OS_List_t* pstListReg = (OS_List_t*) 0UL;
-    OS_UBase_t uxListSizeReg = 0UL;
+    OS_List_t* pstListReg;
+    OS_UBase_t uxListSizeReg;
 
-    if(0UL != (OS_UBase_t) pstItemToRemoveArg)
-    {
-        pstListReg = (OS_List_t*) CDLinkedList_Item__pvGetOwnerList(pstItemToRemoveArg);
-        CDLinkedList__enRemove(pstItemToRemoveArg);
-        uxListSizeReg = CDLinkedList__uxGetSize(pstListReg);
-    }
+    pstListReg = (OS_List_t*) 0UL;
+    uxListSizeReg = 0UL;
+    CDLinkedList_Item__enGetOwnerList(pstItemToRemoveArg, (void**) &pstListReg);
+    CDLinkedList__enRemove(pstItemToRemoveArg);
+    CDLinkedList__enGetSize(pstListReg, &uxListSizeReg);
     return (uxListSizeReg);
 }

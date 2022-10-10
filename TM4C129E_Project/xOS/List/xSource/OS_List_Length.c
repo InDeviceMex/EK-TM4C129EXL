@@ -25,11 +25,9 @@
 
 OS_UBase_t OS_List__uxGetLength(const OS_List_t* const pstListArg)
 {
-    OS_UBase_t uxListLength = 0UL;
-    if(0UL != (OS_UBase_t) pstListArg)
-    {
-        uxListLength = CDLinkedList__uxGetSize(pstListArg);
-    }
+    OS_UBase_t uxListLength;
+    uxListLength = 0UL;
+    CDLinkedList__enGetSize(pstListArg, &uxListLength);
     return (uxListLength);
 }
 

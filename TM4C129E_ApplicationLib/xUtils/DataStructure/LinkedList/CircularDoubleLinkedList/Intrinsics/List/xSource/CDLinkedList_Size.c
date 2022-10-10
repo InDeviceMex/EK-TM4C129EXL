@@ -23,31 +23,57 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Size.h>
 
-UBase_t CDLinkedList__uxGetSize(const CDLinkedList_t* const pstList)
-{
-    UBase_t uxSizeReg = 0UL;
-    if(0UL != (UBase_t) pstList)
-    {
-        uxSizeReg = pstList->uxSize;
-    }
-    return (uxSizeReg);
 
+CDLinkedList_nERROR CDLinkedList__enGetSize(const CDLinkedList_t* const pstList, UBase_t* puxSizeArg)
+{
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) puxSizeArg))
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        *puxSizeArg = pstList->uxSize;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg)
+CDLinkedList_nERROR CDLinkedList__enSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg)
 {
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->uxSize = uxSizeArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList)
+CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList, boolean_t* pboStatus)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    if(0UL  == pstList->uxSize)
+    CDLinkedList_nERROR enErrorReg;
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pboStatus))
     {
-        enStatus = CDLinkedList_enERROR_OK;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        if(0UL  == pstList->uxSize)
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

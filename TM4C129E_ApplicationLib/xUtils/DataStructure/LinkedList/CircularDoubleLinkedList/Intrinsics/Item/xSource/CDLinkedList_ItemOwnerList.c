@@ -23,20 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemOwnerList.h>
 
-void* CDLinkedList_Item__pvGetOwnerList(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList_Item__enGetOwnerList(const CDLinkedListItem_t* const pstItem, void** pvOwnerListArg)
 {
-    void* pvOwnerListReg = (void*) 0UL;
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pvOwnerListArg))
     {
-        pvOwnerListReg = pstItem->pvOwnerList;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pvOwnerListReg);
+    else
+    {
+        *pvOwnerListArg = pstItem->pvOwnerList;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList_Item__vSetOwnerList(CDLinkedListItem_t* pstItem, void* pvOwnerListArg)
+CDLinkedList_nERROR CDLinkedList_Item__enSetOwnerList(CDLinkedListItem_t* pstItem, void* pvOwnerListArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pvOwnerList = pvOwnerListArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }

@@ -25,8 +25,5 @@
 
 void OS_List__vInitItem(OS_ListItem_t* const pstListItemArg)
 {
-    if(0UL != (OS_UBase_t) pstListItemArg)
-    {
-        CDLinkedList_Item__vSetOwnerList(pstListItemArg, (void*) 0UL);
-    }
+    CDLinkedList_Item__enSetOwnerList(pstListItemArg, (void*) 0UL);
 }

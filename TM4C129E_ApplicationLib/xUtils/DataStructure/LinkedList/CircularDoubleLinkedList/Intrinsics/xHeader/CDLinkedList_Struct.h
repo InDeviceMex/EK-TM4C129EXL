@@ -28,16 +28,18 @@
 
 typedef enum
 {
-    CDLinkedList_enERROR_OK,
-    CDLinkedList_enERROR_POINTER
+    CDLinkedList_enERROR_OK = (UBase_t) ERROR_OK,
+    CDLinkedList_enERROR_POINTER = (UBase_t) ERROR_POINTER,
+    CDLinkedList_enERROR_VALUE = (UBase_t) ERROR_VALUE,
+    CDLinkedList_enERROR_EMPTY = (UBase_t) ERROR_EMPTY,
+    CDLinkedList_enERROR_RANGE = (UBase_t) ERROR_RANGE,
+    CDLinkedList_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,
 }CDLinkedList_nERROR;
 
-
-typedef enum
-{
-    CDLinkedList_enSTATE_FALSE,
-    CDLinkedList_enSTATE_TRUE,
-}CDLinkedList_nSTATE;
+typedef UBase_t (*CDLinkedList_pfuxMatch_t)(const void *pcvKey1, const void *pcvKey2);
+typedef void (*CDLinkedList_pvfDestroyItemData_t)(void *DataContainer);
+typedef void (*CDLinkedList_pvfDestroyItem_t)(void *Item);
+typedef void (*CDLinkedList_pvfDestroy_t)(void* List);
 
 typedef struct CDLinkedListItem
 {
@@ -51,16 +53,13 @@ typedef struct CDLinkedListItem
 typedef struct CDLinkedList
 {
         UBase_t uxSize;
-        UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
-        void (*pvfDestroyItemData) (void *DataContainer);
-        void (*pvfDestroyItem) (void *Item);
-        void (*pvfDestroy) (void* List);
+        CDLinkedList_pfuxMatch_t pfuxMatch;
+        CDLinkedList_pvfDestroyItemData_t pvfDestroyItemData;
+        CDLinkedList_pvfDestroyItem_t pvfDestroyItem;
+        CDLinkedList_pvfDestroy_t pvfDestroy;
         CDLinkedListItem_t *pstLastItemRead;
         CDLinkedListItem_t *pstHead;
         CDLinkedListItem_t *pstTail;
 }CDLinkedList_t;
-
-
-
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_XHEADER_CIRCULARDLINKEDLIST_STRUCT_H_ */

@@ -27,18 +27,18 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-UBase_t CDLinkedList__uxGetAllItem(const CDLinkedList_t* pstList, const void** pvData, UBase_t uxMaxLength);
-UBase_t CDLinkedList__uxGetAllItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
+CDLinkedList_nERROR CDLinkedList__enGetNItem(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enGetAllItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-UBase_t CDLinkedList__uxGetAllItemBackward(const CDLinkedList_t* pstList, void** pvData, UBase_t uxMaxLength);
-UBase_t CDLinkedList__uxGetAllItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength);
+CDLinkedList_nERROR CDLinkedList__enGetAllItemBackward(const CDLinkedList_t* pstList, const void** pvData, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enGetAllItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-UBase_t CDLinkedList__uxGetNItem(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
-UBase_t CDLinkedList__uxGetNItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
+CDLinkedList_nERROR CDLinkedList__enGetNItem(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enGetNItem_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-UBase_t CDLinkedList__uxGetNItemBackward(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength);
-UBase_t CDLinkedList__uxGetNItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength);
+CDLinkedList_nERROR CDLinkedList__enGetNItemBackward(const CDLinkedList_t* pstList, void** pvData, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enGetNItemBackward_Value(const CDLinkedList_t* pstList, UBase_t* puxValueItem, UBase_t uxItems, UBase_t uxMaxLength, UBase_t* uxSizeArg);
 
-CDLinkedListItem_t*  CDLinkedList__pstGetItemPos(const CDLinkedList_t* pstList, UBase_t uxPosition);
+CDLinkedList_nERROR  CDLinkedList__enGetItemPosition(const CDLinkedList_t* pstList, UBase_t uxPosition, CDLinkedListItem_t** pstItemArg);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_XHEADER_CIRCULARDLINKEDLIST_ITEM_H_ */

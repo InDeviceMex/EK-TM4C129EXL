@@ -23,20 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemNextNode.h>
 
-CDLinkedListItem_t* CDLinkedList_Item__pstGetNextItem(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList_Item__enGetNextItem(const CDLinkedListItem_t* const pstItem, CDLinkedListItem_t** pstNextItemArg)
 {
-    CDLinkedListItem_t* pstNextItemReg = (CDLinkedListItem_t*)0UL;
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pstNextItemArg))
     {
-        pstNextItemReg = pstItem->pstNextItem;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pstNextItemReg);
+    else
+    {
+        *pstNextItemArg = pstItem->pstNextItem;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList_Item__vSetNextItem(CDLinkedListItem_t* pstItem, CDLinkedListItem_t* pstNextItemArg)
+CDLinkedList_nERROR CDLinkedList_Item__enSetNextItem(CDLinkedListItem_t* pstItem, CDLinkedListItem_t* pstNextItemArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pstNextItem = pstNextItemArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }

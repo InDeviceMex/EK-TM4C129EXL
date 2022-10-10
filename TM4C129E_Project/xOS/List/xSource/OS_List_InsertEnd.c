@@ -26,9 +26,5 @@
 void OS_List__vInsertEnd(OS_List_t* const pstListArg ,
                          OS_ListItem_t* const pstNewListItemArg)
 {
-    if((0UL != (OS_UBase_t) pstListArg) &&
-       (0UL != (OS_UBase_t) pstNewListItemArg))
-    {
-        CDLinkedList__enInsertPreviousLastItemRead(pstListArg, pstNewListItemArg);
-    }
+    CDLinkedList__enInsertPreviousOnLastItemRead(pstListArg, pstNewListItemArg);
 }

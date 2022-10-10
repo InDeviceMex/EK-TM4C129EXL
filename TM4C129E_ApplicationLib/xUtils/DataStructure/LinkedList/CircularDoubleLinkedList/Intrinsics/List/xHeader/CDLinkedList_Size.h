@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-UBase_t CDLinkedList__uxGetSize(const CDLinkedList_t* const pstList);
-void CDLinkedList__vSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg);
-CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList);
+CDLinkedList_nERROR CDLinkedList__enGetSize(const CDLinkedList_t* const pstList, UBase_t* puxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enSetSize(CDLinkedList_t*  pstList, UBase_t uxSizeArg);
+CDLinkedList_nERROR CDLinkedList__enIsEmpty(const CDLinkedList_t*  pstList, boolean_t* pboStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARDLINKEDLIST_SIZE_H_ */

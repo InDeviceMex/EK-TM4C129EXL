@@ -26,28 +26,21 @@
 void OS_List__vSetItemOwner(OS_ListItem_t* const pstListItemArg ,
                             void* pvOwnerArg)
 {
-    if((0UL != (OS_UBase_t) pstListItemArg))
-    {
-        CDLinkedList_Item__vSetData(pstListItemArg, pvOwnerArg);
-    }
+    CDLinkedList_Item__enSetData(pstListItemArg, pvOwnerArg);
 }
 
 void* OS_List__pvGetItemOwner(const OS_ListItem_t* const pstListItemArg)
 {
-    void* pvOwnerReg = (void*) 0UL;
-    if((0UL != (OS_UBase_t) pstListItemArg))
-    {
-        pvOwnerReg = CDLinkedList_Item__pvGetData(pstListItemArg);
-    }
+    void* pvOwnerReg;
+    pvOwnerReg = (void*) 0UL;
+    CDLinkedList_Item__enGetData(pstListItemArg, &pvOwnerReg);
     return (pvOwnerReg);
 }
 
 void* OS_List__pvGetOwnerOfNextEntry(OS_List_t* const pstListArg)
 {
-    void* pvOwnerReg = (void*) 0UL;
-    if((0UL != (OS_UBase_t) pstListArg))
-    {
-        pvOwnerReg = CDLinkedList__pvGetDataNextItem(pstListArg);
-    }
+    void* pvOwnerReg;
+    pvOwnerReg = (void*) 0UL;
+    CDLinkedList__enGetDataNextItem(pstListArg, &pvOwnerReg);
     return (pvOwnerReg);
 }

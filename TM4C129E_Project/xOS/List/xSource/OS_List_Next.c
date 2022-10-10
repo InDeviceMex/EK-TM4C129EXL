@@ -25,10 +25,8 @@
 
 OS_ListItem_t* OS_List__pstGetNext(const OS_ListItem_t* const pstListItemArg)
 {
-    OS_ListItem_t* pstNextItemReg = (OS_ListItem_t*) 0UL;
-    if(0UL != (OS_UBase_t) pstListItemArg)
-    {
-        pstNextItemReg = CDLinkedList_Item__pstGetNextItem(pstListItemArg);
-    }
+    OS_ListItem_t* pstNextItemReg;
+    pstNextItemReg = (OS_ListItem_t*) 0UL;
+    CDLinkedList_Item__enGetNextItem(pstListItemArg, &pstNextItemReg);
     return (pstNextItemReg);
 }

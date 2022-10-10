@@ -23,32 +23,63 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Head.h>
 
-CDLinkedListItem_t* CDLinkedList__pstGetHead(const CDLinkedList_t*  const pstList)
+CDLinkedList_nERROR CDLinkedList__enGetHead(const CDLinkedList_t*  const pstList, CDLinkedListItem_t** pstHeadArg)
 {
-    CDLinkedListItem_t* pstHeadReg = (CDLinkedListItem_t*) 0U;
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstHeadArg))
     {
-        pstHeadReg = pstList->pstHead;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pstHeadReg);
+    else
+    {
+        *pstHeadArg = pstList->pstHead;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList__vSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHeadArg)
+CDLinkedList_nERROR CDLinkedList__enSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHeadArg)
 {
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstHead = pstHeadArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-CDLinkedList_nERROR CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    CDLinkedListItem_t* pstListHead = (CDLinkedListItem_t*)0UL;
-    pstListHead = CDLinkedList__pstGetHead(pstList);
-    if ((UBase_t) pstItem == (UBase_t) (pstListHead))
+    CDLinkedList_nERROR enErrorReg;
+    CDLinkedListItem_t* pstListHead;
+
+    pstListHead = (CDLinkedListItem_t*) 0UL;
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pboStatus)
     {
-        enStatus = CDLinkedList_enERROR_OK;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = CDLinkedList__enGetHead(pstList, &pstListHead);
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((uintptr_t) pstItem == (uintptr_t) (pstListHead))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

@@ -24,46 +24,73 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
 #include <stdlib.h>
 
-CDLinkedList_t* CDLinkedList__pstInit(void (*pvfDestroyItemDataArg) (void *DataContainer), void (*pvfDestroyItemArg) (void *Item))
+CDLinkedList_nERROR CDLinkedList__enCreate(CDLinkedList_t** pstList,
+                                          CDLinkedList_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                                          CDLinkedList_pvfDestroyItem_t pvfDestroyItemArg)
 {
-    CDLinkedList_t *pstList = 0;
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    pstList = (CDLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedList_t));
-#elif defined (__GNUC__ )
-    pstList = (CDLinkedList_t*) malloc(sizeof(CDLinkedList_t));
-#endif
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    CDLinkedList_t *pstListReg;
+    CDLinkedList_nERROR enErrorReg;
+
+    pstListReg = (CDLinkedList_t*) 0U;
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
     {
-        pstList->uxSize = 0UL;
-        pstList->pvfDestroy = &free;
-        pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
-        pstList->pvfDestroyItem = pvfDestroyItemArg;
-        pstList->pstHead = (CDLinkedListItem_t*)  0UL;
-        pstList->pstTail = (CDLinkedListItem_t*)  0UL;
-        pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pstList);
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+#if defined (__TI_ARM__ ) || defined (__MSP430__ )
+        pstListReg = (CDLinkedList_t*) memalign((size_t) 4, (size_t) sizeof(CDLinkedList_t));
+#elif defined (__GNUC__ )
+        pstListReg = (CDLinkedList_t*) malloc(sizeof(CDLinkedList_t));
+#endif
+        if(0UL == (uintptr_t) pstListReg)
+        {
+            enErrorReg = CDLinkedList_enERROR_POINTER;
+        }
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        pstListReg->uxSize = 0UL;
+        pstListReg->pvfDestroy = &free;
+        pstListReg->pvfDestroyItemData = pvfDestroyItemDataArg;
+        pstListReg->pvfDestroyItem = pvfDestroyItemArg;
+        pstListReg->pstHead = (CDLinkedListItem_t*)  0UL;
+        pstListReg->pstTail = (CDLinkedListItem_t*)  0UL;
+        pstListReg->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
+
+        *pstList = pstListReg;
+    }
+    return (enErrorReg);
 }
 
 
 CDLinkedList_nERROR CDLinkedList__enInit(CDLinkedList_t* pstList,
-                                          void (*pvfDestroyItemDataArg) (void *DataContainer),
-                                          void (*pvfDestroyItemArg) (void *Item))
+                                       CDLinkedList_pvfDestroyItemData_t pvfDestroyItemDataArg,
+                                       CDLinkedList_pvfDestroyItem_t pvfDestroyItemArg,
+                                       CDLinkedList_pvfDestroy_t pvfDestroyArg)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    if((UBase_t) 0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
     {
-        enStatus = CDLinkedList_enERROR_OK;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
+    {
+        enErrorReg = CDLinkedList_enERROR_OK;
         pstList->uxSize = 0UL;
-        pstList->pvfDestroy = (void (*) (void* List))0UL;
+        pstList->pvfDestroy = pvfDestroyArg;
         pstList->pvfDestroyItemData = pvfDestroyItemDataArg;
         pstList->pvfDestroyItem = pvfDestroyItemArg;
         pstList->pstHead = (CDLinkedListItem_t*)  0UL;
         pstList->pstTail = (CDLinkedListItem_t*)  0UL;
         pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
     }
-    return (enStatus);
+    return (enErrorReg);
 }
+
+
 
 
 

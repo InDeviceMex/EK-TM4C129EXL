@@ -23,33 +23,59 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Tail.h>
 
-CDLinkedListItem_t* CDLinkedList__pstGetTail(const CDLinkedList_t*  const pstList)
+CDLinkedList_nERROR CDLinkedList__enGetTail(const CDLinkedList_t*  const pstList, CDLinkedListItem_t** pstTailArg)
 {
-    CDLinkedListItem_t* pstTailReg = (CDLinkedListItem_t*)0U;
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstTailArg))
     {
-        pstTailReg = pstList->pstTail;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pstTailReg);
+    else
+    {
+        *pstTailArg = pstList->pstTail;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList__vSetTail(CDLinkedList_t* pstList, CDLinkedListItem_t* pstTailArg)
+CDLinkedList_nERROR CDLinkedList__enSetTail(CDLinkedList_t* pstList, CDLinkedListItem_t* pstTailArg)
 {
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstTail = pstTailArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-CDLinkedList_nERROR CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsTail(const CDLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    if (0UL == (UBase_t) (pstItem->pstNextItem))
-    {
-        enStatus = CDLinkedList_enERROR_OK;
-    }
-    return (enStatus);
-}
+    CDLinkedList_nERROR enErrorReg;
 
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pboStatus))
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        if (0UL == (uintptr_t) (pstItem->pstNextItem))
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
+}
 
 

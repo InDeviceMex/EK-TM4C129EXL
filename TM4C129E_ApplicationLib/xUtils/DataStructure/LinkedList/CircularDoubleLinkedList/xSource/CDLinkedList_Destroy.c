@@ -28,43 +28,56 @@
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Init.h>
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/xHeader/CDLinkedList_Remove.h>
 
-void CDLinkedList__vDestroy(CDLinkedList_t* pstList)
- {
-     CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-     CDLinkedListItem_t* pstTailItem = (CDLinkedListItem_t*) 0UL;
-     void * pvDataItem = (void*)0UL;
-     UBase_t uxSizeReg = 0UL;
-     void (*pvfListDestroy) (void* List) = (void (*) (void* List) )0UL;
+CDLinkedList_nERROR CDLinkedList__enDestroy(CDLinkedList_t* pstList)
+{
+    void * pvDataItem;
+    CDLinkedListItem_t* pstTailItem;
+    CDLinkedList_pvfDestroy_t pvfListDestroy;
+    UBase_t uxSizeReg;
+    CDLinkedList_nERROR enErrorReg;
 
-     if((CDLinkedList_t*)0 != pstList)
-     {
-         enStatus = CDLinkedList_enERROR_OK;
-         uxSizeReg = CDLinkedList__uxGetSize(pstList);
-         pvfListDestroy = pstList->pvfDestroy;
-         while (uxSizeReg> 0UL)
-         {
-             pstTailItem = CDLinkedList__pstGetTail(pstList);
-             enStatus = CDLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
-             if((CDLinkedList_enERROR_OK == enStatus ) && ( (UBase_t) 0 != (UBase_t) pstList->pvfDestroyItemData))
-             {
-                 pstList->pvfDestroyItemData(pvDataItem);
-             }
-             uxSizeReg = CDLinkedList__uxGetSize(pstList);
-         }
+    uxSizeReg = 0UL;
+    pvDataItem = (void*) 0UL;
+    pstTailItem = (CDLinkedListItem_t*) 0UL;
+    pvfListDestroy = (CDLinkedList_pvfDestroy_t) 0UL;
+    enErrorReg = CDLinkedList__enGetSize(pstList, &uxSizeReg);
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        pvfListDestroy = pstList->pvfDestroy;
+        while ((0UL < uxSizeReg) && (CDLinkedList_enERROR_OK == enErrorReg))
+        {
+            enErrorReg = CDLinkedList__enGetTail(pstList, &pstTailItem);
+            if(CDLinkedList_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = CDLinkedList__enRemoveInList_GetData(pstList, pstTailItem, (void **) & pvDataItem);
+            }
+            if(CDLinkedList_enERROR_OK == enErrorReg)
+            {
+                /*Item is destroyed inside Remove function*/
+                if(0UL != (uintptr_t) pstList->pvfDestroyItemData)
+                {
+                    pstList->pvfDestroyItemData(pvDataItem);
+                }
+                enErrorReg = CDLinkedList__enGetSize(pstList, &uxSizeReg);
+            }
+        }
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        pstList->pfuxMatch = (CDLinkedList_pfuxMatch_t) 0UL;
+        pstList->pvfDestroy = (CDLinkedList_pvfDestroy_t) 0UL;
+        pstList->pvfDestroyItemData = (CDLinkedList_pvfDestroyItemData_t) 0UL;
+        pstList->pvfDestroyItem = (CDLinkedList_pvfDestroyItem_t) 0UL;
+        pstList->pstHead = (CDLinkedListItem_t *) 0UL;
+        pstList->pstTail = (CDLinkedListItem_t *) 0UL;
+        pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
+        pstList->uxSize = 0UL;
 
-         pstList->pfuxMatch = (UBase_t (*) (const void *pcvKey1, const void *pcvKey2)) 0UL;
-         pstList->pvfDestroy = (void (*) (void* List)) 0UL;
-         pstList->pvfDestroyItemData = (void (*) (void* DataContainer)) 0UL;
-         pstList->pvfDestroyItem = (void (*) (void* Item)) 0UL;
-         pstList->pstHead = (CDLinkedListItem_t *) 0UL;
-         pstList->pstTail = (CDLinkedListItem_t *) 0UL;
-         pstList->pstLastItemRead = (CDLinkedListItem_t*)  0UL;
-         pstList->uxSize = 0UL;
-
-         if((CDLinkedList_enERROR_OK == enStatus ) && ( (UBase_t) 0 != (UBase_t) pvfListDestroy))
-         {
-             pvfListDestroy(pstList);
-             pstList = (CDLinkedList_t*)0UL;
-         }
-     }
- }
+        if(0UL != (uintptr_t) pvfListDestroy)
+        {
+            pvfListDestroy(pstList);
+            pstList = (CDLinkedList_t*) 0UL;
+        }
+    }
+    return (enErrorReg);
+}

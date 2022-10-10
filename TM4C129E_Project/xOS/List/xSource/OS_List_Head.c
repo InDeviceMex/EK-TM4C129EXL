@@ -25,31 +25,24 @@
 
 OS_ListItem_t* OS_List__pstGetHeadEntry(const OS_List_t* const pstListArg)
 {
-    OS_ListItem_t* pstHeadListReg = (OS_ListItem_t*) 0UL;
-
-    if(0UL != (OS_UBase_t) pstListArg)
-    {
-        pstHeadListReg = CDLinkedList__pstGetHead(pstListArg);
-    }
+    OS_ListItem_t* pstHeadListReg;
+    pstHeadListReg = (OS_ListItem_t*) 0UL;
+    CDLinkedList__enGetHead(pstListArg, &pstHeadListReg);
     return (pstHeadListReg);
 }
 
 OS_UBase_t OS_List__uxGetItemValueOfHeadEntry(const OS_List_t* const pstListArg)
 {
-    OS_UBase_t uxValueReg = 0UL;
-    if((0UL != (OS_UBase_t) pstListArg))
-    {
-        uxValueReg = CDLinkedList__uxGetValueHead(pstListArg);
-    }
+    OS_UBase_t uxValueReg;
+    uxValueReg = 0UL;
+    CDLinkedList__enGetValueHead(pstListArg, &uxValueReg);
     return (uxValueReg);
 }
 
 void* OS_List__pvGetOwnerOfHeadEntry(const OS_List_t* const pstListArg)
 {
-    void* pvOwnerReg = (void*) 0UL;
-    if((0UL != (OS_UBase_t) pstListArg))
-    {
-        pvOwnerReg = CDLinkedList__pvGetDataHead(pstListArg);
-    }
+    void* pvOwnerReg;
+    pvOwnerReg = (void*) 0UL;
+    CDLinkedList__enGetDataHead(pstListArg, &pvOwnerReg);
     return (pvOwnerReg);
 }

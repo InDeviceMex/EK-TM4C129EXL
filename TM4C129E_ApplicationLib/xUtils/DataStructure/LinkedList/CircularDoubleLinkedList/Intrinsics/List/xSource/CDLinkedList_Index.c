@@ -23,32 +23,66 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/List/xHeader/CDLinkedList_Index.h>
 
-CDLinkedListItem_t* CDLinkedList__pstGetLastItemRead(const CDLinkedList_t*  const pstList)
+
+CDLinkedList_nERROR CDLinkedList__enGetLastItemRead(const CDLinkedList_t*  const pstList, CDLinkedListItem_t** pstLastItemReadArg)
 {
-    CDLinkedListItem_t* pstLastItemReadReg = (CDLinkedListItem_t*) 0U;
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstList) || (0UL == (uintptr_t) pstLastItemReadArg))
     {
-        pstLastItemReadReg = pstList->pstLastItemRead;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pstLastItemReadReg);
+    else
+    {
+        *pstLastItemReadArg = pstList->pstLastItemRead;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList__vSetLastItemRead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstLastItemReadArg)
+CDLinkedList_nERROR CDLinkedList__enSetLastItemRead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstLastItemReadArg)
 {
-    if(0UL != (UBase_t) pstList)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstList->pstLastItemRead = pstLastItemReadArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
 
-CDLinkedList_nERROR CDLinkedList__enIsLastItemRead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem)
+
+
+CDLinkedList_nERROR CDLinkedList__enIsLastItemRead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem, boolean_t* pboStatus)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    CDLinkedListItem_t* pstListLastItemRead = (CDLinkedListItem_t*)0UL;
-    pstListLastItemRead= CDLinkedList__pstGetLastItemRead(pstList);
-    if ((UBase_t) pstItem == (UBase_t) (pstListLastItemRead))
+    CDLinkedList_nERROR enErrorReg;
+    CDLinkedListItem_t* pstListLastItemRead;
+
+    pstListLastItemRead = (CDLinkedListItem_t*) 0UL;
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pboStatus)
     {
-        enStatus = CDLinkedList_enERROR_OK;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (enStatus);
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = CDLinkedList__enGetLastItemRead(pstList, &pstListLastItemRead);
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        if ((uintptr_t) pstItem == (uintptr_t) pstListLastItemRead)
+        {
+            *pboStatus = TRUE;
+        }
+        else
+        {
+            *pboStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
 }

@@ -42,7 +42,7 @@ DLinkedList_nERROR DLinkedList__enRemoveInList_GetData(DLinkedList_t* pstList, D
     enErrorReg = DLinkedList__enGetSize(pstList, &uxSizeReg);
     if(DLinkedList_enERROR_OK == enErrorReg)
     {
-        if(0UL == uxSizeReg)
+        if((0UL == (uintptr_t) pstItem) || (0UL == uxSizeReg))
         {
             enErrorReg = DLinkedList_enERROR_EMPTY;
         }
@@ -348,7 +348,7 @@ DLinkedList_nERROR  DLinkedList__enRemovePosition_GetData(DLinkedList_t* pstList
         {
             enErrorReg = DLinkedList__enRemoveHead_GetData(pstList, pvData);
         }
-        else if(uxPosition < (uxSizeList - 1UL)) /*Remove Tail*/
+        else if(uxPosition < (uxSizeList - 1UL))
         {
             UBase_t uxSizeBackward;
             UBase_t uxSizeForward;
@@ -400,7 +400,7 @@ DLinkedList_nERROR  DLinkedList__enRemovePosition_GetData(DLinkedList_t* pstList
                 enErrorReg = DLinkedList__enRemoveInList_GetData(pstList, pstItem, pvData);
             }
         }
-        else
+        else /*Remove Tail*/
         {
             enErrorReg = DLinkedList__enRemoveTail_GetData(pstList, pvData);
         }

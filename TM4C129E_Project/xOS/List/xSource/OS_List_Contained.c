@@ -25,29 +25,18 @@
 
 void* OS_List__pvGetItemContainer(const OS_ListItem_t* const pstListItemArg)
 {
-    void* pvItemOwnerListReg = (void*) 0UL;
-    if(0UL != (OS_UBase_t) pstListItemArg)
-    {
-        pvItemOwnerListReg = CDLinkedList_Item__pvGetOwnerList(pstListItemArg);
-
-    }
+    void* pvItemOwnerListReg;
+    pvItemOwnerListReg = (void*) 0UL;
+    CDLinkedList_Item__enGetOwnerList(pstListItemArg, &pvItemOwnerListReg);
     return (pvItemOwnerListReg);
 }
 
 OS_Boolean_t OS_List__boIsContainedWithin(const OS_List_t* const pstListArg ,
                                           const OS_ListItem_t* const pstListItemArg)
 {
-    OS_Boolean_t boItemContained = FALSE;
-    CDLinkedList_nERROR enStatusList = CDLinkedList_enERROR_POINTER;
-    if((0UL != (OS_UBase_t) pstListArg) &&
-       (0UL != (OS_UBase_t) pstListItemArg))
-     {
-        enStatusList = CDLinkedList__enIsItemOwnerList(pstListArg, pstListItemArg);
-        if(CDLinkedList_enERROR_OK == enStatusList)
-        {
-            boItemContained = TRUE;
-        }
-     }
+    OS_Boolean_t boItemContained;
+    boItemContained = FALSE;
+    CDLinkedList__enIsItemOwnerList(pstListArg, pstListItemArg, &boItemContained);
     return (boItemContained);
 }
 

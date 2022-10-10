@@ -23,21 +23,34 @@
  */
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemValue.h>
 
-UBase_t CDLinkedList_Item__uxGetValue(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList_Item__enGetValue(const CDLinkedListItem_t* const pstItem, UBase_t* puxValueItemArg)
 {
-    UBase_t uxValueItemReg = 0UL;
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) puxValueItemArg))
     {
-        uxValueItemReg = pstItem->uxValueItem;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (uxValueItemReg);
+    else
+    {
+        *puxValueItemArg = pstItem->uxValueItem;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList_Item__vSetValue(CDLinkedListItem_t* const pstItem, UBase_t uxValueItemArg)
+CDLinkedList_nERROR CDLinkedList_Item__enSetValue(CDLinkedListItem_t* pstItem, UBase_t uxValueItemArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->uxValueItem = uxValueItemArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+    return(enErrorReg);
 }
-

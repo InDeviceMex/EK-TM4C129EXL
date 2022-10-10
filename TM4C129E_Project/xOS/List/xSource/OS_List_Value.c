@@ -26,19 +26,14 @@
 void OS_List__vSetItemValue(OS_ListItem_t* const pstListItemArg ,
                             OS_UBase_t uxValueArg)
 {
-    if((0UL != (OS_UBase_t) pstListItemArg))
-    {
-        CDLinkedList_Item__vSetValue(pstListItemArg, uxValueArg);
-    }
+    CDLinkedList_Item__enSetValue(pstListItemArg, uxValueArg);
 }
 
 OS_UBase_t OS_List__uxGetItemValue(const OS_ListItem_t* const pstListItemArg)
 {
-    OS_UBase_t uxValueReg = 0UL;
-    if((0UL != (OS_UBase_t) pstListItemArg))
-    {
-        uxValueReg = CDLinkedList_Item__uxGetValue(pstListItemArg);
-    }
+    OS_UBase_t uxValueReg;
+    uxValueReg = 0UL;
+    CDLinkedList_Item__enGetValue(pstListItemArg, &uxValueReg);
     return (uxValueReg);
 }
 

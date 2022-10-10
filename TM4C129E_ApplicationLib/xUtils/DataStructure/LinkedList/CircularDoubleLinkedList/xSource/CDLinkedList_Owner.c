@@ -25,18 +25,34 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/CDLinkedList_Intrinsics.h>
 
-CDLinkedList_nERROR CDLinkedList__enIsItemOwnerList(const CDLinkedList_t* pstList, const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList__enIsItemOwnerList(const CDLinkedList_t* pstList, const CDLinkedListItem_t* const pstItem, boolean_t* boStatus)
 {
-    CDLinkedList_nERROR enStatus = CDLinkedList_enERROR_POINTER;
-    CDLinkedList_t* pstOwnerListItem = (CDLinkedList_t*) 0UL;
-    pstOwnerListItem = (CDLinkedList_t*) CDLinkedList_Item__pvGetOwnerList(pstItem);
-    if((UBase_t) pstOwnerListItem == (UBase_t) pstList )
-    {
-        enStatus = CDLinkedList_enERROR_OK;
-    }
-    return (enStatus);
-}
+    CDLinkedList_t* pstOwnerListItem;
+    CDLinkedList_nERROR enErrorReg;
 
+    pstOwnerListItem = (CDLinkedList_t*) 0UL;
+    enErrorReg = CDLinkedList_enERROR_OK;
+    if(0UL == (uintptr_t) pstList)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = CDLinkedList_Item__enGetOwnerList(pstItem, (void**) &pstOwnerListItem);
+    }
+    if(CDLinkedList_enERROR_OK == enErrorReg)
+    {
+        if((uintptr_t) pstOwnerListItem == (uintptr_t) pstList)
+        {
+            *boStatus = TRUE;
+        }
+        else
+        {
+            *boStatus = FALSE;
+        }
+    }
+    return (enErrorReg);
+}
 
 
 

@@ -27,8 +27,9 @@ void OS_List__vInit(OS_List_t* const pstListArg)
 {
     if(0UL != (OS_UBase_t) pstListArg)
     {
-        CDLinkedList__enInit( pstListArg,
-                              (void (*) (void *DataContainer)) 0UL,
-                              (void (*) (void *Item)) 0UL);
+        CDLinkedList__enInit(pstListArg,
+                             (CDLinkedList_pvfDestroyItemData_t) 0UL,
+                             (CDLinkedList_pvfDestroyItem_t) 0UL,
+                             (CDLinkedList_pvfDestroy_t) 0UL);
     }
 }

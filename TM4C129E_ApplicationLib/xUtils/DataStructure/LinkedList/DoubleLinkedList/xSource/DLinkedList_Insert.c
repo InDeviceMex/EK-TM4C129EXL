@@ -433,7 +433,7 @@ DLinkedList_nERROR DLinkedList__enInsertAndCreatePrevious(DLinkedList_t* pstList
 }
 
 
-DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertPreviousOnLastItemRead_WithData(DLinkedList_t* pstList,
                                                                        DLinkedListItem_t* pstNewItem,
                                                                        void* pvData)
 {
@@ -449,7 +449,7 @@ DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead_WithData(DLinkedLis
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertPreviousOnLastItemRead(DLinkedList_t* pstList,
                                                               DLinkedListItem_t* pstNewItem)
 {
     DLinkedListItem_t* pstLastItemItem;
@@ -464,7 +464,7 @@ DLinkedList_nERROR DLinkedList__enInsertPreviousLastItemRead(DLinkedList_t* pstL
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousOnLastItemRead_WithData(DLinkedList_t* pstList,
                                                                                 DLinkedListItem_t** pstNewItemArg,
                                                                                 void* pvData)
 {
@@ -480,7 +480,7 @@ DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead_WithData(D
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousOnLastItemRead(DLinkedList_t* pstList,
                                                                        DLinkedListItem_t** pstNewItemArg)
 {
     DLinkedListItem_t* pstLastItemItem;
@@ -496,7 +496,7 @@ DLinkedList_nERROR DLinkedList__enInsertAndCreatePreviousLastItemRead(DLinkedLis
 }
 
 
-DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertNextOnLastItemRead_WithData(DLinkedList_t* pstList,
                                                                    DLinkedListItem_t* pstNewItem,
                                                                    void* pvData)
 {
@@ -512,7 +512,7 @@ DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead_WithData(DLinkedList_t*
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertNextOnLastItemRead(DLinkedList_t* pstList,
                                            DLinkedListItem_t* pstNewItem)
 {
     DLinkedListItem_t* pstLastItemItem;
@@ -527,7 +527,7 @@ DLinkedList_nERROR DLinkedList__enInsertNextLastItemRead(DLinkedList_t* pstList,
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertAndCreateNextLastItemRead_WithData(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNextOnLastItemRead_WithData(DLinkedList_t* pstList,
                                                                             DLinkedListItem_t** pstNewItemArg,
                                                                             void* pvData)
 {
@@ -543,7 +543,7 @@ DLinkedList_nERROR DLinkedList__enInsertAndCreateNextLastItemRead_WithData(DLink
     return (enErrorReg);
 }
 
-DLinkedList_nERROR DLinkedList__enInsertAndCreateNextLastItemRead(DLinkedList_t* pstList,
+DLinkedList_nERROR DLinkedList__enInsertAndCreateNextOnLastItemRead(DLinkedList_t* pstList,
                                                                    DLinkedListItem_t** pstNewItemArg)
 {
     DLinkedListItem_t* pstLastItemItem;

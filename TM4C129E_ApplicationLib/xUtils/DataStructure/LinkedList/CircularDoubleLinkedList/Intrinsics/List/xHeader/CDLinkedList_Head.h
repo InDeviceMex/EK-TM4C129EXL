@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/xHeader/CDLinkedList_Struct.h>
 
-CDLinkedListItem_t* CDLinkedList__pstGetHead(const CDLinkedList_t*  const pstList);
-void CDLinkedList__vSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHeadArg);
-CDLinkedList_nERROR CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem);
+CDLinkedList_nERROR CDLinkedList__enGetHead(const CDLinkedList_t*  const pstList, CDLinkedListItem_t** pstHeadArg);
+CDLinkedList_nERROR CDLinkedList__enSetHead(CDLinkedList_t* pstList, CDLinkedListItem_t* pstHeadArg);
+CDLinkedList_nERROR CDLinkedList__enIsHead(const CDLinkedList_t* const pstList, const CDLinkedListItem_t* const pstItem, boolean_t* pboStatus);
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_LIST_XHEADER_CIRCULARDLINKEDLIST_HEAD_H_ */

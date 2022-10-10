@@ -25,16 +25,9 @@
 
 OS_Boolean_t OS_List__boIsEmpty(const OS_List_t* const pstListArg)
 {
-    OS_Boolean_t boItemContained = TRUE;
-    CDLinkedList_nERROR enListIsEmpty = CDLinkedList_enERROR_POINTER;
-    if(0UL != (OS_UBase_t) pstListArg)
-    {
-        enListIsEmpty = CDLinkedList__enIsEmpty(pstListArg);
-        if(CDLinkedList_enERROR_OK != enListIsEmpty)
-        {
-            boItemContained = FALSE;
-        }
-    }
+    OS_Boolean_t boItemContained;
+    boItemContained = FALSE;
+    CDLinkedList__enIsEmpty(pstListArg, &boItemContained);
     return (boItemContained);
 }
 

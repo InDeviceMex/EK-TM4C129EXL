@@ -24,20 +24,35 @@
 
 #include <xUtils/DataStructure/LinkedList/CircularDoubleLinkedList/Intrinsics/Item/xHeader/CDLinkedList_ItemData.h>
 
-void* CDLinkedList_Item__pvGetData(const CDLinkedListItem_t* const pstItem)
+CDLinkedList_nERROR CDLinkedList_Item__enGetData(const CDLinkedListItem_t* const pstItem, void** pvDataArg)
 {
-    void* pvDataReg = (void*) 0UL;
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if((0UL == (uintptr_t) pstItem) || (0UL == (uintptr_t) pvDataArg))
     {
-        pvDataReg = pstItem->pvDataContainer;
+        enErrorReg = CDLinkedList_enERROR_POINTER;
     }
-    return (pvDataReg);
+    else
+    {
+        *pvDataArg = pstItem->pvDataContainer;
+        enErrorReg = CDLinkedList_enERROR_OK;
+    }
+    return (enErrorReg);
 }
 
-void CDLinkedList_Item__vSetData(CDLinkedListItem_t* const pstItem, void* pvDataArg)
+CDLinkedList_nERROR CDLinkedList_Item__enSetData(CDLinkedListItem_t* pstItem, void* pvDataArg)
 {
-    if(0UL != (UBase_t) pstItem)
+    CDLinkedList_nERROR enErrorReg;
+
+    if(0UL == (uintptr_t) pstItem)
+    {
+        enErrorReg = CDLinkedList_enERROR_POINTER;
+    }
+    else
     {
         pstItem->pvDataContainer = pvDataArg;
+        enErrorReg = CDLinkedList_enERROR_OK;
     }
+
+    return(enErrorReg);
 }
