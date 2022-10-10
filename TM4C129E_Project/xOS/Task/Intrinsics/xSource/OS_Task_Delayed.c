@@ -61,9 +61,7 @@ void OS_Task__vSetNumOfOverflows(OS_UBase_t uxValueArg)
 
 void OS_Task__vResetNextTaskUnblockTime(void)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_ListItem_t* pstGenericListReg = (OS_ListItem_t*) 0UL;
-    OS_Boolean_t boStatus = FALSE;
+    OS_Boolean_t boStatus;
 
     boStatus = OS_List__boIsEmpty(OS_Task_pstDelayedTaskList);
     if(FALSE != boStatus)
@@ -72,6 +70,9 @@ void OS_Task__vResetNextTaskUnblockTime(void)
     }
     else
     {
+        OS_Task_TCB_t *pstTCB;
+        OS_ListItem_t* pstGenericListReg;
+
         pstTCB = (OS_Task_TCB_t *) OS_List__pvGetOwnerOfHeadEntry(OS_Task_pstDelayedTaskList);
         pstGenericListReg = &(pstTCB->stGenericListItem);
         OS_Task_uxNextTaskUnblockTime = OS_List__uxGetItemValue(pstGenericListReg);
@@ -81,12 +82,12 @@ void OS_Task__vResetNextTaskUnblockTime(void)
 
 void OS_Task__vSwitchDelayedLists(void)
 {
-    OS_List_t *pstTempList = (OS_List_t*) 0UL;
-    OS_Boolean_t boIsEmptyList = FALSE;
+    OS_Boolean_t boIsEmptyList;
 
     boIsEmptyList = OS_List__boIsEmpty(OS_Task_pstDelayedTaskList);
     if(FALSE != boIsEmptyList)
     {
+        OS_List_t *pstTempList;
         pstTempList = OS_Task_pstDelayedTaskList;
         OS_Task_pstDelayedTaskList = OS_Task_pstOverflowDelayedTaskList;
         OS_Task_pstOverflowDelayedTaskList = pstTempList;

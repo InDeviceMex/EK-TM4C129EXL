@@ -62,21 +62,19 @@ void OS_Task__vEnableInterrupts(void)
 
 OS_Boolean_t OS_Task__boIsInterruptActive(void)
 {
-    OS_Boolean_t boIrqActive = FALSE;
-
+    OS_Boolean_t boIrqActive;
     boIrqActive = OS_Adapt__boIsInterruptActive();
     return (boIrqActive);
 }
 
 OS_UBase_t OS_Task__uxSetInterruptMaskFromISR(void)
 {
-    OS_UBase_t uxReturnMaskReg = 0UL;
-
+    OS_UBase_t uxReturnMaskReg;
     uxReturnMaskReg = OS_Adapt__uxSetInterruptMaskFromISR();
     return (uxReturnMaskReg);
 }
 
-void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMask)
+void OS_Task__vClearInterruptMaskFromISR(OS_UBase_t uxMaskArg)
 {
-    OS_Adapt__vClearInterruptMaskFromISR(uxMask);
+    OS_Adapt__vClearInterruptMaskFromISR(uxMaskArg);
 }

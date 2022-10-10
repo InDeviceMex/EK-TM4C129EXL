@@ -43,8 +43,7 @@ void OS_Task__vAdaptResetReadyPriority(OS_UBase_t uxPriorityArg)
 
 OS_UBase_t OS_Task__uxGetHighestPriority(void)
 {
-    OS_UBase_t uxTopPriorityReg = 0UL;
-
+    OS_UBase_t uxTopPriorityReg;
     uxTopPriorityReg = OS_Adapt__uxGetHighestPriority(OS_Task_uxTopReadyPriority);
     return (uxTopPriorityReg);
 }

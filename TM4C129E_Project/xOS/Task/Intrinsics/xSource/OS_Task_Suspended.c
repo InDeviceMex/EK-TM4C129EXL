@@ -56,10 +56,11 @@ OS_List_t* OS_Task__pstGetSuspendedTaskList(void)
 OS_Boolean_t OS_Task__boIsTaskSuspended(const OS_Task_Handle_t pvTask)
 {
     OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvTask;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boListStatus = FALSE;
+    OS_Boolean_t boStatus;
+    OS_Boolean_t boListStatus;
 
-    if(0UL != (OS_UBase_t) pvTask)
+    boStatus = FALSE;
+    if(0UL != (OS_Pointer_t) pvTask)
     {
         boListStatus = OS_List__boIsContainedWithin(&OS_Task_stSuspendedTaskList,
                                                     &(pstTCB->stGenericListItem));

@@ -27,11 +27,15 @@ static OS_List_t OS_Task_pstReadyTasksLists[OS_TASK_MAX_PRIORITIES];
 
 OS_List_t* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex)
 {
-    OS_List_t* pstReadyTaskReg = (OS_List_t*) 0UL;
+    OS_List_t* pstReadyTaskReg;
 
     if(OS_TASK_MAX_PRIORITIES > uxIndex)
     {
         pstReadyTaskReg = &OS_Task_pstReadyTasksLists[uxIndex];
+    }
+    else
+    {
+        pstReadyTaskReg = (OS_List_t*) 0UL;
     }
     return (pstReadyTaskReg);
 }
@@ -39,7 +43,7 @@ OS_List_t* OS_Task__pstGetReadyTasksLists(OS_UBase_t uxIndex)
 
 void OS_Task__vInitialiseReadyTaskLists(void)
 {
-    OS_UBase_t uxPriorityReg = 0UL;
+    OS_UBase_t uxPriorityReg;
 
     for( uxPriorityReg = 0UL;
          uxPriorityReg < OS_TASK_MAX_PRIORITIES;

@@ -29,13 +29,13 @@
 
 void OS_Task__vEnterCritical(void)
 {
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Boolean_t boSchedulerRunning = FALSE;
+    OS_Boolean_t boSchedulerRunning;
 
     OS_Adapt__vDisableInterrupts();
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
+        OS_Task_TCB_t* pstCurrentTCB;
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         (pstCurrentTCB->uxCriticalNesting)++;
 
@@ -56,11 +56,11 @@ void OS_Task__vEnterCriticalFromISR(void)
 
 void OS_Task__vExitCritical(void)
 {
-    OS_Task_TCB_t* pstCurrentTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Boolean_t boSchedulerRunning = FALSE;
+    OS_Boolean_t boSchedulerRunning;
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
+        OS_Task_TCB_t* pstCurrentTCB;
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if(0UL < pstCurrentTCB->uxCriticalNesting)
         {
@@ -74,7 +74,7 @@ void OS_Task__vExitCritical(void)
     }
 }
 
-void OS_Task__vExitCriticalFromISR(OS_UBase_t uxMask)
+void OS_Task__vExitCriticalFromISR(OS_UBase_t uxMaskArg)
 {
-    OS_Adapt__vClearInterruptMaskFromISR(uxMask);
+    OS_Adapt__vClearInterruptMaskFromISR(uxMaskArg);
 }

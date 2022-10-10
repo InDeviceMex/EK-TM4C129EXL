@@ -29,7 +29,6 @@ static volatile OS_Boolean_t OS_Task_boSchedulerRunning = FALSE;
 OS_Task_Handle_t* OS_Task__pvGetIdleTaskHandle(void)
 {
     static OS_Task_Handle_t OS_Task_pvIdleTaskHandle = (OS_Task_Handle_t) 0UL;
-
     return (&OS_Task_pvIdleTaskHandle);
 }
 
@@ -60,7 +59,7 @@ void OS_Task__vSetSchedulerRunning(OS_Boolean_t boValueArg)
 
 OS_Task_eScheduler OS_Task__enGetSchedulerState(void)
 {
-    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
+    OS_Task_eScheduler enSchedulerState;
 
     if(FALSE == OS_Task_boSchedulerRunning)
     {
