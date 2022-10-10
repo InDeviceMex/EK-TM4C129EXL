@@ -35,26 +35,37 @@ void xTask1_AccelerometerLog(void* pvParams)
     UBase_t uxLastWakeTime;
 
     /*Accelerometer handling*/
-    Base_t sxAccelValueOld[3UL];
+    Base_t sxAccelValueXOld;
+    Base_t sxAccelValueYOld;
+    Base_t sxAccelValueZOld;
     Base_t sxAccelValue[3UL];
+    Base_t sxAccelValueX;
+    Base_t sxAccelValueY;
+    Base_t sxAccelValueZ;
     uxLastWakeTime = OS_Task__uxGetTickCount ();
 
-    sxAccelValueOld[0U] = 0;
-    sxAccelValueOld[1U] = 0;
-    sxAccelValueOld[2U] = 0;
-    sxAccelValue[0U] = 0;
-    sxAccelValue[1U] = 0;
-    sxAccelValue[2U] = 0;
+    sxAccelValueXOld = 0;
+    sxAccelValueYOld = 0;
+    sxAccelValueZOld = 0;
+    sxAccelValueX = 0;
+    sxAccelValueY = 0;
+    sxAccelValueZ = 0;
+    sxAccelValue[0U] = sxAccelValueX;
+    sxAccelValue[1U] = sxAccelValueY;
+    sxAccelValue[2U] = sxAccelValueZ;
     OS_Queue__boOverwrite(AccelerometerQueueHandle, sxAccelValue);
     UART__uxPrintf(UART_enMODULE_0, "Task1 First Entry \n\r");
     while(1UL)
     {
-        EDUMKII_Accelerometer_vSample(sxAccelValue, (sxAccelValue + 1UL), (sxAccelValue + 2UL));
-        if((sxAccelValueOld[0UL] != sxAccelValue[0UL]) || (sxAccelValueOld[1UL] != sxAccelValue[1UL]) || (sxAccelValueOld[2UL] != sxAccelValue[2UL]))
+        EDUMKII_Accelerometer_vSample(&sxAccelValueX, &sxAccelValueY, &sxAccelValueZ);
+        if((sxAccelValueXOld != sxAccelValueX) || (sxAccelValueYOld != sxAccelValueY) || (sxAccelValueZOld != sxAccelValueZ))
         {
-            sxAccelValueOld[0U] = sxAccelValue[0UL];
-            sxAccelValueOld[1U] = sxAccelValue[1UL];
-            sxAccelValueOld[2U] = sxAccelValue[2UL];
+            sxAccelValueXOld = sxAccelValueX;
+            sxAccelValueYOld = sxAccelValueY;
+            sxAccelValueZOld = sxAccelValueZ;
+            sxAccelValue[0U] = sxAccelValueX;
+            sxAccelValue[1U] = sxAccelValueY;
+            sxAccelValue[2U] = sxAccelValueZ;
             OS_Queue__boOverwrite(AccelerometerQueueHandle, sxAccelValue);
         }
         OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
