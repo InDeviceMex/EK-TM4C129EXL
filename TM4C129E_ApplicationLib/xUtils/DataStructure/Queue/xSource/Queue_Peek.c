@@ -25,33 +25,24 @@
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Data.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Item.h>
 
-void * Queue__pvPeek(const Queue_t* pstQueue)
+Queue_nERROR Queue__enPeek(const Queue_t* pstQueue, void ** pvItemDataArg)
 {
-    void *pvItemDataReg;
-    pvItemDataReg = (void*) 0U;
-    SLinkedList__enGetDataHead((const SLinkedList_t*)pstQueue, &pvItemDataReg);
-    return (pvItemDataReg);
+    Queue_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enGetDataHead(pstQueue, pvItemDataArg);
+    return (enErrorReg);
 }
 
-UBase_t Queue__uxGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize)
+Queue_nERROR Queue__enGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize, UBase_t* uxSizeArg)
 {
-    UBase_t uxSizeReg = 0UL;
-
-    if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && (0UL != uxMembers ) && (0UL != uxMaxSize ))
-    {
-        SLinkedList__enGetNItem((const SLinkedList_t*)pstQueue, pvData, uxMembers, uxMaxSize, &uxSizeReg);
-    }
-    return uxSizeReg;
+    Queue_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enGetNItem(pstQueue, pvData, uxMembers, uxMaxSize, uxSizeArg);
+    return (enErrorReg);
 }
 
-UBase_t Queue__uxGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize)
+Queue_nERROR Queue__enGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize, UBase_t* uxSizeArg)
 {
-    UBase_t uxSizeReg = 0UL;
-
-    if(((UBase_t) 0UL != (UBase_t) pstQueue) && ((UBase_t) 0UL != (UBase_t) pvData ) && ((UBase_t) 0UL != uxMaxSize ))
-    {
-        SLinkedList__enGetAllItem((const SLinkedList_t*)pstQueue, pvData, uxMaxSize, &uxSizeReg);
-    }
-    return uxSizeReg;
+    Queue_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enGetAllItem(pstQueue, pvData, uxMaxSize, uxSizeArg);
+    return (enErrorReg);
 }
 

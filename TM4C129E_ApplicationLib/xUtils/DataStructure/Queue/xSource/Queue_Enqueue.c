@@ -24,16 +24,13 @@
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Enqueue.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Insert.h>
 
-Queue_nSTATUS Queue__enEnqueue(Queue_t* pstQueue, void* pvData)
+Queue_nERROR Queue__enEnqueue(Queue_t* pstQueue, void* pvData)
 {
-    Queue_nSTATUS enStatus = Queue_enSTATUS_ERROR;
-    SLinkedListItem_t* pstNewElement = (SLinkedListItem_t*) 0UL ;
-    SLinkedList__enInsertAndCreateAtTail_WithData((SLinkedList_t*) pstQueue, &pstNewElement, pvData);
-    if(0UL != (UBase_t) pstNewElement)
-    {
-        enStatus = Queue_enSTATUS_OK;
-    }
-    return enStatus;
+    SLinkedListItem_t* pstNewElement;
+    Queue_nERROR enErrorReg;
+    pstNewElement = (SLinkedListItem_t*) 0UL ;
+    enErrorReg = SLinkedList__enInsertAndCreateAtTail_WithData((SLinkedList_t*) pstQueue, &pstNewElement, pvData);
+    return (enErrorReg);
 }
 
 

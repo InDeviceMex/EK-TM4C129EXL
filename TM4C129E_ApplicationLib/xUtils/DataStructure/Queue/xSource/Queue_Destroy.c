@@ -24,9 +24,11 @@
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Destroy.h>
 #include <xUtils/DataStructure/LinkedList/SingleLinkedList/xHeader/SLinkedList_Destroy.h>
 
-void Queue__vDestroy(Queue_t* pstQueue)
+Queue_nERROR Queue__enDestroy(Queue_t* pstQueue)
 {
-    SLinkedList__enDestroy( (SLinkedList_t*) pstQueue);
+    Queue_nERROR enErrorReg;
+    enErrorReg = SLinkedList__enDestroy(pstQueue);
+    return (enErrorReg);
 }
 
 

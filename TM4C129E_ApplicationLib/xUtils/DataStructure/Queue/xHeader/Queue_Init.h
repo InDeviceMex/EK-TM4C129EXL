@@ -26,11 +26,11 @@
 
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Struct.h>
 
-Queue_nSTATUS Queue__enCreate(Queue_t** pstQueue,
+Queue_nERROR Queue__enCreate(Queue_t** pstQueue,
                         Queue_pvfDestroyItemData_t pvfDestroyItemDataArg,
                         Queue_pvfDestroyItem_t pvfDestroyItemArg);
 
-Queue_nSTATUS Queue__enInit(Queue_t* pstQueue,
+Queue_nERROR Queue__enInit(Queue_t* pstQueue,
                             Queue_pvfDestroyItemData_t pvfDestroyItemDataArg,
                             Queue_pvfDestroyItem_t pvfDestroyItemArg,
                             Queue_pvfDestroy_t pvfDestroyArg);

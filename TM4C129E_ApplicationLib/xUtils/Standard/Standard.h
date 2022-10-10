@@ -51,6 +51,7 @@ typedef enum
     ERROR_BUSY = 5UL,
     ERROR_TIMEOUT = 6UL,
     ERROR_OUT_OF_RANGE = 7UL,
+    ERROR_FULL = 8UL,
     ERROR_UNDEF = UNDEF_VALUE,
 }error_t;
 

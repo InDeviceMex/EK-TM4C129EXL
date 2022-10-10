@@ -26,6 +26,6 @@
 
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Struct.h>
 
-void Queue__vDestroy(Queue_t* pstQueue);
+Queue_nERROR Queue__enDestroy(Queue_t* pstQueue);
 
 #endif /* XUTILS_DATASTRUCTURE_QUEUE_XHEADER_QUEUE_DESTROY_H_ */

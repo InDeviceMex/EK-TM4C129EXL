@@ -97,9 +97,8 @@ void xTask9_TFT(void* pvParams)
                              uxJostickValue[0UL],
                              uxJostickValue[1UL]
                              );
-            uxLcdPosXCurrent = Math__uxMap(uxJostickValue[0UL], 4096UL, 0UL, 128UL - 120UL, 0UL);
-            uxLcdPosYCurrent = (UBase_t) Math__sxMap((Base_t) uxJostickValue[1UL],
-                                                        4096, 0, 0, 128 - 76);
+             Math__enMapUnsigned(uxJostickValue[0UL], &uxLcdPosXCurrent, 4096UL, 0UL, 128UL - 120UL, 0UL);
+             Math__enMapSigned((Base_t) uxJostickValue[1UL], (Base_t*) &uxLcdPosYCurrent, 4096, 0, 0, 128 - 76);
         }
 
         if(uxImage)

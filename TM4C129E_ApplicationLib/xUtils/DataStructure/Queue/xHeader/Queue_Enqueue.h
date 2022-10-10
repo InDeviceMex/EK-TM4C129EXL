@@ -26,6 +26,6 @@
 
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Struct.h>
 
-Queue_nSTATUS Queue__enEnqueue(Queue_t* pstQueue, void* pvData);
+Queue_nERROR Queue__enEnqueue(Queue_t* pstQueue, void* pvData);
 
 #endif /* XUTILS_DATASTRUCTURE_QUEUE_XHEADER_QUEUE_ENQUEUE_H_ */

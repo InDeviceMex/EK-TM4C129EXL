@@ -23,39 +23,77 @@
  */
  #include <xUtils/Math/xHeader/Math_Map.h>
 
-Base_t Math__sxMap(Base_t sxValueInput, Base_t sxMaxValueInput, Base_t sxMinValueInput, Base_t sxMaxValueOutput, Base_t sxMinValueOutput)
+Math_nERROR Math__enMapSigned(Base_t sxValueInput, Base_t* sxValueOutput, Base_t sxMaxValueInput, Base_t sxMinValueInput, Base_t sxMaxValueOutput, Base_t sxMinValueOutput)
 {
-    Base_t sxDiffValuesInput = 0UL;
-    Base_t sxDiffValuesOutput = 0UL;
-    Base_t sxValueOutput = 0UL;
+    Math_nERROR enErrorReg;
+    Base_t sxDiffValuesInput;
+    Base_t sxDiffValuesOutput;
+    Base_t sxValueOutputReg;
+    sxDiffValuesInput = 0;
+    sxDiffValuesOutput = 0;
+    enErrorReg = Math_enERROR_OK;
+    if(0UL == (uintptr_t) sxValueOutput)
+    {
+        enErrorReg = Math_enERROR_POINTER;
+    }
+    if(Math_enERROR_OK == enErrorReg)
+    {
+        sxDiffValuesOutput = sxMaxValueOutput - sxMinValueOutput;
+        sxDiffValuesInput = sxMaxValueInput - sxMinValueInput;
+        if(0UL == sxDiffValuesInput)
+        {
+            enErrorReg = Math_enERROR_VALUE;
+        }
+    }
+    if(Math_enERROR_OK == enErrorReg)
+    {
+        sxValueOutputReg = sxValueInput;
+        sxValueOutputReg -= sxMinValueInput;
+        sxValueOutputReg *= sxDiffValuesOutput;
+        sxValueOutputReg /= sxDiffValuesInput;
+        sxValueOutputReg += sxMinValueOutput;
 
-    sxDiffValuesOutput = sxMaxValueOutput - sxMinValueOutput;
-    sxDiffValuesInput = sxMaxValueInput - sxMinValueInput;
+        *sxValueOutput = sxValueOutputReg;
+    }
 
-    sxValueOutput = sxValueInput;
-    sxValueOutput -= sxMinValueInput;
-    sxValueOutput *= sxDiffValuesOutput;
-    sxValueOutput /= sxDiffValuesInput;
-    sxValueOutput += sxMinValueOutput;
-
-    return (sxValueOutput);
+    return (enErrorReg);
 }
 
-UBase_t Math__uxMap(UBase_t uxValueInput, UBase_t uxMaxValueInput, UBase_t uxMinValueInput, UBase_t uxMaxValueOutput, UBase_t uxMinValueOutput)
+Math_nERROR Math__enMapUnsigned(UBase_t uxValueInput, UBase_t* uxValueOutput, UBase_t uxMaxValueInput, UBase_t uxMinValueInput, UBase_t uxMaxValueOutput, UBase_t uxMinValueOutput)
 {
-    UBase_t uxDiffValuesInput = 0UL;
-    UBase_t uxDiffValuesOutput = 0UL;
-    UBase_t uxValueOutput = 0UL;
+     Math_nERROR enErrorReg;
+     UBase_t uxDiffValuesInput;
+     UBase_t uxDiffValuesOutput;
+     UBase_t uxValueOutputReg;
+     uxDiffValuesInput = 0UL;
+     uxDiffValuesOutput = 0UL;
+     enErrorReg = Math_enERROR_OK;
+     if(0UL == (uintptr_t) uxValueOutput)
+     {
+         enErrorReg = Math_enERROR_POINTER;
+     }
+     if(Math_enERROR_OK == enErrorReg)
+     {
+         uxDiffValuesOutput = uxMaxValueOutput - uxMinValueOutput;
+         uxDiffValuesInput = uxMaxValueInput - uxMinValueInput;
+         if(0UL == uxDiffValuesInput)
+         {
+             enErrorReg = Math_enERROR_VALUE;
+         }
 
-    uxDiffValuesOutput = uxMaxValueOutput - uxMinValueOutput;
-    uxDiffValuesInput = uxMaxValueInput - uxMinValueInput;
+     }
+     if(Math_enERROR_OK == enErrorReg)
+     {
+        uxValueOutputReg = uxValueInput;
+        uxValueOutputReg -= uxMinValueInput;
+        uxValueOutputReg *= uxDiffValuesOutput;
+        uxValueOutputReg /= uxDiffValuesInput;
+        uxValueOutputReg += uxMinValueOutput;
 
-    uxValueOutput = uxValueInput;
-    uxValueOutput -= uxMinValueInput;
-    uxValueOutput *= uxDiffValuesOutput;
-    uxValueOutput /= uxDiffValuesInput;
-    uxValueOutput += uxMinValueOutput;
+        *uxValueOutput = uxValueOutputReg;
 
-    return (uxValueOutput);
+     }
+
+    return (enErrorReg);
 }
 

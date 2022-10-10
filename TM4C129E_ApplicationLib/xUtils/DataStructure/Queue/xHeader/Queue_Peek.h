@@ -26,8 +26,8 @@
 
 #include <xUtils/DataStructure/Queue/xHeader/Queue_Struct.h>
 
-UBase_t Queue__uxGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize);
-UBase_t Queue__uxGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize);
-void * Queue__pvPeek(const Queue_t* pstQueue);
+Queue_nERROR Queue__enGetNMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMembers, UBase_t uxMaxSize, UBase_t* uxSizeArg);
+Queue_nERROR Queue__enGetAllMember(const Queue_t* pstQueue, void** pvData, UBase_t uxMaxSize, UBase_t* uxSizeArg);
+Queue_nERROR Queue__enPeek(const Queue_t* pstQueue, void ** pvItemDataArg);
 
 #endif /* XUTILS_DATASTRUCTURE_QUEUE_XHEADER_QUEUE_PEEK_H_ */

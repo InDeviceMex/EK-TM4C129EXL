@@ -28,11 +28,15 @@
 
 typedef enum
 {
-    Queue_enSTATUS_OK,
-    Queue_enSTATUS_ERROR,
-    Queue_enSTATUS_FULL,
-    Queue_enSTATUS_EMPTY,
-}Queue_nSTATUS;
+    Queue_enERROR_OK = (UBase_t) ERROR_OK,
+    Queue_enERROR_POINTER = (UBase_t) ERROR_POINTER,
+    Queue_enERROR_VALUE = (UBase_t) ERROR_VALUE,
+    Queue_enERROR_EMPTY = (UBase_t) ERROR_EMPTY,
+    Queue_enERROR_RANGE = (UBase_t) ERROR_RANGE,
+    Queue_enERROR_FULL = (UBase_t) ERROR_FULL,
+    Queue_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,
+}Queue_nERROR;
+
 
 typedef SLinkedList_t Queue_t;
 
