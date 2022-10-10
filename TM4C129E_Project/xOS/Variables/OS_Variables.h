@@ -27,7 +27,7 @@
 
 #include <xUtils/Standard/Standard.h>
 
-typedef void* OS_Pointer_t;
+typedef uintptr_t OS_Pointer_t;
 typedef UBase_t OS_UBase_t;
 typedef Base_t OS_Base_t;
 typedef boolean_t OS_Boolean_t;
