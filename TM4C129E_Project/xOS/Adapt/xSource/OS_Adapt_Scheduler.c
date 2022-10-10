@@ -184,7 +184,7 @@ static void OS_Adapt_vPendSVHandler (void)
 
 static void OS_Adapt_vSysTickHandler( void )
 {
-    OS_Boolean_t boSwitchRequired = FALSE;
+    OS_Boolean_t boSwitchRequired;
 
     (void) OS_Adapt__uxSetInterruptMaskFromISR();
     {
@@ -199,7 +199,7 @@ static void OS_Adapt_vSysTickHandler( void )
 
 void OS_Adapt__vEndScheduler(void)
 {
-    OS_UBase_t uxCriticalNestingReg = 0UL;
+    OS_UBase_t uxCriticalNestingReg;
 
     uxCriticalNestingReg = OS_Adapt__uxGetCriticalNesting();
     if(1000UL != uxCriticalNestingReg)

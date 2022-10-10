@@ -28,16 +28,17 @@
 void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                OS_Task_HookFunction_t puxfHookFunctionArg)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
+    OS_Task_TCB_t *pstTCB;
+    OS_Task_TCB_t *pstTCBCurrent;
 
-    if(0UL == (OS_UBase_t) pvTaskArg)
+    if(0UL == (OS_Pointer_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
+        pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
         pstTCB = (OS_Task_TCB_t*) pvTaskArg;
     }
 
@@ -47,17 +48,18 @@ void OS_Task__vSetApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
 }
 OS_Task_HookFunction_t OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTaskArg)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
-    OS_Task_HookFunction_t puxfReturn = (OS_Task_HookFunction_t) 0UL;
+    OS_Task_TCB_t *pstTCB;
+    OS_Task_TCB_t *pstTCBCurrent;
+    OS_Task_HookFunction_t puxfReturn;
 
-    if(0UL == (OS_UBase_t) pvTaskArg)
+    if(0UL == (OS_Pointer_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
+        pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
         pstTCB = (OS_Task_TCB_t *) pvTaskArg;
     }
 
@@ -71,23 +73,28 @@ OS_Task_HookFunction_t OS_Task__puxfGetApplicationTaskTag(OS_Task_Handle_t pvTas
 OS_UBase_t OS_task__uxCallApplicationTaskTag(OS_Task_Handle_t pvTaskArg,
                                        void* pvParameterArg)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    OS_Task_TCB_t *pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t uxReturn = 0UL;
+    OS_Task_TCB_t *pstTCB;
+    OS_Task_TCB_t *pstTCBCurrent;
+    OS_UBase_t uxReturn;
 
-    if(0UL == (OS_UBase_t) pvTaskArg)
+    if(0UL == (OS_Pointer_t) pvTaskArg)
     {
         pstTCBCurrent = OS_Task__pstGetCurrentTCB();
         pstTCB = pstTCBCurrent;
     }
     else
     {
+        pstTCBCurrent = (OS_Task_TCB_t*) 0UL;
         pstTCB = (OS_Task_TCB_t*) pvTaskArg;
     }
 
-    if(0UL != (OS_UBase_t) pstTCB->puxfTaskTag)
+    if(0UL != (OS_Pointer_t) pstTCB->puxfTaskTag)
     {
         uxReturn = pstTCB->puxfTaskTag(pvParameterArg);
+    }
+    else
+    {
+        uxReturn = 0UL;
     }
 
     return (uxReturn);

@@ -28,13 +28,17 @@
 
 char* OS_Task__pcGetTaskName(OS_Task_Handle_t pvTaskToQuery)
 {
-    OS_Task_TCB_t *pstTCB = (OS_Task_TCB_t*) 0UL;
-    char* pcTaskNameReg = (char*) 0UL;
+    OS_Task_TCB_t *pstTCB;
+    char* pcTaskNameReg;
 
     pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToQuery);
-    if(0UL != (OS_UBase_t) pstTCB)
+    if(0UL != (OS_Pointer_t) pstTCB)
     {
         pcTaskNameReg = pstTCB->pcTaskName;
+    }
+    else
+    {
+        pcTaskNameReg = (char*) 0UL;
     }
     return (pcTaskNameReg);
 }
