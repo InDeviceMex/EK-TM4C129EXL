@@ -45,17 +45,16 @@ void OS_Task__vSetCurrentTCB(OS_Task_TCB_t* pstNewTCB)
 
 OS_Task_Handle_t OS_Task__pvGetCurrentTaskHandle(void)
 {
-    OS_Task_Handle_t pvReturn = (OS_Task_Handle_t) 0UL;
-
+    OS_Task_Handle_t pvReturn;
     pvReturn = (OS_Task_Handle_t) OS_Task_pstCurrentTCB;
     return (pvReturn);
 }
 
 OS_Task_TCB_t* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_t pxHandle)
 {
-    OS_Task_TCB_t* osTCBReg = (OS_Task_TCB_t*) 0UL;
+    OS_Task_TCB_t* osTCBReg;
 
-    if(0UL == (OS_UBase_t) pxHandle)
+    if(0UL == (OS_Pointer_t) pxHandle)
     {
         osTCBReg = OS_Task_pstCurrentTCB;
     }
@@ -69,8 +68,8 @@ OS_Task_TCB_t* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_t pxHandle)
 OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
                              const OS_UBase_t* const puxStaticStackBuffer)
 {
-    OS_Task_TCB_t *pstNewTCB = (OS_Task_TCB_t*) 0UL;
-    OS_UBase_t *puxStackReg = (OS_UBase_t*) 0UL;
+    OS_Task_TCB_t *pstNewTCB;
+    OS_UBase_t *puxStackReg;
 
     #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         puxStackReg = (OS_UBase_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
@@ -79,7 +78,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
         puxStackReg = (OS_UBase_t*) malloc(uxStackDepthArg * sizeof(OS_UBase_t));
     #endif
 
-    if(0UL != (OS_UBase_t) puxStackReg)
+    if(0UL != (OS_Pointer_t) puxStackReg)
     {
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
         pstNewTCB = (OS_Task_TCB_t*) memalign(8UL, (size_t) sizeof(OS_Task_TCB_t));
@@ -87,7 +86,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
         pstNewTCB = (OS_Task_TCB_t*) malloc(sizeof(OS_Task_TCB_t));
         #endif
 
-        if(0UL != (OS_UBase_t) pstNewTCB)
+        if(0UL != (OS_Pointer_t) pstNewTCB)
         {
             pstNewTCB->puxStack = puxStackReg;
         }
@@ -105,9 +104,9 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
 
 void OS_Task__vCheckStackOverflow(void)
 {
-    volatile OS_UBase_t* puxTopOfStackReg =  (OS_UBase_t*) 0UL;
-    OS_UBase_t* puxStackReg = (OS_UBase_t*) 0UL;
-    char* pcCurrentTCBName = (char*) 0UL;
+    volatile OS_UBase_t* puxTopOfStackReg;
+    OS_UBase_t* puxStackReg;
+    char* pcCurrentTCBName;
 
     puxTopOfStackReg = OS_Task_pstCurrentTCB->puxTopOfStack;
     puxStackReg = OS_Task_pstCurrentTCB->puxStack;
@@ -123,10 +122,11 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
                                       const char * pcTaskNameArg,
                                       OS_UBase_t uxPriorityArg)
 {
-    CDLinkedListItem_t* pstListItemReg = (CDLinkedListItem_t*) 0UL;
-    char* pcNamePointer = (char*) 0UL;
-    OS_UBase_t uxCount = 0UL;
+    CDLinkedListItem_t* pstListItemReg;
+    char* pcNamePointer;
+    OS_UBase_t uxCount;
 
+    uxCount = 0UL;
     pcNamePointer = pstTCB->pcTaskName;
     while((0U != (uint8_t) *pcTaskNameArg) &&
           (uxCount < (OS_TASK_MAX_TASK_NAME_LEN - 1UL)))
