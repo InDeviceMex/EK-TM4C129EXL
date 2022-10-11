@@ -28,15 +28,16 @@
 
 OS_Boolean_t OS_CoRoutine__boRemoveFromEventList(const OS_List_t* pstEventList)
 {
-    OS_CoRoutine_CRCB_t* pstUnblockedCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_CoRoutine_CRCB_t* pstCurrentCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_List_t* pstPendingListReg = (OS_List_t*) 0UL;
-    OS_ListItem_t* pstListItemReg = (OS_ListItem_t*) 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_CoRoutine_CRCB_t* pstUnblockedCRCB;
+    OS_CoRoutine_CRCB_t* pstCurrentCRCB;
+    OS_List_t* pstPendingListReg;
+    OS_ListItem_t* pstListItemReg;
+    OS_Boolean_t boReturn;
 
     /* This function is called from within an interrupt.  It can only access
     event lists and the pending ready list.  This function assumes that a
     check has already been made to ensure pstEventList is not empty. */
+    boReturn = FALSE;
     pstUnblockedCRCB = (OS_CoRoutine_CRCB_t *) OS_List__pvGetOwnerOfHeadEntry(pstEventList);
     pstListItemReg = &(pstUnblockedCRCB->stEventListItem);
     (void) OS_List__uxRemove(pstListItemReg);

@@ -71,7 +71,7 @@ void OS_Task__vAddTaskToReadyList(OS_Task_TCB_t* pstTCBArg)
         uxTCBPriority = pstTCBArg->uxPriorityTask;
         OS_Task__vRecordReadyPriority(uxTCBPriority);
         pstReadyTaskList = OS_Task__pstGetReadyTasksLists(uxTCBPriority);
-        if(0UL != (OS_UBase_t) pstReadyTaskList)
+        if(0UL != (OS_Pointer_t) pstReadyTaskList)
         {
             OS_ListItem_t* pstTCBTask;
             pstTCBTask = &(pstTCBArg->stGenericListItem);

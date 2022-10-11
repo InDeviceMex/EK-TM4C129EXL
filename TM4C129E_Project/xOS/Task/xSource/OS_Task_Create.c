@@ -83,7 +83,7 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                     {
                         OS_Task__vIncreaseCurrentNumberOfTasks();
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                        if(0UL == (OS_UBase_t) pstCurrentTCB )
+                        if(0UL == (OS_Pointer_t) pstCurrentTCB )
                         {
                             OS_UBase_t uxCurrentNumberOfTask;
 

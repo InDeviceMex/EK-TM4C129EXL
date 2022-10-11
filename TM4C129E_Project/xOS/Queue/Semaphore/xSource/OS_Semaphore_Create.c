@@ -33,7 +33,7 @@ OS_Boolean_t OS_Semaphore__boCreateBinary(OS_Semaphore_Handle_t* pvSemaphoreArg)
     OS_Semaphore_Handle_t pvSemaphoreReg;
     boResult = FALSE;
     pvSemaphoreReg = OS_Queue__pvGenericCreate(OS_SEMAPHORE_BINARY_QUEUE_LENGTH, OS_SEMAPHORE_QUEUE_ITEM_LENGTH, OS_Queue_enType_BINARY_SEMAPHORE);
-    if(0UL != (OS_UBase_t) pvSemaphoreReg)
+    if(0UL != (OS_Pointer_t) pvSemaphoreReg)
     {
         boResult = TRUE;
         *pvSemaphoreArg = pvSemaphoreReg;

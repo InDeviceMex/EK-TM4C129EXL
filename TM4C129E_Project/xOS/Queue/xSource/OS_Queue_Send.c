@@ -41,9 +41,9 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
     OS_Boolean_t boEntryTimeSet = FALSE;
     OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
-    if((0UL != (OS_UBase_t) pstQueue))
+    if((0UL != (OS_Pointer_t) pstQueue))
     {
-        if((0UL != (OS_UBase_t) pvItemToQueue) || (0UL == pstQueue->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvItemToQueue) || (0UL == pstQueue->uxItemSize))
         {
             if((OS_Queue_enPos_OVERWRITE != enCopyPosition) || (1UL == pstQueue->uxLength))
             {
@@ -71,7 +71,7 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                             if((pstQueue->uxMessagesWaiting < uxTempValue) || ( enCopyPosition == OS_Queue_enPos_OVERWRITE ))
                             {
                                 boYieldRequired = OS_Queue__boCopyDataToQueue(pstQueue, pvItemToQueue, enCopyPosition);
-                                if(0UL != (OS_UBase_t) pstQueue->pstQueueSetContainer)
+                                if(0UL != (OS_Pointer_t) pstQueue->pstQueueSetContainer)
                                 {
                                     boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueue, enCopyPosition);
                                     if(TRUE == boStatus)
@@ -268,7 +268,7 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
                             OS_Boolean_t boStatus;
-                            if(0UL != (OS_UBase_t) pstQueueReg->pstQueueSetContainer)
+                            if(0UL != (OS_Pointer_t) pstQueueReg->pstQueueSetContainer)
                             {
                                 boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, enCopyPosition);
                                 if(TRUE == boStatus)
@@ -276,7 +276,7 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                                     /* The queue is a member of a queue set, and posting
                                     to the queue set caused a higher priority task to
                                     unblock.  A context switch is required. */
-                                    if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                                    if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                                     {
                                         *pboHigherPriorityTaskWoken = TRUE;
                                     }
@@ -293,7 +293,7 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                                     {
                                         /* The task waiting has a higher priority so
                                         record that a context switch is required. */
-                                        if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                                        if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                                         {
                                             *pboHigherPriorityTaskWoken = TRUE;
                                         }
@@ -511,7 +511,7 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
                             OS_Boolean_t boStatus;
-                            if(0UL != (OS_UBase_t) (pstQueueReg->pstQueueSetContainer))
+                            if(0UL != (OS_Pointer_t) (pstQueueReg->pstQueueSetContainer))
                             {
                                 boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, OS_Queue_enPos_SEND_TO_BACK);
                                 if(TRUE == boStatus)
@@ -519,7 +519,7 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                                     /* The semaphore is a member of a queue set, and
                                     posting to the queue set caused a higher priority
                                     task to unblock.  A context switch is required. */
-                                    if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                                    if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                                     {
                                         *pboHigherPriorityTaskWoken = TRUE;
                                     }
@@ -536,7 +536,7 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                                     {
                                         /* The task waiting has a higher priority so
                                         record that a context switch is required. */
-                                        if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                                        if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                                         {
                                             *pboHigherPriorityTaskWoken = TRUE;
                                         }

@@ -40,9 +40,9 @@ void OS_CoRoutine__vSetTopReadyPriority(OS_UBase_t uxValueArg)
 
 void OS_CoRoutine__vSetTopReadyPriority_CRCB(const OS_CoRoutine_CRCB_t* pstCRCBArg)
 {
-    OS_UBase_t uxPriorityCRCB = 0UL;
-    if(0UL != (OS_UBase_t) pstCRCBArg)
+    if(0UL != (OS_Pointer_t) pstCRCBArg)
     {
+        OS_UBase_t uxPriorityCRCB;
         uxPriorityCRCB = pstCRCBArg->uxPriorityCoRoutine;
         if(uxPriorityCRCB >OS_CoRoutine_uxTopReadyPriority)
         {
@@ -58,8 +58,9 @@ OS_List_t* OS_CoRoutine__pstGetPendingReadyList(void)
 
 OS_List_t* OS_CoRoutine__pstGetReadyLists(OS_UBase_t uxIndexArg)
 {
-    OS_List_t* pstReadyCoRoutineReg = (OS_List_t*) 0UL;
+    OS_List_t* pstReadyCoRoutineReg;
 
+    pstReadyCoRoutineReg = (OS_List_t*) 0UL;
     if(OS_COROUTINE_MAX_PRIORITIES > uxIndexArg)
     {
         pstReadyCoRoutineReg = &OS_CoRoutine_pstReadyLists[uxIndexArg];
@@ -69,7 +70,7 @@ OS_List_t* OS_CoRoutine__pstGetReadyLists(OS_UBase_t uxIndexArg)
 
 void OS_CoRoutine__vInitialiseReadyLists(void)
 {
-    OS_UBase_t uxPriorityReg = 0UL;
+    OS_UBase_t uxPriorityReg;
 
     for( uxPriorityReg = 0UL;
          uxPriorityReg < OS_COROUTINE_MAX_PRIORITIES;

@@ -30,7 +30,7 @@ OS_Boolean_t OS_CoRoutine__boSendFromISR(OS_Queue_Handle_t pvQueue,
                                          const void *pvItemToQueue,
                                          OS_Boolean_t boCoRoutinePreviouslyWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boCoRoutineSendFromISR(pvQueue, pvItemToQueue, boCoRoutinePreviouslyWoken);
     return (boReturn);
 }
@@ -39,7 +39,7 @@ OS_Boolean_t OS_CoRoutine__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                             void *pvBuffer,
                                             OS_Boolean_t* pboCoRoutineWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boCoRoutineReceiveFromISR(pvQueue, pvBuffer, pboCoRoutineWoken);
     return (boReturn);
 }

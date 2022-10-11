@@ -37,25 +37,25 @@ static void OS_CoRoutine__vInitialiseLists(void)
 
 OS_UBase_t OS_CoRoutine__uxCreate( OS_CoRoutine_Function_t pvfCoRoutineCode, OS_UBase_t uxPriorityArg, OS_UBase_t uxIndexArg)
 {
-    OS_CoRoutine_CRCB_t* pstCoRoutine = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_CoRoutine_CRCB_t* pstCurrentCoRoutine = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_ListItem_t* pstListItemReg = (OS_ListItem_t*) 0UL;
-    OS_UBase_t uxReturn = 0UL;
-
-    if(0UL != (OS_UBase_t) pvfCoRoutineCode)
+    OS_UBase_t uxReturn;
+    uxReturn = 0UL;
+    if(0UL != (OS_Pointer_t) pvfCoRoutineCode)
     {
+        OS_CoRoutine_CRCB_t* pstCoRoutine;
         /* Allocate the memory that will store the co-routine control block. */
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
             pstCoRoutine = (OS_CoRoutine_CRCB_t*) memalign(8UL, (size_t) sizeof(OS_CoRoutine_CRCB_t));
         #elif defined (__GNUC__ )
             pstCoRoutine = (OS_CoRoutine_CRCB_t*) malloc(sizeof(OS_CoRoutine_CRCB_t));
         #endif
-        if(0UL != (OS_UBase_t) pstCoRoutine )
+        if(0UL != (OS_Pointer_t) pstCoRoutine )
         {
+            OS_ListItem_t* pstListItemReg;
+            OS_CoRoutine_CRCB_t* pstCurrentCoRoutine;
             /* If pstCurrentCoRoutine is NULL then this is the first co-routine to
             be created and the co-routine data structures need initialising. */
             pstCurrentCoRoutine = OS_CoRoutine__pstGetCurrentCRCB();
-            if(0UL == (OS_UBase_t) pstCurrentCoRoutine)
+            if(0UL == (OS_Pointer_t) pstCurrentCoRoutine)
             {
                 OS_CoRoutine__vSetCurrentCRCB(pstCoRoutine);
                 OS_CoRoutine__vInitialiseLists();

@@ -41,7 +41,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
     pstNewQueue = (OS_Queue_t*) malloc(sizeof(OS_Queue_t));
 #endif
 
-    if(0UL != (OS_UBase_t) pstNewQueue)
+    if(0UL != (OS_Pointer_t) pstNewQueue)
     {
         OS_List_t* pstListReg;
         /* Information required for priority inheritance. */

@@ -29,13 +29,10 @@
 
 void OS_CoRoutine__vSchedule(void)
 {
-    OS_Boolean_t boIsEmptyList = FALSE;
-    OS_Boolean_t boBreak = FALSE;
-    OS_UBase_t uxTopReadyPriorityReg = 0UL;
-    OS_UBase_t uxIndexReg = 0UL;
-    OS_List_t* pstReadyListReg = (OS_List_t*) 0UL;
-    OS_CoRoutine_CRCB_t* pstCurrentCoRoutine = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_CoRoutine_Function_t pvfCoRoutineFunctionReg = (OS_CoRoutine_Function_t) 0UL;
+    OS_Boolean_t boIsEmptyList;
+    OS_Boolean_t boBreak;
+    OS_UBase_t uxTopReadyPriorityReg;
+    OS_List_t* pstReadyListReg;
     /* See if any co-routines readied by events need moving to the ready lists. */
     OS_CoRoutine__vCheckPendingReadyList();
 
@@ -46,6 +43,7 @@ void OS_CoRoutine__vSchedule(void)
     uxTopReadyPriorityReg = OS_CoRoutine__uxGetTopReadyPriority();
     pstReadyListReg = OS_CoRoutine__pstGetReadyLists(uxTopReadyPriorityReg);
     boIsEmptyList = OS_List__boIsEmpty(pstReadyListReg);
+    boBreak = FALSE;
     while( FALSE !=  boIsEmptyList)
     {
         if(0UL == uxTopReadyPriorityReg)
@@ -62,6 +60,9 @@ void OS_CoRoutine__vSchedule(void)
 
     if(FALSE == boBreak)
     {
+        OS_UBase_t uxIndexReg;
+        OS_CoRoutine_CRCB_t* pstCurrentCoRoutine;
+        OS_CoRoutine_Function_t pvfCoRoutineFunctionReg;
         /* listGET_OWNER_OF_NEXT_ENTRY walks through the list, so the co-routines
          of the same priority get an equal share of the processor time. */
         pstReadyListReg = OS_CoRoutine__pstGetReadyLists(uxTopReadyPriorityReg);

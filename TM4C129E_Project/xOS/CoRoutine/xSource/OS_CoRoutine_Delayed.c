@@ -30,12 +30,11 @@
 
 void OS_CoRoutine__vAddToDelayedList(OS_UBase_t uxTimeToDelay, OS_List_t* pstEventListArg)
 {
-    OS_UBase_t uxTimeToWake = uxTimeToDelay;
-    OS_UBase_t uxCoRoutineTickCount = 0UL;
-    OS_CoRoutine_CRCB_t* pstCurrentCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
-    OS_List_t* pstOverflowDelayedCoRoutineList = (OS_List_t*) 0UL;
-    OS_List_t* pstDelayedCoRoutineList = (OS_List_t*) 0UL;
+    OS_UBase_t uxTimeToWake;
+    OS_UBase_t uxCoRoutineTickCount;
+    OS_CoRoutine_CRCB_t* pstCurrentCRCB;
 
+    uxTimeToWake = uxTimeToDelay;
     uxCoRoutineTickCount = OS_CoRoutine__uxGetTickCount_NotSafe();
     uxTimeToWake += uxCoRoutineTickCount;
     pstCurrentCRCB = OS_CoRoutine__pstGetCurrentCRCB();
@@ -44,18 +43,20 @@ void OS_CoRoutine__vAddToDelayedList(OS_UBase_t uxTimeToDelay, OS_List_t* pstEve
 
     if( uxTimeToWake < uxCoRoutineTickCount )
     {
+        OS_List_t* pstOverflowDelayedCoRoutineList;
         pstOverflowDelayedCoRoutineList = OS_CoRoutine__pstGetOverflowDelayedList();
         OS_List__vInsert(pstOverflowDelayedCoRoutineList,
                          &(pstCurrentCRCB->stGenericListItem));
     }
     else
     {
+        OS_List_t* pstDelayedCoRoutineList;
         pstDelayedCoRoutineList = OS_CoRoutine__pstGetDelayedList();
         OS_List__vInsert(pstDelayedCoRoutineList,
                          &(pstCurrentCRCB->stGenericListItem));
     }
 
-    if(0UL != (UBase_t) pstEventListArg)
+    if(0UL != (OS_Pointer_t) pstEventListArg)
     {
         OS_List__vInsert(pstEventListArg,
                          &(pstCurrentCRCB->stEventListItem));
@@ -64,15 +65,14 @@ void OS_CoRoutine__vAddToDelayedList(OS_UBase_t uxTimeToDelay, OS_List_t* pstEve
 
 void OS_CoRoutine__vCheckDelayedList(void)
 {
-    OS_CoRoutine_CRCB_t* pstCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
-    void* pvDataCointainer = (void*) 0UL;
-    OS_List_t* pstDelayedCoRoutineList = (OS_List_t*) 0UL;
-    OS_List_t* pstOverflowDelayedCoRoutineList = (OS_List_t*) 0UL;
-    OS_UBase_t uxPassedTicks = 0UL;
-    OS_UBase_t uxLastTickCount = 0UL;
-    OS_UBase_t uxCoRoutineTickCount = 0UL;
-    OS_UBase_t uxItemValue = 0UL;
-    OS_Boolean_t boIsEmptyList = FALSE;
+    OS_CoRoutine_CRCB_t* pstCRCB;
+    void* pvDataCointainer;
+    OS_List_t* pstDelayedCoRoutineList;
+    OS_Boolean_t boIsEmptyList;
+    OS_UBase_t uxItemValue;
+    OS_UBase_t uxPassedTicks;
+    OS_UBase_t uxLastTickCount;
+    OS_UBase_t uxCoRoutineTickCount;
 
     uxLastTickCount = OS_CoRoutine__uxGetLastTickCount_NotSafe();
     uxCoRoutineTickCount = OS_CoRoutine__uxGetTickCount_NotSafe();
@@ -90,7 +90,8 @@ void OS_CoRoutine__vCheckDelayedList(void)
         /* If the tick count has overflowed we need to swap the ready lists. */
         if(0UL == uxCoRoutineTickCount)
         {
-            OS_List_t* pstTemp = (OS_List_t*) 0UL;
+            OS_List_t* pstTemp;
+            OS_List_t* pstOverflowDelayedCoRoutineList;
 
             /* Tick count has overflowed so we need to swap the delay lists.  If there are
             any items in pstDelayedCoRoutineList here then there is an error! */
@@ -125,7 +126,7 @@ void OS_CoRoutine__vCheckDelayedList(void)
 
                 /* Is the co-routine waiting on an event also? */
                 pvDataCointainer = pstCRCB->stEventListItem.pvDataContainer;
-                if(0UL !=  (OS_UBase_t) pvDataCointainer)
+                if(0UL !=  (OS_Pointer_t) pvDataCointainer)
                 {
                     (void) OS_List__uxRemove(&(pstCRCB->stEventListItem));
                 }

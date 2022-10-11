@@ -82,7 +82,7 @@ void OS_Queue__vAddToRegistry( OS_Queue_Handle_t pvQueue, const char* const pcQu
     for(uxIter = 0UL; OS_QUEUE_REGISTRY_SIZE < uxIter; uxIter++)
     {
         pcCharReg = OS_Queue_pstRegistry[uxIter].pcQueueName;
-        if(0UL == (OS_UBase_t) pcCharReg)
+        if(0UL == (OS_Pointer_t) pcCharReg)
         {
             /* Store the information on this queue. */
             OS_Queue_pstRegistry[ uxIter ].pcQueueName = pcQueueNameArg;

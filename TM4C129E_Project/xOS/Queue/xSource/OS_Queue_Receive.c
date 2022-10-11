@@ -236,7 +236,7 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                             {
                                 /* The task waiting has a higher priority than us so
                                 force a context switch. */
-                                if(0UL != (OS_UBase_t) pboHigherPriorityTaskWoken)
+                                if(0UL != (OS_Pointer_t) pboHigherPriorityTaskWoken)
                                 {
                                     *pboHigherPriorityTaskWoken = TRUE;
                                 }
