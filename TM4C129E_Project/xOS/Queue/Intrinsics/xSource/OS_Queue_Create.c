@@ -37,7 +37,7 @@ OS_Queue_Handle_t OS_Queue__pvGenericCreate(const OS_UBase_t uxQueueLength,
     if(0U < uxQueueLength)
     {
         OS_Queue_t* pstNewQueue;
-        OS_UBase_t uxQueueSizeInBytes
+        OS_UBase_t uxQueueSizeInBytes;
         if(0UL != uxItemSizeArg)
         {
             uxQueueSizeInBytes = (OS_UBase_t) uxQueueLength;

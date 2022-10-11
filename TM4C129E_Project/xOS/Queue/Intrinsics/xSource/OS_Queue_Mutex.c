@@ -27,11 +27,12 @@
 
 void* OS_Queue__pvGetMutexHolder(OS_Queue_Handle_t pvSemaphore)
 {
-    OS_Queue_t* pstSemaphore = (OS_Queue_t*) 0UL;
-    void* pvReturn = (void*) 0UL;
+    void* pvReturn;
 
-    if(0UL != (OS_UBase_t) pvSemaphore)
+    pvReturn = (void*) 0UL;
+    if(0UL != (OS_Pointer_t) pvSemaphore)
     {
+        OS_Queue_t* pstSemaphore;
         pstSemaphore = (OS_Queue_t*) pvSemaphore;
         OS_Adapt__vEnterCritical();
         {

@@ -37,15 +37,9 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                                    OS_UBase_t uxTicksToWait,
                                    const OS_Queue_nPos enCopyPosition)
 {
-    OS_Boolean_t boEntryTimeSet = FALSE;
-    OS_Boolean_t boYieldRequired = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_Boolean_t boIsQueueFull = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
-    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
     OS_Queue_t* const pstQueue = (OS_Queue_t*) pvQueue;
-    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
+    OS_Boolean_t boEntryTimeSet = FALSE;
+    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
     if((0UL != (OS_UBase_t) pstQueue))
     {
@@ -53,12 +47,18 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
         {
             if((OS_Queue_enPos_OVERWRITE != enCopyPosition) || (1UL == pstQueue->uxLength))
             {
+                OS_Task_eScheduler enSchedulerState;
                 enSchedulerState = OS_Task__enGetSchedulerState();
                 if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
                 {
                     /* This function relaxes the coding standard somewhat to allow return
                     statements within the function itself.  This is done in the interest
                     of execution time efficiency. */
+                    OS_UBase_t uxTempValue;
+                    OS_Boolean_t boIsQueueFull;
+                    OS_Boolean_t boIsListEmpty;
+                    OS_Boolean_t boStatus;
+                    OS_Boolean_t boYieldRequired;
                     while(1UL)
                     {
                         OS_Task__vEnterCritical();
@@ -196,9 +196,8 @@ OS_Boolean_t OS_Queue__boSendToFront(OS_Queue_Handle_t pvQueue,
                                    const void* const pvItemToQueue,
                                    OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSend(pvQueue, pvItemToQueue, uxTicksToWait, OS_Queue_enPos_SEND_TO_FRONT);
-
     return (boReturn);
 }
 
@@ -206,9 +205,8 @@ OS_Boolean_t OS_Queue__boSendToBack(OS_Queue_Handle_t pvQueue,
                                    const void* const pvItemToQueue,
                                    OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSend(pvQueue, pvItemToQueue, uxTicksToWait, OS_Queue_enPos_SEND_TO_BACK);
-
     return (boReturn);
 }
 
@@ -225,9 +223,8 @@ OS_Boolean_t OS_Queue__boSend(OS_Queue_Handle_t pvQueue,
 OS_Boolean_t OS_Queue__boOverwrite(OS_Queue_Handle_t pvQueue,
                                    const void* const pvItemToQueue)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSend(pvQueue, pvItemToQueue, 0UL, OS_Queue_enPos_OVERWRITE);
-
     return (boReturn);
 }
 
@@ -237,16 +234,13 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken,
                                             const OS_Queue_nPos enCopyPosition)
 {
-    OS_Boolean_t boReturn = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueueArg;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
-        if((0UL != (OS_UBase_t) pvItemToQueue) || (0UL == pstQueueReg->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvItemToQueue) || (0UL == pstQueueReg->uxItemSize))
         {
             if((OS_Queue_enPos_OVERWRITE != enCopyPosition) || (1UL == pstQueueReg->uxLength))
             {
@@ -255,8 +249,10 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                 read, instead return a flag to say whether a context switch is required or
                 not (i.e. has a task with a higher priority than us been woken by this
                 post). */
+                OS_UBase_t uxSavedInterruptStatus;
                 uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
                 {
+                    OS_UBase_t uxTempValue;
                     uxTempValue = pstQueueReg->uxLength;
                     if((pstQueueReg->uxMessagesWaiting < uxTempValue) || ( enCopyPosition == OS_Queue_enPos_OVERWRITE ))
                     {
@@ -271,6 +267,7 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                         be done when the queue is unlocked later. */
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
+                            OS_Boolean_t boStatus;
                             if(0UL != (OS_UBase_t) pstQueueReg->pstQueueSetContainer)
                             {
                                 boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, enCopyPosition);
@@ -287,6 +284,7 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                             }
                             else
                             {
+                                OS_Boolean_t boIsListEmpty;
                                 boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {
@@ -328,9 +326,8 @@ OS_Boolean_t OS_Queue__boSendToFrontFromISR(OS_Queue_Handle_t pvQueueArg,
                                             const void* const pvItemToQueue,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSendFromISR(pvQueueArg, pvItemToQueue, pboHigherPriorityTaskWoken, OS_Queue_enPos_SEND_TO_FRONT);
-
     return (boReturn);
 }
 
@@ -338,9 +335,8 @@ OS_Boolean_t OS_Queue__boSendToBackFromISR(OS_Queue_Handle_t pvQueueArg,
                                             const void* const pvItemToQueue,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSendFromISR(pvQueueArg, pvItemToQueue, pboHigherPriorityTaskWoken, OS_Queue_enPos_SEND_TO_BACK);
-
     return (boReturn);
 }
 
@@ -348,9 +344,8 @@ OS_Boolean_t OS_Queue__boOverwriteFromISR(OS_Queue_Handle_t pvQueueArg,
                                             const void* const pvItemToQueue,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSendFromISR(pvQueueArg, pvItemToQueue, pboHigherPriorityTaskWoken, OS_Queue_enPos_OVERWRITE);
-
     return (boReturn);
 }
 
@@ -358,9 +353,8 @@ OS_Boolean_t OS_Queue__boSendFromISR(OS_Queue_Handle_t pvQueueArg,
                                             const void* const pvItemToQueue,
                                             OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericSendFromISR(pvQueueArg, pvItemToQueue, pboHigherPriorityTaskWoken, OS_Queue_enPos_SEND_TO_BACK);
-
     return (boReturn);
 }
 
@@ -370,24 +364,22 @@ OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
                                         OS_UBase_t uxTicksToWait,
                                         OS_Queue_nPos enCopyPosition)
 {
-    OS_Boolean_t boEntryTimeSet = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_Boolean_t boIsQueueFull = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
-    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
     OS_Queue_t* const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_Boolean_t boEntryTimeSet = FALSE;
+    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
-        if((0UL != (OS_UBase_t) pvItemToQueue) || (0UL == pstQueueReg->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvItemToQueue) || (0UL == pstQueueReg->uxItemSize))
         {
+            OS_Boolean_t boStatus;
             while(1UL)
             {
                 OS_Task__vEnterCritical();
                 {
                     /* Is there room on the queue now?  To be running we must be
                     the highest priority task wanting to access the queue. */
+                    OS_UBase_t uxTempValue;
                     uxTempValue = pstQueueReg->uxLength;
                     if(pstQueueReg->uxMessagesWaiting < uxTempValue)
                     {
@@ -395,6 +387,7 @@ OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
 
                         /* If there was a task waiting for data to arrive on the
                         queue then unblock it now. */
+                        OS_Boolean_t boIsListEmpty;
                         boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                         if(FALSE == boIsListEmpty)
                         {
@@ -430,6 +423,7 @@ OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
                     boStatus = OS_Task__boCheckForTimeOut(&stTimeOut, &uxTicksToWait);
                     if(FALSE == boStatus)
                     {
+                        OS_Boolean_t boIsQueueFull;
                         boIsQueueFull = OS_Queue__boIsQueueFull(pstQueueReg);
                         if(FALSE != boIsQueueFull)
                         {
@@ -455,9 +449,8 @@ OS_Boolean_t OS_Queue__boAltSendToFront(OS_Queue_Handle_t pvQueue,
                                         const void* const pvItemToQueue,
                                         OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boAltGenericSend(pvQueue, pvItemToQueue, uxTicksToWait, OS_Queue_enPos_SEND_TO_FRONT);
-
     return (boReturn);
 }
 
@@ -465,30 +458,24 @@ OS_Boolean_t OS_Queue__boAltSendToBack(OS_Queue_Handle_t pvQueue,
                                        const void* const pvItemToQueue,
                                        OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boAltGenericSend(pvQueue, pvItemToQueue, uxTicksToWait, OS_Queue_enPos_SEND_TO_BACK);
-
     return (boReturn);
 }
 
 OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                                       OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
     OS_Queue_t * const pstQueueReg = ( OS_Queue_t * ) pvQueue;
-    void* pvMutexHolderReg = (void*) 0UL;
+    OS_Boolean_t boReturn;
 
     /* Similar to pvQueueGenericSendFromISR() but used with semaphores where the
     item size is 0.  Don't directly wake a task that was blocked on a queue
     read, instead return a flag to say whether a context switch is required or
     not (i.e. has a task with a higher priority than us been woken by this
     post). */
-
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
         /* pvQueueGenericSendFromISR() should be used instead of pvQueueGiveFromISR()
         if the item size is not 0. */
@@ -497,14 +484,17 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
             /* Normally a mutex would not be given from an interrupt, especially if
             there is a mutex holder, as priority inheritance makes no sense for an
             interrupts, only tasks. */
+            void* pvMutexHolderReg;
             pvMutexHolderReg = pstQueueReg->pvMutexHolder;
-            if((OS_QUEUE_IS_MUTEX != pstQueueReg->uxQueueType) || (0UL == (OS_UBase_t) pvMutexHolderReg))
+            if((OS_QUEUE_IS_MUTEX != pstQueueReg->uxQueueType) || (0UL == (OS_Pointer_t) pvMutexHolderReg))
             {
+                OS_UBase_t uxSavedInterruptStatus;
                 uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
                 {
                     /* When the queue is used to implement a semaphore no data is ever
                     moved through the queue but it is still valid to see if the queue 'has
                     space'. */
+                    OS_UBase_t uxTempValue;
                     uxTempValue = pstQueueReg->uxLength;
                     if(pstQueueReg->uxMessagesWaiting < uxTempValue)
                     {
@@ -520,6 +510,7 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                         be done when the queue is unlocked later. */
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
+                            OS_Boolean_t boStatus;
                             if(0UL != (OS_UBase_t) (pstQueueReg->pstQueueSetContainer))
                             {
                                 boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, OS_Queue_enPos_SEND_TO_BACK);
@@ -536,6 +527,7 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                             }
                             else
                             {
+                                OS_Boolean_t boIsListEmpty;
                                 boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {

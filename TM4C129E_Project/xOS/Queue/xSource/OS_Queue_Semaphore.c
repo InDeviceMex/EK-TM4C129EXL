@@ -28,9 +28,9 @@
 OS_Queue_Handle_t OS_Queue__pvCreateCountingSemaphore(const OS_UBase_t uxMaxCount,
                                                             const OS_UBase_t uxInitialCount)
 {
-    OS_Queue_Handle_t pvHandle = (OS_Queue_Handle_t) 0UL;
-    OS_Queue_t* pstHandle = (OS_Queue_t*) 0UL;
+    OS_Queue_Handle_t pvHandle;
 
+    pvHandle = (OS_Queue_Handle_t) 0UL;
     if(0UL != uxMaxCount)
     {
         if(uxInitialCount <= uxMaxCount)
@@ -39,8 +39,9 @@ OS_Queue_Handle_t OS_Queue__pvCreateCountingSemaphore(const OS_UBase_t uxMaxCoun
                                                  OS_QUEUE_SEMAPHORE_ITEM_LENGTH,
                                                  OS_Queue_enType_COUNTING_SEMAPHORE);
 
-            if(0UL != (OS_UBase_t) pvHandle)
+            if(0UL != (OS_Pointer_t) pvHandle)
             {
+                OS_Queue_t* pstHandle;
                 pstHandle = (OS_Queue_t*) pvHandle;
                 (pstHandle)->uxMessagesWaiting =  (OS_UBase_t) uxInitialCount;
             }

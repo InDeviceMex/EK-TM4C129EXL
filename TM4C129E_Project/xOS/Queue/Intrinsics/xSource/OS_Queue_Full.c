@@ -26,13 +26,14 @@
 
 OS_Boolean_t OS_Queue__boIsQueueFull(const OS_Queue_t* pstQueue)
 {
-    OS_Boolean_t boReturn = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pstQueue)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstQueue)
     {
         OS_Task__vEnterCritical();
         {
+            OS_UBase_t uxTempValue;
             uxTempValue = pstQueue->uxLength;
             if(uxTempValue == pstQueue->uxMessagesWaiting)
             {
@@ -50,12 +51,14 @@ OS_Boolean_t OS_Queue__boIsQueueFull(const OS_Queue_t* pstQueue)
 
 OS_Boolean_t OS_Queue__boIsQueueFullFromISR(const OS_Queue_Handle_t* const pstQueue)
 {
-    OS_Boolean_t boReturn = FALSE;
-    OS_UBase_t uxTempValue = 0UL;
-    const OS_Queue_t* pstQueueReg = (OS_Queue_t*) 0UL;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pstQueue)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstQueue)
     {
+        const OS_Queue_t* pstQueueReg;
+        OS_UBase_t uxTempValue;
+
         pstQueueReg = (const OS_Queue_t*) pstQueue;
         uxTempValue = pstQueueReg->uxLength;
         if(uxTempValue  == pstQueueReg->uxMessagesWaiting)

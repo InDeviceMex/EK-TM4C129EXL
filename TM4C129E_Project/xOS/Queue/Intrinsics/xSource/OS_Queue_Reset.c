@@ -31,18 +31,18 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
                                       OS_Boolean_t boNewQueue)
 {
     OS_Queue_t * const pvQueue = (OS_Queue_t *) pvQueueHandle;
-    OS_List_t* pstListReg = (OS_List_t*) 0UL;
-    OS_UBase_t uxLengthReg = 0UL;
-    OS_UBase_t uxLength2Reg = 0UL;
-    OS_UBase_t uxTotalLenght = 0UL;
-    OS_Boolean_t boEmptyList = FALSE;
-    OS_Boolean_t boRemoveItem = FALSE;
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
 
-    if((OS_Queue_t*) 0UL != pvQueue)
+    boResult = FALSE;
+    if(0UL != (OS_Pointer_t) pvQueue)
     {
         OS_Adapt__vEnterCritical();
         {
+            OS_List_t* pstListReg;
+            OS_UBase_t uxTotalLenght;
+            OS_UBase_t uxLengthReg;
+            OS_UBase_t uxLength2Reg;
+
             uxLengthReg = pvQueue->uxLength;
             uxLength2Reg = pvQueue->uxLength - 1UL;
             uxTotalLenght = (OS_UBase_t) uxLengthReg;
@@ -63,10 +63,14 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
 
             if(FALSE == boNewQueue)
             {
+                OS_Boolean_t boEmptyList;
+
                 pstListReg = &(pvQueue->stTasksWaitingToSend);
                 boEmptyList = OS_List__boIsEmpty(pstListReg);
                 if(FALSE == boEmptyList)
                 {
+                    OS_Boolean_t boRemoveItem;
+
                     pstListReg = &(pvQueue->stTasksWaitingToSend);
                     boRemoveItem = OS_Task__boRemoveFromEventList(pstListReg);
                     if(TRUE == boRemoveItem)
@@ -93,7 +97,7 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
 
 OS_Boolean_t OS_Queue__boReset(OS_Queue_Handle_t pvQueueHandle)
 {
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
     boResult = OS_Queue__boGenericReset(pvQueueHandle, FALSE);
     return (boResult);
 

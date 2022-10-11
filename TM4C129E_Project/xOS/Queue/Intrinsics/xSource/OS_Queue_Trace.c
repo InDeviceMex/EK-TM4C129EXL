@@ -25,10 +25,11 @@
 
 OS_UBase_t OS_Queue__uxGetQueueNumber(OS_Queue_Handle_t pvQueue)
 {
-    OS_UBase_t uxReturn = 0UL;
-    OS_Queue_t* pstQueueReg = (OS_Queue_t*) 0UL;
-    if(0UL != (OS_UBase_t) pvQueue)
+    OS_UBase_t uxReturn;
+    uxReturn = 0UL;
+    if(0UL != (OS_Pointer_t) pvQueue)
     {
+        OS_Queue_t* pstQueueReg;
         pstQueueReg = (OS_Queue_t*) pvQueue;
         uxReturn = pstQueueReg->uxQueueNumber;
     }
@@ -38,9 +39,9 @@ OS_UBase_t OS_Queue__uxGetQueueNumber(OS_Queue_Handle_t pvQueue)
 void OS_Queue__vSetQueueNumber(OS_Queue_Handle_t pvQueue,
                                OS_UBase_t uxQueueNumberReg)
 {
-    OS_Queue_t* pstQueueReg = (OS_Queue_t*) 0UL;
-    if(0UL != (OS_UBase_t) pvQueue)
+    if(0UL != (OS_Pointer_t) pvQueue)
     {
+        OS_Queue_t* pstQueueReg;
         pstQueueReg = (OS_Queue_t*) pvQueue;
         pstQueueReg->uxQueueNumber = uxQueueNumberReg;
 
@@ -49,10 +50,11 @@ void OS_Queue__vSetQueueNumber(OS_Queue_Handle_t pvQueue,
 
 OS_UBase_t OS_Queue__uxGetQueueType(OS_Queue_Handle_t pvQueue)
 {
-    OS_UBase_t uxReturn = 0UL;
-    OS_Queue_t* pstQueueReg = (OS_Queue_t*) 0UL;
-    if(0UL != (OS_UBase_t) pvQueue)
+    OS_UBase_t uxReturn;
+    uxReturn = 0UL;
+    if(0UL != (OS_Pointer_t) pvQueue)
     {
+        OS_Queue_t* pstQueueReg;
         pstQueueReg = (OS_Queue_t*) pvQueue;
         uxReturn = pstQueueReg->uxQueueType;
     }

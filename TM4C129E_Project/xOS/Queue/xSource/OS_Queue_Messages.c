@@ -32,7 +32,6 @@ void OS_Queue__vWaitForMessageRestricted(OS_Queue_Handle_t pvQueue,
                                          OS_UBase_t uxTicksToWait,
                                          const OS_Boolean_t boWaitIndefinitely)
 {
-    OS_Queue_t * pstQueueReg = ( OS_Queue_t * ) 0UL;
 
     /* This function should not be called by application code hence the
     'Restricted' in its name.  It is not part of the public API.  It is
@@ -48,8 +47,9 @@ void OS_Queue__vWaitForMessageRestricted(OS_Queue_Handle_t pvQueue,
     time a yield will be performed.  If an item is added to the queue while
     the queue is locked, and the calling task blocks on the queue, then the
     calling task will be immediately unblocked when the queue is unlocked. */
-    if(0UL != (OS_UBase_t) pvQueue)
+    if(0UL != (OS_Pointer_t) pvQueue)
     {
+        OS_Queue_t * pstQueueReg;
         pstQueueReg = ( OS_Queue_t * ) pvQueue;
         OS_Queue__vLock(pstQueueReg);
         if(0UL == pstQueueReg->uxMessagesWaiting)

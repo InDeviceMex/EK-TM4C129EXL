@@ -27,10 +27,11 @@
 
 OS_Boolean_t OS_Queue__boRemoveFromSet(OS_Queue_SetMemberHandle_t pvfQueueOrSemaphore, OS_Queue_SetHandle_t pvfQueueSet)
 {
-    OS_Boolean_t boReturn = FALSE;
     OS_Queue_t* const pvfQueueOrSemaphoreReg = (OS_Queue_t*) pvfQueueOrSemaphore;
+    OS_Boolean_t boReturn;
 
-    if(0UL !=  (OS_UBase_t) pvfQueueOrSemaphoreReg)
+    boReturn = FALSE;
+    if(0UL !=  (OS_Pointer_t) pvfQueueOrSemaphoreReg)
     {
         if(pvfQueueSet != pvfQueueOrSemaphoreReg->pstQueueSetContainer)
         {
@@ -60,14 +61,15 @@ OS_Boolean_t OS_Queue__boRemoveFromSet(OS_Queue_SetMemberHandle_t pvfQueueOrSema
 
 OS_Boolean_t OS_Queue__boAddToSet(OS_Queue_SetMemberHandle_t pvfQueueOrSemaphore, OS_Queue_SetHandle_t pvfQueueSet)
 {
-    OS_Boolean_t boReturn = FALSE;
     OS_Queue_t* const pvfQueueOrSemaphoreReg = (OS_Queue_t*) pvfQueueOrSemaphore;
+    OS_Boolean_t boReturn;
 
-    if(0UL !=  (OS_UBase_t) pvfQueueOrSemaphoreReg)
+    boReturn = FALSE;
+    if(0UL !=  (OS_Pointer_t) pvfQueueOrSemaphoreReg)
     {
         OS_Task__vEnterCritical();
         {
-            if(0UL != (OS_UBase_t) pvfQueueOrSemaphoreReg->pstQueueSetContainer)
+            if(0UL != (OS_Pointer_t) pvfQueueOrSemaphoreReg->pstQueueSetContainer)
             {
                 /* Cannot add a queue/semaphore to more than one queue set. */
                 boReturn = FALSE;

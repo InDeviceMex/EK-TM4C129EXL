@@ -27,14 +27,14 @@
 
 OS_Boolean_t OS_Semaphore__boTake(OS_Semaphore_Handle_t pvSemaphoreArg, OS_UBase_t uxBlockTime)
 {
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
     boResult = OS_Queue__boGenericReceive((OS_Queue_Handle_t) pvSemaphoreArg, (void*) NULL, uxBlockTime, FALSE);
     return (boResult);
 }
 
 OS_Boolean_t OS_Semaphore__boAltTake(OS_Semaphore_Handle_t pvSemaphoreArg, OS_UBase_t uxBlockTime)
 {
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
     boResult = OS_Queue__boAltGenericReceive((OS_Queue_Handle_t) pvSemaphoreArg, (void*) NULL, uxBlockTime, FALSE);
     return (boResult);
 }
@@ -42,14 +42,14 @@ OS_Boolean_t OS_Semaphore__boAltTake(OS_Semaphore_Handle_t pvSemaphoreArg, OS_UB
 OS_Boolean_t OS_Semaphore__boTakeFromISR(OS_Semaphore_Handle_t pvSemaphoreArg,
                                          OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
     boResult = OS_Queue__boReceiveFromISR((OS_Queue_Handle_t) pvSemaphoreArg, (void*) NULL, pboHigherPriorityTaskWoken);
     return (boResult);
 }
 
 OS_Boolean_t OS_Semaphore__boTakeRecursive(OS_Semaphore_Handle_t pvSemaphoreArg, OS_UBase_t uxBlockTime)
 {
-    OS_Boolean_t boResult = FALSE;
+    OS_Boolean_t boResult;
     boResult = OS_Queue__boTakeMutexRecursive((OS_Queue_Handle_t) pvSemaphoreArg, uxBlockTime);
     return (boResult);
 }

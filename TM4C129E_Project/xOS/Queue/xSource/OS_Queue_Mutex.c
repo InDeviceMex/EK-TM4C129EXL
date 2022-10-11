@@ -32,8 +32,7 @@
 
 OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
 {
-    OS_Queue_t* pstNewQueue = (OS_Queue_t*) 0UL;
-    OS_List_t* pstListReg = (OS_List_t*) 0UL;
+    OS_Queue_t* pstNewQueue;
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
     pstNewQueue = (OS_Queue_t*) memalign(OS_ADAPT_BYTE_ALIGNMENT_MASK + 1UL,
@@ -44,6 +43,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
 
     if(0UL != (OS_UBase_t) pstNewQueue)
     {
+        OS_List_t* pstListReg;
         /* Information required for priority inheritance. */
         pstNewQueue->pvMutexHolder = (void*) 0UL;
         pstNewQueue->uxQueueType = OS_QUEUE_IS_MUTEX;
@@ -79,10 +79,10 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
 OS_Boolean_t OS_Queue__boGiveMutexRecursive(OS_Queue_Handle_t pvMutex)
 {
     OS_Queue_t * const pstMutex = (OS_Queue_t *) pvMutex;
-    OS_Task_Handle_t pvTaskHandle = (OS_Task_Handle_t) 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pstMutex)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstMutex)
     {
         /* If this is the task that holds the mutex then pvMutexHolder will not
         change outside of this task.  If this task does not hold the mutex then
@@ -90,6 +90,7 @@ OS_Boolean_t OS_Queue__boGiveMutexRecursive(OS_Queue_Handle_t pvMutex)
         this is the only condition we are interested in it does not matter if
         pvMutexHolder is accessed simultaneously by another task.  Therefore no
         mutual exclusion is required to test the pvMutexHolder variable. */
+        OS_Task_Handle_t pvTaskHandle;
         pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
         if( pstMutex->pvMutexHolder == pvTaskHandle)
         {
@@ -119,11 +120,12 @@ OS_Boolean_t OS_Queue__boTakeMutexRecursive(OS_Queue_Handle_t pvMutex,
                                             OS_UBase_t uxTicksToWait)
 {
     OS_Queue_t* const pstMutex = (OS_Queue_t*) pvMutex;
-    OS_Task_Handle_t pvTaskHandle = (OS_Task_Handle_t) 0UL;
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
 
-    if(0UL != (OS_UBase_t) pstMutex)
+    boReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstMutex)
     {
+        OS_Task_Handle_t pvTaskHandle;
         pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
         if( pstMutex->pvMutexHolder == pvTaskHandle )
         {

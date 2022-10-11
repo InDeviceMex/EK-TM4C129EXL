@@ -26,8 +26,8 @@
 void OS_List__vInsert(OS_List_t* const pstListArg ,
                          OS_ListItem_t* const pstNewListItemArg)
 {
-    if((0UL != (OS_UBase_t) pstListArg) &&
-       (0UL != (OS_UBase_t) pstNewListItemArg))
+    if((0UL != (OS_Pointer_t) pstListArg) &&
+       (0UL != (OS_Pointer_t) pstNewListItemArg))
     {
         CDLinkedList__enInsertInAscendingOrderByValue(pstListArg,
                                                   pstNewListItemArg);

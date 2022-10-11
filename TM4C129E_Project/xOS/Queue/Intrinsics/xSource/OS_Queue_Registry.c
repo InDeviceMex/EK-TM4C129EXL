@@ -36,8 +36,8 @@ static OS_Queue_RegistryItem_t OS_Queue_pstRegistry[OS_QUEUE_REGISTRY_SIZE];
 void OS_Queue__vRegisterQueue( OS_Queue_Handle_t pvQueue,
                               const char* pcQueueNameArg)
 {
-    OS_UBase_t uxIterCountRegistry = 0UL;
-    const char* pcNamePointer = (const char*) 0UL;
+    OS_UBase_t uxIterCountRegistry;
+    const char* pcNamePointer;
 
     for( uxIterCountRegistry = 0UL;
          uxIterCountRegistry < OS_QUEUE_REGISTRY_SIZE;
@@ -55,8 +55,8 @@ void OS_Queue__vRegisterQueue( OS_Queue_Handle_t pvQueue,
 
 void OS_Queue__vUnregisterQueue(OS_Queue_Handle_t pvQueue)
 {
-    OS_UBase_t uxIterCountRegistry = 0UL;
-    OS_Queue_Handle_t pvHandlePointer = (OS_Queue_Handle_t) 0UL;
+    OS_UBase_t uxIterCountRegistry;
+    OS_Queue_Handle_t pvHandlePointer;
 
     for( uxIterCountRegistry = 0UL;
          uxIterCountRegistry < OS_QUEUE_REGISTRY_SIZE;
@@ -74,8 +74,8 @@ void OS_Queue__vUnregisterQueue(OS_Queue_Handle_t pvQueue)
 
 void OS_Queue__vAddToRegistry( OS_Queue_Handle_t pvQueue, const char* const pcQueueNameArg)
 {
-    OS_UBase_t uxIter = 0UL;
-    const char* pcCharReg = (char*) 0UL;
+    OS_UBase_t uxIter;
+    const char* pcCharReg;
 
     /* See if there is an empty space in the registry.  A NULL name denotes
     a free slot. */

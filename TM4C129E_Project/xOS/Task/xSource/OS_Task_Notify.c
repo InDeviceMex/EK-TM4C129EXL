@@ -165,7 +165,7 @@ OS_Boolean_t OS_Task__boNotifyWait(OS_UBase_t uxBitsToClearOnEntry,
 }
 
 OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
-                             OS_UBase_t uxValue,
+                             OS_UBase_t uxValueArg,
                              OS_Task_eNotifyAction enAction,
                              OS_UBase_t *puxPreviousNotificationValue)
 {
@@ -191,7 +191,7 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
             switch(enAction)
             {
                 case OS_Task_enNotifyAction_SetBits   :
-                    pstTCB->uxNotifiedValue |= uxValue;
+                    pstTCB->uxNotifiedValue |= uxValueArg;
                     break;
 
                 case OS_Task_enNotifyAction_Increment :
@@ -199,13 +199,13 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithOverwrite :
-                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
+                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValueArg;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithoutOverwrite :
                     if(enOriginalNotifyState != OS_Task_enNotifyState_Notified)
                     {
-                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
+                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValueArg;
                     }
                     else
                     {
@@ -246,32 +246,32 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
 }
 
 OS_Boolean_t OS_Task__boNotify( OS_Task_Handle_t pvTaskToNotify,
-                             OS_UBase_t uxValue,
+                             OS_UBase_t uxValueArg,
                              OS_Task_eNotifyAction enAction)
 {
     OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotify(pvTaskToNotify,
-                                 uxValue,
+                                        uxValueArg,
                                  enAction,
                                  (OS_UBase_t*) 0UL);
     return (boReturn);
 }
 
 OS_Boolean_t OS_Task__boNotifyAndQuery( OS_Task_Handle_t pvTaskToNotify,
-                             OS_UBase_t uxValue,
+                             OS_UBase_t uxValueArg,
                              OS_Task_eNotifyAction enAction,
                              OS_UBase_t *puxPreviousNotificationValue)
 {
     OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotify(pvTaskToNotify,
-                                 uxValue,
+                                        uxValueArg,
                                  enAction,
                                  puxPreviousNotificationValue);
     return (boReturn);
 }
 
 OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
-                                    OS_UBase_t uxValue,
+                                    OS_UBase_t uxValueArg,
                                     OS_Task_eNotifyAction enAction,
                                     OS_UBase_t *puxPreviousNotificationValue,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
@@ -299,7 +299,7 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
             switch(enAction)
             {
                 case OS_Task_enNotifyAction_SetBits   :
-                    pstTCB->uxNotifiedValue |= uxValue;
+                    pstTCB->uxNotifiedValue |= uxValueArg;
                     break;
 
                 case OS_Task_enNotifyAction_Increment :
@@ -307,13 +307,13 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithOverwrite :
-                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
+                    pstTCB->uxNotifiedValue = (OS_UBase_t) uxValueArg;
                     break;
 
                 case OS_Task_enNotifyAction_SetValueWithoutOverwrite :
                     if(OS_Task_enNotifyState_Notified != enOriginalNotifyState)
                     {
-                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValue;
+                        pstTCB->uxNotifiedValue = (OS_UBase_t) uxValueArg;
                     }
                     else
                     {
@@ -368,13 +368,13 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
 }
 
 OS_Boolean_t OS_Task__boNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
-                                    OS_UBase_t uxValue,
+                                    OS_UBase_t uxValueArg,
                                     OS_Task_eNotifyAction enAction,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
     OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotifyFromISR(pvTaskToNotify,
-                                        uxValue,
+                                               uxValueArg,
                                         enAction,
                                         (OS_UBase_t*) 0UL,
                                         pboHigherPriorityTaskWoken);
@@ -382,14 +382,14 @@ OS_Boolean_t OS_Task__boNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
 }
 
 OS_Boolean_t OS_Task__boNotifyAndQueryFromISR(OS_Task_Handle_t pvTaskToNotify,
-                                    OS_UBase_t uxValue,
+                                    OS_UBase_t uxValueArg,
                                     OS_Task_eNotifyAction enAction,
                                     OS_UBase_t *puxPreviousNotificationValue,
                                     OS_Boolean_t *pboHigherPriorityTaskWoken)
 {
     OS_Boolean_t boReturn;
     boReturn = OS_Task__boGenericNotifyFromISR(pvTaskToNotify,
-                                        uxValue,
+                                               uxValueArg,
                                         enAction,
                                         puxPreviousNotificationValue,
                                         pboHigherPriorityTaskWoken);

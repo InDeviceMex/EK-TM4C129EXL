@@ -29,26 +29,24 @@
 
 OS_Queue_SetHandle_t OS_Queue__pvCreateSet(const OS_UBase_t uxEventQueueLengthArg)
 {
-    OS_Queue_SetHandle_t pxQueue = (OS_Queue_SetHandle_t) 0UL;
-
+    OS_Queue_SetHandle_t pxQueue;
     pxQueue = (OS_Queue_SetHandle_t) OS_Queue__pvGenericCreate(uxEventQueueLengthArg, (OS_UBase_t) sizeof(OS_Queue_t*), OS_Queue_enType_SET);
-
     return (pxQueue);
 }
 
 OS_Queue_SetMemberHandle_t OS_Queue__pvSelectFromSet(OS_Queue_SetHandle_t pvQueueSet,
                                                OS_UBase_t const uxTicksToWait)
 {
-    OS_Queue_SetMemberHandle_t pvReturn = (OS_Queue_SetMemberHandle_t) 0UL;
-
+    OS_Queue_SetMemberHandle_t pvReturn;
+    pvReturn = (OS_Queue_SetMemberHandle_t) 0UL;
     (void) OS_Queue__boGenericReceive((OS_Queue_Handle_t) pvQueueSet, &pvReturn, uxTicksToWait, FALSE);
     return (pvReturn);
 }
 
 OS_Queue_SetMemberHandle_t OS_Queue__pvSelectFromSetFromISR(OS_Queue_SetHandle_t pvQueueSet)
 {
-    OS_Queue_SetMemberHandle_t pvReturn = (OS_Queue_SetMemberHandle_t) 0UL;
-
+    OS_Queue_SetMemberHandle_t pvReturn;
+    pvReturn = (OS_Queue_SetMemberHandle_t) 0UL;
     (void) OS_Queue__boReceiveFromISR((OS_Queue_Handle_t) pvQueueSet, &pvReturn, (OS_Boolean_t*) 0UL);
     return (pvReturn);
 }

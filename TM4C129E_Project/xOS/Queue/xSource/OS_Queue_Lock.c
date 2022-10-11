@@ -28,11 +28,8 @@
 
 void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
 {
-    OS_Boolean_t boNotifySet = FALSE;
-    OS_Boolean_t boListEmpty = FALSE;
-    OS_Boolean_t boEventList = FALSE;
-    OS_List_t* pstWaitingToReceiveList = (OS_List_t*) 0UL;
-    OS_List_t* pstWaitingToSendList = (OS_List_t*) 0UL;
+    OS_Boolean_t boListEmpty;
+    OS_Boolean_t boEventList;
     /* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED. */
 
     /* The lock counts contains the number of extra data items placed or
@@ -41,6 +38,8 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
     updated. */
     OS_Task__vEnterCritical();
     {
+        OS_List_t* pstWaitingToReceiveList;
+        OS_Boolean_t boNotifySet;
         /* See if data was added to the queue while it was locked. */
         while(OS_QUEUE_LOCKED_UNMODIFIED < pstQueue->xTxLock)
         {
@@ -88,6 +87,7 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
     /* Do the same for the Rx lock. */
     OS_Task__vEnterCritical();
     {
+        OS_List_t* pstWaitingToSendList;
         while(OS_QUEUE_LOCKED_UNMODIFIED < pstQueue->xRxLock)
         {
             pstWaitingToSendList = &(pstQueue->stTasksWaitingToSend);

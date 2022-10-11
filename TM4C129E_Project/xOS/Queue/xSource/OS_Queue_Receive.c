@@ -35,18 +35,18 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                                        OS_UBase_t uxTicksToWait,
                                        const OS_Boolean_t boJustPeeking)
 {
-    OS_Boolean_t boEntryTimeSet = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
-    int8_t* ps8OriginalReadPosition = (int8_t*) 0UL;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
+    OS_Boolean_t boEntryTimeSet = FALSE;
+    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
-        if((0UL != (OS_UBase_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
+            OS_Task_eScheduler enSchedulerState;
+            OS_Boolean_t boIsListEmpty;
+            OS_Boolean_t boStatus;
+
             enSchedulerState = OS_Task__enGetSchedulerState();
             if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
             {
@@ -62,7 +62,8 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                         if(0UL < pstQueueReg->uxMessagesWaiting)
                         {
                             /* Remember the read position in case the queue is only being
-                            peeked. */
+                            peeked. */;
+                            int8_t* ps8OriginalReadPosition;
                             ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
                             OS_Queue__vCopyDataFromQueue(pstQueueReg, pvBuffer);
 
@@ -184,9 +185,8 @@ OS_Boolean_t OS_Queue__boPeek( OS_Queue_Handle_t pvQueue,
                                        void* const pvBuffer,
                                        OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericReceive(pvQueue, pvBuffer, uxTicksToWait, TRUE);
-
     return (boReturn);
 }
 
@@ -194,9 +194,8 @@ OS_Boolean_t OS_Queue__boReceive( OS_Queue_Handle_t pvQueue,
                                        void* const pvBuffer,
                                        OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boGenericReceive(pvQueue, pvBuffer, uxTicksToWait, FALSE);
-
     return (boReturn);
 }
 
@@ -204,16 +203,15 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                    void * const pvBuffer,
                                    OS_Boolean_t* const pboHigherPriorityTaskWoken)
 {
-    OS_Boolean_t xReturn = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_UBase_t uxSavedInterruptStatus = 0UL;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_Boolean_t xReturn;
 
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    xReturn = FALSE;
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
-        if((0UL != (OS_UBase_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
+            OS_UBase_t uxSavedInterruptStatus;
             uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
             {
                 /* Cannot block in an ISR, so check there is data available. */
@@ -228,9 +226,11 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                     locked. */
                     if(OS_QUEUE_UNLOCKED == pstQueueReg->xRxLock)
                     {
+                        OS_Boolean_t boIsListEmpty;
                         boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToSend));
                         if(FALSE == boIsListEmpty)
                         {
+                            OS_Boolean_t boStatus;
                             boStatus = OS_Task__boRemoveFromEventList(&( pstQueueReg->stTasksWaitingToSend));
                             if(FALSE != boStatus)
                             {
@@ -268,24 +268,23 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
                                        OS_UBase_t uxTicksToWait,
                                        const OS_Boolean_t boJustPeeking)
 {
-    OS_Boolean_t boEntryTimeSet = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
-    int8_t* ps8OriginalReadPosition = (int8_t*) 0UL;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Task_eScheduler enSchedulerState = OS_Task_enScheduler_Suspended;
+    OS_Boolean_t boEntryTimeSet = FALSE;
+    OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
-    if(0UL != (OS_UBase_t) pstQueueReg)
+    if(0UL != (OS_Pointer_t) pstQueueReg)
     {
-        if((0UL != (OS_UBase_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
+        if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
+            OS_Task_eScheduler enSchedulerState;
             enSchedulerState = OS_Task__enGetSchedulerState();
             if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
             {
                 /* This function relaxes the coding standard somewhat to allow return
                 statements within the function itself.  This is done in the interest
                 of execution time efficiency. */
+                OS_Boolean_t boIsListEmpty;
+                OS_Boolean_t boStatus;
                 while(1UL)
                 {
                     OS_Task__vEnterCritical();
@@ -296,6 +295,7 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
                         {
                             /* Remember the read position in case the queue is only being
                             peeked. */
+                            int8_t* ps8OriginalReadPosition;
                             ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
                             OS_Queue__vCopyDataFromQueue(pstQueueReg, pvBuffer);
 
@@ -404,9 +404,8 @@ OS_Boolean_t OS_Queue__boAltPeek( OS_Queue_Handle_t pvQueue,
                                        void* const pvBuffer,
                                        OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boAltGenericReceive(pvQueue, pvBuffer, uxTicksToWait, TRUE);
-
     return (boReturn);
 }
 
@@ -414,9 +413,8 @@ OS_Boolean_t OS_Queue__boAltReceive( OS_Queue_Handle_t pvQueue,
                                        void* const pvBuffer,
                                        OS_UBase_t uxTicksToWait)
 {
-    OS_Boolean_t boReturn = FALSE;
+    OS_Boolean_t boReturn;
     boReturn = OS_Queue__boAltGenericReceive(pvQueue, pvBuffer, uxTicksToWait, FALSE);
-
     return (boReturn);
 }
 

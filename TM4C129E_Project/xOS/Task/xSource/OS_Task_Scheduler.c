@@ -107,6 +107,9 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
             {
                 OS_List_t* pstDelayedTaskList;
                 OS_Boolean_t boListIsEmpty;
+                OS_List_t* pstOwnerList;
+                OS_Task_TCB_t* pstTCB;
+                OS_UBase_t uxItemValue;
                 while(1UL)
                 {
 
@@ -119,9 +122,6 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
                     }
                     else
                     {
-                        OS_List_t* pstOwnerList;
-                        OS_Task_TCB_t* pstTCB;
-                        OS_UBase_t uxItemValue;
 
                         pstTCB = (OS_Task_TCB_t *) OS_List__pvGetOwnerOfHeadEntry(pstDelayedTaskList);
                         uxItemValue = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));

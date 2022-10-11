@@ -29,19 +29,18 @@
 OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQueue,
                                                  const OS_Queue_nPos enCopyPosition)
 {
-    OS_Queue_t* pstQueueSetContainerReg = (OS_Queue_t*) 0UL;
-    OS_UBase_t uxMessagesWaitingReg = 0UL;
     OS_Boolean_t boReturn = FALSE;
-    OS_Boolean_t boListEmpty = FALSE;
-    OS_Boolean_t boRemoved = FALSE;
-    OS_UBase_t uxLengthReg = 0U;
 
     /* This function must be called form a critical section. */
-    if(0UL != (OS_UBase_t) pstQueue)
+    if(0UL != (OS_Pointer_t) pstQueue)
     {
+        OS_Queue_t* pstQueueSetContainerReg;
         pstQueueSetContainerReg = pstQueue->pstQueueSetContainer;
-        if(0UL != (OS_UBase_t) pstQueueSetContainerReg)
+        if(0UL != (OS_Pointer_t) pstQueueSetContainerReg)
         {
+            OS_UBase_t uxLengthReg;
+            OS_UBase_t uxMessagesWaitingReg;
+
             uxMessagesWaitingReg = pstQueueSetContainerReg->uxMessagesWaiting;
             uxLengthReg = pstQueueSetContainerReg->uxLength;
             if(uxMessagesWaitingReg < uxLengthReg)
@@ -53,9 +52,11 @@ OS_Boolean_t OS_Queue__boNotifyQueueSetContainer(const OS_Queue_t * const pstQue
 
                 if(OS_QUEUE_UNLOCKED == pstQueueSetContainerReg->xTxLock)
                 {
+                    OS_Boolean_t boListEmpty;
                     boListEmpty = OS_List__boIsEmpty(&(pstQueueSetContainerReg->stTasksWaitingToReceive));
                     if(FALSE == boListEmpty)
                     {
+                        OS_Boolean_t boRemoved;
                         boRemoved = OS_Task__boRemoveFromEventList(&(pstQueueSetContainerReg->stTasksWaitingToReceive));
                         if(FALSE != boRemoved)
                         {

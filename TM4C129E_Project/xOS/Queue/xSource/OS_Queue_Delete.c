@@ -28,10 +28,10 @@
 
 void OS_Queue__vDelete(OS_Queue_Handle_t pvQueue)
 {
-    OS_Queue_t * pstQueueReg = (OS_Queue_t*) 0UL;
 
     if(0UL != (OS_UBase_t) pvQueue)
     {
+        OS_Queue_t * pstQueueReg;
         pstQueueReg = (OS_Queue_t*) pvQueue;
         OS_Queue__vUnregisterQueue(pstQueueReg);
         free(pstQueueReg);

@@ -35,18 +35,16 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
                                     const void* pvItemToQueue,
                                     OS_UBase_t uxTicksToWait)
 {
-    OS_UBase_t uxReturn = 0UL;
-    OS_UBase_t uxTempValue = 0UL;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
-    OS_Boolean_t boIsQueueFull = FALSE;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_UBase_t uxReturn;
 
     /* If the queue is already full we may have to block.  A critical section
     is required to prevent an interrupt removing something from the queue
     between the check to see if the queue is full and blocking on the queue. */
+    uxReturn = 0UL;
     OS_Adapt__vDisableInterrupts();
     {
+        OS_Boolean_t boIsQueueFull;
 
         boIsQueueFull = OS_Queue__boIsQueueFull(pstQueueReg);
         if(FALSE != boIsQueueFull)
@@ -72,9 +70,11 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
 
     OS_Adapt__vDisableInterrupts();
     {
+        OS_UBase_t uxTempValue;
         uxTempValue = pstQueueReg->uxLength;
         if(pstQueueReg->uxMessagesWaiting < uxTempValue)
         {
+            OS_Boolean_t boIsListEmpty;
             /* There is room in the queue, copy the data into the queue. */
             (void) OS_Queue__boCopyDataToQueue(pstQueueReg, pvItemToQueue, OS_Queue_enPos_SEND_TO_BACK);
             uxReturn = (OS_UBase_t) TRUE;
@@ -87,6 +87,7 @@ OS_UBase_t OS_Queue__boCoRoutineSend(OS_Queue_Handle_t pvQueue,
                 into the ready list as we are within a critical section.
                 Instead the same pending ready list mechanism is used as if
                 the event were caused from within an interrupt. */
+                OS_Boolean_t boStatus;
                 boStatus = OS_CoRoutine__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
                 if(FALSE != boStatus)
                 {
@@ -111,14 +112,13 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
                                         void *pvBuffer,
                                         OS_UBase_t uxTicksToWait)
 {
-    OS_UBase_t uxReturn = 0UL;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
     OS_Queue_t* const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_UBase_t uxReturn;
 
     /* If the queue is already empty we may have to block.  A critical section
     is required to prevent an interrupt adding something to the queue
     between the check to see if the queue is empty and blocking on the queue. */
+    uxReturn = 0UL;
     OS_Adapt__vDisableInterrupts();
     {
         if(0UL == pstQueueReg->uxMessagesWaiting)
@@ -146,6 +146,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
     {
         if(0UL < pstQueueReg->uxMessagesWaiting)
         {
+            OS_Boolean_t boIsListEmpty;
             /* Data is available from the queue. */
             pstQueueReg->ps8ReadFrom += pstQueueReg->uxItemSize;
             if( pstQueueReg->ps8ReadFrom >= pstQueueReg->ps8Tail )
@@ -165,6 +166,7 @@ OS_UBase_t OS_Queue__uxCoRoutineReceive(OS_Queue_Handle_t pvQueue,
                 into the ready list as we are within a critical section.
                 Instead the same pending ready list mechanism is used as if
                 the event were caused from within an interrupt. */
+                OS_Boolean_t boStatus;
                 boStatus = OS_CoRoutine__boRemoveFromEventList(&( pstQueueReg->stTasksWaitingToSend));
                 if(FALSE != boStatus)
                 {
@@ -187,12 +189,11 @@ OS_Boolean_t OS_Queue__boCoRoutineSendFromISR(OS_Queue_Handle_t pvQueue,
                                               OS_Boolean_t boCoRoutinePreviouslyWoken)
 {
     OS_Queue_t* const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Boolean_t boReturn = boCoRoutinePreviouslyWoken;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
+    OS_Boolean_t boReturn;
 
     /* Cannot block within an ISR so if there is no space on the queue then
     exit without doing anything. */
+    boReturn = boCoRoutinePreviouslyWoken;
     if(pstQueueReg->uxMessagesWaiting < pstQueueReg->uxLength)
     {
         OS_Queue__boCopyDataToQueue(pstQueueReg, pvItemToQueue, OS_Queue_enPos_SEND_TO_BACK);
@@ -201,9 +202,11 @@ OS_Boolean_t OS_Queue__boCoRoutineSendFromISR(OS_Queue_Handle_t pvQueue,
         co-routine has not already been woken. */
         if(FALSE == boCoRoutinePreviouslyWoken)
         {
+            OS_Boolean_t boIsListEmpty;
             boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToReceive));
             if(FALSE  == boIsListEmpty )
             {
+                OS_Boolean_t boStatus;
                 boStatus = OS_CoRoutine__boRemoveFromEventList(&( pstQueueReg->stTasksWaitingToReceive));
                 if(FALSE != boStatus)
                 {
@@ -220,10 +223,8 @@ OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
                                                  void *pvBuffer,
                                                  OS_Boolean_t* pboCoRoutineWoken)
 {
-    OS_Boolean_t boReturn = FALSE;
-    OS_Boolean_t boStatus = FALSE;
-    OS_Boolean_t boIsListEmpty = FALSE;
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
+    OS_Boolean_t boReturn;
 
     /* We cannot block from an ISR, so check there is data available. If
     not then just leave without doing anything. */
@@ -240,9 +241,11 @@ OS_Boolean_t OS_Queue__boCoRoutineReceiveFromISR(OS_Queue_Handle_t pvQueue,
 
         if(FALSE == (*pboCoRoutineWoken))
         {
+            OS_Boolean_t boIsListEmpty;
             boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToSend));
             if(FALSE == boIsListEmpty )
             {
+                OS_Boolean_t boStatus;
                 boStatus = OS_CoRoutine__boRemoveFromEventList(&( pstQueueReg->stTasksWaitingToSend));
                 if(FALSE != boStatus)
                 {
