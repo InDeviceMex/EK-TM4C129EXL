@@ -24,6 +24,7 @@
 #ifndef XAPPLICATION_ST7735_XHEADER_ST7735_ENUM_H_
 #define XAPPLICATION_ST7735_XHEADER_ST7735_ENUM_H_
 
+#include<xUtils/Standard/Standard.h>
 
 typedef enum {
     ST7735_enINITFLAGS_NONE,

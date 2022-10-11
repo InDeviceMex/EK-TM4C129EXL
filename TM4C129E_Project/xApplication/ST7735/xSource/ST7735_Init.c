@@ -51,8 +51,9 @@ static UBase_t ST7735_uxHeightArg = ST7735_HEIGHT;
 void ST7735__vSetCursor(UBase_t uxNewX, UBase_t uxNewY);
 void ST7735__vSetAddrWindow(UBase_t uxCoordX0, UBase_t uxCoordY0, UBase_t uxCoordX1, UBase_t uxCoordY1);
 
-void ST7735__vInit(const uint8_t *pu8CommandList)
+error_t ST7735__enInit(const uint8_t *pu8CommandList)
 {
+    error_t enErrorReg;
     const SSI_CONTROL_t pstControlConfigReg =
     {
         SSI_enLOOPBACK_DIS,
@@ -85,59 +86,101 @@ void ST7735__vInit(const uint8_t *pu8CommandList)
         SSI_enLINE_SELECT_PRIMARY
     };
 
-    ST7735__vInitWriteDMAConfig();
+    enErrorReg = ST7735__enInitWriteDMAConfig();
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = ST7735__enInitChipSelect();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = ST7735__enInitReset();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = ST7735__enInitDataCommand();
+    }
 
-    ST7735__vInitChipSelect();
-    ST7735__vInitReset();
-    ST7735__vInitDataCommand();
+    if(ERROR_OK == enErrorReg)
+    {
+        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+        SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
+        SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 25000000UL, &pstLineConfigReg);
+        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+        SSI__vSetHighSpeed(ST7735_SSI, SSI_enHIGHSPEED_ENA);
 
-    SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
-    SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
-    SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 25000000UL, &pstLineConfigReg);
-    SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
-    SSI__vSetHighSpeed(ST7735_SSI, SSI_enHIGHSPEED_ENA);
+        SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_DIS);
+        SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
+        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
+        SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
+        enErrorReg = ST7735__enEnableChipSelect();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = ST7735__enClearReset();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        ST7735__vDelay1ms(10UL);
+        enErrorReg = ST7735__enSetReset();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        ST7735__vDelay1ms(10UL);
+        enErrorReg = ST7735__enClearReset();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        ST7735__vDelay1ms(5UL);
+        enErrorReg = ST7735__enDisableChipSelect();
+    }
 
-    SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_DIS);
-    SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-    SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-    SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
-    ST7735__vEnableChipSelect();
-    ST7735__vClearReset();
-    ST7735__vDelay1ms(10UL);
-    ST7735__vSetReset();
-    ST7735__vDelay1ms(10UL);
-    ST7735__vClearReset();
-    ST7735__vDelay1ms(5UL);
-    ST7735__vDisableChipSelect();
-
-  if(0UL != (UBase_t) pu8CommandList)
-  {
-      ST7735__vCommandList(pu8CommandList);
-  }
+    if(ERROR_OK == enErrorReg)
+    {
+        if(0UL != (uintptr_t) pu8CommandList)
+        {
+            ST7735__vCommandList(pu8CommandList);
+        }
+    }
+    return (enErrorReg);
 }
 
-void ST7735__vInitRModel(ST7735_nINITFLAGS enOptionArg) {
-    ST7735__vInit(ST7735_pcCommandSet1);
-    if(ST7735_enINITFLAGS_GREEN == enOptionArg)
+error_t ST7735__enInitRModel(ST7735_nINITFLAGS enOptionArg)
+{
+    error_t enErrorReg;
+    enErrorReg = ST7735__enInit(ST7735_pcCommandSet1);
+    if(ERROR_OK == enErrorReg)
     {
-        ST7735__vCommandList(ST7735_pcCommandSet2_Green);
-        ST7735_u8ColStart = 2U;
-        ST7735_u8RowStart = 3U;
+        if(ST7735_enINITFLAGS_GREEN == enOptionArg)
+        {
+            ST7735__vCommandList(ST7735_pcCommandSet2_Green);
+            ST7735_u8ColStart = 2U;
+            ST7735_u8RowStart = 3U;
+        }
+        else
+        {
+            ST7735__vCommandList(ST7735_pcCommandSet2_Red);
+        }
     }
-    else
+    if(ERROR_OK == enErrorReg)
     {
-        ST7735__vCommandList(ST7735_pcCommandSet2_Red);
+        ST7735__vCommandList(ST7735_pcCommandSet3);
     }
-    ST7735__vCommandList(ST7735_pcCommandSet3);
 
-    if (ST7735_enINITFLAGS_BLACK == enOptionArg)
+    if(ERROR_OK == enErrorReg)
     {
-        ST7735__uxWriteCommand(ST7735_enCOMMAND_MADCTL);
-        ST7735__uxWriteData(0xC0UL);
+        if (ST7735_enINITFLAGS_BLACK == enOptionArg)
+        {
+            enErrorReg = ST7735__enWriteCommand(ST7735_enCOMMAND_MADCTL);
+            if(ERROR_OK == enErrorReg)
+            {
+                enErrorReg = ST7735__enWriteData(0xC0UL);
+            }
+        }
     }
     ST7735__vSetCursor(0UL,0UL);
     u16StTextColor = (uint16_t) COLORS_enYELLOW;
     ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enBLACK);
+    return (enErrorReg);
 }
 
 void ST7735__vSetCursor(UBase_t uxNewX, UBase_t uxNewY)
@@ -190,7 +233,7 @@ void ST7735__vDrawBuffer(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg,
 
             uxTotalDim = uxHeightArg;
             uxTotalDim *= uxWidthArg;
-            ST7735__uxWriteBuffer16bDMA(u16Buffer, uxTotalDim);
+            ST7735__enWriteBuffer16bDMA(u16Buffer, uxTotalDim);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
@@ -240,7 +283,7 @@ void ST7735__vFillRect(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, U
 
             uxTotalDim = uxHeightArg;
             uxTotalDim *= uxWidthArg;
-            ST7735__uxWriteDMA(uxColor, uxTotalDim);
+            ST7735__enWriteDMA(uxColor, uxTotalDim);
 
             SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
             SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
@@ -259,19 +302,19 @@ void ST7735__vSetAddrWindow(UBase_t uxCoordX0, UBase_t uxCoordY0, UBase_t uxCoor
     uxCoordX1Offset += ST7735_u8ColStart;
     uxCoordY0Offset += ST7735_u8RowStart;
     uxCoordY1Offset += ST7735_u8RowStart;
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_CASET);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxCoordX0Offset);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxCoordX1Offset);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_CASET);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxCoordX0Offset);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxCoordX1Offset);
 
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_RASET);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxCoordY0Offset);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxCoordY1Offset);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_RASET);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxCoordY0Offset);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxCoordY1Offset);
 
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_RAMWR);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_RAMWR);
 }
 
 
@@ -385,14 +428,14 @@ void ST7735__vBufferString(uint16_t* pu16Buffer, UBase_t uxCoordX0, UBase_t uxCo
 {
     UBase_t uxCoordX = uxCoordX0;
     UBase_t uxCoordY = uxCoordY0;
-    while(0UL != (UBase_t) (*cASCII))
+    while(0UL != (uint8_t) (*cASCII))
     {
-        if((UBase_t) '\n' == (UBase_t) (*cASCII))
+        if((uint8_t) '\n' == (uint8_t) (*cASCII))
         {
             uxCoordY += sFontType->uxHeight;
             uxCoordY += 2UL;
         }
-        else if((UBase_t) '\r' == (UBase_t) (*cASCII))
+        else if((uint8_t) '\r' == (uint8_t) (*cASCII))
         {
             uxCoordX = uxCoordX0;
         }

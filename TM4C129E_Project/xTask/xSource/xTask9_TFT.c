@@ -64,7 +64,7 @@ void xTask9_TFT(void* pvParams)
 
     GPIO__vSetReady(GPIO_enPORT_F);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
-    ST7735__vInitRModel(ST7735_enINITFLAGS_GREEN);
+    ST7735__enInitRModel(ST7735_enINITFLAGS_GREEN);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_HIGH);
     OS_Semaphore__boGive(MainSemaphoreHandle);
 

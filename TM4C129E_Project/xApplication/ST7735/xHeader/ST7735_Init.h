@@ -28,8 +28,8 @@
 #include <xUtils/Standard/Standard.h>
 #include <xApplication/ST7735/xHeader/ST7735_Enum.h>
 
-void ST7735__vInit(const uint8_t *pu8CommandList);
-void ST7735__vInitRModel(ST7735_nINITFLAGS enOptionArg);
+error_t ST7735__enInit(const uint8_t *pu8CommandList);
+error_t ST7735__enInitRModel(ST7735_nINITFLAGS enOptionArg);
 void ST7735__vFillRect(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, UBase_t uxHeightArg, UBase_t uxColor);
 void ST7735__vDrawBuffer(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, UBase_t uxHeightArg, uint16_t* u16Buffer);
 

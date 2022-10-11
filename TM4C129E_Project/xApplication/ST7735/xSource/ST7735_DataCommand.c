@@ -24,17 +24,24 @@
 #include <xApplication/ST7735/xHeader/ST7735_DataCommand.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 
-void ST7735__vInitDataCommand(void)
+error_t ST7735__enInitDataCommand(void)
 {
-    GPIO__enSetDigitalConfig(GPIO_enGPIOL3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDigitalConfig(GPIO_enGPIOL3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    return (enErrorReg);
+
 }
 
-void ST7735__vSetCommand(void)
+error_t ST7735__enSetCommand(void)
 {
-    GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_LOW);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_LOW);
+    return (enErrorReg);
 }
 
-void ST7735__vSetData(void)
+error_t ST7735__enSetData(void)
 {
-    GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_HIGH);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDataByNumber(GPIO_enPORT_L, GPIO_enPIN_3, GPIO_enLEVEL_HIGH);
+    return (enErrorReg);
 }

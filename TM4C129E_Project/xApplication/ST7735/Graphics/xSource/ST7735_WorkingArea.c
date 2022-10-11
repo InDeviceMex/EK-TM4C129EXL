@@ -51,19 +51,19 @@ void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_
     uxPosXTotal -= 1UL;
     uxPosYTotal += ST7735_u8RowStart;
     uxPosYTotal -= 1UL;
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_CASET);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxPosX);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxPosXTotal);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_CASET);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxPosX);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxPosXTotal);
 
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_RASET);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxPosY);
-    ST7735__uxWriteData(0x00UL);
-    ST7735__uxWriteData(uxPosYTotal);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_RASET);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxPosY);
+    ST7735__enWriteData(0x00UL);
+    ST7735__enWriteData(uxPosYTotal);
 
-    ST7735__uxWriteCommand(ST7735_enCOMMAND_RAMWR);
+    ST7735__enWriteCommand(ST7735_enCOMMAND_RAMWR);
 }
 
 void ST7735__vSetWorkingArea(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg)

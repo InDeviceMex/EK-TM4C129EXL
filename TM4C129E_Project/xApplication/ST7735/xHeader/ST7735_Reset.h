@@ -24,8 +24,10 @@
 #ifndef XAPPLICATION_ST7735_XHEADER_ST7735_RESET_H_
 #define XAPPLICATION_ST7735_XHEADER_ST7735_RESET_H_
 
-void ST7735__vInitReset(void);
-void ST7735__vSetReset(void);
-void ST7735__vClearReset(void);
+#include <xApplication/ST7735/xHeader/ST7735_Enum.h>
+
+error_t ST7735__enInitReset(void);
+error_t ST7735__enSetReset(void);
+error_t ST7735__enClearReset(void);
 
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_RESET_H_ */

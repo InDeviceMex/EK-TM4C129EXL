@@ -24,26 +24,25 @@
 #include <xApplication/ST7735/xHeader/ST7735_Commands.h>
 #include <xApplication/ST7735/xHeader/ST7735_Write.h>
 #include <xApplication/ST7735/xHeader/ST7735_Delay.h>
-#include <xApplication/ST7735/xHeader/ST7735_Enum.h>
 
 const uint8_t ST7735_pcCommandSet1[59UL] =
 {
     15U,
-    (uint8_t) ST7735_enCOMMAND_SWRESET, (uint8_t) ST7735_enCOMMAND_DELAY, 150U,
-    (uint8_t) ST7735_enCOMMAND_SLPOUT   , (uint8_t) ST7735_enCOMMAND_DELAY, 255U,
-    (uint8_t) ST7735_enCOMMAND_FRMCTR1, 3U                                       , 0x01U, 0x2CU, 0x2DU,
-    (uint8_t) ST7735_enCOMMAND_FRMCTR2, 3U                                       , 0x01U, 0x2CU, 0x2DU,
-    (uint8_t) ST7735_enCOMMAND_FRMCTR3, 6U                                       , 0x01U, 0x2CU, 0x2DU, 0x01U, 0x2CU, 0x2DU,
-    (uint8_t) ST7735_enCOMMAND_INVCTR   , 1U                                       , 0x07,
+    (uint8_t) ST7735_enCOMMAND_SWRESET, (uint8_t) ST7735_enCOMMAND_DELAY          , 150U,
+    (uint8_t) ST7735_enCOMMAND_SLPOUT , (uint8_t) ST7735_enCOMMAND_DELAY          , 255U,
+    (uint8_t) ST7735_enCOMMAND_FRMCTR1, 3U                                        , 0x01U, 0x2CU, 0x2DU,
+    (uint8_t) ST7735_enCOMMAND_FRMCTR2, 3U                                        , 0x01U, 0x2CU, 0x2DU,
+    (uint8_t) ST7735_enCOMMAND_FRMCTR3, 6U                                        , 0x01U, 0x2CU, 0x2DU, 0x01U, 0x2CU, 0x2DU,
+    (uint8_t) ST7735_enCOMMAND_INVCTR , 1U                                        , 0x07,
     (uint8_t) ST7735_enCOMMAND_PWCTR1 , 3U                                        , 0xA2U, 0x02U, 0x84U,
     (uint8_t) ST7735_enCOMMAND_PWCTR2 , 1U                                        , 0xC5U,
     (uint8_t) ST7735_enCOMMAND_PWCTR3 , 2U                                        , 0x0AU, 0x00U,
     (uint8_t) ST7735_enCOMMAND_PWCTR4 , 2U                                        , 0x8AU, 0x2AU,
     (uint8_t) ST7735_enCOMMAND_PWCTR5 , 2U                                        , 0x8AU, 0xEEU,
-    (uint8_t) ST7735_enCOMMAND_VMCTR1 , 1U                                        ,  0x0EU,
-    (uint8_t) ST7735_enCOMMAND_INVOFF  , 0U                                        ,
+    (uint8_t) ST7735_enCOMMAND_VMCTR1 , 1U                                        , 0x0EU,
+    (uint8_t) ST7735_enCOMMAND_INVOFF , 0U                                        ,
     (uint8_t) ST7735_enCOMMAND_MADCTL , 1U                                        , 0xC8U,
-    (uint8_t) ST7735_enCOMMAND_COLMOD, 1U                                        , 0x05U
+    (uint8_t) ST7735_enCOMMAND_COLMOD , 1U                                        , 0x05U
 };
 
 const uint8_t ST7735_pcCommandSet2_Green[13U] =
@@ -63,10 +62,10 @@ const uint8_t ST7735_pcCommandSet2_Red[13U] =
 const uint8_t ST7735_pcCommandSet3[43U] =
 {
     4U,
-    (uint8_t) ST7735_enCOMMAND_GMCTRP1, 16U      , 0x02U, 0x1CU, 0x07U, 0x12U, 0x37U, 0x32U, 0x29U, 0x2DU, 0x29U, 0x25U, 0x2BU, 0x39U, 0x00U, 0x01U, 0x03U, 0x10U,
-      (uint8_t) ST7735_enCOMMAND_GMCTRN1, 16U      , 0x03U, 0x1DU, 0x07U, 0x06U, 0x2EU, 0x2CU, 0x29U, 0x2DU, 0x2EU, 0x2EU, 0x37U, 0x3FU, 0x00U, 0x00U, 0x02U, 0x10U,
-      (uint8_t) ST7735_enCOMMAND_NORON  ,   (uint8_t)  ST7735_enCOMMAND_DELAY, 10U,
-      (uint8_t) ST7735_enCOMMAND_DISPON ,    (uint8_t) ST7735_enCOMMAND_DELAY, 100U
+    (uint8_t) ST7735_enCOMMAND_GMCTRP1, 16U                               , 0x02U, 0x1CU, 0x07U, 0x12U, 0x37U, 0x32U, 0x29U, 0x2DU, 0x29U, 0x25U, 0x2BU, 0x39U, 0x00U, 0x01U, 0x03U, 0x10U,
+    (uint8_t) ST7735_enCOMMAND_GMCTRN1, 16U                               , 0x03U, 0x1DU, 0x07U, 0x06U, 0x2EU, 0x2CU, 0x29U, 0x2DU, 0x2EU, 0x2EU, 0x37U, 0x3FU, 0x00U, 0x00U, 0x02U, 0x10U,
+    (uint8_t) ST7735_enCOMMAND_NORON  , (uint8_t)  ST7735_enCOMMAND_DELAY , 10U,
+    (uint8_t) ST7735_enCOMMAND_DISPON , (uint8_t) ST7735_enCOMMAND_DELAY  , 100U
 };
 
 void ST7735__vCommandList(const uint8_t * pu8AddressArg)
@@ -85,7 +84,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
     for(u8NumCommandsPos = u8NumCommands; 0U < u8NumCommandsPos; u8NumCommandsPos--)
     {
         u8AddressValue = *(pu8AddressArg);
-        ST7735__uxWriteCommand((uint16_t) u8AddressValue);
+        ST7735__enWriteCommand((uint16_t) u8AddressValue);
         pu8AddressArg += 1UL;
         u8NumArguments  = *(pu8AddressArg);
         pu8AddressArg += 1UL;
@@ -98,7 +97,7 @@ void ST7735__vCommandList(const uint8_t * pu8AddressArg)
         for(u8NumArgumentsPos = u8NumArguments; 0U < u8NumArgumentsPos; u8NumArgumentsPos--)
         {
             u8AddressValue = *(pu8AddressArg);
-            ST7735__uxWriteData((UBase_t) u8AddressValue);
+            ST7735__enWriteData((UBase_t) u8AddressValue);
             pu8AddressArg += 1UL;
         }
 

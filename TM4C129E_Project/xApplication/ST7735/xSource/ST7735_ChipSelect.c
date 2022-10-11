@@ -24,17 +24,23 @@
 #include <xApplication/ST7735/xHeader/ST7735_ChipSelect.h>
 #include <xDriver_MCU/GPIO/GPIO.h>
 
-void ST7735__vInitChipSelect(void)
+error_t ST7735__enInitChipSelect(void)
 {
-    GPIO__enSetDigitalConfig(GPIO_enGPION2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDigitalConfig(GPIO_enGPION2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    return (enErrorReg);
 }
 
-void ST7735__vEnableChipSelect(void)
+error_t ST7735__enEnableChipSelect(void)
 {
-    GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
+    return (enErrorReg);
 }
 
-void ST7735__vDisableChipSelect(void)
+error_t ST7735__enDisableChipSelect(void)
 {
-    GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_HIGH);
+    error_t enErrorReg;
+    enErrorReg = (error_t) GPIO__enSetDataByNumber(GPIO_enPORT_N, GPIO_enPIN_2, GPIO_enLEVEL_HIGH);
+    return (enErrorReg);
 }

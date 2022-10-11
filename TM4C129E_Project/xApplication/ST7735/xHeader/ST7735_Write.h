@@ -24,15 +24,15 @@
 #ifndef XAPPLICATION_ST7735_XHEADER_ST7735_WRITE_H_
 #define XAPPLICATION_ST7735_XHEADER_ST7735_WRITE_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xApplication/ST7735/xHeader/ST7735_Enum.h>
 
-void ST7735__vInitWriteDMAConfig(void);
+error_t ST7735__enInitWriteDMAConfig(void);
 
-UBase_t ST7735__uxWriteCommand(uint16_t u16DataArg);
-UBase_t ST7735__uxWriteData(UBase_t uxDataArg);
-UBase_t ST7735__uxWriteFifo(uint16_t u16DataArg, UBase_t uxBufferCant);
-UBase_t ST7735__uxWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant);
-UBase_t ST7735__uxWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant);
+error_t ST7735__enWriteCommand(uint16_t u16DataArg);
+error_t ST7735__enWriteData(UBase_t uxDataArg);
+error_t ST7735__enWriteFifo(uint16_t u16DataArg, UBase_t uxBufferCant);
+error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant);
+error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant);
 
 UBase_t ST7735__uxGetDMATxInterupt(void);
 void ST7735__vSetDMATxInterupt(UBase_t uxStateArg);

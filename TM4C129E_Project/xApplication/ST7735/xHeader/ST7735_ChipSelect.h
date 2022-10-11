@@ -24,8 +24,10 @@
 #ifndef XAPPLICATION_ST7735_XHEADER_ST7735_CHIPSELECT_H_
 #define XAPPLICATION_ST7735_XHEADER_ST7735_CHIPSELECT_H_
 
-void ST7735__vInitChipSelect(void);
-void ST7735__vEnableChipSelect(void);
-void ST7735__vDisableChipSelect(void);
+#include <xApplication/ST7735/xHeader/ST7735_Enum.h>
+
+error_t ST7735__enInitChipSelect(void);
+error_t ST7735__enEnableChipSelect(void);
+error_t ST7735__enDisableChipSelect(void);
 
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_CHIPSELECT_H_ */

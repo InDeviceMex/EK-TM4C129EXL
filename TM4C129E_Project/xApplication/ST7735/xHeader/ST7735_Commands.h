@@ -24,7 +24,7 @@
 #ifndef XAPPLICATION_ST7735_XHEADER_ST7735_COMMANDS_H_
 #define XAPPLICATION_ST7735_XHEADER_ST7735_COMMANDS_H_
 
-#include <xUtils/Standard/Standard.h>
+#include <xApplication/ST7735/xHeader/ST7735_Enum.h>
 
 extern const uint8_t ST7735_pcCommandSet1[59UL];
 extern const uint8_t ST7735_pcCommandSet2_Green[13UL] ;
