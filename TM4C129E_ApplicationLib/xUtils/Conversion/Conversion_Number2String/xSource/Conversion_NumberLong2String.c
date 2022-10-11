@@ -28,12 +28,12 @@
 
 CONV_nERROR Conv__enNumber2String_Long(CONV_OUT_t pvfOut, char* pcBufferOut, UBase_t uxValue, UBase_t uxIndex,
                                        UBase_t uxMaxLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags,
-                                       UBase_t uxNegative, UBase_t uxBase, UBase_t uxPrec)
+                                       boolean_t boNegative, UBase_t uxBase, UBase_t uxPrec)
 {
     CONV_nERROR enErrorReg;
     enErrorReg =  Conv__enNumber2String_LongLong(pvfOut, pcBufferOut, (uint64_t) uxValue, uxIndex,
                                                  uxMaxLenght, puxBufOutLenght, uxWidth, uxflags,
-                                                 uxNegative, (uint64_t) uxBase, uxPrec);
+                                                 boNegative, (uint64_t) uxBase, uxPrec);
     return (enErrorReg);
 }
 

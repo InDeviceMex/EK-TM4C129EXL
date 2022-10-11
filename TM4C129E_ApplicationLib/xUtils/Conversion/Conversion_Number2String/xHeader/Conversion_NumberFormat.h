@@ -28,6 +28,6 @@
 
 CONV_nERROR Conv__enNumber2String_Format(CONV_OUT_t pvfOut, char* pcBufferOut, char* pcBufferIn,
                                          UBase_t uxIndex, UBase_t uxMaxLenght, UBase_t uxBufInLenght, UBase_t* puxBufOutLenght,
-                                         UBase_t uxWidth, UBase_t uxflags, UBase_t uxNegative, UBase_t uxBase, UBase_t uxPrec);
+                                         UBase_t uxWidth, UBase_t uxflags, boolean_t boNegative, UBase_t uxBase, UBase_t uxPrec);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERFORMAT_H_ */

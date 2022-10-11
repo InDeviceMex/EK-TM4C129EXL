@@ -50,7 +50,7 @@ CONV_nERROR Conv__enString2UInteger(const char** pcString, uint64_t* pu64NumUnsi
             u8ValueAux = (uint8_t) (**pcString);
             u8ValueAux -= (uint8_t) '0';
             u64NumUnsignedTemp += (uint64_t) u8ValueAux;
-            (*pcString) += 1U;
+            *pcString += 1U;
             uxLength++;
             enDigit = Conv__enIsDigit(**pcString);
         }

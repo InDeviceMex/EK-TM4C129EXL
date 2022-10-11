@@ -32,7 +32,7 @@ CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferO
 {
     int64_t  s64ExponentialValue;
     UBase_t uxflagsTemp;
-    UBase_t uxNegative;
+    boolean_t boNegative;
     UBase_t  uxMinWidth;
     size_t szStartIndex;
     boolean_t boTerminate;
@@ -41,7 +41,6 @@ CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferO
     szStartIndex = 0U;
     s64ExponentialValue = 0;
     uxMinWidth = 0UL;
-    uxNegative = 0UL;
     boTerminate = FALSE;
     enErrorReg = CONV_enERROR_OK;
     if((0UL == (uintptr_t) pvfOut) || (0UL == (uintptr_t) pcBufferOut) || (0UL == (uintptr_t) puxBufOutLenght))
@@ -86,14 +85,14 @@ CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferO
         /* determine the sign*/
         if(0.0 > f64Value)
         {
-            uxNegative = 1U;
+            boNegative = TRUE;
             f64ValueTemp = 0.0;
             f64ValueTemp -= f64Value;
             f64Value = f64ValueTemp;
         }
         else
         {
-            uxNegative = 0U;
+            boNegative = FALSE;
         }
 
         /* default precision*/
@@ -260,7 +259,7 @@ CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferO
 
         /* output the floating part*/
         szStartIndex = (size_t) uxIndex;
-        if(0UL != uxNegative)
+        if(FALSE != boNegative)
         {
             f64ValueTemp = 0.0f;
             f64ValueTemp -= f64Value;
@@ -309,20 +308,20 @@ CONV_nERROR Conv__enNumber2String_Exponential(CONV_OUT_t pvfOut, char* pcBufferO
         {
           s64Temp = 0;
           s64Temp -= s64ExponentialValue;
-          uxNegative = (UBase_t) 1U;
+          boNegative = TRUE;
         }
         else
         {
           s64Temp = s64ExponentialValue;
-          uxNegative = (UBase_t) 0U;
+          boNegative = FALSE;
         }
         uxflagsTemp = (UBase_t) CONV_enFLAGS_ZEROPAD | (UBase_t) CONV_enFLAGS_PLUS;
         enErrorReg = Conv__enNumber2String_Long(pvfOut, pcBufferOut, (UBase_t) s64Temp, uxIndex, uxMaxLenght, puxBufOutLenght,
-                                                uxMinWidth-1U, uxflagsTemp, uxNegative, (UBase_t) 10U, (UBase_t) 0U);
+                                                uxMinWidth-1U, uxflagsTemp, boNegative, (UBase_t) 10U, (UBase_t) 0U);
     }
     if((CONV_enERROR_OK == enErrorReg) && (FALSE == boTerminate))
     {
-        uxIndex = (UBase_t) *puxBufOutLenght;
+        uxIndex = *puxBufOutLenght;
         /* might need to right-pad spaces*/
         if (0UL != (uxflags & (UBase_t) CONV_enFLAGS_LEFT))
         {

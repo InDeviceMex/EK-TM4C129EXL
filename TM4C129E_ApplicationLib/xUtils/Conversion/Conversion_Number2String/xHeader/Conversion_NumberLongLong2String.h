@@ -28,6 +28,6 @@
 
 CONV_nERROR Conv__enNumber2String_LongLong(CONV_OUT_t pvfOut, char* pcBufferOut, uint64_t u64Value, UBase_t uxIndex,
                                            UBase_t uxMaxLenght, UBase_t* puxBufOutLenght, UBase_t uxWidth, UBase_t uxflags,
-                                           UBase_t uxNegative, uint64_t u64Base, UBase_t uxPrec);
+                                           boolean_t boNegative, uint64_t u64Base, UBase_t uxPrec);
 
 #endif /* XUTILS_CONVERSION_CONVERSION_NUMBER2STRING_XHEADER_CONVERSION_NUMBERLONGLONG2STRING_H_ */
