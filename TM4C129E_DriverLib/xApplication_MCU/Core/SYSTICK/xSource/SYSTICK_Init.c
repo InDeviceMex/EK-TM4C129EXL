@@ -44,6 +44,7 @@ SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, UBase_t ux
                                           SYSTICK_nCLKSOURCE enClockSourceArg, SYSTICK_pvfIRQVectorHandler_t pvfVectorArg)
 {
     MCU_nSTATUS enFPUActive;
+    enFPUActive = MCU__enGetFPUContextActive();
     SYSTICK_nERROR enErrorReg;
 
     enErrorReg = SYSTICK_enERROR_OK;
@@ -51,7 +52,6 @@ SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, UBase_t ux
     {
         enErrorReg = SYSTICK_enERROR_VALUE;
     }
-    enFPUActive = MCU__enGetFPUContextActive();
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         UBase_t uxSystemFrequencyMHz = 0U;

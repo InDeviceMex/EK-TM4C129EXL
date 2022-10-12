@@ -27,26 +27,23 @@
 
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 
-void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor) __attribute__((naked));
-MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor) __attribute__((naked));
-MCU_nSTATUS MCU__enGetFPUContextActive(void) __attribute__((naked));
-
-
-MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack) __attribute__((naked));
-MCU_nSTACK MCU__enGetStackActive(void) __attribute__((naked));
-
-
-void MCU__vSetPSPValue(UBase_t uxStackValue) __attribute__((naked));
-UBase_t MCU__uxGetPSPValue(void) __attribute__((naked));
-void MCU__vSetMSPValue(UBase_t uxStackValue) __attribute__((naked));
-UBase_t MCU__uxGetMSPValue(void) __attribute__((naked));
-
-
 void MCU__vSetStackValue(MCU_nSTACK enStack, UBase_t uxStackValue);
-UBase_t MCU__uxGetStackValue(MCU_nSTACK enStack) __attribute__((naked));
+UBase_t MCU__uxGetStackValue(MCU_nSTACK enStack);
 
+void MCU__vSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
+MCU_nSTATUS MCU__enSetFPUContextActive(MCU_nSTATUS enStateCoprocessor);
+MCU_nSTATUS MCU__enGetFPUContextActive(void);
 
-MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel) __attribute__((naked));
-MCU_nTHREAD_LEVEL MCU__enGetThreadLevel(void) __attribute__((naked));
+MCU_nSTACK MCU__enSetStackActive(MCU_nSTACK enStack);
+MCU_nSTACK MCU__enGetStackActive(void);
+
+void MCU__vSetPSPValue(UBase_t uxStackValue);
+UBase_t MCU__uxGetPSPValue(void);
+
+void MCU__vSetMSPValue(UBase_t uxStackValue);
+UBase_t MCU__uxGetMSPValue(void);
+
+MCU_nTHREAD_LEVEL MCU__enSetThreadLevel(MCU_nTHREAD_LEVEL enLevel);
+MCU_nTHREAD_LEVEL MCU__enGetThreadLevel(void);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_CONTROLREG_H_ */

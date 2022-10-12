@@ -104,13 +104,15 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
     {
         SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
         SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
-        SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 25000000UL, &pstLineConfigReg);
+        SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 28000000UL, &pstLineConfigReg);
         SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
         SSI__vSetHighSpeed(ST7735_SSI, SSI_enHIGHSPEED_ENA);
 
         SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_DIS);
-        SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
+        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
         SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
+        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_END_OF_TRANSMIT));
+        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_END_OF_TRANSMIT));
         SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
         enErrorReg = ST7735__enEnableChipSelect();
     }
@@ -227,17 +229,10 @@ void ST7735__vDrawBuffer(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg,
             }
             ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
 
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
-            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
 
             uxTotalDim = uxHeightArg;
             uxTotalDim *= uxWidthArg;
             ST7735__enWriteBuffer16bDMA(u16Buffer, uxTotalDim);
-
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
-            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
         }
     }
 }
@@ -277,17 +272,9 @@ void ST7735__vFillRect(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, U
             }
             ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
 
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
-            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
-
             uxTotalDim = uxHeightArg;
             uxTotalDim *= uxWidthArg;
             ST7735__enWriteDMA(uxColor, uxTotalDim);
-
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
-            SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
-            SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
         }
     }
 }

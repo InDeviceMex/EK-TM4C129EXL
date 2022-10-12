@@ -36,6 +36,7 @@
 
 #include <xOS/xOS.h>
 
+__attribute__((aligned(4))) uint16_t u16BufferSPI[128UL * 128UL];
 
 void xTask9_TFT(void* pvParams)
 {
@@ -55,7 +56,6 @@ void xTask9_TFT(void* pvParams)
     UBase_t uxCountImage = 0UL;
     UBase_t uxImage= 0U;
     uint16_t u16IndexReg;
-    static uint16_t u16BufferSPI[128UL * 128UL];
     char pcConvert1[50UL];
     char pcConvert2[50UL];
     char pcConvert3[50UL];
@@ -131,11 +131,6 @@ void xTask9_TFT(void* pvParams)
             }
         }
 
-        ST7735__vBufferString(u16BufferSPI, 0UL, 0UL, pcConvert1, 0xFFFFUL, &FONT_s5x7);
-        ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, pcConvert2, 0xFFFFUL, &FONT_s5x7);
-        ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, pcConvert3, 0xFFFFUL, &FONT_s5x7);
-        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
-
         uxCountImage++;
         if(uxCountImage > 58UL)
         {
@@ -143,6 +138,12 @@ void xTask9_TFT(void* pvParams)
             uxCountImage = 0UL;
         }
         uxCount++;
+
+        ST7735__vBufferString(u16BufferSPI, 0UL, 0UL, pcConvert1, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, pcConvert2, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, pcConvert3, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
+
         OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
     }
 }

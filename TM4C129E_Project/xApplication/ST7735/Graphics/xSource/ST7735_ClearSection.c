@@ -42,10 +42,7 @@ void ST7735__vClearSectionWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DI
         uxTotalDim = stDimesionsArg.uxHeight;
         uxTotalDim *= stDimesionsArg.uxWidth;
         ST7735__vSetWorkingArea(enLayerArg, stDimesionsArg);
-
-        SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
         ST7735__enWriteDMA(uxColor, uxTotalDim);
-        SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
     }
 }
 

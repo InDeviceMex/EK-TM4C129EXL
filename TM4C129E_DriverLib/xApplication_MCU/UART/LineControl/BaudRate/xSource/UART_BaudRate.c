@@ -27,21 +27,17 @@
 
 UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, UBase_t uxBaudRateArg)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    UART_nSTATUS enStatus = UART_enSTATUS_OK;
-    UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
-    float32_t f32BaudRateDivisor = 0.0f;
-    float32_t f32BaudRateFractional = 0.0f;
-    UBase_t uxBaudRateFractional = 0UL;
-    UBase_t uxBaudRateFractional2 = 0UL;
-    UBase_t uxBaudRateInteger = 0UL;
-    UBase_t uxBaudRateInteger2 = 0UL;
-    UART_nSMART enUartMode = UART_enSMART_DIS;
-    UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_ENA;
-    UBase_t uxCurrentClock = 0UL;
 
+    UART_nSTATUS enStatus;
+    UART_nCLOCK enUartClock;
+    UART_nSMART enUartMode;
+    UART_nHIGH_SPEED enHSEValue;
+    UBase_t uxCurrentClock;
 
+    enStatus = UART_enSTATUS_OK;
+    enHSEValue = UART_enHIGH_SPEED_ENA;
     uxCurrentClock = SYSCTL__uxGetAlternateClock();
     enUartClock = UART__enGetClockConfig(enModule);
     if(UART_enCLOCK_SYSCLK == enUartClock)
@@ -49,6 +45,8 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, UBase_t uxBaudRateArg)
         uxCurrentClock = SYSCTL__uxGetSystemClock();
     }
 
+    float32_t f32BaudRateDivisor;
+    float32_t f32BaudRateFractional;
     f32BaudRateDivisor = (float32_t) uxCurrentClock;
     f32BaudRateDivisor /= (float32_t) uxBaudRateArg;
     f32BaudRateDivisor /= 8.0f;
@@ -71,6 +69,11 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, UBase_t uxBaudRateArg)
 
     if(UART_enSTATUS_OK == enStatus)
     {
+        UBase_t uxBaudRateFractional;
+        UBase_t uxBaudRateFractional2;
+        UBase_t uxBaudRateInteger;
+        UBase_t uxBaudRateInteger2;
+
         uxBaudRateInteger = (UBase_t) f32BaudRateDivisor;
 
         f32BaudRateFractional = f32BaudRateDivisor;
@@ -109,26 +112,33 @@ UART_nSTATUS UART__enSetBaudRate(UART_nMODULE enModule, UBase_t uxBaudRateArg)
 
 UBase_t UART__uxGetBaudRate(UART_nMODULE enModule)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    UART_nCLOCK enUartClock = UART_enCLOCK_SYSCLK;
-    UART_nHIGH_SPEED enHSEValue = UART_enHIGH_SPEED_DIS;
-    UBase_t uxBaudRate = 0UL;
-    float32_t f32BaudRate = 0.0f;
-    float32_t f32BaudRateDivisor = 0.0f;
-    float32_t f32BaudRateFractional = 0.0f;
-    UBase_t uxBaudRateFractional = 0UL;
-    UBase_t uxBaudRateInteger = 0UL;
-    UBase_t uxHSEDivider= 8UL;
-    UBase_t uxCurrentClock = 0UL;
+    UART_nHIGH_SPEED enHSEValue;
+    UBase_t uxBaudRate;
+    UBase_t uxCurrentClock;
 
+    uxBaudRate = 0UL;
     uxCurrentClock = SYSCTL__uxGetAlternateClock();
     enHSEValue = UART__enGetHighSpeed(enModule);
     if(UART_enHIGH_SPEED_UNDEF != enHSEValue)
     {
+        UART_nCLOCK enUartClock;
+        UBase_t uxBaudRateFractional;
+        UBase_t uxBaudRateInteger;
+        UBase_t uxHSEDivider;
+
+        float32_t f32BaudRate;
+        float32_t f32BaudRateDivisor;
+        float32_t f32BaudRateFractional;
+
         if(UART_enHIGH_SPEED_DIS == enHSEValue)
         {
             uxHSEDivider = 16UL;
+        }
+        else
+        {
+            uxHSEDivider= 8UL;
         }
 
         enUartClock = UART__enGetClockConfig(enModule);

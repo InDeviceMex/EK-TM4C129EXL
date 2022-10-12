@@ -40,6 +40,7 @@ SECTIONS {
 
     .text : {
         CREATE_OBJECT_SYMBOLS
+        . = ALIGN(4);
         *(.text)
         *(.text.*)
         . = ALIGN(0x4);

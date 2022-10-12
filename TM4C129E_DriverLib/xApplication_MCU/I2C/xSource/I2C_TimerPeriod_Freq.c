@@ -98,8 +98,6 @@ I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, UBase_t* puxFrequenc
 {
     MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-
-
     I2C_nERROR enErrorReg;
     I2C_nSTATE enHighSpeed;
     UBase_t uxSysFrec;

@@ -28,12 +28,12 @@
 
 void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    float32_t f32Divider = 0.0f;
-    UBase_t uxDivider = 0UL;
+    UBase_t uxDivider;
 
     uxDivider = SYSCTL__uxGetSystemClock();
+    float32_t f32Divider;
     f32Divider = (float32_t) uxDivider;
     f32Divider /= 1843200.0f; /*IrDA Low Power frequency*/
     f32Divider += 0.5f;
@@ -44,17 +44,17 @@ void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
 
 UBase_t UART__uxGetIrDALowPowerFrequency(UART_nMODULE enModule)
 {
-    MCU_nSTATUS enFPUActive = MCU_enSTATUS_INACTIVE;
+    MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
-    float32_t f32Divider = 0.0f;
-    UBase_t uxResult = 0UL;
-    UBase_t uxsysClock= 0UL;
-    UBase_t uxDivider = 0UL;
+    UBase_t uxResult;
+    UBase_t uxsysClock;
+    UBase_t uxDivider;
 
     uxsysClock= SYSCTL__uxGetSystemClock();
     uxDivider = UART__uxGetIrDALowPowerDivider(enModule);
 
 
+    float32_t f32Divider;
     f32Divider = (float32_t) uxsysClock;
     f32Divider /= (float32_t) uxDivider;
     uxResult = (UBase_t) f32Divider;

@@ -182,19 +182,19 @@ ACMP_nERROR ACMP__enGetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf3
     MCU_nSTATUS enFPUActive;
     enFPUActive = MCU__enGetFPUContextActive();
 
-    float32_t f32VoltagePorcentage;
-    float32_t f32VoltagePorcentageInit;
 
     UBase_t uxEncoderValueReg;
     ACMP_nREFERENCE_RANGE enVoltageRange;
     ACMP_nSTATE enVoltageEnable;
     ACMP_nERROR enErrorReg;
+    float32_t f32VoltagePorcentage;
+    float32_t f32VoltagePorcentageInit;
 
-    f32VoltagePorcentage = 0.0f;
     enVoltageRange = ACMP_enREFERENCE_RANGE_HIGH;
     uxEncoderValueReg = 0UL;
     enVoltageEnable = ACMP_enSTATE_DIS;
     enErrorReg = ACMP_enERROR_OK;
+    f32VoltagePorcentage = 0.0f;
     if(0UL == (uintptr_t) pf32VoltageRefArg)
     {
         enErrorReg = ACMP_enERROR_POINTER;
