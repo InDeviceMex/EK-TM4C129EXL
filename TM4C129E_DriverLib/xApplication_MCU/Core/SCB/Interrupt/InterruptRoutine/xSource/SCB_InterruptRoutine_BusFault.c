@@ -26,7 +26,7 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-UBase_t SCB_BusFault_puxContext[8UL] = {0UL};
+UBase_t SCB_BusFault_puxContext[8UL];
 
 UART_CONTROL_t enUartBusControl =
 {
@@ -87,100 +87,6 @@ void BusFault__vSendValues(void)
                     SCB_BusFault_puxContext[7UL],
                     SCB_BusFault_puxContext[5UL],
                     SCB_BusFault_puxContext[6UL]);
-}
-
-
-__attribute__((naked))
-void BusFault__vIRQVectorHandler(void)
-{
-    __asm volatile(
-    " PUSH {R4-R7}\n"
-    " ubfx    R4, LR, #2, #1 \n"
-    " cmp    R4, #0 \n"
-    " beq    MainStackBus \n"
-    " b    ProcessStackBus \n"
-
-    "MainStackBus: \n"
-    " mrs    R4, MSP \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R6, SCB_BusFault_puxContext\n"
-    " movt R6, SCB_BusFault_puxContext\n"
-#elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_puxContext\n"
-#endif
-    " ldr R5, [R4, #0X10]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_puxContext[0] R4*/
-    " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_puxContext[1] R5*/
-    " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_puxContext[2] R6*/
-    " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_puxContext[3] R3*/
-    " ldr R5, [R4, #0x20]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_puxContext[4] R52*/
-    " ldr R5, [R4, #0x24]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_puxContext[5] LR*/
-    " ldr R5, [R4, #0x28]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_puxContext[6] PC*/
-    " ldr R5, [R4, #0x2C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_puxContext[7] PSR*/
-    " b    ProcessBus \n"
-
-    "ProcessStackBus: \n"
-    " mrs    R4, PSP \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R6, SCB_BusFault_puxContext\n"
-    " movt R6, SCB_BusFault_puxContext\n"
-#elif defined (__GNUC__ )
-    " ldr R6, = SCB_BusFault_puxContext\n"
-#endif
-    " ldr R5, [R4, #0X0]\n"
-    " str R5, [R6, #0x0]\n"/*SCB_BusFault_puxContext[0] R4*/
-    " ldr R5, [R4, #0x4]\n"
-    " str R5, [R6, #0x4]\n"/*SCB_BusFault_puxContext[1] R5*/
-    " ldr R5, [R4, #0x8]\n"
-    " str R5, [R6, #0x8]\n"/*SCB_BusFault_puxContext[2] R6*/
-    " ldr R5, [R4, #0xC]\n"
-    " str R5, [R6, #0xC]\n"/*SCB_BusFault_puxContext[3] R3*/
-    " ldr R5, [R4, #0x10]\n"
-    " str R5, [R6, #0x10]\n"/*SCB_BusFault_puxContext[4] R52*/
-    " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x14]\n"/*SCB_BusFault_puxContext[5] LR*/
-    " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x18]\n"/*SCB_BusFault_puxContext[6] PC*/
-    " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0x1C]\n"/*SCB_BusFault_puxContext[7] PSR*/
-
-    "ProcessBus: \n"
-    " pop {R4-R7}\n"
-    " push {R0,R1,R2,LR} \n"
-    " .global BusFault__vSendValues \n"
-    " .global BusFault__vIRQVectorHandlerCustom \n"
-    " .global BusFault__vSendValues \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R2, BusFault__vSendValues\n"
-    " movt R2, BusFault__vSendValues\n"
-#elif defined (__GNUC__ )
-    " ldr R2, = BusFault__vSendValues\n"
-#endif
-    " blx R2 \n"
-    " movw R0, #0xE000\n"
-    " movt R0, #0xE000\n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R1, SCB_BusFault_puxContext\n"
-    " movt R1, SCB_BusFault_puxContext\n"
-#elif defined (__GNUC__ )
-    " ldr R1, = SCB_BusFault_puxContext\n"
-#endif
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R2, BusFault__vIRQVectorHandlerCustom\n"
-    " movt R2, BusFault__vIRQVectorHandlerCustom\n"
-#elif defined (__GNUC__ )
-    " ldr R2, = BusFault__vIRQVectorHandlerCustom\n"
-#endif
-    " blx R2 \n"
-    " pop {R0,R1,R2,LR} \n"
-    " BX LR \n");
 }
 
 void BusFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)

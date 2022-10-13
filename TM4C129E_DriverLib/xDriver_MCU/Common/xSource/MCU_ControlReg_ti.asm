@@ -1,8 +1,4 @@
 
- 	.sect 	".text"
- 	.align 	4
-	.thumb
-	.clink
 
 	.global MCU__vSetFPUContextActive
 	.global MCU__enSetFPUContextActive
@@ -20,6 +16,11 @@
 	.global MCU__enSetThreadLevel
 	.global MCU__enGetThreadLevel
 
+ 	.sect 	".text"
+	.thumb
+	.clink
+
+ 	.align 	4
 MCU__vSetFPUContextActive:
 	push    {r1,r2}
 	mrs     r1, CONTROL
@@ -31,6 +32,7 @@ MCU__vSetFPUContextActive:
 	pop     {r1,r2}
 	bx      lr
 
+ 	.align 	4
 MCU__enSetFPUContextActive:
 	push    {r1,r2}
 	mrs     r1, CONTROL
@@ -43,6 +45,7 @@ MCU__enSetFPUContextActive:
 	pop     {r1,r2}
 	bx      lr
 
+ 	.align 	4
 MCU__enGetFPUContextActive:
 	push    {r1,r2}
 	mrs     r1, CONTROL
@@ -50,6 +53,7 @@ MCU__enGetFPUContextActive:
 	pop     {r1,r2}
 	bx      lr
 
+ 	.align 	4
 MCU__enSetStackActive:
 	push    {r1,r2}
     mrs     r1, CONTROL
@@ -62,6 +66,7 @@ MCU__enSetStackActive:
 	pop     {r1,r2}
     bx      lr
 
+ 	.align 	4
 MCU__enGetStackActive:
 	push    {r1,r2}
     mrs     r1, CONTROL
@@ -69,26 +74,31 @@ MCU__enGetStackActive:
 	pop     {r1,r2}
     bx      lr
 
+ 	.align 	4
 MCU__vSetPSPValue:
 	msr PSP, r0
 	dsb
 	isb
 	bx      lr
 
+ 	.align 	4
 MCU__uxGetPSPValue:
 	mrs     r0, PSP
 	bx      lr
 
+ 	.align 	4
 MCU__vSetMSPValue:
 	msr     MSP, r0
 	dsb
 	isb
 	bx      lr
 
+ 	.align 	4
 MCU__uxGetMSPValue:
 	mrs     r0, MSP
     bx      lr
 
+ 	.align 	4
 MCU__enSetThreadLevel:
 	push    {r1,r2}
 	mrs     r1, CONTROL
@@ -101,6 +111,7 @@ MCU__enSetThreadLevel:
 	pop     {r1,r2}
   	bx      lr
 
+ 	.align 	4
 MCU__enGetThreadLevel:
 	push    {r1,r2}
 	mrs     r1, CONTROL

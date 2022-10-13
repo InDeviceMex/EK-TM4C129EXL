@@ -26,7 +26,7 @@
 #include <xApplication_MCU/Core/SCB/Interrupt/InterruptRoutine/xHeader/SCB_InterruptRoutine_Source.h>
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Dependencies.h>
 
-UBase_t SCB_UsageFault_puxContext[8UL] = {0UL};
+UBase_t SCB_UsageFault_puxContext[8UL];
 
 UART_CONTROL_t enUartUsageControl =
 {

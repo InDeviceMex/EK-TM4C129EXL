@@ -27,7 +27,8 @@
 
 #include <xApplication_MCU/Core/SCB/Intrinsics/xHeader/SCB_Defines.h>
 
-__attribute__((naked))
+extern UBase_t SCB_HardFault_puxContext[8UL];
+
 void HardFault__vIRQVectorHandler(void);
 void HardFault__vSendValues(void);
 void HardFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument);

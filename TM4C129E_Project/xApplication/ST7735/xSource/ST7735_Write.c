@@ -155,6 +155,7 @@ error_t ST7735__enWriteCommand(uint16_t u16DataArg)
 {
     error_t enErrorReg;
     UBase_t uxStatusReg;
+    UBase_t uxDataReg;
     do
     {
         uxStatusReg = ST7735__uxGetDMATxInterupt();
@@ -168,7 +169,8 @@ error_t ST7735__enWriteCommand(uint16_t u16DataArg)
     }
     if(ERROR_OK == enErrorReg)
     {
-        (void) SSI__uxSetData(ST7735_SSI, (UBase_t) u16DataArg);
+        uxDataReg = (uint32_t) u16DataArg;
+        (void) SSI__uxSetData(ST7735_SSI, uxDataReg);
         enErrorReg = ST7735__enDisableChipSelect();
     }
     ST7735__vSetDMATxInterupt(0UL);
