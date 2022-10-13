@@ -66,7 +66,7 @@ SCB_nERROR SCB__enRegisterIRQVectorHandler(SCB_nMODULE enModuleArg,
         uxBaseVectorReg += uxVectorReg;
         if(uxFlashSizeInBytesReg > uxBaseVectorReg)
         {
-            enInterruptStateReg = MCU__enDisGlobalInterrupt();
+            enInterruptStateReg = MCU__enDisableGlobalInterrupt();
             enErrorReg = (SCB_nERROR) FLASH__enWriteWorld(FLASH_enMODULE_0, uptrIrqVectorHandlerReg, uxBaseVectorReg);
             MCU__vSetGlobalInterrupt(enInterruptStateReg);
         }
@@ -93,9 +93,9 @@ void SCB__vUnRegisterIRQVectorHandler(SCB_nVECISR enVector)
 
     if(uxBaseVectorReg <= 0x00010000U)
     {
-        MCU__enDisGlobalInterrupt();
+        MCU__enDisableGlobalInterrupt();
         FLASH__enWrite((UBase_t) IntDefaultHandler | 1, uxBaseVectorReg+((UBase_t) enVector*4U));
-        MCU__vEnGlobalInterrupt();
+        MCU__vEnableGlobalInterrupt();
     }
     else if((uxBaseVectorReg >= 0x20000000U) && (uxBaseVectorReg <= 0x20000400U) )
     {

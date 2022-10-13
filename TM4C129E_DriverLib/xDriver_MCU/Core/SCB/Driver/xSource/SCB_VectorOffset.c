@@ -37,7 +37,7 @@ SCB_nERROR SCB__enSetVectorOffset(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg)
     stRegister.uxMask = SCB_VTOR_R_TBLOFF_MASK;
     stRegister.uptrAddress = SCB_VTOR_OFFSET;
     stRegister.uxValue = uxOffsetArg;
-    enInterruptState = MCU__enDisGlobalInterrupt();
+    enInterruptState = MCU__enDisableGlobalInterrupt();
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
     MCU__vSetGlobalInterrupt(enInterruptState);

@@ -6,9 +6,9 @@
 
  	.align 	4
     .thumb_func
-	.global MCU__enDisGlobalInterrupt
- 	.type MCU__enDisGlobalInterrupt, %function
-MCU__enDisGlobalInterrupt:
+	.global MCU__enDisableGlobalInterrupt
+ 	.type MCU__enDisableGlobalInterrupt, %function
+MCU__enDisableGlobalInterrupt:
 	mrs     r0, PRIMASK
 	cpsid   i
 	dsb
@@ -17,9 +17,9 @@ MCU__enDisGlobalInterrupt:
 
  	.align 	4
     .thumb_func
-	.global MCU__enEnGlobalInterrupt
- 	.type MCU__enEnGlobalInterrupt, %function
-MCU__enEnGlobalInterrupt:
+	.global MCU__enEnableGlobalInterrupt
+ 	.type MCU__enEnableGlobalInterrupt, %function
+MCU__enEnableGlobalInterrupt:
 	mrs     r0, PRIMASK
 	cpsie   i
 	dsb
@@ -102,9 +102,9 @@ MCU__enGetBasePriorityInterrupt:
 
  	.align 	4
     .thumb_func
-	.global MCU__enDisGlobalFault
- 	.type MCU__enDisGlobalFault, %function
-MCU__enDisGlobalFault:
+	.global MCU__enDisableGlobalFault
+ 	.type MCU__enDisableGlobalFault, %function
+MCU__enDisableGlobalFault:
 	mrs     r0, FAULTMASK
 	cpsid   f
 	dsb
@@ -113,9 +113,9 @@ MCU__enDisGlobalFault:
 
  	.align 	4
     .thumb_func
-	.global MCU__enEnGlobalFault
- 	.type MCU__enEnGlobalFault, %function
-MCU__enEnGlobalFault:
+	.global MCU__enEnableGlobalFault
+ 	.type MCU__enEnableGlobalFault, %function
+MCU__enEnableGlobalFault:
 	mrs     r0, FAULTMASK
 	cpsie   f
 	dsb
@@ -151,9 +151,9 @@ MCU__enGetGlobalFault:
 
  	.align 	4
     .thumb_func
-	.global MCU__enDisGlobalInterrupt_RAM
- 	.type MCU__enDisGlobalInterrupt_RAM, %function
-MCU__enDisGlobalInterrupt_RAM:
+	.global MCU__enDisableGlobalInterrupt_RAM
+ 	.type MCU__enDisableGlobalInterrupt_RAM, %function
+MCU__enDisableGlobalInterrupt_RAM:
 	mrs     r0, PRIMASK
 	cpsid   i
 	dsb
@@ -162,9 +162,9 @@ MCU__enDisGlobalInterrupt_RAM:
 
  	.align 	4
     .thumb_func
-	.global MCU__enEnGlobalInterrupt_RAM
- 	.type MCU__enEnGlobalInterrupt_RAM, %function
-MCU__enEnGlobalInterrupt_RAM:
+	.global MCU__enEnableGlobalInterrupt_RAM
+ 	.type MCU__enEnableGlobalInterrupt_RAM, %function
+MCU__enEnableGlobalInterrupt_RAM:
 	mrs     r0, PRIMASK
 	cpsie   i
 	dsb
@@ -247,9 +247,9 @@ MCU__enGetBasePriorityInterrupt_RAM:
 
  	.align 	4
     .thumb_func
-	.global MCU__enDisGlobalFault_RAM
- 	.type MCU__enDisGlobalFault_RAM, %function
-MCU__enDisGlobalFault_RAM:
+	.global MCU__enDisableGlobalFault_RAM
+ 	.type MCU__enDisableGlobalFault_RAM, %function
+MCU__enDisableGlobalFault_RAM:
 	mrs     r0, FAULTMASK
 	cpsid   f
 	dsb
@@ -258,9 +258,9 @@ MCU__enDisGlobalFault_RAM:
 
  	.align 	4
     .thumb_func
-	.global MCU__enEnGlobalFault_RAM
- 	.type MCU__enEnGlobalFault_RAM, %function
-MCU__enEnGlobalFault_RAM:
+	.global MCU__enEnableGlobalFault_RAM
+ 	.type MCU__enEnableGlobalFault_RAM, %function
+MCU__enEnableGlobalFault_RAM:
 	mrs     r0, FAULTMASK
 	cpsie   f
 	dsb

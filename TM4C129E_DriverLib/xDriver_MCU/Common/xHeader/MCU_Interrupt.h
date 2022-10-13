@@ -28,14 +28,14 @@
 #include <xDriver_MCU/Common/xHeader/MCU_Enum.h>
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
 
-#pragma  CODE_SECTION(MCU__enDisGlobalInterrupt_RAM, ".ramcode")
-#pragma  CODE_SECTION(MCU__enEnGlobalInterrupt_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__enDisableGlobalInterrupt_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__enEnableGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__vSetGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enSetGlobalInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetGlobalInterrupt_RAM, ".ramcode")
 
-#pragma  CODE_SECTION(MCU__enDisGlobalFault_RAM, ".ramcode")
-#pragma  CODE_SECTION(MCU__enEnGlobalFault_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__enDisableGlobalFault_RAM, ".ramcode")
+#pragma  CODE_SECTION(MCU__enEnableGlobalFault_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enSetGlobalFault_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetGlobalFault_RAM, ".ramcode")
 
@@ -43,15 +43,15 @@
 #pragma  CODE_SECTION(MCU__enSetBasePriorityInterrupt_RAM, ".ramcode")
 #pragma  CODE_SECTION(MCU__enGetBasePriorityInterrupt_RAM, ".ramcode")
 
-MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void);
-MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void);
+MCU_nSTATE MCU__enDisableGlobalInterrupt_RAM(void);
+MCU_nSTATE MCU__enEnableGlobalInterrupt_RAM(void);
 void MCU__vSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void);
 
 
-MCU_nSTATE MCU__enDisGlobalFault_RAM(void);
-MCU_nSTATE MCU__enEnGlobalFault_RAM(void);
+MCU_nSTATE MCU__enDisableGlobalFault_RAM(void);
+MCU_nSTATE MCU__enEnableGlobalFault_RAM(void);
 MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enGetGlobalFault_RAM(void);
 
@@ -63,15 +63,15 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt_RAM(void);
 
 #elif defined (__GNUC__ )
 
-MCU_nSTATE MCU__enDisGlobalInterrupt_RAM(void) __attribute__((section(".ramcode")));
-MCU_nSTATE MCU__enEnGlobalInterrupt_RAM(void) __attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enDisableGlobalInterrupt_RAM(void) __attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enEnableGlobalInterrupt_RAM(void) __attribute__((section(".ramcode")));
 void MCU__vSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt) __attribute__((section(".ramcode")));
 MCU_nSTATE MCU__enSetGlobalInterrupt_RAM(MCU_nSTATE enStateInterrupt) __attribute__((section(".ramcode")));
 MCU_nSTATE MCU__enGetGlobalInterrupt_RAM(void) __attribute__((section(".ramcode")));
 
 
-MCU_nSTATE MCU__enDisGlobalFault_RAM(void) __attribute__((section(".ramcode")));
-MCU_nSTATE MCU__enEnGlobalFault_RAM(void) __attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enDisableGlobalFault_RAM(void) __attribute__((section(".ramcode")));
+MCU_nSTATE MCU__enEnableGlobalFault_RAM(void) __attribute__((section(".ramcode")));
 MCU_nSTATE MCU__enSetGlobalFault_RAM(MCU_nSTATE enStateInterrupt) __attribute__((section(".ramcode")));
 MCU_nSTATE MCU__enGetGlobalFault_RAM(void) __attribute__((section(".ramcode")));
 
@@ -85,16 +85,16 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt_RAM(void) __attribute__((section("
 
 
 
-MCU_nSTATE MCU__enDisGlobalInterrupt(void);
+MCU_nSTATE MCU__enDisableGlobalInterrupt(void);
 
-MCU_nSTATE MCU__enEnGlobalInterrupt(void);
+MCU_nSTATE MCU__enEnableGlobalInterrupt(void);
 void MCU__vSetGlobalInterrupt(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enSetGlobalInterrupt(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enGetGlobalInterrupt(void);
 
 
-MCU_nSTATE MCU__enDisGlobalFault(void);
-MCU_nSTATE MCU__enEnGlobalFault(void);
+MCU_nSTATE MCU__enDisableGlobalFault(void);
+MCU_nSTATE MCU__enEnableGlobalFault(void);
 MCU_nSTATE MCU__enSetGlobalFault(MCU_nSTATE enStateInterrupt);
 MCU_nSTATE MCU__enGetGlobalFault(void);
 
@@ -122,7 +122,7 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void);
 #define MCU__vSendEvent_RAM() {__asm volatile(" sev \n" \
                                               " dsb \n" \
                                               " isb \n");}
-#define MCU__vEnGlobalInterrupt_RAM() { __asm volatile(" cpsie   i \n" \
+#define MCU__vEnableGlobalInterrupt_RAM() { __asm volatile(" cpsie   i \n" \
                                                        " dsb \n" \
                                                        " isb\n");}
 
@@ -135,7 +135,7 @@ MCU_nPRIORITY MCU__enGetBasePriorityInterrupt(void);
 #define MCU__vSendEvent() {__asm volatile(" sev \n" \
                                               " dsb \n" \
                                               " isb \n");}
-#define MCU__vEnGlobalInterrupt() { __asm volatile( " cpsie   i \n" \
+#define MCU__vEnableGlobalInterrupt() { __asm volatile( " cpsie   i \n" \
                                                     " dsb \n" \
                                                     " isb\n");}
 
