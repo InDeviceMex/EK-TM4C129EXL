@@ -132,7 +132,7 @@ void xTask9_TFT(void* pvParams)
         }
 
         uxCountImage++;
-        if(uxCountImage > 58UL)
+        if(uxCountImage > 60)
         {
             uxImage ^= 1UL;
             uxCountImage = 0UL;
