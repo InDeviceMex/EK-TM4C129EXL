@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetResetMode(QEI_nMODULE enModule, QEI_nRESET enResetModeArg);
-QEI_nRESET QEI__enGetResetMode(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET enModeArg);
+QEI_nERROR QEI__enGetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET* penModeArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_RESETMODE_H_ */

@@ -30,7 +30,7 @@
 PWM_nERROR PWM_Generator__enResetCounterByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg);
 PWM_nERROR PWM_Generator__enResetCounterByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg);
 
-PWM_nERROR PWM_Generator__enIsResetCounterOngoingByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATUS* penStatusArg);
+PWM_nERROR PWM_Generator__enIsResetCounterOngoingByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nBOOLEAN* penStatusArg);
 PWM_nERROR PWM_Generator__enIsResetCounterOngoingByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg, PWM_nGENMASK* penStatusArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERATOR_XHEADER_PWM_GENERATOR_CLEARCOUNT_H_ */

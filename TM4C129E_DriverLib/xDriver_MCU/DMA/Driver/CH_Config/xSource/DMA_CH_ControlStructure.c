@@ -67,7 +67,7 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
         {
             stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         }
-        uxValueReg = 1UL << enChannelArg;
+        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uxValue = uxValueReg;

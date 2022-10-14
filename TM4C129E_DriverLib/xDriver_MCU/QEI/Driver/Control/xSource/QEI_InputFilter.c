@@ -23,34 +23,84 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_InputFilter.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetInputFilter(QEI_nMODULE enModule, QEI_nINPUT_FILTER enInputFilterArg)
+QEI_nERROR QEI__enSetInputFilterState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enInputFilterArg,
-                        QEI_CTL_FILTEN_MASK, QEI_CTL_R_FILTEN_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_FILTEN_BIT;
+    stRegister.uxMask = QEI_CTL_FILTEN_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nINPUT_FILTER QEI__enGetInputFilter(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetInputFilterState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg)
 {
-    QEI_nINPUT_FILTER enInputFilterReg = QEI_enINPUT_FILTER_DIS;
-    enInputFilterReg = (QEI_nINPUT_FILTER) QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                                               QEI_CTL_FILTEN_MASK, QEI_CTL_R_FILTEN_BIT);
-    return (enInputFilterReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_FILTEN_BIT;
+        stRegister.uxMask = QEI_CTL_FILTEN_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (QEI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void QEI__vSetInputFilterCount(QEI_nMODULE enModule, QEI_nINPUT_FILTER_COUNT enInputFilterCountArg)
+
+QEI_nERROR QEI__enSetInputFilterCount(QEI_nMODULE enModuleArg, QEI_nFILTER_COUNT enCountArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enInputFilterCountArg,
-                        QEI_CTL_FILTCNT_MASK, QEI_CTL_R_FILTCNT_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_FILTCNT_BIT;
+    stRegister.uxMask = QEI_CTL_FILTCNT_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enCountArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nINPUT_FILTER_COUNT QEI__enGetInputFilterCount(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetInputFilterCount(QEI_nMODULE enModuleArg, QEI_nFILTER_COUNT* penCountArg)
 {
-    QEI_nINPUT_FILTER_COUNT enInputFilterCountReg = QEI_enINPUT_FILTER_COUNT_2;
-    enInputFilterCountReg = (QEI_nINPUT_FILTER_COUNT) QEI__uxReadRegister(enModule,
-                                               QEI_CTL_OFFSET,
-                                               QEI_CTL_FILTCNT_MASK, QEI_CTL_R_FILTCNT_BIT);
-    return (enInputFilterCountReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penCountArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_FILTCNT_BIT;
+        stRegister.uxMask = QEI_CTL_FILTCNT_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penCountArg = (QEI_nFILTER_COUNT) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

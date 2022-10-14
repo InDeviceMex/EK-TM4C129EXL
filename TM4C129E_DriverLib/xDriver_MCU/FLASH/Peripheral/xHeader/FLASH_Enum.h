@@ -40,6 +40,13 @@ typedef enum
 
 typedef enum
 {
+    FLASH_enFALSE = (UBase_t) FALSE,
+    FLASH_enTRUE = (UBase_t) TRUE,
+    FLASH_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}FLASH_nBOOLEAN;
+
+typedef enum
+{
     FLASH_enPRI0 = (UBase_t) MCU_enPRI0,
     FLASH_enPRI1 = (UBase_t) MCU_enPRI1,
     FLASH_enPRI2 = (UBase_t) MCU_enPRI2,

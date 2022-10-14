@@ -30,8 +30,8 @@
 PWM_nERROR PWM__enGeneratorNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg);
 PWM_nERROR PWM__enFaultInputNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberArg);
 
-PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
-PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
-PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg);
+PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg);
+PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg);
+PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg);
 
 #endif /* XDRIVER_MCU_PWM_DRIVER_GENERAL_XHEADER_PWM_PROPIERTIES_H_ */

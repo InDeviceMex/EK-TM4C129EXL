@@ -46,7 +46,7 @@
 
 FLASH_nERROR FLASH__enClearPrefetchBuffer(FLASH_nMODULE enModuleArg);
 
-FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg);
+FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nBOOLEAN* penStatusArg);
 FLASH_nERROR FLASH__enSetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE enModeArg);
 FLASH_nERROR FLASH__enGetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE* penModeArg);
 
@@ -55,7 +55,7 @@ FLASH_nERROR FLASH__enDisablePrefetch(FLASH_nMODULE enModuleArg);
 
 FLASH_nERROR FLASH__enSetPrefetchState(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_STATE enStateArg);
 
-FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg);
+FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nBOOLEAN* penStatusArg);
 FLASH_nERROR FLASH__enSetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE enStateArg);
 FLASH_nERROR FLASH__enGetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE* penStateArg);
 
@@ -64,7 +64,7 @@ FLASH_nERROR FLASH__enGetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE* pen
 
 FLASH_nERROR FLASH__enClearPrefetchBuffer(FLASH_nMODULE enModuleArg);
 
-FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enIsPrefetchDualModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nBOOLEAN* penStatusArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enSetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE enModeArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enGetPrefetchMode(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_MODE* penModeArg) __attribute__((section(".ramcode")));
 
@@ -73,7 +73,7 @@ FLASH_nERROR FLASH__enDisablePrefetch(FLASH_nMODULE enModuleArg) __attribute__((
 
 FLASH_nERROR FLASH__enSetPrefetchState(FLASH_nMODULE enModuleArg, FLASH_nPREFETCH_STATE enStateArg) __attribute__((section(".ramcode")));
 
-FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nSTATUS* penStatusArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enIsMirrorModeAvailable(FLASH_nMODULE enModuleArg, FLASH_nBOOLEAN* penStatusArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enSetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE enStateArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enGetMirrorMode(FLASH_nMODULE enModuleArg, FLASH_nSTATE* penStateArg) __attribute__((section(".ramcode"))) __attribute__((section(".ramcode")));
 

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetSwapSignals(QEI_nMODULE enModule, QEI_nSWAP enSwapSignalsArg);
-QEI_nSWAP QEI__enGetSwapSignals(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSwapPhaseInput(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enGetSwapPhaseInputMode(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_SWAPSIGNAL_H_ */

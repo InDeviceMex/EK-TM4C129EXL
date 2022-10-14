@@ -67,6 +67,13 @@ typedef enum
 
 typedef enum
 {
+    DMA_enFALSE = (UBase_t) FALSE,
+    DMA_enTRUE = (UBase_t) TRUE,
+    DMA_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}DMA_nBOOLEAN;
+
+typedef enum
+{
     DMA_enMODULE_0 = 0UL,
     DMA_enMODULE_MAX = 1UL,
 }DMA_nMODULE;
@@ -176,13 +183,6 @@ typedef enum
     DMA_enSTATE_MACHINE_WD_DONE = 9UL,
     DMA_enSTATE_MACHINE_UNDEF = UNDEF_VALUE,
 }DMA_nSTATE_MACHINE;
-
-typedef enum
-{
-    DMA_enCH_WAITREQ_NO = 0UL,
-    DMA_enCH_WAITREQ_YES = 1UL,
-    DMA_enCH_WAITREQ_UNDEF = UNDEF_VALUE,
-}DMA_nCH_WAITREQ;
 
 typedef enum
 {

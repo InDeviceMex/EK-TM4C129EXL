@@ -27,7 +27,18 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetInvertSignals(QEI_nMODULE enModule, QEI_nSIGNAL enSignalsArg, QEI_nINVERT enInvertSignalsArg);
-QEI_nINVERT QEI__enGetInvertSignals(QEI_nMODULE enModule, QEI_nSIGNAL enSignalsArg);
+QEI_nERROR QEI__enSetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
+                                              QEI_nINPUT enInputArg,
+                                              QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enSetInvertInputStateByMask(QEI_nMODULE enModuleArg,
+                                            QEI_nINPUTMASK enInputArg,
+                                            QEI_nSTATE enStateArg);
+
+QEI_nERROR QEI__enGetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
+                                          QEI_nINPUT enInputArg,
+                                          QEI_nSTATE* penStateArg);
+QEI_nERROR QEI__enGetInvertInputStateByMask(QEI_nMODULE enModuleArg,
+                                          QEI_nINPUT enSignalsArg,
+                                          QEI_nINPUT* penStateArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_INVERTSIGNAL_H_ */

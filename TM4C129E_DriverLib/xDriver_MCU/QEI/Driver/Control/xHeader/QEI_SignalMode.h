@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetSignalMode(QEI_nMODULE enModule, QEI_nMODE enSignalModeArg);
-QEI_nMODE QEI__enGetSignalMode(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetMode(QEI_nMODULE enModuleArg, QEI_nMODE enModeArg);
+QEI_nERROR QEI__enGetMode(QEI_nMODULE enModuleArg, QEI_nMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_SIGNALMODE_H_ */

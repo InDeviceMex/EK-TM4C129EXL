@@ -74,7 +74,7 @@ PWM_nERROR PWM__enFaultInputNumber(PWM_nMODULE enModuleArg, UBase_t* puxNumberAr
     return (enErrorReg);
 }
 
-PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
+PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg)
 {
     PWM_Register_t stRegister;
     PWM_nERROR enErrorReg;
@@ -93,12 +93,12 @@ PWM_nERROR PWM__enIsExtendedFaultAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS*
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+        *penAvailableArg = (PWM_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
+PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg)
 {
     PWM_Register_t stRegister;
     PWM_nERROR enErrorReg;
@@ -117,12 +117,12 @@ PWM_nERROR PWM__enIsExtendedSyncAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* 
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+        *penAvailableArg = (PWM_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }
 
-PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* penAvailableArg)
+PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penAvailableArg)
 {
     PWM_Register_t stRegister;
     PWM_nERROR enErrorReg;
@@ -141,7 +141,7 @@ PWM_nERROR PWM__enIsOneShotModeAvailable(PWM_nMODULE enModuleArg, PWM_nSTATUS* p
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        *penAvailableArg = (PWM_nSTATUS) stRegister.uxValue;
+        *penAvailableArg = (PWM_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

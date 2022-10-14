@@ -41,97 +41,136 @@ GPIO_nDIGITAL_FUNCTION QEI_enGpioInput[MAX_CONFIG] [(UBase_t) QEI_enMODULE_MAX][
     },
  };
 
-QEI_nSTATUS QEI__enSetConfig(QEI_nMODULE enModule,
-                             const QEI_CONTROL_t* pstControlConfig,
-                             const QEI_SIGNAL_t* pstSignalConfig,
+QEI_nERROR QEI__enSetConfig(QEI_nMODULE enModuleArg,
+                             const QEI_CONTROL_t* pstControlConfigArg,
+                             const QEI_INPUT_t* pstInputConfigArg,
                              UBase_t uxInitialPosArg,
                              UBase_t uxMaxPositionArg,
-                             UBase_t uxTimerLoad)
+                             UBase_t uxTimerLoadArg)
 {
-    QEI_nSTATUS enReturn = QEI_enSTATUS_ERROR;
-    QEI_nMODULE enModuleFilter = QEI_enMODULE_0;
-    UBase_t uxSignal[3UL] = {0UL};
+    QEI_nERROR enErrorReg;
 
-    if((0UL != (UBase_t) pstControlConfig) && (0UL != (UBase_t) pstSignalConfig))
+    enErrorReg = QEI_enERROR_OK;
+    if((0UL == (uintptr_t) pstControlConfigArg) || (0UL == (uintptr_t) pstInputConfigArg))
     {
-        enModuleFilter = (QEI_nMODULE) MCU__uxCheckParams((UBase_t) enModule,
-                                                           (UBase_t) QEI_enMODULE_MAX);
-        uxSignal[PHA_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enPhA,
-                                                    MAX_CONFIG);
-        uxSignal[PHB_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enPhB,
-                                                    MAX_CONFIG);
-        uxSignal[IDX_SIGNAL] = MCU__uxCheckParams((UBase_t) pstSignalConfig->enIDX,
-                                                    MAX_CONFIG);
-
-        if(QEI_enRESET_INDEX == pstControlConfig->enResetMode)
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__uxCheckParams((UBase_t) pstInputConfigArg->enPhA, MAX_CONFIG);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__uxCheckParams((UBase_t) pstInputConfigArg->enPhB, MAX_CONFIG);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__uxCheckParams((UBase_t) pstInputConfigArg->enIDX, MAX_CONFIG);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        if(QEI_enRESET_INDEX == pstControlConfigArg->enResetMode)
         {
-            GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[IDX_SIGNAL]]
-                                                    [(UBase_t) enModuleFilter]
-                                                    [IDX_SIGNAL],
-                                    GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+            enErrorReg = (QEI_nERROR) GPIO__enSetDigitalConfig(QEI_enGpioInput[(UBase_t) pstInputConfigArg->enIDX]
+                                                                              [(UBase_t) enModuleArg]
+                                                                              [IDX_SIGNAL],
+                                                               GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
         }
-        GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[PHA_SIGNAL]]
-                                                [(UBase_t) enModuleFilter]
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) GPIO__enSetDigitalConfig(QEI_enGpioInput[(UBase_t) pstInputConfigArg->enPhA]
+                                                [(UBase_t) enModuleArg]
                                                 [PHA_SIGNAL],
                                 GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-        GPIO__enSetDigitalConfig(QEI_enGpioInput[uxSignal[PHB_SIGNAL]]
-                                                [(UBase_t) enModuleFilter]
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) GPIO__enSetDigitalConfig(QEI_enGpioInput[(UBase_t) pstInputConfigArg->enPhB]
+                                                [(UBase_t) enModuleArg]
                                                 [PHB_SIGNAL],
                                 GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-
-        if(QEI_enINVERT_ENA == pstSignalConfig->enPhAInvert)
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_PhA, QEI_enINVERT_ENA);
-        }
-        else
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_PhA, QEI_enINVERT_DIS);
-        }
-
-        if(QEI_enINVERT_ENA == pstSignalConfig->enPhBInvert)
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_PhB, QEI_enINVERT_ENA);
-        }
-        else
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_PhB, QEI_enINVERT_DIS);
-        }
-
-        if(QEI_enINVERT_ENA == pstSignalConfig->enIDXInvert)
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_INDEX, QEI_enINVERT_ENA);
-        }
-        else
-        {
-            QEI__vSetInvertSignals(enModuleFilter, QEI_enSIGNAL_INDEX, QEI_enINVERT_DIS);
-        }
-
-        QEI__vSetStall(enModuleFilter, pstControlConfig->enStall);
-        QEI__vSetResetMode(enModuleFilter, pstControlConfig->enResetMode);
-        QEI__vSetSwapSignals(enModuleFilter, pstControlConfig->enSwapSignals);
-        QEI__vSetSignalMode(enModuleFilter, pstControlConfig->enSignalMode);
-        QEI__vSetVelocityEnable(enModuleFilter, pstControlConfig->enVelocity);
-        QEI__vSetInputFilter(enModuleFilter, pstControlConfig->enInputFilter);
-        if(QEI_enMODE_QUADRATURE == pstControlConfig->enSignalMode)
-        {
-            QEI__vSetCaptureMode(enModuleFilter, pstControlConfig->enCaptureMode);
-        }
-        if(QEI_enVELOCITY_ENA == pstControlConfig->enVelocity)
-        {
-            QEI__vSetVelocityPredivide(enModuleFilter, pstControlConfig->enVelocityPrediv);
-        }
-        if(QEI_enINPUT_FILTER_ENA == pstControlConfig->enInputFilter)
-        {
-            QEI__vSetInputFilterCount(enModuleFilter, pstControlConfig->enInputFilterCount);
-        }
-
-        QEI__vSetMaxPosition(enModuleFilter, uxMaxPositionArg);
-        QEI__vSetLoadTimer(enModuleFilter, uxTimerLoad);
-
-        QEI__vSetEnable(enModuleFilter, pstControlConfig->enEnableModule);
-
-        QEI__vSetPosition(enModuleFilter, uxInitialPosArg);
-        enReturn = QEI_enSTATUS_OK;
     }
-    return (enReturn);
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetInvertInputStateByNumber(enModuleArg, QEI_enINPUT_PhA, pstInputConfigArg->enPhAInvert);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetInvertInputStateByNumber(enModuleArg, QEI_enINPUT_PhB,  pstInputConfigArg->enPhBInvert);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetInvertInputStateByNumber(enModuleArg, QEI_enINPUT_INDEX, pstInputConfigArg->enIDXInvert);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetStallMode(enModuleArg, pstControlConfigArg->enStall);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetResetMode(enModuleArg, pstControlConfigArg->enResetMode);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSwapPhaseInput(enModuleArg, pstControlConfigArg->enSwapPhaseInput);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetMode(enModuleArg, pstControlConfigArg->enMode);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetPulsePerPeriodState(enModuleArg, pstControlConfigArg->enVelocity);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetInputFilterState(enModuleArg, pstControlConfigArg->enInputFilter);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        if(QEI_enMODE_QUADRATURE == pstControlConfigArg->enMode)
+        {
+            enErrorReg = QEI__enSetInputCapture(enModuleArg, pstControlConfigArg->enCaptureMode);
+        }
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        if(QEI_enSTATE_ENA == pstControlConfigArg->enVelocity)
+        {
+            enErrorReg = QEI__enSetPulsePerPeriodPredivider(enModuleArg, pstControlConfigArg->enVelocityPrediv);
+        }
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        if(QEI_enSTATE_ENA == pstControlConfigArg->enInputFilter)
+        {
+            enErrorReg = QEI__enSetInputFilterCount(enModuleArg, pstControlConfigArg->enInputFilterCount);
+        }
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetMaximumPositionIntegrator(enModuleArg, uxMaxPositionArg);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetLoadTimerValue(enModuleArg, uxTimerLoadArg);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetState(enModuleArg, pstControlConfigArg->enEnableModule);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = QEI__enSetCurrentPositionIntegrator(enModuleArg, uxInitialPosArg);
+    }
+    return (enErrorReg);
 }

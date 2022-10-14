@@ -23,13 +23,32 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_Error.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-QEI_nSTATUS QEI__enIsErrorDetected(QEI_nMODULE enModule)
+QEI_nERROR QEI__enIsErrorDetected(QEI_nMODULE enModuleArg, QEI_nBOOLEAN* penStatusArg)
 {
-    QEI_nSTATUS enErrorReg = QEI_enSTATUS_OK;
-    enErrorReg = (QEI_nSTATUS) QEI__uxReadRegister(enModule, QEI_STAT_OFFSET,
-                                        QEI_STAT_ERROR_MASK, QEI_STAT_R_ERROR_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_STAT_R_ERROR_BIT;
+        stRegister.uxMask = QEI_STAT_ERROR_MASK;
+        stRegister.uptrAddress = QEI_STAT_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (QEI_nBOOLEAN) stRegister.uxValue;
+    }
+
     return (enErrorReg);
 }
+

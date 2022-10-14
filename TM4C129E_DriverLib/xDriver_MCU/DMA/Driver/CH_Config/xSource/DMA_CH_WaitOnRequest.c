@@ -54,7 +54,7 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK 
 }
 
 DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
-                                           DMA_nCH_WAITREQ* penStateArg)
+                                             DMA_nBOOLEAN* penStateArg)
 {
     DMA_Register_t stRegister;
     UBase_t uxValueReg;
@@ -71,7 +71,7 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxValueReg = 1UL << enChannelArg;
+        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
@@ -80,7 +80,7 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (DMA_nCH_WAITREQ) stRegister.uxValue;
+        *penStateArg = (DMA_nBOOLEAN) stRegister.uxValue;
     }
 
     return (enErrorReg);

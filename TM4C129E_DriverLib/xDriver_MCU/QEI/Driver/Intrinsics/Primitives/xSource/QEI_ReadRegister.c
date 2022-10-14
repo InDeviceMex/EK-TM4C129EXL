@@ -26,16 +26,25 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-UBase_t QEI__uxReadRegister(QEI_nMODULE enModule, UBase_t uxOffsetRegister,
-                              UBase_t uxMaskFeature, UBase_t uxBitFeature)
+QEI_nERROR QEI__enReadRegister(QEI_nMODULE enModuleArg, QEI_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxFeatureValue = 0UL;
-    UBase_t uxQEIBase = 0UL;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
-
-    uxQEIBase = QEI__uxBlockBaseAddress((QEI_nMODULE) uxModule);
-    uxFeatureValue = MCU__uxReadRegister(uxQEIBase, uxOffsetRegister,
-                                           uxMaskFeature, uxBitFeature);
-    return (uxFeatureValue);
+    uintptr_t uptrModuleBase;
+    QEI_nERROR enErrorReg;
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = QEI__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (QEI_nERROR) MCU__enReadRegister(pstRegisterDataArg);
+    }
+    return (enErrorReg);
 }
+

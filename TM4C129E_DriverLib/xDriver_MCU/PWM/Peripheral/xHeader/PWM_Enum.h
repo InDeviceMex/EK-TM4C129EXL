@@ -54,6 +54,13 @@ typedef enum
 
 typedef enum
 {
+    PWM_enFALSE = (UBase_t) FALSE,
+    PWM_enTRUE = (UBase_t) TRUE,
+    PWM_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}PWM_nBOOLEAN;
+
+typedef enum
+{
     PWM_enPRI0 = (UBase_t) MCU_enPRI0,
     PWM_enPRI1 = (UBase_t) MCU_enPRI1,
     PWM_enPRI2 = (UBase_t) MCU_enPRI2,

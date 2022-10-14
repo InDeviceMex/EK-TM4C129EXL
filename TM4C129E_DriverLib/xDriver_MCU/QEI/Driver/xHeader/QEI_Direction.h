@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-QEI_nDIRECTION QEI__enGetDirection(QEI_nMODULE enModule);
+QEI_nERROR QEI__enGetDirection(QEI_nMODULE enModuleArg, QEI_nDIRECTION* penDirectionArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_DIRECTION_H_ */

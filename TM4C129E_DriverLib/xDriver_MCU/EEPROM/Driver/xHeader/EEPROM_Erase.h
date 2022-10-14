@@ -28,6 +28,6 @@
 #include <xDriver_MCU/EEPROM/Peripheral/xHeader/EEPROM_Enum.h>
 
 EEPROM_nERROR EEPROM__enMassErase(EEPROM_nMODULE enModuleArg);
-EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* penErasingArg);
+EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penErasingArg);
 
 #endif /* XDRIVER_MCU_EEPROM_DRIVER_XHEADER_EEPROM_ERASE_H_ */

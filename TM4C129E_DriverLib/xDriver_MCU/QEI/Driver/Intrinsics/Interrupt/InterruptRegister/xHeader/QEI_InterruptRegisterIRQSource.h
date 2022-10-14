@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), QEI_nMODULE enModule, QEI_nINTERRUPT enInterruptSource);
+QEI_nERROR QEI__enRegisterIRQSourceHandler(QEI_nMODULE enModuleArg, QEI_nINT enIntSourceArg, QEI_pvfIRQSourceHandler_t pfIrqSourceHandler);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_QEI_INTERRUPTREGISTERIRQSOURCE_H_ */

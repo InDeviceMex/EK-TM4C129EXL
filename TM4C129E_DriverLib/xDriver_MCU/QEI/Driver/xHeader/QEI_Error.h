@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-QEI_nSTATUS QEI__enIsErrorDetected(QEI_nMODULE enModule);
+QEI_nERROR QEI__enIsErrorDetected(QEI_nMODULE enModuleArg, QEI_nBOOLEAN* penStatusArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_ERROR_H_ */

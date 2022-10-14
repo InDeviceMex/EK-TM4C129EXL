@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetLoadTimer(QEI_nMODULE enModule, UBase_t uxLoadTimerArg);
-UBase_t QEI__uxGetLoadTimer(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t uxPeriodArg);
+QEI_nERROR QEI__enGetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t* puxPeriodArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_LOADTIME_H_ */

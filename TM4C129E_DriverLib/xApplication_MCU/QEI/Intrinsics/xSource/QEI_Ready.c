@@ -32,7 +32,7 @@ static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_QEI[(UBase_t) QEI_enMODULE_MAX] = {SYSCT
 void QEI__vSetReady(QEI_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    QEI_nREADY enReady = QEI_enNOREADY;
+    QEI_nSTATUS enReady = QEI_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enQEI0;
     UBase_t uxModule = 0UL;
 
@@ -40,7 +40,7 @@ void QEI__vSetReady(QEI_nMODULE enModule)
 
     enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
     enReady = QEI__enIsReady((QEI_nMODULE) uxModule);
-    if(QEI_enNOREADY == enReady)
+    if(QEI_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
         SYSCTL__vReset(enPeripheral);
@@ -61,17 +61,17 @@ void QEI__vClearReady(QEI_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-QEI_nREADY QEI__enIsReady(QEI_nMODULE enModule)
+QEI_nSTATUS QEI__enIsReady(QEI_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    QEI_nREADY enReady = QEI_enNOREADY;
+    QEI_nSTATUS enReady = QEI_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enQEI0;
     UBase_t uxModule =0UL;
     uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
     enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
-    enReady = (QEI_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (QEI_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    QEI_nREADY enReady = QEI_enREADY;
+    QEI_nSTATUS enReady = QEI_nSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

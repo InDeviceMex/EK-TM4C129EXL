@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-UBase_t QEI__uxGetVelocityCount(QEI_nMODULE enModule);
+QEI_nERROR QEI__enGetCurrentPulsesPerPeriod(QEI_nMODULE enModuleArg, UBase_t* puxPulsesArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_VELOCITYCOUNT_H_ */

@@ -50,7 +50,7 @@ DMA_nERROR DMA_CH__enSetSoftwareRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxValueReg = 1UL << enChannelArg;
+        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_SWREQ_OFFSET;

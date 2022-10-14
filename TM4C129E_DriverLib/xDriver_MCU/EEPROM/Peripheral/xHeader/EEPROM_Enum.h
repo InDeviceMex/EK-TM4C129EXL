@@ -65,6 +65,13 @@ typedef enum
 
 typedef enum
 {
+    EEPROM_enFALSE = (UBase_t) FALSE,
+    EEPROM_enTRUE = (UBase_t) TRUE,
+    EEPROM_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}EEPROM_nBOOLEAN;
+
+typedef enum
+{
     EEPROM_enPRI0 = (UBase_t) MCU_enPRI0,
     EEPROM_enPRI1 = (UBase_t) MCU_enPRI1,
     EEPROM_enPRI2 = (UBase_t) MCU_enPRI2,

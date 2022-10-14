@@ -45,10 +45,10 @@ typedef enum
 
 typedef enum
 {
-    NVIC_enNOPENDING = 0UL,
-    NVIC_enPENDING = 1UL,
+    NVIC_enFALSE = (UBase_t) FALSE,
+    NVIC_enTRUE = (UBase_t) TRUE,
     NVIC_enPENDSTATE_UNDEF = UNDEF_VALUE,
-}NVIC_nPENDSTATE;
+}NVIC_nBOOLEAN;
 
 typedef enum
 {

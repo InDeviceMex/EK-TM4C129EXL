@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_MaxPosition.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetMaxPosition(QEI_nMODULE enModule, UBase_t uxMaxPositionArg)
+QEI_nERROR QEI__enSetMaximumPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t uxMaxPositionArg)
 {
-    QEI__vWriteRegister(enModule, QEI_MAXPOS_OFFSET, uxMaxPositionArg,
-                        QEI_MAXPOS_MAXPOS_MASK, QEI_MAXPOS_R_MAXPOS_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_MAXPOS_R_MAXPOS_BIT;
+    stRegister.uxMask = QEI_MAXPOS_MAXPOS_MASK;
+    stRegister.uptrAddress = QEI_MAXPOS_OFFSET;
+    stRegister.uxValue = (UBase_t) uxMaxPositionArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UBase_t QEI__uxGetMaxPosition(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetMaximumPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t* puxMaxPositionArg)
 {
-    UBase_t uxMaxPositionReg = 0UL;
-    uxMaxPositionReg = QEI__uxReadRegister(enModule, QEI_MAXPOS_OFFSET,
-                             QEI_MAXPOS_MAXPOS_MASK, QEI_MAXPOS_R_MAXPOS_BIT);
-    return (uxMaxPositionReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) puxMaxPositionArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_MAXPOS_R_MAXPOS_BIT;
+        stRegister.uxMask = QEI_MAXPOS_MAXPOS_MASK;
+        stRegister.uptrAddress = QEI_MAXPOS_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *puxMaxPositionArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

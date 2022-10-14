@@ -49,7 +49,7 @@ FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBas
 FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg);
 FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg);
 FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg);
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg);
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nBOOLEAN* penValidArg);
 FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg, UBase_t* puxValidArg);
 #elif defined (__GNUC__ )
 
@@ -61,7 +61,7 @@ FLASH_nERROR FLASH__enSetDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBas
 FLASH_nERROR FLASH__enSetDataBufferInvalidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enSetDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg) __attribute__((section(".ramcode")));
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg) __attribute__((section(".ramcode")));
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nBOOLEAN* penValidArg) __attribute__((section(".ramcode")));
 FLASH_nERROR FLASH__enIsDataBufferValidByMask(FLASH_nMODULE enModuleArg, UBase_t uxIndexMaskArg, UBase_t* puxValidArg) __attribute__((section(".ramcode")));
 
 #endif

@@ -26,20 +26,23 @@
 #include <xApplication_MCU/QEI/Interrupt/InterruptRoutine/QEI_InterruptRoutine.h>
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Dependencies.h>
 
-void QEI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),QEI_nMODULE enModule)
+QEI_nERROR QEI__enRegisterIRQVectorHandler(QEI_nMODULE enModuleArg, QEI_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_QEI0;
-    UBase_t uxModule = 0UL;
-    const SCB_nVECISR SCB_enVECISR_QEI[(UBase_t) QEI_enMODULE_MAX]=
+    const SCB_nVECISR SCB_enVECISR_QEI[(UBase_t) QEI_enMODULE_MAX] =
     {
-        SCB_enVECISR_QEI0
+     SCB_enVECISR_QEI0
     };
+    SCB_nVECISR enVectorReg;
+    QEI_nERROR enErrorReg;
+    QEI_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (UBase_t) pfIrqVectorHandler)
+    enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    if(QEI_enERROR_OK == enErrorReg)
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) QEI_enMODULE_MAX);
-        enVector = SCB_enVECISR_QEI[uxModule];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-                           QEI__pvfGetIRQVectorHandlerPointer((QEI_nMODULE) uxModule));
+        enVectorReg = SCB_enVECISR_QEI[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = QEI__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (QEI_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

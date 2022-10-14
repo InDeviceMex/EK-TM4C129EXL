@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_Stall.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetStall(QEI_nMODULE enModule, QEI_nSTALL enStallArg)
+QEI_nERROR QEI__enSetStallMode(QEI_nMODULE enModuleArg, QEI_nSTALL enModeArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enStallArg,
-                        QEI_CTL_STALLEN_MASK, QEI_CTL_R_STALLEN_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_STALLEN_BIT;
+    stRegister.uxMask = QEI_CTL_STALLEN_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enModeArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nSTALL QEI__enGetStall(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetStallMode(QEI_nMODULE enModuleArg, QEI_nSTALL* penModeArg)
 {
-    QEI_nSTALL enStallReg = QEI_enSTALL_CONTINUE;
-    enStallReg = (QEI_nSTALL) QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                                   QEI_CTL_STALLEN_MASK, QEI_CTL_R_STALLEN_BIT);
-    return (enStallReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_STALLEN_BIT;
+        stRegister.uxMask = QEI_CTL_STALLEN_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (QEI_nSTALL) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

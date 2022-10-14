@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_QEI_XHEADER_QEI_INIT_H_
 #define XAPPLICATION_MCU_QEI_XHEADER_QEI_INIT_H_
 
-void QEI__vInit(void);
+#include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Defines.h>
+
+QEI_nERROR QEI__enInit(QEI_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_QEI_XHEADER_QEI_INIT_H_ */

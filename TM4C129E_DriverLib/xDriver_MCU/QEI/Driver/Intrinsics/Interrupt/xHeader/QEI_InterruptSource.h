@@ -27,9 +27,25 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vEnInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
-void QEI__vDisInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
-void QEI__vClearInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
-QEI_nINT_SOURCE QEI__enStatusInterruptSource(QEI_nMODULE enModule, QEI_nINT_SOURCE enSourceInt);
+QEI_nERROR QEI__enSetInterruptSourceStateByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg, QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enSetInterruptSourceStateByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg, QEI_nSTATE enStateArg);
+
+QEI_nERROR QEI__enGetInterruptSourceStateByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg, QEI_nINTMASK* penInterruptGetArg);
+QEI_nERROR QEI__enGetInterruptSourceStateByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg, QEI_nSTATE* penStateArg);
+
+QEI_nERROR QEI__enEnableInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg);
+QEI_nERROR QEI__enEnableInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg);
+
+QEI_nERROR QEI__enDisableInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg);
+QEI_nERROR QEI__enDisableInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg);
+
+QEI_nERROR QEI__enClearInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg);
+QEI_nERROR QEI__enClearInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg);
+
+QEI_nERROR QEI__enStatusInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg, QEI_nINTMASK* penInterruptStatusArg);
+QEI_nERROR QEI__enStatusInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg, QEI_nSTATUS* penStatusArg);
+
+QEI_nERROR QEI__enStatusMaskedInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg, QEI_nINTMASK* penInterruptStatusArg);
+QEI_nERROR QEI__enStatusMaskedInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg, QEI_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_INTRINSICS_INTERRUPT_XHEADER_QEI_INTERRUPTSOURCE_H_ */

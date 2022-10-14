@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetEnable(QEI_nMODULE enModule, QEI_nENABLE enEnableArg);
-QEI_nENABLE QEI__enGetEnable(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enGetState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_ENABLE_H_ */

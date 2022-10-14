@@ -33,7 +33,7 @@
  * Local Definitions
  */
 
-EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* penStatusArg)
+EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penStatusArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
@@ -52,7 +52,7 @@ EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* pe
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (EEPROM_nSTATUS) stRegister.uxValue;
+        *penStatusArg = (EEPROM_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -60,7 +60,7 @@ EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* pe
 EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg)
 {
     EEPROM_nERROR enErrorReg;
-    EEPROM_nSTATUS enStatusReg;
+    EEPROM_nBOOLEAN enStatusReg;
 
     enErrorReg = EEPROM_enERROR_OK;
     if(0UL == uxRetriesArg)
@@ -73,13 +73,13 @@ EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg)
         {
             enErrorReg = EEPROM__enIsWorking(enModuleArg, &enStatusReg);
             uxRetriesArg--;
-        }while((EEPROM_enSTATUS_ACTIVE == enStatusReg) &&
+        }while((EEPROM_enTRUE == enStatusReg) &&
                (0UL != uxRetriesArg) &&
                (EEPROM_enERROR_OK == enErrorReg));
 
         if((0UL == uxRetriesArg) &&
            (EEPROM_enERROR_OK == enErrorReg) &&
-           (EEPROM_enSTATUS_ACTIVE == enStatusReg))
+           (EEPROM_enTRUE == enStatusReg))
         {
             enErrorReg = EEPROM_enERROR_TIMEOUT;
         }

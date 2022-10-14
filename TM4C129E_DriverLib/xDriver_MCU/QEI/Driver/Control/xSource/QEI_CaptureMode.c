@@ -23,20 +23,45 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_CaptureMode.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetCaptureMode(QEI_nMODULE enModule, QEI_nCAPTURE enCaptureModeArg)
+QEI_nERROR QEI__enSetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE enCaptureArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enCaptureModeArg,
-                        QEI_CTL_CAPMODE_MASK, QEI_CTL_R_CAPMODE_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_CAPMODE_BIT;
+    stRegister.uxMask = QEI_CTL_CAPMODE_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enCaptureArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nCAPTURE QEI__enGetCaptureMode(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE* penCaptureArg)
 {
-    QEI_nCAPTURE enCaptureModeReg = QEI_enCAPTURE_PhA;
-    enCaptureModeReg = (QEI_nCAPTURE) QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                                       QEI_CTL_CAPMODE_MASK, QEI_CTL_R_CAPMODE_BIT);
-    return (enCaptureModeReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penCaptureArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_CAPMODE_BIT;
+        stRegister.uxMask = QEI_CTL_CAPMODE_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penCaptureArg = (QEI_nCAPTURE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 

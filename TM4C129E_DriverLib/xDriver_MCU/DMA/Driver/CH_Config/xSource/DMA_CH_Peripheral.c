@@ -68,7 +68,7 @@ DMA_nERROR DMA_CH__enSetPeripheralStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH
             stRegister.uptrAddress = DMA_CH_REQMASKSET_OFFSET;
         }
 
-        uxValueReg = 1UL << enChannelArg;
+        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uxValue = uxValueReg;

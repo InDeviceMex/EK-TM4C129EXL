@@ -80,7 +80,7 @@ FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, F
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, FLASH_nSTATUS* penStatusArg)
+FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, FLASH_nBOOLEAN* penStatusArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
@@ -131,7 +131,7 @@ FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (FLASH_nSTATUS) stRegister.uxValue;
+        *penStatusArg = (FLASH_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

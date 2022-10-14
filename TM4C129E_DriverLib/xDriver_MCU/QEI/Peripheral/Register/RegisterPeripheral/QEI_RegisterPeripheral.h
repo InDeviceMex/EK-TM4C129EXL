@@ -29,6 +29,6 @@
 
 #define QEI    ((QEIS_t*) (QEI_BASE))
 
-UBase_t QEI__uxBlockBaseAddress(QEI_nMODULE enModuleArg);
+uintptr_t QEI__uptrBlockBaseAddress(QEI_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_QEI_REGISTERPERIPHERAL_H_ */

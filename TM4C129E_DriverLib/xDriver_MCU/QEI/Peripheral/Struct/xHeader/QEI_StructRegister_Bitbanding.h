@@ -48,44 +48,44 @@ typedef volatile struct
     const UBase_t reserved [2UL];
     volatile UBase_t FILTCNT [4UL];
     const UBase_t reserved2 [12UL];
-}BITBANDING_QEICTL_t;
+}QEI_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
     volatile const UBase_t ERROR;
     volatile const UBase_t DIRECTION;
     const UBase_t reserved [30UL];
-}BITBANDING_QEISTAT_t;
+}QEI_BITBANDING_STAT_t;
 
 typedef volatile struct
 {
     volatile UBase_t POSITION [32UL];
-}BITBANDING_QEIPOS_t;
+}QEI_BITBANDING_POS_t;
 
 typedef volatile struct
 {
     volatile UBase_t MAXPOS [32UL];
-}BITBANDING_QEIMAXPOS_t;
+}QEI_BITBANDING_MAXPOS_t;
 
 typedef volatile struct
 {
     volatile UBase_t LOAD [32UL];
-}BITBANDING_QEILOAD_t;
+}QEI_BITBANDING_LOAD_t;
 
 typedef volatile struct
 {
     volatile const UBase_t TIME [32UL];
-}BITBANDING_QEITIME_t;
+}QEI_BITBANDING_TIME_t;
 
 typedef volatile struct
 {
     volatile const UBase_t COUNT [32UL];
-}BITBANDING_QEICOUNT_t;
+}QEI_BITBANDING_COUNT_t;
 
 typedef volatile struct
 {
     volatile const UBase_t SPEED [32UL];
-}BITBANDING_QEISPEED_t;
+}QEI_BITBANDING_SPEED_t;
 
 typedef volatile struct
 {
@@ -94,7 +94,7 @@ typedef volatile struct
     volatile UBase_t INTDIR;
     volatile UBase_t INTERROR;
     const UBase_t reserved [28UL];
-}BITBANDING_QEIINTEN_t;
+}QEI_BITBANDING_INTEN_t;
 
 typedef volatile struct
 {
@@ -103,7 +103,7 @@ typedef volatile struct
     volatile const UBase_t INTDIR;
     volatile const UBase_t INTERROR;
     const UBase_t reserved [28UL];
-}BITBANDING_QEIRIS_t;
+}QEI_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
@@ -112,6 +112,6 @@ typedef volatile struct
     volatile UBase_t INTDIR;
     volatile UBase_t INTERROR;
     const UBase_t reserved [28UL];
-}BITBANDING_QEIISC_t;
+}QEI_BITBANDING_ISC_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_STRUCT_XHEADER_QEI_STRUCTREGISTER_BITBANDING_H_ */

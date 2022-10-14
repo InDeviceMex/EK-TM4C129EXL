@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetCaptureMode(QEI_nMODULE enModule, QEI_nCAPTURE enCaptureModeArg);
-QEI_nCAPTURE QEI__enGetCaptureMode(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE enCaptureArg);
+QEI_nERROR QEI__enGetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE* penCaptureArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_CAPTUREMODE_H_ */

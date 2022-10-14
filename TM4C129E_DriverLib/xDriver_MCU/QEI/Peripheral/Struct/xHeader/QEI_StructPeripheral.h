@@ -34,57 +34,57 @@ typedef volatile struct
     union
     {
         volatile UBase_t CTL;
-        QEICTL_t CTL_Bit;
+        QEI_CTL_t CTL_Bit;
     };
     union
     {
         volatile const UBase_t STAT;
-        QEISTAT_t STAT_Bit;
+        QEI_STAT_t STAT_Bit;
     };
     union
     {
         volatile UBase_t POS;
-        QEIPOS_t POS_Bit;
+        QEI_POS_t POS_Bit;
     };
     union
     {
         volatile UBase_t MAXPOS;
-        QEIMAXPOS_t MAXPOS_Bit;
+        QEI_MAXPOS_t MAXPOS_Bit;
     };
     union
     {
         volatile UBase_t LOAD;
-        QEILOAD_t LOAD_Bit;
+        QEI_LOAD_t LOAD_Bit;
     };
     union
     {
         volatile const UBase_t TIME;
-        QEITIME_t TIME_Bit;
+        QEI_TIME_t TIME_Bit;
     };
     union
     {
         volatile const UBase_t COUNT;
-        QEICOUNT_t COUNT_Bit;
+        QEI_COUNT_t COUNT_Bit;
     };
     union
     {
         volatile const UBase_t SPEED;
-        QEISPEED_t SPEED_Bit;
+        QEI_SPEED_t SPEED_Bit;
     };
     union
     {
         volatile UBase_t INTEN;
-        QEIINTEN_t INTEN_Bit;
+        QEI_INTEN_t INTEN_Bit;
     };
     union
     {
         volatile const UBase_t RIS;
-        QEIRIS_t RIS_Bit;
+        QEI_RIS_t RIS_Bit;
     };
     union
     {
         volatile const UBase_t ISC;
-        QEIISC_t ISC_Bit;
+        QEI_ISC_t ISC_Bit;
     };
     const UBase_t reserved [1013UL];
 }QEI_t;

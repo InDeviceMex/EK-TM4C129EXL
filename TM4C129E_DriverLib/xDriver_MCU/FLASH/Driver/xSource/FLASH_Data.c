@@ -174,7 +174,7 @@ FLASH_nERROR FLASH__enSetDataBufferInvalidByMask(FLASH_nMODULE enModuleArg, UBas
     return (enErrorReg);
 }
 
-FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nSTATUS* penValidArg)
+FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase_t uxIndexArg, FLASH_nBOOLEAN* penValidArg)
 {
     FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
@@ -197,7 +197,7 @@ FLASH_nERROR FLASH__enIsDataBufferValidByNumber(FLASH_nMODULE enModuleArg, UBase
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        *penValidArg = (FLASH_nSTATUS) stRegister.uxValue;
+        *penValidArg = (FLASH_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

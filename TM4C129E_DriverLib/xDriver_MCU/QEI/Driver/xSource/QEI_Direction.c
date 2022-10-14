@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_Direction.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-QEI_nDIRECTION QEI__enGetDirection(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetDirection(QEI_nMODULE enModuleArg, QEI_nDIRECTION* penDirectionArg)
 {
-    QEI_nDIRECTION enDirectionReg = QEI_enDIRECTION_FORWARD;
-    enDirectionReg = (QEI_nDIRECTION) QEI__uxReadRegister(enModule, QEI_STAT_OFFSET,
-                                      QEI_STAT_DIRECTION_MASK, QEI_STAT_R_DIRECTION_BIT);
-    return (enDirectionReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penDirectionArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_STAT_R_DIRECTION_BIT;
+        stRegister.uxMask = QEI_STAT_DIRECTION_MASK;
+        stRegister.uptrAddress = QEI_STAT_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penDirectionArg = (QEI_nDIRECTION) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

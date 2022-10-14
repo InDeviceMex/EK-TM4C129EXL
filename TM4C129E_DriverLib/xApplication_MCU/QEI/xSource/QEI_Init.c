@@ -24,11 +24,19 @@
 #include <xApplication_MCU/QEI/xHeader/QEI_Init.h>
 
 #include <xApplication_MCU/QEI/Interrupt/QEI_Interrupt.h>
+#include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Dependencies.h>
 
-void QEI__vInit(void)
+QEI_nERROR QEI__enInit(QEI_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    QEI_nERROR enErrorReg;
+    QEI_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = QEI__pvfGetIRQVectorHandler(QEI_enMODULE_0);
-    QEI__vRegisterIRQVectorHandler( pfIrqVectorHandler, QEI_enMODULE_0);
+    enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = QEI__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = QEI__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
+
+    return (enErrorReg);
 }

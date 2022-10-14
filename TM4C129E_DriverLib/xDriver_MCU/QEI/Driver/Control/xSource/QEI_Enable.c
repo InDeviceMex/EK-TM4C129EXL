@@ -23,22 +23,46 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_Enable.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetEnable(QEI_nMODULE enModule, QEI_nENABLE enEnableArg)
+QEI_nERROR QEI__enSetState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enEnableArg,
-                    QEI_CTL_ENABLE_MASK, QEI_CTL_R_ENABLE_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_ENABLE_BIT;
+    stRegister.uxMask = QEI_CTL_ENABLE_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nENABLE QEI__enGetEnable(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg)
 {
-    QEI_nENABLE enEnableReg = QEI_enENABLE_STOP;
-    enEnableReg = (QEI_nENABLE) QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                                     QEI_CTL_ENABLE_MASK, QEI_CTL_R_ENABLE_BIT);
-    return (enEnableReg);
-}
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
 
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_ENABLE_BIT;
+        stRegister.uxMask = QEI_CTL_ENABLE_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (QEI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
 
 

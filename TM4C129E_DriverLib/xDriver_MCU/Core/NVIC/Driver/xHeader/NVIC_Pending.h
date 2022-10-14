@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/Core/NVIC/Peripheral/xHeader/NVIC_Enum.h>
 
-NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE* penStateArg);
-NVIC_nERROR NVIC__enSetPendingVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPENDSTATE enStateArg);
+NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nBOOLEAN* penStateArg);
+NVIC_nERROR NVIC__enSetPendingVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nBOOLEAN enStateArg);
 NVIC_nERROR NVIC__enSetPendingVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg);
 NVIC_nERROR NVIC__enClearPendingVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg);
 

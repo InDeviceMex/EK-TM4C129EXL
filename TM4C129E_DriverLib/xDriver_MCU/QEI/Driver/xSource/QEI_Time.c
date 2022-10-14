@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_Time.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-UBase_t QEI__uxGetTimer(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetCurrentTimerValue(QEI_nMODULE enModuleArg, UBase_t* puxValueArg)
 {
-    UBase_t uxTimerReg = 0UL;
-    uxTimerReg = QEI__uxReadRegister(enModule, QEI_TIME_OFFSET,
-                               QEI_TIME_TIME_MASK, QEI_TIME_R_TIME_BIT);
-    return (uxTimerReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) puxValueArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_TIME_R_TIME_BIT;
+        stRegister.uxMask = QEI_TIME_TIME_MASK;
+        stRegister.uptrAddress = QEI_TIME_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *puxValueArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

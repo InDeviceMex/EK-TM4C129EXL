@@ -23,38 +23,102 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_InvertSignal.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetInvertSignals(QEI_nMODULE enModule,
-                            QEI_nSIGNAL enSignalsArg,
-                            QEI_nINVERT enInvertSignalsArg)
+QEI_nERROR QEI__enSetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
+                                              QEI_nINPUT enInputArg,
+                                              QEI_nSTATE enStateArg)
 {
-    if(QEI_enINVERT_DIS == enInvertSignalsArg)
-    {
-        QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, 0UL,
-                            (UBase_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
-    }
-    else
-    {
-        QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enSignalsArg,
-                            (UBase_t) enSignalsArg, QEI_CTL_R_INVA_BIT);
-    }
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_INVA_BIT;
+    stRegister.uxShift += (UBase_t) enInputArg;
+    stRegister.uxMask = QEI_CTL_INVA_MASK;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+
+    return (enErrorReg);
 }
 
-QEI_nINVERT QEI__enGetInvertSignals(QEI_nMODULE enModule, QEI_nSIGNAL enSignalsArg)
+QEI_nERROR QEI__enSetInvertInputStateByMask(QEI_nMODULE enModuleArg,
+                                            QEI_nINPUTMASK enInputArg,
+                                            QEI_nSTATE enStateArg)
 {
-    UBase_t uxInvertSignalsReg = 0UL;
-    QEI_nINVERT enInvertSignalsReg = QEI_enINVERT_DIS;
-    uxInvertSignalsReg = QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                              (UBase_t)enSignalsArg, QEI_CTL_R_INVA_BIT);
-    if(0UL != uxInvertSignalsReg)
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_INVA_BIT;
+    stRegister.uxMask = (UBase_t) enInputArg;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    if(QEI_enSTATE_DIS == enStateArg)
     {
-        enInvertSignalsReg = QEI_enINVERT_ENA;
+        stRegister.uxValue = (UBase_t) 0UL;
+        enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     }
     else
     {
-        enInvertSignalsReg = QEI_enINVERT_DIS;
+        stRegister.uxValue = (UBase_t) enInputArg;
+        enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     }
-    return (enInvertSignalsReg);
+    return (enErrorReg);
 }
+
+QEI_nERROR QEI__enGetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
+                                          QEI_nINPUT enInputArg,
+                                          QEI_nSTATE* penStateArg)
+{
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_INVA_BIT;
+        stRegister.uxShift += (UBase_t) enInputArg;
+        stRegister.uxMask = QEI_CTL_INVA_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (QEI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+QEI_nERROR QEI__enGetInvertInputStateByMask(QEI_nMODULE enModuleArg,
+                                          QEI_nINPUT enSignalsArg,
+                                          QEI_nINPUT* penStateArg)
+{
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_INVA_BIT;
+        stRegister.uxMask = (UBase_t) enSignalsArg;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (QEI_nINPUT) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+

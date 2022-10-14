@@ -27,7 +27,7 @@
 #include <xDriver_MCU/I2C/Driver/Intrinsics/Primitives/I2C_Primitives.h>
 #include <xDriver_MCU/I2C/Peripheral/I2C_Peripheral.h>
 
-I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nSTATUS* penStatusArg)
+I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nBOOLEAN* penStatusArg)
 {
     I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
@@ -46,7 +46,7 @@ I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nSTATUS* pen
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (I2C_nSTATUS) stRegister.uxValue;
+        *penStatusArg = (I2C_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }
@@ -55,14 +55,14 @@ I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nSTATUS* pen
 I2C_nERROR I2C__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
     I2C_Register_t stRegister;
-    I2C_nSTATUS enAvailable;
+    I2C_nBOOLEAN enAvailable;
     I2C_nERROR enErrorReg;
 
-    enAvailable = I2C_enSTATUS_INACTIVE;
+    enAvailable = I2C_enFALSE;
     enErrorReg = I2C__enIsHighSpeedAvailable(enModuleArg, &enAvailable);
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(I2C_enSTATUS_INACTIVE == enAvailable)
+        if(I2C_enFALSE == enAvailable)
         {
             if(I2C_enSTATE_ENA == enStateArg)
             {
@@ -85,11 +85,11 @@ I2C_nERROR I2C__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateA
 I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
     I2C_Register_t stRegister;
-    I2C_nSTATUS enAvailable;
+    I2C_nBOOLEAN enAvailable;
     I2C_nERROR enErrorReg;
 
     enErrorReg = I2C_enERROR_OK;
-    enAvailable = I2C_enSTATUS_INACTIVE;
+    enAvailable = I2C_enFALSE;
     if(0UL == (uintptr_t) penStateArg)
     {
         enErrorReg = I2C_enERROR_POINTER;
@@ -100,7 +100,7 @@ I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStat
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        if(I2C_enSTATUS_INACTIVE == enAvailable)
+        if(I2C_enFALSE == enAvailable)
         {
             *penStateArg = I2C_enSTATE_DIS;
         }

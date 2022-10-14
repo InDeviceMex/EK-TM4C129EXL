@@ -23,40 +23,26 @@
  */
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/QEI_InterruptRoutine_Source.h>
 
-void QEI_vIRQSourceHandler_Dummy(void);
-
-void (*QEI__vIRQSourceHandler[(UBase_t) QEI_enMODULE_MAX]
-                             [(UBase_t) QEI_enINTERRUPT_MAX]) (void) =
+static QEI_pvfIRQSourceHandler_t QEI_vIRQSourceHandler[(UBase_t) QEI_enMODULE_MAX][(UBase_t) QEI_enINT_MAX] =
 {
-    {
-         &QEI_vIRQSourceHandler_Dummy,&QEI_vIRQSourceHandler_Dummy,
-         &QEI_vIRQSourceHandler_Dummy,&QEI_vIRQSourceHandler_Dummy,
-         &QEI_vIRQSourceHandler_Dummy
-    },
+ {
+  &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+  &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+  &MCU_vIRQSourceHandler_Dummy
+ },
 };
 
-void QEI_vIRQSourceHandler_Dummy(void)
+QEI_pvfIRQSourceHandler_t QEI__pvfGetIRQSourceHandler(QEI_nMODULE enModuleArg, QEI_nINT enIntSourceArg)
 {
-    while(1UL){}
-}
-
-
-void (*QEI__pvfGetIRQSourceHandler(QEI_nMODULE enQEISubmodule,
-                                   QEI_nINTERRUPT enQEIInterruptNum))(void)
-{
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = QEI__vIRQSourceHandler[(UBase_t) enQEISubmodule]
-                                           [(UBase_t)enQEIInterruptNum];
+    QEI_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = QEI_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**QEI__pvfGetIRQSourceHandlerPointer(QEI_nMODULE enQEISubmodule,
-                                           QEI_nINTERRUPT enQEIInterruptNum))(void)
+QEI_pvfIRQSourceHandler_t* QEI__pvfGetIRQSourceHandlerPointer(QEI_nMODULE enModuleArg, QEI_nINT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &QEI__vIRQSourceHandler[(UBase_t) enQEISubmodule]
-                                                             [(UBase_t)enQEIInterruptNum];
+    QEI_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &QEI_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
-
 

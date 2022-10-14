@@ -27,21 +27,21 @@
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/QEI_InterruptRoutine_Source.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),QEI_nMODULE enModule, QEI_nINTERRUPT enInterruptSource)
+QEI_nERROR QEI__enRegisterIRQSourceHandler(QEI_nMODULE enModuleArg, QEI_nINT enIntSourceArg, QEI_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    UBase_t uxModule = 0UL;
-    UBase_t uxInterruptSource = 0UL;
-    if(0UL != (UBase_t) pfIrqSourceHandler)
-    {
-        uxModule = MCU__uxCheckParams( (UBase_t) enModule,
-                                         (UBase_t) QEI_enMODULE_MAX);
-        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
-                                                  (UBase_t) QEI_enINTERRUPT_MAX);
+    QEI_pvfIRQSourceHandler_t* pvfIrqHandler;
+    QEI_nERROR enErrorReg;
 
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       QEI__pvfGetIRQSourceHandlerPointer((QEI_nMODULE) uxModule,
-                                                          (QEI_nINTERRUPT)uxInterruptSource),
-                       0UL,
-                       1UL);
+    enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enIntSourceArg, (UBase_t) QEI_enINT_MAX);
     }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = QEI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        enErrorReg = (QEI_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+    }
+
+    return (enErrorReg);
 }

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetPosition(QEI_nMODULE enModule, UBase_t uxPositionArg);
-UBase_t QEI__uxGetPosition(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t uxPositionArg);
+QEI_nERROR QEI__enGetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t* puxPositionArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_XHEADER_QEI_POSITION_H_ */

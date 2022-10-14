@@ -27,9 +27,10 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetVelocityEnable(QEI_nMODULE enModule, QEI_nVELOCITY enVelocityArg);
-QEI_nVELOCITY QEI__enGetVelocityEnable(QEI_nMODULE enModule);
-void QEI__vSetVelocityPredivide(QEI_nMODULE enModule, QEI_nVELOCITY_PREDIV enVelocityPredivideArg);
-QEI_nVELOCITY_PREDIV QEI__enGetVelocityPredivide(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetPulsePerPeriodState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enGetPulsePerPeriodState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg);
+
+QEI_nERROR QEI__enSetPulsePerPeriodPredivider(QEI_nMODULE enModuleArg, QEI_nPREDIV enPredividerArg);
+QEI_nERROR QEI__enGetPulsePerPeriodPredivider(QEI_nMODULE enModuleArg, QEI_nPREDIV* penPredividerArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_VELOCITY_H_ */

@@ -23,21 +23,21 @@
  */
 #include <xApplication_MCU/QEI/Interrupt/InterruptRoutine/QEI_InterruptRoutine.h>
 
-void (*QEI__pvIRQVectorHandler[(UBase_t) QEI_enMODULE_MAX]) (void)=
+static QEI_pvfIRQVectorHandler_t QEI_pvIRQVectorHandler[(UBase_t) QEI_enMODULE_MAX] =
 {
-    &QEI0__vIRQVectorHandler
+ &QEI0__vIRQVectorHandler
 };
 
-void (*QEI__pvfGetIRQVectorHandler(QEI_nMODULE enQEIModule))(void)
+QEI_pvfIRQVectorHandler_t QEI__pvfGetIRQVectorHandler(QEI_nMODULE enModuleArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = QEI__pvIRQVectorHandler[(UBase_t) enQEIModule];
-    return (pvfFunctionReg);
+    QEI_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = QEI_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**QEI__pvfGetIRQVectorHandlerPointer(QEI_nMODULE enQEIModule))(void)
+QEI_pvfIRQVectorHandler_t* QEI__pvfGetIRQVectorHandlerPointer(QEI_nMODULE enModuleArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &QEI__pvIRQVectorHandler[(UBase_t) enQEIModule];
-    return (pvfFunctionReg);
+    QEI_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &QEI_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }

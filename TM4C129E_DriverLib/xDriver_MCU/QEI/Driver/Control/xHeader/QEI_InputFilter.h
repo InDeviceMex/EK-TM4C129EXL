@@ -27,9 +27,10 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetInputFilter(QEI_nMODULE enModule, QEI_nINPUT_FILTER enInputFilterArg);
-QEI_nINPUT_FILTER QEI__enGetInputFilter(QEI_nMODULE enModule);
-void QEI__vSetInputFilterCount(QEI_nMODULE enModule, QEI_nINPUT_FILTER_COUNT enInputFilterCountArg);
-QEI_nINPUT_FILTER_COUNT QEI__enGetInputFilterCount(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetInputFilterState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg);
+QEI_nERROR QEI__enGetInputFilterState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg);
+
+QEI_nERROR QEI__enSetInputFilterCount(QEI_nMODULE enModuleArg, QEI_nFILTER_COUNT enCountArg);
+QEI_nERROR QEI__enGetInputFilterCount(QEI_nMODULE enModuleArg, QEI_nFILTER_COUNT* penCountArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_INPUTFILTER_H_ */

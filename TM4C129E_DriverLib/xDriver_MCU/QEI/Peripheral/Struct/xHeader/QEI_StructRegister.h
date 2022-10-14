@@ -48,44 +48,44 @@ typedef volatile struct
     const UBase_t reserved: 2;
     volatile UBase_t FILTCNT: 4;
     const UBase_t reserved2: 12;
-}QEICTL_t;
+}QEI_CTL_t;
 
 typedef volatile struct
 {
     volatile const UBase_t ERROR: 1;
     volatile const UBase_t DIRECTION: 1;
     const UBase_t reserved: 30;
-}QEISTAT_t;
+}QEI_STAT_t;
 
 typedef volatile struct
 {
     volatile UBase_t POSITION: 32;
-}QEIPOS_t;
+}QEI_POS_t;
 
 typedef volatile struct
 {
     volatile UBase_t MAXPOS: 32;
-}QEIMAXPOS_t;
+}QEI_MAXPOS_t;
 
 typedef volatile struct
 {
     volatile UBase_t LOAD: 32;
-}QEILOAD_t;
+}QEI_LOAD_t;
 
 typedef volatile struct
 {
     volatile const UBase_t TIME: 32;
-}QEITIME_t;
+}QEI_TIME_t;
 
 typedef volatile struct
 {
     volatile const UBase_t COUNT: 32;
-}QEICOUNT_t;
+}QEI_COUNT_t;
 
 typedef volatile struct
 {
     volatile const UBase_t SPEED: 32;
-}QEISPEED_t;
+}QEI_SPEED_t;
 
 typedef volatile struct
 {
@@ -94,7 +94,7 @@ typedef volatile struct
     volatile UBase_t INTDIR: 1;
     volatile UBase_t INTERROR: 1;
     const UBase_t reserved: 28;
-}QEIINTEN_t;
+}QEI_INTEN_t;
 
 typedef volatile struct
 {
@@ -103,7 +103,7 @@ typedef volatile struct
     volatile const UBase_t INTDIR: 1;
     volatile const UBase_t INTERROR: 1;
     const UBase_t reserved: 28;
-}QEIRIS_t;
+}QEI_RIS_t;
 
 typedef volatile struct
 {
@@ -112,6 +112,6 @@ typedef volatile struct
     volatile UBase_t INTDIR: 1;
     volatile UBase_t INTERROR: 1;
     const UBase_t reserved: 28;
-}QEIISC_t;
+}QEI_ISC_t;
 
 #endif /* XDRIVER_MCU_QEI_PERIPHERAL_STRUCT_XHEADER_QEI_STRUCTREGISTER_H_ */

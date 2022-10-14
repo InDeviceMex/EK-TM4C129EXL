@@ -67,7 +67,7 @@ PWM_nERROR PWM_Generator__enResetCounterByMask(PWM_nMODULE enModuleArg, PWM_nGEN
 }
 
 
-PWM_nERROR PWM_Generator__enIsResetCounterOngoingByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nSTATUS* penStatusArg)
+PWM_nERROR PWM_Generator__enIsResetCounterOngoingByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nBOOLEAN* penStatusArg)
 {
     PWM_Register_t stRegister;
     PWM_nERROR enErrorReg;
@@ -90,7 +90,7 @@ PWM_nERROR PWM_Generator__enIsResetCounterOngoingByNumber(PWM_nMODULE enModuleAr
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (PWM_nSTATUS) stRegister.uxValue;
+        *penStatusArg = (PWM_nBOOLEAN) stRegister.uxValue;
     }
 
     return (enErrorReg);

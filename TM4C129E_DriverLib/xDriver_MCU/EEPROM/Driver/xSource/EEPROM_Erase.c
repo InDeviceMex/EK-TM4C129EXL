@@ -40,7 +40,7 @@ EEPROM_nERROR EEPROM__enMassErase(EEPROM_nMODULE enModuleArg)
     return (enErrorReg);
 }
 
-EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nSTATUS* penErasingArg)
+EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penErasingArg)
 {
     EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
@@ -59,7 +59,7 @@ EEPROM_nERROR EEPROM__enIsEraseInProgress(EEPROM_nMODULE enModuleArg, EEPROM_nST
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        *penErasingArg = (EEPROM_nSTATUS) stRegister.uxValue;
+        *penErasingArg = (EEPROM_nBOOLEAN) stRegister.uxValue;
     }
     return (enErrorReg);
 }

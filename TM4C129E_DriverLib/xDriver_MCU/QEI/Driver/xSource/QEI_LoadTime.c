@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_LoadTime.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetLoadTimer(QEI_nMODULE enModule, UBase_t uxLoadTimerArg)
+QEI_nERROR QEI__enSetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t uxPeriodArg)
 {
-    QEI__vWriteRegister(enModule, QEI_LOAD_OFFSET, uxLoadTimerArg,
-                        QEI_LOAD_LOAD_MASK, QEI_LOAD_R_LOAD_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_LOAD_R_LOAD_BIT;
+    stRegister.uxMask = QEI_LOAD_LOAD_MASK;
+    stRegister.uptrAddress = QEI_LOAD_OFFSET;
+    stRegister.uxValue = (UBase_t) uxPeriodArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UBase_t QEI__uxGetLoadTimer(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t* puxPeriodArg)
 {
-    UBase_t uxLoadTimerReg = 0UL;
-    uxLoadTimerReg = QEI__uxReadRegister(enModule, QEI_LOAD_OFFSET,
-                                           QEI_LOAD_LOAD_MASK, QEI_LOAD_R_LOAD_BIT);
-    return (uxLoadTimerReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) puxPeriodArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_LOAD_R_LOAD_BIT;
+        stRegister.uxMask = QEI_LOAD_LOAD_MASK;
+        stRegister.uptrAddress = QEI_LOAD_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *puxPeriodArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

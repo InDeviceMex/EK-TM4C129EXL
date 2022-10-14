@@ -53,6 +53,13 @@ typedef enum
 
 typedef enum
 {
+    I2C_enFALSE = (UBase_t) FALSE,
+    I2C_enTRUE = (UBase_t) TRUE,
+    I2C_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}I2C_nBOOLEAN;
+
+typedef enum
+{
     I2C_enPRI0 = (UBase_t) MCU_enPRI0,
     I2C_enPRI1 = (UBase_t) MCU_enPRI1,
     I2C_enPRI2 = (UBase_t) MCU_enPRI2,

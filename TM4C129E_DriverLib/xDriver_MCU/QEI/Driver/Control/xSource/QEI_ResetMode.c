@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/QEI/Driver/Control/xHeader/QEI_ResetMode.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetResetMode(QEI_nMODULE enModule, QEI_nRESET enResetModeArg)
+QEI_nERROR QEI__enSetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET enModeArg)
 {
-    QEI__vWriteRegister(enModule, QEI_CTL_OFFSET, (UBase_t) enResetModeArg,
-                        QEI_CTL_RESMODE_MASK, QEI_CTL_R_RESMODE_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_CTL_R_RESMODE_BIT;
+    stRegister.uxMask = QEI_CTL_RESMODE_MASK;
+    stRegister.uptrAddress = QEI_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enModeArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-QEI_nRESET QEI__enGetResetMode(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET* penModeArg)
 {
-    QEI_nRESET enResetModeReg = QEI_enRESET_MAXPOS;
-    enResetModeReg = (QEI_nRESET) QEI__uxReadRegister(enModule, QEI_CTL_OFFSET,
-                                          QEI_CTL_RESMODE_MASK, QEI_CTL_R_RESMODE_BIT);
-    return (enResetModeReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_CTL_R_RESMODE_BIT;
+        stRegister.uxMask = QEI_CTL_RESMODE_MASK;
+        stRegister.uptrAddress = QEI_CTL_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (QEI_nRESET) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

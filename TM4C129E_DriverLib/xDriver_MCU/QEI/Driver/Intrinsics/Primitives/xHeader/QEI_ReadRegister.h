@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-UBase_t QEI__uxReadRegister(QEI_nMODULE enModule, UBase_t uxOffsetRegister,
-                              UBase_t uxMaskFeature, UBase_t uxBitFeature);
+QEI_nERROR QEI__enReadRegister(QEI_nMODULE enModuleArg, QEI_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_QEI_READREGISTER_H_ */

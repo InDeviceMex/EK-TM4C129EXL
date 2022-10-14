@@ -28,7 +28,7 @@
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Defines.h>
 #include <xApplication_MCU/QEI/Interrupt/InterruptRoutine/xHeader/QEI_InterruptRoutine_Vector_Module0.h>
 
-void (*QEI__pvfGetIRQVectorHandler(QEI_nMODULE enQEIModule))(void);
-void (**QEI__pvfGetIRQVectorHandlerPointer(QEI_nMODULE enQEIModule))(void);
+QEI_pvfIRQVectorHandler_t QEI__pvfGetIRQVectorHandler(QEI_nMODULE enModuleArg);
+QEI_pvfIRQVectorHandler_t* QEI__pvfGetIRQVectorHandlerPointer(QEI_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_QEI_INTERRUPT_INTERRUPTROUTINE_QEI_INTERRUPTROUTINE_H_ */

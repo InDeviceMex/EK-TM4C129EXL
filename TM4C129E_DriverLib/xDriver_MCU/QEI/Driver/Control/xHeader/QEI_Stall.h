@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/QEI/Peripheral/xHeader/QEI_Enum.h>
 
-void QEI__vSetStall(QEI_nMODULE enModule, QEI_nSTALL enStallArg);
-QEI_nSTALL QEI__enGetStall(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetStallMode(QEI_nMODULE enModuleArg, QEI_nSTALL enModeArg);
+QEI_nERROR QEI__enGetStallMode(QEI_nMODULE enModuleArg, QEI_nSTALL* penModeArg);
 
 #endif /* XDRIVER_MCU_QEI_DRIVER_CONTROL_XHEADER_QEI_STALL_H_ */

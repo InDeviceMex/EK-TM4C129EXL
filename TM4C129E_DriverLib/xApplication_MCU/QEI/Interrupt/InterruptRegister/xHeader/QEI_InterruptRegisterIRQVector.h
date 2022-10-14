@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Defines.h>
 
-void QEI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), QEI_nMODULE enModule);
+QEI_nERROR QEI__enRegisterIRQVectorHandler(QEI_nMODULE enModuleArg, QEI_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_QEI_INTERRUPT_INTERRUPTREGISTER_XHEADER_QEI_INTERRUPTREGISTERIRQVECTOR_H_ */

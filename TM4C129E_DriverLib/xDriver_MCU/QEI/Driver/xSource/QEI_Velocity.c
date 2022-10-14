@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_Velocity.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-UBase_t QEI__uxGetVelocity(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetLastPulsesPerPeriod(QEI_nMODULE enModuleArg, UBase_t* puxPulsesArg)
 {
-    UBase_t uxVelocityReg = 0UL;
-    uxVelocityReg = QEI__uxReadRegister(enModule, QEI_SPEED_OFFSET,
-                           QEI_SPEED_SPEED_MASK, QEI_SPEED_R_SPEED_BIT);
-    return (uxVelocityReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) puxPulsesArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_SPEED_R_SPEED_BIT;
+        stRegister.uxMask = QEI_SPEED_SPEED_MASK;
+        stRegister.uptrAddress = QEI_SPEED_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *puxPulsesArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

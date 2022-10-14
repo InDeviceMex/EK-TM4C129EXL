@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/QEI/Driver/xHeader/QEI_Position.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/QEI/Driver/Intrinsics/Primitives/QEI_Primitives.h>
 #include <xDriver_MCU/QEI/Peripheral/QEI_Peripheral.h>
 
-void QEI__vSetPosition(QEI_nMODULE enModule, UBase_t uxPositionArg)
+QEI_nERROR QEI__enSetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t uxPositionArg)
 {
-    QEI__vWriteRegister(enModule, QEI_POS_OFFSET, uxPositionArg,
-                    QEI_POS_POSITION_MASK, QEI_POS_R_POSITION_BIT);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    stRegister.uxShift = QEI_POS_R_POSITION_BIT;
+    stRegister.uxMask = QEI_POS_POSITION_MASK;
+    stRegister.uptrAddress = QEI_POS_OFFSET;
+    stRegister.uxValue = (UBase_t) uxPositionArg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UBase_t QEI__uxGetPosition(QEI_nMODULE enModule)
+QEI_nERROR QEI__enGetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t* puxPositionArg)
 {
-    UBase_t uxPositionReg = 0UL;
-    uxPositionReg = QEI__uxReadRegister(enModule, QEI_POS_OFFSET,
-                               QEI_POS_POSITION_MASK, QEI_POS_R_POSITION_BIT);
-    return (uxPositionReg);
+    QEI_Register_t stRegister;
+    QEI_nERROR enErrorReg;
+
+    enErrorReg = QEI_enERROR_OK;
+    if(0UL == (uintptr_t) puxPositionArg)
+    {
+        enErrorReg = QEI_enERROR_POINTER;
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = QEI_POS_R_POSITION_BIT;
+        stRegister.uxMask = QEI_POS_POSITION_MASK;
+        stRegister.uptrAddress = QEI_POS_OFFSET;
+        enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(QEI_enERROR_OK == enErrorReg)
+    {
+        *puxPositionArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
