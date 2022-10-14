@@ -53,6 +53,7 @@ DMA_nERROR DMA_CH__enSetStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannel
                                       DMA_nSTATE enStateArg)
 {
     DMA_Register_t stRegister;
+    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
@@ -67,9 +68,10 @@ DMA_nERROR DMA_CH__enSetStateByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannel
             stRegister.uptrAddress = DMA_CH_ENASET_OFFSET;
         }
 
-        stRegister.uxShift = (UBase_t) enChannelArg;
-        stRegister.uxMask = 1UL;
-        stRegister.uxValue = 1UL;
+        uxValueReg = 1UL << enChannelArg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_32;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
 

@@ -44,16 +44,17 @@ DMA_nERROR DMA_CH__enSetSoftwareRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMA
 DMA_nERROR DMA_CH__enSetSoftwareRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg)
 {
     DMA_Register_t stRegister;
+    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.uxShift = (UBase_t) enChannelArg;
-        stRegister.uxShift += DMA_CH_SWREQ_R_SWREQ0_BIT;
-        stRegister.uxMask = DMA_CH_SWREQ_R_SWREQ0_MASK;
+        uxValueReg = 1UL << enChannelArg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_SWREQ_OFFSET;
-        stRegister.uxValue = DMA_CH_SWREQ_R_SWREQ0_REQ;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
 

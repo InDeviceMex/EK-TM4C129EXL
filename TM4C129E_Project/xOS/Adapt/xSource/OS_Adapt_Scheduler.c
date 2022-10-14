@@ -29,22 +29,15 @@
 #include <xDriver_MCU/Core/FPU/FPU.h>
 
 #include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod);
-
-__attribute__ (( naked ))
-static void OS_Adapt_vStartFirstTask(void);
-__attribute__ (( naked ))
-static void OS_Adapt_vSVCHandler(void);
-__attribute__ (( naked ))
-static void OS_Adapt_vPendSVHandler(void);
-
 static void OS_Adapt_vSysTickHandler( void );
 
-OS_Task_TCB_t* volatile* OS_Adapt_ppstCurrentTCB = (OS_Task_TCB_t**) 0UL;
+OS_Task_TCB_t* volatile* OS_Adapt_ppstCurrentTCB;
 const OS_UBase_t OS_Adapt_uxMaxSyscallInterruptPriority = OS_ADAPT_MAX_SYSCALL_INTERRUPT_PRIORITY;
 
 static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod)
@@ -67,120 +60,6 @@ void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod)
     OS_Adapt_ppstCurrentTCB = OS_Task__pstGetCurrentTCBAddress();
     OS_Adapt_vStartFirstTask();
 }
-
-
-__attribute__ (( naked ))
-static void OS_Adapt_vStartFirstTask(void)
-{
-     __asm volatile(
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-                    " movw r0, #0xED08      \n"/* Use the NVIC offset register to locate the stack. */
-                    " movt r0, #0xE000      \n"
-#elif defined (__GNUC__ )
-                    " ldr r0, = 0xE000ED08 \n"
-#endif
-                    " ldr r0, [r0]          \n"
-                    " ldr r0, [r0]          \n"
-                    " msr msp, r0           \n" /* Set the msp back to the start of the stack. */
-                    " cpsie i               \n" /* Globally enable interrupts. */
-                    " cpsie f               \n"
-                    " dsb                   \n"
-                    " isb                   \n"
-                    " svc #0                \n" /* System call to start first task. */
-                    " nop                   \n"
-                    " bx r14                \n"
-                );
-}
-
-__attribute__ (( naked ))
-static void OS_Adapt_vSVCHandler(void)
-{
-__asm volatile (
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-                "   movw r3, OS_Adapt_ppstCurrentTCB     \n"/* Get the location of the current TCB. */
-                "   movt r3, OS_Adapt_ppstCurrentTCB     \n"
-#elif defined (__GNUC__ )
-                " ldr r3, = OS_Adapt_ppstCurrentTCB      \n"
-#endif
-                "   ldr r1, [r3]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-                "   ldr r2, [r1]                    \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-                "   ldr r0, [r2]                    \n" /* The first item in OS_Kernel_psCurrentTask is the task top of stack. */
-                "   ldmia r0!, {r4-r11, r14}        \n" /* Pop the registers that are not automatically saved on exception entry and the critical nesting count. */
-                "   msr psp, r0                     \n" /* Restore the task stack pointer. */
-                "   isb                             \n"
-                "   mov r0, #0                      \n"
-                "   msr basepri, r0                 \n"
-                "   bx r14                          \n"
-            );
-}
-
-__attribute__ (( naked ))
-static void OS_Adapt_vPendSVHandler (void)
-{
-     __asm volatile
-    (
-    "   mrs r0, psp                         \n"
-    "   isb                                 \n"
-    "                                       \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    "   movw r3, OS_Adapt_ppstCurrentTCB    \n"/* Get the location of the current TCB. */
-    "   movt r3, OS_Adapt_ppstCurrentTCB    \n"
-#elif defined (__GNUC__ )
-    "   ldr r3, = OS_Adapt_ppstCurrentTCB   \n"
-#endif
-    "   ldr r1, [r3]                        \n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
-    "   ldr r2, [r1]                        \n"
-    "                                       \n"
-    "   tst r14, #0x10                      \n" /* Is the task using the FPU context?  If so, push high vfp registers. */
-    "   it eq                               \n"
-    "   vstmdbeq r0!, {s16-s31}             \n"
-    "                                       \n"
-    "   stmdb r0!, {r4-r11, r14}            \n" /* Save the core registers. */
-    "                                       \n"
-    "   str r0, [r2]                        \n" /* Save the new top of stack into the first member of the TCB. */
-    "                                       \n"
-    "   stmdb sp!, {r3}                     \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    "   movw r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"/* Get the location of the current TCB. */
-    "   movt r0, OS_Adapt_uxMaxSyscallInterruptPriority         \n"
-#elif defined (__GNUC__ )
-    "   ldr r0, = OS_Adapt_uxMaxSyscallInterruptPriority        \n"
-#endif
-    "   ldr r1, [r0]                        \n"
-    "   msr basepri, r1                     \n"
-    "   dsb                                 \n"
-    "   isb                                 \n"
-    "   .global     OS_Task__vSwitchContext \n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    "   movw r0, OS_Task__vSwitchContext         \n"/* Get the location of the current TCB. */
-    "   movt r0, OS_Task__vSwitchContext         \n"
-#elif defined (__GNUC__ )
-    "   ldr r0, = OS_Task__vSwitchContext        \n"
-#endif
-    "   blx r0                              \n"
-    "   mov r0, #0                          \n"
-    "   msr basepri, r0                     \n"
-    "   ldmia sp!, {r3}                     \n"
-    "                                       \n"
-    "   ldr r2, [r3]                        \n" /* The first item in pxCurrentTCB is the task top of stack. */
-    "   ldr r1, [r2]                        \n"
-    "   ldr r0, [r1]                        \n"
-    "                                       \n"
-    "   ldmia r0!, {r4-r11, r14}            \n" /* Pop the core registers. */
-    "                                       \n"
-    "   tst r14, #0x10                      \n" /* Is the task using the FPU context?  If so, pop the high vfp registers too. */
-    "   it eq                               \n"
-    "   vldmiaeq r0!, {s16-s31}             \n"
-    "                                       \n"
-    "   msr psp, r0                         \n"
-    "   isb                                 \n"
-    "                                       \n"
-    "                                       \n"
-    "   bx r14                              \n"
-    "                                       \n"
-    );
-}
-
 
 static void OS_Adapt_vSysTickHandler( void )
 {

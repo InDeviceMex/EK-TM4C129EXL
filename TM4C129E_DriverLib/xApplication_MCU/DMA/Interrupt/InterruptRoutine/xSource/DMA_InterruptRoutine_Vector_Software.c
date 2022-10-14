@@ -29,7 +29,6 @@ void DMA_SW__vIRQVectorHandler(void)
     UBase_t uxPriority;
     UBase_t uxIntStatus;
     UBase_t uxSwMask;
-    UBase_t uxEnable;
     UBase_t uxReady;
     UBase_t uxShiftReg;
     UBase_t uxCount;
@@ -43,11 +42,9 @@ void DMA_SW__vIRQVectorHandler(void)
     }
     else
     {
-        uxEnable = DMA_CH_ENASET_R;
         uxSwMask = DMA_CH_REQMASKSET_R;
         uxIntStatus = DMA_CH_IS_R;
         uxIntStatus &= uxSwMask;
-        uxIntStatus &= uxEnable;
         if(0UL == uxIntStatus)
         {
             pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, DMA_enCH_SW);
@@ -60,19 +57,18 @@ void DMA_SW__vIRQVectorHandler(void)
             {
                 uxCount = 0U;
                 uxShiftReg = 1UL;
-                while((0UL != uxPriority) && (0UL != uxIntStatus))
+                uxPriority &= uxIntStatus;
+                while(0UL != uxPriority)
                 {
-                    if(uxShiftReg & uxIntStatus)
+                    if(0UL != (uxPriority & uxShiftReg))
                     {
-                        if(0UL != (uxPriority & uxShiftReg))
-                        {
-                            pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, (DMA_nCH) uxCount);
-                            pvfCallback(DMA_BASE, (void*) uxCount);
-                            DMA_CH_IS_R = (UBase_t) uxShiftReg;
-                        }
+                        DMA_CH_IS_R = (UBase_t) uxShiftReg;
+                        uxPriority &= ~uxShiftReg;
+                        uxIntStatus &= ~uxShiftReg;
+                        pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, (DMA_nCH) uxCount);
+                        pvfCallback(DMA_BASE, (void*) uxCount);
                     }
                     uxShiftReg <<= 1U;
-                    uxPriority >>= 1U;
                     uxCount++;
                 }
             }
@@ -83,9 +79,10 @@ void DMA_SW__vIRQVectorHandler(void)
             {
                 if(uxShiftReg & uxIntStatus)
                 {
+                    DMA_CH_IS_R = (UBase_t) uxShiftReg;
+                    uxIntStatus &= ~uxShiftReg;
                     pvfCallback = DMA_CH__pvfGetIRQSourceHandler_Software(DMA_enMODULE_0, (DMA_nCH) uxCount);
                     pvfCallback(DMA_BASE, (void*) uxCount);
-                    DMA_CH_IS_R = (UBase_t) uxShiftReg;
                 }
                 uxShiftReg <<= 1U;
                 uxCount++;

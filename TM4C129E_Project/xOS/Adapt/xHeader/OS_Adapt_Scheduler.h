@@ -25,8 +25,14 @@
 #ifndef XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
 #define XOS_TASK_ADAPT_XHEADER_OS_ADAPT_SCHEDULER_H_
 
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Defines.h>
 #include <xOS/Adapt/xHeader/OS_Adapt_Defines.h>
 
+extern OS_Task_TCB_t* volatile* OS_Adapt_ppstCurrentTCB;
+
+void OS_Adapt_vStartFirstTask(void);
+void OS_Adapt_vSVCHandler(void);
+void OS_Adapt_vPendSVHandler(void);
 void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod);
 void OS_Adapt__vEndScheduler(void);
 

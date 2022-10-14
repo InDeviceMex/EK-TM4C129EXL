@@ -181,7 +181,7 @@ error_t ST7735__enInitRModel(ST7735_nINITFLAGS enOptionArg)
     }
     ST7735__vSetCursor(0UL,0UL);
     u16StTextColor = (uint16_t) COLORS_enYELLOW;
-    ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enBLACK);
+    ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enRED);
     return (enErrorReg);
 }
 

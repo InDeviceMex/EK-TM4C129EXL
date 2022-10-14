@@ -53,6 +53,7 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
                                       DMA_nCH_CONTROL enActiveControStructureArg)
 {
     DMA_Register_t stRegister;
+    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
@@ -66,10 +67,10 @@ DMA_nERROR DMA_CH__enSetActiveControStructureByNumber(DMA_nMODULE enModuleArg, D
         {
             stRegister.uptrAddress = DMA_CH_ALTSET_OFFSET;
         }
-
-        stRegister.uxShift = (UBase_t) enChannelArg;
-        stRegister.uxMask = 1UL;
-        stRegister.uxValue = 1UL;
+        uxValueReg = 1UL << enChannelArg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_32;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
 

@@ -23,6 +23,7 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Priority.h>
 
+#include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 #include <xOS/Task/xHeader/OS_Task_Ready.h>
 

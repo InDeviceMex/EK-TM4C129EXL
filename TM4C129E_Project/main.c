@@ -160,7 +160,7 @@ UBase_t main(void)
 
      UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 14UL, 2UL, &TaskHandeler[4UL]))
+    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
     {
 
      UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");

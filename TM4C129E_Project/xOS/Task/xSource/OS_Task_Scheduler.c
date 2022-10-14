@@ -23,6 +23,7 @@
  */
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
 
+#include <xOS/Adapt/xHeader/OS_Adapt_Scheduler.h>
 #include <xOS/Task/Intrinsics/OS_Task_Intrinsics.h>
 
 #include <xOS/External/OS_External.h>

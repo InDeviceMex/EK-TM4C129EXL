@@ -86,7 +86,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="tm4c129encpdt.cmd|tm4c129encpdt.lds|tm4c129encpdt_WithoutBootloader.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="xOS/Adapt/xSource/OS_Adapt_Scheduler_ti.asm|tm4c129encpdt.cmd|tm4c129encpdt.lds|tm4c129encpdt_WithoutBootloader.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -180,7 +180,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="tm4c129encpdt.lds|tm4c129encpdt_WithoutBootloader.cmd|tm4c129encpdt.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="xOS/Adapt/xSource/OS_Adapt_Scheduler_ti.asm|tm4c129encpdt.lds|tm4c129encpdt_WithoutBootloader.cmd|tm4c129encpdt.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -297,7 +297,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="tm4c129encpdt_WithoutBootloader.lds|tm4c129encpdt.cmd|tm4c129encpdt.lds" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="xOS/Adapt/xSource/OS_Adapt_Scheduler_gnu.asm|tm4c129encpdt_WithoutBootloader.lds|tm4c129encpdt.cmd|tm4c129encpdt.lds" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -415,7 +415,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="tm4c129encpdt.cmd|tm4c129encpdt_WithoutBootloader.lds|tm4c129encpdt.lds" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="xOS/Adapt/xSource/OS_Adapt_Scheduler_gnu.asm|tm4c129encpdt.cmd|tm4c129encpdt_WithoutBootloader.lds|tm4c129encpdt.lds" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

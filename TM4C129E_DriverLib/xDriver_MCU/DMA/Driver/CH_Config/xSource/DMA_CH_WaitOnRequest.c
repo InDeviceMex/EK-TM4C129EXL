@@ -57,6 +57,7 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
                                            DMA_nCH_WAITREQ* penStateArg)
 {
     DMA_Register_t stRegister;
+    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
 
     enErrorReg = DMA_enERROR_OK;
@@ -70,10 +71,11 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stRegister.uxShift = (UBase_t) enChannelArg;
-        stRegister.uxShift += DMA_CH_WAITSTAT_R_WAITREQ0_BIT;
-        stRegister.uxMask = DMA_CH_WAITSTAT_WAITREQ0_MASK;
+        uxValueReg = 1UL << enChannelArg;
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
+        stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
     }
     if(DMA_enERROR_OK == enErrorReg)
