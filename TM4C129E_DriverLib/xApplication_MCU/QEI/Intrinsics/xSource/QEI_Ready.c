@@ -71,7 +71,7 @@ QEI_nSTATUS QEI__enIsReady(QEI_nMODULE enModule)
     enPeripheral = SYSCTL_VECTOR_QEI[uxModule];
     enReady = (QEI_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    QEI_nSTATUS enReady = QEI_nSTATUS_ACTIVE;
+    QEI_nSTATUS enReady = QEI_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

@@ -26,9 +26,9 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vEnInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt);
-void SSI__vDisInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt);
-void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt);
-SSI_nINT_SOURCE SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt);
+void SSI__vEnInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
+void SSI__vDisInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
+void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
+SSI_nINTMASK SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SSI_INTERRUPTSOURCE_H_ */

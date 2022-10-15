@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nCLOCK_POLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule);
-void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nCLOCK_POLARITY enClockPolarityArg);
+SSI_nPOLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule);
+void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nPOLARITY enClockPolarityArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FRAMECONTROL_XHEADER_SSI_POLARITY_H_ */

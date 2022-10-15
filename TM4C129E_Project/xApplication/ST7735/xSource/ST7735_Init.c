@@ -60,20 +60,20 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
         SSI_enEOT_FIFO,
         SSI_enDIRECTION_TX,
         SSI_enMODE_LEGACY,
-        SSI_enFSSHOLD_DIS,
-        {SSI_enLINE_ENA},
-        {SSI_enLINE_DIS},
-        SSI_enLINE_DIS,
-        SSI_enLINE_DIS,
-        SSI_enLINE_ENA,
-        SSI_enLINE_DIS
+        SSI_enSTATE_DIS,
+        {SSI_enSTATE_ENA},
+        {SSI_enSTATE_DIS},
+        SSI_enSTATE_DIS,
+        SSI_enSTATE_DIS,
+        SSI_enSTATE_ENA,
+        SSI_enSTATE_DIS
     };
 
     SSI_FRAME_CONTROL_t pstFrameControlConfigReg =
     {
         SSI_enFORMAT_FREESCALE,
-        SSI_enCLOCK_PHASE_FIRST,
-        SSI_enCLOCK_POLARITY_LOW,
+        SSI_enPHASE_FIRST,
+        SSI_enPOLARITY_LOW,
         SSI_enLENGTH_8BITS,
     };
     const SSI_LINE_t pstLineConfigReg =
@@ -102,17 +102,17 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
 
     if(ERROR_OK == enErrorReg)
     {
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_DIS);
         SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
         SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 28000000UL, &pstLineConfigReg);
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
-        SSI__vSetHighSpeed(ST7735_SSI, SSI_enHIGHSPEED_ENA);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_ENA);
+        SSI__vSetHighSpeed(ST7735_SSI, SSI_enSTATE_ENA);
 
-        SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_DIS);
-        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_END_OF_TRANSMIT));
-        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_END_OF_TRANSMIT));
+        SSI__vSetDMATx(ST7735_SSI, SSI_enSTATE_DIS);
+        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
+        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
         SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
         enErrorReg = ST7735__enEnableChipSelect();
     }

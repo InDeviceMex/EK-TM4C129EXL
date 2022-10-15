@@ -26,7 +26,7 @@
 #include <xApplication_MCU/SSI/xHeader/SSI_Clock.h>
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nCLOCK_PHASE enClockPhaseArg, SSI_nCLOCK_POLARITY enClockPolarityArg, UBase_t uxClockArg)
+void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nPHASE enClockPhaseArg, SSI_nPOLARITY enClockPolarityArg, UBase_t uxClockArg)
 {
     SSI__vSetClock(enModule, uxClockArg);
     SSI__vSetFormatControl(enModule, enFormatArg, enLengthDataArg, enClockPhaseArg, enClockPolarityArg);

@@ -26,30 +26,30 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetDMARx(SSI_nMODULE enModule, SSI_nDMA enDMAEnableArg)
+void SSI__vSetDMARx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg)
 {
     SSI__vWriteRegister(enModule, SSI_DMACTL_OFFSET,
         (UBase_t) enDMAEnableArg, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
 }
 
-SSI_nDMA SSI__enGetDMARx(SSI_nMODULE enModule)
+SSI_nSTATE SSI__enGetDMARx(SSI_nMODULE enModule)
 {
-    SSI_nDMA enDMAEnableReg = SSI_enDMA_DIS;
-    enDMAEnableReg = (SSI_nDMA) SSI__uxReadRegister(enModule,
+    SSI_nSTATE enDMAEnableReg = SSI_enSTATE_DIS;
+    enDMAEnableReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
                  SSI_DMACTL_OFFSET, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
     return (enDMAEnableReg);
 }
 
-void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nDMA enDMAEnableArg)
+void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg)
 {
     SSI__vWriteRegister(enModule, SSI_DMACTL_OFFSET,
         (UBase_t) enDMAEnableArg, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
 }
 
-SSI_nDMA SSI__enGetDMATx(SSI_nMODULE enModule)
+SSI_nSTATE SSI__enGetDMATx(SSI_nMODULE enModule)
 {
-    SSI_nDMA enDMAEnableReg = SSI_enDMA_DIS;
-    enDMAEnableReg = (SSI_nDMA) SSI__uxReadRegister(enModule,
+    SSI_nSTATE enDMAEnableReg = SSI_enSTATE_DIS;
+    enDMAEnableReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
                  SSI_DMACTL_OFFSET, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
     return (enDMAEnableReg);
 }

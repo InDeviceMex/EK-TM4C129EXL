@@ -43,20 +43,20 @@ void SHARP_96_96__vInitDisplay(void)
         SSI_enEOT_FIFO,
         SSI_enDIRECTION_TX,
         SSI_enMODE_LEGACY,
-        SSI_enFSSHOLD_DIS,
-        {SSI_enLINE_ENA},
-        {SSI_enLINE_DIS},
-        SSI_enLINE_DIS,
-        SSI_enLINE_DIS,
-        SSI_enLINE_ENA,
-        SSI_enLINE_DIS
+        SSI_enSTATE_DIS,
+        {SSI_enSTATE_ENA},
+        {SSI_enSTATE_DIS},
+        SSI_enSTATE_DIS,
+        SSI_enSTATE_DIS,
+        SSI_enSTATE_ENA,
+        SSI_enSTATE_DIS
     };
 
     SSI_FRAME_CONTROL_t pstFrameControlConfigReg =
     {
         SSI_enFORMAT_FREESCALE,
-        SSI_enCLOCK_PHASE_FIRST,
-        SSI_enCLOCK_POLARITY_LOW,
+        SSI_enPHASE_FIRST,
+        SSI_enPOLARITY_LOW,
         SSI_enLENGTH_8BITS,
     };
     const SSI_LINE_t pstLineConfigReg =
@@ -81,11 +81,11 @@ void SHARP_96_96__vInitDisplay(void)
     /* Configure LCD_SPI_CS_PIN as output pin */
     SHARP_96_96__vDisableChipSelect();
 
-    SSI__vSetEnable(SHARP_96_96_SSI, SSI_enENABLE_STOP);
+    SSI__vSetEnable(SHARP_96_96_SSI, SSI_enSTATE_DIS);
     SSI__vSetClockConfig(SHARP_96_96_SSI, SSI_enCLOCK_SYSCLK);
     SSI__enSetConfig(SHARP_96_96_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 500000UL, &pstLineConfigReg);
-    SSI__vSetEnable(SHARP_96_96_SSI, SSI_enENABLE_START);
-    SSI__vSetHighSpeed(SHARP_96_96_SSI, SSI_enHIGHSPEED_ENA);
+    SSI__vSetEnable(SHARP_96_96_SSI, SSI_enSTATE_ENA);
+    SSI__vSetHighSpeed(SHARP_96_96_SSI, SSI_enSTATE_ENA);
 
 
     SHARP_96_96__vEnableChipSelect();

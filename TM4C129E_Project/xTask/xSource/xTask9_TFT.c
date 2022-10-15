@@ -132,7 +132,7 @@ void xTask9_TFT(void* pvParams)
         }
 
         uxCountImage++;
-        if(uxCountImage > 60)
+        if(uxCountImage > 60UL)
         {
             uxImage ^= 1UL;
             uxCountImage = 0UL;
@@ -280,7 +280,7 @@ void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
         DMA_CH_PRIMARY->CH[30UL].DSTENDP = (UBase_t) puxAddress;
         DMA_CH_PRIMARY->CH[30UL].CTL = *((volatile UBase_t*) pstDMAChannel);
         DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 30UL;
-        DMA->CH_SWREQ = 1UL << 30UL;
+        DMA->CH_SWREQ = (UBase_t) 1UL << (UBase_t) 30UL;
     }
     else
     {

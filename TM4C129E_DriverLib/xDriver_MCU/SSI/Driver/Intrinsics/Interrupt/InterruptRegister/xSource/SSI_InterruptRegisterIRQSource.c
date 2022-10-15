@@ -28,7 +28,7 @@
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
 void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                    SSI_nMODULE enModule, SSI_nINTERRUPT enInterruptSource)
+                                    SSI_nMODULE enModule, SSI_nINT enInterruptSource)
 {
     UBase_t uxModule = 0UL;
     UBase_t uxInterruptSource = 0UL;
@@ -37,10 +37,10 @@ void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
         uxModule = MCU__uxCheckParams( (UBase_t) enModule,
                                          (UBase_t) SSI_enMODULE_MAX);
         uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
-                                                  (UBase_t) SSI_enINTERRUPT_MAX);
+                                                  (UBase_t) SSI_enINT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
                        SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) uxModule,
-                                                          (SSI_nINTERRUPT)uxInterruptSource),
+                                                          (SSI_nINT)uxInterruptSource),
                        0UL,
                        1UL);
     }

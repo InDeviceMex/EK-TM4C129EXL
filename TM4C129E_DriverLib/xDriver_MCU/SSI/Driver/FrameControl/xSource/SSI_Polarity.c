@@ -26,15 +26,15 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nCLOCK_POLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule)
+SSI_nPOLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule)
 {
-    SSI_nCLOCK_POLARITY enPolarityReg = SSI_enCLOCK_POLARITY_LOW;
-    enPolarityReg = (SSI_nCLOCK_POLARITY) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
+    SSI_nPOLARITY enPolarityReg = SSI_enPOLARITY_LOW;
+    enPolarityReg = (SSI_nPOLARITY) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
                                         SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);
     return (enPolarityReg);
 }
 
-void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nCLOCK_POLARITY enClockPolarityArg)
+void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nPOLARITY enClockPolarityArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
             (UBase_t) enClockPolarityArg, SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);

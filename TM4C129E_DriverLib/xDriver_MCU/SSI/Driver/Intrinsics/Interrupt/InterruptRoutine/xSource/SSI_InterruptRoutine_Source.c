@@ -26,7 +26,7 @@
 void SSI_vIRQSourceHandler_Dummy(void);
 
 void (*SSI__vIRQSourceHandler[(UBase_t) SSI_enMODULE_MAX]
-                             [(UBase_t) SSI_enINTERRUPT_MAX]) (void) =
+                             [(UBase_t) SSI_enINT_MAX]) (void) =
 {
     {
          &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
@@ -61,7 +61,7 @@ void SSI_vIRQSourceHandler_Dummy(void)
 
 
 void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule,
-                                   SSI_nINTERRUPT enSSIInterruptNum))(void)
+                                   SSI_nINT enSSIInterruptNum))(void)
 {
     void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
     pvfFunctionReg = SSI__vIRQSourceHandler[(UBase_t) enSSISubmodule]
@@ -69,7 +69,7 @@ void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule,
     return (pvfFunctionReg);
 }
 
-void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule, SSI_nINTERRUPT enSSIInterruptNum))(void)
+void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule, SSI_nINT enSSIInterruptNum))(void)
 {
     void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
     pvfFunctionReg = (void(**)(void)) &SSI__vIRQSourceHandler[(UBase_t) enSSISubmodule]

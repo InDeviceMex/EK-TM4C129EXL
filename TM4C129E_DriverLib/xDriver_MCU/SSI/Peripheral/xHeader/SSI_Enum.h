@@ -29,16 +29,49 @@
 
 typedef enum
 {
-    SSI_enSTATUS_OK = 0UL,
-    SSI_enSTATUS_ERROR = 1UL,
-    SSI_enSTATUS_UNDEF = UNDEF_VALUE,
-}SSI_nSTATUS;
+    SSI_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    SSI_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    SSI_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    SSI_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    SSI_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    SSI_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
+    SSI_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
+}SSI_nERROR;
 
 typedef enum
 {
-    SSI_enNOREADY = 0UL,
-    SSI_enREADY = 1UL,
-}SSI_nREADY;
+    SSI_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
+    SSI_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    SSI_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
+} SSI_nSTATE;
+
+typedef enum
+{
+    SSI_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
+    SSI_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    SSI_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
+} SSI_nSTATUS;
+
+typedef enum
+{
+    SSI_enFALSE = (UBase_t) FALSE,
+    SSI_enTRUE = (UBase_t) TRUE,
+    SSI_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}SSI_nBOOLEAN;
+
+typedef enum
+{
+    SSI_enPRI0 = (UBase_t) MCU_enPRI0,
+    SSI_enPRI1 = (UBase_t) MCU_enPRI1,
+    SSI_enPRI2 = (UBase_t) MCU_enPRI2,
+    SSI_enPRI3 = (UBase_t) MCU_enPRI3,
+    SSI_enPRI4 = (UBase_t) MCU_enPRI4,
+    SSI_enPRI5 = (UBase_t) MCU_enPRI5,
+    SSI_enPRI6 = (UBase_t) MCU_enPRI6,
+    SSI_enPRI7 = (UBase_t) MCU_enPRI7,
+    SSI_enPRIMAX = (UBase_t) MCU_enPRIMAX,
+    SSI_enDEFAULT = (UBase_t) MCU_enDEFAULT,
+}SSI_nPRIORITY;
 
 typedef enum
 {
@@ -51,49 +84,32 @@ typedef enum
 
 typedef enum
 {
-    SSI_enPRI0 = 0UL,
-    SSI_enPRI1 = 1UL,
-    SSI_enPRI2 = 2UL,
-    SSI_enPRI3 = 3UL,
-    SSI_enPRI4 = 4UL,
-    SSI_enPRI5 = 5UL,
-    SSI_enPRI6 = 6UL,
-    SSI_enPRI7 = 7UL,
-    SSI_enDEFAULT = UNDEF_VALUE,
-}SSI_nPRIORITY;
+    SSI_enINT_RECEIVE_OVERRUN = 0UL,
+    SSI_enINT_RECEIVE_TIMEOUT = 1UL,
+    SSI_enINT_RECEIVE = 2UL,
+    SSI_enINT_TRANSMIT = 3UL,
+    SSI_enINT_RECEIVE_DMA = 4UL,
+    SSI_enINT_TRANSMIT_DMA = 5UL,
+    SSI_enINT_END_OF_TRANSMIT = 6UL,
+    SSI_enINT_SW = 7UL,
+    SSI_enINT_MAX = 8UL,
+    SSI_enINT_UNDEF = UNDEF_VALUE,
+}SSI_nINT;
 
 typedef enum
 {
-    SSI_enINTERRUPT_SW = 0UL,
-    SSI_enINTERRUPT_RECEIVE_OVERRUN = 1UL,
-    SSI_enINTERRUPT_RECEIVE_TIMEOUT = 2UL,
-    SSI_enINTERRUPT_RECEIVE = 3UL,
-    SSI_enINTERRUPT_TRANSMIT = 4UL,
-    SSI_enINTERRUPT_RECEIVE_DMA = 5UL,
-    SSI_enINTERRUPT_TRANSMIT_DMA = 6UL,
-    SSI_enINTERRUPT_END_OF_TRANSMIT = 7UL,
-    SSI_enINTERRUPT_MAX = 8UL,
-}SSI_nINTERRUPT;
-
-typedef enum
-{
-    SSI_enINT_SOURCE_NONE = 0x0UL,
-    SSI_enINT_SOURCE_RECEIVE_OVERRUN = 0x1UL,
-    SSI_enINT_SOURCE_RECEIVE_TIMEOUT = 0x2UL,
-    SSI_enINT_SOURCE_RECEIVE = 0x4UL,
-    SSI_enINT_SOURCE_TRANSMIT = 0x8UL,
-    SSI_enINT_SOURCE_RECEIVE_DMA = 0x10UL,
-    SSI_enINT_SOURCE_TRANSMIT_DMA = 0x20UL,
-    SSI_enINT_SOURCE_END_OF_TRANSMIT = 0x40UL,
-    SSI_enINT_SOURCE_ALL = 0x7FUL,
-}SSI_nINT_SOURCE;
-
-typedef enum
-{
-    SSI_enINT_STATUS_INACTIVE = 0UL,
-    SSI_enINT_STATUS_ACTIVE = 1UL,
-    SSI_enINT_STATUS_UNDEF = UNDEF_VALUE,
-} SSI_nINT_STATUS;
+    SSI_enINTMASK_NONE = 0x0UL,
+    SSI_enINTMASK_RECEIVE_OVERRUN = 0x1UL,
+    SSI_enINTMASK_RECEIVE_TIMEOUT = 0x2UL,
+    SSI_enINTMASK_RECEIVE = 0x4UL,
+    SSI_enINTMASK_TRANSMIT = 0x8UL,
+    SSI_enINTMASK_RECEIVE_DMA = 0x10UL,
+    SSI_enINTMASK_TRANSMIT_DMA = 0x20UL,
+    SSI_enINTMASK_END_OF_TRANSMIT = 0x40UL,
+    SSI_enINTMASK_ALL = 0x7FUL,
+    SSI_enINTMASK_MAX = 0x80UL,
+    SSI_enINTMASK_UNDEF = UNDEF_VALUE,
+}SSI_nINTMASK;
 
 typedef enum
 {
@@ -122,17 +138,17 @@ typedef enum
 
 typedef enum
 {
-    SSI_enCLOCK_POLARITY_LOW = 0UL,
-    SSI_enCLOCK_POLARITY_HIGH = 1UL,
-    SSI_enCLOCK_POLARITY_UNDEF = UNDEF_VALUE,
-}SSI_nCLOCK_POLARITY;
+    SSI_enPOLARITY_LOW = 0UL,
+    SSI_enPOLARITY_HIGH = 1UL,
+    SSI_enPOLARITY_UNDEF = UNDEF_VALUE,
+}SSI_nPOLARITY;
 
 typedef enum
 {
-    SSI_enCLOCK_PHASE_FIRST = 0UL,
-    SSI_enCLOCK_PHASE_SECOND = 1UL,
-    SSI_enCLOCK_PHASE_UNDEF = UNDEF_VALUE,
-}SSI_nCLOCK_PHASE;
+    SSI_enPHASE_FIRST = 0UL,
+    SSI_enPHASE_SECOND = 1UL,
+    SSI_enPHASE_UNDEF = UNDEF_VALUE,
+}SSI_nPHASE;
 
 typedef enum
 {
@@ -140,13 +156,6 @@ typedef enum
     SSI_enLOOPBACK_ENA = 1UL,
     SSI_enLOOPBACK_UNDEF = UNDEF_VALUE,
 }SSI_nLOOPBACK;
-
-typedef enum
-{
-    SSI_enENABLE_STOP = 0UL,
-    SSI_enENABLE_START = 1UL,
-    SSI_enENABLE_UNDEF = UNDEF_VALUE,
-}SSI_nENABLE;
 
 typedef enum
 {
@@ -180,31 +189,10 @@ typedef enum
 
 typedef enum
 {
-    SSI_enHIGHSPEED_DIS = 0UL,
-    SSI_enHIGHSPEED_ENA = 1UL,
-    SSI_enHIGHSPEED_UNDEF = UNDEF_VALUE,
-}SSI_nHIGHSPEED;
-
-typedef enum
-{
-    SSI_enFSSHOLD_DIS = 0UL,
-    SSI_enFSSHOLD_ENA = 1UL,
-    SSI_enFSSHOLD_UNDEF = UNDEF_VALUE,
-}SSI_nFSSHOLD;
-
-typedef enum
-{
     SSI_enEOM_ONGOING = 0UL,
     SSI_enEOM_STOP = 1UL,
     SSI_enEOM_UNDEF = UNDEF_VALUE,
 }SSI_nEOM;
-
-typedef enum
-{
-    SSI_enDMA_DIS = 0UL,
-    SSI_enDMA_ENA = 1UL,
-    SSI_enDMA_UNDEF = UNDEF_VALUE,
-}SSI_nDMA;
 
 typedef enum
 {
@@ -241,34 +229,27 @@ typedef enum
     SSI_enLINE_SELECT_UNDEF = UNDEF_VALUE,
 }SSI_nLINE_SELECT;
 
-typedef enum
-{
-    SSI_enLINE_DIS = 0UL,
-    SSI_enLINE_ENA = 1UL,
-    SSI_enLINE_UNDEF = UNDEF_VALUE,
-}SSI_nLINE;
-
 typedef struct
 {
     SSI_nLOOPBACK enLoopback;
     SSI_nEOT enEndOfTransmission;
     SSI_nDIRECTION enDirection;
     SSI_nMODE enSSIMode;
-    SSI_nFSSHOLD enFssHold;
+    SSI_nSTATE enFssHold;
     union
     {
-        SSI_nLINE enTxLine;
-        SSI_nLINE enDat0Line;
+        SSI_nSTATE enTxLine;
+        SSI_nSTATE enDat0Line;
     };
     union
     {
-        SSI_nLINE enRxLine;
-        SSI_nLINE enDat1Line;
+        SSI_nSTATE enRxLine;
+        SSI_nSTATE enDat1Line;
     };
-    SSI_nLINE enDat2Line;
-    SSI_nLINE enDat3Line;
-    SSI_nLINE enClkLine;
-    SSI_nLINE enFssLine;
+    SSI_nSTATE enDat2Line;
+    SSI_nSTATE enDat3Line;
+    SSI_nSTATE enClkLine;
+    SSI_nSTATE enFssLine;
 }SSI_CONTROL_t;
 
 typedef struct
@@ -292,8 +273,8 @@ typedef struct
 typedef struct
 {
     SSI_nFORMAT enFormat;
-    SSI_nCLOCK_PHASE enClockPhase;
-    SSI_nCLOCK_POLARITY enClockPolarity;
+    SSI_nPHASE enClockPhase;
+    SSI_nPOLARITY enClockPolarity;
     SSI_nLENGTH enLengthData;
 }SSI_FRAME_CONTROL_t;
 
@@ -307,5 +288,9 @@ typedef struct
         UBase_t uxdata;
     };
 }SSI_ADVANCE_t;
+
+typedef MCU_Register_t SSI_Register_t;
+typedef MCU_pvfIRQVectorHandler_t SSI_pvfIRQVectorHandler_t;
+typedef MCU_pvfIRQSourceHandler_t SSI_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_XHEADER_SSI_ENUM_H_ */

@@ -128,8 +128,8 @@ error_t ST7735__enInitWriteDMAConfig(void)
         DMA_enCH_ENCODER_2
     };
 
-    SSI__vRegisterIRQSourceHandler(&ST7735__vDMATxInterupt, ST7735_SSI, SSI_enINTERRUPT_TRANSMIT_DMA);
-    SSI__vRegisterIRQSourceHandler(&ST7735__vDMATxLastBit, ST7735_SSI, SSI_enINTERRUPT_END_OF_TRANSMIT);
+    SSI__vRegisterIRQSourceHandler(&ST7735__vDMATxInterupt, ST7735_SSI, SSI_enINT_TRANSMIT_DMA);
+    SSI__vRegisterIRQSourceHandler(&ST7735__vDMATxLastBit, ST7735_SSI, SSI_enINT_END_OF_TRANSMIT);
     enErrorReg = (error_t) DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (SSI2_BASE + SSI_DR_OFFSET));
     if(ERROR_OK == enErrorReg)
     {
@@ -300,9 +300,9 @@ error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant)
         }while(0UL != uxStatusReg);
         ST7735__vSetDMATxInterupt(1UL);
 
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_DIS);
         SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_ENA);
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -347,8 +347,8 @@ error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant)
                 stDMAChControlPrimaryConstant.XFERSIZE = uxBufferCant - 1UL;
                 uxBufferCant = 0UL;
                 enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) &uxDataReg);
-                SSI2_ICR_R = (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
-                SSI2_IM_R |= (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
+                SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+                SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
             }
             ST7735__vSetTransferSizeLeft(uxBufferCant);
         }
@@ -372,9 +372,9 @@ error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant)
         }
         if(ERROR_OK == enErrorReg)
         {
-            SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-            SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-            SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);
+            SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+            SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+            SSI__vSetDMATx(ST7735_SSI, SSI_enSTATE_ENA);
         }
     }
     return (enErrorReg);
@@ -402,9 +402,9 @@ error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant)
         }while(0UL != uxStatusReg);
         ST7735__vSetDMATxInterupt(1UL);
 
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_DIS);
         SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_16BITS);
-        SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_ENA);
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -458,8 +458,8 @@ error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant)
                 ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
                 uxBufferCant = 0UL;
                 enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-                SSI2_ICR_R = (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
-                SSI2_IM_R |= (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
+                SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+                SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
             }
             ST7735__vSetTransferSizeLeft(uxBufferCant);
         }
@@ -483,9 +483,9 @@ error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant)
         }
         if(ERROR_OK == enErrorReg)
         {
-            SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-            SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINT_SOURCE) (SSI_enINT_SOURCE_TRANSMIT_DMA));
-            SSI__vSetDMATx(ST7735_SSI, SSI_enDMA_ENA);
+            SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+            SSI__vEnInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+            SSI__vSetDMATx(ST7735_SSI, SSI_enSTATE_ENA);
         }
     }
     return (enErrorReg);
@@ -558,24 +558,24 @@ void ST7735__vDMATxInterupt(void)
     }
     else if((0UL != ModePrimary) || (0UL != ModeAlternate))
     {
-        SSI2_ICR_R = (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
-        SSI2_IM_R |= (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
+        SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+        SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
         DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 13UL;
         SSI2_DMACTL_R |= SSI_DMACTL_R_TXDMAE_MASK;
     }
     else
     {
-        SSI2_IM_R &= ~ (UBase_t) SSI_enINT_SOURCE_TRANSMIT_DMA;
+        SSI2_IM_R &= ~ (UBase_t) SSI_enINTMASK_TRANSMIT_DMA;
     }
 }
 
 void ST7735__vDMATxLastBit(void)
 {
     ST7735__enDisableChipSelect();
-    SSI2_IM_R &= ~ (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
+    SSI2_IM_R &= ~ (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
 
-    SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_STOP);
+    SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_DIS);
     SSI__vSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
-    SSI__vSetEnable(ST7735_SSI, SSI_enENABLE_START);
+    SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_ENA);
     ST7735_vDMATxInteruptStatus = 0UL;
 }

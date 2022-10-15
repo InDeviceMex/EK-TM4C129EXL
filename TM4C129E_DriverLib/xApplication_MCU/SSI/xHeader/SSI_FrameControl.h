@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nCLOCK_PHASE enClockPhaseArg, SSI_nCLOCK_POLARITY enClockPolarityArg, UBase_t uxClockArg);
+void SSI__vSetClockAndFormatControl(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg, SSI_nLENGTH enLengthDataArg, SSI_nPHASE enClockPhaseArg, SSI_nPOLARITY enClockPolarityArg, UBase_t uxClockArg);
 void SSI__vSetClockAndFormatControlStruct(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t stFormatControl, UBase_t uxClockArg);
 void SSI__vSetClockAndFormatControlStructPointer(SSI_nMODULE enModule, const SSI_FRAME_CONTROL_t* pstFormatControl, UBase_t uxClockArg);
 

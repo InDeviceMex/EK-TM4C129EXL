@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetHighSpeed(SSI_nMODULE enModule, SSI_nHIGHSPEED enHighSpeedArg);
-SSI_nHIGHSPEED SSI__enGetHighSpeed(SSI_nMODULE enModule);
+void SSI__vSetHighSpeed(SSI_nMODULE enModule, SSI_nSTATE enHighSpeedArg);
+SSI_nSTATE SSI__enGetHighSpeed(SSI_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_HIGHSPEED_H_ */

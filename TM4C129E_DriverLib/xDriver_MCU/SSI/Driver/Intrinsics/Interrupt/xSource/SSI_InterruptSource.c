@@ -27,39 +27,39 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vEnInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
+void SSI__vEnInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt)
 {
     UBase_t uxSourceInt = 0UL;
     uxSourceInt = (UBase_t) enSourceInt;
-    uxSourceInt &= (UBase_t) SSI_enINT_SOURCE_ALL;
+    uxSourceInt &= (UBase_t) SSI_enINTMASK_ALL;
     SSI__vWriteRegister(enModule , SSI_IM_OFFSET, uxSourceInt, uxSourceInt, 0UL);
 }
 
-void SSI__vDisInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
+void SSI__vDisInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt)
 {
     UBase_t uxSourceInt = 0UL;
     uxSourceInt = (UBase_t) enSourceInt;
-    uxSourceInt &= (UBase_t) SSI_enINT_SOURCE_ALL;
+    uxSourceInt &= (UBase_t) SSI_enINTMASK_ALL;
     SSI__vWriteRegister(enModule , SSI_IM_OFFSET, 0UL, uxSourceInt, 0UL);
 }
 
-void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
+void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt)
 {
     UBase_t uxSourceInt = 0UL;
     uxSourceInt = (UBase_t) enSourceInt;
-    uxSourceInt &= (UBase_t) SSI_enINT_SOURCE_ALL;
+    uxSourceInt &= (UBase_t) SSI_enINTMASK_ALL;
     SSI__vWriteRegister(enModule , SSI_ICR_OFFSET, uxSourceInt, 0xFFFFFFFFUL, 0UL);
 }
 
-SSI_nINT_SOURCE SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINT_SOURCE enSourceInt)
+SSI_nINTMASK SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt)
 {
-    SSI_nINT_SOURCE enInterruptReg = SSI_enINT_SOURCE_NONE;
+    SSI_nINTMASK enInterruptReg = SSI_enINTMASK_NONE;
     UBase_t uxSourceInt = 0UL;
     UBase_t uxRegister= 0UL;
     uxSourceInt = (UBase_t) enSourceInt;
-    uxSourceInt &= (UBase_t) SSI_enINT_SOURCE_ALL;
+    uxSourceInt &= (UBase_t) SSI_enINTMASK_ALL;
     uxRegister = SSI__uxReadRegister(enModule , SSI_RIS_OFFSET, (UBase_t) uxSourceInt, 0UL);
-    enInterruptReg = (SSI_nINT_SOURCE) uxRegister;
+    enInterruptReg = (SSI_nINTMASK) uxRegister;
 
     return (enInterruptReg);
 }

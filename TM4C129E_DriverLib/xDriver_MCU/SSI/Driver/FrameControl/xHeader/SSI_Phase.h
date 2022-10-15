@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nCLOCK_PHASE SSI__enGetClockPhase(SSI_nMODULE enModule);
-void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nCLOCK_PHASE enClockPhaseArg);
+SSI_nPHASE SSI__enGetClockPhase(SSI_nMODULE enModule);
+void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nPHASE enClockPhaseArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FRAMECONTROL_XHEADER_SSI_CLOCK_PHASE_H_ */

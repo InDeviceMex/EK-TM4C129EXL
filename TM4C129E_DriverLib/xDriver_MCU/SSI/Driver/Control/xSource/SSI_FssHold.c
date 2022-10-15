@@ -26,16 +26,16 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nFSSHOLD enFssHoldArg)
+void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nSTATE enFssHoldArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
             (UBase_t) enFssHoldArg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
 }
 
-SSI_nFSSHOLD SSI__enGetFssHold(SSI_nMODULE enModule)
+SSI_nSTATE SSI__enGetFssHold(SSI_nMODULE enModule)
 {
-    SSI_nFSSHOLD enFssHoldReg = SSI_enFSSHOLD_DIS;
-    enFssHoldReg = (SSI_nFSSHOLD) SSI__uxReadRegister(enModule,
+    SSI_nSTATE enFssHoldReg = SSI_enSTATE_DIS;
+    enFssHoldReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
                            SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
     return (enFssHoldReg);
 }

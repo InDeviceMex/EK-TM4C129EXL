@@ -28,8 +28,8 @@
 void SSI__vSetFormatControl(SSI_nMODULE enModule,
                             SSI_nFORMAT enFormatArg,
                             SSI_nLENGTH enLengthDataArg,
-                            SSI_nCLOCK_PHASE enClockPhaseArg,
-                            SSI_nCLOCK_POLARITY enClockPolarityArg)
+                            SSI_nPHASE enClockPhaseArg,
+                            SSI_nPOLARITY enClockPolarityArg)
 {
     SSI__vSetDataLength(enModule, enLengthDataArg);
     SSI__vSetFormat(enModule, enFormatArg);

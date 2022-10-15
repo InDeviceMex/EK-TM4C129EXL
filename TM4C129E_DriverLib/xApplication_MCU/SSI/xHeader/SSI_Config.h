@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-SSI_nSTATUS SSI__enSetConfig(SSI_nMODULE enModule,
+SSI_nERROR SSI__enSetConfig(SSI_nMODULE enModule,
                              SSI_nMS enMasterSlaveArg,
                              const SSI_CONTROL_t* const pstControlConfig,
                              SSI_FRAME_CONTROL_t* const pstFrameControlConfig,

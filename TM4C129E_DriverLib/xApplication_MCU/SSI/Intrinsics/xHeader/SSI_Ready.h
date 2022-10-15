@@ -29,6 +29,6 @@
 
 void SSI__vSetReady(SSI_nMODULE enModule);
 void SSI__vClearReady(SSI_nMODULE enModule);
-SSI_nREADY SSI__enIsReady(SSI_nMODULE enModule);
+SSI_nSTATUS SSI__enIsReady(SSI_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_SSI_INTRINSICS_XHEADER_SSI_READY_H_ */

@@ -35,67 +35,67 @@ void SSI3__vIRQVectorHandler(void)
     if(SYSCTL_PRSSI_R_SSI3_NOREADY == (SYSCTL_PRSSI_R_SSI3_MASK & uxReady))
     {
         pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                  SSI_enINTERRUPT_SW);
+                                                  SSI_enINT_SW);
         pvfCallback();
     }
     else
     {
         uxReg = (UBase_t) SSI3_MIS_R;
 
-        if(0UL == ((UBase_t) SSI_enINT_SOURCE_ALL & uxReg))
+        if(0UL == ((UBase_t) SSI_enINTMASK_ALL & uxReg))
         {
             pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                      SSI_enINTERRUPT_SW);
+                                                      SSI_enINT_SW);
             pvfCallback();
         }
         else
         {
-            if((UBase_t) SSI_enINT_SOURCE_RECEIVE_OVERRUN & uxReg)
+            if((UBase_t) SSI_enINTMASK_RECEIVE_OVERRUN & uxReg)
             {
-                SSI3_ICR_R = (UBase_t) SSI_enINT_SOURCE_RECEIVE_OVERRUN;
+                SSI3_ICR_R = (UBase_t) SSI_enINTMASK_RECEIVE_OVERRUN;
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_RECEIVE_OVERRUN);
+                                                          SSI_enINT_RECEIVE_OVERRUN);
                 pvfCallback();
             }
-            if((UBase_t) SSI_enINT_SOURCE_RECEIVE_TIMEOUT & uxReg)
+            if((UBase_t) SSI_enINTMASK_RECEIVE_TIMEOUT & uxReg)
             {
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_RECEIVE_TIMEOUT);
+                                                          SSI_enINT_RECEIVE_TIMEOUT);
                 pvfCallback();
-                SSI3_ICR_R = (UBase_t) SSI_enINT_SOURCE_RECEIVE_TIMEOUT;
+                SSI3_ICR_R = (UBase_t) SSI_enINTMASK_RECEIVE_TIMEOUT;
             }
-            if((UBase_t) SSI_enINT_SOURCE_RECEIVE & uxReg)
+            if((UBase_t) SSI_enINTMASK_RECEIVE & uxReg)
             {
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_RECEIVE);
+                                                          SSI_enINT_RECEIVE);
                 pvfCallback();
             }
-            if((UBase_t) SSI_enINT_SOURCE_TRANSMIT & uxReg)
+            if((UBase_t) SSI_enINTMASK_TRANSMIT & uxReg)
             {
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_TRANSMIT);
+                                                          SSI_enINT_TRANSMIT);
                 pvfCallback();
             }
-            if((UBase_t) SSI_enINT_SOURCE_RECEIVE_DMA & uxReg)
+            if((UBase_t) SSI_enINTMASK_RECEIVE_DMA & uxReg)
             {
-                SSI3_ICR_R = (UBase_t) SSI_enINT_SOURCE_RECEIVE_DMA;
+                SSI3_ICR_R = (UBase_t) SSI_enINTMASK_RECEIVE_DMA;
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_RECEIVE_DMA);
+                                                          SSI_enINT_RECEIVE_DMA);
                 pvfCallback();
             }
-            if((UBase_t) SSI_enINT_SOURCE_TRANSMIT_DMA & uxReg)
+            if((UBase_t) SSI_enINTMASK_TRANSMIT_DMA & uxReg)
             {
                 SSI3_DMACTL_R &= ~SSI_DMACTL_R_TXDMAE_MASK;
-                SSI3_ICR_R = (UBase_t) SSI_enINT_SOURCE_TRANSMIT_DMA;
+                SSI3_ICR_R = (UBase_t) SSI_enINTMASK_TRANSMIT_DMA;
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_TRANSMIT_DMA);
+                                                          SSI_enINT_TRANSMIT_DMA);
                 pvfCallback();
             }
-            if((UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT & uxReg)
+            if((UBase_t) SSI_enINTMASK_END_OF_TRANSMIT & uxReg)
             {
-                SSI3_ICR_R = (UBase_t) SSI_enINT_SOURCE_END_OF_TRANSMIT;
+                SSI3_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
                 pvfCallback = SSI__pvfGetIRQSourceHandler(SSI_enMODULE_3,
-                                                          SSI_enINTERRUPT_END_OF_TRANSMIT);
+                                                          SSI_enINT_END_OF_TRANSMIT);
                 pvfCallback();
             }
         }

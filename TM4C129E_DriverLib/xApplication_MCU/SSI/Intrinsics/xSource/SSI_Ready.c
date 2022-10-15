@@ -33,7 +33,7 @@ static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
 void SSI__vSetReady(SSI_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    SSI_nREADY enReady = SSI_enNOREADY;
+    SSI_nSTATUS enReady = SSI_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
     UBase_t uxModule = 0UL;
 
@@ -41,7 +41,7 @@ void SSI__vSetReady(SSI_nMODULE enModule)
 
     enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
     enReady = SSI__enIsReady((SSI_nMODULE) uxModule);
-    if(SSI_enNOREADY == enReady)
+    if(SSI_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
         SYSCTL__vReset(enPeripheral);
@@ -63,17 +63,17 @@ void SSI__vClearReady(SSI_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-SSI_nREADY SSI__enIsReady(SSI_nMODULE enModule)
+SSI_nSTATUS SSI__enIsReady(SSI_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    SSI_nREADY enReady = SSI_enNOREADY;
+    SSI_nSTATUS enReady = SSI_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
     UBase_t uxModule =0UL;
     uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
     enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
-    enReady = (SSI_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (SSI_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    SSI_nREADY enReady = SSI_enREADY;
+    SSI_nSTATUS enReady = SSI_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

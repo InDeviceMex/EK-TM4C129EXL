@@ -30,8 +30,8 @@
 void SSI__vSetFormatControl(SSI_nMODULE enModule,
                             SSI_nFORMAT enFormatArg,
                             SSI_nLENGTH enLengthDataArg,
-                            SSI_nCLOCK_PHASE enClockPhaseArg,
-                            SSI_nCLOCK_POLARITY enClockPolarityArg);
+                            SSI_nPHASE enClockPhaseArg,
+                            SSI_nPOLARITY enClockPolarityArg);
 void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
                                   const SSI_FRAME_CONTROL_t stFormatControl);
 void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,

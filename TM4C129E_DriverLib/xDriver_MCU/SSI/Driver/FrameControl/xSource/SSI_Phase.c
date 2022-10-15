@@ -26,15 +26,15 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nCLOCK_PHASE SSI__enGetClockPhase(SSI_nMODULE enModule)
+SSI_nPHASE SSI__enGetClockPhase(SSI_nMODULE enModule)
 {
-    SSI_nCLOCK_PHASE enPhaseReg = SSI_enCLOCK_PHASE_FIRST;
-    enPhaseReg = (SSI_nCLOCK_PHASE) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
+    SSI_nPHASE enPhaseReg = SSI_enPHASE_FIRST;
+    enPhaseReg = (SSI_nPHASE) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
                                          SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
     return (enPhaseReg);
 }
 
-void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nCLOCK_PHASE enClockPhaseArg)
+void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nPHASE enClockPhaseArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
             (UBase_t) enClockPhaseArg, SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);

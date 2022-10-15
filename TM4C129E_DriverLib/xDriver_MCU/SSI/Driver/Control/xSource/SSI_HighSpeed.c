@@ -26,16 +26,16 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetHighSpeed(SSI_nMODULE enModule, SSI_nHIGHSPEED enHighSpeedArg)
+void SSI__vSetHighSpeed(SSI_nMODULE enModule, SSI_nSTATE enHighSpeedArg)
 {
     SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
     (UBase_t) enHighSpeedArg, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
 }
 
-SSI_nHIGHSPEED SSI__enGetHighSpeed(SSI_nMODULE enModule)
+SSI_nSTATE SSI__enGetHighSpeed(SSI_nMODULE enModule)
 {
-    SSI_nHIGHSPEED enHighSpeedReg = SSI_enHIGHSPEED_DIS;
-    enHighSpeedReg = (SSI_nHIGHSPEED) SSI__uxReadRegister(enModule,
+    SSI_nSTATE enHighSpeedReg = SSI_enSTATE_DIS;
+    enHighSpeedReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
                        SSI_CR1_OFFSET, SSI_CR1_HSCLKEN_MASK, SSI_CR1_R_HSCLKEN_BIT);
     return (enHighSpeedReg);
 }
