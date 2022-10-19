@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Mode.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetMode(SSI_nMODULE enModule, SSI_nMODE enModeArg)
+SSI_nERROR SSI__enSetMode(SSI_nMODULE enModuleArg, SSI_nMODE enModeArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (UBase_t) enModeArg, SSI_CR1_MODE_MASK, SSI_CR1_R_MODE_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_MODE_BIT;
+    stRegister.uxMask = SSI_CR1_MODE_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enModeArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nMODE SSI__enGetMode(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetMode(SSI_nMODULE enModuleArg, SSI_nMODE* penModeArg)
 {
-    SSI_nMODE enModeReg = SSI_enMODE_LEGACY;
-    enModeReg = (SSI_nMODE) SSI__uxReadRegister(enModule,
-                     SSI_CR1_OFFSET, SSI_CR1_MODE_MASK, SSI_CR1_R_MODE_BIT);
-    return (enModeReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_MODE_BIT;
+        stRegister.uxMask = SSI_CR1_MODE_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (SSI_nMODE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

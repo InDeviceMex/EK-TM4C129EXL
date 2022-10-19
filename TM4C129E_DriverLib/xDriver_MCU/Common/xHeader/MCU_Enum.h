@@ -34,6 +34,7 @@ typedef enum
     MCU_enERROR_VALUE = (UBase_t) ERROR_VALUE,
     MCU_enERROR_RANGE = (UBase_t) ERROR_RANGE,
     MCU_enERROR_EMPTY = (UBase_t) ERROR_EMPTY,
+    MCU_enERROR_FULL = (UBase_t) ERROR_FULL,
     MCU_enERROR_BUSY = (UBase_t) ERROR_BUSY,
     MCU_enERROR_TIMEOUT = (UBase_t) ERROR_TIMEOUT,
     MCU_enERROR_UNDEF = (UBase_t) ERROR_UNDEF,

@@ -25,35 +25,59 @@
 
 #include <xDriver_MCU/SSI/Driver/SSI_Driver.h>
 
-void SSI__vSetFormatControl(SSI_nMODULE enModule,
-                            SSI_nFORMAT enFormatArg,
-                            SSI_nLENGTH enLengthDataArg,
-                            SSI_nPHASE enClockPhaseArg,
-                            SSI_nPOLARITY enClockPolarityArg)
+SSI_nERROR SSI__enSetFrameFormatControl(SSI_nMODULE enModuleArg,
+                                        SSI_nFORMAT enFormatArg,
+                                        SSI_nLENGTH enLengthDataArg,
+                                        SSI_nPHASE enClockPhaseArg,
+                                        SSI_nPOLARITY enClockPolarityArg)
 {
-    SSI__vSetDataLength(enModule, enLengthDataArg);
-    SSI__vSetFormat(enModule, enFormatArg);
-    SSI__vSetClockPhase(enModule, enClockPhaseArg);
-    SSI__vSetClockPolarity(enModule, enClockPolarityArg);
-}
+    SSI_nERROR enErrorReg;
 
-void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
-                                  const SSI_FRAME_CONTROL_t stFormatControl)
-{
-    SSI__vSetDataLength(enModule, stFormatControl.enLengthData);
-    SSI__vSetFormat(enModule, stFormatControl.enFormat);
-    SSI__vSetClockPhase(enModule, stFormatControl.enClockPhase);
-    SSI__vSetClockPolarity(enModule, stFormatControl.enClockPolarity);
-}
-
-void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
-                                         const SSI_FRAME_CONTROL_t* pstFormatControl)
-{
-    if(0UL != (UBase_t) pstFormatControl)
+    enErrorReg = SSI__enSetDataLength(enModuleArg, enLengthDataArg);
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        SSI__vSetDataLength(enModule, pstFormatControl->enLengthData);
-        SSI__vSetFormat(enModule, pstFormatControl->enFormat);
-        SSI__vSetClockPhase(enModule, pstFormatControl->enClockPhase);
-        SSI__vSetClockPolarity(enModule, pstFormatControl->enClockPolarity);
+        enErrorReg = SSI__enSetFrameFormat(enModuleArg, enFormatArg);
     }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetSerialClockPhase(enModuleArg, enClockPhaseArg);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetSerialClockPolarity(enModuleArg, enClockPolarityArg);
+    }
+    return (enErrorReg);
 }
+
+SSI_nERROR SSI__enSetFrameFormatControlStructure(SSI_nMODULE enModule,
+                                              const SSI_FRAME_CONTROL_t* pstFormatControl)
+{
+    SSI_nERROR enErrorReg;
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) pstFormatControl)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetDataLength(enModule, pstFormatControl->enLengthData);
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetFrameFormat(enModule, pstFormatControl->enFormat);
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetSerialClockPhase(enModule, pstFormatControl->enClockPhase);
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetSerialClockPolarity(enModule, pstFormatControl->enClockPolarity);
+    }
+
+    return (enErrorReg);
+}
+

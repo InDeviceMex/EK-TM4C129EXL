@@ -26,16 +26,40 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetEndMessage(SSI_nMODULE enModule, SSI_nEOM enEndMessageArg)
+SSI_nERROR SSI__enSetEndOfMessageBit(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-        (UBase_t) enEndMessageArg, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_EOM_BIT;
+    stRegister.uxMask = SSI_CR1_EOM_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nEOM SSI__enGetEndMessage(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetEndOfMessageBit(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_nEOM enEndMessageReg = SSI_enEOM_ONGOING;
-    enEndMessageReg = (SSI_nEOM) SSI__uxReadRegister(enModule,
-                          SSI_CR1_OFFSET, SSI_CR1_EOM_MASK, SSI_CR1_R_EOM_BIT);
-    return (enEndMessageReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_EOM_BIT;
+        stRegister.uxMask = SSI_CR1_EOM_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

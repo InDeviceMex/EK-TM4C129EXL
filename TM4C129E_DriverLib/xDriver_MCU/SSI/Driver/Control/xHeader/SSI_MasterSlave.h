@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetMasterSlave(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg);
-SSI_nMS SSI__enGetMasterSlave(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetOperation(SSI_nMODULE enModuleArg, SSI_nOPERATION enOperationArg);
+SSI_nERROR SSI__enGetOperation(SSI_nMODULE enModuleArg, SSI_nOPERATION* penOperationArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_MASTERSLAVE_H_ */

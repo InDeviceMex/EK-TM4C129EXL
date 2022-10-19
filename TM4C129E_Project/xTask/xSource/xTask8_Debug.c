@@ -41,6 +41,8 @@ void xTask8_Debug(void* pvParams)
     Base_t sxAccelValue[3UL];
     char* pcStateButton[3UL];
 
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vSetCursorXY(UART_enMODULE_0, 0UL, 0UL);
     GraphTerm__uxPrintf(UART_enMODULE_0, 0UL, 2UL,
                          "LCD POS Initializing...   "
                          );

@@ -27,11 +27,11 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-SSI_nERROR SSI__enSetConfig(SSI_nMODULE enModule,
-                             SSI_nMS enMasterSlaveArg,
-                             const SSI_CONTROL_t* const pstControlConfig,
-                             SSI_FRAME_CONTROL_t* const pstFrameControlConfig,
+SSI_nERROR SSI__enSetConfig(SSI_nMODULE enModuleArg,
+                             SSI_nOPERATION enMasterSlaveArg,
                              UBase_t uxClockArg,
-                             const SSI_LINE_t* pstLineConfig);
+                             const SSI_CONTROL_t* const pstControlConfigArg,
+                             SSI_FRAME_CONTROL_t* const pstFrameControlConfigArg,
+                             const SSI_LINE_t* pstLineConfigArg);
 
 #endif /* XAPPLICATION_MCU_SSI_XHEADER_SSI_CONFIG_H_ */

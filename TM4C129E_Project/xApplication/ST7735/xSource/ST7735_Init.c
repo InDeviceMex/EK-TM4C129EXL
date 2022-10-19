@@ -56,8 +56,7 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
     error_t enErrorReg;
     const SSI_CONTROL_t pstControlConfigReg =
     {
-        SSI_enLOOPBACK_DIS,
-        SSI_enEOT_FIFO,
+        SSI_enSTATE_DIS,
         SSI_enDIRECTION_TX,
         SSI_enMODE_LEGACY,
         SSI_enSTATE_DIS,
@@ -102,18 +101,18 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
 
     if(ERROR_OK == enErrorReg)
     {
-        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_DIS);
-        SSI__vSetClockConfig(ST7735_SSI, SSI_enCLOCK_SYSCLK);
-        SSI__enSetConfig(ST7735_SSI, SSI_enMS_MASTER, &pstControlConfigReg, &pstFrameControlConfigReg, 28000000UL, &pstLineConfigReg);
-        SSI__vSetEnable(ST7735_SSI, SSI_enSTATE_ENA);
-        SSI__vSetHighSpeed(ST7735_SSI, SSI_enSTATE_ENA);
+        SSI__enSetState(ST7735_SSI, SSI_enSTATE_DIS);
+        SSI__enSetClockSource(ST7735_SSI, SSI_enCLOCK_RSCLK);
+        SSI__enSetConfig(ST7735_SSI, SSI_enOPERATION_MASTER, 30000000UL, &pstControlConfigReg, &pstFrameControlConfigReg, &pstLineConfigReg);
+        SSI__enSetState(ST7735_SSI, SSI_enSTATE_ENA);
+        SSI__enSetHighSpeedState(ST7735_SSI, SSI_enSTATE_ENA);
 
-        SSI__vSetDMATx(ST7735_SSI, SSI_enSTATE_DIS);
-        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
-        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
-        SSI__vDisInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
-        SSI__vClearInterruptSource(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
-        SSI__vEnInterruptVector(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
+        SSI__enSetTransmitDMAState(ST7735_SSI, SSI_enSTATE_DIS);
+        SSI__enDisableInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__enClearInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__enDisableInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
+        SSI__enClearInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_END_OF_TRANSMIT));
+        SSI__enEnableInterruptVectorWithPriority(ST7735_SSI, (SSI_nPRIORITY) NVIC_enVECTOR_PRI_SSI2);
         enErrorReg = ST7735__enEnableChipSelect();
     }
     if(ERROR_OK == enErrorReg)
@@ -181,7 +180,7 @@ error_t ST7735__enInitRModel(ST7735_nINITFLAGS enOptionArg)
     }
     ST7735__vSetCursor(0UL,0UL);
     u16StTextColor = (uint16_t) COLORS_enYELLOW;
-    ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enRED);
+    ST7735__vFillRect(0UL, 0UL, ST7735_uxWidthArg, ST7735_uxHeightArg, COLORS_enBLACK);
     return (enErrorReg);
 }
 

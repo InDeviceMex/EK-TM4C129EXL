@@ -27,21 +27,21 @@
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/SSI_InterruptRoutine_Source.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                    SSI_nMODULE enModule, SSI_nINT enInterruptSource)
+SSI_nERROR SSI__enRegisterIRQSourceHandler(SSI_nMODULE enModuleArg, SSI_nINT enIntSourceArg, SSI_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    UBase_t uxModule = 0UL;
-    UBase_t uxInterruptSource = 0UL;
-    if(0UL != (UBase_t) pfIrqSourceHandler)
+    SSI_pvfIRQSourceHandler_t* pvfIrqHandler;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        uxModule = MCU__uxCheckParams( (UBase_t) enModule,
-                                         (UBase_t) SSI_enMODULE_MAX);
-        uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
-                                                  (UBase_t) SSI_enINT_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-                       SSI__pvfGetIRQSourceHandlerPointer((SSI_nMODULE) uxModule,
-                                                          (SSI_nINT)uxInterruptSource),
-                       0UL,
-                       1UL);
+        enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enIntSourceArg, (UBase_t) SSI_enINT_MAX);
     }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = SSI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        enErrorReg = (SSI_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+    }
+
+    return (enErrorReg);
 }

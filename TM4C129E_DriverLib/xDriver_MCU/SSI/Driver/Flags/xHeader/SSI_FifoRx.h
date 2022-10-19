@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nFIFO_EMPTY SSI__enIsFifoReceiveEmpty(SSI_nMODULE enModule);
-SSI_nFIFO_FULL SSI__enIsFifoReceiveFull(SSI_nMODULE enModule);
+SSI_nERROR SSI__enIsReceiveFifoEmpty(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg);
+SSI_nERROR SSI__enIsReceiveFifoFull(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FLAGS_XHEADER_SSI_FIFORX_H_ */

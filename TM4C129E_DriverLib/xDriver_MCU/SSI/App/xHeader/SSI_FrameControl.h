@@ -27,14 +27,14 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetFormatControl(SSI_nMODULE enModule,
-                            SSI_nFORMAT enFormatArg,
-                            SSI_nLENGTH enLengthDataArg,
-                            SSI_nPHASE enClockPhaseArg,
-                            SSI_nPOLARITY enClockPolarityArg);
-void SSI__vSetFormatControlStruct(SSI_nMODULE enModule,
-                                  const SSI_FRAME_CONTROL_t stFormatControl);
-void SSI__vSetFormatControlStructPointer(SSI_nMODULE enModule,
-                                         const SSI_FRAME_CONTROL_t* pstFormatControl);
+SSI_nERROR SSI__enSetFrameFormatControl(SSI_nMODULE enModuleArg,
+                                        SSI_nFORMAT enFormatArg,
+                                        SSI_nLENGTH enLengthDataArg,
+                                        SSI_nPHASE enClockPhaseArg,
+                                        SSI_nPOLARITY enClockPolarityArg);
+SSI_nERROR SSI__enSetFrameFormatControlStructure(SSI_nMODULE enModule,
+                                                 const SSI_FRAME_CONTROL_t* pstFormatControl);
+void SSI__enSetFrameFormatControlStructPointer(SSI_nMODULE enModule,
+                                               const SSI_FRAME_CONTROL_t* pstFormatControl);
 
 #endif /* XDRIVER_MCU_SSI_APP_XHEADER_SSI_FRAMECONTROL_H_ */

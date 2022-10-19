@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Loopback.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetLoopback(SSI_nMODULE enModule, SSI_nLOOPBACK enLoopbackArg)
+SSI_nERROR SSI__enSetLoopbackState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (UBase_t) enLoopbackArg, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_LBM_BIT;
+    stRegister.uxMask = SSI_CR1_LBM_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nLOOPBACK SSI__enGetLoopback(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetLoopbackState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_nLOOPBACK enLoopbackReg = SSI_enLOOPBACK_DIS;
-    enLoopbackReg = (SSI_nLOOPBACK) SSI__uxReadRegister(enModule,
-                         SSI_CR1_OFFSET, SSI_CR1_LBM_MASK, SSI_CR1_R_LBM_BIT);
-    return (enLoopbackReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_LBM_BIT;
+        stRegister.uxMask = SSI_CR1_LBM_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

@@ -26,8 +26,6 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vWriteRegister(SSI_nMODULE enModule, UBase_t uxOffsetRegister,
-                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                         UBase_t uxBitFeature);
+SSI_nERROR SSI__enWriteRegister(SSI_nMODULE enModuleArg, SSI_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_SSI_WRITEREGISTER_H_ */

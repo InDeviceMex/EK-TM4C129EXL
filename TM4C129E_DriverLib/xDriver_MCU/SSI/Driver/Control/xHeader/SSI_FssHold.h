@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nSTATE enFssHoldArg);
-SSI_nSTATE SSI__enGetFssHold(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetChipSelectHoldState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetChipSelectHoldState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_FSSHOLD_H_ */

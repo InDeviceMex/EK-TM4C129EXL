@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_FssHold.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetFssHold(SSI_nMODULE enModule, SSI_nSTATE enFssHoldArg)
+SSI_nERROR SSI__enSetChipSelectHoldState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (UBase_t) enFssHoldArg, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_SSE_BIT;
+    stRegister.uxMask = SSI_CR1_SSE_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nSTATE SSI__enGetFssHold(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetChipSelectHoldState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_nSTATE enFssHoldReg = SSI_enSTATE_DIS;
-    enFssHoldReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
-                           SSI_CR1_OFFSET, SSI_CR1_SSE_MASK, SSI_CR1_R_SSE_BIT);
-    return (enFssHoldReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_SSE_BIT;
+        stRegister.uxMask = SSI_CR1_SSE_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

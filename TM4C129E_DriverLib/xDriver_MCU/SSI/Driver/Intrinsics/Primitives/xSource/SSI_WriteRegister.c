@@ -26,15 +26,25 @@
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vWriteRegister(SSI_nMODULE enModule, UBase_t uxOffsetRegister,
-                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                         UBase_t uxBitFeature)
+SSI_nERROR SSI__enWriteRegister(SSI_nMODULE enModuleArg, SSI_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxSsiBase = 0UL;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+    uintptr_t uptrModuleBase;
+    SSI_nERROR enErrorReg;
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = SSI__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (SSI_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+    }
 
-    uxSsiBase = SSI__uxBlockBaseAddress((SSI_nMODULE) uxModule);
-    MCU__vWriteRegister(uxSsiBase, uxOffsetRegister,
-                        uxFeatureValue, uxMaskFeature, uxBitFeature);
+    return (enErrorReg);
 }

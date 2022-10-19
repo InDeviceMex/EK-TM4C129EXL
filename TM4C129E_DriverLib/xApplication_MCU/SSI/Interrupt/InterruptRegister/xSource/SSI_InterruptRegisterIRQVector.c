@@ -26,20 +26,23 @@
 #include <xApplication_MCU/SSI/Interrupt/InterruptRoutine/SSI_InterruptRoutine.h>
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-void SSI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),SSI_nMODULE enModule)
+SSI_nERROR SSI__enRegisterIRQVectorHandler(SSI_nMODULE enModuleArg, SSI_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_SSI0;
-    UBase_t uxModule = 0UL;
-    const SCB_nVECISR SCB_enVECISR_SSI[(UBase_t) SSI_enMODULE_MAX]=
+    const SCB_nVECISR SCB_enVECISR_SSI[(UBase_t) SSI_enMODULE_MAX] =
     {
-        SCB_enVECISR_SSI0, SCB_enVECISR_SSI1, SCB_enVECISR_SSI2, SCB_enVECISR_SSI3,
+     SCB_enVECISR_SSI0, SCB_enVECISR_SSI1, SCB_enVECISR_SSI2, SCB_enVECISR_SSI3,
     };
+    SCB_nVECISR enVectorReg;
+    SSI_nERROR enErrorReg;
+    SSI_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-    if(0UL != (UBase_t) pfIrqVectorHandler)
+    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
-        enVector = SCB_enVECISR_SSI[uxModule];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler,
-                                       SSI__pvfGetIRQVectorHandlerPointer((SSI_nMODULE) uxModule));
+        enVectorReg = SCB_enVECISR_SSI[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = SSI__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (SSI_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

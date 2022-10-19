@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetEndMessage(SSI_nMODULE enModule, SSI_nEOM enEndMessageArg);
-SSI_nEOM SSI__enGetEndMessage(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetEndOfMessageBit(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetEndOfMessageBit(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_ENDMESSAGE_H_ */

@@ -23,56 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/SSI_InterruptRoutine_Source.h>
 
-void SSI_vIRQSourceHandler_Dummy(void);
-
-void (*SSI__vIRQSourceHandler[(UBase_t) SSI_enMODULE_MAX]
-                             [(UBase_t) SSI_enINT_MAX]) (void) =
+static SSI_pvfIRQSourceHandler_t SSI_vIRQSourceHandler[(UBase_t) SSI_enMODULE_MAX][(UBase_t) SSI_enINT_MAX] =
 {
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy
     },
     {
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy,
-         &SSI_vIRQSourceHandler_Dummy,&SSI_vIRQSourceHandler_Dummy
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy,
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_Dummy
     },
 };
 
-void SSI_vIRQSourceHandler_Dummy(void)
+SSI_pvfIRQSourceHandler_t SSI__pvfGetIRQSourceHandler(SSI_nMODULE enModuleArg, SSI_nINT enIntSourceArg)
 {
-    while(1UL){}
-}
-
-
-void (*SSI__pvfGetIRQSourceHandler(SSI_nMODULE enSSISubmodule,
-                                   SSI_nINT enSSIInterruptNum))(void)
-{
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = SSI__vIRQSourceHandler[(UBase_t) enSSISubmodule]
-                                           [(UBase_t)enSSIInterruptNum];
+    SSI_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = SSI_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enSSISubmodule, SSI_nINT enSSIInterruptNum))(void)
+SSI_pvfIRQSourceHandler_t* SSI__pvfGetIRQSourceHandlerPointer(SSI_nMODULE enModuleArg, SSI_nINT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &SSI__vIRQSourceHandler[(UBase_t) enSSISubmodule]
-                                                             [(UBase_t)enSSIInterruptNum];
+    SSI_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &SSI_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
+

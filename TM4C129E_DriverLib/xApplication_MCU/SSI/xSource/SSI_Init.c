@@ -23,18 +23,20 @@
  */
 #include <xApplication_MCU/SSI/xHeader/SSI_Init.h>
 
+#include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 #include <xApplication_MCU/SSI/Interrupt/SSI_Interrupt.h>
 
-void SSI__vInit(void)
+SSI_nERROR SSI__enInit(SSI_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    SSI_nERROR enErrorReg;
+    SSI_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = SSI__pvfGetIRQVectorHandler(SSI_enMODULE_0);
-    SSI__vRegisterIRQVectorHandler( pfIrqVectorHandler, SSI_enMODULE_0);
-    pfIrqVectorHandler = SSI__pvfGetIRQVectorHandler(SSI_enMODULE_1);
-    SSI__vRegisterIRQVectorHandler( pfIrqVectorHandler, SSI_enMODULE_1);
-    pfIrqVectorHandler = SSI__pvfGetIRQVectorHandler(SSI_enMODULE_2);
-    SSI__vRegisterIRQVectorHandler( pfIrqVectorHandler, SSI_enMODULE_2);
-    pfIrqVectorHandler = SSI__pvfGetIRQVectorHandler(SSI_enMODULE_3);
-    SSI__vRegisterIRQVectorHandler( pfIrqVectorHandler, SSI_enMODULE_3);
+    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = SSI__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = SSI__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
+
+    return (enErrorReg);
 }

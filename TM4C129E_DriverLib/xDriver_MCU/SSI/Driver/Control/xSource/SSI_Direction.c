@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_Direction.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetDirection(SSI_nMODULE enModule, SSI_nDIRECTION enDirectionArg)
+SSI_nERROR SSI__enSetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION enDirectionArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-            (UBase_t) enDirectionArg, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_DIR_BIT;
+    stRegister.uxMask = SSI_CR1_DIR_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enDirectionArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nDIRECTION SSI__enGetDirection(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION* penDirectionArg)
 {
-    SSI_nDIRECTION enDirectionReg = SSI_enDIRECTION_TX;
-    enDirectionReg = (SSI_nDIRECTION) SSI__uxReadRegister(enModule,
-                           SSI_CR1_OFFSET, SSI_CR1_DIR_MASK, SSI_CR1_R_DIR_BIT);
-    return (enDirectionReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penDirectionArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_DIR_BIT;
+        stRegister.uxMask = SSI_CR1_DIR_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penDirectionArg = (SSI_nDIRECTION) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

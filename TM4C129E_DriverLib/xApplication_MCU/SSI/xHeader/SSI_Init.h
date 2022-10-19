@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_SSI_XHEADER_SSI_INIT_H_
 #define XAPPLICATION_MCU_SSI_XHEADER_SSI_INIT_H_
 
-void SSI__vInit(void);
+#include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
+
+SSI_nERROR SSI__enInit(SSI_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_SSI_XHEADER_SSI_INIT_H_ */

@@ -26,7 +26,10 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetClockConfig(SSI_nMODULE enModule, SSI_nCLOCK enClock);
-SSI_nCLOCK SSI__enGetClockConfig(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetClockSource(SSI_nMODULE enModuleArg, SSI_nCLOCK enClockArg);
+SSI_nERROR SSI__enGetClockSource(SSI_nMODULE enModuleArg, SSI_nCLOCK* penClockArg);
+
+SSI_nERROR SSI__enSetClockPrescaler(SSI_nMODULE enModuleArg, UBase_t uxPrescalerArg);
+SSI_nERROR SSI__enGetClockPrescaler(SSI_nMODULE enModuleArg, UBase_t* puxPrescalerArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_XHEADER_SSI_CLOCKCONFIG_H_ */

@@ -31,6 +31,6 @@
 
 #define SSI    ((SSIS_t*) (SSI_BASE))
 
-UBase_t SSI__uxBlockBaseAddress(SSI_nMODULE enModuleArg);
+uintptr_t SSI__uptrBlockBaseAddress(SSI_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_SSI_REGISTERPERIPHERAL_H_ */

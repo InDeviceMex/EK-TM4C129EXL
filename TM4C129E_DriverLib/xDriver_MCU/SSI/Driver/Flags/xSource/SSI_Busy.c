@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/SSI/Driver/Flags/xHeader/SSI_Busy.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nBUSY SSI__enGetBusyState(SSI_nMODULE enModule)
+SSI_nERROR SSI__enIsBusy(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    SSI_nBUSY enBusyReg = SSI_enBUSY_IDLE;
-    enBusyReg = (SSI_nBUSY) SSI__uxReadRegister(enModule,
-              SSI_SR_OFFSET, SSI_SR_BSY_MASK, SSI_SR_R_BSY_BIT);
-    return (enBusyReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_SR_R_BSY_BIT;
+        stRegister.uxMask = SSI_SR_BSY_MASK;
+        stRegister.uptrAddress = SSI_SR_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nBOOLEAN) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

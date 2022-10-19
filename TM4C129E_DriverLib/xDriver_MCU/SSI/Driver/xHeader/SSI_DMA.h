@@ -26,10 +26,10 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetDMARx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg);
-SSI_nSTATE SSI__enGetDMARx(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
-void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg);
-SSI_nSTATE SSI__enGetDMATx(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_XHEADER_SSI_DMA_H_ */

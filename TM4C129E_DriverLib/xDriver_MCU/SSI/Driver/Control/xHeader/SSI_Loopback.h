@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetLoopback(SSI_nMODULE enModule, SSI_nLOOPBACK enLoopbackArg);
-SSI_nLOOPBACK SSI__enGetLoopback(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetLoopbackState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetLoopbackState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_LOOPBACK_H_ */

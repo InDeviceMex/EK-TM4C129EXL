@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/SSI/Peripheral/Register/RegisterPeripheral/SSI_RegisterPeripheral.h>
 
-UBase_t SSI__uxBlockBaseAddress(SSI_nMODULE enModuleArg)
+uintptr_t SSI__uptrBlockBaseAddress(SSI_nMODULE enModuleArg)
 {
     const uintptr_t SSI_BLOCK_BASE[(UBase_t) SSI_enMODULE_MAX] =
     {
@@ -31,5 +31,3 @@ UBase_t SSI__uxBlockBaseAddress(SSI_nMODULE enModuleArg)
     };
     return (SSI_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
-
-

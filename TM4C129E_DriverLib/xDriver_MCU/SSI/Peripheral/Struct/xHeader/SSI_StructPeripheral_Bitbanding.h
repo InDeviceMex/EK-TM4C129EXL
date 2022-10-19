@@ -33,125 +33,125 @@ typedef volatile struct
     union
     {
         volatile UBase_t CR0 [32UL];
-        BITBANDING_SSICR0_t CR0_Bit;
+        SSI_BITBANDING_CR0_t CR0_Bit;
     };
     union
     {
         volatile UBase_t CR1 [32UL];
-        BITBANDING_SSICR1_t CR1_Bit;
+        SSI_BITBANDING_CR1_t CR1_Bit;
     };
     union
     {
         volatile const UBase_t DR [32UL];
-        BITBANDING_SSIDR_t DR_Bit;
+        SSI_BITBANDING_DR_t DR_Bit;
     };
     union
     {
         volatile const UBase_t SR [32UL];
-        BITBANDING_SSISR_t SR_Bit;
+        SSI_BITBANDING_SR_t SR_Bit;
     };
     union
     {
         volatile UBase_t CPSR [32UL];
-        BITBANDING_SSICPSR_t CPSR_Bit;
+        SSI_BITBANDING_CPSR_t CPSR_Bit;
     };
     union
     {
         volatile UBase_t IM [32UL];
-        BITBANDING_SSIIM_t IM_Bit;
+        SSI_BITBANDING_IM_t IM_Bit;
     };
     union
     {
         volatile const UBase_t RIS [32UL];
-        BITBANDING_SSIRIS_t RIS_Bit;
+        SSI_BITBANDING_RIS_t RIS_Bit;
     };
     union
     {
         volatile const UBase_t MIS [32UL];
-        BITBANDING_SSIMIS_t MIS_Bit;
+        SSI_BITBANDING_MIS_t MIS_Bit;
     };
     union
     {
         volatile UBase_t ICR [32UL];
-        BITBANDING_SSIICR_t ICR_Bit;
+        SSI_BITBANDING_ICR_t ICR_Bit;
     };
     union
     {
         volatile UBase_t DMACTL [32UL];
-        BITBANDING_SSIDMACTL_t DMACTL_Bit;
+        SSI_BITBANDING_DMACTL_t DMACTL_Bit;
     };
     const UBase_t reserved [998UL * 32UL];
     union
     {
         volatile const UBase_t PP [32UL];
-        BITBANDING_SSIPP_t PP_Bit;
+        SSI_BITBANDING_PP_t PP_Bit;
     };
     const UBase_t reserved1 [1UL * 32UL];
     union
     {
         volatile UBase_t CC [32UL];
-        BITBANDING_SSICC_t CC_Bit;
+        SSI_BITBANDING_CC_t CC_Bit;
     };
     const UBase_t reserved5 [1UL * 32UL];
     union
     {
         volatile const UBase_t PeriphID4 [32UL];
-        BITBANDING_SSIPeriphID4_t PeriphID4_Bit;
+        SSI_BITBANDING_PeriphID4_t PeriphID4_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID5 [32UL];
-        BITBANDING_SSIPeriphID5_t PeriphID5_Bit;
+        SSI_BITBANDING_PeriphID5_t PeriphID5_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID6 [32UL];
-        BITBANDING_SSIPeriphID6_t PeriphID6_Bit;
+        SSI_BITBANDING_PeriphID6_t PeriphID6_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID7 [32UL];
-        BITBANDING_SSIPeriphID7_t PeriphID7_Bit;
+        SSI_BITBANDING_PeriphID7_t PeriphID7_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID0 [32UL];
-        BITBANDING_SSIPeriphID0_t PeriphID0_Bit;
+        SSI_BITBANDING_PeriphID0_t PeriphID0_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID1 [32UL];
-        BITBANDING_SSIPeriphID1_t PeriphID1_Bit;
+        SSI_BITBANDING_PeriphID1_t PeriphID1_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID2 [32UL];
-        BITBANDING_SSIPeriphID2_t PeriphID2_Bit;
+        SSI_BITBANDING_PeriphID2_t PeriphID2_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID3 [32UL];
-        BITBANDING_SSIPeriphID3_t PeriphID3_Bit;
+        SSI_BITBANDING_PeriphID3_t PeriphID3_Bit;
     };
     union
     {
-        volatile const UBase_t CellID0 [32UL];
-        BITBANDING_SSICellID0_t CellID0_Bit;
+        volatile const UBase_t PCellID0 [32UL];
+        SSI_BITBANDING_PCellID0_t PCellID0_Bit;
     };
     union
     {
-        volatile const UBase_t CellID1 [32UL];
-        BITBANDING_SSICellID1_t CellID1_Bit;
+        volatile const UBase_t PCellID1 [32UL];
+        SSI_BITBANDING_PCellID1_t PCellID1_Bit;
     };
     union
     {
-        volatile const UBase_t CellID2 [32UL];
-        BITBANDING_SSICellID2_t CellID2_Bit;
+        volatile const UBase_t PCellID2 [32UL];
+        SSI_BITBANDING_PCellID2_t PCellID2_Bit;
     };
     union
     {
-        volatile const UBase_t CellID3 [32UL];
-        BITBANDING_SSICellID3_t CellID3_Bit;
+        volatile const UBase_t PCellID3 [32UL];
+        SSI_BITBANDING_PCellID3_t PCellID3_Bit;
     };
 } SSI_BITBANDING_t;
 

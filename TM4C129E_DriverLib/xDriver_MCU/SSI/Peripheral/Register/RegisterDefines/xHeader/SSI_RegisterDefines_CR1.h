@@ -65,18 +65,6 @@
 /*--------*/
 
 /*--------*/
-#define SSI_CR1_R_EOT_MASK    ((UBase_t) 0x00000010UL)
-#define SSI_CR1_R_EOT_BIT    ((UBase_t) 4UL)
-#define SSI_CR1_R_EOT_FIFO    ((UBase_t) 0x00000000UL)
-#define SSI_CR1_R_EOT_ALL    ((UBase_t) 0x00000010UL)
-
-#define SSI_CR1_EOT_MASK    ((UBase_t) 0x00000001UL)
-#define SSI_CR1_EOT_FIFO    ((UBase_t) 0x00000000UL)
-#define SSI_CR1_EOT_ALL    ((UBase_t) 0x00000001UL)
-/*--------*/
-
-
-/*--------*/
 #define SSI_CR1_R_MODE_MASK    ((UBase_t) 0x000000C0UL)
 #define SSI_CR1_R_MODE_BIT    ((UBase_t) 6UL)
 #define SSI_CR1_R_MODE_LEGACY    ((UBase_t) 0x00000000UL)

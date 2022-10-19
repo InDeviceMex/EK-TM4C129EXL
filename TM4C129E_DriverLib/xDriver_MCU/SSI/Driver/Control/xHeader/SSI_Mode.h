@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetMode(SSI_nMODULE enModule, SSI_nMODE enModeArg);
-SSI_nMODE SSI__enGetMode(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetMode(SSI_nMODULE enModuleArg, SSI_nMODE enModeArg);
+SSI_nERROR SSI__enGetMode(SSI_nMODULE enModuleArg, SSI_nMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_MODE_H_ */

@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nLENGTH SSI__enGetDataLength(SSI_nMODULE enModule);
-void SSI__vSetDataLength(SSI_nMODULE enModule, SSI_nLENGTH enDataLength);
+SSI_nERROR SSI__enSetDataLength(SSI_nMODULE enModuleArg, SSI_nLENGTH enLengthArg);
+SSI_nERROR SSI__enGetDataLength(SSI_nMODULE enModuleArg, SSI_nLENGTH* penLengthArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FRAMECONTROL_XHEADER_SSI_LENGTH_H_ */

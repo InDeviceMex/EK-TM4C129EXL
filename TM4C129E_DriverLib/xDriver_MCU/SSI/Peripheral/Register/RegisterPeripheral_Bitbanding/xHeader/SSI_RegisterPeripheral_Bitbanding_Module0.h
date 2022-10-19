@@ -36,40 +36,33 @@
 /******************************************************************************************
 *********************************** * 1 CR0 *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_CR0    ((BITBANDING_SSICR0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U)))
+#define SSI0_BITBANDING_CR0    ((SSI_BITBANDING_CR0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_CR0_DSS_0    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 0UL) * 4U))))
 #define SSI0_BITBANDING_CR0_DSS_1    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 1UL) * 4U))))
 #define SSI0_BITBANDING_CR0_DSS_2    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 2UL) * 4U))))
 #define SSI0_BITBANDING_CR0_DSS_3    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 3UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_4    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 4UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_5    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 5UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_6    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 6UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_7    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 7UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_8    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 8UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_9    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 9UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_10    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 10UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_11    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 11UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_12    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 12UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_13    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 13UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_14    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 14UL) * 4U))))
-#define SSI0_BITBANDING_CR0_DSS_15    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_DSS_BIT + 15UL) * 4U))))
 #define SSI0_BITBANDING_CR0_FRF_0    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_FRF_BIT + 0UL) * 4U))))
 #define SSI0_BITBANDING_CR0_FRF_1    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_FRF_BIT + 1UL) * 4U))))
-#define SSI0_BITBANDING_CR0_FRF_2    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_FRF_BIT + 2UL) * 4U))))
-#define SSI0_BITBANDING_CR0_FRF_3    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_FRF_BIT + 3UL) * 4U))))
 #define SSI0_BITBANDING_CR0_SPO    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + (SSI_CR0_R_SPO_BIT * 4U))))
 #define SSI0_BITBANDING_CR0_SPH    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + (SSI_CR0_R_SPH_BIT * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_4    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 0UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_5    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 1UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_6    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 2UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_7    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 3UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_8    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 4UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_9    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 5UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_10    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 6UL) * 4U))))
+#define SSI0_BITBANDING_CR0_SCR_11    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR0_OFFSET) * 32U) + ((SSI_CR0_R_SCR_BIT + 7UL) * 4U))))
 
 /******************************************************************************************
 *********************************** * 2 CR1 *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_CR1    ((BITBANDING_SSICR1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U)))
+#define SSI0_BITBANDING_CR1    ((SSI_BITBANDING_CR1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_CR1_LBM    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + (SSI_CR1_R_LBM_BIT * 4U))))
 #define SSI0_BITBANDING_CR1_SSE    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + (SSI_CR1_R_SSE_BIT * 4U))))
 #define SSI0_BITBANDING_CR1_MS    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + (SSI_CR1_R_MS_BIT * 4U))))
-#define SSI0_BITBANDING_CR1_EOT    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + (SSI_CR1_R_EOT_BIT * 4U))))
 #define SSI0_BITBANDING_CR1_MODE_0    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + ((SSI_CR1_R_MODE_BIT + 0UL) * 4U))))
 #define SSI0_BITBANDING_CR1_MODE_1    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + ((SSI_CR1_R_MODE_BIT + 1UL) * 4U))))
 #define SSI0_BITBANDING_CR1_DIR    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CR1_OFFSET) * 32U) + (SSI_CR1_R_DIR_BIT * 4U))))
@@ -80,12 +73,12 @@
 /******************************************************************************************
 *********************************** * 3 DR *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_DR    ((BITBANDING_SSIDR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DR_OFFSET) * 32U)))
+#define SSI0_BITBANDING_DR    ((SSI_BITBANDING_DR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DR_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 4 SR *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_SR    ((BITBANDING_SSISR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_SR_OFFSET) * 32U)))
+#define SSI0_BITBANDING_SR    ((SSI_BITBANDING_SR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_SR_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_SR_TFE    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_SR_OFFSET) * 32U) + (SSI_SR_R_TFE_BIT * 4U))))
 #define SSI0_BITBANDING_SR_TNF    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_SR_OFFSET) * 32U) + (SSI_SR_R_TNF_BIT * 4U))))
@@ -96,12 +89,12 @@
 /******************************************************************************************
 *********************************** * 5 CPSR *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_CPSR    ((BITBANDING_SSICPSR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CPSR_OFFSET) * 32U)))
+#define SSI0_BITBANDING_CPSR    ((SSI_BITBANDING_CPSR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CPSR_OFFSET) * 32U)))
 
 /******************************************************************************************
 *********************************** * 6 IM *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_IM    ((BITBANDING_SSIIM_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_IM_OFFSET) * 32U)))
+#define SSI0_BITBANDING_IM    ((SSI_BITBANDING_IM_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_IM_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_IM_RORIM    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_IM_OFFSET) * 32U) + (SSI_IM_R_RORIM_BIT * 4U))))
 #define SSI0_BITBANDING_IM_RTIM    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_IM_OFFSET) * 32U) + (SSI_IM_R_RTIM_BIT * 4U))))
@@ -114,7 +107,7 @@
 /******************************************************************************************
 *********************************** * 7 RIS *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_RIS    ((BITBANDING_SSIRIS_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_RIS_OFFSET) * 32U)))
+#define SSI0_BITBANDING_RIS    ((SSI_BITBANDING_RIS_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_RIS_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_RIS_RORRIS    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_RIS_OFFSET) * 32U) + (SSI_RIS_R_RORRIS_BIT * 4U))))
 #define SSI0_BITBANDING_RIS_RTRIS    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_RIS_OFFSET) * 32U) + (SSI_RIS_R_RTRIS_BIT * 4U))))
@@ -127,7 +120,7 @@
 /******************************************************************************************
 *********************************** * 8 MIS *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_MIS    ((BITBANDING_SSIMIS_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_MIS_OFFSET) * 32U)))
+#define SSI0_BITBANDING_MIS    ((SSI_BITBANDING_MIS_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_MIS_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_MIS_RORMIS    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_MIS_OFFSET) * 32U) + (SSI_MIS_R_RORMIS_BIT * 4U))))
 #define SSI0_BITBANDING_MIS_RTMIS    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_MIS_OFFSET) * 32U) + (SSI_MIS_R_RTMIS_BIT * 4U))))
@@ -140,7 +133,7 @@
 /******************************************************************************************
 *********************************** * 9 ICR *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_ICR    ((BITBANDING_SSIICR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_ICR_OFFSET) * 32U)))
+#define SSI0_BITBANDING_ICR    ((SSI_BITBANDING_ICR_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_ICR_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_ICR_RORMIC    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_ICR_OFFSET) * 32U) + (SSI_ICR_R_RORMIC_BIT * 4U))))
 #define SSI0_BITBANDING_ICR_RTIC    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_ICR_OFFSET) * 32U) + (SSI_ICR_R_RTIC_BIT * 4U))))
@@ -151,7 +144,7 @@
 /******************************************************************************************
 *********************************** * 10 DMACTL *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_DMACTL    ((BITBANDING_SSIDMACTL_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DMACTL_OFFSET) * 32U)))
+#define SSI0_BITBANDING_DMACTL    ((SSI_BITBANDING_DMACTL_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DMACTL_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_DMACTL_RXDMAE    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DMACTL_OFFSET) * 32U) + (SSI_DMACTL_R_RXDMAE_BIT * 4U))))
 #define SSI0_BITBANDING_DMACTL_TXDMAE    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_DMACTL_OFFSET) * 32U) + (SSI_DMACTL_R_TXDMAE_BIT * 4U))))
@@ -159,7 +152,7 @@
 /******************************************************************************************
 *********************************** * 11 PP *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_PP    ((BITBANDING_SSIPP_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PP_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PP    ((SSI_BITBANDING_PP_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PP_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_PP_HSCLK    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PP_OFFSET) * 32U) + (SSI_PP_R_HSCLK_BIT * 4U))))
 #define SSI0_BITBANDING_PP_MODE_0    (*((volatile const UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PP_OFFSET) * 32U) + ((SSI_PP_R_MODE_BIT + 0U) * 4U))))
@@ -169,7 +162,7 @@
 /******************************************************************************************
 *********************************** * 11 CC *********************************************
 ******************************************************************************************/
-#define SSI0_BITBANDING_CC    ((BITBANDING_SSICC_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CC_OFFSET) * 32U)))
+#define SSI0_BITBANDING_CC    ((SSI_BITBANDING_CC_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CC_OFFSET) * 32U)))
 
 #define SSI0_BITBANDING_CC_CS_0    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CC_OFFSET) * 32U) + ((SSI_CC_R_CS_BIT + 0U) * 4U))))
 #define SSI0_BITBANDING_CC_CS_1    (*((volatile UBase_t *) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_CC_OFFSET) * 32U) + ((SSI_CC_R_CS_BIT + 1U) * 4U))))
@@ -180,72 +173,72 @@
  *********************************** * 19 PeriphID4 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID4*/
-#define SSI0_BITBANDING_PeriphID4    ((BITBANDING_SSIPeriphID4_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID4_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID4    ((SSI_BITBANDING_PeriphID4_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID4_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 20 PeriphID5 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID5*/
-#define SSI0_BITBANDING_PeriphID5    ((BITBANDING_SSIPeriphID5_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID5_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID5    ((SSI_BITBANDING_PeriphID5_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID5_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 21 PeriphID6 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID6*/
-#define SSI0_BITBANDING_PeriphID6    ((BITBANDING_SSIPeriphID6_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID6_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID6    ((SSI_BITBANDING_PeriphID6_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID6_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 22 PeriphID7 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID7*/
-#define SSI0_BITBANDING_PeriphID7    ((BITBANDING_SSIPeriphID7_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID7_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID7    ((SSI_BITBANDING_PeriphID7_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID7_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 23 PeriphID0 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID0*/
-#define SSI0_BITBANDING_PeriphID0    ((BITBANDING_SSIPeriphID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID0_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID0    ((SSI_BITBANDING_PeriphID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 24 PeriphID1 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID1*/
-#define SSI0_BITBANDING_PeriphID1    ((BITBANDING_SSIPeriphID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID1_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID1    ((SSI_BITBANDING_PeriphID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 25 PeriphID2 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID2*/
-#define SSI0_BITBANDING_PeriphID2    ((BITBANDING_SSIPeriphID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID2_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID2    ((SSI_BITBANDING_PeriphID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 26 PeriphID3 *********************************************
  ******************************************************************************************/
 /* SSI0 APB PID3*/
-#define SSI0_BITBANDING_PeriphID3    ((BITBANDING_SSIPeriphID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID3_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PeriphID3    ((SSI_BITBANDING_PeriphID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PeriphID3_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 27 CellID0 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID0*/
-#define SSI0_BITBANDING_PCellID0    ((BITBANDING_SSICellID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID0_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID0    ((SSI_BITBANDING_PCellID0_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID0_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 28 CellID1 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID1*/
-#define SSI0_BITBANDING_PCellID1    ((BITBANDING_SSICellID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID1_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID1    ((SSI_BITBANDING_PCellID1_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID1_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 29 CellID2 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID2*/
-#define SSI0_BITBANDING_PCellID2    ((BITBANDING_SSICellID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID2_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID2    ((SSI_BITBANDING_PCellID2_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID2_OFFSET) * 32U)))
 
 /******************************************************************************************
  *********************************** * 30 CellID3 *********************************************
  ******************************************************************************************/
 /* SSI0 APB CID3*/
-#define SSI0_BITBANDING_PCellID3    ((BITBANDING_SSICellID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID3_OFFSET) * 32U)))
+#define SSI0_BITBANDING_PCellID3    ((SSI_BITBANDING_PCellID3_t*) (SSI_BITBANDING_BASE + ((SSI0_OFFSET + SSI_PCellID3_OFFSET) * 32U)))
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_REGISTER_REGISTERPERIPHERAL_BITBANDING_XHEADER_SSI_REGISTERPERIPHERAL_BITBANDING_MODULE0_H_ */

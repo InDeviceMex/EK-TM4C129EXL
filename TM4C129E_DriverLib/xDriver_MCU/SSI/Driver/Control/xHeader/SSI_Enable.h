@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetEnable(SSI_nMODULE enModule, SSI_nSTATE enEnableArg);
-SSI_nSTATE SSI__enGetEnable(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enGetState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_ENABLE_H_ */

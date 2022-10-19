@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-void SSI__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), SSI_nMODULE enModule);
+SSI_nERROR SSI__enRegisterIRQVectorHandler(SSI_nMODULE enModuleArg, SSI_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_SSI_INTERRUPT_INTERRUPTREGISTER_XHEADER_SSI_INTERRUPTREGISTERIRQVECTOR_H_ */

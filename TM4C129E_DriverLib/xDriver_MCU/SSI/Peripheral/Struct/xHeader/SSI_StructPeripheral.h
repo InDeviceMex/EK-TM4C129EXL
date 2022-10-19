@@ -33,125 +33,125 @@ typedef volatile struct
     union
     {
         volatile UBase_t CR0;
-        SSICR0_t CR0_Bit;
+        SSI_CR0_t CR0_Bit;
     };
     union
     {
         volatile UBase_t CR1;
-        SSICR1_t CR1_Bit;
+        SSI_CR1_t CR1_Bit;
     };
     union
     {
         volatile const UBase_t DR;
-        SSIDR_t DR_Bit;
+        SSI_DR_t DR_Bit;
     };
     union
     {
         volatile const UBase_t SR;
-        SSISR_t SR_Bit;
+        SSI_SR_t SR_Bit;
     };
     union
     {
         volatile UBase_t CPSR;
-        SSICPSR_t CPSR_Bit;
+        SSI_CPSR_t CPSR_Bit;
     };
     union
     {
         volatile UBase_t IM;
-        SSIIM_t IM_Bit;
+        SSI_IM_t IM_Bit;
     };
     union
     {
         volatile const UBase_t RIS;
-        SSIRIS_t RIS_Bit;
+        SSI_RIS_t RIS_Bit;
     };
     union
     {
         volatile const UBase_t MIS;
-        SSIMIS_t MIS_Bit;
+        SSI_MIS_t MIS_Bit;
     };
     union
     {
         volatile UBase_t ICR;
-        SSIICR_t ICR_Bit;
+        SSI_ICR_t ICR_Bit;
     };
     union
     {
         volatile UBase_t DMACTL;
-        SSIDMACTL_t DMACTL_Bit;
+        SSI_DMACTL_t DMACTL_Bit;
     };
     const UBase_t reserved [998UL];
     union
     {
         volatile const UBase_t PP;
-        SSIPP_t PP_Bit;
+        SSI_PP_t PP_Bit;
     };
     const UBase_t reserved1 [1UL];
     union
     {
         volatile UBase_t CC;
-        SSICC_t CC_Bit;
+        SSI_CC_t CC_Bit;
     };
     const UBase_t reserved5 [1UL];
     union
     {
         volatile const UBase_t PeriphID4;
-        SSIPeriphID4_t PeriphID4_Bit;
+        SSI_PeriphID4_t PeriphID4_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID5;
-        SSIPeriphID5_t PeriphID5_Bit;
+        SSI_PeriphID5_t PeriphID5_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID6;
-        SSIPeriphID6_t PeriphID6_Bit;
+        SSI_PeriphID6_t PeriphID6_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID7;
-        SSIPeriphID7_t PeriphID7_Bit;
+        SSI_PeriphID7_t PeriphID7_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID0;
-        SSIPeriphID0_t PeriphID0_Bit;
+        SSI_PeriphID0_t PeriphID0_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID1;
-        SSIPeriphID1_t PeriphID1_Bit;
+        SSI_PeriphID1_t PeriphID1_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID2;
-        SSIPeriphID2_t PeriphID2_Bit;
+        SSI_PeriphID2_t PeriphID2_Bit;
     };
     union
     {
         volatile const UBase_t PeriphID3;
-        SSIPeriphID3_t PeriphID3_Bit;
+        SSI_PeriphID3_t PeriphID3_Bit;
     };
     union
     {
-        volatile const UBase_t CellID0;
-        SSICellID0_t CellID0_Bit;
+        volatile const UBase_t PCellID0;
+        SSI_PCellID0_t PCellID0_Bit;
     };
     union
     {
-        volatile const UBase_t CellID1;
-        SSICellID1_t CellID1_Bit;
+        volatile const UBase_t PCellID1;
+        SSI_PCellID1_t PCellID1_Bit;
     };
     union
     {
-        volatile const UBase_t CellID2;
-        SSICellID2_t CellID2_Bit;
+        volatile const UBase_t PCellID2;
+        SSI_PCellID2_t PCellID2_Bit;
     };
     union
     {
-        volatile const UBase_t CellID3;
-        SSICellID3_t CellID3_Bit;
+        volatile const UBase_t PCellID3;
+        SSI_PCellID3_t PCellID3_Bit;
     };
 } SSI_t;
 

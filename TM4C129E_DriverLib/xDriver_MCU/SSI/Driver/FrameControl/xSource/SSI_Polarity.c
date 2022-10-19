@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/FrameControl/xHeader/SSI_Polarity.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nPOLARITY SSI__enGetClockPolarity(SSI_nMODULE enModule)
+SSI_nERROR SSI__enSetSerialClockPolarity(SSI_nMODULE enModuleArg, SSI_nPOLARITY enPolarityArg)
 {
-    SSI_nPOLARITY enPolarityReg = SSI_enPOLARITY_LOW;
-    enPolarityReg = (SSI_nPOLARITY) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
-                                        SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);
-    return (enPolarityReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR0_R_SPO_BIT;
+    stRegister.uxMask = SSI_CR0_SPO_MASK;
+    stRegister.uptrAddress = SSI_CR0_OFFSET;
+    stRegister.uxValue = (UBase_t) enPolarityArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void SSI__vSetClockPolarity(SSI_nMODULE enModule, SSI_nPOLARITY enClockPolarityArg)
+SSI_nERROR SSI__enGetSerialClockPolarity(SSI_nMODULE enModuleArg, SSI_nPOLARITY* penPolarityArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
-            (UBase_t) enClockPolarityArg, SSI_CR0_SPO_MASK, SSI_CR0_R_SPO_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penPolarityArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR0_R_SPO_BIT;
+        stRegister.uxMask = SSI_CR0_SPO_MASK;
+        stRegister.uptrAddress = SSI_CR0_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penPolarityArg = (SSI_nPOLARITY) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

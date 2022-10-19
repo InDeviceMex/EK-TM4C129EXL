@@ -34,6 +34,7 @@ typedef enum
     SSI_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
     SSI_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
     SSI_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    SSI_enERROR_FULL = (UBase_t) MCU_enERROR_FULL,
     SSI_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
     SSI_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }SSI_nERROR;
@@ -152,17 +153,10 @@ typedef enum
 
 typedef enum
 {
-    SSI_enLOOPBACK_DIS = 0UL,
-    SSI_enLOOPBACK_ENA = 1UL,
-    SSI_enLOOPBACK_UNDEF = UNDEF_VALUE,
-}SSI_nLOOPBACK;
-
-typedef enum
-{
-    SSI_enMS_MASTER = 0UL,
-    SSI_enMS_SLAVE = 1UL,
-    SSI_enMS_UNDEF = UNDEF_VALUE,
-}SSI_nMS;
+    SSI_enOPERATION_MASTER = 0UL,
+    SSI_enOPERATION_SLAVE = 1UL,
+    SSI_enOPERATION_UNDEF = UNDEF_VALUE,
+}SSI_nOPERATION;
 
 typedef enum
 {
@@ -175,13 +169,6 @@ typedef enum
 
 typedef enum
 {
-    SSI_enEOT_FIFO = 0UL,
-    SSI_enEOT_ALL = 1UL,
-    SSI_enEOT_UNDEF = UNDEF_VALUE,
-}SSI_nEOT;
-
-typedef enum
-{
     SSI_enDIRECTION_TX = 0UL,
     SSI_enDIRECTION_RX = 1UL,
     SSI_enDIRECTION_UNDEF = UNDEF_VALUE,
@@ -189,38 +176,10 @@ typedef enum
 
 typedef enum
 {
-    SSI_enEOM_ONGOING = 0UL,
-    SSI_enEOM_STOP = 1UL,
-    SSI_enEOM_UNDEF = UNDEF_VALUE,
-}SSI_nEOM;
-
-typedef enum
-{
-    SSI_enCLOCK_SYSCLK = 0UL,
+    SSI_enCLOCK_RSCLK = 0UL,
     SSI_enCLOCK_ALTCLK = 5UL,
     SSI_enCLOCK_UNDEF = UNDEF_VALUE,
 }SSI_nCLOCK;
-
-typedef enum
-{
-    SSI_enBUSY_IDLE = 0UL,
-    SSI_enBUSY_BUSY = 1UL,
-    SSI_enBUSY_UNDEF = UNDEF_VALUE,
-}SSI_nBUSY;
-
-typedef enum
-{
-    SSI_enFIFO_NO_EMPTY = 0UL,
-    SSI_enFIFO_EMPTY = 1UL,
-    SSI_enFIFO_EMPTY_UNDEF = UNDEF_VALUE,
-}SSI_nFIFO_EMPTY;
-
-typedef enum
-{
-    SSI_enFIFO_NO_FULL = 0UL,
-    SSI_enFIFO_FULL = 1UL,
-    SSI_enFIFO_FULL_UNDEF = UNDEF_VALUE,
-}SSI_nFIFO_FULL;
 
 typedef enum
 {
@@ -231,8 +190,7 @@ typedef enum
 
 typedef struct
 {
-    SSI_nLOOPBACK enLoopback;
-    SSI_nEOT enEndOfTransmission;
+    SSI_nSTATE enLoopback;
     SSI_nDIRECTION enDirection;
     SSI_nMODE enSSIMode;
     SSI_nSTATE enFssHold;

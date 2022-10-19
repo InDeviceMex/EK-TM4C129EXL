@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetDirection(SSI_nMODULE enModule, SSI_nDIRECTION enDirectionArg);
-SSI_nDIRECTION SSI__enGetDirection(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION enDirectionArg);
+SSI_nERROR SSI__enGetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION* penDirectionArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_CONTROL_XHEADER_SSI_DIRECTION_H_ */

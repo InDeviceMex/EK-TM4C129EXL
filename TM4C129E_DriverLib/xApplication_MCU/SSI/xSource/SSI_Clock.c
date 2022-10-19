@@ -25,106 +25,151 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-#define SSI_MASTER_MAX_CLOCK (60000000UL)
-#define SSI_SLAVE_MAX_CLOCK (10000000UL)
-
-void SSI__vSetClock(SSI_nMODULE enModule, UBase_t uxClockArg)
+SSI_nERROR SSI__enSetClockFrequency(SSI_nMODULE enModuleArg, UBase_t uxFrequencyArg)
 {
-    SSI_nCLOCK enSsiClock = SSI_enCLOCK_SYSCLK;
-    SSI_nMS enSsiMode = SSI_enMS_MASTER;
-    UBase_t uxCurrentClock = 0UL;
-    UBase_t uxMaxClock = 0UL;
-    UBase_t uxClockReg = 0UL;
-    UBase_t uxEvenPrediver = 2UL;
-    UBase_t uxDivisor = 0UL;
-    UBase_t uxClock = uxClockArg;
+    UBase_t uxEvenPrediver;
+    UBase_t uxDivisor;
+    UBase_t uxCurrentClock;
+    SSI_nCLOCK enSsiClock;
+    SSI_nOPERATION enSsiOperation;
+    SSI_nERROR enErrorReg;
 
-    enSsiClock = SSI__enGetClockConfig(enModule);
-    if(SSI_enCLOCK_SYSCLK == enSsiClock)
+    uxEvenPrediver = 0UL;
+    uxDivisor = 0UL;
+    uxCurrentClock = 0UL;
+    enSsiOperation = SSI_enOPERATION_MASTER;
+    enSsiClock = SSI_enCLOCK_RSCLK;
+    enErrorReg = SSI__enGetClockSource(enModuleArg, &enSsiClock);
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        uxCurrentClock = SYSCTL__uxGetSystemClock();
-    }
-    else
-    {
-        uxCurrentClock = SYSCTL__uxGetAlternateClock();
-    }
-
-    enSsiMode = SSI__enGetMasterSlave(enModule);
-    uxMaxClock = (UBase_t) uxCurrentClock;
-    if(SSI_enMS_MASTER == enSsiMode)
-    {
-        uxMaxClock /= (UBase_t) 2UL;
-        if(uxClock > uxMaxClock)
+        if(SSI_enCLOCK_RSCLK == enSsiClock)
         {
-            uxClock = uxMaxClock;
-        }
-        if(uxClock > SSI_MASTER_MAX_CLOCK)
-        {
-            uxClock = SSI_MASTER_MAX_CLOCK;
-        }
-    }
-    else
-    {
-        uxMaxClock /= (UBase_t) 12UL;
-        if(uxClock > uxMaxClock)
-        {
-            uxClock = uxMaxClock;
-        }
-        if(uxClock > SSI_SLAVE_MAX_CLOCK)
-        {
-            uxClock = SSI_SLAVE_MAX_CLOCK;
-        }
-    }
-
-    do
-    {
-        if(256UL > uxDivisor)
-        {
-            uxDivisor++;
+            uxCurrentClock = SYSCTL__uxGetSystemClock();
         }
         else
         {
-            uxEvenPrediver += 2UL;
-            uxDivisor = 1UL;
-            if(uxEvenPrediver > 254UL)
-            {
-                break;
-            }
+            uxCurrentClock = SYSCTL__uxGetAlternateClock();
         }
-        uxClockReg = uxCurrentClock;
-        uxClockReg /= uxDivisor;
-        uxClockReg /= uxEvenPrediver;
-    }while(uxClockReg > uxClock);
+    }
 
-    uxDivisor --;
-    SSI__vSetClockEvenPrescalerPart(enModule, uxEvenPrediver);
-    SSI__vSetClockDivisorPart(enModule, uxDivisor);
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enGetOperation(enModuleArg, &enSsiOperation);
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        UBase_t uxMaxClock;
+
+        uxMaxClock = uxCurrentClock;
+        if(SSI_enOPERATION_MASTER == enSsiOperation)
+        {
+            uxMaxClock /= 2UL;
+        }
+        else
+        {
+            uxMaxClock /= 12UL;
+        }
+
+        if(uxFrequencyArg > uxMaxClock)
+        {
+            enErrorReg = SSI_enERROR_VALUE;
+        }
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        UBase_t uxFrequencyArgReg;
+
+        uxDivisor = 0UL;
+        uxEvenPrediver = 2UL;
+        do
+        {
+
+            if(256UL > uxDivisor)
+            {
+                uxDivisor++;
+            }
+            else
+            {
+                uxEvenPrediver += 2UL;
+                uxDivisor = 1UL;
+                if(254UL < uxEvenPrediver)
+                {
+                    enErrorReg = SSI_enERROR_VALUE;
+                    break;
+                }
+            }
+            uxFrequencyArgReg = uxCurrentClock;
+            uxFrequencyArgReg /= uxEvenPrediver;
+            uxFrequencyArgReg /= uxDivisor;
+        }while(uxFrequencyArgReg > uxFrequencyArg);
+    }
+
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        uxDivisor --;
+        enErrorReg = SSI__enSetSerialClockRate(enModuleArg, uxDivisor);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SSI__enSetClockPrescaler(enModuleArg, uxEvenPrediver);
+    }
+    return (enErrorReg);
 }
 
-UBase_t SSI__uxGetClock(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetClockFrequency(SSI_nMODULE enModuleArg, UBase_t* puxFrequency)
 {
-    SSI_nCLOCK enSsiClock = SSI_enCLOCK_SYSCLK;
-    UBase_t uxCurrentClock = 16000000UL;
-    UBase_t uxEvenPrediver = 0UL;
-    UBase_t uxDivisor = 1UL;
+    UBase_t uxSystemFrequency;
+    UBase_t uxEvenPrediver;
+    UBase_t uxDivisor;
+    SSI_nCLOCK enSsiClock = SSI_enCLOCK_RSCLK;
+    SSI_nERROR enErrorReg;
 
-    enSsiClock = SSI__enGetClockConfig(enModule);
-    if(SSI_enCLOCK_SYSCLK == enSsiClock)
+    uxDivisor = 0UL;
+    uxEvenPrediver = 0UL;
+    uxSystemFrequency = 0UL;
+    enSsiClock = SSI_enCLOCK_RSCLK;
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequency)
     {
-        uxCurrentClock = SYSCTL__uxGetSystemClock();
+        enErrorReg = SSI_enERROR_POINTER;
     }
-    else
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        uxCurrentClock = SYSCTL__uxGetAlternateClock();
+        enErrorReg = SSI__enGetClockSource(enModuleArg, &enSsiClock);
     }
-
-    uxEvenPrediver = SSI__uxGetClockEvenPrescalerPart(enModule);
-    uxDivisor = SSI__uxGetClockDivisorPart(enModule);
-    uxDivisor++;
-    uxCurrentClock /= uxDivisor;
-    if(0UL != uxEvenPrediver)
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        uxCurrentClock /= uxEvenPrediver;
+        SSI__enGetClockPrescaler(enModuleArg, &uxEvenPrediver);
     }
-    return (uxCurrentClock);
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        SSI__enGetSerialClockRate(enModuleArg, &uxDivisor);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        if(SSI_enCLOCK_RSCLK == enSsiClock)
+        {
+            uxSystemFrequency = SYSCTL__uxGetSystemClock();
+        }
+        else
+        {
+            uxSystemFrequency = SYSCTL__uxGetAlternateClock();
+        }
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        uxDivisor += 1UL;
+        if(0UL != uxEvenPrediver)
+        {
+            uxSystemFrequency /= uxEvenPrediver;
+        }
+        uxSystemFrequency /= uxDivisor;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *puxFrequency = (UBase_t) uxSystemFrequency;
+    }
+    return (enErrorReg);
 }

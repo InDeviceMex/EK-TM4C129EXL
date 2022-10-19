@@ -23,22 +23,71 @@
  */
 #include <xDriver_MCU/SSI/Driver/Flags/xHeader/SSI_FifoTx.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nFIFO_EMPTY SSI__enIsFifoTransmitEmpty(SSI_nMODULE enModule)
+SSI_nERROR SSI__enIsTransmitFifoEmpty(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    SSI_nFIFO_EMPTY enFifoReg = SSI_enFIFO_NO_EMPTY;
-    enFifoReg = (SSI_nFIFO_EMPTY) SSI__uxReadRegister(enModule,
-                        SSI_SR_OFFSET, SSI_SR_TFE_MASK, SSI_SR_R_TFE_BIT);
-    return (enFifoReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_SR_R_TFE_BIT;
+        stRegister.uxMask = SSI_SR_TFE_MASK;
+        stRegister.uptrAddress = SSI_SR_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        if(SSI_SR_TFE_NOEMPTY == stRegister.uxValue)
+        {
+            *penStateArg = SSI_enFALSE;
+        }
+        else
+        {
+            *penStateArg = SSI_enTRUE;
+        }
+    }
+
+    return (enErrorReg);
 }
 
-SSI_nFIFO_FULL SSI__enIsFifoTransmitFull(SSI_nMODULE enModule)
+SSI_nERROR SSI__enIsTransmitFifoFull(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    UBase_t uxReg = 0UL;
-    uxReg = SSI__uxReadRegister(enModule,
-              SSI_SR_OFFSET, SSI_SR_TNF_MASK, SSI_SR_R_TNF_BIT);
-    uxReg ^= 0x1UL;
-    return ((SSI_nFIFO_FULL) uxReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_SR_R_TNF_BIT;
+        stRegister.uxMask = SSI_SR_TNF_MASK;
+        stRegister.uptrAddress = SSI_SR_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        if(SSI_SR_TNF_FULL == stRegister.uxValue)
+        {
+            *penStateArg = SSI_enTRUE;
+        }
+        else
+        {
+            *penStateArg = SSI_enFALSE;
+        }
+    }
+
+    return (enErrorReg);
 }
+

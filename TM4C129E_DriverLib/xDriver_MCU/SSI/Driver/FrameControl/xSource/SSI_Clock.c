@@ -23,35 +23,44 @@
  */
 #include <xDriver_MCU/SSI/Driver/FrameControl/xHeader/SSI_Clock.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetClockEvenPrescalerPart(SSI_nMODULE enModule, UBase_t uxEvenPrescaler)
+SSI_nERROR SSI__enSetSerialClockRate(SSI_nMODULE enModuleArg, UBase_t uxRateArg)
 {
-    UBase_t uxMaskRegister = SSI_CPSR_CPSDVSR_MASK;
-    uxMaskRegister &= ~ (UBase_t) 0x01UL;
-    SSI__vWriteRegister(enModule, SSI_CPSR_OFFSET,
-    uxEvenPrescaler, uxMaskRegister, SSI_CPSR_R_CPSDVSR_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR0_R_SCR_BIT;
+    stRegister.uxMask = SSI_CR0_SCR_MASK;
+    stRegister.uptrAddress = SSI_CR0_OFFSET;
+    stRegister.uxValue = (UBase_t) uxRateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UBase_t SSI__uxGetClockEvenPrescalerPart(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetSerialClockRate(SSI_nMODULE enModuleArg, UBase_t* puxRateArg)
 {
-    UBase_t uxPreescalerReg = 0UL;
-    uxPreescalerReg = SSI__uxReadRegister(enModule,
-              SSI_CPSR_OFFSET, SSI_CPSR_CPSDVSR_MASK, SSI_CPSR_R_CPSDVSR_BIT);
-    return (uxPreescalerReg);
-}
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
 
-void SSI__vSetClockDivisorPart(SSI_nMODULE enModule, UBase_t uxDivisor)
-{
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
-                uxDivisor, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
-}
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) puxRateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR0_R_SCR_BIT;
+        stRegister.uxMask = SSI_CR0_SCR_MASK;
+        stRegister.uptrAddress = SSI_CR0_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *puxRateArg = (UBase_t) stRegister.uxValue;
+    }
 
-UBase_t SSI__uxGetClockDivisorPart(SSI_nMODULE enModule)
-{
-    UBase_t uxDivisorReg = 0UL;
-    uxDivisorReg = SSI__uxReadRegister(enModule,
-                     SSI_CR0_OFFSET, SSI_CR0_SCR_MASK, SSI_CR0_R_SCR_BIT);
-    return (uxDivisorReg);
+    return (enErrorReg);
 }

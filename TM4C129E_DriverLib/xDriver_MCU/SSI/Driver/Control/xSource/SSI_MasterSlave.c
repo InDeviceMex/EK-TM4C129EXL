@@ -23,19 +23,46 @@
  */
 #include <xDriver_MCU/SSI/Driver/Control/xHeader/SSI_MasterSlave.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetMasterSlave(SSI_nMODULE enModule, SSI_nMS enMasterSlaveArg)
+SSI_nERROR SSI__enSetOperation(SSI_nMODULE enModuleArg, SSI_nOPERATION enOperationArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR1_OFFSET,
-        (UBase_t) enMasterSlaveArg, SSI_CR1_MS_MASK, SSI_CR1_R_MS_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR1_R_MS_BIT;
+    stRegister.uxMask = SSI_CR1_MS_MASK;
+    stRegister.uptrAddress = SSI_CR1_OFFSET;
+    stRegister.uxValue = (UBase_t) enOperationArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nMS SSI__enGetMasterSlave(SSI_nMODULE enModule)
+
+SSI_nERROR SSI__enGetOperation(SSI_nMODULE enModuleArg, SSI_nOPERATION* penOperationArg)
 {
-    SSI_nMS enMasterSlaveReg = SSI_enMS_MASTER;
-    enMasterSlaveReg = (SSI_nMS) SSI__uxReadRegister(enModule,
-                      SSI_CR1_OFFSET, SSI_CR1_MS_MASK, SSI_CR1_R_MS_BIT);
-    return (enMasterSlaveReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penOperationArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR1_R_MS_BIT;
+        stRegister.uxMask = SSI_CR1_MS_MASK;
+        stRegister.uptrAddress = SSI_CR1_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penOperationArg = (SSI_nOPERATION) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

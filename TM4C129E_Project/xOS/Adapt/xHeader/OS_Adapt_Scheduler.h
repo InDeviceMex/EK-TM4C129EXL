@@ -31,7 +31,7 @@
 extern OS_Task_TCB_t* volatile* OS_Adapt_ppstCurrentTCB;
 
 void OS_Adapt_vStartFirstTask(void);
-void OS_Adapt_vSVCHandler(void);
+void OS_Adapt_vSVCHandler(OS_Pointer_t uptrModuleArg, void* pvArgument);
 void OS_Adapt_vPendSVHandler(void);
 void OS_Adapt__vStartScheduler(OS_UBase_t uxUsPeriod);
 void OS_Adapt__vEndScheduler(void);

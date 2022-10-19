@@ -35,7 +35,7 @@ typedef volatile struct
     volatile UBase_t SPH;
     volatile UBase_t SCR [8UL];
     const UBase_t reserved [16UL];
-}BITBANDING_SSICR0_t;
+}SSI_BITBANDING_CR0_t;
 
 typedef volatile struct
 {
@@ -51,13 +51,13 @@ typedef volatile struct
     volatile UBase_t FSSHLDFRM;
     volatile UBase_t EOM;
     const UBase_t reserved2 [20UL];
-}BITBANDING_SSICR1_t;
+}SSI_BITBANDING_CR1_t;
 
 typedef volatile struct
 {
     volatile UBase_t DATA [16UL];
     const UBase_t reserved [16UL];
-}BITBANDING_SSIDR_t;
+}SSI_BITBANDING_DR_t;
 
 typedef volatile struct
 {
@@ -67,13 +67,13 @@ typedef volatile struct
     volatile const UBase_t RFF;
     volatile const UBase_t BSY;
     const UBase_t reserved [27UL];
-}BITBANDING_SSISR_t;
+}SSI_BITBANDING_SR_t;
 
 typedef volatile struct
 {
     volatile UBase_t CPSDVSR [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSICPSR_t;
+}SSI_BITBANDING_CPSR_t;
 
 typedef volatile struct
 {
@@ -85,7 +85,7 @@ typedef volatile struct
     volatile UBase_t DMATXIM;
     volatile UBase_t EOTIM;
     const UBase_t reserved [25UL];
-}BITBANDING_SSIIM_t;
+}SSI_BITBANDING_IM_t;
 
 typedef volatile struct
 {
@@ -97,7 +97,7 @@ typedef volatile struct
     volatile const UBase_t DMATXRIS;
     volatile const UBase_t EOTRIS;
     const UBase_t reserved [25UL];
-}BITBANDING_SSIRIS_t;
+}SSI_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
@@ -109,7 +109,7 @@ typedef volatile struct
     volatile const UBase_t DMATXMIS;
     volatile const UBase_t EOTMIS;
     const UBase_t reserved [25UL];
-}BITBANDING_SSIMIS_t;
+}SSI_BITBANDING_MIS_t;
 
 typedef volatile struct
 {
@@ -120,14 +120,14 @@ typedef volatile struct
     volatile UBase_t DMATXIC;
     volatile UBase_t EOTIC;
     const UBase_t reserved1 [25UL];
-}BITBANDING_SSIICR_t;
+}SSI_BITBANDING_ICR_t;
 
 typedef volatile struct
 {
     volatile UBase_t RXDMAE;
     volatile UBase_t TXDMAE;
     const UBase_t reserved [30UL];
-}BITBANDING_SSIDMACTL_t;
+}SSI_BITBANDING_DMACTL_t;
 
 typedef volatile struct
 {
@@ -135,84 +135,84 @@ typedef volatile struct
     volatile const UBase_t MODE [2UL];
     volatile const UBase_t FSSHLDFRM;
     const UBase_t reserved [28UL];
-}BITBANDING_SSIPP_t;
+}SSI_BITBANDING_PP_t;
 
 typedef volatile struct
 {
     volatile UBase_t CS [4UL];
     UBase_t reserved : 28;
-}BITBANDING_SSICC_t;
+}SSI_BITBANDING_CC_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID0 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID0_t;
+}SSI_BITBANDING_PeriphID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID1 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID1_t;
+}SSI_BITBANDING_PeriphID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID2 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID2_t;
+}SSI_BITBANDING_PeriphID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID3 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID3_t;
+}SSI_BITBANDING_PeriphID3_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID4 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID4_t;
+}SSI_BITBANDING_PeriphID4_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID5 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID5_t;
+}SSI_BITBANDING_PeriphID5_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID6 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID6_t;
+}SSI_BITBANDING_PeriphID6_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID7 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSIPeriphID7_t;
+}SSI_BITBANDING_PeriphID7_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID0 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSICellID0_t;
+}SSI_BITBANDING_PCellID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID1 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSICellID1_t;
+}SSI_BITBANDING_PCellID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID2 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSICellID2_t;
+}SSI_BITBANDING_PCellID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID3 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_SSICellID3_t;
+}SSI_BITBANDING_PCellID3_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_STRUCT_XHEADER_SSI_STRUCTREGISTER_BITBANDING_H_ */

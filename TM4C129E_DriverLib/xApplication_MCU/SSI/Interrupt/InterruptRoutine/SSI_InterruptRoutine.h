@@ -31,7 +31,7 @@
 #include <xApplication_MCU/SSI/Interrupt/InterruptRoutine/xHeader/SSI_InterruptRoutine_Vector_Module2.h>
 #include <xApplication_MCU/SSI/Interrupt/InterruptRoutine/xHeader/SSI_InterruptRoutine_Vector_Module3.h>
 
-void (*SSI__pvfGetIRQVectorHandler(SSI_nMODULE enSSIModule))(void);
-void (**SSI__pvfGetIRQVectorHandlerPointer(SSI_nMODULE enSSIModule))(void);
+SSI_pvfIRQVectorHandler_t SSI__pvfGetIRQVectorHandler(SSI_nMODULE enModuleArg);
+SSI_pvfIRQVectorHandler_t* SSI__pvfGetIRQVectorHandlerPointer(SSI_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_SSI_INTERRUPT_INTERRUPTROUTINE_SSI_INTERRUPTROUTINE_H_ */

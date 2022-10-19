@@ -26,9 +26,25 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vEnInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
-void SSI__vDisInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
-void SSI__vClearInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
-SSI_nINTMASK SSI__enStatusInterruptSource(SSI_nMODULE enModule, SSI_nINTMASK enSourceInt);
+SSI_nERROR SSI__enSetInterruptSourceStateByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nSTATE enStateArg);
+SSI_nERROR SSI__enSetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATE enStateArg);
+
+SSI_nERROR SSI__enGetInterruptSourceStateByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptGetArg);
+SSI_nERROR SSI__enGetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATE* penStateArg);
+
+SSI_nERROR SSI__enEnableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg);
+SSI_nERROR SSI__enEnableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg);
+
+SSI_nERROR SSI__enDisableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg);
+SSI_nERROR SSI__enDisableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg);
+
+SSI_nERROR SSI__enClearInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg);
+SSI_nERROR SSI__enClearInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg);
+
+SSI_nERROR SSI__enStatusInterruptSourceByMaskByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg);
+SSI_nERROR SSI__enStatusInterruptSourceByMaskByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg);
+
+SSI_nERROR SSI__enStatusMaskedInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg);
+SSI_nERROR SSI__enStatusMaskedInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SSI_INTERRUPTSOURCE_H_ */

@@ -23,33 +23,84 @@
  */
 #include <xDriver_MCU/SSI/Driver/xHeader/SSI_DMA.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-void SSI__vSetDMARx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg)
+SSI_nERROR SSI__enSetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
-    SSI__vWriteRegister(enModule, SSI_DMACTL_OFFSET,
-        (UBase_t) enDMAEnableArg, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_DMACTL_R_RXDMAE_BIT;
+    stRegister.uxMask = SSI_DMACTL_RXDMAE_MASK;
+    stRegister.uptrAddress = SSI_DMACTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nSTATE SSI__enGetDMARx(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_nSTATE enDMAEnableReg = SSI_enSTATE_DIS;
-    enDMAEnableReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
-                 SSI_DMACTL_OFFSET, SSI_DMACTL_RXDMAE_MASK, SSI_DMACTL_R_RXDMAE_BIT);
-    return (enDMAEnableReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_DMACTL_R_RXDMAE_BIT;
+        stRegister.uxMask = SSI_DMACTL_RXDMAE_MASK;
+        stRegister.uptrAddress = SSI_DMACTL_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SSI__vSetDMATx(SSI_nMODULE enModule, SSI_nSTATE enDMAEnableArg)
+
+
+SSI_nERROR SSI__enSetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
-    SSI__vWriteRegister(enModule, SSI_DMACTL_OFFSET,
-        (UBase_t) enDMAEnableArg, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_DMACTL_R_TXDMAE_BIT;
+    stRegister.uxMask = SSI_DMACTL_TXDMAE_MASK;
+    stRegister.uptrAddress = SSI_DMACTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SSI_nSTATE SSI__enGetDMATx(SSI_nMODULE enModule)
+SSI_nERROR SSI__enGetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_nSTATE enDMAEnableReg = SSI_enSTATE_DIS;
-    enDMAEnableReg = (SSI_nSTATE) SSI__uxReadRegister(enModule,
-                 SSI_DMACTL_OFFSET, SSI_DMACTL_TXDMAE_MASK, SSI_DMACTL_R_TXDMAE_BIT);
-    return (enDMAEnableReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_DMACTL_R_TXDMAE_BIT;
+        stRegister.uxMask = SSI_DMACTL_TXDMAE_MASK;
+        stRegister.uptrAddress = SSI_DMACTL_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

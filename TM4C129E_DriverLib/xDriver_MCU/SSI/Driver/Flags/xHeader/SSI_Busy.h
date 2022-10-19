@@ -26,6 +26,6 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nBUSY SSI__enGetBusyState(SSI_nMODULE enModule);
+SSI_nERROR SSI__enIsBusy(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FLAGS_XHEADER_SSI_BUSY_H_ */

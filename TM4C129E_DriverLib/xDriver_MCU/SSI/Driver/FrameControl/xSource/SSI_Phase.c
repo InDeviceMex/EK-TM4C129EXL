@@ -23,19 +23,45 @@
  */
 #include <xDriver_MCU/SSI/Driver/FrameControl/xHeader/SSI_Phase.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SSI/Driver/Intrinsics/Primitives/SSI_Primitives.h>
 #include <xDriver_MCU/SSI/Peripheral/SSI_Peripheral.h>
 
-SSI_nPHASE SSI__enGetClockPhase(SSI_nMODULE enModule)
+SSI_nERROR SSI__enSetSerialClockPhase(SSI_nMODULE enModuleArg, SSI_nPHASE enPhaseArg)
 {
-    SSI_nPHASE enPhaseReg = SSI_enPHASE_FIRST;
-    enPhaseReg = (SSI_nPHASE) SSI__uxReadRegister(enModule, SSI_CR0_OFFSET,
-                                         SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
-    return (enPhaseReg);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    stRegister.uxShift = SSI_CR0_R_SPH_BIT;
+    stRegister.uxMask = SSI_CR0_SPH_MASK;
+    stRegister.uptrAddress = SSI_CR0_OFFSET;
+    stRegister.uxValue = (UBase_t) enPhaseArg;
+    enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void SSI__vSetClockPhase(SSI_nMODULE enModule, SSI_nPHASE enClockPhaseArg)
+SSI_nERROR SSI__enGetSerialClockPhase(SSI_nMODULE enModuleArg, SSI_nPHASE* penPhaseArg)
 {
-    SSI__vWriteRegister(enModule, SSI_CR0_OFFSET,
-            (UBase_t) enClockPhaseArg, SSI_CR0_SPH_MASK, SSI_CR0_R_SPH_BIT);
+    SSI_Register_t stRegister;
+    SSI_nERROR enErrorReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penPhaseArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SSI_CR0_R_SPH_BIT;
+        stRegister.uxMask = SSI_CR0_SPH_MASK;
+        stRegister.uptrAddress = SSI_CR0_OFFSET;
+        enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        *penPhaseArg = (SSI_nPHASE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

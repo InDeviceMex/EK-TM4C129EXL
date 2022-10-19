@@ -27,7 +27,7 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-void SSI__vSetClock(SSI_nMODULE enModule, UBase_t uxClockArg);
-UBase_t SSI__uxGetClock(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetClockFrequency(SSI_nMODULE enModuleArg, UBase_t uxFrequencyArg);
+SSI_nERROR SSI__enGetClockFrequency(SSI_nMODULE enModuleArg, UBase_t* puxFrequency);
 
 #endif /* XAPPLICATION_MCU_SSI_XHEADER_SSI_CLOCK_H_ */

@@ -27,10 +27,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-void SSI__vSetClockEvenPrescalerPart(SSI_nMODULE enModule, UBase_t uxEvenPrescaler);
-UBase_t SSI__uxGetClockEvenPrescalerPart(SSI_nMODULE enModule);
-
-void SSI__vSetClockDivisorPart(SSI_nMODULE enModule, UBase_t uxDivisor);
-UBase_t SSI__uxGetClockDivisorPart(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetSerialClockRate(SSI_nMODULE enModuleArg, UBase_t uxRateArg);
+SSI_nERROR SSI__enGetSerialClockRate(SSI_nMODULE enModuleArg, UBase_t* puxRateArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FRAMECONTROL_XHEADER_SSI_CLOCK_H_ */

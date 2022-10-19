@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
-SSI_nFORMAT SSI__enGetFormat(SSI_nMODULE enModule);
-void SSI__vSetFormat(SSI_nMODULE enModule, SSI_nFORMAT enFormatArg);
+SSI_nERROR SSI__enSetFrameFormat(SSI_nMODULE enModuleArg, SSI_nFORMAT enFormatArg);
+SSI_nERROR SSI__enGetFrameFormat(SSI_nMODULE enModuleArg, SSI_nFORMAT* penFormatArg);
 
 #endif /* XDRIVER_MCU_SSI_DRIVER_FRAMECONTROL_XHEADER_SSI_FORMAT_H_ */

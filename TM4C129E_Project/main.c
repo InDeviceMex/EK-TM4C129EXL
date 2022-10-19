@@ -12,7 +12,7 @@
 
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
-UBase_t main(void);
+int main(void);
 
 void NMISW(void);
 
@@ -21,7 +21,7 @@ void NMISW(void)
     MCU__vNoOperation();
 }
 
-UBase_t main(void)
+int main(void)
 {
     SYSCTL_CONFIG_t stClockConfig =
     {
@@ -106,7 +106,9 @@ UBase_t main(void)
     ADC__enInit(ADC_enMODULE_0);
     ADC__enInit(ADC_enMODULE_1);
     UART__vInit();
-    SSI__vInit();
+    SSI__enInit(SSI_enMODULE_0);
+    SSI__enInit(SSI_enMODULE_2);
+    SSI__enInit(SSI_enMODULE_3);
     PWM__enInit(PWM_enMODULE_0);
 
     EDUMKII_Button_vInit(EDUMKII_enBUTTON_ALL);
@@ -121,9 +123,10 @@ UBase_t main(void)
 
 
 
-    GraphTerm__vClearScreen(UART_enMODULE_0);
     GraphTerm__vHideCursor(UART_enMODULE_0);
     GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
+    GraphTerm__vClearScreen(UART_enMODULE_0);
+    GraphTerm__vSetCursorXY(UART_enMODULE_0, 0UL, 0UL);
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);
@@ -140,37 +143,34 @@ UBase_t main(void)
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 250UL, 4UL, &TaskHandeler[3UL]))
+    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 4UL, &TaskHandeler[3UL]))
     {
 
         UART__uxPrintf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 300UL, (void*) 100UL, 3UL, &TaskHandeler[1UL]))
+    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[1UL]))
     {
 
     UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 300UL, (void*) 100UL, 3UL, &TaskHandeler[0UL]))
+    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[0UL]))
     {
 
     UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 300UL, (void*) 30UL, 2UL, &TaskHandeler[2UL]))
+    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 300UL, (void*) 50UL, 2UL, &TaskHandeler[2UL]))
     {
 
      UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 17UL, 2UL, &TaskHandeler[4UL]))
+    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 33UL, 2UL, &TaskHandeler[4UL]))
     {
 
      UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
     }
 
     OS_Task__vStartScheduler(1000UL);
-    while(1UL)
-    {
-
-    }
+    return (0UL);
 }
 
 
