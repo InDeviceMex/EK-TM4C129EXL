@@ -111,6 +111,9 @@ int main(void)
     SSI__enInit(SSI_enMODULE_3);
     PWM__enInit(PWM_enMODULE_0);
 
+    FLASH_DMASZ_R = 512UL;
+    FLASH_DMAST_R = 0UL;
+
     EDUMKII_Button_vInit(EDUMKII_enBUTTON_ALL);
     EDUMKII_Accelerometer_vInit();
     EDUMKII_Microphone_vInit();

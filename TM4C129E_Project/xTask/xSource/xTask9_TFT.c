@@ -40,7 +40,11 @@ __attribute__((aligned(4))) uint16_t u16BufferSPI[128UL * 128UL];
 
 error_t TFT__enInitWriteDMAConfig(void);
 void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
+void TFT__vDMALayerInterrupt(uintptr_t uptrModuleArg, void* pvArgument);
 error_t TFT__enWriteDMAConstant(UBase_t* uxBufferIn, UBase_t uxDataArg, UBase_t uxBufferCant);
+error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBase_t uxWidthArg, UBase_t uxHeightArg,
+                             UBase_t uxStartXInArg, UBase_t uxStartYInArg, UBase_t uxMaxWidthInArg, UBase_t uxMaxHeightInArg,
+                             UBase_t uxStartXOutArg, UBase_t uxStartYOutArg, UBase_t uxMaxWidthOutArg, UBase_t uxMaxHeightOutArg);
 
 void xTask9_TFT(void* pvParams)
 {
@@ -59,12 +63,9 @@ void xTask9_TFT(void* pvParams)
 
     UBase_t uxLcdPosXCurrent = 0UL;
     UBase_t uxLcdPosYCurrent = 0UL;
-    UBase_t uxLcdPosX;
-    UBase_t uxLcdPosY;
     UBase_t uxCount= 0U;
     UBase_t uxCountImage = 0UL;
     UBase_t uxImage= 0U;
-    uint16_t u16IndexReg;
     char pcConvert[50UL];
     const uint16_t* pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
     OS_Boolean_t boResult;
@@ -105,21 +106,9 @@ void xTask9_TFT(void* pvParams)
                  pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
              }
              TFT__enWriteDMAConstant((UBase_t*)(u16BufferSPI), 0UL, (128UL *128UL / 2UL));
-             for(uxLcdPosY = uxLcdPosYCurrent ;
-                 uxLcdPosY < (uxLcdPosYCurrent + 76UL);
-                 uxLcdPosY++)
-             {
-                 for(uxLcdPosX = uxLcdPosXCurrent ;
-                     uxLcdPosX < (uxLcdPosXCurrent + 120UL);
-                     uxLcdPosX++)
-                 {
-                     u16IndexReg = (uint16_t) uxLcdPosY;
-                     u16IndexReg *= 128UL;
-                     u16IndexReg += uxLcdPosX;
-                     u16BufferSPI[u16IndexReg] = (uint16_t) *pu16Pointer;
-                     pu16Pointer += 1UL;
-                 }
-             }
+             TFT__enWriteDMALayer16Bits((UBase_t) pu16Pointer, (UBase_t) u16BufferSPI, 120UL, 76UL,
+                                          0UL, 0UL, 120UL, 76UL,
+                                          uxLcdPosXCurrent, uxLcdPosYCurrent, 128UL, 128UL);
              ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, "        \n\r              ", 0xFFFFUL, &FONT_s5x7);
              sprintf__uxUser(pcConvert, "YOYSTICK\n\rX:%4d Y:%4d",
                               uxJostickValue[0UL],
@@ -280,31 +269,177 @@ error_t TFT__enWriteDMAConstant(UBase_t* uxBufferIn, UBase_t uxDataArg, UBase_t 
             uxBufferCant = 0UL;
         }
         uxTranferLeft = uxBufferCant;
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH__enRegisterIRQSourceHandler_Software(&TFT__vDMATxInterupt, DMA_enMODULE_0, DMA_enCH_30);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
         enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_30, (UBase_t) &uxDataReg);
-        if(ERROR_OK == enErrorReg)
-        {
-            enErrorReg = (error_t) DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_30, (UBase_t) (uxBufferIn + uxTranferSize - 1UL));
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            enErrorReg = (error_t) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_30, &stDMAChControl);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            TFT_pstDMATransferStruct = &stDMAChControl;
-            enErrorReg = (error_t) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
-            DMA_CH__enSetSoftwareRequestByNumber(DMA_enMODULE_0, DMA_enCH_30);
-        }
-
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_30, (UBase_t) (uxBufferIn + uxTranferSize - 1UL));
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_30, &stDMAChControl);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        TFT_pstDMATransferStruct = &stDMAChControl;
+        enErrorReg = (error_t) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
+        DMA_CH__enSetSoftwareRequestByNumber(DMA_enMODULE_0, DMA_enCH_30);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
         while(TRUE == boDMAOngoing);
     }
     return (enErrorReg);
 }
 
+
+DMA_CH_CTL_t stDMAChLayer = {
+    DMA_enCH_MODE_BASIC,
+    DMA_enSTATE_DIS,
+    0UL,
+    DMA_enCH_ARBITRATION_SIZE_1024,
+    DMA_enCH_ACCESS_PRIVILEGED,
+    0UL,
+    DMA_enCH_ACCESS_PRIVILEGED,
+    0UL,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_HALF_WORD,
+    DMA_enCH_DATA_SIZE_HALF_WORD,
+    DMA_enCH_INCREMENT_HALF_WORD,
+};
+
+uint16_t* pu16StartXInAddress;
+uint16_t* pu16StartXOutAddress;
+
+UBase_t uxWidthMaxInImage;
+UBase_t uxWidthMaxOutImage;
+UBase_t uxWidthImage;
+UBase_t uxHeightImage;
+
+error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBase_t uxWidthArg, UBase_t uxHeightArg,
+                             UBase_t uxStartXInArg, UBase_t uxStartYInArg, UBase_t uxMaxWidthInArg, UBase_t uxMaxHeightInArg,
+                             UBase_t uxStartXOutArg, UBase_t uxStartYOutArg, UBase_t uxMaxWidthOutArg, UBase_t uxMaxHeightOutArg)
+{
+    error_t enErrorReg;
+    uint16_t* pu16InAddress;
+    uint16_t* pu16OutAddress;
+
+    enErrorReg = ERROR_OK;
+    if((0UL == (uintptr_t) uxBufferIn) || (0UL == (uintptr_t) uxBufferOut))
+    {
+        enErrorReg = ERROR_VALUE;
+    }
+    if((0UL == uxWidthArg) || (0UL == uxHeightArg) ||
+       (0UL == uxMaxWidthInArg) || (0UL == uxMaxHeightInArg) ||
+       (0UL == uxMaxWidthOutArg) || (0UL == uxMaxHeightOutArg))
+    {
+        enErrorReg = ERROR_VALUE;
+    }
+    if((uxMaxWidthInArg < (uxStartXInArg + uxWidthArg)) || (uxMaxHeightInArg < (uxStartYInArg + uxHeightArg)) ||
+       (uxMaxWidthOutArg < (uxStartXOutArg + uxWidthArg)) || (uxMaxHeightOutArg < (uxStartYOutArg + uxHeightArg)))
+    {
+        enErrorReg = ERROR_VALUE;
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        while(TRUE == boDMAOngoing);
+        boDMAOngoing = TRUE;
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        pu16StartXInAddress = (uint16_t*) uxBufferIn;
+        pu16StartXInAddress += (uxStartYInArg * uxMaxWidthInArg);
+        pu16StartXInAddress += uxStartXInArg;
+        uxWidthMaxInImage = uxMaxWidthInArg;
+
+        pu16StartXOutAddress = (uint16_t*) uxBufferOut;
+        pu16StartXOutAddress += (uxStartYOutArg * uxMaxWidthOutArg);
+        pu16StartXOutAddress += uxStartXOutArg;
+        uxWidthMaxOutImage = uxMaxWidthOutArg;
+
+        uxWidthImage = uxWidthArg;
+        uxHeightImage = uxHeightArg;
+
+        stDMAChLayer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+        stDMAChLayer.XFERSIZE = uxWidthArg - 1UL;
+        uxHeightImage--;
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH__enRegisterIRQSourceHandler_Software(&TFT__vDMALayerInterrupt, DMA_enMODULE_0, DMA_enCH_30);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        pu16InAddress = pu16StartXInAddress;
+        pu16InAddress += uxWidthImage;
+        pu16InAddress -= 1UL;
+        enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_30, (UBase_t) pu16InAddress);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        pu16OutAddress = pu16StartXOutAddress;
+        pu16OutAddress += uxWidthImage;
+        pu16OutAddress -= 1UL;
+        enErrorReg = (error_t) DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_30, (UBase_t) pu16OutAddress);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_30, &stDMAChLayer);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        TFT_pstDMATransferStruct = &stDMAChLayer;
+        enErrorReg = (error_t) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
+        DMA_CH__enSetSoftwareRequestByNumber(DMA_enMODULE_0, DMA_enCH_30);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        while(TRUE == boDMAOngoing);
+    }
+    return (enErrorReg);
+}
+
+void TFT__vDMALayerInterrupt(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    uint16_t* pu16AddressIn;
+    uint16_t* pu16AddressOut;
+    DMA_CH_CTL_t* pstDMAChannel;
+    if(0UL != uxHeightImage)
+    {
+        uxHeightImage -= 1UL;
+        pstDMAChannel = TFT_pstDMATransferStruct;
+        pstDMAChannel->XFERSIZE = uxWidthImage - 1UL;
+        pu16AddressIn = (uint16_t*) (DMA_CH_PRIMARY->CH[30UL].SRCENDP);
+        pu16AddressOut = (uint16_t*) (DMA_CH_PRIMARY->CH[30UL].DSTENDP);
+        pu16AddressIn += uxWidthMaxInImage;
+        pu16AddressOut += uxWidthMaxOutImage;
+
+        DMA_CH_PRIMARY->CH[30UL].SRCENDP = (UBase_t) pu16AddressIn;
+        DMA_CH_PRIMARY->CH[30UL].DSTENDP = (UBase_t) pu16AddressOut;
+        DMA_CH_PRIMARY->CH[30UL].CTL = *((volatile UBase_t*) pstDMAChannel);
+        DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 30UL;
+        DMA->CH_SWREQ = (UBase_t) 1UL << (UBase_t) 30UL;
+    }
+    else
+    {
+        boDMAOngoing = FALSE;
+    }
+}
 
 void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
 {
