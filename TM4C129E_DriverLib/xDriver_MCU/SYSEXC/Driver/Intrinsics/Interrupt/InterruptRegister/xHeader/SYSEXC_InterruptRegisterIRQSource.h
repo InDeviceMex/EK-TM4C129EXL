@@ -2,7 +2,7 @@
  *
  * @file SYSEXC_InterruptRegisterIRQSource.h
  * @copyright
- * @verbatim InDeviceMex 2020 @endverbatim
+ * @verbatim InDeviceMex 2021 @endverbatim
  *
  * @par Responsibility
  * @verbatim InDeviceMex Developers @endverbatim
@@ -11,15 +11,15 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 10 ago. 2020 @endverbatim
+ * @verbatim 19 oct. 2022 @endverbatim
  *
  * @author
- * @verbatim vyldram @endverbatim
+ * @verbatim InDeviceMex @endverbatim
  *
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 10 ago. 2020     vyldram    1.0         initial Version@endverbatim
+ * 19 oct. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
 
 #ifndef XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_SYSEXC_INTERRUPTREGISTERIRQSOURCE_H_
@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/SYSEXC/Peripheral/xHeader/SYSEXC_Enum.h>
 
-void SYSEXC__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                       SYSEXC_nINTERRUPT enInterruptSource);
+SYSEXC_nERROR SYSEXC__enRegisterIRQSourceHandler(SYSEXC_nMODULE enModuleArg, SYSEXC_nINT enIntSourceArg, SYSEXC_pvfIRQSourceHandler_t pfIrqSourceHandler);
 
 #endif /* XDRIVER_MCU_SYSEXC_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_SYSEXC_INTERRUPTREGISTERIRQSOURCE_H_ */

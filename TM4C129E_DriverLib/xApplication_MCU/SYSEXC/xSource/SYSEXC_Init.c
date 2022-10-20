@@ -26,14 +26,29 @@
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Dependencies.h>
 #include <xApplication_MCU/SYSEXC/Interrupt/SYSEXC_Interrupt.h>
 
-void SYSEXC__vInit(SYSEXC_nINT_SOURCE enInterruptParam, SYSEXC_nPRIORITY enSYSEXCPriority)
+SYSEXC_nERROR SYSEXC__enInit(SYSEXC_nMODULE enModuleArg, SYSEXC_nINTMASK enInterruptMaskArg, SYSEXC_nPRIORITY enPriorityArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    SYSEXC_nERROR enErrorReg;
+    SYSEXC_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = SYSEXC__pvfGetIRQVectorHandler();
-    SYSEXC__vRegisterIRQVectorHandler( pfIrqVectorHandler);
+    enErrorReg = (SYSEXC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSEXC_enMODULE_MAX);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = SYSEXC__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = SYSEXC__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSEXC__enDisableInterruptSourceByMask(enModuleArg, SYSEXC_enINTMASK_ALL);
+    }
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSEXC__enEnableInterruptSourceByMask(enModuleArg, enInterruptMaskArg);
+    }
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSEXC__enEnableInterruptVectorWithPriority(enModuleArg, enPriorityArg);
+    }
 
-    SYSEXC__vDisInterruptSource(SYSEXC_enINT_SOURCE_ALL);
-    SYSEXC__vEnInterruptSource(enInterruptParam);
-    SYSEXC__vEnInterruptVector(enSYSEXCPriority);
+    return (enErrorReg);
 }

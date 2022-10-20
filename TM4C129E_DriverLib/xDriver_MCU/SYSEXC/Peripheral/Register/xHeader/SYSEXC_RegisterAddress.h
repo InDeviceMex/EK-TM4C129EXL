@@ -28,8 +28,12 @@
 #include <xDriver_MCU/SYSEXC/Peripheral/xHeader/SYSEXC_Enum.h>
 
 #define SYSEXC_BASE    ((UBase_t) 0x400F9000UL)
-#define SYSEXC_BITBANDING_BASE    ((UBase_t) 0x42000000UL)
+#define SYSEXC0_BASE    ((UBase_t) 0x400F9000UL)
+
 #define SYSEXC_OFFSET    ((UBase_t) 0x000F9000UL)
+#define SYSEXC0_OFFSET    ((UBase_t) 0x000F9000UL)
+
+#define SYSEXC_BITBANDING_BASE    ((UBase_t) 0x42000000UL)
 
 #define SYSEXC_RIS_OFFSET    ((UBase_t) 0x0000UL)
 #define SYSEXC_IM_OFFSET    ((UBase_t) 0x0004UL)

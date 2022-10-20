@@ -22,46 +22,56 @@
  * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xApplication_MCU/SYSEXC/Interrupt/InterruptRoutine/xHeader/SYSEXC_InterruptRoutine_Vector.h>
-
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Dependencies.h>
 
 UBase_t SYSEXC_puxContext[8UL];
 
-void SYSEXC__vIRQVectorHandler(void)
+UART_CONTROL_t enUartSysExcControl =
 {
-    __asm volatile(
-    " PUSH {R4-R7}\n"
-    " MRS R4, MSP\n"
-#if defined (__TI_ARM__ ) || defined (__MSP430__ )
-    " movw R6, SYSEXC_puxContext\n"
-    " movt R6, SYSEXC_puxContext\n"
-#elif defined (__GNUC__ )
-    " ldr R6, = SYSEXC_puxContext\n"
-#endif
-    " ldr R5, [R4, #0X10]\n"
-    " str R5, [R6, #0x0]\n"/*SYSEXC_puxContext[0] R4*/
-    " ldr R5, [R4, #0x14]\n"
-    " str R5, [R6, #0x4]\n"/*SYSEXC_puxContext[1] R5*/
-    " ldr R5, [R4, #0x18]\n"
-    " str R5, [R6, #0x8]\n"/*SYSEXC_puxContext[2] R6*/
-    " ldr R5, [R4, #0x1C]\n"
-    " str R5, [R6, #0xC]\n"/*SYSEXC_puxContext[3] R3*/
-    " ldr R5, [R4, #0x20]\n"
-    " str R5, [R6, #0x10]\n"/*SYSEXC_puxContext[4] R52*/
-    " ldr R5, [R4, #0x24]\n"
-    " str R5, [R6, #0x14]\n"/*SYSEXC_puxContext[5] LR*/
-    " ldr R5, [R4, #0x28]\n"
-    " str R5, [R6, #0x18]\n"/*SYSEXC_puxContext[6] PC*/
-    " ldr R5, [R4, #0x2C]\n"
-    " str R5, [R6, #0x1C]\n"/*SYSEXC_puxContext[7] PSR*/
-    " pop {R4-R7}\n");
+    UART_enEOT_ALL,
+    UART_enLOOPBACK_DIS,
+    UART_enLINE_ENA,
+    UART_enLINE_ENA,
+    UART_enRTS_MODE_SOFT,
+    UART_enCTS_MODE_SOFT,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+    UART_enLINE_DIS,
+};
 
-    volatile UBase_t uxReg = 0UL;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+UART_LINE_CONTROL_t enUartSysExcLineControl =
+{
+ UART_enFIFO_ENA,
+ UART_enSTOP_ONE,
+ UART_enPARITY_DIS,
+ UART_enPARITY_TYPE_EVEN,
+ UART_enPARITY_STICK_DIS ,
+ UART_enLENGTH_8BITS,
+};
 
-    uxReg = SYSEXC_MIS_R;
+UART_LINE_t enUartSysExcLine =
+{
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+ UART_enLINE_SELECT_PRIMARY,
+};
 
-    UART__uxPrintf(UART_enMODULE_0, "System Exception Detected\n\r"
+void SYSEXC__vSendValues(void)
+{
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
+    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
+    UART__vInit();
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartSysExcControl, &enUartSysExcLineControl, 921600UL, &enUartSysExcLine );
+    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+
+    UART__uxPrintf(UART_enMODULE_0, "SYSEXC FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -75,49 +85,82 @@ void SYSEXC__vIRQVectorHandler(void)
                     SYSEXC_puxContext[7UL],
                     SYSEXC_puxContext[5UL],
                     SYSEXC_puxContext[6UL]);
+}
 
-    if(0UL == (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_ALL))
+void SYSEXC__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    SYSEXC_t* pstSystemExceptionReg;
+    UBase_t uxSystemException;
+    UBase_t uxSysExcAddressFault;
+    SYSEXC_pvfIRQSourceHandler_t pvfCallback;
+
+    UBase_t* puxContext;
+    UBase_t* puxContextOffset;
+
+    pstSystemExceptionReg = (SYSEXC_t*) uptrModuleArg;
+    puxContext = (UBase_t*) pvArgument;
+
+    uxSystemException = pstSystemExceptionReg->MIS;
+    if(0UL == ((UBase_t) SYSEXC_enINTMASK_ALL & uxSystemException))
     {
-        pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_SW);
-        pvfCallback();
+        UART__uxPrintf(UART_enMODULE_0, "SYSEXC FAULT Exception triggered by Software \n\r");
+        pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_SW);
+        pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_SW);
     }
     else
     {
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_DENORMAL))
+        puxContextOffset = puxContext;
+        puxContextOffset += 6UL;
+        uxSysExcAddressFault = *puxContextOffset;
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_DENORMAL & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_DENORMAL;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DENORMAL);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_DENORMAL;
+            UART__uxPrintf(UART_enMODULE_0, "SYSEXC FAULT on De-normal Operation \n\r"
+                                            "De-normal operation occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_DENORMAL);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_DENORMAL);
         }
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_DIV0))
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_DIV0 & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_DIV0;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_DIV0);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_DIV0 ;
+            UART__uxPrintf(UART_enMODULE_0,"SYSEXC FAULT on a Div by 0\n\r"
+                                            "Invalid div by 0 operation occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_DIV0);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_DIV0);
         }
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_INVALID))
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_INVALID & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_INVALID;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INVALID);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_INVALID;
+            UART__uxPrintf(UART_enMODULE_0,"SYSEXC FAULT on execution of an invalid operation\n\r"
+                                               "Invalid operation execution occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_INVALID);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_INVALID);
         }
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_UNDERFLOW))
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_UNDERFLOW & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_UNDERFLOW;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_UNDERFLOW);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_UNDERFLOW;
+            UART__uxPrintf(UART_enMODULE_0,"SYSEXC FAULT, underflow exception\n\r"
+                                               "underflow occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_UNDERFLOW);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_UNDERFLOW);
         }
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_OVERFLOW))
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_OVERFLOW & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_OVERFLOW;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_OVERFLOW);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_OVERFLOW;
+            UART__uxPrintf(UART_enMODULE_0,"SYSEXC FAULT, overflow exception\n\r"
+                                               "overflow occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_OVERFLOW);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_OVERFLOW);
         }
-        if(0UL != (uxReg & (UBase_t) SYSEXC_enINT_SOURCE_INEXACT))
+        if(0UL != ((UBase_t) SYSEXC_enINTMASK_INEXACT & uxSystemException))
         {
-            SYSEXC_IC_R = (UBase_t) SYSEXC_enINT_SOURCE_INEXACT;
-            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enINTERRUPT_INEXACT);
-            pvfCallback();
+            pstSystemExceptionReg->IC = (UBase_t) SYSEXC_enINTMASK_INEXACT;
+            UART__uxPrintf(UART_enMODULE_0,"SYSEXC FAULT, Inexact operation exception\n\r"
+                                               "Inexact operation occurred on: %X\n\r", uxSysExcAddressFault);
+            pvfCallback = SYSEXC__pvfGetIRQSourceHandler(SYSEXC_enMODULE_0, SYSEXC_enINT_INEXACT);
+            pvfCallback(SYSEXC_BASE, (void*) SYSEXC_enINT_INEXACT);
         }
     }
+
 }
+

@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Defines.h>
 
-void SYSEXC__vInit(SYSEXC_nINT_SOURCE enInterruptParam, SYSEXC_nPRIORITY enSYSEXCPriority);
+SYSEXC_nERROR SYSEXC__enInit(SYSEXC_nMODULE enModuleArg, SYSEXC_nINTMASK enInterruptMaskArg, SYSEXC_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_SYSEXC_XHEADER_SYSEXC_INIT_H_ */

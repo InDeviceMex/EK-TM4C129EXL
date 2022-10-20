@@ -153,11 +153,11 @@ typedef volatile struct
         volatile const UBase_t PCellID3 [32UL];
         SSI_BITBANDING_PCellID3_t PCellID3_Bit;
     };
-} SSI_BITBANDING_t;
+}SSI_BITBANDING_t;
 
 typedef volatile struct
 {
     SSI_BITBANDING_t MODULE [(UBase_t) SSI_enMODULE_MAX];
-} SSIS_BITBANDING_t;
+}SSIS_BITBANDING_t;
 
 #endif /* XDRIVER_MCU_SSI_PERIPHERAL_STRUCT_XHEADER_SSI_STRUCTPERIPHERAL_BITBANDING_H_ */

@@ -37,6 +37,7 @@
 #include <xOS/xOS.h>
 
 __attribute__((aligned(4))) uint16_t u16BufferSPI[128UL * 128UL];
+boolean_t volatile boDMAOngoing = FALSE;
 
 error_t TFT__enInitWriteDMAConfig(void);
 void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
@@ -109,6 +110,8 @@ void xTask9_TFT(void* pvParams)
              TFT__enWriteDMALayer16Bits((UBase_t) pu16Pointer, (UBase_t) u16BufferSPI, 120UL, 76UL,
                                           0UL, 0UL, 120UL, 76UL,
                                           uxLcdPosXCurrent, uxLcdPosYCurrent, 128UL, 128UL);
+
+             while(TRUE == boDMAOngoing);
              ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, "        \n\r              ", 0xFFFFUL, &FONT_s5x7);
              sprintf__uxUser(pcConvert, "YOYSTICK\n\rX:%4d Y:%4d",
                               uxJostickValue[0UL],
@@ -203,7 +206,6 @@ DMA_CH_CTL_t stDMAChControl = {
     DMA_enCH_INCREMENT_WORD,
 };
 
-boolean_t volatile boDMAOngoing = FALSE;
 UBase_t uxTranferLeft = 0UL;
 UBase_t uxTranferSize = 0UL;
 volatile DMA_CH_CTL_t* TFT_pstDMATransferStruct = (DMA_CH_CTL_t*) 0UL;
@@ -295,10 +297,6 @@ error_t TFT__enWriteDMAConstant(UBase_t* uxBufferIn, UBase_t uxDataArg, UBase_t 
     {
         DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
         DMA_CH__enSetSoftwareRequestByNumber(DMA_enMODULE_0, DMA_enCH_30);
-    }
-    if(ERROR_OK == enErrorReg)
-    {
-        while(TRUE == boDMAOngoing);
     }
     return (enErrorReg);
 }
@@ -406,10 +404,6 @@ error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBas
     {
         DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_30, DMA_enSTATE_ENA);
         DMA_CH__enSetSoftwareRequestByNumber(DMA_enMODULE_0, DMA_enCH_30);
-    }
-    if(ERROR_OK == enErrorReg)
-    {
-        while(TRUE == boDMAOngoing);
     }
     return (enErrorReg);
 }

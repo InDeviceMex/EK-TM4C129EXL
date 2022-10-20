@@ -31,207 +31,207 @@
 ************************************ 1 RIS *********************************************
 ******************************************************************************************/
 /*----------*/
-#define SYSEXC_RIS_R_FPIDCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_R_FPIDCRIS_BIT    (0UL)
-#define SYSEXC_RIS_R_FPIDCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPIDCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_R_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_R_FPIDC_BIT    (0UL)
+#define SYSEXC_RIS_R_FPIDC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPIDC_ACTIVE    ((UBase_t) 0x00000001UL)
 
-#define SYSEXC_RIS_FPIDCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPIDCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPIDCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIDC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPIDC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_RIS_R_FPDZCRIS_MASK    ((UBase_t) 0x00000002UL)
-#define SYSEXC_RIS_R_FPDZCRIS_BIT    (1UL)
-#define SYSEXC_RIS_R_FPDZCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPDZCRIS_ACTIVE    ((UBase_t) 0x00000002UL)
+#define SYSEXC_RIS_R_FPDZC_MASK    ((UBase_t) 0x00000002UL)
+#define SYSEXC_RIS_R_FPDZC_BIT    (1UL)
+#define SYSEXC_RIS_R_FPDZC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPDZC_ACTIVE    ((UBase_t) 0x00000002UL)
 
-#define SYSEXC_RIS_FPDZCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPDZCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPDZCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPDZC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPDZC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPDZC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_RIS_R_FPIOCRIS_MASK    ((UBase_t) 0x00000004UL)
-#define SYSEXC_RIS_R_FPIOCRIS_BIT    (2UL)
-#define SYSEXC_RIS_R_FPIOCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPIOCRIS_ACTIVE    ((UBase_t) 0x00000004UL)
+#define SYSEXC_RIS_R_FPIOC_MASK    ((UBase_t) 0x00000004UL)
+#define SYSEXC_RIS_R_FPIOC_BIT    (2UL)
+#define SYSEXC_RIS_R_FPIOC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPIOC_ACTIVE    ((UBase_t) 0x00000004UL)
 
-#define SYSEXC_RIS_FPIOCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPIOCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPIOCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIOC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIOC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPIOC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_RIS_R_FPUFCRIS_MASK    ((UBase_t) 0x00000008UL)
-#define SYSEXC_RIS_R_FPUFCRIS_BIT    (3UL)
-#define SYSEXC_RIS_R_FPUFCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPUFCRIS_ACTIVE    ((UBase_t) 0x00000008UL)
+#define SYSEXC_RIS_R_FPUFC_MASK    ((UBase_t) 0x00000008UL)
+#define SYSEXC_RIS_R_FPUFC_BIT    (3UL)
+#define SYSEXC_RIS_R_FPUFC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPUFC_ACTIVE    ((UBase_t) 0x00000008UL)
 
-#define SYSEXC_RIS_FPUFCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPUFCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPUFCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPUFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPUFC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPUFC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_RIS_R_FPOFCRIS_MASK    ((UBase_t) 0x00000010UL)
-#define SYSEXC_RIS_R_FPOFCRIS_BIT    (4UL)
-#define SYSEXC_RIS_R_FPOFCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPOFCRIS_ACTIVE    ((UBase_t) 0x00000010UL)
+#define SYSEXC_RIS_R_FPOFC_MASK    ((UBase_t) 0x00000010UL)
+#define SYSEXC_RIS_R_FPOFC_BIT    (4UL)
+#define SYSEXC_RIS_R_FPOFC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPOFC_ACTIVE    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_RIS_FPOFCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPOFCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPOFCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPOFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPOFC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPOFC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_RIS_R_FPIXCRIS_MASK    ((UBase_t) 0x00000020UL)
-#define SYSEXC_RIS_R_FPIXCRIS_BIT    (5UL)
-#define SYSEXC_RIS_R_FPIXCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_R_FPIXCRIS_ACTIVE    ((UBase_t) 0x00000010UL)
+#define SYSEXC_RIS_R_FPIXC_MASK    ((UBase_t) 0x00000020UL)
+#define SYSEXC_RIS_R_FPIXC_BIT    (5UL)
+#define SYSEXC_RIS_R_FPIXC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_R_FPIXC_ACTIVE    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_RIS_FPIXCRIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_RIS_FPIXCRIS_NOACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_RIS_FPIXCRIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIXC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_RIS_FPIXC_NOACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_RIS_FPIXC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /******************************************************************************************
 ************************************ 2 IM *********************************************
 ******************************************************************************************/
 /*----------*/
-#define SYSEXC_IM_R_FPIDCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_R_FPIDCIM_BIT    ((UBase_t) 0)
-#define SYSEXC_IM_R_FPIDCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPIDCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_R_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_R_FPIDC_BIT    ((UBase_t) 0)
+#define SYSEXC_IM_R_FPIDC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPIDC_ENA    ((UBase_t) 0x00000001UL)
 
-#define SYSEXC_IM_FPIDCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPIDCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPIDCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIDC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPIDC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_IM_R_FPDZCIM_MASK    ((UBase_t) 0x00000002UL)
-#define SYSEXC_IM_R_FPDZCIM_BIT    ((UBase_t) 1)
-#define SYSEXC_IM_R_FPDZCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPDZCIM_ENA    ((UBase_t) 0x00000002UL)
+#define SYSEXC_IM_R_FPDZC_MASK    ((UBase_t) 0x00000002UL)
+#define SYSEXC_IM_R_FPDZC_BIT    ((UBase_t) 1)
+#define SYSEXC_IM_R_FPDZC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPDZC_ENA    ((UBase_t) 0x00000002UL)
 
-#define SYSEXC_IM_FPDZCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPDZCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPDZCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPDZC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPDZC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPDZC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_IM_R_FPIOCIM_MASK    ((UBase_t) 0x00000004UL)
-#define SYSEXC_IM_R_FPIOCIM_BIT    (2UL)
-#define SYSEXC_IM_R_FPIOCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPIOCIM_ENA    ((UBase_t) 0x00000004UL)
+#define SYSEXC_IM_R_FPIOC_MASK    ((UBase_t) 0x00000004UL)
+#define SYSEXC_IM_R_FPIOC_BIT    (2UL)
+#define SYSEXC_IM_R_FPIOC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPIOC_ENA    ((UBase_t) 0x00000004UL)
 
-#define SYSEXC_IM_FPIOCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPIOCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPIOCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIOC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIOC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPIOC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_IM_R_FPUFCIM_MASK    ((UBase_t) 0x00000008UL)
-#define SYSEXC_IM_R_FPUFCIM_BIT    (3UL)
-#define SYSEXC_IM_R_FPUFCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPUFCIM_ENA    ((UBase_t) 0x00000008UL)
+#define SYSEXC_IM_R_FPUFC_MASK    ((UBase_t) 0x00000008UL)
+#define SYSEXC_IM_R_FPUFC_BIT    (3UL)
+#define SYSEXC_IM_R_FPUFC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPUFC_ENA    ((UBase_t) 0x00000008UL)
 
-#define SYSEXC_IM_FPUFCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPUFCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPUFCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPUFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPUFC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPUFC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_IM_R_FPOFCIM_MASK    ((UBase_t) 0x00000010UL)
-#define SYSEXC_IM_R_FPOFCIM_BIT    (4UL)
-#define SYSEXC_IM_R_FPOFCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPOFCIM_ENA    ((UBase_t) 0x00000010UL)
+#define SYSEXC_IM_R_FPOFC_MASK    ((UBase_t) 0x00000010UL)
+#define SYSEXC_IM_R_FPOFC_BIT    (4UL)
+#define SYSEXC_IM_R_FPOFC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPOFC_ENA    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_IM_FPOFCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPOFCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPOFCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPOFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPOFC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPOFC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_IM_R_FPIXCIM_MASK    ((UBase_t) 0x00000020UL)
-#define SYSEXC_IM_R_FPIXCIM_BIT    (5UL)
-#define SYSEXC_IM_R_FPIXCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_R_FPIXCIM_ENA    ((UBase_t) 0x00000010UL)
+#define SYSEXC_IM_R_FPIXC_MASK    ((UBase_t) 0x00000020UL)
+#define SYSEXC_IM_R_FPIXC_BIT    (5UL)
+#define SYSEXC_IM_R_FPIXC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_R_FPIXC_ENA    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_IM_FPIXCIM_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_IM_FPIXCIM_DIS    ((UBase_t) 0x00000000UL)
-#define SYSEXC_IM_FPIXCIM_ENA    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIXC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_IM_FPIXC_DIS    ((UBase_t) 0x00000000UL)
+#define SYSEXC_IM_FPIXC_ENA    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /******************************************************************************************
 ************************************ 3 MIS *********************************************
 ******************************************************************************************/
 /*----------*/
-#define SYSEXC_MIS_R_FPIDCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_R_FPIDCMIS_BIT    (0UL)
-#define SYSEXC_MIS_R_FPIDCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPIDCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_R_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_R_FPIDC_BIT    (0UL)
+#define SYSEXC_MIS_R_FPIDC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPIDC_ACTIVE    ((UBase_t) 0x00000001UL)
 
-#define SYSEXC_MIS_FPIDCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPIDCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPIDCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIDC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIDC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPIDC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_MIS_R_FPDZCMIS_MASK    ((UBase_t) 0x00000002UL)
-#define SYSEXC_MIS_R_FPDZCMIS_BIT    (1UL)
-#define SYSEXC_MIS_R_FPDZCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPDZCMIS_ACTIVE    ((UBase_t) 0x00000002UL)
+#define SYSEXC_MIS_R_FPDZC_MASK    ((UBase_t) 0x00000002UL)
+#define SYSEXC_MIS_R_FPDZC_BIT    (1UL)
+#define SYSEXC_MIS_R_FPDZC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPDZC_ACTIVE    ((UBase_t) 0x00000002UL)
 
-#define SYSEXC_MIS_FPDZCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPDZCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPDZCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPDZC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPDZC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPDZC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_MIS_R_FPIOCMIS_MASK    ((UBase_t) 0x00000004UL)
-#define SYSEXC_MIS_R_FPIOCMIS_BIT    (2UL)
-#define SYSEXC_MIS_R_FPIOCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPIOCMIS_ACTIVE    ((UBase_t) 0x00000004UL)
+#define SYSEXC_MIS_R_FPIOC_MASK    ((UBase_t) 0x00000004UL)
+#define SYSEXC_MIS_R_FPIOC_BIT    (2UL)
+#define SYSEXC_MIS_R_FPIOC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPIOC_ACTIVE    ((UBase_t) 0x00000004UL)
 
-#define SYSEXC_MIS_FPIOCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPIOCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPIOCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIOC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIOC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPIOC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_MIS_R_FPUFCMIS_MASK    ((UBase_t) 0x00000008UL)
-#define SYSEXC_MIS_R_FPUFCMIS_BIT    (3UL)
-#define SYSEXC_MIS_R_FPUFCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPUFCMIS_ACTIVE    ((UBase_t) 0x00000008UL)
+#define SYSEXC_MIS_R_FPUFC_MASK    ((UBase_t) 0x00000008UL)
+#define SYSEXC_MIS_R_FPUFC_BIT    (3UL)
+#define SYSEXC_MIS_R_FPUFC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPUFC_ACTIVE    ((UBase_t) 0x00000008UL)
 
-#define SYSEXC_MIS_FPUFCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPUFCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPUFCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPUFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPUFC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPUFC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_MIS_R_FPOFCMIS_MASK    ((UBase_t) 0x00000010UL)
-#define SYSEXC_MIS_R_FPOFCMIS_BIT    (4UL)
-#define SYSEXC_MIS_R_FPOFCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPOFCMIS_ACTIVE    ((UBase_t) 0x00000010UL)
+#define SYSEXC_MIS_R_FPOFC_MASK    ((UBase_t) 0x00000010UL)
+#define SYSEXC_MIS_R_FPOFC_BIT    (4UL)
+#define SYSEXC_MIS_R_FPOFC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPOFC_ACTIVE    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_MIS_FPOFCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPOFCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPOFCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPOFC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPOFC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPOFC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /*----------*/
-#define SYSEXC_MIS_R_FPIXCMIS_MASK    ((UBase_t) 0x00000020UL)
-#define SYSEXC_MIS_R_FPIXCMIS_BIT    (5UL)
-#define SYSEXC_MIS_R_FPIXCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_R_FPIXCMIS_ACTIVE    ((UBase_t) 0x00000010UL)
+#define SYSEXC_MIS_R_FPIXC_MASK    ((UBase_t) 0x00000020UL)
+#define SYSEXC_MIS_R_FPIXC_BIT    (5UL)
+#define SYSEXC_MIS_R_FPIXC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_R_FPIXC_ACTIVE    ((UBase_t) 0x00000010UL)
 
-#define SYSEXC_MIS_FPIXCMIS_MASK    ((UBase_t) 0x00000001UL)
-#define SYSEXC_MIS_FPIXCMIS_INACTIVE    ((UBase_t) 0x00000000UL)
-#define SYSEXC_MIS_FPIXCMIS_ACTIVE    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIXC_MASK    ((UBase_t) 0x00000001UL)
+#define SYSEXC_MIS_FPIXC_INACTIVE    ((UBase_t) 0x00000000UL)
+#define SYSEXC_MIS_FPIXC_ACTIVE    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 /******************************************************************************************

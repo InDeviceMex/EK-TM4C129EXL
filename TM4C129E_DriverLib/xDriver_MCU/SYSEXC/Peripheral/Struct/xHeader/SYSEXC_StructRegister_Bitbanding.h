@@ -29,49 +29,49 @@
 
 typedef volatile struct
 {
-    volatile const UBase_t FPIDCRIS;
-    volatile const UBase_t FPDZCRIS;
-    volatile const UBase_t FPIOCRIS;
-    volatile const UBase_t FPUFCRIS;
-    volatile const UBase_t FPOFCRIS;
-    volatile const UBase_t FPIXCRIS;
+    volatile const UBase_t FPIDC;
+    volatile const UBase_t FPDZC;
+    volatile const UBase_t FPIOC;
+    volatile const UBase_t FPUFC;
+    volatile const UBase_t FPOFC;
+    volatile const UBase_t FPIXC;
     const UBase_t reserved [26UL];
-}BITBANDING_SYSEXCRIS_t;
+}SYSEXC_BITBANDING_RIS_t;
 
 
 typedef volatile struct
 {
-    volatile UBase_t FPIDCIM;
-    volatile UBase_t FPDZCIM;
-    volatile UBase_t FPIOCIM;
-    volatile UBase_t FPUFCIM;
-    volatile UBase_t FPOFCIM;
-    volatile UBase_t FPIXCIM;
+    volatile UBase_t FPIDC;
+    volatile UBase_t FPDZC;
+    volatile UBase_t FPIOC;
+    volatile UBase_t FPUFC;
+    volatile UBase_t FPOFC;
+    volatile UBase_t FPIXC;
     const UBase_t reserved [26UL];
-}BITBANDING_SYSEXCIM_t;
+}SYSEXC_BITBANDING_IM_t;
 
 
 typedef volatile struct
 {
-    volatile const UBase_t FPIDCMIS;
-    volatile const UBase_t FPDZCMIS;
-    volatile const UBase_t FPIOCMIS;
-    volatile const UBase_t FPUFCMIS;
-    volatile const UBase_t FPOFCMIS;
-    volatile const UBase_t FPIXCMIS;
+    volatile const UBase_t FPIDC;
+    volatile const UBase_t FPDZC;
+    volatile const UBase_t FPIOC;
+    volatile const UBase_t FPUFC;
+    volatile const UBase_t FPOFC;
+    volatile const UBase_t FPIXC;
     const UBase_t reserved [26UL];
-}BITBANDING_SYSEXCMIS_t;
+}SYSEXC_BITBANDING_MIS_t;
 
 
 typedef volatile struct
 {
-    volatile UBase_t FPIDCCIC;
-    volatile UBase_t FPDZCCIC;
-    volatile UBase_t FPIOCCIC;
-    volatile UBase_t FPUFCCIC;
-    volatile UBase_t FPOFCCIC;
-    volatile UBase_t FPIXCCIC;
+    volatile UBase_t FPIDC;
+    volatile UBase_t FPDZC;
+    volatile UBase_t FPIOC;
+    volatile UBase_t FPUFC;
+    volatile UBase_t FPOFC;
+    volatile UBase_t FPIXC;
     const UBase_t reserved [26UL];
-}BITBANDING_SYSEXCIC_t;
+}SYSEXC_BITBANDING_IC_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSEXC_SYSEXC_PERIPHERAL_SYSEXC_STRUCT_SYSEXC_STRUCTREGISTER_BITBANDING_H_ */

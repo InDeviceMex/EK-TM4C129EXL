@@ -26,14 +26,24 @@
 #include <xApplication_MCU/SYSEXC/Interrupt/InterruptRoutine/SYSEXC_InterruptRoutine.h>
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Dependencies.h>
 
-void SYSEXC__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
+SYSEXC_nERROR SYSEXC__enRegisterIRQVectorHandler(SYSEXC_nMODULE enModuleArg, SYSEXC_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_SYSEXC;
-    if(0UL != (UBase_t) pfIrqVectorHandler)
+    const SCB_nVECISR SCB_enVECISR[(UBase_t) SYSEXC_enMODULE_MAX] =
     {
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, SYSEXC__pvfGetIRQVectorHandlerPointer());
+     SCB_enVECISR_SYSEXC
+    };
+    SCB_nVECISR enVectorReg;
+    SYSEXC_nERROR enErrorReg;
+    SYSEXC_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
+
+    enErrorReg = (SYSEXC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSEXC_enMODULE_MAX);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = SYSEXC__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (SYSEXC_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }
-
-
 

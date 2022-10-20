@@ -22,19 +22,119 @@
  * 11 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
  */
 #include <xApplication_MCU/SYSEXC/Interrupt/xHeader/SYSEXC_InterruptVector.h>
-
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Dependencies.h>
 
-void SYSEXC__vEnInterruptVector(SYSEXC_nPRIORITY enSYSEXCPriority)
-{
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSEXC;
+static SYSEXC_nERROR SYSEXC__enGetInterruptVector(SYSEXC_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg);
 
-    enSYSEXCPriority &= 0x7U;
-    NVIC__enEnableVector(NVIC_enMODULE_0, enVector, (NVIC_nPRIORITY) enSYSEXCPriority);
+static SYSEXC_nERROR SYSEXC__enGetInterruptVector(SYSEXC_nMODULE enModuleArg, NVIC_nVECTOR* enVectorArg)
+{
+    const NVIC_nVECTOR NVIC_VECTOR_SYSEXC[(UBase_t) SYSEXC_enMODULE_MAX]=
+    {
+     NVIC_enVECTOR_SYSEXC
+    };
+    SYSEXC_nERROR enErrorReg;
+
+    enErrorReg = (SYSEXC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSEXC_enMODULE_MAX);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        *enVectorArg = NVIC_VECTOR_SYSEXC[(UBase_t) enModuleArg];
+
+    }
+    return (enErrorReg);
 }
 
-void SYSEXC__vDisInterruptVector(void)
+SYSEXC_nERROR SYSEXC__enSetInterruptVectorState(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE enStateArg)
 {
-    NVIC_nVECTOR enVector = NVIC_enVECTOR_SYSEXC;
-    NVIC__enDisableVector(NVIC_enMODULE_0, enVector);
+    NVIC_nVECTOR enVectorReg;
+    SYSEXC_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_SYSEXC;
+    enErrorReg = SYSEXC__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enSetInterruptVectorStateWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE enStateArg, SYSEXC_nPRIORITY enPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    SYSEXC_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_SYSEXC;
+    enErrorReg = SYSEXC__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enSetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY) enPriorityArg);
+    }
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enSetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE) enStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enGetInterruptVectorState(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE* penStateArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    SYSEXC_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_SYSEXC;
+    enErrorReg = SYSEXC__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enGetInterruptVectorStateWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE* penStateArg, SYSEXC_nPRIORITY* penPriorityArg)
+{
+    NVIC_nVECTOR enVectorReg;
+    SYSEXC_nERROR enErrorReg;
+
+    enVectorReg = NVIC_enVECTOR_SYSEXC;
+    enErrorReg = SYSEXC__enGetInterruptVector(enModuleArg, &enVectorReg);
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enGetVectorPriority(NVIC_enMODULE_0, enVectorReg, (NVIC_nPRIORITY*) penPriorityArg);
+    }
+    if(SYSEXC_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SYSEXC_nERROR) NVIC__enGetVectorState(NVIC_enMODULE_0, enVectorReg, (NVIC_nSTATE*) penStateArg);
+    }
+
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enEnableInterruptVector(SYSEXC_nMODULE enModuleArg)
+{
+    SYSEXC_nERROR enErrorReg;
+    enErrorReg = SYSEXC__enSetInterruptVectorState(enModuleArg, SYSEXC_enSTATE_ENA);
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enEnableInterruptVectorWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nPRIORITY enPriorityArg)
+{
+    SYSEXC_nERROR enErrorReg;
+    enErrorReg = SYSEXC__enSetInterruptVectorStateWithPriority(enModuleArg, SYSEXC_enSTATE_ENA, enPriorityArg);
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enDisableInterruptVector(SYSEXC_nMODULE enModuleArg)
+{
+    SYSEXC_nERROR enErrorReg;
+    enErrorReg = SYSEXC__enSetInterruptVectorState(enModuleArg, SYSEXC_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+SYSEXC_nERROR SYSEXC__enDisableInterruptVectorWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nPRIORITY enPriorityArg)
+{
+    SYSEXC_nERROR enErrorReg;
+    enErrorReg = SYSEXC__enSetInterruptVectorStateWithPriority(enModuleArg, SYSEXC_enSTATE_DIS, enPriorityArg);
+    return (enErrorReg);
 }

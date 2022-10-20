@@ -27,7 +27,16 @@
 
 #include <xApplication_MCU/SYSEXC/Intrinsics/xHeader/SYSEXC_Defines.h>
 
-void SYSEXC__vEnInterruptVector(SYSEXC_nPRIORITY enSYSEXCPriority);
-void SYSEXC__vDisInterruptVector(void);
+SYSEXC_nERROR SYSEXC__enSetInterruptVectorState(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE enStateArg);
+SYSEXC_nERROR SYSEXC__enSetInterruptVectorStateWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE enStateArg, SYSEXC_nPRIORITY enPriorityArg);
+
+SYSEXC_nERROR SYSEXC__enGetInterruptVectorState(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE* penStateArg);
+SYSEXC_nERROR SYSEXC__enGetInterruptVectorStateWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nSTATE* penStateArg, SYSEXC_nPRIORITY* penPriorityArg);
+
+SYSEXC_nERROR SYSEXC__enEnableInterruptVector(SYSEXC_nMODULE enModuleArg);
+SYSEXC_nERROR SYSEXC__enEnableInterruptVectorWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nPRIORITY enPriorityArg);
+
+SYSEXC_nERROR SYSEXC__enDisableInterruptVector(SYSEXC_nMODULE enModuleArg);
+SYSEXC_nERROR SYSEXC__enDisableInterruptVectorWithPriority(SYSEXC_nMODULE enModuleArg, SYSEXC_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_SYSEXC_INTERRUPT_XHEADER_SYSEXC_INTERRUPTVECTOR_H_ */

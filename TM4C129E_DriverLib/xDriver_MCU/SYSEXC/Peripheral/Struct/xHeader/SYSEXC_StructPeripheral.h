@@ -32,23 +32,29 @@ typedef volatile struct
     union
     {
         volatile const UBase_t RIS;
-        SYSEXCRIS_t RIS_Bit;
+        SYSEXC_RIS_t RIS_Bit;
     };
     union
     {
         volatile UBase_t IM;
-        SYSEXCIM_t IM_Bit;
+        SYSEXC_IM_t IM_Bit;
     };
     union
     {
         volatile const UBase_t MIS;
-        SYSEXCMIS_t MIS_Bit;
+        SYSEXC_MIS_t MIS_Bit;
     };
     union
     {
         volatile UBase_t IC;
-        SYSEXCIC_t IC_Bit;
+        SYSEXC_IC_t IC_Bit;
     };
 }SYSEXC_t;
+
+
+typedef volatile struct
+{
+    SYSEXC_t MODULE [(UBase_t) SYSEXC_enMODULE_MAX];
+}SYSEXCS_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSEXC_SYSEXC_PERIPHERAL_SYSEXC_STRUCT_SYSEXC_STRUCTPERIPHERAL_H_ */

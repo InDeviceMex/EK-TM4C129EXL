@@ -23,21 +23,21 @@
  */
 #include <xApplication_MCU/SYSEXC/Interrupt/InterruptRoutine/SYSEXC_InterruptRoutine.h>
 
-static void (*SYSEXC__pvIRQVectorHandler[1UL]) (void) =
+static SYSEXC_pvfIRQVectorHandler_t SYSEXC_pvIRQVectorHandler[(UBase_t) SYSEXC_enMODULE_MAX] =
 {
-    &SYSEXC__vIRQVectorHandler
+ &SYSEXC__vIRQVectorHandler
 };
 
-void (*SYSEXC__pvfGetIRQVectorHandler(void))(void)
+SYSEXC_pvfIRQVectorHandler_t SYSEXC__pvfGetIRQVectorHandler(SYSEXC_nMODULE enModuleArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = SYSEXC__pvIRQVectorHandler[(UBase_t) 0UL];
-    return (pvfFunctionReg);
+    SYSEXC_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = SYSEXC_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**SYSEXC__pvfGetIRQVectorHandlerPointer(void))(void)
+SYSEXC_pvfIRQVectorHandler_t* SYSEXC__pvfGetIRQVectorHandlerPointer(SYSEXC_nMODULE enModuleArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &SYSEXC__pvIRQVectorHandler[(UBase_t) 0UL];
-    return (pvfFunctionReg);
+    SYSEXC_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &SYSEXC_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }
