@@ -31,24 +31,24 @@ UBase_t SCB_UsageFault_puxContext[8UL];
 UART_CONTROL_t enUartUsageControl =
 {
     UART_enEOT_ALL,
-    UART_enLOOPBACK_DIS,
-    UART_enLINE_ENA,
-    UART_enLINE_ENA,
-    UART_enRTS_MODE_SOFT,
-    UART_enCTS_MODE_SOFT,
-    UART_enLINE_DIS,
-    UART_enLINE_DIS,
-    UART_enLINE_DIS,
-    UART_enLINE_DIS,
+    UART_enSTATE_DIS,
+    UART_enSTATE_ENA,
+    UART_enSTATE_ENA,
+    UART_enLINE_MODE_SOFT,
+    UART_enLINE_MODE_SOFT,
+    UART_enSTATE_DIS,
+    UART_enSTATE_DIS,
+    UART_enSTATE_DIS,
+    UART_enSTATE_DIS,
 };
 
 UART_LINE_CONTROL_t enUartUsageLineControl =
 {
- UART_enFIFO_ENA,
+ UART_enSTATE_ENA,
  UART_enSTOP_ONE,
- UART_enPARITY_DIS,
+ UART_enSTATE_DIS,
  UART_enPARITY_TYPE_EVEN,
- UART_enPARITY_STICK_DIS ,
+ UART_enSTATE_DIS ,
  UART_enLENGTH_8BITS,
 };
 
@@ -69,9 +69,9 @@ void UsageFault__vSendValues(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     UART__vInit();
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_DIS);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartUsageControl, &enUartUsageLineControl, 921600UL, &enUartUsageLine );
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_ENA);
 
     UART__uxPrintf(UART_enMODULE_0, "USAGE FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"

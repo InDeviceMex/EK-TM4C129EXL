@@ -36,7 +36,7 @@ static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_UART[(UBase_t) UART_enMODULE_MAX] =
 void UART__vSetReady(UART_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    UART_nREADY enReady = UART_enNOREADY;
+    UART_nSTATUS enReady = UART_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUART0;
     UBase_t uxModule = 0UL;
 
@@ -44,7 +44,7 @@ void UART__vSetReady(UART_nMODULE enModule)
 
     enPeripheral = SYSCTL_VECTOR_UART[uxModule];
     enReady = UART__enIsReady((UART_nMODULE) uxModule);
-    if(UART_enNOREADY == enReady)
+    if(UART_enSTATUS_INACTIVE == enReady)
     {
         SYSCTL__vSetReady(enPeripheral);
         SYSCTL__vReset(enPeripheral);
@@ -66,17 +66,17 @@ void UART__vClearReady(UART_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-UART_nREADY UART__enIsReady(UART_nMODULE enModule)
+UART_nSTATUS UART__enIsReady(UART_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    UART_nREADY enReady = UART_enNOREADY;
+    UART_nSTATUS enReady = UART_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUART0;
     UBase_t uxModule =0UL;
     uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
     enPeripheral = SYSCTL_VECTOR_UART[uxModule];
-    enReady = (UART_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (UART_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    UART_nREADY enReady = UART_enREADY;
+    UART_nSTATUS enReady = UART_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

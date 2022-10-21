@@ -164,8 +164,8 @@ typedef enum
 
 typedef enum
 {
-    DMA_enINT_ERROR_SW = 0UL,
-    DMA_enINT_ERROR_ERROR = 1UL,
+    DMA_enINT_ERROR_ERROR = 0UL,
+    DMA_enINT_ERROR_SW = 1UL,
     DMA_enINT_ERROR_MAX = 2UL,
 }DMA_nINT_ERROR;
 

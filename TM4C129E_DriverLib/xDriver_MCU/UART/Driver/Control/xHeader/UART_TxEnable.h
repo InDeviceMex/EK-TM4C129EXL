@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetTxEnable(UART_nMODULE enModule, UART_nLINE enLineArg);
-UART_nLINE UART__enGetTxEnable(UART_nMODULE enModule);
+void UART__vSetTxEnable(UART_nMODULE enModule, UART_nSTATE enLineArg);
+UART_nSTATE UART__enGetTxEnable(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_TXENABLE_H_ */

@@ -26,18 +26,18 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-UART_nSTATUS UART__enIsBit9Supported(UART_nMODULE enModule)
+UART_nERROR UART__enIsBit9Supported(UART_nMODULE enModule)
 {
-    UART_nSTATUS enSupported = UART_enSTATUS_OK;
-    enSupported = (UART_nSTATUS) UART__uxReadRegister(enModule, UART_PP_OFFSET,
+    UART_nERROR enSupported = UART_enERROR_OK;
+    enSupported = (UART_nERROR) UART__uxReadRegister(enModule, UART_PP_OFFSET,
                                            UART_PP_NB_MASK, UART_PP_R_NB_BIT);
     return (enSupported);
 }
 
-UART_nSTATUS UART__enIsSmartCardSupported(UART_nMODULE enModule)
+UART_nERROR UART__enIsSmartCardSupported(UART_nMODULE enModule)
 {
-    UART_nSTATUS enSupported = UART_enSTATUS_OK;
-    enSupported = (UART_nSTATUS) UART__uxReadRegister(enModule, UART_PP_OFFSET,
+    UART_nERROR enSupported = UART_enERROR_OK;
+    enSupported = (UART_nERROR) UART__uxReadRegister(enModule, UART_PP_OFFSET,
                                                UART_PP_SC_MASK, UART_PP_R_SC_BIT);
     return (enSupported);
 }

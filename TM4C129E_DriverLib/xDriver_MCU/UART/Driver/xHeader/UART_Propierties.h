@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nSTATUS UART__enIsBit9Supported(UART_nMODULE enModule);
-UART_nSTATUS UART__enIsSmartCardSupported(UART_nMODULE enModule);
+UART_nERROR UART__enIsBit9Supported(UART_nMODULE enModule);
+UART_nERROR UART__enIsSmartCardSupported(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_PROPIERTIES_H_ */

@@ -26,9 +26,9 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetSIR(UART_nMODULE enModule, UART_nSIR enSirArg);
-UART_nSIR UART__enGetSIR(UART_nMODULE enModule);
-void UART__vSetSIRLowPower(UART_nMODULE enModule, UART_nSIR_LP enSirLPArg);
-UART_nSIR_LP UART__enGetSIRLowPower(UART_nMODULE enModule);
+void UART__vSetSIR(UART_nMODULE enModule, UART_nSTATE enSirArg);
+UART_nSTATE UART__enGetSIR(UART_nMODULE enModule);
+void UART__vSetSIRLowPower(UART_nMODULE enModule, UART_nSTATE enSirLPArg);
+UART_nSTATE UART__enGetSIRLowPower(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_SIR_H_ */

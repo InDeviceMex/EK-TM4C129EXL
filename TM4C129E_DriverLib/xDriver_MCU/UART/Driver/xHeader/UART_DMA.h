@@ -26,13 +26,13 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetDMARx(UART_nMODULE enModule, UART_nDMA enDMAEnableArg);
-UART_nDMA UART__enGetDMARx(UART_nMODULE enModule);
+void UART__vSetDMARx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
+UART_nSTATE UART__enGetDMARx(UART_nMODULE enModule);
 
-void UART__vSetDMATx(UART_nMODULE enModule, UART_nDMA enDMAEnableArg);
-UART_nDMA UART__enGetDMATx(UART_nMODULE enModule);
+void UART__vSetDMATx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
+UART_nSTATE UART__enGetDMATx(UART_nMODULE enModule);
 
-void UART__vSetDMADisableOnError(UART_nMODULE enModule, UART_nDMA enDMAEnableArg);
-UART_nDMA UART__enGetDMADisableOnError(UART_nMODULE enModule);
+void UART__vSetDMADisableOnError(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
+UART_nSTATE UART__enGetDMADisableOnError(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_DMA_H_ */

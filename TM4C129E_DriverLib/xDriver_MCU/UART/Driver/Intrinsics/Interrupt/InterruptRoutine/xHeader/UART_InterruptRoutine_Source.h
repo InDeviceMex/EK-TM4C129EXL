@@ -28,8 +28,8 @@
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 void (*UART__pvfGetIRQSourceHandler(UART_nMODULE enUARTSubmodule,
-                                    UART_nINTERRUPT enUARTInterruptNum))(void);
+                                    UART_nINT enUARTInterruptNum))(void);
 void (**UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enUARTSubmodule,
-                                            UART_nINTERRUPT enUARTInterruptNum))(void);
+                                            UART_nINT enUARTInterruptNum))(void);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_UART_INTERRUPTROUTINE_SOURCE_H_ */

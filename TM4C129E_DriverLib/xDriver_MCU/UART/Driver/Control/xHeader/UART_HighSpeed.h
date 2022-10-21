@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetHighSpeed(UART_nMODULE enModule, UART_nHIGH_SPEED enHighSpeedArg);
-UART_nHIGH_SPEED UART__enGetHighSpeed(UART_nMODULE enModule);
+void UART__vSetHighSpeed(UART_nMODULE enModule, UART_nSTATE enHighSpeedArg);
+UART_nSTATE UART__enGetHighSpeed(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_HIGHSPEED_H_ */

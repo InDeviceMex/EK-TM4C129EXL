@@ -29,6 +29,6 @@
 
 void UART__vSetReady(UART_nMODULE enModule);
 void UART__vClearReady(UART_nMODULE enModule);
-UART_nREADY UART__enIsReady(UART_nMODULE enModule);
+UART_nSTATUS UART__enIsReady(UART_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_UART_INTRINSICS_XHEADER_UART_READY_H_ */

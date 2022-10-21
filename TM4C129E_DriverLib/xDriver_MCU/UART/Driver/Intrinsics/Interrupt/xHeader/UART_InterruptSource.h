@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vEnInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt);
-void UART__vDisInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt);
-void UART__vClearInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt);
-UART_nINT_SOURCE UART__enStatusInterruptSource(UART_nMODULE enModule, UART_nINT_SOURCE enSourceInt);
+void UART__vEnInterruptSource(UART_nMODULE enModule, UART_nINTMASK enSourceInt);
+void UART__vDisInterruptSource(UART_nMODULE enModule, UART_nINTMASK enSourceInt);
+void UART__vClearInterruptSource(UART_nMODULE enModule, UART_nINTMASK enSourceInt);
+UART_nINTMASK UART__enStatusInterruptSource(UART_nMODULE enModule, UART_nINTMASK enSourceInt);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_XHEADER_UART_INTERRUPTSOURCE_H_ */

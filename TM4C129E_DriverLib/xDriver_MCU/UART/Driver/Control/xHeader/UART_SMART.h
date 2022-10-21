@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetSMART(UART_nMODULE enModule, UART_nSMART enSmartArg);
-UART_nSMART UART__enGetSMART(UART_nMODULE enModule);
+void UART__vSetSMART(UART_nMODULE enModule, UART_nSTATE enSmartArg);
+UART_nSTATE UART__enGetSMART(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_SMART_H_ */

@@ -26,16 +26,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetHighSpeed(UART_nMODULE enModule, UART_nHIGH_SPEED enHighSpeedArg)
+void UART__vSetHighSpeed(UART_nMODULE enModule, UART_nSTATE enHighSpeedArg)
 {
     UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enHighSpeedArg,
                          UART_CTL_HSE_MASK, UART_CTL_R_HSE_BIT);
 }
 
-UART_nHIGH_SPEED UART__enGetHighSpeed(UART_nMODULE enModule)
+UART_nSTATE UART__enGetHighSpeed(UART_nMODULE enModule)
 {
-    UART_nHIGH_SPEED enHighSpeedReg = UART_enHIGH_SPEED_DIS;
-    enHighSpeedReg = (UART_nHIGH_SPEED) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
+    UART_nSTATE enHighSpeedReg = UART_enSTATE_DIS;
+    enHighSpeedReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
                                                  UART_CTL_HSE_MASK, UART_CTL_R_HSE_BIT);
     return (enHighSpeedReg);
 }

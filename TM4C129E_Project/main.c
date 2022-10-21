@@ -33,24 +33,24 @@ int main(void)
     UART_CONTROL_t enUart0Control =
     {
         UART_enEOT_ALL,
-        UART_enLOOPBACK_DIS,
-        UART_enLINE_ENA,
-        UART_enLINE_ENA,
-        UART_enRTS_MODE_SOFT,
-        UART_enCTS_MODE_SOFT,
-        UART_enLINE_DIS,
-        UART_enLINE_DIS,
-        UART_enLINE_DIS,
-        UART_enLINE_DIS,
+        UART_enSTATE_DIS,
+        UART_enSTATE_ENA,
+        UART_enSTATE_ENA,
+        UART_enLINE_MODE_SOFT,
+        UART_enLINE_MODE_SOFT,
+        UART_enSTATE_DIS,
+        UART_enSTATE_DIS,
+        UART_enSTATE_DIS,
+        UART_enSTATE_DIS,
     };
 
     UART_LINE_CONTROL_t enUart0LineControl =
     {
-     UART_enFIFO_ENA,
+     UART_enSTATE_ENA,
      UART_enSTOP_ONE,
-     UART_enPARITY_DIS,
+     UART_enSTATE_DIS,
      UART_enPARITY_TYPE_EVEN,
-     UART_enPARITY_STICK_DIS ,
+     UART_enSTATE_DIS ,
      UART_enLENGTH_8BITS,
     };
 
@@ -119,10 +119,10 @@ int main(void)
     EDUMKII_Microphone_vInit();
     EDUMKII_Joystick_vInit();
 
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_STOP);
+    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_DIS);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
                       &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
-    UART__vSetEnable(UART_enMODULE_0, UART_enENABLE_START);
+    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_ENA);
 
 
 

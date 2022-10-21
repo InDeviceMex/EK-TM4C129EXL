@@ -37,7 +37,10 @@
 #include <xOS/xOS.h>
 
 __attribute__((aligned(4))) uint16_t u16BufferSPI[128UL * 128UL];
+__attribute__((aligned(4))) uint16_t u16BufferSPI2[128UL * 128UL];
 boolean_t volatile boDMAOngoing = FALSE;
+uint16_t* pu16WriteBuffer = u16BufferSPI;
+uint16_t* pu16CurrentBuffer = u16BufferSPI2;
 
 error_t TFT__enInitWriteDMAConfig(void);
 void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
@@ -70,6 +73,7 @@ void xTask9_TFT(void* pvParams)
     char pcConvert[50UL];
     const uint16_t* pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
     OS_Boolean_t boResult;
+    uint16_t* pu16TempBuffer;
 
     pcButtonOne = (char*) 0UL;
     pcButtonTwo = (char*) 0UL;
@@ -93,6 +97,10 @@ void xTask9_TFT(void* pvParams)
         uxPeriodTicks = OS_Task__uxGetTickCount();
         uxPeriodResult = uxPeriodTicks - uxPeriodTicksOld;
         uxPeriodTicksOld = uxPeriodTicks;
+        pu16TempBuffer = pu16WriteBuffer;
+        pu16WriteBuffer = pu16CurrentBuffer;
+        pu16CurrentBuffer = pu16TempBuffer;
+        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, pu16WriteBuffer);
         boResult = OS_Queue__boPeek(YoystickQueueHandle, uxJostickValue, 0UL);
         if((TRUE == boResult) || (0UL == uxCount))
         {
@@ -106,40 +114,40 @@ void xTask9_TFT(void* pvParams)
              {
                  pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
              }
-             TFT__enWriteDMAConstant((UBase_t*)(u16BufferSPI), 0UL, (128UL *128UL / 2UL));
-             TFT__enWriteDMALayer16Bits((UBase_t) pu16Pointer, (UBase_t) u16BufferSPI, 120UL, 76UL,
+             TFT__enWriteDMAConstant((UBase_t*)(pu16CurrentBuffer), 0UL, (128UL *128UL / 2UL));
+             TFT__enWriteDMALayer16Bits((UBase_t) pu16Pointer, (UBase_t) pu16CurrentBuffer, 120UL, 76UL,
                                           0UL, 0UL, 120UL, 76UL,
                                           uxLcdPosXCurrent, uxLcdPosYCurrent, 128UL, 128UL);
 
              while(TRUE == boDMAOngoing);
-             ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, "        \n\r              ", 0xFFFFUL, &FONT_s5x7);
+             ST7735__vBufferString(pu16CurrentBuffer, 0UL, 16UL, "        \n\r              ", 0xFFFFUL, &FONT_s5x7);
              sprintf__uxUser(pcConvert, "YOYSTICK\n\rX:%4d Y:%4d",
                               uxJostickValue[0UL],
                               uxJostickValue[1UL]
                               );
-             ST7735__vBufferString(u16BufferSPI, 0UL, 16UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
+             ST7735__vBufferString(pu16CurrentBuffer, 0UL, 16UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
         }
         boResult = OS_Queue__boPeek(AccelerometerQueueHandle, sxAccelValue, 0UL);
         if(TRUE == boResult)
         {
-            ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, "             \n\r                   ", 0xFFFFUL, &FONT_s5x7);
+            ST7735__vBufferString(pu16CurrentBuffer, 0UL, 32UL, "             \n\r                   ", 0xFFFFUL, &FONT_s5x7);
             sprintf__uxUser(pcConvert, "ACCELEROMETER\n\rX:%4dY:%4dZ:%4d",
                              sxAccelValue[0UL],
                              sxAccelValue[1UL],
                              sxAccelValue[2UL]
                              );
-            ST7735__vBufferString(u16BufferSPI, 0UL, 32UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
+            ST7735__vBufferString(pu16CurrentBuffer, 0UL, 32UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
         }
         boResult = OS_Queue__boPeek(ButtonQueueHandle, pcStateButton, 0UL);
         if(TRUE == boResult)
         {
-            ST7735__vBufferString(u16BufferSPI, 0UL, 0UL, "       \n\r                  ", 0xFFFFUL, &FONT_s5x7);
+            ST7735__vBufferString(pu16CurrentBuffer, 0UL, 0UL, "       \n\r                  ", 0xFFFFUL, &FONT_s5x7);
             sprintf__uxUser(pcConvert, "BUTTON\n\r1:%s 2:%s 3:%s",
                              pcStateButton[0UL],
                              pcStateButton[1UL],
                              pcStateButton[2UL]
                              );
-            ST7735__vBufferString(u16BufferSPI, 0UL, 0UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
+            ST7735__vBufferString(pu16CurrentBuffer, 0UL, 0UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
 
             if(pcStateButton[0UL] != pcButtonOne)
             {
@@ -172,9 +180,9 @@ void xTask9_TFT(void* pvParams)
                 }
             }
         }
-        ST7735__vBufferString(u16BufferSPI, 0UL, 48UL, "                   ", 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 48UL, "                   ", 0xFFFFUL, &FONT_s5x7);
         sprintf__uxUser(pcConvert, "PERIOD: %d", uxPeriodResult );
-        ST7735__vBufferString(u16BufferSPI, 0UL, 48UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 48UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
 
         uxCountImage++;
         if(uxCountImage > 60UL)
@@ -184,7 +192,6 @@ void xTask9_TFT(void* pvParams)
         }
         uxCount++;
 
-        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, u16BufferSPI);
 
         OS_Task__vDelayUntil(&uxLastWakeTime, uxPeriodTask);
     }

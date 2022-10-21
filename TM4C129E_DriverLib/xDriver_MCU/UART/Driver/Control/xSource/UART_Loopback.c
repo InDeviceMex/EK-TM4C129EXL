@@ -26,16 +26,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetLoopback(UART_nMODULE enModule, UART_nLOOPBACK enLoopbackArg)
+void UART__vSetLoopback(UART_nMODULE enModule, UART_nSTATE enLoopbackArg)
 {
     UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enLoopbackArg,
                          UART_CTL_LBE_MASK, UART_CTL_R_LBE_BIT);
 }
 
-UART_nLOOPBACK UART__enGetLoopback(UART_nMODULE enModule)
+UART_nSTATE UART__enGetLoopback(UART_nMODULE enModule)
 {
-    UART_nLOOPBACK enLoopbackReg = UART_enLOOPBACK_DIS;
-    enLoopbackReg = (UART_nLOOPBACK) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
+    UART_nSTATE enLoopbackReg = UART_enSTATE_DIS;
+    enLoopbackReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
                                               UART_CTL_LBE_MASK, UART_CTL_R_LBE_BIT);
     return (enLoopbackReg);
 }

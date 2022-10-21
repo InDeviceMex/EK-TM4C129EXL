@@ -26,7 +26,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetCTSMode(UART_nMODULE enModule, UART_nCTS_MODE enCTSModeArg);
-UART_nCTS_MODE UART__enGetCTSMode(UART_nMODULE enModule);
+void UART__vSetCTSMode(UART_nMODULE enModule, UART_nLINE_MODE enCTSModeArg);
+UART_nLINE_MODE UART__enGetCTSMode(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_CTS_H_ */

@@ -33,14 +33,14 @@ void UART__vSetParityConfigStructPointer(UART_nMODULE enModule,
                                          const UART_PARITY_t* pstParityConfig);
 
 void UART__vSetParityConfig(UART_nMODULE enModule,
-                            UART_nPARITY enParityStateArg,
+                            UART_nSTATE enParityStateArg,
                             UART_nPARITY_TYPE enParityTypeArg,
-                            UART_nPARITY_STICK enParityStickArg);
-void UART__vSetParityEnable(UART_nMODULE enModule, UART_nPARITY enParityState);
-UART_nPARITY UART__enGetParityEnable(UART_nMODULE enModule);
+                            UART_nSTATE enParityStickArg);
+void UART__vSetParityEnable(UART_nMODULE enModule, UART_nSTATE enParityState);
+UART_nSTATE UART__enGetParityEnable(UART_nMODULE enModule);
 void UART__vSetParityType(UART_nMODULE enModule, UART_nPARITY_TYPE enParityTypeArg);
 UART_nPARITY_TYPE UART__enGetParityType(UART_nMODULE enModule);
-void UART__vSetParityStick(UART_nMODULE enModule, UART_nPARITY_STICK enParityStickArg);
-UART_nPARITY_STICK UART__enGetParityStick(UART_nMODULE enModule);
+void UART__vSetParityStick(UART_nMODULE enModule, UART_nSTATE enParityStickArg);
+UART_nSTATE UART__enGetParityStick(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_PARITY_H_ */

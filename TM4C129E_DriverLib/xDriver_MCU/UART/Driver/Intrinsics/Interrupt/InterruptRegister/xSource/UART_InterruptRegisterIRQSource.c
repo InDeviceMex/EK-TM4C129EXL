@@ -28,7 +28,7 @@
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
 void UART__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),UART_nMODULE enModule,
-                                     UART_nINTERRUPT enInterruptSource)
+                                     UART_nINT enInterruptSource)
 {
     UBase_t uxModule = 0UL;
     UBase_t uxInterruptSource = 0UL;
@@ -36,10 +36,10 @@ void UART__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),UART_nMOD
     {
         uxModule = MCU__uxCheckParams( (UBase_t) enModule,  (UBase_t) UART_enMODULE_MAX);
         uxInterruptSource = MCU__uxCheckParams( (UBase_t) enInterruptSource,
-                                                  (UBase_t) UART_enINTERRUPT_MAX);
+                                                  (UBase_t) UART_enINT_MAX);
         MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
            UART__pvfGetIRQSourceHandlerPointer((UART_nMODULE) uxModule,
-                                               (UART_nINTERRUPT)uxInterruptSource),
+                                               (UART_nINT)uxInterruptSource),
            0UL,
            1UL);
     }

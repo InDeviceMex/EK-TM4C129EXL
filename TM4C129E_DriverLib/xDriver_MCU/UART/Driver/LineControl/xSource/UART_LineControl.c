@@ -25,9 +25,9 @@
 
 
 void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg,
-                           UART_nFIFO enFifoEnable, UART_nSTOP enStopBitsArg,
-                           UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg,
-                           UART_nPARITY_STICK enParityStickArg)
+                           UART_nSTATE enFifoEnable, UART_nSTOP enStopBitsArg,
+                           UART_nSTATE enParityState, UART_nPARITY_TYPE enParityTypeArg,
+                           UART_nSTATE enParityStickArg)
 {
     UART__vSetDataLength(enModule, enLengthDataArg);
     UART__vSetFifoEnable(enModule, enFifoEnable);

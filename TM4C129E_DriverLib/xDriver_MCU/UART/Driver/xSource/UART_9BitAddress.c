@@ -26,16 +26,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSet9BitMode(UART_nMODULE enModule, UART_n9BIT en9BitArg)
+void UART__vSet9BitMode(UART_nMODULE enModule, UART_nSTATE en9BitArg)
 {
     UART__vWriteRegister(enModule, UART_9BITADDR_OFFSET, (UBase_t) en9BitArg,
                          UART_9BITADDR_BIT9EN_MASK, UART_9BITADDR_R_BIT9EN_BIT);
 }
 
-UART_n9BIT UART__enGet9BitMode(UART_nMODULE enModule)
+UART_nSTATE UART__enGet9BitMode(UART_nMODULE enModule)
 {
-    UART_n9BIT en9BitReg = UART_en9BIT_DIS;
-    en9BitReg = (UART_n9BIT) UART__uxReadRegister(enModule, UART_9BITADDR_OFFSET,
+    UART_nSTATE en9BitReg = UART_enSTATE_DIS;
+    en9BitReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_9BITADDR_OFFSET,
                                UART_9BITADDR_BIT9EN_MASK, UART_9BITADDR_R_BIT9EN_BIT);
     return (en9BitReg);
 }

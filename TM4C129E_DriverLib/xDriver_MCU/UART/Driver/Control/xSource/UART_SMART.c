@@ -26,16 +26,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetSMART(UART_nMODULE enModule, UART_nSMART enSmartArg)
+void UART__vSetSMART(UART_nMODULE enModule, UART_nSTATE enSmartArg)
 {
     UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enSmartArg,
                          UART_CTL_SMART_MASK, UART_CTL_R_SMART_BIT);
 }
 
-UART_nSMART UART__enGetSMART(UART_nMODULE enModule)
+UART_nSTATE UART__enGetSMART(UART_nMODULE enModule)
 {
-    UART_nSMART enSmartReg = UART_enSMART_DIS;
-    enSmartReg = (UART_nSMART) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
+    UART_nSTATE enSmartReg = UART_enSTATE_DIS;
+    enSmartReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
                                     UART_CTL_SMART_MASK, UART_CTL_R_SMART_BIT);
     return (enSmartReg);
 }

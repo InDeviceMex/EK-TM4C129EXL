@@ -26,8 +26,8 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSet9BitMode(UART_nMODULE enModule, UART_n9BIT en9BitArg);
-UART_n9BIT UART__enGet9BitMode(UART_nMODULE enModule);
+void UART__vSet9BitMode(UART_nMODULE enModule, UART_nSTATE en9BitArg);
+UART_nSTATE UART__enGet9BitMode(UART_nMODULE enModule);
 
 void UART__vSetSelfAddress(UART_nMODULE enModule, UBase_t  uxAddressArg);
 UBase_t UART__uxGetSelfAddress(UART_nMODULE enModule);

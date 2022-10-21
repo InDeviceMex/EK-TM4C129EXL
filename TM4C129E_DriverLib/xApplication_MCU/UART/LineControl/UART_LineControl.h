@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/UART/LineControl/BaudRate/UART_BaudRate.h>
 
-UART_nSTATUS UART__enSetBaudRateAndLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg, UART_nFIFO enFifoEnable, UART_nSTOP enStopBitsArg, UART_nPARITY enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nPARITY_STICK enParityStickArg, UBase_t uxBaudRateArg);
-UART_nSTATUS UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule, const UART_LINE_CONTROL_t* pstLineControl, UBase_t uxBaudRateArg);
-UART_nSTATUS UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule, const UART_LINE_CONTROL_t stLineControl, UBase_t uxBaudRateArg);
+UART_nERROR UART__enSetBaudRateAndLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg, UART_nSTATE enFifoEnable, UART_nSTOP enStopBitsArg, UART_nSTATE enParityState, UART_nPARITY_TYPE enParityTypeArg, UART_nSTATE enParityStickArg, UBase_t uxBaudRateArg);
+UART_nERROR UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule, const UART_LINE_CONTROL_t* pstLineControl, UBase_t uxBaudRateArg);
+UART_nERROR UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule, const UART_LINE_CONTROL_t stLineControl, UBase_t uxBaudRateArg);
 
 #endif /* XAPPLICATION_MCU_UART_LINECONTROL_UART_LINECONTROL_H_ */

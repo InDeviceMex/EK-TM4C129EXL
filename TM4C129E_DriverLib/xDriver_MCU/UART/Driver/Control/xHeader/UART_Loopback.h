@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetLoopback(UART_nMODULE enModule, UART_nLOOPBACK enLoopbackArg);
-UART_nLOOPBACK UART__enGetLoopback(UART_nMODULE enModule);
+void UART__vSetLoopback(UART_nMODULE enModule, UART_nSTATE enLoopbackArg);
+UART_nSTATE UART__enGetLoopback(UART_nMODULE enModule);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_LOOPBACK_H_ */

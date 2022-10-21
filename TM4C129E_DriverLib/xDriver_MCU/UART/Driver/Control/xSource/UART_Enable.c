@@ -26,16 +26,16 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetEnable(UART_nMODULE enModule, UART_nENABLE enEnableArg)
+void UART__vSetEnable(UART_nMODULE enModule, UART_nSTATE enEnableArg)
 {
     UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enEnableArg,
                          UART_CTL_UARTEN_MASK, UART_CTL_R_UARTEN_BIT);
 }
 
-UART_nENABLE UART__enGetEnable(UART_nMODULE enModule)
+UART_nSTATE UART__enGetEnable(UART_nMODULE enModule)
 {
-    UART_nENABLE enEnableReg = UART_enENABLE_STOP;
-    enEnableReg = (UART_nENABLE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
+    UART_nSTATE enEnableReg = UART_enSTATE_DIS;
+    enEnableReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
                                       UART_CTL_UARTEN_MASK, UART_CTL_R_UARTEN_BIT);
     return (enEnableReg);
 }
