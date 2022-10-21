@@ -41,7 +41,7 @@ SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg)
 {
     UBase_t uxTableAddress;
     UBase_t uxFlashSize;
-    MCU_nSTATE enInterruptState;
+    MCU_nSTATE enInterruptStateReg;
     SCB_nERROR enErrorReg;
 
     uxOffsetArg &= SCB_VTOR_R_TBLOFF_MASK;
@@ -56,10 +56,10 @@ SCB_nERROR SCB__enSetVectorTable(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg)
     {
         if(uxFlashSize > uxOffsetArg)
         {
-            enInterruptState = MCU__enDisableGlobalInterrupt();
+            enInterruptStateReg = MCU__enDisableGlobalInterrupt();
             /*TODO: check this functionality*/
             /*FLASH__enWriteMultiWorld( (UBase_t*) uxTableAddress, uxOffsetArg, SCB_VECTOR_TABLE_SIZE);*/
-            MCU__vSetGlobalInterrupt(enInterruptState);
+            MCU__vSetGlobalInterrupt(enInterruptStateReg);
         }
         else
         {

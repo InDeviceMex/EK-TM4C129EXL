@@ -27,6 +27,7 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-void WDT__vDisInterruptSource(WDT_nMODULE enModule);
+WDT_nERROR WDT__enDisableInterruptSourceByMask(WDT_nMODULE enModuleArg, WDT_nINTMASK enInterruptMaskArg);
+WDT_nERROR WDT__enDisableInterruptSourceByNumber(WDT_nMODULE enModuleArg, WDT_nINT enInterruptArg);
 
 #endif /* XAPPLICATION_MCU_WDT_XHEADER_WDT_DISINTERRUPT_H_ */

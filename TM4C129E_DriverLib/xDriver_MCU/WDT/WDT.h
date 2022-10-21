@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_H_
 
 /*ToDo Create NMI interrupt register for WDT sources*/
-#include <xDriver_MCU/WDT/App/WDT_App.h>
 #include <xDriver_MCU/WDT/Driver/WDT_Driver.h>
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_H_ */
