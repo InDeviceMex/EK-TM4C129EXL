@@ -30,12 +30,12 @@
 typedef volatile struct
 {
     volatile UBase_t LOAD :32;
-}WDTLOAD_t;
+}WDT_LOAD_t;
 
 typedef volatile struct
 {
     volatile const UBase_t VALUE :32;
-}WDTVALUE_t;
+}WDT_VALUE_t;
 
 typedef volatile struct
 {
@@ -44,113 +44,109 @@ typedef volatile struct
     volatile UBase_t INTTYPE :1;
     const UBase_t reserved :28;
     volatile const UBase_t WRC :1;
-}WDTCTL_t;
+}WDT_CTL_t;
 
 
 typedef volatile struct
 {
     volatile UBase_t INTCLR :32;
-}WDTICR_t;
-
-
+}WDT_ICR_t;
 
 typedef volatile struct
 {
     volatile const UBase_t RIS :1;
     const UBase_t reserved :31;
-}WDTRIS_t;
-
-
+}WDT_RIS_t;
 
 typedef volatile struct
 {
     volatile const UBase_t MIS :1;
     const UBase_t reserved :31;
-}WDTMIS_t;
+}WDT_MIS_t;
 
 typedef volatile struct
 {
     const UBase_t reserved :8;
     volatile UBase_t STALL :1;
     const UBase_t reserved1 :23;
-}WDTTEST_t;
+}WDT_TEST_t;
 
 typedef volatile struct
 {
     volatile UBase_t LOCK :32;
-}WDTLOCK_t;
+}WDT_LOCK_t;
 
 
 typedef volatile struct
 {
     volatile const UBase_t PID4 :8;
     const UBase_t reserved :24;
-}WDTPeriphID4_t;
+}WDT_PeriphID4_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID5 :8;
     const UBase_t reserved :24;
-}WDTPeriphID5_t;
+}WDT_PeriphID5_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID6 :8;
     const UBase_t reserved :24;
-}WDTPeriphID6_t;
+}WDT_PeriphID6_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID7 :8;
     const UBase_t reserved :24;
-}WDTPeriphID7_t;
+}WDT_PeriphID7_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID0 :8;
     const UBase_t reserved :24;
-}WDTPeriphID0_t;
+}WDT_PeriphID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID1 :8;
     const UBase_t reserved :24;
-}WDTPeriphID1_t;
+}WDT_PeriphID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID2 :8;
     const UBase_t reserved :24;
-}WDTPeriphID2_t;
+}WDT_PeriphID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID3 :8;
     const UBase_t reserved :24;
-}WDTPeriphID3_t;
+}WDT_PeriphID3_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID0 :8;
     const UBase_t reserved :24;
-}WDTPCellID0_t;
+}WDT_PCellID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID1 :8;
     const UBase_t reserved :24;
-}WDTPCellID1_t;
+}WDT_PCellID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID2 :8;
     const UBase_t reserved :24;
-}WDTPCellID2_t;
+}WDT_PCellID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID3 :8;
     const UBase_t reserved :24;
-}WDTPCellID3_t;
+}WDT_PCellID3_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_STRUCT_WDT_STRUCTREGISTER_H_ */

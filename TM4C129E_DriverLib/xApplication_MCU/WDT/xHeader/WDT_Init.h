@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_WDT_XHEADER_WDT_INIT_H_
 #define XAPPLICATION_MCU_WDT_XHEADER_WDT_INIT_H_
 
-void WDT__vInit(void);
+#include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
+
+WDT_nERROR WDT__enInit(void);
 
 #endif /* XAPPLICATION_MCU_WDT_XHEADER_WDT_INIT_H_ */

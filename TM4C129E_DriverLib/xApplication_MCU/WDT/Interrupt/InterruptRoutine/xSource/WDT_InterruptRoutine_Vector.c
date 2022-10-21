@@ -27,66 +27,61 @@
 
 void WDT01__vIRQVectorHandler(void)
 {
-    volatile UBase_t uxReg0 = 0U;
-    volatile UBase_t uxReg1 = 0U;
-    volatile UBase_t uxEnable = 0U;
-    volatile UBase_t uxReady = 0U;
-    volatile UBase_t uxRegWrite1 = 0U;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    volatile UBase_t uxReady;
+    WDT_pvfIRQSourceHandler_t pvfCallback;
 
     uxReady = SYSCTL_PRWD_R;
     if(0UL == ((SYSCTL_PRWD_R_WDT0_MASK | SYSCTL_PRWD_R_WDT1_MASK) & uxReady))
     {
-        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
-                                                   WDT_enINTERRUPT_SW);
-        pvfCallback();
-        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
-                                                   WDT_enINTERRUPT_SW);
-        pvfCallback();
+        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_SW);
+        pvfCallback(WDT0_BASE, (void*) WDT_enINT_SW);
+        pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1, WDT_enINT_SW);
+        pvfCallback(WDT1_BASE, (void*) WDT_enINT_SW);
 
     }
     else
     {
+        UBase_t uxEnable;
+        uxEnable = 0U;
         if(0UL != ((SYSCTL_PRWD_R_WDT0_MASK) & uxReady))
         {
-            uxReg0 = (UBase_t) WDT0_MIS_R;
+            UBase_t uxReg0;
+            uxReg0 = WDT0_MIS_R;
             if(WDT_MIS_R_MIS_MASK & uxReg0)
             {
                 uxEnable = 1UL;
                 WDT0_ICR_R = WDT_ICR_R_INTCLR_CLEAR;
-                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
-                                                           WDT_enINTERRUPT_WDT);
-                pvfCallback();
+                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_WDT);
+                pvfCallback(WDT0_BASE, (void*) WDT_enINT_WDT);
             }
 
         }
         if(0UL != ((SYSCTL_PRWD_R_WDT1_MASK) & uxReady))
         {
-            uxReg1 = (UBase_t) WDT1_MIS_R;
+            UBase_t uxReg1;
+            uxReg1 = WDT1_MIS_R;
             if(WDT_MIS_R_MIS_MASK & uxReg1)
             {
                 uxEnable = 1UL;
                 WDT1_ICR_R = WDT_ICR_R_INTCLR_CLEAR;
+                UBase_t uxRegWrite1;
                 do
                 {
                     uxRegWrite1 = WDT1_CTL_R;
                     uxRegWrite1 &= WDT_CTL_R_WRC_MASK;
                 }while(WDT_CTL_R_WRC_PROGRESS == uxRegWrite1);
 
-                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
-                                                           WDT_enINTERRUPT_WDT);
-                pvfCallback();
+                pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1, WDT_enINT_WDT);
+                pvfCallback(WDT1_BASE, (void*) WDT_enINT_WDT);
             }
 
         }
         if(0UL == uxEnable)
         {
-            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0,
-                                                       WDT_enINTERRUPT_WDT);
-            pvfCallback();
-            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1,
-                                                       WDT_enINTERRUPT_WDT);
-            pvfCallback();
+            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_SW);
+            pvfCallback(WDT0_BASE, (void*) WDT_enINT_SW);
+            pvfCallback = WDT__pvfGetIRQSourceHandler(WDT_enMODULE_1, WDT_enINT_SW);
+            pvfCallback(WDT1_BASE, (void*) WDT_enINT_SW);
         }
     }
 }

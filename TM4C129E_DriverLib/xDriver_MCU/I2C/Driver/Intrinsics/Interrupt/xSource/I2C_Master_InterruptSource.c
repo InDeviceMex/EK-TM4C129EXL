@@ -176,38 +176,38 @@ I2C_nERROR I2C_Master__enGetInterruptSourceStateByNumber(I2C_nMODULE enModuleArg
 
 I2C_nERROR I2C_Master__enEnableInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg)
 {
-    I2C_nERROR enReturnReg;
+    I2C_nERROR enErrorReg;
 
-    enReturnReg = I2C_Master__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, I2C_enSTATE_ENA);
+    enErrorReg = I2C_Master__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, I2C_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enEnableInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg)
 {
-    I2C_nERROR enReturnReg;
+    I2C_nERROR enErrorReg;
 
-    enReturnReg = I2C_Master__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, I2C_enSTATE_ENA);
+    enErrorReg = I2C_Master__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, I2C_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enDisableInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg)
 {
-    I2C_nERROR enReturnReg;
+    I2C_nERROR enErrorReg;
 
-    enReturnReg = I2C_Master__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, I2C_enSTATE_DIS);
+    enErrorReg = I2C_Master__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, I2C_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enDisableInterruptSourceByNumber(I2C_nMODULE enModuleArg, I2C_nMASTER_INT enInterruptArg)
 {
-    I2C_nERROR enReturnReg;
+    I2C_nERROR enErrorReg;
 
-    enReturnReg = I2C_Master__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, I2C_enSTATE_DIS);
+    enErrorReg = I2C_Master__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, I2C_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enClearInterruptSourceByMask(I2C_nMODULE enModuleArg, I2C_nMASTER_INTMASK enInterruptMaskArg)

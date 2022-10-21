@@ -77,30 +77,30 @@ GPIO_nERROR GPIO__enSetDMATriggerStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN e
 
 GPIO_nERROR GPIO__enEnableDMATriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDMATriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDMATriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableDMATriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDMATriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDMATriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableDMATriggerByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDMATriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDMATriggerStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableDMATriggerByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDMATriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDMATriggerStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetDMATriggerStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

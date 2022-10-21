@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/WDT/Peripheral/Register/RegisterPeripheral/WDT_RegisterPeripheral.h>
 
-UBase_t WDT__uxBlockBaseAddress(WDT_nMODULE enModuleArg)
+uintptr_t WDT__uptrBlockBaseAddress(WDT_nMODULE enModuleArg)
 {
     const uintptr_t WDT_BLOCK_BASE[(UBase_t) WDT_enMODULE_MAX] =
     {

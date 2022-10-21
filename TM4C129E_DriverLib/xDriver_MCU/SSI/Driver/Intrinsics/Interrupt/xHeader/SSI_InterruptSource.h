@@ -41,8 +41,8 @@ SSI_nERROR SSI__enDisableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nI
 SSI_nERROR SSI__enClearInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg);
 SSI_nERROR SSI__enClearInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg);
 
-SSI_nERROR SSI__enStatusInterruptSourceByMaskByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg);
-SSI_nERROR SSI__enStatusInterruptSourceByMaskByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg);
+SSI_nERROR SSI__enStatusInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg);
+SSI_nERROR SSI__enStatusInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg);
 
 SSI_nERROR SSI__enStatusMaskedInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg);
 SSI_nERROR SSI__enStatusMaskedInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg);

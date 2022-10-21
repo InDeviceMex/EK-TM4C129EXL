@@ -54,17 +54,17 @@ void WDT__vClearReady(WDT_nMODULE enModule)
     SYSCTL__vClearReady(enPeripheral);
 }
 
-WDT_nREADY WDT__enIsReady(WDT_nMODULE enModule)
+WDT_nSTATUS WDT__enIsReady(WDT_nMODULE enModule)
 {
 #if !defined(Opt_Check)
-    WDT_nREADY enReady = WDT_enNOREADY;
+    WDT_nSTATUS enReady = WDT_enSTATUS_INACTIVE;
     SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enWDT0;
     UBase_t uxModule = 0UL;
     uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
     enPeripheral |= uxModule;
-    enReady = (WDT_nREADY) SYSCTL__enIsReady(enPeripheral);
+    enReady = (WDT_nSTATUS) SYSCTL__enIsReady(enPeripheral);
 #else
-    WDT_nREADY enReady = WDT_enREADY;
+    WDT_nSTATUS enReady = WDT_enSTATUS_ACTIVE;
 #endif
     return (enReady);
 }

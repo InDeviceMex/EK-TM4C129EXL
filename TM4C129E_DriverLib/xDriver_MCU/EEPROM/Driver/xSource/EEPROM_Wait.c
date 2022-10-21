@@ -65,9 +65,13 @@ EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg)
     enErrorReg = EEPROM_enERROR_OK;
     if(0UL == uxRetriesArg)
     {
-        enErrorReg = EEPROM_enERROR_VALUE;
+        do
+        {
+            enErrorReg = EEPROM__enIsWorking(enModuleArg, &enStatusReg);
+        }while((EEPROM_enTRUE == enStatusReg) &&
+               (EEPROM_enERROR_OK == enErrorReg));
     }
-    if(EEPROM_enERROR_OK == enErrorReg)
+    else
     {
         do
         {

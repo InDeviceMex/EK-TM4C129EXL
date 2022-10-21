@@ -27,7 +27,16 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-void WDT__vEnInterruptVector(WDT_nPRIORITY enPriority);
-void WDT__vDisInterruptVector(void);
+WDT_nERROR WDT__enSetInterruptVectorState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enSetInterruptVectorStateWithPriority(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg, WDT_nPRIORITY enPriorityArg);
+
+WDT_nERROR WDT__enGetInterruptVectorState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg);
+WDT_nERROR WDT__enGetInterruptVectorStateWithPriority(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg, WDT_nPRIORITY* penPriorityArg);
+
+WDT_nERROR WDT__enEnableInterruptVector(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enEnableInterruptVectorWithPriority(WDT_nMODULE enModuleArg, WDT_nPRIORITY enPriorityArg);
+
+WDT_nERROR WDT__enDisableInterruptVector(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enDisableInterruptVectorWithPriority(WDT_nMODULE enModuleArg, WDT_nPRIORITY enPriorityArg);
 
 #endif /* XAPPLICATION_MCU_WDT_INTERRUPT_XHEADER_WDT_INTERRUPTVECTOR_H_ */

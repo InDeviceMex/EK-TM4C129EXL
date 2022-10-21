@@ -82,20 +82,20 @@ SYSTICK_nERROR SYSTICK__enGetInterruptSourceState(SYSTICK_nMODULE enModuleArg, S
 
 SYSTICK_nERROR SYSTICK__enEnableInterruptSource(SYSTICK_nMODULE enModuleArg)
 {
-    SYSTICK_nERROR enReturnReg;
+    SYSTICK_nERROR enErrorReg;
 
-    enReturnReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_ENA);
+    enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enDisableInterruptSource(SYSTICK_nMODULE enModuleArg)
 {
-    SYSTICK_nERROR enReturnReg;
+    SYSTICK_nERROR enErrorReg;
 
-    enReturnReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_DIS);
+    enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enStatusInterruptSource(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATUS* penStatusArg)

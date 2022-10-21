@@ -23,33 +23,59 @@
  */
 #include <xDriver_MCU/WDT/Driver/xHeader/WDT_Reset.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vEnResetOutput(WDT_nMODULE enModule)
+WDT_nERROR WDT__enSetResetOutputState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, WDT_CTL_RESEN_ENA,
-                        WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
+
+    stRegister.uxShift = WDT_CTL_R_RESEN_BIT;
+    stRegister.uxMask = WDT_CTL_RESEN_MASK;
+    stRegister.uptrAddress = WDT_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void WDT__vDisResetOutput(WDT_nMODULE enModule)
+WDT_nERROR WDT__enEnableResetOutput(WDT_nMODULE enModuleArg)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, WDT_CTL_RESEN_DIS,
-                        WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
+    WDT_nERROR enErrorReg;
+    enErrorReg = WDT__enSetResetOutputState(enModuleArg, WDT_enSTATE_ENA);
+    return (enErrorReg);
 }
 
-void WDT__vSetResetOutput(WDT_nMODULE enModule, WDT_nRESET enResetOutputValue)
+WDT_nERROR WDT__enDisableResetOutput(WDT_nMODULE enModuleArg)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (UBase_t) enResetOutputValue,
-                        WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
+    WDT_nERROR enErrorReg;
+    enErrorReg = WDT__enSetResetOutputState(enModuleArg, WDT_enSTATE_DIS);
+    return (enErrorReg);
 }
 
-WDT_nRESET WDT__enGetResetOutput(WDT_nMODULE enModule)
+WDT_nERROR WDT__enGetResetOutputState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg)
 {
-    WDT_nRESET enResetArg = WDT_enRESET_DISABLE;
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
 
-    enResetArg = (WDT_nRESET) WDT__uxReadRegister(enModule, WDT_CTL_OFFSET,
-                                   WDT_CTL_RESEN_MASK, WDT_CTL_R_RESEN_BIT);
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = WDT_CTL_R_RESEN_BIT;
+        stRegister.uxMask = WDT_CTL_RESEN_MASK;
+        stRegister.uptrAddress = WDT_CTL_OFFSET;
+        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (WDT_nSTATE) stRegister.uxValue;
+    }
 
-    return (enResetArg);
+    return (enErrorReg);
 }
+

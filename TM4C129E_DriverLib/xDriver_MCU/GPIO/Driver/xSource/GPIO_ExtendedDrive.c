@@ -77,30 +77,30 @@ GPIO_nERROR GPIO__enSetExtendedDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enP
 
 GPIO_nERROR GPIO__enEnableExtendedDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetExtendedDriveByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetExtendedDriveByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableExtendedDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetExtendedDriveByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetExtendedDriveByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableExtendedDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetExtendedDriveByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetExtendedDriveByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableExtendedDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetExtendedDriveByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetExtendedDriveByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetExtendedDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

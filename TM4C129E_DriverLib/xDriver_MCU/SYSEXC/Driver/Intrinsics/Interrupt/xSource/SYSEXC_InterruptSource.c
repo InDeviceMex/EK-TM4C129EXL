@@ -176,38 +176,38 @@ SYSEXC_nERROR SYSEXC__enGetInterruptSourceStateByNumber(SYSEXC_nMODULE enModuleA
 
 SYSEXC_nERROR SYSEXC__enEnableInterruptSourceByMask(SYSEXC_nMODULE enModuleArg, SYSEXC_nINTMASK enInterruptMaskArg)
 {
-    SYSEXC_nERROR enReturnReg;
+    SYSEXC_nERROR enErrorReg;
 
-    enReturnReg = SYSEXC__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSEXC_enSTATE_ENA);
+    enErrorReg = SYSEXC__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSEXC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSEXC_nERROR SYSEXC__enEnableInterruptSourceByNumber(SYSEXC_nMODULE enModuleArg, SYSEXC_nINT enInterruptArg)
 {
-    SYSEXC_nERROR enReturnReg;
+    SYSEXC_nERROR enErrorReg;
 
-    enReturnReg = SYSEXC__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSEXC_enSTATE_ENA);
+    enErrorReg = SYSEXC__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSEXC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSEXC_nERROR SYSEXC__enDisableInterruptSourceByMask(SYSEXC_nMODULE enModuleArg, SYSEXC_nINTMASK enInterruptMaskArg)
 {
-    SYSEXC_nERROR enReturnReg;
+    SYSEXC_nERROR enErrorReg;
 
-    enReturnReg = SYSEXC__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSEXC_enSTATE_DIS);
+    enErrorReg = SYSEXC__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSEXC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSEXC_nERROR SYSEXC__enDisableInterruptSourceByNumber(SYSEXC_nMODULE enModuleArg, SYSEXC_nINT enInterruptArg)
 {
-    SYSEXC_nERROR enReturnReg;
+    SYSEXC_nERROR enErrorReg;
 
-    enReturnReg = SYSEXC__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSEXC_enSTATE_DIS);
+    enErrorReg = SYSEXC__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSEXC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SYSEXC_nERROR SYSEXC__enClearInterruptSourceByMask(SYSEXC_nMODULE enModuleArg, SYSEXC_nINTMASK enInterruptMaskArg)

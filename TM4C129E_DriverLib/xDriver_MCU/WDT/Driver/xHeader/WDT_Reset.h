@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vEnResetOutput(WDT_nMODULE enModule);
-void WDT__vDisResetOutput(WDT_nMODULE enModule);
-void WDT__vSetResetOutput(WDT_nMODULE enModule, WDT_nRESET enResetOutputValue);
-WDT_nRESET WDT__enGetResetOutput(WDT_nMODULE enModule);
+WDT_nERROR WDT__enSetResetOutputState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enEnableResetOutput(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enDisableResetOutput(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enGetResetOutputState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_RESET_H_ */

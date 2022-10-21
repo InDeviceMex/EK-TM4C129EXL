@@ -24,21 +24,39 @@
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/xHeader/WDT_WriteReg.h>
 
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/xHeader/WDT_Wait.h>
-
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vWriteRegister(WDT_nMODULE enModule, UBase_t uxOffsetRegister,
-                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                         UBase_t uxBitFeature)
+WDT_nERROR WDT__enWriteRegisterTimeout(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg, UBase_t uxTimeoutArg)
 {
-    UBase_t uxWDTBase = 0UL;
-    UBase_t uxModule = 0UL;
+    uintptr_t uptrModuleBase;
+    WDT_nERROR enErrorReg;
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = WDT__enWaitWrite(enModuleArg, uxTimeoutArg);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        pstRegisterDataArg->uptrAddress += uptrModuleBase;
+        enErrorReg = (WDT_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
+    }
 
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
+    return (enErrorReg);
+}
 
-    uxWDTBase = WDT__uxBlockBaseAddress((WDT_nMODULE) uxModule);
-    MCU__vWriteRegister(uxWDTBase, uxOffsetRegister, uxFeatureValue,
-                        uxMaskFeature, uxBitFeature);
-    WDT__vWaitWrite((WDT_nMODULE) uxModule);
+WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg)
+{
+    WDT_nERROR enErrorReg;
+    enErrorReg = WDT__enWriteRegisterTimeout(enModuleArg, pstRegisterDataArg, 0UL);
+    return (enErrorReg);
 }

@@ -27,9 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vEnStall(WDT_nMODULE enModule);
-void WDT__vDisStall(WDT_nMODULE enModule);
-void WDT__vSetStall(WDT_nMODULE enModule, WDT_nSTALL enStallValue);
-WDT_nSTALL WDT__enGetStall(WDT_nMODULE enModule);
+WDT_nERROR WDT__enSetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL enModeArg);
+WDT_nERROR WDT__enGetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL* penModeArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_STALL_H_ */

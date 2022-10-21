@@ -25,9 +25,28 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/WDT_Intrinsics.h>
 
-void WDT__vDisInterruptSource(WDT_nMODULE enModule)
+WDT_nERROR WDT__enDisableInterruptSourceByMask(WDT_nMODULE enModuleArg, WDT_nINTMASK enInterruptMaskArg)
 {
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
-    WDT__vReset((WDT_nMODULE) uxModule);
+    WDT_nERROR enErrorReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        WDT__vReset(enModuleArg);
+    }
+
+    return (enErrorReg);
+}
+
+WDT_nERROR WDT__enDisableInterruptSourceByNumber(WDT_nMODULE enModuleArg, WDT_nINT enInterruptArg)
+{
+    WDT_nERROR enErrorReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        WDT__vReset(enModuleArg);
+    }
+
+    return (enErrorReg);
 }

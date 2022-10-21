@@ -77,30 +77,30 @@ GPIO_nERROR GPIO__enSetPullUpResistorByNumber(GPIO_nPORT enPortArg, GPIO_nPIN en
 
 GPIO_nERROR GPIO__enEnablePullUpResistorByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetPullUpResistorByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetPullUpResistorByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnablePullUpResistorByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetPullUpResistorByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetPullUpResistorByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisablePullUpResistorByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetPullUpResistorByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetPullUpResistorByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisablePullUpResistorByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetPullUpResistorByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetPullUpResistorByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetPullUpResistorByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

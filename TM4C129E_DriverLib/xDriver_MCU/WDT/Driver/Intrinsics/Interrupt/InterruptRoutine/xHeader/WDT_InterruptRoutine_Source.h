@@ -27,10 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void (*WDT__pvfGetIRQSourceHandler(WDT_nMODULE enWDTSubmodule,
-                                    WDT_nINTERRUPT enWDTInterruptNum))(void);
-
-void (**WDT__pvfGetIRQSourceHandlerPointer(WDT_nMODULE enWDTSubmodule,
-                                            WDT_nINTERRUPT enWDTInterruptNum))(void);
+WDT_pvfIRQSourceHandler_t WDT__pvfGetIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg);
+WDT_pvfIRQSourceHandler_t* WDT__pvfGetIRQSourceHandlerPointer(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_INTRINSICS_WDT_INTERRUPT_WDT_INTERRUPTROUTINE_WDT_INTERRUPTROUTINE_MODULES_H_ */

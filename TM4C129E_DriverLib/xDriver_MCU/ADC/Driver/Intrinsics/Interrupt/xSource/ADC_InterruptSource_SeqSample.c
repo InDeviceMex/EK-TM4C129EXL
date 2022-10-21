@@ -256,40 +256,40 @@ ADC_nERROR ADC_Sample__enGetInterruptSourceStateByNumber(ADC_nMODULE enModuleArg
 ADC_nERROR ADC_Sample__enEnableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                      ADC_nSAMPLE enSampleArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Sample__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enSampleArg, ADC_enSTATE_ENA);
+    enErrorReg = ADC_Sample__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enSampleArg, ADC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sample__enEnableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                        ADC_nSAMPLE enSampleArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Sample__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enSampleArg, ADC_enSTATE_ENA);
+    enErrorReg = ADC_Sample__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enSampleArg, ADC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sample__enDisableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                       ADC_nSAMPLE enSampleArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Sample__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enSampleArg, ADC_enSTATE_DIS);
+    enErrorReg = ADC_Sample__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enSampleArg, ADC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sample__enDisableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                         ADC_nSAMPLE enSampleArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Sample__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enSampleArg, ADC_enSTATE_DIS);
+    enErrorReg = ADC_Sample__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enSampleArg, ADC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 

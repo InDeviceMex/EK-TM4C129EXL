@@ -29,20 +29,25 @@ I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, UBase_t uxTime
 {
     I2C_nERROR enErrorReg;
     I2C_nSTATUS enBusBusy;
-    UBase_t uxTimeout;
 
-    uxTimeout = uxTimeoutArg;
     enErrorReg = I2C_enERROR_OK;
     enBusBusy = I2C_enSTATUS_INACTIVE;
-    do
+    if(0UL == uxTimeoutArg)
     {
-        enErrorReg = I2C_Master__enGetBusStatus(enModuleArg, &enBusBusy);
-        uxTimeout--;
-    }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
+        do
+        {
+            enErrorReg = I2C_Master__enGetBusStatus(enModuleArg, &enBusBusy);
+        }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (I2C_enERROR_OK == enErrorReg));
+    }
+    else
+    {
+        do
+        {
+            enErrorReg = I2C_Master__enGetBusStatus(enModuleArg, &enBusBusy);
+            uxTimeoutArg--;
+        }while((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL != uxTimeoutArg) && (I2C_enERROR_OK == enErrorReg));
 
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        if(0UL == uxTimeout)
+        if((I2C_enSTATUS_INACTIVE != enBusBusy) && (0UL == uxTimeoutArg) && (I2C_enERROR_OK == enErrorReg))
         {
             enErrorReg = I2C_enERROR_TIMEOUT;
         }
@@ -53,30 +58,36 @@ I2C_nERROR I2C_Master__enWaitMultiMaster(I2C_nMODULE enModuleArg, UBase_t uxTime
 I2C_nERROR I2C_Master__enGenerateStopCondition(I2C_nMODULE enModule, UBase_t uxTimeoutArg, I2C_pvfIRQSourceHandler_t pvfErrorHandleArg)
 {
     I2C_nERROR enErrorReg;
-    UBase_t uxTimeout;
     I2C_nSTATUS enControllerBusy;
     I2C_nOPERATION_ERROR enErrorOperationReg;
 
     enErrorOperationReg = I2C_enOPERATION_ERROR_NONE;
-    uxTimeout = uxTimeoutArg;
     enControllerBusy = I2C_enSTATUS_INACTIVE;
     enErrorReg = I2C_Master__enSetControlState(enModule, I2C_enMASTER_CONTROL_RUN_STOP);
 
     if(I2C_enERROR_OK == enErrorReg)
     {
-        do
+        if(0UL == uxTimeoutArg)
         {
-            enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
-            uxTimeout--;
-        }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != uxTimeout) && (I2C_enERROR_OK == enErrorReg));
-
-    }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        if(0UL == uxTimeout)
-        {
-            enErrorReg = I2C_enERROR_TIMEOUT;
+            do
+            {
+                enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
+            }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (I2C_enERROR_OK == enErrorReg));
         }
+        else
+        {
+            do
+            {
+                enErrorReg = I2C_Master__enGetControllerStatus(enModule, &enControllerBusy);
+                uxTimeoutArg--;
+            }while((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL != uxTimeoutArg) && (I2C_enERROR_OK == enErrorReg));
+
+            if((I2C_enSTATUS_INACTIVE != enControllerBusy) && (0UL == uxTimeoutArg) && (I2C_enERROR_OK == enErrorReg))
+            {
+                enErrorReg = I2C_enERROR_TIMEOUT;
+            }
+        }
+
     }
     if(I2C_enERROR_OK == enErrorReg)
     {

@@ -27,8 +27,9 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-WDT_nLOCK WDT__enGetLock(WDT_nMODULE enModule);
-void WDT__vLock(WDT_nMODULE enModule);
-void WDT__vUnlock(WDT_nMODULE enModule);
+WDT_nERROR WDT__enIsLocked(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penLockedArg);
+WDT_nERROR WDT__enSetLockState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enLock(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enUnlock(WDT_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_INTRINSICS_WDT_LOCK_H_ */

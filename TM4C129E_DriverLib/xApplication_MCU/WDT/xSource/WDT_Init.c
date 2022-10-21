@@ -25,10 +25,14 @@
 
 #include <xApplication_MCU/WDT/Interrupt/WDT_Interrupt.h>
 
-void WDT__vInit(void)
+WDT_nERROR WDT__enInit(void)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    WDT_nERROR enErrorReg;
+    WDT_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = WDT__pvfGetIRQVectorHandler();
-    WDT__vRegisterIRQVectorHandler( pfIrqVectorHandler);
+    pfIrqVectorHandlerReg = WDT__pvfGetIRQVectorHandler(WDT_enMODULE_0);
+    enErrorReg = WDT__enRegisterIRQVectorHandler(WDT_enMODULE_0, pfIrqVectorHandlerReg);
+
+    return (enErrorReg);
 }
+

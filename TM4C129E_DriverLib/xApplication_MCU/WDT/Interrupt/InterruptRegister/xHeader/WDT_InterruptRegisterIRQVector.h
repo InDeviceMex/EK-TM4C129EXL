@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-void WDT__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void));
+WDT_nERROR WDT__enRegisterIRQVectorHandler(WDT_nMODULE enModuleArg, WDT_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_WDT_INTERRUPT_INTERRUPTREGISTER_XHEADER_WDT_INTERRUPTREGISTERIRQVECTOR_H_ */

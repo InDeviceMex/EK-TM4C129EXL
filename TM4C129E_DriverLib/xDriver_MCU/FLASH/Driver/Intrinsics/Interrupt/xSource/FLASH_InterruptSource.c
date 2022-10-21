@@ -173,38 +173,38 @@ FLASH_nERROR FLASH__enGetInterruptSourceStateByNumber(FLASH_nMODULE enModuleArg,
 
 FLASH_nERROR FLASH__enEnableInterruptSourceByMask(FLASH_nMODULE enModuleArg, FLASH_nINTMASK enInterruptMaskArg)
 {
-    FLASH_nERROR enReturnReg;
+    FLASH_nERROR enErrorReg;
 
-    enReturnReg = FLASH__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, FLASH_enSTATE_ENA);
+    enErrorReg = FLASH__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, FLASH_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enEnableInterruptSourceByNumber(FLASH_nMODULE enModuleArg, FLASH_nINT enInterruptArg)
 {
-    FLASH_nERROR enReturnReg;
+    FLASH_nERROR enErrorReg;
 
-    enReturnReg = FLASH__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, FLASH_enSTATE_ENA);
+    enErrorReg = FLASH__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, FLASH_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enDisableInterruptSourceByMask(FLASH_nMODULE enModuleArg, FLASH_nINTMASK enInterruptMaskArg)
 {
-    FLASH_nERROR enReturnReg;
+    FLASH_nERROR enErrorReg;
 
-    enReturnReg = FLASH__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, FLASH_enSTATE_DIS);
+    enErrorReg = FLASH__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, FLASH_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enDisableInterruptSourceByNumber(FLASH_nMODULE enModuleArg, FLASH_nINT enInterruptArg)
 {
-    FLASH_nERROR enReturnReg;
+    FLASH_nERROR enErrorReg;
 
-    enReturnReg = FLASH__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, FLASH_enSTATE_DIS);
+    enErrorReg = FLASH__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, FLASH_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enClearInterruptSourceByMask(FLASH_nMODULE enModuleArg, FLASH_nINTMASK enInterruptMaskArg)

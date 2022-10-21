@@ -133,38 +133,38 @@ ACMP_nERROR ACMP__enGetInterruptSourceStateByNumber(ACMP_nMODULE enModuleArg, AC
 
 ACMP_nERROR ACMP__enEnableInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nCOMPMASK enCompMaskArg)
 {
-    ACMP_nERROR enReturnReg;
+    ACMP_nERROR enErrorReg;
 
-    enReturnReg = ACMP__enSetInterruptSourceStateByMask(enModuleArg, enCompMaskArg, ACMP_enSTATE_ENA);
+    enErrorReg = ACMP__enSetInterruptSourceStateByMask(enModuleArg, enCompMaskArg, ACMP_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enEnableInterruptSourceByNumber(ACMP_nMODULE enModuleArg, ACMP_nCOMP enCompArg)
 {
-    ACMP_nERROR enReturnReg;
+    ACMP_nERROR enErrorReg;
 
-    enReturnReg = ACMP__enSetInterruptSourceStateByNumber(enModuleArg, enCompArg, ACMP_enSTATE_ENA);
+    enErrorReg = ACMP__enSetInterruptSourceStateByNumber(enModuleArg, enCompArg, ACMP_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enDisableInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nCOMPMASK enCompMaskArg)
 {
-    ACMP_nERROR enReturnReg;
+    ACMP_nERROR enErrorReg;
 
-    enReturnReg = ACMP__enSetInterruptSourceStateByMask(enModuleArg, enCompMaskArg, ACMP_enSTATE_DIS);
+    enErrorReg = ACMP__enSetInterruptSourceStateByMask(enModuleArg, enCompMaskArg, ACMP_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enDisableInterruptSourceByNumber(ACMP_nMODULE enModuleArg, ACMP_nCOMP enCompArg)
 {
-    ACMP_nERROR enReturnReg;
+    ACMP_nERROR enErrorReg;
 
-    enReturnReg = ACMP__enSetInterruptSourceStateByNumber(enModuleArg, enCompArg, ACMP_enSTATE_DIS);
+    enErrorReg = ACMP__enSetInterruptSourceStateByNumber(enModuleArg, enCompArg, ACMP_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enClearInterruptSourceByMask(ACMP_nMODULE enModuleArg, ACMP_nCOMPMASK enCompMaskArg)

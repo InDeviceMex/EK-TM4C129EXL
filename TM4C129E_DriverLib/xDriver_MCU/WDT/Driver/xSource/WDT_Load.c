@@ -23,21 +23,45 @@
  */
 #include <xDriver_MCU/WDT/Driver/xHeader/WDT_Load.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vSetLoad(WDT_nMODULE enModule, UBase_t uxLoadValue)
+WDT_nERROR WDT__enSetIntervalValue(WDT_nMODULE enModuleArg, UBase_t uxIntervalArg)
 {
-    WDT__vWriteRegister(enModule, WDT_LOAD_OFFSET, uxLoadValue,
-                        WDT_LOAD_LOAD_MASK, WDT_LOAD_R_LOAD_BIT);
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
+
+    stRegister.uxShift = WDT_LOAD_R_LOAD_BIT;
+    stRegister.uxMask = WDT_LOAD_LOAD_MASK;
+    stRegister.uptrAddress = WDT_LOAD_OFFSET;
+    stRegister.uxValue = (UBase_t) uxIntervalArg;
+    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UBase_t WDT__uxGetLoad(WDT_nMODULE enModule)
+WDT_nERROR WDT__enGetIntervalValue(WDT_nMODULE enModuleArg, UBase_t* puxIntervalArg)
 {
-    UBase_t uxLoadValueReg = 0UL;
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
 
-    uxLoadValueReg = WDT__uxReadRegister(enModule, WDT_LOAD_OFFSET,
-                           WDT_LOAD_LOAD_MASK, WDT_LOAD_R_LOAD_BIT);
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) puxIntervalArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = WDT_LOAD_R_LOAD_BIT;
+        stRegister.uxMask = WDT_LOAD_LOAD_MASK;
+        stRegister.uptrAddress = WDT_LOAD_OFFSET;
+        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        *puxIntervalArg = (UBase_t) stRegister.uxValue;
+    }
 
-    return (uxLoadValueReg);
+    return (enErrorReg);
 }
+

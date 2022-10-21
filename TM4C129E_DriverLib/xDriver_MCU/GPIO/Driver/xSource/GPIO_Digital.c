@@ -77,30 +77,30 @@ GPIO_nERROR GPIO__enSetDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
 
 GPIO_nERROR GPIO__enEnableDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDigitalModeByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDigitalModeByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDigitalModeByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDigitalModeByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDigitalModeByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDigitalModeByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableDigitalModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetDigitalModeByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetDigitalModeByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetDigitalModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

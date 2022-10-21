@@ -23,25 +23,25 @@
  */
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Interrupt/InterruptRegister/xHeader/WDT_InterruptRegisterIRQSource.h>
 
-#include <xDriver_MCU/WDT/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/WDT_InterruptRoutine_Source.h>
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/WDT/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/WDT_InterruptRoutine_Source.h>
+#include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void),
-                                    WDT_nMODULE enModule,
-                                    WDT_nINTERRUPT enInterruptParam)
+WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg, WDT_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    UBase_t uxInterruptSource = 0UL;
-    UBase_t uxModule = 0UL;
-    if(0U != (UBase_t) pfIrqSourceHandler )
+    WDT_pvfIRQSourceHandler_t* pvfIrqHandler;
+    WDT_nERROR enErrorReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
     {
-        uxInterruptSource = MCU__uxCheckParams((UBase_t) enInterruptParam,
-                                              (UBase_t) WDT_enINTERRUPT_MAX);
-        uxModule = MCU__uxCheckParams((UBase_t) enModule,
-                                        (UBase_t) WDT_enMODULE_MAX);
-        MCU__vRegisterIRQSourceHandler(pfIrqSourceHandler,
-           WDT__pvfGetIRQSourceHandlerPointer((WDT_nMODULE) uxModule,
-                                               (WDT_nINTERRUPT) uxInterruptSource),
-           0UL,
-           1UL);
+        enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enIntSourceArg, (UBase_t) WDT_enINT_MAX);
     }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        pvfIrqHandler = WDT__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        enErrorReg = (WDT_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
+    }
+
+    return (enErrorReg);
 }

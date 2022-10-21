@@ -23,34 +23,45 @@
  */
 #include <xDriver_MCU/WDT/Driver/xHeader/WDT_Stall.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-
-void WDT__vEnStall(WDT_nMODULE enModule)
+WDT_nERROR WDT__enSetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL enModeArg)
 {
-    WDT__vWriteRegister(enModule, WDT_TEST_OFFSET, WDT_TEST_STALL_FREEZE,
-                        WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
+
+    stRegister.uxShift = WDT_TEST_R_STALL_BIT;
+    stRegister.uxMask = WDT_TEST_STALL_MASK;
+    stRegister.uptrAddress = WDT_TEST_OFFSET;
+    stRegister.uxValue = (UBase_t) enModeArg;
+    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void WDT__vDisStall(WDT_nMODULE enModule)
+WDT_nERROR WDT__enGetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL* penModeArg)
 {
-    WDT__vWriteRegister(enModule, WDT_TEST_OFFSET, WDT_TEST_STALL_CONTINUE,
-                        WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
+
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = WDT_TEST_R_STALL_BIT;
+        stRegister.uxMask = WDT_TEST_STALL_MASK;
+        stRegister.uptrAddress = WDT_TEST_OFFSET;
+        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (WDT_nSTALL) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void WDT__vSetStall(WDT_nMODULE enModule, WDT_nSTALL enStallValue)
-{
-    WDT__vWriteRegister(enModule, WDT_TEST_OFFSET, (UBase_t) enStallValue,
-                        WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
-}
-
-WDT_nSTALL WDT__enGetStall(WDT_nMODULE enModule)
-{
-    WDT_nSTALL enStallReg = WDT_enSTALL_CONTINUE;
-
-    enStallReg = (WDT_nSTALL) WDT__uxReadRegister(enModule, WDT_TEST_OFFSET,
-                                  WDT_TEST_STALL_MASK, WDT_TEST_R_STALL_BIT);
-
-    return (enStallReg);
-}

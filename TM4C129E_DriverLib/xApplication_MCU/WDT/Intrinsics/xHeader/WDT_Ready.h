@@ -30,6 +30,6 @@
 void WDT__vReset(WDT_nMODULE enModule);
 void WDT__vSetReady(WDT_nMODULE enModule);
 void WDT__vClearReady(WDT_nMODULE enModule);
-WDT_nREADY WDT__enIsReady(WDT_nMODULE enModule);
+WDT_nSTATUS WDT__enIsReady(WDT_nMODULE enModule);
 
 #endif /* XAPPLICATION_MCU_WDT_INTRINSICS_XHEADER_WDT_READY_H_ */

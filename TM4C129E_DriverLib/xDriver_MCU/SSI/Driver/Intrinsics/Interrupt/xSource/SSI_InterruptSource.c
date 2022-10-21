@@ -177,38 +177,38 @@ SSI_nERROR SSI__enGetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_n
 
 SSI_nERROR SSI__enEnableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
 {
-    SSI_nERROR enReturnReg;
+    SSI_nERROR enErrorReg;
 
-    enReturnReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_ENA);
+    enErrorReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SSI_nERROR SSI__enEnableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg)
 {
-    SSI_nERROR enReturnReg;
+    SSI_nERROR enErrorReg;
 
-    enReturnReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_ENA);
+    enErrorReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SSI_nERROR SSI__enDisableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
 {
-    SSI_nERROR enReturnReg;
+    SSI_nERROR enErrorReg;
 
-    enReturnReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_DIS);
+    enErrorReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SSI_nERROR SSI__enDisableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg)
 {
-    SSI_nERROR enReturnReg;
+    SSI_nERROR enErrorReg;
 
-    enReturnReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_DIS);
+    enErrorReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 SSI_nERROR SSI__enClearInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
@@ -256,7 +256,7 @@ SSI_nERROR SSI__enClearInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT
     return (enErrorReg);
 }
 
-SSI_nERROR SSI__enStatusInterruptSourceByMaskByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg)
+SSI_nERROR SSI__enStatusInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg)
 {
     SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
@@ -284,7 +284,7 @@ SSI_nERROR SSI__enStatusInterruptSourceByMaskByMask(SSI_nMODULE enModuleArg, SSI
     return (enErrorReg);
 }
 
-SSI_nERROR SSI__enStatusInterruptSourceByMaskByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg)
+SSI_nERROR SSI__enStatusInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg)
 {
     SSI_Register_t stRegister;
     UBase_t uxShiftReg;

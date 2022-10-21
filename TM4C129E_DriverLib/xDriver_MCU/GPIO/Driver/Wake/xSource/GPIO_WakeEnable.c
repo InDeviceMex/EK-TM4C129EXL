@@ -98,38 +98,38 @@ GPIO_nERROR GPIO__enSetWakeUpStateByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
 
 GPIO_nERROR GPIO__enEnableWakeUpByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetWakeUpStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    enErrorReg = GPIO__enSetWakeUpStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableWakeUpByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetWakeUpStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    enErrorReg = GPIO__enSetWakeUpStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableWakeUpByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetWakeUpStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    enErrorReg = GPIO__enSetWakeUpStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableWakeUpByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetWakeUpStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    enErrorReg = GPIO__enSetWakeUpStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetWakeUpStateByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

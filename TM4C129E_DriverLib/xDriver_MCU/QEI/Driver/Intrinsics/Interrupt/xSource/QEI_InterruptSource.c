@@ -174,38 +174,38 @@ QEI_nERROR QEI__enGetInterruptSourceStateByNumber(QEI_nMODULE enModuleArg, QEI_n
 
 QEI_nERROR QEI__enEnableInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg)
 {
-    QEI_nERROR enReturnReg;
+    QEI_nERROR enErrorReg;
 
-    enReturnReg = QEI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, QEI_enSTATE_ENA);
+    enErrorReg = QEI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, QEI_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 QEI_nERROR QEI__enEnableInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg)
 {
-    QEI_nERROR enReturnReg;
+    QEI_nERROR enErrorReg;
 
-    enReturnReg = QEI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, QEI_enSTATE_ENA);
+    enErrorReg = QEI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, QEI_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 QEI_nERROR QEI__enDisableInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg)
 {
-    QEI_nERROR enReturnReg;
+    QEI_nERROR enErrorReg;
 
-    enReturnReg = QEI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, QEI_enSTATE_DIS);
+    enErrorReg = QEI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, QEI_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 QEI_nERROR QEI__enDisableInterruptSourceByNumber(QEI_nMODULE enModuleArg, QEI_nINT enInterruptArg)
 {
-    QEI_nERROR enReturnReg;
+    QEI_nERROR enErrorReg;
 
-    enReturnReg = QEI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, QEI_enSTATE_DIS);
+    enErrorReg = QEI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, QEI_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 QEI_nERROR QEI__enClearInterruptSourceByMask(QEI_nMODULE enModuleArg, QEI_nINTMASK enInterruptMaskArg)

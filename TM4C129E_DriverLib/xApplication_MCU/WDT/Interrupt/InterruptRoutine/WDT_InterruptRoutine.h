@@ -28,7 +28,7 @@
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 #include <xApplication_MCU/WDT/Interrupt/InterruptRoutine/xHeader/WDT_InterruptRoutine_Vector.h>
 
-void (*WDT__pvfGetIRQVectorHandler(void))(void);
-void (**WDT__pvfGetIRQVectorHandlerPointer(void))(void);
+WDT_pvfIRQVectorHandler_t WDT__pvfGetIRQVectorHandler(WDT_nMODULE enModuleArg);
+WDT_pvfIRQVectorHandler_t* WDT__pvfGetIRQVectorHandlerPointer(WDT_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_WDT_INTERRUPT_INTERRUPTROUTINE_WDT_INTERRUPTROUTINE_H_ */

@@ -26,12 +26,23 @@
 #include <xApplication_MCU/WDT/Interrupt/InterruptRoutine/WDT_InterruptRoutine.h>
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Dependencies.h>
 
-void WDT__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void))
+WDT_nERROR WDT__enRegisterIRQVectorHandler(WDT_nMODULE enModuleArg, WDT_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_WDT01;
-
-    if(0UL != (UBase_t) pfIrqVectorHandler)
+    const SCB_nVECISR SCB_enVECISR_WDT[(UBase_t) WDT_enMODULE_MAX] =
     {
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, WDT__pvfGetIRQVectorHandlerPointer());
+     SCB_enVECISR_WDT01, SCB_enVECISR_WDT01
+    };
+    SCB_nVECISR enVectorReg;
+    WDT_nERROR enErrorReg;
+    WDT_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enVectorReg = SCB_enVECISR_WDT[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = WDT__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (WDT_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

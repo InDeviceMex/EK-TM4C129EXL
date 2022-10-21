@@ -87,7 +87,7 @@ SSI_nERROR SSI__enSetDataTimeOut(SSI_nMODULE enModuleArg, UBase_t uxDataArg, UBa
             uxTimeoutArg --;
         }while((SSI_enERROR_FULL == enErrorReg) && (0UL != uxTimeoutArg));
 
-        if(0UL == uxTimeoutArg)
+        if((SSI_enERROR_FULL == enErrorReg) && (0UL == uxTimeoutArg))
         {
             enErrorReg = SSI_enERROR_TIMEOUT;
         }
@@ -505,7 +505,7 @@ SSI_nERROR SSI__enGetDataTimeOut(SSI_nMODULE enModuleArg, UBase_t* puxDataArg, U
                 uxTimeoutArg --;
             }while((SSI_enERROR_EMPTY == enErrorReg) && (0UL != uxTimeoutArg));
 
-            if(0UL == uxTimeoutArg)
+            if((SSI_enERROR_EMPTY == enErrorReg) && (0UL == uxTimeoutArg))
             {
                 enErrorReg = SSI_enERROR_TIMEOUT;
             }

@@ -23,15 +23,31 @@
  */
 #include <xDriver_MCU/WDT/Driver/xHeader/WDT_Value.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-UBase_t WDT__enGetValue(WDT_nMODULE enModule)
+WDT_nERROR WDT__enGetCurrentCount(WDT_nMODULE enModuleArg, UBase_t* puxIntervalArg)
 {
-    UBase_t uxValueArg = 0UL;
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
 
-    uxValueArg = WDT__uxReadRegister(enModule, WDT_VALUE_OFFSET,
-                       WDT_VALUE_VALUE_MASK, WDT_VALUE_R_VALUE_BIT);
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) puxIntervalArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = WDT_VALUE_R_VALUE_BIT;
+        stRegister.uxMask = WDT_VALUE_VALUE_MASK;
+        stRegister.uptrAddress = WDT_VALUE_OFFSET;
+        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        *puxIntervalArg = (UBase_t) stRegister.uxValue;
+    }
 
-    return (uxValueArg);
+    return (enErrorReg);
 }

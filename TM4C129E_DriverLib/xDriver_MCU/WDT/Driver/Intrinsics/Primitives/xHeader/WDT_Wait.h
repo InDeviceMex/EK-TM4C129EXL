@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vWaitWrite(WDT_nMODULE enModule);
+WDT_nERROR WDT__enIsWriteOngoing(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penStatusArg);
+WDT_nERROR WDT__enWaitWrite(WDT_nMODULE enModuleArg, UBase_t uxTimeoutArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_INTRINSICS_WDT_PRIMITIVES_WDT_WAIT_H_ */

@@ -43,10 +43,6 @@ EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, UBase_t uxWordArg)
         stRegister.uxValue = uxWordArg;
         enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
-    }
     return (enErrorReg);
 }
 
@@ -93,10 +89,6 @@ EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase
         stRegister.uptrAddress = EEPROM_RDWRINC_OFFSET;
         stRegister.uxValue = uxWordArg;
         enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     }
     return (enErrorReg);
 }

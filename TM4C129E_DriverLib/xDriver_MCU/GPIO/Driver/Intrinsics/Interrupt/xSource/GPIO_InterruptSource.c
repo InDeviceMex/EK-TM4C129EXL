@@ -130,38 +130,38 @@ GPIO_nERROR GPIO__enGetInterruptSourceStateByNumber(GPIO_nPORT enPortArg, GPIO_n
 
 GPIO_nERROR GPIO__enEnableInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetInterruptSourceStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
+    enErrorReg = GPIO__enSetInterruptSourceStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableInterruptSourceByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetInterruptSourceStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
+    enErrorReg = GPIO__enSetInterruptSourceStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetInterruptSourceStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
+    enErrorReg = GPIO__enSetInterruptSourceStateByMask(enPortArg, enPinMaskArg, GPIO_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableInterruptSourceByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO__enSetInterruptSourceStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
+    enErrorReg = GPIO__enSetInterruptSourceStateByNumber(enPortArg, enPinArg, GPIO_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enClearInterruptSourceByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg)
@@ -355,20 +355,20 @@ GPIO_nERROR GPIO_DMA__enGetInterruptSourceState(GPIO_nPORT enPortArg, GPIO_nSTAT
 
 GPIO_nERROR GPIO_DMA__enEnableInterruptSource(GPIO_nPORT enPortArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO_DMA__enSetInterruptSourceState(enPortArg, GPIO_enSTATE_ENA);
+    enErrorReg = GPIO_DMA__enSetInterruptSourceState(enPortArg, GPIO_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO_DMA__enDisableInterruptSource(GPIO_nPORT enPortArg)
 {
-    GPIO_nERROR enReturnReg;
+    GPIO_nERROR enErrorReg;
 
-    enReturnReg = GPIO_DMA__enSetInterruptSourceState(enPortArg, GPIO_enSTATE_DIS);
+    enErrorReg = GPIO_DMA__enSetInterruptSourceState(enPortArg, GPIO_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO_DMA__enClearInterruptSource(GPIO_nPORT enPortArg)

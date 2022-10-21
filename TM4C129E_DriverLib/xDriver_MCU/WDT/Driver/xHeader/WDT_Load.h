@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vSetLoad(WDT_nMODULE enModule, UBase_t uxLoadValue);
-UBase_t WDT__uxGetLoad(WDT_nMODULE enModule);
+WDT_nERROR WDT__enSetIntervalValue(WDT_nMODULE enModuleArg, UBase_t uxIntervalArg);
+WDT_nERROR WDT__enGetIntervalValue(WDT_nMODULE enModuleArg, UBase_t* puxIntervalArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_DRIVER_WDT_LOAD_H_ */

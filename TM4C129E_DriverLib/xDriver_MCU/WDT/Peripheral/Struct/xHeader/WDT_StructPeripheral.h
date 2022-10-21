@@ -32,107 +32,107 @@ typedef volatile struct
     union
     {
         volatile UBase_t LOAD;
-        WDTLOAD_t LOAD_Bit;
+        WDT_LOAD_t LOAD_Bit;
     };
     union
     {
         volatile const UBase_t VALUE;
-        WDTVALUE_t VALUE_Bit;
+        WDT_VALUE_t VALUE_Bit;
     };
     union
     {
         volatile UBase_t CTL;
-        WDTCTL_t CTL_Bit;
+        WDT_CTL_t CTL_Bit;
     };
     union
     {
         volatile UBase_t ICR;
-        WDTICR_t ICR_Bit;
+        WDT_ICR_t ICR_Bit;
     };
     union
     {
     volatile const UBase_t RIS;
-    WDTRIS_t RIS_Bit;
+    WDT_RIS_t RIS_Bit;
     };
     union
     {
     volatile const UBase_t MIS;
-    WDTMIS_t MIS_Bit;
+    WDT_MIS_t MIS_Bit;
     };
 
     const UBase_t reserved [256UL];
     union
     {
     volatile UBase_t TEST;
-    WDTTEST_t TEST_Bit;
+    WDT_TEST_t TEST_Bit;
     };
 
     const UBase_t reserved1 [505UL];
     union
     {
         volatile UBase_t LOCK;
-        WDTLOCK_t LOCK_Bit;
+        WDT_LOCK_t LOCK_Bit;
     };
     const UBase_t reserved2 [243UL];
     union
     {
         volatile UBase_t PeriphID4;
-        WDTPeriphID4_t PeriphID4_Bit;
+        WDT_PeriphID4_t PeriphID4_Bit;
     };
     union
     {
         volatile UBase_t PeriphID5;
-        WDTPeriphID5_t PeriphID5_Bit;
+        WDT_PeriphID5_t PeriphID5_Bit;
     };
     union
     {
         volatile UBase_t PeriphID6;
-        WDTPeriphID6_t PeriphID6_Bit;
+        WDT_PeriphID6_t PeriphID6_Bit;
     };
     union
     {
         volatile UBase_t PeriphID7;
-        WDTPeriphID7_t PeriphID7_Bit;
+        WDT_PeriphID7_t PeriphID7_Bit;
     };
     union
     {
         volatile UBase_t PeriphID0;
-        WDTPeriphID0_t PeriphID0_Bit;
+        WDT_PeriphID0_t PeriphID0_Bit;
     };
     union
     {
         volatile UBase_t PeriphID1;
-        WDTPeriphID1_t PeriphID1_Bit;
+        WDT_PeriphID1_t PeriphID1_Bit;
     };
     union
     {
         volatile UBase_t PeriphID2;
-        WDTPeriphID2_t PeriphID2_Bit;
+        WDT_PeriphID2_t PeriphID2_Bit;
     };
     union
     {
         volatile UBase_t PeriphID3;
-        WDTPeriphID3_t PeriphID3_Bit;
+        WDT_PeriphID3_t PeriphID3_Bit;
     };
     union
     {
         volatile UBase_t PCellID0;
-        WDTPCellID0_t PCellID0_Bit;
+        WDT_PCellID0_t PCellID0_Bit;
     };
     union
     {
         volatile UBase_t PCellID1;
-        WDTPCellID1_t PCellID1_Bit;
+        WDT_PCellID1_t PCellID1_Bit;
     };
     union
     {
         volatile UBase_t PCellID2;
-        WDTPCellID2_t PCellID2_Bit;
+        WDT_PCellID2_t PCellID2_Bit;
     };
     union
     {
         volatile UBase_t PCellID3;
-        WDTPCellID3_t PCellID3_Bit;
+        WDT_PCellID3_t PCellID3_Bit;
     };
 }WDT_t;
 

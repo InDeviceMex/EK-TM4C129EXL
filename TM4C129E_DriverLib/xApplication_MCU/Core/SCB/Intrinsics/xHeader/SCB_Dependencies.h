@@ -29,6 +29,7 @@
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
 
 #include <xApplication_MCU/FLASH/FLASH.h>
+#include <xApplication_MCU/WDT/WDT.h>
 #include <xApplication_MCU/UART/UART.h>
 
 #include <xApplication_MCU/SYSCTL/SYSCTL.h>

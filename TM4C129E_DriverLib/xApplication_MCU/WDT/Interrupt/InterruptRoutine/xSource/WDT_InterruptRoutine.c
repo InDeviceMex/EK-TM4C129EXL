@@ -23,21 +23,21 @@
  */
 #include <xApplication_MCU/WDT/Interrupt/InterruptRoutine/WDT_InterruptRoutine.h>
 
-void (*WDT__pvIRQVectorHandler[1UL]) (void) =
+static WDT_pvfIRQVectorHandler_t WDT_pvIRQVectorHandler[(UBase_t) WDT_enMODULE_MAX] =
 {
-    &WDT01__vIRQVectorHandler
+ &WDT01__vIRQVectorHandler, &WDT01__vIRQVectorHandler
 };
 
-void (*WDT__pvfGetIRQVectorHandler(void))(void)
+WDT_pvfIRQVectorHandler_t WDT__pvfGetIRQVectorHandler(WDT_nMODULE enModuleArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = WDT__pvIRQVectorHandler[0UL];
-    return (pvfFunctionReg);
+    WDT_pvfIRQVectorHandler_t pvfVectorReg;
+    pvfVectorReg = WDT_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }
 
-void (**WDT__pvfGetIRQVectorHandlerPointer(void))(void)
+WDT_pvfIRQVectorHandler_t* WDT__pvfGetIRQVectorHandlerPointer(WDT_nMODULE enModuleArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &WDT__pvIRQVectorHandler[0UL];
-    return (pvfFunctionReg);
+    WDT_pvfIRQVectorHandler_t* pvfVectorReg;
+    pvfVectorReg = &WDT_pvIRQVectorHandler[(UBase_t) enModuleArg];
+    return (pvfVectorReg);
 }

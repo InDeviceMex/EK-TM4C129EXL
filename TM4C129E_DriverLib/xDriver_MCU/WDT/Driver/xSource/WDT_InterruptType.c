@@ -23,21 +23,44 @@
  */
 #include <xDriver_MCU/WDT/Driver/xHeader/WDT_InterruptType.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Primitives/WDT_Primitives.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-void WDT__vSetInterruptSourceType(WDT_nMODULE enModule, WDT_nINT_TYPE enType)
+WDT_nERROR WDT__enSetInterruptSourceType(WDT_nMODULE enModuleArg, WDT_nINT_TYPE enTypeArg)
 {
-    WDT__vWriteRegister(enModule, WDT_CTL_OFFSET, (UBase_t) enType,
-                        WDT_CTL_INTTYPE_MASK, WDT_CTL_R_INTTYPE_BIT);
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
+
+    stRegister.uxShift = WDT_CTL_R_INTTYPE_BIT;
+    stRegister.uxMask = WDT_CTL_INTTYPE_MASK;
+    stRegister.uptrAddress = WDT_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enTypeArg;
+    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-WDT_nINT_TYPE WDT__enGetInterruptSourceType(WDT_nMODULE enModule)
+WDT_nERROR WDT__enGetInterruptSourceType(WDT_nMODULE enModuleArg, WDT_nINT_TYPE* penTypeArg)
 {
-    WDT_nINT_TYPE enIntTypeReg = WDT_enINT_TYPE_STANDARD;
+    WDT_Register_t stRegister;
+    WDT_nERROR enErrorReg;
 
-    enIntTypeReg = (WDT_nINT_TYPE) WDT__uxReadRegister(enModule, WDT_CTL_OFFSET,
-                                    WDT_CTL_INTTYPE_MASK, WDT_CTL_R_INTTYPE_BIT);
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) penTypeArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = WDT_CTL_R_INTTYPE_BIT;
+        stRegister.uxMask = WDT_CTL_INTTYPE_MASK;
+        stRegister.uptrAddress = WDT_CTL_OFFSET;
+        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        *penTypeArg = (WDT_nINT_TYPE) stRegister.uxValue;
+    }
 
-    return (enIntTypeReg);
+    return (enErrorReg);
 }

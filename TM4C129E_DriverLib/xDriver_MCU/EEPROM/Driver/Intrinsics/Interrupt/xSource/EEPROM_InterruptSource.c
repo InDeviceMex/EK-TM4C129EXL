@@ -68,19 +68,19 @@ EEPROM_nERROR EEPROM__enGetInterruptSourceState(EEPROM_nMODULE enModuleArg, EEPR
 
 EEPROM_nERROR EEPROM__enEnableInterruptSource(EEPROM_nMODULE enModuleArg)
 {
-    EEPROM_nERROR enReturnReg;
+    EEPROM_nERROR enErrorReg;
 
-    enReturnReg = EEPROM__enSetInterruptSourceState(enModuleArg, EEPROM_enSTATE_ENA);
+    enErrorReg = EEPROM__enSetInterruptSourceState(enModuleArg, EEPROM_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 EEPROM_nERROR EEPROM__enDisableInterruptSource(EEPROM_nMODULE enModuleArg)
 {
-    EEPROM_nERROR enReturnReg;
+    EEPROM_nERROR enErrorReg;
 
-    enReturnReg = EEPROM__enSetInterruptSourceState(enModuleArg, EEPROM_enSTATE_DIS);
+    enErrorReg = EEPROM__enSetInterruptSourceState(enModuleArg, EEPROM_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 

@@ -228,33 +228,33 @@ ADC_nERROR ADC_Sequencer__enGetInterruptSourceStateByNumber(ADC_nMODULE enModule
 ADC_nERROR ADC_Sequencer__enEnableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                         ADC_nINT_TYPE enInterruptTypeArg)
 {
-    ADC_nERROR enReturnReg;
-    enReturnReg = ADC_Sequencer__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enInterruptTypeArg, ADC_enSTATE_ENA);
-    return (enReturnReg);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC_Sequencer__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enInterruptTypeArg, ADC_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enEnableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                           ADC_nINT_TYPE enInterruptTypeArg)
 {
-    ADC_nERROR enReturnReg;
-    enReturnReg = ADC_Sequencer__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enInterruptTypeArg, ADC_enSTATE_ENA);
-    return (enReturnReg);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC_Sequencer__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enInterruptTypeArg, ADC_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enDisableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                          ADC_nINT_TYPE enInterruptTypeArg)
 {
-    ADC_nERROR enReturnReg;
-    enReturnReg = ADC_Sequencer__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enInterruptTypeArg, ADC_enSTATE_DIS);
-    return (enReturnReg);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC_Sequencer__enSetInterruptSourceStateByMask(enModuleArg, enSequencerMaskArg, enInterruptTypeArg, ADC_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enDisableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                            ADC_nINT_TYPE enInterruptTypeArg)
 {
-    ADC_nERROR enReturnReg;
-    enReturnReg = ADC_Sequencer__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enInterruptTypeArg, ADC_enSTATE_DIS);
-    return (enReturnReg);
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC_Sequencer__enSetInterruptSourceStateByNumber(enModuleArg, enSequencerArg, enInterruptTypeArg, ADC_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enClearInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,

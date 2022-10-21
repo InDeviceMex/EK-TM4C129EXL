@@ -183,38 +183,38 @@ ADC_nERROR ADC_Comparator__enGetInterruptSourceStateByNumber(ADC_nMODULE enModul
 
 ADC_nERROR ADC_Comparator__enEnableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Comparator__enSetInterruptSourceStateByMask(enModuleArg, enComparatorMaskArg, ADC_enSTATE_ENA);
+    enErrorReg = ADC_Comparator__enSetInterruptSourceStateByMask(enModuleArg, enComparatorMaskArg, ADC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enEnableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Comparator__enSetInterruptSourceStateByNumber(enModuleArg, enComparatorArg, ADC_enSTATE_ENA);
+    enErrorReg = ADC_Comparator__enSetInterruptSourceStateByNumber(enModuleArg, enComparatorArg, ADC_enSTATE_ENA);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enDisableInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Comparator__enSetInterruptSourceStateByMask(enModuleArg, enComparatorMaskArg, ADC_enSTATE_DIS);
+    enErrorReg = ADC_Comparator__enSetInterruptSourceStateByMask(enModuleArg, enComparatorMaskArg, ADC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enDisableInterruptSourceByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg)
 {
-    ADC_nERROR enReturnReg;
+    ADC_nERROR enErrorReg;
 
-    enReturnReg = ADC_Comparator__enSetInterruptSourceStateByNumber(enModuleArg, enComparatorArg, ADC_enSTATE_DIS);
+    enErrorReg = ADC_Comparator__enSetInterruptSourceStateByNumber(enModuleArg, enComparatorArg, ADC_enSTATE_DIS);
 
-    return (enReturnReg);
+    return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enClearInterruptSourceByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg)

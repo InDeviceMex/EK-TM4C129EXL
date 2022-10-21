@@ -28,8 +28,7 @@
 #include <xApplication_MCU/WDT/Interrupt/WDT_Interrupt.h>
 #include <xApplication_MCU/WDT/Intrinsics/WDT_Intrinsics.h>
 #include <xApplication_MCU/WDT/xHeader/WDT_DisInterrupt.h>
-#include <xApplication_MCU/WDT/xHeader/WDT_Mode.h>
-#include <xApplication_MCU/WDT/xHeader/WDT_ModeLoad.h>
+#include <xApplication_MCU/WDT/Config/WDT_Config.h>
 #include <xApplication_MCU/WDT/xHeader/WDT_Init.h>
 
 #endif /* XAPPLICATION_MCU_WDT_WDT_H_ */

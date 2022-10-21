@@ -27,8 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-void WDT__vWriteRegister(WDT_nMODULE enModule, UBase_t uxOffsetRegister,
-                         UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                         UBase_t uxBitFeature);
+WDT_nERROR WDT__enWriteRegisterTimeout(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg, UBase_t uxTimeoutArg);
+WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_WDT_WRITEREG_H_ */

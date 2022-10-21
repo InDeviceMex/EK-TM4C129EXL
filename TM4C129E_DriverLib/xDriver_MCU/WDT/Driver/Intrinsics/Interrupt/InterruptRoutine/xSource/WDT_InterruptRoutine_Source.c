@@ -21,44 +21,29 @@
  * Date           Author     Version     Description
  * 22 jul. 2020     vyldram    1.0         initial Version@endverbatim
  */
-
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/WDT_InterruptRoutine_Source.h>
 
-static void WDT_vIRQSourceHandler_Dummy(void);
-static void WDT_vIRQSourceHandler_Dummy_Blocking(void);
-
-void (*WDT__vIRQSourceHandler[(UBase_t) WDT_enMODULE_MAX]
-                             [(UBase_t) WDT_enINTERRUPT_MAX]) (void) =
+static WDT_pvfIRQSourceHandler_t WDT_vIRQSourceHandler[(UBase_t) WDT_enMODULE_MAX][(UBase_t) WDT_enINT_MAX] =
 {
-    { &WDT_vIRQSourceHandler_Dummy, &WDT_vIRQSourceHandler_Dummy_Blocking},
-    { &WDT_vIRQSourceHandler_Dummy, &WDT_vIRQSourceHandler_Dummy_Blocking}
- };
-
-static void WDT_vIRQSourceHandler_Dummy_Blocking(void)
-{
-    while(1U)
     {
-    }
-}
-static void WDT_vIRQSourceHandler_Dummy(void)
-{
-}
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_DummyNonBlocking,
+    },
+    {
+         &MCU_vIRQSourceHandler_Dummy,&MCU_vIRQSourceHandler_DummyNonBlocking,
+    },
+};
 
-void (*WDT__pvfGetIRQSourceHandler(WDT_nMODULE enWDTSubmodule,
-                                    WDT_nINTERRUPT enWDTInterruptNum))(void)
+WDT_pvfIRQSourceHandler_t WDT__pvfGetIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg)
 {
-    void(*pvfFunctionReg)(void) = (void(*)(void)) 0UL;
-    pvfFunctionReg = WDT__vIRQSourceHandler[(UBase_t) enWDTSubmodule]
-                                            [(UBase_t)enWDTInterruptNum];
+    WDT_pvfIRQSourceHandler_t pvfFunctionReg;
+    pvfFunctionReg = WDT_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
-void (**WDT__pvfGetIRQSourceHandlerPointer(WDT_nMODULE enWDTSubmodule,
-                                            WDT_nINTERRUPT enWDTInterruptNum))(void)
+WDT_pvfIRQSourceHandler_t* WDT__pvfGetIRQSourceHandlerPointer(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg)
 {
-    void(**pvfFunctionReg)(void) = (void(**)(void)) 0UL;
-    pvfFunctionReg = (void(**)(void)) &WDT__vIRQSourceHandler[(UBase_t) enWDTSubmodule]
-                                                              [(UBase_t)enWDTInterruptNum];
+    WDT_pvfIRQSourceHandler_t* pvfFunctionReg;
+    pvfFunctionReg = &WDT_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 

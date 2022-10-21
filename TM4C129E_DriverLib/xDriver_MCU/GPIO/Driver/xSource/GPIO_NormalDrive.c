@@ -91,33 +91,33 @@ GPIO_nERROR GPIO__enSetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
 GPIO_nERROR GPIO__enEnableNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                             GPIO_nNORMAL_DRIVE enDriveArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, enDriveArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, enDriveArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enEnableNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                               GPIO_nNORMAL_DRIVE enDriveArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, enDriveArg, GPIO_enSTATE_ENA);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, enDriveArg, GPIO_enSTATE_ENA);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                              GPIO_nNORMAL_DRIVE enDriveArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, enDriveArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetNormalDriveByMask(enPortArg, enPinMaskArg, enDriveArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enDisableNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                                GPIO_nNORMAL_DRIVE enDriveArg)
 {
-    GPIO_nERROR enReturnReg;
-    enReturnReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, enDriveArg, GPIO_enSTATE_DIS);
-    return (enReturnReg);
+    GPIO_nERROR enErrorReg;
+    enErrorReg = GPIO__enSetNormalDriveByNumber(enPortArg, enPinArg, enDriveArg, GPIO_enSTATE_DIS);
+    return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,

@@ -70,6 +70,14 @@ void NMI__vIRQVectorHandler(void)
                 SYSCTL_NMIC_R &= ~(UBase_t) SCB_enNMI_WDT1;
             }while(0UL != ((UBase_t) SCB_enNMI_WDT1 & SYSCTL_NMIC_R));
 
+            WDT1_ICR_R = 0UL;
+            UBase_t uxRegWrite1;
+            do
+            {
+                uxRegWrite1 = WDT1_CTL_R;
+                uxRegWrite1 &= WDT_CTL_R_WRC_MASK;
+            }while(WDT_CTL_R_WRC_PROGRESS == uxRegWrite1);
+
             pvfCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enNMI_BIT_WDT1);
             pvfCallback(SCB_BASE, (void*) SCB_enNMI_BIT_WDT1);
         }
@@ -80,6 +88,7 @@ void NMI__vIRQVectorHandler(void)
                 SYSCTL_NMIC_R &= ~(UBase_t) SCB_enNMI_WDT0;
             }while(0UL != ((UBase_t) SCB_enNMI_WDT0 & SYSCTL_NMIC_R));
 
+            WDT0_ICR_R = 0UL;
             pvfCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enNMI_BIT_WDT0);
             pvfCallback(SCB_BASE, (void*) SCB_enNMI_BIT_WDT0);
         }

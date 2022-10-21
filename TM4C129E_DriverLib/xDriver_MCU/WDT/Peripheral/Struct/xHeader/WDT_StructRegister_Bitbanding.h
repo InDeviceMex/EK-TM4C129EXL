@@ -30,12 +30,12 @@
 typedef volatile struct
 {
     volatile UBase_t LOAD [32UL];
-}BITBANDING_WDTLOAD_t;
+}WDT_BITBANDING_LOAD_t;
 
 typedef volatile struct
 {
     volatile const UBase_t VALUE [32UL];
-}BITBANDING_WDTVALUE_t;
+}WDT_BITBANDING_VALUE_t;
 
 typedef volatile struct
 {
@@ -44,13 +44,13 @@ typedef volatile struct
     volatile UBase_t INTTYPE;
     const UBase_t reserved [28UL];
     volatile const UBase_t WRC;
-}BITBANDING_WDTCTL_t;
+}WDT_BITBANDING_CTL_t;
 
 
 typedef volatile struct
 {
     volatile UBase_t INTCLR [32UL];
-}BITBANDING_WDTICR_t;
+}WDT_BITBANDING_ICR_t;
 
 
 
@@ -58,7 +58,7 @@ typedef volatile struct
 {
     volatile const UBase_t RIS;
     const UBase_t reserved [31UL];
-}BITBANDING_WDTRIS_t;
+}WDT_BITBANDING_RIS_t;
 
 
 
@@ -66,91 +66,91 @@ typedef volatile struct
 {
     volatile const UBase_t MIS;
     const UBase_t reserved [31UL];
-}BITBANDING_WDTMIS_t;
+}WDT_BITBANDING_MIS_t;
 
 typedef volatile struct
 {
     const UBase_t reserved [8UL];
     volatile UBase_t STALL;
     const UBase_t reserved1 [23UL];
-}BITBANDING_WDTTEST_t;
+}WDT_BITBANDING_TEST_t;
 
 typedef volatile struct
 {
     volatile UBase_t LOCK [32UL];
-}BITBANDING_WDTLOCK_t;
+}WDT_BITBANDING_LOCK_t;
 
 
 typedef volatile struct
 {
     volatile const UBase_t PID4 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID4_t;
+}WDT_BITBANDING_PeriphID4_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID5 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID5_t;
+}WDT_BITBANDING_PeriphID5_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID6 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID6_t;
+}WDT_BITBANDING_PeriphID6_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID7 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID7_t;
+}WDT_BITBANDING_PeriphID7_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID0 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID0_t;
+}WDT_BITBANDING_PeriphID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID1 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID1_t;
+}WDT_BITBANDING_PeriphID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID2 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID2_t;
+}WDT_BITBANDING_PeriphID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PID3 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPeriphID3_t;
+}WDT_BITBANDING_PeriphID3_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID0 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPCellID0_t;
+}WDT_BITBANDING_PCellID0_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID1 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPCellID1_t;
+}WDT_BITBANDING_PCellID1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID2 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPCellID2_t;
+}WDT_BITBANDING_PCellID2_t;
 
 typedef volatile struct
 {
     volatile const UBase_t CID3 [8UL];
     const UBase_t reserved [24UL];
-}BITBANDING_WDTPCellID3_t;
+}WDT_BITBANDING_PCellID3_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_WDT_WDT_PERIPHERAL_WDT_STRUCT_WDT_STRUCTREGISTER_BITBANDING_H_ */
