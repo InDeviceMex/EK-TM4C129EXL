@@ -23,7 +23,7 @@
  */
 #include <xDriver_MCU/UART/Peripheral/Register/RegisterPeripheral/UART_RegisterPeripheral.h>
 
-UBase_t UART__uxBlockBaseAddress(UART_nMODULE enModuleArg)
+uintptr_t UART__uptrBlockBaseAddress(UART_nMODULE enModuleArg)
 {
     const uintptr_t UART_BLOCK_BASE[(UBase_t) UART_enMODULE_MAX] =
     {
@@ -32,3 +32,4 @@ UBase_t UART__uxBlockBaseAddress(UART_nMODULE enModuleArg)
     };
     return (UART_BLOCK_BASE[(UBase_t) enModuleArg]);
 }
+

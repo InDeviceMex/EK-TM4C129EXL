@@ -25,6 +25,8 @@
 #ifndef XAPPLICATION_MCU_UART_XHEADER_UART_INIT_H_
 #define XAPPLICATION_MCU_UART_XHEADER_UART_INIT_H_
 
-void UART__vInit(void);
+#include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
+
+UART_nERROR UART__enInit(UART_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_UART_XHEADER_UART_INIT_H_ */

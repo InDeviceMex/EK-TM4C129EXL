@@ -103,7 +103,7 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
     {
         SSI__enSetState(ST7735_SSI, SSI_enSTATE_DIS);
         SSI__enSetClockSource(ST7735_SSI, SSI_enCLOCK_RSCLK);
-        SSI__enSetConfig(ST7735_SSI, SSI_enOPERATION_MASTER, 30000000UL, &pstControlConfigReg, &pstFrameControlConfigReg, &pstLineConfigReg);
+        SSI__enSetConfig(ST7735_SSI, SSI_enOPERATION_MASTER, 60000000UL, &pstControlConfigReg, &pstFrameControlConfigReg, &pstLineConfigReg);
         SSI__enSetState(ST7735_SSI, SSI_enSTATE_ENA);
         SSI__enSetHighSpeedState(ST7735_SSI, SSI_enSTATE_ENA);
 
@@ -195,44 +195,38 @@ void ST7735__vSetCursor(UBase_t uxNewX, UBase_t uxNewY)
 
 void ST7735__vDrawBuffer(UBase_t uxXCoord, UBase_t uxYCoord, UBase_t uxWidthArg, UBase_t uxHeightArg, uint16_t* u16Buffer)
 {
+    error_t enErrorReg;
     UBase_t uxXCoordEnd = 0UL;
     UBase_t uxYCoordEnd = 0UL;
     UBase_t uxTotalDim = 0UL;
     /* rudimentary clipping (drawChar w/big text requires this)*/
-    if((uxXCoord < ST7735_uxWidthArg) && (uxYCoord < ST7735_uxHeightArg))
+    enErrorReg = ERROR_OK;
+    if((0UL == uxWidthArg) || (0UL == uxHeightArg))
     {
-        if((0UL != uxWidthArg) && (0UL != uxHeightArg))
+        enErrorReg = ERROR_VALUE;
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        if(((uxXCoord + uxWidthArg) > ST7735_uxWidthArg) || ((uxYCoord + uxHeightArg) > ST7735_uxHeightArg))
         {
-            uxXCoordEnd = uxXCoord;
-            uxXCoordEnd += uxWidthArg;
-            uxXCoordEnd -= 1UL;
-            if(uxXCoordEnd >= ST7735_uxWidthArg)
-            {
-                uxWidthArg = ST7735_uxWidthArg;
-                uxWidthArg -= uxXCoord;
-                uxXCoordEnd = uxXCoord;
-                uxXCoordEnd += uxWidthArg;
-                uxXCoordEnd -= 1UL;
-            }
-
-            uxYCoordEnd = uxYCoord;
-            uxYCoordEnd += uxHeightArg;
-            uxYCoordEnd -= 1UL;
-            if(uxYCoordEnd >= ST7735_uxHeightArg)
-            {
-                uxHeightArg = ST7735_uxHeightArg;
-                uxHeightArg -= uxYCoord;
-                uxYCoordEnd = uxYCoord;
-                uxYCoordEnd += uxHeightArg;
-                uxYCoordEnd -= 1UL;
-            }
-            ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
-
-
-            uxTotalDim = uxHeightArg;
-            uxTotalDim *= uxWidthArg;
-            ST7735__enWriteBuffer16bDMA(u16Buffer, uxTotalDim);
+            enErrorReg = ERROR_RANGE;
         }
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        uxXCoordEnd = uxXCoord;
+        uxXCoordEnd += uxWidthArg;
+        uxXCoordEnd -= 1UL;
+        uxYCoordEnd = uxYCoord;
+        uxYCoordEnd += uxHeightArg;
+        uxYCoordEnd -= 1UL;
+
+        ST7735__vSetAddrWindow(uxXCoord, uxYCoord, uxXCoordEnd, uxYCoordEnd);
+
+
+        uxTotalDim = uxHeightArg;
+        uxTotalDim *= uxWidthArg;
+        ST7735__enWriteBuffer16bDMA(u16Buffer, uxTotalDim);
     }
 }
 

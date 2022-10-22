@@ -51,7 +51,6 @@ DMA_CH_CTL_t* ST7735__pstGetPrimaryTransferStruct(void);
 DMA_CH_CTL_t* ST7735__pstGetAlternateTransferStruct(void);
 
 volatile UBase_t ST7735_vDMATxInteruptStatus = 0UL;
-volatile UBase_t ST7735_vDMATxLastBit = 0UL;
 volatile UBase_t ST7735_uxDMATransferSizeLeft = 0UL;
 volatile UBase_t ST7735_uxDMATransferAddress = 0UL;
 volatile DMA_CH_CTL_t* ST7735_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
@@ -315,7 +314,6 @@ error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant)
         }
         if(ERROR_OK == enErrorReg)
         {
-            ST7735_vDMATxLastBit = 0UL;
             ST7735_uxDMATransferAddress = (UBase_t) &uxDataReg;
             stDMAChControlPrimaryConstant.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
             stDMAChControlAlternateConstant.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
@@ -392,9 +390,12 @@ error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant)
     {
         enErrorReg = ERROR_VALUE;
     }
-    if(0UL == (uintptr_t) pu16DataArg)
+    if(ERROR_OK == enErrorReg)
     {
-        enErrorReg = ERROR_POINTER;
+        if(0UL == (uintptr_t) pu16DataArg)
+        {
+            enErrorReg = ERROR_POINTER;
+        }
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -411,84 +412,84 @@ error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant)
     if(ERROR_OK == enErrorReg)
     {
         enErrorReg = ST7735__enEnableChipSelect();
-        if(ERROR_OK == enErrorReg)
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = ST7735__enSetData();
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        if(uxBufferCant >= 2048UL)
         {
-            enErrorReg = ST7735__enSetData();
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            ST7735_vDMATxLastBit = 0UL;
             stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
             stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
-            if(uxBufferCant > 2048UL)
-            {
-                stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
-                stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
-                stDMAChControlPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
-                pu16DataArg += 1024UL;
-                ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
-                uxBufferCant -= 1024UL;
-                enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-                stDMAChControlAlternateBuffer.XFERSIZE = 1024UL - 1UL;
-                pu16DataArg += 1024UL;
-                ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
-                uxBufferCant -= 1024UL;
-                enErrorReg = (error_t) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-            }
-            else if(uxBufferCant > 1024UL)
-            {
-                stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
-                stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
-                stDMAChControlPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
-                pu16DataArg += 1024UL;
-                ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
-                uxBufferCant -= 1024UL;
-                enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-                stDMAChControlAlternateBuffer.XFERSIZE = uxBufferCant - 1UL;
-                pu16DataArg += uxBufferCant;
-                ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
-                uxBufferCant = 0UL;
-                enErrorReg = (error_t) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-            }
-            else
-            {
-                stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
-                stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_STOP;
+            stDMAChControlPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
+            pu16DataArg += 1024UL;
+            pu16DataArg -= 1UL;
+            ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, ST7735_uxDMATransferAddress);
+            stDMAChControlAlternateBuffer.XFERSIZE = 1024UL - 1UL;
+            pu16DataArg += 1024UL;
+            ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (error_t) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, ST7735_uxDMATransferAddress);
+        }
+        else if(uxBufferCant > 1024UL)
+        {
+            stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
+            stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+            stDMAChControlPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
+            pu16DataArg += 1024UL;
+            pu16DataArg -= 1UL;
+            ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, ST7735_uxDMATransferAddress);
+            stDMAChControlAlternateBuffer.XFERSIZE = uxBufferCant - 1UL;
+            pu16DataArg += uxBufferCant;
+            ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
+            uxBufferCant = 0UL;
+            enErrorReg = (error_t) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, ST7735_uxDMATransferAddress);
+        }
+        else
+        {
+            stDMAChControlPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+            stDMAChControlAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_STOP;
 
-                stDMAChControlPrimaryBuffer.XFERSIZE = uxBufferCant - 1UL;
-                pu16DataArg += uxBufferCant;
-                ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
-                uxBufferCant = 0UL;
-                enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, (UBase_t) (pu16DataArg - 1UL));
-                SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
-                SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
-            }
-            ST7735__vSetTransferSizeLeft(uxBufferCant);
+            stDMAChControlPrimaryBuffer.XFERSIZE = uxBufferCant - 1UL;
+            pu16DataArg += uxBufferCant;
+            pu16DataArg -= 1UL;
+            ST7735_uxDMATransferAddress = (UBase_t) pu16DataArg;
+            uxBufferCant = 0UL;
+            enErrorReg = (error_t) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_13, ST7735_uxDMATransferAddress);
+            SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+            SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
         }
-        if(ERROR_OK == enErrorReg)
-        {
-            enErrorReg = (error_t) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlPrimaryBuffer);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            enErrorReg = (error_t) DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlAlternateBuffer);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            enErrorReg = (error_t) DMA_CH__enSetActiveControStructureByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enCH_CONTROL_PRIMARY);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            ST7735__vSetPrimaryTransferStruct(&stDMAChControlPrimaryBuffer);
-            ST7735__vSetAlternateTransferStruct(&stDMAChControlAlternateBuffer);
-            enErrorReg = (error_t) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
-        }
-        if(ERROR_OK == enErrorReg)
-        {
-            SSI__enClearInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
-            SSI__enEnableInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
-            SSI__enSetTransmitDMAState(ST7735_SSI, SSI_enSTATE_ENA);
-        }
+        ST7735__vSetTransferSizeLeft(uxBufferCant);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlPrimaryBuffer);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_13, &stDMAChControlAlternateBuffer);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        enErrorReg = (error_t) DMA_CH__enSetActiveControStructureByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enCH_CONTROL_PRIMARY);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        ST7735__vSetPrimaryTransferStruct(&stDMAChControlPrimaryBuffer);
+        ST7735__vSetAlternateTransferStruct(&stDMAChControlAlternateBuffer);
+        enErrorReg = (error_t) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_13, DMA_enSTATE_ENA);
+    }
+    if(ERROR_OK == enErrorReg)
+    {
+        SSI__enClearInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__enEnableInterruptSourceByMask(ST7735_SSI, (SSI_nINTMASK) (SSI_enINTMASK_TRANSMIT_DMA));
+        SSI__enSetTransmitDMAState(ST7735_SSI, SSI_enSTATE_ENA);
     }
     return (enErrorReg);
 }
@@ -549,21 +550,21 @@ void ST7735__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
 
         if(DMA_CH_ALTSET_R_SET13_PRIM == CurrentStructure) /*fill alternate*/
         {
-            DMA_CH_ALTERNATE->CH[13UL].SRCENDP = (UBase_t) ST7735_uxDMATransferAddress - uxMulti;
+            DMA_CH_ALTERNATE->CH[13UL].SRCENDP = (UBase_t) ST7735_uxDMATransferAddress;
             DMA_CH_ALTERNATE->CH[13UL].CTL = *((volatile UBase_t*) pstDMAChannel);
         }
         else
         {
-            DMA_CH_PRIMARY->CH[13UL].SRCENDP = (UBase_t) ST7735_uxDMATransferAddress - uxMulti;
+            DMA_CH_PRIMARY->CH[13UL].SRCENDP = (UBase_t) ST7735_uxDMATransferAddress;
             DMA_CH_PRIMARY->CH[13UL].CTL = *((volatile UBase_t*) pstDMAChannel);
         }
     }
     else if((0UL != ModePrimary) || (0UL != ModeAlternate))
     {
-        SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
-        SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
         DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 13UL;
         SSI2_DMACTL_R |= SSI_DMACTL_R_TXDMAE_MASK;
+        SSI2_ICR_R = (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+        SSI2_IM_R |= (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
     }
     else
     {
@@ -573,11 +574,11 @@ void ST7735__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
 
 void ST7735__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument)
 {
-    ST7735__enDisableChipSelect();
     SSI2_IM_R &= ~ (UBase_t) SSI_enINTMASK_END_OF_TRANSMIT;
+    ST7735__enDisableChipSelect();
 
-    SSI__enSetState(ST7735_SSI, SSI_enSTATE_DIS);
-    SSI__enSetDataLength(ST7735_SSI, SSI_enLENGTH_8BITS);
-    SSI__enSetState(ST7735_SSI, SSI_enSTATE_ENA);
+    SSI2_CR1->SSE = (UBase_t) SSI_enSTATE_DIS;
+    SSI2_CR0->DSS = (UBase_t) SSI_enLENGTH_8BITS;
+    SSI2_CR1->SSE = (UBase_t) SSI_enSTATE_ENA;
     ST7735_vDMATxInteruptStatus = 0UL;
 }

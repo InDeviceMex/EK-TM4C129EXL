@@ -105,7 +105,7 @@ int main(void)
     TIMER__vInit();
     ADC__enInit(ADC_enMODULE_0);
     ADC__enInit(ADC_enMODULE_1);
-    UART__vInit();
+    UART__enInit(UART_enMODULE_0);
     SSI__enInit(SSI_enMODULE_0);
     SSI__enInit(SSI_enMODULE_2);
     SSI__enInit(SSI_enMODULE_3);
@@ -148,28 +148,23 @@ int main(void)
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
     if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 4UL, &TaskHandeler[3UL]))
     {
-
         UART__uxPrintf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[1UL]))
     {
-
-    UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[0UL]))
     {
-
-    UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 300UL, (void*) 50UL, 2UL, &TaskHandeler[2UL]))
     {
-
-     UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }
     if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 33UL, 2UL, &TaskHandeler[4UL]))
     {
-
-     UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
+        UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
     }
 
     OS_Task__vStartScheduler(1000UL);

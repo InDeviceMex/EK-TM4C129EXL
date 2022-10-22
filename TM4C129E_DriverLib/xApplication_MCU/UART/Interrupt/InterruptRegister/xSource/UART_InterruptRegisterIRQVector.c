@@ -26,21 +26,24 @@
 #include <xApplication_MCU/UART/Interrupt/InterruptRoutine/UART_InterruptRoutine.h>
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-void UART__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void),UART_nMODULE enModule)
+UART_nERROR UART__enRegisterIRQVectorHandler(UART_nMODULE enModuleArg, UART_pvfIRQVectorHandler_t pfIrqVectorHandlerArg)
 {
-    SCB_nVECISR enVector = SCB_enVECISR_UART0;
-    UBase_t uxModule = 0UL;
-    const SCB_nVECISR SCB_enVECISR_UART[(UBase_t) UART_enMODULE_MAX]=
+    const SCB_nVECISR SCB_enVECISR_UART[(UBase_t) UART_enMODULE_MAX] =
     {
-        SCB_enVECISR_UART0, SCB_enVECISR_UART1, SCB_enVECISR_UART2, SCB_enVECISR_UART3,
-        SCB_enVECISR_UART4, SCB_enVECISR_UART5, SCB_enVECISR_UART6, SCB_enVECISR_UART7
+     SCB_enVECISR_UART0, SCB_enVECISR_UART1, SCB_enVECISR_UART2, SCB_enVECISR_UART3,
+     SCB_enVECISR_UART4, SCB_enVECISR_UART5, SCB_enVECISR_UART6, SCB_enVECISR_UART7,
     };
+    SCB_nVECISR enVectorReg;
+    UART_nERROR enErrorReg;
+    UART_pvfIRQVectorHandler_t* pvfVectorHandlerReg;
 
-
-    if(0UL != (UBase_t) pfIrqVectorHandler)
+    enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-        enVector = SCB_enVECISR_UART[uxModule];
-        SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVector, pfIrqVectorHandler, UART__pvfGetIRQVectorHandlerPointer((UART_nMODULE) uxModule));
+        enVectorReg = SCB_enVECISR_UART[(UBase_t) enModuleArg];
+        pvfVectorHandlerReg = UART__pvfGetIRQVectorHandlerPointer(enModuleArg);
+        enErrorReg = (UART_nERROR) SCB__enRegisterIRQVectorHandler(SCB_enMODULE_0, enVectorReg, pfIrqVectorHandlerArg, pvfVectorHandlerReg);
     }
+    return (enErrorReg);
+
 }

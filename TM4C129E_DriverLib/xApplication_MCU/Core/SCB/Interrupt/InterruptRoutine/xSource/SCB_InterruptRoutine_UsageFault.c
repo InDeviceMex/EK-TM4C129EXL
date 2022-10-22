@@ -68,7 +68,7 @@ void UsageFault__vSendValues(void)
 {
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
-    UART__vInit();
+    UART__enInit(UART_enMODULE_0);
     UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_DIS);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartUsageControl, &enUartUsageLineControl, 921600UL, &enUartUsageLine );
     UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_ENA);

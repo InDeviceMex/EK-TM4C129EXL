@@ -27,9 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void (*UART__pvfGetIRQSourceHandler(UART_nMODULE enUARTSubmodule,
-                                    UART_nINT enUARTInterruptNum))(void);
-void (**UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enUARTSubmodule,
-                                            UART_nINT enUARTInterruptNum))(void);
+UART_pvfIRQSourceHandler_t UART__pvfGetIRQSourceHandler(UART_nMODULE enModuleArg, UART_nINT enIntSourceArg);
+UART_pvfIRQSourceHandler_t* UART__pvfGetIRQSourceHandlerPointer(UART_nMODULE enModuleArg, UART_nINT enIntSourceArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTROUTINE_XHEADER_UART_INTERRUPTROUTINE_SOURCE_H_ */

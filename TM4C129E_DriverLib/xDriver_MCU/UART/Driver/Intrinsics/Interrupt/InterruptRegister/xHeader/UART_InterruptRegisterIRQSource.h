@@ -27,7 +27,6 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vRegisterIRQSourceHandler(void (*pfIrqSourceHandler) (void), UART_nMODULE enModule,
-                                     UART_nINT enInterruptSource);
+UART_nERROR UART__enRegisterIRQSourceHandler(UART_nMODULE enModuleArg, UART_nINT enIntSourceArg, UART_pvfIRQSourceHandler_t pfIrqSourceHandler);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_INTERRUPT_INTERRUPTREGISTER_XHEADER_UART_INTERRUPTREGISTERIRQSOURCE_H_ */

@@ -167,7 +167,6 @@ typedef enum
     UART_enBREAK_UNDEF = UNDEF_VALUE,
 }UART_nBREAK;
 
-
 typedef enum
 {
     UART_enPARITY_TYPE_ODD = 0UL,
@@ -295,5 +294,9 @@ typedef struct
     UART_nSTATE enParityStick;
     UART_nLENGTH enLength;
 }UART_LINE_CONTROL_t;
+
+typedef MCU_Register_t UART_Register_t;
+typedef MCU_pvfIRQVectorHandler_t UART_pvfIRQVectorHandler_t;
+typedef MCU_pvfIRQSourceHandler_t UART_pvfIRQSourceHandler_t;
 
 #endif /* XDRIVER_MCU_UART_PERIPHERAL_XHEADER_UART_ENUM_H_ */

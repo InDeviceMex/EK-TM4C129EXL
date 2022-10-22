@@ -65,7 +65,7 @@ UBase_t UART__uxGetFifoData(UART_nMODULE enModule, UBase_t* puxFifoArray,
     {
         uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
         uxUartBase += UART_DR_OFFSET;
         puxUartData = (volatile UBase_t*) uxUartBase;
 
@@ -104,7 +104,7 @@ UBase_t UART__uxGetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
     {
         uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
         uxUartBase += UART_DR_OFFSET;
         puxUartData = (volatile UBase_t*) uxUartBase;
 
@@ -142,7 +142,7 @@ UBase_t UART__uxSetFifoData(UART_nMODULE enModule, const UBase_t* puxFifoArray,
     {
         uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
 
-        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
         uxUartBase += UART_DR_OFFSET;
         puxUartData = (volatile UBase_t*) uxUartBase;
         while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
@@ -179,7 +179,7 @@ UBase_t UART__uxSetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArr
     if((UBase_t) 0UL != (UBase_t) pu8FifoArray)
     {
         uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-        uxUartBase = UART__uxBlockBaseAddress((UART_nMODULE) uxModule);
+        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
         uxUartBase += UART_DR_OFFSET;
         puxUartData = (volatile UBase_t*) uxUartBase;
 

@@ -27,7 +27,17 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-void UART__vEnInterruptVector(UART_nMODULE enModule, UART_nPRIORITY enUARTPriority);
-void UART__vDisInterruptVector(UART_nMODULE enModule);
+UART_nERROR UART__enSetInterruptVectorState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enSetInterruptVectorStateWithPriority(UART_nMODULE enModuleArg, UART_nSTATE enStateArg, UART_nPRIORITY enPriorityArg);
+
+UART_nERROR UART__enGetInterruptVectorState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
+UART_nERROR UART__enGetInterruptVectorStateWithPriority(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg, UART_nPRIORITY* penPriorityArg);
+
+UART_nERROR UART__enEnableInterruptVector(UART_nMODULE enModuleArg);
+UART_nERROR UART__enEnableInterruptVectorWithPriority(UART_nMODULE enModuleArg, UART_nPRIORITY enPriorityArg);
+
+UART_nERROR UART__enDisableInterruptVector(UART_nMODULE enModuleArg);
+UART_nERROR UART__enDisableInterruptVectorWithPriority(UART_nMODULE enModuleArg, UART_nPRIORITY enPriorityArg);
+
 
 #endif /* XAPPLICATION_MCU_UART_INTERRUPT_XHEADER_UART_INTERRUPTVECTOR_H_ */

@@ -23,28 +23,21 @@
  */
 #include <xApplication_MCU/UART/xHeader/UART_Init.h>
 
+#include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 #include <xApplication_MCU/UART/Interrupt/UART_Interrupt.h>
 
-void UART__vInit(void)
+UART_nERROR UART__enInit(UART_nMODULE enModuleArg)
 {
-    void (*pfIrqVectorHandler) (void) = (void (*) (void)) 0UL;
+    UART_nERROR enErrorReg;
+    UART_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_0);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_0);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_1);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_1);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_2);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_2);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_3);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_3);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_4);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_4);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_5);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_5);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_6);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_6);
-    pfIrqVectorHandler = UART__pvfGetIRQVectorHandler(UART_enMODULE_7);
-    UART__vRegisterIRQVectorHandler( pfIrqVectorHandler, UART_enMODULE_7);
+    enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = UART__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = UART__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
+
+    return (enErrorReg);
 }
-
 

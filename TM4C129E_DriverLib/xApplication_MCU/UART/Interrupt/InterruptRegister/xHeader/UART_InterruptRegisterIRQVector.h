@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-void UART__vRegisterIRQVectorHandler(void (*pfIrqVectorHandler) (void), UART_nMODULE enModule);
+UART_nERROR UART__enRegisterIRQVectorHandler(UART_nMODULE enModuleArg, UART_pvfIRQVectorHandler_t pfIrqVectorHandlerArg);
 
 #endif /* XAPPLICATION_MCU_UART_INTERRUPT_INTERRUPTREGISTER_XHEADER_UART_INTERRUPTREGISTERIRQVECTOR_H_ */

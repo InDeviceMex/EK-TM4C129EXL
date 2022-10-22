@@ -26,6 +26,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
+UART_nERROR UART__enWriteRegister(UART_nMODULE enModuleArg, UART_Register_t* pstRegisterDataArg);
 void UART__vWriteRegister(UART_nMODULE enModule, UBase_t uxOffsetRegister,
                           UBase_t uxFeatureValue, UBase_t uxMaskFeature,
                           UBase_t uxBitFeature);
