@@ -37,14 +37,14 @@ UBase_t GraphTerm__uxPrintf(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxR
     va_list vaList;
     va_start(vaList, pcFormat);
     GraphTerm__vSetCursorXY(enModule, uxColumn, uxRow);
-    uxLengtht = UART__uxvsPrintf(enModule, pcFormat,vaList);
+    uxLengtht = UART__uxvsCustomPrintf(enModule, pcFormat,vaList);
     va_end(vaList);
     return  (uxLengtht);
 }
 
 void GraphTerm__vSetFontColor(UART_nMODULE enModule, UBase_t uxRedColor,UBase_t uxGreenColor,UBase_t uxBlueColor)
 {
-    UART__uxPrintf(enModule,"\x1B[38;2;%u;%u;%um",uxRedColor, uxGreenColor, uxBlueColor);
+    UART__uxCustomPrintf(enModule,"\x1B[38;2;%u;%u;%um",uxRedColor, uxGreenColor, uxBlueColor);
 }
 
 

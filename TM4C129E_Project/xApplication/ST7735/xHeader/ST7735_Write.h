@@ -34,7 +34,4 @@ error_t ST7735__enWriteFifo(uint16_t u16DataArg, UBase_t uxBufferCant);
 error_t ST7735__enWriteDMA(UBase_t uxDataArg, UBase_t uxBufferCant);
 error_t ST7735__enWriteBuffer16bDMA(uint16_t* pu16DataArg, UBase_t uxBufferCant);
 
-UBase_t ST7735__uxGetDMATxInterupt(void);
-void ST7735__vSetDMATxInterupt(UBase_t uxStateArg);
-
 #endif /* XAPPLICATION_ST7735_XHEADER_ST7735_WRITE_H_ */

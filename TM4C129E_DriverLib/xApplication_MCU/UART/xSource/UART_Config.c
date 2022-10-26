@@ -129,12 +129,10 @@ UART_nERROR UART__enSetConfig(UART_nMODULE enModuleArg,
                               const UART_LINE_t* pstLineConfigArg,
                               UBase_t uxTimeoutArg)
 {
-    UART_nSTATE enEnableModule;
     UART_nERROR enErrorReg;
     UART_nBOOLEAN enIsBusyReg;
     UART_LINE_CONTROL_t stLineControlConfig;
 
-    enEnableModule = UART_enSTATE_DIS;
     enErrorReg = UART_enERROR_OK;
     if((0UL == (uintptr_t) pstControlConfigArg) ||
        (0UL == (uintptr_t) pstLineControlConfigArg)  ||
@@ -152,14 +150,7 @@ UART_nERROR UART__enSetConfig(UART_nMODULE enModuleArg,
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        enErrorReg = UART__enGetState(enModuleArg, &enEnableModule);
-    }
-    if(UART_enERROR_OK == enErrorReg)
-    {
-        if(UART_enSTATE_ENA == enEnableModule)
-        {
-            enErrorReg = UART__enSetState(enModuleArg, UART_enSTATE_DIS);
-        }
+        enErrorReg = UART__enSetState(enModuleArg, UART_enSTATE_DIS);
     }
     if(UART_enERROR_OK == enErrorReg)
     {
@@ -452,7 +443,7 @@ UART_nERROR UART__enSetConfig(UART_nMODULE enModuleArg,
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        enErrorReg = UART__enSetState(enModuleArg, enEnableModule);
+        enErrorReg = UART__enSetState(enModuleArg, pstControlConfigArg->enModuleState);
     }
     return (enErrorReg);
 }

@@ -22,11 +22,13 @@
  * 6 feb. 2021     vyldram    1.0         initial Version@endverbatim
  */
 #include <xDriver_MCU/UART/Driver/LineControl/UART_LineControl.h>
+#include <xDriver_MCU/UART/Driver/xHeader/UART_Fifo.h>
 
 
 UART_nERROR UART__enSetLineControl(UART_nMODULE enModuleArg, UART_nLENGTH enDataLengthArg,
                            UART_nSTATE enFifoStateArg, UART_nSTOP enStopBitsArg,
-                           UART_nPARITY enParityTypeArg)
+                           UART_nPARITY enParityTypeArg, UART_nFIFO_LEVEL enTransmitFifoLevelArg,
+                           UART_nFIFO_LEVEL enReceiveFifoLevelArg)
 {
     UART_nERROR enErrorReg;
 
@@ -34,6 +36,17 @@ UART_nERROR UART__enSetLineControl(UART_nMODULE enModuleArg, UART_nLENGTH enData
     if(UART_enERROR_OK == enErrorReg)
     {
         enErrorReg = UART__enSetFifoState(enModuleArg, enFifoStateArg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == enFifoStateArg)
+        {
+            enErrorReg = UART__enSetTransmitFifoLevel(enModuleArg, enTransmitFifoLevelArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = UART__enSetReceiveFifoLevel(enModuleArg, enReceiveFifoLevelArg);
+            }
+        }
     }
     if(UART_enERROR_OK == enErrorReg)
     {
@@ -51,7 +64,8 @@ UART_nERROR UART__enSetLineControlStructure(UART_nMODULE enModuleArg, const UART
     UART_nERROR enErrorReg;
     enErrorReg = UART__enSetLineControl(enModuleArg,
                                         stLineControlArg.enDataLength, stLineControlArg.enFifoState,
-                                        stLineControlArg.enStopBits, stLineControlArg.enParityType);
+                                        stLineControlArg.enStopBits, stLineControlArg.enParityType,
+                                        stLineControlArg.enTransmitFifoLevel, stLineControlArg.enReceiveFifoLevel);
     return (enErrorReg);
 }
 
@@ -67,7 +81,8 @@ UART_nERROR UART__enSetLineControlStructurePointer(UART_nMODULE enModuleArg, con
     {
         enErrorReg = UART__enSetLineControl(enModuleArg,
                                             pstLineControlArg->enDataLength, pstLineControlArg->enFifoState,
-                                            pstLineControlArg->enStopBits, pstLineControlArg->enParityType);
+                                            pstLineControlArg->enStopBits, pstLineControlArg->enParityType,
+                                            pstLineControlArg->enTransmitFifoLevel, pstLineControlArg->enReceiveFifoLevel);
     }
     return (enErrorReg);
 }

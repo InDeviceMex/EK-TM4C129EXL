@@ -134,6 +134,8 @@ UART_nERROR UART__enGetIrDAMode(UART_nMODULE enModuleArg, UART_nIRDA* penModeArg
     UART_nERROR enErrorReg;
 
     uxIrdaReg = 0UL;
+    enIrdaLowPowerReg = UART_enSTATE_DIS;
+    enIrdaStateReg = UART_enSTATE_DIS;
     enErrorReg = UART__enGetIrDAState(enModuleArg, &enIrdaStateReg);
     if(UART_enERROR_OK == enErrorReg)
     {

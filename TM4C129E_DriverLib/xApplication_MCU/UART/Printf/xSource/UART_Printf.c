@@ -32,27 +32,68 @@
 UBase_t UART__uxPrintf(UART_nMODULE enModule,const char* pcFormat, ... )
 {
     UBase_t uxLengtht;
-    char pcBufferReg[400UL];
-    char* pcBufferRegPointer;
+    char pcBufferReg[400UL] = {0};
     va_list vaList;
 
     va_start(vaList, pcFormat);
     uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
     va_end(vaList);
-    pcBufferRegPointer = pcBufferReg;
-    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer, &uxLengtht);
+    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferReg, &uxLengtht);
     return  (uxLengtht);
 }
 
 UBase_t UART__uxvsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList)
 {
     UBase_t uxLengtht;
-    char pcBufferReg[400UL];
-    char* pcBufferRegPointer;
+    char pcBufferReg[400UL] = {0};
 
     uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
-    pcBufferRegPointer = pcBufferReg;
-    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer, &uxLengtht);
+    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferReg, &uxLengtht);
+    return (uxLengtht);
+}
+
+UART_enCustomPrintHandler_t UART_penCustomPrintHandler[(UBase_t) UART_enMODULE_MAX] =
+{
+ &UART__enSetFifoDataByte, &UART__enSetFifoDataByte, &UART__enSetFifoDataByte, &UART__enSetFifoDataByte,
+ &UART__enSetFifoDataByte, &UART__enSetFifoDataByte, &UART__enSetFifoDataByte, &UART__enSetFifoDataByte
+};
+
+UART_nERROR UART__enSetCustomPrintfHandle(UART_nMODULE enModuleArg, UART_enCustomPrintHandler_t penFunctionHandlerArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART_enERROR_OK;
+    if(UART_enMODULE_MAX <= enModuleArg)
+    {
+        enErrorReg = UART_enERROR_VALUE;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        UART_penCustomPrintHandler[(UBase_t) enModuleArg] = penFunctionHandlerArg;
+    }
+    return (enErrorReg);
+}
+
+
+UBase_t UART__uxCustomPrintf(UART_nMODULE enModule,const char* pcFormat, ... )
+{
+    UBase_t uxLengtht;
+    char pcBufferReg[400UL] = {0};
+    va_list vaList;
+
+    va_start(vaList, pcFormat);
+    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
+    va_end(vaList);
+    UART_penCustomPrintHandler[(UBase_t) enModule](enModule, (uint8_t*) pcBufferReg, &uxLengtht);
+    return  (uxLengtht);
+}
+
+UBase_t UART__uxvsCustomPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList)
+{
+    UBase_t uxLengtht;
+    char pcBufferReg[400UL] = {0};
+
+    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
+    UART_penCustomPrintHandler[(UBase_t) enModule](enModule, (uint8_t*) pcBufferReg, &uxLengtht);
     return (uxLengtht);
 }
 

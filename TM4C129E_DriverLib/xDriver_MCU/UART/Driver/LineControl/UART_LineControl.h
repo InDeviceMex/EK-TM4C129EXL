@@ -33,7 +33,8 @@
 
 UART_nERROR UART__enSetLineControl(UART_nMODULE enModuleArg, UART_nLENGTH enDataLengthArg,
                            UART_nSTATE enFifoStateArg, UART_nSTOP enStopBitsArg,
-                           UART_nPARITY enParityTypeArg);
+                           UART_nPARITY enParityTypeArg, UART_nFIFO_LEVEL enTransmitFifoLevelArg,
+                           UART_nFIFO_LEVEL enReceiveFifoLevelArg);
 UART_nERROR UART__enSetLineControlStructure(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t stLineControlArg);
 UART_nERROR UART__enSetLineControlStructurePointer(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t* pstLineControlArg);
 

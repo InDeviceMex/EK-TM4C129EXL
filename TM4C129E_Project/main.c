@@ -13,13 +13,12 @@
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
 int main(void);
-
-void NMISW(void);
-
-void NMISW(void)
-{
-    MCU__vNoOperation();
-}
+UART_nERROR MAIN__enInitUartDMAConfig(void);
+UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant);
+void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
+void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument);
+void MAIN__vSetDMATxInterupt(UBase_t uxStateArg);
+UBase_t MAIN__uxGetDMATxInterupt(void);
 
 int main(void)
 {
@@ -36,6 +35,7 @@ int main(void)
         UART_enSTATE_DIS,
         UART_enSTATE_ENA,
         UART_enSTATE_ENA,
+        UART_enSTATE_ENA,
         UART_enLINE_MODE_SOFT,
         UART_enLINE_MODE_SOFT,
         UART_enSTATE_DIS,
@@ -50,6 +50,8 @@ int main(void)
      UART_enSTOP_ONE,
      UART_enPARITY_NONE,
      UART_enLENGTH_8BITS,
+     UART_enFIFO_LEVEL_13_16,
+     UART_enFIFO_LEVEL_13_16,
     };
 
     UART_LINE_t enUart0Line =
@@ -117,17 +119,11 @@ int main(void)
     EDUMKII_Microphone_vInit();
     EDUMKII_Joystick_vInit();
 
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_DIS);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL,
+    UART__enEnableInterruptVectorWithPriority(UART_enMODULE_0, (UART_nPRIORITY) NVIC_enVECTOR_PRI_UART0);
+    UART__enSetCustomPrintfHandle(UART_enMODULE_0, &MAIN__enWriteBufferDMA);
+    MAIN__enInitUartDMAConfig();
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 115200UL, 0UL, 0UL,
                       &enUart0Control, &enUart0LineControl, &enUart0Line, 0UL);
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_ENA);
-
-
-
-    GraphTerm__vHideCursor(UART_enMODULE_0);
-    GraphTerm__vSetFontColor(UART_enMODULE_0, 0xFFUL, 0UL,0UL );
-    GraphTerm__vClearScreen(UART_enMODULE_0);
-    GraphTerm__vSetCursorXY(UART_enMODULE_0, 0UL, 0UL);
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);
@@ -142,28 +138,18 @@ int main(void)
     OS_Queue__boAddToSet(ButtonQueueHandle, TFTQueueSetHandle);
     MainSemaphoreHandle = OS_Semaphore__pvCreateBinary();
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
+    UARTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
+    DMASemaphoreHandle = OS_Semaphore__pvCreateBinary();
+    ST7735SemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
+
+    OS_Semaphore__boGive(UARTSemaphoreHandle);
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 6UL, &TaskHandeler[3UL]))
-    {
-        UART__uxPrintf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
-    }
-    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 400UL, (void*) 54UL, 5UL, &TaskHandeler[1UL]))
-    {
-        UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
-    }
-    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 400UL, (void*) 52UL, 4UL, &TaskHandeler[0UL]))
-    {
-        UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
-    }
-    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[2UL]))
-    {
-        UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
-    }
-    if(OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 33UL, 2UL, &TaskHandeler[4UL]))
-    {
-        UART__uxPrintf(UART_enMODULE_0, "Task9 TFT created correctly \n\r");
-    }
+    OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 4UL, &TaskHandeler[3UL]);
+    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[1UL]);
+    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[0UL]);
+    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[2UL]);
+    OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 33UL, 2UL, &TaskHandeler[4UL]);
 
     OS_Task__vStartScheduler(1000UL);
     return (0UL);
@@ -171,3 +157,319 @@ int main(void)
 
 
 
+volatile UBase_t MAIN_vDMATxInteruptStatus = 0UL;
+volatile UBase_t MAIN_uxDMATransferSizeLeft = 0UL;
+volatile UBase_t MAIN_uxDMATransferAddress = 0UL;
+volatile DMA_CH_CTL_t* MAIN_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
+volatile DMA_CH_CTL_t* MAIN_pstDMAAlternateTransferStruct = (DMA_CH_CTL_t*) 0UL;
+
+
+DMA_CH_CTL_t stDMAChControlUARTPrimaryBuffer = {
+    DMA_enCH_MODE_STOP,
+    DMA_enSTATE_DIS,
+    0UL,
+    DMA_enCH_ARBITRATION_SIZE_16,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_DATA_SIZE_BYTE,
+    DMA_enCH_INCREMENT_BYTE,
+    DMA_enCH_DATA_SIZE_BYTE,
+    DMA_enCH_INCREMENT_NO,
+};
+
+DMA_CH_CTL_t stDMAChControlUARTAlternateBuffer = {
+    DMA_enCH_MODE_STOP,
+    DMA_enSTATE_DIS,
+    0UL,
+    DMA_enCH_ARBITRATION_SIZE_16,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_ACCESS_NON_PRIVILEGED,
+    0UL,
+    DMA_enCH_DATA_SIZE_BYTE,
+    DMA_enCH_INCREMENT_BYTE,
+    DMA_enCH_DATA_SIZE_BYTE,
+    DMA_enCH_INCREMENT_NO,
+};
+
+
+static void MAIN__vSetTransferSizeLeft(UBase_t uxSizeArg)
+{
+    MAIN_uxDMATransferSizeLeft = uxSizeArg;
+}
+
+UBase_t MAIN__uxGetTransferSizeLeft(void)
+{
+    UBase_t uxSizeArg;
+    uxSizeArg = MAIN_uxDMATransferSizeLeft;
+    return (uxSizeArg);
+}
+
+static void MAIN__vSetPrimaryTransferStruct(DMA_CH_CTL_t* pstTransfer)
+{
+    MAIN_pstDMAPrimaryTransferStruct = pstTransfer;
+}
+
+DMA_CH_CTL_t* MAIN__pstGetPrimaryTransferStruct(void)
+{
+    return (MAIN_pstDMAPrimaryTransferStruct);
+}
+
+static void MAIN__vSetAlternateTransferStruct(DMA_CH_CTL_t* pstTransfer)
+{
+    MAIN_pstDMAAlternateTransferStruct = pstTransfer;
+}
+
+DMA_CH_CTL_t* MAIN__pstGetAlternateTransferStruct(void)
+{
+    return (MAIN_pstDMAAlternateTransferStruct);
+}
+
+UBase_t MAIN__uxGetTransferAddress(void)
+{
+    return (MAIN_uxDMATransferAddress);
+}
+
+UBase_t MAIN__uxGetDMATxInterupt(void)
+{
+    return (MAIN_vDMATxInteruptStatus);
+}
+
+void MAIN__vSetDMATxInterupt(UBase_t uxStateArg)
+{
+    MAIN_vDMATxInteruptStatus = uxStateArg;
+}
+
+
+UART_nERROR MAIN__enInitUartDMAConfig(void)
+{
+    UART_nERROR enErrorReg;
+    DMA_CONFIG_t stDMAChConfig= {
+        DMA_enSTATE_DIS,
+        DMA_enCH_REQTYPE_BOTH,
+        DMA_enCH_PERIPHERAL_ENA,
+        DMA_enCH_CONTROL_PRIMARY ,
+        DMA_enCH_PRIORITY_HIGH ,
+        DMA_enCH_ENCODER_0
+    };
+
+    UART__enRegisterIRQSourceHandler(UART_enMODULE_0, UART_enINT_DMA_TRANSMIT, &MAIN__vDMATxInterupt);
+    UART__enRegisterIRQSourceHandler(UART_enMODULE_0, UART_enINT_END_OF_TRANSMISSION, &MAIN__vDMATxLastBit);
+    enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, (UBase_t) (UART0_BASE + UART_DR_OFFSET));
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH_Alternate__enSetDestinationEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, (UBase_t) (UART0_BASE + UART_DR_OFFSET));
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, (UBase_t) 0UL);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, (UBase_t) 0UL);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH__enSetConfigParameters(DMA_enMODULE_0, DMA_enCH_9, &stDMAChConfig);
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxBufferCant;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxBufferCant)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(0UL == *puxBufferCant)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+        else
+        {
+            uxBufferCant = *puxBufferCant;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pu8DataArg)
+        {
+            enErrorReg = UART_enERROR_POINTER;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        OS_Semaphore__boTake(UARTSemaphoreHandle, OS_ADAPT_MAX_DELAY);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(uxBufferCant >= 2048UL)
+        {
+            stDMAChControlUARTPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
+            stDMAChControlUARTAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
+            stDMAChControlUARTPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
+            pu8DataArg += 1024UL;
+            pu8DataArg -= 1UL;
+            MAIN_uxDMATransferAddress = (UBase_t) pu8DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
+            stDMAChControlUARTAlternateBuffer.XFERSIZE = 1024UL - 1UL;
+            pu8DataArg += 1024UL;
+            MAIN_uxDMATransferAddress = (UBase_t) pu8DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (UART_nERROR) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
+        }
+        else if(uxBufferCant > 1024UL)
+        {
+            stDMAChControlUARTPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
+            stDMAChControlUARTAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+            stDMAChControlUARTPrimaryBuffer.XFERSIZE = 1024UL - 1UL;
+            pu8DataArg += 1024UL;
+            pu8DataArg -= 1UL;
+            MAIN_uxDMATransferAddress = (UBase_t) pu8DataArg;
+            uxBufferCant -= 1024UL;
+            enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
+            stDMAChControlUARTAlternateBuffer.XFERSIZE = uxBufferCant - 1UL;
+            pu8DataArg += uxBufferCant;
+            MAIN_uxDMATransferAddress = (UBase_t) pu8DataArg;
+            uxBufferCant = 0UL;
+            enErrorReg = (UART_nERROR) DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
+        }
+        else
+        {
+            stDMAChControlUARTPrimaryBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+            stDMAChControlUARTAlternateBuffer.XFERMODE = (UBase_t) DMA_enCH_MODE_STOP;
+
+            stDMAChControlUARTPrimaryBuffer.XFERSIZE = uxBufferCant - 1UL;
+            pu8DataArg += uxBufferCant;
+            pu8DataArg -= 1UL;
+            MAIN_uxDMATransferAddress = (UBase_t) pu8DataArg;
+            uxBufferCant = 0UL;
+            enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
+            UART0_ICR_R = (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+            UART0_IM_R |= (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+        }
+        MAIN__vSetTransferSizeLeft(uxBufferCant);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_9, &stDMAChControlUARTPrimaryBuffer);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_enMODULE_0, DMA_enCH_9, &stDMAChControlUARTAlternateBuffer);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) DMA_CH__enSetActiveControStructureByNumber(DMA_enMODULE_0, DMA_enCH_9, DMA_enCH_CONTROL_PRIMARY);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        MAIN__vSetPrimaryTransferStruct(&stDMAChControlUARTPrimaryBuffer);
+        MAIN__vSetAlternateTransferStruct(&stDMAChControlUARTAlternateBuffer);
+        enErrorReg = (UART_nERROR) DMA_CH__enSetStateByNumber(DMA_enMODULE_0, DMA_enCH_9, DMA_enSTATE_ENA);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        UART__enClearInterruptSourceByMask(UART_enMODULE_0, (UART_nINTMASK) (UART_enINTMASK_DMA_TRANSMIT));
+        UART__enEnableInterruptSourceByMask(UART_enMODULE_0, (UART_nINTMASK) (UART_enINTMASK_DMA_TRANSMIT));
+        UART__enSetTransmitDMAState(UART_enMODULE_0, UART_enSTATE_ENA);
+    }
+    return (enErrorReg);
+}
+
+void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    UBase_t uxMultiWord;
+    UBase_t CurrentStructure;
+    UBase_t ModePrimary;
+    UBase_t ModeAlternate;
+    UBase_t uxMulti;
+    DMA_CH_CTL_t* pstDMAChannel;
+
+    ModePrimary = DMA_CH_PRIMARY->CH[9UL].CTL_Bit.XFERMODE;
+    ModeAlternate = DMA_CH_ALTERNATE->CH[9UL].CTL_Bit.XFERMODE;
+    if(0UL != MAIN_uxDMATransferSizeLeft)
+    {
+        DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 9UL;
+        UART0_DMACTL_R |= UART_DMACTL_R_TXDMAE_MASK;
+
+        CurrentStructure = DMA_CH_ALTSET_R;
+        CurrentStructure &= DMA_CH_ALTSET_R_SET9_MASK;
+        if(DMA_CH_ALTSET_R_SET9_PRIM == CurrentStructure) /*fill alternate*/
+        {
+            pstDMAChannel = MAIN__pstGetAlternateTransferStruct();
+        }
+        else
+        {
+            pstDMAChannel = MAIN__pstGetPrimaryTransferStruct();
+        }
+
+        uxMulti = pstDMAChannel->SRCINC;
+        uxMulti += 1UL;
+        uxMulti &= 0x3UL;
+        if((UBase_t) 3 == uxMulti)
+        {
+            uxMulti = 4UL;
+        }
+
+        if(MAIN_uxDMATransferSizeLeft > 1024UL)
+        {
+            pstDMAChannel->XFERMODE = (UBase_t) DMA_enCH_MODE_PING_PONG;
+            pstDMAChannel->XFERSIZE = 1024UL - 1UL;
+            uxMultiWord = (1024UL);
+            uxMultiWord *= uxMulti;
+            MAIN_uxDMATransferAddress += uxMultiWord;
+            MAIN_uxDMATransferSizeLeft -= 1024UL;
+        }
+        else
+        {
+            pstDMAChannel->XFERMODE = (UBase_t) DMA_enCH_MODE_BASIC;
+            pstDMAChannel->XFERSIZE = MAIN_uxDMATransferSizeLeft - 1UL;
+            uxMultiWord = (MAIN_uxDMATransferSizeLeft);
+            uxMultiWord *= uxMulti;
+            MAIN_uxDMATransferAddress += uxMultiWord;
+            MAIN_uxDMATransferSizeLeft = 0UL;
+        }
+
+        if(DMA_CH_ALTSET_R_SET9_PRIM == CurrentStructure) /*fill alternate*/
+        {
+            DMA_CH_ALTERNATE->CH[9UL].SRCENDP = (UBase_t) MAIN_uxDMATransferAddress;
+            DMA_CH_ALTERNATE->CH[9UL].CTL = *((volatile UBase_t*) pstDMAChannel);
+        }
+        else
+        {
+            DMA_CH_PRIMARY->CH[9UL].SRCENDP = (UBase_t) MAIN_uxDMATransferAddress;
+            DMA_CH_PRIMARY->CH[9UL].CTL = *((volatile UBase_t*) pstDMAChannel);
+        }
+    }
+    else if((0UL != ModePrimary) || (0UL != ModeAlternate))
+    {
+        DMA->CH_ENASET = (UBase_t)  DMA_enSTATE_ENA << 9UL;
+        UART0_ICR_R = (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+        UART0_IM_R |= (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+        UART0_DMACTL_R |= UART_DMACTL_R_TXDMAE_MASK;
+    }
+    else
+    {
+        UART0_IM_R &= ~ (UBase_t) UART_enINTMASK_DMA_TRANSMIT;
+    }
+}
+
+
+void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    OS_Boolean_t boHigherPriorityTaskWoken = FALSE;
+    UART0_IM_R &= ~ (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+    OS_Semaphore__boGiveFromISR(UARTSemaphoreHandle, &boHigherPriorityTaskWoken);
+    OS_Adapt__vYieldFromISR(boHigherPriorityTaskWoken);
+
+}

@@ -38,7 +38,6 @@
 
 uint16_t u16BufferSPI[128UL * 128UL] __attribute__((aligned(4))) ;
 uint16_t u16BufferSPI2[128UL * 128UL] __attribute__((aligned(4))) ;
-boolean_t volatile boDMAOngoing = FALSE;
 uint16_t* pu16WriteBuffer = u16BufferSPI;
 uint16_t* pu16CurrentBuffer = u16BufferSPI2;
 
@@ -73,7 +72,10 @@ void xTask9_TFT(void* pvParams)
     UBase_t uxCountImage = 0UL;
     UBase_t uxCount= 0U;
     UBase_t uxImage= 0U;
-    char pcConvert[50UL];
+    char pcConvert1[50UL];
+    char pcConvert2[50UL];
+    char pcConvert3[50UL];
+    char pcConvert4[50UL];
     const uint16_t* pu16Pointer = (const uint16_t*) Images__pu8BicyclePointer();
     OS_Boolean_t boResult;
     uint16_t* pu16TempBuffer;
@@ -82,15 +84,12 @@ void xTask9_TFT(void* pvParams)
     pcButtonTwo = (char*) 0UL;
     GPIO__vSetReady(GPIO_enPORT_F);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
+    OS_Semaphore__boGive(MainSemaphoreHandle);
+    OS_Semaphore__boGive(DMASemaphoreHandle);
+    OS_Semaphore__boGive(ST7735SemaphoreHandle);
     ST7735__enInitRModel(ST7735_enINITFLAGS_GREEN);
-    UBase_t uxStatusReg;
-    do
-    {
-        uxStatusReg = ST7735__uxGetDMATxInterupt();
-    }while(0UL != uxStatusReg);
     TFT__enInitWriteDMAConfig();
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_HIGH);
-    OS_Semaphore__boGive(MainSemaphoreHandle);
 
     uxLastWakeTime = OS_Task__uxGetTickCount ();
     uxPeriodTicksOld = 0UL;
@@ -102,8 +101,8 @@ void xTask9_TFT(void* pvParams)
         pu16TempBuffer = pu16WriteBuffer;
         pu16WriteBuffer = pu16CurrentBuffer;
         pu16CurrentBuffer = pu16TempBuffer;
-        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, pu16WriteBuffer);
         TFT__enWriteDMAConstant((UBase_t*)(pu16CurrentBuffer), 0UL, (128UL *128UL / 2UL));
+        ST7735__vDrawBuffer(0UL, 0UL, 128UL, 128UL, pu16WriteBuffer);
         if(0UL == uxCountImage)
         {
             if(uxImage)
@@ -159,26 +158,27 @@ void xTask9_TFT(void* pvParams)
         TFT__enWriteDMALayer16Bits((UBase_t) pu16Pointer, (UBase_t) pu16CurrentBuffer, 120UL, 76UL,
                                      0UL, 0UL, 120UL, 76UL,
                                      uxLcdPosXCurrent, uxLcdPosYCurrent, 128UL, 128UL);
-        while(TRUE == boDMAOngoing);
-        sprintf__uxUser(pcConvert, "YOYSTICK\n\rX:%4d Y:%4d",
+        sprintf__uxUser(pcConvert1, "YOYSTICK\n\rX:%4d Y:%4d",
                          uxJostickValue[0UL],
                          uxJostickValue[1UL]
                          );
-        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 16UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
-        sprintf__uxUser(pcConvert, "ACCELEROMETER\n\rX:%4dY:%4dZ:%4d",
+        sprintf__uxUser(pcConvert2, "ACCELEROMETER\n\rX:%4dY:%4dZ:%4d",
                          sxAccelValue[0UL],
                          sxAccelValue[1UL],
                          sxAccelValue[2UL]
                          );
-        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 32UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
-        sprintf__uxUser(pcConvert, "BUTTON\n\r1:%s 2:%s 3:%s",
+        sprintf__uxUser(pcConvert3, "BUTTON\n\r1:%s 2:%s 3:%s",
                          pcStateButton[0UL],
                          pcStateButton[1UL],
                          pcStateButton[2UL]
                          );
-        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 0UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
-        sprintf__uxUser(pcConvert, "PERIOD: %d", uxPeriodResult );
-        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 48UL, pcConvert, 0xFFFFUL, &FONT_s5x7);
+        sprintf__uxUser(pcConvert4, "PERIOD: %d", uxPeriodResult );
+        OS_Semaphore__boTake(DMASemaphoreHandle, OS_ADAPT_MAX_DELAY);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 0UL, pcConvert3, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 16UL, pcConvert1, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 32UL, pcConvert2, 0xFFFFUL, &FONT_s5x7);
+        ST7735__vBufferString(pu16CurrentBuffer, 0UL, 48UL, pcConvert4, 0xFFFFUL, &FONT_s5x7);
+        OS_Semaphore__boGive(DMASemaphoreHandle);
 
         uxCountImage++;
         if(uxCountImage > 60UL)
@@ -253,8 +253,7 @@ error_t TFT__enWriteDMAConstant(UBase_t* uxBufferIn, UBase_t uxDataArg, UBase_t 
     }
     if(ERROR_OK == enErrorReg)
     {
-        while(TRUE == boDMAOngoing);
-        boDMAOngoing = TRUE;
+        OS_Semaphore__boTake(DMASemaphoreHandle, OS_ADAPT_MAX_DELAY);
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -352,8 +351,7 @@ error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBas
     }
     if(ERROR_OK == enErrorReg)
     {
-        while(TRUE == boDMAOngoing);
-        boDMAOngoing = TRUE;
+        OS_Semaphore__boTake(DMASemaphoreHandle, OS_ADAPT_MAX_DELAY);
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -447,8 +445,7 @@ error_t TFT__enWriteDMALayerConstant(uint16_t u16Constant, UBase_t uxBufferOut, 
     }
     if(ERROR_OK == enErrorReg)
     {
-        while(TRUE == boDMAOngoing);
-        boDMAOngoing = TRUE;
+        OS_Semaphore__boTake(DMASemaphoreHandle, OS_ADAPT_MAX_DELAY);
     }
     if(ERROR_OK == enErrorReg)
     {
@@ -515,7 +512,9 @@ void TFT__vDMALayerConstantInterrupt(uintptr_t uptrModuleArg, void* pvArgument)
     }
     else
     {
-        boDMAOngoing = FALSE;
+        OS_Boolean_t boHigherPriorityTaskWoken = FALSE;
+        OS_Semaphore__boGiveFromISR(DMASemaphoreHandle, &boHigherPriorityTaskWoken);
+        OS_Adapt__vYieldFromISR(boHigherPriorityTaskWoken);
     }
 }
 
@@ -542,7 +541,9 @@ void TFT__vDMALayerInterrupt(uintptr_t uptrModuleArg, void* pvArgument)
     }
     else
     {
-        boDMAOngoing = FALSE;
+        OS_Boolean_t boHigherPriorityTaskWoken = FALSE;
+        OS_Semaphore__boGiveFromISR(DMASemaphoreHandle, &boHigherPriorityTaskWoken);
+        OS_Adapt__vYieldFromISR(boHigherPriorityTaskWoken);
     }
 }
 
@@ -574,7 +575,9 @@ void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
     }
     else
     {
-        boDMAOngoing = FALSE;
+        OS_Boolean_t boHigherPriorityTaskWoken = FALSE;
+        OS_Semaphore__boGiveFromISR(DMASemaphoreHandle, &boHigherPriorityTaskWoken);
+        OS_Adapt__vYieldFromISR(boHigherPriorityTaskWoken);
     }
 }
 

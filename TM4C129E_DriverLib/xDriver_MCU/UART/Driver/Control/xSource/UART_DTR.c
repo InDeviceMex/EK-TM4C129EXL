@@ -59,7 +59,7 @@ UART_nERROR UART__enGetDataTerminalReadyLevel(UART_nMODULE enModuleArg, UART_nLE
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        *penLevelArg = (UART_nSTATE) stRegister.uxValue;
+        *penLevelArg = (UART_nLEVEL) stRegister.uxValue;
     }
 
     return (enErrorReg);

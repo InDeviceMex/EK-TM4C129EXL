@@ -59,7 +59,7 @@ UART_nERROR UART__enGetEndOfTransmissionBehavior(UART_nMODULE enModuleArg, UART_
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        *penBehaviorArg = (UART_nSTATE) stRegister.uxValue;
+        *penBehaviorArg = (UART_nEOT) stRegister.uxValue;
     }
 
     return (enErrorReg);

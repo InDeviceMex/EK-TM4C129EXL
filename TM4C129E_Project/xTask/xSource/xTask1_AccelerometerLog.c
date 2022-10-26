@@ -54,7 +54,7 @@ void xTask1_AccelerometerLog(void* pvParams)
     sxAccelValue[1U] = sxAccelValueY;
     sxAccelValue[2U] = sxAccelValueZ;
     OS_Queue__boOverwrite(AccelerometerQueueHandle, sxAccelValue);
-    UART__uxPrintf(UART_enMODULE_0, "Task1 First Entry \n\r");
+    UART__uxCustomPrintf(UART_enMODULE_0, "Task1 First Entry \n\r");
     while(1UL)
     {
         EDUMKII_Accelerometer_vSample(&sxAccelValueX, &sxAccelValueY, &sxAccelValueZ);

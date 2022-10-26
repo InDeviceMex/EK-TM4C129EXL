@@ -32,7 +32,7 @@
 
 void GraphTerm__vClearLine(UART_nMODULE enModule, UBase_t uxLine)
 {
-    UART__uxPrintf(enModule,"\x1B[%u;0H\x1B[K", uxLine);
+    UART__uxCustomPrintf(enModule,"\x1B[%u;0H\x1B[K", uxLine);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

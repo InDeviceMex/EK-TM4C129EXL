@@ -37,7 +37,7 @@ UART_nERROR UART__enSetParityType(UART_nMODULE enModuleArg, UART_nPARITY enParit
 
     stRegister.uxMask = UART_LCRH_SPS_MASK;
 
-    uxParityStateReg = (UBase_t) enParityArg;;
+    uxParityStateReg = (UBase_t) enParityArg;
     uxParityStateReg >>= 2UL;
     uxParityStateReg &= 1UL;
     uxParityStateReg ^= uxParityStateReg;

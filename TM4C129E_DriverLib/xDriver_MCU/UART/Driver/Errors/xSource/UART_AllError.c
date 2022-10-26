@@ -47,7 +47,7 @@ UART_nERROR UART__enGetReceiveErrorStatus(UART_nMODULE enModuleArg, UART_nRECEIV
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        *penStatusArg = (UART_nSTATE) stRegister.uxValue;
+        *penStatusArg = (UART_nRECEIVE_ERROR) stRegister.uxValue;
     }
 
     return (enErrorReg);

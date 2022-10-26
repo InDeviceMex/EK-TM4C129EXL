@@ -34,12 +34,15 @@ UART_CONTROL_t enUartMemoryControl =
     UART_enSTATE_DIS,
     UART_enSTATE_ENA,
     UART_enSTATE_ENA,
+    UART_enSTATE_ENA,
     UART_enLINE_MODE_SOFT,
     UART_enLINE_MODE_SOFT,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
+    UART_enLEVEL_LOW,
+    UART_enLEVEL_LOW,
 };
 
 UART_LINE_CONTROL_t enUartMemoryLineControl =
@@ -48,6 +51,8 @@ UART_LINE_CONTROL_t enUartMemoryLineControl =
  UART_enSTOP_ONE,
  UART_enPARITY_NONE,
  UART_enLENGTH_8BITS,
+ UART_enFIFO_LEVEL_13_16,
+ UART_enFIFO_LEVEL_13_16,
 };
 
 UART_LINE_t enUartMemoryLine =
@@ -67,11 +72,10 @@ void MemoryFault__vSendValues(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     UART__enInit(UART_enMODULE_0);
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_DIS);
+    UART__enSetCustomPrintfHandle(UART_enMODULE_0, &UART__enSetFifoDataByte);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL, &enUartMemoryControl, &enUartMemoryLineControl, &enUartMemoryLine, 0UL);
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_ENA);
 
-    UART__uxPrintf(UART_enMODULE_0, "MEMORY FAULT exception Detected\n\r"
+    UART__uxCustomPrintf(UART_enMODULE_0, "MEMORY FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -107,7 +111,7 @@ void MemoryFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgum
     uxMemoryFault &= (UBase_t) SCB_enMEMORY_ALL;
     if(0UL == ((UBase_t) SCB_enMEMORY_ALL & uxMemoryFault))
     {
-        UART__uxPrintf(UART_enMODULE_0, "Memory Fault Exception triggered by Software \n\r");
+        UART__uxCustomPrintf(UART_enMODULE_0, "Memory Fault Exception triggered by Software \n\r");
         pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_SW);
         pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_SW);
     }
@@ -116,14 +120,14 @@ void MemoryFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgum
         if((UBase_t) SCB_enMEMORY_MLSPERR & uxMemoryFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_MLSPERR_CLEAR;
-            UART__uxPrintf(UART_enMODULE_0, "Memory Fault on FPU Lazy State Preservation \n\r");
+            UART__uxCustomPrintf(UART_enMODULE_0, "Memory Fault on FPU Lazy State Preservation \n\r");
             pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_MLSPERR);
             pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_MLSPERR);
         }
         if((UBase_t) SCB_enMEMORY_MSTKERR & uxMemoryFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_MSTKERR_CLEAR;
-            UART__uxPrintf(UART_enMODULE_0,"Stacking Memory Fault, it occurred on an Exception/IRQ entry\n\r"
+            UART__uxCustomPrintf(UART_enMODULE_0,"Stacking Memory Fault, it occurred on an Exception/IRQ entry\n\r"
                                             "Context Values cannot be valid\n\r");
             pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_MSTKERR);
             pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_MSTKERR);
@@ -131,7 +135,7 @@ void MemoryFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgum
         if((UBase_t) SCB_enMEMORY_MUNSTKERR & uxMemoryFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_MUNSTKERR_CLEAR;
-            UART__uxPrintf(UART_enMODULE_0,"Un-stacking Memory Fault, it occurred on an Exception/IRQ exit\n\r"
+            UART__uxCustomPrintf(UART_enMODULE_0,"Un-stacking Memory Fault, it occurred on an Exception/IRQ exit\n\r"
                                             "Context Values are related to the previous context\n\r");
             pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_MUNSTKERR);
             pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_MUNSTKERR);
@@ -146,16 +150,16 @@ void MemoryFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgum
         if((UBase_t) SCB_enMEMORY_DACCVIOL & uxMemoryFault)
         {
             pstSCBReg->CFSR = SCB_CFSR_R_DACCVIOL_CLEAR;
-            UART__uxPrintf(UART_enMODULE_0, "Data Access Violation Memory Fault\n\r");
+            UART__uxCustomPrintf(UART_enMODULE_0, "Data Access Violation Memory Fault\n\r");
             if(1UL == uxMemoryAddressValid)
             {
                 uxMemoryAddressFault = pstSCBReg->MMFAR;
-                UART__uxPrintf(UART_enMODULE_0, "Attemp Data Access Fault Address: %X\n\r", uxMemoryAddressFault);
+                UART__uxCustomPrintf(UART_enMODULE_0, "Attemp Data Access Fault Address: %X\n\r", uxMemoryAddressFault);
             }
             puxContextOffset = puxContext;
             puxContextOffset += 6UL;
             uxMemoryAddressFault = *puxContextOffset;
-            UART__uxPrintf(UART_enMODULE_0, "Instruction Fault Address: %X\n\r", uxMemoryAddressFault);
+            UART__uxCustomPrintf(UART_enMODULE_0, "Instruction Fault Address: %X\n\r", uxMemoryAddressFault);
             pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_DACCVIOL);
             pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_DACCVIOL);
         }
@@ -165,7 +169,7 @@ void MemoryFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgum
             puxContextOffset = puxContext;
             puxContextOffset += 6UL;
             uxMemoryAddressFault = *puxContextOffset;
-            UART__uxPrintf(UART_enMODULE_0, "Instruction Access Fault Address: %X\n\r", uxMemoryAddressFault);
+            UART__uxCustomPrintf(UART_enMODULE_0, "Instruction Access Fault Address: %X\n\r", uxMemoryAddressFault);
             pvfCallback = SCB_MemoryFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enMEMORY_BIT_IACCVIOL);
             pvfCallback(SCB_BASE, (void*) SCB_enMEMORY_BIT_IACCVIOL);
         }

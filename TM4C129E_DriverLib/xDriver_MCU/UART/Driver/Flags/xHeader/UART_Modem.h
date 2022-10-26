@@ -28,5 +28,8 @@
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 UART_nERROR UART__enIsClearToSendAsserted(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
+UART_nERROR UART__enIsDataSetReadyAsserted(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
+UART_nERROR UART__enIsDataCarrierDetectAsserted(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
+UART_nERROR UART__enIsRingIndicatorAsserted(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_FLAGS_XHEADER_UART_MODEM_H_ */

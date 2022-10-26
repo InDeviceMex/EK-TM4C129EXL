@@ -167,6 +167,7 @@ UART_nERROR UART__enGetBaudRate(UART_nMODULE enModuleArg, UBase_t* puxBaudRateAr
 
     uxCurrentClock = 0UL;
     uxBaudRateInteger = 0UL;
+    uxBaudRateFractional = 0UL;
     enSmartCardMode = UART_enSTATE_DIS;
     enClockDividerReg = UART_enCLOCK_DIVIDER_16;
     enUartClock = UART_enCLOCK_SYSCLK;

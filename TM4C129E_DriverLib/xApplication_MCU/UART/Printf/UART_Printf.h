@@ -31,4 +31,11 @@
 UBase_t UART__uxPrintf(UART_nMODULE enModule,const char* pcFormat, ... );
 UBase_t UART__uxvsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList);
 
+typedef UART_nERROR (*UART_enCustomPrintHandler_t)(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxCount);
+
+
+UART_nERROR UART__enSetCustomPrintfHandle(UART_nMODULE enModuleArg, UART_enCustomPrintHandler_t penFunctionHandlerArg);
+UBase_t UART__uxCustomPrintf(UART_nMODULE enModule,const char* pcFormat, ... );
+UBase_t UART__uxvsCustomPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList);
+
 #endif /* XAPPLICATION_MCU_UART_PRINTF_UART_PRINTF_H_ */

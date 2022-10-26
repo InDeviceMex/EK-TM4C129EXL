@@ -120,12 +120,6 @@ void UART7__vIRQVectorHandler(void)
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_7, UART_enINT_OVERRUN_ERROR);
                 pvfCallback(UART7_BASE, (void*) UART_enINT_OVERRUN_ERROR);
             }
-            if((UBase_t) UART_enINTMASK_END_OF_TRANSMISSION & uxReg)
-            {
-                UART7_ICR_R = (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
-                pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_7, UART_enINT_END_OF_TRANSMISSION);
-                pvfCallback(UART7_BASE, (void*) UART_enINT_END_OF_TRANSMISSION);
-            }
             if((UBase_t) UART_enINTMASK_BIT9_MODE & uxReg)
             {
                 UART7_ICR_R = (UBase_t) UART_enINTMASK_BIT9_MODE;
@@ -140,9 +134,16 @@ void UART7__vIRQVectorHandler(void)
             }
             if((UBase_t) UART_enINTMASK_DMA_TRANSMIT & uxReg)
             {
+                UART7_DMACTL_R &= ~UART_DMACTL_R_TXDMAE_MASK;
                 UART7_ICR_R = (UBase_t) UART_enINTMASK_DMA_TRANSMIT;
                 pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_7, UART_enINT_DMA_TRANSMIT);
                 pvfCallback(UART7_BASE, (void*) UART_enINT_DMA_TRANSMIT);
+            }
+            if((UBase_t) UART_enINTMASK_END_OF_TRANSMISSION & uxReg)
+            {
+                UART7_ICR_R = (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
+                pvfCallback = UART__pvfGetIRQSourceHandler(UART_enMODULE_7, UART_enINT_END_OF_TRANSMISSION);
+                pvfCallback(UART7_BASE, (void*) UART_enINT_END_OF_TRANSMISSION);
             }
 
             if(UART_enTRUE == boErrorFlag)

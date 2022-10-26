@@ -35,12 +35,12 @@
 
 void GraphTerm__vCursorToHome(UART_nMODULE enModule)
 {
-    UART__uxPrintf(enModule,"\x1B[H" );
+    UART__uxCustomPrintf(enModule,"\x1B[H" );
 }
 
 void GraphTerm__vHideCursor(UART_nMODULE enModule)
 {
-    UART__uxPrintf(enModule,"\x1B[?25l" );
+    UART__uxCustomPrintf(enModule,"\x1B[?25l" );
 }
 
 void GraphTerm__vSetCursorXY(UART_nMODULE enModule, UBase_t uxColumn, UBase_t uxRow)
@@ -60,7 +60,7 @@ void GraphTerm__vSetCursorXYSecure(UART_nMODULE enModule, UBase_t uxColumn, UBas
     {
         uxRow = uxRowMax;
     }
-    UART__uxPrintf(enModule,"\x1B[%u;%uH",uxRow, uxColumn);
+    UART__uxCustomPrintf(enModule,"\x1B[%u;%uH",uxRow, uxColumn);
 }
 
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )

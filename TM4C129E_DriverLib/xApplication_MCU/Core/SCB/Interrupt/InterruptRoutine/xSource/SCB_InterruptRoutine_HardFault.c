@@ -37,12 +37,15 @@ UART_CONTROL_t enUartHardControl =
     UART_enSTATE_DIS,
     UART_enSTATE_ENA,
     UART_enSTATE_ENA,
+    UART_enSTATE_ENA,
     UART_enLINE_MODE_SOFT,
     UART_enLINE_MODE_SOFT,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
     UART_enSTATE_DIS,
+    UART_enLEVEL_LOW,
+    UART_enLEVEL_LOW,
 };
 
 UART_LINE_CONTROL_t enUartHardLineControl =
@@ -51,6 +54,8 @@ UART_LINE_CONTROL_t enUartHardLineControl =
  UART_enSTOP_ONE,
  UART_enPARITY_NONE,
  UART_enLENGTH_8BITS,
+ UART_enFIFO_LEVEL_13_16,
+ UART_enFIFO_LEVEL_13_16,
 };
 
 UART_LINE_t enUartHardLine =
@@ -71,11 +76,10 @@ void HardFault__vSendValues(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     UART__enInit(UART_enMODULE_0);
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_DIS);
+    UART__enSetCustomPrintfHandle(UART_enMODULE_0, &UART__enSetFifoDataByte);
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL, &enUartHardControl, &enUartHardLineControl, &enUartHardLine, 0UL);
-    UART__enSetState(UART_enMODULE_0, UART_enSTATE_ENA);
 
-    UART__uxPrintf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
+    UART__uxCustomPrintf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"
                     "R0: %X, R1: %X\n\r"
                     "R2: %X, R3: %X\n\r"
@@ -115,22 +119,22 @@ void HardFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgumen
             uxHardFault = pstSCBReg->CFSR;
             if(((UBase_t)SCB_enMEMORY_ALL << 0UL) & uxHardFault)
             {
-                UART__uxPrintf(UART_enMODULE_0,"Memory Fault was harcoded \n\r");
+                UART__uxCustomPrintf(UART_enMODULE_0,"Memory Fault was harcoded \n\r");
                 MemoryFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else if(((UBase_t)SCB_enBUS_ALL << 8UL) & uxHardFault)
             {
-                UART__uxPrintf(UART_enMODULE_0,"Bus Fault was harcoded \n\r");
+                UART__uxCustomPrintf(UART_enMODULE_0,"Bus Fault was harcoded \n\r");
                 BusFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else if(((UBase_t)SCB_enUSAGE_ALL << 16UL) & uxHardFault)
             {
-                UART__uxPrintf(UART_enMODULE_0,"Usage Fault was harcoded \n\r");
+                UART__uxCustomPrintf(UART_enMODULE_0,"Usage Fault was harcoded \n\r");
                 UsageFault__vIRQVectorHandlerCustom(SCB_BASE, (void*) pvArgument);
             }
             else
             {
-                UART__uxPrintf(UART_enMODULE_0,"Undefined Bus, Memory or Usage exception Detected\n\r");
+                UART__uxCustomPrintf(UART_enMODULE_0,"Undefined Bus, Memory or Usage exception Detected\n\r");
             }
 
         }
@@ -141,14 +145,14 @@ void HardFault__vIRQVectorHandlerCustom(uintptr_t uptrModuleArg, void* pvArgumen
             puxContextOffset = puxContext;
             puxContextOffset += 6UL;
             uxHardMemoryFault = *puxContextOffset;
-            UART__uxPrintf(UART_enMODULE_0,"Vector Table Read Fault, Fault Address: %X\n\r", uxHardMemoryFault);
+            UART__uxCustomPrintf(UART_enMODULE_0,"Vector Table Read Fault, Fault Address: %X\n\r", uxHardMemoryFault);
             pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_VECT);
             pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_VECT);
         }
     }
     else
     {
-        UART__uxPrintf(UART_enMODULE_0, "Hard Fault Exception triggered by Software \n\r");
+        UART__uxCustomPrintf(UART_enMODULE_0, "Hard Fault Exception triggered by Software \n\r");
         pvfCallback = SCB_HardFault__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enHARD_BIT_SW);
         pvfCallback(SCB_BASE, (void*) SCB_enHARD_BIT_SW);
     }

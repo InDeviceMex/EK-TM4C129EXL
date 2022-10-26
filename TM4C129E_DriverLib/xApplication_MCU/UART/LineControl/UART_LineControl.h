@@ -33,6 +33,8 @@ UART_nERROR UART__enSetLineControl_BaudRate(UART_nMODULE enModuleArg,
                                             UART_nSTATE enFifoEnable,
                                             UART_nSTOP enStopBitsArg,
                                             UART_nPARITY enParityTypeArg,
+                                            UART_nFIFO_LEVEL enTransmitFifoLevelArg,
+                                            UART_nFIFO_LEVEL enReceiveFifoLevelArg,
                                             UBase_t uxBaudRateArg);
 UART_nERROR UART__enSetLineControlStructure_BaudRate(UART_nMODULE enModuleArg,
                                              const UART_LINE_CONTROL_t stLineControl,

@@ -50,7 +50,7 @@ void xTask2_JoystickLog(void* pvParams)
     uxYostickValue[0U] = uxYostickValueX;
     uxYostickValue[1U] = uxYostickValueY;
     OS_Queue__boOverwrite(YoystickQueueHandle, uxYostickValue);
-    UART__uxPrintf(UART_enMODULE_0, "Task2 First Entry \n\r");
+    UART__uxCustomPrintf(UART_enMODULE_0, "Task2 First Entry \n\r");
     while(1UL)
     {
         EDUMKII_Joystick_vSampleXY(&uxYostickValueX, &uxYostickValueY);

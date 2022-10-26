@@ -256,6 +256,7 @@ typedef struct
 {
     UART_nEOT enEndOfTransmission;
     UART_nSTATE enLoopbackState;
+    UART_nSTATE enModuleState;
     UART_nSTATE enRxLineState;
     UART_nSTATE enTxLineState;
     UART_nLINE_MODE enRTSMode;
@@ -286,6 +287,8 @@ typedef struct
     UART_nSTOP enStopBits;
     UART_nPARITY enParityType;
     UART_nLENGTH enDataLength;
+    UART_nFIFO_LEVEL enTransmitFifoLevel;
+    UART_nFIFO_LEVEL enReceiveFifoLevel;
 }UART_LINE_CONTROL_t;
 
 typedef MCU_Register_t UART_Register_t;

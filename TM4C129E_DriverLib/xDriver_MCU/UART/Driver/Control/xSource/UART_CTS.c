@@ -59,7 +59,7 @@ UART_nERROR UART__enGetClearToSendMode(UART_nMODULE enModuleArg, UART_nLINE_MODE
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        *penModeArg = (UART_nSTATE) stRegister.uxValue;
+        *penModeArg = (UART_nLINE_MODE) stRegister.uxValue;
     }
 
     return (enErrorReg);
