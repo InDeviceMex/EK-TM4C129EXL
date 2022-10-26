@@ -25,47 +25,45 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-UART_nERROR UART__enSetBaudRateAndLineControl(UART_nMODULE enModule,
-                                               UART_nLENGTH enLengthDataArg,
-                                               UART_nSTATE enFifoEnable,
-                                               UART_nSTOP enStopBitsArg,
-                                               UART_nSTATE enParityState,
-                                               UART_nPARITY_TYPE enParityTypeArg,
-                                               UART_nSTATE enParityStickArg,
-                                               UBase_t uxBaudRateArg)
+UART_nERROR UART__enSetLineControl_BaudRate(UART_nMODULE enModuleArg,
+                                            UART_nLENGTH enLengthDataArg,
+                                            UART_nSTATE enFifoEnable,
+                                            UART_nSTOP enStopBitsArg,
+                                            UART_nPARITY enParityTypeArg,
+                                            UBase_t uxBaudRateArg)
 {
-    UART_nERROR enStatus = UART_enERROR_POINTER;
-    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
-    if(UART_enERROR_OK == enStatus)
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetBaudRate(enModuleArg, uxBaudRateArg);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        UART__vSetLineControl(enModule, enLengthDataArg, enFifoEnable,
-                              enStopBitsArg, enParityState, enParityTypeArg, enParityStickArg);
+        enErrorReg = UART__enSetLineControl(enModuleArg, enLengthDataArg, enFifoEnable,
+                                            enStopBitsArg, enParityTypeArg);
     }
-    return (enStatus);
+    return (enErrorReg);
 }
 
-UART_nERROR UART__enSetBaudRateAndLineControlStruct(UART_nMODULE enModule,
+UART_nERROR UART__enSetLineControlStructure_BaudRate(UART_nMODULE enModuleArg,
                                              const UART_LINE_CONTROL_t stLineControl,
                                              UBase_t uxBaudRateArg)
 {
-    UART_nERROR enStatus = UART_enERROR_POINTER;
-    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
-    if(UART_enERROR_OK == enStatus)
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetBaudRate(enModuleArg, uxBaudRateArg);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        UART__vSetLineControlStruct(enModule, stLineControl);
+        enErrorReg = UART__enSetLineControlStructure(enModuleArg, stLineControl);
     }
-    return (enStatus);
+    return (enErrorReg);
 }
 
-UART_nERROR UART__enSetBaudRateAndLineControlStructPointer(UART_nMODULE enModule,
+UART_nERROR UART__enSetLineControlStructurePointer_BaudRate(UART_nMODULE enModuleArg,
                                                 const UART_LINE_CONTROL_t* pstLineControl,
                                                 UBase_t uxBaudRateArg)
 {
-    UART_nERROR enStatus = UART_enERROR_POINTER;
-    enStatus = UART__enSetBaudRate(enModule, uxBaudRateArg);
-    if(UART_enERROR_OK == enStatus)
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetBaudRate(enModuleArg, uxBaudRateArg);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        UART__vSetLineControlStructPointer(enModule, pstLineControl);
+        enErrorReg = UART__enSetLineControlStructurePointer(enModuleArg, pstLineControl);
     }
-    return (enStatus);
+    return (enErrorReg);
 }

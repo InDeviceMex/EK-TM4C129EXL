@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_Loopback.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetLoopback(UART_nMODULE enModule, UART_nSTATE enLoopbackArg)
+UART_nERROR UART__enSetLoopbackState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enLoopbackArg,
-                         UART_CTL_LBE_MASK, UART_CTL_R_LBE_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_LBE_BIT;
+    stRegister.uxMask = UART_CTL_LBE_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetLoopback(UART_nMODULE enModule)
+UART_nERROR UART__enGetLoopbackState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enLoopbackReg = UART_enSTATE_DIS;
-    enLoopbackReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                              UART_CTL_LBE_MASK, UART_CTL_R_LBE_BIT);
-    return (enLoopbackReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_LBE_BIT;
+        stRegister.uxMask = UART_CTL_LBE_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

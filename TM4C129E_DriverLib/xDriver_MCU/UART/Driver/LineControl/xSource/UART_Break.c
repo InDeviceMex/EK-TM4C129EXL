@@ -23,29 +23,58 @@
  */
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Break.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-UART_nBREAK UART__enGetBreak(UART_nMODULE enModule)
+UART_nERROR UART__enSetBreakCharacterState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART_nBREAK enBreakReg = UART_enBREAK_DIS;
-    enBreakReg = (UART_nBREAK) UART__uxReadRegister(enModule, UART_LCRH_OFFSET,
-                                     UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
-    return (enBreakReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_LCRH_R_BRK_BIT;
+    stRegister.uxMask = UART_LCRH_BRK_MASK;
+    stRegister.uptrAddress = UART_LCRH_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void UART__vSetBreak(UART_nMODULE enModule, UART_nBREAK enBreakArg)
+UART_nERROR UART__enGetBreakCharacterState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (UBase_t) enBreakArg,
-                         UART_LCRH_BRK_MASK, UART_LCRH_R_BRK_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_LCRH_R_BRK_BIT;
+        stRegister.uxMask = UART_LCRH_BRK_MASK;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void UART__vSendBreak(UART_nMODULE enModule)
+UART_nERROR UART__enSendBreakCharacter(UART_nMODULE enModuleArg)
 {
-    UART__vSetBreak(enModule, UART_enBREAK_ACTIVE);
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetBreakCharacterState(enModuleArg, UART_enSTATE_ENA);
+    return (enErrorReg);
 }
 
-void UART__vStopBreak(UART_nMODULE enModule)
+UART_nERROR UART__enStopBreakCharacter(UART_nMODULE enModuleArg)
 {
-    UART__vSetBreak(enModule, UART_enBREAK_DIS);
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetBreakCharacterState(enModuleArg, UART_enSTATE_DIS);
+    return (enErrorReg);
 }

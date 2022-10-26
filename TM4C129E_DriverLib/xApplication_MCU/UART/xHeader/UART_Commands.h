@@ -47,7 +47,6 @@ typedef enum
     UART_Commands_enType_RequestTransferExit = 0x37,
 }UART_Commands_nType;
 
-void UART__vSendRaw(UART_nMODULE enModule, const uint8_t* pu8DataIn, size_t szDataSize, UBase_t uxTimeout);
-UBase_t UART__uxReceiveRaw(UART_nMODULE enModule, uint8_t* pu8DataOut, size_t szDataSize, UBase_t uxTimeout);
-
+UART_nERROR UART__enSendRaw(UART_nMODULE enModule, const uint8_t* pu8DataIn, size_t* pszDataSize, UBase_t uxTimeout);
+UART_nERROR UART__enReceiveRaw(UART_nMODULE enModule, uint8_t* pu8DataOut, size_t* pszDataSize, UBase_t uxTimeout);
 #endif /* XAPPLICATION_MCU_UART_XHEADER_UART_COMMANDS_H_ */

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nFIFO_EMPTY UART__enIsFifoReceiveEmpty(UART_nMODULE enModule);
-UART_nFIFO_FULL UART__enIsFifoReceiveFull(UART_nMODULE enModule);
+UART_nERROR UART__enIsReceiveFifoEmpty(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
+UART_nERROR UART__enIsReceiveFifoFull(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_FLAGS_XHEADER_UART_FIFORX_H_ */

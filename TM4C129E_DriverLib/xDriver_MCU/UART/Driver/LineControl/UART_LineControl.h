@@ -25,20 +25,16 @@
 #ifndef XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_
 #define XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_
 
-#include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_BaudRate.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Break.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Fifo.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Length.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Parity.h>
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Stop.h>
 
-void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg,
-                           UART_nSTATE enFifoEnable, UART_nSTOP enStopBitsArg,
-                           UART_nSTATE enParityState, UART_nPARITY_TYPE enParityTypeArg,
-                           UART_nSTATE enParityStickArg);
-void UART__vSetLineControlStructPointer(UART_nMODULE enModule,
-                                        const UART_LINE_CONTROL_t* pstLineControl);
-void UART__vSetLineControlStruct(UART_nMODULE enModule,
-                                 const UART_LINE_CONTROL_t stLineControl);
+UART_nERROR UART__enSetLineControl(UART_nMODULE enModuleArg, UART_nLENGTH enDataLengthArg,
+                           UART_nSTATE enFifoStateArg, UART_nSTOP enStopBitsArg,
+                           UART_nPARITY enParityTypeArg);
+UART_nERROR UART__enSetLineControlStructure(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t stLineControlArg);
+UART_nERROR UART__enSetLineControlStructurePointer(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t* pstLineControlArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_UART_LINECONTROL_H_ */

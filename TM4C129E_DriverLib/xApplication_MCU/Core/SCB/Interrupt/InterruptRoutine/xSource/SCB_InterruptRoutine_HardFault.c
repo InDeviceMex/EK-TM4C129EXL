@@ -49,9 +49,7 @@ UART_LINE_CONTROL_t enUartHardLineControl =
 {
  UART_enSTATE_ENA,
  UART_enSTOP_ONE,
- UART_enSTATE_DIS,
- UART_enPARITY_TYPE_EVEN,
- UART_enSTATE_DIS ,
+ UART_enPARITY_NONE,
  UART_enLENGTH_8BITS,
 };
 
@@ -73,9 +71,9 @@ void HardFault__vSendValues(void)
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
     UART__enInit(UART_enMODULE_0);
-    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_DIS);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, &enUartHardControl, &enUartHardLineControl, 921600UL, &enUartHardLine );
-    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_ENA);
+    UART__enSetState(UART_enMODULE_0, UART_enSTATE_DIS);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL, &enUartHardControl, &enUartHardLineControl, &enUartHardLine, 0UL);
+    UART__enSetState(UART_enMODULE_0, UART_enSTATE_ENA);
 
     UART__uxPrintf(UART_enMODULE_0, "HARD FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"

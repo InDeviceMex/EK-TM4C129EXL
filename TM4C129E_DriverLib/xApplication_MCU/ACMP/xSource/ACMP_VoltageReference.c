@@ -29,8 +29,7 @@
 
 ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg)
 {
-    MCU_nSTATUS enFPUActive;
-    enFPUActive = MCU__enGetFPUContextActive();
+    MCU_nSTATUS enFPUActive = MCU__enGetFPUContextActive();
 
     UBase_t uxVoltageStep;
     UBase_t uxLowRangeInteger;
@@ -179,8 +178,7 @@ ACMP_nERROR ACMP__enSetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf3
 
 ACMP_nERROR ACMP__enGetVoltageReference(ACMP_nMODULE enModuleArg, float32_t* pf32VoltageRefArg)
 {
-    MCU_nSTATUS enFPUActive;
-    enFPUActive = MCU__enGetFPUContextActive();
+    MCU_nSTATUS enFPUActive = MCU__enGetFPUContextActive();
 
 
     UBase_t uxEncoderValueReg;

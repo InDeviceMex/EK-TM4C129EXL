@@ -26,38 +26,48 @@
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
 
-void UART__vEnIrDALowPowerFrequency(UART_nMODULE enModule)
+UART_nERROR UART__enSetIrDALowPowerFrequency(UART_nMODULE enModule)
 {
-    MCU_nSTATUS enFPUActive;
-    enFPUActive = MCU__enGetFPUContextActive();
-    UBase_t uxDivider;
+    MCU_nSTATUS enFPUActive = MCU__enGetFPUContextActive();
+    UART_nERROR enErrorReg;
+    UBase_t uxSysClockReg;
 
-    uxDivider = SYSCTL__uxGetSystemClock();
-    float32_t f32Divider;
-    f32Divider = (float32_t) uxDivider;
-    f32Divider /= 1843200.0f; /*IrDA Low Power frequency*/
-    f32Divider += 0.5f;
-    uxDivider = (UBase_t) f32Divider;
+    uxSysClockReg = SYSCTL__uxGetSystemClock();
+    float32_t f32DividerReg;
+    f32DividerReg = (float32_t) uxSysClockReg;
+    f32DividerReg /= 1843200.0f; /*IrDA Low Power frequency*/
+    f32DividerReg += 0.5f;
+    uxSysClockReg = (UBase_t) f32DividerReg;
+    enErrorReg = UART__enSetIrDALowPowerDivisor(enModule, uxSysClockReg);
     MCU__vSetFPUContextActive(enFPUActive);
-    UART__vSetIrDALowPowerDivider(enModule, uxDivider);
+    return (enErrorReg);
 }
 
-UBase_t UART__uxGetIrDALowPowerFrequency(UART_nMODULE enModule)
+UART_nERROR UART__enGetIrDALowPowerFrequency(UART_nMODULE enModule, UBase_t* puxFrequencyArg)
 {
-    MCU_nSTATUS enFPUActive;
-    enFPUActive = MCU__enGetFPUContextActive();
-    UBase_t uxResult;
-    UBase_t uxsysClock;
-    UBase_t uxDivider;
+    MCU_nSTATUS enFPUActive = MCU__enGetFPUContextActive();
+    UART_nERROR enErrorReg;
+    UBase_t uxSysClockReg;
+    UBase_t uxDividerReg;
 
-    uxsysClock= SYSCTL__uxGetSystemClock();
-    uxDivider = UART__uxGetIrDALowPowerDivider(enModule);
+    uxDividerReg = 0UL;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxSysClockReg= SYSCTL__uxGetSystemClock();
+        enErrorReg = UART__enGetIrDALowPowerDivisor(enModule, &uxDividerReg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        float32_t f32DividerReg;
+        f32DividerReg = (float32_t) uxSysClockReg;
+        f32DividerReg /= (float32_t) uxDividerReg;
+        *puxFrequencyArg = (UBase_t) f32DividerReg;
+    }
 
-
-    float32_t f32Divider;
-    f32Divider = (float32_t) uxsysClock;
-    f32Divider /= (float32_t) uxDivider;
-    uxResult = (UBase_t) f32Divider;
     MCU__vSetFPUContextActive(enFPUActive);
-    return (uxResult);
+    return (enErrorReg);
 }

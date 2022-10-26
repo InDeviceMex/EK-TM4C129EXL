@@ -23,79 +23,96 @@
  */
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Parity.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetParityEnable(UART_nMODULE enModule, UART_nSTATE enParityState)
+UART_nERROR UART__enSetParityType(UART_nMODULE enModuleArg, UART_nPARITY enParityArg)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (UBase_t) enParityState,
-                         UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
-}
+    UART_Register_t stRegister;
+    UBase_t uxParityStateReg;
+    UBase_t uxParityTypeReg;
+    UBase_t uxParityStickReg;
+    UART_nERROR enErrorReg;
 
+    stRegister.uxMask = UART_LCRH_SPS_MASK;
 
-UART_nSTATE UART__enGetParityEnable(UART_nMODULE enModule)
-{
-    UART_nSTATE enParityReg = UART_enSTATE_DIS;
-    enParityReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_LCRH_OFFSET,
-                                       UART_LCRH_PEN_MASK, UART_LCRH_R_PEN_BIT);
-    return (enParityReg);
-}
+    uxParityStateReg = (UBase_t) enParityArg;;
+    uxParityStateReg >>= 2UL;
+    uxParityStateReg &= 1UL;
+    uxParityStateReg ^= uxParityStateReg;
 
+    uxParityStickReg = (UBase_t) enParityArg;
+    uxParityStickReg >>= 1UL;
+    uxParityStickReg &= 1UL;
 
-void UART__vSetParityType(UART_nMODULE enModule, UART_nPARITY_TYPE enParityTypeArg)
-{
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (UBase_t) enParityTypeArg,
-                         UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
-}
+    uxParityTypeReg = (UBase_t) enParityArg;
+    uxParityTypeReg &= 1UL;
 
-UART_nPARITY_TYPE UART__enGetParityType(UART_nMODULE enModule)
-{
-    UART_nPARITY_TYPE enParityTypeReg = UART_enPARITY_TYPE_ODD;
-    enParityTypeReg = (UART_nPARITY_TYPE) UART__uxReadRegister(enModule, UART_LCRH_OFFSET,
-                                                UART_LCRH_EPS_MASK, UART_LCRH_R_EPS_BIT);
-    return (enParityTypeReg);
-}
-
-void UART__vSetParityStick(UART_nMODULE enModule, UART_nSTATE enParityStickArg)
-{
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (UBase_t) enParityStickArg,
-                         UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
-}
-
-UART_nSTATE UART__enGetParityStick(UART_nMODULE enModule)
-{
-    UART_nSTATE enParityStickReg = UART_enSTATE_DIS;
-    enParityStickReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_LCRH_OFFSET,
-                                          UART_LCRH_SPS_MASK, UART_LCRH_R_SPS_BIT);
-    return (enParityStickReg);
-}
-
-void UART__vSetParityConfigStruct(UART_nMODULE enModule, const UART_PARITY_t stParityConfig)
-{
-    UART__vSetParityConfig(enModule,
-                           stParityConfig.enParity,
-                           stParityConfig.enParityType,
-                           stParityConfig.enParityStick);
-}
-
-void UART__vSetParityConfigStructPointer(UART_nMODULE enModule,
-                                         const UART_PARITY_t* pstParityConfig)
-{
-    if(0UL != (UBase_t) pstParityConfig)
+    stRegister.uxShift = UART_LCRH_R_PEN_BIT;
+    stRegister.uptrAddress = UART_LCRH_OFFSET;
+    stRegister.uxValue = (UBase_t) uxParityStateReg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        UART__vSetParityConfig(enModule,
-                               pstParityConfig->enParity,
-                               pstParityConfig->enParityType,
-                               pstParityConfig->enParityStick);
+        stRegister.uxShift = UART_LCRH_R_SPS_BIT;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        stRegister.uxValue = (UBase_t) uxParityStickReg;
+        enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
     }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_LCRH_R_EPS_BIT;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        stRegister.uxValue = (UBase_t) uxParityTypeReg;
+        enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
 }
 
-void UART__vSetParityConfig(UART_nMODULE enModule,
-                            UART_nSTATE enParityStateArg,
-                            UART_nPARITY_TYPE enParityTypeArg,
-                            UART_nSTATE enParityStickArg)
+
+UART_nERROR UART__enGetParityType(UART_nMODULE enModuleArg, UART_nPARITY* enParityArg)
 {
-    UART__vSetParityEnable(enModule, enParityStateArg);
-    UART__vSetParityType(enModule, enParityTypeArg);
-    UART__vSetParityStick(enModule, enParityStickArg);
+    UART_Register_t stRegister;
+    UBase_t uxParityReg;
+    UART_nERROR enErrorReg;
+
+    uxParityReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) enParityArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_LCRH_R_PEN_BIT;
+        stRegister.uxMask = UART_LCRH_PEN_MASK;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxParityReg ^= stRegister.uxValue;
+        uxParityReg <<= 2UL;
+        stRegister.uxShift = UART_LCRH_R_SPS_BIT;
+        stRegister.uxMask = UART_LCRH_SPS_MASK;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxValue <<= 1UL;
+        uxParityReg |= stRegister.uxValue;
+        stRegister.uxShift = UART_LCRH_R_EPS_BIT;
+        stRegister.uxMask = UART_LCRH_EPS_MASK;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxParityReg |= stRegister.uxValue;
+        *enParityArg = (UART_nPARITY) uxParityReg;
+    }
+
+    return (enErrorReg);
 }

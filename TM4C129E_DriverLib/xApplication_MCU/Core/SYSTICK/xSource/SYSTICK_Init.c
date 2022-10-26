@@ -43,8 +43,7 @@ void SYSTICK_Delay__vIRQVectorHandler(void)
 SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, UBase_t uxTickArg, SYSTICK_nPRIORITY enPriorityArg,
                                           SYSTICK_nCLKSOURCE enClockSourceArg, SYSTICK_pvfIRQVectorHandler_t pvfVectorArg)
 {
-    MCU_nSTATUS enFPUActive;
-    enFPUActive = MCU__enGetFPUContextActive();
+    MCU_nSTATUS enFPUActive = MCU__enGetFPUContextActive();
     SYSTICK_nERROR enErrorReg;
 
     enErrorReg = SYSTICK_enERROR_OK;

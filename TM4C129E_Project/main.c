@@ -48,9 +48,7 @@ int main(void)
     {
      UART_enSTATE_ENA,
      UART_enSTOP_ONE,
-     UART_enSTATE_DIS,
-     UART_enPARITY_TYPE_EVEN,
-     UART_enSTATE_DIS ,
+     UART_enPARITY_NONE,
      UART_enLENGTH_8BITS,
     };
 
@@ -119,10 +117,10 @@ int main(void)
     EDUMKII_Microphone_vInit();
     EDUMKII_Joystick_vInit();
 
-    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_DIS);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL,
-                      &enUart0Control, &enUart0LineControl, 921600UL, &enUart0Line );
-    UART__vSetEnable(UART_enMODULE_0, UART_enSTATE_ENA);
+    UART__enSetState(UART_enMODULE_0, UART_enSTATE_DIS);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL,
+                      &enUart0Control, &enUart0LineControl, &enUart0Line, 0UL);
+    UART__enSetState(UART_enMODULE_0, UART_enSTATE_ENA);
 
 
 
@@ -146,19 +144,19 @@ int main(void)
     TFTSemaphoreHandle = OS_Semaphore__pvCreateBinary();
 
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 4UL, &TaskHandeler[3UL]))
+    if(OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 6UL, &TaskHandeler[3UL]))
     {
         UART__uxPrintf(UART_enMODULE_0, "Task8 Debug created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[1UL]))
+    if(OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 400UL, (void*) 54UL, 5UL, &TaskHandeler[1UL]))
     {
         UART__uxPrintf(UART_enMODULE_0, "Task3 ButtonsLog created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 300UL, (void*) 50UL, 3UL, &TaskHandeler[0UL]))
+    if(OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 400UL, (void*) 52UL, 4UL, &TaskHandeler[0UL]))
     {
         UART__uxPrintf(UART_enMODULE_0, "Task1 Accelerometer created correctly \n\r");
     }
-    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 300UL, (void*) 50UL, 2UL, &TaskHandeler[2UL]))
+    if(OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[2UL]))
     {
         UART__uxPrintf(UART_enMODULE_0, "Task2 Joystick created correctly \n\r");
     }

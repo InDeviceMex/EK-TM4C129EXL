@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetIrDALowPowerDivider(UART_nMODULE enModule, UBase_t uxDivider);
-UBase_t UART__uxGetIrDALowPowerDivider(UART_nMODULE enModule);
+UART_nERROR UART__enSetIrDALowPowerDivisor(UART_nMODULE enModuleArg, UBase_t uxDivisorArg);
+UART_nERROR UART__enGetIrDALowPowerDivisor(UART_nMODULE enModuleArg, UBase_t* puxDivisorArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_IRDA_H_ */

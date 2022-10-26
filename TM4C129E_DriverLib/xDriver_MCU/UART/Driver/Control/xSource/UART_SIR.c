@@ -23,33 +23,130 @@
  */
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_SIR.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetSIR(UART_nMODULE enModule, UART_nSTATE enSirArg)
+UART_nERROR UART__enSetIrDAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enSirArg,
-                         UART_CTL_SIREN_MASK, UART_CTL_R_SIREN_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_SIREN_BIT;
+    stRegister.uxMask = UART_CTL_SIREN_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetSIR(UART_nMODULE enModule)
+UART_nERROR UART__enGetIrDAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enSirReg = UART_enSTATE_DIS;
-    enSirReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                         UART_CTL_SIREN_MASK, UART_CTL_R_SIREN_BIT);
-    return (enSirReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_SIREN_BIT;
+        stRegister.uxMask = UART_CTL_SIREN_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void UART__vSetSIRLowPower(UART_nMODULE enModule, UART_nSTATE enSirLPArg)
+
+UART_nERROR UART__enSetIrDALowPowerState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enSirLPArg,
-                         UART_CTL_SIRLP_MASK, UART_CTL_R_SIRLP_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_SIRLP_BIT;
+    stRegister.uxMask = UART_CTL_SIRLP_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetSIRLowPower(UART_nMODULE enModule)
+UART_nERROR UART__enGetIrDALowPowerState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enSirLPReg = UART_enSTATE_DIS;
-    enSirLPReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                          UART_CTL_SIRLP_MASK, UART_CTL_R_SIRLP_BIT);
-    return (enSirLPReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_SIRLP_BIT;
+        stRegister.uxMask = UART_CTL_SIRLP_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+
+
+UART_nERROR UART__enSetIrDAMode(UART_nMODULE enModuleArg, UART_nIRDA enModeArg)
+{
+    UBase_t uxIrdaStateReg;
+    UBase_t uxIrdaLowPowerReg;
+    UART_nERROR enErrorReg;
+
+    uxIrdaStateReg = (UBase_t) enModeArg;
+    uxIrdaStateReg &= 0x1UL;
+
+    uxIrdaLowPowerReg = (UBase_t) enModeArg;
+    uxIrdaLowPowerReg >>= 1UL;
+    uxIrdaLowPowerReg &= 0x1UL;
+
+    enErrorReg = UART__enSetIrDAState(enModuleArg, (UART_nSTATE) uxIrdaStateReg);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetIrDALowPowerState(enModuleArg, (UART_nSTATE) uxIrdaLowPowerReg);
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetIrDAMode(UART_nMODULE enModuleArg, UART_nIRDA* penModeArg)
+{
+    UART_nSTATE enIrdaStateReg;
+    UART_nSTATE enIrdaLowPowerReg;
+    UBase_t uxIrdaReg;
+    UART_nERROR enErrorReg;
+
+    uxIrdaReg = 0UL;
+    enErrorReg = UART__enGetIrDAState(enModuleArg, &enIrdaStateReg);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enGetIrDALowPowerState(enModuleArg, &enIrdaLowPowerReg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxIrdaReg = (UBase_t) enIrdaLowPowerReg;
+        uxIrdaReg &= 1UL;
+        uxIrdaReg <<= 1UL;
+        uxIrdaReg |= (UBase_t) enIrdaStateReg;
+        *penModeArg = (UART_nIRDA) uxIrdaReg;
+    }
+    return (enErrorReg);
+}
+

@@ -26,10 +26,10 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetFifoRxLevel(UART_nMODULE enModule, UART_nFIFO_LEVEL enFifoLevelArg);
-UART_nFIFO_LEVEL UART__enGetFifoRxLevel(UART_nMODULE enModule);
+UART_nERROR UART__enSetReceiveFifoLevel(UART_nMODULE enModuleArg, UART_nFIFO_LEVEL enFifoLevelArg);
+UART_nERROR UART__enGetReceiveFifoLevel(UART_nMODULE enModuleArg, UART_nFIFO_LEVEL* penFifoLevelArg);
 
-void UART__vSetFifoTxLevel(UART_nMODULE enModule, UART_nFIFO_LEVEL enFifoLevelArg);
-UART_nFIFO_LEVEL UART__enGetFifoTxLevel(UART_nMODULE enModule);
+UART_nERROR UART__enSetTransmitFifoLevel(UART_nMODULE enModuleArg, UART_nFIFO_LEVEL enFifoLevelArg);
+UART_nERROR UART__enGetTransmitFifoLevel(UART_nMODULE enModuleArg, UART_nFIFO_LEVEL* penFifoLevelArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_FIFO_H_ */

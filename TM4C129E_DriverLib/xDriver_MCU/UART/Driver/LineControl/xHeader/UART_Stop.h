@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nSTOP UART__enGetStopBits(UART_nMODULE enModule);
-void UART__vSetStopBits(UART_nMODULE enModule, UART_nSTOP enStopBitsArg);
+UART_nERROR UART__enSetStopBits(UART_nMODULE enModuleArg, UART_nSTOP enNumberArg);
+UART_nERROR UART__enGetStopBits(UART_nMODULE enModuleArg, UART_nSTOP* penNumberArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_STOP_H_ */

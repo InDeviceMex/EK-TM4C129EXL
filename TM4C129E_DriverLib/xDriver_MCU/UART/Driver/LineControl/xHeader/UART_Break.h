@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nBREAK UART__enGetBreak(UART_nMODULE enModule);
-void UART__vSetBreak(UART_nMODULE enModule, UART_nBREAK enBreakArg);
+UART_nERROR UART__enSetBreakCharacterState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetBreakCharacterState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
-void UART__vSendBreak(UART_nMODULE enModule);
-void UART__vStopBreak(UART_nMODULE enModule);
+UART_nERROR UART__enSendBreakCharacter(UART_nMODULE enModuleArg);
+UART_nERROR UART__enStopBreakCharacter(UART_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_BREAK_H_ */

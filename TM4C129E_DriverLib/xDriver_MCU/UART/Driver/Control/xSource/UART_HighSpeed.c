@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_HighSpeed.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetHighSpeed(UART_nMODULE enModule, UART_nSTATE enHighSpeedArg)
+UART_nERROR UART__enSetClockSourceDivider(UART_nMODULE enModuleArg, UART_nCLOCK_DIVIDER enDividerArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enHighSpeedArg,
-                         UART_CTL_HSE_MASK, UART_CTL_R_HSE_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_HSE_BIT;
+    stRegister.uxMask = UART_CTL_HSE_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enDividerArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetHighSpeed(UART_nMODULE enModule)
+UART_nERROR UART__enGetClockSourceDivider(UART_nMODULE enModuleArg, UART_nCLOCK_DIVIDER* penDividerArg)
 {
-    UART_nSTATE enHighSpeedReg = UART_enSTATE_DIS;
-    enHighSpeedReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                                 UART_CTL_HSE_MASK, UART_CTL_R_HSE_BIT);
-    return (enHighSpeedReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penDividerArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_HSE_BIT;
+        stRegister.uxMask = UART_CTL_HSE_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penDividerArg = (UART_nCLOCK_DIVIDER) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

@@ -26,10 +26,10 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetRTSMode(UART_nMODULE enModule, UART_nLINE_MODE enRTSModeArg);
-UART_nLINE_MODE UART__enGetRTSMode(UART_nMODULE enModule);
+UART_nERROR UART__enSetRequestToSendMode(UART_nMODULE enModuleArg, UART_nLINE_MODE enModeArg);
+UART_nERROR UART__enGetRequestToSendMode(UART_nMODULE enModuleArg, UART_nLINE_MODE* penModeArg);
 
-void UART__vSetRTSLevel(UART_nMODULE enModule, UART_nLEVEL enRTSLevelArg);
-UART_nLEVEL UART__enGetRTSLevel(UART_nMODULE enModule);
+UART_nERROR UART__enSetRequestToSendLevel(UART_nMODULE enModuleArg, UART_nLEVEL enLevelArg);
+UART_nERROR UART__enGetRequestToSendLevel(UART_nMODULE enModuleArg, UART_nLEVEL* penLevelArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_RTS_H_ */

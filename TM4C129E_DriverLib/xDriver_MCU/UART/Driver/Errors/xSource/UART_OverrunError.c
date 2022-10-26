@@ -23,13 +23,31 @@
  */
 #include <xDriver_MCU/UART/Driver/Errors/xHeader/UART_OverrunError.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-UART_nSTATUS UART__enGetOverrunErrorState(UART_nMODULE enModule)
+UART_nERROR UART__enGetOverrunErrorStatus(UART_nMODULE enModuleArg, UART_nSTATUS* penStatusArg)
 {
-    UART_nSTATUS enErrorReg = UART_enSTATUS_INACTIVE;
-    enErrorReg = (UART_nSTATUS) UART__uxReadRegister(enModule, UART_RSR_OFFSET,
-                                         UART_RSR_OE_MASK, UART_RSR_R_OE_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_RSR_R_OE_BIT;
+        stRegister.uxMask = UART_RSR_OE_MASK;
+        stRegister.uptrAddress = UART_RSR_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (UART_nSTATUS) stRegister.uxValue;
+    }
+
     return (enErrorReg);
 }

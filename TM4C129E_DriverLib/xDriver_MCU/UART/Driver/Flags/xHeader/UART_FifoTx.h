@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nFIFO_EMPTY UART__enIsFifoTransmitEmpty(UART_nMODULE enModule);
-UART_nFIFO_FULL UART__enIsFifoTransmitFull(UART_nMODULE enModule);
+UART_nERROR UART__enIsTransmitFifoEmpty(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
+UART_nERROR UART__enIsTransmitFifoFull(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_FLAGS_XHEADER_UART_FIFOTX_H_ */

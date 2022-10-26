@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nSTATE UART__enGetFifoEnable(UART_nMODULE enModule);
-void UART__vSetFifoEnable(UART_nMODULE enModule, UART_nSTATE enFifoEnable);
+UART_nERROR UART__enSetFifoState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetFifoState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_FIFO_H_ */

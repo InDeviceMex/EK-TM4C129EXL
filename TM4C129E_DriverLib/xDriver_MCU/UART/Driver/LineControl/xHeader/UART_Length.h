@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nLENGTH UART__enGetDataLength(UART_nMODULE enModule);
-void UART__vSetDataLength(UART_nMODULE enModule, UART_nLENGTH enDataLength);
+UART_nERROR UART__enSetDataLength(UART_nMODULE enModuleArg, UART_nLENGTH enLengthArg);
+UART_nERROR UART__enGetDataLength(UART_nMODULE enModuleArg, UART_nLENGTH* penLengthArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_LINECONTROL_XHEADER_UART_LENGTH_H_ */

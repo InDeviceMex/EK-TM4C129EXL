@@ -23,14 +23,31 @@
  */
 #include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_Busy.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-UART_nBUSY UART__enGetBusyState(UART_nMODULE enModule)
+UART_nERROR UART__enIsBusy(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg)
 {
-    UART_nBUSY enBusyReg = UART_enBUSY_IDLE;
-    enBusyReg = (UART_nBUSY) UART__uxReadRegister(enModule, UART_FR_OFFSET,
-                                   UART_FR_BUSY_MASK, UART_FR_R_BUSY_BIT);
-    return (enBusyReg);
-}
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
 
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_FR_R_BUSY_BIT;
+        stRegister.uxMask = UART_FR_BUSY_MASK;
+        stRegister.uptrAddress = UART_FR_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nBOOLEAN) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}

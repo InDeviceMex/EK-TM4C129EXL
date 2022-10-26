@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nSTATUS UART__enGetBreakErrorState(UART_nMODULE enModule);
+UART_nERROR UART__enGetBreakErrorStatus(UART_nMODULE enModuleArg, UART_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_ERRORS_XHEADER_UART_BREAKERROR_H_ */

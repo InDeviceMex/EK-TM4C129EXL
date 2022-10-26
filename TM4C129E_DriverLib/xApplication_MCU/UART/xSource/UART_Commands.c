@@ -25,14 +25,16 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-void UART__vSendRaw(UART_nMODULE enModule, const uint8_t* pu8DataIn, size_t szDataSize, UBase_t uxTimeout)
+UART_nERROR UART__enSendRaw(UART_nMODULE enModule, const uint8_t* pu8DataIn, size_t* pszDataSize, UBase_t uxTimeout)
 {
-    UART__uxSetFifoDataByte(enModule, pu8DataIn, szDataSize, uxTimeout);
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetFifoDataByteTimeOut(enModule, pu8DataIn, pszDataSize, uxTimeout);
+    return (enErrorReg);
 }
 
-UBase_t UART__uxReceiveRaw(UART_nMODULE enModule, uint8_t* pu8DataOut, size_t szDataSize, UBase_t uxTimeout)
+UART_nERROR UART__enReceiveRaw(UART_nMODULE enModule, uint8_t* pu8DataOut, size_t* pszDataSize, UBase_t uxTimeout)
 {
-    UBase_t uxDataReceived = 0UL;
-    uxDataReceived = UART__uxGetFifoDataByte(enModule, pu8DataOut, szDataSize, uxTimeout);
-    return (uxDataReceived);
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enGetFifoDataByteTimeOut(enModule, pu8DataOut, pszDataSize, uxTimeout);
+    return (enErrorReg);
 }

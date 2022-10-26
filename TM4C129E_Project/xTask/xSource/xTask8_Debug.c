@@ -44,7 +44,7 @@ void xTask8_Debug(void* pvParams)
     GraphTerm__vClearScreen(UART_enMODULE_0);
     GraphTerm__vSetCursorXY(UART_enMODULE_0, 0UL, 0UL);
     GraphTerm__uxPrintf(UART_enMODULE_0, 0UL, 2UL,
-                         "LCD POS Initializing...   "
+                         "LCD POS Initializing... \n\r"
                          );
     OS_Semaphore__boTake(MainSemaphoreHandle, 2000UL);
     uxLastWakeTime = OS_Task__uxGetTickCount ();

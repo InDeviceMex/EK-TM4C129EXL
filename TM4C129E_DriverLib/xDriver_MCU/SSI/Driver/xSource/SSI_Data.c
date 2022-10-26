@@ -82,12 +82,20 @@ SSI_nERROR SSI__enSetDataTimeOut(SSI_nMODULE enModuleArg, UBase_t uxDataArg, UBa
     }
     else
     {
+        UBase_t uxTimeoutReg = uxTimeoutArg;
         do{
             enErrorReg = SSI__enSetData(enModuleArg, uxDataArg);
-            uxTimeoutArg --;
-        }while((SSI_enERROR_FULL == enErrorReg) && (0UL != uxTimeoutArg));
+            if(SSI_enERROR_OK == enErrorReg)
+            {
+                uxTimeoutReg = uxTimeoutArg;
+            }
+            else
+            {
+                uxTimeoutReg --;
+            }
+        }while((SSI_enERROR_FULL == enErrorReg) && (0UL != uxTimeoutReg));
 
-        if((SSI_enERROR_FULL == enErrorReg) && (0UL == uxTimeoutArg))
+        if((SSI_enERROR_FULL == enErrorReg) && (0UL == uxTimeoutReg))
         {
             enErrorReg = SSI_enERROR_TIMEOUT;
         }
@@ -141,6 +149,7 @@ SSI_nERROR SSI__enSetFifoDataTimeOut(SSI_nMODULE enModuleArg, const UBase_t* pux
             if(SSI_enERROR_OK == enErrorReg)
             {
                 puxDataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
@@ -185,6 +194,7 @@ SSI_nERROR SSI__enSetFifoDataByteTimeOut(SSI_nMODULE enModuleArg, const uint8_t*
             if(SSI_enERROR_OK == enErrorReg)
             {
                 pu8DataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
@@ -229,6 +239,7 @@ SSI_nERROR SSI__enSetFifoDataHalfWordTimeOut(SSI_nMODULE enModuleArg, const uint
             if(SSI_enERROR_OK == enErrorReg)
             {
                 pu16DataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
@@ -288,6 +299,10 @@ SSI_nERROR SSI__enSetFifoDataConstTimeOut(SSI_nMODULE enModuleArg, UBase_t uxDat
         do
         {
             enErrorReg = SSI__enSetDataTimeOut(enModuleArg, uxDataArg, uxTimeoutArg);
+            if(SSI_enERROR_OK == enErrorReg)
+            {
+                uxCountReg -= 1UL;
+            }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
     if((SSI_enERROR_OK == enErrorReg) || (SSI_enERROR_TIMEOUT == enErrorReg))
@@ -326,6 +341,10 @@ SSI_nERROR SSI__enSetFifoDataConstByteTimeOut(SSI_nMODULE enModuleArg, uint8_t u
         {
             uxDataReg = (UBase_t) u8DataArg;
             enErrorReg = SSI__enSetDataTimeOut(enModuleArg, uxDataReg, uxTimeoutArg);
+            if(SSI_enERROR_OK == enErrorReg)
+            {
+                uxCountReg -= 1UL;
+            }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
     if((SSI_enERROR_OK == enErrorReg) || (SSI_enERROR_TIMEOUT == enErrorReg))
@@ -364,6 +383,10 @@ SSI_nERROR SSI__enSetFifoDataConstHalfWordTimeOut(SSI_nMODULE enModuleArg, uint1
         {
             uxDataReg = (UBase_t) u16DataArg;
             enErrorReg = SSI__enSetDataTimeOut(enModuleArg, uxDataReg, uxTimeoutArg);
+            if(SSI_enERROR_OK == enErrorReg)
+            {
+                uxCountReg -= 1UL;
+            }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
     if((SSI_enERROR_OK == enErrorReg) || (SSI_enERROR_TIMEOUT == enErrorReg))
@@ -500,12 +523,20 @@ SSI_nERROR SSI__enGetDataTimeOut(SSI_nMODULE enModuleArg, UBase_t* puxDataArg, U
         }
         else
         {
+            UBase_t uxTimeoutReg = uxTimeoutArg;
             do{
                 enErrorReg = SSI__enGetData(enModuleArg, puxDataArg);
-                uxTimeoutArg --;
-            }while((SSI_enERROR_EMPTY == enErrorReg) && (0UL != uxTimeoutArg));
+                if(SSI_enERROR_OK == enErrorReg)
+                {
+                    uxTimeoutReg = uxTimeoutArg;
+                }
+                else
+                {
+                    uxTimeoutReg --;
+                }
+            }while((SSI_enERROR_EMPTY == enErrorReg) && (0UL != uxTimeoutReg));
 
-            if((SSI_enERROR_EMPTY == enErrorReg) && (0UL == uxTimeoutArg))
+            if((SSI_enERROR_EMPTY == enErrorReg) && (0UL == uxTimeoutReg))
             {
                 enErrorReg = SSI_enERROR_TIMEOUT;
             }
@@ -594,6 +625,7 @@ SSI_nERROR SSI__enGetFifoDataTimeOut(SSI_nMODULE enModuleArg, UBase_t* puxDataAr
             if(SSI_enERROR_OK == enErrorReg)
             {
                 puxDataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
@@ -638,6 +670,7 @@ SSI_nERROR SSI__enGetFifoDataByteTimeOut(SSI_nMODULE enModuleArg, uint8_t* pu8Da
                 u8DataReg = (uint8_t) uxDataReg;
                 *pu8DataArg = (uint8_t) u8DataReg;
                 pu8DataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }
@@ -682,6 +715,7 @@ SSI_nERROR SSI__enGetFifoDataHalfWordTimeOut(SSI_nMODULE enModuleArg, uint16_t* 
                 u16DataReg = (uint16_t) uxDataReg;
                 *pu16DataArg = (uint16_t) u16DataReg;
                 pu16DataArg += 1UL;
+                uxCountReg -= 1UL;
             }
         }while((SSI_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
     }

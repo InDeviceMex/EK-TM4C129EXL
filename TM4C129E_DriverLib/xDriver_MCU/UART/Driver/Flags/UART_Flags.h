@@ -26,7 +26,7 @@
 #define XDRIVER_MCU_UART_DRIVER_FLAGS_UART_FLAGS_H_
 
 #include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_Busy.h>
-#include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_ClearToSend.h>
+#include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_Modem.h>
 #include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_FifoRx.h>
 #include <xDriver_MCU/UART/Driver/Flags/xHeader/UART_FifoTx.h>
 

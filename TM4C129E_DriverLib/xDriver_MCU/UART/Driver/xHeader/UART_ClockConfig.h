@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetClockConfig(UART_nMODULE enModule, UART_nCLOCK enClock);
-UART_nCLOCK UART__enGetClockConfig(UART_nMODULE enModule);
+UART_nERROR UART__enSetClockSource(UART_nMODULE enModuleArg, UART_nCLOCK enClockArg);
+UART_nERROR UART__enGetClockSource(UART_nMODULE enModuleArg, UART_nCLOCK* penClockArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_CLOCKCONFIG_H_ */

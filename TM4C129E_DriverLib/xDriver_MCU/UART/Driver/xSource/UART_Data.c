@@ -29,176 +29,635 @@
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-#define UART_TIMEOUT (100000UL)
 
-inline void UART__vSetData(UART_nMODULE enModule, UBase_t uxData)
+UART_nERROR UART__enSetData(UART_nMODULE enModuleArg, UBase_t uxDataArg)
 {
-    UART__vWriteRegister(enModule, UART_DR_OFFSET, uxData, 0xFFFFFFFFUL, 0UL);
-}
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+    UART_nBOOLEAN enIsFifoFull;
 
-inline UBase_t UART__uxGetData(UART_nMODULE enModule)
-{
-    UBase_t uxDataReg = 0UL;
-    uxDataReg = UART__uxReadRegister(enModule, UART_DR_OFFSET, UART_DR_DATA_MASK, 0UL);
-    return (uxDataReg);
-}
-
-inline UBase_t UART__uxGetDataWithStatus(UART_nMODULE enModule)
-{
-    UBase_t uxDataReg = 0UL;
-    uxDataReg = UART__uxReadRegister(enModule, UART_DR_OFFSET, 0xFFFFFFFFUL, 0UL);
-    return (uxDataReg);
-}
-
-UBase_t UART__uxGetFifoData(UART_nMODULE enModule, UBase_t* puxFifoArray,
-                              UBase_t uxSizeBuffer, UBase_t uxTimeout)
-{
-    UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
-
-    UBase_t uxUartBase = 0UL;
-    volatile UBase_t* puxUartData = 0UL;
-
-    UBase_t uxModule = 0UL;
-    UBase_t uxCount = 0U;
-
-    if((UBase_t) 0UL != (UBase_t) puxFifoArray)
+    enIsFifoFull = UART_enFALSE;
+    enErrorReg = UART__enIsTransmitFifoFull(enModuleArg, &enIsFifoFull);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-        uxUartBase += UART_DR_OFFSET;
-        puxUartData = (volatile UBase_t*) uxUartBase;
-
-        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
+        if(UART_enTRUE == enIsFifoFull)
         {
+            enErrorReg = UART_enERROR_FULL;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DR_R_DATA_BIT;
+        stRegister.uxMask = MCU_MASK_32;
+        stRegister.uptrAddress = UART_DR_OFFSET;
+        stRegister.uxValue = (UBase_t) uxDataArg;
+        enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
+}
 
-            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) uxModule);
-            if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
+UART_nERROR UART__enSetDataByte(UART_nMODULE enModuleArg, uint8_t u8DataArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetData(enModuleArg, (UBase_t) u8DataArg);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetDataTimeOut(UART_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    if(0UL == uxTimeoutArg)
+    {
+        do{
+            enErrorReg = UART__enSetData(enModuleArg, uxDataArg);
+        }while(UART_enERROR_FULL == enErrorReg);
+    }
+    else
+    {
+        UBase_t uxTimeoutReg;
+        uxTimeoutReg = uxTimeoutArg;
+        do{
+            enErrorReg = UART__enSetData(enModuleArg, uxDataArg);
+            if(UART_enERROR_OK == enErrorReg)
             {
-                *puxFifoArray = *puxUartData;
-                puxFifoArray += 0x1U;
-                uxCount++;
-                uxTimeout = UART_TIMEOUT;
+                uxTimeoutReg = uxTimeoutArg;
             }
             else
             {
-                uxTimeout--;
+                uxTimeoutReg --;
             }
+        }while((UART_enERROR_FULL == enErrorReg) && (0UL != uxTimeoutReg));
+
+        if((UART_enERROR_FULL == enErrorReg) && (0UL == uxTimeoutReg))
+        {
+            enErrorReg = UART_enERROR_TIMEOUT;
         }
     }
-    return (uxCount);
+    return (enErrorReg);
 }
 
-UBase_t UART__uxGetFifoDataByte(UART_nMODULE enModule, uint8_t* pu8FifoArray,
-                                  UBase_t uxSizeBuffer, UBase_t uxTimeout)
+UART_nERROR UART__enSetDataByteTimeOut(UART_nMODULE enModuleArg, uint8_t u8DataArg, UBase_t uxTimeoutArg)
 {
-    UART_nFIFO_EMPTY enFifoEmpty = UART_enFIFO_NO_EMPTY;
-
-    UBase_t uxUartBase = 0UL;
-    volatile UBase_t* puxUartData = 0U;
-
-    UBase_t uxModule = 0UL;
-    UBase_t uxCount = 0U;
-
-    if((UBase_t) 0UL != (UBase_t) pu8FifoArray)
-    {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-        uxUartBase += UART_DR_OFFSET;
-        puxUartData = (volatile UBase_t*) uxUartBase;
-
-        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
-        {
-            enFifoEmpty = UART__enIsFifoReceiveEmpty((UART_nMODULE) uxModule);
-            if(UART_enFIFO_NO_EMPTY == enFifoEmpty)
-            {
-                *pu8FifoArray = (uint8_t) *puxUartData;
-                pu8FifoArray += 0x1U;
-                uxCount++;
-                uxTimeout = UART_TIMEOUT;
-            }
-            else
-            {
-                uxTimeout--;
-            }
-        }
-    }
-    return (uxCount);
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetDataTimeOut(enModuleArg, (UBase_t) u8DataArg, uxTimeoutArg);
+    return (enErrorReg);
 }
 
-UBase_t UART__uxSetFifoData(UART_nMODULE enModule, const UBase_t* puxFifoArray,
-                              UBase_t uxSizeBuffer, UBase_t uxTimeout)
+
+UART_nERROR UART__enSetFifoDataTimeOut(UART_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
 {
-    UART_nFIFO_FULL enFifoFull = UART_enFIFO_NO_FULL;
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxInitialCountReg;
 
-    UBase_t uxUartBase = 0UL;
-    volatile UBase_t* puxUartData = 0U;
-
-    UBase_t uxModule = 0UL;
-    UBase_t uxCount = 0U;
-
-    if((UBase_t) 0UL != (UBase_t) puxFifoArray)
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if((0UL == (uintptr_t) puxCount) || (0UL == (uintptr_t) puxDataArg))
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-        uxUartBase += UART_DR_OFFSET;
-        puxUartData = (volatile UBase_t*) uxUartBase;
-        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
         {
-            enFifoFull = UART__enIsFifoTransmitFull(enModule);
-            if(UART_enFIFO_NO_FULL == enFifoFull)
-            {
-                *puxUartData = *puxFifoArray;
-                puxFifoArray += 0x1U;
-                uxCount++;
-                uxTimeout = UART_TIMEOUT;
-            }
-            else
-            {
-                uxTimeout--;
-            }
+            enErrorReg = UART_enERROR_VALUE;
         }
     }
-    return (uxCount);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = UART__enSetDataTimeOut(enModuleArg, *puxDataArg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                puxDataArg += 1UL;
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
 }
 
-UBase_t UART__uxSetFifoDataByte(UART_nMODULE enModule, const uint8_t* pu8FifoArray,
-                                  UBase_t uxSizeBuffer, UBase_t uxTimeout)
+
+UART_nERROR UART__enSetFifoDataByteTimeOut(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
 {
-    UART_nFIFO_FULL enFifoFull = UART_enFIFO_NO_FULL;
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxDataReg;
+    uint8_t u8DataReg;
+    UBase_t uxInitialCountReg;
 
-    uint8_t u8Reg = 0U;
-    UBase_t uxUartBase = 0UL;
-    volatile UBase_t* puxUartData = 0U;
-
-    UBase_t uxModule = 0UL;
-    UBase_t uxCount = 0U;
-
-    if((UBase_t) 0UL != (UBase_t) pu8FifoArray)
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if((0UL == (uintptr_t) puxCount) || (0UL == (uintptr_t) pu8DataArg))
     {
-        uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-        uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-        uxUartBase += UART_DR_OFFSET;
-        puxUartData = (volatile UBase_t*) uxUartBase;
-
-        while((uxCount != uxSizeBuffer) && (0UL != uxTimeout))
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
         {
-            enFifoFull = UART__enIsFifoTransmitFull(enModule);
-            if(UART_enFIFO_NO_FULL == enFifoFull)
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            u8DataReg = *pu8DataArg;
+            uxDataReg = (UBase_t) u8DataReg;
+            enErrorReg = UART__enSetDataTimeOut(enModuleArg, uxDataReg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
             {
-                u8Reg = (uint8_t) (*pu8FifoArray);
-                *puxUartData = (UBase_t) u8Reg;
-                pu8FifoArray += 0x1U;
-                uxCount++;
-                uxTimeout = UART_TIMEOUT;
+                pu8DataArg += 1UL;
+                uxCountReg -= 1UL;
             }
-            else
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enSetFifoData(UART_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetFifoDataTimeOut(enModuleArg, puxDataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetFifoDataByte(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetFifoDataByteTimeOut(enModuleArg, pu8DataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enSetFifoDataConstTimeOut(UART_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxInitialCountReg;
+
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxCount)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = UART__enSetDataTimeOut(enModuleArg, uxDataArg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
             {
-                uxTimeout--;
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetFifoDataConstByteTimeOut(UART_nMODULE enModuleArg, uint8_t u8DataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxDataReg;
+    UBase_t uxInitialCountReg;
+
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxCount)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            uxDataReg = (UBase_t) u8DataArg;
+            enErrorReg = UART__enSetDataTimeOut(enModuleArg, uxDataReg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetFifoDataConst(UART_nMODULE enModuleArg, UBase_t uxDataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetFifoDataConstTimeOut(enModuleArg, uxDataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetFifoDataConstByte(UART_nMODULE enModuleArg, uint8_t u8DataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetFifoDataConstByteTimeOut(enModuleArg, u8DataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetDataWithStatus(UART_nMODULE enModuleArg, UBase_t* puxDataArg)
+{
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+    UART_nBOOLEAN enIsFifoEmpty;
+
+    enIsFifoEmpty = UART_enFALSE;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxDataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enIsReceiveFifoEmpty(enModuleArg, &enIsFifoEmpty);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enTRUE == enIsFifoEmpty)
+        {
+            enErrorReg = UART_enERROR_EMPTY;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DR_R_DATA_BIT;
+        stRegister.uxMask = MCU_MASK_32;
+        stRegister.uptrAddress = UART_DR_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *puxDataArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetData(UART_nMODULE enModuleArg, UBase_t* puxDataArg)
+{
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+    UART_nBOOLEAN enIsFifoEmpty;
+
+    enIsFifoEmpty = UART_enFALSE;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxDataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enIsReceiveFifoEmpty(enModuleArg, &enIsFifoEmpty);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enTRUE == enIsFifoEmpty)
+        {
+            enErrorReg = UART_enERROR_EMPTY;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DR_R_DATA_BIT;
+        stRegister.uxMask = UART_DR_DATA_MASK;
+        stRegister.uptrAddress = UART_DR_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *puxDataArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetDataByte(UART_nMODULE enModuleArg, uint8_t* pu8DataArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxDataReg;
+    uint8_t u8DataReg;
+
+    uxDataReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) pu8DataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enGetData(enModuleArg, &uxDataReg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        u8DataReg = (uint8_t) uxDataReg;
+        *pu8DataArg = (uint8_t) u8DataReg;
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetDataWithStatusTimeOut(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxDataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxTimeoutArg)
+        {
+            do{
+                enErrorReg = UART__enGetDataWithStatus(enModuleArg, puxDataArg);
+            }while(UART_enERROR_EMPTY == enErrorReg);
+        }
+        else
+        {
+            UBase_t uxTimeoutReg = uxTimeoutArg;
+            do{
+                enErrorReg = UART__enGetDataWithStatus(enModuleArg, puxDataArg);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    uxTimeoutReg = uxTimeoutArg;
+                }
+                else
+                {
+                    uxTimeoutReg --;
+                }
+            }while((UART_enERROR_EMPTY == enErrorReg) && (0UL != uxTimeoutReg));
+
+            if((UART_enERROR_EMPTY == enErrorReg) && (0UL == uxTimeoutReg))
+            {
+                enErrorReg = UART_enERROR_TIMEOUT;
             }
         }
     }
-    return (uxCount);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetDataTimeOut(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxDataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(0UL == uxTimeoutArg)
+        {
+            do{
+                enErrorReg = UART__enGetData(enModuleArg, puxDataArg);
+            }while(UART_enERROR_EMPTY == enErrorReg);
+        }
+        else
+        {
+            UBase_t uxTimeoutReg = uxTimeoutArg;
+            do{
+                enErrorReg = UART__enGetData(enModuleArg, puxDataArg);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    uxTimeoutReg = uxTimeoutArg;
+                }
+                else
+                {
+                    uxTimeoutReg --;
+                }
+            }while((UART_enERROR_EMPTY == enErrorReg) && (0UL != uxTimeoutReg));
+
+            if((UART_enERROR_EMPTY == enErrorReg) && (0UL == uxTimeoutReg))
+            {
+                enErrorReg = UART_enERROR_TIMEOUT;
+            }
+        }
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetDataByteTimeOut(UART_nMODULE enModuleArg, uint8_t* pu8DataArg, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxDataReg;
+    uint8_t u8DataReg;
+
+    uxDataReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) pu8DataArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enGetDataTimeOut(enModuleArg, &uxDataReg, uxTimeoutArg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        u8DataReg = (uint8_t) uxDataReg;
+        *pu8DataArg = (uint8_t) u8DataReg;
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetFifoDataWithStatusTimeOut(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxInitialCountReg;
+
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxCount)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = UART__enGetDataWithStatusTimeOut(enModuleArg, puxDataArg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                puxDataArg += 1UL;
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetFifoDataTimeOut(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxInitialCountReg;
+
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) puxCount)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = UART__enGetDataTimeOut(enModuleArg, puxDataArg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                puxDataArg += 1UL;
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetFifoDataByteTimeOut(UART_nMODULE enModuleArg, uint8_t* pu8DataArg, UBase_t* puxCount, UBase_t uxTimeoutArg)
+{
+    UART_nERROR enErrorReg;
+    UBase_t uxCountReg;
+    UBase_t uxDataReg;
+    uint8_t u8DataReg;
+    UBase_t uxInitialCountReg;
+
+    uxInitialCountReg = 0UL;
+    uxCountReg = 0UL;
+    enErrorReg = UART_enERROR_OK;
+    if((0UL == (uintptr_t) puxCount) || (0UL == (uintptr_t) pu8DataArg))
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        uxCountReg = *puxCount;
+        uxInitialCountReg = *puxCount;
+        if(0UL == uxCountReg)
+        {
+            enErrorReg = UART_enERROR_VALUE;
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        do
+        {
+            enErrorReg = UART__enGetDataTimeOut(enModuleArg, &uxDataReg, uxTimeoutArg);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                u8DataReg = (uint8_t) uxDataReg;
+                *pu8DataArg = (uint8_t) u8DataReg;
+                pu8DataArg += 1UL;
+                uxCountReg -= 1UL;
+            }
+        }while((UART_enERROR_OK == enErrorReg) && (0UL != uxCountReg));
+    }
+    if((UART_enERROR_OK == enErrorReg) || (UART_enERROR_TIMEOUT == enErrorReg))
+    {
+        *puxCount = uxInitialCountReg - uxCountReg ;
+    }
+    return (enErrorReg);
+}
+
+
+UART_nERROR UART__enGetFifoDataWithStatus(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enGetFifoDataWithStatusTimeOut(enModuleArg, puxDataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetFifoData(UART_nMODULE enModuleArg, UBase_t* puxDataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enGetFifoDataTimeOut(enModuleArg, puxDataArg, puxCount, 0UL);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enGetFifoDataByte(UART_nMODULE enModuleArg, uint8_t* pu8DataArg, UBase_t* puxCount)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enGetFifoDataByteTimeOut(enModuleArg, pu8DataArg, puxCount, 0UL);
+    return (enErrorReg);
 }

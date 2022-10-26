@@ -26,16 +26,16 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSet9BitMode(UART_nMODULE enModule, UART_nSTATE en9BitArg);
-UART_nSTATE UART__enGet9BitMode(UART_nMODULE enModule);
+UART_nERROR UART__enSetMultiDropState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetMultiDropState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
-void UART__vSetSelfAddress(UART_nMODULE enModule, UBase_t  uxAddressArg);
-UBase_t UART__uxGetSelfAddress(UART_nMODULE enModule);
+UART_nERROR UART__enSetSelfAddress(UART_nMODULE enModuleArg, UBase_t uxAddressArg);
+UART_nERROR UART__enGetSelfAddress(UART_nMODULE enModuleArg, UBase_t* puxAddressArg);
 
-void UART__vSetSelfAddressMask(UART_nMODULE enModule, UBase_t  uxAddressMaskArg);
-UBase_t UART__uxGetSelfAddressMask(UART_nMODULE enModule);
+UART_nERROR UART__enSetSelfAddressMask(UART_nMODULE enModuleArg, UBase_t uxAddressMaskArg);
+UART_nERROR UART__enGetSelfAddressMask(UART_nMODULE enModuleArg, UBase_t* puxAddressMaskArg);
 
-void UART__vSetSelfAddressWithMask(UART_nMODULE enModule, UBase_t  uxAddressArg,
-                                   UBase_t  uxAddressMaskArg);
+UART_nERROR UART__enSetSelfAddressWithMask(UART_nMODULE enModuleArg, UBase_t uxAddressArg, UBase_t uxAddressMaskArg);
+UART_nERROR UART__enGetSelfAddressWithMask(UART_nMODULE enModuleArg, UBase_t* puxAddressArg, UBase_t* puxAddressMaskArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_9BITADDRESS_H_ */

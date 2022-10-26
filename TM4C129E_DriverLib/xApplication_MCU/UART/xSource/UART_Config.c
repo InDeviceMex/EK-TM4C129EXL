@@ -39,7 +39,7 @@
 
 #define MAX_CONFIG (3UL)
 
-GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(UBase_t) UART_enMODULE_MAX]
+const GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(UBase_t) UART_enMODULE_MAX]
                                                      [(UBase_t) MAX_LINE] =
 {
     {
@@ -119,261 +119,342 @@ GPIO_nDIGITAL_FUNCTION UART_enGpioInput[MAX_CONFIG] [(UBase_t) UART_enMODULE_MAX
     },
  };
 
-UART_nERROR UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  ,
-                               const UART_CONTROL_t* pstControlConfig,
-                               const UART_LINE_CONTROL_t* pstLineControlConfig,
-                               UBase_t uxBaudRateArg,
-                               const UART_LINE_t* pstLineConfig)
+UART_nERROR UART__enSetConfig(UART_nMODULE enModuleArg,
+                              UART_nMODE enModeArg,
+                              UBase_t uxBaudRateArg,
+                              UBase_t uxOwnAddressArg,
+                              UBase_t uxOwnAddressMaskArg,
+                              const UART_CONTROL_t* pstControlConfigArg,
+                              const UART_LINE_CONTROL_t* pstLineControlConfigArg,
+                              const UART_LINE_t* pstLineConfigArg,
+                              UBase_t uxTimeoutArg)
 {
-    UART_nERROR enReturn = UART_enERROR_POINTER;
-    UART_nSTATE enEnableModule = UART_enSTATE_UNDEF;
-    UART_nMODULE enModuleFilter = UART_enMODULE_0;
-    UART_nBUSY enBusyModule = UART_enBUSY_UNDEF;
+    UART_nSTATE enEnableModule;
+    UART_nERROR enErrorReg;
+    UART_nBOOLEAN enIsBusyReg;
     UART_LINE_CONTROL_t stLineControlConfig;
-    UBase_t uxLine[MAX_LINE] = {0UL};
 
-    if((0UL != (UBase_t) pstControlConfig) &&
-       (0UL != (UBase_t) pstLineControlConfig)  &&
-       (0UL != (UBase_t) pstLineConfig))
+    enEnableModule = UART_enSTATE_DIS;
+    enErrorReg = UART_enERROR_OK;
+    if((0UL == (uintptr_t) pstControlConfigArg) ||
+       (0UL == (uintptr_t) pstLineControlConfigArg)  ||
+       (0UL == (uintptr_t) pstLineConfigArg))
     {
-        enModuleFilter = (UART_nMODULE) MCU__uxCheckParams((UBase_t) enModule,
-                                                            (UBase_t) UART_enMODULE_MAX);
-        enEnableModule = UART__enGetEnable(enModuleFilter);
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(0UL == uxBaudRateArg)
+    {
+        enErrorReg = UART_enERROR_VALUE;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enGetState(enModuleArg, &enEnableModule);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
         if(UART_enSTATE_ENA == enEnableModule)
         {
-            UART__vSetEnable(enModuleFilter, UART_enSTATE_DIS);
+            enErrorReg = UART__enSetState(enModuleArg, UART_enSTATE_DIS);
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enIsBusyReg = UART_enFALSE;
+        if(0UL == uxTimeoutArg)
+        {
             do
             {
-                enBusyModule = UART__enGetBusyState(enModuleFilter);
-            }while (UART_enBUSY_IDLE != enBusyModule);
-            UART__vSetFifoEnable(enModuleFilter, UART_enSTATE_DIS);
+                enErrorReg = UART__enIsBusy(enModuleArg, &enIsBusyReg);
+            }while ((UART_enFALSE != enIsBusyReg) &&
+                    (UART_enERROR_OK == enErrorReg));
         }
-        uxLine[RX_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRx, MAX_CONFIG);
-        uxLine[TX_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enTx, MAX_CONFIG);
-        uxLine[CTS_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enCTS, MAX_CONFIG);
-        uxLine[RTS_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRTS, MAX_CONFIG);
-        uxLine[DCD_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDCD, MAX_CONFIG);
-        uxLine[DSR_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDSR, MAX_CONFIG);
-        uxLine[DTR_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enDTR, MAX_CONFIG);
-        uxLine[RI_LINE] = MCU__uxCheckParams((UBase_t) pstLineConfig->enRI, MAX_CONFIG);
-
-        UART__vSetRxEnable(enModuleFilter, pstControlConfig->enRxLine);
-        UART__vSetTxEnable(enModuleFilter, pstControlConfig->enTxLine);
-        UART__vSetLoopback(enModuleFilter, pstControlConfig->enLoopback);
-        UART__vSetEndTransmission(enModuleFilter, pstControlConfig->enEndOfTransmission);
-        if(UART_enSTATE_ENA == pstControlConfig->enRxLine)
+        else
         {
-            GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RX_LINE]]
-                                                     [(UBase_t) enModuleFilter]
-                                                      [RX_LINE],
-                                   GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
+            do
+            {
+                enErrorReg = UART__enIsBusy(enModuleArg, &enIsBusyReg);
+                uxTimeoutArg--;
+            }while ((UART_enFALSE != enIsBusyReg) &&
+                    (UART_enERROR_OK == enErrorReg) &&
+                    (0UL != uxTimeoutArg));
+
+            if((UART_enFALSE != enIsBusyReg) &&
+               (UART_enERROR_OK == enErrorReg) &&
+               (0UL == uxTimeoutArg))
+            {
+                enErrorReg = UART_enERROR_TIMEOUT;
+            }
         }
-        if(UART_enSTATE_ENA == pstControlConfig->enTxLine)
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetFifoState(enModuleArg, UART_enSTATE_DIS);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enRxLineState)
         {
-            GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[TX_LINE]]
-                                                     [(UBase_t) enModuleFilter]
-                                                     [TX_LINE],
-                                     GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+            enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enRx, MAX_CONFIG);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enRx][(UBase_t) enModuleArg][RX_LINE],
+                                                                    GPIO_enCONFIG_INPUT_2MA_PUSHPULL);
+            }
         }
-
-        UART__vSet9BitMode(enModuleFilter, UART_enSTATE_DIS);
-        UART__vSetSIRLowPower(enModuleFilter, UART_enSTATE_DIS);
-        UART__vSetSIR(enModuleFilter, UART_enSTATE_DIS);
-        UART__vSetSMART(enModuleFilter, UART_enSTATE_DIS);
-        UART__vSetCTSMode(enModuleFilter, UART_enLINE_MODE_SOFT);
-        UART__vSetRTSMode(enModuleFilter, UART_enLINE_MODE_SOFT);
-        UART__vSetRTSLevel(enModuleFilter, UART_enLEVEL_LOW);
-
-        stLineControlConfig.enFifo = pstLineControlConfig->enFifo;
-        stLineControlConfig.enStop = pstLineControlConfig->enStop;
-        stLineControlConfig.enLength = pstLineControlConfig->enLength;
-        stLineControlConfig.enParityType = pstLineControlConfig->enParityType;
-        stLineControlConfig.enParity = pstLineControlConfig->enParity;
-        stLineControlConfig.enParityStick = pstLineControlConfig->enParityStick;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetReceiverState(enModuleArg, pstControlConfigArg->enRxLineState);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enTxLineState)
+        {
+            enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enTx, MAX_CONFIG);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enTx][(UBase_t) enModuleArg][TX_LINE],
+                                                                    GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetTransmitState(enModuleArg, pstControlConfigArg->enTxLineState);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enLINE_MODE_HARD == pstControlConfigArg->enCTSMode)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg) || (UART_enMODULE_2 == enModuleArg) ||
+               (UART_enMODULE_3 == enModuleArg) || (UART_enMODULE_4 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enCTS, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enCTS] [(UBase_t) enModuleArg] [CTS_LINE],
+                                                                        GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetClearToSendMode(enModuleArg, pstControlConfigArg->enCTSMode);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enLINE_MODE_HARD == pstControlConfigArg->enRTSMode)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg) || (UART_enMODULE_2 == enModuleArg) ||
+               (UART_enMODULE_3 == enModuleArg) || (UART_enMODULE_4 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enRTS, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enRTS] [(UBase_t) enModuleArg] [RTS_LINE],
+                                                                        GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+                }
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = UART__enSetRequestToSendLevel(enModuleArg, pstControlConfigArg->enRTSLevel);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetRequestToSendMode(enModuleArg, pstControlConfigArg->enRTSMode);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enDCDLineState)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enDCD, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enDCD][(UBase_t) enModuleArg][DCD_LINE],
+                                                                        GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enDSRLineState)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enDSR, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enDSR][(UBase_t) enModuleArg][DSR_LINE],
+                                                                        GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enDTRLineState)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enDTR, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enDTR][(UBase_t) enModuleArg][DTR_LINE],
+                                                                        GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+                }
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = UART__enSetDataTerminalReadyLevel(enModuleArg, pstControlConfigArg->enDTRLevel);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enSTATE_ENA == pstControlConfigArg->enRILineState)
+        {
+            if((UART_enMODULE_0 == enModuleArg) || (UART_enMODULE_1 == enModuleArg))
+            {
+                enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) pstLineConfigArg->enRI, MAX_CONFIG);
+                if(UART_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = (UART_nERROR) GPIO__enSetDigitalConfig(UART_enGpioInput[(UBase_t) pstLineConfigArg->enRI][(UBase_t) enModuleArg][RI_LINE],
+                                                                        GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                }
+            }
+            else
+            {
+                enErrorReg = UART_enERROR_VALUE;
+            }
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetLoopbackState(enModuleArg, pstControlConfigArg->enLoopbackState);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetEndOfTransmissionBehavior(enModuleArg, pstControlConfigArg->enEndOfTransmission);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if((UART_enPARITY_ADDRESS == pstLineControlConfigArg->enParityType) ||
+           (UART_enPARITY_DATA == pstLineControlConfigArg->enParityType))
+        {
+            enErrorReg = UART__enSetMultiDropState(enModuleArg, UART_enSTATE_ENA);
+            if(UART_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = UART__enSetSelfAddressWithMask(enModuleArg, uxOwnAddressArg, uxOwnAddressMaskArg);
+            }
+        }
+        else
+        {
+            enErrorReg = UART__enSetMultiDropState(enModuleArg, UART_enSTATE_DIS);
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enMODE_IRDA_LP == enModeArg)
+        {
+            enErrorReg = UART__enSetIrDALowPowerState(enModuleArg, UART_enSTATE_ENA);
+        }
+        else
+        {
+            enErrorReg = UART__enSetIrDALowPowerState(enModuleArg, UART_enSTATE_DIS);
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if((UART_enMODE_IRDA == enModeArg) || (UART_enMODE_IRDA_LP == enModeArg))
+        {
+            enErrorReg = UART__enSetIrDAState(enModuleArg, UART_enSTATE_ENA);
+        }
+        else
+        {
+            enErrorReg = UART__enSetIrDAState(enModuleArg, UART_enSTATE_DIS);
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        if(UART_enMODE_SMART_CARD == enModeArg)
+        {
+            enErrorReg = UART__enSetSmartCardState(enModuleArg, UART_enSTATE_ENA);
+        }
+        else
+        {
+            enErrorReg = UART__enSetSmartCardState(enModuleArg, UART_enSTATE_DIS);
+        }
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
         switch(enModeArg)
         {
-
         case UART_enMODE_NORMAL:
-            stLineControlConfig.enParityStick = UART_enSTATE_DIS;
-            UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    uxBaudRateArg);
+            enErrorReg = UART__enSetLineControlStructurePointer_BaudRate(enModuleArg, pstLineControlConfigArg, uxBaudRateArg);
             break;
-
-        case UART_enMODE_MODEM:
-            stLineControlConfig.enParityStick = UART_enSTATE_DIS;
-            UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    uxBaudRateArg);
-
-            if(UART_enLINE_MODE_HARD == pstControlConfig->enCTSMode)
+        case UART_enMODE_IRDA:
+            if(115200UL < uxBaudRateArg)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[CTS_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [CTS_LINE],
-                                          GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                enErrorReg = UART_enERROR_VALUE;
             }
-            if(UART_enLINE_MODE_HARD == pstControlConfig->enRTSMode)
+            if(UART_enERROR_OK == enErrorReg)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RTS_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [RTS_LINE],
-                                           GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+                enErrorReg = UART__enSetLineControlStructurePointer_BaudRate(enModuleArg, pstLineControlConfigArg, uxBaudRateArg);
             }
-            if(UART_enSTATE_ENA == pstControlConfig->enDCDLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DCD_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DCD_LINE],
-                                           GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enDSRLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DSR_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DSR_LINE],
-                                           GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enRILine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RI_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [RI_LINE],
-                                             GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enDTRLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DTR_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DTR_LINE],
-                                         GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-            }
-            UART__vSetCTSMode(enModuleFilter, pstControlConfig->enCTSMode);
-            UART__vSetRTSMode(enModuleFilter, pstControlConfig->enRTSMode);
             break;
-
-        case UART_enMODE_SIR:
-            stLineControlConfig.enParityStick = UART_enSTATE_DIS;
-            UART__vSetLineControlStruct(enModuleFilter, stLineControlConfig);
-            UART__vEnIrDALowPowerFrequency(enModuleFilter);
-
-            UART__vSetSIR(enModuleFilter, UART_enSTATE_ENA);
-            break;
-
-        case UART_enMODE_SIR_LP:
-            stLineControlConfig.enParityStick = UART_enSTATE_DIS;
-            UART__vSetLineControlStruct(enModuleFilter, stLineControlConfig);
-            UART__vEnIrDALowPowerFrequency(enModuleFilter);
-
-            UART__vSetSIR(enModuleFilter, UART_enSTATE_ENA);
-            UART__vSetSIRLowPower(enModuleFilter, UART_enSTATE_ENA);
-            break;
-
-            /*Multiprocesor*/
-        case UART_enMODE_NORMAL_MP:
-            stLineControlConfig.enParity = UART_enSTATE_ENA;
-            stLineControlConfig.enParityStick = UART_enSTATE_ENA;
-            UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    uxBaudRateArg);
-
-            UART__vSet9BitMode(enModuleFilter, UART_enSTATE_ENA);
-            break;
-
-        case UART_enMODE_SIR_MP:
-            stLineControlConfig.enParity = UART_enSTATE_ENA;
-            stLineControlConfig.enParityStick = UART_enSTATE_ENA;
-            UART__vSetLineControlStruct(enModuleFilter, stLineControlConfig);
-            UART__vEnIrDALowPowerFrequency(enModuleFilter);
-
-            UART__vSetSIR(enModuleFilter, UART_enSTATE_ENA);
-
-            UART__vSet9BitMode(enModuleFilter, UART_enSTATE_ENA);
-            break;
-
-        case UART_enMODE_SIR_LP_MP:
-            stLineControlConfig.enParity = UART_enSTATE_ENA;
-            stLineControlConfig.enParityStick = UART_enSTATE_ENA;
-            UART__vSetLineControlStruct(enModuleFilter, stLineControlConfig);
-            UART__vEnIrDALowPowerFrequency(enModuleFilter);
-
-            UART__vSetSIR(enModuleFilter, UART_enSTATE_ENA);
-            UART__vSetSIRLowPower(enModuleFilter, UART_enSTATE_ENA);
-
-            UART__vSet9BitMode(enModuleFilter, UART_enSTATE_ENA);
-            break;
-
-        case UART_enMODE_MODEM_MP:
-            stLineControlConfig.enParity = UART_enSTATE_ENA;
-            stLineControlConfig.enParityStick = UART_enSTATE_ENA;
-            UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    uxBaudRateArg);
-
-            if(UART_enLINE_MODE_HARD == pstControlConfig->enCTSMode)
+        case UART_enMODE_IRDA_LP:
+            enErrorReg = UART__enSetIrDALowPowerFrequency(enModuleArg);
+            if(UART_enERROR_OK == enErrorReg)
             {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[CTS_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [CTS_LINE],
-                                         GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
+                enErrorReg = UART__enSetLineControlStructurePointer(enModuleArg, pstLineControlConfigArg);
             }
-            if(UART_enLINE_MODE_HARD == pstControlConfig->enRTSMode)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RTS_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [RTS_LINE],
-                                         GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enDCDLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DCD_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DCD_LINE],
-                                         GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enDSRLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DSR_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DSR_LINE],
-                                         GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enRILine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[RI_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [RI_LINE],
-                                         GPIO_enCONFIG_INPUT_2MA_OPENDRAIN);
-            }
-            if(UART_enSTATE_ENA == pstControlConfig->enDTRLine)
-            {
-                GPIO__enSetDigitalConfig(UART_enGpioInput[uxLine[DTR_LINE]]
-                                                         [(UBase_t) enModuleFilter]
-                                                         [DTR_LINE],
-                                         GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
-            }
-            UART__vSetCTSMode(enModuleFilter, pstControlConfig->enCTSMode);
-            UART__vSetRTSMode(enModuleFilter, pstControlConfig->enRTSMode);
-            UART__vSet9BitMode(enModuleFilter, UART_enSTATE_ENA);
             break;
-
         case UART_enMODE_SMART_CARD:
-            stLineControlConfig.enFifo = pstLineControlConfig->enFifo;
-            stLineControlConfig.enStop = UART_enSTOP_TWO;
-            stLineControlConfig.enLength = UART_enLENGTH_8BITS;
-            stLineControlConfig.enParityType = UART_enPARITY_TYPE_EVEN;
-            stLineControlConfig.enParity = UART_enSTATE_ENA;
-            stLineControlConfig.enParityStick = UART_enSTATE_DIS;
-            UART__vSetSMART(enModuleFilter, UART_enSTATE_ENA);
-            UART__enSetBaudRateAndLineControlStruct(enModuleFilter, stLineControlConfig,
-                                                    uxBaudRateArg);
+            stLineControlConfig.enFifoState = pstLineControlConfigArg->enFifoState;
+            stLineControlConfig.enStopBits = UART_enSTOP_TWO;
+            stLineControlConfig.enDataLength = UART_enLENGTH_8BITS;
+            stLineControlConfig.enParityType = UART_enPARITY_EVEN;
+            enErrorReg = UART__enSetLineControlStructure_BaudRate(enModuleArg, stLineControlConfig, uxBaudRateArg);
             break;
         default:
             break;
         }
-        if(UART_enSTATE_ENA == enEnableModule)
-        {
-            UART__vSetEnable(enModuleFilter, UART_enSTATE_ENA);
-        }
-        enReturn = UART_enERROR_OK;
     }
-    return (enReturn);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetState(enModuleArg, enEnableModule);
+    }
+    return (enErrorReg);
 }
 
 

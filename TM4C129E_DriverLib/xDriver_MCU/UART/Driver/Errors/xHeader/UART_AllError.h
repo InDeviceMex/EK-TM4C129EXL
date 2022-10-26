@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UBase_t UART__uxGetErrorState(UART_nMODULE enModule);
-void UART__vClearErrorState(UART_nMODULE enModule);
+UART_nERROR UART__enGetReceiveErrorStatus(UART_nMODULE enModuleArg, UART_nRECEIVE_ERROR* penStatusArg);
+UART_nERROR UART__enClearReceiveError(UART_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_ERRORS_XHEADER_UART_ALLERROR_H_ */

@@ -23,35 +23,84 @@
  */
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_RTS.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetRTSMode(UART_nMODULE enModule, UART_nLINE_MODE enRTSModeArg)
+UART_nERROR UART__enSetRequestToSendMode(UART_nMODULE enModuleArg, UART_nLINE_MODE enModeArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enRTSModeArg,
-                         UART_CTL_RTSEN_MASK, UART_CTL_R_RTSEN_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_RTSEN_BIT;
+    stRegister.uxMask = UART_CTL_RTSEN_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enModeArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nLINE_MODE UART__enGetRTSMode(UART_nMODULE enModule)
+UART_nERROR UART__enGetRequestToSendMode(UART_nMODULE enModuleArg, UART_nLINE_MODE* penModeArg)
 {
-    UART_nLINE_MODE enRTSModeReg = UART_enLINE_MODE_SOFT;
-    enRTSModeReg = (UART_nLINE_MODE) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                         UART_CTL_RTSEN_MASK, UART_CTL_R_RTSEN_BIT);
-    return (enRTSModeReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penModeArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_RTSEN_BIT;
+        stRegister.uxMask = UART_CTL_RTSEN_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penModeArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void UART__vSetRTSLevel(UART_nMODULE enModule, UART_nLEVEL enRTSLevelArg)
+UART_nERROR UART__enSetRequestToSendLevel(UART_nMODULE enModuleArg, UART_nLEVEL enLevelArg)
 {
-    UART__vWriteRegister(enModule, UART_CTL_OFFSET, (UBase_t) enRTSLevelArg,
-                         UART_CTL_RTS_MASK, UART_CTL_R_RTS_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CTL_R_RTS_BIT;
+    stRegister.uxMask = UART_CTL_RTS_MASK;
+    stRegister.uptrAddress = UART_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enLevelArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nLEVEL UART__enGetRTSLevel(UART_nMODULE enModule)
+UART_nERROR UART__enGetRequestToSendLevel(UART_nMODULE enModuleArg, UART_nLEVEL* penLevelArg)
 {
-    UART_nLEVEL enRTSLevelReg = UART_enLEVEL_LOW;
-    enRTSLevelReg = (UART_nLEVEL) UART__uxReadRegister(enModule, UART_CTL_OFFSET,
-                                                UART_CTL_RTS_MASK, UART_CTL_R_RTS_BIT);
-    return (enRTSLevelReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penLevelArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CTL_R_RTS_BIT;
+        stRegister.uxMask = UART_CTL_RTS_MASK;
+        stRegister.uptrAddress = UART_CTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penLevelArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
 

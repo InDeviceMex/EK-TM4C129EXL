@@ -29,30 +29,30 @@
     #pragma CHECK_MISRA("-6.3, -10.1, -10.3, -12.2, -12.7, -12.10, -14.5, -16.1")
 #endif
 
-#define PRINF_TIMEOUT (100000UL)
-
 UBase_t UART__uxPrintf(UART_nMODULE enModule,const char* pcFormat, ... )
 {
-    UBase_t uxLengtht = 0UL;
-    static char pcBufferReg[400UL] = {0};
-    char* pcBufferRegPointer = 0UL;
+    UBase_t uxLengtht;
+    char pcBufferReg[400UL];
+    char* pcBufferRegPointer;
     va_list vaList;
+
     va_start(vaList, pcFormat);
-    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat,vaList);
+    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
     va_end(vaList);
     pcBufferRegPointer = pcBufferReg;
-    UART__uxSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,uxLengtht, PRINF_TIMEOUT);
+    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer, &uxLengtht);
     return  (uxLengtht);
 }
 
 UBase_t UART__uxvsPrintf(UART_nMODULE enModule,const char* pcFormat, va_list vaList)
 {
-    UBase_t uxLengtht = 0UL;
-    static char pcBufferReg[400UL] = {0};
-    char* pcBufferRegPointer = 0UL;
-    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat,vaList);
+    UBase_t uxLengtht;
+    char pcBufferReg[400UL];
+    char* pcBufferRegPointer;
+
+    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
     pcBufferRegPointer = pcBufferReg;
-    UART__uxSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer,uxLengtht, PRINF_TIMEOUT);
+    UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferRegPointer, &uxLengtht);
     return (uxLengtht);
 }
 

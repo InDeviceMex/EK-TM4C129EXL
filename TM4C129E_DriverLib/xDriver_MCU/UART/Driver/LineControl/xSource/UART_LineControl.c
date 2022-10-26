@@ -24,40 +24,50 @@
 #include <xDriver_MCU/UART/Driver/LineControl/UART_LineControl.h>
 
 
-void UART__vSetLineControl(UART_nMODULE enModule, UART_nLENGTH enLengthDataArg,
-                           UART_nSTATE enFifoEnable, UART_nSTOP enStopBitsArg,
-                           UART_nSTATE enParityState, UART_nPARITY_TYPE enParityTypeArg,
-                           UART_nSTATE enParityStickArg)
+UART_nERROR UART__enSetLineControl(UART_nMODULE enModuleArg, UART_nLENGTH enDataLengthArg,
+                           UART_nSTATE enFifoStateArg, UART_nSTOP enStopBitsArg,
+                           UART_nPARITY enParityTypeArg)
 {
-    UART__vSetDataLength(enModule, enLengthDataArg);
-    UART__vSetFifoEnable(enModule, enFifoEnable);
-    UART__vSetStopBits(enModule, enStopBitsArg);
-    UART__vSetParityEnable(enModule, enParityState);
-    UART__vSetParityType(enModule, enParityTypeArg);
-    UART__vSetParityStick(enModule, enParityStickArg);
-}
+    UART_nERROR enErrorReg;
 
-void UART__vSetLineControlStruct(UART_nMODULE enModule,
-                                 const UART_LINE_CONTROL_t stLineControl)
-{
-    UART__vSetDataLength(enModule, stLineControl.enLength);
-    UART__vSetFifoEnable(enModule, stLineControl.enFifo);
-    UART__vSetStopBits(enModule, stLineControl.enStop);
-    UART__vSetParityEnable(enModule, stLineControl.enParity);
-    UART__vSetParityType(enModule, stLineControl.enParityType);
-    UART__vSetParityStick(enModule, stLineControl.enParityStick);
-}
-
-void UART__vSetLineControlStructPointer(UART_nMODULE enModule,
-                                        const UART_LINE_CONTROL_t* pstLineControl)
-{
-    if((UBase_t) 0UL != (UBase_t) pstLineControl)
+    enErrorReg = UART__enSetDataLength(enModuleArg, enDataLengthArg);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        UART__vSetDataLength(enModule, pstLineControl->enLength);
-        UART__vSetFifoEnable(enModule, pstLineControl->enFifo);
-        UART__vSetStopBits(enModule, pstLineControl->enStop);
-        UART__vSetParityEnable(enModule, pstLineControl->enParity);
-        UART__vSetParityType(enModule, pstLineControl->enParityType);
-        UART__vSetParityStick(enModule, pstLineControl->enParityStick);
+        enErrorReg = UART__enSetFifoState(enModuleArg, enFifoStateArg);
     }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetStopBits(enModuleArg, enStopBitsArg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetParityType(enModuleArg, enParityTypeArg);
+    }
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetLineControlStructure(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t stLineControlArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART__enSetLineControl(enModuleArg,
+                                        stLineControlArg.enDataLength, stLineControlArg.enFifoState,
+                                        stLineControlArg.enStopBits, stLineControlArg.enParityType);
+    return (enErrorReg);
+}
+
+UART_nERROR UART__enSetLineControlStructurePointer(UART_nMODULE enModuleArg, const UART_LINE_CONTROL_t* pstLineControlArg)
+{
+    UART_nERROR enErrorReg;
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) pstLineControlArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = UART__enSetLineControl(enModuleArg,
+                                            pstLineControlArg->enDataLength, pstLineControlArg->enFifoState,
+                                            pstLineControlArg->enStopBits, pstLineControlArg->enParityType);
+    }
+    return (enErrorReg);
 }

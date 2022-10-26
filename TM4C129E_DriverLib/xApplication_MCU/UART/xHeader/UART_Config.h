@@ -27,6 +27,14 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-UART_nERROR UART__enSetConfig(UART_nMODULE enModule, UART_nMODE enModeArg  , const UART_CONTROL_t* pstControlConfig, const UART_LINE_CONTROL_t* pstLineControlConfig, UBase_t uxBaudRateArg, const UART_LINE_t* pstLineConfig);
+UART_nERROR UART__enSetConfig(UART_nMODULE enModuleArg,
+                              UART_nMODE enModeArg,
+                              UBase_t uxBaudRateArg,
+                              UBase_t uxOwnAddressArg,
+                              UBase_t uxOwnAddressMaskArg,
+                              const UART_CONTROL_t* pstControlConfigArg,
+                              const UART_LINE_CONTROL_t* pstLineControlConfigArg,
+                              const UART_LINE_t* pstLineConfigArg,
+                              UBase_t uxTimeoutArg);
 
 #endif /* XAPPLICATION_MCU_UART_XHEADER_UART_CONFIG_H_ */

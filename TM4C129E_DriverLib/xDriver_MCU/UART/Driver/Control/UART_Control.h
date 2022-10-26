@@ -24,6 +24,7 @@
 #ifndef XDRIVER_MCU_UART_DRIVER_CONTROL_UART_CONTROL_H_
 #define XDRIVER_MCU_UART_DRIVER_CONTROL_UART_CONTROL_H_
 
+#include <xDriver_MCU/UART/Driver/Control/xHeader/UART_DTR.h>
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_CTS.h>
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_Enable.h>
 #include <xDriver_MCU/UART/Driver/Control/xHeader/UART_EndTransmission.h>

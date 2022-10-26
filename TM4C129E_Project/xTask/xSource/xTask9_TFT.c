@@ -94,7 +94,6 @@ void xTask9_TFT(void* pvParams)
 
     uxLastWakeTime = OS_Task__uxGetTickCount ();
     uxPeriodTicksOld = 0UL;
-    UART__uxPrintf(UART_enMODULE_0, "Task9 First Entry \n\r");
     while(1UL)
     {
         uxPeriodTicks = OS_Task__uxGetTickCount();

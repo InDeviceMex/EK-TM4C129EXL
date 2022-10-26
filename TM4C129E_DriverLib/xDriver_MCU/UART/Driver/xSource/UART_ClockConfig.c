@@ -23,19 +23,44 @@
  */
 #include <xDriver_MCU/UART/Driver/xHeader/UART_ClockConfig.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetClockConfig(UART_nMODULE enModule, UART_nCLOCK enClock)
+UART_nERROR UART__enSetClockSource(UART_nMODULE enModuleArg, UART_nCLOCK enClockArg)
 {
-    UART__vWriteRegister(enModule, UART_CC_OFFSET, (UBase_t) enClock,
-                         UART_CC_CS_MASK, UART_CC_R_CS_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_CC_R_CS_BIT;
+    stRegister.uxMask = UART_CC_CS_MASK;
+    stRegister.uptrAddress = UART_CC_OFFSET;
+    stRegister.uxValue = (UBase_t) enClockArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nCLOCK UART__enGetClockConfig(UART_nMODULE enModule)
+UART_nERROR UART__enGetClockSource(UART_nMODULE enModuleArg, UART_nCLOCK* penClockArg)
 {
-    UART_nCLOCK enClockReg = UART_enCLOCK_SYSCLK;
-    enClockReg = (UART_nCLOCK) UART__uxReadRegister(enModule, UART_CC_OFFSET,
-                                         UART_CC_CS_MASK, UART_CC_R_CS_BIT);
-    return (enClockReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penClockArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_CC_R_CS_BIT;
+        stRegister.uxMask = UART_CC_CS_MASK;
+        stRegister.uptrAddress = UART_CC_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penClockArg = (UART_nCLOCK) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

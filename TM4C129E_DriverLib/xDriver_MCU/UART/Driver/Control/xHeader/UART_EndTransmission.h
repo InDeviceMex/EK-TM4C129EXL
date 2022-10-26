@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetEndTransmission(UART_nMODULE enModule, UART_nEOT enEndTransmissionArg);
-UART_nEOT UART__enGetEndTransmission(UART_nMODULE enModule);
+UART_nERROR UART__enSetEndOfTransmissionBehavior(UART_nMODULE enModuleArg, UART_nEOT enBehaviorArg);
+UART_nERROR UART__enGetEndOfTransmissionBehavior(UART_nMODULE enModuleArg, UART_nEOT* penBehaviorArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_ENDTRANSMISSION_H_ */

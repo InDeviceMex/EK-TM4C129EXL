@@ -26,9 +26,13 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetSIR(UART_nMODULE enModule, UART_nSTATE enSirArg);
-UART_nSTATE UART__enGetSIR(UART_nMODULE enModule);
-void UART__vSetSIRLowPower(UART_nMODULE enModule, UART_nSTATE enSirLPArg);
-UART_nSTATE UART__enGetSIRLowPower(UART_nMODULE enModule);
+UART_nERROR UART__enSetIrDAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetIrDAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
+
+UART_nERROR UART__enSetIrDALowPowerState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetIrDALowPowerState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
+
+UART_nERROR UART__enSetIrDAMode(UART_nMODULE enModuleArg, UART_nIRDA enModeArg);
+UART_nERROR UART__enGetIrDAMode(UART_nMODULE enModuleArg, UART_nIRDA* penModeArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_CONTROL_XHEADER_UART_SIR_H_ */

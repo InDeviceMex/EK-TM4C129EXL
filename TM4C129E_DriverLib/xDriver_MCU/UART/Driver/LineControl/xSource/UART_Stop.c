@@ -23,20 +23,45 @@
  */
 #include <xDriver_MCU/UART/Driver/LineControl/xHeader/UART_Stop.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-UART_nSTOP UART__enGetStopBits(UART_nMODULE enModule)
+UART_nERROR UART__enSetStopBits(UART_nMODULE enModuleArg, UART_nSTOP enNumberArg)
 {
-    UART_nSTOP enStopReg = UART_enSTOP_ONE;
-    enStopReg = (UART_nSTOP) UART__uxReadRegister(enModule, UART_LCRH_OFFSET,
-                               UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
-    return (enStopReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_LCRH_R_STP2_BIT;
+    stRegister.uxMask = UART_LCRH_STP2_MASK;
+    stRegister.uptrAddress = UART_LCRH_OFFSET;
+    stRegister.uxValue = (UBase_t) enNumberArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void UART__vSetStopBits(UART_nMODULE enModule, UART_nSTOP enStopBitsArg)
+UART_nERROR UART__enGetStopBits(UART_nMODULE enModuleArg, UART_nSTOP* penNumberArg)
 {
-    UART__vWriteRegister(enModule, UART_LCRH_OFFSET, (UBase_t) enStopBitsArg,
-                         UART_LCRH_STP2_MASK, UART_LCRH_R_STP2_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penNumberArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_LCRH_R_STP2_BIT;
+        stRegister.uxMask = UART_LCRH_STP2_MASK;
+        stRegister.uptrAddress = UART_LCRH_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penNumberArg = (UART_nSTOP) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 

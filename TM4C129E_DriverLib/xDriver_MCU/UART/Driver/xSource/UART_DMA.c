@@ -23,47 +23,120 @@
  */
 #include <xDriver_MCU/UART/Driver/xHeader/UART_DMA.h>
 
+#include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/Primitives/UART_Primitives.h>
 #include <xDriver_MCU/UART/Peripheral/UART_Peripheral.h>
 
-void UART__vSetDMARx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg)
+UART_nERROR UART__enSetReceiveDMAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (UBase_t) enDMAEnableArg,
-                         UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_DMACTL_R_RXDMAE_BIT;
+    stRegister.uxMask = UART_DMACTL_RXDMAE_MASK;
+    stRegister.uptrAddress = UART_DMACTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetDMARx(UART_nMODULE enModule)
+UART_nERROR UART__enGetReceiveDMAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enDMAEnableReg = UART_enSTATE_DIS;
-    enDMAEnableReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_DMACTL_OFFSET,
-                                   UART_DMACTL_RXDMAE_MASK, UART_DMACTL_R_RXDMAE_BIT);
-    return (enDMAEnableReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DMACTL_R_RXDMAE_BIT;
+        stRegister.uxMask = UART_DMACTL_RXDMAE_MASK;
+        stRegister.uptrAddress = UART_DMACTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void UART__vSetDMATx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg)
+UART_nERROR UART__enSetReceiveDMADisableOnError(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (UBase_t) enDMAEnableArg,
-                         UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_DMACTL_R_DMAERR_BIT;
+    stRegister.uxMask = UART_DMACTL_DMAERR_MASK;
+    stRegister.uptrAddress = UART_DMACTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetDMATx(UART_nMODULE enModule)
+UART_nERROR UART__enGetReceiveDMADisableOnError(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enDMAEnableReg = UART_enSTATE_DIS;
-    enDMAEnableReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_DMACTL_OFFSET,
-                               UART_DMACTL_TXDMAE_MASK, UART_DMACTL_R_TXDMAE_BIT);
-    return (enDMAEnableReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DMACTL_R_DMAERR_BIT;
+        stRegister.uxMask = UART_DMACTL_DMAERR_MASK;
+        stRegister.uptrAddress = UART_DMACTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void UART__vSetDMADisableOnError(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg)
+UART_nERROR UART__enSetTransmitDMAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg)
 {
-    UART__vWriteRegister(enModule, UART_DMACTL_OFFSET, (UBase_t) enDMAEnableArg,
-                         UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    stRegister.uxShift = UART_DMACTL_R_TXDMAE_BIT;
+    stRegister.uxMask = UART_DMACTL_TXDMAE_MASK;
+    stRegister.uptrAddress = UART_DMACTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = UART__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-UART_nSTATE UART__enGetDMADisableOnError(UART_nMODULE enModule)
+UART_nERROR UART__enGetTransmitDMAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg)
 {
-    UART_nSTATE enDMAEnableReg = UART_enSTATE_DIS;
-    enDMAEnableReg = (UART_nSTATE) UART__uxReadRegister(enModule, UART_DMACTL_OFFSET,
-                                   UART_DMACTL_DMAERR_MASK, UART_DMACTL_R_DMAERR_BIT);
-    return (enDMAEnableReg);
+    UART_Register_t stRegister;
+    UART_nERROR enErrorReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = UART_DMACTL_R_TXDMAE_BIT;
+        stRegister.uxMask = UART_DMACTL_TXDMAE_MASK;
+        stRegister.uptrAddress = UART_DMACTL_OFFSET;
+        enErrorReg = UART__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (UART_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

@@ -26,13 +26,13 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-void UART__vSetDMARx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
-UART_nSTATE UART__enGetDMARx(UART_nMODULE enModule);
+UART_nERROR UART__enSetReceiveDMAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetReceiveDMAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
-void UART__vSetDMATx(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
-UART_nSTATE UART__enGetDMATx(UART_nMODULE enModule);
+UART_nERROR UART__enSetReceiveDMADisableOnError(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetReceiveDMADisableOnError(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
-void UART__vSetDMADisableOnError(UART_nMODULE enModule, UART_nSTATE enDMAEnableArg);
-UART_nSTATE UART__enGetDMADisableOnError(UART_nMODULE enModule);
+UART_nERROR UART__enSetTransmitDMAState(UART_nMODULE enModuleArg, UART_nSTATE enStateArg);
+UART_nERROR UART__enGetTransmitDMAState(UART_nMODULE enModuleArg, UART_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_DMA_H_ */

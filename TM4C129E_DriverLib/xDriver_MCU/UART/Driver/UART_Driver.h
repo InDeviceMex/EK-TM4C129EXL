@@ -30,6 +30,7 @@
 #include <xDriver_MCU/UART/Driver/Flags/UART_Flags.h>
 #include <xDriver_MCU/UART/Driver/Intrinsics/UART_Intrinsics.h>
 #include <xDriver_MCU/UART/Driver/LineControl/UART_LineControl.h>
+#include <xDriver_MCU/UART/Driver/xHeader/UART_BaudRate.h>
 #include <xDriver_MCU/UART/Driver/xHeader/UART_9BitAddress.h>
 #include <xDriver_MCU/UART/Driver/xHeader/UART_ClockConfig.h>
 #include <xDriver_MCU/UART/Driver/xHeader/UART_Data.h>

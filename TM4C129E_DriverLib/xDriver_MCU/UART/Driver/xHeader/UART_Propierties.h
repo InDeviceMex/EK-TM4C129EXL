@@ -27,7 +27,9 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nERROR UART__enIsBit9Supported(UART_nMODULE enModule);
-UART_nERROR UART__enIsSmartCardSupported(UART_nMODULE enModule);
+UART_nERROR UART__enIsMultiDropSupported(UART_nMODULE enModuleArg, UART_nBOOLEAN* pboStatusArg);
+UART_nERROR UART__enIsSmartCardSupported(UART_nMODULE enModuleArg, UART_nBOOLEAN* pboStatusArg);
+UART_nERROR UART__enIsModemSupported(UART_nMODULE enModuleArg, UART_nBOOLEAN* pboStatusArg);
+UART_nERROR UART__enIsModemExtendedSupported(UART_nMODULE enModuleArg, UART_nBOOLEAN* pboStatusArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_XHEADER_UART_PROPIERTIES_H_ */

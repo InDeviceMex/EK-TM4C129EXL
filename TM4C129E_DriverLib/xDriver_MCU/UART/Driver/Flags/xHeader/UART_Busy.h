@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
-UART_nBUSY UART__enGetBusyState(UART_nMODULE enModule);
+UART_nERROR UART__enIsBusy(UART_nMODULE enModuleArg, UART_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_FLAGS_XHEADER_UART_BUSY_H_ */
