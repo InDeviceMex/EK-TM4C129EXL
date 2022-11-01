@@ -64,6 +64,7 @@ typedef enum
     ADC_enPRI7 = (UBase_t) MCU_enPRI7,
     ADC_enPRIMAX = (UBase_t) MCU_enPRIMAX,
     ADC_enDEFAULT = (UBase_t) MCU_enDEFAULT,
+    ADC_enPRI_UNDEF = UNDEF_VALUE,
 }ADC_nPRIORITY;
 
 typedef enum
@@ -71,6 +72,7 @@ typedef enum
     ADC_enMODULE_0 = 0UL,
     ADC_enMODULE_1 = 1UL,
     ADC_enMODULE_MAX = 2UL,
+    ADC_enMODULE_UNDEF = UNDEF_VALUE,
 }ADC_nMODULE;
 
 typedef enum

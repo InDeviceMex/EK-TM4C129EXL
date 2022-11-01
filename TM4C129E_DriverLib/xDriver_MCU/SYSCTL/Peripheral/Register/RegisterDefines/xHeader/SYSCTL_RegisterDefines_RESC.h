@@ -14,14 +14,14 @@
 ************************************ 7 RESC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_RESC_R_EXT_MASK    ((UBase_t) 0x00000001UL)
-#define SYSCTL_RESC_R_EXT_BIT    (0UL)
-#define SYSCTL_RESC_R_EXT_NORESET    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RESC_R_EXT_RESET    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_R_EXTERNAL_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_R_EXTERNAL_BIT    (0UL)
+#define SYSCTL_RESC_R_EXTERNAL_NORESET    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RESC_R_EXTERNAL_RESET    ((UBase_t) 0x00000001UL)
 
-#define SYSCTL_RESC_EXT_MASK    ((UBase_t) 0x00000001UL)
-#define SYSCTL_RESC_EXT_NORESET    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RESC_EXT_RESET    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_EXTERNAL_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_EXTERNAL_NORESET    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RESC_EXTERNAL_RESET    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 /*--------*/
@@ -91,14 +91,14 @@
 /*--------*/
 
 /*--------*/
-#define SYSCTL_RESC_R_MOSCFAIL_MASK    ((UBase_t) 0x00010000UL)
-#define SYSCTL_RESC_R_MOSCFAIL_BIT    (16UL)
-#define SYSCTL_RESC_R_MOSCFAIL_NORESET    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RESC_R_MOSCFAIL_RESET    ((UBase_t) 0x00010000UL)
+#define SYSCTL_RESC_R_MOSC_FAILURE_MASK    ((UBase_t) 0x00010000UL)
+#define SYSCTL_RESC_R_MOSC_FAILURE_BIT    (16UL)
+#define SYSCTL_RESC_R_MOSC_FAILURE_NORESET    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RESC_R_MOSC_FAILURE_RESET    ((UBase_t) 0x00010000UL)
 
-#define SYSCTL_RESC_MOSCFAIL_MASK    ((UBase_t) 0x00000001UL)
-#define SYSCTL_RESC_MOSCFAIL_NORESET    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RESC_MOSCFAIL_RESET    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_MOSC_FAILURE_MASK    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RESC_MOSC_FAILURE_NORESET    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RESC_MOSC_FAILURE_RESET    ((UBase_t) 0x00000001UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_RESC_H_ */

@@ -14,24 +14,24 @@
 ************************************18 PIOSCSTAT *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_PIOSCSTAT_R_CT_MASK    ((UBase_t) 0x0000007FUL)
-#define SYSCTL_PIOSCSTAT_R_CT_BIT    (0UL)
+#define PIOSC_STAT_R_CT_MASK    ((UBase_t) 0x0000007FUL)
+#define PIOSC_STAT_R_CT_BIT    (0UL)
 
-#define SYSCTL_PIOSCSTAT_CT_MASK    ((UBase_t) 0x0000007FUL)
+#define PIOSC_STAT_CT_MASK    ((UBase_t) 0x0000007FUL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_PIOSCSTAT_R_RESULT_MASK    ((UBase_t) 0x00000300UL)
-#define SYSCTL_PIOSCSTAT_R_RESULT_BIT    (8UL)
+#define PIOSC_STAT_R_RESULT_MASK    ((UBase_t) 0x00000300UL)
+#define PIOSC_STAT_R_RESULT_BIT    (8UL)
 
-#define SYSCTL_PIOSCSTAT_RESULT_MASK    ((UBase_t) 0x00000003UL)
+#define PIOSC_STAT_RESULT_MASK    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_PIOSCSTAT_R_DT_MASK    ((UBase_t) 0x007F0000UL)
-#define SYSCTL_PIOSCSTAT_R_DT_BIT    (16UL)
+#define PIOSC_STAT_R_DT_MASK    ((UBase_t) 0x007F0000UL)
+#define PIOSC_STAT_R_DT_BIT    (16UL)
 
-#define SYSCTL_PIOSCSTAT_v_MASK    ((UBase_t) 0x0000007FUL)
+#define PIOSC_STAT_DT_MASK    ((UBase_t) 0x0000007FUL)
 /*--------*/
 
 

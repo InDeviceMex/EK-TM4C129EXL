@@ -77,6 +77,7 @@ typedef enum
 {
     PWM_enMODULE_0 = 0UL,
     PWM_enMODULE_MAX = 1UL,
+    PWM_enMODULE_UNDEF = UNDEF_VALUE,
 }PWM_nMODULE;
 
 typedef enum
@@ -109,6 +110,7 @@ typedef enum
     PWM_enINT_TYPE_GEN = 0UL,
     PWM_enINT_TYPE_FAULT = 1UL,
     PWM_enINT_TYPE_MAX = 2UL,
+    PWM_enINT_TYPE_UNDEF = UNDEF_VALUE,
 }PWM_nINT_TYPE;
 
 /**

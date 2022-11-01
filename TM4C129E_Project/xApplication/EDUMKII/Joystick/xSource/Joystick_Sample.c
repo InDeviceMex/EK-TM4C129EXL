@@ -27,9 +27,9 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-static volatile EDUMKII_nJOYSTICK enSelectStatus = EDUMKII_enJOYSTICK_NOPRESS;
-UBase_t uxJostickFifoArray[4] = {0UL};
-volatile UBase_t uxJostickFlag = 0UL;
+static EDUMKII_nJOYSTICK enSelectStatus = EDUMKII_enJOYSTICK_NOPRESS;
+static UBase_t uxJostickFifoArray[4] = {0UL};
+static volatile UBase_t uxJostickFlag = 0UL;
 
 UBase_t* EDUMKII_Joystick_vSampleArray(void)
 {

@@ -27,8 +27,8 @@
 #include <xDriver_MCU/ADC/ADC.h>
 #include <xDriver_MCU/DMA/DMA.h>
 
-UBase_t uxAccelerometerFifoArray[8U] = {0UL};
-volatile UBase_t uxAccelerometerFlag = 0UL;
+static UBase_t uxAccelerometerFifoArray[8U] = {0UL};
+static volatile UBase_t uxAccelerometerFlag = 0UL;
 
 UBase_t* EDUMKII_Accelerometer_vSampleArray(void)
 {

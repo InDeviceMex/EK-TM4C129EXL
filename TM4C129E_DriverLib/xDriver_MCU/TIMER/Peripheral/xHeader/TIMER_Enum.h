@@ -45,6 +45,7 @@ typedef enum
 {
     TIMER_enNOREADY = 0UL,
     TIMER_enREADY = 1UL,
+    TIMER_enREADY_UNDEF = UNDEF_VALUE,
 }TIMER_nREADY;
 
 typedef enum
@@ -53,6 +54,7 @@ typedef enum
     TIMER_enSUBMODULE_B = 1UL,
     TIMER_enSUBMODULE_W = 2UL,
     TIMER_enSUBMODULE_MAX = 3UL,
+    TIMER_enSUBMODULE_UNDEF = UNDEF_VALUE,
 }TIMER_nSUBMODULE;
 
 typedef enum
@@ -66,6 +68,7 @@ typedef enum
     TIMER_enMODULE_NUM_6 = 6UL,
     TIMER_enMODULE_NUM_7 = 7UL,
     TIMER_enMODULE_NUM_MAX = 8UL,
+    TIMER_enMODULE_NUM_UNDEF = UNDEF_VALUE,
 }TIMER_nMODULE_NUM;
 
 typedef enum
@@ -111,6 +114,7 @@ typedef enum
     TIMER_enINTERRUPT_MATCH = 5UL,
     TIMER_enINTERRUPT_DMA = 6UL,
     TIMER_enINTERRUPT_MAX = 7UL,
+    TIMER_enINTERRUPT_UNDEF = UNDEF_VALUE,
 }TIMER_nINTERRUPT;
 
 typedef enum
@@ -124,7 +128,7 @@ typedef enum
     TIMER_enINT_MATCH = 0x10UL,
     TIMER_enINT_DMA = 0x20UL,
     TIMER_enINT_ALL = 0x3FUL,
-    TIMER_enINT_UNDEF = 0xFFFFFUL,
+    TIMER_enINT_UNDEF = UNDEF_VALUE,
 }TIMER_nINT;
 
 typedef enum
@@ -138,6 +142,7 @@ typedef enum
     TIMER_enINT_TA_MATCH = 0x10UL,
     TIMER_enINT_TA_DMA = 0x20UL,
     TIMER_enINT_TA_ALL = 0x37UL,
+    TIMER_enINT_TA_UNDEF = UNDEF_VALUE,
 }TIMER_nINT_TA;
 
 typedef enum
@@ -151,6 +156,7 @@ typedef enum
     TIMER_enINT_TW_MATCH = 0x10UL,
     TIMER_enINT_TW_DMA = 0x20UL,
     TIMER_enINT_TW_ALL = 0x3FUL,
+    TIMER_enINT_TW_UNDEF = UNDEF_VALUE,
 }TIMER_nINT_TW;
 
 typedef enum
@@ -164,6 +170,7 @@ typedef enum
     TIMER_enINT_TB_MATCH = (UBase_t) 0x8UL << 8UL,
     TIMER_enINT_TB_DMA = (UBase_t) 0x20UL << 8UL,
     TIMER_enINT_TB_ALL = (UBase_t) 0x2F00UL,
+    TIMER_enINT_TB_UNDEF = UNDEF_VALUE,
 }TIMER_nINT_TB;
 
 typedef enum
@@ -175,7 +182,7 @@ typedef enum
     TIMER_enEVENT_RTC = 0x08UL,
     TIMER_enEVENT_MATCH = 0x10UL,
     TIMER_enEVENT_ALL = 0x3FUL,
-    TIMER_enEVENT_UNDEF = 0xFFFFFUL,
+    TIMER_enEVENT_UNDEF = UNDEF_VALUE,
 }TIMER_nEVENT;
 
 typedef enum
@@ -187,6 +194,7 @@ typedef enum
     /*TAMIE needs to enabled with MATCH_TA*/
     TIMER_enEVENT_TA_MATCH = 0x10UL,
     TIMER_enEVENT_TA_ALL = 0x17UL,
+    TIMER_enEVENT_TA_UNDEF = UNDEF_VALUE,
 }TIMER_nEVENT_TA;
 
 typedef enum
@@ -198,6 +206,7 @@ typedef enum
     /*TWMIE needs to enabled with MATCH_TW*/
     TIMER_enEVENT_TW_MATCH = 0x10UL,
     TIMER_enEVENT_TW_ALL = 0x1FUL,
+    TIMER_enEVENT_TW_UNDEF = UNDEF_VALUE,
 }TIMER_nEVENT_TW;
 
 typedef enum
@@ -209,6 +218,7 @@ typedef enum
     /*TBMIE needs to enabled with MATCH_TB*/
     TIMER_enEVENT_TB_MATCH = (UBase_t) 0x8UL << 8UL,
     TIMER_enEVENT_TB_ALL = (UBase_t) 0x0F00UL,
+    TIMER_enEVENT_TB_UNDEF = UNDEF_VALUE,
 }TIMER_nEVENT_TB;
 
 typedef enum
@@ -483,6 +493,7 @@ typedef struct
     TIMER_nPWM_OUT_INIT enPWMOutInit;
     TIMER_nPWM_OUTPUT enPWMOut;
     TIMER_nEDGE_EVENT enEdgeEvent;
+    TIMER_nEDGE_EVENT enReserved1;
 }TIMER_MODE_t;
 
 typedef struct

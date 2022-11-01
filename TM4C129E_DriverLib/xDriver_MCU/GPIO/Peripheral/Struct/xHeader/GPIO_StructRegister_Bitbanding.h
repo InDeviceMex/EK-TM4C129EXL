@@ -117,7 +117,7 @@ typedef volatile struct
         volatile UBase_t PIN6;
         volatile UBase_t PIN7;
         volatile UBase_t DMAIME;
-        const UBase_t reserved [24UL];
+        const UBase_t reserved [23UL];
 }GPIO_BITBANDING_IM_t;
 
 typedef volatile struct
@@ -131,7 +131,7 @@ typedef volatile struct
         volatile const UBase_t PIN6;
         volatile const UBase_t PIN7;
         volatile const UBase_t DMARIS;
-        const UBase_t reserved [24UL];
+        const UBase_t reserved [23UL];
 }GPIO_BITBANDING_RIS_t;
 
 typedef volatile struct
@@ -145,7 +145,7 @@ typedef volatile struct
         volatile const UBase_t PIN6;
         volatile const UBase_t PIN7;
         volatile const UBase_t DMAMIS;
-        const UBase_t reserved [24UL];
+        const UBase_t reserved [23UL];
 }GPIO_BITBANDING_MIS_t;
 
 typedef volatile struct
@@ -159,7 +159,7 @@ typedef volatile struct
         volatile UBase_t PIN6;
         volatile UBase_t PIN7;
         volatile UBase_t DMAIC;
-        const UBase_t reserved [24UL];
+        const UBase_t reserved [23UL];
 }GPIO_BITBANDING_ICR_t;
 
 typedef volatile struct

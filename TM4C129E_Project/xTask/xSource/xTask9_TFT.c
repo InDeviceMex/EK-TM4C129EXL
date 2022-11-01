@@ -36,10 +36,10 @@
 
 #include <xOS/xOS.h>
 
-uint16_t u16BufferSPI[128UL * 128UL] __attribute__((aligned(4))) ;
-uint16_t u16BufferSPI2[128UL * 128UL] __attribute__((aligned(4))) ;
-uint16_t* pu16WriteBuffer = u16BufferSPI;
-uint16_t* pu16CurrentBuffer = u16BufferSPI2;
+static uint16_t u16BufferSPI[128UL * 128UL] __attribute__((aligned(4))) ;
+static uint16_t u16BufferSPI2[128UL * 128UL] __attribute__((aligned(4))) ;
+static uint16_t* pu16WriteBuffer = u16BufferSPI;
+static uint16_t* pu16CurrentBuffer = u16BufferSPI2;
 
 error_t TFT__enInitWriteDMAConfig(void);
 void TFT__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
@@ -135,7 +135,7 @@ void xTask9_TFT(void* pvParams)
                     }
                     else
                     {
-                        uxPeriodTask = 33UL;
+                        uxPeriodTask = 30UL;
                     }
                 }
             }
@@ -144,7 +144,7 @@ void xTask9_TFT(void* pvParams)
                 pcButtonTwo = pcStateButton[1UL];
                 if(*(pcButtonTwo + 1UL) == 'N')
                 {
-                    if(33UL > uxPeriodTask)
+                    if(30UL > uxPeriodTask)
                     {
                         uxPeriodTask++;
                     }
@@ -193,9 +193,9 @@ void xTask9_TFT(void* pvParams)
     }
 }
 
-UBase_t uxTranferLeft = 0UL;
-UBase_t uxTranferSize = 0UL;
-volatile DMA_CH_CTL_t* TFT_pstDMATransferStruct = (DMA_CH_CTL_t*) 0UL;
+static UBase_t uxTranferLeft = 0UL;
+static UBase_t uxTranferSize = 0UL;
+static volatile DMA_CH_CTL_t* TFT_pstDMATransferStruct = (DMA_CH_CTL_t*) 0UL;
 
 error_t TFT__enInitWriteDMAConfig(void)
 {
@@ -221,7 +221,7 @@ error_t TFT__enInitWriteDMAConfig(void)
     return (enErrorReg);
 }
 
-DMA_CH_CTL_t stDMAChControl = {
+static DMA_CH_CTL_t stDMAChControl = {
     DMA_enCH_MODE_AUTO_REQ,
     DMA_enSTATE_DIS,
     0UL,
@@ -302,7 +302,7 @@ error_t TFT__enWriteDMAConstant(UBase_t* uxBufferIn, UBase_t uxDataArg, UBase_t 
 }
 
 
-DMA_CH_CTL_t stDMAChLayer = {
+static DMA_CH_CTL_t stDMAChLayer = {
     DMA_enCH_MODE_AUTO_REQ,
     DMA_enSTATE_DIS,
     0UL,
@@ -317,13 +317,13 @@ DMA_CH_CTL_t stDMAChLayer = {
     DMA_enCH_INCREMENT_HALF_WORD,
 };
 
-uint16_t* pu16StartXInAddress;
-uint16_t* pu16StartXOutAddress;
+static uint16_t* pu16StartXInAddress;
+static uint16_t* pu16StartXOutAddress;
 
-UBase_t uxWidthMaxInImage;
-UBase_t uxWidthMaxOutImage;
-UBase_t uxWidthImage;
-UBase_t uxHeightImage;
+static UBase_t uxWidthMaxInImage;
+static UBase_t uxWidthMaxOutImage;
+static UBase_t uxWidthImage;
+static UBase_t uxHeightImage;
 
 error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBase_t uxWidthArg, UBase_t uxHeightArg,
                              UBase_t uxStartXInArg, UBase_t uxStartYInArg, UBase_t uxMaxWidthInArg, UBase_t uxMaxHeightInArg,
@@ -407,7 +407,7 @@ error_t TFT__enWriteDMALayer16Bits(UBase_t uxBufferIn, UBase_t uxBufferOut, UBas
     return (enErrorReg);
 }
 
-DMA_CH_CTL_t stDMAChLayerConstant = {
+static DMA_CH_CTL_t stDMAChLayerConstant = {
     DMA_enCH_MODE_AUTO_REQ,
     DMA_enSTATE_DIS,
     0UL,

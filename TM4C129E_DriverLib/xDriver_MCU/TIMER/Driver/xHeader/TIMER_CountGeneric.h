@@ -28,25 +28,25 @@
 
 typedef struct
 {
-        UBase_t uxCountHighRegister;
-        UBase_t uxCountHighMask;
-        UBase_t uxCountHighShiftRight;
-        UBase_t uxCountHighShiftLeft;
+    UBase_t* puxCountValue;
+    UBase_t uxCountHighRegister;
+    UBase_t uxCountHighMask;
+    UBase_t uxCountHighShiftRight;
+    UBase_t uxCountHighShiftLeft;
 
-        UBase_t uxCountLowRegister;
-        UBase_t uxCountLowMask;
-        UBase_t uxCountLowShiftRight;
-        UBase_t uxCountLowShiftLeft;
+    UBase_t uxCountLowRegister;
+    UBase_t uxCountLowMask;
+    UBase_t uxCountLowShiftRight;
+    UBase_t uxCountLowShiftLeft;
 
-        UBase_t* puxCountValue;
 }TIMER_Count32_Preescale_t;
 
 typedef struct
 {
-        UBase_t uxCountRegister;
-        UBase_t uxCountMask;
-        UBase_t uxCountShiftRight;
-        UBase_t* puxCountValue;
+    UBase_t* puxCountValue;
+    UBase_t uxCountRegister;
+    UBase_t uxCountMask;
+    UBase_t uxCountShiftRight;
 }TIMER_Count32_t;
 
 TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,

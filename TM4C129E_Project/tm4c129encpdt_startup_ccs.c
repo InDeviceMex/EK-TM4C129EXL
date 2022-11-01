@@ -56,7 +56,7 @@ extern UBase_t main(void);
 
 #pragma  DATA_SECTION(pui32MainStack, ".stack")
 
-uint8_t pui32MainStack[0x00000200UL - 8UL];
+static uint8_t pui32MainStack[0x00000200UL - 8UL];
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/
@@ -89,7 +89,7 @@ extern UBase_t main(void);
 /* Reserve space for the system stack.*/
 /**/
 /*******************************************************************************/
-uint8_t pui32MainStack[0x00000800UL] __attribute__((section(".stack")));
+static uint8_t pui32MainStack[0x00000800UL] __attribute__((section(".stack")));
 /*******************************************************************************/
 /**/
 /* External declarations for the interrupt handlers used by the application.*/

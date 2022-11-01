@@ -31,8 +31,6 @@
 
 #define SHARP_96_96_SSI (SSI_enMODULE_3)
 
-uint8_t DisplayBuffer[128UL][128UL/8UL];
-
 static uint8_t Sharp_96_96_u8Reverse(uint8_t u8Row);
 
 void SHARP_96_96__vInitDisplay(void)
@@ -130,7 +128,7 @@ void SHARP_96_96__vInitDisplay(void)
 
 }
 
-const uint8_t Sharp_96_96_u8ReverseData[] =
+static const uint8_t Sharp_96_96_u8ReverseData[] =
 {
     0x0U, 0x8U, 0x4U, 0xCU, 0x2U, 0xAU, 0x6U, 0xEU,
     0x1U, 0x9U, 0x5U, 0xDU, 0x3U, 0xBU, 0x7U, 0xFU

@@ -7,97 +7,198 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_Voltage.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
 
-void SYSCTL__vSetBOREvent_VDD(SYSCTL_nBOR_EVENT enBOREvent)
+SYSCTL_nERROR SYSCTL__enSetBrownOutEventAction_VDD(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT enEventArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET, (UBase_t) enBOREvent,
-                        SYSCTL_PTBOCTL_VDD_UBOR_MASK, SYSCTL_PTBOCTL_R_VDD_UBOR_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = PTBO_CTL_R_VDD_UBOR_BIT;
+    stRegister.uxMask = PTBO_CTL_VDD_UBOR_MASK;
+    stRegister.uptrAddress = PTBO_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enEventArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetBOREvent_VDDA(SYSCTL_nBOR_EVENT enBOREvent)
+SYSCTL_nERROR SYSCTL__enGetBrownOutEventAction_VDD(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT* penEventArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET, (UBase_t) enBOREvent,
-                        SYSCTL_PTBOCTL_VDDA_UBOR_MASK, SYSCTL_PTBOCTL_R_VDDA_UBOR_BIT);
-}
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
 
-void SYSCTL__vSetBOREvent(SYSCTL_nBOR_EVENT enBOREvent_VDD,
-                          SYSCTL_nBOR_EVENT enBOREvent_VDDA)
-{
-    SYSCTL__vSetBOREvent_VDD(enBOREvent_VDD);
-    SYSCTL__vSetBOREvent_VDDA(enBOREvent_VDDA);
-}
-
-SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDD(void)
-{
-    SYSCTL_nBOR_EVENT enEventReg = SYSCTL_enBOR_EVENT_NONE;
-    enEventReg = (SYSCTL_nBOR_EVENT) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
-                          SYSCTL_PTBOCTL_VDD_UBOR_MASK, SYSCTL_PTBOCTL_R_VDD_UBOR_BIT);
-    return (enEventReg);
-}
-
-SYSCTL_nBOR_EVENT SYSCTL__enGetBOREvent_VDDA(void)
-{
-    SYSCTL_nBOR_EVENT enEventReg = SYSCTL_enBOR_EVENT_NONE;
-    enEventReg = (SYSCTL_nBOR_EVENT) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
-                        SYSCTL_PTBOCTL_VDDA_UBOR_MASK, SYSCTL_PTBOCTL_R_VDDA_UBOR_BIT);
-    return (enEventReg);
-}
-
-
-void SYSCTL__vGetBOREvent(SYSCTL_nBOR_EVENT* penBOREvent_VDD,
-                          SYSCTL_nBOR_EVENT* penBOREvent_VDDA)
-{
-    if(0UL != (UBase_t) penBOREvent_VDD)
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penEventArg)
     {
-        *penBOREvent_VDD  = SYSCTL__enGetBOREvent_VDD();
+        enErrorReg = SYSCTL_enERROR_POINTER;
     }
-    if(0UL != (UBase_t) penBOREvent_VDDA)
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        *penBOREvent_VDDA = SYSCTL__enGetBOREvent_VDDA();
+        stRegister.uxShift = PTBO_CTL_R_VDD_UBOR_BIT;
+        stRegister.uxMask = PTBO_CTL_VDD_UBOR_MASK;
+        stRegister.uptrAddress = PTBO_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
     }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penEventArg = (SYSCTL_nBOR_EVENT) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDD(void)
+SYSCTL_nERROR SYSCTL__enSetBrownOutEventAction_VDDA(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT enEventArg)
 {
-    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
-    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                                     SYSCTL_PWRTC_VDD_UBOR_MASK, SYSCTL_PWRTC_R_VDD_UBOR_BIT);
-    return (enStatusReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = PTBO_CTL_R_VDDA_UBOR_BIT;
+    stRegister.uxMask = PTBO_CTL_VDDA_UBOR_MASK;
+    stRegister.uptrAddress = PTBO_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enEventArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus_VDDA(void)
+SYSCTL_nERROR SYSCTL__enGetBrownOutEventAction_VDDA(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT* penEventArg)
 {
-    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
-    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                             SYSCTL_PWRTC_VDDA_UBOR_MASK, SYSCTL_PWRTC_R_VDDA_UBOR_BIT);
-    return (enStatusReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penEventArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = PTBO_CTL_R_VDDA_UBOR_BIT;
+        stRegister.uxMask = PTBO_CTL_VDDA_UBOR_MASK;
+        stRegister.uptrAddress = PTBO_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penEventArg = (SYSCTL_nBOR_EVENT) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-SYSCTL_nBOR_STATUS SYSCTL__enGetBORStatus(void)
+
+SYSCTL_nERROR SYSCTL__enSetBrownOutEventAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT enVDDEventArg, SYSCTL_nBOR_EVENT enVDDAEventArg)
 {
-    SYSCTL_nBOR_STATUS enStatusReg = SYSCTL_enBOR_STATUS_NONE;
-    enStatusReg = (SYSCTL_nBOR_STATUS) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                         SYSCTL_PWRTC_R_VDDA_UBOR_MASK | SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0UL);
-    return (enStatusReg);
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL__enSetBrownOutEventAction_VDD(enModuleArg, enVDDEventArg);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetBrownOutEventAction_VDDA(enModuleArg, enVDDAEventArg);
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetBrownOutEventAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOR_EVENT* penVDDEventArg, SYSCTL_nBOR_EVENT* penVDDAEventArg)
+{
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL__enGetBrownOutEventAction_VDD(enModuleArg, penVDDEventArg);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetBrownOutEventAction_VDDA(enModuleArg, penVDDAEventArg);
+    }
+    return (enErrorReg);
 }
 
 
-void SYSCTL__vClearBORStatus_VDD(void)
+
+
+
+SYSCTL_nERROR SYSCTL__enIsBrownOutTripped_VDD(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN* penStatusArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                        SYSCTL_PWRTC_R_VDD_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SYSCTL_PWRTC_R_VDD_UBOR_BIT;
+        stRegister.uxMask = SYSCTL_PWRTC_VDD_UBOR_MASK;
+        stRegister.uptrAddress = SYSCTL_PWRTC_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (SYSCTL_nBOOLEAN) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vClearBORStatus_VDDA(void)
+SYSCTL_nERROR SYSCTL__enIsBrownOutTripped_VDDA(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN* penStatusArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PWRTC_OFFSET,
-                        SYSCTL_PWRTC_R_VDDA_UBOR_MASK, 0xFFFFFFFFUL, 0UL);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStatusArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = SYSCTL_PWRTC_R_VDDA_UBOR_BIT;
+        stRegister.uxMask = SYSCTL_PWRTC_VDDA_UBOR_MASK;
+        stRegister.uptrAddress = SYSCTL_PWRTC_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penStatusArg = (SYSCTL_nBOOLEAN) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vClearBORStatus(SYSCTL_nBOR_STATUS enBOREvent)
+SYSCTL_nERROR SYSCTL__enClearBrownOutStatus_VDD(SYSCTL_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PTBOCTL_OFFSET,
-                        (UBase_t) enBOREvent, 0xFFFFFFFFUL, 0UL);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_32;
+    stRegister.uptrAddress = SYSCTL_PWRTC_OFFSET;
+    stRegister.uxValue = SYSCTL_PWRTC_R_VDD_UBOR_MASK;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enClearBrownOutStatus_VDDA(SYSCTL_nMODULE enModuleArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_32;
+    stRegister.uptrAddress = SYSCTL_PWRTC_OFFSET;
+    stRegister.uxValue = SYSCTL_PWRTC_R_VDDA_UBOR_MASK;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enClearBrownOutStatus(SYSCTL_nMODULE enModuleArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = MCU_MASK_32;
+    stRegister.uptrAddress = SYSCTL_PWRTC_OFFSET;
+    stRegister.uxValue = SYSCTL_PWRTC_R_VDDA_UBOR_MASK | SYSCTL_PWRTC_R_VDD_UBOR_MASK;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }

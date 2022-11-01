@@ -23,12 +23,14 @@ typedef enum
 {
     SYSTICK_enSTATUS_INACTIVE = (UBase_t) MCU_enSTATUS_INACTIVE,
     SYSTICK_enSTATUS_ACTIVE = (UBase_t) MCU_enSTATUS_ACTIVE,
+    SYSTICK_enSTATUS_UNDEF = (UBase_t) MCU_enSTATUS_UNDEF,
 } SYSTICK_nSTATUS;
 
 typedef enum
 {
     SYSTICK_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
     SYSTICK_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    SYSTICK_enSTATE_UNDEF = (UBase_t) MCU_enSTATE_UNDEF,
 }SYSTICK_nSTATE;
 
 typedef enum
@@ -49,12 +51,14 @@ typedef enum
 {
     SYSTICK_enMODULE_0 = 0UL,
     SYSTICK_enMODULE_MAX = 1UL,
+    SYSTICK_enMODULE_UNDEF = UNDEF_VALUE,
 }SYSTICK_nMODULE;
 
 typedef enum
 {
     SYSTICK_enPIOSC4 = 0UL,
     SYSTICK_enSYSCLK = 1UL,
+    SYSTICK_enCLKSOURCE_UNDEF = UNDEF_VALUE,
 }SYSTICK_nCLKSOURCE;
 
 typedef MCU_Register_t SYSTICK_Register_t;

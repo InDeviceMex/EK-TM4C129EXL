@@ -59,12 +59,14 @@ typedef enum
 {
     MCU_enSTACK_MSP = 0UL,
     MCU_enSTACK_PSP = 1UL,
+    MCU_enSTACK_UNDEF = UNDEF_VALUE,
 }MCU_nSTACK;
 
 typedef enum
 {
     MCU_enTHREAD_LEVEL_PRIV = 0UL,
     MCU_enTHREAD_LEVEL_UNPRIV = 1UL,
+    MCU_enTHREAD_LEVEL_UNDEF = UNDEF_VALUE,
 }MCU_nTHREAD_LEVEL;
 
 typedef enum
@@ -83,10 +85,10 @@ typedef enum
 
 typedef struct
 {
-    uintptr_t uptrAddress;
     UBase_t uxValue;
     UBase_t uxMask;
     UBase_t uxShift;
+    uintptr_t uptrAddress;
 }MCU_Register_t;
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_ENUM_H_ */

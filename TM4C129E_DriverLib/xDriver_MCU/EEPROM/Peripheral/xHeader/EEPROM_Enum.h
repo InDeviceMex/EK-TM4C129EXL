@@ -67,7 +67,7 @@ typedef enum
 {
     EEPROM_enFALSE = (UBase_t) FALSE,
     EEPROM_enTRUE = (UBase_t) TRUE,
-    EEPROM_enPENDSTATE_UNDEF = UNDEF_VALUE,
+    EEPROM_enPENDSTATE_UNDEF = (UBase_t) BOOLEAN_UNDEF,
 }EEPROM_nBOOLEAN;
 
 typedef enum
@@ -88,6 +88,7 @@ typedef enum
 {
     EEPROM_enMODULE_0 = 0UL,
     EEPROM_enMODULE_MAX = 1UL,
+    EEPROM_enMODULE_UNDEF = UNDEF_VALUE,
 }EEPROM_nMODULE;
 
 typedef enum
@@ -98,6 +99,7 @@ typedef enum
     EEPROM_enINT_WRITE = 3UL,
     EEPROM_enINT_SW = 4UL,
     EEPROM_enINT_MAX = 5UL,
+    EEPROM_enINT_UNDEF = UNDEF_VALUE,
 }EEPROM_nINT;
 
 typedef enum
@@ -108,7 +110,7 @@ typedef enum
 
     EEPROM_enINTMASK_WRITE = 0x20UL,
     EEPROM_enINTMASK_ALL = 0x003CUL,
-    EEPROM_enINTMASK_UNDEF = 0xFFFFFUL,
+    EEPROM_enINTMASK_UNDEF = UNDEF_VALUE,
 }EEPROM_nINTMASK;
 
 typedef enum
@@ -116,12 +118,14 @@ typedef enum
     EEPROM_enVARIABLE_BYTE = 0UL,
     EEPROM_enVARIABLE_HALFWORD = 1UL,
     EEPROM_enVARIABLE_WORD = 2UL,
+    EEPROM_enVARIABLE_UNDEF = UNDEF_VALUE,
 }EEPROM_nVARIABLE;
 
 typedef enum
 {
     EEPROM_enCONSTANT_OFF = 0UL,
     EEPROM_enCONSTANT_ON = 1UL,
+    EEPROM_enCONSTANT_UNDEF = UNDEF_VALUE,
 }EEPROM_nCONSTANT;
 
 typedef MCU_Register_t EEPROM_Register_t;

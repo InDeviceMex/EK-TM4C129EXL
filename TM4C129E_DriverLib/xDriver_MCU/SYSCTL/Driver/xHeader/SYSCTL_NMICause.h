@@ -10,7 +10,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vClearNMICause(SYSCTL_nNMI enNMICause);
-SYSCTL_nNMI SYSCTL__enGetNMICause(void);
+SYSCTL_nERROR SYSCTL__enGetNMICause(SYSCTL_nMODULE enModuleArg, SYSCTL_nNMI* penCauseArg);
+SYSCTL_nERROR SYSCTL__enClearNMICause(SYSCTL_nMODULE enModuleArg, SYSCTL_nNMI enCauseArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_NMICAUSE_H_ */

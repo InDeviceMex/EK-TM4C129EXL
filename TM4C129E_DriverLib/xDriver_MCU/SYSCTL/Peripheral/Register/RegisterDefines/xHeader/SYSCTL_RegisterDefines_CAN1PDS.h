@@ -14,25 +14,25 @@
 ************************************ 38 CAN1PDS *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_CAN1PDS_R_PWRSTAT_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_CAN1PDS_R_PWRSTAT_BIT    (0UL)
-#define SYSCTL_CAN1PDS_R_PWRSTAT_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN1PDS_R_PWRSTAT_ON    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_R_PWRSTAT_MASK    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_R_PWRSTAT_BIT    (0UL)
+#define CAN1_PDS_R_PWRSTAT_OFF    ((UBase_t) 0x00000000UL)
+#define CAN1_PDS_R_PWRSTAT_ON    ((UBase_t) 0x00000003UL)
 
-#define SYSCTL_CAN1PDS_PWRSTAT_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_CAN1PDS_PWRSTAT_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN1PDS_PWRSTAT_ON    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_PWRSTAT_MASK    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_PWRSTAT_OFF    ((UBase_t) 0x00000000UL)
+#define CAN1_PDS_PWRSTAT_ON    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 /*--------*/
-#define SYSCTL_CAN1PDS_R_MEMSTAT_MASK    ((UBase_t) 0x0000000CUL)
-#define SYSCTL_CAN1PDS_R_MEMSTAT_BIT    (2UL)
-#define SYSCTL_CAN1PDS_R_MEMSTAT_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN1PDS_R_MEMSTAT_ON    ((UBase_t) 0x0000000CUL)
+#define CAN1_PDS_R_MEMSTAT_MASK    ((UBase_t) 0x0000000CUL)
+#define CAN1_PDS_R_MEMSTAT_BIT    (2UL)
+#define CAN1_PDS_R_MEMSTAT_OFF    ((UBase_t) 0x00000000UL)
+#define CAN1_PDS_R_MEMSTAT_ON    ((UBase_t) 0x0000000CUL)
 
-#define SYSCTL_CAN1PDS_MEMSTAT_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_CAN1PDS_MEMSTAT_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN1PDS_MEMSTAT_ON    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_MEMSTAT_MASK    ((UBase_t) 0x00000003UL)
+#define CAN1_PDS_MEMSTAT_OFF    ((UBase_t) 0x00000000UL)
+#define CAN1_PDS_MEMSTAT_ON    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_CAN1PDS_H_ */

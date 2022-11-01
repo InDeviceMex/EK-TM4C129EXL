@@ -70,6 +70,7 @@ typedef enum
 {
     CAN_enNOREADY = 0UL,
     CAN_enREADY = 1UL,
+    CAN_enREADY_UNDEF = UNDEF_VALUE,
 }CAN_nREADY;
 
 typedef enum
@@ -77,6 +78,7 @@ typedef enum
     CAN_enMODULE_0 = 0UL,
     CAN_enMODULE_1 = 1UL,
     CAN_enMODULE_MAX = 2UL,
+    CAN_enMODULE_UNDEF = UNDEF_VALUE,
 }CAN_nMODULE;
 
 

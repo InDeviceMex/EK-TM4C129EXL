@@ -39,9 +39,9 @@
 #include <xUtils/Colors/Colors.h>
 #include <xUtils/Font/Font.h>
 
-UBase_t uxStX=0UL;
-UBase_t uxStY=0UL;
-uint16_t u16StTextColor = (uint16_t) COLORS_enYELLOW;
+static UBase_t uxStX=0UL;
+static UBase_t uxStY=0UL;
+static uint16_t u16StTextColor = (uint16_t) COLORS_enYELLOW;
 
 static uint8_t ST7735_u8ColStart = 0U;
 static uint8_t ST7735_u8RowStart = 0U;
@@ -103,7 +103,7 @@ error_t ST7735__enInit(const uint8_t *pu8CommandList)
     {
         SSI__enSetState(ST7735_SSI, SSI_enSTATE_DIS);
         SSI__enSetClockSource(ST7735_SSI, SSI_enCLOCK_RSCLK);
-        SSI__enSetConfig(ST7735_SSI, SSI_enOPERATION_MASTER, 60000000UL, &pstControlConfigReg, &pstFrameControlConfigReg, &pstLineConfigReg);
+        SSI__enSetConfig(ST7735_SSI, SSI_enOPERATION_MASTER, 20000000UL, &pstControlConfigReg, &pstFrameControlConfigReg, &pstLineConfigReg);
         SSI__enSetState(ST7735_SSI, SSI_enSTATE_ENA);
         SSI__enSetHighSpeedState(ST7735_SSI, SSI_enSTATE_ENA);
 

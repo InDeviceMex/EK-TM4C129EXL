@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-SYSCTL_nRESET SYSCTL__enGetResetCause(void);
-void SYSCTL__vClearResetCause(SYSCTL_nRESET enReset);
+SYSCTL_nERROR SYSCTL__enGetResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET* penCauseArg);
+SYSCTL_nERROR SYSCTL__enClearResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET enCauseArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_DRIVER_SYSCTL_RESETCAUSE_H_ */

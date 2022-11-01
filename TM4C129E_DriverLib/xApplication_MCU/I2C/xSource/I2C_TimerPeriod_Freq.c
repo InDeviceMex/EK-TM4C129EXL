@@ -45,9 +45,12 @@ I2C_nERROR I2C_Master__enSetFrequency(I2C_nMODULE enModule, UBase_t uxFrequencyA
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        enErrorReg = (I2C_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysFrec);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
         float32_t f32SysFrec;
 
-        uxSysFrec = SYSCTL__uxGetSystemClock();
         f32SysFrec = (float32_t) uxSysFrec;
         f32SysFrec /= 2.0f;
         /*High Speed*/
@@ -111,10 +114,13 @@ I2C_nERROR I2C_Master__enGetFrequency(I2C_nMODULE enModule, UBase_t* puxFrequenc
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        enErrorReg = (I2C_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysFrec);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
         float32_t f32SysFrec;
 
         uxPeriod += 1UL;
-        uxSysFrec = SYSCTL__uxGetSystemClock();
         f32SysFrec = (float32_t) uxSysFrec;
         f32SysFrec /= 2.0f;
         if(I2C_enSTATE_DIS != enHighSpeed)

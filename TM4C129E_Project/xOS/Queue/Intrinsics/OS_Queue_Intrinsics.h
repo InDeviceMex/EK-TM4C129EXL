@@ -30,12 +30,12 @@
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Empty.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Full.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Interrupt.h>
-#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Lock.h>
-#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Message.h>
-#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Mutex.h>
+#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Lock_.h>
+#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Message_.h>
+#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Mutex_.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Registry.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Reset.h>
-#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Set.h>
+#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Set_.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Trace.h>
 
 #endif /* XOS_QUEUE_INTRINSICS_OS_QUEUE_INTRINSICS_H_ */

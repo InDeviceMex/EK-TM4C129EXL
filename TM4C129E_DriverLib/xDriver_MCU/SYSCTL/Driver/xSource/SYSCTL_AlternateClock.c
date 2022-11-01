@@ -7,42 +7,44 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_AlternateClock.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vSetAlternateClock(SYSCTL_nALTCLK enAlternateClock)
+SYSCTL_nERROR SYSCTL__enSetAlternateClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nALTCLK_SRC enSourceArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET, (UBase_t) enAlternateClock,
-                        SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = ALTCLK_CFG_R_ALTCLK_BIT;
+    stRegister.uxMask = ALTCLK_CFG_ALTCLK_MASK;
+    stRegister.uptrAddress = ALTCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) enSourceArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nALTCLK SYSCTL__enGetAlternateClock(void)
+SYSCTL_nERROR SYSCTL__enGetAlternateClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nALTCLK_SRC* penSourceArg)
 {
-    SYSCTL_nALTCLK enAltClkReg = SYSCTL_enALTCLK_PIOSC;
-    enAltClkReg = (SYSCTL_nALTCLK) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
-                          SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
-    return (enAltClkReg);
-}
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
 
-UBase_t SYSCTL__uxGetAlternateClock(void)
-{
-    UBase_t uxAltClock = 0UL;
-    SYSCTL_nALTCLK enAltClock = SYSCTL_enALTCLK_PIOSC;
-    enAltClock = (SYSCTL_nALTCLK) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_ALTCLKCFG_OFFSET,
-                              SYSCTL_ALTCLKCFG_ALTCLK_MASK, SYSCTL_ALTCLKCFG_R_ALTCLK_BIT);
-    switch(enAltClock)
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penSourceArg)
     {
-    case SYSCTL_enALTCLK_PIOSC:
-        uxAltClock = 16000000UL;
-        break;
-    case SYSCTL_enALTCLK_LFIOSC:
-        uxAltClock = 33000UL;
-        break;
-    case SYSCTL_enALTCLK_RTCOSC:
-        uxAltClock = 32768UL;
-        break;
-
-    default:
-        break;
+        enErrorReg = SYSCTL_enERROR_POINTER;
     }
-    return (uxAltClock);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = ALTCLK_CFG_R_ALTCLK_BIT;
+        stRegister.uxMask = ALTCLK_CFG_ALTCLK_MASK;
+        stRegister.uptrAddress = ALTCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penSourceArg = (SYSCTL_nALTCLK_SRC) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
+

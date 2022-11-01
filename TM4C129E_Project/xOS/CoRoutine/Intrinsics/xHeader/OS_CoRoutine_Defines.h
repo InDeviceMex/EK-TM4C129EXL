@@ -51,6 +51,7 @@ typedef struct
     OS_UBase_t uxPriorityCoRoutine;
     OS_UBase_t uxIndex;        /*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
     uint16_t u16State;       /*< Stores a number specifically for use by third party trace code. */
+    uint16_t u16Reserved;
 } OS_CoRoutine_CRCB_t;
 
 #endif /* XOS_COROUTINE_INTRINSICS_XHEADER_OS_COROUTINE_DEFINES_H_ */

@@ -14,14 +14,14 @@
 ************************************ 37 CAN0MPC *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_CAN0MPC_R_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_CAN0MPC_R_PWRCTL_BIT    (0UL)
-#define SYSCTL_CAN0MPC_R_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN0MPC_R_PWRCTL_ON    ((UBase_t) 0x00000003UL)
+#define CAN0_MPC_R_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
+#define CAN0_MPC_R_PWRCTL_BIT    (0UL)
+#define CAN0_MPC_R_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
+#define CAN0_MPC_R_PWRCTL_ON    ((UBase_t) 0x00000003UL)
 
-#define SYSCTL_CAN0MPC_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_CAN0MPC_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
-#define SYSCTL_CAN0MPC_PWRCTL_ON    ((UBase_t) 0x00000003UL)
+#define CAN0_MPC_PWRCTL_MASK    ((UBase_t) 0x00000003UL)
+#define CAN0_MPC_PWRCTL_OFF    ((UBase_t) 0x00000000UL)
+#define CAN0_MPC_PWRCTL_ON    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_CAN0MPC_H_ */

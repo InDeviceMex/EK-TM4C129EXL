@@ -23,7 +23,7 @@
  */
 #include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_CRCB.h>
 
-OS_CoRoutine_CRCB_t* volatile OS_CoRoutine_pstCurrentCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
+static OS_CoRoutine_CRCB_t* volatile OS_CoRoutine_pstCurrentCRCB = (OS_CoRoutine_CRCB_t*) 0UL;
 
 OS_CoRoutine_CRCB_t* volatile* OS_CoRoutine__pstGetCurrentCRCBAddress(void)
 {

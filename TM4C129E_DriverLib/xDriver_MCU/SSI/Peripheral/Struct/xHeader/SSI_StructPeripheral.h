@@ -26,7 +26,6 @@
 #define XDRIVER_MCU_SSI_PERIPHERAL_STRUCT_XHEADER_SSI_STRUCTPERIPHERAL_H_
 
 #include <xDriver_MCU/SSI/Peripheral/Struct/xHeader/SSI_StructRegister.h>
-#include <xDriver_MCU/SSI/Peripheral/xHeader/SSI_Enum.h>
 
 typedef volatile struct
 {

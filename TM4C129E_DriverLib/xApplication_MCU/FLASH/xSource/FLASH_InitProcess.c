@@ -31,11 +31,11 @@ FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCE
     UBase_t uxKeySelectReg;
     UBase_t uxKeyReg;
 
-    uxKeySelectReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_BOOTCFG_OFFSET,
-                                  SYSCTL_BOOTCFG_KEY_MASK, SYSCTL_BOOTCFG_R_KEY_BIT);
+    uxKeySelectReg = MCU__uxReadRegister(SYSCTL_BASE, BOOT_CFG_OFFSET,
+                                  BOOT_CFG_KEY_MASK, BOOT_CFG_R_KEY_BIT);
     switch(uxKeySelectReg)
     {
-    case SYSCTL_BOOTCFG_KEY_71D5:
+    case BOOT_CFG_KEY_71D5:
         uxKeyReg = 0UL;
         enErrorReg =FLASH__enGetCustomKey(enModuleArg, &uxKeyReg);
         if(FLASH_enERROR_OK == enErrorReg)
@@ -47,7 +47,7 @@ FLASH_nERROR FLASH__enInitProcessAndWait(FLASH_nMODULE enModuleArg, FLASH_nPROCE
             enErrorReg = FLASH__enWait(enModuleArg, enProcessArg, FLASH_TIMEOUT_MAX);
         }
         break;
-    case SYSCTL_BOOTCFG_KEY_A442:
+    case BOOT_CFG_KEY_A442:
         enErrorReg = FLASH__enInitProcess(enModuleArg, FLASH_CTL_WRKEY_KEY1, enProcessArg);
         if(FLASH_enERROR_OK == enErrorReg)
         {

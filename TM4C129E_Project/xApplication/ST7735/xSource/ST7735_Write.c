@@ -52,12 +52,12 @@ UBase_t ST7735__uxGetTransferSizeLeft(void);
 DMA_CH_CTL_t* ST7735__pstGetPrimaryTransferStruct(void);
 DMA_CH_CTL_t* ST7735__pstGetAlternateTransferStruct(void);
 
-volatile UBase_t ST7735_uxDMATransferSizeLeft = 0UL;
-volatile UBase_t ST7735_uxDMATransferAddress = 0UL;
-volatile DMA_CH_CTL_t* ST7735_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
-volatile DMA_CH_CTL_t* ST7735_pstDMAAlternateTransferStruct = (DMA_CH_CTL_t*) 0UL;
+static UBase_t ST7735_uxDMATransferSizeLeft = 0UL;
+static UBase_t ST7735_uxDMATransferAddress = 0UL;
+static DMA_CH_CTL_t* ST7735_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
+static DMA_CH_CTL_t* ST7735_pstDMAAlternateTransferStruct = (DMA_CH_CTL_t*) 0UL;
 
-DMA_CH_CTL_t stDMAChControlPrimaryConstant = {
+static DMA_CH_CTL_t stDMAChControlPrimaryConstant = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,
@@ -72,7 +72,7 @@ DMA_CH_CTL_t stDMAChControlPrimaryConstant = {
     DMA_enCH_INCREMENT_NO,
 };
 
-DMA_CH_CTL_t stDMAChControlAlternateConstant = {
+static DMA_CH_CTL_t stDMAChControlAlternateConstant = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,
@@ -86,7 +86,7 @@ DMA_CH_CTL_t stDMAChControlAlternateConstant = {
     DMA_enCH_DATA_SIZE_HALF_WORD,
     DMA_enCH_INCREMENT_NO,
 };
-DMA_CH_CTL_t stDMAChControlPrimaryBuffer = {
+static DMA_CH_CTL_t stDMAChControlPrimaryBuffer = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,
@@ -101,7 +101,7 @@ DMA_CH_CTL_t stDMAChControlPrimaryBuffer = {
     DMA_enCH_INCREMENT_NO,
 };
 
-DMA_CH_CTL_t stDMAChControlAlternateBuffer = {
+static DMA_CH_CTL_t stDMAChControlAlternateBuffer = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,

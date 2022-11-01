@@ -35,15 +35,16 @@ typedef enum
 
 typedef struct CSLinkedListItem
 {
-        void* pvDataContainer;
-        void* pvOwnerList;
-        UBase_t uxValueItem;
-        struct CSLinkedListItem *pstNextItem;
+    UBase_t uxValueItem;
+    void* pvDataContainer;
+    void* pvOwnerList;
+    struct CSLinkedListItem *pstNextItem;
 }CSLinkedListItem_t;
 
 typedef struct CSLinkedList
 {
         UBase_t uxSize;
+        UBase_t uxReserved1;
         UBase_t (*pfuxMatch) (const void *pcvKey1, const void *pcvKey2);
         void (*pvfDestroyItemData) (void *DataContainer);
         void (*pvfDestroyItem) (void *Item);
@@ -51,6 +52,7 @@ typedef struct CSLinkedList
         CSLinkedListItem_t *pstLastItemRead;
         CSLinkedListItem_t *pstHead;
         CSLinkedListItem_t *pstTail;
+        CSLinkedListItem_t *pstReserved2;
 }CSLinkedList_t;
 
 

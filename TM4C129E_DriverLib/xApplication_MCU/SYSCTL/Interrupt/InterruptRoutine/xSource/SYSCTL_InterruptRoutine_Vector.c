@@ -28,40 +28,40 @@
 void SYSCTL__vIRQVectorHandler(void)
 {
     volatile UBase_t uxReg = 0UL;
-    void(*pvfCallback)(void)  = (void(*)(void)) 0UL;
+    MCU_pvfIRQSourceHandler_t pvfCallback;
 
     uxReg = (UBase_t) SYSCTL_MISC_R;
 
-    if(0UL == ((UBase_t) SYSCTL_enINT_SOURCE_ALL & uxReg))
+    if(0UL == ((UBase_t) SYSCTL_enINTMASK_ALL & uxReg))
     {
-        pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_SW);
-        pvfCallback();
+        pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_SW);
+        pvfCallback(SYSCTL0_BASE, (void*) SYSCTL_enINT_SW);
     }
     else
     {
-        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_BOR & uxReg))
+        if(0UL != ((UBase_t) SYSCTL_enINTMASK_BOR & uxReg))
         {
-            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_BOR;
-            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_BOR);
-            pvfCallback();
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINTMASK_BOR;
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_BOR);
+            pvfCallback(SYSCTL0_BASE, (void*) SYSCTL_enINT_BOR);
         }
-        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_MOF & uxReg))
+        if(0UL != ((UBase_t) SYSCTL_enINTMASK_MOSC_FAILURE & uxReg))
         {
-            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_MOF;
-            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOF);
-            pvfCallback();
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINTMASK_MOSC_FAILURE;
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_MOSC_FAILURE);
+            pvfCallback(SYSCTL0_BASE, (void*) SYSCTL_enINT_MOSC_FAILURE);
         }
-        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_PLLL & uxReg))
+        if(0UL != ((UBase_t) SYSCTL_enINTMASK_PLL_LOCK & uxReg))
         {
-            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_PLLL;
-            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_PLLL);
-            pvfCallback();
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINTMASK_PLL_LOCK;
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_PLL_LOCK);
+            pvfCallback(SYSCTL0_BASE, (void*) SYSCTL_enINT_PLL_LOCK);
         }
-        if(0UL != ((UBase_t) SYSCTL_enINT_SOURCE_MOSCPUP & uxReg))
+        if(0UL != ((UBase_t) SYSCTL_enINTMASK_MOSC_POWERUP & uxReg))
         {
-            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINT_SOURCE_MOSCPUP;
-            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enINTERRUPT_MOSCPUP);
-            pvfCallback();
+            SYSCTL_MISC_R = (UBase_t) SYSCTL_enINTMASK_MOSC_POWERUP;
+            pvfCallback = SYSCTL__pvfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_MOSC_POWERUP);
+            pvfCallback(SYSCTL0_BASE, (void*) SYSCTL_enINT_MOSC_POWERUP);
         }
     }
 }

@@ -14,16 +14,16 @@
 ************************************ 13 ALTCLKCFG *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_ALTCLKCFG_R_ALTCLK_MASK    ((UBase_t) 0x0000000FUL)
-#define SYSCTL_ALTCLKCFG_R_ALTCLK_BIT    (0UL)
-#define SYSCTL_ALTCLKCFG_R_ALTCLK_PIOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_ALTCLKCFG_R_ALTCLK_RTCOSC    ((UBase_t) 0x00000003UL)
-#define SYSCTL_ALTCLKCFG_R_ALTCLK_LFIOSC    ((UBase_t) 0x00000004UL)
+#define ALTCLK_CFG_R_ALTCLK_MASK    ((UBase_t) 0x0000000FUL)
+#define ALTCLK_CFG_R_ALTCLK_BIT    (0UL)
+#define ALTCLK_CFG_R_ALTCLK_PIOSC    ((UBase_t) 0x00000000UL)
+#define ALTCLK_CFG_R_ALTCLK_RTCOSC    ((UBase_t) 0x00000003UL)
+#define ALTCLK_CFG_R_ALTCLK_LFIOSC    ((UBase_t) 0x00000004UL)
 
-#define SYSCTL_ALTCLKCFG_ALTCLK_MASK    ((UBase_t) 0x0000000FUL)
-#define SYSCTL_ALTCLKCFG_ALTCLK_PIOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_ALTCLKCFG_ALTCLK_RTCOSC    ((UBase_t) 0x00000003UL)
-#define SYSCTL_ALTCLKCFG_ALTCLK_LFIOSC    ((UBase_t) 0x00000004UL)
+#define ALTCLK_CFG_ALTCLK_MASK    ((UBase_t) 0x0000000FUL)
+#define ALTCLK_CFG_ALTCLK_PIOSC    ((UBase_t) 0x00000000UL)
+#define ALTCLK_CFG_ALTCLK_RTCOSC    ((UBase_t) 0x00000003UL)
+#define ALTCLK_CFG_ALTCLK_LFIOSC    ((UBase_t) 0x00000004UL)
 /*--------*/
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_REGISTER_REGISTERDEFINES_XHEADER_SYSCTL_REGISTERDEFINES_ALTCLKCFG_H_ */

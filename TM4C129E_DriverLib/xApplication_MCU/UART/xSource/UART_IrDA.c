@@ -32,7 +32,8 @@ UART_nERROR UART__enSetIrDALowPowerFrequency(UART_nMODULE enModule)
     UART_nERROR enErrorReg;
     UBase_t uxSysClockReg;
 
-    uxSysClockReg = SYSCTL__uxGetSystemClock();
+    uxSysClockReg = 0UL;
+    SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClockReg);
     float32_t f32DividerReg;
     f32DividerReg = (float32_t) uxSysClockReg;
     f32DividerReg /= 1843200.0f; /*IrDA Low Power frequency*/
@@ -50,6 +51,7 @@ UART_nERROR UART__enGetIrDALowPowerFrequency(UART_nMODULE enModule, UBase_t* pux
     UBase_t uxSysClockReg;
     UBase_t uxDividerReg;
 
+    uxSysClockReg = 0UL;
     uxDividerReg = 0UL;
     if(0UL == (uintptr_t) puxFrequencyArg)
     {
@@ -57,7 +59,10 @@ UART_nERROR UART__enGetIrDALowPowerFrequency(UART_nMODULE enModule, UBase_t* pux
     }
     if(UART_enERROR_OK == enErrorReg)
     {
-        uxSysClockReg= SYSCTL__uxGetSystemClock();
+        enErrorReg = (UART_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClockReg);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
         enErrorReg = UART__enGetIrDALowPowerDivisor(enModule, &uxDividerReg);
     }
     if(UART_enERROR_OK == enErrorReg)

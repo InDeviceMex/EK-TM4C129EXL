@@ -81,6 +81,7 @@ typedef enum
     SSI_enMODULE_2 = 2UL,
     SSI_enMODULE_3 = 3UL,
     SSI_enMODULE_MAX = 4UL,
+    SSI_enMODULE_UNDEF = UNDEF_VALUE,
 }SSI_nMODULE;
 
 typedef enum
@@ -245,6 +246,7 @@ typedef struct
         uint8_t u8data;
         UBase_t uxdata;
     };
+    UBase_t uxReserved1;
 }SSI_ADVANCE_t;
 
 typedef MCU_Register_t SSI_Register_t;

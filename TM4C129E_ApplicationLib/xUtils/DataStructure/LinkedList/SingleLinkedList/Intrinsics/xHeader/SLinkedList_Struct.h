@@ -46,15 +46,16 @@ typedef void (*SLinkedList_pvfDestroy_t)(void* List);
 
 typedef struct SLinkedListItem
 {
-        void* pvDataContainer;
-        void* pvOwnerList;
-        UBase_t uxValueItem;
-        struct SLinkedListItem *pstNextItem;
+    UBase_t uxValueItem;
+    void* pvDataContainer;
+    void* pvOwnerList;
+    struct SLinkedListItem *pstNextItem;
 }SLinkedListItem_t;
 
 typedef struct SLinkedList
 {
         UBase_t uxSize;
+        UBase_t uxReserved1;
         SLinkedList_pfuxMatch_t pfuxMatch;
         SLinkedList_pvfDestroyItemData_t pvfDestroyItemData;
         SLinkedList_pvfDestroyItem_t pvfDestroyItem;
@@ -62,6 +63,7 @@ typedef struct SLinkedList
         SLinkedListItem_t *pstLastItemRead;
         SLinkedListItem_t *pstHead;
         SLinkedListItem_t *pstTail;
+        SLinkedListItem_t *pstReserved2;
 }SLinkedList_t;
 
 #endif /* XUTILS_DATASTRUCTURE_SINGLELINKEDLIST_INTRINSICS_XHEADER_SLINKEDLIST_STRUCT_H_ */

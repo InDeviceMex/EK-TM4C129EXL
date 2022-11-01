@@ -40,15 +40,15 @@ void NMI__vIRQVectorHandler(void)
     }
     else
     {
-        if(0UL != ((UBase_t) SCB_enNMI_MOSCFAIL & uxRegNMI))
+        if(0UL != ((UBase_t) SCB_enNMI_MOSC_FAILURE & uxRegNMI))
         {
             do
             {
-                SYSCTL_NMIC_R &= ~ (UBase_t) SCB_enNMI_MOSCFAIL;
-            }while(0UL != ((UBase_t) SCB_enNMI_MOSCFAIL & SYSCTL_NMIC_R));
+                SYSCTL_NMIC_R &= ~ (UBase_t) SCB_enNMI_MOSC_FAILURE;
+            }while(0UL != ((UBase_t) SCB_enNMI_MOSC_FAILURE & SYSCTL_NMIC_R));
 
-            pvfCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enNMI_BIT_MOSCFAIL);
-            pvfCallback(SCB_BASE, (void*) SCB_enNMI_BIT_MOSCFAIL);
+            pvfCallback = SCB_NMI__pvfGetIRQSourceHandler(SCB_enMODULE_0, SCB_enNMI_BIT_MOSC_FAILURE);
+            pvfCallback(SCB_BASE, (void*) SCB_enNMI_BIT_MOSC_FAILURE);
         }
         if(0UL != ((UBase_t) SCB_enNMI_TAMPER & uxRegNMI))
         {

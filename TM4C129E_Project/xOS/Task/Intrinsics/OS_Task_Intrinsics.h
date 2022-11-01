@@ -25,17 +25,17 @@
 #ifndef XOS_TASK_INTRINSICS_OS_TASK_INTRINSICS_H_
 #define XOS_TASK_INTRINSICS_OS_TASK_INTRINSICS_H_
 
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Create.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Create_.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Delayed.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Deleted.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Delayed_.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Deleted_.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Interrupt.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Priority.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Ready.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Priority_.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Ready_.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Runtime.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Suspended.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler_.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Suspended_.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB_.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Tick.h>
 
 #endif /* XOS_TASK_INTRINSICS_OS_TASK_INTRINSICS_H_ */

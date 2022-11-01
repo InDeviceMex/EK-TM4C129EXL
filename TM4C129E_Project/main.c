@@ -13,20 +13,24 @@
 #include <xDriver_MCU/Core/SYSTICK/Peripheral/SYSTICK_Peripheral.h>
 
 int main(void);
-UART_nERROR MAIN__enInitUartDMAConfig(void);
-UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant);
-void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
-void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument);
-void MAIN__vSetDMATxInterupt(UBase_t uxStateArg);
-UBase_t MAIN__uxGetDMATxInterupt(void);
+static void MAIN__vSetTransferSizeLeft(UBase_t uxSizeArg);
+static void MAIN__vSetPrimaryTransferStruct(DMA_CH_CTL_t* pstTransfer);
+static DMA_CH_CTL_t* MAIN__pstGetPrimaryTransferStruct(void);
+static void MAIN__vSetAlternateTransferStruct(DMA_CH_CTL_t* pstTransfer);
+static DMA_CH_CTL_t* MAIN__pstGetAlternateTransferStruct(void);
+static UART_nERROR MAIN__enInitUartDMAConfig(void);
+static UART_nERROR MAIN__enCustomWriteBuffer(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant);
+static UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant);
+static void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument);
+static void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument);
 
 int main(void)
 {
     SYSCTL_CONFIG_t stClockConfig =
     {
         SYSCTL_enXTAL_25MHZ,
-        SYSCTL_enOSC_MOSC,
-        SYSCTL_enPLL,
+        SYSCTL_enOSCCLK_SRC_MOSC,
+        SYSCTL_enSYSCLK_SRC_PLLCLK,
         SYSCTL_enVCO_480MHZ,
     };
     UART_CONTROL_t enUart0Control =
@@ -42,6 +46,9 @@ int main(void)
         UART_enSTATE_DIS,
         UART_enSTATE_DIS,
         UART_enSTATE_DIS,
+        UART_enLEVEL_LOW,
+        UART_enLEVEL_LOW,
+        UART_enLEVEL_LOW,
     };
 
     UART_LINE_CONTROL_t enUart0LineControl =
@@ -71,7 +78,7 @@ int main(void)
     GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_0, GPIO_enLEVEL_LOW);
 
-    SYSCTL__enSetSystemClock(120000000UL, stClockConfig);
+    SYSCTL__enSetSystemClock(SYSCTL_enMODULE_0, 120000000UL, &stClockConfig, 0UL);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enUDMA);
     SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
@@ -120,9 +127,9 @@ int main(void)
     EDUMKII_Joystick_vInit();
 
     UART__enEnableInterruptVectorWithPriority(UART_enMODULE_0, (UART_nPRIORITY) NVIC_enVECTOR_PRI_UART0);
-    UART__enSetCustomPrintfHandle(UART_enMODULE_0, &MAIN__enWriteBufferDMA);
+    UART__enSetCustomPrintfHandle(UART_enMODULE_0, &MAIN__enCustomWriteBuffer);
     MAIN__enInitUartDMAConfig();
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 115200UL, 0UL, 0UL,
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 4000000UL, 0UL, 0UL,
                       &enUart0Control, &enUart0LineControl, &enUart0Line, 0UL);
 
     SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
@@ -145,26 +152,24 @@ int main(void)
 
     OS_Semaphore__boGive(UARTSemaphoreHandle);
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
-    OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 100UL, 4UL, &TaskHandeler[3UL]);
-    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[1UL]);
-    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[0UL]);
-    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 400UL, (void*) 50UL, 3UL, &TaskHandeler[2UL]);
-    OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 33UL, 2UL, &TaskHandeler[4UL]);
+    OS_Task__uxCreate(&xTask8_Debug, "UART Task", 900UL, (void*) 200UL, 4UL, &TaskHandeler[3UL]);
+    OS_Task__uxCreate(&xTask3_ButtonsLog, "Button Task", 400UL, (void*) 60UL, 3UL, &TaskHandeler[1UL]);
+    OS_Task__uxCreate(&xTask1_AccelerometerLog, "Accelerometer Task", 400UL, (void*) 60UL, 3UL, &TaskHandeler[0UL]);
+    OS_Task__uxCreate(&xTask2_JoystickLog, "Joystick Task", 400UL, (void*) 60UL, 3UL, &TaskHandeler[2UL]);
+    OS_Task__uxCreate(&xTask9_TFT, "TFT Task", 900UL, (void*) 30UL, 2UL, &TaskHandeler[4UL]);
 
     OS_Task__vStartScheduler(1000UL);
     return (0UL);
 }
 
 
-
-volatile UBase_t MAIN_vDMATxInteruptStatus = 0UL;
-volatile UBase_t MAIN_uxDMATransferSizeLeft = 0UL;
-volatile UBase_t MAIN_uxDMATransferAddress = 0UL;
-volatile DMA_CH_CTL_t* MAIN_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
-volatile DMA_CH_CTL_t* MAIN_pstDMAAlternateTransferStruct = (DMA_CH_CTL_t*) 0UL;
+static UBase_t MAIN_uxDMATransferSizeLeft = 0UL;
+static UBase_t MAIN_uxDMATransferAddress = 0UL;
+static DMA_CH_CTL_t* MAIN_pstDMAPrimaryTransferStruct = (DMA_CH_CTL_t*) 0UL;
+static DMA_CH_CTL_t* MAIN_pstDMAAlternateTransferStruct = (DMA_CH_CTL_t*) 0UL;
 
 
-DMA_CH_CTL_t stDMAChControlUARTPrimaryBuffer = {
+static DMA_CH_CTL_t stDMAChControlUARTPrimaryBuffer = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,
@@ -179,7 +184,7 @@ DMA_CH_CTL_t stDMAChControlUARTPrimaryBuffer = {
     DMA_enCH_INCREMENT_NO,
 };
 
-DMA_CH_CTL_t stDMAChControlUARTAlternateBuffer = {
+static DMA_CH_CTL_t stDMAChControlUARTAlternateBuffer = {
     DMA_enCH_MODE_STOP,
     DMA_enSTATE_DIS,
     0UL,
@@ -193,18 +198,10 @@ DMA_CH_CTL_t stDMAChControlUARTAlternateBuffer = {
     DMA_enCH_DATA_SIZE_BYTE,
     DMA_enCH_INCREMENT_NO,
 };
-
 
 static void MAIN__vSetTransferSizeLeft(UBase_t uxSizeArg)
 {
     MAIN_uxDMATransferSizeLeft = uxSizeArg;
-}
-
-UBase_t MAIN__uxGetTransferSizeLeft(void)
-{
-    UBase_t uxSizeArg;
-    uxSizeArg = MAIN_uxDMATransferSizeLeft;
-    return (uxSizeArg);
 }
 
 static void MAIN__vSetPrimaryTransferStruct(DMA_CH_CTL_t* pstTransfer)
@@ -212,7 +209,7 @@ static void MAIN__vSetPrimaryTransferStruct(DMA_CH_CTL_t* pstTransfer)
     MAIN_pstDMAPrimaryTransferStruct = pstTransfer;
 }
 
-DMA_CH_CTL_t* MAIN__pstGetPrimaryTransferStruct(void)
+static DMA_CH_CTL_t* MAIN__pstGetPrimaryTransferStruct(void)
 {
     return (MAIN_pstDMAPrimaryTransferStruct);
 }
@@ -222,26 +219,10 @@ static void MAIN__vSetAlternateTransferStruct(DMA_CH_CTL_t* pstTransfer)
     MAIN_pstDMAAlternateTransferStruct = pstTransfer;
 }
 
-DMA_CH_CTL_t* MAIN__pstGetAlternateTransferStruct(void)
+static DMA_CH_CTL_t* MAIN__pstGetAlternateTransferStruct(void)
 {
     return (MAIN_pstDMAAlternateTransferStruct);
 }
-
-UBase_t MAIN__uxGetTransferAddress(void)
-{
-    return (MAIN_uxDMATransferAddress);
-}
-
-UBase_t MAIN__uxGetDMATxInterupt(void)
-{
-    return (MAIN_vDMATxInteruptStatus);
-}
-
-void MAIN__vSetDMATxInterupt(UBase_t uxStateArg)
-{
-    MAIN_vDMATxInteruptStatus = uxStateArg;
-}
-
 
 UART_nERROR MAIN__enInitUartDMAConfig(void)
 {
@@ -277,13 +258,23 @@ UART_nERROR MAIN__enInitUartDMAConfig(void)
     return (enErrorReg);
 }
 
-UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant)
+static UART_nERROR MAIN__enCustomWriteBuffer(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant)
+{
+    UART_nERROR enErrorReg;
+    OS_Semaphore__boTake(UARTSemaphoreHandle, OS_ADAPT_MAX_DELAY);
+    enErrorReg = UART__enSetFifoDataByte(enModuleArg, pu8DataArg, puxBufferCant);
+    OS_Semaphore__boGive(UARTSemaphoreHandle);
+    return (enErrorReg);
+}
+
+static UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8DataArg, UBase_t* puxBufferCant)
 {
     UART_nERROR enErrorReg;
     UBase_t uxBufferCant;
 
+    uxBufferCant = 0UL;
     enErrorReg = UART_enERROR_OK;
-    if(0UL == (uintptr_t) puxBufferCant)
+    if((0UL == (uintptr_t) puxBufferCant) || (0UL == (uintptr_t) pu8DataArg))
     {
         enErrorReg = UART_enERROR_POINTER;
     }
@@ -296,13 +287,6 @@ UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8D
         else
         {
             uxBufferCant = *puxBufferCant;
-        }
-    }
-    if(UART_enERROR_OK == enErrorReg)
-    {
-        if(0UL == (uintptr_t) pu8DataArg)
-        {
-            enErrorReg = UART_enERROR_POINTER;
         }
     }
     if(UART_enERROR_OK == enErrorReg)
@@ -355,7 +339,6 @@ UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8D
             uxBufferCant = 0UL;
             enErrorReg = (UART_nERROR) DMA_CH_Primary__enSetSourceEndAddressByNumber(DMA_enMODULE_0, DMA_enCH_9, MAIN_uxDMATransferAddress);
             UART0_ICR_R = (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
-            UART0_IM_R |= (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
         }
         MAIN__vSetTransferSizeLeft(uxBufferCant);
     }
@@ -386,7 +369,7 @@ UART_nERROR MAIN__enWriteBufferDMA(UART_nMODULE enModuleArg, const uint8_t* pu8D
     return (enErrorReg);
 }
 
-void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
+static void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
 {
     UBase_t uxMultiWord;
     UBase_t CurrentStructure;
@@ -460,12 +443,13 @@ void MAIN__vDMATxInterupt(uintptr_t uptrModuleArg, void* pvArgument)
     }
     else
     {
+        UART0_IM_R |= (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;
         UART0_IM_R &= ~ (UBase_t) UART_enINTMASK_DMA_TRANSMIT;
     }
 }
 
 
-void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument)
+static void MAIN__vDMATxLastBit(uintptr_t uptrModuleArg, void* pvArgument)
 {
     OS_Boolean_t boHigherPriorityTaskWoken = FALSE;
     UART0_IM_R &= ~ (UBase_t) UART_enINTMASK_END_OF_TRANSMISSION;

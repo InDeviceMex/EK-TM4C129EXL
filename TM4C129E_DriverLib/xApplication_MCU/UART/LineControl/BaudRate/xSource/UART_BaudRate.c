@@ -50,11 +50,11 @@ UART_nERROR UART__enSetBaudRate(UART_nMODULE enModuleArg, UBase_t uxBaudRateArg)
     {
         if(UART_enCLOCK_SYSCLK == enUartClock)
         {
-            uxCurrentClock = SYSCTL__uxGetSystemClock();
+            enErrorReg = (UART_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
         else
         {
-            uxCurrentClock = SYSCTL__uxGetAlternateClock();
+            enErrorReg = (UART_nERROR) SYSCTL__enGetAlternateClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
 
     }
@@ -184,11 +184,11 @@ UART_nERROR UART__enGetBaudRate(UART_nMODULE enModuleArg, UBase_t* puxBaudRateAr
     {
         if(UART_enCLOCK_SYSCLK == enUartClock)
         {
-            uxCurrentClock = SYSCTL__uxGetSystemClock();
+            enErrorReg = (UART_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
         else
         {
-            uxCurrentClock = SYSCTL__uxGetAlternateClock();
+            enErrorReg = (UART_nERROR) SYSCTL__enGetAlternateClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
     }
     if(UART_enERROR_OK == enErrorReg)

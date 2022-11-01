@@ -44,11 +44,11 @@ SSI_nERROR SSI__enSetClockFrequency(SSI_nMODULE enModuleArg, UBase_t uxFrequency
     {
         if(SSI_enCLOCK_RSCLK == enSsiClock)
         {
-            uxCurrentClock = SYSCTL__uxGetSystemClock();
+            enErrorReg = (SSI_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
         else
         {
-            uxCurrentClock = SYSCTL__uxGetAlternateClock();
+            enErrorReg = (SSI_nERROR) SYSCTL__enGetAlternateClockFrequency(SYSCTL_enMODULE_0, &uxCurrentClock);
         }
     }
 
@@ -151,11 +151,11 @@ SSI_nERROR SSI__enGetClockFrequency(SSI_nMODULE enModuleArg, UBase_t* puxFrequen
     {
         if(SSI_enCLOCK_RSCLK == enSsiClock)
         {
-            uxSystemFrequency = SYSCTL__uxGetSystemClock();
+            enErrorReg = (SSI_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSystemFrequency);
         }
         else
         {
-            uxSystemFrequency = SYSCTL__uxGetAlternateClock();
+            enErrorReg = (SSI_nERROR) SYSCTL__enGetAlternateClockFrequency(SYSCTL_enMODULE_0, &uxSystemFrequency);
         }
     }
     if(SSI_enERROR_OK == enErrorReg)

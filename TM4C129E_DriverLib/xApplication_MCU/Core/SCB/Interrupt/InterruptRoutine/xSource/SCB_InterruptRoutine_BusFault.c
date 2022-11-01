@@ -43,6 +43,7 @@ UART_CONTROL_t enUartBusControl =
     UART_enSTATE_DIS,
     UART_enLEVEL_LOW,
     UART_enLEVEL_LOW,
+    UART_enLEVEL_LOW,
 };
 
 UART_LINE_CONTROL_t enUartBusLineControl =

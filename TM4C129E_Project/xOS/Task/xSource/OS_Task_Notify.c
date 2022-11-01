@@ -215,6 +215,8 @@ OS_Boolean_t OS_Task__boGenericNotify( OS_Task_Handle_t pvTaskToNotify,
 
                 case OS_Task_enNotifyAction_NoAction:
                     break;
+                case OS_Task_enNotifyAction_Undef:
+                    break;
                 default:
                     break;
             }
@@ -321,7 +323,9 @@ OS_Boolean_t OS_Task__boGenericNotifyFromISR(OS_Task_Handle_t pvTaskToNotify,
                     }
                     break;
 
-                case OS_Task_enNotifyAction_NoAction :
+                case OS_Task_enNotifyAction_NoAction:
+                    break;
+                case OS_Task_enNotifyAction_Undef:
                     break;
                 default:
                     break;

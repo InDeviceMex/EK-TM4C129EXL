@@ -78,6 +78,7 @@ typedef enum
 {
     SYSEXC_enMODULE_0 = 0UL,
     SYSEXC_enMODULE_MAX = 1UL,
+    SYSEXC_enMODULE_UNDEF = UNDEF_VALUE,
 }SYSEXC_nMODULE;
 
 typedef enum

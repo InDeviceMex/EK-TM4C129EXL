@@ -47,7 +47,7 @@ typedef enum
 {
     NVIC_enFALSE = (UBase_t) FALSE,
     NVIC_enTRUE = (UBase_t) TRUE,
-    NVIC_enPENDSTATE_UNDEF = UNDEF_VALUE,
+    NVIC_enBOOLEAN_UNDEF = (UBase_t) BOOLEAN_UNDEF,
 }NVIC_nBOOLEAN;
 
 typedef enum
@@ -69,12 +69,14 @@ typedef enum
     NVIC_enPRI7 = (UBase_t) MCU_enPRI7,
     NVIC_enPRIMAX = (UBase_t) MCU_enPRIMAX,
     NVIC_enDEFAULT = (UBase_t) MCU_enDEFAULT,
+    NVIC_enPRI_UNDEF = (UBase_t) MCU_enDEFAULT,
 }NVIC_nPRIORITY;
 
 typedef enum
 {
     NVIC_enMODULE_0 = 0UL,
     NVIC_enMODULE_MAX = 1UL,
+    NVIC_enMODULE_UNDEF = UNDEF_VALUE,
 }NVIC_nMODULE;
 
 typedef enum
@@ -194,6 +196,7 @@ typedef enum
      NVIC_enVECTOR_FAN = 112UL,
      NVIC_enVECTOR_RES129 = 113UL,
      NVIC_enVECTOR_MAX = 114UL,
+     NVIC_enVECTOR_UNDEF = UNDEF_VALUE,
 }NVIC_nVECTOR;
 
 typedef enum
@@ -444,6 +447,7 @@ typedef enum
      NVIC_enVECTOR_PRI_GPIOT = 7UL,
      NVIC_enVECTOR_PRI_FAN = 7UL,
      NVIC_enVECTOR_PRI_RES129 = 7UL,
+     NVIC_enVECTOR_PRI_UNDEF = UNDEF_VALUE,
 }NVIC_nVECTOR_PRI;
 
 typedef MCU_Register_t NVIC_Register_t;

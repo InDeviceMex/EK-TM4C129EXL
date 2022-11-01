@@ -25,7 +25,6 @@
 #ifndef XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_DEFINES_H_
 #define XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_DEFINES_H_
 
-#include <xOS/Variables/OS_Variables.h>
 #include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Enum.h>
 #include <xOS/List/OS_List.h>
 

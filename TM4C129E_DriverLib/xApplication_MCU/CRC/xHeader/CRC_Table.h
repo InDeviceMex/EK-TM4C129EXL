@@ -60,6 +60,7 @@ typedef struct
     uint16_t u16Poly;
     uint16_t u16Init;
     uint16_t u16XorOut;
+    uint16_t u16Reserved;
     boolean_t boRefIn;
     boolean_t boRefOut;
 }CRC16_Params_t;

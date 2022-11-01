@@ -83,6 +83,7 @@ typedef enum
     GPIO_enPORT_P = 13UL,
     GPIO_enPORT_Q = 14UL,
     GPIO_enPORT_MAX = 15UL,
+    GPIO_enPORT_UNDEF = UNDEF_VALUE,
 } GPIO_nPORT;
 
 typedef enum
@@ -112,6 +113,7 @@ typedef enum
     GPIO_enPIN_6 = 0x6UL,
     GPIO_enPIN_7 = 0x7UL,
     GPIO_enPIN_MAX = 0x8UL,
+    GPIO_enPIN_UNDEF = UNDEF_VALUE,
 } GPIO_nPIN;
 
 typedef enum
@@ -1245,10 +1247,10 @@ typedef enum
 
 typedef struct
 {
-        GPIO_nDRIVE enDrive;
-        GPIO_nDIR enDirection;
-        GPIO_nOUTMODE enOutputMode;
-        GPIO_nRESMODE enResistorMode;
+    GPIO_nDRIVE enDrive;
+    GPIO_nDIR enDirection;
+    GPIO_nOUTMODE enOutputMode;
+    GPIO_nRESMODE enResistorMode;
 } GPIO_CONFIG_t;
 
 typedef MCU_Register_t GPIO_Register_t;

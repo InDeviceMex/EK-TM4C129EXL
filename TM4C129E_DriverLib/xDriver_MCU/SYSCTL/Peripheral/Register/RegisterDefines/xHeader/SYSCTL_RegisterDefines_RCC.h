@@ -42,18 +42,18 @@
 /*--------*/
 
 /*--------*/
-#define SYSCTL_RCC_R_OSCSRC_MASK    ((UBase_t) 0x00000030UL)
-#define SYSCTL_RCC_R_OSCSRC_BIT    (4UL)
-#define SYSCTL_RCC_R_OSCSRC_MOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RCC_R_OSCSRC_PIOSC    ((UBase_t) 0x00000010UL)
-#define SYSCTL_RCC_R_OSCSRC_PIOSC4    ((UBase_t) 0x00000020UL)
-#define SYSCTL_RCC_R_OSCSRC_LFIOSC    ((UBase_t) 0x00000030UL)
+#define SYSCTL_RCC_R_OSC_SRC_MASK    ((UBase_t) 0x00000030UL)
+#define SYSCTL_RCC_R_OSC_SRC_BIT    (4UL)
+#define SYSCTL_RCC_R_OSC_SRC_MOSC    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RCC_R_OSC_SRC_PIOSC    ((UBase_t) 0x00000010UL)
+#define SYSCTL_RCC_R_OSC_SRC_PIOSC4    ((UBase_t) 0x00000020UL)
+#define SYSCTL_RCC_R_OSC_SRC_LFIOSC    ((UBase_t) 0x00000030UL)
 
-#define SYSCTL_RCC_OSCSRC_MASK    ((UBase_t) 0x00000003UL)
-#define SYSCTL_RCC_OSCSRC_MOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RCC_OSCSRC_PIOSC    ((UBase_t) 0x00000001UL)
-#define SYSCTL_RCC_OSCSRC_PIOSC4    ((UBase_t) 0x00000002UL)
-#define SYSCTL_RCC_OSCSRC_LFIOSC    ((UBase_t) 0x00000003UL)
+#define SYSCTL_RCC_OSC_SRC_MASK    ((UBase_t) 0x00000003UL)
+#define SYSCTL_RCC_OSC_SRC_MOSC    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RCC_OSC_SRC_PIOSC    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RCC_OSC_SRC_PIOSC4    ((UBase_t) 0x00000002UL)
+#define SYSCTL_RCC_OSC_SRC_LFIOSC    ((UBase_t) 0x00000003UL)
 /*--------*/
 
 /*--------*/
@@ -191,20 +191,20 @@
 ************************************ 10 RCC2 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_RCC2_R_OSCSRC2_MASK    ((UBase_t) 0x00000070UL)
-#define SYSCTL_RCC2_R_OSCSRC2_BIT    (4UL)
-#define SYSCTL_RCC2_R_OSCSRC2_MOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RCC2_R_OSCSRC2_PIOSC    ((UBase_t) 0x00000010UL)
-#define SYSCTL_RCC2_R_OSCSRC2_PIOSC4    ((UBase_t) 0x00000020UL)
-#define SYSCTL_RCC2_R_OSCSRC2_LFIOSC    ((UBase_t) 0x00000030UL)
-#define SYSCTL_RCC2_R_OSCSRC2_32_768KHZ    ((UBase_t) 0x00000070UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_MASK    ((UBase_t) 0x00000070UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_BIT    (4UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_MOSC    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_PIOSC    ((UBase_t) 0x00000010UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_PIOSC4    ((UBase_t) 0x00000020UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_LFIOSC    ((UBase_t) 0x00000030UL)
+#define SYSCTL_RCC2_R_OSC_SRC2_32_768KHZ    ((UBase_t) 0x00000070UL)
 
-#define SYSCTL_RCC2_OSCSRC2_MASK    ((UBase_t) 0x00000007UL)
-#define SYSCTL_RCC2_OSCSRC2_MOSC    ((UBase_t) 0x00000000UL)
-#define SYSCTL_RCC2_OSCSRC2_PIOSC    ((UBase_t) 0x00000001UL)
-#define SYSCTL_RCC2_OSCSRC2_PIOSC4    ((UBase_t) 0x00000002UL)
-#define SYSCTL_RCC2_OSCSRC2_LFIOSC    ((UBase_t) 0x00000003UL)
-#define SYSCTL_RCC2_OSCSRC2_32_768KHZ    ((UBase_t) 0x00000007UL)
+#define SYSCTL_RCC2_OSC_SRC2_MASK    ((UBase_t) 0x00000007UL)
+#define SYSCTL_RCC2_OSC_SRC2_MOSC    ((UBase_t) 0x00000000UL)
+#define SYSCTL_RCC2_OSC_SRC2_PIOSC    ((UBase_t) 0x00000001UL)
+#define SYSCTL_RCC2_OSC_SRC2_PIOSC4    ((UBase_t) 0x00000002UL)
+#define SYSCTL_RCC2_OSC_SRC2_LFIOSC    ((UBase_t) 0x00000003UL)
+#define SYSCTL_RCC2_OSC_SRC2_32_768KHZ    ((UBase_t) 0x00000007UL)
 /*--------*/
 
 /*--------*/

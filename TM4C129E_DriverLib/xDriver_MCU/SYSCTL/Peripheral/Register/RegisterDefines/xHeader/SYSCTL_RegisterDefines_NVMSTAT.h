@@ -14,14 +14,14 @@
 ************************************24 NVMSTAT *********************************************
 ******************************************************************************************/
 /*----------*/
-#define SYSCTL_NVMSTAT_R_FWB_MASK    ((UBase_t) 0x00000001UL)
-#define SYSCTL_NVMSTAT_R_FWB_BIT    (0UL)
-#define SYSCTL_NVMSTAT_R_FWB_NOPRESENT    ((UBase_t) 0x00000000UL)
-#define SYSCTL_NVMSTAT_R_FWB_PRESENT    ((UBase_t) 0x00000001UL)
+#define NVM_STAT_R_FWB_MASK    ((UBase_t) 0x00000001UL)
+#define NVM_STAT_R_FWB_BIT    (0UL)
+#define NVM_STAT_R_FWB_NOPRESENT    ((UBase_t) 0x00000000UL)
+#define NVM_STAT_R_FWB_PRESENT    ((UBase_t) 0x00000001UL)
 
-#define SYSCTL_NVMSTAT_FWB_MASK    ((UBase_t) 0x00000001UL)
-#define SYSCTL_NVMSTAT_FWB_NOPRESENT    ((UBase_t) 0x00000000UL)
-#define SYSCTL_NVMSTAT_FWB_PRESENT    ((UBase_t) 0x00000001UL)
+#define NVM_STAT_FWB_MASK    ((UBase_t) 0x00000001UL)
+#define NVM_STAT_FWB_NOPRESENT    ((UBase_t) 0x00000000UL)
+#define NVM_STAT_FWB_PRESENT    ((UBase_t) 0x00000001UL)
 /*----------*/
 
 

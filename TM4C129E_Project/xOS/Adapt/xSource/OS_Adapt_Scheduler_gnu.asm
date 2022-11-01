@@ -1,5 +1,4 @@
 
- 	.sect 	".text"
  	.align 	4
 	.thumb
 	.syntax unified

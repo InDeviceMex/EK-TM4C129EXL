@@ -23,7 +23,7 @@
  */
 #include <xOS/Queue/xHeader/OS_Queue_Messages.h>
 
-#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Lock.h>
+#include <xOS/Queue/Intrinsics/xHeader/OS_Queue_Lock_.h>
 #include <xOS/Queue/xHeader/OS_Queue_Lock.h>
 #include <xOS/Task/xHeader/OS_Task_Event.h>
 

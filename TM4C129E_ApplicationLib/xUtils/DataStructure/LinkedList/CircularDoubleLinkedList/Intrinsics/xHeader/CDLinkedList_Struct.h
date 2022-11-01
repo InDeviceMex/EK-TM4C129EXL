@@ -43,16 +43,18 @@ typedef void (*CDLinkedList_pvfDestroy_t)(void* List);
 
 typedef struct CDLinkedListItem
 {
-        void* pvDataContainer;
-        void* pvOwnerList;
-        UBase_t uxValueItem;
-        struct CDLinkedListItem *pstPreviousItem;
-        struct CDLinkedListItem *pstNextItem;
+    UBase_t uxValueItem;
+    UBase_t uxReserved;
+    void* pvDataContainer;
+    void* pvOwnerList;
+    struct CDLinkedListItem *pstPreviousItem;
+    struct CDLinkedListItem *pstNextItem;
 }CDLinkedListItem_t;
 
 typedef struct CDLinkedList
 {
         UBase_t uxSize;
+        UBase_t uxReserved1;
         CDLinkedList_pfuxMatch_t pfuxMatch;
         CDLinkedList_pvfDestroyItemData_t pvfDestroyItemData;
         CDLinkedList_pvfDestroyItem_t pvfDestroyItem;
@@ -60,6 +62,7 @@ typedef struct CDLinkedList
         CDLinkedListItem_t *pstLastItemRead;
         CDLinkedListItem_t *pstHead;
         CDLinkedListItem_t *pstTail;
+        CDLinkedListItem_t *pstReserved2;
 }CDLinkedList_t;
 
 #endif /* XUTILS_DATASTRUCTURE_CIRCULARDOUBLELINKEDLIST_INTRINSICS_XHEADER_CIRCULARDLINKEDLIST_STRUCT_H_ */

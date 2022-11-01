@@ -71,6 +71,7 @@ typedef enum
 {
     EPI_enMODULE_0 = 0UL,
     EPI_enMODULE_MAX = 1UL,
+    EPI_enMODULE_UNDEF = UNDEF_VALUE,
 }EPI_nMODULE;
 
 

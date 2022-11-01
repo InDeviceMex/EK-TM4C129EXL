@@ -59,8 +59,11 @@ SYSTICK_nERROR SYSTICK__enInitTickVector(SYSTICK_nMODULE enModuleArg, UBase_t ux
         SYSTICK_vClarAllCounter();
         if(SYSTICK_enPIOSC4 != enClockSourceArg)
         {
-            uxSystemFrequencyMHz = SYSCTL__uxGetSystemClock();
-            uxSystemFrequencyMHz /= 1000000UL;
+            enErrorReg = (SYSTICK_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSystemFrequencyMHz);
+            if(SYSTICK_enERROR_OK == enErrorReg)
+            {
+                uxSystemFrequencyMHz /= 1000000UL;
+            }
         }
         else
         {
@@ -132,6 +135,8 @@ SYSTICK_nERROR SYSTICK__enInitUsVector(SYSTICK_nMODULE enModuleArg, UBase_t uxTi
     SYSTICK_nCLKSOURCE enClockSource;
     SYSTICK_nERROR enErrorReg;
 
+    uxTick = 0UL;
+    uxSYSTICKFrequencyMHz_Sysclk = 0UL;
     enClockSource = SYSTICK_enSYSCLK;
     enErrorReg = SYSTICK_enERROR_OK;
     if(0UL == uxTimeUsArg)
@@ -140,8 +145,11 @@ SYSTICK_nERROR SYSTICK__enInitUsVector(SYSTICK_nMODULE enModuleArg, UBase_t uxTi
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        enErrorReg = (SYSTICK_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSYSTICKFrequencyMHz_Sysclk);
+    }
+    if(SYSTICK_enERROR_OK == enErrorReg)
+    {
         uxSYSTICKFrequencyMHz_Piosc4 = SYSTICK_PIOSC4_MHZ;
-        uxSYSTICKFrequencyMHz_Sysclk = SYSCTL__uxGetSystemClock();
         uxSYSTICKFrequencyMHz_Sysclk /= 1000000UL;
         SYSTICK_vClarAllCounter();
 

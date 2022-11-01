@@ -61,12 +61,14 @@ typedef enum
     ACMP_enPRI7 = (UBase_t) MCU_enPRI7,
     ACMP_enPRIMAX = (UBase_t) MCU_enPRIMAX,
     ACMP_enDEFAULT = (UBase_t) MCU_enDEFAULT,
+    ACMP_enPRI_UNDEF = UNDEF_VALUE,
 }ACMP_nPRIORITY;
 
 typedef enum
 {
     ACMP_enMODULE_0 = 0UL,
     ACMP_enMODULE_MAX = 1UL,
+    ACMP_enMODULE_UNDEF = UNDEF_VALUE,
 }ACMP_nMODULE;
 
 typedef enum
@@ -102,7 +104,7 @@ typedef enum
     ACMP_enOUTPUT_VALUE_VMAX_LOWER = 0UL,
     ACMP_enOUTPUT_VALUE_VMIN_LOWER = 1UL,
     ACMP_enOUTPUT_VALUE_VMAX_GREATER = 1UL,
-    ACMP_enOUTPUT_VALUE_UNDEF = UNDEF_VALUE,
+    ACMP_enOUTPUT_UNDEF_VALUE = UNDEF_VALUE,
 } ACMP_nOUTPUT_VALUE;
 
 typedef enum
@@ -173,6 +175,7 @@ typedef struct
     ACMP_nINT_CONFIG enIntConfig;
     ACMP_nADC_CONFIG enADCConfig;
     ACMP_nVMAX_SOURCE enVmaxSource;
+    ACMP_nVMAX_SOURCE enReserved1;
 }ACMP_CONTROL_t;
 
 

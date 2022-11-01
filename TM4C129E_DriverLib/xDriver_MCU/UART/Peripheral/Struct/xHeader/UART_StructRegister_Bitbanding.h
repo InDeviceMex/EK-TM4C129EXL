@@ -235,7 +235,7 @@ typedef volatile struct
     volatile const UBase_t NB;
     volatile const UBase_t MS;
     volatile const UBase_t MSE;
-    const UBase_t reserved [30UL];
+    const UBase_t reserved [28UL];
 }UART_BITBANDING_PP_t;
 
 typedef volatile struct

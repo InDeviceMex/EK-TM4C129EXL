@@ -7,18 +7,262 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_GatingClock.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vSetGatingClock(SYSCTL_nGATING enGating)
+SYSCTL_nERROR SYSCTL__enUpdateMemoryTiming(SYSCTL_nMODULE enModuleArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, (UBase_t) enGating,
-                        SYSCTL_RSCLKCFG_ACG_MASK, SYSCTL_RSCLKCFG_R_ACG_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_MEMTIMU_BIT;
+    stRegister.uxMask = RSCLK_CFG_MEMTIMU_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = RSCLK_CFG_MEMTIMU_UPDATE;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nGATING SYSCTL__enGetGatingClock(void)
+
+SYSCTL_nERROR SYSCTL__enUpdatePLLValues(SYSCTL_nMODULE enModuleArg)
 {
-    SYSCTL_nGATING enGatingReg = SYSCTL_enGATING_RUN;
-    enGatingReg = (SYSCTL_nGATING) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                                    SYSCTL_RSCLKCFG_ACG_MASK, SYSCTL_RSCLKCFG_R_ACG_BIT);
-    return (enGatingReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_NEW_PLLFREQ_BIT;
+    stRegister.uxMask = RSCLK_CFG_NEW_PLLFREQ_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = RSCLK_CFG_MEMTIMU_UPDATE;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enAllowChangeToSleepMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN enStateArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_ACG_BIT;
+    stRegister.uxMask = RSCLK_CFG_ACG_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enIsAllowedChangeToSleepMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN* penStateArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_ACG_BIT;
+        stRegister.uxMask = RSCLK_CFG_ACG_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SYSCTL_nBOOLEAN) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enSetSystemClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nSYSCLK_SRC enSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_USEPLL_BIT;
+    stRegister.uxMask = RSCLK_CFG_USEPLL_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) enSourceArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetSystemClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nSYSCLK_SRC* penSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penSourceArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_USEPLL_BIT;
+        stRegister.uxMask = RSCLK_CFG_USEPLL_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penSourceArg = (SYSCTL_nSYSCLK_SRC) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enSetPLLClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC enSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_PLL_SRC_BIT;
+    stRegister.uxMask = RSCLK_CFG_PLL_SRC_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) enSourceArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetPLLClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC* penSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penSourceArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_PLL_SRC_BIT;
+        stRegister.uxMask = RSCLK_CFG_PLL_SRC_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penSourceArg = (SYSCTL_nOSCCLK_SRC) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enSetOscillatorClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC enSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_OSC_SRC_BIT;
+    stRegister.uxMask = RSCLK_CFG_OSC_SRC_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) enSourceArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetOscillatorClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC* penSourceArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penSourceArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_OSC_SRC_BIT;
+        stRegister.uxMask = RSCLK_CFG_OSC_SRC_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penSourceArg = (SYSCTL_nOSCCLK_SRC) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+
+SYSCTL_nERROR SYSCTL__enSetOscillatorClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t uxDivisorArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_OSC_SYSDIV_BIT;
+    stRegister.uxMask = RSCLK_CFG_OSC_SYSDIV_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) uxDivisorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetOscillatorClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t* puxDivisorArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxDivisorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_OSC_SYSDIV_BIT;
+        stRegister.uxMask = RSCLK_CFG_OSC_SYSDIV_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxDivisorArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
+}
+
+
+SYSCTL_nERROR SYSCTL__enSetPLLClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t uxDivisorArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RSCLK_CFG_R_PLL_SYSDIV_BIT;
+    stRegister.uxMask = RSCLK_CFG_PLL_SYSDIV_MASK;
+    stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+    stRegister.uxValue = (UBase_t) uxDivisorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetPLLClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t* puxDivisorArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxDivisorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RSCLK_CFG_R_PLL_SYSDIV_BIT;
+        stRegister.uxMask = RSCLK_CFG_PLL_SYSDIV_MASK;
+        stRegister.uptrAddress = RSCLK_CFG_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxDivisorArg = (UBase_t) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

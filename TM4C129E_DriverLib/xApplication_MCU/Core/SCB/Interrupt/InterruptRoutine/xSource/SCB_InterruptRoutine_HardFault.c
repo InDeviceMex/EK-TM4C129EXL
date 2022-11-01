@@ -46,6 +46,7 @@ UART_CONTROL_t enUartHardControl =
     UART_enSTATE_DIS,
     UART_enLEVEL_LOW,
     UART_enLEVEL_LOW,
+    UART_enLEVEL_LOW,
 };
 
 UART_LINE_CONTROL_t enUartHardLineControl =

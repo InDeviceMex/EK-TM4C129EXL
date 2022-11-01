@@ -33,8 +33,8 @@
 
 void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor);
 
-uint8_t ST7735_u8ColStart = 2U;
-uint8_t ST7735_u8RowStart = 3U;
+static uint8_t ST7735_u8ColStart = 2U;
+static uint8_t ST7735_u8RowStart = 3U;
 
 void ST7735__vSetWorkingAreaWrapper(ST7735_Layer_t* restrict enLayerArg, ST7735_DIMENSIONS_t stDimesionsArg, UBase_t uxColor)
 {

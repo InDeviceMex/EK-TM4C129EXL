@@ -7,133 +7,323 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_MemoryTiming.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
 #define TIMING_SIZE (6UL)
-static void SYSCTL__vGetPredefineMemoryTiming(UBase_t uxSysClock,
-                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
-                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
-                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);
 
 typedef struct
 {
     UBase_t uxFrequency;
-    SYSCTL_nMEM_HIGHTIME enMemHighTimeTiming;
+    SYSCTL_nMEM_HIGHTIME enMemoryHighTimeTiming;
     SYSCTL_nMEM_WAITSTATE enMemoryWaitStateTiming;
     SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdgeTiming;
 }SYSCTL_MEM_t;
 
-static void SYSCTL__vGetPredefineMemoryTiming(UBase_t uxSysClock,
-                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
-                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
-                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
-{
-    UBase_t uxIter = 0UL;
-    UBase_t uxFreq = 0UL;
-    static const SYSCTL_MEM_t SYSCTL_stMemoryTiming[TIMING_SIZE] =
-    {
-        {
-          16000000UL,
-          SYSCTL_enMEM_HIGHTIME_0_5,
-          SYSCTL_enMEM_WAITSTATE_0,
-          SYSCTL_enMEM_CLOCKEDGE_FAILING,
-        },
-        {
-         40000000UL,
-          SYSCTL_enMEM_HIGHTIME_1_5,
-          SYSCTL_enMEM_WAITSTATE_1,
-          SYSCTL_enMEM_CLOCKEDGE_RISING,
-        },
-        {
-         60000000UL,
-          SYSCTL_enMEM_HIGHTIME_2_0,
-          SYSCTL_enMEM_WAITSTATE_2,
-          SYSCTL_enMEM_CLOCKEDGE_RISING,
-        },
-        {
-         80000000UL,
-          SYSCTL_enMEM_HIGHTIME_2_5,
-          SYSCTL_enMEM_WAITSTATE_3,
-          SYSCTL_enMEM_CLOCKEDGE_RISING,
-        },
-        {
-         100000000UL,
-          SYSCTL_enMEM_HIGHTIME_3_0,
-          SYSCTL_enMEM_WAITSTATE_4,
-          SYSCTL_enMEM_CLOCKEDGE_RISING,
-        },
-        {
-         120000000UL,
-          SYSCTL_enMEM_HIGHTIME_3_5,
-          SYSCTL_enMEM_WAITSTATE_5,
-          SYSCTL_enMEM_CLOCKEDGE_RISING,
-        },
-    };
+static SYSCTL_nERROR SYSCTL__enGetPredefineMemoryTiming(UBase_t uxSystemClockArg,
+                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTimeArg,
+                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitStateArg,
+                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdgeArg);
 
-    if((0UL != (UBase_t) penMemoryHighTime) &&
-       (0UL != (UBase_t) penMemoryWaitState) &&
-       (0UL != (UBase_t) penMemoryClockEdge))
+static SYSCTL_nERROR SYSCTL__enGetPredefineMemoryTiming(UBase_t uxSystemClockArg,
+                                              SYSCTL_nMEM_HIGHTIME* penMemoryHighTimeArg,
+                                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitStateArg,
+                                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdgeArg)
+{
+    UBase_t uxIterReg;
+    UBase_t uxFrequencyReg;
+    SYSCTL_nERROR enErrorReg;
+    const SYSCTL_MEM_t stMemoryTiming[TIMING_SIZE] =
     {
-        for(uxIter = 0UL ; uxIter < TIMING_SIZE; uxIter++)
+        { 16000000UL, SYSCTL_enMEM_HIGHTIME_0_5, SYSCTL_enMEM_WAITSTATE_0, SYSCTL_enMEM_CLOCKEDGE_FAILING },
+        { 40000000UL, SYSCTL_enMEM_HIGHTIME_1_5, SYSCTL_enMEM_WAITSTATE_1, SYSCTL_enMEM_CLOCKEDGE_RISING  },
+        { 60000000UL, SYSCTL_enMEM_HIGHTIME_2_0, SYSCTL_enMEM_WAITSTATE_2, SYSCTL_enMEM_CLOCKEDGE_RISING  },
+        { 80000000UL, SYSCTL_enMEM_HIGHTIME_2_5, SYSCTL_enMEM_WAITSTATE_3, SYSCTL_enMEM_CLOCKEDGE_RISING  },
+        {100000000UL, SYSCTL_enMEM_HIGHTIME_3_0, SYSCTL_enMEM_WAITSTATE_4, SYSCTL_enMEM_CLOCKEDGE_RISING  },
+        {120000000UL, SYSCTL_enMEM_HIGHTIME_3_5, SYSCTL_enMEM_WAITSTATE_5, SYSCTL_enMEM_CLOCKEDGE_RISING  },
+    };
+    enErrorReg = SYSCTL_enERROR_OK;
+    if((0UL == (uintptr_t) penMemoryHighTimeArg)  ||
+       (0UL == (uintptr_t) penMemoryWaitStateArg) ||
+       (0UL == (uintptr_t) penMemoryClockEdgeArg))
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(120000000UL < uxSystemClockArg)
         {
-            uxFreq = SYSCTL_stMemoryTiming[uxIter].uxFrequency;
-            if(uxSysClock <= uxFreq)
-            {
-                *penMemoryHighTime = SYSCTL_stMemoryTiming[uxIter].enMemHighTimeTiming;
-                *penMemoryWaitState = SYSCTL_stMemoryTiming[uxIter].enMemoryWaitStateTiming;
-                *penMemoryClockEdge = SYSCTL_stMemoryTiming[uxIter].enMemoryClockEdgeTiming;
-                break;
-            }
+            enErrorReg = SYSCTL_enERROR_VALUE;
         }
     }
-}
-
-void SYSCTL__vSetMemoryTiming(UBase_t uxSysClock)
-{
-    UBase_t uxReg = 0UL;
-    SYSCTL_nMEM_HIGHTIME enMemoryHighTimeReg = SYSCTL_enMEM_HIGHTIME_0_5;
-    SYSCTL_nMEM_WAITSTATE enMemoryWaitStateReg = SYSCTL_enMEM_WAITSTATE_0;
-    SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdge = SYSCTL_enMEM_CLOCKEDGE_FAILING;
-    SYSCTL__vGetPredefineMemoryTiming(uxSysClock,
-                                      &enMemoryHighTimeReg,
-                                      &enMemoryWaitStateReg,
-                                      &enMemoryClockEdge);
-
-
-    uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, 0xFFFFFFFFUL, 0UL);
-    uxReg &= ~(SYSCTL_MEMTIM0_R_FWS_MASK | SYSCTL_MEMTIM0_R_FBCE_MASK |
-            SYSCTL_MEMTIM0_R_FBCHT_MASK | SYSCTL_MEMTIM0_R_EWS_MASK |
-            SYSCTL_MEMTIM0_R_EBCE_MASK | SYSCTL_MEMTIM0_R_EBCHT_MASK);
-
-    uxReg |= (((UBase_t) enMemoryWaitStateReg << SYSCTL_MEMTIM0_R_FWS_BIT) |
-                ((UBase_t) enMemoryWaitStateReg << SYSCTL_MEMTIM0_R_EWS_BIT) |
-               ((UBase_t) enMemoryHighTimeReg << SYSCTL_MEMTIM0_R_FBCHT_BIT) |
-               ((UBase_t) enMemoryHighTimeReg << SYSCTL_MEMTIM0_R_EBCHT_BIT) |
-               ((UBase_t) enMemoryClockEdge << SYSCTL_MEMTIM0_R_FBCE_BIT) |
-               ((UBase_t) enMemoryClockEdge << SYSCTL_MEMTIM0_R_EBCE_BIT));
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET, uxReg, 0xFFFFFFFFUL, 0UL);
-}
-
-void SYSCTL__vGetMemoryTiming(SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
-                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
-                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
-{
-    UBase_t uxReg = 0UL;
-
-    if((0UL != (UBase_t) penMemoryHighTime) &&
-       (0UL != (UBase_t) penMemoryWaitState) &&
-       (0UL != (UBase_t) penMemoryClockEdge))
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
-                      SYSCTL_MEMTIM0_FWS_MASK, SYSCTL_MEMTIM0_R_FWS_BIT);
-        *penMemoryWaitState = (SYSCTL_nMEM_WAITSTATE)uxReg;
-        uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
-                      SYSCTL_MEMTIM0_FBCE_MASK, SYSCTL_MEMTIM0_R_FBCE_BIT);
-        *penMemoryClockEdge = (SYSCTL_nMEM_CLOCKEDGE)uxReg;
-        uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MEMTIM0_OFFSET,
-                      SYSCTL_MEMTIM0_FBCHT_MASK, SYSCTL_MEMTIM0_R_FBCHT_BIT);
-        *penMemoryHighTime = (SYSCTL_nMEM_HIGHTIME)uxReg;
+        uxIterReg = 0UL;
+        uxFrequencyReg = stMemoryTiming[uxIterReg].uxFrequency;
+        while(uxSystemClockArg > uxFrequencyReg)
+        {
+            uxIterReg += 1UL;
+            uxFrequencyReg = (UBase_t) stMemoryTiming[uxIterReg].uxFrequency;
+        }
+        *penMemoryHighTimeArg = stMemoryTiming[uxIterReg].enMemoryHighTimeTiming;
+        *penMemoryWaitStateArg = stMemoryTiming[uxIterReg].enMemoryWaitStateTiming;
+        *penMemoryClockEdgeArg = stMemoryTiming[uxIterReg].enMemoryClockEdgeTiming;
     }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enSetMemoryHighTime(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_HIGHTIME enHighTimeArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MEMORY_TIM0_R_FLASH_BCHT_BIT;
+    stRegister.uxMask = MEMORY_TIM0_FLASH_BCHT_MASK;
+    stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+    stRegister.uxValue = (UBase_t) enHighTimeArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_BCHT_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_BCHT_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        stRegister.uxValue = (UBase_t) enHighTimeArg;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetMemoryHighTime(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_HIGHTIME* penHighTimeArg)
+{
+    SYSCTL_Register_t stRegister;
+    UBase_t uxFlashValue;
+    UBase_t uxEEPROMValue;
+    SYSCTL_nERROR enErrorReg;
+
+    uxFlashValue = 0UL;
+    uxEEPROMValue = 0UL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penHighTimeArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_FLASH_BCHT_BIT;
+        stRegister.uxMask = MEMORY_TIM0_FLASH_BCHT_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxFlashValue = stRegister.uxValue;
+
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_BCHT_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_BCHT_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxEEPROMValue = stRegister.uxValue;
+
+        if(uxEEPROMValue == uxFlashValue)
+        {
+            *penHighTimeArg = (SYSCTL_nMEM_HIGHTIME) stRegister.uxValue;
+        }
+        else
+        {
+            enErrorReg = SYSCTL_enERROR_VALUE;
+        }
+    }
+    return (enErrorReg);
+}
+
+
+SYSCTL_nERROR SYSCTL__enSetMemoryWaitState(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_WAITSTATE enWaitStateArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MEMORY_TIM0_R_FLASH_WS_BIT;
+    stRegister.uxMask = MEMORY_TIM0_FLASH_WS_MASK;
+    stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+    stRegister.uxValue = (UBase_t) enWaitStateArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_WS_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_WS_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        stRegister.uxValue = (UBase_t) enWaitStateArg;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetMemoryWaitState(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_WAITSTATE* penWaitStateArg)
+{
+    SYSCTL_Register_t stRegister;
+    UBase_t uxFlashValue;
+    UBase_t uxEEPROMValue;
+    SYSCTL_nERROR enErrorReg;
+
+    uxFlashValue = 0UL;
+    uxEEPROMValue = 0UL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penWaitStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_FLASH_WS_BIT;
+        stRegister.uxMask = MEMORY_TIM0_FLASH_WS_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxFlashValue = stRegister.uxValue;
+
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_WS_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_WS_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxEEPROMValue = stRegister.uxValue;
+
+        if(uxEEPROMValue == uxFlashValue)
+        {
+            *penWaitStateArg = (SYSCTL_nMEM_WAITSTATE) stRegister.uxValue;
+        }
+        else
+        {
+            enErrorReg = SYSCTL_enERROR_VALUE;
+        }
+    }
+    return (enErrorReg);
+}
+
+
+SYSCTL_nERROR SYSCTL__enSetMemoryClockEdge(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_CLOCKEDGE enClockEdgeArg)
+{
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MEMORY_TIM0_R_FLASH_BCE_BIT;
+    stRegister.uxMask = MEMORY_TIM0_FLASH_BCE_MASK;
+    stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+    stRegister.uxValue = (UBase_t) enClockEdgeArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_BCE_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_BCE_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        stRegister.uxValue = (UBase_t) enClockEdgeArg;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetMemoryClockEdge(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_CLOCKEDGE* penClockEdgeArg)
+{
+    SYSCTL_Register_t stRegister;
+    UBase_t uxFlashValue;
+    UBase_t uxEEPROMValue;
+    SYSCTL_nERROR enErrorReg;
+
+    uxFlashValue = 0UL;
+    uxEEPROMValue = 0UL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penClockEdgeArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MEMORY_TIM0_R_FLASH_BCE_BIT;
+        stRegister.uxMask = MEMORY_TIM0_FLASH_BCE_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxFlashValue = stRegister.uxValue;
+
+        stRegister.uxShift = MEMORY_TIM0_R_EEPROM_BCE_BIT;
+        stRegister.uxMask = MEMORY_TIM0_EEPROM_BCE_MASK;
+        stRegister.uptrAddress = MEMORY_TIM0_OFFSET;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxEEPROMValue = stRegister.uxValue;
+
+        if(uxEEPROMValue == uxFlashValue)
+        {
+            *penClockEdgeArg = (SYSCTL_nMEM_CLOCKEDGE) stRegister.uxValue;
+        }
+        else
+        {
+            enErrorReg = SYSCTL_enERROR_VALUE;
+        }
+    }
+    return (enErrorReg);
+}
+
+
+
+SYSCTL_nERROR SYSCTL__enSetMemoryTiming(SYSCTL_nMODULE enModuleArg, UBase_t uxSystemClockArg)
+{
+    SYSCTL_nMEM_HIGHTIME enMemoryHighTimeReg;
+    SYSCTL_nMEM_WAITSTATE enMemoryWaitStateReg;
+    SYSCTL_nMEM_CLOCKEDGE enMemoryClockEdge;
+    SYSCTL_nERROR enErrorReg;
+
+    enMemoryHighTimeReg = SYSCTL_enMEM_HIGHTIME_0_5;
+    enMemoryWaitStateReg = SYSCTL_enMEM_WAITSTATE_0;
+    enMemoryClockEdge = SYSCTL_enMEM_CLOCKEDGE_RISING;
+    enErrorReg = SYSCTL__enGetPredefineMemoryTiming(uxSystemClockArg, &enMemoryHighTimeReg,
+                                                    &enMemoryWaitStateReg, &enMemoryClockEdge);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetMemoryHighTime(enModuleArg, enMemoryHighTimeReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetMemoryWaitState(enModuleArg, enMemoryWaitStateReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetMemoryClockEdge(enModuleArg, enMemoryClockEdge);
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetMemoryTiming(SYSCTL_nMODULE enModuleArg,
+                                        SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
+                                        SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
+                                        SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge)
+{
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL__enGetMemoryHighTime(enModuleArg, penMemoryHighTime);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetMemoryWaitState(enModuleArg, penMemoryWaitState);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetMemoryClockEdge(enModuleArg, penMemoryClockEdge);
+    }
+    return (enErrorReg);
 }
 
 

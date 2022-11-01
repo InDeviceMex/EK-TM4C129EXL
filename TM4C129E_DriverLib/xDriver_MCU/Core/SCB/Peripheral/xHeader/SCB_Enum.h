@@ -57,12 +57,14 @@ typedef enum
 {
     SCB_enSTATE_DIS = (UBase_t) MCU_enSTATE_DIS,
     SCB_enSTATE_ENA = (UBase_t) MCU_enSTATE_ENA,
+    SCB_enSTATE_UNDEF = UNDEF_VALUE,
 }SCB_nSTATE;
 
 typedef enum
 {
     SCB_enMODULE_0 = 0UL,
     SCB_enMODULE_MAX = 1UL,
+    SCB_enMODULE_UNDEF = UNDEF_VALUE,
 }SCB_nMODULE;
 
 typedef enum
@@ -79,6 +81,7 @@ typedef enum
 {
     SCB_enNOPENDING = 0UL,
     SCB_enPENDING = 1UL,
+    SCB_enPENDSTATE_UNDEF = UNDEF_VALUE,
 }SCB_nPENDSTATE;
 
 typedef enum
@@ -88,6 +91,7 @@ typedef enum
     SCB_enFAULT_MEMORY = 2UL,
     SCB_enFAULT_NMI = 3UL,
     SCB_enFAULT_MAX = 4UL,
+    SCB_enFAULT_UNDEF = UNDEF_VALUE,
 }SCB_nFAULT;
 
 typedef enum
@@ -98,8 +102,9 @@ typedef enum
     SCB_enNMI_WDT0 = 0x08UL,
     SCB_enNMI_WDT1 = 0x20UL,
     SCB_enNMI_TAMPER = 0x200UL,
-    SCB_enNMI_MOSCFAIL = 0x10000UL,
+    SCB_enNMI_MOSC_FAILURE = 0x10000UL,
     SCB_enNMI_ALL = 0x1022DUL,
+    SCB_enNMI_UNDEF = UNDEF_VALUE,
 }SCB_nNMI;
 
 typedef enum
@@ -109,9 +114,10 @@ typedef enum
     SCB_enNMI_BIT_WDT0 = 2UL,
     SCB_enNMI_BIT_WDT1 = 3UL,
     SCB_enNMI_BIT_TAMPER = 4UL,
-    SCB_enNMI_BIT_MOSCFAIL = 5UL,
+    SCB_enNMI_BIT_MOSC_FAILURE = 5UL,
     SCB_enNMI_BIT_SW = 6UL,
     SCB_enNMI_BIT_MAX = 7UL,
+    SCB_enNMI_BIT_UNDEF = UNDEF_VALUE,
 }SCB_nNMI_BIT;
 
 typedef enum
@@ -119,6 +125,7 @@ typedef enum
     SCB_enHARD_NONE = 0x00UL,
     SCB_enHARD_VECT = 0x02UL,
     SCB_enHARD_ALL = 0x02UL,
+    SCB_enHARD_UNDEF = UNDEF_VALUE,
 }SCB_nHARD;
 
 typedef enum
@@ -126,6 +133,7 @@ typedef enum
     SCB_enHARD_BIT_VECT = 0UL,
     SCB_enHARD_BIT_SW = 1UL,
     SCB_enHARD_BIT_MAX = 2UL,
+    SCB_enHARD_BIT_UNDEF = UNDEF_VALUE,
 }SCB_nHARD_BIT;
 
 typedef enum
@@ -138,6 +146,7 @@ typedef enum
     SCB_enUSAGE_UNALIGNED = 0x0100UL,
     SCB_enUSAGE_DIVBYZERO = 0x0200UL,
     SCB_enUSAGE_ALL = 0x030FUL,
+    SCB_enUSAGE_UNDEF = UNDEF_VALUE,
 }SCB_nUSAGE;
 
 typedef enum
@@ -150,6 +159,7 @@ typedef enum
     SCB_enUSAGE_BIT_DIVBYZERO = 5UL,
     SCB_enUSAGE_BIT_SW = 6UL,
     SCB_enUSAGE_BIT_MAX = 7UL,
+    SCB_enUSAGE_BIT_UNDEF = UNDEF_VALUE,
 }SCB_nUSAGE_BIT;
 
 typedef enum
@@ -163,6 +173,7 @@ typedef enum
     SCB_enBUS_LSPERR = 0x20UL,
     SCB_enBUS_BFARVALID = 0x80UL,
     SCB_enBUS_ALL = 0xBFUL,
+    SCB_enBUS_UNDEF = UNDEF_VALUE,
 }SCB_nBUS;
 
 typedef enum
@@ -176,6 +187,7 @@ typedef enum
     SCB_enBUS_BIT_BFARVALID = 6UL,
     SCB_enBUS_BIT_SW = 7UL,
     SCB_enBUS_BIT_MAX = 8UL,
+    SCB_enBUS_BIT_UNDEF = UNDEF_VALUE,
 }SCB_nBUS_BIT;
 
 typedef enum
@@ -188,6 +200,7 @@ typedef enum
     SCB_enMEMORY_MLSPERR = 0x20UL,
     SCB_enMEMORY_MMARVALID = 0x80UL,
     SCB_enMEMORY_ALL = 0xBBUL,
+    SCB_enMEMORY_UNDEF = UNDEF_VALUE,
 }SCB_nMEMORY;
 
 typedef enum
@@ -200,6 +213,7 @@ typedef enum
     SCB_enMEMORY_BIT_MMARVALID = 5UL,
     SCB_enMEMORY_BIT_SW = 6UL,
     SCB_enMEMORY_BIT_MAX = 7UL,
+    SCB_enMEMORY_BIT_UNDEF = UNDEF_VALUE,
 }SCB_nMEMORY_BIT;
 
 typedef enum
@@ -363,6 +377,7 @@ typedef enum
     SCB_enVECISR_FAN = 112UL + 16UL,
     SCB_enVECISR_RES129 = 113UL + 16UL,
     SCB_enVECISR_MAX = 114UL + 16UL,
+    SCB_enVECISR_UNDEF = UNDEF_VALUE,
 }SCB_nVECISR;
 
 typedef MCU_Register_t SCB_Register_t;

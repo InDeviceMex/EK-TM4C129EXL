@@ -56,7 +56,7 @@ PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxSysClk = SYSCTL__uxGetSystemClock();
+        SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClk);
 
         u64LoadValue =  (uint64_t) uxSysClk;
         u64LoadValue *= uxPeriodArg;
@@ -122,6 +122,10 @@ PWM_nERROR PWM_Generator__enGetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
+        enErrorReg = (PWM_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClk);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
         if(PWM_enDIRECTION_DOWN == enDirectionReg)
         {
             uxLoadValue += 1UL;
@@ -130,8 +134,6 @@ PWM_nERROR PWM_Generator__enGetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR
         {
             uxLoadValue *= 2UL;
         }
-        uxSysClk = SYSCTL__uxGetSystemClock();
-
         u64PeriodValue =  (uint64_t) uxLoadValue;
         u64PeriodValue *= 1000000UL;
         u64PeriodValue *= uxDivisor;

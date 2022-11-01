@@ -23,7 +23,7 @@
  */
 #include <xImages/xHeader/Dolphin.h>
 
-__attribute__((aligned(4))) const uint8_t gImage_del[18240] =
+__attribute__((aligned(4))) static const uint8_t gImage_del[18240] =
 {/* 0X00,0X10,0X78,0X00,0X4C,0X00,0X01,0X1B, */
     0XE7,0X39,0X28,0X42,0X69,0X4A,0X69,0X4A,0XAA,0X52,0X8A,0X52,0X69,0X4A,0X69,0X4A,
     0XAA,0X52,0XCB,0X5A,0X49,0X4A,0XEB,0X5A,0X49,0X4A,0XEB,0X5A,0X8E,0X73,0X0C,0X63,

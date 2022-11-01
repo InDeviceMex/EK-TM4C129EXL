@@ -29,13 +29,13 @@
 
 typedef volatile struct
 {
-    volatile const UBase_t MINOR :8;
-    volatile const UBase_t MAJOR :8;
+    volatile const UBase_t MINOR_REVISION :8;
+    volatile const UBase_t MAJOR_REVISION :8;
     volatile const UBase_t CLASS :8;
     const UBase_t reserved :4;
-    volatile const UBase_t VER :3;
+    volatile const UBase_t VERSION :3;
     const UBase_t reserved1 :1;
-}DID0_t;
+}DEVICE_ID0_t;
 
 typedef volatile struct
 {
@@ -46,9 +46,9 @@ typedef volatile struct
     const UBase_t reserved :5;
     volatile const UBase_t PINCOUNT :3;
     volatile const UBase_t PARTNO :8;
-    volatile const UBase_t FAM :4;
-    volatile const UBase_t VER :4;
-}DID1_t;
+    volatile const UBase_t FAMILY :4;
+    volatile const UBase_t VERSION :4;
+}DEVICE_ID1_t;
 
 typedef volatile struct
 {
@@ -56,61 +56,61 @@ typedef volatile struct
     const UBase_t reserved :6;
     volatile UBase_t VDDA_UBOR :2;
     const UBase_t reserved1 :22;
-}PTBOCTL_t;
+}PTBO_CTL_t;
 
 typedef volatile struct
 {
     const UBase_t reserved :1;
-    volatile const UBase_t BORRIS :1;
+    volatile const UBase_t BOR :1;
     const UBase_t reserved1 :1;
-    volatile const UBase_t MOFRIS :1;
+    volatile const UBase_t MOSC_FAILURE :1;
     const UBase_t reserved2 :2;
-    volatile const UBase_t PLLLRIS :1;
+    volatile const UBase_t PLL_LOCK :1;
     volatile const UBase_t reserved3 :1;
-    volatile const UBase_t MOSCPUPRIS :1;
+    volatile const UBase_t MOSC_POWERUP :1;
     const UBase_t reserved4 :23;
-}RIS_t;
+}SYSCTL_RIS_t;
 
 typedef volatile struct
 {
     const UBase_t reserved :1;
-    volatile UBase_t BORIM :1;
-    const UBase_t reserved1 :1;
-    volatile UBase_t MOFIM :1;
-    const UBase_t reserved2 :2;
-    volatile UBase_t PLLLIM :1;
-    volatile UBase_t reserved3 :1;
-    volatile UBase_t MOSCPUPIM :1;
-    const UBase_t reserved4 :23;
-}IMC_t;
-
-typedef volatile struct
-{
-    const UBase_t reserved :1;
-    volatile UBase_t BORMIS :1;
-    const UBase_t reserved1 :1;
-    volatile UBase_t MOFMIS :1;
-    const UBase_t reserved2 :2;
-    volatile UBase_t PLLLMIS :1;
-    volatile UBase_t reserved3 :1;
-    volatile UBase_t MOSCPUPMIS :1;
-    const UBase_t reserved4 :23;
-}MISC_t;
-
-typedef volatile struct
-{
-    volatile UBase_t EXT :1;
-    volatile UBase_t POR :1;
     volatile UBase_t BOR :1;
+    const UBase_t reserved1 :1;
+    volatile UBase_t MOSC_FAILURE :1;
+    const UBase_t reserved2 :2;
+    volatile UBase_t PLL_LOCK :1;
+    volatile UBase_t reserved3 :1;
+    volatile UBase_t MOSC_POWERUP :1;
+    const UBase_t reserved4 :23;
+}SYSCTL_IMC_t;
+
+typedef volatile struct
+{
+    const UBase_t reserved :1;
+    volatile UBase_t BOR :1;
+    const UBase_t reserved1 :1;
+    volatile UBase_t MOSC_FAILURE :1;
+    const UBase_t reserved2 :2;
+    volatile UBase_t PLL_LOCK :1;
+    volatile UBase_t reserved3 :1;
+    volatile UBase_t MOSC_POWERUP :1;
+    const UBase_t reserved4 :23;
+}SYSCTL_MISC_t;
+
+typedef volatile struct
+{
+    volatile UBase_t EXTERNAL :1;
+    volatile UBase_t POR :1;
+    volatile UBase_t BOR:1;
     volatile UBase_t WDT0_ :1;
     volatile UBase_t SW :1;
     volatile UBase_t WDT1_ :1;
     const UBase_t reserved :6;
     volatile UBase_t HSSR :1;
     const UBase_t reserved1 :3;
-    volatile UBase_t MOSCFAIL :1;
+    volatile UBase_t MOSC_FAILURE :1;
     const UBase_t reserved2:15;
-}RESC_t;
+}SYSCTL_RESC_t;
 
 typedef volatile struct
 {
@@ -118,7 +118,7 @@ typedef volatile struct
     const UBase_t reserved :3;
     volatile UBase_t VDDA_UBOR :1;
     const UBase_t reserved1 :27;
-}PWRTC_t;
+}SYSCTL_PWRTC_t;
 
 typedef volatile struct
 {
@@ -131,9 +131,9 @@ typedef volatile struct
     const UBase_t reserved2 :3;
     volatile UBase_t TAMPER :1;
     const UBase_t reserved3 :6;
-    volatile UBase_t MOSCFAIL :1;
+    volatile UBase_t MOSC_FAILURE :1;
     const UBase_t reserved4:15;
-}NMIC_t;
+}SYSCTL_NMIC_t;
 
 typedef volatile struct
 {
@@ -143,12 +143,12 @@ typedef volatile struct
     volatile UBase_t PWRDN :1;
     volatile UBase_t OSCRNG :1;
     const UBase_t reserved :27;
-}MOSCCTL_t;
+}MOSC_CTL_t;
 
 typedef volatile struct
 {
     volatile const UBase_t RVP :32;
-}RVP_t;
+}SYSCTL_RVP_t;
 
 typedef volatile struct
 {
@@ -184,7 +184,7 @@ typedef volatile struct
     volatile UBase_t READ_ENABLE29 :1;
     volatile UBase_t READ_ENABLE30 :1;
     volatile UBase_t READ_ENABLE31 :1;
-}FMPRE_t;
+}FLASH_PRE_t;
 
 typedef volatile struct
 {
@@ -220,49 +220,49 @@ typedef volatile struct
     volatile UBase_t PROG_ENABLE29 :1;
     volatile UBase_t PROG_ENABLE30 :1;
     volatile UBase_t PROG_ENABLE31 :1;
-}FMPPE_t;
+}FLASH_PPE_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PSYSDIV :10;
-    volatile UBase_t OSYSDIV :10;
-    volatile UBase_t OSCSRC :4;
-    volatile UBase_t PLLSRC :4;
+    volatile UBase_t PLL_SYSDIV :10;
+    volatile UBase_t OSC_SYSDIV :10;
+    volatile UBase_t OSC_SRC :4;
+    volatile UBase_t PLL_SRC :4;
     volatile UBase_t USEPLL :1;
     volatile UBase_t ACG :1;
-    volatile UBase_t NEWFREQ :1;
+    volatile UBase_t NEW_PLLFREQ :1;
     volatile UBase_t MEMTIMU :1;
-}RSCLKCFG_t;
+}RSCLK_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t FWS :4;
+    volatile UBase_t FLASH_WS :4;
     const UBase_t reserved :1;
-    volatile UBase_t FBCE :1;
-    volatile UBase_t FBCHT :4;
+    volatile UBase_t FLASH_BCE :1;
+    volatile UBase_t FLASH_BCHT :4;
     const UBase_t reserved1 :6;
-    volatile UBase_t EWS :4;
+    volatile UBase_t EEPROM_WS :4;
     const UBase_t reserved2 :1;
-    volatile UBase_t EBCE :1;
-    volatile UBase_t EBCHT :4;
+    volatile UBase_t EEPROM_BCE :1;
+    volatile UBase_t EEPROM_BCHT :4;
     const UBase_t reserved3 :6;
-}MEMTIM0_t;
+}MEMORY_TIM0_t;
 
 typedef volatile struct
 {
     volatile UBase_t ALTCLK :4;
     const UBase_t reserved :28;
-}ALTCLKCFG_t;
+}ALTCLK_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t DSSYSDIV :10;
+    volatile UBase_t DEEPSLEEP_SYSDIV :10;
     const UBase_t reserved :10;
-    volatile UBase_t DSOSCSRC :4;
+    volatile UBase_t DEEPSLEEP_OSC_SRC :4;
     const UBase_t reserved1 :6;
-    volatile UBase_t MOSCDPD :1;
-    volatile UBase_t PIOSCPD :1;
-}DSCLKCFG_t;
+    volatile UBase_t MOSC_DPD :1;
+    volatile UBase_t PIOSC_PD :1;
+}DSCLK_CFG_t;
 
 typedef volatile struct
 {
@@ -271,24 +271,24 @@ typedef volatile struct
     volatile UBase_t SRC :2;
     const UBase_t reserved1 :13;
     volatile UBase_t EN :1;
-}DIVSCLK_t;
+}DIVSCLK_CFG_t;
 
 typedef volatile struct
 {
     volatile const UBase_t FPU_ :1;
     const UBase_t reserved :4;
-    volatile const UBase_t LDOSEQ :1;
+    volatile const UBase_t LDO_SEQ :1;
     const UBase_t reserved1 :2;
-    volatile const UBase_t FLASHLPM :1;
+    volatile const UBase_t FLASH_LPM :1;
     const UBase_t reserved2 :1;
-    volatile const UBase_t SRAMLPM :1;
-    volatile const UBase_t SRAMSM :1;
-    volatile const UBase_t PIOSCPDE :1;
+    volatile const UBase_t SRAM_LPM :1;
+    volatile const UBase_t SRAM_SM :1;
+    volatile const UBase_t PIOSC_PDE :1;
     const UBase_t reserved3 :3;
-    volatile const UBase_t TSPDE :1;
-    volatile const UBase_t LDOSME :1;
+    volatile const UBase_t TS_PDE :1;
+    volatile const UBase_t LDO_SME :1;
     const UBase_t reserved4 :14;
-}SYSPROP_t;
+}SYSCTL_PROP_t;
 
 typedef volatile struct
 {
@@ -298,7 +298,7 @@ typedef volatile struct
     volatile UBase_t CAL :1;
     const UBase_t reserved1 :21;
     volatile UBase_t UTEN :1;
-}PIOSCCAL_t;
+}PIOSC_CAL_t;
 
 typedef volatile struct
 {
@@ -308,168 +308,168 @@ typedef volatile struct
     const UBase_t reserved1 :6;
     volatile const UBase_t DT :7;
     const UBase_t reserved2 :9;
-}PIOSCSTAT_t;
+}PIOSC_STAT_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t MINT :10;
-    volatile const UBase_t MFRAC :10;
+    volatile const UBase_t PLL_M_INT :10;
+    volatile const UBase_t PLL_M_FRAC :10;
     const UBase_t reserved :3;
-    volatile const UBase_t PLLPWR :1;
+    volatile const UBase_t PLL_PWR :1;
     const UBase_t reserved1 :8;
-}PLLFREQ0_t;
+}PLL_FREQ0_t;
 
 typedef volatile struct
 {
-    volatile UBase_t N :5;
+    volatile UBase_t PLL_N_VALUE :5;
     const UBase_t reserved :3;
-    volatile UBase_t Q :5;
+    volatile UBase_t PLL_Q_VALUE :5;
     const UBase_t reserved1 :19;
-}PLLFREQ1_t;
+}PLL_FREQ1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t LOCK :1;
     const UBase_t reserved :31;
-}PLLSTAT_t;
+}PLL_STAT_t;
 
 typedef volatile struct
 {
-    volatile UBase_t SRAMPM :2;
+    volatile UBase_t SRAM_PM :2;
     const UBase_t reserved :2;
-    volatile UBase_t FLASHPM :2;
+    volatile UBase_t FLASH_PM :2;
     const UBase_t reserved1 :26;
-}SLPPWRCFG_t;
+}SLPPWR_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t SRAMPM :2;
+    volatile UBase_t SRAM_PM :2;
     const UBase_t reserved :2;
-    volatile UBase_t FLASHPM :2;
+    volatile UBase_t FLASH_PM :2;
     const UBase_t reserved1 :2;
-    volatile UBase_t TSPD :1;
-    volatile UBase_t LDOSM :1;
+    volatile UBase_t TS_PD :1;
+    volatile UBase_t LDO_SM :1;
     const UBase_t reserved2 :22;
-}DSLPPWRCFG_t;
+}DSLPPWR_CFG_t;
 
 typedef volatile struct
 {
     volatile const UBase_t FWB :1;
     const UBase_t reserved :31;
-}NVMSTAT_t;
+}NVM_STAT_t;
 
 typedef volatile struct
 {
     volatile UBase_t VLDO :8;
     const UBase_t reserved :23;
     volatile UBase_t VADJEN :1;
-}LDOSPCTL_t;
+}LDO_SPCTL_t;
 
 typedef volatile struct
 {
     volatile const UBase_t NOPLL :8;
     volatile const UBase_t WITHPLL :8;
     const UBase_t reserved :16;
-}LDOSPCAL_t;
+}LDO_SPCAL_t;
 
 typedef volatile struct
 {
     volatile UBase_t VLDO :8;
     const UBase_t reserved :23;
     volatile UBase_t VADJEN :1;
-}LDODPCTL_t;
+}LDO_DPCTL_t;
 
 typedef volatile struct
 {
     volatile const UBase_t KHZ30 :8;
     volatile const UBase_t WITHPLL :8;
     const UBase_t reserved :16;
-}LDODPCAL_t;
+}LDO_DPCAL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t SPDERR :1;
-    volatile const UBase_t FPDERR :1;
-    volatile const UBase_t PPDERR :1;
-    volatile const UBase_t LDMINERR :1;
-    volatile const UBase_t LSMINERR :1;
+    volatile const UBase_t SRAM_PD_ERR :1;
+    volatile const UBase_t FLASH_PD_ERR :1;
+    volatile const UBase_t PIOSC_PD_ERR :1;
+    volatile const UBase_t VLDO_DMIN_ERR :1;
+    volatile const UBase_t VLDO_SMIN_ERR :1;
     const UBase_t reserved :1;
-    volatile const UBase_t LMAXERR :1;
-    volatile const UBase_t PPDW :1;
+    volatile const UBase_t VLDO_MAX_ERR :1;
+    volatile const UBase_t PIOSC_PD_WARNING :1;
     const UBase_t reserved1:8;
-    volatile const UBase_t PRACT :1;
-    volatile const UBase_t LOWPWR :1;
-    volatile const UBase_t FLASHLP :1;
-    volatile const UBase_t LDOUA :1;
+    volatile const UBase_t LOW_ACTIVE :1;
+    volatile const UBase_t LOW_PWR :1;
+    volatile const UBase_t FLASH_LP :1;
+    volatile const UBase_t LDO_UA :1;
     const UBase_t reserved2:12;
-}SDPMST_t;
+}SDP_MST_t;
 
 typedef volatile struct
 {
-    volatile UBase_t EXTRES :2;
+    volatile UBase_t EXTERNAL :2;
     volatile UBase_t BOR :2;
-    volatile UBase_t WDOG0 :2;
-    volatile UBase_t WDOG1 :2;
+    volatile UBase_t WDG0_ :2;
+    volatile UBase_t WDG1_ :2;
     const UBase_t reserved :24;
-}RESBEHAVCTL_t;
+}RESET_BEHAVCTL_t;
 
 typedef volatile struct
 {
     volatile UBase_t CDOFF :24;
     volatile UBase_t KEY :8;
-}HSSR_t;
+}SYSCTL_HSSR_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PWRSTAT :2;
     volatile const UBase_t MEMSTAT :2;
     const UBase_t reserved :28;
-}USBPDS_t;
+}USB_PDS_t;
 
 typedef volatile struct
 {
     volatile UBase_t PWRCTL :2;
     const UBase_t reserved :30;
-}USBMPC_t;
+}USB_MPC_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PWRSTAT :2;
     volatile const UBase_t MEMSTAT :2;
     const UBase_t reserved :28;
-}EMACPDS_t;
+}EMAC_PDS_t;
 
 typedef volatile struct
 {
     volatile UBase_t PWRCTL :2;
     const UBase_t reserved :30;
-}EMACMPC_t;
+}EMAC_MPC_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PWRSTAT :2;
     volatile const UBase_t MEMSTAT :2;
     const UBase_t reserved :28;
-}CAN0PDS_t;
+}CAN0_PDS_t;
 
 typedef volatile struct
 {
     volatile UBase_t PWRCTL :2;
     const UBase_t reserved :30;
-}CAN0MPC_t;
+}CAN0_MPC_t;
 
 typedef volatile struct
 {
     volatile const UBase_t PWRSTAT :2;
     volatile const UBase_t MEMSTAT :2;
     const UBase_t reserved :28;
-}CAN1PDS_t;
+}CAN1_PDS_t;
 
 typedef volatile struct
 {
     volatile UBase_t PWRCTL :2;
     const UBase_t reserved :30;
-}CAN1MPC_t;
+}CAN1_MPC_t;
 
 typedef volatile struct
 {
@@ -484,7 +484,7 @@ typedef volatile struct
     volatile const UBase_t PORT :3;
     const UBase_t reserved2 :15;
     volatile const UBase_t NW :1;
-}BOOTCFG_t;
+}BOOT_CFG_t;
 
 typedef volatile struct
 {
@@ -741,7 +741,7 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile const UBase_t ID :32;
-}UNIQUEID_t;/*0x00000008*/
+}UNIQUE_ID_t;/*0x00000008*/
 
 typedef volatile struct
 {
@@ -749,6 +749,6 @@ typedef volatile struct
     volatile UBase_t AESCFG :1;
     volatile UBase_t DESCFG :1;
     const UBase_t reserved :29;
-}CCMCGREQ_t;
+}CCM_CGREQ_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_STRUCT_SYSCTL_STRUCTREGISTER_H_ */

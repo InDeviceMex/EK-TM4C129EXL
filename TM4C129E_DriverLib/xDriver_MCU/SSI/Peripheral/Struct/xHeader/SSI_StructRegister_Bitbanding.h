@@ -140,7 +140,7 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile UBase_t CS [4UL];
-    UBase_t reserved : 28;
+    UBase_t reserved [28UL];
 }SSI_BITBANDING_CC_t;
 
 typedef volatile struct

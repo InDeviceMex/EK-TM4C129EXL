@@ -97,8 +97,8 @@ typedef struct
 {
     OS_Task_Function_t pvfTaskCode;
     const char * const pcName;  /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
-    OS_UBase_t uxStackDepth;
     void *pvParameters;
+    OS_UBase_t uxStackDepth;
     OS_UBase_t uxPriority;
     OS_UBase_t *puxStackBuffer;
 } OS_Task_Parameters_t;

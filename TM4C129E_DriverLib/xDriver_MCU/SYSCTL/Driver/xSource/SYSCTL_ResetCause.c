@@ -24,19 +24,44 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_ResetCause.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-SYSCTL_nRESET SYSCTL__enGetResetCause(void)
+
+SYSCTL_nERROR SYSCTL__enGetResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET* penCauseArg)
 {
-    UBase_t uxReg = 0UL;
-    uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, 0xFFFFFFFFUL, 0UL);
-    uxReg &= (UBase_t) SYSCTL_enRESET_ALL;
-    return ((SYSCTL_nRESET) uxReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penCauseArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = (UBase_t) SYSCTL_enRESET_ALL;
+        stRegister.uptrAddress = SYSCTL_RESC_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penCauseArg = (SYSCTL_nRESET) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vClearResetCause(SYSCTL_nRESET enReset)
+SYSCTL_nERROR SYSCTL__enClearResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET enCauseArg)
 {
-    UBase_t uxReg = (UBase_t) SYSCTL_enRESET_ALL;
-    uxReg &= ~(UBase_t) enReset;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RESC_OFFSET, uxReg, 0xFFFFFFFFUL, 0UL);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = (UBase_t) enCauseArg;
+    stRegister.uptrAddress = SYSCTL_RESC_OFFSET;
+    stRegister.uxValue = 0UL;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }

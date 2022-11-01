@@ -77,6 +77,7 @@ typedef enum
 {
     QEI_enMODULE_0 = 0UL,
     QEI_enMODULE_MAX = 1UL,
+    QEI_enMODULE_UNDEF = UNDEF_VALUE,
 }QEI_nMODULE;
 
 typedef enum
@@ -219,9 +220,11 @@ typedef struct
     QEI_nSTATE enPhAInvert;
     QEI_nSTATE enPhBInvert;
     QEI_nSTATE enIDXInvert;
+    QEI_nSTATE enReserved1;
     QEI_nINPUT_SELECT enPhA;
     QEI_nINPUT_SELECT enPhB;
     QEI_nINPUT_SELECT enIDX;
+    QEI_nINPUT_SELECT enReserved2;
 }QEI_INPUT_t;
 
 

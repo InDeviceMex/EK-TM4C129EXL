@@ -7,20 +7,43 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_NMICause.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vClearNMICause(SYSCTL_nNMI enNMICause)
+SYSCTL_nERROR SYSCTL__enGetNMICause(SYSCTL_nMODULE enModuleArg, SYSCTL_nNMI* penCauseArg)
 {
-    UBase_t uxReg = (UBase_t) SYSCTL_enNMI_ALL;
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
 
-    uxReg &= ~(UBase_t) enNMICause;
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_NMIC_OFFSET, uxReg, 0xFFFFFFFFUL, 0UL);
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penCauseArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = 0UL;
+        stRegister.uxMask = (UBase_t) SYSCTL_enNMI_ALL;
+        stRegister.uptrAddress = SYSCTL_NMIC_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penCauseArg = (SYSCTL_nNMI) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-SYSCTL_nNMI SYSCTL__enGetNMICause(void)
+SYSCTL_nERROR SYSCTL__enClearNMICause(SYSCTL_nMODULE enModuleArg, SYSCTL_nNMI enCauseArg)
 {
-    UBase_t uxReg = 0UL;
-    uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_NMIC_OFFSET, 0xFFFFFFFFUL, 0UL);
-    uxReg &= (UBase_t) SYSCTL_enNMI_ALL;
-    return ((SYSCTL_nNMI) uxReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = 0UL;
+    stRegister.uxMask = (UBase_t) enCauseArg;
+    stRegister.uptrAddress = SYSCTL_NMIC_OFFSET;
+    stRegister.uxValue = 0UL;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }

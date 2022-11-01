@@ -8,441 +8,785 @@
 
 #include <xDriver_MCU/Common/MCU_Common.h>
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_MemoryTiming.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_GatingClock.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_AlternateClock.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_MainOsc.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_OutputClock.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PLLCLock.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/SYSCTL_Intrinsics.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-#define SYSCTL_VCO_INDEXMAX ((UBase_t) 2UL)
-#define SYSCTL_XTAL_MAX ((UBase_t) 25000000UL)
-#define SYSCTL_FREQXTAL_INDEXMAX ((UBase_t) 27UL)
 #define SYSCTL_TIMEOUT ((UBase_t) 1000000UL)
 
-#define SYSCTL_MINT_INDEX (0UL)
-#define SYSCTL_MFRAC_INDEX (1UL)
+#define SYSCTL_PLL_M_INT_INDEX (0UL)
+#define SYSCTL_PLL_M_FRAC_INDEX (1UL)
 #define SYSCTL_N_INDEX (2UL)
 #define SYSCTL_Q_INDEX (3UL)
 #define SYSCTL_DIV_INDEXMAX (4UL)
 
-static UBase_t SYSCTL_uxOscSourceFreq = 16000000UL;
-static UBase_t SYSCTL_uxSystemClock = 16000000UL;
+#define SYSCTL_enMOSCFrequency (SYSCTL_enXTAL_25MHZ)
+#define SYSCTL_uxPIOSCFrequency (16000000UL)
+#define SYSCTL_uxLFIOSCFrequency (33000UL)
 
-static UBase_t SYSCTL_uxGetFreqXtal(UBase_t uxIndex);
-static UBase_t SYSCTL_uxGetFreqVCO(UBase_t uxIndex);
-static UBase_t SYSCTL_uxGetXTALtoVCO(UBase_t uxIndexVco,
-                                       UBase_t uxIndexXtal,
-                                       UBase_t uxIndexDiv);
-static UBase_t SYSCTL_uxGetPLLClock(UBase_t uxOscSourceFreq);
+static SYSCTL_nERROR SYSCTL_enGetMOSCFrequencyGeneric(SYSCTL_nXTAL enXtalArg, UBase_t* puxXtalFrequencyArg);
+static SYSCTL_nERROR SYSCTL_enGetDivValueByVCOAndXTAL(SYSCTL_nVCO enVcoRangeArg, SYSCTL_nXTAL enXtalArg, UBase_t uxRequestArg, UBase_t* puxResponseArg);
 
-static UBase_t SYSCTL_uxGetXTALtoVCO(UBase_t uxIndexVco,
-                                       UBase_t uxIndexXtal,
-                                       UBase_t uxIndexDiv)
+static SYSCTL_nERROR SYSCTL_enGetDivValueByVCOAndXTAL(SYSCTL_nVCO enVcoRangeArg, SYSCTL_nXTAL enXtalArg, UBase_t uxRequestArg, UBase_t* puxResponseArg)
 {
-    const UBase_t uxXTALtoVCO[SYSCTL_VCO_INDEXMAX]
-                               [SYSCTL_FREQXTAL_INDEXMAX]
-                                [SYSCTL_DIV_INDEXMAX] =
+    const UBase_t uxXTALtoVCOReg[(UBase_t) SYSCTL_enVCO_MAX][(UBase_t) SYSCTL_enXTAL_MAX][SYSCTL_DIV_INDEXMAX] =
     {
         {/* VCO 320 MHz */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 64UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 5 MHz */
-            { 62UL, 512UL, (1UL - 1UL), (2UL - 1UL) },     /* 5.12 MHz */
-            { 160UL, 0UL, (3UL - 1UL), (2UL - 1UL) },     /* 6 MHz */
-            { 52UL, 85UL, (1UL - 1UL), (2UL - 1UL) },     /* 6.144 MHz */
-            { 43UL, 412UL, (1UL - 1UL), (2UL - 1UL) },     /* 7.3728 MHz */
-            { 40UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 8 MHz */
-            { 39UL, 64UL, (1UL - 1UL), (2UL - 1UL) },     /* 8.192 MHz */
-            { 32UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 10 MHz */
-            { 80UL, 0UL, (3UL - 1UL), (2UL - 1UL) },     /* 12 MHz */
-            { 26UL, 43UL, (1UL - 1UL), (2UL - 1UL) },     /* 12.288 MHz */
-            { 23UL, 613UL, (1UL - 1UL), (2UL - 1UL) },     /* 13.56 MHz */
-            { 22UL, 358UL, (1UL - 1UL), (2UL - 1UL) },     /* 14.318180 MHz */
-            { 20UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 16 MHz */
-            { 19UL, 544UL, (1UL - 1UL), (2UL - 1UL) },     /* 16.384 MHz */
-            { 160UL, 0UL, (9UL - 1UL), (2UL - 1UL) },     /* 18 MHz */
-            { 16UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 20 MHz */
-            { 40UL, 0UL, (3UL - 1UL), (2UL - 1UL) },     /* 24 MHz */
-            { 64UL, 0UL, (5UL - 1UL), (2UL - 1UL) },     /* 25 MHz */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 5 MHz */
+            { 62UL , 512UL, (1UL - 1UL), (1UL - 1UL) },     /* 5.12 MHz */
+            { 160UL, 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 6 MHz */
+            { 52UL , 85UL , (1UL - 1UL), (1UL - 1UL) },     /* 6.144 MHz */
+            { 43UL , 412UL, (1UL - 1UL), (1UL - 1UL) },     /* 7.3728 MHz */
+            { 40UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 8 MHz */
+            { 39UL , 64UL , (1UL - 1UL), (1UL - 1UL) },     /* 8.192 MHz */
+            { 32UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 10 MHz */
+            { 80UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 12 MHz */
+            { 26UL , 43UL , (1UL - 1UL), (1UL - 1UL) },     /* 12.288 MHz */
+            { 23UL , 613UL, (1UL - 1UL), (1UL - 1UL) },     /* 13.56 MHz */
+            { 22UL , 358UL, (1UL - 1UL), (1UL - 1UL) },     /* 14.318180 MHz */
+            { 20UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 16 MHz */
+            { 19UL , 544UL, (1UL - 1UL), (1UL - 1UL) },     /* 16.384 MHz */
+            { 160UL, 0UL  , (9UL - 1UL), (1UL - 1UL) },     /* 18 MHz */
+            { 16UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 20 MHz */
+            { 40UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 24 MHz */
+            { 64UL , 0UL  , (5UL - 1UL), (1UL - 1UL) },     /* 25 MHz */
         },
         {/* VCO 480 MHz */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* Inv */
-            { 96UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 5 MHz */
-            { 93UL, 768UL, (1UL - 1UL), (2UL - 1UL) },     /* 5.12 MHz */
-            { 80UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 6 MHz */
-            { 78UL, 128UL, (1UL - 1UL), (2UL - 1UL) },     /* 6.144 MHz */
-            { 65UL, 107UL, (1UL - 1UL), (2UL - 1UL) },     /* 7.3728 MHz */
-            { 60UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 8 MHz */
-            { 58UL, 608UL, (1UL - 1UL), (2UL - 1UL) },     /* 8.192 MHz */
-            { 48UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 10 MHz */
-            { 40UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 12 MHz */
-            { 39UL, 64UL, (1UL - 1UL), (2UL - 1UL) },     /* 12.288 MHz */
-            { 35UL, 408UL, (1UL - 1UL), (2UL - 1UL) },     /* 13.56 MHz */
-            { 33UL, 536UL, (1UL - 1UL), (2UL - 1UL) },     /* 14.318180 MHz */
-            { 30UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 16 MHz */
-            { 29UL, 304UL, (1UL - 1UL), (2UL - 1UL) },     /* 16.384 MHz */
-            { 80UL, 0UL, (3UL - 1UL), (2UL - 1UL) },     /* 18 MHz */
-            { 24UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 20 MHz */
-            { 20UL, 0UL, (1UL - 1UL), (2UL - 1UL) },     /* 24 MHz */
-            { 96UL, 0UL, (5UL - 1UL), (2UL - 1UL) },     /* 25 MHz */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
+            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 5 MHz */
+            { 93UL , 768UL, (1UL - 1UL), (1UL - 1UL) },     /* 5.12 MHz */
+            { 80UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 6 MHz */
+            { 78UL , 128UL, (1UL - 1UL), (1UL - 1UL) },     /* 6.144 MHz */
+            { 65UL , 107UL, (1UL - 1UL), (1UL - 1UL) },     /* 7.3728 MHz */
+            { 60UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 8 MHz */
+            { 58UL , 608UL, (1UL - 1UL), (1UL - 1UL) },     /* 8.192 MHz */
+            { 48UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 10 MHz */
+            { 40UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 12 MHz */
+            { 39UL , 64UL , (1UL - 1UL), (1UL - 1UL) },     /* 12.288 MHz */
+            { 35UL , 408UL, (1UL - 1UL), (1UL - 1UL) },     /* 13.56 MHz */
+            { 33UL , 536UL, (1UL - 1UL), (1UL - 1UL) },     /* 14.318180 MHz */
+            { 30UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 16 MHz */
+            { 29UL , 304UL, (1UL - 1UL), (1UL - 1UL) },     /* 16.384 MHz */
+            { 80UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 18 MHz */
+            { 24UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 20 MHz */
+            { 20UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 24 MHz */
+            { 96UL , 0UL  , (5UL - 1UL), (1UL - 1UL) },     /* 25 MHz */
         },
     };
-    UBase_t uxReturn = 0UL;
-    if ((SYSCTL_FREQXTAL_INDEXMAX > uxIndexXtal) &&
-        (SYSCTL_VCO_INDEXMAX > uxIndexVco) &&
-        (SYSCTL_DIV_INDEXMAX > uxIndexDiv))
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if (((UBase_t) SYSCTL_enXTAL_MAX <= (UBase_t) enXtalArg)    ||
+        ((UBase_t) SYSCTL_enVCO_MAX <= (UBase_t) enVcoRangeArg) ||
+        (SYSCTL_DIV_INDEXMAX <= uxRequestArg))
     {
-        uxReturn = uxXTALtoVCO[uxIndexVco][uxIndexXtal][uxIndexDiv];
+        enErrorReg = SYSCTL_enERROR_VALUE;
     }
-    return (uxReturn);
-}
-
-static UBase_t SYSCTL_uxGetFreqXtal(UBase_t uxIndex)
-{
-    const UBase_t uxFreqXtal [SYSCTL_FREQXTAL_INDEXMAX]=
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-      1000000UL, 1843200UL, 2000000UL, 2457600UL, 3579545UL, 3686400UL,
-      4000000UL ,4096000UL ,4915200UL ,5000000UL ,5120000UL ,6000000UL,
-      6144000UL ,7372800UL ,8000000UL ,8192000UL ,10000000UL,12000000UL,
-      12288000UL,13560000UL,14318180UL,16000000UL,16384000UL,18000000UL,
-      20000000UL,24000000UL,25000000UL
-    };
-    UBase_t uxReturn = 0UL;
-    if (SYSCTL_FREQXTAL_INDEXMAX > uxIndex)
-    {
-        uxReturn = uxFreqXtal[uxIndex];
-    }
-    return (uxReturn);
-}
-
-static UBase_t SYSCTL_uxGetFreqVCO(UBase_t uxIndex)
-{
-    const UBase_t uxFreqVCO[SYSCTL_VCO_INDEXMAX] =
-    {
-        160000000,                              /* VCO 320*/
-        240000000,                              /* VCO 480 */
-    };
-    UBase_t uxReturn = 0UL;
-    if (SYSCTL_VCO_INDEXMAX > uxIndex)
-    {
-        uxReturn = uxFreqVCO[uxIndex];
-    }
-    return (uxReturn);
-}
-
-SYSCTL_nSTATUS SYSCTL__enGetVCOClock(UBase_t *puxVCOFrequency)
-{
-    SYSCTL_nSTATUS enStatus = SYSCTL_enERROR;
-    UBase_t uxOscBypass = SYSCTL_RSCLKCFG_USEPLL_OSC;
-    UBase_t uxPInt = 0UL;
-    UBase_t uxPIntMult = 0UL;
-    UBase_t uxPFract = 0UL;
-    UBase_t uxPFractMult = 0UL;
-    UBase_t uxN = 0UL;
-    UBase_t uxQ = 0UL;
-    UBase_t uxNQ = 0UL;
-    UBase_t uxTempVCO;
-
-    uxOscBypass = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                                   SYSCTL_RSCLKCFG_USEPLL_MASK, SYSCTL_RSCLKCFG_R_USEPLL_BIT);
-    if(0UL != (UBase_t) puxVCOFrequency)
-    {
-
-        *puxVCOFrequency = 0UL;
-        if(SYSCTL_RSCLKCFG_USEPLL_PLL == uxOscBypass)
+        if(0UL == (uintptr_t) puxResponseArg)
         {
-            uxN = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                                        SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
-            uxN += 1UL;
-            uxQ = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                                        SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
-            uxQ += 1UL;
-
-            uxPInt = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                                   SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
-            uxPFract = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                                 SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
-
-            uxPIntMult = SYSCTL_uxOscSourceFreq * uxPInt;
-            uxPFractMult = SYSCTL_uxOscSourceFreq * uxPFract;
-            uxPFractMult /= 1024UL;
-            uxNQ = uxN * uxQ;
-
-            uxTempVCO = uxPIntMult;
-            uxTempVCO += uxPFractMult;
-            uxTempVCO /= uxNQ;
-
-            *puxVCOFrequency =  (UBase_t) uxTempVCO;
-            enStatus = SYSCTL_enOK;
+            enErrorReg = SYSCTL_enERROR_POINTER;
         }
     }
-    return (enStatus);
-}
-
-static UBase_t SYSCTL_uxGetPLLClock(UBase_t uxOscSourceFreq)
-{
-    UBase_t uxResult = 0UL;
-    UBase_t uxF1 = 0UL;
-    UBase_t uxF2 = 0UL;
-    UBase_t uxPInt = 0UL;
-    UBase_t uxPFract = 0UL;
-    UBase_t uxQ = 0UL;
-    UBase_t uxN = 0UL;
-    UBase_t uxAux = 0UL;
-
-    uxN = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                                SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
-    uxN += 1UL;
-    uxQ = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                                SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
-    uxQ += 1UL;
-
-    uxPInt = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                                   SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
-    uxPFract = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                                     SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
-
-    SYSCTL_uxOscSourceFreq /= uxN;
-    uxF1 = uxPFract / 32UL;
-    uxF2 = uxPFract - (uxF1 * 32UL);
-
-    uxResult = SYSCTL_uxOscSourceFreq * uxPInt;
-    uxAux = SYSCTL_uxOscSourceFreq * uxF1;
-    uxAux /= 32UL;
-    uxResult += uxAux;
-
-    uxAux = SYSCTL_uxOscSourceFreq;
-    uxAux *= (UBase_t) uxF2;
-    uxAux /= 1024UL;
-    uxResult += uxAux;
-
-    uxResult /= uxQ;
-
-    return (uxResult);
-}
-
-UBase_t SYSCTL__uxGetSystemClock(void)
-{
-    return (SYSCTL_uxSystemClock);
-}
-
-SYSCTL_nSTATUS SYSCTL__enSetSystemClock(UBase_t uxSystemClock,
-                                        SYSCTL_CONFIG_t stClockConfig)
-{
-    SYSCTL_nSTATUS enStatus = SYSCTL_enOK;
-    SYSCTL_nXTAL enExtenalCrystal = SYSCTL_enXTAL_5MHZ;
-    SYSCTL_nOSC enOscSourceReg = SYSCTL_enOSC_MOSC;
-    SYSCTL_nBYPASS enOscBypassReg = SYSCTL_enPLL;
-    SYSCTL_nVCO enVcoRangeReg = SYSCTL_enVCO_320MHZ;
-    UBase_t uxRunModeConfigReg = 0UL;
-    UBase_t uxMainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_LOW;
-    UBase_t uxTimeout = SYSCTL_TIMEOUT;
-    UBase_t uxMainOscStatusReg = SYSCTL_RIS_MOSCPUPRIS_NOACTIVE;
-    UBase_t uxSysDiv = 0UL;
-    UBase_t uxSysMINT = 0UL;
-    UBase_t uxSysMFRAC = 0UL;
-    UBase_t uxSysN = 0UL;
-    UBase_t uxPllState = SYSCTL_PLLFREQ0_PLLPWR_OFF;
-
-    enOscSourceReg = stClockConfig.enOscSource;
-    switch(enOscSourceReg)
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-    case SYSCTL_enOSC_PIOSC:
-        enExtenalCrystal = SYSCTL_enXTAL_16MHZ;
-        SYSCTL_uxOscSourceFreq = 16000000UL;
-
-        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_PIOSC |
-                              SYSCTL_RSCLKCFG_R_PLLSRC_PIOSC;
-        break;
-    case SYSCTL_enOSC_30KHZ:
-        SYSCTL_uxOscSourceFreq = 30000UL;
-        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_LFIOSC;
-        break;
-    case SYSCTL_enOSC_EXT_32KHZ:
-        SYSCTL_uxOscSourceFreq = 32768UL;
-        uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_RTCOSC;
-        break;
-    case SYSCTL_enOSC_MOSC:
-        enExtenalCrystal = stClockConfig.enExternalCrystal;
-
-        enStatus = SYSCTL_enERROR;
-        if(((UBase_t) SYSCTL_enXTAL_5MHZ <= (UBase_t) enExtenalCrystal) &&
-           ((UBase_t) SYSCTL_enXTAL_25MHZ >= (UBase_t) enExtenalCrystal))
-        {
-            SYSCTL_uxOscSourceFreq = SYSCTL_uxGetFreqXtal((UBase_t) enExtenalCrystal);
-            uxRunModeConfigReg = SYSCTL_RSCLKCFG_R_OSCSRC_MOSC |
-                                  SYSCTL_RSCLKCFG_R_PLLSRC_MOSC;
-
-            if((UBase_t) SYSCTL_enXTAL_10MHZ <= (UBase_t) enExtenalCrystal)
-            {
-                uxMainOscRangeReg = SYSCTL_MOSCCTL_R_OSCRNG_HIGH;
-            }
-
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, uxMainOscRangeReg,
-                                SYSCTL_MOSCCTL_R_OSCRNG_MASK | SYSCTL_MOSCCTL_R_PWRDN_MASK |
-                                SYSCTL_MOSCCTL_R_NOXTAL_MASK,
-                                0UL);
-            do
-            {
-                uxTimeout--;
-                uxMainOscStatusReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_RIS_OFFSET,
-                                                           SYSCTL_RIS_MOSCPUPRIS_MASK,
-                                                           SYSCTL_RIS_R_MOSCPUPRIS_BIT);
-            }while((SYSCTL_RIS_MOSCPUPRIS_NOACTIVE == uxMainOscStatusReg) &&
-                   (0UL != uxTimeout));
-
-            if(0UL != uxTimeout){ enStatus = SYSCTL_enOK; }
-        }
-        break;
-    default:
-        enStatus = SYSCTL_enERROR;
-        break;
+        *puxResponseArg = uxXTALtoVCOReg[(UBase_t) enVcoRangeArg][(UBase_t) enXtalArg][uxRequestArg];
     }
+    return (enErrorReg);
+}
 
-    if((SYSCTL_enOK == enStatus) && (0UL != uxSystemClock))
+static SYSCTL_nERROR SYSCTL_enGetMOSCFrequencyGeneric(SYSCTL_nXTAL enXtalArg, UBase_t* puxXtalFrequencyArg)
+{
+    const UBase_t uxFreqXtalReg [(UBase_t) SYSCTL_enXTAL_MAX]=
     {
-        enOscBypassReg = stClockConfig.enOscBypass;
-        if(SYSCTL_enPLL == enOscBypassReg)
+      1000000UL , 1843200UL , 2000000UL , 2457600UL , 3579545UL , 3686400UL ,
+      4000000UL , 4096000UL , 4915200UL , 5000000UL , 5120000UL , 6000000UL ,
+      6144000UL , 7372800UL , 8000000UL , 8192000UL , 10000000UL, 12000000UL,
+      12288000UL, 13560000UL, 14318180UL, 16000000UL, 16384000UL, 18000000UL,
+      20000000UL, 24000000UL, 25000000UL
+    };
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if ((UBase_t) SYSCTL_enXTAL_MAX <= (UBase_t) enXtalArg)
+    {
+        enErrorReg = SYSCTL_enERROR_VALUE;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) puxXtalFrequencyArg)
         {
-            enStatus = SYSCTL_enERROR;
-            if((SYSCTL_enOSC_MOSC == enOscSourceReg) ||
-               (SYSCTL_enOSC_PIOSC == enOscSourceReg))
+            enErrorReg = SYSCTL_enERROR_POINTER;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxXtalFrequencyArg = uxFreqXtalReg[(UBase_t) enXtalArg];
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetPIOSCFrequency(UBase_t* puxFrequencyArg)
+{
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxFrequencyArg = SYSCTL_uxPIOSCFrequency;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetMOSCFrequency(UBase_t* puxFrequencyArg)
+{
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enGetMOSCFrequencyGeneric(SYSCTL_enMOSCFrequency, puxFrequencyArg);
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetLFIOSCFrequency(UBase_t* puxFrequencyArg)
+{
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxFrequencyArg = SYSCTL_uxLFIOSCFrequency;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetVCOClockFrequency(SYSCTL_nMODULE enModuleArg, UBase_t *puxVCOFrequency)
+{
+    UBase_t uxPLLNValueReg;
+    UBase_t uxPLLQValueReg;
+    UBase_t uxPLLMIntegerValueReg;
+    UBase_t uxPLLMFractionalValueReg;
+    UBase_t uxFrequencyClockReg;
+    uint64_t u64FrequencyInReg;
+    SYSCTL_nOSCCLK_SRC enPLLClockSourceReg;
+    SYSCTL_nERROR enErrorReg;
+
+    uxPLLNValueReg = 0UL;
+    uxPLLQValueReg = 0UL;
+    uxPLLMIntegerValueReg = 0UL;
+    uxPLLMFractionalValueReg = 0UL;
+    uxFrequencyClockReg = 0UL;
+    enPLLClockSourceReg = SYSCTL_enOSCCLK_SRC_PIOSC;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxVCOFrequency)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+         enErrorReg = SYSCTL__enGetPLLClockSource(enModuleArg, &enPLLClockSourceReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enOSCCLK_SRC_PIOSC == enPLLClockSourceReg)
+        {
+            SYSCTL_nSTATE enMOSCState;
+            enMOSCState = SYSCTL_enSTATE_DIS;
+            enErrorReg = SYSCTL__enGetMOSCState(enModuleArg, &enMOSCState);
+            if(SYSCTL_enERROR_OK == enErrorReg)
             {
-                enVcoRangeReg = stClockConfig.enVCORange;
-                SYSCTL__vSetMemoryTiming(SYSCTL_XTAL_MAX);
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                                    SYSCTL_RSCLKCFG_R_MEMTIMU_UPDATE,
-                                    SYSCTL_RSCLKCFG_R_MEMTIMU_MASK |
-                                    SYSCTL_RSCLKCFG_R_PSYSDIV_MASK |
-                                    SYSCTL_RSCLKCFG_R_OSCSRC_MASK  |
-                                    SYSCTL_RSCLKCFG_R_PLLSRC_MASK  |
-                                    SYSCTL_RSCLKCFG_R_USEPLL_MASK, 0UL);
-                uxSysDiv = SYSCTL_uxGetFreqVCO((UBase_t) enVcoRangeReg);
-                uxSysDiv += uxSystemClock;
-                uxSysDiv -= 1UL;
-                uxSysDiv /= uxSystemClock;
-
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxRunModeConfigReg,
-                    SYSCTL_RSCLKCFG_R_OSCSRC_MASK | SYSCTL_RSCLKCFG_R_PLLSRC_MASK, 0UL);
-                uxSysMINT = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
-                                                    (UBase_t) enExtenalCrystal,
-                                                    SYSCTL_MINT_INDEX );
-                uxSysMFRAC = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
-                                                     (UBase_t) enExtenalCrystal,
-                                                     SYSCTL_MFRAC_INDEX );
-                uxSysN = SYSCTL_uxGetXTALtoVCO((UBase_t) enVcoRangeReg,
-                                                 (UBase_t) enExtenalCrystal,
-                                                 SYSCTL_N_INDEX );
-
-
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                            uxSysN, SYSCTL_PLLFREQ1_N_MASK, SYSCTL_PLLFREQ1_R_N_BIT);
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ1_OFFSET,
-                        (uxSysDiv - 1UL), SYSCTL_PLLFREQ1_Q_MASK, SYSCTL_PLLFREQ1_R_Q_BIT);
-
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                        uxSysMINT, SYSCTL_PLLFREQ0_MINT_MASK, SYSCTL_PLLFREQ0_R_MINT_BIT);
-                MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                    uxSysMFRAC, SYSCTL_PLLFREQ0_MFRAC_MASK, SYSCTL_PLLFREQ0_R_MFRAC_BIT);
-
-                uxSystemClock = SYSCTL_uxGetPLLClock(SYSCTL_uxOscSourceFreq);
-                uxSystemClock /= 2UL;
-                SYSCTL__vSetMemoryTiming(uxSystemClock);
-
-                uxPllState = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                               SYSCTL_PLLFREQ0_PLLPWR_MASK, SYSCTL_PLLFREQ0_R_PLLPWR_BIT);
-                if(SYSCTL_PLLFREQ0_PLLPWR_ON == uxPllState)
+                if(SYSCTL_enSTATE_DIS == enMOSCState)
                 {
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                    SYSCTL_RSCLKCFG_NEWFREQ_UPDATE,
-                    SYSCTL_RSCLKCFG_NEWFREQ_MASK,
-                    SYSCTL_RSCLKCFG_R_NEWFREQ_BIT);
+                    uxFrequencyClockReg = 0UL;
                 }
                 else
                 {
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                    SYSCTL_PLLFREQ0_PLLPWR_ON,
-                    SYSCTL_PLLFREQ0_PLLPWR_MASK,
-                    SYSCTL_PLLFREQ0_R_PLLPWR_BIT);
+                    enErrorReg = SYSCTL__enGetPIOSCFrequency(&uxFrequencyClockReg);
                 }
-                uxTimeout = SYSCTL_TIMEOUT;
-                do
+            }
+        }
+        else if(SYSCTL_enOSCCLK_SRC_MOSC == enPLLClockSourceReg)
+        {
+            enErrorReg = SYSCTL__enGetMOSCFrequency(&uxFrequencyClockReg);
+        }
+        else
+        {
+            enErrorReg = SYSCTL_enERROR_VALUE;
+        }
+    }
+
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetPLLClockValue_N(enModuleArg, &uxPLLNValueReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetPLLClockValue_Q(enModuleArg, &uxPLLQValueReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetPLLClockIntegerValue_M(enModuleArg, &uxPLLMIntegerValueReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetPLLClockFractionalValue_M(enModuleArg, &uxPLLMFractionalValueReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxPLLNValueReg += 1UL;
+        uxPLLQValueReg += 1UL;
+        u64FrequencyInReg = uxPLLMIntegerValueReg;
+        u64FrequencyInReg *= 1024UL;
+        u64FrequencyInReg += uxPLLMFractionalValueReg;
+        u64FrequencyInReg *= uxFrequencyClockReg;
+        u64FrequencyInReg /= 1024UL;
+        u64FrequencyInReg /= uxPLLNValueReg;
+        u64FrequencyInReg /= uxPLLQValueReg;
+
+        *puxVCOFrequency =  (UBase_t) u64FrequencyInReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetAlternateClockFrequency(SYSCTL_nMODULE enModuleArg, UBase_t* puxFrequencyArg)
+{
+    UBase_t uxFrequencyReg;
+    SYSCTL_nALTCLK_SRC enClockSourceReg;
+    SYSCTL_nERROR enErrorReg;
+
+    uxFrequencyReg = 0UL;
+    enClockSourceReg = SYSCTL_enALTCLK_SRC_PIOSC;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetAlternateClockSource(enModuleArg, &enClockSourceReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        switch(enClockSourceReg)
+        {
+        case SYSCTL_enALTCLK_SRC_PIOSC:
+            enErrorReg = SYSCTL__enGetPIOSCFrequency(&uxFrequencyReg);
+            break;
+        case SYSCTL_enALTCLK_SRC_RTCOSC:
+            uxFrequencyReg = 32768UL;
+            break;
+        case SYSCTL_enALTCLK_SRC_LFIOSC:
+            enErrorReg = SYSCTL__enGetLFIOSCFrequency(&uxFrequencyReg);
+            break;
+        default:
+            enErrorReg = SYSCTL_enERROR_VALUE;
+            break;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxFrequencyArg = (UBase_t) uxFrequencyReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetOscillatorFrequency(SYSCTL_nMODULE enModuleArg, UBase_t* puxFrequencyArg)
+{
+    UBase_t uxFrequencyReg;
+    UBase_t uxDivisorReg;
+    SYSCTL_nOSCCLK_SRC enClockSourceReg;
+    SYSCTL_nERROR enErrorReg;
+
+    uxDivisorReg = 0UL;
+    uxFrequencyReg = 0UL;
+    enClockSourceReg = SYSCTL_enOSCCLK_SRC_PIOSC;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetOscillatorClockSource(enModuleArg, &enClockSourceReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetOscillatorClockDivisor(enModuleArg, &uxDivisorReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        switch(enClockSourceReg)
+        {
+        case SYSCTL_enOSCCLK_SRC_PIOSC:
+            enErrorReg = SYSCTL__enGetPIOSCFrequency(&uxFrequencyReg);
+            break;
+        case SYSCTL_enOSCCLK_SRC_RTCOSC:
+            uxFrequencyReg = 32768UL;
+            break;
+        case SYSCTL_enOSCCLK_SRC_MOSC:
+            enErrorReg = SYSCTL__enGetMOSCFrequency(&uxFrequencyReg);
+            break;
+        case SYSCTL_enOSCCLK_SRC_LFIOSC:
+            enErrorReg = SYSCTL__enGetLFIOSCFrequency(&uxFrequencyReg);
+            break;
+        default:
+            enErrorReg = SYSCTL_enERROR_VALUE;
+            break;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxDivisorReg += 1UL;
+        uxFrequencyReg /= uxDivisorReg;
+        *puxFrequencyArg = (UBase_t) uxFrequencyReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetOutputClockFrequency(SYSCTL_nMODULE enModuleArg, UBase_t* puxFrequencyArg)
+{
+    UBase_t uxFrequencyReg;
+    UBase_t uxDivisorReg;
+    SYSCTL_nOUTCLK_SRC enClockSourceReg;
+    SYSCTL_nERROR enErrorReg;
+
+    uxDivisorReg = 0UL;
+    uxFrequencyReg = 0UL;
+    enClockSourceReg = SYSCTL_enOUTCLK_SRC_SYSCLK;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetOutputClockSource(enModuleArg, &enClockSourceReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetOutputClockDivisor(enModuleArg, &uxDivisorReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        switch(enClockSourceReg)
+        {
+        case SYSCTL_enOUTCLK_SRC_PIOSC:
+            enErrorReg = SYSCTL__enGetPIOSCFrequency(&uxFrequencyReg);
+            break;
+        case SYSCTL_enOUTCLK_SRC_MOSC:
+            enErrorReg = SYSCTL__enGetMOSCFrequency(&uxFrequencyReg);
+            break;
+        case SYSCTL_enOUTCLK_SRC_SYSCLK:
+            /** TODO **/
+            break;
+        default:
+            enErrorReg = SYSCTL_enERROR_VALUE;
+            break;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxDivisorReg += 1UL;
+        uxFrequencyReg /= uxDivisorReg;
+        *puxFrequencyArg = (UBase_t) uxFrequencyReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetPLLClockFrequency(SYSCTL_nMODULE enModuleArg, UBase_t* puxFrequencyArg)
+{
+    UBase_t uxVCOFreqReg;
+    UBase_t uxDivisorReg;
+    SYSCTL_nERROR enErrorReg;
+
+    uxVCOFreqReg = 0UL;
+    uxDivisorReg = 0UL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetVCOClockFrequency(enModuleArg, &uxVCOFreqReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetPLLClockDivisor(enModuleArg, &uxDivisorReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        uxDivisorReg += 1UL;
+        uxVCOFreqReg /= uxDivisorReg;
+        *puxFrequencyArg = (UBase_t) uxVCOFreqReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enGetSystemClockFrequency(SYSCTL_nMODULE enModuleArg, UBase_t* puxFrequencyArg)
+{
+    UBase_t uxFrequencyReg;
+    SYSCTL_nSYSCLK_SRC enClockSourceReg;
+    SYSCTL_nERROR enErrorReg;
+
+    enClockSourceReg = SYSCTL_enSYSCLK_SRC_OSCCLK;
+    uxFrequencyReg = 0UL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) puxFrequencyArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enGetSystemClockSource(enModuleArg, &enClockSourceReg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enSYSCLK_SRC_OSCCLK == enClockSourceReg)
+        {
+            enErrorReg = SYSCTL__enGetOscillatorFrequency(enModuleArg, &uxFrequencyReg);
+        }
+        else
+        {
+            enErrorReg = SYSCTL__enGetPLLClockFrequency(enModuleArg, &uxFrequencyReg);
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *puxFrequencyArg = uxFrequencyReg;
+    }
+    return (enErrorReg);
+}
+
+SYSCTL_nERROR SYSCTL__enSetSystemClock(SYSCTL_nMODULE enModuleArg, UBase_t uxSystemClockArg, const SYSCTL_CONFIG_t* pstClockConfig, UBase_t uxTimeoutArg)
+{
+    UBase_t uxTimeout;
+    SYSCTL_nXTAL enCrystalReg;
+    SYSCTL_nSYSCLK_SRC enSystemClkReg;
+    SYSCTL_nOSCCLK_SRC enOscSoruceReg;
+    SYSCTL_nSTATUS enStatusReg;
+    SYSCTL_nERROR enErrorReg;
+
+    enSystemClkReg = SYSCTL_enSYSCLK_SRC_OSCCLK;
+    enOscSoruceReg = SYSCTL_enOSCCLK_SRC_PIOSC;
+    enCrystalReg = SYSCTL_enXTAL_1MHZ;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if((0UL == uxSystemClockArg) || (120000000UL < uxSystemClockArg))
+    {
+        enErrorReg = SYSCTL_enERROR_VALUE;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(0UL == (uintptr_t) pstClockConfig)
+        {
+            enErrorReg = SYSCTL_enERROR_POINTER;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enOscSoruceReg = pstClockConfig->enOscillatorSource;
+        enSystemClkReg = pstClockConfig->enSystemClockSource;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enOSCCLK_SRC_MOSC == enOscSoruceReg)
+        {
+            enCrystalReg = pstClockConfig->enExternalCrystal;
+        }
+        if(SYSCTL_enOSCCLK_SRC_PIOSC == enOscSoruceReg)
+        {
+            enCrystalReg = SYSCTL_enXTAL_16MHZ;
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enSYSCLK_SRC_PLLCLK ==  enSystemClkReg)
+        {
+            if((SYSCTL_enOSCCLK_SRC_MOSC != enOscSoruceReg) && (SYSCTL_enOSCCLK_SRC_PIOSC != enOscSoruceReg))
+            {
+                enErrorReg = SYSCTL_enERROR_VALUE;
+            }
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enOSCCLK_SRC_MOSC == enOscSoruceReg)
+        {
+            if(((UBase_t) SYSCTL_enXTAL_5MHZ  > enCrystalReg) ||
+               ((UBase_t) SYSCTL_enXTAL_25MHZ < enCrystalReg) )
+            {
+                enErrorReg = SYSCTL_enERROR_VALUE;
+            }else
+            {
+                if((UBase_t) SYSCTL_enXTAL_10MHZ <= enCrystalReg)
                 {
-                    uxTimeout--;
-                    uxPllState = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_PLLSTAT_OFFSET,
-                                       SYSCTL_PLLSTAT_LOCK_MASK, SYSCTL_PLLSTAT_R_LOCK_BIT);
-                }while((SYSCTL_PLLSTAT_LOCK_NOLOCK == uxPllState) && (0UL != uxTimeout));
-
-                if(0UL != uxTimeout)
-                {
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, 1UL,
-                                        SYSCTL_RSCLKCFG_PSYSDIV_MASK,
-                                        SYSCTL_RSCLKCFG_R_PSYSDIV_BIT);
-
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                            uxRunModeConfigReg,
-                            SYSCTL_RSCLKCFG_R_PLLSRC_MASK | SYSCTL_RSCLKCFG_R_OSCSRC_MASK,
-                            0UL);
-
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                            SYSCTL_RSCLKCFG_MEMTIMU_UPDATE,
-                            SYSCTL_RSCLKCFG_MEMTIMU_MASK,
-                            SYSCTL_RSCLKCFG_R_MEMTIMU_BIT);
-
-                    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                            SYSCTL_RSCLKCFG_USEPLL_PLL,
-                            SYSCTL_RSCLKCFG_USEPLL_MASK,
-                            SYSCTL_RSCLKCFG_R_USEPLL_BIT);
-
-                    SYSCTL_uxSystemClock = uxSystemClock;
-                    enStatus = SYSCTL_enOK;
+                    enErrorReg = SYSCTL__enSetMOSCFrequencyRange(enModuleArg, SYSCTL_enMOSC_RANGE_HIGH);
                 }
+                else
+                {
+                    enErrorReg = SYSCTL__enSetMOSCFrequencyRange(enModuleArg, SYSCTL_enMOSC_RANGE_LOW);
+                }
+
+                if(SYSCTL_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = SYSCTL__enSetMOSCState(enModuleArg, SYSCTL_enSTATE_ENA);
+                }
+                if(SYSCTL_enERROR_OK == enErrorReg)
+                {
+                    enErrorReg = SYSCTL__enSetMOSCPowerState(enModuleArg, SYSCTL_enSTATE_ENA);
+                }
+
+                if(uxTimeoutArg == 0UL)
+                {
+                    do
+                    {
+                        enErrorReg = SYSCTL__enStatusInterruptSourceByNumber(enModuleArg, SYSCTL_enINT_MOSC_POWERUP, &enStatusReg);
+                    }while((SYSCTL_enSTATUS_INACTIVE == enStatusReg) &&
+                           (SYSCTL_enERROR_OK == enErrorReg));
+                }
+                else
+                {
+                    uxTimeout = uxTimeoutArg;
+                    do
+                    {
+                        enErrorReg = SYSCTL__enStatusInterruptSourceByNumber(enModuleArg, SYSCTL_enINT_MOSC_POWERUP, &enStatusReg);
+                        uxTimeout -= 1UL;
+                    }while((SYSCTL_enSTATUS_INACTIVE == enStatusReg) &&
+                           (SYSCTL_enERROR_OK == enErrorReg) &&
+                           (0UL != uxTimeout));
+
+                    if((SYSCTL_enSTATUS_INACTIVE == enStatusReg) &&
+                       (SYSCTL_enERROR_OK == enErrorReg) &&
+                       (0UL == uxTimeout))
+                    {
+                        enErrorReg = SYSCTL_enERROR_TIMEOUT;
+                    }
+                }
+            }
+        }
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetMemoryTiming(enModuleArg, 120000000UL);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enUpdateMemoryTiming(enModuleArg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetOscillatorClockSource(enModuleArg, SYSCTL_enOSCCLK_SRC_PIOSC);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetOscillatorClockDivisor(enModuleArg, 0UL);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetSystemClockSource(enModuleArg, SYSCTL_enSYSCLK_SRC_OSCCLK);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enSetMemoryTiming(enModuleArg, 16000000UL);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = SYSCTL__enUpdateMemoryTiming(enModuleArg);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(SYSCTL_enSYSCLK_SRC_OSCCLK ==  enSystemClkReg)
+        {
+            UBase_t uxSystemFrequencyReg;
+            UBase_t uxDivisorReg;
+            uxSystemFrequencyReg = 0UL;
+
+            enErrorReg = SYSCTL__enSetOscillatorClockSource(enModuleArg, enOscSoruceReg);
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enGetOscillatorFrequency(enModuleArg, &uxSystemFrequencyReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                uxDivisorReg = uxSystemFrequencyReg;
+                uxDivisorReg /= uxSystemClockArg;
+                if(0UL != uxDivisorReg)
+                {
+                    uxSystemFrequencyReg = uxSystemFrequencyReg / uxDivisorReg;
+                    uxDivisorReg -= 1UL;
+                }
+                enErrorReg = SYSCTL__enSetOscillatorClockDivisor(enModuleArg, uxDivisorReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetMemoryTiming(enModuleArg, uxSystemFrequencyReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockState(enModuleArg, SYSCTL_enSTATE_DIS);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enUpdateMemoryTiming(enModuleArg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetSystemClockSource(enModuleArg, SYSCTL_enSYSCLK_SRC_OSCCLK);
             }
         }
         else
         {
-            SYSCTL__vSetMemoryTiming(16000000UL);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_PLLFREQ0_OFFSET,
-                                SYSCTL_PLLFREQ0_PLLPWR_OFF,
-                                SYSCTL_PLLFREQ0_PLLPWR_MASK,
-                                SYSCTL_PLLFREQ0_R_PLLPWR_BIT);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                                SYSCTL_RSCLKCFG_R_MEMTIMU_UPDATE,
-                                SYSCTL_RSCLKCFG_R_MEMTIMU_MASK | SYSCTL_RSCLKCFG_R_OSYSDIV_MASK |
-                                SYSCTL_RSCLKCFG_R_OSCSRC_MASK  | SYSCTL_RSCLKCFG_R_USEPLL_MASK ,
-                                0UL);
-            uxSysDiv = SYSCTL_uxOscSourceFreq;
-            uxSysDiv /= uxSystemClock;
-            if(0UL != uxSysDiv)
-            {
-                uxSysDiv -= 1UL;
-            }
-            uxSystemClock = SYSCTL_uxOscSourceFreq;
-            uxSystemClock /= (uxSysDiv + 1UL);
+            UBase_t uxSystemFrequencyReg;
+            UBase_t uxPLLMIntegerReg;
+            UBase_t uxPLLMFractionalReg;
+            UBase_t uxPLLNValueReg;
+            UBase_t uxPLLQValueReg;
+            UBase_t uxPLLDivisorReg;
 
-            SYSCTL__vSetMemoryTiming(uxSystemClock);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxSysDiv,
-                        SYSCTL_RSCLKCFG_OSYSDIV_MASK, SYSCTL_RSCLKCFG_R_OSYSDIV_BIT);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET, uxRunModeConfigReg,
-                        SYSCTL_RSCLKCFG_R_OSCSRC_MASK | SYSCTL_RSCLKCFG_R_PLLSRC_MASK, 0UL);
-            MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_RSCLKCFG_OFFSET,
-                        SYSCTL_RSCLKCFG_MEMTIMU_UPDATE,
-                        SYSCTL_RSCLKCFG_MEMTIMU_MASK,
-                        SYSCTL_RSCLKCFG_R_MEMTIMU_BIT);
-            SYSCTL_uxSystemClock = uxSystemClock;
+            SYSCTL_nSTATE enPllState;
+            SYSCTL_nVCO enVcoRangeReg;
+            enVcoRangeReg = pstClockConfig->enVCORange;
+
+
+            uxPLLDivisorReg = 0UL;
+            uxPLLMIntegerReg = 0UL;
+            uxPLLMFractionalReg = 0UL;
+            uxPLLNValueReg = 0UL;
+            uxPLLQValueReg = 0UL;
+            uxSystemFrequencyReg = 0UL;
+            enPllState = SYSCTL_enSTATE_DIS;
+            enErrorReg = SYSCTL_enGetDivValueByVCOAndXTAL(enVcoRangeReg, enCrystalReg, SYSCTL_PLL_M_INT_INDEX, &uxPLLMIntegerReg);
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL_enGetDivValueByVCOAndXTAL(enVcoRangeReg, enCrystalReg, SYSCTL_PLL_M_FRAC_INDEX, &uxPLLMFractionalReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL_enGetDivValueByVCOAndXTAL(enVcoRangeReg, enCrystalReg, SYSCTL_N_INDEX, &uxPLLNValueReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL_enGetDivValueByVCOAndXTAL(enVcoRangeReg, enCrystalReg, SYSCTL_Q_INDEX, &uxPLLQValueReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockIntegerValue_M(enModuleArg, uxPLLMIntegerReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockFractionalValue_M(enModuleArg, uxPLLMFractionalReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockValue_N(enModuleArg, uxPLLNValueReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockValue_Q(enModuleArg, uxPLLQValueReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockSource(enModuleArg, enOscSoruceReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enGetPLLClockFrequency(enModuleArg, &uxSystemFrequencyReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                uxPLLDivisorReg  = uxSystemFrequencyReg;
+                uxPLLDivisorReg /= uxSystemClockArg;
+                if(0UL != uxPLLDivisorReg)
+                {
+                    uxSystemFrequencyReg /= uxPLLDivisorReg;
+                    uxPLLDivisorReg -= 1UL;
+                }
+                enErrorReg = SYSCTL__enSetMemoryTiming(enModuleArg, uxSystemFrequencyReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enGetPLLClockState(enModuleArg, &enPllState);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                if(SYSCTL_enSTATE_DIS == enPllState)
+                {
+                    enErrorReg = SYSCTL__enSetPLLClockState(enModuleArg, SYSCTL_enSTATE_ENA);
+                }
+                else
+                {
+                    enErrorReg = SYSCTL__enUpdatePLLValues(enModuleArg);
+                }
+            }
+
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                SYSCTL_nBOOLEAN enPllLocked;
+                enPllLocked = SYSCTL_enFALSE;
+                if(uxTimeoutArg == 0UL)
+                {
+                    do
+                    {
+                        enErrorReg = SYSCTL__enIsPLLClockLocked(enModuleArg, &enPllLocked);
+                    }while((SYSCTL_enFALSE == enPllLocked) &&
+                           (SYSCTL_enERROR_OK == enErrorReg));
+                }
+                else
+                {
+                    uxTimeout = uxTimeoutArg;
+                    do
+                    {
+                        enErrorReg = SYSCTL__enIsPLLClockLocked(enModuleArg, &enPllLocked);
+                        uxTimeout -= 1UL;
+                    }while((SYSCTL_enFALSE == enPllLocked) &&
+                           (SYSCTL_enERROR_OK == enErrorReg) &&
+                           (0UL != uxTimeout));
+
+                    if((SYSCTL_enFALSE == enPllLocked) &&
+                       (SYSCTL_enERROR_OK == enErrorReg) &&
+                       (0UL == uxTimeout))
+                    {
+                        enErrorReg = SYSCTL_enERROR_TIMEOUT;
+                    }
+                }
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPLLClockDivisor(enModuleArg, uxPLLDivisorReg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enUpdateMemoryTiming(enModuleArg);
+            }
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetSystemClockSource(enModuleArg, SYSCTL_enSYSCLK_SRC_PLLCLK);
+            }
         }
     }
 
-    return (enStatus);
+    return (enErrorReg);
 }

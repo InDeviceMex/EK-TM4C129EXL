@@ -14,50 +14,50 @@
 ************************************182 UNIQUEID *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_UNIQUEID_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
-#define SYSCTL_UNIQUEID_R_ID_BIT    (0UL)
+#define UNIQUE_ID_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID_R_ID_BIT    (0UL)
 
-#define SYSCTL_UNIQUEID_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************182 UNIQUEID0 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_UNIQUEID0_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
-#define SYSCTL_UNIQUEID0_R_ID_BIT    (0UL)
+#define UNIQUE_ID0_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID0_R_ID_BIT    (0UL)
 
-#define SYSCTL_UNIQUEID0_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID0_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************183 UNIQUEID1 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_UNIQUEID1_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
-#define SYSCTL_UNIQUEID1_R_ID_BIT    (0UL)
+#define UNIQUE_ID1_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID1_R_ID_BIT    (0UL)
 
-#define SYSCTL_UNIQUEID1_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID1_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************184 UNIQUEID2 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_UNIQUEID2_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
-#define SYSCTL_UNIQUEID2_R_ID_BIT    (0UL)
+#define UNIQUE_ID2_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID2_R_ID_BIT    (0UL)
 
-#define SYSCTL_UNIQUEID2_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID2_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*--------*/
 
 /******************************************************************************************
 ************************************185 UNIQUEID3 *********************************************
 ******************************************************************************************/
 /*--------*/
-#define SYSCTL_UNIQUEID3_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
-#define SYSCTL_UNIQUEID3_R_ID_BIT    (0UL)
+#define UNIQUE_ID3_R_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID3_R_ID_BIT    (0UL)
 
-#define SYSCTL_UNIQUEID3_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
+#define UNIQUE_ID3_ID_MASK    ((UBase_t) 0xFFFFFFFFUL)
 /*--------*/
 
 

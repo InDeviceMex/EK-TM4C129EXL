@@ -62,7 +62,7 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                         if(0UL < pstQueueReg->uxMessagesWaiting)
                         {
                             /* Remember the read position in case the queue is only being
-                            peeked. */;
+                            peeked. */
                             int8_t* ps8OriginalReadPosition;
                             ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
                             OS_Queue__vCopyDataFromQueue(pstQueueReg, pvBuffer);

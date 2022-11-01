@@ -76,6 +76,7 @@ typedef enum
 {
     DMA_enMODULE_0 = 0UL,
     DMA_enMODULE_MAX = 1UL,
+    DMA_enMODULE_UNDEF = UNDEF_VALUE,
 }DMA_nMODULE;
 
 typedef enum
@@ -160,6 +161,7 @@ typedef enum
     DMA_enVECTOR_SOFTWARE = 0UL,
     DMA_enVECTOR_ERROR = 1UL,
     DMA_enVECTOR_MAX = 2UL,
+    DMA_enVECTOR_UNDEF = UNDEF_VALUE,
 }DMA_nVECTOR;
 
 typedef enum
@@ -167,6 +169,7 @@ typedef enum
     DMA_enINT_ERROR_ERROR = 0UL,
     DMA_enINT_ERROR_SW = 1UL,
     DMA_enINT_ERROR_MAX = 2UL,
+    DMA_enINT_ERROR_UNDEF = UNDEF_VALUE,
 }DMA_nINT_ERROR;
 
 typedef enum
@@ -627,9 +630,9 @@ typedef struct
 
 typedef struct
 {
+    UBase_t uxTransferSize;
     DMA_nCH_MODE enTransferMode;
     DMA_nSTATE enUseLastBurst;
-    UBase_t uxTransferSize;
     DMA_nCH_ARBITRATION_SIZE enArbitrationSize;
     DMA_nCH_DATA_SIZE enSourceDataSize;
     DMA_nCH_INCREMENT enSourceIncrement;

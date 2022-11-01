@@ -7,94 +7,234 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_MainOsc.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vSetMainOscValidation(SYSCTL_nMOSC_VALIDATION enValidation)
+SYSCTL_nERROR SYSCTL__enSetMOSCMonitorState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, (UBase_t) enValidation,
-                        SYSCTL_MOSCCTL_CVAL_MASK, SYSCTL_MOSCCTL_R_CVAL_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MOSC_CTL_R_CVAL_BIT;
+    stRegister.uxMask = MOSC_CTL_CVAL_MASK;
+    stRegister.uptrAddress = MOSC_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enStateArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nMOSC_VALIDATION SYSCTL__enGetMainOscValidation(void)
+SYSCTL_nERROR SYSCTL__enGetMOSCMonitorState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_nMOSC_VALIDATION enMoscReg = SYSCTL_enMOSC_VALIDATION_DIS;
-    enMoscReg = (SYSCTL_nMOSC_VALIDATION)  MCU__uxReadRegister(SYSCTL_BASE,
-               SYSCTL_MOSCCTL_OFFSET, SYSCTL_MOSCCTL_CVAL_MASK, SYSCTL_MOSCCTL_R_CVAL_BIT);
-    return (enMoscReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MOSC_CTL_R_CVAL_BIT;
+        stRegister.uxMask = MOSC_CTL_CVAL_MASK;
+        stRegister.uptrAddress = MOSC_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penStateArg = (SYSCTL_nSTATE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetMainOscFailureType(SYSCTL_nMOSC_FAILURE enFailureType)
+SYSCTL_nERROR SYSCTL__enSetMOSCFailureAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_FAILURE enActionArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, (UBase_t) enFailureType,
-                        SYSCTL_MOSCCTL_MOSCIM_MASK, SYSCTL_MOSCCTL_R_MOSCIM_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MOSC_CTL_R_MOSCIM_BIT;
+    stRegister.uxMask = MOSC_CTL_MOSCIM_MASK;
+    stRegister.uptrAddress = MOSC_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enActionArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nMOSC_FAILURE SYSCTL__enGetMainOscFailureType(void)
+SYSCTL_nERROR SYSCTL__enGetMOSCFailureAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_FAILURE* penActionArg)
 {
-    SYSCTL_nMOSC_FAILURE enMoscReg = SYSCTL_enMOSC_FAILURE_RESET;
-    enMoscReg = (SYSCTL_nMOSC_FAILURE) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,
-                       SYSCTL_MOSCCTL_MOSCIM_MASK, SYSCTL_MOSCCTL_R_MOSCIM_BIT);
-    return (enMoscReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penActionArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MOSC_CTL_R_MOSCIM_BIT;
+        stRegister.uxMask = MOSC_CTL_MOSCIM_MASK;
+        stRegister.uptrAddress = MOSC_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penActionArg = (SYSCTL_nMOSC_FAILURE) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetMainOscConnected(SYSCTL_nMOSC_CONNECTED enConnected)
+SYSCTL_nERROR SYSCTL__enSetMOSCState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, (UBase_t) enConnected,
-                        SYSCTL_MOSCCTL_NOXTAL_MASK, SYSCTL_MOSCCTL_R_NOXTAL_BIT);
+    SYSCTL_Register_t stRegister;
+    UBase_t uxValueReg;
+    SYSCTL_nERROR enErrorReg;
+
+    if(SYSCTL_enSTATE_ENA == enStateArg)
+    {
+        uxValueReg = MOSC_CTL_NOXTAL_CONNECTED;
+    }
+    else
+    {
+        uxValueReg = MOSC_CTL_NOXTAL_NOCONNECTED;
+    }
+
+    stRegister.uxShift = MOSC_CTL_R_NOXTAL_BIT;
+    stRegister.uxMask = MOSC_CTL_NOXTAL_MASK;
+    stRegister.uptrAddress = MOSC_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) uxValueReg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nMOSC_CONNECTED SYSCTL__enIsMainOscConnected(void)
+SYSCTL_nERROR SYSCTL__enGetMOSCState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_nMOSC_CONNECTED enMoscReg = SYSCTL_enMOSC_CONNECTED_NO;
-    enMoscReg = (SYSCTL_nMOSC_CONNECTED) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,
-                                 SYSCTL_MOSCCTL_NOXTAL_MASK, SYSCTL_MOSCCTL_R_NOXTAL_BIT);
-    return (enMoscReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nSTATE enStateReg;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MOSC_CTL_R_NOXTAL_BIT;
+        stRegister.uxMask = MOSC_CTL_NOXTAL_MASK;
+        stRegister.uptrAddress = MOSC_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(MOSC_CTL_NOXTAL_CONNECTED == stRegister.uxValue)
+        {
+            enStateReg = SYSCTL_enSTATE_ENA;
+        }
+        else
+        {
+            enStateReg = SYSCTL_enSTATE_DIS;
+        }
+        *penStateArg = enStateReg;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetMainOscRange(SYSCTL_nMOSC_FREQ enRange)
+
+SYSCTL_nERROR SYSCTL__enSetMOSCPowerState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, (UBase_t) enRange,
-                        SYSCTL_MOSCCTL_OSCRNG_MASK, SYSCTL_MOSCCTL_R_OSCRNG_BIT);
+    SYSCTL_Register_t stRegister;
+    UBase_t uxValueReg;
+    SYSCTL_nERROR enErrorReg;
+
+    if(SYSCTL_enSTATE_ENA == enStateArg)
+    {
+        uxValueReg = MOSC_CTL_PWRDN_POWERUP;
+    }
+    else
+    {
+        uxValueReg = MOSC_CTL_PWRDN_POWERDOWN;
+    }
+
+    stRegister.uxShift = MOSC_CTL_R_PWRDN_BIT;
+    stRegister.uxMask = MOSC_CTL_PWRDN_MASK;
+    stRegister.uptrAddress = MOSC_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) uxValueReg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nMOSC_FREQ SYSCTL__enGetMainOscRange(void)
+SYSCTL_nERROR SYSCTL__enGetMOSCPowerState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_nMOSC_FREQ enMoscReg = SYSCTL_enMOSC_FREQ_LOW;
-    enMoscReg = (SYSCTL_nMOSC_FREQ) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,
-                                SYSCTL_MOSCCTL_OSCRNG_MASK, SYSCTL_MOSCCTL_R_OSCRNG_BIT);
-    return (enMoscReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nSTATE enStateReg;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MOSC_CTL_R_PWRDN_BIT;
+        stRegister.uxMask = MOSC_CTL_PWRDN_MASK;
+        stRegister.uptrAddress = MOSC_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        if(MOSC_CTL_PWRDN_POWERUP == stRegister.uxValue)
+        {
+            enStateReg = SYSCTL_enSTATE_ENA;
+        }
+        else
+        {
+            enStateReg = SYSCTL_enSTATE_DIS;
+        }
+        *penStateArg = enStateReg;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetMainOscPower(SYSCTL_nMOSC_POWER enPower)
+SYSCTL_nERROR SYSCTL__enSetMOSCFrequencyRange(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_RANGE enRangeArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,  (UBase_t) enPower,
-                        SYSCTL_MOSCCTL_PWRDN_MASK, SYSCTL_MOSCCTL_R_PWRDN_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = MOSC_CTL_R_OSCRNG_BIT;
+    stRegister.uxMask = MOSC_CTL_OSCRNG_MASK;
+    stRegister.uptrAddress = MOSC_CTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enRangeArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nMOSC_POWER SYSCTL__enGetMainOscPower(void)
+SYSCTL_nERROR SYSCTL__enGetMOSCFrequencyRange(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_RANGE* penRangeArg)
 {
-    SYSCTL_nMOSC_POWER enMoscReg = SYSCTL_enMOSC_POWER_UP;
-    enMoscReg = (SYSCTL_nMOSC_POWER) MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,
-                             SYSCTL_MOSCCTL_PWRDN_MASK, SYSCTL_MOSCCTL_R_PWRDN_BIT);
-    return (enMoscReg);
-}
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
 
-void SYSCTL__vSetMainOscConfig(UBase_t uxConfig)
-{
-    MCU__vWriteRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET, uxConfig,
-                        SYSCTL_MOSCCTL_CVAL_MASK | SYSCTL_MOSCCTL_MOSCIM_MASK |
-                        SYSCTL_MOSCCTL_PWRDN_MASK | SYSCTL_MOSCCTL_OSCRNG_MASK |
-                        SYSCTL_MOSCCTL_PWRDN_MASK,
-                        0UL);
-}
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penRangeArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = MOSC_CTL_R_OSCRNG_BIT;
+        stRegister.uxMask = MOSC_CTL_OSCRNG_MASK;
+        stRegister.uptrAddress = MOSC_CTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penRangeArg = (SYSCTL_nMOSC_RANGE) stRegister.uxValue;
+    }
 
-UBase_t SYSCTL__enGetMainOscConfig(void)
-{
-    UBase_t uxReg = 0UL;
-    uxReg = MCU__uxReadRegister(SYSCTL_BASE, SYSCTL_MOSCCTL_OFFSET,
-                                  SYSCTL_MOSCCTL_CVAL_MASK | SYSCTL_MOSCCTL_MOSCIM_MASK |
-                                  SYSCTL_MOSCCTL_PWRDN_MASK | SYSCTL_MOSCCTL_OSCRNG_MASK |
-                                  SYSCTL_MOSCCTL_PWRDN_MASK,
-                                  0UL);
-    return (uxReg);
+    return (enErrorReg);
 }

@@ -33,236 +33,235 @@
 /*******************************************************************************************
 ************************************ 1 DID0 *********************************************
 *******************************************************************************************/
-#define SYSCTL_DID0    ((DID0_t*) (SYSCTL_BASE + SYSCTL_DID0_OFFSET))
-#define SYSCTL_DID0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_DID0_OFFSET)))
+#define SYSCTL_DEVICE_ID0    ((DEVICE_ID0_t*) (SYSCTL_BASE + DEVICE_ID0_OFFSET))
+#define SYSCTL_DEVICE_ID0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + DEVICE_ID0_OFFSET)))
 
 /******************************************************************************************
 ************************************ 2 DID1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_DID1    ((DID1_t*) (SYSCTL_BASE + SYSCTL_DID1_OFFSET))
-#define SYSCTL_DID1_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_DID1_OFFSET)))
+#define SYSCTL_DEVICE_ID1    ((DEVICE_ID1_t*) (SYSCTL_BASE + DEVICE_ID1_OFFSET))
+#define SYSCTL_DEVICE_ID1_R    (*((volatile const UBase_t*) (SYSCTL_BASE + DEVICE_ID1_OFFSET)))
 
 /******************************************************************************************
 ************************************ 3 PTBOCTL *********************************************
 ******************************************************************************************/
-#define SYSCTL_PTBOCTL    ((PTBOCTL_t*) (SYSCTL_BASE + SYSCTL_PTBOCTL_OFFSET))
-#define SYSCTL_PTBOCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_PTBOCTL_OFFSET)))
+#define SYSCTL_PTBO_CTL    ((PTBO_CTL_t*) (SYSCTL_BASE + PTBO_CTL_OFFSET))
+#define SYSCTL_PTBO_CTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + PTBO_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 4 RIS *********************************************
 ******************************************************************************************/
-#define SYSCTL_RIS    ((RIS_t*) (SYSCTL_BASE + SYSCTL_RIS_OFFSET))
+#define SYSCTL_RIS    ((SYSCTL_RIS_t*) (SYSCTL_BASE + SYSCTL_RIS_OFFSET))
 #define SYSCTL_RIS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_RIS_OFFSET)))
 
 /******************************************************************************************
 ************************************ 5 IMC *********************************************
 ******************************************************************************************/
-#define SYSCTL_IMC    ((IMC_t*) (SYSCTL_BASE + SYSCTL_IMC_OFFSET))
+#define SYSCTL_IMC    ((SYSCTL_IMC_t*) (SYSCTL_BASE + SYSCTL_IMC_OFFSET))
 #define SYSCTL_IMC_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_IMC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 6 MISC *********************************************
 ******************************************************************************************/
-#define SYSCTL_MISC    ((MISC_t*) (SYSCTL_BASE + SYSCTL_MISC_OFFSET))
+#define SYSCTL_MISC    ((SYSCTL_MISC_t*) (SYSCTL_BASE + SYSCTL_MISC_OFFSET))
 #define SYSCTL_MISC_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_MISC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 7 RESC *********************************************
 ******************************************************************************************/
-#define SYSCTL_RESC    ((RESC_t*) (SYSCTL_BASE + SYSCTL_RESC_OFFSET))
+#define SYSCTL_RESC    ((SYSCTL_RESC_t*) (SYSCTL_BASE + SYSCTL_RESC_OFFSET))
 #define SYSCTL_RESC_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_RESC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 8 PWRTC *********************************************
 ******************************************************************************************/
-#define SYSCTL_PWRTC    ((PWRTC_t*) (SYSCTL_BASE + SYSCTL_PWRTC_OFFSET))
+#define SYSCTL_PWRTC    ((SYSCTL_PWRTC_t*) (SYSCTL_BASE + SYSCTL_PWRTC_OFFSET))
 #define SYSCTL_PWRTC_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_PWRTC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 9 NMIC *********************************************
 ******************************************************************************************/
-#define SYSCTL_NMIC    ((NMIC_t*) (SYSCTL_BASE + SYSCTL_NMIC_OFFSET))
+#define SYSCTL_NMIC    ((SYSCTL_NMIC_t*) (SYSCTL_BASE + SYSCTL_NMIC_OFFSET))
 #define SYSCTL_NMIC_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_NMIC_OFFSET)))
 
 /******************************************************************************************
 ************************************ 10 MOSCCTL *********************************************
 ******************************************************************************************/
-#define SYSCTL_MOSCCTL    ((MOSCCTL_t*) (SYSCTL_BASE + SYSCTL_MOSCCTL_OFFSET))
-#define SYSCTL_MOSCCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_MOSCCTL_OFFSET)))
+#define SYSCTL_MOSC_CTL    ((MOSC_CTL_t*) (SYSCTL_BASE + MOSC_CTL_OFFSET))
+#define SYSCTL_MOSC_CTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + MOSC_CTL_OFFSET)))
 
 /******************************************************************************************
 ************************************ 11 RSCLKCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_RSCLKCFG    ((RSCLKCFG_t*) (SYSCTL_BASE + SYSCTL_RSCLKCFG_OFFSET))
-#define SYSCTL_RSCLKCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_RSCLKCFG_OFFSET)))
+#define SYSCTL_RSCLK_CFG    ((RSCLK_CFG_t*) (SYSCTL_BASE + RSCLK_CFG_OFFSET))
+#define SYSCTL_RSCLK_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + RSCLK_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************ 12 MEMTIM0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_MEMTIM0    ((MEMTIM0_t*) (SYSCTL_BASE + SYSCTL_MEMTIM0_OFFSET))
-#define SYSCTL_MEMTIM0_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_MEMTIM0_OFFSET)))
+#define SYSCTL_MEMORY_TIM0    ((MEMORY_TIM0_t*) (SYSCTL_BASE + MEMORY_TIM0_OFFSET))
+#define SYSCTL_MEMORY_TIM0_R    (*((volatile UBase_t*) (SYSCTL_BASE + MEMORY_TIM0_OFFSET)))
 
 /******************************************************************************************
 ************************************ 13 ALTCLKCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_ALTCLKCFG    ((ALTCLKCFG_t*) (SYSCTL_BASE + SYSCTL_ALTCLKCFG_OFFSET))
-#define SYSCTL_ALTCLKCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_ALTCLKCFG_OFFSET)))
+#define SYSCTL_ALTCLK_CFG    ((ALTCLK_CFG_t*) (SYSCTL_BASE + ALTCLK_CFG_OFFSET))
+#define SYSCTL_ALTCLK_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + ALTCLK_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************14 DSCLKCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_DSCLKCFG    ((DSCLKCFG_t*) (SYSCTL_BASE + SYSCTL_DSCLKCFG_OFFSET))
-#define SYSCTL_DSCLKCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_DSCLKCFG_OFFSET)))
+#define SYSCTL_DSCLK_CFG    ((DSCLK_CFG_t*) (SYSCTL_BASE + DSCLK_CFG_OFFSET))
+#define SYSCTL_DSCLK_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + DSCLK_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************15 DIVSCLK *********************************************
 ******************************************************************************************/
-#define SYSCTL_DIVSCLK    ((DIVSCLK_t*) (SYSCTL_BASE + SYSCTL_DIVSCLK_OFFSET))
-#define SYSCTL_DIVSCLK_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_DIVSCLK_OFFSET)))
+#define SYSCTL_DIVSCLK_CFG    ((DIVSCLK_CFG_t*) (SYSCTL_BASE + DIVSCLK_CFG_OFFSET))
+#define SYSCTL_DIVSCLK_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + DIVSCLK_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************16 SYSPROP *********************************************
 ******************************************************************************************/
-#define SYSCTL_SYSPROP    ((SYSPROP_t*) (SYSCTL_BASE + SYSCTL_SYSPROP_OFFSET))
-#define SYSCTL_SYSPROP_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_SYSPROP_OFFSET)))
+#define SYSCTL_PROP    ((SYSCTL_PROP_t*) (SYSCTL_BASE + SYSCTL_PROP_OFFSET))
+#define SYSCTL_PROP_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_PROP_OFFSET)))
 
 /******************************************************************************************
 ************************************17 PIOSCCAL *********************************************
 ******************************************************************************************/
-#define SYSCTL_PIOSCCAL    ((PIOSCCAL_t*) (SYSCTL_BASE + SYSCTL_PIOSCCAL_OFFSET))
-#define SYSCTL_PIOSCCAL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_PIOSCCAL_OFFSET)))
+#define SYSCTL_PIOSC_CAL    ((PIOSC_CAL_t*) (SYSCTL_BASE + PIOSC_CAL_OFFSET))
+#define SYSCTL_PIOSC_CAL_R    (*((volatile UBase_t*) (SYSCTL_BASE + PIOSC_CAL_OFFSET)))
 
 /******************************************************************************************
 ************************************18 PIOSCSTAT *********************************************
 ******************************************************************************************/
-#define SYSCTL_PIOSCSTAT    ((PIOSCSTAT_t*) (SYSCTL_BASE + SYSCTL_PIOSCSTAT_OFFSET))
-#define SYSCTL_PIOSCSTAT_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_PIOSCSTAT_OFFSET)))
+#define SYSCTL_PIOSC_STAT    ((PIOSC_STAT_t*) (SYSCTL_BASE + PIOSC_STAT_OFFSET))
+#define SYSCTL_PIOSC_STAT_R    (*((volatile UBase_t*) (SYSCTL_BASE + PIOSC_STAT_OFFSET)))
 
 /******************************************************************************************
 ************************************19 PLLFREQ0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_PLLFREQ0    ((PLLFREQ0_t*) (SYSCTL_BASE + SYSCTL_PLLFREQ0_OFFSET))
-#define SYSCTL_PLLFREQ0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_PLLFREQ0_OFFSET)))
+#define SYSCTL_PLL_FREQ0    ((PLL_FREQ0_t*) (SYSCTL_BASE + PLL_FREQ0_OFFSET))
+#define SYSCTL_PLL_FREQ0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + PLL_FREQ0_OFFSET)))
 
 /******************************************************************************************
 ************************************20 PLLFREQ1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_PLLFREQ1    ((PLLFREQ1_t*) (SYSCTL_BASE + SYSCTL_PLLFREQ1_OFFSET))
-#define SYSCTL_PLLFREQ1_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_PLLFREQ1_OFFSET)))
+#define SYSCTL_PLL_FREQ1    ((PLL_FREQ1_t*) (SYSCTL_BASE + PLL_FREQ1_OFFSET))
+#define SYSCTL_PLL_FREQ1_R    (*((volatile UBase_t*) (SYSCTL_BASE + PLL_FREQ1_OFFSET)))
 
 /******************************************************************************************
 ************************************21 PLLSTAT *********************************************
 ******************************************************************************************/
-#define SYSCTL_PLLSTAT    ((PLLSTAT_t*) (SYSCTL_BASE + SYSCTL_PLLSTAT_OFFSET))
-#define SYSCTL_PLLSTAT_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_PLLSTAT_OFFSET)))
+#define SYSCTL_PLL_STAT    ((PLL_STAT_t*) (SYSCTL_BASE + PLL_STAT_OFFSET))
+#define SYSCTL_PLL_STAT_R    (*((volatile const UBase_t*) (SYSCTL_BASE + PLL_STAT_OFFSET)))
 
 /******************************************************************************************
 ************************************22 SLPPWRCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_SLPPWRCFG    ((SLPPWRCFG_t*) (SYSCTL_BASE + SYSCTL_SLPPWRCFG_OFFSET))
-#define SYSCTL_SLPPWRCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_SLPPWRCFG_OFFSET)))
+#define SYSCTL_SLPPWR_CFG    ((SLPPWR_CFG_t*) (SYSCTL_BASE + SLPPWR_CFG_OFFSET))
+#define SYSCTL_SLPPWR_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SLPPWR_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************23 DSLPPWRCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_DSLPPWRCFG    ((DSLPPWRCFG_t*) (SYSCTL_BASE + SYSCTL_DSLPPWRCFG_OFFSET))
-#define SYSCTL_DSLPPWRCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_DSLPPWRCFG_OFFSET)))
+#define SYSCTL_DSLPPWR_CFG    ((DSLPPWR_CFG_t*) (SYSCTL_BASE + DSLPPWR_CFG_OFFSET))
+#define SYSCTL_DSLPPWR_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + DSLPPWR_CFG_OFFSET)))
 
 /**********************************************************************************
 ************************************24 NVMSTAT *********************************************
 ******************************************************************************************/
-#define SYSCTL_NVMSTAT    ((NVMSTAT_t*) (SYSCTL_BASE + SYSCTL_NVMSTAT_OFFSET))
-#define SYSCTL_NVMSTAT_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_NVMSTAT_OFFSET)))
+#define SYSCTL_NVM_STAT    ((NVM_STAT_t*) (SYSCTL_BASE + NVM_STAT_OFFSET))
+#define SYSCTL_NVM_STAT_R    (*((volatile const UBase_t*) (SYSCTL_BASE + NVM_STAT_OFFSET)))
 
 /******************************************************************************************
 ************************************25 LDOSPCTL *********************************************
 ******************************************************************************************/
-#define SYSCTL_LDOSPCTL    ((LDOSPCTL_t*) (SYSCTL_BASE + SYSCTL_LDOSPCTL_OFFSET))
-#define SYSCTL_LDOSPCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_LDOSPCTL_OFFSET)))
+#define SYSCTL_LDO_SPCTL    ((LDO_SPCTL_t*) (SYSCTL_BASE + LDO_SPCTL_OFFSET))
+#define SYSCTL_LDO_SPCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + LDO_SPCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************26 LDOSPCAL *********************************************
 ******************************************************************************************/
-#define SYSCTL_LDOSPCAL    ((LDOSPCAL_t*) (SYSCTL_BASE + SYSCTL_LDOSPCAL_OFFSET))
-#define SYSCTL_LDOSPCAL_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_LDOSPCAL_OFFSET)))
+#define SYSCTL_LDO_SPCAL    ((LDO_SPCAL_t*) (SYSCTL_BASE + LDO_SPCAL_OFFSET))
+#define SYSCTL_LDO_SPCAL_R    (*((volatile const UBase_t*) (SYSCTL_BASE + LDO_SPCAL_OFFSET)))
 
 /******************************************************************************************
 ************************************27 LDODPCTL *********************************************
 ******************************************************************************************/
-#define SYSCTL_LDODPCTL    ((LDODPCTL_t*) (SYSCTL_BASE + SYSCTL_LDODPCTL_OFFSET))
-#define SYSCTL_LDODPCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_LDODPCTL_OFFSET)))
+#define SYSCTL_LDO_DPCTL    ((LDO_DPCTL_t*) (SYSCTL_BASE + LDO_DPCTL_OFFSET))
+#define SYSCTL_LDO_DPCTL_R    (*((volatile UBase_t*) (SYSCTL_BASE + LDO_DPCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************28 LDODPCAL *********************************************
 ******************************************************************************************/
-#define SYSCTL_LDODPCAL    ((LDODPCAL_t*) (SYSCTL_BASE + SYSCTL_LDODPCAL_OFFSET))
-#define SYSCTL_LDODPCAL_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_LDODPCAL_OFFSET)))
+#define SYSCTL_LDO_DPCAL    ((LDO_DPCAL_t*) (SYSCTL_BASE + LDO_DPCAL_OFFSET))
+#define SYSCTL_LDO_DPCAL_R    (*((volatile UBase_t*) (SYSCTL_BASE + LDO_DPCAL_OFFSET)))
 
 /******************************************************************************************
 ************************************29 SDPMST *********************************************
 ******************************************************************************************/
-#define SYSCTL_SDPMST    ((SDPMST_t*) (SYSCTL_BASE + SYSCTL_SDPMSTL_OFFSET))
-#define SYSCTL_SDPMST_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_SDPMST_OFFSET)))
+#define SYSCTL_SDP_MST    ((SDP_MST_t*) (SYSCTL_BASE + SDP_MSTL_OFFSET))
+#define SYSCTL_SDP_MST_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SDP_MST_OFFSET)))
 
 /******************************************************************************************
 ************************************30 RESBEHAVCTL *********************************************
 ******************************************************************************************/
-#define SYSCTL_RESBEHAVCTL    ((RESBEHAVCTL_t*) (SYSCTL_BASE + SYSCTL_RESBEHAVCTLL_OFFSET))
-#define SYSCTL_RESBEHAVCTL_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_RESBEHAVCTL_OFFSET)))
+#define SYSCTL_RESET_BEHAVCTL    ((RESET_BEHAVCTL_t*) (SYSCTL_BASE + RESET_BEHAVCTLL_OFFSET))
+#define SYSCTL_RESET_BEHAVCTL_R    (*((volatile const UBase_t*) (SYSCTL_BASE + RESET_BEHAVCTL_OFFSET)))
 
 /******************************************************************************************
 ************************************31 HSSR *********************************************
 ******************************************************************************************/
-#define SYSCTL_HSSR    ((HSSR_t*) (SYSCTL_BASE + SYSCTL_HSSRL_OFFSET))
+#define SYSCTL_HSSR    ((SYSCTL_HSSR_t*) (SYSCTL_BASE + SYSCTL_HSSR_OFFSET))
 #define SYSCTL_HSSR_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_HSSR_OFFSET)))
 
 /******************************************************************************************
 ************************************32 USBPDS *********************************************
 ******************************************************************************************/
-#define SYSCTL_USBPDS    ((USBPDS_t*) (SYSCTL_BASE + SYSCTL_USBPDSL_OFFSET))
-#define SYSCTL_USBPDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_USBPDS_OFFSET)))
+#define SYSCTL_USB_PDS    ((USB_PDS_t*) (SYSCTL_BASE + USB_PDS_OFFSET))
+#define SYSCTL_USB_PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + USB_PDS_OFFSET)))
 
 /******************************************************************************************
-************************************33 USBMPC *********************************************
+************************************33 USB_MPC *********************************************
 ******************************************************************************************/
-#define SYSCTL_USBMPC    ((USBMPC_t*) (SYSCTL_BASE + SYSCTL_USBMPCL_OFFSET))
-#define SYSCTL_USBMPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_USBMPC_OFFSET)))
+#define SYSCTL_USB_MPC    ((USB_MPC_t*) (SYSCTL_BASE + USB_MPC_OFFSET))
+#define SYSCTL_USB_MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + USB_MPC_OFFSET)))
 
 /******************************************************************************************
 ************************************34 EMACPDS *********************************************
 ******************************************************************************************/
-#define SYSCTL_EMACPDS    ((EMACPDS_t*) (SYSCTL_BASE + SYSCTL_EMACPDSL_OFFSET))
-#define SYSCTL_EMACPDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_EMACPDS_OFFSET)))
-
+#define SYSCTL_EMAC_PDS    ((EMAC_PDS_t*) (SYSCTL_BASE + EMAC_PDS_OFFSET))
+#define SYSCTL_EMAC_PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + EMAC_PDS_OFFSET
 /******************************************************************************************
 ************************************35 EMACMPC *********************************************
 ******************************************************************************************/
-#define SYSCTL_EMACMPC    ((EMACMPC_t*) (SYSCTL_BASE + SYSCTL_EMACMPCL_OFFSET))
-#define SYSCTL_EMACMPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_EMACMPC_OFFSET)))
+#define SYSCTL_EMAC_MPC    ((EMAC_MPC_t*) (SYSCTL_BASE + EMAC_MPC_OFFSET))
+#define SYSCTL_EMAC_MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + EMAC_MPC_OFFSET)))
 
 /******************************************************************************************
 ************************************36 CAN0PDS *********************************************
 ******************************************************************************************/
-#define SYSCTL_CAN0PDS    ((CAN0PDS_t*) (SYSCTL_BASE + SYSCTL_CAN0PDSL_OFFSET))
-#define SYSCTL_CAN0PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_CAN0PDS_OFFSET)))
+#define SYSCTL_CAN0_PDS    ((CAN0_PDS_t*) (SYSCTL_BASE + CAN0_PDS_OFFSET))
+#define SYSCTL_CAN0_PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + CAN0_PDS_OFFSET)))
 
 /******************************************************************************************
 ************************************37 CAN0MPC *********************************************
 ******************************************************************************************/
-#define SYSCTL_CAN0MPC    ((CAN0MPC_t*) (SYSCTL_BASE + SYSCTL_CAN0MPCL_OFFSET))
-#define SYSCTL_CAN0MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_CAN0MPC_OFFSET)))
+#define SYSCTL_CAN0_MPC    ((CAN0_MPC_t*) (SYSCTL_BASE + CAN0_MPC_OFFSET))
+#define SYSCTL_CAN0_MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + CAN0_MPC_OFFSET)))
 
 /******************************************************************************************
 ************************************38 CAN1PDS *********************************************
 ******************************************************************************************/
-#define SYSCTL_CAN1PDS    ((CAN1PDS_t*) (SYSCTL_BASE + SYSCTL_CAN1PDSL_OFFSET))
-#define SYSCTL_CAN1PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_CAN1PDS_OFFSET)))
+#define SYSCTL_CAN1_PDS    ((CAN1_PDS_t*) (SYSCTL_BASE + CAN1_PDS_OFFSET))
+#define SYSCTL_CAN1_PDS_R    (*((volatile const UBase_t*) (SYSCTL_BASE + CAN1_PDS_OFFSET)))
 
 /******************************************************************************************
 ************************************39 CAN1MPC *********************************************
 ******************************************************************************************/
-#define SYSCTL_CAN1MPC    ((CAN1MPC_t*) (SYSCTL_BASE + SYSCTL_CAN1MPCL_OFFSET))
-#define SYSCTL_CAN1MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_CAN1MPC_OFFSET)))
+#define SYSCTL_CAN1_MPC    ((CAN1_MPC_t*) (SYSCTL_BASE + CAN1_MPC_OFFSET))
+#define SYSCTL_CAN1_MPC_R    (*((volatile const UBase_t*) (SYSCTL_BASE + CAN1_MPC_OFFSET)))
 
 
 
@@ -1463,258 +1462,260 @@
 /**********************************************************************************
 ************************************236 UNIQUEID0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_UNIQUEID0    ((UNIQUEID_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID0_OFFSET))
-#define SYSCTL_UNIQUEID0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID0_OFFSET)))
+#define SYSCTL_UNIQUE_ID0    ((UNIQUE_ID_t*) (SYSCTL_BASE + UNIQUE_ID0_OFFSET))
+#define SYSCTL_UNIQUE_ID0_R    (*((volatile const UBase_t*) (SYSCTL_BASE + UNIQUE_ID0_OFFSET)))
 
 
 /**********************************************************************************
 ************************************237 UNIQUEID1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_UNIQUEID1    ((UNIQUEID_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID1_OFFSET))
-#define SYSCTL_UNIQUEID1_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID1_OFFSET)))
+#define SYSCTL_UNIQUE_ID1    ((UNIQUE_ID_t*) (SYSCTL_BASE + UNIQUE_ID1_OFFSET))
+#define SYSCTL_UNIQUE_ID1_R    (*((volatile const UBase_t*) (SYSCTL_BASE + UNIQUE_ID1_OFFSET)))
 
 
 /**********************************************************************************
 ************************************238 UNIQUEID2 *********************************************
 ******************************************************************************************/
-#define SYSCTL_UNIQUEID2    ((UNIQUEID_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID2_OFFSET))
-#define SYSCTL_UNIQUEID2_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID2_OFFSET)))
+#define SYSCTL_UNIQUE_ID2    ((UNIQUE_ID_t*) (SYSCTL_BASE + UNIQUE_ID2_OFFSET))
+#define SYSCTL_UNIQUE_ID2_R    (*((volatile const UBase_t*) (SYSCTL_BASE + UNIQUE_ID2_OFFSET)))
 
 
 /**********************************************************************************
 ************************************239 UNIQUEID3 *********************************************
 ******************************************************************************************/
-#define SYSCTL_UNIQUEID3    ((UNIQUEID_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID3_OFFSET))
-#define SYSCTL_UNIQUEID3_R    (*((volatile const UBase_t*) (SYSCTL_BASE + SYSCTL_UNIQUEID3_OFFSET)))
+#define SYSCTL_UNIQUE_ID3    ((UNIQUE_ID_t*) (SYSCTL_BASE + UNIQUE_ID3_OFFSET))
+#define SYSCTL_UNIQUE_ID3_R    (*((volatile const UBase_t*) (SYSCTL_BASE + UNIQUE_ID3_OFFSET)))
 
 
 
 /******************************************************************************************
 ************************************ 240-Flash RVP *********************************************
 ******************************************************************************************/
-#define SYSCTL_RVP    ((RVP_t*) (SYSCTL_BASE + SYSCTL_RVP_OFFSET))
+#define SYSCTL_RVP    ((SYSCTL_RVP_t*) (SYSCTL_BASE + SYSCTL_RVP_OFFSET))
 #define SYSCTL_RVP_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_RVP_OFFSET)))
 
 /******************************************************************************************
 ************************************ 241-Flash FMPRE0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE0    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE0_OFFSET))
-#define SYSCTL_FMPRE0_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE0_OFFSET)))
+#define FLASH_PRE0    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE0_OFFSET))
+#define FLASH_PRE0_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE0_OFFSET)))
 
 /******************************************************************************************
 ************************************ 242-Flash FMPRE1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE1    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE1_OFFSET))
-#define SYSCTL_FMPRE1_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE1_OFFSET)))
+#define FLASH_PRE1    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE1_OFFSET))
+#define FLASH_PRE1_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE1_OFFSET)))
 
 /******************************************************************************************
 ************************************ 243-Flash FMPRE2 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE2    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE2_OFFSET))
-#define SYSCTL_FMPRE2_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE2_OFFSET)))
+#define FLASH_PRE2    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE2_OFFSET))
+#define FLASH_PRE2_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 244-Flash FMPRE3 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE3    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE3_OFFSET))
-#define SYSCTL_FMPRE3_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE3_OFFSET)))
+#define FLASH_PRE3    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE3_OFFSET))
+#define FLASH_PRE3_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE3_OFFSET)))
 
 /******************************************************************************************
 ************************************ 245-Flash FMPRE4 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE4    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE4_OFFSET))
-#define SYSCTL_FMPRE4_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE4_OFFSET)))
+#define FLASH_PRE4    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE4_OFFSET))
+#define FLASH_PRE4_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE4_OFFSET)))
 
 /******************************************************************************************
 ************************************ 246-Flash FMPRE5 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE5    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE5_OFFSET))
-#define SYSCTL_FMPRE5_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE5_OFFSET)))
+#define FLASH_PRE5    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE5_OFFSET))
+#define FLASH_PRE5_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE5_OFFSET)))
 
 /******************************************************************************************
 ************************************ 247-Flash FMPRE6 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE6    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE6_OFFSET))
-#define SYSCTL_FMPRE6_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE6_OFFSET)))
+#define FLASH_PRE6    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE6_OFFSET))
+#define FLASH_PRE6_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE6_OFFSET)))
 
 /******************************************************************************************
 ************************************ 248-Flash FMPRE7 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE7    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE7_OFFSET))
-#define SYSCTL_FMPRE7_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE7_OFFSET)))
+#define FLASH_PRE7    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE7_OFFSET))
+#define FLASH_PRE7_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE7_OFFSET)))
 
 /******************************************************************************************
 ************************************ 249-Flash FMPRE8 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE8    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE8_OFFSET))
-#define SYSCTL_FMPRE8_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE8_OFFSET)))
+#define FLASH_PRE8    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE8_OFFSET))
+#define FLASH_PRE8_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE8_OFFSET)))
 
 /******************************************************************************************
 ************************************ 250-Flash FMPRE9 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE9    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE9_OFFSET))
-#define SYSCTL_FMPRE9_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE9_OFFSET)))
+#define FLASH_PRE9    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE9_OFFSET))
+#define FLASH_PRE9_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE9_OFFSET)))
 
 /******************************************************************************************
 ************************************ 251-Flash FMPRE10 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE10    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE10_OFFSET))
-#define SYSCTL_FMPRE10_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE10_OFFSET)))
+#define FLASH_PRE10    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE10_OFFSET))
+#define FLASH_PRE10_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE10_OFFSET)))
 
 /******************************************************************************************
 ************************************ 252-Flash FMPRE11 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE11    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE11_OFFSET))
-#define SYSCTL_FMPRE11_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE11_OFFSET)))
+#define FLASH_PRE11    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE11_OFFSET))
+#define FLASH_PRE11_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE11_OFFSET)))
 
 /******************************************************************************************
 ************************************ 253-Flash FMPRE12 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE12    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE12_OFFSET))
-#define SYSCTL_FMPRE12_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE12_OFFSET)))
+#define FLASH_PRE12    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE12_OFFSET))
+#define FLASH_PRE12_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE12_OFFSET)))
 
 /******************************************************************************************
 ************************************ 254-Flash FMPRE13 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE13    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE13_OFFSET))
-#define SYSCTL_FMPRE13_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE13_OFFSET)))
+#define FLASH_PRE13    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE13_OFFSET))
+#define FLASH_PRE13_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE13_OFFSET)))
 
 /******************************************************************************************
 ************************************ 255-Flash FMPRE14 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE14    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE14_OFFSET))
-#define SYSCTL_FMPRE14_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE14_OFFSET)))
+#define FLASH_PRE14    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE14_OFFSET))
+#define FLASH_PRE14_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE14_OFFSET)))
 
 /******************************************************************************************
 ************************************ 256-Flash FMPRE15 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPRE15    ((FMPRE_t*) (SYSCTL_BASE + SYSCTL_FMPRE15_OFFSET))
-#define SYSCTL_FMPRE15_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPRE15_OFFSET)))
+#define FLASH_PRE15    ((FLASH_PRE_t*) (SYSCTL_BASE + FLASH_PRE15_OFFSET))
+#define FLASH_PRE15_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PRE15_OFFSET)))
 
 /******************************************************************************************
 ************************************ 257-Flash FMPPE0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE0    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE0_OFFSET))
-#define SYSCTL_FMPPE0_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE0_OFFSET)))
+#define FLASH_PPE0    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE0_OFFSET))
+#define FLASH_PPE0_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE0_OFFSET)))
 
 /******************************************************************************************
 ************************************ 258-Flash FMPPE1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE1    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE1_OFFSET))
-#define SYSCTL_FMPPE1_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE1_OFFSET)))
+#define FLASH_PPE1    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE1_OFFSET))
+#define FLASH_PPE1_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE1_OFFSET)))
 
 /******************************************************************************************
 ************************************ 259-Flash FMPPE2 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE2    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE2_OFFSET))
-#define SYSCTL_FMPPE2_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE2_OFFSET)))
+#define FLASH_PPE2    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE2_OFFSET))
+#define FLASH_PPE2_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 260-Flash FMPPE3 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE3    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE3_OFFSET))
-#define SYSCTL_FMPPE3_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE3_OFFSET)))
+#define FLASH_PPE3    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE3_OFFSET))
+#define FLASH_PPE3_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE3_OFFSET)))
 
 /******************************************************************************************
 ************************************ 261-Flash FMPPE4 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE4    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE4_OFFSET))
-#define SYSCTL_FMPPE4_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE4_OFFSET)))
+#define FLASH_PPE4    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE4_OFFSET))
+#define FLASH_PPE4_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE4_OFFSET)))
 
 /******************************************************************************************
 ************************************ 262-Flash FMPPE5 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE5    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE5_OFFSET))
-#define SYSCTL_FMPPE5_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE5_OFFSET)))
+#define FLASH_PPE5    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE5_OFFSET))
+#define FLASH_PPE5_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE5_OFFSET)))
 
 /******************************************************************************************
 ************************************ 263-Flash FMPPE6 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE6    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE6_OFFSET))
-#define SYSCTL_FMPPE6_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE6_OFFSET)))
+#define FLASH_PPE6    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE6_OFFSET))
+#define FLASH_PPE6_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE6_OFFSET)))
 
 /******************************************************************************************
 ************************************ 264-Flash FMPPE7 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE7    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE7_OFFSET))
-#define SYSCTL_FMPPE7_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE7_OFFSET)))
+#define FLASH_PPE7    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE7_OFFSET))
+#define FLASH_PPE7_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE7_OFFSET)))
 
 /******************************************************************************************
 ************************************ 265-Flash FMPPE8 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE8    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE8_OFFSET))
-#define SYSCTL_FMPPE8_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE8_OFFSET)))
+#define FLASH_PPE8    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE8_OFFSET))
+#define FLASH_PPE8_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE8_OFFSET)))
 
 /******************************************************************************************
 ************************************ 266-Flash FMPPE9 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE9    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE9_OFFSET))
-#define SYSCTL_FMPPE9_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE9_OFFSET)))
+#define FLASH_PPE9    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE9_OFFSET))
+#define FLASH_PPE9_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE9_OFFSET)))
 
 /******************************************************************************************
 ************************************ 267-Flash FMPPE10 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE10    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE10_OFFSET))
-#define SYSCTL_FMPPE10_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE10_OFFSET)))
+#define FLASH_PPE10    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE10_OFFSET))
+#define FLASH_PPE10_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE10_OFFSET)))
 
 /******************************************************************************************
 ************************************ 268-Flash FMPPE11 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE11    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE11_OFFSET))
-#define SYSCTL_FMPPE11_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE11_OFFSET)))
+#define FLASH_PPE11    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE11_OFFSET))
+#define FLASH_PPE11_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE11_OFFSET)))
 
 /******************************************************************************************
 ************************************ 269-Flash FMPPE12 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE12    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE12_OFFSET))
-#define SYSCTL_FMPPE12_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE12_OFFSET)))
+#define FLASH_PPE12    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE12_OFFSET))
+#define FLASH_PPE12_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE12_OFFSET)))
 
 /******************************************************************************************
 ************************************ 270-Flash FMPPE13 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE13    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE13_OFFSET))
-#define SYSCTL_FMPPE13_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE13_OFFSET)))
+#define FLASH_PPE13    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE13_OFFSET))
+#define FLASH_PPE13_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE13_OFFSET)))
 
 /******************************************************************************************
 ************************************ 271-Flash FMPPE14 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE14    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE14_OFFSET))
-#define SYSCTL_FMPPE14_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE14_OFFSET)))
+#define FLASH_PPE14    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE14_OFFSET))
+#define FLASH_PPE14_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE14_OFFSET)))
 
 /******************************************************************************************
 ************************************ 272-Flash FMPPE15 *********************************************
 ******************************************************************************************/
-#define SYSCTL_FMPPE15    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_FMPPE15_OFFSET))
-#define SYSCTL_FMPPE15_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_FMPPE15_OFFSET)))
+#define FLASH_PPE15    ((FLASH_PPE_t*) (SYSCTL_BASE + FLASH_PPE15_OFFSET))
+#define FLASH_PPE15_R    (*((volatile UBase_t*) (SYSCTL_BASE + FLASH_PPE15_OFFSET)))
 
 /******************************************************************************************
 ************************************ 273-Flash BOOTCFG *********************************************
 ******************************************************************************************/
-#define SYSCTL_BOOTCFG    ((FMPPE_t*) (SYSCTL_BASE + SYSCTL_BOOTCFG_OFFSET))
-#define SYSCTL_BOOTCFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_BOOTCFG_OFFSET)))
+#define SYSCTL_BOOT_CFG    ((BOOT_CFG_t*) (SYSCTL_BASE + BOOT_CFG_OFFSET))
+#define SYSCTL_BOOT_CFG_R    (*((volatile UBase_t*) (SYSCTL_BASE + BOOT_CFG_OFFSET)))
 
 /******************************************************************************************
 ************************************ 274-Flash USER_REG0 *********************************************
 ******************************************************************************************/
-#define SYSCTL_USER_REG0    ((USER_REG_t*) (SYSCTL_BASE + SYSCTL_USER_REG0_OFFSET))
-#define SYSCTL_USER_REG0_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_USER_REG0_OFFSET)))
+#define USER_REG0    ((USER_REG_t*) (SYSCTL_BASE + USER_REG0_OFFSET))
+#define USER_REG0_R    (*((volatile UBase_t*) (SYSCTL_BASE + USER_REG0_OFFSET)))
 
 /******************************************************************************************
 ************************************ 275-Flash USER_REG1 *********************************************
 ******************************************************************************************/
-#define SYSCTL_USER_REG1    ((USER_REG_t*) (SYSCTL_BASE + SYSCTL_USER_REG1_OFFSET))
-#define SYSCTL_USER_REG1_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_USER_REG1_OFFSET)))
+#define USER_REG1    ((USER_REG_t*) (SYSCTL_BASE + USER_REG1_OFFSET))
+#define USER_REG1_R    (*((volatile UBase_t*) (SYSCTL_BASE + USER_REG1_OFFSET)))
 
 /******************************************************************************************
 ************************************ 276-Flash USER_REG2 *********************************************
 ******************************************************************************************/
-#define SYSCTL_USER_REG2    ((USER_REG_t*) (SYSCTL_BASE + SYSCTL_USER_REG2_OFFSET))
-#define SYSCTL_USER_REG2_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_USER_REG2_OFFSET)))
+#define USER_REG2    ((USER_REG_t*) (SYSCTL_BASE + USER_REG2_OFFSET))
+#define USER_REG2_R    (*((volatile UBase_t*) (SYSCTL_BASE + USER_REG2_OFFSET)))
 
 /******************************************************************************************
 ************************************ 277-Flash USER_REG3 *********************************************
 ******************************************************************************************/
-#define SYSCTL_USER_REG3    ((USER_REG_t*) (SYSCTL_BASE + SYSCTL_USER_REG3_OFFSET))
-#define SYSCTL_USER_REG3_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_USER_REG3_OFFSET)))
+#define USER_REG3    ((USER_REG_t*) (SYSCTL_BASE + USER_REG3_OFFSET))
+#define USER_REG3_R    (*((volatile UBase_t*) (SYSCTL_BASE + USER_REG3_OFFSET)))
+
+uintptr_t SYSCTL__uptrBlockBaseAddress(SYSCTL_nMODULE enModuleArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_REGISTER_SYSCTL_REGISTERPERIPHERAL_H_ */

@@ -85,6 +85,7 @@ typedef enum
     UART_enMODULE_6 = 6UL,
     UART_enMODULE_7 = 7UL,
     UART_enMODULE_MAX = 8UL,
+    UART_enMODULE_UNDEF = UNDEF_VALUE,
 }UART_nMODULE;
 
 typedef enum
@@ -267,6 +268,7 @@ typedef struct
     UART_nSTATE enRILineState;
     UART_nLEVEL enRTSLevel;
     UART_nLEVEL enDTRLevel;
+    UART_nLEVEL enReserved1;
 }UART_CONTROL_t;
 
 typedef struct

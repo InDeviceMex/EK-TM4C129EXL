@@ -31,6 +31,7 @@ typedef enum
 {
     MPU_enOK = 0UL,
     MPU_enERROR = 1UL,
+    MPU_enERROR_UNDEF = UNDEF_VALUE,
 }MPU_nSTATUS;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_MPU_PERIPHERAL_MPU_ENUM_H_ */

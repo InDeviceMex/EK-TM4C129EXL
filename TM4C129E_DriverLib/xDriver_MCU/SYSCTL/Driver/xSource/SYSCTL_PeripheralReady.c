@@ -26,10 +26,10 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralGeneric.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-SYSCTL_nPERIPHERAL_READY SYSCTL__enIsPeripheralReady(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nBOOLEAN SYSCTL__enIsPeripheralReady(SYSCTL_nPERIPHERAL enPeripheral)
 {
-    SYSCTL_nPERIPHERAL_READY enReadyReg = SYSCTL_enNOREADY;
-    enReadyReg = (SYSCTL_nPERIPHERAL_READY) SYSCTL__uxReadPeripheral(enPeripheral,
+    SYSCTL_nBOOLEAN enReadyReg = SYSCTL_enFALSE;
+    enReadyReg = (SYSCTL_nBOOLEAN) SYSCTL__uxReadPeripheral(enPeripheral,
                                                                     SYSCTL_PR_OFFSET);
     return (enReadyReg);
 }

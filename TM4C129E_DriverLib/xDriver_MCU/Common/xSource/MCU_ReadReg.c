@@ -101,7 +101,7 @@ UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
 
     uxFeatureValue = *puxPeripheral;
 
-    if(0xFFFFFFFFUL != uxMaskFeature)
+    if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;
         uxFeatureValue &= uxMaskFeature;
@@ -121,7 +121,7 @@ UBase_t MCU__uxReadRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegist
 
     uxFeatureValue = *puxPeripheral;
 
-    if(0xFFFFFFFFUL != uxMaskFeature)
+    if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;
         uxFeatureValue &= uxMaskFeature;

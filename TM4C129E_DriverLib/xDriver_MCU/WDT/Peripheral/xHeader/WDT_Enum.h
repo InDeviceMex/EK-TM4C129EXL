@@ -79,6 +79,7 @@ typedef enum
     WDT_enMODULE_0 = 0UL,
     WDT_enMODULE_1 = 1UL,
     WDT_enMODULE_MAX = 2UL,
+    WDT_enMODULE_UNDEF = UNDEF_VALUE,
 }WDT_nMODULE;
 
 

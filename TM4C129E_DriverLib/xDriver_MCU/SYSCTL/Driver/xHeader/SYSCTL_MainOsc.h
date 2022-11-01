@@ -10,22 +10,19 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vSetMainOscValidation(SYSCTL_nMOSC_VALIDATION enValidation);
-SYSCTL_nMOSC_VALIDATION SYSCTL__enGetMainOscValidation(void);
+SYSCTL_nERROR SYSCTL__enSetMOSCMonitorState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg);
+SYSCTL_nERROR SYSCTL__enGetMOSCMonitorState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg);
 
-void SYSCTL__vSetMainOscFailureType(SYSCTL_nMOSC_FAILURE enFailureType);
-SYSCTL_nMOSC_FAILURE SYSCTL__enGetMainOscFailureType(void);
+SYSCTL_nERROR SYSCTL__enSetMOSCFailureAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_FAILURE enActionArg);
+SYSCTL_nERROR SYSCTL__enGetMOSCFailureAction(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_FAILURE* penActionArg);
 
-void SYSCTL__vSetMainOscConnected(SYSCTL_nMOSC_CONNECTED enConnected);
-SYSCTL_nMOSC_CONNECTED SYSCTL__enIsMainOscConnected(void);
+SYSCTL_nERROR SYSCTL__enSetMOSCState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg);
+SYSCTL_nERROR SYSCTL__enGetMOSCState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg);
 
-void SYSCTL__vSetMainOscRange(SYSCTL_nMOSC_FREQ enRange);
-SYSCTL_nMOSC_FREQ SYSCTL__enGetMainOscRange(void);
+SYSCTL_nERROR SYSCTL__enSetMOSCPowerState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg);
+SYSCTL_nERROR SYSCTL__enGetMOSCPowerState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg);
 
-void SYSCTL__vSetMainOscPower(SYSCTL_nMOSC_POWER enPower);
-SYSCTL_nMOSC_POWER SYSCTL__enGetMainOscPower(void);
-
-void SYSCTL__vSetMainOscConfig(UBase_t uxConfig);
-UBase_t SYSCTL__enGetMainOscConfig(void);
+SYSCTL_nERROR SYSCTL__enSetMOSCFrequencyRange(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_RANGE enRangeArg);
+SYSCTL_nERROR SYSCTL__enGetMOSCFrequencyRange(SYSCTL_nMODULE enModuleArg, SYSCTL_nMOSC_RANGE* penRangeArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_MAINOSC_H_ */

@@ -23,8 +23,8 @@
  */
 #include <xOS/Adapt/OS_Adapt.h>
 #include <xOS/Task/Intrinsics/xHeader/OS_Task_Critical.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_Scheduler_.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB_.h>
 
 
 void OS_Task__vEnterCritical(void)

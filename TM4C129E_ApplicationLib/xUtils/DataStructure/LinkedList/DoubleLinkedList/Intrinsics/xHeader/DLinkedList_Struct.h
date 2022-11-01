@@ -44,16 +44,18 @@ typedef void (*DLinkedList_pvfDestroy_t)(void* List);
 
 typedef struct DLinkedListItem
 {
-        void* pvDataContainer;
-        void* pvOwnerList;
-        UBase_t uxValueItem;
-        struct DLinkedListItem *pstPreviousItem;
-        struct DLinkedListItem *pstNextItem;
+    UBase_t uxValueItem;
+    UBase_t uxReserved;
+    void* pvDataContainer;
+    void* pvOwnerList;
+    struct DLinkedListItem *pstPreviousItem;
+    struct DLinkedListItem *pstNextItem;
 }DLinkedListItem_t;
 
 typedef struct DLinkedList
 {
         UBase_t uxSize;
+        UBase_t uxReserved1;
         DLinkedList_pfuxMatch_t pfuxMatch;
         DLinkedList_pvfDestroyItemData_t pvfDestroyItemData;
         DLinkedList_pvfDestroyItem_t pvfDestroyItem;
@@ -61,6 +63,7 @@ typedef struct DLinkedList
         DLinkedListItem_t *pstLastItemRead;
         DLinkedListItem_t *pstHead;
         DLinkedListItem_t *pstTail;
+        DLinkedListItem_t *pstReserved2;
 }DLinkedList_t;
 
 #endif /* XUTILS_DATASTRUCTURE_DOUBLELINKEDLIST_INTRINSICS_XHEADER_DLINKEDLIST_STRUCT_H_ */

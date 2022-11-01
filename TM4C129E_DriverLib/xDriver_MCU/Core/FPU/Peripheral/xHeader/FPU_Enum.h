@@ -37,6 +37,7 @@ typedef enum
 {
     FPU_enMODULE_0 = 0UL,
     FPU_enMODULE_MAX = 1UL,
+    FPU_enMODULE_UNDEF = UNDEF_VALUE,
 }FPU_nMODULE;
 
 typedef enum
@@ -44,23 +45,27 @@ typedef enum
     FPU_enACCESS_DENIED = 0UL,
     FPU_enACCESS_ONLY_PRIVILEGED = 1UL,
     FPU_enACCESS_FULL = 3UL,
+    FPU_enACCESS_UNDEF = UNDEF_VALUE,
 }FPU_nACCESS;
 typedef enum
 {
     FPU_enHALF_PRECISION_IEEE = 0UL,
     FPU_enHALF_PRECISION_ALT = 1UL,
+    FPU_enHALF_PRECISION_UNDEF = UNDEF_VALUE,
 }FPU_nHALF_PRECISION;
 
 typedef enum
 {
     FPU_enNAN_PROPAGATE = 0UL,
     FPU_enNAN_NAN = 1UL,
+    FPU_enNAN_UNDEF = UNDEF_VALUE,
 }FPU_nNAN;
 
 typedef enum
 {
     FPU_enMODE_DENORMAL = 0UL,
     FPU_enMODE_FLUSH_ZERO = 1UL,
+    FPU_enMODE_UNDEF = UNDEF_VALUE,
 }FPU_nMODE;
 
 typedef enum
@@ -69,6 +74,7 @@ typedef enum
     FPU_enROUNDING_PLUSINF = 1UL,
     FPU_enROUNDING_MINUSINF = 2UL,
     FPU_enROUNDING_ZERO = 3UL,
+    FPU_enROUNDING_UNDEF = UNDEF_VALUE,
 }FPU_nROUNDING;
 
 typedef enum
@@ -79,6 +85,7 @@ typedef enum
     FPU_enEXCEPTION_UNDERFLOW = 0x08UL,
     FPU_enEXCEPTION_INEXACT = 0x10UL,
     FPU_enEXCEPTION_DENORMAL = 0x80UL,
+    FPU_enEXCEPTION_UNDEF = UNDEF_VALUE,
 }FPU_nEXCEPTION;
 
 typedef MCU_Register_t FPU_Register_t;

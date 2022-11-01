@@ -29,96 +29,96 @@
 
 typedef volatile struct
 {
-    volatile const UBase_t MINOR [8];
-    volatile const UBase_t MAJOR [8];
-    volatile const UBase_t CLASS [8];
-    const UBase_t reserved [4];
-    volatile const UBase_t VER [3];
+    volatile const UBase_t MINOR_REVISION[8UL];
+    volatile const UBase_t MAJOR_REVISION[8UL];
+    volatile const UBase_t CLASS[8UL];
+    const UBase_t reserved[4UL];
+    volatile const UBase_t VERSION[3UL];
     const UBase_t reserved1;
-}BITBANDING_DID0_t;
+}DEVICE_BITBANDING_ID0_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t QUAL [2];
+    volatile const UBase_t QUAL[2UL];
     volatile const UBase_t ROHS;
-    volatile const UBase_t PKG [2];
-    volatile const UBase_t TEMP [3];
-    const UBase_t reserved [5];
-    volatile const UBase_t PINCOUNT [3];
-    volatile const UBase_t PARTNO [8];
-    volatile const UBase_t FAM [4];
-    volatile const UBase_t VER [4];
-}BITBANDING_DID1_t;
+    volatile const UBase_t PKG[2UL];
+    volatile const UBase_t TEMP[3UL];
+    const UBase_t reserved[5UL];
+    volatile const UBase_t PINCOUNT[3UL];
+    volatile const UBase_t PARTNO[8UL];
+    volatile const UBase_t FAMILY[4UL];
+    volatile const UBase_t VERSION[4UL];
+}DEVICE_BITBANDING_ID1_t;
 
 typedef volatile struct
 {
-    volatile UBase_t VDD_UBOR [2];
-    const UBase_t reserved [6];
-    volatile UBase_t VDDA_UBOR [2];
-    const UBase_t reserved1 [22];
-}BITBANDING_PTBOCTL_t;
+    volatile UBase_t VDD_UBOR[2UL];
+    const UBase_t reserved[6UL];
+    volatile UBase_t VDDA_UBOR[2UL];
+    const UBase_t reserved1[22UL];
+}PTBO_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
     const UBase_t reserved;
-    volatile const UBase_t BORRIS;
+    volatile const UBase_t BOR;
     const UBase_t reserved1;
-    volatile const UBase_t MOFRIS;
-    const UBase_t reserved2 [2];
-    volatile const UBase_t PLLLRIS;
+    volatile const UBase_t MOSC_FAILURE;
+    const UBase_t reserved2[2UL];
+    volatile const UBase_t PLL_LOCK;
     volatile const UBase_t reserved3;
-    volatile const UBase_t MOSCPUPRIS;
-    const UBase_t reserved4 [23];
-}BITBANDING_RIS_t;
+    volatile const UBase_t MOSC_POWERUP;
+    const UBase_t reserved4[23UL];
+}SYSCTL_BITBANDING_RIS_t;
 
 typedef volatile struct
 {
     const UBase_t reserved;
-    volatile UBase_t BORIM;
+    volatile UBase_t BOR;
     const UBase_t reserved1;
-    volatile UBase_t MOFIM;
-    const UBase_t reserved2 [2];
-    volatile UBase_t PLLLIM;
+    volatile UBase_t MOSC_FAILURE;
+    const UBase_t reserved2[2UL];
+    volatile UBase_t PLL_LOCK;
     volatile UBase_t reserved3;
-    volatile UBase_t MOSCPUPIM;
-    const UBase_t reserved4 [23];
-}BITBANDING_IMC_t;
+    volatile UBase_t MOSC_POWERUP;
+    const UBase_t reserved4[23UL];
+}SYSCTL_BITBANDING_IMC_t;
 
 typedef volatile struct
 {
     const UBase_t reserved;
-    volatile UBase_t BORMIS;
+    volatile UBase_t BOR;
     const UBase_t reserved1;
-    volatile UBase_t MOFMIS;
-    const UBase_t reserved2 [2];
-    volatile UBase_t PLLLMIS;
+    volatile UBase_t MOSC_FAILURE;
+    const UBase_t reserved2[2UL];
+    volatile UBase_t PLL_LOCK;
     volatile UBase_t reserved3;
-    volatile UBase_t MOSCPUPMIS;
-    const UBase_t reserved4 [23];
-}BITBANDING_MISC_t;
+    volatile UBase_t MOSC_POWERUP;
+    const UBase_t reserved4[23UL];
+}SYSCTL_BITBANDING_MISC_t;
 
 typedef volatile struct
 {
-    volatile UBase_t EXT;
+    volatile UBase_t EXTERNAL;
     volatile UBase_t POR;
     volatile UBase_t BOR;
     volatile UBase_t WDT0_;
     volatile UBase_t SW;
     volatile UBase_t WDT1_;
-    const UBase_t reserved [6];
+    const UBase_t reserved[6UL];
     volatile UBase_t HSSR;
-    const UBase_t reserved1 [3];
-    volatile UBase_t MOSCFAIL;
-    const UBase_t reserved2:15;
-}BITBANDING_RESC_t;
+    const UBase_t reserved1[3UL];
+    volatile UBase_t MOSC_FAILURE;
+    const UBase_t reserved2[15UL];
+}SYSCTL_BITBANDING_RESC_t;
 
 typedef volatile struct
 {
     volatile UBase_t VDD_UBOR;
-    const UBase_t reserved [3];
+    const UBase_t reserved[3UL];
     volatile UBase_t VDDA_UBOR;
-    const UBase_t reserved1 [27];
-}BITBANDING_PWRTC_t;
+    const UBase_t reserved1[27UL];
+}SYSCTL_BITBANDING_PWRTC_t;
 
 typedef volatile struct
 {
@@ -128,12 +128,12 @@ typedef volatile struct
     volatile UBase_t WDT0_;
     const UBase_t reserved1;
     volatile UBase_t WDT1_;
-    const UBase_t reserved2 [3];
+    const UBase_t reserved2[3UL];
     volatile UBase_t TAMPER;
-    const UBase_t reserved3 [6];
-    volatile UBase_t MOSCFAIL;
-    const UBase_t reserved4:15;
-}BITBANDING_NMIC_t;
+    const UBase_t reserved3[6UL];
+    volatile UBase_t MOSC_FAILURE;
+    const UBase_t reserved4[15UL];
+}SYSCTL_BITBANDING_NMIC_t;
 
 typedef volatile struct
 {
@@ -142,13 +142,13 @@ typedef volatile struct
     volatile UBase_t NOXTAL;
     volatile UBase_t PWRDN;
     volatile UBase_t OSCRNG;
-    const UBase_t reserved [27];
-}BITBANDING_MOSCCTL_t;
+    const UBase_t reserved[27UL];
+}MOSC_BITBANDING_CTL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t RVP [32];
-}BITBANDING_RVP_t;
+    volatile const UBase_t RVP[32UL];
+}SYSCTL_BITBANDING_RVP_t;
 
 typedef volatile struct
 {
@@ -184,7 +184,7 @@ typedef volatile struct
     volatile UBase_t READ_ENABLE29;
     volatile UBase_t READ_ENABLE30;
     volatile UBase_t READ_ENABLE31;
-}BITBANDING_FMPRE_t;
+}FLASH_BITBANDING_PRE_t;
 
 typedef volatile struct
 {
@@ -220,276 +220,276 @@ typedef volatile struct
     volatile UBase_t PROG_ENABLE29;
     volatile UBase_t PROG_ENABLE30;
     volatile UBase_t PROG_ENABLE31;
-}BITBANDING_FMPPE_t;
+}FLASH_BITBANDING_PPE_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PSYSDIV [10];
-    volatile UBase_t OSYSDIV [10];
-    volatile UBase_t OSCSRC [4];
-    volatile UBase_t PLLSRC [4];
+    volatile UBase_t PLL_SYSDIV[10UL];
+    volatile UBase_t OSC_SYSDIV[10UL];
+    volatile UBase_t OSC_SRC[4UL];
+    volatile UBase_t PLL_SRC[4UL];
     volatile UBase_t USEPLL;
     volatile UBase_t ACG;
-    volatile UBase_t NEWFREQ;
+    volatile UBase_t NEW_PLLFREQ;
     volatile UBase_t MEMTIMU;
-}BITBANDING_RSCLKCFG_t;
+}RSCLK_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t FWS [4];
+    volatile UBase_t FLASH_WS[4UL];
     const UBase_t reserved;
-    volatile UBase_t FBCE;
-    volatile UBase_t FBCHT [4];
-    const UBase_t reserved1 [6];
-    volatile UBase_t EWS [4];
+    volatile UBase_t FLASH_BCE;
+    volatile UBase_t FLASH_BCHT[4UL];
+    const UBase_t reserved1[6UL];
+    volatile UBase_t EEPROM_WS[4UL];
     const UBase_t reserved2;
-    volatile UBase_t EBCE;
-    volatile UBase_t EBCHT [4];
-    const UBase_t reserved3 [6];
-}BITBANDING_MEMTIM0_t;
+    volatile UBase_t EEPROM_BCE;
+    volatile UBase_t EEPROM_BCHT[4UL];
+    const UBase_t reserved3[6UL];
+}MEMORY_BITBANDING_TIM0_t;
 
 typedef volatile struct
 {
-    volatile UBase_t ALTCLK [4];
-    const UBase_t reserved [28];
-}BITBANDING_ALTCLKCFG_t;
+    volatile UBase_t ALTCLK[4UL];
+    const UBase_t reserved[28UL];
+}ALTCLK_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t DSSYSDIV [10];
-    const UBase_t reserved [10];
-    volatile UBase_t DSOSCSRC [4];
-    const UBase_t reserved1 [6];
-    volatile UBase_t MOSCDPD;
-    volatile UBase_t PIOSCPD;
-}BITBANDING_DSCLKCFG_t;
+    volatile UBase_t DEEPSLEEP_SYSDIV[10UL];
+    const UBase_t reserved[10UL];
+    volatile UBase_t DEEPSLEEP_OSC_SRC[4UL];
+    const UBase_t reserved1[6UL];
+    volatile UBase_t MOSC_DPD;
+    volatile UBase_t PIOSC_PD;
+}DSCLK_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t DIV [8];
-    const UBase_t reserved [8];
-    volatile UBase_t SRC [2];
-    const UBase_t reserved1 [13];
+    volatile UBase_t DIV[8UL];
+    const UBase_t reserved[8UL];
+    volatile UBase_t SRC[2UL];
+    const UBase_t reserved1[13UL];
     volatile UBase_t EN;
-}BITBANDING_DIVSCLK_t;
+}DIVSCLK_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
     volatile const UBase_t FPU_;
-    const UBase_t reserved [4];
-    volatile const UBase_t LDOSEQ;
-    const UBase_t reserved1 [2];
-    volatile const UBase_t FLASHLPM;
+    const UBase_t reserved[4UL];
+    volatile const UBase_t LDO_SEQ;
+    const UBase_t reserved1[2UL];
+    volatile const UBase_t FLASH_LPM;
     const UBase_t reserved2;
-    volatile const UBase_t SRAMLPM;
-    volatile const UBase_t SRAMSM;
-    volatile const UBase_t PIOSCPDE;
-    const UBase_t reserved3 [3];
-    volatile const UBase_t TSPDE;
-    volatile const UBase_t LDOSME;
-    const UBase_t reserved4 [14];
-}BITBANDING_SYSPROP_t;
+    volatile const UBase_t SRAM_LPM;
+    volatile const UBase_t SRAM_SM;
+    volatile const UBase_t PIOSC_PDE;
+    const UBase_t reserved3[3UL];
+    volatile const UBase_t TS_PDE;
+    volatile const UBase_t LDO_SME;
+    const UBase_t reserved4[14UL];
+}SYSCTL_BITBANDING_PROP_t;
 
 typedef volatile struct
 {
-    volatile UBase_t UT [7];
+    volatile UBase_t UT[7UL];
     const UBase_t reserved;
     volatile UBase_t UPDATE;
     volatile UBase_t CAL;
-    const UBase_t reserved1 [21];
+    const UBase_t reserved1[21UL];
     volatile UBase_t UTEN;
-}BITBANDING_PIOSCCAL_t;
+}PIOSC_BITBANDING_CAL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t CT [7];
+    volatile const UBase_t CT[7UL];
     const UBase_t reserved;
-    volatile const UBase_t RESULT [2];
-    const UBase_t reserved1 [6];
-    volatile const UBase_t DT [7];
-    const UBase_t reserved2 [9];
-}BITBANDING_PIOSCSTAT_t;
+    volatile const UBase_t RESULT[2UL];
+    const UBase_t reserved1[6UL];
+    volatile const UBase_t DT[7UL];
+    const UBase_t reserved2[9UL];
+}PIOSC_BITBANDING_STAT_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t MINT [10];
-    volatile const UBase_t MFRAC [10];
-    const UBase_t reserved [3];
-    volatile const UBase_t PLLPWR;
-    const UBase_t reserved1 [8];
-}BITBANDING_PLLFREQ0_t;
+    volatile const UBase_t PLL_M_INT[10UL];
+    volatile const UBase_t PLL_M_FRAC[10UL];
+    const UBase_t reserved[3UL];
+    volatile const UBase_t PLL_PWR;
+    const UBase_t reserved1[8UL];
+}PLL_BITBANDING_FREQ0_t;
 
 typedef volatile struct
 {
-    volatile UBase_t N [5];
-    const UBase_t reserved [3];
-    volatile UBase_t Q [5];
-    const UBase_t reserved1 [19];
-}BITBANDING_PLLFREQ1_t;
+    volatile UBase_t PLL_N_VALUE[5UL];
+    const UBase_t reserved[3UL];
+    volatile UBase_t PLL_Q_VALUE[5UL];
+    const UBase_t reserved1[19UL];
+}PLL_BITBANDING_FREQ1_t;
 
 typedef volatile struct
 {
     volatile const UBase_t LOCK;
-    const UBase_t reserved [31];
-}BITBANDING_PLLSTAT_t;
+    const UBase_t reserved[31UL];
+}PLL_BITBANDING_STAT_t;
 
 typedef volatile struct
 {
-    volatile UBase_t SRAMPM [2];
-    const UBase_t reserved [2];
-    volatile UBase_t FLASHPM [2];
-    const UBase_t reserved1 [26];
-}BITBANDING_SLPPWRCFG_t;
+    volatile UBase_t SRAM_PM[2UL];
+    const UBase_t reserved[2UL];
+    volatile UBase_t FLASH_PM[2UL];
+    const UBase_t reserved1[26UL];
+}SLPPWR_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
-    volatile UBase_t SRAMPM [2];
-    const UBase_t reserved [2];
-    volatile UBase_t FLASHPM [2];
-    const UBase_t reserved1 [2];
-    volatile UBase_t TSPD;
-    volatile UBase_t LDOSM;
-    const UBase_t reserved2 [22];
-}BITBANDING_DSLPPWRCFG_t;
+    volatile UBase_t SRAM_PM[2UL];
+    const UBase_t reserved[2UL];
+    volatile UBase_t FLASH_PM[2UL];
+    const UBase_t reserved1[2UL];
+    volatile UBase_t TS_PD;
+    volatile UBase_t LDO_SM;
+    const UBase_t reserved2[22UL];
+}DSLPPWR_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
     volatile const UBase_t FWB;
-    const UBase_t reserved [31];
-}BITBANDING_NVMSTAT_t;
+    const UBase_t reserved[31UL];
+}NVM_BITBANDING_STAT_t;
 
 typedef volatile struct
 {
-    volatile UBase_t VLDO [8];
-    const UBase_t reserved [23];
+    volatile UBase_t VLDO[8UL];
+    const UBase_t reserved[23UL];
     volatile UBase_t VADJEN;
-}BITBANDING_LDOSPCTL_t;
+}LDO_BITBANDING_SPCTL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t NOPLL [8];
-    volatile const UBase_t WITHPLL [8];
-    const UBase_t reserved [16];
-}BITBANDING_LDOSPCAL_t;
+    volatile const UBase_t NOPLL[8UL];
+    volatile const UBase_t WITHPLL[8UL];
+    const UBase_t reserved[16UL];
+}LDO_BITBANDING_SPCAL_t;
 
 typedef volatile struct
 {
-    volatile UBase_t VLDO [8];
-    const UBase_t reserved [23];
+    volatile UBase_t VLDO[8UL];
+    const UBase_t reserved[23UL];
     volatile UBase_t VADJEN;
-}BITBANDING_LDODPCTL_t;
+}LDO_BITBANDING_DPCTL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t KHZ30 [8];
-    volatile const UBase_t WITHPLL [8];
-    const UBase_t reserved [16];
-}BITBANDING_LDODPCAL_t;
+    volatile const UBase_t KHZ30[8UL];
+    volatile const UBase_t WITHPLL[8UL];
+    const UBase_t reserved[16UL];
+}LDO_BITBANDING_DPCAL_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t SPDERR;
-    volatile const UBase_t FPDERR;
-    volatile const UBase_t PPDERR;
-    volatile const UBase_t LDMINERR;
-    volatile const UBase_t LSMINERR;
+    volatile const UBase_t SRAM_PD_ERR;
+    volatile const UBase_t FLASH_PD_ERR;
+    volatile const UBase_t PIOSC_PD_ERR;
+    volatile const UBase_t VLDO_DMIN_ERR;
+    volatile const UBase_t VLDO_SMIN_ERR;
     const UBase_t reserved;
-    volatile const UBase_t LMAXERR;
-    volatile const UBase_t PPDW;
-    const UBase_t reserved1:8;
-    volatile const UBase_t PRACT;
-    volatile const UBase_t LOWPWR;
-    volatile const UBase_t FLASHLP;
-    volatile const UBase_t LDOUA;
-    const UBase_t reserved2:12;
-}BITBANDING_SDPMST_t;
+    volatile const UBase_t VLDO_MAX_ERR;
+    volatile const UBase_t PIOSC_PD_WARNING;
+    const UBase_t reserved1[8UL];
+    volatile const UBase_t LOW_ACTIVE;
+    volatile const UBase_t LOW_PWR;
+    volatile const UBase_t FLASH_LP;
+    volatile const UBase_t LDO_UA;
+    const UBase_t reserved2[12UL];
+}SDP_BITBANDING_MST_t;
 
 typedef volatile struct
 {
-    volatile UBase_t EXTRES [2];
-    volatile UBase_t BOR [2];
-    volatile UBase_t WDOG0 [2];
-    volatile UBase_t WDOG1 [2];
-    const UBase_t reserved [24];
-}BITBANDING_RESBEHAVCTL_t;
+    volatile UBase_t EXTERNAL[2UL];
+    volatile UBase_t BOR[2UL];
+    volatile UBase_t WDG0_[2UL];
+    volatile UBase_t WDG1_[2UL];
+    const UBase_t reserved[24UL];
+}RESET_BITBANDING_BEHAVCTL_t;
 
 typedef volatile struct
 {
-    volatile UBase_t CDOFF [24];
-    volatile UBase_t KEY [8];
-}BITBANDING_HSSR_t;
+    volatile UBase_t CDOFF[24UL];
+    volatile UBase_t KEY[8UL];
+}SYSCTL_BITBANDING_HSSR_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t PWRSTAT [2];
-    volatile const UBase_t MEMSTAT [2];
-    const UBase_t reserved [28];
-}BITBANDING_USBPDS_t;
+    volatile const UBase_t PWRSTAT[2UL];
+    volatile const UBase_t MEMSTAT[2UL];
+    const UBase_t reserved[28UL];
+}USB_BITBANDING_PDS_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PWRCTL [2];
-    const UBase_t reserved [30];
-}BITBANDING_USBMPC_t;
+    volatile UBase_t PWRCTL[2UL];
+    const UBase_t reserved[30UL];
+}USB_BITBANDING_MPC_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t PWRSTAT [2];
-    volatile const UBase_t MEMSTAT [2];
-    const UBase_t reserved [28];
-}BITBANDING_EMACPDS_t;
+    volatile const UBase_t PWRSTAT[2UL];
+    volatile const UBase_t MEMSTAT[2UL];
+    const UBase_t reserved[28UL];
+}EMAC_BITBANDING_PDS_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PWRCTL [2];
-    const UBase_t reserved [30];
-}BITBANDING_EMACMPC_t;
+    volatile UBase_t PWRCTL[2UL];
+    const UBase_t reserved[30UL];
+}EMAC_BITBANDING_MPC_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t PWRSTAT [2];
-    volatile const UBase_t MEMSTAT [2];
-    const UBase_t reserved [28];
-}BITBANDING_CAN0PDS_t;
+    volatile const UBase_t PWRSTAT[2UL];
+    volatile const UBase_t MEMSTAT[2UL];
+    const UBase_t reserved[28UL];
+}CAN0_BITBANDING_PDS_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PWRCTL [2];
-    const UBase_t reserved [30];
-}BITBANDING_CAN0MPC_t;
+    volatile UBase_t PWRCTL[2UL];
+    const UBase_t reserved[30UL];
+}CAN0_BITBANDING_MPC_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t PWRSTAT [2];
-    volatile const UBase_t MEMSTAT [2];
-    const UBase_t reserved [28];
-}BITBANDING_CAN1PDS_t;
+    volatile const UBase_t PWRSTAT[2UL];
+    volatile const UBase_t MEMSTAT[2UL];
+    const UBase_t reserved[28UL];
+}CAN1_BITBANDING_PDS_t;
 
 typedef volatile struct
 {
-    volatile UBase_t PWRCTL [2];
-    const UBase_t reserved [30];
-}BITBANDING_CAN1MPC_t;
+    volatile UBase_t PWRCTL[2UL];
+    const UBase_t reserved[30UL];
+}CAN1_BITBANDING_MPC_t;
 
 typedef volatile struct
 {
     volatile const UBase_t DBG0;
     volatile const UBase_t DBG1;
-    const UBase_t reserved [2];
+    const UBase_t reserved[2UL];
     volatile const UBase_t KEY;
-    const UBase_t reserved1 [3];
+    const UBase_t reserved1[3UL];
     volatile const UBase_t EN;
     volatile const UBase_t POL;
-    volatile const UBase_t PIN [3];
-    volatile const UBase_t PORT [3];
-    const UBase_t reserved2 [15];
+    volatile const UBase_t PIN[3UL];
+    volatile const UBase_t PORT[3UL];
+    const UBase_t reserved2[15UL];
     volatile const UBase_t NW;
-}BITBANDING_BOOTCFG_t;
+}BOOT_BITBANDING_CFG_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t DATA [32];
-}BITBANDING_USER_REG_t;
+    volatile const UBase_t DATA[32UL];
+}USER_BITBANDING_REG_t;
 
 typedef volatile struct
 {
@@ -525,14 +525,14 @@ typedef volatile struct
     volatile UBase_t P29;
     volatile UBase_t P30;
     volatile UBase_t P31;
-}BITBANDING_PERIPHERAL_t;
+}PERIPHERAL_BITBANDING_t;
 
 typedef volatile struct
 {
     volatile UBase_t WDT0_;
     volatile UBase_t WDT1_;
-    const UBase_t reserved:30;
-}BITBANDING_PERIPHERAL_WD_t;
+    const UBase_t reserved[30UL];
+}PERIPHERAL_BITBANDING_WD_t;
 
 typedef volatile struct
 {
@@ -544,8 +544,8 @@ typedef volatile struct
     volatile UBase_t TIMER5_;
     volatile UBase_t TIMER6_;
     volatile UBase_t TIMER7_;
-    const UBase_t reserved [24];
-}BITBANDING_PERIPHERAL_TIMER_t;
+    const UBase_t reserved[24UL];
+}PERIPHERAL_BITBANDING_TIMER_t;
 
 typedef volatile struct
 {
@@ -564,26 +564,26 @@ typedef volatile struct
     volatile UBase_t GPION_;
     volatile UBase_t GPIOP_;
     volatile UBase_t GPIOQ_;
-    const UBase_t reserved [17];
-}BITBANDING_PERIPHERAL_GPIO_t;
+    const UBase_t reserved[17UL];
+}PERIPHERAL_BITBANDING_GPIO_t;
 
 typedef volatile struct
 {
     volatile UBase_t UDMA_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_DMA_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_DMA_t;
 
 typedef volatile struct
 {
     volatile UBase_t EPI0_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_EPI_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_EPI_t;
 
 typedef volatile struct
 {
     volatile UBase_t HIB_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_HIB_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_HIB_t;
 
 typedef volatile struct
 {
@@ -595,8 +595,8 @@ typedef volatile struct
     volatile UBase_t UART5_;
     volatile UBase_t UART6_;
     volatile UBase_t UART7_;
-    const UBase_t reserved [24];
-}BITBANDING_PERIPHERAL_UART_t;
+    const UBase_t reserved[24UL];
+}PERIPHERAL_BITBANDING_UART_t;
 
 typedef volatile struct
 {
@@ -604,8 +604,8 @@ typedef volatile struct
     volatile UBase_t SSI1_;
     volatile UBase_t SSI2_;
     volatile UBase_t SSI3_;
-    const UBase_t reserved [28];
-}BITBANDING_PERIPHERAL_SSI_t;
+    const UBase_t reserved[28UL];
+}PERIPHERAL_BITBANDING_SSI_t;
 
 typedef volatile struct
 {
@@ -619,136 +619,136 @@ typedef volatile struct
     volatile UBase_t I2C7_;
     volatile UBase_t I2C8_;
     volatile UBase_t I2C9_;
-    const UBase_t reserved [22];
-}BITBANDING_PERIPHERAL_I2C_t;
+    const UBase_t reserved[22UL];
+}PERIPHERAL_BITBANDING_I2C_t;
 
 typedef volatile struct
 {
     volatile UBase_t USB_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_USB_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_USB_t;
 
 typedef volatile struct
 {
     volatile UBase_t EPHY_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_EPHY_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_EPHY_t;
 
 typedef volatile struct
 {
     volatile UBase_t CAN0_;
     volatile UBase_t CAN1_;
-    const UBase_t reserved [30];
-}BITBANDING_PERIPHERAL_CAN_t;
+    const UBase_t reserved[30UL];
+}PERIPHERAL_BITBANDING_CAN_t;
 
 typedef volatile struct
 {
     volatile UBase_t ADC0_;
     volatile UBase_t ADC1_;
-    const UBase_t reserved:30;
-}BITBANDING_PERIPHERAL_ADC_t;
+    const UBase_t reserved[30UL];
+}PERIPHERAL_BITBANDING_ADC_t;
 
 typedef volatile struct
 {
     volatile UBase_t ACMP_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_ACMP_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_ACMP_t;
 
 typedef volatile struct
 {
     volatile UBase_t PWM0_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_PWM_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_PWM_t;
 
 typedef volatile struct
 {
     volatile UBase_t QEI0_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_QEI_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_QEI_t;
 
 typedef volatile struct
 {
     volatile UBase_t LPC_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_LPC_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_LPC_t;
 
 typedef volatile struct
 {
     volatile UBase_t PECI_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_PECI_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_PECI_t;
 
 typedef volatile struct
 {
     volatile UBase_t FAN_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_FAN_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_FAN_t;
 
 typedef volatile struct
 {
     volatile UBase_t EEPROM_;
-    const UBase_t reserved:31;
-}BITBANDING_PERIPHERAL_EEPROM_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_EEPROM_t;
 
 typedef volatile struct
 {
     volatile UBase_t WTIMER0_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_WTIMER_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_WTIMER_t;
 
 typedef volatile struct
 {
     volatile UBase_t RTS_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_RTS_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_RTS_t;
 
 typedef volatile struct
 {
     volatile UBase_t CCM_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_CCM_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_CCM_t;
 
 typedef volatile struct
 {
     volatile UBase_t LCD_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_LCD_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_LCD_t;
 
 typedef volatile struct
 {
     volatile UBase_t OWIRE_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_OWIRE_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_OWIRE_t;
 
 typedef volatile struct
 {
     volatile UBase_t EMAC_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_EMAC_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_EMAC_t;
 
 typedef volatile struct
 {
     volatile UBase_t PRB_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_PRB_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_PRB_t;
 
 typedef volatile struct
 {
     volatile UBase_t HIM_;
-    const UBase_t reserved [31];
-}BITBANDING_PERIPHERAL_HIM_t;
+    const UBase_t reserved[31UL];
+}PERIPHERAL_BITBANDING_HIM_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t ID [32];
-}BITBANDING_UNIQUEID_t;/*0x00000008*/
+    volatile const UBase_t ID[32UL];
+}UNIQUE_BITBANDING_ID_t;/*0x00000008*/
 
 typedef volatile struct
 {
     volatile UBase_t SHACFG;
     volatile UBase_t AESCFG;
     volatile UBase_t DESCFG;
-    const UBase_t reserved [29];
-}BITBANDING_CCMCGREQ_t;
+    const UBase_t reserved[29UL];
+}CCM_BITBANDING_CGREQ_t;
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_PERIPHERAL_SYSCTL_STRUCT_SYSCTL_STRUCTREGISTER_BITBANDING_H_ */

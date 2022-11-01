@@ -25,12 +25,15 @@
 #ifndef XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_ENUM_H_
 #define XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_ENUM_H_
 
+#include <xOS/Variables/OS_Variables.h>
+
 typedef enum
 {
 /* For internal use only. */
     OS_Queue_enPos_SEND_TO_BACK = 0UL,
     OS_Queue_enPos_SEND_TO_FRONT = 1UL,
     OS_Queue_enPos_OVERWRITE = 2UL,
+    OS_Queue_enPos_UNDEF = UNDEF_VALUE,
 }OS_Queue_nPos;
 
 typedef enum
@@ -42,6 +45,7 @@ typedef enum
     OS_Queue_enType_COUNTING_SEMAPHORE = 2UL,
     OS_Queue_enType_BINARY_SEMAPHORE = 3UL,
     OS_Queue_enType_RECURSIVE_MUTEX = 4UL,
+    OS_Queue_enType_UNDEF = UNDEF_VALUE,
 }OS_Queue_nType;
 
 #endif /* XOS_QUEUE_INTRINSICS_XHEADER_OS_QUEUE_ENUM_H_ */

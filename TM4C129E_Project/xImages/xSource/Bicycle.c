@@ -23,7 +23,7 @@
  */
 #include <xImages/xHeader/Bicycle.h>
 
-__attribute__((aligned(4))) const uint8_t gImage_bic[18240] =
+__attribute__((aligned(4))) static const uint8_t gImage_bic[18240] =
 {/* 0X00,0X10,0X78,0X00,0X4C,0X00,0X01,0X1B, */
     0X24,0X21,0X04,0X21,0X65,0X29,0X65,0X29,0X24,0X21,0XE7,0X39,0X28,0X42,0X28,0X42,
     0X08,0X42,0X28,0X42,0X69,0X4A,0X51,0X8C,0X55,0XAD,0XF3,0X9C,0XA6,0X31,0XC7,0X39,

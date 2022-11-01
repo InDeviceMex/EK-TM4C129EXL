@@ -39,6 +39,7 @@ typedef enum
 {
     FALSE = 0UL,
     TRUE = 1UL,
+    BOOLEAN_UNDEF = UNDEF_VALUE,
 }boolean_t;
 
 typedef enum

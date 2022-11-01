@@ -31,7 +31,7 @@
 #include <xOS/Adapt/xHeader/OS_Adapt_Critical.h>
 #include <xOS/Adapt/xHeader/OS_Adapt_Interrupt.h>
 #include <xOS/Task/xHeader/OS_Task_Scheduler.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB_.h>
 #include <xOS/Task/xHeader/OS_Task_TCB.h>
 
 static void OS_Adapt_vSetupTimerInterrupt(OS_UBase_t uxUsPeriod);

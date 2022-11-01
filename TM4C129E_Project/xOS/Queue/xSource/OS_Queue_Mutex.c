@@ -28,7 +28,7 @@
 
 #include <stdlib.h>
 #include <xOS/Adapt/OS_Adapt.h>
-#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB.h>
+#include <xOS/Task/Intrinsics/xHeader/OS_Task_TCB_.h>
 
 OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
 {

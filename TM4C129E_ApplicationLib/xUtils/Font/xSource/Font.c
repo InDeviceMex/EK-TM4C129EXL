@@ -1486,37 +1486,49 @@ const uint16_t FONT_u16_16x24[24UL * 95UL] = {
 
 
 /*fuentes 16 bits  bits=x(mas significativo al menos) pos=y*/
-FONT_t FONT_s16x24 = {
-    FONT_u16_16x24,
+FONT_t FONT_s16x24 =
+{
     16,
     24,
     16,
+    FONT_u16_16x24,
     -1,
+    0,
+    0,
 };
 
-FONT_t FONT_s12x12 = {
-    FONT_u16_12x12,
+FONT_t FONT_s12x12 =
+{
     9,
     12,
     16,
+    FONT_u16_12x12,
     1,
+    0,
+    0,
 };
 
-FONT_t FONT_s8x12 = { /*bits=x pos=y*/
-    FONT_u16_8x12,
+FONT_t FONT_s8x12 =
+{ /*bits=x pos=y*/
     8,
     12,
     8,
+    FONT_u16_8x12,
     1,
+    0,
+    0,
 };
 
 
-FONT_t FONT_s8x8 = {
+FONT_t FONT_s8x8 =
+{
+    8,
+    8,
+    8,
     FONT_u16_8x8,
-    8,
-    8,
-    8,
     1,
+    0,
+    0,
 };
 
 
@@ -1525,20 +1537,26 @@ FONT_t FONT_s8x8 = {
 
 
 
-FONT_t FONT_s11x16 = {
-    FONT_u16_11x16,
+FONT_t FONT_s11x16 =
+{
     11,
     16,
     16,
+    FONT_u16_11x16,
     1,
+    0,
+    0,
 };
 
-FONT_t FONT_s5x7 = { /*bits=y pos=x*/
-    FONT_u16_5x7,
+FONT_t FONT_s5x7 =
+{ /*bits=y pos=x*/
     7,
     5,
     8,
+    FONT_u16_5x7,
     1,
+    0,
+    0,
 };
 
 /*fuentes 8 bits*/
@@ -1547,35 +1565,47 @@ FONT_t FONT_s5x7 = { /*bits=y pos=x*/
 
 /*--------------------------*/
 
-FONT_t FONT_s6x8 = { /*bits=x pos=y*/
-    FONT_u16_6x8,
+FONT_t FONT_s6x8 =
+{ /*bits=x pos=y*/
     6,
     8,
     8,
+    FONT_u16_6x8,
     1,
+    0,
+    0,
 };
 
-FONT_t FONT_s8x16 = { /*bits=x pos=y*/
+FONT_t FONT_s8x16 =
+{ /*bits=x pos=y*/
+    8,
+    16,
+    8,
     FONT_u16_8x16,
-    8,
-    16,
-    8,
     1,
+    0,
+    0,
 };
 
-FONT_t FONT_s8x16_MS_Gothic = { /*bits=x pos=y*/
+FONT_t FONT_s8x16_MS_Gothic =
+{ /*bits=x pos=y*/
+    8,
+    16,
+    8,
     FONT_u16_8x16_MS_Gothic,
-    8,
-    16,
-    8,
     1,
+    0,
+    0,
 };
-FONT_t FONT_s8x16_System = { /*bits=x pos=y*/
-    FONT_u16_8x16_System,
+FONT_t FONT_s8x16_System =
+{ /*bits=x pos=y*/
     8,
     16,
     8,
+    FONT_u16_8x16_System,
     1,
+    0,
+    0,
 };
 
 

@@ -10,9 +10,19 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vSetMemoryTiming(UBase_t uxSysClock);
-void SYSCTL__vGetMemoryTiming(SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
-                              SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
-                              SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);
+SYSCTL_nERROR SYSCTL__enSetMemoryHighTime(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_HIGHTIME enHighTimeArg);
+SYSCTL_nERROR SYSCTL__enGetMemoryHighTime(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_HIGHTIME* penHighTimeArg);
+
+SYSCTL_nERROR SYSCTL__enSetMemoryWaitState(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_WAITSTATE enWaitStateArg);
+SYSCTL_nERROR SYSCTL__enGetMemoryWaitState(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_WAITSTATE* penWaitStateArg);
+
+SYSCTL_nERROR SYSCTL__enSetMemoryClockEdge(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_CLOCKEDGE enClockEdgeArg);
+SYSCTL_nERROR SYSCTL__enGetMemoryClockEdge(SYSCTL_nMODULE enModuleArg, SYSCTL_nMEM_CLOCKEDGE* penClockEdgeArg);
+
+SYSCTL_nERROR SYSCTL__enSetMemoryTiming(SYSCTL_nMODULE enModuleArg, UBase_t uxSystemClockArg);
+SYSCTL_nERROR SYSCTL__enGetMemoryTiming(SYSCTL_nMODULE enModuleArg,
+                                        SYSCTL_nMEM_HIGHTIME* penMemoryHighTime,
+                                        SYSCTL_nMEM_WAITSTATE* penMemoryWaitState,
+                                        SYSCTL_nMEM_CLOCKEDGE* penMemoryClockEdge);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_MEMORYTIMING_H_ */

@@ -31,7 +31,7 @@ typedef enum
 {
     OS_Task_enStatus_Ok = 0UL,
     OS_Task_enStatus_Error = 1UL,
-    OS_Task_enStatus_Undef = 0xFFFFFFFFUL
+    OS_Task_enStatus_Undef = UNDEF_VALUE
 } OS_Task_eStatus;
 
 typedef enum
@@ -41,7 +41,7 @@ typedef enum
     OS_Task_enState_Blocked = 2UL,       /* The task being queried is in the Blocked state. */
     OS_Task_enState_Suspended = 3UL,     /* The task being queried is in the Suspended state, or is in the Blocked state with an infinite time out. */
     OS_Task_enState_Deleted = 4UL,        /* The task being queried has been deleted, but its TCB has not yet been freed. */
-    OS_Task_enState_Undef = 0xFFFFFFFFUL
+    OS_Task_enState_Undef = UNDEF_VALUE
 } OS_Task_eState;
 
 typedef enum
@@ -67,7 +67,7 @@ typedef enum
     OS_Task_enSleepModeStatus_AbortSleep = 0UL,        /* A task has been made ready or a context switch pended since portSUPPORESS_TICKS_AND_SLEEP() was called - abort entering a sleep mode. */
     OS_Task_enSleepModeStatus_StandardSleep = 1UL,         /* Enter a sleep mode that will not last any longer than the expected idle time. */
     OS_Task_enSleepModeStatus_NoTasksWaitingTimeout = 2UL,  /* No tasks are waiting for a timeout so it is safe to enter a sleep mode that can only be exited by an external interrupt. */
-    OS_Task_enSleepModeStatus_Undef = 0xFFFFFFFFUL
+    OS_Task_enSleepModeStatus_Undef = UNDEF_VALUE
 } OS_Task_eSleepModeStatus;
 
 typedef enum
@@ -75,7 +75,7 @@ typedef enum
     OS_Task_enScheduler_Suspended = 0UL,
     OS_Task_enScheduler_Not_Started = 1UL,
     OS_Task_enScheduler_Running = 2UL,
-    OS_Task_enScheduler_Undef = 0xFFFFFFFFUL
+    OS_Task_enScheduler_Undef = UNDEF_VALUE
 } OS_Task_eScheduler;
 
 #endif /* XOS_TASK_INTRINSICS_XHEADER_OS_TASK_ENUM_H_ */

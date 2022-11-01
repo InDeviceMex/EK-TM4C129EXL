@@ -26,8 +26,8 @@
 #define XOS_COROUTINE_INTRINSICS_OS_COROUTINE_INTRINSICS_H_
 
 #include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_CRCB.h>
-#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Delayed.h>
+#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Delayed_.h>
 #include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Tick.h>
-#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Ready.h>
+#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Ready_.h>
 
 #endif /* XOS_COROUTINE_INTRINSICS_OS_COROUTINE_INTRINSICS_H_ */
