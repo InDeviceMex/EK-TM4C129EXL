@@ -27,6 +27,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vResetPeripheral(SYSCTL_nPERIPHERAL enPeripheral);
+SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enIsPeripheralOnReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_DRIVER_SYSCTL_PERIPHERALRESET_H_ */

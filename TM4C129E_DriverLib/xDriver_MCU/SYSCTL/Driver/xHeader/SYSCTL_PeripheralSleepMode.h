@@ -27,7 +27,10 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vEnSleepModePeripheral(SYSCTL_nPERIPHERAL enPeripheral);
-void SYSCTL__vDisSleepModePeripheral(SYSCTL_nPERIPHERAL enPeripheral);
+SYSCTL_nERROR SYSCTL__enSetSleepModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE enStateArg);
+SYSCTL_nERROR SYSCTL__enEnableSleepMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enDisableSleepMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+
+SYSCTL_nERROR SYSCTL__enGetSleepModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_DRIVER_SYSCTL_PERIPHERALSLEEPMODE_H_ */

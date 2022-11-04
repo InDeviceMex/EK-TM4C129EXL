@@ -47,8 +47,8 @@ void xTask3_ButtonsLog(void* pvParams)
     EDUMKII_nJOYSTICK enSelectOld;
 
     uxLastWakeTime = OS_Task__uxGetTickCount ();
-    GPIO__vSetReady(GPIO_enPORT_N);
-    GPIO__vSetReady(GPIO_enPORT_F);
+    GPIO__enSetReadyOnRunMode(GPIO_enPORT_N);
+    GPIO__enSetReadyOnRunMode(GPIO_enPORT_F);
 
     GPIO__enSetDigitalConfig(GPIO_enGPIOF4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDigitalConfig(GPIO_enGPION0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);

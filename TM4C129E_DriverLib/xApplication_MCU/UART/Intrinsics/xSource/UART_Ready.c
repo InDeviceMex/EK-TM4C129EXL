@@ -25,62 +25,58 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 
-#if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_UART[(UBase_t) UART_enMODULE_MAX] =
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_UART[(UBase_t) UART_enMODULE_MAX] =
 {
  SYSCTL_enUART0, SYSCTL_enUART1, SYSCTL_enUART2, SYSCTL_enUART3,
  SYSCTL_enUART4, SYSCTL_enUART5, SYSCTL_enUART6, SYSCTL_enUART7
 };
-#endif
 
-void UART__vSetReady(UART_nMODULE enModule)
+UART_nERROR UART__enSetReadyOnRunMode(UART_nMODULE enModuleArg)
 {
-#if !defined(Opt_Check)
-    UART_nSTATUS enReady = UART_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUART0;
-    UBase_t uxModule = 0UL;
+    UART_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-    enPeripheral = SYSCTL_VECTOR_UART[uxModule];
-    enReady = UART__enIsReady((UART_nMODULE) uxModule);
-    if(UART_enSTATUS_INACTIVE == enReady)
+    enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    if(UART_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vSetReady(enPeripheral);
-        SYSCTL__vReset(enPeripheral);
-        SYSCTL__vSetReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_UART[(UBase_t) enModuleArg];
+        enErrorReg = (UART_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
     }
-#endif
+    return (enErrorReg);
 }
 
-void UART__vClearReady(UART_nMODULE enModule)
+UART_nERROR UART__enClearReadyOnRunMode(UART_nMODULE enModuleArg)
 {
-#if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_UART[(UBase_t) UART_enMODULE_MAX] =
-    {SYSCTL_enUART0, SYSCTL_enUART1, SYSCTL_enUART2, SYSCTL_enUART3, SYSCTL_enUART4, SYSCTL_enUART5, SYSCTL_enUART6, SYSCTL_enUART7};
-#endif
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUART0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_UART[uxModule];
-    SYSCTL__vClearReady(enPeripheral);
+    UART_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_UART[(UBase_t) enModuleArg];
+        enErrorReg = (UART_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-UART_nSTATUS UART__enIsReady(UART_nMODULE enModule)
+UART_nERROR UART__enIsReady(UART_nMODULE enModuleArg, UART_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    UART_nSTATUS enReady = UART_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUART0;
-    UBase_t uxModule =0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_UART[uxModule];
-    enReady = (UART_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    UART_nSTATUS enReady = UART_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    UART_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = UART_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = UART_enERROR_POINTER;
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    }
+    if(UART_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_UART[(UBase_t) enModuleArg];
+        enErrorReg = (UART_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }
-
-
-
-

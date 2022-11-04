@@ -25,42 +25,67 @@
 
 #include <xDriver_MCU/SYSCTL/Driver/SYSCTL_Driver.h>
 
-void SYSCTL__vSetReady(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enSetReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    SYSCTL_nBOOLEAN enReady = SYSCTL_enFALSE;
-    enReady = SYSCTL__enIsPeripheralReady(enPeripheral);
-    if(SYSCTL_enFALSE == enReady)
+    SYSCTL_nERROR enErrorReg;
+    SYSCTL_nBOOLEAN enReady;
+    enReady = SYSCTL_enFALSE;
+    enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vResetPeripheral(enPeripheral);
-        SYSCTL__vDisRunModePeripheral(enPeripheral);
-        SYSCTL__vEnRunModePeripheral(enPeripheral);
+        if(SYSCTL_enFALSE == enReady)
+        {
+
+            enErrorReg = SYSCTL__enEnableRunMode(enModuleArg, enPeripheralArg);
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
+            }
+        }
     }
+    return (enErrorReg);
 }
 
-void SYSCTL__vClearReady(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enClearReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    SYSCTL_nBOOLEAN enReady = SYSCTL_enFALSE;
-    enReady = SYSCTL__enIsPeripheralReady(enPeripheral);
-    if(SYSCTL_enFALSE == enReady)
+    SYSCTL_nERROR enErrorReg;
+    SYSCTL_nBOOLEAN enReady;
+    enReady = SYSCTL_enFALSE;
+    enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vResetPeripheral(enPeripheral);
-        SYSCTL__vDisRunModePeripheral(enPeripheral);
+        if(SYSCTL_enTRUE == enReady)
+        {
+            enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
+            if(SYSCTL_enERROR_OK == enErrorReg)
+            {
+                enErrorReg = SYSCTL__enDisableRunMode(enModuleArg, enPeripheralArg);
+            }
+
+        }
     }
+    return (enErrorReg);
 }
 
-void SYSCTL__vReset(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    SYSCTL_nBOOLEAN enReady = SYSCTL_enFALSE;
-    enReady = SYSCTL__enIsPeripheralReady(enPeripheral);
-    if(SYSCTL_enFALSE == enReady)
+    SYSCTL_nERROR enErrorReg;
+    SYSCTL_nBOOLEAN enReady;
+    enReady = SYSCTL_enFALSE;
+    enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
+    if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vResetPeripheral(enPeripheral);
+        if(SYSCTL_enTRUE == enReady)
+        {
+            SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
+        }
     }
+    return (enErrorReg);
 }
 
-SYSCTL_nBOOLEAN SYSCTL__enIsReady(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enIsReady(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penReadyArg)
 {
-    SYSCTL_nBOOLEAN enReady = SYSCTL_enFALSE;
-    enReady = SYSCTL__enIsPeripheralReady(enPeripheral);
-    return (enReady);
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, penReadyArg);
+    return (enErrorReg);
 }

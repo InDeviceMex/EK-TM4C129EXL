@@ -38,14 +38,10 @@ EEPROM_nERROR EEPROM__enInit (EEPROM_nMODULE enModuleArg)
     EEPROM_nERROR enErrorReg;
     EEPROM_pvfIRQSourceHandler_t pfIrqVectorHandler;
 
-    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        /*
-         * To Reinitialize Peripheral Clock
-         */
-        EEPROM__vSetReady();
-    }
+    /*
+     * To Reinitialize Peripheral Clock
+     */
+    enErrorReg = EEPROM__enSetReadyOnRunMode(enModuleArg);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         pfIrqVectorHandler = EEPROM__pvfGetIRQVectorHandler(enModuleArg);
@@ -67,7 +63,7 @@ EEPROM_nERROR EEPROM__enDeInit (EEPROM_nMODULE enModuleArg)
     enErrorReg = EEPROM__enDisableInterruptVector(enModuleArg);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        EEPROM__vClearReady();
+        enErrorReg = EEPROM__enClearReadyOnRunMode(enModuleArg);
     }
     return (enErrorReg);
 }

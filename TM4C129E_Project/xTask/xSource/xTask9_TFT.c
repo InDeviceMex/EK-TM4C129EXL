@@ -82,7 +82,7 @@ void xTask9_TFT(void* pvParams)
 
     pcButtonOne = (char*) 0UL;
     pcButtonTwo = (char*) 0UL;
-    GPIO__vSetReady(GPIO_enPORT_F);
+    GPIO__enSetReadyOnRunMode(GPIO_enPORT_F);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
     OS_Semaphore__boGive(MainSemaphoreHandle);
     OS_Semaphore__boGive(DMASemaphoreHandle);

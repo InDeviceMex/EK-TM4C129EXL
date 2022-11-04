@@ -72,40 +72,29 @@ int main(void)
      UART_enLINE_SELECT_PRIMARY,
      UART_enLINE_SELECT_PRIMARY,
     };
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOF);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOF);
     GPIO__enSetDigitalConfig(GPIO_enGPIOF2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_2, GPIO_enLEVEL_LOW);
     GPIO__enSetDigitalConfig(GPIO_enGPIOF0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
     GPIO__enSetDataByNumber(GPIO_enPORT_F, GPIO_enPIN_0, GPIO_enLEVEL_LOW);
 
     SYSCTL__enSetSystemClock(SYSCTL_enMODULE_0, 120000000UL, &stClockConfig, 0UL);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enEEPROM);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUDMA);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOA);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOB);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOC);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOD);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOE);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOG);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOH);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOJ);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOK);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOL);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOM);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPION);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOP);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enGPIOQ);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER0);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enTIMER1);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART0);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enUART2);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enADC0);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enADC1);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI0);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI2);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enSSI3);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN0);
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enCAN1);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOA);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOB);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOC);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOD);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOE);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOG);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOH);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOJ);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOK);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOL);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOM);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPION);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOP);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOQ);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enTIMER0);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enTIMER1);
     EEPROM__enInit(EEPROM_enMODULE_0);
     DMA__enInit(DMA_enMODULE_0);
     GPIO__enInit();
@@ -132,7 +121,7 @@ int main(void)
     UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 4000000UL, 0UL, 0UL,
                       &enUart0Control, &enUart0LineControl, &enUart0Line, 0UL);
 
-    SYSCTL__vEnRunModePeripheral(SYSCTL_enPWM0);
+    SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enPWM0);
     PWM_Generator__enSetPeriod_us(PWM_enMODULE_0, PWM_enGEN_0, 30000UL);
     SHARP_96_96__vInitDisplay();
 

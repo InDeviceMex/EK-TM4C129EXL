@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Defines.h>
 
-void EEPROM__vSetReady(void);
-void EEPROM__vClearReady(void);
-EEPROM_nSTATUS EEPROM__enIsReady(void);
+EEPROM_nERROR EEPROM__enSetReadyOnRunMode(EEPROM_nMODULE enModuleArg);
+EEPROM_nERROR EEPROM__enClearReadyOnRunMode(EEPROM_nMODULE enModuleArg);
+EEPROM_nERROR EEPROM__enIsReady(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_EEPROM_INTRINSICS_XHEADER_EEPROM_READY_H_ */

@@ -27,6 +27,6 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-WDT_nERROR WDT__enInit(void);
+WDT_nERROR WDT__enInit(WDT_nMODULE enModuleArg);
 
 #endif /* XAPPLICATION_MCU_WDT_XHEADER_WDT_INIT_H_ */

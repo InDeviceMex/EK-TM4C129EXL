@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/ACMP/xHeader/ACMP_Init.h>
 
+#include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Ready.h>
 #include <xApplication_MCU/ACMP/Interrupt/ACMP_Interrupt.h>
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Dependencies.h>
 
@@ -33,7 +34,7 @@ ACMP_nERROR ACMP__vInit(ACMP_nMODULE enModuleArg)
     ACMP_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
     uxCompReg = 0UL;
-    enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
+    enErrorReg = ACMP__enSetReadyOnRunMode(enModuleArg);
     while((uxCompReg < (UBase_t) ACMP_enCOMP_MAX) && (ACMP_enERROR_OK == enErrorReg))
     {
         pfIrqVectorHandlerReg = ACMP__pvfGetIRQVectorHandler(enModuleArg, (ACMP_nCOMP) uxCompReg);

@@ -27,9 +27,9 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vSetReady(SYSCTL_nPERIPHERAL enPeripheral);
-void SYSCTL__vClearReady(SYSCTL_nPERIPHERAL enPeripheral);
-void SYSCTL__vReset(SYSCTL_nPERIPHERAL enPeripheral);
-SYSCTL_nBOOLEAN SYSCTL__enIsReady(SYSCTL_nPERIPHERAL enPeripheral);
+SYSCTL_nERROR SYSCTL__enSetReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enClearReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enIsReady(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penReadyArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_APP_XHEADER_SYSCTL_READY_H_ */

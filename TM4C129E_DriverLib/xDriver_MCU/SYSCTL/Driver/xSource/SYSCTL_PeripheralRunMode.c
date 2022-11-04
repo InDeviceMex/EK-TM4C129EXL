@@ -23,15 +23,67 @@
  */
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralRunMode.h>
 
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralReady.h>
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralGeneric.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vEnRunModePeripheral(SYSCTL_nPERIPHERAL enPeripheral)
+
+SYSCTL_nERROR SYSCTL__enSetRunModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE enStateArg)
 {
-    SYSCTL__vWritePeripheral(enPeripheral, SYSCTL_RCGC_OFFSET, 1UL);
+    SYSCTL_Register_t enRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enRegister.uptrAddress = SYSCTL_RCGC_OFFSET;
+    enRegister.uxValue = (UBase_t) enStateArg;
+
+    enErrorReg =SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        SYSCTL_nBOOLEAN enStatusReg;
+        enStatusReg = SYSCTL_enFALSE;
+        do
+        {
+
+            enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enStatusReg);
+        }while((SYSCTL_enERROR_OK == enErrorReg) &&
+               (SYSCTL_enFALSE == enStatusReg));
+    }
+    return (enErrorReg);
 }
 
-void SYSCTL__vDisRunModePeripheral(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enEnableRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    SYSCTL__vWritePeripheral(enPeripheral, SYSCTL_RCGC_OFFSET, 0UL);
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg =SYSCTL__enSetRunModeState(enModuleArg, enPeripheralArg, SYSCTL_enSTATE_ENA);
+    return (enErrorReg);
 }
+
+SYSCTL_nERROR SYSCTL__enDisableRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
+{
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg =SYSCTL__enSetRunModeState(enModuleArg, enPeripheralArg, SYSCTL_enSTATE_DIS);
+    return (enErrorReg);
+}
+
+
+SYSCTL_nERROR SYSCTL__enGetRunModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE* penStateArg)
+{
+    SYSCTL_Register_t enRegister;
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        enRegister.uptrAddress = SYSCTL_RCGC_OFFSET;
+        enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        *penStateArg = (SYSCTL_nSTATE) enRegister.uxValue;
+    }
+    return (enErrorReg);
+}
+

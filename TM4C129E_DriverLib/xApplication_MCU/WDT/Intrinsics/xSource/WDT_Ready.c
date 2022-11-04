@@ -25,46 +25,72 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Dependencies.h>
 
-void WDT__vSetReady(WDT_nMODULE enModule)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_WDT[(UBase_t) WDT_enMODULE_MAX] =
 {
-#if !defined(Opt_Check)
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enWDT0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
-    enPeripheral |= uxModule;
-    SYSCTL__vSetReady(enPeripheral);
-#endif
+ SYSCTL_enWDT0, SYSCTL_enWDT1
+};
+
+WDT_nERROR WDT__enSetReadyOnRunMode(WDT_nMODULE enModuleArg)
+{
+    WDT_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_WDT[(UBase_t) enModuleArg];
+        enErrorReg = (WDT_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-void WDT__vReset(WDT_nMODULE enModule)
+WDT_nERROR WDT__enClearReadyOnRunMode(WDT_nMODULE enModuleArg)
 {
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enWDT0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
-    enPeripheral |= uxModule;
-    SYSCTL__vReset(enPeripheral);
+    WDT_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_WDT[(UBase_t) enModuleArg];
+        enErrorReg = (WDT_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-void WDT__vClearReady(WDT_nMODULE enModule)
+WDT_nERROR WDT__enReset(WDT_nMODULE enModuleArg)
 {
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enWDT0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
-    enPeripheral |= uxModule;
-    SYSCTL__vClearReady(enPeripheral);
+    WDT_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_WDT[(UBase_t) enModuleArg];
+        enErrorReg = (WDT_nERROR) SYSCTL__enSetPeripheralReset(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-WDT_nSTATUS WDT__enIsReady(WDT_nMODULE enModule)
+WDT_nERROR WDT__enIsReady(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    WDT_nSTATUS enReady = WDT_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enWDT0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) WDT_enMODULE_MAX);
-    enPeripheral |= uxModule;
-    enReady = (WDT_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    WDT_nSTATUS enReady = WDT_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    WDT_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = WDT_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = WDT_enERROR_POINTER;
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
+    }
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_WDT[(UBase_t) enModuleArg];
+        enErrorReg = (WDT_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }
+

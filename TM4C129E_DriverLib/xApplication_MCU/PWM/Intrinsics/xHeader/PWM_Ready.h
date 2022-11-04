@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Defines.h>
 
-void PWM__vSetReady(PWM_nMODULE enModule);
-void PWM__vClearReady(PWM_nMODULE enModule);
-PWM_nSTATUS PWM__enIsReady(PWM_nMODULE enModule);
+PWM_nERROR PWM__enSetReadyOnRunMode(PWM_nMODULE enModuleArg);
+PWM_nERROR PWM__enClearReadyOnRunMode(PWM_nMODULE enModuleArg);
+PWM_nERROR PWM__enIsReady(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_PWM_INTRINSICS_XHEADER_PWM_READY_H_ */

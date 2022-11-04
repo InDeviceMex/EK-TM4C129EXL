@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/PWM/xHeader/PWM_Init.h>
 
+#include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Ready.h>
 #include <xApplication_MCU/PWM/Interrupt/PWM_Interrupt.h>
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
@@ -33,7 +34,7 @@ PWM_nERROR PWM__enInit(PWM_nMODULE enModuleArg)
     PWM_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
     uxGeneratorReg = 0UL;
-    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    enErrorReg = PWM__enSetReadyOnRunMode(enModuleArg);
     while((uxGeneratorReg < (UBase_t) PWM_enGEN_MAX) && (PWM_enERROR_OK == enErrorReg))
     {
         pfIrqVectorHandlerReg = PWM_Generator__pvfGetIRQVectorHandler(enModuleArg, (PWM_nGENERATOR) uxGeneratorReg);

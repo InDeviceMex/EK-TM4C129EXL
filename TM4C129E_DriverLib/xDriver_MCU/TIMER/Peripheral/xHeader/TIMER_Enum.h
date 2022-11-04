@@ -29,6 +29,18 @@
 
 typedef enum
 {
+    TIMER_enERROR_OK = (UBase_t) MCU_enERROR_OK,
+    TIMER_enERROR_POINTER = (UBase_t) MCU_enERROR_POINTER,
+    TIMER_enERROR_VALUE = (UBase_t) MCU_enERROR_VALUE,
+    TIMER_enERROR_RANGE = (UBase_t) MCU_enERROR_RANGE,
+    TIMER_enERROR_EMPTY = (UBase_t) MCU_enERROR_EMPTY,
+    TIMER_enERROR_TIMEOUT = (UBase_t) MCU_enERROR_TIMEOUT,
+    TIMER_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
+}TIMER_nERROR;
+
+
+typedef enum
+{
     TIMER_enINT_STATUS_INACTIVE = 0UL,
     TIMER_enINT_STATUS_ACTIVE = 1UL,
     TIMER_enINT_STATUS_UNDEF = UNDEF_VALUE,
@@ -47,6 +59,13 @@ typedef enum
     TIMER_enREADY = 1UL,
     TIMER_enREADY_UNDEF = UNDEF_VALUE,
 }TIMER_nREADY;
+
+typedef enum
+{
+    TIMER_enFALSE = (UBase_t) FALSE,
+    TIMER_enTRUE = (UBase_t) TRUE,
+    TIMER_enPENDSTATE_UNDEF = UNDEF_VALUE,
+}TIMER_nBOOLEAN;
 
 typedef enum
 {

@@ -26,10 +26,24 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralGeneric.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-SYSCTL_nBOOLEAN SYSCTL__enIsPeripheralPresent(SYSCTL_nPERIPHERAL enPeripheral)
+SYSCTL_nERROR SYSCTL__enIsPeripheralPresent(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penStateArg)
 {
-    SYSCTL_nBOOLEAN enPresentReg = SYSCTL_enFALSE;
-    enPresentReg = (SYSCTL_nBOOLEAN) SYSCTL__uxReadPeripheral(enPeripheral,
-                                                                      SYSCTL_PP_OFFSET);
-    return (enPresentReg);
+    SYSCTL_Register_t enRegister;
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        enRegister.uptrAddress = SYSCTL_PP_OFFSET;
+        enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+    }
+    return (enErrorReg);
 }
+

@@ -23,15 +23,20 @@
  */
 #include <xApplication_MCU/WDT/xHeader/WDT_Init.h>
 
+#include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Ready.h>
 #include <xApplication_MCU/WDT/Interrupt/WDT_Interrupt.h>
 
-WDT_nERROR WDT__enInit(void)
+WDT_nERROR WDT__enInit(WDT_nMODULE enModuleArg)
 {
     WDT_nERROR enErrorReg;
     WDT_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    pfIrqVectorHandlerReg = WDT__pvfGetIRQVectorHandler(WDT_enMODULE_0);
-    enErrorReg = WDT__enRegisterIRQVectorHandler(WDT_enMODULE_0, pfIrqVectorHandlerReg);
+    enErrorReg = WDT__enSetReadyOnRunMode(enModuleArg);
+    if(WDT_enERROR_OK == enErrorReg)
+    {
+        pfIrqVectorHandlerReg = WDT__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = WDT__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
+    }
 
     return (enErrorReg);
 }

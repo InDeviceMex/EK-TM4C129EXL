@@ -25,27 +25,57 @@
 
 #include <xApplication_MCU/EEPROM/Intrinsics/xHeader/EEPROM_Dependencies.h>
 
-void EEPROM__vSetReady(void)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_EEPROM[(UBase_t) EEPROM_enMODULE_MAX] =
 {
-#if !defined(Opt_Check)
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enEEPROM;
-    SYSCTL__vSetReady(enPeripheral);
-#endif
+ SYSCTL_enEEPROM
+};
+
+EEPROM_nERROR EEPROM__enSetReadyOnRunMode(EEPROM_nMODULE enModuleArg)
+{
+    EEPROM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_EEPROM[(UBase_t) enModuleArg];
+        enErrorReg = (EEPROM_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-void EEPROM__vClearReady(void)
+EEPROM_nERROR EEPROM__enClearReadyOnRunMode(EEPROM_nMODULE enModuleArg)
 {
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enEEPROM;
-    SYSCTL__vClearReady(enPeripheral);
+    EEPROM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_EEPROM[(UBase_t) enModuleArg];
+        enErrorReg = (EEPROM_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
-EEPROM_nSTATUS EEPROM__enIsReady(void)
+
+EEPROM_nERROR EEPROM__enIsReady(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    EEPROM_nSTATUS enReady = EEPROM_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enEEPROM;
-    enReady = (EEPROM_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    EEPROM_nSTATUS enReady = EEPROM_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    EEPROM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = EEPROM_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = EEPROM_enERROR_POINTER;
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
+    }
+    if(EEPROM_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_EEPROM[(UBase_t) enModuleArg];
+        enErrorReg = (EEPROM_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }

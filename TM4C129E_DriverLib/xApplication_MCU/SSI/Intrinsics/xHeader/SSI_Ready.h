@@ -27,8 +27,9 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Defines.h>
 
-void SSI__vSetReady(SSI_nMODULE enModule);
-void SSI__vClearReady(SSI_nMODULE enModule);
-SSI_nSTATUS SSI__enIsReady(SSI_nMODULE enModule);
+SSI_nERROR SSI__enSetReadyOnRunMode(SSI_nMODULE enModuleArg);
+SSI_nERROR SSI__enClearReadyOnRunMode(SSI_nMODULE enModuleArg);
+
+SSI_nERROR SSI__enIsReady(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_SSI_INTRINSICS_XHEADER_SSI_READY_H_ */

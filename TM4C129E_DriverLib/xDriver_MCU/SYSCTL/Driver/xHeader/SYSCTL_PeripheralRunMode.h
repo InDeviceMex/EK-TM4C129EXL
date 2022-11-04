@@ -27,7 +27,10 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vEnRunModePeripheral(SYSCTL_nPERIPHERAL enPeripheral);
-void SYSCTL__vDisRunModePeripheral(SYSCTL_nPERIPHERAL enPeripheral);
+SYSCTL_nERROR SYSCTL__enSetRunModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE enStateArg);
+SYSCTL_nERROR SYSCTL__enEnableRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+SYSCTL_nERROR SYSCTL__enDisableRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg);
+
+SYSCTL_nERROR SYSCTL__enGetRunModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_SYSCTL_SYSCTL_DRIVER_SYSCTL_PERIPHERALRUNMODE_H_ */

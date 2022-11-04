@@ -317,7 +317,7 @@ typedef enum
     SYSCTL_enGPIOP = (UBase_t) (((UBase_t) 2UL << 8UL) | (13UL)),
     SYSCTL_enGPIOQ = (UBase_t) (((UBase_t) 2UL << 8UL) | (14UL)),
 
-    SYSCTL_enUDMA = (UBase_t) (((UBase_t) 3UL << 8UL) | (0UL)),
+    SYSCTL_enDMA = (UBase_t) (((UBase_t) 3UL << 8UL) | (0UL)),
 
     SYSCTL_enEPI = (UBase_t) (((UBase_t) 4UL << 8UL) | (0UL)),
 
@@ -371,8 +371,6 @@ typedef enum
     SYSCTL_enFAN = (UBase_t) (((UBase_t) 21UL << 8UL) | (0UL)),
 
     SYSCTL_enEEPROM = (UBase_t) (((UBase_t) 22UL << 8UL) | (0UL)),
-
-    SYSCTL_enWTIMER0 = (UBase_t) (((UBase_t) 23UL << 8UL) | (0UL)),
 
     SYSCTL_enRTS = (UBase_t) (((UBase_t) 28UL << 8UL) | (0UL)),
 

@@ -27,9 +27,10 @@
 
 #include <xApplication_MCU/WDT/Intrinsics/xHeader/WDT_Defines.h>
 
-void WDT__vReset(WDT_nMODULE enModule);
-void WDT__vSetReady(WDT_nMODULE enModule);
-void WDT__vClearReady(WDT_nMODULE enModule);
-WDT_nSTATUS WDT__enIsReady(WDT_nMODULE enModule);
+WDT_nERROR WDT__enSetReadyOnRunMode(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enClearReadyOnRunMode(WDT_nMODULE enModuleArg);
+
+WDT_nERROR WDT__enReset(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enIsReady(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_WDT_INTRINSICS_XHEADER_WDT_READY_H_ */

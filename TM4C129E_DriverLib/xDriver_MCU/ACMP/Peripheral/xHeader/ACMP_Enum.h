@@ -66,6 +66,13 @@ typedef enum
 
 typedef enum
 {
+    ACMP_enFALSE = (UBase_t) FALSE,
+    ACMP_enTRUE = (UBase_t) TRUE,
+    ACMP_enBOOLEAN_UNDEF = UNDEF_VALUE,
+}ACMP_nBOOLEAN;
+
+typedef enum
+{
     ACMP_enMODULE_0 = 0UL,
     ACMP_enMODULE_MAX = 1UL,
     ACMP_enMODULE_UNDEF = UNDEF_VALUE,

@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/SSI/xHeader/SSI_Init.h>
 
+#include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Ready.h>
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 #include <xApplication_MCU/SSI/Interrupt/SSI_Interrupt.h>
 
@@ -31,7 +32,7 @@ SSI_nERROR SSI__enInit(SSI_nMODULE enModuleArg)
     SSI_nERROR enErrorReg;
     SSI_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    enErrorReg = SSI__enSetReadyOnRunMode(enModuleArg);
     if(SSI_enERROR_OK == enErrorReg)
     {
         pfIrqVectorHandlerReg = SSI__pvfGetIRQVectorHandler(enModuleArg);

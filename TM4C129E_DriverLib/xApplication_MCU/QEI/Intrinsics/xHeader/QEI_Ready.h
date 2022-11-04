@@ -27,8 +27,9 @@
 
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Defines.h>
 
-void QEI__vSetReady(QEI_nMODULE enModule);
-void QEI__vClearReady(QEI_nMODULE enModule);
-QEI_nSTATUS QEI__enIsReady(QEI_nMODULE enModule);
+QEI_nERROR QEI__enSetReadyOnRunMode(QEI_nMODULE enModuleArg);
+QEI_nERROR QEI__enClearReadyOnRunMode(QEI_nMODULE enModuleArg);
+
+QEI_nERROR QEI__enIsReady(QEI_nMODULE enModuleArg, QEI_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_QEI_INTRINSICS_XHEADER_QEI_READY_H_ */

@@ -69,6 +69,13 @@ typedef enum
 
 typedef enum
 {
+    ADC_enFALSE = (UBase_t) FALSE,
+    ADC_enTRUE = (UBase_t) TRUE,
+    ADC_enBOOLEAN_UNDEF = UNDEF_VALUE,
+}ADC_nBOOLEAN;
+
+typedef enum
+{
     ADC_enMODULE_0 = 0UL,
     ADC_enMODULE_1 = 1UL,
     ADC_enMODULE_MAX = 2UL,

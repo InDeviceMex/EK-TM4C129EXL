@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/DMA/xHeader/DMA_Init.h>
 
+#include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Ready.h>
 #include <xApplication_MCU/DMA/Interrupt/DMA_Interrupt.h>
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
@@ -32,11 +33,14 @@ DMA_nERROR DMA__enInit(DMA_nMODULE enModuleArg)
     UBase_t uxInterruptReg;
     DMA_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    enErrorReg = DMA__enSetPrimaryControlStructureAddress(enModuleArg, DMA_CH_PRIMARY_BASE);
+    enErrorReg = DMA__enSetReadyOnRunMode(enModuleArg);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = DMA__enSetPrimaryControlStructureAddress(enModuleArg, DMA_CH_PRIMARY_BASE);
+    }
     if(DMA_enERROR_OK == enErrorReg)
     {
         uxInterruptReg = 0UL;
-        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
         while((uxInterruptReg < (UBase_t) DMA_enVECTOR_MAX) && (DMA_enERROR_OK == enErrorReg))
         {
             pfIrqVectorHandlerReg = DMA__pvfGetIRQVectorHandler(enModuleArg, (DMA_nVECTOR) uxInterruptReg);

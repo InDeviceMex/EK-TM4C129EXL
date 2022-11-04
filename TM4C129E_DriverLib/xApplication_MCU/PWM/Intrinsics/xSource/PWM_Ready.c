@@ -25,60 +25,57 @@
 
 #include <xApplication_MCU/PWM/Intrinsics/xHeader/PWM_Dependencies.h>
 
-#if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX] =
-{SYSCTL_enPWM0};
-#endif
-
-void PWM__vSetReady(PWM_nMODULE enModule)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX] =
 {
+ SYSCTL_enPWM0
+};
 
-#if !defined(Opt_Check)
-    PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    UBase_t uxModule = 0UL;
+PWM_nERROR PWM__enSetReadyOnRunMode(PWM_nMODULE enModuleArg)
+{
+    PWM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
-
-    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
-    enReady = PWM__enIsReady((PWM_nMODULE) uxModule);
-    if(PWM_enSTATUS_INACTIVE == enReady)
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vSetReady(enPeripheral);
-        SYSCTL__vReset(enPeripheral);
-        SYSCTL__vSetReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_PWM[(UBase_t) enModuleArg];
+        enErrorReg = (PWM_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
     }
-#endif
+    return (enErrorReg);
 }
 
-void PWM__vClearReady(PWM_nMODULE enModule)
+PWM_nERROR PWM__enClearReadyOnRunMode(PWM_nMODULE enModuleArg)
 {
-#if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_PWM[(UBase_t) PWM_enMODULE_MAX] =
-    {SYSCTL_enPWM0};
-#endif
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
-    SYSCTL__vClearReady(enPeripheral);
+    PWM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_PWM[(UBase_t) enModuleArg];
+        enErrorReg = (PWM_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-PWM_nSTATUS PWM__enIsReady(PWM_nMODULE enModule)
+PWM_nERROR PWM__enIsReady(PWM_nMODULE enModuleArg, PWM_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    PWM_nSTATUS enReady = PWM_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enPWM0;
-    UBase_t uxModule =0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) PWM_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_PWM[uxModule];
-    enReady = (PWM_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    PWM_nSTATUS enReady = PWM_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    PWM_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = PWM_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = PWM_enERROR_POINTER;
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_PWM[(UBase_t) enModuleArg];
+        enErrorReg = (PWM_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }
-
-
-
-

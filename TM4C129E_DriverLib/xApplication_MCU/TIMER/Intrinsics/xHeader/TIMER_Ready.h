@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/TIMER/Intrinsics/xHeader/TIMER_Defines.h>
 
-void TIMER__vSetReady(TIMER_nMODULE_NUM enModuleNumber);
-void TIMER__vClearReady(TIMER_nMODULE_NUM enModuleNumber);
-TIMER_nREADY TIMER__enIsReady(TIMER_nMODULE_NUM enModuleNumber);
+TIMER_nERROR TIMER__enSetReadyOnRunMode(TIMER_nMODULE_NUM enModuleArg);
+TIMER_nERROR TIMER__enClearReadyOnRunMode(TIMER_nMODULE_NUM enModuleArg);
+TIMER_nERROR TIMER__enIsReady(TIMER_nMODULE_NUM enModuleArg, TIMER_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_TIMER_INTRINSICS_XHEADER_TIMER_READY_H_ */

@@ -27,8 +27,9 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Defines.h>
 
-void I2C__vSetReady(I2C_nMODULE enModule);
-void I2C__vClearReady(I2C_nMODULE enModule);
-I2C_nSTATUS I2C__enIsReady(I2C_nMODULE enModule);
+I2C_nERROR I2C__enSetReadyOnRunMode(I2C_nMODULE enModuleArg);
+I2C_nERROR I2C__enClearReadyOnRunMode(I2C_nMODULE enModuleArg);
+
+I2C_nERROR I2C__enIsReady(I2C_nMODULE enModuleArg, I2C_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_I2C_INTRINSICS_XHEADER_I2C_READY_H_ */

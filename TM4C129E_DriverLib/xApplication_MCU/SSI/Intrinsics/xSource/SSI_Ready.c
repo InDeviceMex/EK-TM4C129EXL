@@ -25,55 +25,57 @@
 
 #include <xApplication_MCU/SSI/Intrinsics/xHeader/SSI_Dependencies.h>
 
-#if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
-{SYSCTL_enSSI0, SYSCTL_enSSI1, SYSCTL_enSSI2, SYSCTL_enSSI3};
-#endif
-
-void SSI__vSetReady(SSI_nMODULE enModule)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
 {
-#if !defined(Opt_Check)
-    SSI_nSTATUS enReady = SSI_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    UBase_t uxModule = 0UL;
+ SYSCTL_enSSI0, SYSCTL_enSSI1, SYSCTL_enSSI2, SYSCTL_enSSI3
+};
 
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
+SSI_nERROR SSI__enSetReadyOnRunMode(SSI_nMODULE enModuleArg)
+{
+    SSI_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
-    enReady = SSI__enIsReady((SSI_nMODULE) uxModule);
-    if(SSI_enSTATUS_INACTIVE == enReady)
+    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    if(SSI_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vSetReady(enPeripheral);
-        SYSCTL__vReset(enPeripheral);
-        SYSCTL__vSetReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_SSI[(UBase_t) enModuleArg];
+        enErrorReg = (SSI_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
     }
-#endif
+    return (enErrorReg);
 }
 
-void SSI__vClearReady(SSI_nMODULE enModule)
+SSI_nERROR SSI__enClearReadyOnRunMode(SSI_nMODULE enModuleArg)
 {
-#if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_SSI[(UBase_t) SSI_enMODULE_MAX] =
-    {SYSCTL_enSSI0, SYSCTL_enSSI1, SYSCTL_enSSI2, SYSCTL_enSSI3};
-#endif
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
-    SYSCTL__vClearReady(enPeripheral);
+    SSI_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_SSI[(UBase_t) enModuleArg];
+        enErrorReg = (SSI_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-SSI_nSTATUS SSI__enIsReady(SSI_nMODULE enModule)
+SSI_nERROR SSI__enIsReady(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    SSI_nSTATUS enReady = SSI_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enSSI0;
-    UBase_t uxModule =0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) SSI_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_SSI[uxModule];
-    enReady = (SSI_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    SSI_nSTATUS enReady = SSI_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    SSI_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = SSI_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = SSI_enERROR_POINTER;
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
+    }
+    if(SSI_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_SSI[(UBase_t) enModuleArg];
+        enErrorReg = (SSI_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }

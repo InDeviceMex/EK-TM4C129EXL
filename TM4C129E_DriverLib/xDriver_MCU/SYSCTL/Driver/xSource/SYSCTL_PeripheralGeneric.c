@@ -24,68 +24,74 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralGeneric.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/SYSCTL_Intrinsics.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral,
-                              UBase_t uxPeripheralArg, UBase_t uxValueArg)
+SYSCTL_nERROR SYSCTL__enWritePeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxRegisterValue = 0UL;
-    UBase_t uxNoRegister = 0UL;
-    UBase_t uxNoPeripheral = 0UL;
-    UBase_t uxOffset = 0UL;
+    UBase_t uxBitNumber;
+    UBase_t uxPeripheralIndex;
+    SYSCTL_nERROR enErrorReg;
 
-    UBase_t uxRegisterPROffset = SYSCTL_PR_OFFSET;
-
-    uxNoRegister = (UBase_t) enPeripheral;
-    uxNoRegister >>= 8UL;
-    uxNoRegister &= 0xFFUL;
-
-    uxNoPeripheral = (UBase_t) enPeripheral;
-    uxNoPeripheral &= 0xFFUL;
-
-    uxOffset = uxNoRegister;
-    uxOffset *= 4UL;
-    uxPeripheralArg += uxOffset;
-    uxRegisterPROffset += uxOffset;
-    uxRegisterValue = MCU__uxReadRegister(SYSCTL_BASE, uxPeripheralArg, 1UL, uxNoPeripheral);
-    if(0UL == uxRegisterValue)
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
     {
-        MCU__vWriteRegister(SYSCTL_BASE, uxPeripheralArg, uxValueArg, 1UL, uxNoPeripheral);
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        if(0UL != uxValueArg)
-        {
-            do
-            {
-                uxRegisterValue = MCU__uxReadRegister(SYSCTL_BASE, uxRegisterPROffset,
-                                                        1UL, uxNoPeripheral);
-            }while(0UL == uxRegisterValue);
-        }
+        enErrorReg = SYSCTL_enERROR_POINTER;
     }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        uxPeripheralIndex = (UBase_t) enPeripheralArg;
+        uxPeripheralIndex >>= 8UL;
+        uxPeripheralIndex &= 0xFFUL;
+        uxPeripheralIndex *= 4UL;
+
+
+        uxBitNumber = (UBase_t) enPeripheralArg;
+        uxBitNumber &= 0xFFUL;
+
+        pstRegisterDataArg->uptrAddress += uxPeripheralIndex;
+        pstRegisterDataArg->uxShift = uxBitNumber;
+        pstRegisterDataArg->uxMask = 1UL;
+        enErrorReg = SYSCTL__enWriteRegister(enModuleArg, pstRegisterDataArg);
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+    }
+
+    return (enErrorReg);
 }
 
-UBase_t SYSCTL__uxReadPeripheral(SYSCTL_nPERIPHERAL enPeripheral, UBase_t uxPeripheralArg)
+SYSCTL_nERROR SYSCTL__enReadPeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxRegisterValue = 0UL;
-    UBase_t uxNoRegister = 0UL;
-    UBase_t uxNoPeripheral = 0UL;
-    UBase_t uxOffset = 0UL;
+    UBase_t uxBitNumber;
+    UBase_t uxPeripheralIndex;
+    SYSCTL_nERROR enErrorReg;
 
-    uxNoRegister = (UBase_t) enPeripheral;
-    uxNoRegister >>= 8UL;
-    uxNoRegister &= 0xFFUL;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) pstRegisterDataArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        uxPeripheralIndex = (UBase_t) enPeripheralArg;
+        uxPeripheralIndex >>= 8UL;
+        uxPeripheralIndex &= 0xFFUL;
+        uxPeripheralIndex *= 4UL;
 
-    uxNoPeripheral = (UBase_t) enPeripheral;
-    uxNoPeripheral &= 0xFFUL;
 
+        uxBitNumber = (UBase_t) enPeripheralArg;
+        uxBitNumber &= 0xFFUL;
 
-    uxOffset = uxNoRegister;
-    uxOffset *= 4UL;
-    uxPeripheralArg += uxOffset;
-
-    uxRegisterValue = MCU__uxReadRegister(SYSCTL_BASE, uxPeripheralArg, 1UL, uxNoPeripheral);
-
-    return (uxRegisterValue);
+        pstRegisterDataArg->uptrAddress += uxPeripheralIndex;
+        pstRegisterDataArg->uxShift = uxBitNumber;
+        pstRegisterDataArg->uxMask = 1UL;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, pstRegisterDataArg);
+    }
+    return (enErrorReg);
 }

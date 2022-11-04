@@ -67,6 +67,13 @@ typedef enum
 
 typedef enum
 {
+    GPIO_enFALSE = (UBase_t) FALSE,
+    GPIO_enTRUE = (UBase_t) TRUE,
+    GPIO_enPENDSTATE_UNDEF = (UBase_t) BOOLEAN_UNDEF,
+}GPIO_nBOOLEAN;
+
+typedef enum
+{
     GPIO_enPORT_A = 0UL,
     GPIO_enPORT_B = 1UL,
     GPIO_enPORT_C = 2UL,

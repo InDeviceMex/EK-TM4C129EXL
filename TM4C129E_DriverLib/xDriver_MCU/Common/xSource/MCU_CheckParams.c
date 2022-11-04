@@ -39,13 +39,11 @@ MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 
 UBase_t MCU__uxCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
-#if !defined(Opt_Check)
     if((uxModuleMaxArg <= uxModuleArg) && (0UL != uxModuleMaxArg))
     {
         uxModuleMaxArg--;
         uxModuleArg = uxModuleMaxArg;
     }
-#endif
     return (uxModuleArg);
 }
 
@@ -69,12 +67,10 @@ MCU_nERROR MCU__enCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 
 UBase_t MCU__uxCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
-#if !defined(Opt_Check)
     if((uxModuleMaxArg <= uxModuleArg) && (0UL != uxModuleMaxArg))
     {
         uxModuleMaxArg--;
         uxModuleArg = uxModuleMaxArg;
     }
-#endif
     return (uxModuleArg);
 }

@@ -25,42 +25,58 @@
 
 #include <xApplication_MCU/DMA/Intrinsics/xHeader/DMA_Dependencies.h>
 
-void DMA__vSetReady(DMA_nMODULE enModule)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_DMA[(UBase_t) DMA_enMODULE_MAX] =
 {
-#if !defined(Opt_Check)
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
-    enPeripheral |= enModule;
-    SYSCTL__vSetReady(enPeripheral);
-#endif
-}
-void DMA__vReset(DMA_nMODULE enModule)
+ SYSCTL_enDMA
+};
+
+DMA_nERROR DMA__enSetReadyOnRunMode(DMA_nMODULE enModuleArg)
 {
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
-    enPeripheral |= enModule;
-    SYSCTL__vReset(enPeripheral);
-}
-void DMA__vClearReady(DMA_nMODULE enModule)
-{
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
-    enPeripheral |= enModule;
-    SYSCTL__vClearReady(enPeripheral);
-}
-DMA_nSTATUS DMA__enIsReady(DMA_nMODULE enModule)
-{
-#if !defined(Opt_Check)
-    DMA_nSTATUS enReady = DMA_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enUDMA;
-    enModule = (DMA_nMODULE) MCU__uxCheckParams( (UBase_t) enModule, (UBase_t) DMA_enMODULE_MAX);
-    enPeripheral |= enModule;
-    enReady = (DMA_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    DMA_nSTATUS enReady = DMA_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    DMA_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_DMA[(UBase_t) enModuleArg];
+        enErrorReg = (DMA_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
+DMA_nERROR DMA__enClearReadyOnRunMode(DMA_nMODULE enModuleArg)
+{
+    DMA_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
+    enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_DMA[(UBase_t) enModuleArg];
+        enErrorReg = (DMA_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
+}
+
+DMA_nERROR DMA__enIsReady(DMA_nMODULE enModuleArg, DMA_nBOOLEAN* penReadyArg)
+{
+    DMA_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = DMA_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = DMA_enERROR_POINTER;
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
+    }
+    if(DMA_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_DMA[(UBase_t) enModuleArg];
+        enErrorReg = (DMA_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
+}
 

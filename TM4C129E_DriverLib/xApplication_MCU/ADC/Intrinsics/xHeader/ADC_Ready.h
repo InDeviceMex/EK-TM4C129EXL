@@ -27,8 +27,9 @@
 
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Defines.h>
 
-void ADC__vSetReady(ADC_nMODULE enModule);
-void ADC__vClearReady(ADC_nMODULE enModule);
-ADC_nSTATUS ADC__enIsReady(ADC_nMODULE enModule);
+ADC_nERROR ADC__enSetReadyOnRunMode(ADC_nMODULE enModuleArg);
+ADC_nERROR ADC__enClearReadyOnRunMode(ADC_nMODULE enModuleArg);
+
+ADC_nERROR ADC__enIsReady(ADC_nMODULE enModuleArg, ADC_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_ADC_INTRINSICS_XHEADER_ADC_READY_H_ */

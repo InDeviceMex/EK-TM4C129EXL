@@ -25,61 +25,58 @@
 
 #include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Dependencies.h>
 
-#if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_I2C[(UBase_t) I2C_enMODULE_MAX] =
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_I2C[(UBase_t) I2C_enMODULE_MAX] =
 {
  SYSCTL_enI2C0, SYSCTL_enI2C1, SYSCTL_enI2C2, SYSCTL_enI2C3, SYSCTL_enI2C4,
  SYSCTL_enI2C5, SYSCTL_enI2C6, SYSCTL_enI2C7, SYSCTL_enI2C8, SYSCTL_enI2C9
 };
-#endif
 
-void I2C__vSetReady(I2C_nMODULE enModule)
+I2C_nERROR I2C__enSetReadyOnRunMode(I2C_nMODULE enModuleArg)
 {
-#if !defined(Opt_Check)
-    I2C_nSTATUS enReady = I2C_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enI2C0;
-    UBase_t uxModule = 0UL;
+    I2C_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) I2C_enMODULE_MAX);
-
-    enPeripheral = SYSCTL_VECTOR_I2C[uxModule];
-    enReady = I2C__enIsReady((I2C_nMODULE)uxModule);
-    if(I2C_enSTATUS_INACTIVE == enReady)
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
     {
-        SYSCTL__vSetReady(enPeripheral);
-        SYSCTL__vReset(enPeripheral);
-        SYSCTL__vSetReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_I2C[(UBase_t) enModuleArg];
+        enErrorReg = (I2C_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
     }
-#endif
+    return (enErrorReg);
 }
 
-void I2C__vClearReady(I2C_nMODULE enModule)
+I2C_nERROR I2C__enClearReadyOnRunMode(I2C_nMODULE enModuleArg)
 {
-#if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_I2C[(UBase_t) I2C_enMODULE_MAX] =
+    I2C_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
+    if(I2C_enERROR_OK == enErrorReg)
     {
-     SYSCTL_enI2C0, SYSCTL_enI2C1, SYSCTL_enI2C2, SYSCTL_enI2C3, SYSCTL_enI2C4,
-     SYSCTL_enI2C5, SYSCTL_enI2C6, SYSCTL_enI2C7, SYSCTL_enI2C8, SYSCTL_enI2C9
-    };
-#endif
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enI2C0;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) I2C_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_I2C[uxModule];
-    SYSCTL__vClearReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_I2C[(UBase_t) enModuleArg];
+        enErrorReg = (I2C_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-I2C_nSTATUS I2C__enIsReady(I2C_nMODULE enModule)
+I2C_nERROR I2C__enIsReady(I2C_nMODULE enModuleArg, I2C_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    I2C_nSTATUS enReady = I2C_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enI2C0;
-    UBase_t uxModule =0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) I2C_enMODULE_MAX);
-    enPeripheral = SYSCTL_VECTOR_I2C[uxModule];
-    enReady = (I2C_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    I2C_nSTATUS enReady = I2C_enSTATUS_ACTIVE;
-#endif
-    return enReady;
+    I2C_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = I2C_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = I2C_enERROR_POINTER;
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
+    }
+    if(I2C_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_I2C[(UBase_t) enModuleArg];
+        enErrorReg = (I2C_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }

@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/UART/xHeader/UART_Init.h>
 
+#include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Ready.h>
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Dependencies.h>
 #include <xApplication_MCU/UART/Interrupt/UART_Interrupt.h>
 
@@ -31,7 +32,7 @@ UART_nERROR UART__enInit(UART_nMODULE enModuleArg)
     UART_nERROR enErrorReg;
     UART_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    enErrorReg = (UART_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) UART_enMODULE_MAX);
+    enErrorReg = UART__enSetReadyOnRunMode(enModuleArg);
     if(UART_enERROR_OK == enErrorReg)
     {
         pfIrqVectorHandlerReg = UART__pvfGetIRQVectorHandler(enModuleArg);

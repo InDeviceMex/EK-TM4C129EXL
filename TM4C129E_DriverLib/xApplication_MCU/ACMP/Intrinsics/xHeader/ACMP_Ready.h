@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/ACMP/Intrinsics/xHeader/ACMP_Defines.h>
 
-void ACMP__vSetReady(ACMP_nMODULE enModule);
-void ACMP__vClearReady(ACMP_nMODULE enModule);
-ACMP_nSTATUS ACMP__enIsReady(ACMP_nMODULE enModule);
+ACMP_nERROR ACMP__enSetReadyOnRunMode(ACMP_nMODULE enModuleArg);
+ACMP_nERROR ACMP__enClearReadyOnRunMode(ACMP_nMODULE enModuleArg);
+ACMP_nERROR ACMP__enIsReady(ACMP_nMODULE enModuleArg, ACMP_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_ACMP_INTRINSICS_XHEADER_ACMP_READY_H_ */

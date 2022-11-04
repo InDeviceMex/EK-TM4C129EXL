@@ -24,38 +24,68 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralReset.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralReady.h>
+#include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_PeripheralGeneric.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vResetPeripheral(SYSCTL_nPERIPHERAL enPeripheral)
+
+SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    UBase_t uxNoRegister = 0UL;
-    UBase_t uxNoPeripheral = 0UL;
-    UBase_t uxOffset = 0UL;
+    SYSCTL_Register_t enRegister;
+    SYSCTL_nERROR enErrorReg;
 
-    UBase_t uxRegisterSROffset = SYSCTL_SR_OFFSET;
+    enRegister.uptrAddress = SYSCTL_SR_OFFSET;
+    enRegister.uxValue = (UBase_t) 1UL;
 
-    uxNoRegister = (UBase_t) enPeripheral;
-    uxNoRegister >>= 8UL;
-    uxNoRegister &= 0xFFUL;
+    enErrorReg =SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
 
-    uxNoPeripheral = (UBase_t) enPeripheral;
-    uxNoPeripheral &= 0xFFUL;
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        enRegister.uptrAddress = SYSCTL_SR_OFFSET;
+        enRegister.uxValue = (UBase_t) 0UL;
 
-    uxOffset = uxNoRegister;
-    uxOffset *= 4UL;
-    uxRegisterSROffset += uxOffset;
+        enErrorReg =SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        SYSCTL_nBOOLEAN enStatusReg;
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        MCU__vNoOperation();
+        enStatusReg = SYSCTL_enFALSE;
+        do
+        {
 
-    MCU__vWriteRegister(SYSCTL_BASE, uxRegisterSROffset, 1UL, 1UL, uxNoPeripheral);
+            enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enStatusReg);
+        }while((SYSCTL_enERROR_OK == enErrorReg) &&
+               (SYSCTL_enFALSE == enStatusReg));
+    }
 
-    MCU__vNoOperation();
-    MCU__vNoOperation();
-    MCU__vNoOperation();
-    MCU__vNoOperation();
+    return (enErrorReg);
+}
 
-    MCU__vWriteRegister(SYSCTL_BASE, uxRegisterSROffset, 0UL, 1UL, uxNoPeripheral);
-
-    MCU__vNoOperation();
-    MCU__vNoOperation();
-    MCU__vNoOperation();
-    MCU__vNoOperation();
+SYSCTL_nERROR SYSCTL__enIsPeripheralOnReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penStateArg)
+{
+    SYSCTL_Register_t enRegister;
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penStateArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        enRegister.uptrAddress = SYSCTL_SR_OFFSET;
+        enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    }
+    if(SYSCTL_enERROR_OK ==  enErrorReg)
+    {
+        *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+    }
+    return (enErrorReg);
 }

@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/UART/Intrinsics/xHeader/UART_Defines.h>
 
-void UART__vSetReady(UART_nMODULE enModule);
-void UART__vClearReady(UART_nMODULE enModule);
-UART_nSTATUS UART__enIsReady(UART_nMODULE enModule);
+UART_nERROR UART__enSetReadyOnRunMode(UART_nMODULE enModuleArg);
+UART_nERROR UART__enClearReadyOnRunMode(UART_nMODULE enModuleArg);
+UART_nERROR UART__enIsReady(UART_nMODULE enModuleArg, UART_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_UART_INTRINSICS_XHEADER_UART_READY_H_ */

@@ -23,22 +23,20 @@
  */
 #include <xApplication_MCU/I2C/xHeader/I2C_Init.h>
 
+#include <xApplication_MCU/I2C/Intrinsics/xHeader/I2C_Ready.h>
 #include <xApplication_MCU/I2C/Interrupt/I2C_Interrupt.h>
 
 
-I2C_nERROR I2C__enInit(void)
+I2C_nERROR I2C__enInit(I2C_nMODULE enModuleArg)
 {
     I2C_nERROR enErrorReg;
-    UBase_t uxModuleReg;
     I2C_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    uxModuleReg = 0UL;
-    enErrorReg = I2C_enERROR_OK;
-    while((uxModuleReg < (UBase_t) I2C_enMODULE_MAX) && (I2C_enERROR_OK == enErrorReg))
+    enErrorReg = I2C__enSetReadyOnRunMode(enModuleArg);
+    if(I2C_enERROR_OK == enErrorReg)
     {
-        pfIrqVectorHandlerReg = I2C__pvfGetIRQVectorHandler((I2C_nMODULE) uxModuleReg);
-        enErrorReg = I2C__enRegisterIRQVectorHandler((I2C_nMODULE) uxModuleReg, pfIrqVectorHandlerReg);
-        uxModuleReg++;
+        pfIrqVectorHandlerReg = I2C__pvfGetIRQVectorHandler(enModuleArg);
+        enErrorReg = I2C__enRegisterIRQVectorHandler(enModuleArg, pfIrqVectorHandlerReg);
     }
     return (enErrorReg);
 }

@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/QEI/xHeader/QEI_Init.h>
 
+#include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Ready.h>
 #include <xApplication_MCU/QEI/Interrupt/QEI_Interrupt.h>
 #include <xApplication_MCU/QEI/Intrinsics/xHeader/QEI_Dependencies.h>
 
@@ -31,7 +32,7 @@ QEI_nERROR QEI__enInit(QEI_nMODULE enModuleArg)
     QEI_nERROR enErrorReg;
     QEI_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
-    enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
+    enErrorReg = QEI__enSetReadyOnRunMode(enModuleArg);
     if(QEI_enERROR_OK == enErrorReg)
     {
         pfIrqVectorHandlerReg = QEI__pvfGetIRQVectorHandler(enModuleArg);

@@ -27,8 +27,8 @@
 
 #include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Defines.h>
 
-void GPIO__vSetReady(GPIO_nPORT enPort);
-void GPIO__vClearReady(GPIO_nPORT enPort);
-GPIO_nSTATUS GPIO__enIsReady(GPIO_nPORT enPort);
+GPIO_nERROR GPIO__enSetReadyOnRunMode(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__enClearReadyOnRunMode(GPIO_nPORT enPortArg);
+GPIO_nERROR GPIO__enIsReady(GPIO_nPORT enPortArg, GPIO_nBOOLEAN* penReadyArg);
 
 #endif /* XAPPLICATION_MCU_GPIO_INTRINSICS_XHEADER_GPIO_READY_H_ */

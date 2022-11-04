@@ -27,8 +27,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vWritePeripheral(SYSCTL_nPERIPHERAL enPeripheral,
-                              UBase_t uxPeripheralArg, UBase_t uxValueArg);
-UBase_t SYSCTL__uxReadPeripheral(SYSCTL_nPERIPHERAL enPeripheral, UBase_t uxPeripheralArg);
+SYSCTL_nERROR SYSCTL__enWritePeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg);
+SYSCTL_nERROR SYSCTL__enReadPeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_PERIPHERALGENERIC_H_ */

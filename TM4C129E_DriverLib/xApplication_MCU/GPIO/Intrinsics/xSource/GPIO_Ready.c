@@ -25,33 +25,61 @@
 
 #include <xApplication_MCU/GPIO/Intrinsics/xHeader/GPIO_Dependencies.h>
 
-void GPIO__vSetReady(GPIO_nPORT enPort)
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_GPIO[(UBase_t) GPIO_enPORT_MAX] =
 {
-#if !defined(Opt_Check)
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enGPIOA;
-    enPort = (GPIO_nPORT) MCU__uxCheckParams( (UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
-    enPeripheral |= enPort;
-    SYSCTL__vSetReady(enPeripheral);
-#endif
+ SYSCTL_enGPIOA, SYSCTL_enGPIOB, SYSCTL_enGPIOC, SYSCTL_enGPIOD,
+ SYSCTL_enGPIOE, SYSCTL_enGPIOF, SYSCTL_enGPIOG, SYSCTL_enGPIOH,
+ SYSCTL_enGPIOJ, SYSCTL_enGPIOK, SYSCTL_enGPIOL, SYSCTL_enGPIOM,
+ SYSCTL_enGPION, SYSCTL_enGPIOP, SYSCTL_enGPIOQ
+};
+
+GPIO_nERROR GPIO__enSetReadyOnRunMode(GPIO_nPORT enPortArg)
+{
+    GPIO_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_GPIO[(UBase_t) enPortArg];
+        enErrorReg = (GPIO_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-void GPIO__vClearReady(GPIO_nPORT enPort)
+GPIO_nERROR GPIO__enClearReadyOnRunMode(GPIO_nPORT enPortArg)
 {
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enGPIOA;
-    enPort = (GPIO_nPORT) MCU__uxCheckParams( (UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
-    enPeripheral |= enPort;
-    SYSCTL__vClearReady(enPeripheral);
+    GPIO_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_GPIO[(UBase_t) enPortArg];
+        enErrorReg = (GPIO_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
-GPIO_nSTATUS GPIO__enIsReady(GPIO_nPORT enPort)
+
+GPIO_nERROR GPIO__enIsReady(GPIO_nPORT enPortArg, GPIO_nBOOLEAN* penReadyArg)
 {
-#if !defined(Opt_Check)
-    GPIO_nSTATUS enReady = GPIO_enSTATUS_INACTIVE;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enGPIOA;
-    enPort = (GPIO_nPORT) MCU__uxCheckParams( (UBase_t) enPort, (UBase_t) GPIO_enPORT_MAX);
-    enPeripheral |= enPort;
-    enReady = (GPIO_nSTATUS) SYSCTL__enIsReady(enPeripheral);
-#else
-    GPIO_nSTATUS enReady = GPIO_enSTATUS_ACTIVE;
-#endif
-    return (enReady);
+    GPIO_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = GPIO_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = GPIO_enERROR_POINTER;
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
+    }
+    if(GPIO_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_GPIO[(UBase_t) enPortArg];
+        enErrorReg = (GPIO_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
 }
+

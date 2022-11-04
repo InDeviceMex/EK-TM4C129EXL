@@ -23,6 +23,7 @@
  */
 #include <xApplication_MCU/ADC/xHeader/ADC_Init.h>
 
+#include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Ready.h>
 #include <xApplication_MCU/ADC/Interrupt/ADC_Interrupt.h>
 #include <xApplication_MCU/ADC/Intrinsics/xHeader/ADC_Dependencies.h>
 
@@ -33,7 +34,7 @@ ADC_nERROR ADC__enInit(ADC_nMODULE enModuleArg)
     ADC_pvfIRQVectorHandler_t pfIrqVectorHandlerReg;
 
     uxSequencerReg = 0UL;
-    enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
+    enErrorReg = ADC__enSetReadyOnRunMode(enModuleArg);
     while((uxSequencerReg < (UBase_t) ADC_enSEQ_MAX) && (ADC_enERROR_OK == enErrorReg))
     {
         pfIrqVectorHandlerReg = ADC__pvfGetIRQVectorHandler(enModuleArg, (ADC_nSEQUENCER) uxSequencerReg);

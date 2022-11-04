@@ -32,7 +32,7 @@ WDT_nERROR WDT__enDisableInterruptSourceByMask(WDT_nMODULE enModuleArg, WDT_nINT
     enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
     if(WDT_enERROR_OK == enErrorReg)
     {
-        WDT__vReset(enModuleArg);
+        enErrorReg = WDT__enReset(enModuleArg);
     }
 
     return (enErrorReg);
@@ -45,7 +45,7 @@ WDT_nERROR WDT__enDisableInterruptSourceByNumber(WDT_nMODULE enModuleArg, WDT_nI
     enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
     if(WDT_enERROR_OK == enErrorReg)
     {
-        WDT__vReset(enModuleArg);
+        enErrorReg = WDT__enReset(enModuleArg);
     }
 
     return (enErrorReg);

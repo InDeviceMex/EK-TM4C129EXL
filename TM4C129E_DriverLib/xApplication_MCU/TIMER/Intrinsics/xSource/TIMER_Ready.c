@@ -25,56 +25,59 @@
 
 #include <xApplication_MCU/TIMER/Intrinsics/xHeader/TIMER_Dependencies.h>
 
-#if !defined(Opt_Check)
-static SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(UBase_t) TIMER_enMODULE_NUM_MAX] =
+static const SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER[(UBase_t) TIMER_enMODULE_NUM_MAX] =
 {
- SYSCTL_enTIMER0, SYSCTL_enTIMER1, SYSCTL_enTIMER2, SYSCTL_enTIMER3, SYSCTL_enTIMER4, SYSCTL_enTIMER5, SYSCTL_enTIMER6, SYSCTL_enTIMER7
+ SYSCTL_enTIMER0, SYSCTL_enTIMER1, SYSCTL_enTIMER2, SYSCTL_enTIMER3,
+ SYSCTL_enTIMER4, SYSCTL_enTIMER5, SYSCTL_enTIMER6, SYSCTL_enTIMER7
 };
-#endif
 
-void TIMER__vSetReady(TIMER_nMODULE_NUM enModuleNumber)
+TIMER_nERROR TIMER__enSetReadyOnRunMode(TIMER_nMODULE_NUM enModuleArg)
 {
-#if !defined(Opt_Check)
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    UBase_t uxModuleNumber = 0UL;
+    TIMER_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-     TIMER__vCheckParams( 0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
-
-    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
-    SYSCTL__vSetReady(enPeripheral);
-#endif
-}
-
-void TIMER__vClearReady(TIMER_nMODULE_NUM enModuleNumber)
-{
-#if defined(Opt_Check)
-    SYSCTL_nPERIPHERAL SYSCTL_VECTOR_TIMER [(UBase_t) TIMER_enMODULE_NUM_MAX] =
+    enErrorReg = (TIMER_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) TIMER_enMODULE_NUM_MAX);
+    if(TIMER_enERROR_OK == enErrorReg)
     {
-     SYSCTL_enTIMER0, SYSCTL_enTIMER1, SYSCTL_enTIMER2, SYSCTL_enTIMER3, SYSCTL_enTIMER4, SYSCTL_enTIMER5, SYSCTL_enTIMER6, SYSCTL_enTIMER7
-    };
-#endif
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    UBase_t uxModuleNumber = 0UL;
-
-    TIMER__vCheckParams(0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
-
-    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
-    SYSCTL__vClearReady(enPeripheral);
+        enPeripheralReg = SYSCTL_VECTOR_TIMER[(UBase_t) enModuleArg];
+        enErrorReg = (TIMER_nERROR) SYSCTL__enSetReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
 
-TIMER_nREADY TIMER__enIsReady(TIMER_nMODULE_NUM enModuleNumber)
+TIMER_nERROR TIMER__enClearReadyOnRunMode(TIMER_nMODULE_NUM enModuleArg)
 {
-#if !defined(Opt_Check)
-    TIMER_nREADY enReady = TIMER_enNOREADY;
-    SYSCTL_nPERIPHERAL enPeripheral = SYSCTL_enTIMER0;
-    UBase_t uxModuleNumber = 0UL;
+    TIMER_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
 
-     TIMER__vCheckParams( 0UL, (UBase_t) enModuleNumber, (UBase_t*)0UL, &uxModuleNumber);
-
-    enPeripheral = SYSCTL_VECTOR_TIMER [uxModuleNumber];
-    enReady = (TIMER_nREADY) SYSCTL__enIsReady(enPeripheral);
-#else
-    TIMER_nREADY enReady = TIMER_enREADY;
-#endif
-    return (enReady);
+    enErrorReg = (TIMER_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) TIMER_enMODULE_NUM_MAX);
+    if(TIMER_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_TIMER[(UBase_t) enModuleArg];
+        enErrorReg = (TIMER_nERROR) SYSCTL__enClearReadyOnRunMode(SYSCTL_enMODULE_0, enPeripheralReg);
+    }
+    return (enErrorReg);
 }
+
+TIMER_nERROR TIMER__enIsReady(TIMER_nMODULE_NUM enModuleArg, TIMER_nBOOLEAN* penReadyArg)
+{
+    TIMER_nERROR enErrorReg;
+    SYSCTL_nPERIPHERAL enPeripheralReg;
+
+    enErrorReg = TIMER_enERROR_OK;
+    if(0UL == (uintptr_t) penReadyArg)
+    {
+        enErrorReg = TIMER_enERROR_POINTER;
+    }
+    if(TIMER_enERROR_OK == enErrorReg)
+    {
+        enErrorReg = (TIMER_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) TIMER_enMODULE_NUM_MAX);
+    }
+    if(TIMER_enERROR_OK == enErrorReg)
+    {
+        enPeripheralReg = SYSCTL_VECTOR_TIMER[(UBase_t) enModuleArg];
+        enErrorReg = (TIMER_nERROR) SYSCTL__enIsReady(SYSCTL_enMODULE_0, enPeripheralReg, (SYSCTL_nBOOLEAN*) penReadyArg);
+    }
+    return (enErrorReg);
+}
+
