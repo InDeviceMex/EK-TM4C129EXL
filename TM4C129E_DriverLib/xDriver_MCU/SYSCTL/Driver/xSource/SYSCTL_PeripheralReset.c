@@ -41,10 +41,6 @@ SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nP
 
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
         enRegister.uptrAddress = SYSCTL_SR_OFFSET;
         enRegister.uxValue = (UBase_t) 0UL;
 
@@ -53,10 +49,6 @@ SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nP
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         SYSCTL_nBOOLEAN enStatusReg;
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
-        MCU__vNoOperation();
         enStatusReg = SYSCTL_enFALSE;
         do
         {

@@ -7,65 +7,158 @@
 #include <xDriver_MCU/SYSCTL/Driver/xHeader/SYSCTL_ResetBehavior.h>
 
 #include <xDriver_MCU/Common/MCU_Common.h>
+#include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-void SYSCTL__vSetResetBehavior_External(SYSCTL_nRESET_BEHAVIOR enBehavior)
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_External(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, RESET_BEHAVCTL_OFFSET, (UBase_t) enBehavior,
-                        RESET_BEHAVCTL_EXTERNAL_MASK, RESET_BEHAVCTL_R_EXTERNAL_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RESET_BEHAVCTL_R_EXTERNAL_BIT;
+    stRegister.uxMask = RESET_BEHAVCTL_EXTERNAL_MASK;
+    stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enBehaviorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_External(void)
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_External(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg)
 {
-    SYSCTL_nRESET_BEHAVIOR enResetReg = SYSCTL_enRESET_BEHAVIOR_SYSRESET;
-    enResetReg = (SYSCTL_nRESET_BEHAVIOR) MCU__uxReadRegister(SYSCTL_BASE,
-             RESET_BEHAVCTL_OFFSET, RESET_BEHAVCTL_EXTERNAL_MASK,
-             RESET_BEHAVCTL_R_EXTERNAL_BIT);
-    return (enResetReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penBehaviorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RESET_BEHAVCTL_R_EXTERNAL_BIT;
+        stRegister.uxMask = RESET_BEHAVCTL_EXTERNAL_MASK;
+        stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penBehaviorArg = (SYSCTL_nRESET_BEHAVIOR) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetResetBehavior_BOR(SYSCTL_nRESET_BEHAVIOR enBehavior)
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_BOR(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, RESET_BEHAVCTL_OFFSET, (UBase_t) enBehavior,
-                        RESET_BEHAVCTL_BOR_MASK, RESET_BEHAVCTL_R_BOR_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RESET_BEHAVCTL_R_BOR_BIT;
+    stRegister.uxMask = RESET_BEHAVCTL_BOR_MASK;
+    stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enBehaviorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_BOR(void)
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_BOR(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg)
 {
-    SYSCTL_nRESET_BEHAVIOR enResetReg = SYSCTL_enRESET_BEHAVIOR_SYSRESET;
-    enResetReg = (SYSCTL_nRESET_BEHAVIOR) MCU__uxReadRegister(SYSCTL_BASE,
-                   RESET_BEHAVCTL_OFFSET, RESET_BEHAVCTL_BOR_MASK,
-                   RESET_BEHAVCTL_R_BOR_BIT);
-    return (enResetReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penBehaviorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RESET_BEHAVCTL_R_BOR_BIT;
+        stRegister.uxMask = RESET_BEHAVCTL_BOR_MASK;
+        stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penBehaviorArg = (SYSCTL_nRESET_BEHAVIOR) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
-void SYSCTL__vSetResetBehavior_Watchdog0(SYSCTL_nRESET_BEHAVIOR enBehavior)
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_WDG0(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, RESET_BEHAVCTL_OFFSET, (UBase_t) enBehavior,
-                        RESET_BEHAVCTL_WDG0_MASK, RESET_BEHAVCTL_R_WDG0_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RESET_BEHAVCTL_R_WDG0_BIT;
+    stRegister.uxMask = RESET_BEHAVCTL_WDG0_MASK;
+    stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enBehaviorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_Watchdog0(void)
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_WDG0(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg)
 {
-    SYSCTL_nRESET_BEHAVIOR enResetReg = SYSCTL_enRESET_BEHAVIOR_SYSRESET;
-    enResetReg = (SYSCTL_nRESET_BEHAVIOR) MCU__uxReadRegister(SYSCTL_BASE,
-               RESET_BEHAVCTL_OFFSET, RESET_BEHAVCTL_WDG0_MASK,
-               RESET_BEHAVCTL_R_WDG0_BIT);
-    return (enResetReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penBehaviorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RESET_BEHAVCTL_R_WDG0_BIT;
+        stRegister.uxMask = RESET_BEHAVCTL_WDG0_MASK;
+        stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penBehaviorArg = (SYSCTL_nRESET_BEHAVIOR) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }
 
 
-void SYSCTL__vSetResetBehavior_Watchdog1(SYSCTL_nRESET_BEHAVIOR enBehavior)
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_WDG1(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg)
 {
-    MCU__vWriteRegister(SYSCTL_BASE, RESET_BEHAVCTL_OFFSET, (UBase_t) enBehavior,
-                    RESET_BEHAVCTL_WDG1_MASK, RESET_BEHAVCTL_R_WDG1_BIT);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    stRegister.uxShift = RESET_BEHAVCTL_R_WDG1_BIT;
+    stRegister.uxMask = RESET_BEHAVCTL_WDG1_MASK;
+    stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+    stRegister.uxValue = (UBase_t) enBehaviorArg;
+    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    return (enErrorReg);
 }
 
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_Watchdog1(void)
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_WDG1(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg)
 {
-    SYSCTL_nRESET_BEHAVIOR enResetReg = SYSCTL_enRESET_BEHAVIOR_SYSRESET;
-    enResetReg = (SYSCTL_nRESET_BEHAVIOR) MCU__uxReadRegister(SYSCTL_BASE,
-                   RESET_BEHAVCTL_OFFSET, RESET_BEHAVCTL_WDG1_MASK,
-                   RESET_BEHAVCTL_R_WDG1_BIT);
-    return (enResetReg);
+    SYSCTL_Register_t stRegister;
+    SYSCTL_nERROR enErrorReg;
+
+    enErrorReg = SYSCTL_enERROR_OK;
+    if(0UL == (uintptr_t) penBehaviorArg)
+    {
+        enErrorReg = SYSCTL_enERROR_POINTER;
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = RESET_BEHAVCTL_R_WDG1_BIT;
+        stRegister.uxMask = RESET_BEHAVCTL_WDG1_MASK;
+        stRegister.uptrAddress = RESET_BEHAVCTL_OFFSET;
+        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+    }
+    if(SYSCTL_enERROR_OK == enErrorReg)
+    {
+        *penBehaviorArg = (SYSCTL_nRESET_BEHAVIOR) stRegister.uxValue;
+    }
+
+    return (enErrorReg);
 }

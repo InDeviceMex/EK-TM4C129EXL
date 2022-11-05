@@ -50,7 +50,7 @@ SYSCTL_nERROR SYSCTL__enWritePeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERI
         uxBitNumber &= 0xFFUL;
 
         pstRegisterDataArg->uptrAddress += uxPeripheralIndex;
-        pstRegisterDataArg->uxShift = uxBitNumber;
+        pstRegisterDataArg->uxShift = (UBase_t) uxBitNumber;
         pstRegisterDataArg->uxMask = 1UL;
         enErrorReg = SYSCTL__enWriteRegister(enModuleArg, pstRegisterDataArg);
     }
@@ -89,7 +89,7 @@ SYSCTL_nERROR SYSCTL__enReadPeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIP
         uxBitNumber &= 0xFFUL;
 
         pstRegisterDataArg->uptrAddress += uxPeripheralIndex;
-        pstRegisterDataArg->uxShift = uxBitNumber;
+        pstRegisterDataArg->uxShift = (UBase_t) uxBitNumber;
         pstRegisterDataArg->uxMask = 1UL;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, pstRegisterDataArg);
     }

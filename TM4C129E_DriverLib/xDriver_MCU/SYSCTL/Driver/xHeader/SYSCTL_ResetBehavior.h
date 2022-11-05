@@ -10,16 +10,16 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-void SYSCTL__vSetResetBehavior_External(SYSCTL_nRESET_BEHAVIOR enBehavior);
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_External(void);
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_External(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg);
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_External(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg);
 
-void SYSCTL__vSetResetBehavior_BOR(SYSCTL_nRESET_BEHAVIOR enBehavior);
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_BOR(void);
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_BOR(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg);
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_BOR(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg);
 
-void SYSCTL__vSetResetBehavior_Watchdog0(SYSCTL_nRESET_BEHAVIOR enBehavior);
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_Watchdog0(void);
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_WDG0(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg);
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_WDG0(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg);
 
-void SYSCTL__vSetResetBehavior_Watchdog1(SYSCTL_nRESET_BEHAVIOR enBehavior);
-SYSCTL_nRESET_BEHAVIOR SYSCTL__enGetResetBehavior_Watchdog1(void);
+SYSCTL_nERROR SYSCTL__enSetResetBehavior_WDG1(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR enBehaviorArg);
+SYSCTL_nERROR SYSCTL__enGetResetBehavior_WDG1(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET_BEHAVIOR* penBehaviorArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_RESETBEHAVIOR_H_ */
