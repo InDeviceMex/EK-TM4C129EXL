@@ -48,16 +48,3 @@ UART_nERROR UART__enWriteRegister(UART_nMODULE enModuleArg, UART_Register_t* pst
 
     return (enErrorReg);
 }
-
-void UART__vWriteRegister(UART_nMODULE enModule, UBase_t uxOffsetRegister,
-                          UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                          UBase_t uxBitFeature)
-{
-    UBase_t uxUartBase = 0UL;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-    uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-    MCU__vWriteRegister(uxUartBase, uxOffsetRegister, uxFeatureValue,
-                        uxMaskFeature, uxBitFeature);
-}

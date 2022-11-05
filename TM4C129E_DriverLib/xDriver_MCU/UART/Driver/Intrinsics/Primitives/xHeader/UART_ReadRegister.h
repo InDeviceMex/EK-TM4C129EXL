@@ -27,7 +27,5 @@
 #include <xDriver_MCU/UART/Peripheral/xHeader/UART_Enum.h>
 
 UART_nERROR UART__enReadRegister(UART_nMODULE enModuleArg, UART_Register_t* pstRegisterDataArg);
-UBase_t UART__uxReadRegister(UART_nMODULE enModule, UBase_t uxOffsetRegister,
-                               UBase_t uxMaskFeature, UBase_t uxBitFeature);
 
 #endif /* XDRIVER_MCU_UART_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_UART_READREGISTER_H_ */

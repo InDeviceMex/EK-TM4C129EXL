@@ -47,18 +47,3 @@ UART_nERROR UART__enReadRegister(UART_nMODULE enModuleArg, UART_Register_t* pstR
     }
     return (enErrorReg);
 }
-
-UBase_t UART__uxReadRegister(UART_nMODULE enModule, UBase_t uxOffsetRegister,
-                               UBase_t uxMaskFeature, UBase_t uxBitFeature)
-{
-    UBase_t uxFeatureValue = 0UL;
-    UBase_t uxUartBase = 0UL;
-    UBase_t uxModule = 0UL;
-    uxModule = MCU__uxCheckParams((UBase_t) enModule, (UBase_t) UART_enMODULE_MAX);
-
-    uxUartBase = UART__uptrBlockBaseAddress((UART_nMODULE) uxModule);
-    uxFeatureValue = MCU__uxReadRegister(uxUartBase, uxOffsetRegister,
-                                           uxMaskFeature, uxBitFeature);
-
-    return (uxFeatureValue);
-}

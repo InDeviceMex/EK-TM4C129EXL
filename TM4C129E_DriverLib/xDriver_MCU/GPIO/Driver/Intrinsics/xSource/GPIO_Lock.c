@@ -66,7 +66,7 @@ GPIO_nERROR GPIO__enLock(GPIO_nPORT enPortArg)
 }
 
 
-GPIO_nERROR GPIO__IsLocked(GPIO_nPORT enPortArg,
+GPIO_nERROR GPIO__enIsLocked(GPIO_nPORT enPortArg,
                            GPIO_nLOCK* penLockArg)
 {
     GPIO_Register_t stRegister;

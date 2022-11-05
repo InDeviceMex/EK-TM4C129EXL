@@ -31,7 +31,7 @@ GPIO_nERROR GPIO__enSetLockState(GPIO_nPORT enPortArg,
                                  GPIO_nLOCK enLockArg);
 GPIO_nERROR GPIO__enUnlock(GPIO_nPORT enPortArg);
 GPIO_nERROR GPIO__enLock(GPIO_nPORT enPortArg);
-GPIO_nERROR GPIO__IsLocked(GPIO_nPORT enPortArg,
+GPIO_nERROR GPIO__enIsLocked(GPIO_nPORT enPortArg,
                            GPIO_nLOCK* penLockArg);
 
 #endif /* XDRIVER_MCU_DRIVER_HEADER_GPIO_GPIO_DRIVER_GPIO_INTRINSICS_GPIO_LOCK_H_ */
