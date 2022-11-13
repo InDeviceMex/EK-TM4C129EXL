@@ -33,65 +33,65 @@ static SYSCTL_nERROR SYSCTL_enGetDivValueByVCOAndXTAL(SYSCTL_nVCO enVcoRangeArg,
 
 static SYSCTL_nERROR SYSCTL_enGetDivValueByVCOAndXTAL(SYSCTL_nVCO enVcoRangeArg, SYSCTL_nXTAL enXtalArg, UBase_t uxRequestArg, UBase_t* puxResponseArg)
 {
-    const UBase_t uxXTALtoVCOReg[(UBase_t) SYSCTL_enVCO_MAX][(UBase_t) SYSCTL_enXTAL_MAX][SYSCTL_DIV_INDEXMAX] =
+    const uint16_t uxXTALtoVCOReg[(UBase_t) SYSCTL_enVCO_MAX][(UBase_t) SYSCTL_enXTAL_MAX][SYSCTL_DIV_INDEXMAX] =
     {
         {/* VCO 320 MHz */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 64UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 5 MHz */
-            { 62UL , 512UL, (1UL - 1UL), (1UL - 1UL) },     /* 5.12 MHz */
-            { 160UL, 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 6 MHz */
-            { 52UL , 85UL , (1UL - 1UL), (1UL - 1UL) },     /* 6.144 MHz */
-            { 43UL , 412UL, (1UL - 1UL), (1UL - 1UL) },     /* 7.3728 MHz */
-            { 40UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 8 MHz */
-            { 39UL , 64UL , (1UL - 1UL), (1UL - 1UL) },     /* 8.192 MHz */
-            { 32UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 10 MHz */
-            { 80UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 12 MHz */
-            { 26UL , 43UL , (1UL - 1UL), (1UL - 1UL) },     /* 12.288 MHz */
-            { 23UL , 613UL, (1UL - 1UL), (1UL - 1UL) },     /* 13.56 MHz */
-            { 22UL , 358UL, (1UL - 1UL), (1UL - 1UL) },     /* 14.318180 MHz */
-            { 20UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 16 MHz */
-            { 19UL , 544UL, (1UL - 1UL), (1UL - 1UL) },     /* 16.384 MHz */
-            { 160UL, 0UL  , (9UL - 1UL), (1UL - 1UL) },     /* 18 MHz */
-            { 16UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 20 MHz */
-            { 40UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 24 MHz */
-            { 64UL , 0UL  , (5UL - 1UL), (1UL - 1UL) },     /* 25 MHz */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 64U , 0U  , (1U - 1U), (1U - 1U) },     /* 5 MHz */
+            { 62U , 512U, (1U - 1U), (1U - 1U) },     /* 5.12 MHz */
+            { 160U, 0U  , (3U - 1U), (1U - 1U) },     /* 6 MHz */
+            { 52U , 85U , (1U - 1U), (1U - 1U) },     /* 6.144 MHz */
+            { 43U , 412U, (1U - 1U), (1U - 1U) },     /* 7.3728 MHz */
+            { 40U , 0U  , (1U - 1U), (1U - 1U) },     /* 8 MHz */
+            { 39U , 64U , (1U - 1U), (1U - 1U) },     /* 8.192 MHz */
+            { 32U , 0U  , (1U - 1U), (1U - 1U) },     /* 10 MHz */
+            { 80U , 0U  , (3U - 1U), (1U - 1U) },     /* 12 MHz */
+            { 26U , 43U , (1U - 1U), (1U - 1U) },     /* 12.288 MHz */
+            { 23U , 613U, (1U - 1U), (1U - 1U) },     /* 13.56 MHz */
+            { 22U , 358U, (1U - 1U), (1U - 1U) },     /* 14.318180 MHz */
+            { 20U , 0U  , (1U - 1U), (1U - 1U) },     /* 16 MHz */
+            { 19U , 544U, (1U - 1U), (1U - 1U) },     /* 16.384 MHz */
+            { 160U, 0U  , (9U - 1U), (1U - 1U) },     /* 18 MHz */
+            { 16U , 0U  , (1U - 1U), (1U - 1U) },     /* 20 MHz */
+            { 40U , 0U  , (3U - 1U), (1U - 1U) },     /* 24 MHz */
+            { 64U , 0U  , (5U - 1U), (1U - 1U) },     /* 25 MHz */
         },
         {/* VCO 480 MHz */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* Inv */
-            { 96UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 5 MHz */
-            { 93UL , 768UL, (1UL - 1UL), (1UL - 1UL) },     /* 5.12 MHz */
-            { 80UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 6 MHz */
-            { 78UL , 128UL, (1UL - 1UL), (1UL - 1UL) },     /* 6.144 MHz */
-            { 65UL , 107UL, (1UL - 1UL), (1UL - 1UL) },     /* 7.3728 MHz */
-            { 60UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 8 MHz */
-            { 58UL , 608UL, (1UL - 1UL), (1UL - 1UL) },     /* 8.192 MHz */
-            { 48UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 10 MHz */
-            { 40UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 12 MHz */
-            { 39UL , 64UL , (1UL - 1UL), (1UL - 1UL) },     /* 12.288 MHz */
-            { 35UL , 408UL, (1UL - 1UL), (1UL - 1UL) },     /* 13.56 MHz */
-            { 33UL , 536UL, (1UL - 1UL), (1UL - 1UL) },     /* 14.318180 MHz */
-            { 30UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 16 MHz */
-            { 29UL , 304UL, (1UL - 1UL), (1UL - 1UL) },     /* 16.384 MHz */
-            { 80UL , 0UL  , (3UL - 1UL), (1UL - 1UL) },     /* 18 MHz */
-            { 24UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 20 MHz */
-            { 20UL , 0UL  , (1UL - 1UL), (1UL - 1UL) },     /* 24 MHz */
-            { 96UL , 0UL  , (5UL - 1UL), (1UL - 1UL) },     /* 25 MHz */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* Inv */
+            { 96U , 0U  , (1U - 1U), (1U - 1U) },     /* 5 MHz */
+            { 93U , 768U, (1U - 1U), (1U - 1U) },     /* 5.12 MHz */
+            { 80U , 0U  , (1U - 1U), (1U - 1U) },     /* 6 MHz */
+            { 78U , 128U, (1U - 1U), (1U - 1U) },     /* 6.144 MHz */
+            { 65U , 107U, (1U - 1U), (1U - 1U) },     /* 7.3728 MHz */
+            { 60U , 0U  , (1U - 1U), (1U - 1U) },     /* 8 MHz */
+            { 58U , 608U, (1U - 1U), (1U - 1U) },     /* 8.192 MHz */
+            { 48U , 0U  , (1U - 1U), (1U - 1U) },     /* 10 MHz */
+            { 40U , 0U  , (1U - 1U), (1U - 1U) },     /* 12 MHz */
+            { 39U , 64U , (1U - 1U), (1U - 1U) },     /* 12.288 MHz */
+            { 35U , 408U, (1U - 1U), (1U - 1U) },     /* 13.56 MHz */
+            { 33U , 536U, (1U - 1U), (1U - 1U) },     /* 14.318180 MHz */
+            { 30U , 0U  , (1U - 1U), (1U - 1U) },     /* 16 MHz */
+            { 29U , 304U, (1U - 1U), (1U - 1U) },     /* 16.384 MHz */
+            { 80U , 0U  , (3U - 1U), (1U - 1U) },     /* 18 MHz */
+            { 24U , 0U  , (1U - 1U), (1U - 1U) },     /* 20 MHz */
+            { 20U , 0U  , (1U - 1U), (1U - 1U) },     /* 24 MHz */
+            { 96U , 0U  , (5U - 1U), (1U - 1U) },     /* 25 MHz */
         },
     };
     SYSCTL_nERROR enErrorReg;
@@ -111,7 +111,7 @@ static SYSCTL_nERROR SYSCTL_enGetDivValueByVCOAndXTAL(SYSCTL_nVCO enVcoRangeArg,
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        *puxResponseArg = uxXTALtoVCOReg[(UBase_t) enVcoRangeArg][(UBase_t) enXtalArg][uxRequestArg];
+        *puxResponseArg = (UBase_t) uxXTALtoVCOReg[(UBase_t) enVcoRangeArg][(UBase_t) enXtalArg][uxRequestArg];
     }
     return (enErrorReg);
 }

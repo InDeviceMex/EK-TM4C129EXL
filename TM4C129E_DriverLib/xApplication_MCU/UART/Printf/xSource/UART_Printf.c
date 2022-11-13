@@ -32,11 +32,11 @@
 UBase_t UART__uxPrintf(UART_nMODULE enModule,const char* pcFormat, ... )
 {
     UBase_t uxLengtht;
-    char pcBufferReg[400UL] = {0};
+    char pcBufferReg[800UL] = {0};
     va_list vaList;
 
     va_start(vaList, pcFormat);
-    uxLengtht = vsnprintf__uxUser(pcBufferReg, 400UL, pcFormat, vaList);
+    uxLengtht = vsnprintf__uxUser(pcBufferReg, 800UL, pcFormat, vaList);
     va_end(vaList);
     UART__enSetFifoDataByte(enModule, (uint8_t*) pcBufferReg, &uxLengtht);
     return  (uxLengtht);

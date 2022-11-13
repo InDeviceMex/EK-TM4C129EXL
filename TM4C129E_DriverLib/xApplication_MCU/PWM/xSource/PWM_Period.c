@@ -56,7 +56,10 @@ PWM_nERROR PWM_Generator__enSetPeriod_us(PWM_nMODULE enModuleArg, PWM_nGENERATOR
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClk);
+        enErrorReg = (PWM_nERROR) SYSCTL__enGetSystemClockFrequency(SYSCTL_enMODULE_0, &uxSysClk);
+    }
+    if(PWM_enERROR_OK == enErrorReg)
+    {
 
         u64LoadValue =  (uint64_t) uxSysClk;
         u64LoadValue *= uxPeriodArg;

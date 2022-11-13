@@ -28,21 +28,21 @@
 FPU_nERROR FPU__enInit(FPU_nMODULE enModuleArg)
 {
     FPU_nERROR enErrorReg;
-    enErrorReg = FPU__enSetAccessType(FPU_enMODULE_0, FPU_enACCESS_FULL);
+    enErrorReg = FPU__enSetAccessType(enModuleArg, FPU_enACCESS_FULL);
     if(FPU_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FPU__enSetAutoPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+        enErrorReg = FPU__enSetAutoPreservationState(enModuleArg, FPU_enSTATE_ENA);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        enErrorReg = FPU__enSetLazyPreservationState(FPU_enMODULE_0, FPU_enSTATE_ENA);
+        enErrorReg = FPU__enSetLazyPreservationState(enModuleArg, FPU_enSTATE_ENA);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        FPU__vSetMode(FPU_enMODULE_0, FPU_enMODE_DENORMAL);
-        FPU__vSetHalfPrecision(FPU_enMODULE_0, FPU_enHALF_PRECISION_IEEE);
-        FPU__vSetNAN(FPU_enMODULE_0, FPU_enNAN_PROPAGATE);
-        FPU__vSetRoundingMode(FPU_enMODULE_0, FPU_enROUNDING_NEAREST);
+        FPU__vSetMode(enModuleArg, FPU_enMODE_DENORMAL);
+        FPU__vSetHalfPrecision(enModuleArg, FPU_enHALF_PRECISION_IEEE);
+        FPU__vSetNAN(enModuleArg, FPU_enNAN_PROPAGATE);
+        FPU__vSetRoundingMode(enModuleArg, FPU_enROUNDING_NEAREST);
     }
     return (enErrorReg);
 }

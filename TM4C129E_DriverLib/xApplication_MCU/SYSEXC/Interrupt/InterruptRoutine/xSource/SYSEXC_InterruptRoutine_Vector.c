@@ -72,7 +72,7 @@ void SYSEXC__vSendValues(void)
     SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enUART0);
     UART__enInit(UART_enMODULE_0);
     UART__enSetCustomPrintfHandle(UART_enMODULE_0, &UART__enSetFifoDataByte);
-    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 921600UL, 0UL, 0UL, &enUartSysExcControl, &enUartSysExcLineControl, &enUartSysExcLine, 0UL);
+    UART__enSetConfig(UART_enMODULE_0, UART_enMODE_NORMAL, 115200UL, 0UL, 0UL, &enUartSysExcControl, &enUartSysExcLineControl, &enUartSysExcLine, 0UL);
 
     UART__uxCustomPrintf(UART_enMODULE_0, "SYSEXC FAULT exception Detected\n\r"
                     "Core Register dump:\n\r"

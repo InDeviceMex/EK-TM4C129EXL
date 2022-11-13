@@ -83,7 +83,7 @@ CRC_nERROR CRC16__enCalculate(const char* pcDataValuesArg, UBase_t uxDataLengthA
             {
                 u8Data = MCU__u8ReverseByte(u8Data);
             }
-            u16Crc ^= u8Data;
+            u16Crc ^= (uint16_t) u8Data;
             u8BytePos = 8U;
             while(0U < u8BytePos)
             {
