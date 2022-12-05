@@ -21,6 +21,7 @@ int main(void)
     SYSCTL__enSetSystemClock(SYSCTL_enMODULE_0, 120000000UL, &stClockConfig, 0UL);
     OS_Task_Handle_t TaskHandeler[7UL] = {0UL};
 
+    OS_Task__uxCreate(&xTask2_Heartbeat, "Hertbeat Task", 2000UL, (void*) 2000UL, 3UL, &TaskHandeler[1UL]);
     OS_Task__uxCreate(&xTask1_PWM, "PWM Task", 2000UL, (void*) 100UL, 2UL, &TaskHandeler[1UL]);
 
     OS_Task__vStartScheduler(1000UL);

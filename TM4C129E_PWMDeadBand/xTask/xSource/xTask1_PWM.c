@@ -39,26 +39,34 @@ void TASK__enSendHelp(void);
 char TASK_cString[COMMAND_LENGTH] = {0};
 char* TASK_pcString = TASK_cString;
 
-#define TASK_COMMANDS (18u)
+#define TASK_COMMANDS (26u)
 char* TASK_cPwm0State="STATE0";
 char* TASK_cPwm0Frequency="FREQ0";
 char* TASK_cPwm0DeadBand="DEADBAND0";
 char* TASK_cPwm0PulseWidth="WIDTH0";
+char* TASK_cPwm0Current="CURRENT0";
+char* TASK_cPwm0Resistor="RESISTOR0";
 
 char* TASK_cPwm1State="STATE1";
 char* TASK_cPwm1Frequency="FREQ1";
 char* TASK_cPwm1DeadBand="DEADBAND1";
 char* TASK_cPwm1PulseWidth="WIDTH1";
+char* TASK_cPwm1Current="CURRENT1";
+char* TASK_cPwm1Resistor="RESISTOR1";
 
 char* TASK_cPwm2State="STATE2";
 char* TASK_cPwm2Frequency="FREQ2";
 char* TASK_cPwm2DeadBand="DEADBAND2";
 char* TASK_cPwm2PulseWidth="WIDTH2";
+char* TASK_cPwm2Current="CURRENT2";
+char* TASK_cPwm2Resistor="RESISTOR2";
 
 char* TASK_cPwm3State="STATE3";
 char* TASK_cPwm3Frequency="FREQ3";
 char* TASK_cPwm3DeadBand="DEADBAND3";
 char* TASK_cPwm3PulseWidth="WIDTH3";
+char* TASK_cPwm3Current="CURRENT3";
+char* TASK_cPwm3Resistor="RESISTOR3";
 
 char* TASK_cReset="RESET";
 char* TASK_cHelp="HELP";
@@ -72,10 +80,14 @@ char* TASK_cHelp="HELP";
 #define COMMAND_FREQUENCY (1U)
 #define COMMAND_DEADBAND (2U)
 #define COMMAND_PULSEWIDTH (3U)
+#define COMMAND_CURRENT (4U)
+#define COMMAND_RESISTOR (5U)
 
 UBase_t TASK_puxPulseWidth[4UL];
 UBase_t TASK_puxFrequency[4UL];
 float32_t TASK_pf32DeadBand[4UL];
+float32_t TASK_puxCurrent[4UL];
+float32_t TASK_puxResistor[4UL];
 UBase_t TASK_puxState[4UL];
 
 char** TASK_pcCommands[TASK_COMMANDS]=
@@ -99,6 +111,16 @@ char** TASK_pcCommands[TASK_COMMANDS]=
     &TASK_cPwm1PulseWidth,
     &TASK_cPwm2PulseWidth,
     &TASK_cPwm3PulseWidth,
+
+    &TASK_cPwm0Current,
+    &TASK_cPwm1Current,
+    &TASK_cPwm2Current,
+    &TASK_cPwm3Current,
+
+    &TASK_cPwm0Resistor,
+    &TASK_cPwm1Resistor,
+    &TASK_cPwm2Resistor,
+    &TASK_cPwm3Resistor,
 
     &TASK_cReset,
     &TASK_cHelp,
@@ -160,14 +182,14 @@ void xTask1_PWM(void* pvParams)
     SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enGPIOK);
     SYSCTL__enEnableRunMode(SYSCTL_enMODULE_0, SYSCTL_enPWM0);
 
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM0_F0, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM1_F1, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM2_F2, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM3_F3, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM4_G0, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM5_G1, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM6_K4, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
-    GPIO__enSetDigitalConfig(GPIO_enM0PWM7_K5, GPIO_enCONFIG_OUTPUT_10MA_PUSHPULL_PULLUP);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM0_F0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM1_F1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM2_F2, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM3_F3, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM4_G0, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM5_G1, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM6_K4, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
+    GPIO__enSetDigitalConfig(GPIO_enM0PWM7_K5, GPIO_enCONFIG_OUTPUT_2MA_PUSHPULL);
 
 
     GPIO__enInit();
@@ -189,21 +211,29 @@ void xTask1_PWM(void* pvParams)
     TASK_puxPulseWidth[COMMAND_PWM0] = 50UL;
     TASK_pf32DeadBand[COMMAND_PWM0] = 3.0f;
     TASK_puxState[COMMAND_PWM0] = 0UL;
+    TASK_puxCurrent[COMMAND_PWM0] = (uint32_t) GPIO_enDRIVE_2mA;
+    TASK_puxResistor[COMMAND_PWM0] = (uint32_t) GPIO_enRESMODE_INACTIVE;
 
     TASK_puxFrequency[COMMAND_PWM1] = 12000UL;
     TASK_puxPulseWidth[COMMAND_PWM1] = 50UL;
     TASK_pf32DeadBand[COMMAND_PWM1] = 3.0f;
     TASK_puxState[COMMAND_PWM1] = 0UL;
+    TASK_puxCurrent[COMMAND_PWM1] = (uint32_t) GPIO_enDRIVE_2mA;
+    TASK_puxResistor[COMMAND_PWM1] = (uint32_t) GPIO_enRESMODE_INACTIVE;
 
     TASK_puxFrequency[COMMAND_PWM2] = 12000UL;
     TASK_puxPulseWidth[COMMAND_PWM2] = 50UL;
     TASK_pf32DeadBand[COMMAND_PWM2] = 3.0f;
     TASK_puxState[COMMAND_PWM2] = 0UL;
+    TASK_puxCurrent[COMMAND_PWM2] = (uint32_t) GPIO_enDRIVE_2mA;
+    TASK_puxResistor[COMMAND_PWM2] = (uint32_t) GPIO_enRESMODE_INACTIVE;
 
     TASK_puxFrequency[COMMAND_PWM3] = 12000UL;
     TASK_puxPulseWidth[COMMAND_PWM3] = 50UL;
     TASK_pf32DeadBand[COMMAND_PWM3] = 3.0f;
     TASK_puxState[COMMAND_PWM3] = 0UL;
+    TASK_puxCurrent[COMMAND_PWM3] = (uint32_t) GPIO_enDRIVE_2mA;
+    TASK_puxResistor[COMMAND_PWM3] = (uint32_t) GPIO_enRESMODE_INACTIVE;
 
     PWM0_GEN0_LOAD_R = TASK_puxFrequency[COMMAND_PWM0];
     PWM0_GEN0_OUTA_CMP_R = TASK_puxFrequency[COMMAND_PWM0] * TASK_puxPulseWidth[COMMAND_PWM0] / 100UL;
@@ -245,9 +275,9 @@ void xTask1_PWM(void* pvParams)
 
 
     PWM0_GEN0_OUTA_ACTION->ZERO = 0UL;
-    PWM0_GEN0_OUTA_ACTION->LOAD = 2UL;
-    PWM0_GEN0_OUTA_ACTION->OUTA_CMP_UP = 0UL;
-    PWM0_GEN0_OUTA_ACTION->OUTA_CMP_DOWN = 3UL;
+    PWM0_GEN0_OUTA_ACTION->LOAD = 0UL;
+    PWM0_GEN0_OUTA_ACTION->OUTA_CMP_UP = 3UL;
+    PWM0_GEN0_OUTA_ACTION->OUTA_CMP_DOWN = 2UL;
     PWM0_GEN0_OUTA_ACTION->OUTB_CMP_UP = 0UL;
     PWM0_GEN0_OUTA_ACTION->OUTB_CMP_DOWN = 0UL;
 
@@ -509,6 +539,15 @@ void xTask1_PWM(void* pvParams)
 void TASK__enSendWelcomeScreen(void)
 {
     UART__uxPrintf(UART_enMODULE_0,
+                   "*******************************************************\r\n"
+                   "             JABIL DEVELOPMENT TEST GROUP      (V1.1)  \r\n"
+                   "          Custom PWM Generator with Deadband           \r\n"
+                   "\r\n"
+                   "This software is intended to be used on systems that   \r\n"
+                   "require to generate up 3 PWM with deadband and         \r\n"
+                   "complementary outputs.                                 \r\n"
+                   "\r\n");
+    UART__uxPrintf(UART_enMODULE_0,
                    "Generator 0:              Generator 1:                 \r\n"
                    "           PWM_H Pin: PF0             PWM_H Pin: PF2   \r\n"
                    "           PWM_L Pin: PF1             PWM_L Pin: PF3   \r\n"
@@ -516,22 +555,26 @@ void TASK__enSendWelcomeScreen(void)
                    "           PWM_H Pin: PG0             PWM_H Pin: PK4   \r\n"
                    "           PWM_L Pin: PG1             PWM_L Pin: PK5   \r\n"
                    "\r\n"
-                   "Commands structure:                                    \r\n"
                    "Please Configure [ENTER] as CR+LF (\\r\\n)             \r\n"
                    "Write a command and send it with [ENTER]               \r\n"
                    "If a command requires a parameter please add an [SPACE]\r\n"
                    "between the command and the parameter.                 \r\n"
                    "\r\n");
     UART__uxPrintf(UART_enMODULE_0,
+                   "Commands structure:     \r\n"
                    "All the channels have the following default settings:  \r\n"
                    "State    [0 - 3] [  ON ,    OFF]:   OFF                \r\n"
                    "Frequency[0 - 3] [2000 - 120000]: 10000 Hz             \r\n"
                    "Deadband [0 - 3] [ 0.0 -  34.0]:   3.0 us              \r\n"
                    "Width    [0 - 3] [   1 -    100]:50 %% (minus deadband) \r\n"
+                   "Current  [0 - 3] [2,4,6,8,10,12]: 2mA                  \r\n"
+                   "Resistor [0 - 3] [NO, PULL,DOWN]: NO                  \r\n"
                    "\r\n"
                    "Command examples:\r\n"
                    "        To Configure a Generator 0 with 3KHz frequency,\r\n"
-                   "        1.5us of deadtime and 30%% duty cycle.\r\n"
+                   "        1.5us of deadtime, 30%% duty cycle and 2mA.\r\n"
+                   "current0 2\r\n"
+                   "resistor0 no\r\n"
                    "freq0 3000\r\n"
                    "deadband0 1.5\r\n"
                    "width0 30\r\n"
@@ -556,35 +599,55 @@ void TASK__enSendHelp(void)
                    "Commands structure:                                    \r\n"
                    "     [Command][generator number][space][parameter]     \r\n");
     UART__uxPrintf(UART_enMODULE_0,
-                   "Command Help [help]:                          \r\n"
-                   "       This command shows this section.     \r\n"
+                   "Command Help [help]:                     \r\n"
+                   "       This command shows this section.  \r\n"
                    "            help                         \r\n"
                    "       Example:            \r\n"
-                   "             help                             \r\n");
+                   "             help                        \r\n");
     UART__uxPrintf(UART_enMODULE_0,
-                   "Command Reset [reset]:                          \r\n"
-                   "       This command resets the device.     \r\n"
-                   "            reset                         \r\n"
+                   "Command Reset [reset]:                   \r\n"
+                   "       This command resets the device.   \r\n"
+                   "            reset                        \r\n"
                    "       Example:            \r\n"
-                   "             reset                             \r\n");
+                   "             reset                       \r\n");
+    UART__uxPrintf(UART_enMODULE_0,
+                   "Command Current [current]:               \r\n"
+                   "       This command changes the current capability of   \r\n"
+                   "       the generators outputs. By default the current is\r\n"
+                   "       set to 2mA, but it can be 2,4,6,8,10,12 mA\r\n"
+                   "            current[generator][space][2,4,6,8,10,12]\r\n"
+                   "       Example, set current to 8 mA on Generator 0: \r\n"
+                   "            **************                          \r\n"
+                   "            * current0 8 *                          \r\n"
+                   "            **************                          \r\n");
+    UART__uxPrintf(UART_enMODULE_0,
+                   "Command Resistor [resistor]:               \r\n"
+                   "       This command changes the internal resistor on   \r\n"
+                   "       the generators outputs. By default the resistor is\r\n"
+                   "       disabled, but it can be a Pull-up or Pull-down\r\n"
+                   "            resistor[generator][space][NO, PULL, DOWN]\r\n"
+                   "       Example, set resistor as Pull-up on Generator 0: \r\n"
+                   "            ******************                       \r\n"
+                   "            * resistor0 pull *                       \r\n"
+                   "            ******************                      \r\n");
     UART__uxPrintf(UART_enMODULE_0,
                    "Command Set State [state]:                          \r\n"
-                   "       This command enables the generator function.     \r\n"
-                   "            state[generator][space][OFF , ON]          \r\n"
+                   "       This command enables the generator function. \r\n"
+                   "            state[generator][space][OFF , ON]       \r\n"
                    "       Example, set disable Generator 0:            \r\n"
-                   "            **************                               \r\n"
-                   "            * state0 off *                               \r\n"
-                   "            **************                             \r\n");
+                   "            **************                          \r\n"
+                   "            * state0 off *                          \r\n"
+                   "            **************                          \r\n");
     UART__uxPrintf(UART_enMODULE_0,
                    "Command Set Frequency [freq]:                          \r\n"
-                   "       This command changes the frequency of the        \r\n"
+                   "       This command changes the frequency of the       \r\n"
                    "       complementary outputs on a specific Generator.  \r\n"
                    "       The minimum frequency is 2000 Hz and the maximum\r\n"
                    "       is 120000 Hz.                                   \r\n"
                    "            freq[generator][space][2000 - 120000]      \r\n"
                    "       Example, set Generator 0 to 3000 Hz:            \r\n"
-                   "            **************                              \r\n"
-                   "            * freq0 3000 *                               \r\n"
+                   "            **************                             \r\n"
+                   "            * freq0 3000 *                             \r\n"
                    "            **************                             \r\n"
                    " ________          ________          ________\r\n"
                    "|        |        |        |        |\r\n"
@@ -602,8 +665,8 @@ void TASK__enSendHelp(void)
                    "       the maximum is 34.0 us.                         \r\n"
                    "            deadband[generator][space][0.0 - 34.0]     \r\n"
                    "       Example, set Gen 0 with a dead time of 4.5 us:  \r\n"
-                   "            *****************                           \r\n"
-                   "            * deadband0 4.5 *                               \r\n"
+                   "            *****************                          \r\n"
+                   "            * deadband0 4.5 *                          \r\n"
                    "            *****************                 \r\n"
                    "                                         \r\n"
                    " ____            ____            ____   <- PWM_H   \r\n");
@@ -620,14 +683,14 @@ void TASK__enSendHelp(void)
                    "      |        |                           \r\n"
                    "       DeadBand                            \r\n");
     UART__uxPrintf(UART_enMODULE_0,
-                   "Command Set Width [width]:                          \r\n"
-                   "       This command changes the Duty Cycle of the     \r\n"
-                   "       complementary outputs.This means, it will change\r\n"
-                   "       the high time of the PWM_H.                       \r\n"
-                   "       The minimum width is 1 %% and the maximum 100%%   \r\n"
-                   "            width[generator][space][1 - 100]           \r\n"
+                   "Command Set Width [width]:                              \r\n"
+                   "       This command changes the Duty Cycle of the       \r\n"
+                   "       complementary outputs.This means, it will change \r\n"
+                   "       the high time of the PWM_H.                      \r\n"
+                   "       The minimum width is 1 %% and the maximum 100%%  \r\n"
+                   "            width[generator][space][1 - 100]            \r\n"
                    "       Example, set Generator 0 with 45%% duty cycle    \r\n"
-                   "            *************                            \r\n"
+                   "            *************                               \r\n"
                    "            * width0 45 *                               \r\n"
                    "            *************                 \r\n"
                    " ________          ________          ________\r\n"
@@ -652,6 +715,8 @@ boolean_t TASK__boExecuteCommand(UBase_t uxCommand, const char* pcParameter)
     UBase_t uxLength;
     float32_t f32Band;
     boolean_t boResult = FALSE;
+    GPIO_nDRIVE enDriver = GPIO_enDRIVE_UNDEF;
+    GPIO_nRESMODE enResistor = GPIO_enRESMODE_UNDEF;
 
     uxPwmNumber = uxCommand & 0x3UL;
     uxPwmAction = uxCommand >> 2UL;
@@ -734,6 +799,125 @@ boolean_t TASK__boExecuteCommand(UBase_t uxCommand, const char* pcParameter)
                 PWM_Output__enSetStateByNumber(PWM_enMODULE_0, (PWM_nGENERATOR) uxPwmNumber, PWM_enOUTPUT_BOTH, TASK_puxState[uxPwmNumber]);
                 boResult = TRUE;
             }
+        }
+        break;
+    case COMMAND_CURRENT:
+        uxLength = 0UL;
+        u64Number = 0UL;
+        Conv__enString2UInteger(&pcParameter, &u64Number, &uxLength);
+        if(0 != uxLength)
+        {
+            switch (u64Number)
+            {
+            case 2UL:
+                enDriver = GPIO_enDRIVE_2mA;
+                break;
+            case 4UL:
+                enDriver = GPIO_enDRIVE_4mA;
+                break;
+            case 6UL:
+                enDriver = GPIO_enDRIVE_6mA;
+                break;
+            case 8UL:
+                enDriver = GPIO_enDRIVE_8mA_SLR;
+                break;
+            case 10UL:
+                enDriver = GPIO_enDRIVE_10mA_SLR;
+                break;
+            case 12UL:
+                enDriver = GPIO_enDRIVE_12mA_SLR;
+                break;
+            default:
+                break;
+            }
+            if(GPIO_enDRIVE_UNDEF != enDriver)
+            {
+                PWM_Output__enSetStateByNumber(PWM_enMODULE_0, (PWM_nGENERATOR) uxPwmNumber, PWM_enOUTPUT_BOTH, PWM_enSTATE_DIS);
+                switch (uxPwmNumber)
+                {
+                case (uint32_t) PWM_enGEN_0:
+                    TASK_puxCurrent[uxPwmNumber] = (uint32_t) enDriver;
+                    GPIO__enSetDriveByNumber(GPIO_enPORT_F, GPIO_enPIN_0, enDriver);
+                    GPIO__enSetDriveByNumber(GPIO_enPORT_F, GPIO_enPIN_1, enDriver);
+
+                    boResult = TRUE;
+                    break;
+                case (uint32_t) PWM_enGEN_1:
+                        TASK_puxCurrent[uxPwmNumber] = (uint32_t) enDriver;
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_F, GPIO_enPIN_2, enDriver);
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_F, GPIO_enPIN_3, enDriver);
+                        boResult = TRUE;
+                    break;
+                case (uint32_t) PWM_enGEN_2:
+                        TASK_puxCurrent[uxPwmNumber] = (uint32_t) enDriver;
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_G, GPIO_enPIN_0, enDriver);
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_G, GPIO_enPIN_1, enDriver);
+                        boResult = TRUE;
+                    break;
+                case (uint32_t) PWM_enGEN_3:
+                        TASK_puxCurrent[uxPwmNumber] = (uint32_t) enDriver;
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_K, GPIO_enPIN_4, enDriver);
+                        GPIO__enSetDriveByNumber(GPIO_enPORT_K, GPIO_enPIN_5, enDriver);
+                        boResult = TRUE;
+                    break;
+                default:
+                    break;
+                }
+                PWM_Output__enSetStateByNumber(PWM_enMODULE_0, (PWM_nGENERATOR) uxPwmNumber, PWM_enOUTPUT_BOTH, TASK_puxState[uxPwmNumber]);
+            }
+        }
+        break;
+    case COMMAND_RESISTOR:
+        uxLength = 0UL;
+        u64Number = 0UL;
+
+        if(0 == strcmp(pcParameter, "NO"))
+        {
+            enResistor = GPIO_enRESMODE_INACTIVE;
+        }
+        else if(0 == strcmp(pcParameter, "PULL"))
+        {
+            enResistor = GPIO_enRESMODE_PULLUP;
+
+        }else if(0 == strcmp(pcParameter, "DOWN"))
+        {
+            enResistor = GPIO_enRESMODE_PULLDOWN;
+        }
+
+        if(GPIO_enRESMODE_UNDEF != enResistor)
+        {
+            PWM_Output__enSetStateByNumber(PWM_enMODULE_0, (PWM_nGENERATOR) uxPwmNumber, PWM_enOUTPUT_BOTH, PWM_enSTATE_DIS);
+            switch (uxPwmNumber)
+            {
+            case (uint32_t) PWM_enGEN_0:
+                TASK_puxResistor[uxPwmNumber] = (uint32_t) enResistor;
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_F, GPIO_enPIN_0, enResistor);
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_F, GPIO_enPIN_1, enResistor);
+
+                boResult = TRUE;
+                break;
+            case (uint32_t) PWM_enGEN_1:
+                TASK_puxResistor[uxPwmNumber] = (uint32_t) enResistor;
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_F, GPIO_enPIN_2, enResistor);
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_F, GPIO_enPIN_3, enResistor);
+                boResult = TRUE;
+                break;
+            case (uint32_t) PWM_enGEN_2:
+                TASK_puxResistor[uxPwmNumber] = (uint32_t) enResistor;
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_G, GPIO_enPIN_0, enResistor);
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_G, GPIO_enPIN_1, enResistor);
+                boResult = TRUE;
+                break;
+            case (uint32_t) PWM_enGEN_3:
+                TASK_puxResistor[uxPwmNumber] = (uint32_t) enResistor;
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_K, GPIO_enPIN_4, enResistor);
+                GPIO__enSetResistorModeByNumber(GPIO_enPORT_K, GPIO_enPIN_5, enResistor);
+                boResult = TRUE;
+                break;
+            default:
+                break;
+            }
+            PWM_Output__enSetStateByNumber(PWM_enMODULE_0, (PWM_nGENERATOR) uxPwmNumber, PWM_enOUTPUT_BOTH, TASK_puxState[uxPwmNumber]);
         }
         break;
     default:

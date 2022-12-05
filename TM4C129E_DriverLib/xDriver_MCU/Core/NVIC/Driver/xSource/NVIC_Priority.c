@@ -51,6 +51,7 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
         uxVectorBit = (UBase_t) enVectorArg;
         uxVectorBit %= 4UL;
         uxVectorBit <<= 3U;
+        uxVectorBit += NVIC_PRI_BIT_OFFSET;
 
         uxVectorIndex = (UBase_t) enVectorArg;
         uxVectorIndex &= ~((UBase_t) 0x00000003UL);

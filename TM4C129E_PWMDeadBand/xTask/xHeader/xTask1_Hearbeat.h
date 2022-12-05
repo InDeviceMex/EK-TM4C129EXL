@@ -1,6 +1,6 @@
 /**
  *
- * @file xTask.h
+ * @file xTask1_Hearbeat.h
  * @copyright
  * @verbatim InDeviceMex 2021 @endverbatim
  *
@@ -11,7 +11,7 @@
  * @verbatim 1.0 @endverbatim
  *
  * @date
- * @verbatim 19 ago. 2021 @endverbatim
+ * @verbatim 23 nov. 2022 @endverbatim
  *
  * @author
  * @verbatim InDeviceMex @endverbatim
@@ -19,14 +19,15 @@
  * @par Change History
  * @verbatim
  * Date           Author     Version     Description
- * 19 ago. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ * 23 nov. 2022     InDeviceMex    1.0         initial Version@endverbatim
  */
 
-#ifndef XTASK_XTASK_H_
-#define XTASK_XTASK_H_
+#ifndef XTASK_XHEADER_XTASK1_HEARBEAT_H_
+#define XTASK_XHEADER_XTASK1_HEARBEAT_H_
 
-#include <xTask/xHeader/xSemaphores.h>
-#include "xHeader/xTask1_PWM.h"
-#include "xHeader/xTask1_Hearbeat.h"
 
-#endif /* XTASK_XTASK_H_ */
+void xTask2_Heartbeat(void* pvParams);
+
+
+
+#endif /* XTASK_XHEADER_XTASK1_HEARBEAT_H_ */
