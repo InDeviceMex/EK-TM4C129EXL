@@ -23,10 +23,8 @@
 /*******************************************************************************/
 
 #include <xUtils/Standard/Standard.h>
-#include <xApplication_MCU/Core/SCB/SCB.h>
-#include <xDriver_MCU/Core/FPU/FPU.h>
-#include <xDriver_MCU/Core/NVIC/NVIC.h>
-#include <xApplication_MCU/FLASH/FLASH.h>
+#include <xDriver_MCU/xDriver_MCU.h>
+#include <xApplication_MCU/xApplication_MCU.h>
 
 /*******************************************************************************/
 /**/
@@ -323,10 +321,10 @@ ResetISR(void)
     /* enabled).  Any configuration of the float32_ting-point unit using DriverLib*/
     /* APIs must be done here prior to the float32_ting-point unit being enabled.*/
 
-    FPU__vInit();
-    NVIC__vDeInitInterrupts();
-    SCB__vInit();
-    FLASH__enInit();
+    FPU__enInit(FPU_enMODULE_0);
+    NVIC__enDisableAllInterrupts(NVIC_enMODULE_0);
+    SCB__enInit(SCB_enMODULE_0);
+    FLASH__enInit(FLASH_enMODULE_0);
     /**/
     /* Call the application's entry point.*/
     /**/

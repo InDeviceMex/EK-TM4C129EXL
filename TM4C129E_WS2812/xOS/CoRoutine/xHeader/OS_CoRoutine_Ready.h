@@ -1,0 +1,34 @@
+/**
+ *
+ * @file OS_CoRoutine_Ready.h
+ * @copyright
+ * @verbatim InDeviceMex 2021 @endverbatim
+ *
+ * @par Responsibility
+ * @verbatim InDeviceMex Developers @endverbatim
+ *
+ * @version
+ * @verbatim 1.0 @endverbatim
+ *
+ * @date
+ * @verbatim 27 nov. 2021 @endverbatim
+ *
+ * @author
+ * @verbatim InDeviceMex @endverbatim
+ *
+ * @par Change History
+ * @verbatim
+ * Date           Author     Version     Description
+ * 27 nov. 2021     InDeviceMex    1.0         initial Version@endverbatim
+ */
+
+#ifndef XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_
+#define XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_
+
+#include <xOS/CoRoutine/Intrinsics/xHeader/OS_CoRoutine_Defines.h>
+
+void OS_CoRoutine__vAddToReadyList(OS_CoRoutine_CRCB_t* pstCRCBArg);
+void OS_CoRoutine__vAddToReadyQueue(OS_CoRoutine_CRCB_t* pstCRCBArg);
+void OS_CoRoutine__vCheckPendingReadyList(void);
+
+#endif /* XOS_COROUTINE_XHEADER_OS_COROUTINE_READY_H_ */

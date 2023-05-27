@@ -1,68 +1,119 @@
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+typedef enum
+{
+    FALSE = 0UL,
+    TRUE = 1UL,
+}boolean_t;
 
 #define CHAR_LIMIT (255U)
-uint32_t u32Permutacion(const char* pcString1, const char* pcString2, uint32_t u32MaxLength);
+boolean_t boPermutacion(const char* pcString1, const char* pcString2, uint32_t u32MaxLength);
 
 uint32_t count = 0U;
 
-uint32_t u32ResultPer1 = 0U;
-uint32_t u32ResultPer2 = 0U;
+boolean_t boResultPer3 = FALSE;
+
 void main(void)
 {
-    const char String1[] = "Hola Mundo, Esta es la permutacion 1 hola hola";
-    const char String2[] = "laHo Mundo, sEta es al permuatcion 1";
-    const char String3[] = "laHo Mundo, sEta es al permuatcion 2";
+    boolean_t boResultPer = FALSE;
+    char* String1 = "Hola Mundo, Esta es la permutacion 1 hola hola";
+    char* String2 = "laHo Mundo, sEta es al permuatcion 1";
+    char* String3 = "laHo Mundo, sEta es al permuatcion 2";
+    char* String4 = "Hola Mundo, Esta es la permutacion 1 hhoo llaa";
 
-    u32ResultPer1 = u32Permutacion(String1, String2, CHAR_LIMIT);
-    u32ResultPer2 = u32Permutacion(String1, String3, CHAR_LIMIT);
+    /*Test Driver Development*/
 
+    boResultPer = boPermutacion((const char*) String1,(const char*) String2, CHAR_LIMIT);
+    if(TRUE == boResultPer)
+    {
+        printf("Incorrect value");
+    }
+    else
+    {
+        printf("Correct value");
+    }
 
+    boResultPer = boPermutacion((const char*) String1,(const char*) String3, CHAR_LIMIT);
+    if(TRUE == boResultPer)
+    {
+        printf("Incorrect value");
+    }
+    else
+    {
+        printf("Correct value");
+    }
 
+    boResultPer = boPermutacion((const char*) String1,(const char*) String4, CHAR_LIMIT);
+    if(FALSE == boResultPer)
+    {
+        printf("Incorrect value");
+    }
+    else
+    {
+        printf("Correct value");
+    }
 
     while(1);
 }
 
 
-uint32_t u32Permutacion(const char* pcString1, const char* pcString2, uint32_t u32MaxLength)
+boolean_t boPermutacion(const char* pcString1, const char* pcString2, uint32_t u32MaxLength)
 {
-    uint32_t pu32Buffer1[CHAR_LIMIT] = {0U};
+    int32_t u32Buffer[CHAR_LIMIT];
     uint16_t u16Iter = 0U;
     uint32_t u32Count = 0U;
-    uint32_t u32Result = 1U;
-    char cValue1 = 0U;
-    char cValue2 = 0U;
+    boolean_t boResult = TRUE;
+    boolean_t boEndSize1 = FALSE;
+    boolean_t boEndSize2 = FALSE;
+    char* pcValue1 = 0U;
+    char* pcValue2 = 0U;
     const char* pcString1Reg = pcString1;
     const char* pcString2Reg = pcString2;
 
     for(u16Iter = 0U; u16Iter < CHAR_LIMIT; u16Iter++)
     {
-        pu32Buffer1[u16Iter] = 0U;
-        pu32Buffer2[u16Iter] = 0U;
+        u32Buffer[u16Iter] = 0;
     }
 
-    cValue1 = *pcString1Reg;
-    cValue2 = *pcString2Reg;
-    while((0U != cValue1) && (0U != cValue2) && (u32Count < u32MaxLength))
+    pcValue1 = pcString1Reg;
+    pcValue2 = pcString2Reg;
+    while((0UL != *pcValue1) && (0UL != *pcValue1) && (u32Count < u32MaxLength))
     {
-        pu32Buffer1[(uint32_t) cValue1]++;
-        pu32Buffer2[(uint32_t) cValue2]++;
-        pcString1Reg++;
-        pcString2Reg++;
-        cValue1 = *pcString1Reg;
-        cValue2 = *pcString2Reg;
+        u32Buffer[(uint32_t) *pcValue1]++;
+        u32Buffer[(uint32_t) *pcValue2]--;
+        pcValue1++;
+        pcValue2++;
         u32Count++;
     }
 
-    for(u16Iter = 0U; u16Iter < CHAR_LIMIT; u16Iter++)
+    if(0UL == *pcValue1)
     {
-        if(pu32Buffer1[u16Iter]  != pu32Buffer2[u16Iter])
-        {
-            u32Result = 0U;
-            break;
-        }
+        boEndSize1 = TRUE;
+    }
+    if(0UL == *pcValue2)
+    {
+        boEndSize2 = TRUE;
     }
 
-    return (u32Result);
+    if(boEndSize2 == boEndSize1)
+    {
+        for(u16Iter = 0U; u16Iter < CHAR_LIMIT; u16Iter++)
+        {
+            if(0U != u32Buffer[u16Iter])
+            {
+                boResult = FALSE;
+                break;
+            }
+        }
+    }
+    else
+    {
+        boResult = FALSE;
+    }
+
+    return (boResult);
 
 }
 
