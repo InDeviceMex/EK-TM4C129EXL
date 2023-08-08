@@ -42,21 +42,17 @@ ACMP_nERROR ACMP__enSetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE enSt
 
 ACMP_nERROR ACMP__enGetReferenceState(ACMP_nMODULE enModuleArg, ACMP_nSTATE* penStateArg)
 {
-    ACMP_Register_t stRegister;
-    ACMP_nERROR enErrorReg;
-
-    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) penStateArg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        return (ACMP_enERROR_POINTER);
     }
-    if(ACMP_enERROR_OK == enErrorReg)
-    {
-        stRegister.uxShift = ACMP_REFCTL_R_EN_BIT;
-        stRegister.uxMask = ACMP_REFCTL_EN_MASK;
-        stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
-        enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-    }
+
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+    stRegister.uxShift = ACMP_REFCTL_R_EN_BIT;
+    stRegister.uxMask = ACMP_REFCTL_EN_MASK;
+    stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+    enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
     if(ACMP_enERROR_OK == enErrorReg)
     {
         *penStateArg = (ACMP_nSTATE) stRegister.uxValue;

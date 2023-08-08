@@ -32,13 +32,11 @@ ACMP_nERROR ACMP__enSetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
 {
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
-
     stRegister.uxShift = ACMP_CTL_R_TSLVAL_BIT;
     stRegister.uxMask = ACMP_CTL_TSLVAL_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enTriggerLevelArg;
     enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-
     return (enErrorReg);
 }
 
@@ -46,21 +44,17 @@ ACMP_nERROR ACMP__enGetComparatorADCTriggerLevel(ACMP_nMODULE enModuleArg,
                                                      ACMP_nCOMP enComparatorArg,
                                                      ACMP_nLEVEL* penTriggerLevelArg)
 {
-    ACMP_Register_t stRegister;
-    ACMP_nERROR enErrorReg;
-
-    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) penTriggerLevelArg)
     {
-        enErrorReg = ACMP_enERROR_POINTER;
+        return (ACMP_enERROR_POINTER);
     }
-    if(ACMP_enERROR_OK == enErrorReg)
-    {
-        stRegister.uxShift = ACMP_CTL_R_TSLVAL_BIT;
-        stRegister.uxMask = ACMP_CTL_TSLVAL_MASK;
-        stRegister.uptrAddress = ACMP_CTL_OFFSET;
-        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-    }
+
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
+    stRegister.uxShift = ACMP_CTL_R_TSLVAL_BIT;
+    stRegister.uxMask = ACMP_CTL_TSLVAL_MASK;
+    stRegister.uptrAddress = ACMP_CTL_OFFSET;
+    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     if(ACMP_enERROR_OK == enErrorReg)
     {
         *penTriggerLevelArg = (ACMP_nLEVEL) stRegister.uxValue;
