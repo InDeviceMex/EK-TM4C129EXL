@@ -42,17 +42,21 @@ ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t uxEnco
 
 ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t* puxEncoderValueArg)
 {
-    if(0UL == (uintptr_t) puxEncoderValueArg)
-    {
-        return (ACMP_enERROR_POINTER);
-    }
-
     ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
-    stRegister.uxShift = ACMP_REFCTL_R_VREF_BIT;
-    stRegister.uxMask = ACMP_REFCTL_VREF_MASK;
-    stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
-    enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
+
+    enErrorReg = ACMP_enERROR_OK;
+    if(0UL == (uintptr_t) puxEncoderValueArg)
+    {
+        enErrorReg = ACMP_enERROR_POINTER;
+    }
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = ACMP_REFCTL_R_VREF_BIT;
+        stRegister.uxMask = ACMP_REFCTL_VREF_MASK;
+        stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
+        enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
+    }
     if(ACMP_enERROR_OK == enErrorReg)
     {
         *puxEncoderValueArg = stRegister.uxValue;

@@ -29,18 +29,21 @@
 
 ACMP_nERROR ACMP__enGetComparatorOutput(ACMP_nMODULE enModuleArg, ACMP_nCOMP  enComparatorArg, ACMP_nOUTPUT_VALUE* penOutputValArg)
 {
+    ACMP_Register_t stRegister;
+    ACMP_nERROR enErrorReg;
 
+    enErrorReg = ACMP_enERROR_OK;
     if(0UL == (uintptr_t) penOutputValArg)
     {
-        return (ACMP_enERROR_POINTER);
+        enErrorReg = ACMP_enERROR_POINTER;
     }
-
-    ACMP_nERROR enErrorReg;
-    ACMP_Register_t stRegister;
-    stRegister.uxShift = ACMP_STAT_R_OVAL_BIT;
-    stRegister.uxMask = ACMP_STAT_OVAL_MASK;
-    stRegister.uptrAddress = ACMP_STAT_OFFSET;
-    enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+    if(ACMP_enERROR_OK == enErrorReg)
+    {
+        stRegister.uxShift = ACMP_STAT_R_OVAL_BIT;
+        stRegister.uxMask = ACMP_STAT_OVAL_MASK;
+        stRegister.uptrAddress = ACMP_STAT_OFFSET;
+        enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
+    }
     if(ACMP_enERROR_OK == enErrorReg)
     {
         *penOutputValArg = (ACMP_nOUTPUT_VALUE) stRegister.uxValue;

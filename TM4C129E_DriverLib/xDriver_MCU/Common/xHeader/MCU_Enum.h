@@ -49,13 +49,6 @@ typedef enum
 
 typedef enum
 {
-    MCU_enFALSE = FALSE,
-    MCU_enTRUE = TRUE,
-    MCU_enBOOLEAN_UNDEF = BOOLEAN_UNDEF,
-}MCU_nBOOLEAN;
-
-typedef enum
-{
     MCU_enSTATUS_INACTIVE = 0UL,
     MCU_enSTATUS_ACTIVE = 1UL,
     MCU_enSTATUS_CLEAR = 1UL,
@@ -88,7 +81,6 @@ typedef enum
     MCU_enPRI7 = 7UL,
     MCU_enPRIMAX = 8UL,
     MCU_enDEFAULT = UNDEF_VALUE,
-    MCU_enPRI_UNDEF = UNDEF_VALUE,
 }MCU_nPRIORITY;
 
 typedef struct
