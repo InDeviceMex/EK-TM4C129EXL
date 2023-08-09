@@ -28,28 +28,18 @@
 
 NVIC_nERROR NVIC__enWriteRegister(NVIC_nMODULE enModuleArg, NVIC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     NVIC_nERROR enErrorReg;
-
-    enErrorReg = NVIC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = NVIC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? NVIC_enERROR_POINTER : NVIC_enERROR_OK;
     if(NVIC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) NVIC_enMODULE_MAX);
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
+        uintptr_t uptrModuleBase;
         uptrModuleBase = NVIC__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (NVIC_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
-
     return (enErrorReg);
 }
-
-
-
-

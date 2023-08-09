@@ -29,26 +29,19 @@
 
 NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, UBase_t* puxValueArg)
 {
-    NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    UBase_t uxVectorBit;
-    UBase_t uxVectorIndex;
-
-    enErrorReg = NVIC_enERROR_OK;
-    if(0UL == (uintptr_t) puxValueArg)
-    {
-        enErrorReg = NVIC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxValueArg) ? NVIC_enERROR_POINTER : NVIC_enERROR_OK;
     if(NVIC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     }
+    NVIC_Register_t stRegister;
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        uxVectorBit = (UBase_t) enVectorArg;
+        UBase_t uxVectorBit = (UBase_t) enVectorArg;
         uxVectorBit %= 32UL;
 
-        uxVectorIndex = (UBase_t) enVectorArg;
+        UBase_t uxVectorIndex = (UBase_t) enVectorArg;
         /* Optimized
          * uxVectorIndex /= 32UL;
          * uxVectorIndex *= 4UL;

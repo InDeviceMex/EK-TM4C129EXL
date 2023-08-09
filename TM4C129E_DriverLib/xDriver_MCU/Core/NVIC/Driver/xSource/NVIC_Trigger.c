@@ -29,12 +29,11 @@
 
 NVIC_nERROR NVIC__enTriggerVector(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg)
 {
-    NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-
     enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     if(NVIC_enERROR_OK == enErrorReg)
     {
+        NVIC_Register_t stRegister;
         stRegister.uxShift = NVIC_STIR_R_INTID_BIT;
         stRegister.uxMask = NVIC_STIR_R_INTID_MASK;
         stRegister.uptrAddress = NVIC_STIR_OFFSET;

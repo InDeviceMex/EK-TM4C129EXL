@@ -30,15 +30,11 @@ NVIC_nERROR NVIC__enDisableAllInterrupts(NVIC_nMODULE enModuleArg)
 
     NVIC_nERROR enErrorReg;
     UBase_t uxVectorNum;
-
-    for(uxVectorNum = 0U; uxVectorNum < (UBase_t) NVIC_enVECTOR_MAX; uxVectorNum++)
+    uxVectorNum = 0;
+    do
     {
         enErrorReg = NVIC__enDisableVector(enModuleArg, (NVIC_nVECTOR) uxVectorNum);
-        if(NVIC_enERROR_OK != enErrorReg)
-        {
-            break;
-        }
-    }
-
+        uxVectorNum++;
+    }while((uxVectorNum < (UBase_t) NVIC_enVECTOR_MAX) && (NVIC_enERROR_OK == enErrorReg));
     return (enErrorReg);
 }

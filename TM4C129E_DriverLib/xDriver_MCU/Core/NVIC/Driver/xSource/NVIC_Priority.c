@@ -29,31 +29,22 @@
 
 NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY* penPriorityArg)
 {
-    NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    UBase_t uxVectorIndex;
-    UBase_t uxVectorBit;
-    uintptr_t uptrRegisterOffset;
-
-    enErrorReg = NVIC_enERROR_OK;
-    if(0U == (uintptr_t) penPriorityArg)
-    {
-        enErrorReg = NVIC_enERROR_POINTER;
-    }
+    enErrorReg = (0U == (uintptr_t) penPriorityArg) ? NVIC_enERROR_POINTER : NVIC_enERROR_OK;
     if(NVIC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     }
+    NVIC_Register_t stRegister;
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        uptrRegisterOffset = NVIC_IPR_OFFSET;
-
-        uxVectorBit = (UBase_t) enVectorArg;
+        uintptr_t uptrRegisterOffset = NVIC_IPR_OFFSET;
+        UBase_t uxVectorBit = (UBase_t) enVectorArg;
         uxVectorBit %= 4UL;
         uxVectorBit <<= 3U;
         uxVectorBit += NVIC_PRI_BIT_OFFSET;
 
-        uxVectorIndex = (UBase_t) enVectorArg;
+        UBase_t uxVectorIndex = (UBase_t) enVectorArg;
         uxVectorIndex &= ~((UBase_t) 0x00000003UL);
 
         uptrRegisterOffset += uxVectorIndex;
@@ -73,26 +64,22 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
 
 NVIC_nERROR NVIC__enSetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nPRIORITY enPriorityArg)
 {
-    NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    UBase_t uxVectorBit;
-    UBase_t uxVectorIndex;
-    uintptr_t uptrRegisterOffset;
-
     enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        uptrRegisterOffset = NVIC_IPR_OFFSET;
-        uxVectorBit = (UBase_t) enVectorArg;
+        uintptr_t uptrRegisterOffset = NVIC_IPR_OFFSET;
+        UBase_t uxVectorBit = (UBase_t) enVectorArg;
         uxVectorBit %= 4UL;
         uxVectorBit <<= 3U;
         uxVectorBit += NVIC_PRI_BIT_OFFSET;
 
-        uxVectorIndex = (UBase_t) enVectorArg;
+        UBase_t uxVectorIndex = (UBase_t) enVectorArg;
         uxVectorIndex &= ~((UBase_t) 0x00000003UL);
 
         uptrRegisterOffset += uxVectorIndex;
 
+        NVIC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxVectorBit;
         stRegister.uxMask = NVIC_PRI_MASK;
         stRegister.uptrAddress = (UBase_t) uptrRegisterOffset;

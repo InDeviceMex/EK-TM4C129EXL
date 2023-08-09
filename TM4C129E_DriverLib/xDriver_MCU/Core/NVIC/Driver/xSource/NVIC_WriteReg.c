@@ -29,23 +29,20 @@
 
 NVIC_nERROR NVIC__enSetWriteValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, uintptr_t uptrRegisterOffsetArg, UBase_t uxValueArg)
 {
-    NVIC_Register_t stRegister;
     NVIC_nERROR enErrorReg;
-    UBase_t uxVectorBit;
-    UBase_t uxVectorIndex;
-
     enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        uxVectorBit = (UBase_t) enVectorArg;
+        UBase_t uxVectorBit = (UBase_t) enVectorArg;
         uxVectorBit %= 32UL;
 
-        uxVectorIndex = (UBase_t) enVectorArg;
+        UBase_t uxVectorIndex = (UBase_t) enVectorArg;
         uxVectorIndex >>= 5UL;
         uxVectorIndex <<= 2UL;
 
         uptrRegisterOffsetArg += uxVectorIndex;
 
+        NVIC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxVectorBit;
         stRegister.uxMask = 0x1UL;
         stRegister.uptrAddress = (UBase_t) uptrRegisterOffsetArg;

@@ -37,14 +37,9 @@ NVIC_nERROR NVIC__enIsVectorPending(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVec
 NVIC_nERROR NVIC__enSetPendingVectorState(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg, NVIC_nBOOLEAN enStateArg)
 {
     NVIC_nERROR enErrorReg;
-    if(NVIC_enTRUE == enStateArg)
-    {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
-    }
-    else
-    {
-        enErrorReg = NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
-    }
+    enErrorReg = (NVIC_enTRUE == enStateArg) ?
+            NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ICPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA) :
+            NVIC__enSetWriteValue(enModuleArg, enVectorArg, NVIC_ISPR_OFFSET, (UBase_t) NVIC_enSTATE_ENA);
     return (enErrorReg);
 
 }
