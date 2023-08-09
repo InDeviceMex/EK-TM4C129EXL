@@ -28,26 +28,18 @@
 
 SYSTICK_nERROR SYSTICK__enReadRegister(SYSTICK_nMODULE enModuleArg, SYSTICK_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     SYSTICK_nERROR enErrorReg;
-
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSTICK_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSTICK_enMODULE_MAX);
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        uintptr_t uptrModuleBase;
         uptrModuleBase = SYSTICK__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SYSTICK_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
     return (enErrorReg);
 }
-
-
-

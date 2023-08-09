@@ -29,27 +29,22 @@
 SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg)
 {
     SYSTICK_Register_t stRegister;
-    SYSTICK_nERROR enErrorReg;
-
     stRegister.uxShift = SYSTICK_CVR_R_CURRENT_BIT;
     stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
     stRegister.uxValue = 0U;
-    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister)
     return (enErrorReg);
 }
 SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
                                          UBase_t* uxValueArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) uxValueArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) uxValueArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SYSTICK_CVR_R_CURRENT_BIT;
@@ -63,6 +58,3 @@ SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
     }
     return (enErrorReg);
 }
-
-
-

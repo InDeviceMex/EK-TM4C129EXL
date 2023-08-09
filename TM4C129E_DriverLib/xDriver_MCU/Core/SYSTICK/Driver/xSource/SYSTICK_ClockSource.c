@@ -30,28 +30,23 @@ SYSTICK_nERROR SYSTICK__enSetClockSource(SYSTICK_nMODULE enModuleArg,
                                          SYSTICK_nCLKSOURCE enClockSrcArg)
 {
     SYSTICK_Register_t stRegister;
-    SYSTICK_nERROR enErrorReg;
-
     stRegister.uxShift = SYSTICK_CSR_R_CLKSOURCE_BIT;
     stRegister.uxMask = SYSTICK_CSR_CLKSOURCE_MASK;
     stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
     stRegister.uxValue = (UBase_t) enClockSrcArg;
-    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enGetClockSource(SYSTICK_nMODULE enModuleArg,
                                          SYSTICK_nCLKSOURCE* penClockSrcArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penClockSrcArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) penClockSrcArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SYSTICK_CSR_R_CLKSOURCE_BIT;

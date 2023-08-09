@@ -30,14 +30,13 @@ SYSTICK_nERROR SYSTICK__enSetState(SYSTICK_nMODULE enModuleArg,
                                    SYSTICK_nSTATE enEnableStateArg)
 {
     SYSTICK_Register_t stRegister;
-    SYSTICK_nERROR enErrorReg;
-
     stRegister.uxShift = SYSTICK_CSR_R_ENABLE_BIT;
     stRegister.uxMask = SYSTICK_CSR_ENABLE_MASK;
     stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
     stRegister.uxValue = (UBase_t) enEnableStateArg;
-    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -58,14 +57,10 @@ SYSTICK_nERROR SYSTICK__enDisable(SYSTICK_nMODULE enModuleArg)
 SYSTICK_nERROR SYSTICK__enGetState(SYSTICK_nMODULE enModuleArg,
                                    SYSTICK_nSTATE* penEnableStateArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penEnableStateArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) penEnableStateArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SYSTICK_CSR_R_ENABLE_BIT;

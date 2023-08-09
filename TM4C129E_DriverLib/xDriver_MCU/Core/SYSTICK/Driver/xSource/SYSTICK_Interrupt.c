@@ -29,27 +29,22 @@
 SYSTICK_nERROR SYSTICK__enSetInterruptSourceState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE enStateArg)
 {
     SYSTICK_Register_t stRegister;
-    SYSTICK_nERROR enErrorReg;
-
     stRegister.uxShift = SYSTICK_CSR_R_TICKINT_BIT;
     stRegister.uxMask = SYSTICK_CSR_TICKINT_MASK;
     stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
-    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
 
+    SYSTICK_nERROR enErrorReg;
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enGetInterruptSourceState(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATE* penStateArg, SYSTICK_nSTATUS* penStatusArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = ((0UL == (uintptr_t) penStateArg) || (0UL == (uintptr_t) penStatusArg)) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if((0UL == (uintptr_t) penStateArg) || (0UL == (uintptr_t) penStatusArg))
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = 0UL;
@@ -83,31 +78,23 @@ SYSTICK_nERROR SYSTICK__enGetInterruptSourceState(SYSTICK_nMODULE enModuleArg, S
 SYSTICK_nERROR SYSTICK__enEnableInterruptSource(SYSTICK_nMODULE enModuleArg)
 {
     SYSTICK_nERROR enErrorReg;
-
     enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enDisableInterruptSource(SYSTICK_nMODULE enModuleArg)
 {
     SYSTICK_nERROR enErrorReg;
-
     enErrorReg = SYSTICK__enSetInterruptSourceState(enModuleArg, SYSTICK_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
 SYSTICK_nERROR SYSTICK__enStatusInterruptSource(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATUS* penStatusArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SYSTICK_CSR_R_COUNTFLAG_BIT;
@@ -124,14 +111,10 @@ SYSTICK_nERROR SYSTICK__enStatusInterruptSource(SYSTICK_nMODULE enModuleArg, SYS
 
 SYSTICK_nERROR SYSTICK__enStatusMaskedInterruptSource(SYSTICK_nMODULE enModuleArg, SYSTICK_nSTATUS* penStatusArg)
 {
-    SYSTICK_Register_t stRegister;
     SYSTICK_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
 
-    enErrorReg = SYSTICK_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SYSTICK_enERROR_POINTER;
-    }
+    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = 0UL;
@@ -157,13 +140,10 @@ SYSTICK_nERROR SYSTICK__enStatusMaskedInterruptSource(SYSTICK_nMODULE enModuleAr
 SYSTICK_nERROR SYSTICK__enClearInterruptSource(SYSTICK_nMODULE enModuleArg)
 {
     SYSTICK_nSTATUS enValueReg;
-    SYSTICK_nERROR enErrorReg;
-
     enValueReg = SYSTICK_enSTATUS_INACTIVE;
+
+    SYSTICK_nERROR enErrorReg;
     enErrorReg = SYSTICK__enStatusInterruptSource(enModuleArg, &enValueReg);
     (void) enValueReg;
-
     return (enErrorReg);
 }
-
-
