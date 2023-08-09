@@ -26,15 +26,7 @@
 UBase_t MCU__uxFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg)
 {
     UBase_t uxValueReg;
-    if(0U == uxValueArg)
-    {
-        uxValueReg = MCU__uxClearFPUStatusControlMask(uxBitMaskArg);
-    }
-    else
-    {
-        uxValueReg = MCU__uxSetFPUStatusControlMask(uxBitMaskArg);
-    }
-
+    uxValueReg = (0U == uxValueArg) ? MCU__uxClearFPUStatusControlMask(uxBitMaskArg) : MCU__uxSetFPUStatusControlMask(uxBitMaskArg);
     return (uxValueReg);
 }
 
@@ -53,15 +45,7 @@ void MCU__vFPUStatusControlMask(UBase_t uxBitMaskArg, UBase_t uxValueArg)
 UBase_t MCU__uxFPUStatusControlBit(UBase_t uxBitBitArg, UBase_t uxValueArg)
 {
     UBase_t uxValueReg;
-    if(0U == uxValueArg)
-    {
-        uxValueReg = MCU__uxSetFPUStatusControlBit(uxBitBitArg);
-    }
-    else
-    {
-        uxValueReg = MCU__uxClearFPUStatusControlBit(uxBitBitArg);
-    }
-
+    uxValueReg = (0U == uxValueArg) ? MCU__uxSetFPUStatusControlBit(uxBitBitArg) : MCU__uxClearFPUStatusControlBit(uxBitBitArg);
     return (uxValueReg);
 }
 

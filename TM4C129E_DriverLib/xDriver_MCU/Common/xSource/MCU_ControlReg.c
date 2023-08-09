@@ -38,14 +38,7 @@ void MCU__vSetStackValue(MCU_nSTACK enStack, UBase_t uxStackValue)
 UBase_t MCU__uxGetStackValue(MCU_nSTACK enStack)
 {
     UBase_t uxStackValueReg;
-    if(MCU_enSTACK_MSP == enStack)
-    {
-        uxStackValueReg = MCU__uxGetMSPValue();
-    }
-    else
-    {
-        uxStackValueReg = MCU__uxGetPSPValue();
-    }
+    uxStackValueReg = (MCU_enSTACK_MSP == enStack) ? MCU__uxGetMSPValue() : MCU__uxGetPSPValue();
     return (uxStackValueReg);
 }
 

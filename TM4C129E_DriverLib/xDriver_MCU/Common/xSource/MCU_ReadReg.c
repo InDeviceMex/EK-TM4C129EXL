@@ -25,62 +25,41 @@
 
 MCU_nERROR MCU__enReadRegister(MCU_Register_t* pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
     MCU_nERROR enErrorReg;
-    UBase_t uxRegisterShift;
-
-    enErrorReg = MCU_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? MCU_enERROR_POINTER : MCU_enERROR_OK;
     if(MCU_enERROR_OK == enErrorReg)
     {
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
 
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
-        uxRegisterValue = *puxRegisterAddress;
+         UBase_t uxRegisterValue = *puxRegisterAddress;
+         UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
         if(MCU_MASK_BASE != uxRegisterMask)
         {
+            UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
             uxRegisterValue >>= uxRegisterShift;
             uxRegisterValue &= uxRegisterMask;
         }
         pstRegisterDataArg->uxValue = (UBase_t) uxRegisterValue;
     }
-
     return (enErrorReg);
 }
 
 
 MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
     MCU_nERROR enErrorReg;
-    UBase_t uxRegisterShift;
-
-    enErrorReg = MCU_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? MCU_enERROR_POINTER : MCU_enERROR_OK;
     if(MCU_enERROR_OK == enErrorReg)
     {
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
 
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
-        uxRegisterValue = *puxRegisterAddress;
+        UBase_t uxRegisterValue = *puxRegisterAddress;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
         if(MCU_MASK_BASE != uxRegisterMask)
         {
+            UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
             uxRegisterValue >>= uxRegisterShift;
             uxRegisterValue &= uxRegisterMask;
         }
@@ -93,14 +72,9 @@ MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg)
 UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
                               UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
-    UBase_t uxFeatureValue = 0UL;
-    volatile UBase_t* puxPeripheral = 0UL;
-
     uxPeripheralBase += uxOffsetRegister;
-    puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
-
-    uxFeatureValue = *puxPeripheral;
-
+    volatile UBase_t* puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
+    UBase_t uxFeatureValue = *puxPeripheral;
     if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;
@@ -113,14 +87,9 @@ UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
 UBase_t MCU__uxReadRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
                                   UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
-    UBase_t uxFeatureValue = 0UL;
-    volatile UBase_t* puxPeripheral = 0UL;
-
     uxPeripheralBase += uxOffsetRegister;
-    puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
-
-    uxFeatureValue = *puxPeripheral;
-
+    volatile UBase_t* puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
+    UBase_t uxFeatureValue = *puxPeripheral;
     if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;

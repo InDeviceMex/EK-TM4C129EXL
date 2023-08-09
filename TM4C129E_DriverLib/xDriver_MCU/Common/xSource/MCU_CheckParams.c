@@ -26,14 +26,7 @@
 MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
     MCU_nERROR enErrorReg;
-    if(uxModuleMaxArg <= uxModuleArg)
-    {
-        enErrorReg = MCU_enERROR_RANGE;
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_OK;
-    }
+    enErrorReg = (uxModuleMaxArg <= uxModuleArg) ? MCU_enERROR_RANGE : MCU_enERROR_OK;
     return (enErrorReg);
 }
 
@@ -47,23 +40,12 @@ UBase_t MCU__uxCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
     return (uxModuleArg);
 }
 
-
-
 MCU_nERROR MCU__enCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {
     MCU_nERROR enErrorReg;
-    if(uxModuleMaxArg <= uxModuleArg)
-    {
-        enErrorReg = MCU_enERROR_RANGE;
-    }
-    else
-    {
-        enErrorReg = MCU_enERROR_OK;
-    }
+    enErrorReg = (uxModuleMaxArg <= uxModuleArg) ? MCU_enERROR_RANGE : MCU_enERROR_OK;
     return (enErrorReg);
 }
-
-
 
 UBase_t MCU__uxCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
 {

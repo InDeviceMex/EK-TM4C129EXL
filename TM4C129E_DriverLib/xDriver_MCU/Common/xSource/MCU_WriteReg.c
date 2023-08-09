@@ -27,34 +27,22 @@
 
 MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
-    UBase_t uxReg;
-    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
-    UBase_t uxRegisterShift;
-
-    enErrorReg = MCU_enERROR_OK;
-    if(0U == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
+    enErrorReg = (0U == (uintptr_t) pstRegisterDataArg) ? MCU_enERROR_POINTER : MCU_enERROR_OK;
     if(MCU_enERROR_OK == enErrorReg)
     {
-        uxRegisterValue = pstRegisterDataArg->uxValue;
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterValue = pstRegisterDataArg->uxValue;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        uxReg = uxRegisterValue;
-        enStatus = MCU__enDisableGlobalInterrupt_RAM();
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
+        UBase_t uxReg = uxRegisterValue;
+        MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt_RAM();
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
         if(MCU_MASK_BASE != uxRegisterMask)
         {
             uxReg = *puxRegisterAddress;
             uxRegisterValue &= uxRegisterMask;
+            UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
             if(0U != uxRegisterShift)
             {
                 uxRegisterValue <<= uxRegisterShift;
@@ -70,37 +58,24 @@ MCU_nERROR MCU__enWriteRegister_RAM(const MCU_Register_t* const pstRegisterDataA
     return (enErrorReg);
 }
 
-
 MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
-    UBase_t uxReg;
-    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
-    UBase_t uxRegisterShift;
-
-    enErrorReg = MCU_enERROR_OK;
-    if(0U == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
+    enErrorReg = (0U == (uintptr_t) pstRegisterDataArg) ? MCU_enERROR_POINTER : MCU_enERROR_OK;
     if(MCU_enERROR_OK == enErrorReg)
     {
-        uxRegisterValue = pstRegisterDataArg->uxValue;
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterValue = pstRegisterDataArg->uxValue;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        uxReg = uxRegisterValue;
-        enStatus = MCU__enDisableGlobalInterrupt();
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
+        UBase_t uxReg = uxRegisterValue;
+        MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt_RAM();
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
         if(MCU_MASK_BASE != uxRegisterMask)
         {
             uxReg = *puxRegisterAddress;
             uxRegisterValue &= uxRegisterMask;
+            UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
             if(0U != uxRegisterShift)
             {
                 uxRegisterValue <<= uxRegisterShift;
@@ -110,7 +85,7 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
             uxReg |= uxRegisterValue;
         }
         *puxRegisterAddress = (UBase_t) uxReg;
-        (void) MCU__vSetGlobalInterrupt(enStatus);
+        (void) MCU__vSetGlobalInterrupt_RAM(enStatus);
     }
 
     return (enErrorReg);
@@ -118,30 +93,18 @@ MCU_nERROR MCU__enWriteRegister(const MCU_Register_t* const pstRegisterDataArg)
 
 MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
-    UBase_t uxReg;
-    MCU_nSTATE enStatus;
     MCU_nERROR enErrorReg;
-    UBase_t uxRegisterShift;
-
-    enErrorReg = MCU_enERROR_OK;
-    if(0U == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = MCU_enERROR_POINTER;
-    }
+    enErrorReg = (0U == (uintptr_t) pstRegisterDataArg) ? MCU_enERROR_POINTER : MCU_enERROR_OK;
     if(MCU_enERROR_OK == enErrorReg)
     {
-        uxRegisterValue = pstRegisterDataArg->uxValue;
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterValue = pstRegisterDataArg->uxValue;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
 
-        uxReg = uxRegisterValue;
-        enStatus = MCU__enDisableGlobalInterrupt();
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
+        UBase_t uxReg = uxRegisterValue;
+        MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
         uxRegisterValue &= uxRegisterMask;
         uxRegisterValue <<= uxRegisterShift;
         *puxRegisterAddress = uxReg;
@@ -151,58 +114,33 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
     return (enErrorReg);
 }
 
-void MCU__vWriteRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
-                             UBase_t uxFeatureValue, UBase_t uxMaskFeature,
-                             UBase_t uxBitFeature)
+void MCU__vWriteRegister_Direct(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister, UBase_t uxFeatureValue, UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
-    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
-    UBase_t uxReg = uxFeatureValue;
-    volatile UBase_t* puxPeripheral = 0UL;
-
     uxPeripheralBase += uxOffsetRegister;
-    enStatus = MCU__enDisableGlobalInterrupt();
-    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
-    if(0xFFFFFFFFUL != uxMaskFeature)
-    {
-        uxReg = *puxPeripheral;
-        /*Get Value in bit position*/
-        uxFeatureValue &= uxMaskFeature;
-        if(0UL != uxBitFeature)
-        {
-            uxFeatureValue <<= uxBitFeature;
-            /*Get Value to clear*/
-            uxMaskFeature <<= uxBitFeature;
-        }
-        uxReg &= ~uxMaskFeature;
-        uxReg |= uxFeatureValue;
-    }
-    (*puxPeripheral) = (UBase_t) uxReg;
+    /*Get Value in bit position*/
+    uxFeatureValue &= uxMaskFeature;
+    uxFeatureValue <<= uxBitFeature;
+    MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
+    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    (*puxPeripheral) = (UBase_t) uxFeatureValue;
     MCU__vSetGlobalInterrupt(enStatus);
 }
 
 void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
-    UBase_t uxReg;
-    MCU_nSTATE enStatus;
-    UBase_t uxRegisterShift;
-
     if(0U != (uintptr_t) pstRegisterDataArg)
     {
-        uxRegisterValue = pstRegisterDataArg->uxValue;
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterValue = pstRegisterDataArg->uxValue;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        uxReg = uxRegisterValue;
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
+        UBase_t uxReg = uxRegisterValue;
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
         if(MCU_MASK_BASE != uxRegisterMask)
         {
             uxReg = *puxRegisterAddress;
             uxRegisterValue &= uxRegisterMask;
+            UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
             if(0U != uxRegisterShift)
             {
                 uxRegisterValue <<= uxRegisterShift;
@@ -211,7 +149,7 @@ void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataArg)
             uxReg &= ~uxRegisterMask;
             uxReg |= uxRegisterValue;
         }
-        enStatus = MCU__enDisableGlobalInterrupt();
+        MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
         *puxRegisterAddress = (UBase_t) uxReg;
         MCU__vSetGlobalInterrupt(enStatus);
     }
@@ -219,46 +157,30 @@ void MCU__vWriteRegisterNew(const MCU_Register_t* const pstRegisterDataArg)
 
 void MCU__vWriteRegister_DirectNew(const MCU_Register_t* const pstRegisterDataArg)
 {
-    volatile UBase_t* puxRegisterAddress;
-    uintptr_t uptrRegisterAddress;
-    UBase_t uxRegisterValue;
-    UBase_t uxRegisterMask;
-    UBase_t uxReg;
-    MCU_nSTATE enStatus;
-    UBase_t uxRegisterShift;
-
     if(0U != (uintptr_t) pstRegisterDataArg)
     {
-        uxRegisterValue = pstRegisterDataArg->uxValue;
-        uxRegisterMask = pstRegisterDataArg->uxMask;
-        uxRegisterShift = pstRegisterDataArg->uxShift;
-        uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
+        UBase_t uxRegisterValue = pstRegisterDataArg->uxValue;
+        UBase_t uxRegisterMask = pstRegisterDataArg->uxMask;
+        UBase_t uxRegisterShift = pstRegisterDataArg->uxShift;
+        uintptr_t uptrRegisterAddress = pstRegisterDataArg->uptrAddress;
 
-        uxReg = uxRegisterValue;
-        puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
+        volatile UBase_t* puxRegisterAddress = (volatile UBase_t*) uptrRegisterAddress;
         uxRegisterValue &= uxRegisterMask;
         uxRegisterValue <<= uxRegisterShift;
-        enStatus = MCU__enDisableGlobalInterrupt();
-        *puxRegisterAddress = uxReg;
+        MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
+        *puxRegisterAddress = uxRegisterValue;
         MCU__vSetGlobalInterrupt(enStatus);
     }
 }
 
-
-
-void MCU__vWriteRegister(UBase_t uxPeripheralBase,
-                                UBase_t uxOffsetRegister,
-                                UBase_t uxFeatureValue,
-                                UBase_t uxMaskFeature,
-                                UBase_t uxBitFeature)
+void MCU__vWriteRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
+                             UBase_t uxFeatureValue, UBase_t uxMaskFeature,
+                             UBase_t uxBitFeature)
 {
-    UBase_t uxReg = uxFeatureValue;
-    volatile UBase_t* puxPeripheral = 0UL;
-    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
-
     uxPeripheralBase += uxOffsetRegister;
-    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
-    if(0xFFFFFFFFUL != uxMaskFeature)
+    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    UBase_t uxReg = uxFeatureValue;
+    if(MCU_MASK_BASE != uxMaskFeature)
     {
         uxReg = *puxPeripheral;
         /*Get Value in bit position*/
@@ -269,31 +191,39 @@ void MCU__vWriteRegister(UBase_t uxPeripheralBase,
             /*Get Value to clear*/
             uxMaskFeature <<= uxBitFeature;
         }
-
         uxReg &= ~uxMaskFeature;
         uxReg |= uxFeatureValue;
     }
-
-    enStatus = MCU__enDisableGlobalInterrupt();
+    MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
     (*puxPeripheral) = (UBase_t) uxReg;
-    (void) MCU__vSetGlobalInterrupt(enStatus);
-}
-
-void MCU__vWriteRegister_Direct(UBase_t uxPeripheralBase,
-                                       UBase_t uxOffsetRegister,
-                                       UBase_t uxFeatureValue,
-                                       UBase_t uxMaskFeature,
-                                       UBase_t uxBitFeature)
-{
-    MCU_nSTATE enStatus = MCU_enSTATE_ENA;
-    volatile UBase_t* puxPeripheral = 0UL;
-
-    uxPeripheralBase += uxOffsetRegister;
-    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
-    /*Get Value in bit position*/
-    uxFeatureValue &= uxMaskFeature;
-    uxFeatureValue <<= uxBitFeature;
-    enStatus = MCU__enDisableGlobalInterrupt();
-    (*puxPeripheral) = (UBase_t) uxFeatureValue;
     MCU__vSetGlobalInterrupt(enStatus);
 }
+
+void MCU__vWriteRegister(UBase_t uxPeripheralBase,
+                                UBase_t uxOffsetRegister,
+                                UBase_t uxFeatureValue,
+                                UBase_t uxMaskFeature,
+                                UBase_t uxBitFeature)
+{
+    uxPeripheralBase += uxOffsetRegister;
+    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    UBase_t uxReg = uxFeatureValue;
+    if(MCU_MASK_BASE != uxMaskFeature)
+    {
+        uxReg = *puxPeripheral;
+        /*Get Value in bit position*/
+        uxFeatureValue &= uxMaskFeature;
+        if(0UL != uxBitFeature)
+        {
+            uxFeatureValue <<= uxBitFeature;
+            /*Get Value to clear*/
+            uxMaskFeature <<= uxBitFeature;
+        }
+        uxReg &= ~uxMaskFeature;
+        uxReg |= uxFeatureValue;
+    }
+    MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
+    (*puxPeripheral) = (UBase_t) uxReg;
+    MCU__vSetGlobalInterrupt(enStatus);
+}
+
