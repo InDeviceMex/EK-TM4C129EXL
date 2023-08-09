@@ -28,19 +28,15 @@
 
 FPU_nERROR FPU__enWriteRegister(FPU_nMODULE enModuleArg, FPU_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     FPU_nERROR enErrorReg;
-    enErrorReg = FPU_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = FPU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
         enErrorReg = (FPU_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) FPU_enMODULE_MAX);
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
+        uintptr_t uptrModuleBase;
         uptrModuleBase = FPU__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (FPU_nERROR) MCU__enWriteRegister(pstRegisterDataArg);

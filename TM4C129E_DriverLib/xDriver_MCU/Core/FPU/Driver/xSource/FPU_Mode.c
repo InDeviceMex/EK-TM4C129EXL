@@ -43,12 +43,7 @@ FPU_nERROR FPU__enGetModeDefault(FPU_nMODULE enModuleArg, FPU_nMODE* penModeArg)
 {
     FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
-
-    enErrorReg = FPU_enERROR_OK;
-    if(0UL == (uintptr_t) penModeArg)
-    {
-        enErrorReg = FPU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penModeArg) FPU_enERROR_POINTER ? : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = FPU_DSCR_R_FZ_BIT;
@@ -62,8 +57,3 @@ FPU_nERROR FPU__enGetModeDefault(FPU_nMODULE enModuleArg, FPU_nMODE* penModeArg)
     }
     return (enErrorReg);
 }
-
-
-
-
-

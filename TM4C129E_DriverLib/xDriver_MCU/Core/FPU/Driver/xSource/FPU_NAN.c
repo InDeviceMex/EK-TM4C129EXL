@@ -26,12 +26,7 @@ FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg)
 {
     FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
-
-    enErrorReg = FPU_enERROR_OK;
-    if(0UL == (uintptr_t) penNANArg)
-    {
-        enErrorReg = FPU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penNANArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = FPU_DSCR_R_DN_BIT;

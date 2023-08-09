@@ -10,8 +10,7 @@
 #include <xDriver_MCU/Core/FPU/Peripheral/FPU_Peripheral.h>
 #include <xDriver_MCU/Core/FPU/Driver/Intrinsics/Primitives/FPU_Primitives.h>
 
-void FPU__vSetHalfPrecision(FPU_nMODULE enModuleArg,
-                                   FPU_nHALF_PRECISION enHalfPrecisionArg)
+void FPU__vSetHalfPrecision(FPU_nMODULE enModuleArg, FPU_nHALF_PRECISION enHalfPrecisionArg)
 {
     MCU__vFPUStatusControlMask(FPU_DSCR_R_AHP_MASK, (UBase_t) enHalfPrecisionArg);
 }
@@ -23,18 +22,11 @@ FPU_nHALF_PRECISION FPU__enGetHalfPrecision(FPU_nMODULE enModuleArg)
     return (enHalfPrecisionReg);
 }
 
-FPU_nERROR FPU__enGetHalfPrecisionDefault(FPU_nMODULE enModuleArg,
-                                   FPU_nHALF_PRECISION* penHalfPrecisionArg)
+FPU_nERROR FPU__enGetHalfPrecisionDefault(FPU_nMODULE enModuleArg, FPU_nHALF_PRECISION* penHalfPrecisionArg)
 {
     FPU_Register_t stRegister;
-
     FPU_nERROR enErrorReg;
-
-    enErrorReg = FPU_enERROR_OK;
-    if(0UL == (uintptr_t) penHalfPrecisionArg)
-    {
-        enErrorReg = FPU_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penHalfPrecisionArg) FPU_enERROR_POINTER ? : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = FPU_DSCR_R_AHP_BIT;
