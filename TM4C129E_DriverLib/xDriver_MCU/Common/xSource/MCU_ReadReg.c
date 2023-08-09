@@ -72,9 +72,11 @@ MCU_nERROR MCU__enReadRegister_RAM(MCU_Register_t* pstRegisterDataArg)
 UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
                               UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
+    volatile UBase_t* puxPeripheral;
+    UBase_t uxFeatureValue;
     uxPeripheralBase += uxOffsetRegister;
-    volatile UBase_t* puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
-    UBase_t uxFeatureValue = *puxPeripheral;
+    puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
+    uxFeatureValue = *puxPeripheral;
     if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;
@@ -87,9 +89,11 @@ UBase_t MCU__uxReadRegister(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
 UBase_t MCU__uxReadRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
                                   UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
+    volatile UBase_t* puxPeripheral;
+    UBase_t uxFeatureValue;
     uxPeripheralBase += uxOffsetRegister;
-    volatile UBase_t* puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
-    UBase_t uxFeatureValue = *puxPeripheral;
+    puxPeripheral = (volatile UBase_t*) (uxPeripheralBase);
+    uxFeatureValue = *puxPeripheral;
     if(MCU_MASK_32 != uxMaskFeature)
     {
         uxFeatureValue >>= uxBitFeature;

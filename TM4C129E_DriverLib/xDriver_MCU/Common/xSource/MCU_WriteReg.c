@@ -116,12 +116,15 @@ MCU_nERROR MCU__enWriteRegister_Direct(const MCU_Register_t* const pstRegisterDa
 
 void MCU__vWriteRegister_Direct(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister, UBase_t uxFeatureValue, UBase_t uxMaskFeature, UBase_t uxBitFeature)
 {
+    MCU_nSTATE enStatus;
+    volatile UBase_t* puxPeripheral;
+
     uxPeripheralBase += uxOffsetRegister;
     /*Get Value in bit position*/
     uxFeatureValue &= uxMaskFeature;
     uxFeatureValue <<= uxBitFeature;
-    MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
-    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    enStatus = MCU__enDisableGlobalInterrupt();
+    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
     (*puxPeripheral) = (UBase_t) uxFeatureValue;
     MCU__vSetGlobalInterrupt(enStatus);
 }
@@ -168,7 +171,7 @@ void MCU__vWriteRegister_DirectNew(const MCU_Register_t* const pstRegisterDataAr
         uxRegisterValue &= uxRegisterMask;
         uxRegisterValue <<= uxRegisterShift;
         MCU_nSTATE enStatus = MCU__enDisableGlobalInterrupt();
-        *puxRegisterAddress = uxRegisterValue;
+        *puxRegisterAddress = (UBase_t) uxRegisterValue;
         MCU__vSetGlobalInterrupt(enStatus);
     }
 }
@@ -177,9 +180,12 @@ void MCU__vWriteRegister_RAM(UBase_t uxPeripheralBase, UBase_t uxOffsetRegister,
                              UBase_t uxFeatureValue, UBase_t uxMaskFeature,
                              UBase_t uxBitFeature)
 {
+    volatile UBase_t* puxPeripheral;
+    UBase_t uxReg;
+
     uxPeripheralBase += uxOffsetRegister;
-    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
-    UBase_t uxReg = uxFeatureValue;
+    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    uxReg = uxFeatureValue;
     if(MCU_MASK_BASE != uxMaskFeature)
     {
         uxReg = *puxPeripheral;
@@ -205,9 +211,12 @@ void MCU__vWriteRegister(UBase_t uxPeripheralBase,
                                 UBase_t uxMaskFeature,
                                 UBase_t uxBitFeature)
 {
+    volatile UBase_t* puxPeripheral;
+    UBase_t uxReg;
+
     uxPeripheralBase += uxOffsetRegister;
-    volatile UBase_t* puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
-    UBase_t uxReg = uxFeatureValue;
+    puxPeripheral = (volatile UBase_t*) uxPeripheralBase;
+    uxReg = uxFeatureValue;
     if(MCU_MASK_BASE != uxMaskFeature)
     {
         uxReg = *puxPeripheral;
