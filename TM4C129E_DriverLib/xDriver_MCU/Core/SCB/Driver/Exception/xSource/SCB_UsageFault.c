@@ -30,29 +30,24 @@
 SCB_nERROR SCB_UsageFault__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHPR1_R_USAGE_BIT;
     stRegister.uxMask = SCB_SHPR1_USAGE_MASK;
     stRegister.uptrAddress = SCB_SHPR1_OFFSET;
     stRegister.uxValue = (UBase_t) enPriorityArg;
+
     MCU__vDataSyncBarrier();
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
-
     return (enErrorReg);
 }
 
 SCB_nERROR SCB_UsageFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enPriorityArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enPriorityArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHPR1_R_USAGE_BIT;
@@ -71,14 +66,13 @@ SCB_nERROR SCB_UsageFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY*
 SCB_nERROR SCB_UsageFault__enSetPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_USGFAULTPENDED_BIT;
     stRegister.uxMask = SCB_SHCSR_USGFAULTPENDED_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = SCB_SHCSR_USGFAULTPENDED_PEND;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -86,27 +80,22 @@ SCB_nERROR SCB_UsageFault__enSetPending(SCB_nMODULE enModuleArg)
 SCB_nERROR SCB_UsageFault__enClearPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_USGFAULTPENDED_BIT;
     stRegister.uxMask = SCB_SHCSR_USGFAULTPENDED_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = SCB_SHCSR_USGFAULTPENDED_NOPEND;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SCB_nERROR SCB_UsageFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHCSR_R_USGFAULTPENDED_BIT;
@@ -125,14 +114,13 @@ SCB_nERROR SCB_UsageFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE*
 SCB_nERROR SCB_UsageFault__enSetState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_USGFAULTENA_BIT;
     stRegister.uxMask = SCB_SHCSR_USGFAULTENA_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -154,14 +142,10 @@ SCB_nERROR SCB_UsageFault__enDisable(SCB_nMODULE enModuleArg)
 
 SCB_nERROR SCB_UsageFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHCSR_R_USGFAULTENA_BIT;

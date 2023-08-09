@@ -30,29 +30,24 @@
 SCB_nERROR SCB_PendSV__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHPR3_R_PENDSV_BIT;
     stRegister.uxMask = SCB_SHPR3_PENDSV_MASK;
     stRegister.uptrAddress = SCB_SHPR3_OFFSET;
     stRegister.uxValue = (UBase_t) enPriorityArg;
+
     MCU__vDataSyncBarrier();
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
-
     return (enErrorReg);
 }
 
 SCB_nERROR SCB_PendSV__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enPriorityArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enPriorityArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHPR3_R_PENDSV_BIT;
@@ -70,16 +65,15 @@ SCB_nERROR SCB_PendSV__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enP
 SCB_nERROR SCB_PendSV__enSetPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_ICSR_R_PENDSVSET_BIT;
     stRegister.uxMask = SCB_ICSR_PENDSVSET_MASK;
     stRegister.uptrAddress = SCB_ICSR_OFFSET;
     stRegister.uxValue = SCB_ICSR_PENDSVSET_SET;
+
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
     MCU__vInstructionSyncBarrier();
-
     return (enErrorReg);
 }
 
@@ -87,27 +81,22 @@ SCB_nERROR SCB_PendSV__enSetPending(SCB_nMODULE enModuleArg)
 SCB_nERROR SCB_PendSV__enClearPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_ICSR_R_PENDSVCLR_BIT;
     stRegister.uxMask = SCB_ICSR_PENDSVCLR_MASK;
     stRegister.uptrAddress = SCB_ICSR_OFFSET;
     stRegister.uxValue = SCB_ICSR_PENDSVCLR_REMOVE;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SCB_nERROR SCB_PendSV__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_ICSR_R_PENDSVSET_BIT;

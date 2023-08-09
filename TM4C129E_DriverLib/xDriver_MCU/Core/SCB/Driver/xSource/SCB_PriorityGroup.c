@@ -29,17 +29,15 @@
 
 SCB_nERROR SCB__enSetPriorityGroup(SCB_nMODULE enModuleArg, SCB_nPRIGROUP enGroupArg)
 {
-    SCB_Register_t stRegister;
-    UBase_t uxValueReg;
     SCB_nERROR enErrorReg;
-
     enErrorReg = (SCB_nERROR) MCU__enCheckParams( (UBase_t) enGroupArg, (UBase_t) SCB_enPRIGROUP_MAX);
     if(SCB_enERROR_OK == enErrorReg)
     {
-        uxValueReg = (UBase_t) enGroupArg;
+        UBase_t uxValueReg = (UBase_t) enGroupArg;
         uxValueReg <<= SCB_AIRCR_R_PRIGROUP_BIT;
         uxValueReg |= SCB_AIRCR_R_VECTKEY_WRITE;
 
+        SCB_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = SCB_AIRCR_R_VECTKEY_MASK | SCB_AIRCR_R_PRIGROUP_MASK;
         stRegister.uptrAddress = SCB_AIRCR_OFFSET;
@@ -56,12 +54,7 @@ SCB_nERROR SCB__enGetPriorityGroup(SCB_nMODULE enModuleArg, SCB_nPRIGROUP* penGr
 {
     SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
-
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) penGroupArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penGroupArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_AIRCR_R_PRIGROUP_BIT;

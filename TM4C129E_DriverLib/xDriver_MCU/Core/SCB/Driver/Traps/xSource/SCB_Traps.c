@@ -26,13 +26,11 @@
 SCB_nERROR SCB__enSetAllTrapsEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
     SCB_nERROR enErrorReg;
-
     enErrorReg = SCB__enSetDivisionTrapEnableState(enModuleArg, enStateArg);
     if(SCB_enERROR_OK == enErrorReg)
     {
         enErrorReg = SCB__enSetUnalignTrapEnableState(enModuleArg, enStateArg);
     }
-
     return (enErrorReg);
 }
 

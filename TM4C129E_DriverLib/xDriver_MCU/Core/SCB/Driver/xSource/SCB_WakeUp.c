@@ -29,27 +29,22 @@
 SCB_nERROR SCB__enSetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP enSourceArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SCR_R_SEVONPEND_BIT;
     stRegister.uxMask = SCB_SCR_SEVONPEND_MASK;
     stRegister.uptrAddress = SCB_SCR_OFFSET;
     stRegister.uxValue = (UBase_t) enSourceArg;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SCB_nERROR SCB__enGetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP* enSourceArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enSourceArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enSourceArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SCR_R_SEVONPEND_BIT;

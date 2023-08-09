@@ -30,13 +30,13 @@
 SCB_nERROR SCB_MemoryFault__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY enPriorityArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHPR1_R_MEM_BIT;
     stRegister.uxMask = SCB_SHPR1_MEM_MASK;
     stRegister.uptrAddress = SCB_SHPR1_OFFSET;
     stRegister.uxValue = (UBase_t) enPriorityArg;
+
     MCU__vDataSyncBarrier();
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
 
@@ -45,14 +45,10 @@ SCB_nERROR SCB_MemoryFault__enSetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY
 
 SCB_nERROR SCB_MemoryFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY* enPriorityArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enPriorityArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enPriorityArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHPR1_R_MEM_BIT;
@@ -71,14 +67,13 @@ SCB_nERROR SCB_MemoryFault__enGetPriority(SCB_nMODULE enModuleArg, SCB_nPRIORITY
 SCB_nERROR SCB_MemoryFault__enSetPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_MEMFAULTPENDED_BIT;
     stRegister.uxMask = SCB_SHCSR_MEMFAULTPENDED_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = SCB_SHCSR_MEMFAULTPENDED_PEND;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -86,27 +81,22 @@ SCB_nERROR SCB_MemoryFault__enSetPending(SCB_nMODULE enModuleArg)
 SCB_nERROR SCB_MemoryFault__enClearPending(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_MEMFAULTPENDED_BIT;
     stRegister.uxMask = SCB_SHCSR_MEMFAULTPENDED_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = SCB_SHCSR_MEMFAULTPENDED_NOPEND;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SCB_nERROR SCB_MemoryFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHCSR_R_MEMFAULTPENDED_BIT;
@@ -125,14 +115,13 @@ SCB_nERROR SCB_MemoryFault__enGetPending(SCB_nMODULE enModuleArg, SCB_nPENDSTATE
 SCB_nERROR SCB_MemoryFault__enSetState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_SHCSR_R_MEMFAULTENA_BIT;
     stRegister.uxMask = SCB_SHCSR_MEMFAULTENA_MASK;
     stRegister.uptrAddress = SCB_SHCSR_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -151,17 +140,12 @@ SCB_nERROR SCB_MemoryFault__enDisable(SCB_nMODULE enModuleArg)
     return (enErrorReg);
 }
 
-
 SCB_nERROR SCB_MemoryFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_SHCSR_R_MEMFAULTENA_BIT;
@@ -179,14 +163,10 @@ SCB_nERROR SCB_MemoryFault__enGetState(SCB_nMODULE enModuleArg, SCB_nSTATE* penS
 
 SCB_nERROR SCB_MemoryFault_enGetFaultAddress(SCB_nMODULE enModuleArg, UBase_t* puxFaultAddressArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxFaultAddressArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) puxFaultAddressArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_MMFAR_R_ADDRESS_BIT;

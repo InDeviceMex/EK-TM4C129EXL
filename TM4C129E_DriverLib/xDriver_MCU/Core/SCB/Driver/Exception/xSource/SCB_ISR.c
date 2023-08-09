@@ -26,17 +26,12 @@
 #include <xDriver_MCU/Core/SCB/Peripheral/SCB_Peripheral.h>
 #include <xDriver_MCU/Core/SCB/Driver/Intrinsics/Primitives/SCB_Primitives.h>
 
-
 SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* enStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_ICSR_R_ISRPENDING_BIT;
@@ -53,14 +48,10 @@ SCB_nERROR SCB_ISR__enGetPendingState(SCB_nMODULE enModuleArg, SCB_nPENDSTATE* e
 
 SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enVectorArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enVectorArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enVectorArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_ICSR_R_VECTPENDING_BIT;
@@ -77,14 +68,10 @@ SCB_nERROR SCB_ISR__enGetVectorPending(SCB_nMODULE enModuleArg, SCB_nVECISR* enV
 
 SCB_nERROR SCB_ISR__enGetVectorActive(SCB_nMODULE enModuleArg, SCB_nVECISR* enVectorArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enVectorArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) enVectorArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_ICSR_R_VECTACTIVE_BIT;

@@ -29,27 +29,21 @@
 SCB_nERROR SCB__enSetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN enAlignArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_CCR_R_STKALIGN_BIT;
     stRegister.uxMask = SCB_CCR_STKALIGN_MASK;
     stRegister.uptrAddress = SCB_CCR_OFFSET;
     stRegister.uxValue = (UBase_t) enAlignArg;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlignArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
-
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) penAlignArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penAlignArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_CCR_R_STKALIGN_BIT;

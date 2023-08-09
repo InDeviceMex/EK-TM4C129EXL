@@ -30,31 +30,26 @@
 SCB_nERROR SCB__enSetVectorOffset(SCB_nMODULE enModuleArg, UBase_t uxOffsetArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-    MCU_nSTATE enInterruptState;
-
     stRegister.uxShift = 0UL;
     stRegister.uxMask = SCB_VTOR_R_TBLOFF_MASK;
     stRegister.uptrAddress = SCB_VTOR_OFFSET;
     stRegister.uxValue = uxOffsetArg;
+
+    MCU_nSTATE enInterruptState;
     enInterruptState = MCU__enDisableGlobalInterrupt();
+
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     MCU__vDataSyncBarrier();
     MCU__vSetGlobalInterrupt(enInterruptState);
-
     return (enErrorReg);
 }
 
 SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, UBase_t* puxOffsetArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
-
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) puxOffsetArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxOffsetArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = 0UL;
@@ -68,4 +63,3 @@ SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, UBase_t* puxOffsetArg
     }
     return (enErrorReg);
 }
-

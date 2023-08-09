@@ -30,11 +30,11 @@
 SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_AIRCR_R_VECTKEY_BIT;
     stRegister.uxMask = SCB_AIRCR_VECTKEY_MASK ;
     stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     if(SCB_enERROR_OK == enErrorReg)
     {
@@ -47,7 +47,6 @@ SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg)
             MCU__vDataSyncBarrier();
             enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
             MCU__vDataSyncBarrier();
-
             while(1U)
             {
                 MCU__vNoOperation();
@@ -65,11 +64,11 @@ SCB_nERROR SCB__enRequestSystemReset(SCB_nMODULE enModuleArg)
 SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_AIRCR_R_VECTKEY_BIT;
     stRegister.uxMask = SCB_AIRCR_VECTKEY_MASK;
     stRegister.uptrAddress = SCB_AIRCR_OFFSET;
+
+    SCB_nERROR enErrorReg;
     enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
     if(SCB_enERROR_OK == enErrorReg)
     {
@@ -82,7 +81,6 @@ SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg)
             MCU__vDataSyncBarrier();
             enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
             MCU__vDataSyncBarrier();
-
             while(1U)
             {
                 MCU__vNoOperation();
@@ -93,7 +91,6 @@ SCB_nERROR SCB__enRequestSystemReset_Debug(SCB_nMODULE enModuleArg)
             enErrorReg = SCB_enERROR_VALUE;
         }
     }
-
     return (enErrorReg);
 }
 

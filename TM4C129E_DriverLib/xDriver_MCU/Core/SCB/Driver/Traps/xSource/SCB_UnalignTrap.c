@@ -29,14 +29,13 @@
 SCB_nERROR SCB__enSetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE enStateArg)
 {
     SCB_Register_t stRegister;
-    SCB_nERROR enErrorReg;
-
     stRegister.uxShift = SCB_CCR_R_UNALIGN_TRP_BIT;
     stRegister.uxMask = SCB_CCR_UNALIGN_TRP_MASK;
     stRegister.uptrAddress = SCB_CCR_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
-    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
 
+    SCB_nERROR enErrorReg;
+    enErrorReg = SCB__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -56,14 +55,10 @@ SCB_nERROR SCB__enDisableUnalignTrap(SCB_nMODULE enModuleArg)
 
 SCB_nERROR SCB__enGetUnalignTrapEnableState(SCB_nMODULE enModuleArg, SCB_nSTATE* penStateArg)
 {
-    SCB_Register_t stRegister;
     SCB_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
 
-    enErrorReg = SCB_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SCB_enERROR_POINTER;
-    }
+    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SCB_CCR_R_UNALIGN_TRP_BIT;
