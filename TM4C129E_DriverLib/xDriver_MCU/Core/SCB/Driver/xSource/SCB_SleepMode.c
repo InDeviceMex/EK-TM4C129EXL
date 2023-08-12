@@ -44,17 +44,17 @@ SCB_nERROR SCB__enGetSleepMode(SCB_nMODULE enModuleArg, SCB_nSLEEPMODE* penSleep
 {
     SCB_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penSleepModeArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
-    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
+        SCB_Register_t stRegister;
         stRegister.uxShift = SCB_SCR_R_SLEEPDEEP_BIT;
         stRegister.uxMask = SCB_SCR_SLEEPDEEP_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SCB_enERROR_OK == enErrorReg)
-    {
-        *penSleepModeArg = (SCB_nSLEEPMODE) stRegister.uxValue;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penSleepModeArg = (SCB_nSLEEPMODE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -92,17 +92,17 @@ SCB_nERROR SCB__enGetSleepOnExit(SCB_nMODULE enModuleArg, SCB_nSLEEPONEXIT* enSl
 {
     SCB_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) enSleepOnExitArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
-    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
+        SCB_Register_t stRegister;
         stRegister.uxShift = SCB_SCR_R_SLEEPONEXIT_BIT;
         stRegister.uxMask = SCB_SCR_SLEEPONEXIT_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SCB_enERROR_OK == enErrorReg)
-    {
-        *enSleepOnExitArg = (SCB_nSLEEPONEXIT) stRegister.uxValue;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enSleepOnExitArg = (SCB_nSLEEPONEXIT) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

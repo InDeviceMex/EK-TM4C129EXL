@@ -29,38 +29,26 @@
 
 SYSCTL_nERROR SYSCTL__enSetPIOSCStateOnDeepSleep(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg)
 {
-    SYSCTL_Register_t stRegister;
     UBase_t uxValueReg;
-    SYSCTL_nERROR enErrorReg;
+    uxValueReg = (SYSCTL_enSTATE_DIS == enStateArg) ? DSCLK_CFG_PIOSC_PD_DIS : DSCLK_CFG_PIOSC_PD_ENA ;
 
-    if(SYSCTL_enSTATE_DIS == enStateArg)
-    {
-        uxValueReg = DSCLK_CFG_PIOSC_PD_DIS;
-    }
-    else
-    {
-        uxValueReg = DSCLK_CFG_PIOSC_PD_ENA;
-    }
-
+    SYSCTL_Register_t stRegister;
     stRegister.uxShift = DSCLK_CFG_R_PIOSC_PD_BIT;
     stRegister.uxMask = DSCLK_CFG_PIOSC_PD_MASK;
     stRegister.uptrAddress = DSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) uxValueReg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetPIOSCStateOnDeepSleep(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_Register_t stRegister;
-    SYSCTL_nSTATE enValueReg;
     SYSCTL_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
 
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    SYSCTL_Register_t stRegister;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = DSCLK_CFG_R_PIOSC_PD_BIT;
@@ -70,19 +58,9 @@ SYSCTL_nERROR SYSCTL__enGetPIOSCStateOnDeepSleep(SYSCTL_nMODULE enModuleArg, SYS
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        if(DSCLK_CFG_PIOSC_PD_ENA == stRegister.uxValue)
-        {
-            enValueReg = SYSCTL_enSTATE_ENA;
-        }
-        else
-        {
-
-            enValueReg = SYSCTL_enSTATE_DIS;
-        }
-
+        SYSCTL_nSTATE enValueReg = (DSCLK_CFG_PIOSC_PD_ENA == stRegister.uxValue) ? SYSCTL_enSTATE_ENA : SYSCTL_enSTATE_DIS;
         *penStateArg = (SYSCTL_nSTATE) enValueReg;
     }
-
     return (enErrorReg);
 }
 
@@ -90,117 +68,95 @@ SYSCTL_nERROR SYSCTL__enGetPIOSCStateOnDeepSleep(SYSCTL_nMODULE enModuleArg, SYS
 SYSCTL_nERROR SYSCTL__enAllowDisableMOSCOnFailure(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN enStateArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DSCLK_CFG_R_MOSC_DPD_BIT;
     stRegister.uxMask = DSCLK_CFG_MOSC_DPD_MASK;
     stRegister.uptrAddress = DSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enIsAllowedDisableMOSCOnFailure(SYSCTL_nMODULE enModuleArg, SYSCTL_nBOOLEAN* penStateArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DSCLK_CFG_R_MOSC_DPD_BIT;
         stRegister.uxMask = DSCLK_CFG_MOSC_DPD_MASK;
         stRegister.uptrAddress = DSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nBOOLEAN) stRegister.uxValue;
+        }
     }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nBOOLEAN) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enSetDeepSleepOscillatorClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC enSourceArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DSCLK_CFG_R_DEEPSLEEP_OSC_SRC_BIT;
     stRegister.uxMask = DSCLK_CFG_DEEPSLEEP_OSC_SRC_MASK;
     stRegister.uptrAddress = DSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) enSourceArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetDeepSleepOscillatorClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOSCCLK_SRC* penSourceArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penSourceArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penSourceArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DSCLK_CFG_R_DEEPSLEEP_OSC_SRC_BIT;
         stRegister.uxMask = DSCLK_CFG_DEEPSLEEP_OSC_SRC_MASK;
         stRegister.uptrAddress = DSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penSourceArg = (SYSCTL_nOSCCLK_SRC) stRegister.uxValue;
+        }
     }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penSourceArg = (SYSCTL_nOSCCLK_SRC) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
 
 SYSCTL_nERROR SYSCTL__enSetDeepSleepOscillatorClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t uxDivisorArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DSCLK_CFG_R_DEEPSLEEP_OSC_SYSDIV_BIT;
     stRegister.uxMask = DSCLK_CFG_DEEPSLEEP_OSC_SYSDIV_MASK;
     stRegister.uptrAddress = DSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) uxDivisorArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetDeepSleepOscillatorClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t* puxDivisorArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) puxDivisorArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxDivisorArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DSCLK_CFG_R_DEEPSLEEP_OSC_SYSDIV_BIT;
         stRegister.uxMask = DSCLK_CFG_DEEPSLEEP_OSC_SYSDIV_MASK;
         stRegister.uptrAddress = DSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *puxDivisorArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *puxDivisorArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
-
-

@@ -35,7 +35,6 @@ NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg
     {
         enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     }
-    NVIC_Register_t stRegister;
     if(NVIC_enERROR_OK == enErrorReg)
     {
         UBase_t uxVectorBit = (UBase_t) enVectorArg;
@@ -49,14 +48,16 @@ NVIC_nERROR NVIC__enReadValue(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enVectorArg
         uxVectorIndex >>= 3U;
 
         uptrRegisterOffsetArg += uxVectorIndex;
+
+        NVIC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxVectorBit;
         stRegister.uxMask = 0x1UL;
         stRegister.uptrAddress = (UBase_t) uptrRegisterOffsetArg;
         enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(NVIC_enERROR_OK == enErrorReg)
-    {
-        *puxValueArg = stRegister.uxValue;
+        if(NVIC_enERROR_OK == enErrorReg)
+        {
+            *puxValueArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

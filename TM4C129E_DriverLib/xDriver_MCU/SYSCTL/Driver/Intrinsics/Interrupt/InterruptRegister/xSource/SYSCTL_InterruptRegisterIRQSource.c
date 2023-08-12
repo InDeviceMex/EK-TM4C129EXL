@@ -29,9 +29,7 @@
 
 SYSCTL_nERROR SYSCTL__enRegisterIRQSourceHandler(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enIntSourceArg, SYSCTL_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    SYSCTL_pvfIRQSourceHandler_t* pvfIrqHandler;
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSCTL_enMODULE_MAX);
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
@@ -39,7 +37,7 @@ SYSCTL_nERROR SYSCTL__enRegisterIRQSourceHandler(SYSCTL_nMODULE enModuleArg, SYS
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = SYSCTL__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        SYSCTL_pvfIRQSourceHandler_t* pvfIrqHandler = SYSCTL__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (SYSCTL_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 

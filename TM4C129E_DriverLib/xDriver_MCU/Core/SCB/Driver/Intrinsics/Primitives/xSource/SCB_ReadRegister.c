@@ -36,8 +36,7 @@ SCB_nERROR SCB__enReadRegister(SCB_nMODULE enModuleArg, SCB_Register_t* pstRegis
     }
     if(SCB_enERROR_OK == enErrorReg)
     {
-        uintptr_t uptrModuleBase;
-        uptrModuleBase = SCB__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = SCB__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SCB_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

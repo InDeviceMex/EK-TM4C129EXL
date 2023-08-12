@@ -43,18 +43,17 @@ SCB_nERROR SCB__enGetWakeUpSource(SCB_nMODULE enModuleArg, SCB_nWAKEUP* enSource
 {
     SCB_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) enSourceArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
-
-    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
+        SCB_Register_t stRegister;
         stRegister.uxShift = SCB_SCR_R_SEVONPEND_BIT;
         stRegister.uxMask = SCB_SCR_SEVONPEND_MASK;
         stRegister.uptrAddress = SCB_SCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SCB_enERROR_OK == enErrorReg)
-    {
-        *enSourceArg = (SCB_nWAKEUP) stRegister.uxValue;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *enSourceArg = (SCB_nWAKEUP) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

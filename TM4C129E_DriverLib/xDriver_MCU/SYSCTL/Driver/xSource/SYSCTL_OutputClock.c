@@ -14,36 +14,31 @@
 SYSCTL_nERROR SYSCTL__enSetOutputClockState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE enStateArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DIVSCLK_CFG_R_EN_BIT;
     stRegister.uxMask = DIVSCLK_CFG_EN_MASK;
     stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetOutputClockState(SYSCTL_nMODULE enModuleArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DIVSCLK_CFG_R_EN_BIT;
         stRegister.uxMask = DIVSCLK_CFG_EN_MASK;
         stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nSTATE) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nSTATE) stRegister.uxValue;
+        }
     }
 
     return (enErrorReg);
@@ -52,36 +47,31 @@ SYSCTL_nERROR SYSCTL__enGetOutputClockState(SYSCTL_nMODULE enModuleArg, SYSCTL_n
 SYSCTL_nERROR SYSCTL__enSetOutputClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOUTCLK_SRC enSourceArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DIVSCLK_CFG_R_SRC_BIT;
     stRegister.uxMask = DIVSCLK_CFG_SRC_MASK;
     stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) enSourceArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetOutputClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_nOUTCLK_SRC* penSourceArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penSourceArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penSourceArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DIVSCLK_CFG_R_SRC_BIT;
         stRegister.uxMask = DIVSCLK_CFG_SRC_MASK;
         stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penSourceArg = (SYSCTL_nOUTCLK_SRC) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penSourceArg = (SYSCTL_nOUTCLK_SRC) stRegister.uxValue;
+        }
     }
 
     return (enErrorReg);
@@ -91,43 +81,34 @@ SYSCTL_nERROR SYSCTL__enGetOutputClockSource(SYSCTL_nMODULE enModuleArg, SYSCTL_
 SYSCTL_nERROR SYSCTL__enSetOutputClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t uxDivisorArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = DIVSCLK_CFG_R_DIV_BIT;
     stRegister.uxMask = DIVSCLK_CFG_DIV_MASK;
     stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
     stRegister.uxValue = (UBase_t) uxDivisorArg;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetOutputClockDivisor(SYSCTL_nMODULE enModuleArg, UBase_t* puxDivisorArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) puxDivisorArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxDivisorArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = DIVSCLK_CFG_R_DIV_BIT;
         stRegister.uxMask = DIVSCLK_CFG_DIV_MASK;
         stRegister.uptrAddress = DIVSCLK_CFG_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *puxDivisorArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *puxDivisorArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
-
-
 
 SYSCTL_nERROR SYSCTL__enSetOutputClockConfig(SYSCTL_nMODULE enModuleArg,
                                    SYSCTL_nSTATE enStateArg,

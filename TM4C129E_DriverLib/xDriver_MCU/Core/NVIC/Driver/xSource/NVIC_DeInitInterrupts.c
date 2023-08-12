@@ -30,7 +30,7 @@ NVIC_nERROR NVIC__enDisableAllInterrupts(NVIC_nMODULE enModuleArg)
 
     NVIC_nERROR enErrorReg;
     UBase_t uxVectorNum;
-    uxVectorNum = 0;
+    uxVectorNum = 0UL;
     do
     {
         enErrorReg = NVIC__enDisableVector(enModuleArg, (NVIC_nVECTOR) uxVectorNum);

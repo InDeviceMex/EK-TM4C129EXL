@@ -31,14 +31,13 @@
 
 SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg)
 {
-    SYSCTL_Register_t enRegister;
-    SYSCTL_nERROR enErrorReg;
 
+    SYSCTL_Register_t enRegister;
     enRegister.uptrAddress = SYSCTL_SR_OFFSET;
     enRegister.uxValue = (UBase_t) 1UL;
 
+    SYSCTL_nERROR enErrorReg;
     enErrorReg =SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
-
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enRegister.uptrAddress = SYSCTL_SR_OFFSET;
@@ -48,14 +47,11 @@ SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nP
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        SYSCTL_nBOOLEAN enStatusReg;
-        enStatusReg = SYSCTL_enFALSE;
+        SYSCTL_nBOOLEAN enStatusReg = SYSCTL_enFALSE;
         do
         {
-
             enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enStatusReg);
-        }while((SYSCTL_enERROR_OK == enErrorReg) &&
-               (SYSCTL_enFALSE == enStatusReg));
+        }while((SYSCTL_enERROR_OK == enErrorReg) && (SYSCTL_enFALSE == enStatusReg));
     }
 
     return (enErrorReg);
@@ -63,21 +59,17 @@ SYSCTL_nERROR SYSCTL__enSetPeripheralReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nP
 
 SYSCTL_nERROR SYSCTL__enIsPeripheralOnReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penStateArg)
 {
-    SYSCTL_Register_t enRegister;
     SYSCTL_nERROR enErrorReg;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK ==  enErrorReg)
     {
+        SYSCTL_Register_t enRegister;
         enRegister.uptrAddress = SYSCTL_SR_OFFSET;
-        enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
-    }
-    if(SYSCTL_enERROR_OK ==  enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+        enErrorReg = SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
+        if(SYSCTL_enERROR_OK ==  enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

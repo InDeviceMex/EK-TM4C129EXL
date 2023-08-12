@@ -103,7 +103,6 @@ SYSCTL_nERROR SYSCTL__enDeInitClockGates(SYSCTL_nMODULE enModuleArg)
     };
     UBase_t uxIterReg;
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = SYSCTL_enERROR_OK;
     for(uxIterReg = 0UL; uxIterReg < 70UL; uxIterReg++)
     {

@@ -35,7 +35,7 @@ SYSTICK_nERROR SYSTICK__enClearCurrentValue(SYSTICK_nMODULE enModuleArg)
     stRegister.uxValue = 0U;
 
     SYSTICK_nERROR enErrorReg;
-    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister)
+    enErrorReg = SYSTICK__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
@@ -43,18 +43,17 @@ SYSTICK_nERROR SYSTICK__enGetCurrentValue(SYSTICK_nMODULE enModuleArg,
 {
     SYSTICK_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) uxValueArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
-
-    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        SYSTICK_Register_t stRegister;
         stRegister.uxShift = SYSTICK_CVR_R_CURRENT_BIT;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SYSTICK_CVR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSTICK_enERROR_OK == enErrorReg)
-    {
-        *uxValueArg = stRegister.uxValue;
+        if(SYSTICK_enERROR_OK == enErrorReg)
+        {
+            *uxValueArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

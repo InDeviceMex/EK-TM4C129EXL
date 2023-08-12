@@ -32,18 +32,8 @@ static SYSCTL_nERROR SYSCTL__enGetInterruptSourceShift(SYSCTL_nMODULE enModuleAr
 
 static SYSCTL_nERROR SYSCTL__enGetInterruptSourceShift(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg, UBase_t* puxShiftArg)
 {
-    const UBase_t SYSCTL_uxInterruptBit[(UBase_t) SYSCTL_enINT_SW] =
-    {
-     SYSCTL_RIS_R_BOR_BIT     , SYSCTL_RIS_R_MOSC_FAILURE_BIT    ,
-     SYSCTL_RIS_R_PLL_LOCK_BIT, SYSCTL_RIS_R_MOSC_POWERUP_BIT    ,
-    };
-
     SYSCTL_nERROR enErrorReg;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) puxShiftArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxShiftArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSCTL_enMODULE_MAX);
@@ -54,6 +44,11 @@ static SYSCTL_nERROR SYSCTL__enGetInterruptSourceShift(SYSCTL_nMODULE enModuleAr
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        static const UBase_t SYSCTL_uxInterruptBit[(UBase_t) SYSCTL_enINT_SW] =
+        {
+         SYSCTL_RIS_R_BOR_BIT     , SYSCTL_RIS_R_MOSC_FAILURE_BIT    ,
+         SYSCTL_RIS_R_PLL_LOCK_BIT, SYSCTL_RIS_R_MOSC_POWERUP_BIT    ,
+        };
         *puxShiftArg = SYSCTL_uxInterruptBit[(UBase_t) enInterruptArg];
     }
     return (enErrorReg);
@@ -62,113 +57,93 @@ static SYSCTL_nERROR SYSCTL__enGetInterruptSourceShift(SYSCTL_nMODULE enModuleAr
 
 SYSCTL_nERROR SYSCTL__enSetInterruptSourceStateByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg, SYSCTL_nSTATE enStateArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxValueReg;
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SYSCTL_enINTMASK_MAX);
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        if(SYSCTL_enSTATE_DIS == enStateArg)
-        {
-            uxValueReg = 0U;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enInterruptMaskArg;
-        }
+        UBase_t uxValueReg = (SYSCTL_enSTATE_DIS == enStateArg) ? 0U : (UBase_t) enInterruptMaskArg ;
+
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SYSCTL_IMC_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enSetInterruptSourceStateByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg, SYSCTL_nSTATE enStateArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxShiftReg;
     SYSCTL_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
     enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SYSCTL_enINT_SW);
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSCTL__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = 0UL;
         stRegister.uptrAddress = SYSCTL_IMC_OFFSET;
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetInterruptSourceStateByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg, SYSCTL_nINTMASK* penInterruptGetArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptGetArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penInterruptGetArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SYSCTL_enINTMASK_MAX);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SYSCTL_IMC_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penInterruptGetArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penInterruptGetArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enGetInterruptSourceStateByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxShiftReg;
     SYSCTL_nERROR enErrorReg;
-
-    uxShiftReg = 0U;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SYSCTL_enINT_SW);
     }
+
+    UBase_t uxShiftReg;
+    uxShiftReg = 0U;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSCTL__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = 0UL;
         stRegister.uptrAddress = SYSCTL_IMC_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nSTATE) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -176,47 +151,38 @@ SYSCTL_nERROR SYSCTL__enGetInterruptSourceStateByNumber(SYSCTL_nMODULE enModuleA
 SYSCTL_nERROR SYSCTL__enEnableInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg)
 {
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = SYSCTL__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSCTL_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enEnableInterruptSourceByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg)
 {
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = SYSCTL__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSCTL_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enDisableInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg)
 {
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = SYSCTL__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SYSCTL_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enDisableInterruptSourceByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg)
 {
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = SYSCTL__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SYSCTL_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enClearInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
     enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SYSCTL_enINTMASK_MAX);
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SYSCTL_MISC_OFFSET;
@@ -229,151 +195,134 @@ SYSCTL_nERROR SYSCTL__enClearInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, S
 
 SYSCTL_nERROR SYSCTL__enClearInterruptSourceByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxShiftReg;
-    UBase_t uxValueReg;
     SYSCTL_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
     enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SYSCTL_enINT_SW);
+
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSCTL__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        uxValueReg = 1UL;
+        UBase_t uxValueReg = 1UL;
         uxValueReg <<= uxShiftReg;
+
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SYSCTL_MISC_OFFSET;
         stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enStatusInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg, SYSCTL_nINTMASK* penInterruptStatusArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptStatusArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
 
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptStatusArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SYSCTL_enINTMASK_MAX);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SYSCTL_RIS_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penInterruptStatusArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penInterruptStatusArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enStatusInterruptSourceByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg, SYSCTL_nSTATUS* penStatusArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxShiftReg;
     SYSCTL_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SYSCTL_enINT_SW);
     }
+
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSCTL__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SYSCTL_RIS_BOR_MASK;
         stRegister.uptrAddress = SYSCTL_RIS_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (SYSCTL_nSTATUS) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (SYSCTL_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enStatusMaskedInterruptSourceByMask(SYSCTL_nMODULE enModuleArg, SYSCTL_nINTMASK enInterruptMaskArg, SYSCTL_nINTMASK* penInterruptStatusArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptStatusArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
 
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptStatusArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SYSCTL_enINTMASK_MAX);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SYSCTL_MISC_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penInterruptStatusArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penInterruptStatusArg = (SYSCTL_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enStatusMaskedInterruptSourceByNumber(SYSCTL_nMODULE enModuleArg, SYSCTL_nINT enInterruptArg, SYSCTL_nSTATUS* penStatusArg)
 {
-    SYSCTL_Register_t stRegister;
-    UBase_t uxShiftReg;
     SYSCTL_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SYSCTL_enINT_SW);
     }
+
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
         enErrorReg = SYSCTL__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SYSCTL_MISC_BOR_MASK;
         stRegister.uptrAddress = SYSCTL_MISC_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (SYSCTL_nSTATUS) stRegister.uxValue;
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (SYSCTL_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

@@ -35,7 +35,6 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
     {
         enErrorReg = (NVIC_nERROR) MCU__enCheckParams((UBase_t) enVectorArg, (UBase_t) NVIC_enVECTOR_MAX);
     }
-    NVIC_Register_t stRegister;
     if(NVIC_enERROR_OK == enErrorReg)
     {
         uintptr_t uptrRegisterOffset = NVIC_IPR_OFFSET;
@@ -49,14 +48,15 @@ NVIC_nERROR NVIC__enGetVectorPriority(NVIC_nMODULE enModuleArg, NVIC_nVECTOR enV
 
         uptrRegisterOffset += uxVectorIndex;
 
+        NVIC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxVectorBit;
         stRegister.uxMask = NVIC_PRI_MASK;
         stRegister.uptrAddress = (UBase_t) uptrRegisterOffset;
         enErrorReg = NVIC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(NVIC_enERROR_OK == enErrorReg)
-    {
-        *penPriorityArg = (NVIC_nPRIORITY) stRegister.uxValue;
+        if(NVIC_enERROR_OK == enErrorReg)
+        {
+            *penPriorityArg = (NVIC_nPRIORITY) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

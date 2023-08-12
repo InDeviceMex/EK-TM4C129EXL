@@ -28,22 +28,17 @@
 
 SYSCTL_nERROR SYSCTL__enIsPeripheralPresent(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nBOOLEAN* penStateArg)
 {
-    SYSCTL_Register_t enRegister;
     SYSCTL_nERROR enErrorReg;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK ==  enErrorReg)
     {
+        SYSCTL_Register_t enRegister;
         enRegister.uptrAddress = SYSCTL_PP_OFFSET;
         enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
-    }
-    if(SYSCTL_enERROR_OK ==  enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+        if(SYSCTL_enERROR_OK ==  enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nBOOLEAN) enRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-

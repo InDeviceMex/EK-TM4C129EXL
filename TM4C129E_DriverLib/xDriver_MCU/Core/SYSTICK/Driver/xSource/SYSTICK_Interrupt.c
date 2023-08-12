@@ -93,18 +93,17 @@ SYSTICK_nERROR SYSTICK__enStatusInterruptSource(SYSTICK_nMODULE enModuleArg, SYS
 {
     SYSTICK_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
-
-    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        SYSTICK_Register_t stRegister;
         stRegister.uxShift = SYSTICK_CSR_R_COUNTFLAG_BIT;
         stRegister.uxMask = SYSTICK_CSR_COUNTFLAG_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSTICK_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (SYSTICK_nSTATUS) stRegister.uxValue;
+        if(SYSTICK_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (SYSTICK_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -113,29 +112,27 @@ SYSTICK_nERROR SYSTICK__enStatusMaskedInterruptSource(SYSTICK_nMODULE enModuleAr
 {
     SYSTICK_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
-
-    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        SYSTICK_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSTICK_enERROR_OK == enErrorReg)
-    {
-        if((SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK) == stRegister.uxValue)
+        if(SYSTICK_enERROR_OK == enErrorReg)
         {
-            *penStatusArg = SYSTICK_enSTATUS_ACTIVE;
-        }
-        else
-        {
-            *penStatusArg = SYSTICK_enSTATUS_INACTIVE;
+            if((SYSTICK_CSR_R_COUNTFLAG_MASK | SYSTICK_CSR_R_TICKINT_MASK) == stRegister.uxValue)
+            {
+                *penStatusArg = SYSTICK_enSTATUS_ACTIVE;
+            }
+            else
+            {
+                *penStatusArg = SYSTICK_enSTATUS_INACTIVE;
+            }
         }
     }
     return (enErrorReg);
 }
-
 
 SYSTICK_nERROR SYSTICK__enClearInterruptSource(SYSTICK_nMODULE enModuleArg)
 {

@@ -36,8 +36,7 @@ FPU_nERROR FPU__enWriteRegister(FPU_nMODULE enModuleArg, FPU_Register_t* pstRegi
     }
     if(FPU_enERROR_OK == enErrorReg)
     {
-        uintptr_t uptrModuleBase;
-        uptrModuleBase = FPU__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = FPU__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (FPU_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }

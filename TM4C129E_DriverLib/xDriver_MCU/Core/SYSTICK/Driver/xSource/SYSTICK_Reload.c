@@ -56,18 +56,17 @@ SYSTICK_nERROR SYSTICK__enGetReloadValue(SYSTICK_nMODULE enModuleArg, UBase_t* u
 {
     SYSTICK_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) uxValueArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
-
-    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        SYSTICK_Register_t stRegister;
         stRegister.uxShift = SYSTICK_RVR_R_RELOAD_BIT;
         stRegister.uxMask = SYSTICK_RVR_RELOAD_MASK;
         stRegister.uptrAddress = SYSTICK_RVR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSTICK_enERROR_OK == enErrorReg)
-    {
-        *uxValueArg = stRegister.uxValue;
+        if(SYSTICK_enERROR_OK == enErrorReg)
+        {
+            *uxValueArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

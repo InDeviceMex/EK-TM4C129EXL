@@ -31,22 +31,18 @@
 SYSCTL_nERROR SYSCTL__enSetSleepModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE enStateArg)
 {
     SYSCTL_Register_t enRegister;
-    SYSCTL_nERROR enErrorReg;
-
     enRegister.uptrAddress = SYSCTL_SCGC_OFFSET;
     enRegister.uxValue = (UBase_t) enStateArg;
 
-    enErrorReg =SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
+    SYSCTL_nERROR enErrorReg;
+    enErrorReg = SYSCTL__enWritePeripheral(enModuleArg, enPeripheralArg, &enRegister);
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        SYSCTL_nBOOLEAN enStatusReg;
-        enStatusReg = SYSCTL_enFALSE;
+        SYSCTL_nBOOLEAN enStatusReg = SYSCTL_enFALSE;
         do
         {
-
             enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enStatusReg);
-        }while((SYSCTL_enERROR_OK == enErrorReg) &&
-               (SYSCTL_enFALSE == enStatusReg));
+        }while((SYSCTL_enERROR_OK == enErrorReg) && (SYSCTL_enFALSE == enStatusReg));
     }
     return (enErrorReg);
 }
@@ -65,24 +61,19 @@ SYSCTL_nERROR SYSCTL__enDisableSleepMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPER
     return (enErrorReg);
 }
 
-
 SYSCTL_nERROR SYSCTL__enGetSleepModeState(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_nSTATE* penStateArg)
 {
-    SYSCTL_Register_t enRegister;
     SYSCTL_nERROR enErrorReg;
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK ==  enErrorReg)
     {
+        SYSCTL_Register_t enRegister;
         enRegister.uptrAddress = SYSCTL_SCGC_OFFSET;
         enErrorReg =SYSCTL__enReadPeripheral(enModuleArg, enPeripheralArg, &enRegister);
-    }
-    if(SYSCTL_enERROR_OK ==  enErrorReg)
-    {
-        *penStateArg = (SYSCTL_nSTATE) enRegister.uxValue;
+        if(SYSCTL_enERROR_OK ==  enErrorReg)
+        {
+            *penStateArg = (SYSCTL_nSTATE) enRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

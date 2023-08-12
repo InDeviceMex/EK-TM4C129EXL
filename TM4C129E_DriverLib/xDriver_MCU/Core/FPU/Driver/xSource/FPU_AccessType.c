@@ -52,8 +52,7 @@ FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessT
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
 
-    UBase_t uxRegCP10;
-    uxRegCP10 = 0UL;
+    UBase_t uxRegCP10 = 0UL;
     if(FPU_enERROR_OK == enErrorReg)
     {
         uxRegCP10 = stRegister.uxValue;
@@ -64,8 +63,7 @@ FPU_nERROR FPU__enGetAccessType(FPU_nMODULE enModuleArg, FPU_nACCESS* penAccessT
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
     }
 
-    UBase_t uxRegCP11;
-    uxRegCP11 = 0UL;
+    UBase_t uxRegCP11 = 0UL;
     if(FPU_enERROR_OK == enErrorReg)
     {
         uxRegCP11 = stRegister.uxValue;

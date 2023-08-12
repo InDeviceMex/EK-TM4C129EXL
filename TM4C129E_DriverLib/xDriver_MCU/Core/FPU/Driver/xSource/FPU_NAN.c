@@ -24,19 +24,19 @@ FPU_nNAN FPU__enGetNAN(FPU_nMODULE enModuleArg)
 
 FPU_nERROR FPU__enGetNANDefault(FPU_nMODULE enModuleArg, FPU_nNAN* penNANArg)
 {
-    FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penNANArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
+        FPU_Register_t stRegister;
         stRegister.uxShift = FPU_DSCR_R_DN_BIT;
         stRegister.uxMask = FPU_DSCR_DN_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FPU_enERROR_OK == enErrorReg)
-    {
-        *penNANArg = (FPU_nNAN) stRegister.uxValue;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penNANArg = (FPU_nNAN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

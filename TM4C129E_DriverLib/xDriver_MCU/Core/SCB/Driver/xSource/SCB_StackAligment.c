@@ -43,17 +43,17 @@ SCB_nERROR SCB__enGetStackAligment(SCB_nMODULE enModuleArg, SCB_nALIGN* penAlign
 {
     SCB_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penAlignArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
-    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
+        SCB_Register_t stRegister;
         stRegister.uxShift = SCB_CCR_R_STKALIGN_BIT;
         stRegister.uxMask = SCB_CCR_STKALIGN_MASK;
         stRegister.uptrAddress = SCB_CCR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SCB_enERROR_OK == enErrorReg)
-    {
-        *penAlignArg = (SCB_nALIGN) stRegister.uxValue;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *penAlignArg = (SCB_nALIGN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

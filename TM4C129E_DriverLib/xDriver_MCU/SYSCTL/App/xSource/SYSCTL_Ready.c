@@ -31,16 +31,12 @@ SYSCTL_nERROR SYSCTL__enSetReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_nPE
     SYSCTL_nBOOLEAN enReady;
     enReady = SYSCTL_enFALSE;
     enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
-    if(SYSCTL_enERROR_OK == enErrorReg)
+    if((SYSCTL_enERROR_OK == enErrorReg) && (SYSCTL_enFALSE == enReady))
     {
-        if(SYSCTL_enFALSE == enReady)
+        enErrorReg = SYSCTL__enEnableRunMode(enModuleArg, enPeripheralArg);
+        if(SYSCTL_enERROR_OK == enErrorReg)
         {
-
-            enErrorReg = SYSCTL__enEnableRunMode(enModuleArg, enPeripheralArg);
-            if(SYSCTL_enERROR_OK == enErrorReg)
-            {
-                enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
-            }
+            enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
         }
     }
     return (enErrorReg);
@@ -52,16 +48,12 @@ SYSCTL_nERROR SYSCTL__enClearReadyOnRunMode(SYSCTL_nMODULE enModuleArg, SYSCTL_n
     SYSCTL_nBOOLEAN enReady;
     enReady = SYSCTL_enFALSE;
     enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
-    if(SYSCTL_enERROR_OK == enErrorReg)
+    if((SYSCTL_enERROR_OK == enErrorReg) && (SYSCTL_enTRUE == enReady))
     {
-        if(SYSCTL_enTRUE == enReady)
+        enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
+        if(SYSCTL_enERROR_OK == enErrorReg)
         {
-            enErrorReg = SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
-            if(SYSCTL_enERROR_OK == enErrorReg)
-            {
-                enErrorReg = SYSCTL__enDisableRunMode(enModuleArg, enPeripheralArg);
-            }
-
+            enErrorReg = SYSCTL__enDisableRunMode(enModuleArg, enPeripheralArg);
         }
     }
     return (enErrorReg);
@@ -73,12 +65,9 @@ SYSCTL_nERROR SYSCTL__enReset(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enP
     SYSCTL_nBOOLEAN enReady;
     enReady = SYSCTL_enFALSE;
     enErrorReg = SYSCTL__enIsPeripheralReady(enModuleArg, enPeripheralArg, &enReady);
-    if(SYSCTL_enERROR_OK == enErrorReg)
+    if((SYSCTL_enERROR_OK == enErrorReg) && (SYSCTL_enTRUE == enReady))
     {
-        if(SYSCTL_enTRUE == enReady)
-        {
-            SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
-        }
+        SYSCTL__enSetPeripheralReset(enModuleArg, enPeripheralArg);
     }
     return (enErrorReg);
 }

@@ -30,38 +30,32 @@
 
 SYSCTL_nERROR SYSCTL__enGetResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET* penCauseArg)
 {
-    SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) penCauseArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penCauseArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
+        SYSCTL_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = (UBase_t) SYSCTL_enRESET_ALL;
         stRegister.uptrAddress = SYSCTL_RESC_OFFSET;
         enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        if(SYSCTL_enERROR_OK == enErrorReg)
+        {
+            *penCauseArg = (SYSCTL_nRESET) stRegister.uxValue;
+        }
     }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        *penCauseArg = (SYSCTL_nRESET) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enClearResetCause(SYSCTL_nMODULE enModuleArg, SYSCTL_nRESET enCauseArg)
 {
     SYSCTL_Register_t stRegister;
-    SYSCTL_nERROR enErrorReg;
-
     stRegister.uxShift = 0UL;
     stRegister.uxMask = (UBase_t) enCauseArg;
     stRegister.uptrAddress = SYSCTL_RESC_OFFSET;
     stRegister.uxValue = 0UL;
+
+    SYSCTL_nERROR enErrorReg;
     enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }

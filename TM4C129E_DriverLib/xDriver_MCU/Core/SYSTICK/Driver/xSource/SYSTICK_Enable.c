@@ -59,21 +59,17 @@ SYSTICK_nERROR SYSTICK__enGetState(SYSTICK_nMODULE enModuleArg,
 {
     SYSTICK_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penEnableStateArg) ? SYSTICK_enERROR_POINTER : SYSTICK_enERROR_OK;
-
-    SYSTICK_Register_t stRegister;
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
+        SYSTICK_Register_t stRegister;
         stRegister.uxShift = SYSTICK_CSR_R_ENABLE_BIT;
         stRegister.uxMask = SYSTICK_CSR_ENABLE_MASK;
         stRegister.uptrAddress = SYSTICK_CSR_OFFSET;
         enErrorReg = SYSTICK__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SYSTICK_enERROR_OK == enErrorReg)
-    {
-        *penEnableStateArg = (SYSTICK_nSTATE) stRegister.uxValue;
+        if(SYSTICK_enERROR_OK == enErrorReg)
+        {
+            *penEnableStateArg = (SYSTICK_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-

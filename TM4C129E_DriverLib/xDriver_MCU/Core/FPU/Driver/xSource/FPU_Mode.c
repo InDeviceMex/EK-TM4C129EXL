@@ -41,19 +41,19 @@ FPU_nMODE FPU__enGetMode(FPU_nMODULE enModuleArg)
 
 FPU_nERROR FPU__enGetModeDefault(FPU_nMODULE enModuleArg, FPU_nMODE* penModeArg)
 {
-    FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
-    enErrorReg = (0UL == (uintptr_t) penModeArg) FPU_enERROR_POINTER ? : FPU_enERROR_OK;
+    enErrorReg = (0UL == (uintptr_t) penModeArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
+        FPU_Register_t stRegister;
         stRegister.uxShift = FPU_DSCR_R_FZ_BIT;
         stRegister.uxMask = FPU_DSCR_FZ_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FPU_enERROR_OK == enErrorReg)
-    {
-        *penModeArg = (FPU_nMODE) stRegister.uxValue;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penModeArg = (FPU_nMODE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

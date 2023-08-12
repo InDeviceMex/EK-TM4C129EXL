@@ -25,19 +25,19 @@ FPU_nROUNDING FPU__enGetRoundingMode(FPU_nMODULE enModuleArg)
 
 FPU_nERROR FPU__enGetRoundingModeDefault(FPU_nMODULE enModuleArg, FPU_nROUNDING* penRoundingArg)
 {
-    FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) penRoundingArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
+        FPU_Register_t stRegister;
         stRegister.uxShift = FPU_DSCR_R_RMODE_BIT;
         stRegister.uxMask = FPU_DSCR_RMODE_MASK;
         stRegister.uptrAddress = FPU_DSCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FPU_enERROR_OK == enErrorReg)
-    {
-        *penRoundingArg = (FPU_nROUNDING) stRegister.uxValue;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penRoundingArg = (FPU_nROUNDING) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

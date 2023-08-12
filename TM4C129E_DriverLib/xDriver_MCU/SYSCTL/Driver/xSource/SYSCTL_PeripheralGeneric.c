@@ -29,63 +29,44 @@
 
 SYSCTL_nERROR SYSCTL__enWritePeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxBitNumber;
-    UBase_t uxPeripheralIndex;
     SYSCTL_nERROR enErrorReg;
-
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
     if(SYSCTL_enERROR_OK ==  enErrorReg)
     {
-        uxPeripheralIndex = (UBase_t) enPeripheralArg;
+        UBase_t uxPeripheralIndex = (UBase_t) enPeripheralArg;
         uxPeripheralIndex >>= 8UL;
         uxPeripheralIndex &= 0xFFUL;
         uxPeripheralIndex *= 4UL;
 
-
-        uxBitNumber = (UBase_t) enPeripheralArg;
+        UBase_t uxBitNumber = (UBase_t) enPeripheralArg;
         uxBitNumber &= 0xFFUL;
 
         pstRegisterDataArg->uptrAddress += uxPeripheralIndex;
         pstRegisterDataArg->uxShift = (UBase_t) uxBitNumber;
         pstRegisterDataArg->uxMask = 1UL;
         enErrorReg = SYSCTL__enWriteRegister(enModuleArg, pstRegisterDataArg);
-    }
-    if(SYSCTL_enERROR_OK ==  enErrorReg)
-    {
         MCU__vNoOperation();
         MCU__vNoOperation();
         MCU__vNoOperation();
         MCU__vNoOperation();
         MCU__vNoOperation();
     }
-
     return (enErrorReg);
 }
 
 SYSCTL_nERROR SYSCTL__enReadPeripheral(SYSCTL_nMODULE enModuleArg, SYSCTL_nPERIPHERAL enPeripheralArg, SYSCTL_Register_t* pstRegisterDataArg)
 {
-    UBase_t uxBitNumber;
-    UBase_t uxPeripheralIndex;
     SYSCTL_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? SYSCTL_enERROR_POINTER : SYSCTL_enERROR_OK;
 
-    enErrorReg = SYSCTL_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = SYSCTL_enERROR_POINTER;
-    }
     if(SYSCTL_enERROR_OK ==  enErrorReg)
     {
-        uxPeripheralIndex = (UBase_t) enPeripheralArg;
+        UBase_t uxPeripheralIndex = (UBase_t) enPeripheralArg;
         uxPeripheralIndex >>= 8UL;
         uxPeripheralIndex &= 0xFFUL;
         uxPeripheralIndex *= 4UL;
 
-
-        uxBitNumber = (UBase_t) enPeripheralArg;
+        UBase_t uxBitNumber = (UBase_t) enPeripheralArg;
         uxBitNumber &= 0xFFUL;
 
         pstRegisterDataArg->uptrAddress += uxPeripheralIndex;

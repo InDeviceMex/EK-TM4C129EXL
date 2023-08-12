@@ -49,17 +49,17 @@ SCB_nERROR SCB__enGetVectorOffset(SCB_nMODULE enModuleArg, UBase_t* puxOffsetArg
 {
     SCB_nERROR enErrorReg;
     enErrorReg = (0UL == (uintptr_t) puxOffsetArg) ? SCB_enERROR_POINTER : SCB_enERROR_OK;
-    SCB_Register_t stRegister;
     if(SCB_enERROR_OK == enErrorReg)
     {
+        SCB_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = SCB_VTOR_R_TBLOFF_MASK;
         stRegister.uptrAddress = SCB_VTOR_OFFSET;
         enErrorReg = SCB__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SCB_enERROR_OK == enErrorReg)
-    {
-        *puxOffsetArg = stRegister.uxValue;
+        if(SCB_enERROR_OK == enErrorReg)
+        {
+            *puxOffsetArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

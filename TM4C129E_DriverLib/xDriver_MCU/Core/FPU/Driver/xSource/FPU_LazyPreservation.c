@@ -26,38 +26,38 @@ FPU_nERROR FPU__enSetLazyPreservationState(FPU_nMODULE enModuleArg,
 FPU_nERROR FPU__enGetLazyPreservationState(FPU_nMODULE enModuleArg,
                                            FPU_nSTATE* penStateArg)
 {
-    FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
-    enErrorReg = (0UL == (uintptr_t) penStateArg) FPU_enERROR_POINTER ? : FPU_enERROR_OK;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
+        FPU_Register_t stRegister;
         stRegister.uxShift = FPU_CCR_R_LSPEN_BIT;
         stRegister.uxMask = FPU_CCR_LSPEN_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FPU_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (FPU_nSTATE) stRegister.uxValue;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (FPU_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 FPU_nERROR FPU__enGetLazyPreservationStatus(FPU_nMODULE enModuleArg, FPU_nSTATUS* penStatusArg)
 {
-    FPU_Register_t stRegister;
     FPU_nERROR enErrorReg;
-    enErrorReg = (0UL == (uintptr_t) penStatusArg) FPU_enERROR_POINTER ? : FPU_enERROR_OK;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? FPU_enERROR_POINTER : FPU_enERROR_OK;
     if(FPU_enERROR_OK == enErrorReg)
     {
+        FPU_Register_t stRegister;
         stRegister.uxShift = FPU_CCR_R_LSPACT_BIT;
         stRegister.uxMask = FPU_CCR_LSPACT_MASK;
         stRegister.uptrAddress = FPU_CCR_OFFSET;
         enErrorReg = FPU__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FPU_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (FPU_nSTATUS) stRegister.uxValue;
+        if(FPU_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (FPU_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

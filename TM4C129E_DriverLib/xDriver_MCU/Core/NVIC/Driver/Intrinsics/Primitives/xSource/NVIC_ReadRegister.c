@@ -36,8 +36,7 @@ NVIC_nERROR NVIC__enReadRegister(NVIC_nMODULE enModuleArg, NVIC_Register_t* pstR
     }
     if(NVIC_enERROR_OK == enErrorReg)
     {
-        uintptr_t uptrModuleBase;
-        uptrModuleBase = NVIC__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = NVIC__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (NVIC_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

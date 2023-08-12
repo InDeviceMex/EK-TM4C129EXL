@@ -36,8 +36,7 @@ SYSTICK_nERROR SYSTICK__enReadRegister(SYSTICK_nMODULE enModuleArg, SYSTICK_Regi
     }
     if(SYSTICK_enERROR_OK == enErrorReg)
     {
-        uintptr_t uptrModuleBase;
-        uptrModuleBase = SYSTICK__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = SYSTICK__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SYSTICK_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
