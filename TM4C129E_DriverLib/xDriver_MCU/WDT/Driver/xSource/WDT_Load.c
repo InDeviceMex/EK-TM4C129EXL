@@ -30,38 +30,34 @@
 WDT_nERROR WDT__enSetIntervalValue(WDT_nMODULE enModuleArg, UBase_t uxIntervalArg)
 {
     WDT_Register_t stRegister;
-    WDT_nERROR enErrorReg;
-
     stRegister.uxShift = WDT_LOAD_R_LOAD_BIT;
     stRegister.uxMask = WDT_LOAD_LOAD_MASK;
     stRegister.uptrAddress = WDT_LOAD_OFFSET;
     stRegister.uxValue = (UBase_t) uxIntervalArg;
+
+    WDT_nERROR enErrorReg;
     enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 WDT_nERROR WDT__enGetIntervalValue(WDT_nMODULE enModuleArg, UBase_t* puxIntervalArg)
 {
-    WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxIntervalArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
 
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) puxIntervalArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
     if(WDT_enERROR_OK == enErrorReg)
     {
+        WDT_Register_t stRegister;
         stRegister.uxShift = WDT_LOAD_R_LOAD_BIT;
         stRegister.uxMask = WDT_LOAD_LOAD_MASK;
         stRegister.uptrAddress = WDT_LOAD_OFFSET;
         enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        *puxIntervalArg = (UBase_t) stRegister.uxValue;
-    }
+        if(WDT_enERROR_OK == enErrorReg)
+        {
+            *puxIntervalArg = (UBase_t) stRegister.uxValue;
+        }
 
+    }
     return (enErrorReg);
 }
 

@@ -29,9 +29,7 @@
 
 WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enIntSourceArg, WDT_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    WDT_pvfIRQSourceHandler_t* pvfIrqHandler;
     WDT_nERROR enErrorReg;
-
     enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
     if(WDT_enERROR_OK == enErrorReg)
     {
@@ -39,9 +37,8 @@ WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enI
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = WDT__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        WDT_pvfIRQSourceHandler_t* pvfIrqHandler = WDT__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (WDT_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }

@@ -28,47 +28,36 @@
 
 WDT_nERROR WDT__enIsLocked(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penLockedArg)
 {
-    WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penLockedArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
 
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) penLockedArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
     if(WDT_enERROR_OK == enErrorReg)
     {
+        WDT_Register_t stRegister;
         stRegister.uxShift = WDT_LOCK_R_LOCK_BIT;
         stRegister.uxMask = WDT_LOCK_LOCK_MASK;
         stRegister.uptrAddress = WDT_LOCK_OFFSET;
         enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        *penLockedArg = (WDT_nBOOLEAN) stRegister.uxValue;
+        if(WDT_enERROR_OK == enErrorReg)
+        {
+            *penLockedArg = (WDT_nBOOLEAN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 WDT_nERROR WDT__enSetLockState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg)
 {
-    WDT_Register_t stRegister;
     UBase_t uxValueReg;
-    WDT_nERROR enErrorReg;
+    uxValueReg = (WDT_enSTATE_DIS == enStateArg) ? WDT_LOCK_LOCK_KEY : WDT_LOCK_LOCK_LOCK;
 
-    if(WDT_enSTATE_DIS == enStateArg)
-    {
-        uxValueReg = WDT_LOCK_LOCK_KEY;
-    }
-    else
-    {
-        uxValueReg = WDT_LOCK_LOCK_LOCK;
-    }
-
+    WDT_Register_t stRegister;
     stRegister.uxShift = WDT_LOCK_R_LOCK_BIT;
     stRegister.uxMask = WDT_LOCK_LOCK_MASK;
     stRegister.uptrAddress = WDT_LOCK_OFFSET;
     stRegister.uxValue = uxValueReg;
+
+    WDT_nERROR enErrorReg;
     enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }

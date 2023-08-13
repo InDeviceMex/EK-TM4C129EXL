@@ -30,38 +30,33 @@
 WDT_nERROR WDT__enSetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL enModeArg)
 {
     WDT_Register_t stRegister;
-    WDT_nERROR enErrorReg;
-
     stRegister.uxShift = WDT_TEST_R_STALL_BIT;
     stRegister.uxMask = WDT_TEST_STALL_MASK;
     stRegister.uptrAddress = WDT_TEST_OFFSET;
     stRegister.uxValue = (UBase_t) enModeArg;
+
+    WDT_nERROR enErrorReg;
     enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 WDT_nERROR WDT__enGetStallMode(WDT_nMODULE enModuleArg, WDT_nSTALL* penModeArg)
 {
-    WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penModeArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
 
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) penModeArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
     if(WDT_enERROR_OK == enErrorReg)
     {
+        WDT_Register_t stRegister;
         stRegister.uxShift = WDT_TEST_R_STALL_BIT;
         stRegister.uxMask = WDT_TEST_STALL_MASK;
         stRegister.uptrAddress = WDT_TEST_OFFSET;
         enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+        if(WDT_enERROR_OK == enErrorReg)
+        {
+            *penModeArg = (WDT_nSTALL) stRegister.uxValue;
+        }
     }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        *penModeArg = (WDT_nSTALL) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

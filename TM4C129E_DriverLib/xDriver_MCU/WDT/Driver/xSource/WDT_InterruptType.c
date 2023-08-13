@@ -30,37 +30,31 @@
 WDT_nERROR WDT__enSetInterruptSourceType(WDT_nMODULE enModuleArg, WDT_nINT_TYPE enTypeArg)
 {
     WDT_Register_t stRegister;
-    WDT_nERROR enErrorReg;
-
     stRegister.uxShift = WDT_CTL_R_INTTYPE_BIT;
     stRegister.uxMask = WDT_CTL_INTTYPE_MASK;
     stRegister.uptrAddress = WDT_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enTypeArg;
+
+    WDT_nERROR enErrorReg;
     enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 WDT_nERROR WDT__enGetInterruptSourceType(WDT_nMODULE enModuleArg, WDT_nINT_TYPE* penTypeArg)
 {
-    WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
-
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) penTypeArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penTypeArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
     if(WDT_enERROR_OK == enErrorReg)
     {
+        WDT_Register_t stRegister;
         stRegister.uxShift = WDT_CTL_R_INTTYPE_BIT;
         stRegister.uxMask = WDT_CTL_INTTYPE_MASK;
         stRegister.uptrAddress = WDT_CTL_OFFSET;
         enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+        if(WDT_enERROR_OK == enErrorReg)
+        {
+            *penTypeArg = (WDT_nINT_TYPE) stRegister.uxValue;
+        }
     }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        *penTypeArg = (WDT_nINT_TYPE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

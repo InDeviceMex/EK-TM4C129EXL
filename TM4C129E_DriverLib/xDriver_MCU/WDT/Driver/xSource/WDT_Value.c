@@ -29,25 +29,20 @@
 
 WDT_nERROR WDT__enGetCurrentCount(WDT_nMODULE enModuleArg, UBase_t* puxIntervalArg)
 {
-    WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxIntervalArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
 
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) puxIntervalArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
     if(WDT_enERROR_OK == enErrorReg)
     {
+        WDT_Register_t stRegister;
         stRegister.uxShift = WDT_VALUE_R_VALUE_BIT;
         stRegister.uxMask = WDT_VALUE_VALUE_MASK;
         stRegister.uptrAddress = WDT_VALUE_OFFSET;
         enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+        if(WDT_enERROR_OK == enErrorReg)
+        {
+            *puxIntervalArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        *puxIntervalArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

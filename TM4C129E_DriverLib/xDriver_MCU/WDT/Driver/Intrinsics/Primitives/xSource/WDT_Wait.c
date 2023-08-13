@@ -28,36 +28,25 @@
 
 WDT_nERROR WDT__enIsWriteOngoing(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penStatusArg)
 {
-    WDT_Register_t stRegister;
-    uintptr_t uptrModuleBase;
     WDT_nERROR enErrorReg;
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
     if(WDT_enERROR_OK == enErrorReg)
     {
         enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        WDT_Register_t stRegister;
+
         stRegister.uxShift = WDT_CTL_R_WRC_BIT;
         stRegister.uxMask = WDT_CTL_WRC_MASK;
         stRegister.uptrAddress = WDT_CTL_OFFSET;
         stRegister.uptrAddress += uptrModuleBase;
         enErrorReg = (WDT_nERROR) MCU__enReadRegister(&stRegister);
-    }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        if(WDT_CTL_WRC_PROGRESS == stRegister.uxValue)
+        if(WDT_enERROR_OK == enErrorReg)
         {
-            *penStatusArg = WDT_enTRUE;
-        }
-        else
-        {
-            *penStatusArg = WDT_enFALSE;
+            *penStatusArg = (WDT_CTL_WRC_PROGRESS == stRegister.uxValue) ? WDT_enTRUE : WDT_enFALSE;
         }
     }
     return (enErrorReg);
@@ -66,32 +55,27 @@ WDT_nERROR WDT__enIsWriteOngoing(WDT_nMODULE enModuleArg, WDT_nBOOLEAN* penStatu
 WDT_nERROR WDT__enWaitWrite(WDT_nMODULE enModuleArg, UBase_t uxTimeoutArg)
 {
     WDT_nERROR enErrorReg;
-    WDT_nBOOLEAN penWriteOngoingReg;
     enErrorReg = WDT_enERROR_OK;
     if(WDT_enMODULE_1 == enModuleArg)
     {
-        penWriteOngoingReg = WDT_enFALSE;
         if(0UL == uxTimeoutArg)
         {
+            WDT_nBOOLEAN penWriteOngoingReg = WDT_enFALSE;
             do
             {
                 enErrorReg = WDT__enIsWriteOngoing(enModuleArg, &penWriteOngoingReg);
-            }while((WDT_enTRUE == penWriteOngoingReg) &&
-                   (WDT_enERROR_OK == enErrorReg));
+            }while((WDT_enTRUE == penWriteOngoingReg) && (WDT_enERROR_OK == enErrorReg));
         }
         else
         {
+            WDT_nBOOLEAN penWriteOngoingReg = WDT_enFALSE;
             do
             {
                 enErrorReg = WDT__enIsWriteOngoing(enModuleArg, &penWriteOngoingReg);
                 uxTimeoutArg--;
-            }while((WDT_enTRUE == penWriteOngoingReg) &&
-                   (WDT_enERROR_OK == enErrorReg) &&
-                   (0UL != uxTimeoutArg));
+            }while((WDT_enTRUE == penWriteOngoingReg) && (WDT_enERROR_OK == enErrorReg) && (0UL != uxTimeoutArg));
 
-            if((WDT_enTRUE == penWriteOngoingReg) &&
-               (WDT_enERROR_OK == enErrorReg) &&
-               (0UL == uxTimeoutArg))
+            if((WDT_enTRUE == penWriteOngoingReg) && (WDT_enERROR_OK == enErrorReg) && (0UL == uxTimeoutArg))
             {
                 enErrorReg = WDT_enERROR_TIMEOUT;
             }

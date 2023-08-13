@@ -29,13 +29,8 @@
 
 WDT_nERROR WDT__enReadRegisterTimeout(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg, UBase_t uxTimeoutArg)
 {
-    uintptr_t uptrModuleBase;
     WDT_nERROR enErrorReg;
-    enErrorReg = WDT_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = WDT_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? WDT_enERROR_POINTER : WDT_enERROR_OK;
     if(WDT_enERROR_OK == enErrorReg)
     {
         enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
@@ -46,7 +41,7 @@ WDT_nERROR WDT__enReadRegisterTimeout(WDT_nMODULE enModuleArg, WDT_Register_t* p
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (WDT_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
