@@ -45,10 +45,7 @@ ACMP_pvfIRQSourceHandler_t ACMP_SW__pvfGetIRQSourceHandler(ACMP_nMODULE enModule
                                                            ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg]
-                                               [(UBase_t) enComparatorArg];
-
+    pvfFunctionReg = ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
     return (pvfFunctionReg);
 }
 
@@ -56,10 +53,7 @@ ACMP_pvfIRQSourceHandler_t* ACMP_SW__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE 
                                                                    ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                [(UBase_t) enComparatorArg];
-
+    pvfFunctionReg = &ACMP_SW__vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
     return (pvfFunctionReg);
 }
 
@@ -67,10 +61,7 @@ ACMP_pvfIRQSourceHandler_t ACMP__pvfGetIRQSourceHandler(ACMP_nMODULE enModuleArg
                                                         ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = ACMP__vIRQSourceHandler[(UBase_t) enModuleArg]
-                                            [(UBase_t) enComparatorArg];
-
+    pvfFunctionReg = ACMP__vIRQSourceHandler[(UBase_t) enModuleArg] [(UBase_t) enComparatorArg];
     return (pvfFunctionReg);
 }
 
@@ -78,7 +69,6 @@ ACMP_pvfIRQSourceHandler_t* ACMP__pvfGetIRQSourceHandlerPointer(ACMP_nMODULE enM
                                                                ACMP_nCOMP enComparatorArg)
 {
     ACMP_pvfIRQSourceHandler_t* pvfFunctionReg;
-    pvfFunctionReg = &ACMP__vIRQSourceHandler[(UBase_t) enModuleArg]
-                                             [(UBase_t) enComparatorArg];
+    pvfFunctionReg = &ACMP__vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enComparatorArg];
     return (pvfFunctionReg);
 }

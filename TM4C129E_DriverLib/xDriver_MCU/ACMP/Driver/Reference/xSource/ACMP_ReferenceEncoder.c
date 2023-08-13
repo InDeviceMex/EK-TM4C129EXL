@@ -29,37 +29,32 @@
 ACMP_nERROR ACMP__enSetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t uxEncoderValueArg)
 {
     ACMP_Register_t stRegister;
-    ACMP_nERROR enErrorReg;
-
     stRegister.uxShift = ACMP_REFCTL_R_VREF_BIT;
     stRegister.uxMask = ACMP_REFCTL_VREF_MASK;
     stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
     stRegister.uxValue = uxEncoderValueArg;
-    enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
 
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enGetReferenceEncoder(ACMP_nMODULE enModuleArg, UBase_t* puxEncoderValueArg)
 {
-    ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxEncoderValueArg) ? ACMP_enERROR_POINTER : ACMP_enERROR_OK;
 
-    enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uintptr_t) puxEncoderValueArg)
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
-    }
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        ACMP_Register_t stRegister;
         stRegister.uxShift = ACMP_REFCTL_R_VREF_BIT;
         stRegister.uxMask = ACMP_REFCTL_VREF_MASK;
         stRegister.uptrAddress = ACMP_REFCTL_OFFSET;
         enErrorReg = ACMP__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ACMP_enERROR_OK == enErrorReg)
-    {
-        *puxEncoderValueArg = stRegister.uxValue;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *puxEncoderValueArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

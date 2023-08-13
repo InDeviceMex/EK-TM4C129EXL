@@ -30,9 +30,7 @@
 ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
                                              ACMP_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    ACMP_pvfIRQSourceHandler_t* pvfIrqHandler;
     ACMP_nERROR enErrorReg;
-
     enErrorReg = (ACMP_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ACMP_enMODULE_MAX);
     if(ACMP_enERROR_OK == enErrorReg)
     {
@@ -40,7 +38,7 @@ ACMP_nERROR ACMP__enRegisterIRQSourceHandler(ACMP_nMODULE enModuleArg, ACMP_nCOM
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = ACMP__pvfGetIRQSourceHandlerPointer(enModuleArg, enComparatorArg);
+        ACMP_pvfIRQSourceHandler_t* pvfIrqHandler = ACMP__pvfGetIRQSourceHandlerPointer(enModuleArg, enComparatorArg);
         enErrorReg = (ACMP_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
     return (enErrorReg);

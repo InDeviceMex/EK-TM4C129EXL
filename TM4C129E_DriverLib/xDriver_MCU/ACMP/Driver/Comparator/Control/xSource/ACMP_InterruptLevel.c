@@ -31,14 +31,13 @@ ACMP_nERROR ACMP__enSetComparatorInterruptTriggerLevel(ACMP_nMODULE enModuleArg,
                                                ACMP_nLEVEL enInterruptLevelArg)
 {
     ACMP_Register_t stRegister;
-    ACMP_nERROR enErrorReg;
-
     stRegister.uxShift = ACMP_CTL_R_ISLVAL_BIT;
     stRegister.uxMask = ACMP_CTL_ISLVAL_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enInterruptLevelArg;
-    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -46,29 +45,20 @@ ACMP_nERROR ACMP__enGetComparatorInterruptTriggerLevel(ACMP_nMODULE enModuleArg,
                                                            ACMP_nCOMP enComparatorArg,
                                                            ACMP_nLEVEL* penInterruptLevelArg)
 {
-    ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptLevelArg) ? ACMP_enERROR_POINTER : ACMP_enERROR_OK;
 
-    enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptLevelArg)
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
-    }
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        ACMP_Register_t stRegister;
         stRegister.uxShift = ACMP_CTL_R_ISLVAL_BIT;
         stRegister.uxMask = ACMP_CTL_ISLVAL_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-    }
-    if(ACMP_enERROR_OK == enErrorReg)
-    {
-        *penInterruptLevelArg = (ACMP_nLEVEL) stRegister.uxValue;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penInterruptLevelArg = (ACMP_nLEVEL) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-
-
-

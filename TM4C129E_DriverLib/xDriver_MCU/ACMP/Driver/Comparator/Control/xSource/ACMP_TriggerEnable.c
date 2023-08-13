@@ -31,38 +31,33 @@ ACMP_nERROR ACMP__enSetComparatorADCTriggerState(ACMP_nMODULE enModuleArg,
                                     ACMP_nSTATE enTriggerStateArg)
 {
     ACMP_Register_t stRegister;
-    ACMP_nERROR enErrorReg;
-
     stRegister.uxShift = ACMP_CTL_R_TOEN_BIT;
     stRegister.uxMask = ACMP_CTL_TOEN_MASK;
     stRegister.uptrAddress = ACMP_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enTriggerStateArg;
-    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
 
+    ACMP_nERROR enErrorReg;
+    enErrorReg = ACMP__enSetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
     return (enErrorReg);
 }
 
 ACMP_nERROR ACMP__enGetComparatorADCTriggerState(ACMP_nMODULE enModuleArg, ACMP_nCOMP enComparatorArg,
                                           ACMP_nSTATE* penTriggerStateArg)
 {
-    ACMP_Register_t stRegister;
     ACMP_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penTriggerStateArg) ? ACMP_enERROR_POINTER : ACMP_enERROR_OK;
 
-    enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uintptr_t) penTriggerStateArg)
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
-    }
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        ACMP_Register_t stRegister;
         stRegister.uxShift = ACMP_CTL_R_TOEN_BIT;
         stRegister.uxMask = ACMP_CTL_TOEN_MASK;
         stRegister.uptrAddress = ACMP_CTL_OFFSET;
         enErrorReg = ACMP__enGetCompGeneric(enModuleArg, enComparatorArg, &stRegister);
-    }
-    if(ACMP_enERROR_OK == enErrorReg)
-    {
-        *penTriggerStateArg = (ACMP_nSTATE) stRegister.uxValue;
+        if(ACMP_enERROR_OK == enErrorReg)
+        {
+            *penTriggerStateArg = (ACMP_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

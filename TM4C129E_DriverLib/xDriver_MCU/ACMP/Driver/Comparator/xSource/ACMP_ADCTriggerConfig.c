@@ -30,36 +30,28 @@ ACMP_nERROR ACMP__enSetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                 ACMP_nCOMP enComparatorArg,
                                 ACMP_nADC_CONFIG enIntConfigArg)
 {
-    UBase_t uxSense;
-    UBase_t uxEvent;
     ACMP_nERROR enErrorReg;
-
+    UBase_t uxEvent;
+    UBase_t uxSense;
     uxSense = (UBase_t) enIntConfigArg;
     uxSense >>= 8UL;
     uxSense &= 1UL;
 
     uxEvent = (UBase_t) enIntConfigArg;
     uxEvent &= 0x3UL;
-
+    enErrorReg = ACMP_enERROR_VALUE;
     if((UBase_t) ACMP_enSENSE_EDGE == uxSense)
     {
-        enErrorReg = ACMP__enSetComparatorADCTriggerEdge(enModuleArg,
-                                           enComparatorArg,
-                                           (ACMP_nEDGE) uxEvent);
+        enErrorReg = ACMP__enSetComparatorADCTriggerEdge(enModuleArg, enComparatorArg, (ACMP_nEDGE) uxEvent);
     }
     else
     {
-        enErrorReg = ACMP__enSetComparatorADCTriggerEdge(enModuleArg,
-                                           enComparatorArg,
-                                           ACMP_enEDGE_NONE);
+        enErrorReg = ACMP__enSetComparatorADCTriggerEdge(enModuleArg, enComparatorArg, ACMP_enEDGE_NONE);
         if(ACMP_enERROR_OK == enErrorReg)
         {
-            enErrorReg = ACMP__enSetComparatorADCTriggerLevel(enModuleArg,
-                                            enComparatorArg,
-                                            (ACMP_nLEVEL) uxEvent);
+            enErrorReg = ACMP__enSetComparatorADCTriggerLevel(enModuleArg, enComparatorArg, (ACMP_nLEVEL) uxEvent);
         }
     }
-
     return (enErrorReg);
 }
 
@@ -67,29 +59,23 @@ ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
                                ACMP_nCOMP enComparatorArg,
                                ACMP_nADC_CONFIG* penIntConfigArg)
 {
-    UBase_t uxSense;
-    ACMP_nERROR enErrorReg;
-    ACMP_nEDGE enEdgeReg;
-    ACMP_nLEVEL enLevelReg;
 
-    enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uintptr_t) penIntConfigArg)
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
-    }
+    ACMP_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penIntConfigArg) ? ACMP_enERROR_POINTER : ACMP_enERROR_OK;
+
+    ACMP_nEDGE enEdgeReg;
+    enEdgeReg = ACMP_enEDGE_NONE;
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enEdgeReg = ACMP_enEDGE_NONE;
-        enLevelReg = ACMP_enLEVEL_LOW;
         enErrorReg = ACMP__enGetComparatorADCTriggerEdge(enModuleArg, enComparatorArg, &enEdgeReg);
     }
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        UBase_t uxSense;
         if(ACMP_enEDGE_NONE == enEdgeReg)
         {
-            enErrorReg = ACMP__enGetComparatorADCTriggerLevel(enModuleArg,
-                                                  enComparatorArg,
-                                                  &enLevelReg);
+            ACMP_nLEVEL enLevelReg;
+            enErrorReg = ACMP__enGetComparatorADCTriggerLevel(enModuleArg, enComparatorArg, &enLevelReg);
             if(ACMP_enERROR_OK == enErrorReg)
             {
                 uxSense = (UBase_t) enLevelReg;

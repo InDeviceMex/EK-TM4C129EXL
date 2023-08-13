@@ -30,33 +30,26 @@ ACMP_nERROR ACMP__enSetInterruptConfig(ACMP_nMODULE enModuleArg,
                                ACMP_nCOMP enComparatorArg,
                                ACMP_nINT_CONFIG enIntConfigArg)
 {
-    UBase_t uxSense;
     UBase_t uxEvent;
+    UBase_t uxSense;
     ACMP_nERROR enErrorReg;
-
     uxSense = (UBase_t) enIntConfigArg;
     uxSense >>= 8UL;
     uxSense &= 1UL;
 
     uxEvent = (UBase_t) enIntConfigArg;
     uxEvent &= 0x3UL;
-
+    enErrorReg = ACMP_enERROR_VALUE;
     if((UBase_t) ACMP_enSENSE_EDGE == uxSense)
     {
-        enErrorReg = ACMP__enSetComparatorInterruptTriggerEdge(enModuleArg,
-                                                 enComparatorArg,
-                                                 (ACMP_nEDGE) uxEvent);
+        enErrorReg = ACMP__enSetComparatorInterruptTriggerEdge(enModuleArg, enComparatorArg, (ACMP_nEDGE) uxEvent);
     }
     else
     {
-        enErrorReg = ACMP__enSetComparatorInterruptTriggerEdge(enModuleArg,
-                                                 enComparatorArg,
-                                                 ACMP_enEDGE_NONE);
+        enErrorReg = ACMP__enSetComparatorInterruptTriggerEdge(enModuleArg, enComparatorArg, ACMP_enEDGE_NONE);
         if(ACMP_enERROR_OK == enErrorReg)
         {
-            enErrorReg = ACMP__enSetComparatorInterruptTriggerLevel(enModuleArg,
-                                                  enComparatorArg,
-                                                  (ACMP_nLEVEL) uxEvent);
+            enErrorReg = ACMP__enSetComparatorInterruptTriggerLevel(enModuleArg, enComparatorArg, (ACMP_nLEVEL) uxEvent);
         }
     }
 
@@ -69,24 +62,22 @@ ACMP_nERROR ACMP__enGetInterruptConfig(ACMP_nMODULE enModuleArg,
                                ACMP_nCOMP enComparatorArg,
                                ACMP_nINT_CONFIG* penIntConfigArg)
 {
-    UBase_t uxSense;
-    ACMP_nERROR enErrorReg;
-    ACMP_nEDGE enEdgeReg;
-    ACMP_nLEVEL enLevelReg;
 
-    enErrorReg = ACMP_enERROR_OK;
-    if(0UL == (uintptr_t) penIntConfigArg)
-    {
-        enErrorReg = ACMP_enERROR_POINTER;
-    }
+    ACMP_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penIntConfigArg) ? ACMP_enERROR_POINTER : ACMP_enERROR_OK;
+
+    ACMP_nEDGE enEdgeReg;
+    enEdgeReg = ACMP_enEDGE_NONE;
     if(ACMP_enERROR_OK == enErrorReg)
     {
-        enEdgeReg = ACMP_enEDGE_NONE;
-        enLevelReg = ACMP_enLEVEL_LOW;
         enErrorReg = ACMP__enGetComparatorInterruptTriggerEdge(enModuleArg, enComparatorArg, &enEdgeReg);
     }
+
+    ACMP_nLEVEL enLevelReg;
+    enLevelReg = ACMP_enLEVEL_LOW;
     if(ACMP_enERROR_OK == enErrorReg)
     {
+        UBase_t uxSense;
         if(ACMP_enEDGE_NONE == enEdgeReg)
         {
             enErrorReg = ACMP__enGetComparatorInterruptTriggerLevel(enModuleArg,
