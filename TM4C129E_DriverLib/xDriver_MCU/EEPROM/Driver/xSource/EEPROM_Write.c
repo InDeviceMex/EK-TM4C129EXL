@@ -15,9 +15,10 @@ EEPROM_nERROR EEPROM__enWriteAuxiliar(EEPROM_nMODULE enModuleArg, UBase_t uxData
                                           EEPROM_nVARIABLE enVariableTypeArg)
 {
     EEPROM_nERROR enErrorReg;
-    static UBase_t uxDataAux;
-
     enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxAddressArg);
+
+    UBase_t uxDataAux;
+    uxDataAux = 0UL;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enReadData(enModuleArg, &uxDataAux);
@@ -59,31 +60,30 @@ EEPROM_nERROR EEPROM__enWriteByte(EEPROM_nMODULE enModuleArg, uint8_t u8DataArg,
 
 EEPROM_nERROR EEPROM__enWriteWordBlock(EEPROM_nMODULE enModuleArg, const UBase_t* puxDataArg, UBase_t uxStartAddressArg, UBase_t* puxCount)
 {
-    EEPROM_nERROR enErrorReg;
-    UBase_t uxOffsetReg;
-    UBase_t uxCurrentCountReg;
-    UBase_t uxMaxCountReg;
 
-    uxCurrentCountReg = 0U;
+    EEPROM_nERROR enErrorReg;
     enErrorReg = EEPROM_enERROR_OK;
     if((0UL == (uintptr_t) puxDataArg) || (0UL == (uintptr_t) puxCount))
     {
         enErrorReg = EEPROM_enERROR_POINTER;
     }
-    if(EEPROM_enERROR_OK == enErrorReg)
+
+    if((EEPROM_enERROR_OK == enErrorReg) && (0UL == *puxCount))
     {
-        if(0UL == *puxCount)
-        {
-            enErrorReg = EEPROM_enERROR_VALUE;
-        }
+        enErrorReg = EEPROM_enERROR_VALUE;
     }
+
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxStartAddressArg);
     }
+
+    UBase_t uxCurrentCountReg;
+    uxCurrentCountReg = 0U;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        uxMaxCountReg = *puxCount;
+        UBase_t uxOffsetReg = 0UL;
+        UBase_t uxMaxCountReg = *puxCount;
         do
         {
             enErrorReg = EEPROM__enWriteDataWithIncrement(enModuleArg, *puxDataArg);

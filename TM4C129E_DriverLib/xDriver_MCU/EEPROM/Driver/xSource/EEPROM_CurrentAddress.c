@@ -29,12 +29,10 @@
 
 EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentAddressArg)
 {
-    EEPROM_nERROR enErrorReg;
     UBase_t uxMaxAddressReg;
-    UBase_t uxBlockReg;
-    UBase_t uxOffsetReg;
-
     uxMaxAddressReg = 0UL;
+
+    EEPROM_nERROR enErrorReg;
     enErrorReg = EEPROM__enGetWordCount(EEPROM_enMODULE_0 , &uxMaxAddressReg);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
@@ -46,13 +44,13 @@ EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t ux
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        uxBlockReg = uxCurrentAddressArg;
+        UBase_t uxBlockReg = uxCurrentAddressArg;
         uxBlockReg >>= 6UL;
         enErrorReg = EEPROM__enSetCurrentBlock(enModuleArg, uxBlockReg);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = uxCurrentAddressArg;
+        UBase_t uxOffsetReg = uxCurrentAddressArg;
         uxOffsetReg >>= 2UL;
         uxOffsetReg &= 0xFUL;
         enErrorReg = EEPROM__enSetCurrentOffset(enModuleArg, uxOffsetReg);
@@ -64,30 +62,27 @@ EEPROM_nERROR EEPROM__enSetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t ux
 EEPROM_nERROR EEPROM__enGetCurrentAddress(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentAddressArg)
 {
     EEPROM_nERROR enErrorReg;
-    UBase_t uxCurrentAddressReg;
-    UBase_t uxBlockReg;
-    UBase_t uxOffsetReg;
+    enErrorReg = (0UL == (uintptr_t) puxCurrentAddressArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxCurrentAddressArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
+    UBase_t uxBlockReg;
+    uxBlockReg = 0UL;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        uxBlockReg = 0UL;
         enErrorReg = EEPROM__enGetCurrentBlock(enModuleArg, &uxBlockReg);
     }
+
+    UBase_t uxOffsetReg;
+    uxOffsetReg = 0UL;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         uxBlockReg <<= 6UL;
-        uxOffsetReg = 0UL;
         enErrorReg = EEPROM__enGetCurrentOffset(enModuleArg, &uxOffsetReg);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         uxOffsetReg <<= 2UL;
-        uxCurrentAddressReg = (UBase_t) uxBlockReg;
+
+        UBase_t uxCurrentAddressReg = (UBase_t) uxBlockReg;
         uxCurrentAddressReg |= uxOffsetReg;
         *puxCurrentAddressArg = (UBase_t) uxCurrentAddressReg;
     }

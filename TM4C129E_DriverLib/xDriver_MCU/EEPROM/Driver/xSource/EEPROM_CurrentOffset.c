@@ -30,41 +30,32 @@
 EEPROM_nERROR EEPROM__enSetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentOffsetArg)
 {
     EEPROM_Register_t stRegister;
-    EEPROM_nERROR enErrorReg;
-
     stRegister.uxShift = EEPROM_OFFSET_R_OFFSET_BIT;
     stRegister.uxMask = EEPROM_OFFSET_OFFSET_MASK;
     stRegister.uptrAddress = EEPROM_OFFSET_OFFSET;
     stRegister.uxValue = uxCurrentOffsetArg;
+
+    EEPROM_nERROR enErrorReg;
     enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 EEPROM_nERROR EEPROM__enGetCurrentOffset(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentOffsetArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxCurrentOffsetArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxCurrentOffsetArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_OFFSET_R_OFFSET_BIT;
         stRegister.uxMask = EEPROM_OFFSET_OFFSET_MASK;
         stRegister.uptrAddress = EEPROM_OFFSET_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxCurrentOffsetArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxCurrentOffsetArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-
-
-

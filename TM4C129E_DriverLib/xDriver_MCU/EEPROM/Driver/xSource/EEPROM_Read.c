@@ -17,9 +17,10 @@ EEPROM_nERROR EEPROM__enReadAuxiliar(EEPROM_nMODULE enModuleArg, void* pvDataArg
                                      EEPROM_nVARIABLE enVariableTypeArg)
 {
     EEPROM_nERROR enErrorReg;
-    static UBase_t uxDataAux;
-
     enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxAddressArg);
+
+    UBase_t uxDataAux;
+    uxDataAux = 0;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enReadData(enModuleArg, &uxDataAux);

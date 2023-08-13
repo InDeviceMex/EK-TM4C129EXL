@@ -29,28 +29,20 @@
 
 EEPROM_nERROR EEPROM__enGetWordCount(EEPROM_nMODULE enModuleArg, UBase_t* puxWorldCountArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxWorldCountArg) ? EEPROM_enERROR_POINTER :  EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxWorldCountArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_SIZE_R_WORDCNT_BIT;
         stRegister.uxMask = EEPROM_SIZE_WORDCNT_MASK;
         stRegister.uptrAddress = EEPROM_SIZE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxWorldCountArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxWorldCountArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-
-

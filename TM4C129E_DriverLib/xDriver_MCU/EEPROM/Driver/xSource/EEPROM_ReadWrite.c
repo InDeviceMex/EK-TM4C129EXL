@@ -48,42 +48,35 @@ EEPROM_nERROR EEPROM__enWriteData(EEPROM_nMODULE enModuleArg, UBase_t uxWordArg)
 
 EEPROM_nERROR EEPROM__enReadData(EEPROM_nMODULE enModuleArg, UBase_t* puxWordArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxWordArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxWordArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_RDWR_R_VALUE_BIT;
         stRegister.uxMask = EEPROM_RDWR_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWR_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxWordArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxWordArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
-
-
 EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase_t uxWordArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
-
     enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_RDWRINC_R_VALUE_BIT;
         stRegister.uxMask = EEPROM_RDWRINC_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWRINC_OFFSET;
@@ -95,32 +88,23 @@ EEPROM_nERROR EEPROM__enWriteDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase
 
 EEPROM_nERROR EEPROM__enReadDataWithIncrement(EEPROM_nMODULE enModuleArg, UBase_t* puxWordArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
-
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxWordArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxWordArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enWait(enModuleArg, EEPROM_TIMEOUT_MAX);
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_RDWRINC_R_VALUE_BIT;
         stRegister.uxMask = EEPROM_RDWRINC_VALUE_MASK;
         stRegister.uptrAddress = EEPROM_RDWRINC_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxWordArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxWordArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-
-

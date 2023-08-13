@@ -35,62 +35,50 @@
 
 EEPROM_nERROR EEPROM__enIsWorking(EEPROM_nMODULE enModuleArg, EEPROM_nBOOLEAN* penStatusArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_DONE_R_WORKING_BIT;
         stRegister.uxMask = EEPROM_DONE_WORKING_MASK;
         stRegister.uptrAddress = EEPROM_DONE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (EEPROM_nBOOLEAN) stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (EEPROM_nBOOLEAN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 EEPROM_nERROR EEPROM__enWait(EEPROM_nMODULE enModuleArg, UBase_t uxRetriesArg)
 {
-    EEPROM_nERROR enErrorReg;
-    EEPROM_nBOOLEAN enStatusReg;
 
+    EEPROM_nERROR enErrorReg;
     enErrorReg = EEPROM_enERROR_OK;
     if(0UL == uxRetriesArg)
     {
+        EEPROM_nBOOLEAN enStatusReg = EEPROM_enFALSE;
         do
         {
             enErrorReg = EEPROM__enIsWorking(enModuleArg, &enStatusReg);
-        }while((EEPROM_enTRUE == enStatusReg) &&
-               (EEPROM_enERROR_OK == enErrorReg));
+        }while((EEPROM_enTRUE == enStatusReg) && (EEPROM_enERROR_OK == enErrorReg));
     }
     else
     {
+        EEPROM_nBOOLEAN enStatusReg = EEPROM_enFALSE;
         do
         {
             enErrorReg = EEPROM__enIsWorking(enModuleArg, &enStatusReg);
             uxRetriesArg--;
-        }while((EEPROM_enTRUE == enStatusReg) &&
-               (0UL != uxRetriesArg) &&
-               (EEPROM_enERROR_OK == enErrorReg));
+        }while((EEPROM_enTRUE == enStatusReg) && (0UL != uxRetriesArg) && (EEPROM_enERROR_OK == enErrorReg));
 
-        if((0UL == uxRetriesArg) &&
-           (EEPROM_enERROR_OK == enErrorReg) &&
-           (EEPROM_enTRUE == enStatusReg))
+        if((0UL == uxRetriesArg) && (EEPROM_enERROR_OK == enErrorReg) && (EEPROM_enTRUE == enStatusReg))
         {
             enErrorReg = EEPROM_enERROR_TIMEOUT;
         }
     }
     return (enErrorReg);
 }
-
-
-
-

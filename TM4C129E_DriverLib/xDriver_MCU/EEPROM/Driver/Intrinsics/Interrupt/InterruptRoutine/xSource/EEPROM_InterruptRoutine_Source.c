@@ -39,9 +39,7 @@ EEPROM_pvfIRQSourceHandler_t EEPROM__pvfGetIRQSourceHandler(EEPROM_nMODULE enMod
                                                             EEPROM_nINT enIntSourceArg)
 {
     EEPROM_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = EEPROM_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                              [(UBase_t) enIntSourceArg];
+    pvfFunctionReg = EEPROM_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }
 
@@ -50,9 +48,6 @@ EEPROM_pvfIRQSourceHandler_t* EEPROM__pvfGetIRQSourceHandlerPointer(EEPROM_nMODU
                                                                     EEPROM_nINT enIntSourceArg)
 {
     EEPROM_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &EEPROM_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                               [(UBase_t) enIntSourceArg];
-
+    pvfFunctionReg = &EEPROM_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enIntSourceArg];
     return (pvfFunctionReg);
 }

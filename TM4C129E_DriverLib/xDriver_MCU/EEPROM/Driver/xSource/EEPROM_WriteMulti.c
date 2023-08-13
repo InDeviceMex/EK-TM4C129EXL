@@ -25,42 +25,26 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
                                       EEPROM_nCONSTANT enConstantTypeArg)
 {
     EEPROM_nERROR enErrorReg;
-    UBase_t uxOffsetReg;
-    UBase_t uxAddingReg;
+    enErrorReg = (0UL == (uintptr_t) pvDataArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
+
     UBase_t uxMaxAddress;
-    uint8_t *pu8DataAux;
-    uint16_t *pu16DataAux;
-    UBase_t *puxDataAux;
-
-
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) pvDataArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
+    uxMaxAddress = 0UL;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        uxMaxAddress = 0UL;
         enErrorReg = EEPROM__enGetWordCount(enModuleArg, &uxMaxAddress);
     }
+
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         uxMaxAddress <<= 2UL;
-
-        if(EEPROM_enCONSTANT_OFF == enConstantTypeArg)
-        {
-            uxAddingReg = 1U;
-        }
-        else
-        {
-            uxAddingReg = 0U;
-        }
+        UBase_t uxAddingReg = (EEPROM_enCONSTANT_OFF == enConstantTypeArg) ? 1U : 0U;
 
         switch (enVariableTypeArg)
         {
         case EEPROM_enVARIABLE_BYTE:
-            pu8DataAux = (uint8_t*) pvDataArg;
-            uxOffsetReg = 1UL;
+        {
+            uint8_t *pu8DataAux = (uint8_t*) pvDataArg;
+            UBase_t uxOffsetReg = 1UL;
             while((uxMaxAddress > uxAddressArg) &&
                   (u16CountArg > 0U) &&
                   (EEPROM_enERROR_OK == enErrorReg))
@@ -70,10 +54,12 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
                 uxAddressArg += uxOffsetReg;
                 u16CountArg--;
             }
+        }
         break;
         case EEPROM_enVARIABLE_HALFWORD:
-            pu16DataAux = (uint16_t*) pvDataArg;
-            uxOffsetReg = 2UL;
+        {
+            uint16_t *pu16DataAux = (uint16_t*) pvDataArg;
+            UBase_t uxOffsetReg = 2UL;
             while((uxMaxAddress > uxAddressArg) &&
                   (u16CountArg > 0U) &&
                   (EEPROM_enERROR_OK == enErrorReg))
@@ -83,10 +69,12 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
                 uxAddressArg += uxOffsetReg;
                 u16CountArg--;
             }
+        }
         break;
         case EEPROM_enVARIABLE_WORD:
-            puxDataAux = (UBase_t*) pvDataArg;
-            uxOffsetReg = 4UL;
+        {
+            UBase_t *puxDataAux = (UBase_t*) pvDataArg;
+            UBase_t uxOffsetReg = 4UL;
             while((uxMaxAddress > uxAddressArg) &&
                   (u16CountArg >  0U) &&
                   (EEPROM_enERROR_OK == enErrorReg))
@@ -96,6 +84,7 @@ EEPROM_nERROR EEPROM__enWriteMultiAlt(EEPROM_nMODULE enModuleArg, void* pvDataAr
                 uxAddressArg += uxOffsetReg;
                 u16CountArg--;
             }
+        }
         break;
         default:
             enErrorReg = EEPROM_enERROR_VALUE;

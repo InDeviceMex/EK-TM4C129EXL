@@ -30,36 +30,32 @@
 EEPROM_nERROR EEPROM__enSetCurrentBlock(EEPROM_nMODULE enModuleArg, UBase_t uxCurrentBlockArg)
 {
     EEPROM_Register_t stRegister;
-    EEPROM_nERROR enErrorReg;
-
     stRegister.uxShift = EEPROM_BLOCK_R_BLOCK_BIT;
     stRegister.uxMask = EEPROM_BLOCK_BLOCK_MASK;
     stRegister.uptrAddress = EEPROM_BLOCK_OFFSET;
     stRegister.uxValue = uxCurrentBlockArg;
+
+    EEPROM_nERROR enErrorReg;
     enErrorReg = EEPROM__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 EEPROM_nERROR EEPROM__enGetCurrentBlock(EEPROM_nMODULE enModuleArg, UBase_t* puxCurrentBlockArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxCurrentBlockArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxCurrentBlockArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_BLOCK_R_BLOCK_BIT;
         stRegister.uxMask = EEPROM_BLOCK_BLOCK_MASK;
         stRegister.uptrAddress = EEPROM_BLOCK_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxCurrentBlockArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxCurrentBlockArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

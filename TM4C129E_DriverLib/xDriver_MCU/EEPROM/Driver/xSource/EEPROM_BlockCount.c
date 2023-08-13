@@ -29,24 +29,20 @@
 
 EEPROM_nERROR EEPROM__enGetBlockCount(EEPROM_nMODULE enModuleArg, UBase_t* puxBlockCountArg)
 {
-    EEPROM_Register_t stRegister;
     EEPROM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxBlockCountArg) ? EEPROM_enERROR_POINTER : EEPROM_enERROR_OK;
 
-    enErrorReg = EEPROM_enERROR_OK;
-    if(0UL == (uintptr_t) puxBlockCountArg)
-    {
-        enErrorReg = EEPROM_enERROR_POINTER;
-    }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
+        EEPROM_Register_t stRegister;
         stRegister.uxShift = EEPROM_SIZE_R_BLKCNT_BIT;
         stRegister.uxMask = EEPROM_SIZE_BLKCNT_MASK;
         stRegister.uptrAddress = EEPROM_SIZE_OFFSET;
         enErrorReg = EEPROM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(EEPROM_enERROR_OK == enErrorReg)
-    {
-        *puxBlockCountArg = stRegister.uxValue;
+        if(EEPROM_enERROR_OK == enErrorReg)
+        {
+            *puxBlockCountArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

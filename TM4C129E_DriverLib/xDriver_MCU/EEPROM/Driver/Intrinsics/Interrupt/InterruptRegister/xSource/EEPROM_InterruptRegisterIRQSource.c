@@ -31,9 +31,7 @@ EEPROM_nERROR EEPROM__enRegisterIRQSourceHandler(EEPROM_pvfIRQSourceHandler_t pf
                                                  EEPROM_nMODULE enModuleArg,
                                                  EEPROM_nINT enIntSourceArg)
 {
-    EEPROM_pvfIRQSourceHandler_t* pvfIrqHandler;
     EEPROM_nERROR enErrorReg;
-
     enErrorReg = (EEPROM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) EEPROM_enMODULE_MAX);
     if(EEPROM_enERROR_OK == enErrorReg)
     {
@@ -41,7 +39,7 @@ EEPROM_nERROR EEPROM__enRegisterIRQSourceHandler(EEPROM_pvfIRQSourceHandler_t pf
     }
     if(EEPROM_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = EEPROM__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        EEPROM_pvfIRQSourceHandler_t* pvfIrqHandler = EEPROM__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (EEPROM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 
