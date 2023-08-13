@@ -29,9 +29,7 @@
 
 SYSEXC_nERROR SYSEXC__enRegisterIRQSourceHandler(SYSEXC_nMODULE enModuleArg, SYSEXC_nINT enIntSourceArg, SYSEXC_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    SYSEXC_pvfIRQSourceHandler_t* pvfIrqHandler;
     SYSEXC_nERROR enErrorReg;
-
     enErrorReg = (SYSEXC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSEXC_enMODULE_MAX);
     if(SYSEXC_enERROR_OK == enErrorReg)
     {
@@ -39,13 +37,9 @@ SYSEXC_nERROR SYSEXC__enRegisterIRQSourceHandler(SYSEXC_nMODULE enModuleArg, SYS
     }
     if(SYSEXC_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = SYSEXC__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        SYSEXC_pvfIRQSourceHandler_t* pvfIrqHandler = SYSEXC__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (SYSEXC_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 
     return (enErrorReg);
 }
-
-
-
-

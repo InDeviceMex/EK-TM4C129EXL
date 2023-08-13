@@ -28,20 +28,15 @@
 
 SYSEXC_nERROR SYSEXC__enWriteRegister(SYSEXC_nMODULE enModuleArg, SYSEXC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     SYSEXC_nERROR enErrorReg;
-    enErrorReg = SYSEXC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = SYSEXC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? SYSEXC_enERROR_POINTER : SYSEXC_enERROR_OK;
     if(SYSEXC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SYSEXC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSEXC_enMODULE_MAX);
     }
     if(SYSEXC_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = SYSEXC__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = SYSEXC__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SYSEXC_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
