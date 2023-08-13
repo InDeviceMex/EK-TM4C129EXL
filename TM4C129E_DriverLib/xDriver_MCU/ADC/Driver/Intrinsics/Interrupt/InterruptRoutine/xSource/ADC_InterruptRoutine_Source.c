@@ -143,10 +143,7 @@ ADC_pvfIRQSourceHandler_t ADC_SW__pvfGetIRQSourceHandler(ADC_nMODULE enModuleArg
                                                          ADC_nSEQUENCER enSequencerArg)
 {
     ADC_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = ADC_SW_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                              [(UBase_t) enSequencerArg];
-
+    pvfFunctionReg = ADC_SW_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enSequencerArg];
     return (pvfFunctionReg);
 }
 
@@ -155,10 +152,7 @@ ADC_pvfIRQSourceHandler_t* ADC_SW__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enM
                                                                  ADC_nSEQUENCER enSequencerArg)
 {
     ADC_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &ADC_SW_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                               [(UBase_t) enSequencerArg];
-
+    pvfFunctionReg = &ADC_SW_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t) enSequencerArg];
     return (pvfFunctionReg);
 }
 
@@ -167,52 +161,33 @@ ADC_pvfIRQSourceHandler_t ADC_Sequencer__pvfGetIRQSourceHandler(ADC_nMODULE enMo
                                                              ADC_nINT_TYPE enIntTypeArg)
 {
     ADC_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = ADC_Sequencer_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                  [(UBase_t)enSequencerArg]
-                                                  [(UBase_t)enIntTypeArg];
-
+    pvfFunctionReg = ADC_Sequencer_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enSequencerArg][(UBase_t)enIntTypeArg];
     return (pvfFunctionReg);
 }
-
 
 ADC_pvfIRQSourceHandler_t* ADC_Sequencer__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enModuleArg,
                                                                      ADC_nSEQUENCER enSequencerArg,
                                                                      ADC_nINT_TYPE enIntTypeArg)
 {
     ADC_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &ADC_Sequencer_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                    [(UBase_t)enSequencerArg]
-                                                    [(UBase_t)enIntTypeArg];
-
+    pvfFunctionReg = &ADC_Sequencer_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enSequencerArg][(UBase_t)enIntTypeArg];
     return (pvfFunctionReg);
 }
-
 
 ADC_pvfIRQSourceHandler_t ADC_Comparator__pvfGetIRQSourceHandler(ADC_nMODULE enModuleArg,
                                                              ADC_nSEQUENCER enSequencerArg,
                                                              ADC_nCOMPARATOR enComparatorArg)
 {
     ADC_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = ADC_Comparator_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                  [(UBase_t)enSequencerArg]
-                                                  [(UBase_t)enComparatorArg];
-
+    pvfFunctionReg = ADC_Comparator_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enSequencerArg][(UBase_t)enComparatorArg];
     return (pvfFunctionReg);
 }
-
 
 ADC_pvfIRQSourceHandler_t* ADC_Comparator__pvfGetIRQSourceHandlerPointer(ADC_nMODULE enModuleArg,
                                                                      ADC_nSEQUENCER enSequencerArg,
                                                                      ADC_nCOMPARATOR enComparatorArg)
 {
     ADC_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &ADC_Comparator_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                    [(UBase_t)enSequencerArg]
-                                                    [(UBase_t)enComparatorArg];
-
+    pvfFunctionReg = &ADC_Comparator_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enSequencerArg][(UBase_t)enComparatorArg];
     return (pvfFunctionReg);
 }

@@ -29,38 +29,33 @@
 ADC_nERROR ADC__enSetAverageSampling(ADC_nMODULE enModuleArg, ADC_nAVERAGE enAverageArg)
 {
     ADC_Register_t stRegister;
-    ADC_nERROR enErrorReg;
-
     stRegister.uxShift = ADC_SAC_R_AVG_BIT;
     stRegister.uxMask = ADC_SAC_AVG_MASK;
     stRegister.uptrAddress = ADC_SAC_OFFSET;
     stRegister.uxValue = (UBase_t) enAverageArg;
-    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 
 ADC_nERROR ADC__enGetAverageSampling(ADC_nMODULE enModuleArg, ADC_nAVERAGE* penAverageArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penAverageArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penAverageArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_SAC_R_AVG_BIT;
         stRegister.uxMask = ADC_SAC_AVG_MASK;
         stRegister.uptrAddress = ADC_SAC_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penAverageArg = (ADC_nAVERAGE) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penAverageArg = (ADC_nAVERAGE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

@@ -28,24 +28,20 @@
 
 ADC_nERROR ADC__enGetStatus(ADC_nMODULE enModuleArg, ADC_nSTATUS* penStatusArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_ACTSS_R_BUSY_BIT;
         stRegister.uxMask = ADC_ACTSS_BUSY_MASK;
         stRegister.uptrAddress = ADC_ACTSS_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

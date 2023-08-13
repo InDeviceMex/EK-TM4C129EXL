@@ -29,50 +29,48 @@
 
 ADC_nERROR ADC_Comparator__enResetTriggerConditionsByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_DC_RIC_R_DCINT0_BIT;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
         stRegister.uxValue = (UBase_t) enComparatorMaskArg;
         stRegister.uxValue <<= ADC_DC_RIC_R_DCTRIG0_BIT;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        do
+        if(ADC_enERROR_OK == enErrorReg)
         {
-            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
+            do
+            {
+                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
+        }
     }
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enResetTriggerConditionsByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enComparatorArg;
         stRegister.uxShift += ADC_DC_RIC_R_DCTRIG0_BIT;
         stRegister.uxMask = ADC_DC_RIC_DCTRIG0_MASK;
         stRegister.uptrAddress = ADC_DC_RIC_OFFSET;
         stRegister.uxValue = ADC_DC_RIC_DCTRIG0_RESET;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        do
+        if(ADC_enERROR_OK == enErrorReg)
         {
-            enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-        }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
+            do
+            {
+                enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
+            }while((ADC_enERROR_OK == enErrorReg) && (0UL != stRegister.uxValue));
+        }
     }
     return (enErrorReg);
 }

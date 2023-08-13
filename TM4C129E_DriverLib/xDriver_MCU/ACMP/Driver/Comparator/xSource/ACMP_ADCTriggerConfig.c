@@ -74,7 +74,7 @@ ACMP_nERROR ACMP__enGetADCTriggerConfig(ACMP_nMODULE enModuleArg,
         UBase_t uxSense;
         if(ACMP_enEDGE_NONE == enEdgeReg)
         {
-            ACMP_nLEVEL enLevelReg;
+            ACMP_nLEVEL enLevelReg = ACMP_enLEVEL_LOW;
             enErrorReg = ACMP__enGetComparatorADCTriggerLevel(enModuleArg, enComparatorArg, &enLevelReg);
             if(ACMP_enERROR_OK == enErrorReg)
             {

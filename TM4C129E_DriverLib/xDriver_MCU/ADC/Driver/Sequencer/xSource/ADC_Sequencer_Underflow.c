@@ -29,30 +29,27 @@
 
 ADC_nERROR ADC_Sequencer__enClearUnderflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_USTAT_R_UV0_BIT;
         stRegister.uxMask = (UBase_t) enSequencerMaskArg;
         stRegister.uptrAddress = ADC_USTAT_OFFSET;
         stRegister.uxValue = (UBase_t) enSequencerMaskArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enClearUnderflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift += ADC_USTAT_R_UV0_BIT;
         stRegister.uxMask = ADC_USTAT_UV0_MASK;
@@ -67,28 +64,24 @@ ADC_nERROR ADC_Sequencer__enClearUnderflowByNumber(ADC_nMODULE enModuleArg, ADC_
 ADC_nERROR ADC_Sequencer__enGetUnderflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                               ADC_nSEQMASK* penStatusArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_USTAT_R_UV0_BIT;
         stRegister.uxMask = (UBase_t) enSequencerMaskArg;
         stRegister.uptrAddress = ADC_USTAT_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (ADC_nSEQMASK) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (ADC_nSEQMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -96,29 +89,25 @@ ADC_nERROR ADC_Sequencer__enGetUnderflowByMask(ADC_nMODULE enModuleArg, ADC_nSEQ
 ADC_nERROR ADC_Sequencer__enGetUnderflowByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                               ADC_nSTATUS* penStatusArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift += ADC_USTAT_R_UV0_BIT;
         stRegister.uxMask = ADC_USTAT_UV0_MASK;
         stRegister.uptrAddress = ADC_USTAT_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (ADC_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

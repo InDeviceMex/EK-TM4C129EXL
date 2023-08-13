@@ -28,48 +28,40 @@
 
 ADC_nERROR ADC__enGetMaximumInputNumber(ADC_nMODULE enModuleArg, UBase_t* puxInputNumberArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxInputNumberArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) puxInputNumberArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_PP_R_CH_BIT;
         stRegister.uxMask = ADC_PP_CH_MASK;
         stRegister.uptrAddress = ADC_PP_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *puxInputNumberArg = stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *puxInputNumberArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 ADC_nERROR ADC__enGetMaximumComparatorNumber(ADC_nMODULE enModuleArg, UBase_t* puxComparatorNumberArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxComparatorNumberArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) puxComparatorNumberArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_PP_R_DC_BIT;
         stRegister.uxMask = ADC_PP_DC_MASK;
         stRegister.uptrAddress = ADC_PP_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *puxComparatorNumberArg = stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *puxComparatorNumberArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

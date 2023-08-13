@@ -30,17 +30,13 @@
 ADC_nERROR ADC_Sample__enSetSampleHoldByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                 ADC_nSAMPLE enSampleArg, ADC_nSH enSampleHoldArg)
 {
-    UBase_t uxSequencerReg;
-    UBase_t uxSequencerMaskReg;
-    ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
-
     enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        uxSequencerReg = 0U;
-        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
-        enErrorReg = ADC_enERROR_OK;
+        UBase_t uxSequencerReg = 0U;
+        UBase_t uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        ADC_nERROR enErrorReg = ADC_enERROR_OK;
         while(0U != uxSequencerMaskReg)
         {
             if(0UL != ((UBase_t) ADC_enSEQMASK_0 & uxSequencerMaskReg))
@@ -56,7 +52,6 @@ ADC_nERROR ADC_Sample__enSetSampleHoldByMask(ADC_nMODULE enModuleArg, ADC_nSEQMA
             uxSequencerMaskReg >>= 1U;
         }
     }
-
     return (enErrorMemoryReg);
 }
 
@@ -64,12 +59,12 @@ ADC_nERROR ADC_Sample__enSetSampleHoldByNumber(ADC_nMODULE enModuleArg, ADC_nSEQ
                                                   ADC_nSAMPLE enSampleArg, ADC_nSH enSampleHoldArg)
 {
     ADC_Register_t stRegister;
-    ADC_nERROR enErrorReg;
-
     stRegister.uxShift = ADC_SS_TSH_R_TSH0_BIT;
     stRegister.uxMask = ADC_SS_TSH_TSH0_MASK;
     stRegister.uptrAddress = ADC_SS_TSH_OFFSET;
     stRegister.uxValue = (UBase_t) enSampleHoldArg;
+
+    ADC_nERROR enErrorReg;
     enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
     return (enErrorReg);
 }
@@ -77,24 +72,20 @@ ADC_nERROR ADC_Sample__enSetSampleHoldByNumber(ADC_nMODULE enModuleArg, ADC_nSEQ
 ADC_nERROR ADC_Sample__enGetSampleHoldByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                   ADC_nSAMPLE enSampleArg, ADC_nSH* penSampleHoldArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penSampleHoldArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penSampleHoldArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_SS_TSH_R_TSH0_BIT;
         stRegister.uxMask = ADC_SS_TSH_TSH0_MASK;
         stRegister.uptrAddress = ADC_SS_TSH_OFFSET;
         enErrorReg = ADC_Sample__enGetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penSampleHoldArg = (ADC_nSH) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penSampleHoldArg = (ADC_nSH) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

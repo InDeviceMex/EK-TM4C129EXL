@@ -28,20 +28,15 @@
 
 ADC_nERROR ADC__enReadRegister(ADC_nMODULE enModuleArg, ADC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     ADC_nERROR enErrorReg;
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) ADC_enMODULE_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = ADC__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = ADC__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (ADC_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

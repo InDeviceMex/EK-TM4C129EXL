@@ -29,17 +29,13 @@
 ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
                                             UBase_t uxRangeLowArg, UBase_t uxRangeHighArg)
 {
-    UBase_t uxComparatorReg;
-    UBase_t uxComparatorMaskReg;
-    ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
-
     enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        uxComparatorReg = 0U;
-        uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
-        enErrorReg = ADC_enERROR_OK;
+        UBase_t uxComparatorReg = 0U;
+        UBase_t uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
+        ADC_nERROR enErrorReg = ADC_enERROR_OK;
         while(0U != uxComparatorMaskReg)
         {
             if(0UL != ((UBase_t) ADC_enCOMPMASK_0 & uxComparatorMaskReg))
@@ -56,29 +52,25 @@ ADC_nERROR ADC_Comparator__enSetRangeByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMA
             uxComparatorMaskReg >>= 1U;
         }
     }
-
     return (enErrorMemoryReg);
 }
 
 ADC_nERROR ADC_Comparator__enSetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
                                               UBase_t uxRangeLowArg, UBase_t uxRangeHighArg)
 {
-    UBase_t uxCompRangeTemp;
-    ADC_nERROR enErrorReg;
-
     if(uxRangeLowArg > uxRangeHighArg)
     {
-        uxCompRangeTemp = uxRangeLowArg;
+        UBase_t uxCompRangeTemp = uxRangeLowArg;
         uxRangeLowArg = uxRangeHighArg;
         uxRangeHighArg = uxCompRangeTemp;
     }
 
+    ADC_nERROR enErrorReg;
     enErrorReg = ADC_Comparator__enSetRangeLowByNumber(enModuleArg, enComparatorArg, uxRangeLowArg);
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = ADC_Comparator__enSetRangeHighByNumber(enModuleArg, enComparatorArg, uxRangeHighArg);
     }
-
     return (enErrorReg);
 }
 
@@ -86,7 +78,6 @@ ADC_nERROR ADC_Comparator__enGetRangeByNumber(ADC_nMODULE enModuleArg, ADC_nCOMP
                                               UBase_t* puxRangeLowArg, UBase_t* puxRangeHighArg)
 {
     ADC_nERROR enErrorReg;
-
     enErrorReg = ADC_Comparator__enGetRangeLowByNumber(enModuleArg, enComparatorArg, puxRangeLowArg);
     if(ADC_enERROR_OK == enErrorReg)
     {

@@ -30,15 +30,12 @@
 ADC_nERROR ADC_Sequencer__enSetTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                              ADC_nTRIGGER enTriggerArg)
 {
-    UBase_t uxSequencerReg;
-    UBase_t uxSequencerMaskReg;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxSequencerReg = 0U;
-        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        UBase_t uxSequencerReg = 0U;
+        UBase_t uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
         while((0U != uxSequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
             if(0UL != ((UBase_t) ADC_enSEQMASK_0 & uxSequencerMaskReg))
@@ -55,12 +52,11 @@ ADC_nERROR ADC_Sequencer__enSetTriggerByMask(ADC_nMODULE enModuleArg, ADC_nSEQMA
 ADC_nERROR ADC_Sequencer__enSetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                 ADC_nTRIGGER enTriggerArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift *= (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT);
         stRegister.uxShift += ADC_EMUX_R_EM0_BIT;
@@ -69,38 +65,31 @@ ADC_nERROR ADC_Sequencer__enSetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQ
         stRegister.uxValue = (UBase_t) enTriggerArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enGetTriggerByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                ADC_nTRIGGER* penTriggerArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penTriggerArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penTriggerArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift *= (ADC_EMUX_R_EM1_BIT - ADC_EMUX_R_EM0_BIT);
         stRegister.uxShift += ADC_EMUX_R_EM0_BIT;
         stRegister.uxMask = ADC_EMUX_EM0_MASK;
         stRegister.uptrAddress = ADC_EMUX_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penTriggerArg = (ADC_nTRIGGER) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penTriggerArg = (ADC_nTRIGGER) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-

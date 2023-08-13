@@ -29,30 +29,27 @@
 
 ADC_nERROR ADC_Sequencer__enInitConversionByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_PSSI_R_SS0_BIT;
         stRegister.uxMask = (UBase_t) enSequencerMaskArg;
         stRegister.uptrAddress = ADC_PSSI_OFFSET;
         stRegister.uxValue = (UBase_t) enSequencerMaskArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enInitConversionByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift += ADC_PSSI_R_SS0_BIT;
         stRegister.uxMask = ADC_PSSI_SS0_MASK;

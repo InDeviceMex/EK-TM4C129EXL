@@ -30,21 +30,16 @@
 ADC_nERROR ADC_Comparator__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR  enComparatorArg,
                                        ADC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrComparatorOffsetReg;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
+        uintptr_t uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
         uptrComparatorOffsetReg <<= 2UL;
         pstRegisterDataArg->uptrAddress += uptrComparatorOffsetReg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, pstRegisterDataArg);
@@ -56,21 +51,16 @@ ADC_nERROR ADC_Comparator__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR
 ADC_nERROR ADC_Comparator__enGetGeneric(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR  enComparatorArg,
                                         ADC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrComparatorOffsetReg;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorArg, (UBase_t) ADC_enCOMPARATOR_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
+        uintptr_t uptrComparatorOffsetReg = (uintptr_t) enComparatorArg;
         uptrComparatorOffsetReg <<= 2UL;
         pstRegisterDataArg->uptrAddress += uptrComparatorOffsetReg;
         enErrorReg = ADC__enReadRegister(enModuleArg, pstRegisterDataArg);

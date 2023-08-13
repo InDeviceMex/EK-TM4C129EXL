@@ -30,15 +30,12 @@
 ADC_nERROR ADC_Sequencer__enSetPriorityByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                               ADC_nSEQ_PRIORITY enPriorityArg)
 {
-    UBase_t uxSequencerReg;
-    UBase_t uxSequencerMaskReg;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxSequencerReg = 0U;
-        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        UBase_t uxSequencerReg = 0U;
+        UBase_t uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
         while((0U != uxSequencerMaskReg) && (ADC_enERROR_OK == enErrorReg))
         {
             if(0UL != ((UBase_t) ADC_enSEQMASK_0 & uxSequencerMaskReg))
@@ -49,19 +46,17 @@ ADC_nERROR ADC_Sequencer__enSetPriorityByMask(ADC_nMODULE enModuleArg, ADC_nSEQM
             uxSequencerMaskReg >>= 1U;
         }
     }
-
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enSetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                 ADC_nSEQ_PRIORITY enPriorityArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
         stRegister.uxShift += ADC_SSPRI_R_SS0_BIT;
@@ -70,37 +65,32 @@ ADC_nERROR ADC_Sequencer__enSetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSE
         stRegister.uxValue = (UBase_t) enPriorityArg;
         enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Sequencer__enGetPriorityByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                        ADC_nSEQ_PRIORITY* penPriorityArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPriorityArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penPriorityArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enSequencerArg;
         stRegister.uxShift *= (ADC_SSPRI_R_SS1_BIT - ADC_SSPRI_R_SS0_BIT);
         stRegister.uxShift += ADC_SSPRI_R_SS0_BIT;
         stRegister.uxMask = ADC_SSPRI_SS0_MASK;
         stRegister.uptrAddress = ADC_SSPRI_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penPriorityArg = (ADC_nSEQ_PRIORITY) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penPriorityArg = (ADC_nSEQ_PRIORITY) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

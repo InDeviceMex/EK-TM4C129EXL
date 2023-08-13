@@ -30,17 +30,13 @@
 ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK enSequencerMaskArg,
                                                 ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg)
 {
-    UBase_t uxSequencerReg;
-    UBase_t uxSequencerMaskReg;
-    ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
-
     enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerMaskArg, (UBase_t) ADC_enSEQMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        uxSequencerReg = 0U;
-        uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
-        enErrorReg = ADC_enERROR_OK;
+        UBase_t uxSequencerReg = 0U;
+        UBase_t uxSequencerMaskReg = (UBase_t) enSequencerMaskArg;
+        ADC_nERROR enErrorReg = ADC_enERROR_OK;
         while(0U != uxSequencerMaskReg)
         {
             if(0UL != ((UBase_t) ADC_enSEQMASK_0 & uxSequencerMaskReg))
@@ -56,25 +52,21 @@ ADC_nERROR ADC_Sample__enSetInputByMask(ADC_nMODULE enModuleArg, ADC_nSEQMASK en
             uxSequencerMaskReg >>= 1U;
         }
     }
-
     return (enErrorMemoryReg);
 }
 
 ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                   ADC_nSAMPLE enSampleArg, ADC_nINPUT enInputArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
-    UBase_t uxInputReg;
-    UBase_t uxExtendedInputReg;
-
     enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enInputArg, (UBase_t) ADC_enINPUT_MAX);
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxExtendedInputReg = (UBase_t) enInputArg;
+        UBase_t uxExtendedInputReg = (UBase_t) enInputArg;
         uxExtendedInputReg >>=  ADC_SS_MUX_R_MUX1_BIT;
         uxExtendedInputReg &= ADC_SS_EMUX_EMUX0_MASK;
 
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_SS_EMUX_R_EMUX0_BIT;
         stRegister.uxMask = ADC_SS_EMUX_EMUX0_MASK;
         stRegister.uptrAddress = ADC_SS_EMUX_OFFSET;
@@ -84,10 +76,10 @@ ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCE
 
     if(ADC_enERROR_OK == enErrorReg)
     {
-
-        uxInputReg = (UBase_t) enInputArg;
+        UBase_t uxInputReg = (UBase_t) enInputArg;
         uxInputReg &= ADC_SS_MUX_MUX0_MASK;
 
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_SS_MUX_R_MUX0_BIT;
         stRegister.uxMask = ADC_SS_MUX_MUX0_MASK;
         stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
@@ -100,16 +92,11 @@ ADC_nERROR ADC_Sample__enSetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCE
 ADC_nERROR ADC_Sample__enGetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCER enSequencerArg,
                                                   ADC_nSAMPLE enSampleArg, ADC_nINPUT* penInputArg)
 {
-    ADC_Register_t stRegister;
-    ADC_nERROR enErrorReg;
-    UBase_t uxInputReg;
 
-    uxInputReg = 0UL;
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penInputArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
+    ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInputArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
+
+    ADC_Register_t stRegister;
     if(ADC_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = ADC_SS_EMUX_R_EMUX0_BIT;
@@ -119,18 +106,18 @@ ADC_nERROR ADC_Sample__enGetInputByNumber(ADC_nMODULE enModuleArg, ADC_nSEQUENCE
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxInputReg = stRegister.uxValue;
+        UBase_t uxInputReg = stRegister.uxValue;
         uxInputReg <<= ADC_SS_MUX_R_MUX1_BIT;
 
         stRegister.uxShift = ADC_SS_MUX_R_MUX0_BIT;
         stRegister.uxMask = ADC_SS_MUX_MUX0_MASK;
         stRegister.uptrAddress = ADC_SS_MUX_OFFSET;
         enErrorReg = ADC_Sample__enSetGeneric(enModuleArg, enSequencerArg, enSampleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        uxInputReg |= stRegister.uxValue;
-        *penInputArg = (ADC_nINPUT) uxInputReg;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            uxInputReg |= stRegister.uxValue;
+            *penInputArg = (ADC_nINPUT) uxInputReg;
+        }
     }
     return (enErrorReg);
 }

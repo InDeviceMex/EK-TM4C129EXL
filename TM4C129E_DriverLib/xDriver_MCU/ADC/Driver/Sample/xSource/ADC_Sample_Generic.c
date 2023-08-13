@@ -34,32 +34,24 @@ static const UBase_t ADC_uxSampleMax[(UBase_t) ADC_enSEQ_MAX] =
 ADC_nERROR ADC_Sample__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nSEQUENCER  enSequencerArg,
                              ADC_nSAMPLE enSampleArg, ADC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrSequencerOffsetReg;
-    UBase_t uxBitReg;
-    UBase_t uxSampleNumMaxReg;
     ADC_nERROR enErrorReg;
-
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxSampleNumMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
+        UBase_t uxSampleNumMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleNumMaxReg);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enSampleArg;
+        UBase_t uxBitReg = (UBase_t) enSampleArg;
         uxBitReg <<= 2UL; /* each mux has 4 bits*/
         pstRegisterDataArg->uxShift += uxBitReg;
 
-        uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
+        uintptr_t uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
         uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
         uptrSequencerOffsetReg <<= 2UL;
         uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;
@@ -73,32 +65,25 @@ ADC_nERROR ADC_Sample__enSetGeneric(ADC_nMODULE enModuleArg, ADC_nSEQUENCER  enS
 ADC_nERROR ADC_Sample__enGetGeneric(ADC_nMODULE enModuleArg, ADC_nSEQUENCER  enSequencerArg,
                                    ADC_nSAMPLE enSampleArg, ADC_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrSequencerOffsetReg;
-    UBase_t uxBitReg;
-    UBase_t uxSampleNumMaxReg;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSequencerArg, (UBase_t) ADC_enSEQ_MAX);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxSampleNumMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
+        UBase_t uxSampleNumMaxReg = ADC_uxSampleMax[(UBase_t) enSequencerArg];
         enErrorReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enSampleArg, uxSampleNumMaxReg);
     }
     if(ADC_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enSampleArg;
+        UBase_t uxBitReg = (UBase_t) enSampleArg;
         uxBitReg <<= 2UL; /* each mux has 4 bits*/
         pstRegisterDataArg->uxShift += uxBitReg;
 
-        uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
+        uintptr_t uptrSequencerOffsetReg = (uintptr_t) enSequencerArg;
         uptrSequencerOffsetReg *= ADC_SS_REGISTER_NUM; /*Add offset for input sequencer*/
         uptrSequencerOffsetReg <<= 2UL;
         uptrSequencerOffsetReg += ADC_SS_REGISTER_BASE_OFFSET;

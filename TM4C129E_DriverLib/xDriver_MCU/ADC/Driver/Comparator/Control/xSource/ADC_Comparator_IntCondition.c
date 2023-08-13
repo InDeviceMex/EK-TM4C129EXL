@@ -30,17 +30,13 @@
 ADC_nERROR ADC_Comparator__enSetInterruptConditionByMask(ADC_nMODULE enModuleArg, ADC_nCOMPMASK enComparatorMaskArg,
                                                          ADC_nCOMP_CONDITION enInterruptConditionArg)
 {
-    UBase_t uxComparatorReg;
-    UBase_t uxComparatorMaskReg;
-    ADC_nERROR enErrorReg;
     ADC_nERROR enErrorMemoryReg;
-
     enErrorMemoryReg = (ADC_nERROR) MCU__enCheckParams((UBase_t) enComparatorMaskArg, (UBase_t) ADC_enCOMPMASK_MAX);
     if(ADC_enERROR_OK == enErrorMemoryReg)
     {
-        uxComparatorReg = 0U;
-        uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
-        enErrorReg = ADC_enERROR_OK;
+        UBase_t uxComparatorReg = 0U;
+        UBase_t uxComparatorMaskReg = (UBase_t) enComparatorMaskArg;
+        ADC_nERROR enErrorReg = ADC_enERROR_OK;
         while(0U != uxComparatorMaskReg)
         {
             if(0UL != ((UBase_t) ADC_enCOMPMASK_0 & uxComparatorMaskReg))
@@ -57,7 +53,6 @@ ADC_nERROR ADC_Comparator__enSetInterruptConditionByMask(ADC_nMODULE enModuleArg
             uxComparatorMaskReg >>= 1U;
         }
     }
-
     return (enErrorMemoryReg);
 }
 
@@ -65,38 +60,33 @@ ADC_nERROR ADC_Comparator__enSetInterruptConditionByNumber(ADC_nMODULE enModuleA
                                                            ADC_nCOMP_CONDITION enInterruptConditionArg)
 {
     ADC_Register_t stRegister;
-    ADC_nERROR enErrorReg;
-
     stRegister.uxShift = ADC_DC_CTL_R_CIC_BIT;
     stRegister.uxMask = ADC_DC_CTL_CIC_MASK;
     stRegister.uptrAddress = ADC_DC_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enInterruptConditionArg;
-    enErrorReg = ADC_Comparator__enSetGeneric(enModuleArg, enComparatorArg, &stRegister);
 
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC_Comparator__enSetGeneric(enModuleArg, enComparatorArg, &stRegister);
     return (enErrorReg);
 }
 
 ADC_nERROR ADC_Comparator__enGetInterruptConditionByNumber(ADC_nMODULE enModuleArg, ADC_nCOMPARATOR enComparatorArg,
                                                            ADC_nCOMP_CONDITION* penInterruptConditionArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptConditionArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptConditionArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_DC_CTL_R_CIC_BIT;
         stRegister.uxMask = ADC_DC_CTL_CIC_MASK;
         stRegister.uptrAddress = ADC_DC_CTL_OFFSET;
         enErrorReg = ADC_Comparator__enGetGeneric(enModuleArg, enComparatorArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *penInterruptConditionArg = (ADC_nCOMP_CONDITION) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *penInterruptConditionArg = (ADC_nCOMP_CONDITION) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

@@ -29,14 +29,13 @@
 ADC_nERROR ADC__enSetGlobalSync(ADC_nMODULE enModuleArg, ADC_nGLOBAL_SYNC enGlobalSyncArg)
 {
     ADC_Register_t stRegister;
-    ADC_nERROR enErrorReg;
-
     stRegister.uxShift = ADC_PSSI_R_GSYNC_BIT;
     stRegister.uxMask = ADC_PSSI_GSYNC_MASK;
     stRegister.uptrAddress = ADC_PSSI_OFFSET;
     stRegister.uxValue = (UBase_t) enGlobalSyncArg;
-    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
 
+    ADC_nERROR enErrorReg;
+    enErrorReg = ADC__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -50,24 +49,20 @@ ADC_nERROR ADC__enInitGlobalSync(ADC_nMODULE enModuleArg)
 
 ADC_nERROR ADC__enGetGlobalSync(ADC_nMODULE enModuleArg, ADC_nGLOBAL_SYNC* enGlobalSyncArg)
 {
-    ADC_Register_t stRegister;
     ADC_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enGlobalSyncArg) ? ADC_enERROR_POINTER : ADC_enERROR_OK;
 
-    enErrorReg = ADC_enERROR_OK;
-    if(0UL == (uintptr_t) enGlobalSyncArg)
-    {
-        enErrorReg = ADC_enERROR_POINTER;
-    }
     if(ADC_enERROR_OK == enErrorReg)
     {
+        ADC_Register_t stRegister;
         stRegister.uxShift = ADC_PSSI_R_GSYNC_BIT;
         stRegister.uxMask = ADC_PSSI_GSYNC_MASK;
         stRegister.uptrAddress = ADC_PSSI_OFFSET;
         enErrorReg = ADC__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(ADC_enERROR_OK == enErrorReg)
-    {
-        *enGlobalSyncArg = (ADC_nGLOBAL_SYNC) stRegister.uxValue;
+        if(ADC_enERROR_OK == enErrorReg)
+        {
+            *enGlobalSyncArg = (ADC_nGLOBAL_SYNC) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
