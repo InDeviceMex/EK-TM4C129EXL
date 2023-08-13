@@ -12,12 +12,11 @@
 FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, UBase_t uxTimeoutArg)
 {
     FLASH_nERROR enErrorReg;
-    FLASH_nBOOLEAN enStatusReg;
 
     enErrorReg = FLASH_enERROR_OK;
-    enStatusReg = FLASH_enFALSE;
     if(0UL == uxTimeoutArg)
     {
+        FLASH_nBOOLEAN enStatusReg = FLASH_enFALSE;
         do
         {
             enErrorReg = FLASH__enIsProcessOngoing(enModuleArg, enProcessArg, &enStatusReg);
@@ -26,17 +25,14 @@ FLASH_nERROR FLASH__enWait(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessAr
     }
     else
     {
+        FLASH_nBOOLEAN enStatusReg = FLASH_enFALSE;
         do
         {
             enErrorReg = FLASH__enIsProcessOngoing(enModuleArg, enProcessArg, &enStatusReg);
             uxTimeoutArg--;
-        }while((FLASH_enTRUE == enStatusReg) &&
-               (0UL != uxTimeoutArg) &&
-               (FLASH_enERROR_OK == enErrorReg));
+        }while((FLASH_enTRUE == enStatusReg) && (0UL != uxTimeoutArg) && (FLASH_enERROR_OK == enErrorReg));
 
-        if((FLASH_enTRUE == enStatusReg) &&
-           (0UL == uxTimeoutArg) &&
-           (FLASH_enERROR_OK == enErrorReg))
+        if((FLASH_enTRUE == enStatusReg) && (0UL == uxTimeoutArg) && (FLASH_enERROR_OK == enErrorReg))
         {
             enErrorReg = FLASH_enERROR_TIMEOUT;
         }

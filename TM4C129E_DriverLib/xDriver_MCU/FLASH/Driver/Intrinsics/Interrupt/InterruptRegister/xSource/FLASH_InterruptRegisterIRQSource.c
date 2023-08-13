@@ -29,9 +29,7 @@
 
 FLASH_nERROR FLASH__enRegisterIRQSourceHandler(FLASH_nMODULE enModuleArg, FLASH_nINT enIntSourceArg, FLASH_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    FLASH_pvfIRQSourceHandler_t* pvfIrqHandler;
     FLASH_nERROR enErrorReg;
-
     enErrorReg = (FLASH_nERROR) MCU__enCheckParams_RAM((UBase_t) enModuleArg, (UBase_t) FLASH_enMODULE_MAX);
     if(FLASH_enERROR_OK == enErrorReg)
     {
@@ -39,9 +37,8 @@ FLASH_nERROR FLASH__enRegisterIRQSourceHandler(FLASH_nMODULE enModuleArg, FLASH_
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = FLASH__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        FLASH_pvfIRQSourceHandler_t* pvfIrqHandler = FLASH__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (FLASH_nERROR) MCU__enRegisterIRQSourceHandler_RAM(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }

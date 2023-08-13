@@ -32,14 +32,15 @@
 FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, FLASH_nPROCESS enProcessArg)
 {
     FLASH_Register_t stRegister;
-    UBase_t uxValueReg;
-    FLASH_nERROR enErrorReg;
-
     stRegister.uxShift = 0UL;
     stRegister.uxMask = MCU_MASK_BASE;
+
+    UBase_t uxValueReg;
     uxValueReg = uxKeyArg;
     uxValueReg &= MCU_MASK_16;
     uxValueReg <<= 16UL;
+
+    FLASH_nERROR enErrorReg;
     switch(enProcessArg)
     {
     case FLASH_enPROCESS_WORD_WRITE:
@@ -76,22 +77,18 @@ FLASH_nERROR FLASH__enInitProcess(FLASH_nMODULE enModuleArg, UBase_t uxKeyArg, F
         enErrorReg = FLASH_enERROR_VALUE;
         break;
     }
-
     return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS enProcessArg, FLASH_nBOOLEAN* penStatusArg)
 {
-    FLASH_Register_t stRegister;
-    FLASH_nERROR enErrorReg;
 
-    enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = FLASH_enERROR_POINTER;
-    }
+    FLASH_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? FLASH_enERROR_POINTER : FLASH_enERROR_OK;
+
     if(FLASH_enERROR_OK == enErrorReg)
     {
+        FLASH_Register_t stRegister;
         switch(enProcessArg)
         {
         case FLASH_enPROCESS_WORD_WRITE:
@@ -128,13 +125,10 @@ FLASH_nERROR FLASH__enIsProcessOngoing(FLASH_nMODULE enModuleArg, FLASH_nPROCESS
             enErrorReg = FLASH_enERROR_VALUE;
             break;
         }
-    }
-    if(FLASH_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (FLASH_nBOOLEAN) stRegister.uxValue;
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (FLASH_nBOOLEAN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-

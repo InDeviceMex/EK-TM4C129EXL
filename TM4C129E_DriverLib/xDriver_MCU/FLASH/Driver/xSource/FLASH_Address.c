@@ -29,16 +29,15 @@
 #include <xDriver_MCU/FLASH/Driver/Intrinsics/FLASH_Intrinsics.h>
 #include <xDriver_MCU/FLASH/Peripheral/FLASH_Peripheral.h>
 
-
 FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
     FLASH_Register_t stRegister;
-    FLASH_nERROR enErrorReg;
-
     stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
     stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
     stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;
     stRegister.uxValue = uxAddressArg;
+
+    FLASH_nERROR enErrorReg;
     enErrorReg = FLASH__enWriteRegister(enModuleArg, &stRegister);
 
     return (enErrorReg);
@@ -46,43 +45,35 @@ FLASH_nERROR FLASH__enSetAddress(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg
 
 FLASH_nERROR FLASH__enGetAddress(FLASH_nMODULE enModuleArg, UBase_t* puxAddressArg)
 {
-    FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxAddressArg) ? FLASH_enERROR_POINTER : FLASH_enERROR_OK;
 
-    enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) puxAddressArg)
-    {
-        enErrorReg = FLASH_enERROR_POINTER;
-    }
     if(FLASH_enERROR_OK == enErrorReg)
     {
+        FLASH_Register_t stRegister;
         stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
         stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
         stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FLASH_enERROR_OK == enErrorReg)
-    {
-        *puxAddressArg = stRegister.uxValue;
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            *puxAddressArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
-    FLASH_Register_t stRegister;
-    UBase_t uxSectorSizeReg;
     FLASH_nERROR enErrorReg;
-
+    UBase_t uxSectorSizeReg;
     uxSectorSizeReg = 0UL;
     enErrorReg = FLASH__enGetSectorSizeInBytes(enModuleArg, &uxSectorSizeReg);
-    if(FLASH_enERROR_OK == enErrorReg)
+    if((FLASH_enERROR_OK == enErrorReg) && (0UL == uxSectorSizeReg))
     {
-        if(0UL == uxSectorSizeReg)
-        {
-            enErrorReg = FLASH_enERROR_VALUE;
-        }
+        enErrorReg = FLASH_enERROR_VALUE;
     }
+
     if(FLASH_enERROR_OK == enErrorReg)
     {
         uxSectorSizeReg--;
@@ -93,6 +84,7 @@ FLASH_nERROR FLASH__enStartAddressToErase(FLASH_nMODULE enModuleArg, UBase_t uxA
     }
     if(FLASH_enERROR_OK == enErrorReg)
     {
+        FLASH_Register_t stRegister;
         stRegister.uxShift = FLASH_ADDRESS_R_OFFSET_BIT;
         stRegister.uxMask = FLASH_ADDRESS_OFFSET_MASK;
         stRegister.uptrAddress = FLASH_ADDRESS_OFFSET;

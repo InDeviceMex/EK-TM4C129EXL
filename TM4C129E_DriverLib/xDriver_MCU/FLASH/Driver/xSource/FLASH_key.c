@@ -29,24 +29,20 @@
 
 FLASH_nERROR FLASH__enGetCustomKey(FLASH_nMODULE enModuleArg, UBase_t* puxKeyArg)
 {
-    FLASH_Register_t stRegister;
     FLASH_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxKeyArg) ? FLASH_enERROR_POINTER : FLASH_enERROR_OK;
 
-    enErrorReg = FLASH_enERROR_OK;
-    if(0UL == (uintptr_t) puxKeyArg)
-    {
-        enErrorReg = FLASH_enERROR_POINTER;
-    }
     if(FLASH_enERROR_OK == enErrorReg)
     {
+        FLASH_Register_t stRegister;
         stRegister.uxShift = FLASH_PEKEY_R_PEKEY_BIT;
         stRegister.uxMask = FLASH_PEKEY_PEKEY_MASK;
         stRegister.uptrAddress = FLASH_PEKEY_OFFSET;
         enErrorReg = FLASH__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(FLASH_enERROR_OK == enErrorReg)
-    {
-        *puxKeyArg = stRegister.uxValue;
+        if(FLASH_enERROR_OK == enErrorReg)
+        {
+            *puxKeyArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
