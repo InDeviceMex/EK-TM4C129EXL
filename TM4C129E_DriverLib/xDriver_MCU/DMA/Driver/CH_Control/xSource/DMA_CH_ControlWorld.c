@@ -70,18 +70,14 @@ DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByMask(DMA_nMODULE enModuleArg,
 DMA_nERROR DMA_CH__enSetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                 DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
-    DMA_Register_t stRegister;
-    volatile UBase_t *puxControlReg;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        puxControlReg = (volatile UBase_t*) pstControlArg;
+        volatile UBase_t *puxControlReg = (volatile UBase_t*) pstControlArg;
+
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
@@ -112,28 +108,23 @@ DMA_nERROR DMA_CH_Alternate__enSetControlRegisterByNumber(DMA_nMODULE enModuleAr
 DMA_nERROR DMA_CH__enGetControlRegisterByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                 DMA_nCH_CONTROL enControlArg, DMA_CH_CTL_t* pstControlArg)
 {
-    DMA_Register_t stRegister;
-    volatile UBase_t* puxControlReg;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        puxControlReg = (volatile UBase_t*) pstControlArg;
-        *puxControlReg = stRegister.uxValue;
-    }
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            volatile UBase_t* puxControlReg = (volatile UBase_t*) pstControlArg;
+            *puxControlReg = stRegister.uxValue;
+        }
 
+    }
     return (enErrorReg);
 }
 
@@ -152,9 +143,6 @@ DMA_nERROR DMA_CH_Alternate__enGetControlRegisterByNumber(DMA_nMODULE enModuleAr
     enErrorReg = DMA_CH__enGetControlRegisterByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, pstControlArg);
     return (enErrorReg);
 }
-
-
-
 
 DMA_nERROR DMA_CH__enSetControlValueByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
                                               DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg)
@@ -200,14 +188,13 @@ DMA_nERROR DMA_CH__enSetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH en
                                                 DMA_nCH_CONTROL enControlArg, UBase_t uxControlArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = 0UL;
     stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = uxControlArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -231,26 +218,21 @@ DMA_nERROR DMA_CH_Alternate__enSetControlValueByNumber(DMA_nMODULE enModuleArg, 
 DMA_nERROR DMA_CH__enGetControlValueByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                              DMA_nCH_CONTROL enControlArg, UBase_t* puxControlArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) puxControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *puxControlArg = stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *puxControlArg = stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

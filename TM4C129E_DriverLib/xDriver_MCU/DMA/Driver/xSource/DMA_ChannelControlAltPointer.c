@@ -29,24 +29,20 @@
 
 DMA_nERROR DMA__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, uintptr_t* puptrControlAddressArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puptrControlAddressArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) puptrControlAddressArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = DMA_ALTBASE_R_ADDR_MASK;
         stRegister.uptrAddress = DMA_ALTBASE_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *puptrControlAddressArg = (uintptr_t) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *puptrControlAddressArg = (uintptr_t) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -54,9 +50,7 @@ DMA_nERROR DMA__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, u
 
 DMA_nERROR DMA_CH__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, uintptr_t* puptrControlAddressArg)
 {
-    uintptr_t uptrChannelOffset;
     DMA_nERROR enErrorReg;
-
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -64,7 +58,7 @@ DMA_nERROR DMA_CH__enGetAlternateControlStructureAddress(DMA_nMODULE enModuleArg
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uptrChannelOffset = (uintptr_t) enChannelArg;
+        uintptr_t uptrChannelOffset = (uintptr_t) enChannelArg;
         uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
         *puptrControlAddressArg += uptrChannelOffset;
     }

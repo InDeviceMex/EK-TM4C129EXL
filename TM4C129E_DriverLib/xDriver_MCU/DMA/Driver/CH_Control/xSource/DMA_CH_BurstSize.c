@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH
                                                   DMA_nCH_CONTROL enControlArg, DMA_nCH_ARBITRATION_SIZE enSizeArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_CTL_R_ARBSIZE_BIT;
     stRegister.uxMask = DMA_CH_CTL_ARBSIZE_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enSizeArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -99,27 +98,23 @@ DMA_nERROR DMA_CH_Alternate__enSetArbitrationSizeByNumber(DMA_nMODULE enModuleAr
 }
 
 
-    DMA_nERROR DMA_CH__enGetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
+DMA_nERROR DMA_CH__enGetArbitrationSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, DMA_nCH_ARBITRATION_SIZE* penSizeArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penSizeArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penSizeArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_ARBSIZE_BIT;
         stRegister.uxMask = DMA_CH_CTL_ARBSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penSizeArg = (DMA_nCH_ARBITRATION_SIZE) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penSizeArg = (DMA_nCH_ARBITRATION_SIZE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

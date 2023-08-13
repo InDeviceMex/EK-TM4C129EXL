@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nC
                                                   DMA_nCH_CONTROL enControlArg, UBase_t uxEndAddressArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_SRCENDP_R_ADDR_BIT;
     stRegister.uxMask = DMA_CH_SRCENDP_ADDR_MASK;
     stRegister.uptrAddress = DMA_CH_SRCENDP_OFFSET;
     stRegister.uxValue = uxEndAddressArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -102,26 +101,21 @@ DMA_nERROR DMA_CH_Alternate__enSetSourceEndAddressByNumber(DMA_nMODULE enModuleA
 DMA_nERROR DMA_CH__enGetSourceEndAddressByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, UBase_t* puxEndAddressArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxEndAddressArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) puxEndAddressArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_SRCENDP_R_ADDR_BIT;
         stRegister.uxMask = DMA_CH_SRCENDP_ADDR_MASK;
         stRegister.uptrAddress = DMA_CH_SRCENDP_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *puxEndAddressArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *puxEndAddressArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

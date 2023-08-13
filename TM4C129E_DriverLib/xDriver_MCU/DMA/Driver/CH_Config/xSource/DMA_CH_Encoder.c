@@ -53,12 +53,7 @@ DMA_nERROR DMA_CH__enSetEncoderByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enCha
 DMA_nERROR DMA_CH__enSetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                         DMA_nCH_ENCODER enEncoderArg)
 {
-    DMA_Register_t stRegister;
-    UBase_t uxChannelReg;
-    UBase_t uxChannelPos;
-    UBase_t uxRegisterOffset;
     DMA_nERROR enErrorReg;
-
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -66,110 +61,93 @@ DMA_nERROR DMA_CH__enSetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChann
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxChannelReg = (UBase_t) enChannelArg;
+        UBase_t uxChannelReg = (UBase_t) enChannelArg;
         uxChannelReg >>= 3UL; /* /8 */
         uxChannelReg <<= 2UL;  /* *4 */
 
-        uxRegisterOffset = DMA_CH_MAP_OFFSET;
+        UBase_t uxRegisterOffset = DMA_CH_MAP_OFFSET;
         uxRegisterOffset += uxChannelReg;
 
-        uxChannelPos = (UBase_t) enChannelArg;
+        UBase_t uxChannelPos = (UBase_t) enChannelArg;
         uxChannelPos %= 8UL;
         uxChannelPos <<= 2UL;  /* *4 */
 
+        DMA_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxChannelPos;
         stRegister.uxMask = 0xFUL;
         stRegister.uptrAddress = (uintptr_t) uxRegisterOffset;
         stRegister.uxValue = (UBase_t) enEncoderArg;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH__enGetEncoderByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                        DMA_nCH_ENCODER* penEncoderArg)
 {
-    DMA_Register_t stRegister;
-    UBase_t uxChannelReg;
-    UBase_t uxChannelPos;
-    UBase_t uxRegisterOffset;
     DMA_nERROR enErrorReg;
-
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penEncoderArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penEncoderArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxChannelReg = (UBase_t) enChannelArg;
+        UBase_t uxChannelReg = (UBase_t) enChannelArg;
         uxChannelReg >>= 3UL; /* /8 */
         uxChannelReg <<= 2UL;  /* *4 */
 
-        uxRegisterOffset = DMA_CH_MAP_OFFSET;
+        UBase_t uxRegisterOffset = DMA_CH_MAP_OFFSET;
         uxRegisterOffset += uxChannelReg;
 
-        uxChannelPos = (UBase_t) enChannelArg;
+        UBase_t uxChannelPos = (UBase_t) enChannelArg;
         uxChannelPos %= 8UL;
         uxChannelPos <<= 4UL;  /* *4 */
 
+        DMA_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxChannelPos;
         stRegister.uxMask = 0xFUL;
         stRegister.uptrAddress = (uintptr_t) uxRegisterOffset;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penEncoderArg = (DMA_nCH_ENCODER) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penEncoderArg = (DMA_nCH_ENCODER) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
 
 DMA_nERROR DMA_CH__enSetTrigger(DMA_nMODULE enModuleArg, DMA_nCH_TRIGGER enChannelTriggerArg)
 {
     UBase_t uxChannel;
-    UBase_t uxEncoder;
-    DMA_nERROR enErrorReg;
-
     uxChannel = (UBase_t) enChannelTriggerArg;
     uxChannel &= 0xFFUL;
 
+    UBase_t uxEncoder;
     uxEncoder = (UBase_t) enChannelTriggerArg;
     uxEncoder >>= 8UL;
     uxEncoder &= 0xFUL;
 
+    DMA_nERROR enErrorReg;
     enErrorReg = DMA_CH__enSetEncoderByNumber(enModuleArg, (DMA_nCH) uxChannel, (DMA_nCH_ENCODER) uxEncoder);
-
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH__enGetTrigger(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                 DMA_nCH_TRIGGER* penChannelTriggerArg)
 {
-    UBase_t uxEncoder;
-    UBase_t uxTrigger;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penChannelTriggerArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penChannelTriggerArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    UBase_t uxEncoder;
+    uxEncoder = 0U;
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxEncoder = 0U;
         enErrorReg = DMA_CH__enGetEncoderByNumber(enModuleArg, enChannelArg, (DMA_nCH_ENCODER*) &uxEncoder);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxTrigger = uxEncoder;
+        UBase_t uxTrigger = uxEncoder;
         uxTrigger <<= 8UL;
         uxTrigger |= (UBase_t) enChannelArg;
         *penChannelTriggerArg = (DMA_nCH_TRIGGER) uxTrigger;

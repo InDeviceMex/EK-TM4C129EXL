@@ -30,15 +30,10 @@ DMA_nERROR DMA_CH__enConvertControlStructure(UBase_t uxControlWorldArg,
                                              DMA_CONTROL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    UBase_t uxControlReg;
-
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
+        UBase_t uxControlReg;
         uxControlReg = uxControlWorldArg;
         uxControlReg >>= DMA_CH_CTL_R_XFERMODE_BIT;
         uxControlReg &= DMA_CH_CTL_XFERMODE_MASK;
@@ -96,26 +91,21 @@ DMA_nERROR DMA_CH__enConvertControlStructure(UBase_t uxControlWorldArg,
 DMA_nERROR DMA_CH__enConvertControlStructure_Create(UBase_t uxControlWorldArg,
                                                     DMA_CONTROL_t** pstControlArg)
 {
-    DMA_CONTROL_t* pstControlReg;
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
+        DMA_CONTROL_t* pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
                                                       (size_t) sizeof(DMA_CONTROL_t));
         #elif defined (__GNUC__ )
-        pstControlReg = (DMA_CONTROL_t*) malloc( (size_t) sizeof(DMA_CONTROL_t));
+        DMA_CONTROL_t* pstControlReg = (DMA_CONTROL_t*) malloc( (size_t) sizeof(DMA_CONTROL_t));
         #endif
         enErrorReg = DMA_CH__enConvertControlStructure(uxControlWorldArg, pstControlReg);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *pstControlArg = pstControlReg;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pstControlArg = pstControlReg;
+        }
     }
     return (enErrorReg);
 }

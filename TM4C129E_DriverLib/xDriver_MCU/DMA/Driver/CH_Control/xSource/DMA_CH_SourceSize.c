@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH 
                                                   DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_CTL_R_SRCSIZE_BIT;
     stRegister.uxMask = DMA_CH_CTL_SRCSIZE_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enDataSizeArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -102,24 +101,20 @@ DMA_nERROR DMA_CH_Alternate__enSetSourceDataSizeByNumber(DMA_nMODULE enModuleArg
 DMA_nERROR DMA_CH__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE* penDataSizeArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penDataSizeArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penDataSizeArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_SRCSIZE_BIT;
         stRegister.uxMask = DMA_CH_CTL_SRCSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -139,4 +134,3 @@ DMA_nERROR DMA_CH_Alternate__enGetSourceDataSizeByNumber(DMA_nMODULE enModuleArg
     enErrorReg = DMA_CH__enGetSourceDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penDataSizeArg);
     return (enErrorReg);
 }
-

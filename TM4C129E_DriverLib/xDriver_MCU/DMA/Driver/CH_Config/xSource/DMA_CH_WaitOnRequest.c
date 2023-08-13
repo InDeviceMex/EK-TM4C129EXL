@@ -31,24 +31,20 @@
 DMA_nERROR DMA_CH__enIsWaitOnRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg,
                                            DMA_nCHMASK* penCHMaskReqArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penCHMaskReqArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penCHMaskReqArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_WAITSTAT_R_WAITREQ0_BIT;
         stRegister.uxMask = (UBase_t) enChannelMaskArg;
         stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penCHMaskReqArg = (DMA_nCHMASK) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penCHMaskReqArg = (DMA_nCHMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -56,32 +52,26 @@ DMA_nERROR DMA_CH__enIsWaitOnRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK 
 DMA_nERROR DMA_CH__enIsWaitOnRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                              DMA_nBOOLEAN* penStateArg)
 {
-    DMA_Register_t stRegister;
-    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
+        UBase_t uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_WAITSTAT_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (DMA_nBOOLEAN) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (DMA_nBOOLEAN) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

@@ -28,15 +28,8 @@
 
 DMA_nERROR DMA_CH__enReadRegister(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg, DMA_nCH_CONTROL enControlArg, DMA_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
-    uintptr_t uptrChannelOffset;
     DMA_nERROR enErrorReg;
-
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
@@ -47,9 +40,8 @@ DMA_nERROR DMA_CH__enReadRegister(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = DMA_CH__uptrBlockBaseAddress(enModuleArg, enControlArg);
-
-        uptrChannelOffset = (uintptr_t) enChannelArg;
+        uintptr_t uptrModuleBase = DMA_CH__uptrBlockBaseAddress(enModuleArg, enControlArg);
+        uintptr_t uptrChannelOffset = (uintptr_t) enChannelArg;
         uptrChannelOffset <<= 4UL; /*DMA_CH_REG_NUM * 4UL = 4UL * 4UL = 16UL*/
         uptrModuleBase += uptrChannelOffset;
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
@@ -57,4 +49,3 @@ DMA_nERROR DMA_CH__enReadRegister(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
     }
     return (enErrorReg);
 }
-

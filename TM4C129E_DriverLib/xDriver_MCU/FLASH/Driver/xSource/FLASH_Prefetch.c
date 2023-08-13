@@ -155,7 +155,7 @@ FLASH_nERROR FLASH__enSetPrefetchState(FLASH_nMODULE enModuleArg, FLASH_nPREFETC
     FLASH_nERROR enErrorReg;
     enErrorReg = (FLASH_enPREFETCH_STATE_OFF == enStateArg) ?
             FLASH__enDisablePrefetch(enModuleArg) :
-            FLASH__enEnablePrefetch(enModuleArg)
+            FLASH__enEnablePrefetch(enModuleArg);
     return (enErrorReg);
 }
 

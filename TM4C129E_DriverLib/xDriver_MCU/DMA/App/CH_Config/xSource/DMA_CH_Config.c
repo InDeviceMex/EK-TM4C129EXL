@@ -30,11 +30,7 @@ DMA_nERROR DMA_CH__enSetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChan
                                         const DMA_CONFIG_t* const pstConfigArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA_CH__enSetActiveControStructureByNumber(enModuleArg, enChannelArg, pstConfigArg->enControlStructure);
@@ -66,11 +62,7 @@ DMA_nERROR DMA_CH__enGetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChan
                                         DMA_CONFIG_t* pstConfigArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA_CH__enGetActiveControStructureByNumber(enModuleArg, enChannelArg, &(pstConfigArg->enControlStructure));
@@ -101,25 +93,20 @@ DMA_nERROR DMA_CH__enGetConfigParameters(DMA_nMODULE enModuleArg, DMA_nCH enChan
 DMA_nERROR DMA_CH__enGetConfigParameters_Create(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                            DMA_CONFIG_t** pstConfigArg)
 {
-    DMA_CONFIG_t* pstConfigReg;
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        pstConfigReg = (DMA_CONFIG_t*) memalign( (size_t) 4, (size_t) sizeof(DMA_CONFIG_t));
+        DMA_CONFIG_t* pstConfigReg = (DMA_CONFIG_t*) memalign( (size_t) 4, (size_t) sizeof(DMA_CONFIG_t));
 #elif defined (__GNUC__ )
-        pstConfigReg = (DMA_CONFIG_t*) malloc(sizeof(DMA_CONFIG_t));
+        DMA_CONFIG_t* pstConfigReg = (DMA_CONFIG_t*) malloc(sizeof(DMA_CONFIG_t));
 #endif
         enErrorReg = DMA_CH__enGetConfigParameters(enModuleArg, enChannelArg, pstConfigReg);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *pstConfigArg = pstConfigReg;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pstConfigArg = pstConfigReg;
+        }
     }
     return (enErrorReg);
 }

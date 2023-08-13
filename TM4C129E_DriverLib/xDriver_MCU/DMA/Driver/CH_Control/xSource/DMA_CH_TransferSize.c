@@ -70,18 +70,14 @@ DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByMask(DMA_nMODULE enModuleArg, DM
 DMA_nERROR DMA_CH__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                              DMA_nCH_CONTROL enControlArg, UBase_t uxTransferSizeArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
-
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == uxTransferSizeArg)
-    {
-        enErrorReg = DMA_enERROR_RANGE;
-    }
+    enErrorReg = (0UL == uxTransferSizeArg) ? DMA_enERROR_RANGE : DMA_enERROR_OK;
 
     if(DMA_enERROR_OK == enErrorReg)
     {
         uxTransferSizeArg--;
+
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_XFERSIZE_BIT;
         stRegister.uxMask = DMA_CH_CTL_XFERSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
@@ -107,29 +103,24 @@ DMA_nERROR DMA_CH_Alternate__enSetTransferSizeByNumber(DMA_nMODULE enModuleArg, 
     return (enErrorReg);
 }
 
-
 DMA_nERROR DMA_CH__enGetTransferSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                              DMA_nCH_CONTROL enControlArg, UBase_t* puxTransferSizeArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxTransferSizeArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) puxTransferSizeArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_XFERSIZE_BIT;
         stRegister.uxMask = DMA_CH_CTL_XFERSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        (stRegister.uxValue)++;
-        *puxTransferSizeArg = (UBase_t) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            (stRegister.uxValue)++;
+            *puxTransferSizeArg = (UBase_t) stRegister.uxValue;
+        }
     }
 
     return (enErrorReg);

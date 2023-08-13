@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetDestinationDataSizeByNumber(DMA_nMODULE enModuleArg, DMA
                                                   DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE enDataSizeArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_CTL_R_DSTSIZE_BIT;
     stRegister.uxMask = DMA_CH_CTL_DSTSIZE_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enDataSizeArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -102,26 +101,21 @@ DMA_nERROR DMA_CH_Alternate__enSetDestinationDataSizeByNumber(DMA_nMODULE enModu
 DMA_nERROR DMA_CH__enGetDestinationDataSizeByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, DMA_nCH_DATA_SIZE* penDataSizeArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penDataSizeArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penDataSizeArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_DSTSIZE_BIT;
         stRegister.uxMask = DMA_CH_CTL_DSTSIZE_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penDataSizeArg = (DMA_nCH_DATA_SIZE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -140,4 +134,3 @@ DMA_nERROR DMA_CH_Alternate__enGetDestinationDataSizeByNumber(DMA_nMODULE enModu
     enErrorReg = DMA_CH__enGetDestinationDataSizeByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penDataSizeArg);
     return (enErrorReg);
 }
-

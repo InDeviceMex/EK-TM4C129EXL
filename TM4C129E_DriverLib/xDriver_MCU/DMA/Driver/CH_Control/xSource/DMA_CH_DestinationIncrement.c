@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetDestinationTransferIncrementByNumber(DMA_nMODULE enModul
                                                   DMA_nCH_CONTROL enControlArg, DMA_nCH_INCREMENT enIncrementArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_CTL_R_DSTINC_BIT;
     stRegister.uxMask = DMA_CH_CTL_DSTINC_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enIncrementArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -102,26 +101,21 @@ DMA_nERROR DMA_CH_Alternate__enSetDestinationTransferIncrementByNumber(DMA_nMODU
 DMA_nERROR DMA_CH__enGetDestinationTransferIncrementByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, DMA_nCH_INCREMENT* penIncrementArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penIncrementArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penIncrementArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_DSTINC_BIT;
         stRegister.uxMask = DMA_CH_CTL_DSTINC_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penIncrementArg = (DMA_nCH_INCREMENT) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penIncrementArg = (DMA_nCH_INCREMENT) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -140,4 +134,3 @@ DMA_nERROR DMA_CH_Alternate__enGetDestinationTransferIncrementByNumber(DMA_nMODU
     enErrorReg = DMA_CH__enGetDestinationTransferIncrementByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penIncrementArg);
     return (enErrorReg);
 }
-

@@ -29,38 +29,32 @@
 DMA_nERROR DMA__enClearError(DMA_nMODULE enModuleArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_ERRCLR_R_ERRCLR_BIT;
     stRegister.uxMask = DMA_ERRCLR_ERRCLR_MASK;
     stRegister.uptrAddress = DMA_ERRCLR_OFFSET;
     stRegister.uxValue = DMA_ERRCLR_ERRCLR_ERROR;
-    enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA__enGetError(DMA_nMODULE enModuleArg, DMA_nSTATUS* penStatusArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_ERRCLR_R_ERRCLR_BIT;
         stRegister.uxMask = DMA_ERRCLR_ERRCLR_MASK;
         stRegister.uptrAddress = DMA_ERRCLR_OFFSET;
         enErrorReg = DMA__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (DMA_nSTATUS) stRegister.uxValue;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (DMA_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-

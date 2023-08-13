@@ -20,7 +20,7 @@ EEPROM_nERROR EEPROM__enReadAuxiliar(EEPROM_nMODULE enModuleArg, void* pvDataArg
     enErrorReg = EEPROM__enSetCurrentAddress(enModuleArg, uxAddressArg);
 
     UBase_t uxDataAux;
-    uxDataAux = 0;
+    uxDataAux = 0UL;
     if(EEPROM_enERROR_OK == enErrorReg)
     {
         enErrorReg = EEPROM__enReadData(enModuleArg, &uxDataAux);

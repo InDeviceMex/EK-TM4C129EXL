@@ -30,33 +30,29 @@
 DMA_nERROR DMA_CH__enSetSoftwareRequestByMask(DMA_nMODULE enModuleArg, DMA_nCHMASK enChannelMaskArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_SWREQ_R_SWREQ0_BIT;
     stRegister.uxMask = MCU_MASK_BASE;
     stRegister.uptrAddress = DMA_CH_SWREQ_OFFSET;
     stRegister.uxValue = (UBase_t) enChannelMaskArg;
-    enErrorReg = DMA__enWriteRegister_Direct(enModuleArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA__enWriteRegister_Direct(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 DMA_nERROR DMA_CH__enSetSoftwareRequestByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg)
 {
-    DMA_Register_t stRegister;
-    UBase_t uxValueReg;
     DMA_nERROR enErrorReg;
-
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enChannelArg, (UBase_t) DMA_enCH_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
+        UBase_t uxValueReg = (UBase_t) 1UL << (UBase_t) enChannelArg;
+        DMA_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_32;
         stRegister.uptrAddress = DMA_CH_SWREQ_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = DMA__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }

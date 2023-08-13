@@ -71,14 +71,13 @@ DMA_nERROR DMA_CH__enSetSourceDataAccessByNumber(DMA_nMODULE enModuleArg, DMA_nC
                                                   DMA_nCH_CONTROL enControlArg, DMA_nCH_ACCESS enAccessArg)
 {
     DMA_Register_t stRegister;
-    DMA_nERROR enErrorReg;
-
     stRegister.uxShift = DMA_CH_CTL_R_SRCPROT0_BIT;
     stRegister.uxMask = DMA_CH_CTL_SRCPROT0_MASK;
     stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enAccessArg;
-    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
 
+    DMA_nERROR enErrorReg;
+    enErrorReg = DMA_CH__enWriteRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -102,26 +101,21 @@ DMA_nERROR DMA_CH_Alternate__enSetSourceDataAccessByNumber(DMA_nMODULE enModuleA
 DMA_nERROR DMA_CH__enGetSourceDataAccessByNumber(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                                     DMA_nCH_CONTROL enControlArg, DMA_nCH_ACCESS* penAccessArg)
 {
-    DMA_Register_t stRegister;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penAccessArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) penAccessArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
+        DMA_Register_t stRegister;
         stRegister.uxShift = DMA_CH_CTL_R_SRCPROT0_BIT;
         stRegister.uxMask = DMA_CH_CTL_SRCPROT0_MASK;
         stRegister.uptrAddress = DMA_CH_CTL_OFFSET;
         enErrorReg = DMA_CH__enReadRegister(enModuleArg, enChannelArg, enControlArg, &stRegister);
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *penAccessArg = (DMA_nCH_ACCESS) stRegister.uxValue;
+        }
     }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *penAccessArg = (DMA_nCH_ACCESS) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -140,8 +134,3 @@ DMA_nERROR DMA_CH_Alternate__enGetSourceDataAccessByNumber(DMA_nMODULE enModuleA
     enErrorReg = DMA_CH__enGetSourceDataAccessByNumber(enModuleArg, enChannelArg, DMA_enCH_CONTROL_ALTERNATE, penAccessArg);
     return (enErrorReg);
 }
-
-
-
-
-

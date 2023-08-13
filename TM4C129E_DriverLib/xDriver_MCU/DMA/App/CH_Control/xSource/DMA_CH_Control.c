@@ -47,11 +47,7 @@ DMA_nERROR DMA_CH__enSetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
                                          DMA_nCH_CONTROL enControlArg, const DMA_CONTROL_t* const pstControlArg)
 {
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA_CH__enSetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, pstControlArg->enTransferMode);
@@ -115,12 +111,7 @@ DMA_nERROR DMA_CH__enGetControlParameters(DMA_nMODULE enModuleArg, DMA_nCH enCha
                                          DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t* pstControlArg)
 {
     DMA_nERROR enErrorReg;
-
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = DMA_CH__enGetTransferModeByNumber(enModuleArg, enChannelArg, enControlArg, &(pstControlArg->enTransferMode));
@@ -183,26 +174,21 @@ DMA_nERROR DMA_CH_Alternate__enGetControlParameters_Create(DMA_nMODULE enModuleA
 DMA_nERROR DMA_CH__enGetControlParameters_Create(DMA_nMODULE enModuleArg, DMA_nCH enChannelArg,
                                             DMA_nCH_CONTROL enControlArg, DMA_CONTROL_t** pstControlArg)
 {
-    DMA_CONTROL_t* pstControlReg;
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstControlArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstControlArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
+        DMA_CONTROL_t* pstControlReg = (DMA_CONTROL_t*) memalign( (size_t) 4,
                                                       (size_t) sizeof(DMA_CONTROL_t));
 #elif defined (__GNUC__ )
-        pstControlReg = (DMA_CONTROL_t*) malloc(sizeof(DMA_CONTROL_t));
+        DMA_CONTROL_t* pstControlReg = (DMA_CONTROL_t*) malloc(sizeof(DMA_CONTROL_t));
 #endif
         enErrorReg = DMA_CH__enGetControlParameters(enModuleArg, enChannelArg, enControlArg, pstControlReg);
-    }
-    if(DMA_enERROR_OK == enErrorReg)
-    {
-        *pstControlArg = pstControlReg;
+        if(DMA_enERROR_OK == enErrorReg)
+        {
+            *pstControlArg = pstControlReg;
+        }
     }
     return (enErrorReg);
 }

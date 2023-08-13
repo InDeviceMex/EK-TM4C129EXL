@@ -28,20 +28,15 @@
 
 DMA_nERROR DMA__enWriteRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     DMA_nERROR enErrorReg;
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (DMA_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
@@ -50,21 +45,16 @@ DMA_nERROR DMA__enWriteRegister(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegi
 
 DMA_nERROR DMA__enWriteRegister_Direct(DMA_nMODULE enModuleArg, DMA_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     DMA_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? DMA_enERROR_POINTER : DMA_enERROR_OK;
 
-    enErrorReg = DMA_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = DMA_enERROR_POINTER;
-    }
     if(DMA_enERROR_OK == enErrorReg)
     {
         enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = DMA__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (DMA_nERROR) MCU__enWriteRegister_Direct(pstRegisterDataArg);
     }

@@ -31,9 +31,7 @@ DMA_nERROR DMA_CH__enRegisterIRQSourceHandler_Software(DMA_pvfIRQSourceHandler_t
                                                       DMA_nMODULE enModuleArg,
                                                       DMA_nCH enChannelArg)
 {
-    DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
     DMA_nERROR enErrorReg;
-
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -41,7 +39,7 @@ DMA_nERROR DMA_CH__enRegisterIRQSourceHandler_Software(DMA_pvfIRQSourceHandler_t
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = DMA_CH__pvfGetIRQSourceHandlerPointer_Software(enModuleArg, enChannelArg);
+        DMA_pvfIRQSourceHandler_t* pvfIrqHandler = DMA_CH__pvfGetIRQSourceHandlerPointer_Software(enModuleArg, enChannelArg);
         enErrorReg = (DMA_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 
@@ -52,9 +50,7 @@ DMA_nERROR DMA__enRegisterIRQSourceHandler_Error(DMA_pvfIRQSourceHandler_t pfIrq
                                                   DMA_nMODULE enModuleArg,
                                                   DMA_nINT_ERROR enInterruptSourceArg)
 {
-    DMA_pvfIRQSourceHandler_t* pvfIrqHandler;
     DMA_nERROR enErrorReg;
-
     enErrorReg = (DMA_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) DMA_enMODULE_MAX);
     if(DMA_enERROR_OK == enErrorReg)
     {
@@ -62,7 +58,7 @@ DMA_nERROR DMA__enRegisterIRQSourceHandler_Error(DMA_pvfIRQSourceHandler_t pfIrq
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = DMA__pvfGetIRQSourceHandlerPointer_Error(enModuleArg, enInterruptSourceArg);
+        DMA_pvfIRQSourceHandler_t* pvfIrqHandler = DMA__pvfGetIRQSourceHandlerPointer_Error(enModuleArg, enInterruptSourceArg);
         enErrorReg = (DMA_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
     return (enErrorReg);

@@ -143,7 +143,8 @@ FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariab
             case FLASH_enVARIABLE_BYTE:
             {
                 uint8_t* pu8DataValue = (uint8_t*) uxAddressArg;
-                *penErrasedArg = ((uint8_t) MCU_MASK_8 == *(pu8DataValue)) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                FLASH_nERASED penErrasedReg = (MCU_MASK_8 == ((uint8_t) (*pu8DataValue))) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                *penErrasedArg = penErrasedReg;
             }
             break;
             case FLASH_enVARIABLE_HALFWORD:
@@ -151,7 +152,8 @@ FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariab
                 uxAddressArg &= ~ (UBase_t) 1UL;
 
                 uint16_t* pu16DataValue = (uint16_t*) uxAddressArg;
-                *penErrasedArg = ((uint16_t) MCU_MASK_16 == *(pu16DataValue)) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                FLASH_nERASED penErrasedReg = (MCU_MASK_16 == ((uint16_t) (*pu16DataValue))) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                *penErrasedArg = penErrasedReg;
             }
             break;
             case FLASH_enVARIABLE_WORD:
@@ -159,7 +161,8 @@ FLASH_nERROR FLASH_enIsDataErased(UBase_t uxAddressArg, FLASH_nVARIABLE enVariab
                 uxAddressArg &= ~ (UBase_t) 3UL;
 
                 UBase_t* puxDataValue = (UBase_t*) uxAddressArg;
-                *penErrasedArg = ((UBase_t) MCU_MASK_BASE == *(puxDataValue)) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                FLASH_nERASED penErrasedReg = (MCU_MASK_BASE == ((UBase_t) (*puxDataValue))) ? FLASH_enERASED_YES : FLASH_enERASED_NO;
+                *penErrasedArg = penErrasedReg;
             }
             break;
             default:
