@@ -30,37 +30,32 @@
 QEI_nERROR QEI__enSetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t uxPositionArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_POS_R_POSITION_BIT;
     stRegister.uxMask = QEI_POS_POSITION_MASK;
     stRegister.uptrAddress = QEI_POS_OFFSET;
     stRegister.uxValue = (UBase_t) uxPositionArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetCurrentPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t* puxPositionArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxPositionArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) puxPositionArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_POS_R_POSITION_BIT;
         stRegister.uxMask = QEI_POS_POSITION_MASK;
         stRegister.uptrAddress = QEI_POS_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *puxPositionArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *puxPositionArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

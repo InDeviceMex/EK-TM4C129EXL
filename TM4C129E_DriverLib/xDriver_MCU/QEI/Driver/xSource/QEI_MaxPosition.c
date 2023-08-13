@@ -30,38 +30,33 @@
 QEI_nERROR QEI__enSetMaximumPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t uxMaxPositionArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_MAXPOS_R_MAXPOS_BIT;
     stRegister.uxMask = QEI_MAXPOS_MAXPOS_MASK;
     stRegister.uptrAddress = QEI_MAXPOS_OFFSET;
     stRegister.uxValue = (UBase_t) uxMaxPositionArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetMaximumPositionIntegrator(QEI_nMODULE enModuleArg, UBase_t* puxMaxPositionArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxMaxPositionArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) puxMaxPositionArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_MAXPOS_R_MAXPOS_BIT;
         stRegister.uxMask = QEI_MAXPOS_MAXPOS_MASK;
         stRegister.uptrAddress = QEI_MAXPOS_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *puxMaxPositionArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *puxMaxPositionArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

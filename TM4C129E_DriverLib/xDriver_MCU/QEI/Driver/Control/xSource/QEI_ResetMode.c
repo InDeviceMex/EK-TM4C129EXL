@@ -30,37 +30,32 @@
 QEI_nERROR QEI__enSetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET enModeArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_RESMODE_BIT;
     stRegister.uxMask = QEI_CTL_RESMODE_MASK;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enModeArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetResetMode(QEI_nMODULE enModuleArg, QEI_nRESET* penModeArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penModeArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penModeArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_RESMODE_BIT;
         stRegister.uxMask = QEI_CTL_RESMODE_MASK;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penModeArg = (QEI_nRESET) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penModeArg = (QEI_nRESET) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

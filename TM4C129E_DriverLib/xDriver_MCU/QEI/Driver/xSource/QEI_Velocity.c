@@ -29,25 +29,20 @@
 
 QEI_nERROR QEI__enGetLastPulsesPerPeriod(QEI_nMODULE enModuleArg, UBase_t* puxPulsesArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxPulsesArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) puxPulsesArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_SPEED_R_SPEED_BIT;
         stRegister.uxMask = QEI_SPEED_SPEED_MASK;
         stRegister.uptrAddress = QEI_SPEED_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *puxPulsesArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *puxPulsesArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

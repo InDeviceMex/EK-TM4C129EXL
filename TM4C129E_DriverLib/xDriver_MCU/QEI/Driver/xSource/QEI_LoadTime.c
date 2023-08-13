@@ -30,37 +30,31 @@
 QEI_nERROR QEI__enSetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t uxPeriodArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_LOAD_R_LOAD_BIT;
     stRegister.uxMask = QEI_LOAD_LOAD_MASK;
     stRegister.uptrAddress = QEI_LOAD_OFFSET;
     stRegister.uxValue = (UBase_t) uxPeriodArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetLoadTimerValue(QEI_nMODULE enModuleArg, UBase_t* puxPeriodArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
-
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) puxPeriodArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxPeriodArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_LOAD_R_LOAD_BIT;
         stRegister.uxMask = QEI_LOAD_LOAD_MASK;
         stRegister.uptrAddress = QEI_LOAD_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *puxPeriodArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *puxPeriodArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

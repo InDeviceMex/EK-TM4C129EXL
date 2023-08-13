@@ -28,23 +28,17 @@
 
 QEI_nERROR QEI__enWriteRegister(QEI_nMODULE enModuleArg, QEI_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     QEI_nERROR enErrorReg;
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
     if(QEI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
     }
     if(QEI_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = QEI__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = QEI__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (QEI_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
-
     return (enErrorReg);
 }

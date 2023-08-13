@@ -32,15 +32,14 @@ QEI_nERROR QEI__enSetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
                                               QEI_nSTATE enStateArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_INVA_BIT;
     stRegister.uxShift += (UBase_t) enInputArg;
     stRegister.uxMask = QEI_CTL_INVA_MASK;
     stRegister.uxValue = (UBase_t) enStateArg;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
-    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
 
+    QEI_nERROR enErrorReg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -49,21 +48,12 @@ QEI_nERROR QEI__enSetInvertInputStateByMask(QEI_nMODULE enModuleArg,
                                             QEI_nSTATE enStateArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_INVA_BIT;
     stRegister.uxMask = (UBase_t) enInputArg;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
-    if(QEI_enSTATE_DIS == enStateArg)
-    {
-        stRegister.uxValue = (UBase_t) 0UL;
-        enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
-    }
-    else
-    {
-        stRegister.uxValue = (UBase_t) enInputArg;
-        enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
-    }
+    stRegister.uxValue = (QEI_enSTATE_DIS == enStateArg) ? (UBase_t) 0UL : (UBase_t) enInputArg;
+    QEI_nERROR enErrorReg;
+    enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
@@ -71,27 +61,21 @@ QEI_nERROR QEI__enGetInvertInputStateByNumber(QEI_nMODULE enModuleArg,
                                           QEI_nINPUT enInputArg,
                                           QEI_nSTATE* penStateArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
-
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_INVA_BIT;
         stRegister.uxShift += (UBase_t) enInputArg;
         stRegister.uxMask = QEI_CTL_INVA_MASK;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (QEI_nSTATE) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (QEI_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -99,26 +83,21 @@ QEI_nERROR QEI__enGetInvertInputStateByMask(QEI_nMODULE enModuleArg,
                                           QEI_nINPUT enSignalsArg,
                                           QEI_nINPUT* penStateArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_INVA_BIT;
         stRegister.uxMask = (UBase_t) enSignalsArg;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (QEI_nINPUT) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (QEI_nINPUT) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

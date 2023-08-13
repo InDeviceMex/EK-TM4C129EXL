@@ -29,25 +29,20 @@
 
 QEI_nERROR QEI__enGetCurrentTimerValue(QEI_nMODULE enModuleArg, UBase_t* puxValueArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxValueArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) puxValueArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_TIME_R_TIME_BIT;
         stRegister.uxMask = QEI_TIME_TIME_MASK;
         stRegister.uptrAddress = QEI_TIME_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *puxValueArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *puxValueArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

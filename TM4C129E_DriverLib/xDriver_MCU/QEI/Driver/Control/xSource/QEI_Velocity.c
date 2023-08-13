@@ -30,76 +30,65 @@
 QEI_nERROR QEI__enSetPulsePerPeriodState(QEI_nMODULE enModuleArg, QEI_nSTATE enStateArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_VELEN_BIT;
     stRegister.uxMask = QEI_CTL_VELEN_MASK;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetPulsePerPeriodState(QEI_nMODULE enModuleArg, QEI_nSTATE* penStateArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_VELEN_BIT;
         stRegister.uxMask = QEI_CTL_VELEN_MASK;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (QEI_nSTATE) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (QEI_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
 
 QEI_nERROR QEI__enSetPulsePerPeriodPredivider(QEI_nMODULE enModuleArg, QEI_nPREDIV enPredividerArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_VELDIV_BIT;
     stRegister.uxMask = QEI_CTL_VELDIV_MASK;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enPredividerArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetPulsePerPeriodPredivider(QEI_nMODULE enModuleArg, QEI_nPREDIV* penPredividerArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPredividerArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penPredividerArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_VELDIV_BIT;
         stRegister.uxMask = QEI_CTL_VELDIV_MASK;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penPredividerArg = (QEI_nPREDIV) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penPredividerArg = (QEI_nPREDIV) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

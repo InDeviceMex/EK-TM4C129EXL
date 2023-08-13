@@ -29,9 +29,7 @@
 
 QEI_nERROR QEI__enRegisterIRQSourceHandler(QEI_nMODULE enModuleArg, QEI_nINT enIntSourceArg, QEI_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    QEI_pvfIRQSourceHandler_t* pvfIrqHandler;
     QEI_nERROR enErrorReg;
-
     enErrorReg = (QEI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) QEI_enMODULE_MAX);
     if(QEI_enERROR_OK == enErrorReg)
     {
@@ -39,9 +37,8 @@ QEI_nERROR QEI__enRegisterIRQSourceHandler(QEI_nMODULE enModuleArg, QEI_nINT enI
     }
     if(QEI_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = QEI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        QEI_pvfIRQSourceHandler_t* pvfIrqHandler = QEI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (QEI_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }

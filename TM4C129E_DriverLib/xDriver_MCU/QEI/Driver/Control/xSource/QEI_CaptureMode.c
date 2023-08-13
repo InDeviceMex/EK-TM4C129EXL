@@ -30,38 +30,32 @@
 QEI_nERROR QEI__enSetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE enCaptureArg)
 {
     QEI_Register_t stRegister;
-    QEI_nERROR enErrorReg;
-
     stRegister.uxShift = QEI_CTL_R_CAPMODE_BIT;
     stRegister.uxMask = QEI_CTL_CAPMODE_MASK;
     stRegister.uptrAddress = QEI_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enCaptureArg;
+
+    QEI_nERROR enErrorReg;
     enErrorReg = QEI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 QEI_nERROR QEI__enGetInputCapture(QEI_nMODULE enModuleArg, QEI_nCAPTURE* penCaptureArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
-
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penCaptureArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penCaptureArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_CTL_R_CAPMODE_BIT;
         stRegister.uxMask = QEI_CTL_CAPMODE_MASK;
         stRegister.uptrAddress = QEI_CTL_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penCaptureArg = (QEI_nCAPTURE) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penCaptureArg = (QEI_nCAPTURE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

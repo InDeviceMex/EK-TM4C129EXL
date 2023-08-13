@@ -29,26 +29,21 @@
 
 QEI_nERROR QEI__enIsErrorDetected(QEI_nMODULE enModuleArg, QEI_nBOOLEAN* penStatusArg)
 {
-    QEI_Register_t stRegister;
     QEI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? QEI_enERROR_POINTER : QEI_enERROR_OK;
 
-    enErrorReg = QEI_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = QEI_enERROR_POINTER;
-    }
     if(QEI_enERROR_OK == enErrorReg)
     {
+        QEI_Register_t stRegister;
         stRegister.uxShift = QEI_STAT_R_ERROR_BIT;
         stRegister.uxMask = QEI_STAT_ERROR_MASK;
         stRegister.uptrAddress = QEI_STAT_OFFSET;
         enErrorReg = QEI__enReadRegister(enModuleArg, &stRegister);
+        if(QEI_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (QEI_nBOOLEAN) stRegister.uxValue;
+        }
     }
-    if(QEI_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (QEI_nBOOLEAN) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
