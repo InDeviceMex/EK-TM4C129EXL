@@ -28,7 +28,8 @@
 
 void TIMER__vSetClockSource(TIMER_nMODULE enModule, TIMER_nCLOCK enClockSourceArg)
 {
-    UBase_t uxModuleNumber = (UBase_t) enModule;
+    UBase_t uxModuleNumber;
+    uxModuleNumber = (UBase_t) enModule;
     uxModuleNumber &= 0xFFUL;
 
     TIMER__vWriteRegister((TIMER_nMODULE_NUM) uxModuleNumber, GPTM_CC_OFFSET,
@@ -38,10 +39,11 @@ void TIMER__vSetClockSource(TIMER_nMODULE enModule, TIMER_nCLOCK enClockSourceAr
 
 TIMER_nCLOCK TIMER__enGetClockSource(TIMER_nMODULE enModule)
 {
-    TIMER_nCLOCK enClockSourReg = TIMER_enCLOCK_SYSCLK;
-    UBase_t uxModuleNumber = (UBase_t) enModule;
+    UBase_t uxModuleNumber;
+    uxModuleNumber = (UBase_t) enModule;
     uxModuleNumber &= 0xFFUL;
 
+    TIMER_nCLOCK enClockSourReg;
     enClockSourReg = (TIMER_nCLOCK) TIMER__uxReadRegister((TIMER_nMODULE_NUM)uxModuleNumber,
                                    GPTM_CC_OFFSET, GPTM_CC_ALTCLK_MASK, GPTM_CC_R_ALTCLK_BIT);
     return (enClockSourReg);

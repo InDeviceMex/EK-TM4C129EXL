@@ -28,9 +28,12 @@
 
 void TIMER__vSetConfiguration(TIMER_nMODULE enModule, TIMER_nCONFIG enConf)
 {
-    UBase_t uxTimerEnable = 0UL;
-    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxModuleNumber;
+    uxModuleNumber = 0UL;
     TIMER__vGetSubParams(enModule, (UBase_t*) 0UL, &uxModuleNumber);
+
+
+    UBase_t uxTimerEnable;
     uxTimerEnable = TIMER__uxReadRegister((TIMER_nMODULE_NUM) uxModuleNumber,
                         GPTM_CTL_OFFSET, GPTM_CTL_R_TBEN_MASK | GPTM_CTL_R_TAEN_MASK, 0UL);
     if(0UL != uxTimerEnable)
@@ -52,9 +55,11 @@ void TIMER__vSetConfiguration(TIMER_nMODULE enModule, TIMER_nCONFIG enConf)
 
 TIMER_nCONFIG TIMER__enGetConfiguration(TIMER_nMODULE enModule)
 {
-    TIMER_nCONFIG enConfigReg = TIMER_enCONFIG_WIDE;
-    UBase_t uxModuleNumber = 0UL;
+    UBase_t uxModuleNumber;
+    uxModuleNumber = 0UL;
     TIMER__vGetSubParams(enModule, (UBase_t*) 0UL, &uxModuleNumber);
+
+    TIMER_nCONFIG enConfigReg;
     enConfigReg = (TIMER_nCONFIG) TIMER__uxReadRegister((TIMER_nMODULE_NUM) uxModuleNumber,
                                      GPTM_CFG_OFFSET, GPTM_CFG_CFG_MASK, GPTM_CFG_R_CFG_BIT);
     return (enConfigReg);

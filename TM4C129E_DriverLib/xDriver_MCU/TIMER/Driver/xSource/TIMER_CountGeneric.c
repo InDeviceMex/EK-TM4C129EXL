@@ -27,21 +27,16 @@
 #include <xDriver_MCU/TIMER/Peripheral/TIMER_Peripheral.h>
 #include <xDriver_MCU/TIMER/Driver/Intrinsics/Primitives/TIMER_Primitives.h>
 
-TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                                         const TIMER_Count32_t* pstCount)
+TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const TIMER_Count32_t* pstCount)
 {
     TIMER_nSTATUS enStatus = TIMER_enSTATUS_ERROR;
-    UBase_t uxReg = 0UL;
-    UBase_t uxTimerBase = 0UL;
     if((0UL != (UBase_t) pstCount->puxCountValue) && (0UL != (UBase_t) pstCount))
     {
         enStatus = TIMER_enSTATUS_OK;
-        uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
-
+        UBase_t uxTimerBase = TIMER__uxBlockBaseAddress(enModuleNumber);
         uxTimerBase += pstCount->uxCountRegister;
 
-        uxReg = *(volatile UBase_t*) (uxTimerBase);
-
+        UBase_t uxReg  = *(volatile UBase_t*) (uxTimerBase);
         if(0xFFFFFFFFUL != pstCount->uxCountMask)
         {
             uxReg >>= pstCount->uxCountShiftRight;
@@ -52,8 +47,7 @@ TIMER_nSTATUS TIMER_enGet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
     return (enStatus);
 }
 
-void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber,
-                               const TIMER_Count32_t* pstCount)
+void TIMER_vSet1Count32Generic(TIMER_nMODULE_NUM enModuleNumber, const TIMER_Count32_t* pstCount)
 {
     UBase_t uxReg = 0UL;
     UBase_t uxTimerBase = 0UL;
