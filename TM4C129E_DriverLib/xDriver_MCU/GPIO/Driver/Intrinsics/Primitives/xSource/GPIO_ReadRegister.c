@@ -28,19 +28,16 @@
 
 GPIO_nERROR GPIO__enReadRegister(GPIO_nPORT enPortArg, GPIO_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     GPIO_nERROR enErrorReg;
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
+
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPortArg, (UBase_t) GPIO_enPORT_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        uintptr_t uptrModuleBase;
         uptrModuleBase = GPIO__uptrBlockBaseAddress(enPortArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (GPIO_nERROR) MCU__enReadRegister(pstRegisterDataArg);

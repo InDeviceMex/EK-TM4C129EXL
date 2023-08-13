@@ -30,9 +30,7 @@
 GPIO_nERROR GPIO__enSetInterruptType(GPIO_nPORT enPortArg,
                                      GPIO_nINTTYPE enTypeArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = GPIO_enERROR_OK;
     if((GPIO_enPORT_P != enPortArg) && (GPIO_enPORT_Q != enPortArg))
     {
@@ -40,27 +38,22 @@ GPIO_nERROR GPIO__enSetInterruptType(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_SI_R_SUM_BIT;
         stRegister.uxMask = GPIO_SI_SUM_MASK;
         stRegister.uptrAddress = GPIO_SI_OFFSET;
         stRegister.uxValue = (UBase_t) enTypeArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetInterruptType(GPIO_nPORT enPortArg,
                                      GPIO_nINTTYPE* penTypeArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penTypeArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penTypeArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         if((GPIO_enPORT_P != enPortArg) && (GPIO_enPORT_Q != enPortArg))
@@ -70,16 +63,16 @@ GPIO_nERROR GPIO__enGetInterruptType(GPIO_nPORT enPortArg,
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-            stRegister.uxShift = GPIO_SI_R_SUM_BIT;
-            stRegister.uxMask = GPIO_SI_SUM_MASK;
-            stRegister.uptrAddress = GPIO_SI_OFFSET;
-            enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+        GPIO_Register_t stRegister;
+        stRegister.uxShift = GPIO_SI_R_SUM_BIT;
+        stRegister.uxMask = GPIO_SI_SUM_MASK;
+        stRegister.uptrAddress = GPIO_SI_OFFSET;
+        enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penTypeArg = (GPIO_nINTTYPE) stRegister.uxValue;
+        }
     }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penTypeArg = (GPIO_nINTTYPE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

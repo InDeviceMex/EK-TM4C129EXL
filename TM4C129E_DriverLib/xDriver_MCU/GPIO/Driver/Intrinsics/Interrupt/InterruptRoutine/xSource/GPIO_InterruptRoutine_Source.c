@@ -246,10 +246,7 @@ GPIO_pvfIRQSourceHandler_t GPIO__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg,
                                                         GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = GPIO_vIRQSourceHandler[(UBase_t) enPortArg]
-                                           [(UBase_t) enPinArg];
-
+    pvfFunctionReg = GPIO_vIRQSourceHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfFunctionReg);
 }
 
@@ -257,10 +254,7 @@ GPIO_pvfIRQSourceHandler_t* GPIO__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPor
                                                                 GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &GPIO_vIRQSourceHandler[(UBase_t) enPortArg]
-                                            [(UBase_t) enPinArg];
-
+    pvfFunctionReg = &GPIO_vIRQSourceHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfFunctionReg);
 }
 
@@ -269,10 +263,7 @@ GPIO_pvfIRQSourceHandler_t GPIO_DMA__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg
                                                             GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = GPIO_DMA_vIRQSourceHandler[(UBase_t) enPortArg]
-                                                [(UBase_t) enPinArg];
-
+    pvfFunctionReg = GPIO_DMA_vIRQSourceHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfFunctionReg);
 }
 
@@ -280,28 +271,21 @@ GPIO_pvfIRQSourceHandler_t* GPIO_DMA__pvfGetIRQSourceHandlerPointer(GPIO_nPORT e
                                                                     GPIO_nPIN enPinArg)
 {
     GPIO_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &GPIO_DMA_vIRQSourceHandler[(UBase_t) enPortArg]
-                                                 [(UBase_t) enPinArg];
-
+    pvfFunctionReg = &GPIO_DMA_vIRQSourceHandler[(UBase_t) enPortArg][(UBase_t) enPinArg];
     return (pvfFunctionReg);
 }
 
 GPIO_pvfIRQSourceHandler_t GPIO_SW__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg)
 {
     GPIO_pvfIRQSourceHandler_t pvfFunctionReg;
-
     pvfFunctionReg = GPIO_SW_vIRQSourceHandler[(UBase_t) enPortArg];
-
     return (pvfFunctionReg);
 }
 
 GPIO_pvfIRQSourceHandler_t* GPIO_SW__pvfGetIRQSourceHandlerPointer(GPIO_nPORT enPortArg)
 {
     GPIO_pvfIRQSourceHandler_t* pvfFunctionReg;
-
     pvfFunctionReg = &GPIO_SW_vIRQSourceHandler[(UBase_t) enPortArg];
-
     return (pvfFunctionReg);
 }
 
@@ -318,6 +302,7 @@ GPIO_pvfIRQSourceHandler_t GPIO_PQ__pvfGetIRQSourceHandler(GPIO_nPORT enPortArg,
     {
         pvfFunctionReg = GPIO_PQ_vIRQSourceHandler[1UL] [(UBase_t) enPinArg];
     }
+    else
     {
         pvfFunctionReg = (GPIO_pvfIRQSourceHandler_t) 0UL;
     }

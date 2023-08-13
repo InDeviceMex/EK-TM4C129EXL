@@ -30,38 +30,26 @@
 GPIO_nERROR GPIO__enGetWakeUpStatusByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                          GPIO_nPINMASK* penPinMaskReqArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penPinMaskReqArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penPinMaskReqArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enPORT_K != enPortArg)
+        if((GPIO_enPORT_K != enPortArg) || (0UL == (0xF0UL & (UBase_t) enPinMaskArg)))
         {
             enErrorReg = GPIO_enERROR_RANGE;
         }
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(0UL == (0xF0UL & (UBase_t) enPinMaskArg))
-        {
-            enErrorReg = GPIO_enERROR_RANGE;
-        }
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_WAKESTAT_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -69,39 +57,27 @@ GPIO_nERROR GPIO__enGetWakeUpStatusByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK en
 GPIO_nERROR GPIO__enGetWakeUpStatusByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                              GPIO_nWAKE_STATUS* penStateArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enPORT_K != enPortArg)
+        if((GPIO_enPORT_K != enPortArg) || ((UBase_t) GPIO_enPIN_3 >= (UBase_t) enPinArg))
         {
             enErrorReg = GPIO_enERROR_RANGE;
         }
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if((UBase_t) GPIO_enPIN_3 >= (UBase_t) enPinArg)
-        {
-            enErrorReg = GPIO_enERROR_RANGE;
-        }
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxMask = GPIO_WAKESTAT_PIN4_MASK;
         stRegister.uptrAddress = GPIO_WAKESTAT_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (GPIO_nWAKE_STATUS) stRegister.uxValue;
+        }
     }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (GPIO_nWAKE_STATUS) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

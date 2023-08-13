@@ -31,13 +31,7 @@
 GPIO_nERROR GPIO__enSetInterruptEdgeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                            GPIO_nEDGE enEdgeArg)
 {
-    GPIO_Register_t stRegister;
-    UBase_t uxValueBothReg;
-    UBase_t uxValueEdgeReg;
     GPIO_nERROR enErrorReg;
-
-    uxValueBothReg = 0UL;
-    uxValueEdgeReg = 0UL;
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -45,23 +39,8 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK e
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enEDGE_BOTH == enEdgeArg)
-        {
-            uxValueBothReg = (UBase_t) enPinMaskArg;
-            uxValueEdgeReg = 0UL;
-        }
-        else
-        {
-            uxValueBothReg = 0UL;
-            if(GPIO_enEDGE_FALLING == enEdgeArg)
-            {
-                uxValueEdgeReg = 0UL;
-            }
-            else
-            {
-                uxValueEdgeReg = (UBase_t) enPinMaskArg;
-            }
-        }
+        UBase_t uxValueBothReg = (GPIO_enEDGE_BOTH == enEdgeArg) ? (UBase_t) enPinMaskArg : 0UL;
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_IBE_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_IBE_OFFSET;
@@ -70,6 +49,16 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK e
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        UBase_t uxValueEdgeReg;
+        if(GPIO_enEDGE_BOTH == enEdgeArg)
+        {
+            uxValueEdgeReg = 0UL;
+        }
+        else
+        {
+            uxValueEdgeReg = (GPIO_enEDGE_FALLING == enEdgeArg) ? 0UL : (UBase_t) enPinMaskArg;
+        }
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_IEV_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_IEV_OFFSET;
@@ -82,13 +71,7 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK e
 GPIO_nERROR GPIO__enSetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                               GPIO_nEDGE enEdgeArg)
 {
-    GPIO_Register_t stRegister;
-    UBase_t uxValueBothReg;
-    UBase_t uxValueEdgeReg;
     GPIO_nERROR enErrorReg;
-
-    uxValueBothReg = 0UL;
-    uxValueEdgeReg = 0UL;
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -96,16 +79,8 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enP
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enEDGE_BOTH == enEdgeArg)
-        {
-            uxValueBothReg = GPIO_IBE_PIN0_BOTH;
-            uxValueEdgeReg = GPIO_IEV_PIN0_FALLING;
-        }
-        else
-        {
-            uxValueBothReg = GPIO_IBE_PIN0_SINGLE;
-            uxValueEdgeReg = (UBase_t) enEdgeArg;
-        }
+        UBase_t uxValueBothReg = (GPIO_enEDGE_BOTH == enEdgeArg) ? GPIO_IBE_PIN0_BOTH : GPIO_IBE_PIN0_SINGLE;
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_IBE_R_PIN0_BIT;
         stRegister.uxMask = GPIO_IBE_PIN0_MASK;
@@ -115,6 +90,8 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enP
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        UBase_t uxValueEdgeReg = (GPIO_enEDGE_BOTH == enEdgeArg) ? GPIO_IEV_PIN0_FALLING : (UBase_t) enEdgeArg;
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_IEV_R_PIN0_BIT;
         stRegister.uxMask = GPIO_IEV_PIN0_MASK;
@@ -128,56 +105,50 @@ GPIO_nERROR GPIO__enSetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enP
 GPIO_nERROR GPIO__enGetInterruptEdgeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                               GPIO_nEDGE* penEdgeArg)
 {
-    GPIO_Register_t stRegister;
-    GPIO_nSENSE enSenseReg;
     GPIO_nERROR enErrorReg;
-
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penEdgeArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penEdgeArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
+
+    GPIO_nSENSE enSenseReg;
+    enSenseReg = GPIO_enSENSE_UNDEF;
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        enSenseReg = GPIO_enSENSE_UNDEF;
         enErrorReg = GPIO__enGetInterruptSenseByNumber(enPortArg, enPinArg, &enSenseReg);
     }
-    if(GPIO_enERROR_OK == enErrorReg)
+    if((GPIO_enERROR_OK == enErrorReg) && (GPIO_enSENSE_EDGE != enSenseReg))
     {
-        if(GPIO_enSENSE_EDGE != enSenseReg)
-        {
-            *penEdgeArg = GPIO_enEDGE_UNDEF;
-        }
+        *penEdgeArg = GPIO_enEDGE_UNDEF;
     }
-    if(GPIO_enERROR_OK == enErrorReg)
+
+    if((GPIO_enERROR_OK == enErrorReg) && (GPIO_enSENSE_EDGE == enSenseReg))
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_IBE_R_PIN0_BIT;
         stRegister.uxMask = GPIO_IBE_PIN0_MASK;
         stRegister.uptrAddress = GPIO_IBE_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        if(GPIO_IBE_PIN0_SINGLE == stRegister.uxValue)
+        if(GPIO_enERROR_OK == enErrorReg)
         {
-            stRegister.uxShift = (UBase_t) enPinArg;
-            stRegister.uxShift += GPIO_IEV_R_PIN0_BIT;
-            stRegister.uxMask = GPIO_IEV_PIN0_MASK;
-            stRegister.uptrAddress = GPIO_IEV_OFFSET;
-            enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-            if(GPIO_enERROR_OK == enErrorReg)
+            if(GPIO_IBE_PIN0_SINGLE == stRegister.uxValue)
             {
-                *penEdgeArg = (GPIO_nEDGE) stRegister.uxValue;
+                stRegister.uxShift = (UBase_t) enPinArg;
+                stRegister.uxShift += GPIO_IEV_R_PIN0_BIT;
+                stRegister.uxMask = GPIO_IEV_PIN0_MASK;
+                stRegister.uptrAddress = GPIO_IEV_OFFSET;
+                enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+                if(GPIO_enERROR_OK == enErrorReg)
+                {
+                    *penEdgeArg = (GPIO_nEDGE) stRegister.uxValue;
+                }
             }
-        }
-        else
-        {
-            *penEdgeArg = GPIO_enEDGE_BOTH;
+            else
+            {
+                *penEdgeArg = GPIO_enEDGE_BOTH;
+            }
         }
     }
     return (enErrorReg);

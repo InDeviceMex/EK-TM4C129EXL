@@ -30,40 +30,30 @@
 GPIO_nERROR GPIO__enSetFunctionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                       GPIO_nFUNCTION enFunctionArg)
 {
-    GPIO_Register_t stRegister;
-    UBase_t uxValueReg;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enFUNCTION_GPIO == enFunctionArg)
-        {
-            uxValueReg = 0UL;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enPinMaskArg;
-        }
+        UBase_t uxValueReg = (GPIO_enFUNCTION_GPIO == enFunctionArg) ? 0UL : (UBase_t) enPinMaskArg;
+
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_AFSEL_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_AFSEL_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enSetFunctionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                         GPIO_nFUNCTION enFunctionArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_AFSEL_R_PIN0_BIT;
         stRegister.uxMask = GPIO_AFSEL_PIN0_MASK;
@@ -71,35 +61,29 @@ GPIO_nERROR GPIO__enSetFunctionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg
         stRegister.uxValue = (UBase_t) enFunctionArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetFunctionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                       GPIO_nPINMASK* penPinMaskReqArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penPinMaskReqArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penPinMaskReqArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_AFSEL_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_AFSEL_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -107,29 +91,24 @@ GPIO_nERROR GPIO__enGetFunctionByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinM
 GPIO_nERROR GPIO__enGetFunctionByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                         GPIO_nFUNCTION* penFunctionArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penFunctionArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penFunctionArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_AFSEL_R_PIN0_BIT;
         stRegister.uxMask = GPIO_AFSEL_PIN0_MASK;
         stRegister.uptrAddress = GPIO_AFSEL_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penFunctionArg = (GPIO_nFUNCTION) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penFunctionArg = (GPIO_nFUNCTION) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

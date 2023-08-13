@@ -30,40 +30,29 @@
 GPIO_nERROR GPIO__enSetOutputModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                         GPIO_nOUTMODE enStateArg)
 {
-    GPIO_Register_t stRegister;
-    UBase_t uxValueReg;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enOUTMODE_PUSHPULL == enStateArg)
-        {
-            uxValueReg = 0UL;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enPinMaskArg;
-        }
+        UBase_t uxValueReg = (GPIO_enOUTMODE_PUSHPULL == enStateArg) ? 0UL : (UBase_t) enPinMaskArg;
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_ODR_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_ODR_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enSetOutputModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                           GPIO_nOUTMODE enStateArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_ODR_R_PIN0_BIT;
         stRegister.uxMask = GPIO_ODR_PIN0_MASK;
@@ -71,35 +60,30 @@ GPIO_nERROR GPIO__enSetOutputModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinA
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetOutputModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                         GPIO_nPINMASK* penPinMaskReqArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPinMaskReqArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penPinMaskReqArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_ODR_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_ODR_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -107,30 +91,25 @@ GPIO_nERROR GPIO__enGetOutputModeByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPi
 GPIO_nERROR GPIO__enGetOutputModeByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                           GPIO_nOUTMODE* penModeArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penModeArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penModeArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_ODR_R_PIN0_BIT;
         stRegister.uxMask = GPIO_ODR_PIN0_MASK;
         stRegister.uptrAddress = GPIO_ODR_OFFSET;
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penModeArg = (GPIO_nOUTMODE) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penModeArg = (GPIO_nOUTMODE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-

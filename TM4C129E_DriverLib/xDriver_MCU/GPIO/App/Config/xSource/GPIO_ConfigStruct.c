@@ -29,34 +29,25 @@ GPIO_nERROR GPIO__enConvertConfigStructure(GPIO_nCONFIG enConfigArg,
                                            GPIO_CONFIG_t* pstConfigArg)
 {
     GPIO_nERROR enErrorReg;
-    UBase_t uxDriveReg;
-    UBase_t uxResistorReg;
-    UBase_t uxOutputReg;
-    UBase_t uxDirectionReg;
-
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        uxResistorReg = (UBase_t) enConfigArg;
+        UBase_t uxResistorReg = (UBase_t) enConfigArg;
         uxResistorReg >>= 0UL;
         uxResistorReg &= 0xFUL;
         pstConfigArg->enResistorMode = (GPIO_nRESMODE) uxResistorReg;
 
-        uxOutputReg = (UBase_t) enConfigArg;
+        UBase_t uxOutputReg = (UBase_t) enConfigArg;
         uxOutputReg >>= 4UL;
         uxOutputReg &= 0xFUL;
         pstConfigArg->enOutputMode = (GPIO_nOUTMODE) uxOutputReg;
 
-        uxDirectionReg = (UBase_t) enConfigArg;
+        UBase_t uxDirectionReg = (UBase_t) enConfigArg;
         uxDirectionReg >>= 8UL;
         uxDirectionReg &= 0xFFUL;
         pstConfigArg->enDirection = (GPIO_nDIR) uxDirectionReg;
 
-        uxDriveReg = (UBase_t) enConfigArg;
+        UBase_t uxDriveReg = (UBase_t) enConfigArg;
         uxDriveReg >>= 16UL;
         uxDriveReg &= 0xFFFFU;
         pstConfigArg->enDrive = (GPIO_nDRIVE) uxDriveReg;
@@ -67,27 +58,22 @@ GPIO_nERROR GPIO__enConvertConfigStructure(GPIO_nCONFIG enConfigArg,
 GPIO_nERROR GPIO__enConvertConfigStructure_Create(GPIO_nCONFIG enConfigArg,
                                                   GPIO_CONFIG_t** pstConfigArg)
 {
-    GPIO_CONFIG_t *pstConfigReg;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
 #if defined (__TI_ARM__ ) || defined (__MSP430__ )
-        pstConfigReg = (GPIO_CONFIG_t*) memalign( (size_t) 4,
+        GPIO_CONFIG_t *pstConfigReg = (GPIO_CONFIG_t*) memalign( (size_t) 4,
                                                      (size_t) (sizeof(GPIO_CONFIG_t)));
 #elif defined (__GNUC__ )
-        pstConfigReg = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
+        GPIO_CONFIG_t *pstConfigReg = (GPIO_CONFIG_t*) malloc((size_t) sizeof(GPIO_CONFIG_t));
 #endif
         enErrorReg = GPIO__enConvertConfigStructure(enConfigArg, pstConfigReg);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *pstConfigArg = pstConfigReg;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *pstConfigArg = pstConfigReg;
+        }
     }
     return (enErrorReg);
 }

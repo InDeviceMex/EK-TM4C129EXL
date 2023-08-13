@@ -32,33 +32,23 @@ GPIO_nERROR GPIO__enSetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunctionArg,
                                       GPIO_nCONFIG enConfigArg)
 {
     GPIO_nERROR enErrorReg;
+    enErrorReg = (GPIO_enGPIO_UNDEF == enFunctionArg) ? GPIO_enERROR_VALUE : GPIO_enERROR_OK;
 
-    UBase_t uxPortReg;
-    UBase_t uxPinReg;
-
-    uxPinReg = 0UL;
-    uxPortReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(GPIO_enGPIO_UNDEF == enFunctionArg)
-    {
-        enErrorReg = GPIO_enERROR_VALUE;
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        uxPortReg = (UBase_t) enFunctionArg;
-        uxPortReg >>= 16UL;
-        uxPortReg &= 0xFFUL;
-
-        uxPinReg = (UBase_t) enFunctionArg;
-        uxPinReg >>= 8UL;
-        uxPinReg &= 0xFFUL;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = GPIO__enSetDigitalFunction(enFunctionArg);
     }
+
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        UBase_t uxPortReg = (UBase_t) enFunctionArg;
+        uxPortReg >>= 16UL;
+        uxPortReg &= 0xFFUL;
+
+        UBase_t uxPinReg = (UBase_t) enFunctionArg;
+        uxPinReg >>= 8UL;
+        uxPinReg &= 0xFFUL;
+
         enErrorReg = GPIO__enSetConfigByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, enConfigArg);
     }
     return (enErrorReg);
@@ -68,30 +58,10 @@ GPIO_nERROR GPIO__enSetDigitalConfigStructure(GPIO_nDIGITAL_FUNCTION enFunctionA
                                            const GPIO_CONFIG_t *pstConfigArg)
 {
     GPIO_nERROR enErrorReg;
-
-    UBase_t uxPortReg;
-    UBase_t uxPinReg;
-
-    uxPinReg = 0UL;
-    uxPortReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enGPIO_UNDEF == enFunctionArg)
     {
         enErrorReg = GPIO_enERROR_VALUE;
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        uxPortReg = (UBase_t) enFunctionArg;
-        uxPortReg >>= 16UL;
-        uxPortReg &= 0xFFUL;
-
-        uxPinReg = (UBase_t) enFunctionArg;
-        uxPinReg >>= 8UL;
-        uxPinReg &= 0xFFUL;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -99,79 +69,57 @@ GPIO_nERROR GPIO__enSetDigitalConfigStructure(GPIO_nDIGITAL_FUNCTION enFunctionA
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        UBase_t uxPortReg = (UBase_t) enFunctionArg;
+        uxPortReg >>= 16UL;
+        uxPortReg &= 0xFFUL;
+
+        UBase_t uxPinReg = (UBase_t) enFunctionArg;
+        uxPinReg >>= 8UL;
+        uxPinReg &= 0xFFUL;
         enErrorReg = GPIO__enSetConfigStructureByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, pstConfigArg);
     }
-
     return (enErrorReg);
-
 }
 
 GPIO_nERROR GPIO__enGetDigitalConfig(GPIO_nDIGITAL_FUNCTION enFunctionArg, GPIO_nCONFIG* penConfigArg)
 {
     GPIO_nERROR enErrorReg;
-
-    UBase_t uxPortReg;
-    UBase_t uxPinReg;
-
-    uxPinReg = 0UL;
-    uxPortReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enGPIO_UNDEF == enFunctionArg)
     {
         enErrorReg = GPIO_enERROR_VALUE;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        uxPortReg = (UBase_t) enFunctionArg;
+        UBase_t uxPortReg = (UBase_t) enFunctionArg;
         uxPortReg >>= 16UL;
         uxPortReg &= 0xFFUL;
 
-        uxPinReg = (UBase_t) enFunctionArg;
+        UBase_t uxPinReg = (UBase_t) enFunctionArg;
         uxPinReg >>= 8UL;
         uxPinReg &= 0xFFUL;
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
         enErrorReg = GPIO__enGetConfigByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, penConfigArg);
     }
-
     return (enErrorReg);
 }
 
 GPIO_nERROR GPIO__enGetDigitalConfigStructure(GPIO_nDIGITAL_FUNCTION enFunctionArg, GPIO_CONFIG_t* pstConfigArg)
 {
     GPIO_nERROR enErrorReg;
-
-    UBase_t uxPortReg;
-    UBase_t uxPinReg;
-
-    uxPinReg = 0UL;
-    uxPortReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enGPIO_UNDEF == enFunctionArg)
     {
         enErrorReg = GPIO_enERROR_VALUE;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        uxPortReg = (UBase_t) enFunctionArg;
+        UBase_t uxPortReg = (UBase_t) enFunctionArg;
         uxPortReg >>= 16UL;
         uxPortReg &= 0xFFUL;
 
-        uxPinReg = (UBase_t) enFunctionArg;
+        UBase_t uxPinReg = (UBase_t) enFunctionArg;
         uxPinReg >>= 8UL;
         uxPinReg &= 0xFFUL;
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
         enErrorReg = GPIO__enGetConfigStructureByNumber((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, pstConfigArg);
     }
 
@@ -181,33 +129,20 @@ GPIO_nERROR GPIO__enGetDigitalConfigStructure(GPIO_nDIGITAL_FUNCTION enFunctionA
 GPIO_nERROR GPIO__enGetDigitalConfigByNumber_Create(GPIO_nDIGITAL_FUNCTION enFunctionArg, GPIO_CONFIG_t** pstConfigArg)
 {
     GPIO_nERROR enErrorReg;
-
-    UBase_t uxPortReg;
-    UBase_t uxPinReg;
-
-    uxPinReg = 0UL;
-    uxPortReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) pstConfigArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstConfigArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
     if(GPIO_enGPIO_UNDEF == enFunctionArg)
     {
         enErrorReg = GPIO_enERROR_VALUE;
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        uxPortReg = (UBase_t) enFunctionArg;
+        UBase_t uxPortReg = (UBase_t) enFunctionArg;
         uxPortReg >>= 16UL;
         uxPortReg &= 0xFFUL;
 
-        uxPinReg = (UBase_t) enFunctionArg;
+        UBase_t uxPinReg = (UBase_t) enFunctionArg;
         uxPinReg >>= 8UL;
         uxPinReg &= 0xFFUL;
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
         enErrorReg = GPIO__enGetConfigByNumber_Create((GPIO_nPORT) uxPortReg, (GPIO_nPIN) uxPinReg, pstConfigArg);
     }
     return (enErrorReg);

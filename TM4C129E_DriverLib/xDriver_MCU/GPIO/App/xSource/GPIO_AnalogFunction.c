@@ -29,16 +29,12 @@
 GPIO_nERROR GPIO__enSetAnalogFunction(GPIO_nANALOG_FUNCTION enFunctionArg)
 {
     GPIO_nERROR enErrorReg;
+    enErrorReg = (GPIO_enAIN_UNDEF == enFunctionArg) ? GPIO_enERROR_VALUE : GPIO_enERROR_OK;
+
     UBase_t uxPortReg;
     UBase_t uxPinReg;
-
     uxPortReg = 0UL;
     uxPinReg = 0UL;
-    enErrorReg = GPIO_enERROR_OK;
-    if(GPIO_enAIN_UNDEF == enFunctionArg)
-    {
-        enErrorReg = GPIO_enERROR_VALUE;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         uxPortReg = (UBase_t) enFunctionArg;

@@ -35,10 +35,7 @@ static const uintptr_t GPIO_uptrDriveOffset[(UBase_t) GPIO_enNORMAL_DRIVE_MAX] =
 GPIO_nERROR GPIO__enSetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                          GPIO_nNORMAL_DRIVE enDriveArg, GPIO_nSTATE enStateArg)
 {
-    GPIO_Register_t stRegister;
-    UBase_t uxValueReg;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -46,14 +43,8 @@ GPIO_nERROR GPIO__enSetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enP
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
-        if(GPIO_enSTATE_DIS == enStateArg)
-        {
-            uxValueReg = 0UL;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enPinMaskArg;
-        }
+        UBase_t uxValueReg = (GPIO_enSTATE_DIS == enStateArg) ? 0UL : (UBase_t) enPinMaskArg;
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_DR2R_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_uptrDriveOffset[(uintptr_t) enDriveArg];
@@ -67,9 +58,7 @@ GPIO_nERROR GPIO__enSetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enP
 GPIO_nERROR GPIO__enSetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                            GPIO_nNORMAL_DRIVE enDriveArg, GPIO_nSTATE enStateArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
-
     enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
     if(GPIO_enERROR_OK == enErrorReg)
     {
@@ -77,6 +66,7 @@ GPIO_nERROR GPIO__enSetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_DR2R_R_PIN0_BIT;
         stRegister.uxMask = GPIO_DR2R_PIN0_MASK;
@@ -84,7 +74,6 @@ GPIO_nERROR GPIO__enSetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = GPIO__enWriteRegister(enPortArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
@@ -123,14 +112,9 @@ GPIO_nERROR GPIO__enDisableNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN e
 GPIO_nERROR GPIO__enGetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enPinMaskArg,
                                          GPIO_nNORMAL_DRIVE enDriveArg, GPIO_nPINMASK* penPinMaskReqArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPinMaskReqArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penPinMaskReqArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinMaskArg, (UBase_t) GPIO_enPINMASK_MAX);
@@ -141,14 +125,15 @@ GPIO_nERROR GPIO__enGetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enP
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = GPIO_DR2R_R_PIN0_BIT;
         stRegister.uxMask = (UBase_t) enPinMaskArg;
         stRegister.uptrAddress = GPIO_uptrDriveOffset[(uintptr_t) enDriveArg];
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
-    }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penPinMaskReqArg = (GPIO_nPINMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -156,14 +141,9 @@ GPIO_nERROR GPIO__enGetNormalDriveByMask(GPIO_nPORT enPortArg, GPIO_nPINMASK enP
 GPIO_nERROR GPIO__enGetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPinArg,
                                            GPIO_nNORMAL_DRIVE enDriveArg, GPIO_nSTATE* penStateArg)
 {
-    GPIO_Register_t stRegister;
     GPIO_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? GPIO_enERROR_POINTER : GPIO_enERROR_OK;
 
-    enErrorReg = GPIO_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = GPIO_enERROR_POINTER;
-    }
     if(GPIO_enERROR_OK == enErrorReg)
     {
         enErrorReg = (GPIO_nERROR) MCU__enCheckParams((UBase_t) enPinArg, (UBase_t) GPIO_enPIN_MAX);
@@ -174,20 +154,16 @@ GPIO_nERROR GPIO__enGetNormalDriveByNumber(GPIO_nPORT enPortArg, GPIO_nPIN enPin
     }
     if(GPIO_enERROR_OK == enErrorReg)
     {
+        GPIO_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enPinArg;
         stRegister.uxShift += GPIO_DR2R_R_PIN0_BIT;
         stRegister.uxMask = GPIO_DR2R_PIN0_MASK;
         stRegister.uptrAddress = GPIO_uptrDriveOffset[(uintptr_t) enDriveArg];
         enErrorReg = GPIO__enReadRegister(enPortArg, &stRegister);
+        if(GPIO_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (GPIO_nSTATE) stRegister.uxValue;
+        }
     }
-    if(GPIO_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (GPIO_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
-
-
-
