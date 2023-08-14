@@ -29,26 +29,21 @@
 
 I2C_nERROR I2C_Master__enGetLineLevel(I2C_nMODULE enModuleArg, I2C_nLINE enLineArg, I2C_nLEVEL* enLevelArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) enLevelArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
 
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) enLevelArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = (UBase_t) enLineArg;
         stRegister.uxMask = 0x1UL;
         stRegister.uptrAddress = I2C_MASTER_BMON_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *enLevelArg = (I2C_nLEVEL) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *enLevelArg = (I2C_nLEVEL) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -65,7 +60,3 @@ I2C_nERROR I2C_Master__enGetSDALevel(I2C_nMODULE enModule, I2C_nLEVEL* enLevelAr
     enErrorReg = I2C_Master__enGetLineLevel(enModule, I2C_enLINE_SDA, enLevelArg);
     return (enErrorReg);
 }
-
-
-
-

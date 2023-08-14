@@ -30,98 +30,89 @@
 I2C_nERROR I2C_Master__enSetSlaveAddress(I2C_nMODULE enModuleArg, UBase_t uxAddressArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_MASTER_SA_R_SA_BIT;
     stRegister.uxMask = I2C_MASTER_SA_SA_MASK;
     stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
     stRegister.uxValue = (UBase_t) uxAddressArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enGetSlaveAddress(I2C_nMODULE enModuleArg, UBase_t* puxAddressArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxAddressArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
 
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) puxAddressArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_MASTER_SA_R_SA_BIT;
         stRegister.uxMask = I2C_MASTER_SA_SA_MASK;
         stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *puxAddressArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *puxAddressArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enSetOperation(I2C_nMODULE enModuleArg, I2C_nOPERATION enOperationArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_MASTER_SA_R_RS_BIT;
     stRegister.uxMask = I2C_MASTER_SA_RS_MASK;
     stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
     stRegister.uxValue = (UBase_t) enOperationArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enGetOperation(I2C_nMODULE enModuleArg, I2C_nOPERATION* penOperationArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penOperationArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
 
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) penOperationArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_MASTER_SA_R_RS_BIT;
         stRegister.uxMask = I2C_MASTER_SA_RS_MASK;
         stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *penOperationArg = (I2C_nOPERATION) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *penOperationArg = (I2C_nOPERATION) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
 
 I2C_nERROR I2C_Master__enSetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase_t uxAddressArg, I2C_nOPERATION enOperationArg)
 {
-    I2C_Register_t stRegister;
     UBase_t uxValueReg;
-    UBase_t uxOperationReg;
-    I2C_nERROR enErrorReg;
-
     uxValueReg = uxAddressArg;
     uxValueReg &= I2C_MASTER_SA_SA_MASK;
     uxValueReg <<= I2C_MASTER_SA_R_SA_BIT;
+
+    UBase_t uxOperationReg;
     uxOperationReg = (UBase_t) enOperationArg;
     uxOperationReg &= I2C_MASTER_SA_RS_MASK;
     uxValueReg |= (UBase_t) uxOperationReg;
 
+    I2C_Register_t stRegister;
     stRegister.uxShift = I2C_MASTER_SA_R_RS_BIT;
     stRegister.uxMask = I2C_MASTER_SA_SA_MASK | I2C_MASTER_SA_RS_MASK;
     stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
     stRegister.uxValue = (UBase_t) uxValueReg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -129,7 +120,6 @@ I2C_nERROR I2C_Master__enSetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase
 I2C_nERROR I2C_Master__enGetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase_t* puxAddressArg, I2C_nOPERATION* penOperationArg)
 {
     I2C_nERROR enErrorReg;
-
     enErrorReg = I2C_Master__enGetSlaveAddress(enModuleArg, puxAddressArg);
     if(I2C_enERROR_OK == enErrorReg)
     {
@@ -141,37 +131,32 @@ I2C_nERROR I2C_Master__enGetSlaveAddressOperation(I2C_nMODULE enModuleArg, UBase
 I2C_nERROR I2C_Master__enSetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, UBase_t uxValueArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_MASTER_SA_R_RS_BIT;
     stRegister.uxMask = I2C_MASTER_SA_SA_MASK | I2C_MASTER_SA_RS_MASK;
     stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
     stRegister.uxValue = (UBase_t) uxValueArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Master__enGetSlaveAddressOperationByByte(I2C_nMODULE enModuleArg, UBase_t* puxValueArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) puxValueArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
 
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) puxValueArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_MASTER_SA_R_RS_BIT;
         stRegister.uxMask = I2C_MASTER_SA_SA_MASK | I2C_MASTER_SA_RS_MASK;
         stRegister.uptrAddress = I2C_MASTER_SA_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *puxValueArg = (UBase_t) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *puxValueArg = (UBase_t) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

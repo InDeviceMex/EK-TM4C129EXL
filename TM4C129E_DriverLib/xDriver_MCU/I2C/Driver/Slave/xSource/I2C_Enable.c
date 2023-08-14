@@ -30,38 +30,32 @@
 I2C_nERROR I2C_Slave__enSetState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_SLAVE_CTL_R_DA_BIT;
     stRegister.uxMask = I2C_SLAVE_CTL_DA_MASK;
     stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Slave__enGetState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
-
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_SLAVE_CTL_R_DA_BIT;
         stRegister.uxMask = I2C_SLAVE_CTL_DA_MASK;
         stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (I2C_nSTATE) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -69,76 +63,64 @@ I2C_nERROR I2C_Slave__enGetState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateAr
 I2C_nERROR I2C_Slave__enSetFIFOTxState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_SLAVE_CTL_R_TXFIFO_BIT;
     stRegister.uxMask = I2C_SLAVE_CTL_TXFIFO_MASK;
     stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Slave__enGetFIFOTxState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
-
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_SLAVE_CTL_R_TXFIFO_BIT;
         stRegister.uxMask = I2C_SLAVE_CTL_TXFIFO_MASK;
         stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (I2C_nSTATE) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
-
 
 I2C_nERROR I2C_Slave__enSetFIFORxState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
     I2C_Register_t stRegister;
-    I2C_nERROR enErrorReg;
-
     stRegister.uxShift = I2C_SLAVE_CTL_R_RXFIFO_BIT;
     stRegister.uxMask = I2C_SLAVE_CTL_RXFIFO_MASK;
     stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    I2C_nERROR enErrorReg;
     enErrorReg = I2C__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 I2C_nERROR I2C_Slave__enGetFIFORxState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
 
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_SLAVE_CTL_R_RXFIFO_BIT;
         stRegister.uxMask = I2C_SLAVE_CTL_RXFIFO_MASK;
         stRegister.uptrAddress = I2C_SLAVE_CTL_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (I2C_nSTATE) stRegister.uxValue;
+        }
     }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (I2C_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

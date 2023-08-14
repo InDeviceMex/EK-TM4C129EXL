@@ -29,24 +29,19 @@
 
 I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nBOOLEAN* penStatusArg)
 {
-    I2C_Register_t stRegister;
     I2C_nERROR enErrorReg;
-
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_PP_R_HS_BIT;
         stRegister.uxMask = I2C_PP_HS_MASK;
         stRegister.uptrAddress = I2C_PP_OFFSET;
         enErrorReg = I2C__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(I2C_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (I2C_nBOOLEAN) stRegister.uxValue;
+        if(I2C_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (I2C_nBOOLEAN) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -54,24 +49,17 @@ I2C_nERROR I2C__enIsHighSpeedAvailable(I2C_nMODULE enModuleArg, I2C_nBOOLEAN* pe
 
 I2C_nERROR I2C__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateArg)
 {
-    I2C_Register_t stRegister;
-    I2C_nBOOLEAN enAvailable;
     I2C_nERROR enErrorReg;
-
+    I2C_nBOOLEAN enAvailable;
     enAvailable = I2C_enFALSE;
     enErrorReg = I2C__enIsHighSpeedAvailable(enModuleArg, &enAvailable);
-    if(I2C_enERROR_OK == enErrorReg)
+    if((I2C_enERROR_OK == enErrorReg) && (I2C_enFALSE == enAvailable) && (I2C_enSTATE_ENA == enStateArg))
     {
-        if(I2C_enFALSE == enAvailable)
-        {
-            if(I2C_enSTATE_ENA == enStateArg)
-            {
-                enErrorReg = I2C_enERROR_VALUE;
-            }
-        }
+        enErrorReg = I2C_enERROR_VALUE;
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
+        I2C_Register_t stRegister;
         stRegister.uxShift = I2C_PC_R_HS_BIT;
         stRegister.uxMask = I2C_PC_HS_MASK;
         stRegister.uptrAddress = I2C_PC_OFFSET;
@@ -84,16 +72,10 @@ I2C_nERROR I2C__enSetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE enStateA
 
 I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStateArg)
 {
-    I2C_Register_t stRegister;
-    I2C_nBOOLEAN enAvailable;
     I2C_nERROR enErrorReg;
-
-    enErrorReg = I2C_enERROR_OK;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
+    I2C_nBOOLEAN enAvailable;
     enAvailable = I2C_enFALSE;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
     if(I2C_enERROR_OK == enErrorReg)
     {
         enErrorReg = I2C__enIsHighSpeedAvailable(enModuleArg, &enAvailable);
@@ -106,6 +88,7 @@ I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStat
         }
         else
         {
+            I2C_Register_t stRegister;
             stRegister.uxShift = 0UL;
             stRegister.uxMask = MCU_MASK_BASE;
             stRegister.uptrAddress = I2C_MASTER_DATA_OFFSET;
@@ -116,7 +99,6 @@ I2C_nERROR I2C__enGetHighSpeedState(I2C_nMODULE enModuleArg, I2C_nSTATE* penStat
             }
         }
     }
-
     return (enErrorReg);
 }
 

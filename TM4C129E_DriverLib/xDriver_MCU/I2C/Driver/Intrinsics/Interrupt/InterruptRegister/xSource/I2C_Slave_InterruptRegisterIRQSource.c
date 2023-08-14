@@ -29,9 +29,7 @@
 
 I2C_nERROR I2C_Slave__enRegisterIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_nSLAVE_INT enIntSourceArg, I2C_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    I2C_pvfIRQSourceHandler_t* pvfIrqHandler;
     I2C_nERROR enErrorReg;
-
     enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     if(I2C_enERROR_OK == enErrorReg)
     {
@@ -39,10 +37,9 @@ I2C_nERROR I2C_Slave__enRegisterIRQSourceHandler(I2C_nMODULE enModuleArg, I2C_nS
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = I2C_Slave__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        I2C_pvfIRQSourceHandler_t* pvfIrqHandler = I2C_Slave__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (I2C_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }
 

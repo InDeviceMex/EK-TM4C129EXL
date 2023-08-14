@@ -28,23 +28,17 @@
 
 I2C_nERROR I2C__enWriteRegister(I2C_nMODULE enModuleArg, I2C_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     I2C_nERROR enErrorReg;
-    enErrorReg = I2C_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = I2C_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? I2C_enERROR_POINTER : I2C_enERROR_OK;
     if(I2C_enERROR_OK == enErrorReg)
     {
         enErrorReg = (I2C_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) I2C_enMODULE_MAX);
     }
     if(I2C_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = I2C__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = I2C__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (I2C_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
-
     return (enErrorReg);
 }
