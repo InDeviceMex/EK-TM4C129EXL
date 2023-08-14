@@ -30,15 +30,12 @@
 PWM_nERROR PWM_Generator__enSetADCTriggerStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
                                                           PWM_nEVENT enEventArg, PWM_nSTATE enStateArg)
 {
-    UBase_t uxGenMaskReg;
-    UBase_t uxGenerator;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGenerator = 0UL;
-        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxGenerator = 0UL;
+        UBase_t uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
         while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != (1UL & uxGenMaskReg))
@@ -55,15 +52,12 @@ PWM_nERROR PWM_Generator__enSetADCTriggerStateByMask(PWM_nMODULE enModuleArg, PW
 PWM_nERROR PWM_Generator__enSetADCTriggerMaskStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
                                                               PWM_nEVENTMASK enEventMaskArg, PWM_nSTATE enStateArg)
 {
-    UBase_t uxGenMaskReg;
-    UBase_t uxGenerator;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGenerator = 0UL;
-        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxGenerator = 0UL;
+        UBase_t uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
         while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != (1UL & uxGenMaskReg))
@@ -80,11 +74,7 @@ PWM_nERROR PWM_Generator__enSetADCTriggerMaskStateByMask(PWM_nMODULE enModuleArg
 PWM_nERROR PWM_Generator__enSetADCTriggerMaskStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                                 PWM_nEVENTMASK enEventMaskArg, PWM_nSTATE enStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
-    UBase_t uxValueReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -92,21 +82,15 @@ PWM_nERROR PWM_Generator__enSetADCTriggerMaskStateByNumber(PWM_nMODULE enModuleA
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        if(PWM_enSTATE_DIS == enStateArg)
-        {
-            uxValueReg = 0U;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enEventMaskArg;
-        }
+        UBase_t uxValueReg = (PWM_enSTATE_DIS == enStateArg) ? 0U : (UBase_t) enEventMaskArg;
 
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_INTEN_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_INTEN_R_CNT_ZERO_TRG_BIT;
         stRegister.uxMask = (UBase_t) enEventMaskArg;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
@@ -121,10 +105,7 @@ PWM_nERROR PWM_Generator__enSetADCTriggerMaskStateByNumber(PWM_nMODULE enModuleA
 PWM_nERROR PWM_Generator__enSetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                             PWM_nEVENT enEventArg, PWM_nSTATE enStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -132,12 +113,13 @@ PWM_nERROR PWM_Generator__enSetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, 
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_INTEN_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_INTEN_R_CNT_ZERO_TRG_BIT;
         stRegister.uxShift += (UBase_t) enEventArg;
         stRegister.uxMask = PWM_GEN_INTEN_CNT_ZERO_TRG_MASK;
@@ -145,7 +127,6 @@ PWM_nERROR PWM_Generator__enSetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, 
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
@@ -153,33 +134,23 @@ PWM_nERROR PWM_Generator__enSetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, 
 PWM_nERROR PWM_Generator__enGetADCTriggerStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
                                                           PWM_nEVENT enEventArg, PWM_nGENMASK* penGeneratorGetArg)
 {
-    UBase_t uxGenMaskReg;
-    UBase_t uxGenerator;
-    UBase_t uxGeneratorGetReg;
-    UBase_t uxValueReg;
-    UBase_t uxTempReg;
     PWM_nERROR enErrorReg;
-
-    uxGeneratorGetReg = 0UL;
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penGeneratorGetArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penGeneratorGetArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGenerator = 0UL;
-        uxValueReg = 1UL;
-        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxGeneratorGetReg = 0UL;
+        UBase_t uxGenerator = 0UL;
+        UBase_t uxValueReg = 1UL;
+        UBase_t uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
         while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != (1UL & uxGenMaskReg))
             {
-                uxTempReg = 0UL;
+                UBase_t uxTempReg = 0UL;
                 enErrorReg = PWM_Generator__enGetADCTriggerStateByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, enEventArg, (PWM_nSTATE*) &uxTempReg);
                 if(PWM_enERROR_OK == enErrorReg)
                 {
@@ -193,10 +164,10 @@ PWM_nERROR PWM_Generator__enGetADCTriggerStateByMask(PWM_nMODULE enModuleArg, PW
             uxGenMaskReg >>= 1UL;
             uxGenerator++;
         }
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penGeneratorGetArg = (PWM_nGENMASK) uxGeneratorGetReg;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penGeneratorGetArg = (PWM_nGENMASK) uxGeneratorGetReg;
+        }
     }
     return (enErrorReg);
 }
@@ -204,15 +175,8 @@ PWM_nERROR PWM_Generator__enGetADCTriggerStateByMask(PWM_nMODULE enModuleArg, PW
 PWM_nERROR PWM_Generator__enGetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                             PWM_nEVENT enEventArg, PWM_nSTATE* penStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
@@ -223,21 +187,22 @@ PWM_nERROR PWM_Generator__enGetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, 
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_INTEN_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_INTEN_R_CNT_ZERO_TRG_BIT;
         stRegister.uxShift += (UBase_t) enEventArg;
         stRegister.uxMask = PWM_GEN_INTEN_CNT_ZERO_TRG_MASK;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (PWM_nSTATE) stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (PWM_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -245,15 +210,8 @@ PWM_nERROR PWM_Generator__enGetADCTriggerStateByNumber(PWM_nMODULE enModuleArg, 
 PWM_nERROR PWM_Generator__enGetADCTriggerMaskStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                             PWM_nEVENTMASK enEventMaskArg, PWM_nEVENTMASK* penEventMaskGetArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penEventMaskGetArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penEventMaskGetArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
@@ -264,29 +222,24 @@ PWM_nERROR PWM_Generator__enGetADCTriggerMaskStateByNumber(PWM_nMODULE enModuleA
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_INTEN_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_INTEN_R_CNT_ZERO_TRG_BIT;
         stRegister.uxMask = (UBase_t) enEventMaskArg;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penEventMaskGetArg = (PWM_nEVENTMASK) stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penEventMaskGetArg = (PWM_nEVENTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
-
-
-
-
-
-
 
 PWM_nERROR PWM_Generator__enEnableADCTriggerByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nEVENT enEventArg)
 {
@@ -315,10 +268,6 @@ PWM_nERROR PWM_Generator__enEnableADCTriggerMaskByNumber(PWM_nMODULE enModuleArg
     enErrorReg = PWM_Generator__enSetADCTriggerMaskStateByNumber(enModuleArg, enGeneratorArg, enEventMaskArg, PWM_enSTATE_ENA);
     return (enErrorReg);
 }
-
-
-
-
 
 PWM_nERROR PWM_Generator__enDisableADCTriggerByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nEVENT enEventArg)
 {

@@ -29,35 +29,29 @@
 
 PWM_nERROR PWM_Generator__enGetCounterValueByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, UBase_t* puxValueArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) puxValueArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxValueArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_COUNT_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_COUNT_R_COUNT_BIT;
         stRegister.uxMask = PWM_GEN_COUNT_COUNT_MASK;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *puxValueArg = (UBase_t) stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *puxValueArg = (UBase_t) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

@@ -103,11 +103,7 @@ PWM_pvfIRQSourceHandler_t PWM_Generator__pvfGetIRQSourceHandler(PWM_nMODULE enMo
                                                              PWM_nEVENT enEventArg)
 {
     PWM_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                  [(UBase_t)enGeneratorArg]
-                                                  [(UBase_t)enEventArg];
-
+    pvfFunctionReg = PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg] [(UBase_t)enGeneratorArg] [(UBase_t)enEventArg];
     return (pvfFunctionReg);
 }
 
@@ -117,20 +113,14 @@ PWM_pvfIRQSourceHandler_t* PWM_Generator__pvfGetIRQSourceHandlerPointer(PWM_nMOD
                                                                      PWM_nEVENT enEventArg)
 {
     PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                    [(UBase_t)enGeneratorArg]
-                                                    [(UBase_t)enEventArg];
-
+    pvfFunctionReg = &PWM_Generator_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enGeneratorArg][(UBase_t)enEventArg];
     return (pvfFunctionReg);
 }
 
 PWM_pvfIRQSourceHandler_t PWM_FaultSW__pvfGetIRQSourceHandler(PWM_nMODULE enModuleArg)
 {
     PWM_pvfIRQSourceHandler_t pvfFunctionReg;
-
     pvfFunctionReg = PWM_FaultSW_vIRQSourceHandler[(UBase_t) enModuleArg];
-
     return (pvfFunctionReg);
 }
 
@@ -138,9 +128,7 @@ PWM_pvfIRQSourceHandler_t PWM_FaultSW__pvfGetIRQSourceHandler(PWM_nMODULE enModu
 PWM_pvfIRQSourceHandler_t* PWM_FaultSW__pvfGetIRQSourceHandlerPointer(PWM_nMODULE enModuleArg)
 {
     PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
-
     pvfFunctionReg = &PWM_FaultSW_vIRQSourceHandler[(UBase_t) enModuleArg];
-
     return (pvfFunctionReg);
 }
 
@@ -149,11 +137,7 @@ PWM_pvfIRQSourceHandler_t PWM_FaultInput__pvfGetIRQSourceHandler(PWM_nMODULE enM
                                                                  PWM_nFAULT_INPUT enInputArg)
 {
     PWM_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                  [(UBase_t)enGeneratorArg]
-                                                  [(UBase_t)enInputArg];
-
+    pvfFunctionReg = PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enGeneratorArg][(UBase_t)enInputArg];
     return (pvfFunctionReg);
 }
 
@@ -163,11 +147,7 @@ PWM_pvfIRQSourceHandler_t* PWM_FaultInput__pvfGetIRQSourceHandlerPointer(PWM_nMO
                                                                          PWM_nFAULT_INPUT enInputArg)
 {
     PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                    [(UBase_t)enGeneratorArg]
-                                                    [(UBase_t)enInputArg];
-
+    pvfFunctionReg = &PWM_FaultInput_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enGeneratorArg][(UBase_t)enInputArg];
     return (pvfFunctionReg);
 }
 
@@ -178,11 +158,7 @@ PWM_pvfIRQSourceHandler_t PWM_FaultDComp__pvfGetIRQSourceHandler(PWM_nMODULE enM
                                                                  PWM_nFAULT_DCOMP enDCompArg)
 {
     PWM_pvfIRQSourceHandler_t pvfFunctionReg;
-
-    pvfFunctionReg = PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                  [(UBase_t)enGeneratorArg]
-                                                  [(UBase_t)enDCompArg];
-
+    pvfFunctionReg = PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enGeneratorArg][(UBase_t)enDCompArg];
     return (pvfFunctionReg);
 }
 
@@ -192,10 +168,6 @@ PWM_pvfIRQSourceHandler_t* PWM_FaultDComp__pvfGetIRQSourceHandlerPointer(PWM_nMO
                                                                          PWM_nFAULT_DCOMP enDCompArg)
 {
     PWM_pvfIRQSourceHandler_t* pvfFunctionReg;
-
-    pvfFunctionReg = &PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg]
-                                                    [(UBase_t)enGeneratorArg]
-                                                    [(UBase_t)enDCompArg];
-
+    pvfFunctionReg = &PWM_FaultDComp_vIRQSourceHandler[(UBase_t) enModuleArg][(UBase_t)enGeneratorArg][(UBase_t)enDCompArg];
     return (pvfFunctionReg);
 }

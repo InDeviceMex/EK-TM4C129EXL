@@ -29,19 +29,17 @@
 
 PWM_nERROR PWM_Generator__enSetDirectionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nDIRECTION enDirectionArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_CTL_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_CTL_R_MODE_BIT;
         stRegister.uxMask = PWM_GEN_CTL_MODE_MASK;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
@@ -54,15 +52,12 @@ PWM_nERROR PWM_Generator__enSetDirectionByNumber(PWM_nMODULE enModuleArg, PWM_nG
 
 PWM_nERROR PWM_Generator__enSetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nDIRECTION enDirectionArg)
 {
-    UBase_t uxGenMaskReg;
-    UBase_t uxGenerator;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGenerator = 0UL;
-        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxGenerator = 0UL;
+        UBase_t uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
         while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != (1UL & uxGenMaskReg))
@@ -79,68 +74,52 @@ PWM_nERROR PWM_Generator__enSetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGEN
 
 PWM_nERROR PWM_Generator__enGetDirectionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nDIRECTION* penDirectionArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxOffsetReg;
     PWM_nERROR enErrorReg;
-
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penDirectionArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penDirectionArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxOffsetReg = (UBase_t) enGeneratorArg;
+        UBase_t uxOffsetReg = (UBase_t) enGeneratorArg;
         uxOffsetReg *= PWM_GEN_REGISTER_NUM; /*Add offset for input sequencer*/
         uxOffsetReg *= 4UL;
         uxOffsetReg += PWM_GEN_REGISTER_BASE_OFFSET;
         uxOffsetReg += PWM_GEN_CTL_OFFSET;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = PWM_GEN_CTL_R_MODE_BIT;
         stRegister.uxMask = PWM_GEN_CTL_MODE_MASK;
         stRegister.uptrAddress = (UBase_t) uxOffsetReg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penDirectionArg = (PWM_nDIRECTION) stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penDirectionArg = (PWM_nDIRECTION) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 PWM_nERROR PWM_Generator__enGetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nGENMASK* penDirectionArg)
 {
-    UBase_t uxGenMaskReg;
-    UBase_t uxGenerator;
-    UBase_t uxGeneratorGetReg;
-    UBase_t uxValueReg;
-    PWM_nDIRECTION enTempReg;
     PWM_nERROR enErrorReg;
-
-    uxGeneratorGetReg = 0UL;
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penDirectionArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penDirectionArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGenerator = 0UL;
-        uxValueReg = 1UL;
-        uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxGeneratorGetReg = 0UL;
+        UBase_t uxGenerator = 0UL;
+        UBase_t uxValueReg = 1UL;
+        UBase_t uxGenMaskReg = (UBase_t) enGeneratorMaskArg;
         while((0UL != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != (1UL & uxGenMaskReg))
             {
-                enTempReg = PWM_enDIRECTION_DOWN;
+                PWM_nDIRECTION enTempReg = PWM_enDIRECTION_DOWN;
                 enErrorReg = PWM_Generator__enGetDirectionByNumber(enModuleArg, (PWM_nGENERATOR) uxGenerator, &enTempReg);
                 if(PWM_enERROR_OK == enErrorReg)
                 {
@@ -154,10 +133,10 @@ PWM_nERROR PWM_Generator__enGetDirectionByMask(PWM_nMODULE enModuleArg, PWM_nGEN
             uxGenMaskReg >>= 1UL;
             uxGenerator++;
         }
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penDirectionArg = (PWM_nGENMASK) uxGeneratorGetReg;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penDirectionArg = (PWM_nGENMASK) uxGeneratorGetReg;
+        }
     }
     return (enErrorReg);
 }

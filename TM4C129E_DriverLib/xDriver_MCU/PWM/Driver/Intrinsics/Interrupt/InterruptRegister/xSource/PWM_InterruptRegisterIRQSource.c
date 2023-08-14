@@ -32,9 +32,7 @@ PWM_nERROR PWM_Generator__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t p
                                                      PWM_nGENERATOR enGeneratorArg,
                                                      PWM_nEVENT enEventArg)
 {
-    PWM_pvfIRQSourceHandler_t* pvfIrqHandler;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -46,25 +44,21 @@ PWM_nERROR PWM_Generator__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t p
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = PWM_Generator__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enEventArg);
+        PWM_pvfIRQSourceHandler_t* pvfIrqHandler = PWM_Generator__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enEventArg);
         enErrorReg = (PWM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }
 
 PWM_nERROR PWM_FaultSW__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t pfIrqSourceHandler, PWM_nMODULE enModuleArg)
 {
-    PWM_pvfIRQSourceHandler_t* pvfIrqHandler;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = PWM_FaultSW__pvfGetIRQSourceHandlerPointer(enModuleArg);
+        PWM_pvfIRQSourceHandler_t* pvfIrqHandler = PWM_FaultSW__pvfGetIRQSourceHandlerPointer(enModuleArg);
         enErrorReg = (PWM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
-
     return (enErrorReg);
 }
 
@@ -73,9 +67,7 @@ PWM_nERROR PWM_FaultInput__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t 
                                                       PWM_nGENERATOR enGeneratorArg,
                                                       PWM_nFAULT_INPUT enInputArg)
 {
-    PWM_pvfIRQSourceHandler_t* pvfIrqHandler;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -87,7 +79,7 @@ PWM_nERROR PWM_FaultInput__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t 
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = PWM_FaultInput__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enInputArg);
+        PWM_pvfIRQSourceHandler_t* pvfIrqHandler = PWM_FaultInput__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enInputArg);
         enErrorReg = (PWM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
     return (enErrorReg);
@@ -98,9 +90,7 @@ PWM_nERROR PWM_FaultDComp__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t 
                                                       PWM_nGENERATOR enGeneratorArg,
                                                       PWM_nFAULT_DCOMP enDCompArg)
 {
-    PWM_pvfIRQSourceHandler_t* pvfIrqHandler;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -112,7 +102,7 @@ PWM_nERROR PWM_FaultDComp__enRegisterIRQSourceHandler(PWM_pvfIRQSourceHandler_t 
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = PWM_FaultDComp__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enDCompArg);
+        PWM_pvfIRQSourceHandler_t* pvfIrqHandler = PWM_FaultDComp__pvfGetIRQSourceHandlerPointer(enModuleArg, enGeneratorArg, enDCompArg);
         enErrorReg = (PWM_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
     return (enErrorReg);

@@ -30,11 +30,7 @@
 PWM_nERROR PWM_Output__enSetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                    PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT enConditionArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxShiftReg;
-    UBase_t uxValueReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -42,39 +38,30 @@ PWM_nERROR PWM_Output__enSetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        if(PWM_enOUTPUT_FAULT_LOW == enConditionArg)
-        {
-            uxValueReg = 0UL;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enOutputArg;
-        }
-        uxShiftReg = PWM_OUTPUT_FAULTVAL_R_GEN1_OUTA_BIT - PWM_OUTPUT_FAULTVAL_R_GEN0_OUTA_BIT;
+        UBase_t uxValueReg = (PWM_enOUTPUT_FAULT_LOW == enConditionArg) ? 0UL : (UBase_t) enOutputArg;
+
+        UBase_t uxShiftReg = PWM_OUTPUT_FAULTVAL_R_GEN1_OUTA_BIT - PWM_OUTPUT_FAULTVAL_R_GEN0_OUTA_BIT;
         uxShiftReg *= (UBase_t) enGeneratorArg;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxShiftReg;
         stRegister.uxMask = (UBase_t) enOutputArg;
         stRegister.uptrAddress = PWM_OUTPUT_FAULTVAL_OFFSET;
         stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 PWM_nERROR PWM_Output__enSetFaultConditionByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGenMaskArg,
                                                  PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT enConditionArg)
 {
-    UBase_t uxGeneratorReg;
-    UBase_t uxGenMaskReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGenMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxGeneratorReg = 0U;
-        uxGenMaskReg = (UBase_t) enGenMaskArg;
+        UBase_t uxGeneratorReg = 0U;
+        UBase_t uxGenMaskReg = (UBase_t) enGenMaskArg;
         while((0U != uxGenMaskReg) && (PWM_enERROR_OK == enErrorReg))
         {
             if(0UL != ((UBase_t) PWM_enGENMASK_0 & uxGenMaskReg))
@@ -92,15 +79,9 @@ PWM_nERROR PWM_Output__enSetFaultConditionByMask(PWM_nMODULE enModuleArg, PWM_nG
 PWM_nERROR PWM_Output__enGetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                    PWM_nOUTPUT enOutputArg, PWM_nOUTPUT_FAULT* penConditionArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxShiftReg;
     PWM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penConditionArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
 
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penConditionArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
@@ -111,26 +92,19 @@ PWM_nERROR PWM_Output__enGetFaultConditionByNumber(PWM_nMODULE enModuleArg, PWM_
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxShiftReg = PWM_OUTPUT_FAULTVAL_R_GEN1_OUTA_BIT - PWM_OUTPUT_FAULTVAL_R_GEN0_OUTA_BIT;
+        UBase_t uxShiftReg = PWM_OUTPUT_FAULTVAL_R_GEN1_OUTA_BIT - PWM_OUTPUT_FAULTVAL_R_GEN0_OUTA_BIT;
         uxShiftReg *= (UBase_t) enGeneratorArg;
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxShiftReg;
         stRegister.uxMask = (UBase_t) enOutputArg;
         stRegister.uptrAddress = PWM_OUTPUT_FAULTVAL_OFFSET;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        if(0UL == stRegister.uxValue)
+        if(PWM_enERROR_OK == enErrorReg)
         {
-            *penConditionArg = PWM_enOUTPUT_FAULT_LOW;
-        }
-        else
-        {
-            *penConditionArg = PWM_enOUTPUT_FAULT_HIGH;
+            PWM_nOUTPUT_FAULT enConditionReg = (0UL == stRegister.uxValue) ? PWM_enOUTPUT_FAULT_LOW : PWM_enOUTPUT_FAULT_HIGH;
+            *penConditionArg = enConditionReg;
         }
     }
-
     return (enErrorReg);
 }
-

@@ -37,15 +37,9 @@ static PWM_nERROR PWM__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATO
 static PWM_nERROR PWM__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, uintptr_t uptrOffsetArg,
                                         PWM_nINT_TYPE enTypeArg, PWM_nGENMASK* penGeneratorGetArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
     PWM_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penGeneratorGetArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
 
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) penGeneratorGetArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
@@ -56,16 +50,18 @@ static PWM_nERROR PWM__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK en
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enTypeArg;
+        UBase_t uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
+
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxBitReg;
         stRegister.uxMask = enGeneratorMaskArg;
         stRegister.uptrAddress = uptrOffsetArg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *penGeneratorGetArg = (PWM_nGENMASK) stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *penGeneratorGetArg = (PWM_nGENMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -73,15 +69,8 @@ static PWM_nERROR PWM__enGetStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK en
 static PWM_nERROR PWM__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, uintptr_t uptrOffsetArg,
                                           PWM_nINT_TYPE enTypeArg, UBase_t* puxStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
     PWM_nERROR enErrorReg;
-
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) puxStateArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxStateArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
@@ -92,17 +81,20 @@ static PWM_nERROR PWM__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATO
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
+        UBase_t uxBitReg;
         uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
+
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxBitReg;
         stRegister.uxShift += (UBase_t) enGeneratorArg;
         stRegister.uxMask = PWM_INTEN_GEN0_FAULT_MASK;
         stRegister.uptrAddress = uptrOffsetArg;
         enErrorReg = PWM__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(PWM_enERROR_OK == enErrorReg)
-    {
-        *puxStateArg = stRegister.uxValue;
+        if(PWM_enERROR_OK == enErrorReg)
+        {
+            *puxStateArg = stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -110,11 +102,7 @@ static PWM_nERROR PWM__enGetStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATO
 PWM_nERROR PWM__enSetInterruptSourceStateByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg,
                                                 PWM_nINT_TYPE enTypeArg, PWM_nSTATE enStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
-    UBase_t uxValueReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -122,34 +110,25 @@ PWM_nERROR PWM__enSetInterruptSourceStateByMask(PWM_nMODULE enModuleArg, PWM_nGE
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        if(PWM_enSTATE_DIS == enStateArg)
-        {
-            uxValueReg = 0U;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enGeneratorMaskArg;
-        }
-        uxBitReg = (UBase_t) enTypeArg;
+        UBase_t uxValueReg = (PWM_enSTATE_DIS == enStateArg) ? 0U : (UBase_t) enGeneratorMaskArg;
+
+        UBase_t uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxBitReg;
         stRegister.uxMask = enGeneratorMaskArg;
         stRegister.uptrAddress = PWM_INTEN_OFFSET;
         stRegister.uxValue = uxValueReg;
         enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 PWM_nERROR PWM__enSetInterruptSourceStateByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg,
                                                   PWM_nINT_TYPE enTypeArg, PWM_nSTATE enStateArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -157,9 +136,10 @@ PWM_nERROR PWM__enSetInterruptSourceStateByNumber(PWM_nMODULE enModuleArg, PWM_n
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enTypeArg;
+        UBase_t uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
 
+        PWM_Register_t stRegister;
         stRegister.uxShift = (UBase_t) uxBitReg;
         stRegister.uxShift += (UBase_t) enGeneratorArg;
         stRegister.uxMask = PWM_INTEN_GEN0_FAULT_MASK;
@@ -167,7 +147,6 @@ PWM_nERROR PWM__enSetInterruptSourceStateByNumber(PWM_nMODULE enModuleArg, PWM_n
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = PWM__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
@@ -217,11 +196,7 @@ PWM_nERROR PWM__enDisableInterruptSourceByNumber(PWM_nMODULE enModuleArg, PWM_nG
 
 PWM_nERROR PWM__enClearInterruptSourceByMask(PWM_nMODULE enModuleArg, PWM_nGENMASK enGeneratorMaskArg, PWM_nINT_TYPE enTypeArg)
 {
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
-    UBase_t uxValueReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorMaskArg, (UBase_t) PWM_enGENMASK_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -229,11 +204,13 @@ PWM_nERROR PWM__enClearInterruptSourceByMask(PWM_nMODULE enModuleArg, PWM_nGENMA
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enTypeArg;
+        UBase_t uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
 
-        uxValueReg = (UBase_t) enGeneratorMaskArg;
+        UBase_t uxValueReg = (UBase_t) enGeneratorMaskArg;
         uxValueReg <<= uxBitReg;
+
+        PWM_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = PWM_ISC_OFFSET;
@@ -245,12 +222,7 @@ PWM_nERROR PWM__enClearInterruptSourceByMask(PWM_nMODULE enModuleArg, PWM_nGENMA
 
 PWM_nERROR PWM__enClearInterruptSourceByNumber(PWM_nMODULE enModuleArg, PWM_nGENERATOR enGeneratorArg, PWM_nINT_TYPE enTypeArg)
 {
-
-    PWM_Register_t stRegister;
-    UBase_t uxBitReg;
-    UBase_t uxValueReg;
     PWM_nERROR enErrorReg;
-
     enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enGeneratorArg, (UBase_t) PWM_enGEN_MAX);
     if(PWM_enERROR_OK == enErrorReg)
     {
@@ -258,12 +230,14 @@ PWM_nERROR PWM__enClearInterruptSourceByNumber(PWM_nMODULE enModuleArg, PWM_nGEN
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uxBitReg = (UBase_t) enTypeArg;
+        UBase_t uxBitReg = (UBase_t) enTypeArg;
         uxBitReg <<= 4UL; /* *= 16 */
         uxBitReg += (UBase_t) enGeneratorArg;
 
-        uxValueReg = 1U;
+        UBase_t uxValueReg = 1U;
         uxValueReg <<= uxBitReg;
+
+        PWM_Register_t stRegister;
         stRegister.uxShift = 0UL;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = PWM_ISC_OFFSET;

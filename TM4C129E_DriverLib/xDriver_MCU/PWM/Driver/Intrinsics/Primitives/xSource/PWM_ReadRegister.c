@@ -28,20 +28,15 @@
 
 PWM_nERROR PWM__enReadRegister(PWM_nMODULE enModuleArg, PWM_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     PWM_nERROR enErrorReg;
-    enErrorReg = PWM_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = PWM_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? PWM_enERROR_POINTER : PWM_enERROR_OK;
     if(PWM_enERROR_OK == enErrorReg)
     {
         enErrorReg = (PWM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PWM_enMODULE_MAX);
     }
     if(PWM_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = PWM__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = PWM__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (PWM_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }
