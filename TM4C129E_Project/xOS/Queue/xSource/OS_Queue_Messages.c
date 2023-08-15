@@ -49,8 +49,7 @@ void OS_Queue__vWaitForMessageRestricted(OS_Queue_Handle_t pvQueue,
     calling task will be immediately unblocked when the queue is unlocked. */
     if(0UL != (OS_Pointer_t) pvQueue)
     {
-        OS_Queue_t * pstQueueReg;
-        pstQueueReg = ( OS_Queue_t * ) pvQueue;
+        OS_Queue_t * pstQueueReg = ( OS_Queue_t * ) pvQueue;
         OS_Queue__vLock(pstQueueReg);
         if(0UL == pstQueueReg->uxMessagesWaiting)
         {

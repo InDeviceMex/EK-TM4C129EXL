@@ -31,37 +31,31 @@
 OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
 {
     const OS_Task_TCB_t* const pstTCB = (OS_Task_TCB_t*) pvTask;
-    OS_Task_TCB_t* pstCurrentTCB;
     OS_Task_eState enReturn;
 
 
     enReturn = OS_Task_enState_Undef;
     if(0UL != (OS_Pointer_t) pstTCB)
     {
-        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        OS_Task_TCB_t* pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
         {
             enReturn = OS_Task_enState_Running;
         }
         else
         {
-            OS_List_t* pstStateList;
-            OS_List_t* pstDelayedTaskList;
-            OS_List_t* pstOverflowDelayedTaskList;
-            OS_List_t* pstSuspendedTaskList;
-            OS_List_t* pstTasksWaitingTermination;
-            OS_List_t* pstStateSuspendedList;
 
+            OS_List_t* pstStateList;
             OS_Task__vEnterCritical();
             {
                 pstStateList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stGenericListItem));
             }
             OS_Task__vExitCritical();
 
-            pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
-            pstOverflowDelayedTaskList = OS_Task__pstGetOverflowDelayedTaskList();
-            pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
-            pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
+            OS_List_t* pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
+            OS_List_t* pstOverflowDelayedTaskList = OS_Task__pstGetOverflowDelayedTaskList();
+            OS_List_t* pstSuspendedTaskList = OS_Task__pstGetSuspendedTaskList();
+            OS_List_t* pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
             if((pstStateList == pstDelayedTaskList) ||
                (pstStateList == pstOverflowDelayedTaskList))
             {
@@ -69,7 +63,7 @@ OS_Task_eState OS_Task__enGetState(OS_Task_Handle_t pvTask)
             }
             else if(pstStateList == pstSuspendedTaskList)
             {
-                pstStateSuspendedList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
+                OS_List_t* pstStateSuspendedList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
                 if(0UL == (OS_Pointer_t) pstStateSuspendedList)
                 {
                     enReturn = OS_Task_enState_Suspended;

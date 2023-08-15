@@ -80,42 +80,29 @@ void OS_Task__vSetStepTick(const OS_UBase_t uxTicksToJump)
 
 OS_Boolean_t OS_Task__boIncrementTick(void)
 {
-    OS_UBase_t uxSchedulerSuspended;
     OS_Boolean_t boSwitchRequired;
-    OS_Boolean_t boYieldPending;
-
     boSwitchRequired = FALSE;
+    OS_UBase_t uxSchedulerSuspended;
     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
     if(0UL == uxSchedulerSuspended)
     {
-        OS_List_t* pstReadyList;
         OS_Task_TCB_t * pstCurrentTCB;
-        OS_UBase_t uxListSize;
-        OS_UBase_t uxPendedTicks;
 
         OS_Task__vIncreaseTickCount();
         {
             const OS_UBase_t uxConstTickCount = OS_Task__uxGetTickCount_NotSafe();
-            OS_UBase_t uxNextTaskUnblockTime;
-
             if(0UL == uxConstTickCount)
             {
                 OS_Task__vSwitchDelayedLists();
             }
 
-            uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+            OS_UBase_t uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
             if( uxConstTickCount >= uxNextTaskUnblockTime )
             {
-                OS_List_t* pstDelayedTaskList;
-                OS_Boolean_t boListIsEmpty;
-                OS_List_t* pstOwnerList;
-                OS_Task_TCB_t* pstTCB;
-                OS_UBase_t uxItemValue;
                 while(1UL)
                 {
-
-                    pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
-                    boListIsEmpty = OS_List__boIsEmpty(pstDelayedTaskList);
+                    OS_List_t* pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
+                    OS_Boolean_t boListIsEmpty = OS_List__boIsEmpty(pstDelayedTaskList);
                     if( FALSE != boListIsEmpty )
                     {
                         OS_Task__vSetNextTaskUnblockTime(OS_ADAPT_MAX_DELAY);
@@ -123,9 +110,8 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
                     }
                     else
                     {
-
-                        pstTCB = (OS_Task_TCB_t *) OS_List__pvGetOwnerOfHeadEntry(pstDelayedTaskList);
-                        uxItemValue = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));
+                        OS_Task_TCB_t* pstTCB = (OS_Task_TCB_t *) OS_List__pvGetOwnerOfHeadEntry(pstDelayedTaskList);
+                        OS_UBase_t uxItemValue = OS_List__uxGetItemValue(&( pstTCB->stGenericListItem));
 
                         if( uxConstTickCount < uxItemValue )
                         {
@@ -134,7 +120,7 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
                         }
                         (void) OS_List__uxRemove(&(pstTCB->stGenericListItem));
 
-                        pstOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
+                        OS_List_t* pstOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&(pstTCB->stEventListItem));
                         if(0UL != (OS_Pointer_t) pstOwnerList)
                         {
                             (void) OS_List__uxRemove(&(pstTCB->stEventListItem));
@@ -153,14 +139,14 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
         }
 
         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-        pstReadyList = OS_Task__pstGetReadyTasksLists(pstCurrentTCB->uxPriorityTask);
-        uxListSize = OS_List__uxGetLength(pstReadyList);
+        OS_List_t* pstReadyList = OS_Task__pstGetReadyTasksLists(pstCurrentTCB->uxPriorityTask);
+        OS_UBase_t uxListSize = OS_List__uxGetLength(pstReadyList);
         if( 1UL < uxListSize)
         {
             boSwitchRequired = TRUE;
         }
 
-        uxPendedTicks = OS_Task__uxGetPendedTicks();
+        OS_UBase_t uxPendedTicks = OS_Task__uxGetPendedTicks();
         if(0UL == uxPendedTicks)
         {
             OS_External__vApplicationTickHook();
@@ -172,7 +158,7 @@ OS_Boolean_t OS_Task__boIncrementTick(void)
         OS_External__vApplicationTickHook();
     }
 
-    boYieldPending = OS_Task__boGetYieldPending();
+    OS_Boolean_t boYieldPending = OS_Task__boGetYieldPending();
     if(FALSE != boYieldPending)
     {
         boSwitchRequired = TRUE;
@@ -219,11 +205,8 @@ static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void)
     }
     else
     {
-        OS_UBase_t uxTickCount;
-        OS_UBase_t uxNextTaskUnblockTime;
-
-        uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
-        uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+        OS_UBase_t uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+        OS_UBase_t uxTickCount = OS_Task__uxGetTickCount_NotSafe();
         uxReturn = uxNextTaskUnblockTime - uxTickCount;
     }
 
@@ -232,16 +215,14 @@ static OS_UBase_t OS_Task__uxGetExpectedIdleTime(void)
 
 static void OS_Task__vIdle(void* pvParametersArg)
 {
-    OS_List_t* pstReadyList;
-    OS_UBase_t uxListSize;
     (void) pvParametersArg;
 
     while(1UL)
     {
         OS_Task__vCheckTasksWaitingTermination();
 
-        pstReadyList = OS_Task__pstGetReadyTasksLists(OS_TASK_IDLE_PRIORITY);
-        uxListSize = OS_List__uxGetLength(pstReadyList);
+        OS_List_t* pstReadyList = OS_Task__pstGetReadyTasksLists(OS_TASK_IDLE_PRIORITY);
+        OS_UBase_t uxListSize = OS_List__uxGetLength(pstReadyList);
 
         if(1UL < uxListSize)
         {
@@ -249,17 +230,13 @@ static void OS_Task__vIdle(void* pvParametersArg)
         }
         OS_External__vApplicationIdleHook();
 
-        OS_UBase_t uxExpectedIdleTime = 0UL;
-        uxExpectedIdleTime = OS_Task__uxGetExpectedIdleTime();
+        OS_UBase_t uxExpectedIdleTime = OS_Task__uxGetExpectedIdleTime();
         if( uxExpectedIdleTime >= OS_TASK_EXPECTED_IDLE_TIME_BEFORE_SLEEP )
         {
             OS_Task__vSuspendAll();
             {
-                OS_UBase_t uxTickCount;
-                OS_UBase_t uxNextTaskUnblockTime;
-
-                uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
-                uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+                OS_UBase_t uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+                OS_UBase_t uxTickCount = OS_Task__uxGetTickCount_NotSafe();
                 if(uxNextTaskUnblockTime >= uxTickCount)
                 {
                     uxExpectedIdleTime = OS_Task__uxGetExpectedIdleTime();

@@ -28,12 +28,10 @@
 OS_UBase_t OS_Queue__uxMessagesWaiting(const OS_Queue_Handle_t pvQueue)
 {
     OS_UBase_t uxReturn;
-
     uxReturn = 0UL;
     if(0UL != (OS_Pointer_t) pvQueue)
     {
-        OS_Queue_t* pstQueueReg;
-        pstQueueReg = (OS_Queue_t*) pvQueue;
+        OS_Queue_t* pstQueueReg = (OS_Queue_t*) pvQueue;
         OS_Task__vEnterCritical();
         {
             uxReturn = pstQueueReg->uxMessagesWaiting;
@@ -46,12 +44,10 @@ OS_UBase_t OS_Queue__uxMessagesWaiting(const OS_Queue_Handle_t pvQueue)
 OS_UBase_t OS_Queue__uxMessagesWaitingFromISR(const OS_Queue_Handle_t pvQueue)
 {
     OS_UBase_t uxReturn;
-
     uxReturn = 0UL;
     if(0UL != (OS_Pointer_t) pvQueue)
     {
-        OS_Queue_t* pstQueueReg;
-        pstQueueReg = (OS_Queue_t*) pvQueue;
+        OS_Queue_t* pstQueueReg = (OS_Queue_t*) pvQueue;
         uxReturn = pstQueueReg->uxMessagesWaiting;
     }
     return (uxReturn);
@@ -60,12 +56,10 @@ OS_UBase_t OS_Queue__uxMessagesWaitingFromISR(const OS_Queue_Handle_t pvQueue)
 OS_UBase_t OS_Queue__uxSpacesAvailable(const OS_Queue_Handle_t pvQueue)
 {
     OS_UBase_t uxReturn;
-
     uxReturn = 0UL;
     if(0UL != (OS_Pointer_t) pvQueue)
     {
-        OS_Queue_t* pstQueueReg;
-        pstQueueReg = (OS_Queue_t*) pvQueue;
+        OS_Queue_t* pstQueueReg = (OS_Queue_t*) pvQueue;
         OS_Task__vEnterCritical();
         {
             uxReturn = pstQueueReg->uxLength;

@@ -34,12 +34,10 @@ void OS_Task__vSelectHighestPriorityTask(void)
     pstReadyTask = OS_Task__pstGetReadyTasksLists(uxTopPriority);
     if(0UL != (OS_Pointer_t) pstReadyTask)
     {
-        OS_UBase_t uxListLenght;
-        uxListLenght = OS_List__uxGetLength(pstReadyTask);
+        OS_UBase_t uxListLenght = OS_List__uxGetLength(pstReadyTask);
         if(0UL != uxListLenght)
         {
-            OS_Task_TCB_t* pstNewTCB;
-            pstNewTCB = (OS_Task_TCB_t*) OS_List__pvGetOwnerOfNextEntry(pstReadyTask);
+            OS_Task_TCB_t* pstNewTCB = (OS_Task_TCB_t*) OS_List__pvGetOwnerOfNextEntry(pstReadyTask);
             OS_Task__vSetCurrentTCB(pstNewTCB);
         }
     }
@@ -52,8 +50,7 @@ void OS_Task__vResetReadyPriority(OS_UBase_t uxPrioritArg)
     pstReadyTask = OS_Task__pstGetReadyTasksLists(uxPrioritArg);
     if(0UL != (OS_Pointer_t) pstReadyTask)
     {
-        OS_UBase_t uxListLenght;
-        uxListLenght = OS_List__uxGetLength(pstReadyTask);
+        OS_UBase_t uxListLenght = OS_List__uxGetLength(pstReadyTask);
         if(0UL == uxListLenght)
         {
             OS_Task__vAdaptResetReadyPriority(uxPrioritArg);
@@ -66,15 +63,12 @@ void OS_Task__vAddTaskToReadyList(OS_Task_TCB_t* pstTCBArg)
 {
     if(0UL != (OS_Pointer_t) pstTCBArg)
     {
-        OS_List_t* pstReadyTaskList;
-        OS_UBase_t uxTCBPriority;
-        uxTCBPriority = pstTCBArg->uxPriorityTask;
+        OS_UBase_t uxTCBPriority = pstTCBArg->uxPriorityTask;
         OS_Task__vRecordReadyPriority(uxTCBPriority);
-        pstReadyTaskList = OS_Task__pstGetReadyTasksLists(uxTCBPriority);
+        OS_List_t* pstReadyTaskList = OS_Task__pstGetReadyTasksLists(uxTCBPriority);
         if(0UL != (OS_Pointer_t) pstReadyTaskList)
         {
-            OS_ListItem_t* pstTCBTask;
-            pstTCBTask = &(pstTCBArg->stGenericListItem);
+            OS_ListItem_t* pstTCBTask = &(pstTCBArg->stGenericListItem);
             OS_List__vInsertEnd(pstReadyTaskList, pstTCBTask);
         }
     }

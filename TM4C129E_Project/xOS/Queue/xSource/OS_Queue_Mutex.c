@@ -43,7 +43,6 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
 
     if(0UL != (OS_Pointer_t) pstNewQueue)
     {
-        OS_List_t* pstListReg;
         /* Information required for priority inheritance. */
         pstNewQueue->pvMutexHolder = (void*) 0UL;
         pstNewQueue->uxQueueType = OS_QUEUE_IS_MUTEX;
@@ -65,7 +64,7 @@ OS_Queue_Handle_t OS_Queue__pvCreateMutex(const OS_Queue_nType enQueueTypeArg)
         pstNewQueue->enQueueTypeTrace = enQueueTypeArg;
         pstNewQueue->pstQueueSetContainer = (OS_Queue_t*) 0UL;
 
-        pstListReg = &(pstNewQueue->stTasksWaitingToSend);
+        OS_List_t* pstListReg = &(pstNewQueue->stTasksWaitingToSend);
         OS_List__vInit(pstListReg);
         pstListReg = &(pstNewQueue->stTasksWaitingToReceive);
         OS_List__vInit(pstListReg);
@@ -80,7 +79,6 @@ OS_Boolean_t OS_Queue__boGiveMutexRecursive(OS_Queue_Handle_t pvMutex)
 {
     OS_Queue_t * const pstMutex = (OS_Queue_t *) pvMutex;
     OS_Boolean_t boReturn;
-
     boReturn = FALSE;
     if(0UL != (OS_Pointer_t) pstMutex)
     {
@@ -90,8 +88,7 @@ OS_Boolean_t OS_Queue__boGiveMutexRecursive(OS_Queue_Handle_t pvMutex)
         this is the only condition we are interested in it does not matter if
         pvMutexHolder is accessed simultaneously by another task.  Therefore no
         mutual exclusion is required to test the pvMutexHolder variable. */
-        OS_Task_Handle_t pvTaskHandle;
-        pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
+        OS_Task_Handle_t pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
         if( pstMutex->pvMutexHolder == pvTaskHandle)
         {
             /* uxRecursiveCallCount cannot be zero if pvMutexHolder is equal to
@@ -125,8 +122,7 @@ OS_Boolean_t OS_Queue__boTakeMutexRecursive(OS_Queue_Handle_t pvMutex,
     boReturn = FALSE;
     if(0UL != (OS_Pointer_t) pstMutex)
     {
-        OS_Task_Handle_t pvTaskHandle;
-        pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
+        OS_Task_Handle_t pvTaskHandle = OS_Task__pvGetCurrentTaskHandle();
         if( pstMutex->pvMutexHolder == pvTaskHandle )
         {
             (pstMutex->uxRecursiveCallCount)++;

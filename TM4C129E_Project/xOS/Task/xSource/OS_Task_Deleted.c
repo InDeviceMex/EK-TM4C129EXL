@@ -32,28 +32,22 @@
 void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
 {
     OS_Task_TCB_t *pstTCB;
-    OS_Boolean_t boSchedulerRunning;
-
     pstTCB = (OS_Task_TCB_t *) 0UL ;
     OS_Task__vEnterCritical();
     {
-        OS_List_t* pstTasksWaitingTermination;
-        OS_List_t* pstTCBOwnerList;
-        OS_UBase_t uxListSize;
-
         pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToDelete);
-        uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
+        OS_UBase_t uxListSize = OS_List__uxRemove(&(pstTCB->stGenericListItem));
         if( 0UL == uxListSize )
         {
             OS_Task__vResetReadyPriority( pstTCB->uxPriorityTask );
         }
 
-        pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
+        OS_List_t* pstTCBOwnerList = (OS_List_t*) OS_List__pvGetItemContainer(&( pstTCB->stEventListItem));
         if( 0UL != (OS_Pointer_t) pstTCBOwnerList)
         {
             (void) OS_List__uxRemove(&( pstTCB->stEventListItem));
         }
-        pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
+        OS_List_t* pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
         OS_List__vInsertEnd(pstTasksWaitingTermination,
                             &(pstTCB->stGenericListItem));
 
@@ -62,17 +56,13 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
     }
     OS_Task__vExitCritical();
 
-    boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+    OS_Boolean_t boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
-        OS_Task_TCB_t *pstCurrentTCB;
-
-        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        OS_Task_TCB_t *pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if( pstTCB == pstCurrentTCB )
         {
-            OS_UBase_t uxSchedulerSuspended;
-
-            uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+            OS_UBase_t uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
             if(0UL == uxSchedulerSuspended)
             {
                 OS_Task__vYieldWithinAPI();
@@ -91,15 +81,12 @@ void OS_Task__vDelete(OS_Task_Handle_t pvTaskToDelete)
 
 void OS_Task__vCheckTasksWaitingTermination(void)
 {
-    OS_List_t* pstTasksWaitingTermination;
     OS_UBase_t uxTasksDeleted;
-    OS_Boolean_t boListIsEmpty;
-
-    boListIsEmpty = FALSE;
     uxTasksDeleted = OS_Task__uxGetTasksDeleted();
     while(0UL < uxTasksDeleted)
     {
-        pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
+        OS_List_t* pstTasksWaitingTermination = OS_Task__pstGetTasksWaitingTermination();
+        OS_Boolean_t boListIsEmpty = FALSE;
         OS_Task__vSuspendAll();
         {
             boListIsEmpty = OS_List__boIsEmpty(pstTasksWaitingTermination);

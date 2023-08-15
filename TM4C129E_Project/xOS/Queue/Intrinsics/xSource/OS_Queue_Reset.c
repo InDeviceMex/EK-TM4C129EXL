@@ -32,20 +32,14 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
 {
     OS_Queue_t * const pvQueue = (OS_Queue_t *) pvQueueHandle;
     OS_Boolean_t boResult;
-
     boResult = FALSE;
     if(0UL != (OS_Pointer_t) pvQueue)
     {
         OS_Adapt__vEnterCritical();
         {
-            OS_List_t* pstListReg;
-            OS_UBase_t uxTotalLenght;
-            OS_UBase_t uxLengthReg;
-            OS_UBase_t uxLength2Reg;
-
-            uxLengthReg = pvQueue->uxLength;
-            uxLength2Reg = pvQueue->uxLength - 1UL;
-            uxTotalLenght = (OS_UBase_t) uxLengthReg;
+            OS_UBase_t uxLengthReg = pvQueue->uxLength;
+            OS_UBase_t uxLength2Reg = pvQueue->uxLength - 1UL;
+            OS_UBase_t uxTotalLenght = (OS_UBase_t) uxLengthReg;
             uxTotalLenght *= pvQueue->uxItemSize;
             pvQueue->ps8Tail = pvQueue->ps8Head;
             pvQueue->ps8Tail += uxTotalLenght;
@@ -63,16 +57,12 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
 
             if(FALSE == boNewQueue)
             {
-                OS_Boolean_t boEmptyList;
-
-                pstListReg = &(pvQueue->stTasksWaitingToSend);
-                boEmptyList = OS_List__boIsEmpty(pstListReg);
+                OS_List_t* pstListReg = &(pvQueue->stTasksWaitingToSend);
+                OS_Boolean_t boEmptyList = OS_List__boIsEmpty(pstListReg);
                 if(FALSE == boEmptyList)
                 {
-                    OS_Boolean_t boRemoveItem;
-
                     pstListReg = &(pvQueue->stTasksWaitingToSend);
-                    boRemoveItem = OS_Task__boRemoveFromEventList(pstListReg);
+                    OS_Boolean_t boRemoveItem = OS_Task__boRemoveFromEventList(pstListReg);
                     if(TRUE == boRemoveItem)
                     {
                         OS_Queue__vYieldIfUsingPreemption();
@@ -82,7 +72,7 @@ OS_Boolean_t OS_Queue__boGenericReset(OS_Queue_Handle_t pvQueueHandle,
             else
             {
                 /* Ensure the event queues start in the correct state. */
-                pstListReg = &(pvQueue->stTasksWaitingToSend);
+                OS_List_t* pstListReg = &(pvQueue->stTasksWaitingToSend);
                 OS_List__vInit(pstListReg);
                 pstListReg = &(pvQueue->stTasksWaitingToReceive);
                 OS_List__vInit(pstListReg);

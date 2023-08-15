@@ -28,9 +28,9 @@
 
 char* OS_Task__pcGetTaskName(OS_Task_Handle_t pvTaskToQuery)
 {
-    OS_Task_TCB_t *pstTCB;
     char* pcTaskNameReg;
 
+    OS_Task_TCB_t *pstTCB;
     pstTCB = OS_Task__pstGetTCBFromHandle(pvTaskToQuery);
     if(0UL != (OS_Pointer_t) pstTCB)
     {

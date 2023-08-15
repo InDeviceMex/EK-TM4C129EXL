@@ -42,8 +42,7 @@ void OS_CoRoutine__vSetTopReadyPriority_CRCB(const OS_CoRoutine_CRCB_t* pstCRCBA
 {
     if(0UL != (OS_Pointer_t) pstCRCBArg)
     {
-        OS_UBase_t uxPriorityCRCB;
-        uxPriorityCRCB = pstCRCBArg->uxPriorityCoRoutine;
+        OS_UBase_t uxPriorityCRCB = pstCRCBArg->uxPriorityCoRoutine;
         if(uxPriorityCRCB >OS_CoRoutine_uxTopReadyPriority)
         {
             OS_CoRoutine_uxTopReadyPriority = uxPriorityCRCB;

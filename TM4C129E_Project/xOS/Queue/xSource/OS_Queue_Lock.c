@@ -28,8 +28,6 @@
 
 void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
 {
-    OS_Boolean_t boListEmpty;
-    OS_Boolean_t boEventList;
     /* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED. */
 
     /* The lock counts contains the number of extra data items placed or
@@ -38,8 +36,6 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
     updated. */
     OS_Task__vEnterCritical();
     {
-        OS_List_t* pstWaitingToReceiveList;
-        OS_Boolean_t boNotifySet;
         /* See if data was added to the queue while it was locked. */
         while(OS_QUEUE_LOCKED_UNMODIFIED < pstQueue->xTxLock)
         {
@@ -47,7 +43,7 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
             blocked waiting for data to become available? */
             if(0UL != (OS_Pointer_t) pstQueue->pstQueueSetContainer)
             {
-                boNotifySet = OS_Queue__boNotifyQueueSetContainer(pstQueue,
+                OS_Boolean_t boNotifySet = OS_Queue__boNotifyQueueSetContainer(pstQueue,
                                               OS_Queue_enPos_SEND_TO_BACK);
                 if(TRUE == boNotifySet)
                 {
@@ -61,11 +57,11 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
             {
                 /* Tasks that are removed from the event list will get added to
                 the pending ready list as the scheduler is still suspended. */
-                pstWaitingToReceiveList = &(pstQueue->stTasksWaitingToReceive);
-                boListEmpty = OS_List__boIsEmpty(pstWaitingToReceiveList);
+                OS_List_t* pstWaitingToReceiveList = &(pstQueue->stTasksWaitingToReceive);
+                OS_Boolean_t boListEmpty = OS_List__boIsEmpty(pstWaitingToReceiveList);
                 if(FALSE == boListEmpty)
                 {
-                    boEventList = OS_Task__boRemoveFromEventList(pstWaitingToReceiveList);
+                    OS_Boolean_t boEventList = OS_Task__boRemoveFromEventList(pstWaitingToReceiveList);
                     if(FALSE != boEventList)
                     {
                         /* The task waiting has a higher priority so record that a
@@ -87,14 +83,13 @@ void OS_Queue__vUnlock(OS_Queue_t* const pstQueue)
     /* Do the same for the Rx lock. */
     OS_Task__vEnterCritical();
     {
-        OS_List_t* pstWaitingToSendList;
         while(OS_QUEUE_LOCKED_UNMODIFIED < pstQueue->xRxLock)
         {
-            pstWaitingToSendList = &(pstQueue->stTasksWaitingToSend);
-            boListEmpty = OS_List__boIsEmpty(pstWaitingToSendList);
+            OS_List_t* pstWaitingToSendList = &(pstQueue->stTasksWaitingToSend);
+            OS_Boolean_t boListEmpty = OS_List__boIsEmpty(pstWaitingToSendList);
             if(FALSE == boListEmpty)
             {
-                boEventList = OS_Task__boRemoveFromEventList(pstWaitingToSendList);
+                OS_Boolean_t boEventList = OS_Task__boRemoveFromEventList(pstWaitingToSendList);
                 if(FALSE != boEventList)
                 {
                     OS_Task__vMissedYield();

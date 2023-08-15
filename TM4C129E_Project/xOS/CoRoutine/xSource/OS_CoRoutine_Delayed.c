@@ -30,28 +30,26 @@
 
 void OS_CoRoutine__vAddToDelayedList(OS_UBase_t uxTimeToDelay, OS_List_t* pstEventListArg)
 {
-    OS_UBase_t uxTimeToWake;
-    OS_UBase_t uxCoRoutineTickCount;
-    OS_CoRoutine_CRCB_t* pstCurrentCRCB;
 
+    OS_UBase_t uxTimeToWake;
     uxTimeToWake = uxTimeToDelay;
+    OS_UBase_t uxCoRoutineTickCount;
     uxCoRoutineTickCount = OS_CoRoutine__uxGetTickCount_NotSafe();
     uxTimeToWake += uxCoRoutineTickCount;
+    OS_CoRoutine_CRCB_t* pstCurrentCRCB;
     pstCurrentCRCB = OS_CoRoutine__pstGetCurrentCRCB();
     (void) OS_List__uxRemove(&(pstCurrentCRCB->stGenericListItem));
     OS_List__vSetItemValue(&(pstCurrentCRCB->stGenericListItem), uxTimeToWake);
 
     if( uxTimeToWake < uxCoRoutineTickCount )
     {
-        OS_List_t* pstOverflowDelayedCoRoutineList;
-        pstOverflowDelayedCoRoutineList = OS_CoRoutine__pstGetOverflowDelayedList();
+        OS_List_t* pstOverflowDelayedCoRoutineList = OS_CoRoutine__pstGetOverflowDelayedList();
         OS_List__vInsert(pstOverflowDelayedCoRoutineList,
                          &(pstCurrentCRCB->stGenericListItem));
     }
     else
     {
-        OS_List_t* pstDelayedCoRoutineList;
-        pstDelayedCoRoutineList = OS_CoRoutine__pstGetDelayedList();
+        OS_List_t* pstDelayedCoRoutineList = OS_CoRoutine__pstGetDelayedList();
         OS_List__vInsert(pstDelayedCoRoutineList,
                          &(pstCurrentCRCB->stGenericListItem));
     }

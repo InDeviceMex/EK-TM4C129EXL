@@ -36,23 +36,18 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                                        const OS_Boolean_t boJustPeeking)
 {
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Boolean_t boEntryTimeSet = FALSE;
     OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
-
     if(0UL != (OS_Pointer_t) pstQueueReg)
     {
         if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
-            OS_Task_eScheduler enSchedulerState;
-            OS_Boolean_t boIsListEmpty;
-            OS_Boolean_t boStatus;
-
-            enSchedulerState = OS_Task__enGetSchedulerState();
+            OS_Task_eScheduler enSchedulerState = OS_Task__enGetSchedulerState();
             if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
             {
                 /* This function relaxes the coding standard somewhat to allow return
                 statements within the function itself.  This is done in the interest
                 of execution time efficiency. */
+                OS_Boolean_t boEntryTimeSet = FALSE;
                 while(1UL)
                 {
                     OS_Task__vEnterCritical();
@@ -79,10 +74,10 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                                     pstQueueReg->pvMutexHolder = OS_Task__pvIncrementMutexHeldCount(); /*lint !e961 Cast is not redundant as TaskHandle_t is a typedef. */
                                 }
 
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToSend));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToSend));
                                     if(TRUE == boStatus)
                                     {
                                         OS_Queue__vYieldIfUsingPreemption();
@@ -97,10 +92,10 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
 
                                 /* The data is being left in the queue, so see if there are
                                 any other tasks waiting for the data. */
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList( &(pstQueueReg->stTasksWaitingToReceive));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList( &(pstQueueReg->stTasksWaitingToReceive));
                                     if(FALSE != boStatus)
                                     {
                                         /* The task waiting has a higher priority than this task. */
@@ -138,10 +133,10 @@ OS_Boolean_t OS_Queue__boGenericReceive( OS_Queue_Handle_t pvQueue,
                     OS_Queue__vLock(pstQueueReg);
 
                     /* Update the timeout state to see if it has expired yet. */
-                    boStatus = OS_Task__boCheckForTimeOut( &stTimeOut, &uxTicksToWait);
+                    OS_Boolean_t boStatus = OS_Task__boCheckForTimeOut( &stTimeOut, &uxTicksToWait);
                     if(FALSE == boStatus)
                     {
-                        boIsListEmpty = OS_Queue__boIsQueueEmpty(pstQueueReg);
+                        OS_Boolean_t boIsListEmpty = OS_Queue__boIsQueueEmpty(pstQueueReg);
                         if(FALSE != boIsListEmpty)
                         {
                             if(OS_QUEUE_IS_MUTEX == pstQueueReg->uxQueueType)
@@ -211,8 +206,7 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
     {
         if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
-            OS_UBase_t uxSavedInterruptStatus;
-            uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
+            OS_UBase_t uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
             {
                 /* Cannot block in an ISR, so check there is data available. */
                 if(0UL < pstQueueReg->uxMessagesWaiting)
@@ -226,8 +220,7 @@ OS_Boolean_t OS_Queue__boReceiveFromISR(OS_Queue_Handle_t pvQueue,
                     locked. */
                     if(OS_QUEUE_UNLOCKED == pstQueueReg->xRxLock)
                     {
-                        OS_Boolean_t boIsListEmpty;
-                        boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToSend));
+                        OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&( pstQueueReg->stTasksWaitingToSend));
                         if(FALSE == boIsListEmpty)
                         {
                             OS_Boolean_t boStatus;
@@ -269,22 +262,19 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
                                        const OS_Boolean_t boJustPeeking)
 {
     OS_Queue_t * const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Boolean_t boEntryTimeSet = FALSE;
     OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
     if(0UL != (OS_Pointer_t) pstQueueReg)
     {
         if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
-            OS_Task_eScheduler enSchedulerState;
-            enSchedulerState = OS_Task__enGetSchedulerState();
+            OS_Task_eScheduler enSchedulerState = OS_Task__enGetSchedulerState();
             if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
             {
                 /* This function relaxes the coding standard somewhat to allow return
                 statements within the function itself.  This is done in the interest
                 of execution time efficiency. */
-                OS_Boolean_t boIsListEmpty;
-                OS_Boolean_t boStatus;
+                OS_Boolean_t boEntryTimeSet = FALSE;
                 while(1UL)
                 {
                     OS_Task__vEnterCritical();
@@ -311,10 +301,10 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
                                     pstQueueReg->pvMutexHolder = OS_Task__pvGetCurrentTaskHandle();
                                 }
 
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToSend));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToSend));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToSend));
                                     if(TRUE == boStatus)
                                     {
                                         OS_Queue__vYieldWithinAPI();
@@ -329,10 +319,10 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
 
                                 /* The data is being left in the queue, so see if there are
                                 any other tasks waiting for the data. */
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList( &(pstQueueReg->stTasksWaitingToReceive));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList( &(pstQueueReg->stTasksWaitingToReceive));
                                     if(FALSE != boStatus)
                                     {
                                         /* The task waiting has a higher priority than this task. */
@@ -366,10 +356,10 @@ OS_Boolean_t OS_Queue__boAltGenericReceive( OS_Queue_Handle_t pvQueue,
                     OS_Task__vEnterCritical();
                     {
                         /* Update the timeout state to see if it has expired yet. */
-                        boStatus = OS_Task__boCheckForTimeOut( &stTimeOut, &uxTicksToWait);
+                        OS_Boolean_t boStatus = OS_Task__boCheckForTimeOut( &stTimeOut, &uxTicksToWait);
                         if(FALSE == boStatus)
                         {
-                            boIsListEmpty = OS_Queue__boIsQueueEmpty(pstQueueReg);
+                            OS_Boolean_t boIsListEmpty = OS_Queue__boIsQueueEmpty(pstQueueReg);
                             if(FALSE != boIsListEmpty)
                             {
                                 if(OS_QUEUE_IS_MUTEX == pstQueueReg->uxQueueType)

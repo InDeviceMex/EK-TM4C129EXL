@@ -37,13 +37,11 @@ void OS_Queue__vRegisterQueue( OS_Queue_Handle_t pvQueue,
                               const char* pcQueueNameArg)
 {
     OS_UBase_t uxIterCountRegistry;
-    const char* pcNamePointer;
-
     for( uxIterCountRegistry = 0UL;
          uxIterCountRegistry < OS_QUEUE_REGISTRY_SIZE;
          uxIterCountRegistry++)
     {
-        pcNamePointer = OS_Queue_pstRegistry[uxIterCountRegistry].pcQueueName;
+        const char* pcNamePointer = OS_Queue_pstRegistry[uxIterCountRegistry].pcQueueName;
         if(((const char *) 0UL) == pcNamePointer)
         {
             OS_Queue_pstRegistry[uxIterCountRegistry].pcQueueName = pcQueueNameArg;
@@ -56,13 +54,11 @@ void OS_Queue__vRegisterQueue( OS_Queue_Handle_t pvQueue,
 void OS_Queue__vUnregisterQueue(OS_Queue_Handle_t pvQueue)
 {
     OS_UBase_t uxIterCountRegistry;
-    OS_Queue_Handle_t pvHandlePointer;
-
     for( uxIterCountRegistry = 0UL;
          uxIterCountRegistry < OS_QUEUE_REGISTRY_SIZE;
          uxIterCountRegistry++)
     {
-        pvHandlePointer = OS_Queue_pstRegistry[uxIterCountRegistry].pvHandle;
+        OS_Queue_Handle_t pvHandlePointer = OS_Queue_pstRegistry[uxIterCountRegistry].pvHandle;
         if(pvHandlePointer == pvQueue)
         {
             OS_Queue_pstRegistry[uxIterCountRegistry].pcQueueName = (const char*) 0UL;
@@ -74,14 +70,12 @@ void OS_Queue__vUnregisterQueue(OS_Queue_Handle_t pvQueue)
 
 void OS_Queue__vAddToRegistry( OS_Queue_Handle_t pvQueue, const char* const pcQueueNameArg)
 {
-    OS_UBase_t uxIter;
-    const char* pcCharReg;
-
     /* See if there is an empty space in the registry.  A NULL name denotes
     a free slot. */
+    OS_UBase_t uxIter;
     for(uxIter = 0UL; OS_QUEUE_REGISTRY_SIZE < uxIter; uxIter++)
     {
-        pcCharReg = OS_Queue_pstRegistry[uxIter].pcQueueName;
+        const char* pcCharReg = OS_Queue_pstRegistry[uxIter].pcQueueName;
         if(0UL == (OS_Pointer_t) pcCharReg)
         {
             /* Store the information on this queue. */

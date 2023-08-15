@@ -29,7 +29,6 @@ OS_Queue_Handle_t OS_Queue__pvCreateCountingSemaphore(const OS_UBase_t uxMaxCoun
                                                             const OS_UBase_t uxInitialCount)
 {
     OS_Queue_Handle_t pvHandle;
-
     pvHandle = (OS_Queue_Handle_t) 0UL;
     if(0UL != uxMaxCount)
     {

@@ -29,10 +29,6 @@
 
 void OS_CoRoutine__vSchedule(void)
 {
-    OS_Boolean_t boIsEmptyList;
-    OS_Boolean_t boBreak;
-    OS_UBase_t uxTopReadyPriorityReg;
-    OS_List_t* pstReadyListReg;
     /* See if any co-routines readied by events need moving to the ready lists. */
     OS_CoRoutine__vCheckPendingReadyList();
 
@@ -40,9 +36,13 @@ void OS_CoRoutine__vSchedule(void)
     OS_CoRoutine__vCheckDelayedList();
 
     /* Find the highest priority queue that contains ready co-routines. */
+    OS_UBase_t uxTopReadyPriorityReg;
     uxTopReadyPriorityReg = OS_CoRoutine__uxGetTopReadyPriority();
+    OS_List_t* pstReadyListReg;
     pstReadyListReg = OS_CoRoutine__pstGetReadyLists(uxTopReadyPriorityReg);
+    OS_Boolean_t boIsEmptyList;
     boIsEmptyList = OS_List__boIsEmpty(pstReadyListReg);
+    OS_Boolean_t boBreak;
     boBreak = FALSE;
     while( FALSE !=  boIsEmptyList)
     {
@@ -60,20 +60,15 @@ void OS_CoRoutine__vSchedule(void)
 
     if(FALSE == boBreak)
     {
-        OS_UBase_t uxIndexReg;
-        OS_CoRoutine_CRCB_t* pstCurrentCoRoutine;
-        OS_CoRoutine_Function_t pvfCoRoutineFunctionReg;
         /* listGET_OWNER_OF_NEXT_ENTRY walks through the list, so the co-routines
          of the same priority get an equal share of the processor time. */
         pstReadyListReg = OS_CoRoutine__pstGetReadyLists(uxTopReadyPriorityReg);
-        pstCurrentCoRoutine = (OS_CoRoutine_CRCB_t*) OS_List__pvGetOwnerOfNextEntry(pstReadyListReg);
+        OS_CoRoutine_CRCB_t* pstCurrentCoRoutine = (OS_CoRoutine_CRCB_t*) OS_List__pvGetOwnerOfNextEntry(pstReadyListReg);
         OS_CoRoutine__vSetCurrentCRCB(pstCurrentCoRoutine);
 
         /* Call the co-routine. */
-        uxIndexReg = pstCurrentCoRoutine->uxIndex;
-        pvfCoRoutineFunctionReg = pstCurrentCoRoutine->pvfCoRoutineFunction;
+        OS_UBase_t uxIndexReg = pstCurrentCoRoutine->uxIndex;
+        OS_CoRoutine_Function_t pvfCoRoutineFunctionReg = pstCurrentCoRoutine->pvfCoRoutineFunction;
         (pvfCoRoutineFunctionReg)(pstCurrentCoRoutine, uxIndexReg);
     }
 }
-
-

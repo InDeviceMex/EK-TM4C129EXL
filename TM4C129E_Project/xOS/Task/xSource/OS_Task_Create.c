@@ -40,31 +40,26 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                                         const OS_UBase_t* const puxStaticStackBuffer)
 {
     OS_UBase_t uxReturn;
-
     uxReturn = 1UL;
     if(0UL != (OS_Pointer_t) pvfTaskCodeArg)
     {
         if(OS_TASK_MAX_PRIORITIES > uxPriorityArg)
         {
-            OS_Task_TCB_t * pstCurrentTCB;
-            OS_Task_TCB_t * pstNewTCB;
-            OS_Boolean_t boSchedulerRunning;
-
             uxStackDepthArg &= ~OS_ADAPT_BYTE_ALIGNMENT_MASK;
-            pstNewTCB = OS_Task__pstAllocateTCBAndStack(uxStackDepthArg, puxStaticStackBuffer);
 
+            OS_Task_TCB_t * pstNewTCB;
+            pstNewTCB = OS_Task__pstAllocateTCBAndStack(uxStackDepthArg, puxStaticStackBuffer);
             if(0UL != (OS_Pointer_t) pstNewTCB)
             {
                 if(0UL ==(OS_ADAPT_BYTE_ALIGNMENT_MASK &
                          (OS_UBase_t) pstNewTCB->puxStack))
                 {
-                    OS_UBase_t *puxTopOfStackReg;
 
                     pstNewTCB->puxEndOfStack = pstNewTCB->puxStack;
                     pstNewTCB->puxEndOfStack += uxStackDepthArg;
                     pstNewTCB->puxEndOfStack -= 1UL;
 
-                    puxTopOfStackReg = pstNewTCB->puxEndOfStack;
+                    OS_UBase_t *puxTopOfStackReg = pstNewTCB->puxEndOfStack;
                     OS_Task__vInitialiseTCBVariables(pstNewTCB,
                                                      pcNameArg,
                                                      uxPriorityArg);
@@ -79,9 +74,12 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                         *pvCreatedTask = (OS_Task_Handle_t) pstNewTCB;
                     }
 
+                    OS_Task_TCB_t * pstCurrentTCB;
                     OS_Task__vEnterCritical();
                     {
                         OS_Task__vIncreaseCurrentNumberOfTasks();
+
+
                         pstCurrentTCB = OS_Task__pstGetCurrentTCB();
                         if(0UL == (OS_Pointer_t) pstCurrentTCB )
                         {
@@ -96,7 +94,7 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                         }
                         else
                         {
-                            boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+                            OS_Boolean_t boSchedulerRunning = OS_Task__boGetSchedulerRunning();
                             if(FALSE == boSchedulerRunning)
                             {
                                 if( pstCurrentTCB->uxPriorityTask <= uxPriorityArg )
@@ -109,8 +107,19 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
                         pstNewTCB->uxTCBNumber = (OS_UBase_t) OS_Task__uxGetTaskNumber();
                         OS_Task__vAddTaskToReadyList(pstNewTCB);
                         uxReturn = 1UL;
+
                     }
                     OS_Task__vExitCritical();
+                    {
+                        OS_Boolean_t boSchedulerRunning = OS_Task__boGetSchedulerRunning();
+                        if(FALSE != boSchedulerRunning)
+                        {
+                            if( pstCurrentTCB->uxPriorityTask < uxPriorityArg )
+                            {
+                                OS_Task__vYieldIfUsingPreemption();
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -120,18 +129,6 @@ OS_UBase_t OS_Task__uxGenericCreate(OS_Task_Function_t pvfTaskCodeArg,
             else
             {
                 uxReturn = 3UL;
-            }
-
-            if(1UL == uxReturn)
-            {
-                boSchedulerRunning = OS_Task__boGetSchedulerRunning();
-                if(FALSE != boSchedulerRunning)
-                {
-                    if( pstCurrentTCB->uxPriorityTask < uxPriorityArg )
-                    {
-                        OS_Task__vYieldIfUsingPreemption();
-                    }
-                }
             }
         }
     }

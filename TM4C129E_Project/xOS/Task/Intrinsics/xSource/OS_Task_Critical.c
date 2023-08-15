@@ -29,14 +29,13 @@
 
 void OS_Task__vEnterCritical(void)
 {
-    OS_Boolean_t boSchedulerRunning;
 
     OS_Adapt__vDisableInterrupts();
+    OS_Boolean_t boSchedulerRunning;
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
-        OS_Task_TCB_t* pstCurrentTCB;
-        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        OS_Task_TCB_t* pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         (pstCurrentTCB->uxCriticalNesting)++;
 
         if(1UL == pstCurrentTCB->uxCriticalNesting)
@@ -60,8 +59,7 @@ void OS_Task__vExitCritical(void)
     boSchedulerRunning = OS_Task__boGetSchedulerRunning();
     if(FALSE != boSchedulerRunning)
     {
-        OS_Task_TCB_t* pstCurrentTCB;
-        pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+        OS_Task_TCB_t* pstCurrentTCB = OS_Task__pstGetCurrentTCB();
         if(0UL < pstCurrentTCB->uxCriticalNesting)
         {
             (pstCurrentTCB->uxCriticalNesting)--;

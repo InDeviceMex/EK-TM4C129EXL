@@ -68,7 +68,6 @@ OS_Task_TCB_t* OS_Task__pstGetTCBFromHandle(OS_Task_Handle_t pxHandle)
 OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
                              const OS_UBase_t* const puxStaticStackBuffer)
 {
-    OS_Task_TCB_t *pstNewTCB;
     OS_UBase_t *puxStackReg;
 
     #if defined (__TI_ARM__ ) || defined (__MSP430__ )
@@ -78,6 +77,7 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
         puxStackReg = (OS_UBase_t*) malloc(uxStackDepthArg * sizeof(OS_UBase_t));
     #endif
 
+    OS_Task_TCB_t *pstNewTCB;
     if(0UL != (OS_Pointer_t) puxStackReg)
     {
         #if defined (__TI_ARM__ ) || defined (__MSP430__ )
@@ -105,14 +105,12 @@ OS_Task_TCB_t* OS_Task__pstAllocateTCBAndStack(const OS_UBase_t uxStackDepthArg,
 void OS_Task__vCheckStackOverflow(void)
 {
     volatile OS_UBase_t* puxTopOfStackReg;
-    OS_UBase_t* puxStackReg;
-    char* pcCurrentTCBName;
-
     puxTopOfStackReg = OS_Task_pstCurrentTCB->puxTopOfStack;
+    OS_UBase_t* puxStackReg;
     puxStackReg = OS_Task_pstCurrentTCB->puxStack;
     if( puxTopOfStackReg <= puxStackReg )
     {
-        pcCurrentTCBName = OS_Task_pstCurrentTCB->pcTaskName;
+        char* pcCurrentTCBName = OS_Task_pstCurrentTCB->pcTaskName;
         OS_External__vApplicationStackOverflowHook((OS_Task_Handle_t) OS_Task_pstCurrentTCB,
                                                     pcCurrentTCBName);
     }
@@ -122,10 +120,8 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
                                       const char * pcTaskNameArg,
                                       OS_UBase_t uxPriorityArg)
 {
-    CDLinkedListItem_t* pstListItemReg;
     char* pcNamePointer;
     OS_UBase_t uxCount;
-
     uxCount = 0UL;
     pcNamePointer = pstTCB->pcTaskName;
     while((0U != (uint8_t) *pcTaskNameArg) &&
@@ -150,6 +146,7 @@ void OS_Task__vInitialiseTCBVariables(OS_Task_TCB_t * const pstTCB,
     OS_List__vInitItem(&(pstTCB->stGenericListItem));
     OS_List__vInitItem(&(pstTCB->stEventListItem));
 
+    CDLinkedListItem_t* pstListItemReg;
     pstListItemReg = &(pstTCB->stGenericListItem);
     OS_List__vSetItemOwner(pstListItemReg, ( void*) pstTCB);
 

@@ -38,7 +38,6 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                                    const OS_Queue_nPos enCopyPosition)
 {
     OS_Queue_t* const pstQueue = (OS_Queue_t*) pvQueue;
-    OS_Boolean_t boEntryTimeSet = FALSE;
     OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
     if((0UL != (OS_Pointer_t) pstQueue))
@@ -47,18 +46,13 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
         {
             if((OS_Queue_enPos_OVERWRITE != enCopyPosition) || (1UL == pstQueue->uxLength))
             {
-                OS_Task_eScheduler enSchedulerState;
-                enSchedulerState = OS_Task__enGetSchedulerState();
+                OS_Task_eScheduler enSchedulerState = OS_Task__enGetSchedulerState();
                 if((OS_Task_enScheduler_Suspended != enSchedulerState) || (0UL == uxTicksToWait))
                 {
                     /* This function relaxes the coding standard somewhat to allow return
                     statements within the function itself.  This is done in the interest
                     of execution time efficiency. */
-                    OS_UBase_t uxTempValue;
-                    OS_Boolean_t boIsQueueFull;
-                    OS_Boolean_t boIsListEmpty;
-                    OS_Boolean_t boStatus;
-                    OS_Boolean_t boYieldRequired;
+                    OS_Boolean_t boEntryTimeSet = FALSE;
                     while(1UL)
                     {
                         OS_Task__vEnterCritical();
@@ -67,13 +61,13 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                             highest priority task wanting to access the queue.  If the head item
                             in the queue is to be overwritten then it does not matter if the
                             queue is full. */
-                            uxTempValue = pstQueue->uxLength;
+                            OS_UBase_t uxTempValue = pstQueue->uxLength;
                             if((pstQueue->uxMessagesWaiting < uxTempValue) || ( enCopyPosition == OS_Queue_enPos_OVERWRITE ))
                             {
-                                boYieldRequired = OS_Queue__boCopyDataToQueue(pstQueue, pvItemToQueue, enCopyPosition);
+                                OS_Boolean_t boYieldRequired = OS_Queue__boCopyDataToQueue(pstQueue, pvItemToQueue, enCopyPosition);
                                 if(0UL != (OS_Pointer_t) pstQueue->pstQueueSetContainer)
                                 {
-                                    boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueue, enCopyPosition);
+                                    OS_Boolean_t boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueue, enCopyPosition);
                                     if(TRUE == boStatus)
                                     {
                                         /* The queue is a member of a queue set, and posting
@@ -86,10 +80,10 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                                 {
                                     /* If there was a task waiting for data to arrive on the
                                     queue then unblock it now. */
-                                    boIsListEmpty = OS_List__boIsEmpty(&(pstQueue->stTasksWaitingToReceive));
+                                    OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueue->stTasksWaitingToReceive));
                                     if(FALSE == boIsListEmpty)
                                     {
-                                        boStatus = OS_Task__boRemoveFromEventList(&(pstQueue->stTasksWaitingToReceive));
+                                        OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueue->stTasksWaitingToReceive));
                                         if(TRUE == boStatus)
                                         {
                                             /* The unblocked task has a priority higher than
@@ -141,10 +135,10 @@ OS_Boolean_t OS_Queue__boGenericSend(OS_Queue_Handle_t pvQueue,
                         OS_Queue__vLock(pstQueue);
 
                         /* Update the timeout state to see if it has expired yet. */
-                        boStatus = OS_Task__boCheckForTimeOut(&stTimeOut, &uxTicksToWait);
+                        OS_Boolean_t boStatus = OS_Task__boCheckForTimeOut(&stTimeOut, &uxTicksToWait);
                         if(FALSE == boStatus)
                         {
-                            boIsQueueFull = OS_Queue__boIsQueueFull(pstQueue);
+                            OS_Boolean_t boIsQueueFull = OS_Queue__boIsQueueFull(pstQueue);
                             if(FALSE !=  boIsQueueFull)
                             {
                                 OS_Task__vPlaceOnEventList(&(pstQueue->stTasksWaitingToSend), uxTicksToWait);
@@ -249,11 +243,9 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                 read, instead return a flag to say whether a context switch is required or
                 not (i.e. has a task with a higher priority than us been woken by this
                 post). */
-                OS_UBase_t uxSavedInterruptStatus;
-                uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
+                OS_UBase_t uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
                 {
-                    OS_UBase_t uxTempValue;
-                    uxTempValue = pstQueueReg->uxLength;
+                    OS_UBase_t uxTempValue = pstQueueReg->uxLength;
                     if((pstQueueReg->uxMessagesWaiting < uxTempValue) || ( enCopyPosition == OS_Queue_enPos_OVERWRITE ))
                     {
                         /* Semaphores use pvQueueArgGiveFromISR(), so pstQueueReg will not be a
@@ -267,10 +259,9 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                         be done when the queue is unlocked later. */
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
-                            OS_Boolean_t boStatus;
                             if(0UL != (OS_Pointer_t) pstQueueReg->pstQueueSetContainer)
                             {
-                                boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, enCopyPosition);
+                                OS_Boolean_t boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, enCopyPosition);
                                 if(TRUE == boStatus)
                                 {
                                     /* The queue is a member of a queue set, and posting
@@ -284,11 +275,10 @@ OS_Boolean_t OS_Queue__boGenericSendFromISR(OS_Queue_Handle_t pvQueueArg,
                             }
                             else
                             {
-                                OS_Boolean_t boIsListEmpty;
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
                                     if(FALSE !=  boStatus)
                                     {
                                         /* The task waiting has a higher priority so
@@ -365,33 +355,30 @@ OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
                                         OS_Queue_nPos enCopyPosition)
 {
     OS_Queue_t* const pstQueueReg = (OS_Queue_t*) pvQueue;
-    OS_Boolean_t boEntryTimeSet = FALSE;
     OS_Task_TimeOut_t stTimeOut = {0UL, 0UL};
 
     if(0UL != (OS_Pointer_t) pstQueueReg)
     {
         if((0UL != (OS_Pointer_t) pvItemToQueue) || (0UL == pstQueueReg->uxItemSize))
         {
-            OS_Boolean_t boStatus;
+            OS_Boolean_t boEntryTimeSet = FALSE;
             while(1UL)
             {
                 OS_Task__vEnterCritical();
                 {
                     /* Is there room on the queue now?  To be running we must be
                     the highest priority task wanting to access the queue. */
-                    OS_UBase_t uxTempValue;
-                    uxTempValue = pstQueueReg->uxLength;
+                    OS_UBase_t uxTempValue = pstQueueReg->uxLength;
                     if(pstQueueReg->uxMessagesWaiting < uxTempValue)
                     {
                         OS_Queue__boCopyDataToQueue(pstQueueReg, pvItemToQueue, enCopyPosition);
 
                         /* If there was a task waiting for data to arrive on the
                         queue then unblock it now. */
-                        OS_Boolean_t boIsListEmpty;
-                        boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                        OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                         if(FALSE == boIsListEmpty)
                         {
-                            boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
+                            OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
                             if(TRUE ==  boStatus)
                             {
                                 /* The unblocked task has a priority higher than
@@ -420,11 +407,10 @@ OS_Boolean_t OS_Queue__boAltGenericSend(OS_Queue_Handle_t pvQueue,
 
                 OS_Task__vEnterCritical();
                 {
-                    boStatus = OS_Task__boCheckForTimeOut(&stTimeOut, &uxTicksToWait);
+                    OS_Boolean_t boStatus = OS_Task__boCheckForTimeOut(&stTimeOut, &uxTicksToWait);
                     if(FALSE == boStatus)
                     {
-                        OS_Boolean_t boIsQueueFull;
-                        boIsQueueFull = OS_Queue__boIsQueueFull(pstQueueReg);
+                        OS_Boolean_t boIsQueueFull = OS_Queue__boIsQueueFull(pstQueueReg);
                         if(FALSE != boIsQueueFull)
                         {
                             OS_Task__vPlaceOnEventList(&(pstQueueReg->stTasksWaitingToSend), uxTicksToWait);
@@ -484,18 +470,15 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
             /* Normally a mutex would not be given from an interrupt, especially if
             there is a mutex holder, as priority inheritance makes no sense for an
             interrupts, only tasks. */
-            void* pvMutexHolderReg;
-            pvMutexHolderReg = pstQueueReg->pvMutexHolder;
+            void* pvMutexHolderReg = pstQueueReg->pvMutexHolder;
             if((OS_QUEUE_IS_MUTEX != pstQueueReg->uxQueueType) || (0UL == (OS_Pointer_t) pvMutexHolderReg))
             {
-                OS_UBase_t uxSavedInterruptStatus;
-                uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
+                OS_UBase_t uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
                 {
                     /* When the queue is used to implement a semaphore no data is ever
                     moved through the queue but it is still valid to see if the queue 'has
                     space'. */
-                    OS_UBase_t uxTempValue;
-                    uxTempValue = pstQueueReg->uxLength;
+                    OS_UBase_t uxTempValue = pstQueueReg->uxLength;
                     if(pstQueueReg->uxMessagesWaiting < uxTempValue)
                     {
                         /* A task can only have an inherited priority if it is a mutex
@@ -510,10 +493,9 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                         be done when the queue is unlocked later. */
                         if(OS_QUEUE_UNLOCKED == pstQueueReg->xTxLock)
                         {
-                            OS_Boolean_t boStatus;
                             if(0UL != (OS_Pointer_t) (pstQueueReg->pstQueueSetContainer))
                             {
-                                boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, OS_Queue_enPos_SEND_TO_BACK);
+                                OS_Boolean_t boStatus = OS_Queue__boNotifyQueueSetContainer(pstQueueReg, OS_Queue_enPos_SEND_TO_BACK);
                                 if(TRUE == boStatus)
                                 {
                                     /* The semaphore is a member of a queue set, and
@@ -527,11 +509,10 @@ OS_Boolean_t OS_Queue__boGiveFromISR( OS_Queue_Handle_t pvQueue,
                             }
                             else
                             {
-                                OS_Boolean_t boIsListEmpty;
-                                boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
+                                OS_Boolean_t boIsListEmpty = OS_List__boIsEmpty(&(pstQueueReg->stTasksWaitingToReceive));
                                 if(FALSE == boIsListEmpty)
                                 {
-                                    boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
+                                    OS_Boolean_t boStatus = OS_Task__boRemoveFromEventList(&(pstQueueReg->stTasksWaitingToReceive));
                                     if(FALSE != boStatus)
                                     {
                                         /* The task waiting has a higher priority so

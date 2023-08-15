@@ -29,7 +29,6 @@ OS_Boolean_t OS_Queue__boRemoveFromSet(OS_Queue_SetMemberHandle_t pvfQueueOrSema
 {
     OS_Queue_t* const pvfQueueOrSemaphoreReg = (OS_Queue_t*) pvfQueueOrSemaphore;
     OS_Boolean_t boReturn;
-
     boReturn = FALSE;
     if(0UL !=  (OS_Pointer_t) pvfQueueOrSemaphoreReg)
     {
@@ -63,7 +62,6 @@ OS_Boolean_t OS_Queue__boAddToSet(OS_Queue_SetMemberHandle_t pvfQueueOrSemaphore
 {
     OS_Queue_t* const pvfQueueOrSemaphoreReg = (OS_Queue_t*) pvfQueueOrSemaphore;
     OS_Boolean_t boReturn;
-
     boReturn = FALSE;
     if(0UL !=  (OS_Pointer_t) pvfQueueOrSemaphoreReg)
     {
@@ -90,7 +88,3 @@ OS_Boolean_t OS_Queue__boAddToSet(OS_Queue_SetMemberHandle_t pvfQueueOrSemaphore
     }
     return (boReturn);
 }
-
-
-
-

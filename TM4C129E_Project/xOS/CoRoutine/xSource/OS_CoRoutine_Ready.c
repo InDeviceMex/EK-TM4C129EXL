@@ -30,16 +30,12 @@ void OS_CoRoutine__vAddToReadyList(OS_CoRoutine_CRCB_t* pstCRCBArg)
 {
     if(0UL != (OS_Pointer_t) pstCRCBArg)
     {
-        OS_UBase_t uxCRCBPriority;
-        OS_List_t* pstReadyCoRoutineList;
-
         OS_CoRoutine__vSetTopReadyPriority_CRCB(pstCRCBArg);
-        uxCRCBPriority = pstCRCBArg->uxPriorityCoRoutine;
-        pstReadyCoRoutineList = OS_CoRoutine__pstGetReadyLists(uxCRCBPriority);
+        OS_UBase_t uxCRCBPriority = pstCRCBArg->uxPriorityCoRoutine;
+        OS_List_t* pstReadyCoRoutineList = OS_CoRoutine__pstGetReadyLists(uxCRCBPriority);
         if(0UL != (OS_Pointer_t) pstReadyCoRoutineList)
         {
-            OS_ListItem_t* pstCRCBCoRoutine;
-            pstCRCBCoRoutine = &(pstCRCBArg->stGenericListItem);
+            OS_ListItem_t* pstCRCBCoRoutine = &(pstCRCBArg->stGenericListItem);
             OS_List__vInsertEnd(pstReadyCoRoutineList, pstCRCBCoRoutine);
         }
     }
@@ -49,17 +45,13 @@ void OS_CoRoutine__vAddToReadyQueue(OS_CoRoutine_CRCB_t* pstCRCBArg)
 {
     if(0UL != (OS_Pointer_t) pstCRCBArg)
     {
-        OS_UBase_t uxCRCBPriority;
-        OS_UBase_t uxTopCoRoutineReadyPriority;
-        OS_List_t* pstReadyCoRoutineList;
-
-        uxTopCoRoutineReadyPriority = OS_CoRoutine__uxGetTopReadyPriority();
-        uxCRCBPriority = pstCRCBArg->uxPriorityCoRoutine;
+        OS_UBase_t uxTopCoRoutineReadyPriority = OS_CoRoutine__uxGetTopReadyPriority();
+        OS_UBase_t uxCRCBPriority = pstCRCBArg->uxPriorityCoRoutine;
         if(uxCRCBPriority > uxTopCoRoutineReadyPriority)
         {
             OS_CoRoutine__vSetTopReadyPriority(uxCRCBPriority);
         }
-        pstReadyCoRoutineList = OS_CoRoutine__pstGetReadyLists(uxCRCBPriority);
+        OS_List_t* pstReadyCoRoutineList = OS_CoRoutine__pstGetReadyLists(uxCRCBPriority);
         if(0UL != (OS_Pointer_t) pstReadyCoRoutineList)
         {
             OS_ListItem_t* pstCRCBCoRoutine;
@@ -72,12 +64,12 @@ void OS_CoRoutine__vAddToReadyQueue(OS_CoRoutine_CRCB_t* pstCRCBArg)
 void OS_CoRoutine__vCheckPendingReadyList(void)
 {
 
-    OS_List_t* pstPendingReadyCoRoutineList;
-    OS_Boolean_t boIsEmptyList;
     /* Are there any co-routines waiting to get moved to the ready list?  These
     are co-routines that have been readied by an ISR.  The ISR cannot access
     the ready lists itself. */
+    OS_List_t* pstPendingReadyCoRoutineList;
     pstPendingReadyCoRoutineList = OS_CoRoutine__pstGetPendingReadyList();
+    OS_Boolean_t boIsEmptyList;
     boIsEmptyList = OS_List__boIsEmpty(pstPendingReadyCoRoutineList);
     while(FALSE == boIsEmptyList)
     {

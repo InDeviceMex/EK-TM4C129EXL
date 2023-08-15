@@ -27,20 +27,12 @@
 OS_Boolean_t OS_Queue__boIsQueueEmpty(const OS_Queue_t* pstQueue)
 {
     OS_Boolean_t boReturn;
-
     boReturn = TRUE;
     if(0UL != (OS_Pointer_t) pstQueue)
     {
         OS_Task__vEnterCritical();
         {
-            if(0UL == pstQueue->uxMessagesWaiting)
-            {
-                boReturn = TRUE;
-            }
-            else
-            {
-                boReturn = FALSE;
-            }
+            boReturn = (0UL == pstQueue->uxMessagesWaiting) ? TRUE : FALSE;
         }
         OS_Task__vExitCritical();
     }
@@ -51,18 +43,10 @@ OS_Boolean_t OS_Queue__boIsQueueEmptyFromISR(const OS_Queue_Handle_t* const pstQ
 {
     const OS_Queue_t* pstQueueReg = ( const OS_Queue_t*) pstQueue;
     OS_Boolean_t boReturn;
-
     boReturn = TRUE;
     if(0UL != (OS_Pointer_t) pstQueue)
     {
-        if(0UL == pstQueueReg->uxMessagesWaiting)
-        {
-            boReturn = TRUE;
-        }
-        else
-        {
-            boReturn = FALSE;
-        }
+        boReturn = (0UL == pstQueueReg->uxMessagesWaiting) ? TRUE : FALSE;
     }
     return (boReturn);
 }

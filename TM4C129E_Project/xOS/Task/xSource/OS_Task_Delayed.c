@@ -34,27 +34,20 @@
 void OS_Task__vDelay(const OS_UBase_t uxTicksToDelay)
 {
     OS_Boolean_t boAlreadyYielded;
-
     boAlreadyYielded = FALSE;
     if(0UL < uxTicksToDelay)
     {
-        OS_UBase_t uxSchedulerSuspended;
-        uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
+        OS_UBase_t uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
         if(0UL == uxSchedulerSuspended)
         {
             OS_Task__vSuspendAll();
             {
-                OS_Task_TCB_t* pstCurrentTCB;
-                OS_UBase_t uxTimeToWake;
-                OS_UBase_t uxTickCount;
-                OS_UBase_t uxListSize;
-
-                uxTickCount = OS_Task__uxGetTickCount_NotSafe();
-                uxTimeToWake = uxTickCount;
+                OS_UBase_t uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+                OS_UBase_t uxTimeToWake = uxTickCount;
                 uxTimeToWake += uxTicksToDelay;
 
-                pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
+                OS_Task_TCB_t* pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+                OS_UBase_t uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
                     OS_Task__vAdaptResetReadyPriority(pstCurrentTCB->uxPriorityTask);
@@ -75,27 +68,20 @@ void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
                           const OS_UBase_t uxTimeIncrement)
 {
     OS_UBase_t uxSchedulerSuspended;
-
     uxSchedulerSuspended = OS_Task__uxGetSchedulerSuspended();
     if((0UL != (OS_Pointer_t) puxPreviousWakeTime) &&
        (0UL < uxTimeIncrement) &&
        (0UL == uxSchedulerSuspended))
     {
-        OS_Boolean_t boAlreadyYielded;
-
         OS_Task__vSuspendAll();
         {
-            OS_UBase_t uxTickCount;
-            OS_UBase_t uxTimeToWake;
-            OS_Boolean_t boShouldDelay;
-
-            uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+            OS_UBase_t uxTickCount = OS_Task__uxGetTickCount_NotSafe();
             const OS_UBase_t uxConstTickCount = uxTickCount;
 
-            uxTimeToWake = *puxPreviousWakeTime;
+            OS_UBase_t uxTimeToWake = *puxPreviousWakeTime;
             uxTimeToWake += uxTimeIncrement;
 
-            boShouldDelay = FALSE;
+            OS_Boolean_t boShouldDelay = FALSE;
             if( uxConstTickCount < *puxPreviousWakeTime )
             {
                 if((uxTimeToWake < *puxPreviousWakeTime) &&
@@ -116,11 +102,8 @@ void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
 
             if(FALSE != boShouldDelay)
             {
-                OS_Task_TCB_t* pstCurrentTCB;
-                OS_UBase_t uxListSize;
-
-                pstCurrentTCB = OS_Task__pstGetCurrentTCB();
-                uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
+                OS_Task_TCB_t* pstCurrentTCB = OS_Task__pstGetCurrentTCB();
+                OS_UBase_t uxListSize = OS_List__uxRemove(&(pstCurrentTCB->stGenericListItem));
                 if(0UL == uxListSize)
                 {
                     OS_Task__vAdaptResetReadyPriority(pstCurrentTCB->uxPriorityTask);
@@ -128,8 +111,7 @@ void OS_Task__vDelayUntil(OS_UBase_t * const puxPreviousWakeTime,
                 OS_Task__vAddCurrentTaskToDelayedList(uxTimeToWake);
             }
         }
-        boAlreadyYielded = OS_Task__boResumeAll();
-
+        OS_Boolean_t boAlreadyYielded = OS_Task__boResumeAll();
         if( FALSE == boAlreadyYielded)
         {
             OS_Task__vYieldWithinAPI();
@@ -148,22 +130,18 @@ void OS_Task__vAddCurrentTaskToDelayedList(const OS_UBase_t uxTimeToWake)
     uxTickCount = OS_Task__uxGetTickCount();
     if( uxTimeToWake < uxTickCount )
     {
-        OS_List_t* pstOverflowDelayedTaskList;
-
-        pstOverflowDelayedTaskList = OS_Task__pstGetOverflowDelayedTaskList();
+        OS_List_t* pstOverflowDelayedTaskList = OS_Task__pstGetOverflowDelayedTaskList();
         OS_List__vInsert(pstOverflowDelayedTaskList,
                          &(pstCurrentTCB->stGenericListItem));
     }
     else
     {
-        OS_List_t* pstDelayedTaskList;
-        OS_UBase_t uxNextTaskUnblockTime;
 
-        pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
+        OS_List_t* pstDelayedTaskList = OS_Task__pstGetDelayedTaskList();
         OS_List__vInsert(pstDelayedTaskList,
                          &(pstCurrentTCB->stGenericListItem));
 
-        uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
+        OS_UBase_t uxNextTaskUnblockTime = OS_Task__uxGetNextTaskUnblockTime();
         if( uxTimeToWake < uxNextTaskUnblockTime )
         {
             OS_Task__vSetNextTaskUnblockTime(uxTimeToWake);

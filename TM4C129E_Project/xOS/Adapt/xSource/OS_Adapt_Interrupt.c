@@ -62,18 +62,10 @@ void OS_Adapt__vEnableInterrupts(void)
 OS_Boolean_t OS_Adapt__boIsInterruptActive(void)
 {
     OS_UBase_t uxInterruptActive;
-    OS_Boolean_t boInterruptState;
-
     uxInterruptActive = 0UL;
     SCB_ISR__enGetVectorActive(SCB_enMODULE_0, (SCB_nVECISR*) &uxInterruptActive);
-    if(0UL != uxInterruptActive)
-    {
-        boInterruptState = TRUE;
-    }
-    else
-    {
-        boInterruptState = FALSE;
-    }
+    OS_Boolean_t boInterruptState;
+    boInterruptState = (0UL != uxInterruptActive) ? TRUE : FALSE;
     return (boInterruptState);
 }
 

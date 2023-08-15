@@ -30,11 +30,8 @@ void OS_Task__vSetTimeOutState(OS_Task_TimeOut_t * const pstTimeOut)
 
     if(0UL != (OS_Pointer_t) pstTimeOut)
     {
-        OS_UBase_t uxNumOfOverflows;
-        OS_UBase_t uxTickCount;
-
-        uxTickCount = OS_Task__uxGetTickCount_NotSafe();
-        uxNumOfOverflows = OS_Task__uxGetNumOfOverflows();
+        OS_UBase_t uxTickCount = OS_Task__uxGetTickCount_NotSafe();
+        OS_UBase_t uxNumOfOverflows = OS_Task__uxGetNumOfOverflows();
         pstTimeOut->uxOverflowCount = uxNumOfOverflows;
         pstTimeOut->uxTimeOnEntering = uxTickCount;
     }
@@ -59,11 +56,8 @@ OS_Boolean_t OS_Task__boCheckForTimeOut(OS_Task_TimeOut_t * const pstTimeOut,
             }
             else
             {
-                OS_UBase_t uxConstTickCountTemp;
-                OS_UBase_t uxNumOfOverflows;
-
-                uxNumOfOverflows = OS_Task__uxGetNumOfOverflows();
-                uxConstTickCountTemp = uxConstTickCount;
+                OS_UBase_t uxNumOfOverflows = OS_Task__uxGetNumOfOverflows();
+                OS_UBase_t uxConstTickCountTemp = uxConstTickCount;
                 uxConstTickCountTemp -= pstTimeOut->uxTimeOnEntering;
                 if((uxNumOfOverflows != pstTimeOut->uxOverflowCount) &&
                    (uxConstTickCount >= pstTimeOut->uxTimeOnEntering))

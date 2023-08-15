@@ -32,22 +32,19 @@ OS_Boolean_t OS_Queue__boPeekFromISR(OS_Queue_Handle_t pvQueue,  void* const pvB
     boReturn = FALSE;
     if(0UL != (OS_Pointer_t) pvQueue)
     {
-        OS_Queue_t* pstQueueReg;
-        pstQueueReg = (OS_Queue_t*) pvQueue;
+        OS_Queue_t* pstQueueReg = (OS_Queue_t*) pvQueue;
         if((0UL != (OS_Pointer_t) pvBuffer) || (0UL == pstQueueReg->uxItemSize))
         {
             if(0UL != pstQueueReg->uxItemSize)
             {
-                OS_UBase_t uxSavedInterruptStatus;
-                uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
+                OS_UBase_t uxSavedInterruptStatus = OS_Adapt__uxSetInterruptMaskFromISR();
                 {
                     /* Cannot block in an ISR, so check there is data available. */
                     if(0UL < pstQueueReg->uxMessagesWaiting)
                     {
                         /* Remember the read position so it can be reset as nothing is
                         actually being removed from the queue. */
-                        int8_t* ps8OriginalReadPosition;
-                        ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
+                        int8_t* ps8OriginalReadPosition = pstQueueReg->ps8ReadFrom;
                         OS_Queue__vCopyDataFromQueue(pstQueueReg, pvBuffer);
                         pstQueueReg->ps8ReadFrom = ps8OriginalReadPosition;
 
