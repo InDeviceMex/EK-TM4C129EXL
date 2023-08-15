@@ -30,38 +30,33 @@
 SSI_nERROR SSI__enSetSerialClockPhase(SSI_nMODULE enModuleArg, SSI_nPHASE enPhaseArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR0_R_SPH_BIT;
     stRegister.uxMask = SSI_CR0_SPH_MASK;
     stRegister.uptrAddress = SSI_CR0_OFFSET;
     stRegister.uxValue = (UBase_t) enPhaseArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetSerialClockPhase(SSI_nMODULE enModuleArg, SSI_nPHASE* penPhaseArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPhaseArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penPhaseArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR0_R_SPH_BIT;
         stRegister.uxMask = SSI_CR0_SPH_MASK;
         stRegister.uptrAddress = SSI_CR0_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penPhaseArg = (SSI_nPHASE) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penPhaseArg = (SSI_nPHASE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

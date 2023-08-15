@@ -30,37 +30,33 @@
 SSI_nERROR SSI__enSetDataLength(SSI_nMODULE enModuleArg, SSI_nLENGTH enLengthArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR0_R_DSS_BIT;
     stRegister.uxMask = SSI_CR0_DSS_MASK;
     stRegister.uptrAddress = SSI_CR0_OFFSET;
     stRegister.uxValue = (UBase_t) enLengthArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetDataLength(SSI_nMODULE enModuleArg, SSI_nLENGTH* penLengthArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penLengthArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penLengthArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR0_R_DSS_BIT;
         stRegister.uxMask = SSI_CR0_DSS_MASK;
         stRegister.uptrAddress = SSI_CR0_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penLengthArg = (SSI_nLENGTH) stRegister.uxValue;
-    }
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penLengthArg = (SSI_nLENGTH) stRegister.uxValue;
+        }
 
+    }
     return (enErrorReg);
 }

@@ -29,25 +29,20 @@
 
 SSI_nERROR SSI__enIsBusy(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER :  SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_SR_R_BSY_BIT;
         stRegister.uxMask = SSI_SR_BSY_MASK;
         stRegister.uptrAddress = SSI_SR_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SSI_nBOOLEAN) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SSI_nBOOLEAN) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

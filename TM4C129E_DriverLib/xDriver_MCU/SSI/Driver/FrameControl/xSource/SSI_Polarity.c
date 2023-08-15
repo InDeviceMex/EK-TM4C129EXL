@@ -30,38 +30,33 @@
 SSI_nERROR SSI__enSetSerialClockPolarity(SSI_nMODULE enModuleArg, SSI_nPOLARITY enPolarityArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR0_R_SPO_BIT;
     stRegister.uxMask = SSI_CR0_SPO_MASK;
     stRegister.uptrAddress = SSI_CR0_OFFSET;
     stRegister.uxValue = (UBase_t) enPolarityArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetSerialClockPolarity(SSI_nMODULE enModuleArg, SSI_nPOLARITY* penPolarityArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penPolarityArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penPolarityArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR0_R_SPO_BIT;
         stRegister.uxMask = SSI_CR0_SPO_MASK;
         stRegister.uptrAddress = SSI_CR0_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penPolarityArg = (SSI_nPOLARITY) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penPolarityArg = (SSI_nPOLARITY) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

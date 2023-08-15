@@ -29,65 +29,42 @@
 
 SSI_nERROR SSI__enIsTransmitFifoEmpty(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_SR_R_TFE_BIT;
         stRegister.uxMask = SSI_SR_TFE_MASK;
         stRegister.uptrAddress = SSI_SR_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        if(SSI_SR_TFE_NOEMPTY == stRegister.uxValue)
+        if(SSI_enERROR_OK == enErrorReg)
         {
-            *penStateArg = SSI_enFALSE;
-        }
-        else
-        {
-            *penStateArg = SSI_enTRUE;
+            SSI_nBOOLEAN enStateReg = (SSI_SR_TFE_NOEMPTY == stRegister.uxValue) ? SSI_enFALSE : SSI_enTRUE;
+            *penStateArg = enStateReg;
         }
     }
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enIsTransmitFifoFull(SSI_nMODULE enModuleArg, SSI_nBOOLEAN* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
-
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_SR_R_TNF_BIT;
         stRegister.uxMask = SSI_SR_TNF_MASK;
         stRegister.uptrAddress = SSI_SR_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        if(SSI_SR_TNF_FULL == stRegister.uxValue)
+        if(SSI_enERROR_OK == enErrorReg)
         {
-            *penStateArg = SSI_enTRUE;
-        }
-        else
-        {
-            *penStateArg = SSI_enFALSE;
+            SSI_nBOOLEAN enStateReg = (SSI_SR_TNF_FULL == stRegister.uxValue) ? SSI_enTRUE : SSI_enFALSE;
+            *penStateArg = enStateReg;
         }
     }
-
     return (enErrorReg);
 }
 

@@ -32,20 +32,8 @@ static SSI_nERROR SSI__enGetInterruptSourceShift(SSI_nMODULE enModuleArg, SSI_nI
 
 static SSI_nERROR SSI__enGetInterruptSourceShift(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, UBase_t* puxShiftArg)
 {
-    const UBase_t SSI_uxInterruptBit[(UBase_t) SSI_enINT_SW] =
-    {
-     SSI_RIS_R_RORRIS_BIT     , SSI_RIS_R_RTRIS_BIT    ,
-     SSI_RIS_R_RXRIS_BIT      , SSI_RIS_R_TXRIS_BIT    ,
-     SSI_RIS_R_DMARXRIS_BIT   , SSI_RIS_R_DMATXRIS_BIT ,
-     SSI_RIS_R_EOTRIS_BIT     ,
-    };
-
     SSI_nERROR enErrorReg;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) puxShiftArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) puxShiftArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
@@ -56,6 +44,13 @@ static SSI_nERROR SSI__enGetInterruptSourceShift(SSI_nMODULE enModuleArg, SSI_nI
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        static const UBase_t SSI_uxInterruptBit[(UBase_t) SSI_enINT_SW] =
+        {
+         SSI_RIS_R_RORRIS_BIT     , SSI_RIS_R_RTRIS_BIT    ,
+         SSI_RIS_R_RXRIS_BIT      , SSI_RIS_R_TXRIS_BIT    ,
+         SSI_RIS_R_DMARXRIS_BIT   , SSI_RIS_R_DMATXRIS_BIT ,
+         SSI_RIS_R_EOTRIS_BIT     ,
+        };
         *puxShiftArg = SSI_uxInterruptBit[(UBase_t) enInterruptArg];
     }
     return (enErrorReg);
@@ -64,21 +59,13 @@ static SSI_nERROR SSI__enGetInterruptSourceShift(SSI_nMODULE enModuleArg, SSI_nI
 
 SSI_nERROR SSI__enSetInterruptSourceStateByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nSTATE enStateArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxValueReg;
     SSI_nERROR enErrorReg;
-
     enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SSI_enINTMASK_MAX);
     if(SSI_enERROR_OK == enErrorReg)
     {
-        if(SSI_enSTATE_DIS == enStateArg)
-        {
-            uxValueReg = 0U;
-        }
-        else
-        {
-            uxValueReg = (UBase_t) enInterruptMaskArg;
-        }
+        UBase_t uxValueReg = (SSI_enSTATE_DIS == enStateArg) ? 0U : (UBase_t) enInterruptMaskArg;
+
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SSI_IM_OFFSET;
@@ -91,86 +78,75 @@ SSI_nERROR SSI__enSetInterruptSourceStateByMask(SSI_nMODULE enModuleArg, SSI_nIN
 
 SSI_nERROR SSI__enSetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATE enStateArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxShiftReg;
     SSI_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
     enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SSI_enINT_SW);
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SSI_IM_RORIM_MASK;
         stRegister.uptrAddress = SSI_IM_OFFSET;
         stRegister.uxValue = (UBase_t) enStateArg;
         enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetInterruptSourceStateByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptGetArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptGetArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptGetArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SSI_enINTMASK_MAX);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SSI_IM_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penInterruptGetArg = (SSI_nINTMASK) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penInterruptGetArg = (SSI_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATE* penStateArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxShiftReg;
     SSI_nERROR enErrorReg;
-
-    uxShiftReg = 0U;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SSI_enINT_SW);
     }
+    UBase_t uxShiftReg;
+    uxShiftReg = 0U;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SSI_IM_RORIM_MASK;
         stRegister.uptrAddress = SSI_IM_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
@@ -178,204 +154,173 @@ SSI_nERROR SSI__enGetInterruptSourceStateByNumber(SSI_nMODULE enModuleArg, SSI_n
 SSI_nERROR SSI__enEnableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
 {
     SSI_nERROR enErrorReg;
-
     enErrorReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enEnableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg)
 {
     SSI_nERROR enErrorReg;
-
     enErrorReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_ENA);
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enDisableInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
 {
     SSI_nERROR enErrorReg;
-
     enErrorReg = SSI__enSetInterruptSourceStateByMask(enModuleArg, enInterruptMaskArg, SSI_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enDisableInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg)
 {
     SSI_nERROR enErrorReg;
-
     enErrorReg = SSI__enSetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, SSI_enSTATE_DIS);
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enClearInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
-
     enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SSI_enINTMASK_MAX);
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SSI_ICR_OFFSET;
         stRegister.uxValue = enInterruptMaskArg;
         enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enClearInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxShiftReg;
-    UBase_t uxValueReg;
     SSI_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
     enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SSI_enINT_SW);
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
-        uxValueReg = 1UL;
+        UBase_t uxValueReg = 1UL;
         uxValueReg <<= uxShiftReg;
+
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = MCU_MASK_BASE;
         stRegister.uptrAddress = SSI_ICR_OFFSET;
         stRegister.uxValue = (UBase_t) uxValueReg;
         enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     }
-
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enStatusInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penInterruptStatusArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptStatusArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SSI_enINTMASK_MAX);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SSI_RIS_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penInterruptStatusArg = (SSI_nINTMASK) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penInterruptStatusArg = (SSI_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enStatusInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxShiftReg;
     SSI_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SSI_enINT_SW);
     }
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SSI_RIS_RORRIS_MASK;
         stRegister.uptrAddress = SSI_RIS_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (SSI_nSTATUS) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (SSI_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enStatusMaskedInterruptSourceByMask(SSI_nMODULE enModuleArg, SSI_nINTMASK enInterruptMaskArg, SSI_nINTMASK* penInterruptStatusArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
-
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penInterruptStatusArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penInterruptStatusArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptMaskArg, (UBase_t) SSI_enINTMASK_MAX);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = 0U;
         stRegister.uxMask = enInterruptMaskArg;
         stRegister.uptrAddress = SSI_MIS_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penInterruptStatusArg = (SSI_nINTMASK) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penInterruptStatusArg = (SSI_nINTMASK) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enStatusMaskedInterruptSourceByNumber(SSI_nMODULE enModuleArg, SSI_nINT enInterruptArg, SSI_nSTATUS* penStatusArg)
 {
-    SSI_Register_t stRegister;
-    UBase_t uxShiftReg;
     SSI_nERROR enErrorReg;
-
-    uxShiftReg = 0UL;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStatusArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStatusArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SSI_enINT_SW);
     }
+    UBase_t uxShiftReg;
+    uxShiftReg = 0UL;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SSI_MIS_RORMIS_MASK;
         stRegister.uptrAddress = SSI_MIS_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
-    }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStatusArg = (SSI_nSTATUS) stRegister.uxValue;
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStatusArg = (SSI_nSTATUS) stRegister.uxValue;
+        }
     }
     return (enErrorReg);
 }

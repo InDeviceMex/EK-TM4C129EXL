@@ -30,38 +30,33 @@
 SSI_nERROR SSI__enSetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_DMACTL_R_RXDMAE_BIT;
     stRegister.uxMask = SSI_DMACTL_RXDMAE_MASK;
     stRegister.uptrAddress = SSI_DMACTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_DMACTL_R_RXDMAE_BIT;
         stRegister.uxMask = SSI_DMACTL_RXDMAE_MASK;
         stRegister.uptrAddress = SSI_DMACTL_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 
@@ -70,37 +65,32 @@ SSI_nERROR SSI__enGetReceiveDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penSta
 SSI_nERROR SSI__enSetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_DMACTL_R_TXDMAE_BIT;
     stRegister.uxMask = SSI_DMACTL_TXDMAE_MASK;
     stRegister.uptrAddress = SSI_DMACTL_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetTransmitDMAState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_DMACTL_R_TXDMAE_BIT;
         stRegister.uxMask = SSI_DMACTL_TXDMAE_MASK;
         stRegister.uptrAddress = SSI_DMACTL_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

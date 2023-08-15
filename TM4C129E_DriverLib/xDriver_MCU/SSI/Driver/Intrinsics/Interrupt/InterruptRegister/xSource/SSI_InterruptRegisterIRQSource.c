@@ -29,9 +29,7 @@
 
 SSI_nERROR SSI__enRegisterIRQSourceHandler(SSI_nMODULE enModuleArg, SSI_nINT enIntSourceArg, SSI_pvfIRQSourceHandler_t pfIrqSourceHandler)
 {
-    SSI_pvfIRQSourceHandler_t* pvfIrqHandler;
     SSI_nERROR enErrorReg;
-
     enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
     if(SSI_enERROR_OK == enErrorReg)
     {
@@ -39,7 +37,7 @@ SSI_nERROR SSI__enRegisterIRQSourceHandler(SSI_nMODULE enModuleArg, SSI_nINT enI
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
-        pvfIrqHandler = SSI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
+        SSI_pvfIRQSourceHandler_t* pvfIrqHandler = SSI__pvfGetIRQSourceHandlerPointer(enModuleArg, enIntSourceArg);
         enErrorReg = (SSI_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, pvfIrqHandler, 0UL, 1UL);
     }
 

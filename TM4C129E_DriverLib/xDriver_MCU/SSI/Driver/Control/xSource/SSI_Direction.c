@@ -30,38 +30,32 @@
 SSI_nERROR SSI__enSetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION enDirectionArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR1_R_DIR_BIT;
     stRegister.uxMask = SSI_CR1_DIR_MASK;
     stRegister.uptrAddress = SSI_CR1_OFFSET;
     stRegister.uxValue = (UBase_t) enDirectionArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetDirection(SSI_nMODULE enModuleArg, SSI_nDIRECTION* penDirectionArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
-
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penDirectionArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penDirectionArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR1_R_DIR_BIT;
         stRegister.uxMask = SSI_CR1_DIR_MASK;
         stRegister.uptrAddress = SSI_CR1_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penDirectionArg = (SSI_nDIRECTION) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penDirectionArg = (SSI_nDIRECTION) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

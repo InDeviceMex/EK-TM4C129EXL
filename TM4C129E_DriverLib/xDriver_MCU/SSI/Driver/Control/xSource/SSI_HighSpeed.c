@@ -30,38 +30,32 @@
 SSI_nERROR SSI__enSetHighSpeedState(SSI_nMODULE enModuleArg, SSI_nSTATE enStateArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR1_R_HSCLKEN_BIT;
     stRegister.uxMask = SSI_CR1_HSCLKEN_MASK;
     stRegister.uptrAddress = SSI_CR1_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
 
 SSI_nERROR SSI__enGetHighSpeedState(SSI_nMODULE enModuleArg, SSI_nSTATE* penStateArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
-
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penStateArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) penStateArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR1_R_HSCLKEN_BIT;
         stRegister.uxMask = SSI_CR1_HSCLKEN_MASK;
         stRegister.uptrAddress = SSI_CR1_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penStateArg = (SSI_nSTATE) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penStateArg = (SSI_nSTATE) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }
 

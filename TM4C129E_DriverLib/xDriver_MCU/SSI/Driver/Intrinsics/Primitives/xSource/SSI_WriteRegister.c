@@ -28,20 +28,15 @@
 
 SSI_nERROR SSI__enWriteRegister(SSI_nMODULE enModuleArg, SSI_Register_t* pstRegisterDataArg)
 {
-    uintptr_t uptrModuleBase;
     SSI_nERROR enErrorReg;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) pstRegisterDataArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstRegisterDataArg) ? SSI_enERROR_POINTER :  SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = (SSI_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SSI_enMODULE_MAX);
     }
     if(SSI_enERROR_OK == enErrorReg)
     {
-        uptrModuleBase = SSI__uptrBlockBaseAddress(enModuleArg);
+        uintptr_t uptrModuleBase = SSI__uptrBlockBaseAddress(enModuleArg);
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SSI_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }

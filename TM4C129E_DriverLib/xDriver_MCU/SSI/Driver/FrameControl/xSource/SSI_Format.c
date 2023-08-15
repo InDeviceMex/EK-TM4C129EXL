@@ -30,12 +30,12 @@
 SSI_nERROR SSI__enSetFrameFormat(SSI_nMODULE enModuleArg, SSI_nFORMAT enFormatArg)
 {
     SSI_Register_t stRegister;
-    SSI_nERROR enErrorReg;
-
     stRegister.uxShift = SSI_CR0_R_FRF_BIT;
     stRegister.uxMask = SSI_CR0_FRF_MASK;
     stRegister.uptrAddress = SSI_CR0_OFFSET;
     stRegister.uxValue = (UBase_t) enFormatArg;
+
+    SSI_nERROR enErrorReg;
     enErrorReg = SSI__enWriteRegister(enModuleArg, &stRegister);
     return (enErrorReg);
 }
@@ -43,25 +43,20 @@ SSI_nERROR SSI__enSetFrameFormat(SSI_nMODULE enModuleArg, SSI_nFORMAT enFormatAr
 
 SSI_nERROR SSI__enGetFrameFormat(SSI_nMODULE enModuleArg, SSI_nFORMAT* penFormatArg)
 {
-    SSI_Register_t stRegister;
     SSI_nERROR enErrorReg;
+    enErrorReg = (0UL == (uintptr_t) penFormatArg) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
 
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) penFormatArg)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
     if(SSI_enERROR_OK == enErrorReg)
     {
+        SSI_Register_t stRegister;
         stRegister.uxShift = SSI_CR0_R_FRF_BIT;
         stRegister.uxMask = SSI_CR0_FRF_MASK;
         stRegister.uptrAddress = SSI_CR0_OFFSET;
         enErrorReg = SSI__enReadRegister(enModuleArg, &stRegister);
+        if(SSI_enERROR_OK == enErrorReg)
+        {
+            *penFormatArg = (SSI_nFORMAT) stRegister.uxValue;
+        }
     }
-    if(SSI_enERROR_OK == enErrorReg)
-    {
-        *penFormatArg = (SSI_nFORMAT) stRegister.uxValue;
-    }
-
     return (enErrorReg);
 }

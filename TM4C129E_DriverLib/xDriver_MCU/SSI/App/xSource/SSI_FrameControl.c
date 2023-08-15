@@ -32,7 +32,6 @@ SSI_nERROR SSI__enSetFrameFormatControl(SSI_nMODULE enModuleArg,
                                         SSI_nPOLARITY enClockPolarityArg)
 {
     SSI_nERROR enErrorReg;
-
     enErrorReg = SSI__enSetDataLength(enModuleArg, enLengthDataArg);
     if(SSI_enERROR_OK == enErrorReg)
     {
@@ -53,11 +52,7 @@ SSI_nERROR SSI__enSetFrameFormatControlStructure(SSI_nMODULE enModule,
                                               const SSI_FRAME_CONTROL_t* pstFormatControl)
 {
     SSI_nERROR enErrorReg;
-    enErrorReg = SSI_enERROR_OK;
-    if(0UL == (uintptr_t) pstFormatControl)
-    {
-        enErrorReg = SSI_enERROR_POINTER;
-    }
+    enErrorReg = (0UL == (uintptr_t) pstFormatControl) ? SSI_enERROR_POINTER : SSI_enERROR_OK;
     if(SSI_enERROR_OK == enErrorReg)
     {
         enErrorReg = SSI__enSetDataLength(enModule, pstFormatControl->enLengthData);
